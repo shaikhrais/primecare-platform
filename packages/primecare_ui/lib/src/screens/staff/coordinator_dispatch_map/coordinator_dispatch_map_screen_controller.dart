@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CoordinatorDispatchMapScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class CoordinatorDispatchMapScreenState
+    extends DashboardState<CoordinatorDispatchMapScreenState> {
+  CoordinatorDispatchMapScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  CoordinatorDispatchMapScreenState({required this.isLoading, this.error, required this.data});
-
-  CoordinatorDispatchMapScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return CoordinatorDispatchMapScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  CoordinatorDispatchMapScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => CoordinatorDispatchMapScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class CoordinatorDispatchMapScreenController extends StateNotifier<CoordinatorDispatchMapScreenState> {
-  final Ref ref;
-  CoordinatorDispatchMapScreenController(this.ref) : super(CoordinatorDispatchMapScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/coordinator-dispatch-map');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class CoordinatorDispatchMapScreenController
+    extends BaseDashboardController<CoordinatorDispatchMapScreenState> {
+  CoordinatorDispatchMapScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: CoordinatorDispatchMapScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/staff/coordinator-dispatch-map',
+      );
 }
 
-final coordinator_dispatch_mapControllerProvider = StateNotifierProvider<CoordinatorDispatchMapScreenController, CoordinatorDispatchMapScreenState>((ref) {
-  return CoordinatorDispatchMapScreenController(ref);
-});
+final coordinator_dispatch_mapControllerProvider =
+    StateNotifierProvider<
+      CoordinatorDispatchMapScreenController,
+      CoordinatorDispatchMapScreenState
+    >((ref) {
+      return CoordinatorDispatchMapScreenController(ref);
+    });

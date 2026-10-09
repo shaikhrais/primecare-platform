@@ -1,55 +1,33 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RevenueScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class RevenueScreenState extends DashboardState<RevenueScreenState> {
+  RevenueScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  RevenueScreenState({required this.isLoading, this.error, required this.data});
-
-  RevenueScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return RevenueScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  RevenueScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => RevenueScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class RevenueScreenController extends StateNotifier<RevenueScreenState> {
-  final Ref ref;
-  RevenueScreenController(this.ref) : super(RevenueScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/revenue');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class RevenueScreenController
+    extends BaseDashboardController<RevenueScreenState> {
+  RevenueScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: RevenueScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/revenue',
+      );
 }
 
-final revenueControllerProvider = StateNotifierProvider<RevenueScreenController, RevenueScreenState>((ref) {
-  return RevenueScreenController(ref);
-});
+final revenueControllerProvider =
+    StateNotifierProvider<RevenueScreenController, RevenueScreenState>((ref) {
+      return RevenueScreenController(ref);
+    });

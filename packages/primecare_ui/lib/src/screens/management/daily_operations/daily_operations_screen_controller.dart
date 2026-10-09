@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DailyOperationsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class DailyOperationsScreenState
+    extends DashboardState<DailyOperationsScreenState> {
+  DailyOperationsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  DailyOperationsScreenState({required this.isLoading, this.error, required this.data});
-
-  DailyOperationsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return DailyOperationsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  DailyOperationsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => DailyOperationsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class DailyOperationsScreenController extends StateNotifier<DailyOperationsScreenState> {
-  final Ref ref;
-  DailyOperationsScreenController(this.ref) : super(DailyOperationsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/daily-operations');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class DailyOperationsScreenController
+    extends BaseDashboardController<DailyOperationsScreenState> {
+  DailyOperationsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: DailyOperationsScreenState(isLoading: true, data: {}),
+        endpoint: '/management/daily-operations',
+      );
 }
 
-final daily_operationsControllerProvider = StateNotifierProvider<DailyOperationsScreenController, DailyOperationsScreenState>((ref) {
-  return DailyOperationsScreenController(ref);
-});
+final daily_operationsControllerProvider =
+    StateNotifierProvider<
+      DailyOperationsScreenController,
+      DailyOperationsScreenState
+    >((ref) {
+      return DailyOperationsScreenController(ref);
+    });

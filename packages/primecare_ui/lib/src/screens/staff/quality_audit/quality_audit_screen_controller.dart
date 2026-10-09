@@ -1,55 +1,36 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class QualityAuditScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class QualityAuditScreenState extends DashboardState<QualityAuditScreenState> {
+  QualityAuditScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  QualityAuditScreenState({required this.isLoading, this.error, required this.data});
-
-  QualityAuditScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return QualityAuditScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  QualityAuditScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => QualityAuditScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class QualityAuditScreenController extends StateNotifier<QualityAuditScreenState> {
-  final Ref ref;
-  QualityAuditScreenController(this.ref) : super(QualityAuditScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/quality-audit');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class QualityAuditScreenController
+    extends BaseDashboardController<QualityAuditScreenState> {
+  QualityAuditScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: QualityAuditScreenState(isLoading: true, data: {}),
+        endpoint: '/staff/quality-audit',
+      );
 }
 
-final quality_auditControllerProvider = StateNotifierProvider<QualityAuditScreenController, QualityAuditScreenState>((ref) {
-  return QualityAuditScreenController(ref);
-});
+final quality_auditControllerProvider =
+    StateNotifierProvider<
+      QualityAuditScreenController,
+      QualityAuditScreenState
+    >((ref) {
+      return QualityAuditScreenController(ref);
+    });

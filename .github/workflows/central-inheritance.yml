@@ -1,0 +1,62 @@
+name: Central Dart and UI inheritance
+on:
+  pull_request:
+    paths:
+      - 'packages/flutter_core/lib/controllers.dart'
+      - 'packages/flutter_core/lib/src/controllers/**'
+      - 'packages/flutter_core/test/base_controllers_test.dart'
+      - 'packages/primecare_ui/lib/**/*_screen_controller.dart'
+      - 'apps/**/lib/**/*_screen_controller.dart'
+      - 'packages/server_core/**'
+      - 'services/**/bin/server.dart'
+      - 'services/**/pubspec.yaml'
+      - 'services/**/Dockerfile'
+      - 'docker-compose.yml'
+      - 'docs/architecture/**'
+      - 'scripts/check-controller-inheritance.py'
+      - 'scripts/generate-controller-compile-test.py'
+      - 'scripts/nuke_and_restore_controllers.js'
+      - '.github/workflows/central-inheritance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inheritance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+      FLUTTER_SUPPRESS_ANALYTICS: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - name: Check pinned controller identity and Dart route compatibility
+        run: python3 scripts/check-controller-inheritance.py
+      - name: Resolve shared Flutter dependencies
+        working-directory: packages/flutter_core
+        run: flutter pub get
+      - name: Compile every migrated controller and test shared lifecycle
+        run: |
+          python3 scripts/generate-controller-compile-test.py
+          cd packages/flutter_core
+          flutter test test/base_controllers_test.dart test/controller_migration_compile_test.dart
+          flutter analyze lib/controllers.dart lib/src/controllers test/base_controllers_test.dart
+      - name: Verify shared Dart host
+        working-directory: packages/server_core
+        run: |
+          dart pub get
+          dart analyze lib test
+          dart test
+      - name: Analyze every Dart service entry point
+        run: |
+          for service in services/*; do
+            if [ -f "$service/bin/server.dart" ]; then
+              (cd "$service" && dart pub get && dart analyze bin/server.dart)
+            fi
+          done

@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BrandManagementScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class BrandManagementScreenState
+    extends DashboardState<BrandManagementScreenState> {
+  BrandManagementScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  BrandManagementScreenState({required this.isLoading, this.error, required this.data});
-
-  BrandManagementScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return BrandManagementScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  BrandManagementScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => BrandManagementScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class BrandManagementScreenController extends StateNotifier<BrandManagementScreenState> {
-  final Ref ref;
-  BrandManagementScreenController(this.ref) : super(BrandManagementScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/brand-management');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class BrandManagementScreenController
+    extends BaseDashboardController<BrandManagementScreenState> {
+  BrandManagementScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: BrandManagementScreenState(isLoading: true, data: {}),
+        endpoint: '/management/brand-management',
+      );
 }
 
-final brand_managementControllerProvider = StateNotifierProvider<BrandManagementScreenController, BrandManagementScreenState>((ref) {
-  return BrandManagementScreenController(ref);
-});
+final brand_managementControllerProvider =
+    StateNotifierProvider<
+      BrandManagementScreenController,
+      BrandManagementScreenState
+    >((ref) {
+      return BrandManagementScreenController(ref);
+    });

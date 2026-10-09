@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EnterpriseCommandCenter4KScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class EnterpriseCommandCenter4KScreenState
+    extends DashboardState<EnterpriseCommandCenter4KScreenState> {
+  EnterpriseCommandCenter4KScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  EnterpriseCommandCenter4KScreenState({required this.isLoading, this.error, required this.data});
-
-  EnterpriseCommandCenter4KScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return EnterpriseCommandCenter4KScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  EnterpriseCommandCenter4KScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => EnterpriseCommandCenter4KScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class EnterpriseCommandCenter4KScreenController extends StateNotifier<EnterpriseCommandCenter4KScreenState> {
-  final Ref ref;
-  EnterpriseCommandCenter4KScreenController(this.ref) : super(EnterpriseCommandCenter4KScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/enterprise-command-center4-k');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class EnterpriseCommandCenter4KScreenController
+    extends BaseDashboardController<EnterpriseCommandCenter4KScreenState> {
+  EnterpriseCommandCenter4KScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: EnterpriseCommandCenter4KScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/executive/enterprise-command-center4-k',
+      );
 }
 
-final enterprise_command_center4_kControllerProvider = StateNotifierProvider<EnterpriseCommandCenter4KScreenController, EnterpriseCommandCenter4KScreenState>((ref) {
-  return EnterpriseCommandCenter4KScreenController(ref);
-});
+final enterprise_command_center4_kControllerProvider =
+    StateNotifierProvider<
+      EnterpriseCommandCenter4KScreenController,
+      EnterpriseCommandCenter4KScreenState
+    >((ref) {
+      return EnterpriseCommandCenter4KScreenController(ref);
+    });

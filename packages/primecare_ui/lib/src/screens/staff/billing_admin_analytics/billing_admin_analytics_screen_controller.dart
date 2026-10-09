@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BillingAdminAnalyticsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class BillingAdminAnalyticsScreenState
+    extends DashboardState<BillingAdminAnalyticsScreenState> {
+  BillingAdminAnalyticsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  BillingAdminAnalyticsScreenState({required this.isLoading, this.error, required this.data});
-
-  BillingAdminAnalyticsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return BillingAdminAnalyticsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  BillingAdminAnalyticsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => BillingAdminAnalyticsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class BillingAdminAnalyticsScreenController extends StateNotifier<BillingAdminAnalyticsScreenState> {
-  final Ref ref;
-  BillingAdminAnalyticsScreenController(this.ref) : super(BillingAdminAnalyticsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/billing-admin-analytics');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class BillingAdminAnalyticsScreenController
+    extends BaseDashboardController<BillingAdminAnalyticsScreenState> {
+  BillingAdminAnalyticsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: BillingAdminAnalyticsScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/staff/billing-admin-analytics',
+      );
 }
 
-final billing_admin_analyticsControllerProvider = StateNotifierProvider<BillingAdminAnalyticsScreenController, BillingAdminAnalyticsScreenState>((ref) {
-  return BillingAdminAnalyticsScreenController(ref);
-});
+final billing_admin_analyticsControllerProvider =
+    StateNotifierProvider<
+      BillingAdminAnalyticsScreenController,
+      BillingAdminAnalyticsScreenState
+    >((ref) {
+      return BillingAdminAnalyticsScreenController(ref);
+    });

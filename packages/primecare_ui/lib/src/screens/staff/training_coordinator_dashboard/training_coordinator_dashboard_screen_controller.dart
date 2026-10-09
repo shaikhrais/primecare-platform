@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TrainingCoordinatorDashboardScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class TrainingCoordinatorDashboardScreenState
+    extends DashboardState<TrainingCoordinatorDashboardScreenState> {
+  TrainingCoordinatorDashboardScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  TrainingCoordinatorDashboardScreenState({required this.isLoading, this.error, required this.data});
-
-  TrainingCoordinatorDashboardScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return TrainingCoordinatorDashboardScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TrainingCoordinatorDashboardScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => TrainingCoordinatorDashboardScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class TrainingCoordinatorDashboardScreenController extends StateNotifier<TrainingCoordinatorDashboardScreenState> {
-  final Ref ref;
-  TrainingCoordinatorDashboardScreenController(this.ref) : super(TrainingCoordinatorDashboardScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/support/roles/training_coordinator/dashboard');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class TrainingCoordinatorDashboardScreenController
+    extends BaseDashboardController<TrainingCoordinatorDashboardScreenState> {
+  TrainingCoordinatorDashboardScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: TrainingCoordinatorDashboardScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/offices/support/roles/training_coordinator/dashboard',
+      );
 }
 
-final training_coordinator_dashboardControllerProvider = StateNotifierProvider<TrainingCoordinatorDashboardScreenController, TrainingCoordinatorDashboardScreenState>((ref) {
-  return TrainingCoordinatorDashboardScreenController(ref);
-});
+final training_coordinator_dashboardControllerProvider =
+    StateNotifierProvider<
+      TrainingCoordinatorDashboardScreenController,
+      TrainingCoordinatorDashboardScreenState
+    >((ref) {
+      return TrainingCoordinatorDashboardScreenController(ref);
+    });

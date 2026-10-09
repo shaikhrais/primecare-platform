@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ApplicantTrackingScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ApplicantTrackingScreenState
+    extends DashboardState<ApplicantTrackingScreenState> {
+  ApplicantTrackingScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ApplicantTrackingScreenState({required this.isLoading, this.error, required this.data});
-
-  ApplicantTrackingScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ApplicantTrackingScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ApplicantTrackingScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ApplicantTrackingScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ApplicantTrackingScreenController extends StateNotifier<ApplicantTrackingScreenState> {
-  final Ref ref;
-  ApplicantTrackingScreenController(this.ref) : super(ApplicantTrackingScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/applicant-tracking');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ApplicantTrackingScreenController
+    extends BaseDashboardController<ApplicantTrackingScreenState> {
+  ApplicantTrackingScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ApplicantTrackingScreenState(isLoading: true, data: {}),
+        endpoint: '/staff/applicant-tracking',
+      );
 }
 
-final applicant_trackingControllerProvider = StateNotifierProvider<ApplicantTrackingScreenController, ApplicantTrackingScreenState>((ref) {
-  return ApplicantTrackingScreenController(ref);
-});
+final applicant_trackingControllerProvider =
+    StateNotifierProvider<
+      ApplicantTrackingScreenController,
+      ApplicantTrackingScreenState
+    >((ref) {
+      return ApplicantTrackingScreenController(ref);
+    });

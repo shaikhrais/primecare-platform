@@ -1,55 +1,45 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ClinicalNurseSpecialistAnalyticsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ClinicalNurseSpecialistAnalyticsScreenState
+    extends DashboardState<ClinicalNurseSpecialistAnalyticsScreenState> {
+  ClinicalNurseSpecialistAnalyticsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ClinicalNurseSpecialistAnalyticsScreenState({required this.isLoading, this.error, required this.data});
-
-  ClinicalNurseSpecialistAnalyticsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ClinicalNurseSpecialistAnalyticsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ClinicalNurseSpecialistAnalyticsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ClinicalNurseSpecialistAnalyticsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ClinicalNurseSpecialistAnalyticsScreenController extends StateNotifier<ClinicalNurseSpecialistAnalyticsScreenState> {
-  final Ref ref;
-  ClinicalNurseSpecialistAnalyticsScreenController(this.ref) : super(ClinicalNurseSpecialistAnalyticsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/rn/cns-analytics');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ClinicalNurseSpecialistAnalyticsScreenController
+    extends
+        BaseDashboardController<ClinicalNurseSpecialistAnalyticsScreenState> {
+  ClinicalNurseSpecialistAnalyticsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ClinicalNurseSpecialistAnalyticsScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/rn/cns-analytics',
+      );
 }
 
-final cns_analyticsControllerProvider = StateNotifierProvider<ClinicalNurseSpecialistAnalyticsScreenController, ClinicalNurseSpecialistAnalyticsScreenState>((ref) {
-  return ClinicalNurseSpecialistAnalyticsScreenController(ref);
-});
+final cns_analyticsControllerProvider =
+    StateNotifierProvider<
+      ClinicalNurseSpecialistAnalyticsScreenController,
+      ClinicalNurseSpecialistAnalyticsScreenState
+    >((ref) {
+      return ClinicalNurseSpecialistAnalyticsScreenController(ref);
+    });

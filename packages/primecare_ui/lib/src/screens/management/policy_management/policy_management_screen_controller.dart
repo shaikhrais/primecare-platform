@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PolicyManagementScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class PolicyManagementScreenState
+    extends DashboardState<PolicyManagementScreenState> {
+  PolicyManagementScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  PolicyManagementScreenState({required this.isLoading, this.error, required this.data});
-
-  PolicyManagementScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return PolicyManagementScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  PolicyManagementScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => PolicyManagementScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class PolicyManagementScreenController extends StateNotifier<PolicyManagementScreenState> {
-  final Ref ref;
-  PolicyManagementScreenController(this.ref) : super(PolicyManagementScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/policy-management');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class PolicyManagementScreenController
+    extends BaseDashboardController<PolicyManagementScreenState> {
+  PolicyManagementScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: PolicyManagementScreenState(isLoading: true, data: {}),
+        endpoint: '/management/policy-management',
+      );
 }
 
-final policy_managementControllerProvider = StateNotifierProvider<PolicyManagementScreenController, PolicyManagementScreenState>((ref) {
-  return PolicyManagementScreenController(ref);
-});
+final policy_managementControllerProvider =
+    StateNotifierProvider<
+      PolicyManagementScreenController,
+      PolicyManagementScreenState
+    >((ref) {
+      return PolicyManagementScreenController(ref);
+    });

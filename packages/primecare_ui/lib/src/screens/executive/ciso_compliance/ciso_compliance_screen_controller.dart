@@ -1,55 +1,38 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CisoComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class CisoComplianceScreenState
+    extends DashboardState<CisoComplianceScreenState> {
+  CisoComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  CisoComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  CisoComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return CisoComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  CisoComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) =>
+      CisoComplianceScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class CisoComplianceScreenController extends StateNotifier<CisoComplianceScreenState> {
-  final Ref ref;
-  CisoComplianceScreenController(this.ref) : super(CisoComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/ciso-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class CisoComplianceScreenController
+    extends BaseDashboardController<CisoComplianceScreenState> {
+  CisoComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: CisoComplianceScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/ciso-compliance',
+      );
 }
 
-final ciso_complianceControllerProvider = StateNotifierProvider<CisoComplianceScreenController, CisoComplianceScreenState>((ref) {
-  return CisoComplianceScreenController(ref);
-});
+final ciso_complianceControllerProvider =
+    StateNotifierProvider<
+      CisoComplianceScreenController,
+      CisoComplianceScreenState
+    >((ref) {
+      return CisoComplianceScreenController(ref);
+    });

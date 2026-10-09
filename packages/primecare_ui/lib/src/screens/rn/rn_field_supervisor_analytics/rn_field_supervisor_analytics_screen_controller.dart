@@ -1,55 +1,48 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegisteredNurseRnFieldSupervisorAnalyticsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class RegisteredNurseRnFieldSupervisorAnalyticsScreenState
+    extends
+        DashboardState<RegisteredNurseRnFieldSupervisorAnalyticsScreenState> {
+  RegisteredNurseRnFieldSupervisorAnalyticsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  RegisteredNurseRnFieldSupervisorAnalyticsScreenState({required this.isLoading, this.error, required this.data});
-
-  RegisteredNurseRnFieldSupervisorAnalyticsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return RegisteredNurseRnFieldSupervisorAnalyticsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  RegisteredNurseRnFieldSupervisorAnalyticsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => RegisteredNurseRnFieldSupervisorAnalyticsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class RegisteredNurseRnFieldSupervisorAnalyticsScreenController extends StateNotifier<RegisteredNurseRnFieldSupervisorAnalyticsScreenState> {
-  final Ref ref;
-  RegisteredNurseRnFieldSupervisorAnalyticsScreenController(this.ref) : super(RegisteredNurseRnFieldSupervisorAnalyticsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/rn/rn-field-supervisor-analytics');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class RegisteredNurseRnFieldSupervisorAnalyticsScreenController
+    extends
+        BaseDashboardController<
+          RegisteredNurseRnFieldSupervisorAnalyticsScreenState
+        > {
+  RegisteredNurseRnFieldSupervisorAnalyticsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: RegisteredNurseRnFieldSupervisorAnalyticsScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/rn/rn-field-supervisor-analytics',
+      );
 }
 
-final rn_field_supervisor_analyticsControllerProvider = StateNotifierProvider<RegisteredNurseRnFieldSupervisorAnalyticsScreenController, RegisteredNurseRnFieldSupervisorAnalyticsScreenState>((ref) {
-  return RegisteredNurseRnFieldSupervisorAnalyticsScreenController(ref);
-});
+final rn_field_supervisor_analyticsControllerProvider =
+    StateNotifierProvider<
+      RegisteredNurseRnFieldSupervisorAnalyticsScreenController,
+      RegisteredNurseRnFieldSupervisorAnalyticsScreenState
+    >((ref) {
+      return RegisteredNurseRnFieldSupervisorAnalyticsScreenController(ref);
+    });

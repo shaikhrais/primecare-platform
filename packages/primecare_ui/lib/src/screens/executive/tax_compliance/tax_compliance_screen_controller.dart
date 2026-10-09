@@ -1,55 +1,38 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TaxComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class TaxComplianceScreenState
+    extends DashboardState<TaxComplianceScreenState> {
+  TaxComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  TaxComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  TaxComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return TaxComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TaxComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) =>
+      TaxComplianceScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class TaxComplianceScreenController extends StateNotifier<TaxComplianceScreenState> {
-  final Ref ref;
-  TaxComplianceScreenController(this.ref) : super(TaxComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/tax-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class TaxComplianceScreenController
+    extends BaseDashboardController<TaxComplianceScreenState> {
+  TaxComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: TaxComplianceScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/tax-compliance',
+      );
 }
 
-final tax_complianceControllerProvider = StateNotifierProvider<TaxComplianceScreenController, TaxComplianceScreenState>((ref) {
-  return TaxComplianceScreenController(ref);
-});
+final tax_complianceControllerProvider =
+    StateNotifierProvider<
+      TaxComplianceScreenController,
+      TaxComplianceScreenState
+    >((ref) {
+      return TaxComplianceScreenController(ref);
+    });

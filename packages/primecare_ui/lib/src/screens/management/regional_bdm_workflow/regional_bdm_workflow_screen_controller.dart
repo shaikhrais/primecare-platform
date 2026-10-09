@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegionalBdmWorkflowScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class RegionalBdmWorkflowScreenState
+    extends DashboardState<RegionalBdmWorkflowScreenState> {
+  RegionalBdmWorkflowScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  RegionalBdmWorkflowScreenState({required this.isLoading, this.error, required this.data});
-
-  RegionalBdmWorkflowScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return RegionalBdmWorkflowScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  RegionalBdmWorkflowScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => RegionalBdmWorkflowScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class RegionalBdmWorkflowScreenController extends StateNotifier<RegionalBdmWorkflowScreenState> {
-  final Ref ref;
-  RegionalBdmWorkflowScreenController(this.ref) : super(RegionalBdmWorkflowScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/regional-bdm-workflow');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class RegionalBdmWorkflowScreenController
+    extends BaseDashboardController<RegionalBdmWorkflowScreenState> {
+  RegionalBdmWorkflowScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: RegionalBdmWorkflowScreenState(isLoading: true, data: {}),
+        endpoint: '/management/regional-bdm-workflow',
+      );
 }
 
-final regional_bdm_workflowControllerProvider = StateNotifierProvider<RegionalBdmWorkflowScreenController, RegionalBdmWorkflowScreenState>((ref) {
-  return RegionalBdmWorkflowScreenController(ref);
-});
+final regional_bdm_workflowControllerProvider =
+    StateNotifierProvider<
+      RegionalBdmWorkflowScreenController,
+      RegionalBdmWorkflowScreenState
+    >((ref) {
+      return RegionalBdmWorkflowScreenController(ref);
+    });

@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ReceptionistComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ReceptionistComplianceScreenState
+    extends DashboardState<ReceptionistComplianceScreenState> {
+  ReceptionistComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ReceptionistComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  ReceptionistComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ReceptionistComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ReceptionistComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ReceptionistComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ReceptionistComplianceScreenController extends StateNotifier<ReceptionistComplianceScreenState> {
-  final Ref ref;
-  ReceptionistComplianceScreenController(this.ref) : super(ReceptionistComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/receptionist-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ReceptionistComplianceScreenController
+    extends BaseDashboardController<ReceptionistComplianceScreenState> {
+  ReceptionistComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ReceptionistComplianceScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/staff/receptionist-compliance',
+      );
 }
 
-final receptionist_complianceControllerProvider = StateNotifierProvider<ReceptionistComplianceScreenController, ReceptionistComplianceScreenState>((ref) {
-  return ReceptionistComplianceScreenController(ref);
-});
+final receptionist_complianceControllerProvider =
+    StateNotifierProvider<
+      ReceptionistComplianceScreenController,
+      ReceptionistComplianceScreenState
+    >((ref) {
+      return ReceptionistComplianceScreenController(ref);
+    });
