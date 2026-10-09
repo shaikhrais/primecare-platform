@@ -8,8 +8,15 @@ final ownNotificationsRepositoryProvider = Provider<OwnNotificationsRepository>(
 
 /// Uses the existing authenticated_self_record_owner notification read contract.
 /// The server binds user_id to the active bearer actor; no caller owner overrides.
-class OwnNotificationsRepository extends BaseApiRepository {
-  OwnNotificationsRepository(super.client);
+abstract interface class OwnNotificationsRepository {
+  factory OwnNotificationsRepository(ApiClient client) =
+      _OwnNotificationsRepository;
+  Future<ApiResponse> load();
+}
+
+class _OwnNotificationsRepository extends BaseApiRepository
+    implements OwnNotificationsRepository {
+  _OwnNotificationsRepository(super.client);
 
   Future<ApiResponse> load() async {
     final response = await get('/v1/auth/me/notifications');

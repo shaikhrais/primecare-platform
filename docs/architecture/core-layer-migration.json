@@ -290,7 +290,7 @@
       "replacements": [
         [
           "class OwnNotificationsRepository {\n  OwnNotificationsRepository(this._client);\n  final ApiClient _client;",
-          "class OwnNotificationsRepository extends BaseApiRepository {\n  OwnNotificationsRepository(super.client);"
+          "abstract interface class OwnNotificationsRepository {\n  factory OwnNotificationsRepository(ApiClient client) = _OwnNotificationsRepository;\n  Future<ApiResponse> load();\n}\n\nclass _OwnNotificationsRepository extends BaseApiRepository implements OwnNotificationsRepository {\n  _OwnNotificationsRepository(super.client);"
         ],
         [
           "_client.get(",

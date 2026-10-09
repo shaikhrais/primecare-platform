@@ -34,7 +34,8 @@ No new workflow success or completion is inferred from this source refactor.
 
 BaseApiRepository owns the injected ApiClient and the five existing HTTP method
 forwarders. It adds no owner IDs, tenant claims, query parameters or caching rules.
-OwnNotificationsRepository inherits transport access and retains its complete
+OwnNotificationsRepository retains a narrow public load interface and factory;
+its private implementation inherits transport access and retains its complete
 response validation/projection. Existing provider-profile and transport tests
 continue to verify their original contracts through compatibility imports.
 

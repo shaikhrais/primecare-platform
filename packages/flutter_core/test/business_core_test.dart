@@ -3,11 +3,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_core/business_core.dart';
+import 'package:flutter_core/src/repositories/own_notifications_repository.dart';
 import 'package:flutter_core/models/domain_response.dart';
 import 'package:flutter_core/src/models/scheduler_models.dart';
 import 'package:flutter_core/src/network/api_client.dart';
 import 'package:flutter_core/src/resilience/execution_gate_service.dart';
 import 'package:flutter_core/src/resilience/result.dart';
+
+class NarrowRepositoryFake implements OwnNotificationsRepository {
+  @override
+  Future<ApiResponse> load() async => ApiResponse(
+    data: <String, dynamic>{},
+    statusCode: 401,
+    error: 'Session expired',
+  );
+}
 
 class FixtureService extends BaseBusinessService {
   FixtureService(super.client, super.telemetry);
@@ -172,6 +182,21 @@ void main() {
     await policy.fetchAndSyncPermissions(client);
     expect(policy.updates.single, policy.fallbackPermissions);
   });
+  test(
+    'public notification port remains implementable with load alone',
+    () async {
+      final port = NarrowRepositoryFake();
+      final scope = ProviderContainer(
+        overrides: [ownNotificationsRepositoryProvider.overrideWithValue(port)],
+      );
+      final result = await scope
+          .read(ownNotificationsRepositoryProvider)
+          .load();
+      expect(result.statusCode, 401);
+      expect(result.error, 'Session expired');
+      scope.dispose();
+    },
+  );
   test('permission configuration retains established names', () {
     const configuration = PermissionPolicyConfiguration();
     expect(configuration.cacheKey, 'primecare_role_permissions');
