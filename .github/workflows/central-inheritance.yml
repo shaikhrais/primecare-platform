@@ -27,6 +27,9 @@ on:
       - 'apps/**/lib/**/*_screen_controller.dart'
       - 'packages/server_core/**'
       - 'services/**/bin/server.dart'
+      - 'services/**/lib/src/application/**'
+      - 'scripts/refactor_service_entrypoints.py'
+      - 'docs/refactoring/service-entrypoint-migration.*'
       - 'services/**/lib/routes.dart'
       - 'services/**/lib/src/features/**'
       - 'scripts/refactor_api_features.py'
@@ -76,6 +79,7 @@ jobs:
           python3 scripts/check-api-route-inheritance.py
           python3 scripts/refactor_api_features.py --check
           python3 scripts/refactor_governance_layers.py --check
+          python3 scripts/refactor_service_entrypoints.py --check
           python3 scripts/check-app-shell-inheritance.py
           python3 scripts/check-core-layer-migration.py
       - name: Resolve shared Flutter dependencies
