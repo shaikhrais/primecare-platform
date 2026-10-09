@@ -1,12 +1,12 @@
+import 'package:primecare_models/primecare_models.dart';
+
 // Governance - Category: model | Purpose: Data entity definition for PolicyManagementScreen
 // TODO: Implement DTO, serialization mapping, and state values.
 
-class PolicyManagementModel {
+class PolicyManagementModel extends BaseEmptyModel {
   const PolicyManagementModel();
-  
+
   factory PolicyManagementModel.fromJson(Map<String, dynamic> json) {
     return const PolicyManagementModel();
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

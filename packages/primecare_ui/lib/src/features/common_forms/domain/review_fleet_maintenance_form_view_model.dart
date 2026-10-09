@@ -1,24 +1,2 @@
-// Governance - Category: view | Purpose: Layer: 02_MODELS_FOUNDATION
-import 'package:primecare_ui/src/shared/primecare_adapters.dart';
-
-// Layer: 02_MODELS_FOUNDATION
-
-class ReviewFleetMaintenanceFormViewModel extends PrimeCareViewModel {
-  final String title;
-  final Map<String, dynamic> metadata;
-
-  ReviewFleetMaintenanceFormViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
-
-  @override
-  List<Object?> get props => [title, metadata];
-
-  @override
-  Map<String, dynamic> toJson() => {
-    'title': title,
-    'metadata': metadata,
-    'isOfflineFallback': isOfflineFallback,
-  };
-}
+// Compatibility export: canonical implementation is shared with APIs.
+export 'package:primecare_models/src/models/review_fleet_maintenance_form_view_model.dart';

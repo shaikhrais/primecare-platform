@@ -12,7 +12,10 @@ def canonical(path):
  current=(r/path).read_text()
  shared=re.fullmatch(r"// Compatibility export: canonical implementation is shared with APIs.\nexport 'package:primecare_models/src/models/([a-z_]+\.dart)';\n", current)
  if shared:
-  return (r/'packages/primecare_models/lib/src/models'/shared[1]).read_text()
+  content=(r/'packages/primecare_models/lib/src/models'/shared[1]).read_text()
+  if shared[1]=='dashboard_models.dart':
+   content=content.replace("import 'insight_impact.dart';", "import 'package:flutter_core/flutter_core.dart';")
+  return content
  return current
 for rec in m['files']:
  source=rec['source'];old=subprocess.check_output(['git','show',m['sourceCommit']+':'+source],cwd=r,text=True)

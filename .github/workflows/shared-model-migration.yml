@@ -5,7 +5,9 @@ on:
       - 'packages/primecare_models/**'
       - '**/*_model.dart'
       - 'scripts/*shared_model*.py'
-      - 'docs/refactoring/shared-model-migration.json'
+      - 'docs/refactoring/*model-migration.json'
+      - 'scripts/verify_remaining_models.py'
+      - 'scripts/test_remaining_model_migration.py'
       - '.github/workflows/shared-model-migration.yml'
 jobs:
   verify:
@@ -18,9 +20,11 @@ jobs:
         with:
           sdk: '3.11.3'
       - run: python3 scripts/test_shared_model_migration.py -v
-      - run: python3 scripts/verify_shared_models.py
+      - run: python3 scripts/test_remaining_model_migration.py -v
       - run: dart pub get
         working-directory: packages/primecare_models
+      - run: python3 scripts/verify_shared_models.py
+      - run: python3 scripts/verify_remaining_models.py
       - run: dart analyze
         working-directory: packages/primecare_models
       - run: dart test
