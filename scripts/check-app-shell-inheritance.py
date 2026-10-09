@@ -13,6 +13,7 @@ for app in m['apps']:
  assert 'class '+app['class']+' extends '+app['parent'] in new,path
  assert "applicationTitle => '"+app['title']+"'" in new,path
  assert 'ref.watch(appRouterProvider)' in new,path
+ assert "import 'package:go_router/go_router.dart';" in new,path+' missing router type import'
  assert 'Widget build(' not in new and 'MaterialApp.router(' not in new,path
  # Preserve application identity overrides and bootstrap call exactly, ignoring formatting.
  body=lambda s:s[s.index('void main()'):s.index('class '+app['class'])]
