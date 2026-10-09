@@ -17,7 +17,7 @@ PRIME:NEXT_ACTION=
 // Governance - Category: view | Purpose: UI Screen component rendering the PswNotificationsScreen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart' show StateNotifier, StateNotifierProvider;
+import 'package:flutter_riverpod/legacy.dart' show StateNotifierProvider;
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/flutter_core.dart' show ownNotificationsRepositoryProvider;
 

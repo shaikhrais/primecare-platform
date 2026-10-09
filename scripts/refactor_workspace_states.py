@@ -77,4 +77,5 @@ def convert(source):
     if matches:
         source="import 'package:primecare_models/primecare_models.dart';\n"+source
         for name,_,_,_ in matches: source=convert_controller(source,name)
+        source=source.replace('show StateNotifier, StateNotifierProvider;', 'show StateNotifierProvider;')
     return source,list(reversed(details))

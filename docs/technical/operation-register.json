@@ -4,7 +4,7 @@
   "sourceCommit": "3979ed1028c8b7dfdb9acca72b1ea53d4d034127",
   "inputs": {
     "docs/api/api-delivery-checklist.json": "654f5e898ed10281b931c5d4817a99dcad56ae8b0a91951fbf01ded48672934d",
-    "docs/api/workflow-contract-reviews.json": "c0776a6d612953e8a186a2742f458bdc357aae645a8f3abd068310e42e1d9b25"
+    "docs/api/workflow-contract-reviews.json": "f7024e7c9714e3ef763e7a04a2ccb4cb91d3e66ba11f18379f19fd6cad4fdec3"
   },
   "uniqueOperations": 1415,
   "unresolvedOperations": 1063,
