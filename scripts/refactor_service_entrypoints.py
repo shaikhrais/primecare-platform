@@ -39,6 +39,16 @@ def current_host_source(path):
         manifest=json.loads(MANIFEST.read_text())
         for entry in manifest['services']:
             if entry['entrypoint']==path:
+                if entry['application'] == 'services/auth_api/lib/src/application/auth_api_host.dart' and (ROOT/'docs/refactoring/auth-layer-migration.json').exists():
+                    from refactor_auth_layers import verify_auth, original
+                    verify_auth()
+                    return original()
+                if (ROOT/'docs/refactoring/domain-host-migration.json').exists():
+                    from refactor_domain_hosts import SERVICES, host_path, verify_domain, original
+                    for service in SERVICES:
+                        if entry['application'] == host_path(service):
+                            verify_domain(service)
+                            return original(service)
                 return (ROOT/entry['application']).read_text()
     return (ROOT/path).read_text()
 
@@ -56,7 +66,17 @@ def main():
     if args.check:
         assert json.loads(MANIFEST.read_text())==expected,'Service inventory changed'
         for path,content in outputs.items():
-            assert (ROOT/path).read_text()==content,'Application/entrypoint changed: '+path
+            if path == 'services/auth_api/lib/src/application/auth_api_host.dart' and (ROOT/'docs/refactoring/auth-layer-migration.json').exists():
+                from refactor_auth_layers import verify_auth, original
+                verify_auth()
+                assert original() == content, 'Auth host baseline changed'
+            elif (ROOT/'docs/refactoring/domain-host-migration.json').exists() and path in [f'services/{service}/lib/src/application/{service}_host.dart' for service in __import__('refactor_domain_hosts').SERVICES]:
+                from refactor_domain_hosts import verify_domain, original
+                service = Path(path).parts[1]
+                verify_domain(service)
+                assert original(service) == content, 'Domain host baseline changed'
+            else:
+                assert (ROOT/path).read_text()==content,'Application/entrypoint changed: '+path
         print(json.dumps({'services':len(entries),'separateApplicationClasses':len(entries),'publicEntrypointsPreserved':True,'completedWorkflows':0}))
         return
     assert not MANIFEST.exists(),'Already migrated; use --check'

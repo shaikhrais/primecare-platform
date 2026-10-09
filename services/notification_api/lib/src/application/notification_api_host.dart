@@ -1,8 +1,8 @@
 import 'package:server_core/server_core.dart';
+import '../routes/notification_api_service_routes.dart';
 // Governance - Category: service | Purpose: Edge API service engine running request listeners and background worker micro-tasks.
 import 'dart:io';
 import 'package:shelf/shelf.dart';
-import 'package:shelf_router/shelf_router.dart';
 
 
 
@@ -12,13 +12,7 @@ class NotificationApiHost extends BaseCorsServiceHost {
 
   @override
   Future<Handler> createRoutes() async {
-    final router = Router();
-    router.get(
-      '/',
-      (Request request) =>
-          Response.ok('Hello from notification-api (Migrated to Dart)'),
-    );
-    return router.call;
+    return NotificationServiceRoutes().router.call;
   }
 
   @override

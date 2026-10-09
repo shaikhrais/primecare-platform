@@ -1,9 +1,8 @@
 import 'package:server_core/server_core.dart';
+import '../routes/franchise_reporting_api_service_routes.dart';
 // Governance - Category: service | Purpose: Mount the 456 AI-generated routes
 import 'dart:io';
 import 'package:shelf/shelf.dart';
-import 'package:shelf_router/shelf_router.dart';
-import 'package:franchise_reporting_api/routes.dart';
 
 
 
@@ -13,17 +12,7 @@ class FranchiseReportingApiHost extends BaseCorsServiceHost {
 
   @override
   Future<Handler> createRoutes() async {
-    final router = Router();
-
-    // Mount the 456 AI-generated routes
-    final apiRoutes = ApiRoutes();
-    router.mount('/', apiRoutes.router.call);
-    router.get(
-      '/',
-      (Request request) =>
-          Response.ok('Hello from franchise-reporting-api (Migrated to Dart)'),
-    );
-    return router.call;
+    return FranchiseReportingServiceRoutes().router.call;
   }
 
   @override

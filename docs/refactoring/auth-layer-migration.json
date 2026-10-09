@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "e0709f8b832ad21b574295e1b5975674a0694057",
+  "host": "services/auth_api/lib/src/application/auth_api_host.dart",
+  "controller": "services/auth_api/lib/src/controllers/auth_http_controller.dart",
+  "repository": "services/auth_api/lib/src/repositories/auth_repository.dart",
+  "existingRoutes": 4,
+  "existingQueries": 4,
+  "completedWorkflows": 0,
+  "routes": "services/auth_api/lib/src/routes/auth_session_routes.dart"
+}

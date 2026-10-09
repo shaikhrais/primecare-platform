@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 'services/auth_api/**'
+      - 'scripts/refactor_auth_layers.py'
+      - 'scripts/verify_auth_layer_parity.py'
       - 'services/api_gateway/**'
       - 'packages/database_client/**'
       - 'packages/flutter_core/test/auth*_test.dart'
@@ -29,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: stable
@@ -37,6 +41,8 @@ jobs:
         run: |
           dart pub get
           dart analyze bin/server.dart bin/hash_password.dart lib
+      - name: Compare extracted auth responses and queries
+        run: python3 scripts/verify_auth_layer_parity.py
       - name: Analyze gateway
         working-directory: services/api_gateway
         run: |
