@@ -8,6 +8,12 @@ on:
       - 'packages/primecare_ui/test/base_workspace_controller_test.dart'
       - 'apps/*/lib/main.dart'
       - 'scripts/check-app-shell-inheritance.py'
+      - 'packages/flutter_core/lib/models/clinical_article*'
+      - 'packages/flutter_core/lib/providers/user_management_provider.dart'
+      - 'packages/flutter_core/test/shared_data_model_imports_test.dart'
+      - 'packages/primecare_models/**'
+      - 'scripts/refactor_shared_data_models.py'
+      - 'docs/refactoring/shared-data-model-migration.*'
       - 'packages/flutter_core/lib/business_core.dart'
       - 'packages/flutter_core/lib/*_service.dart'
       - 'packages/flutter_core/lib/models/domain_response.dart'
@@ -90,9 +96,16 @@ jobs:
           python3 scripts/refactor_governance_layers.py --check
           python3 scripts/refactor_service_entrypoints.py --check
           python3 scripts/refactor_auth_layers.py --check
+          python3 scripts/refactor_shared_data_models.py --check
           python3 scripts/refactor_domain_hosts.py --check
           python3 scripts/check-app-shell-inheritance.py
           python3 scripts/check-core-layer-migration.py
+      - name: Verify shared Dart data models
+        working-directory: packages/primecare_models
+        run: |
+          dart pub get
+          dart analyze lib test
+          dart test
       - name: Resolve shared Flutter dependencies
         working-directory: packages/flutter_core
         run: flutter pub get
@@ -100,7 +113,7 @@ jobs:
         run: |
           python3 scripts/generate-controller-compile-test.py
           cd packages/flutter_core
-          flutter test test/base_controllers_test.dart test/controller_migration_compile_test.dart
+          flutter test test/base_controllers_test.dart test/controller_migration_compile_test.dart test/shared_data_model_imports_test.dart
           flutter analyze lib/controllers.dart lib/src/controllers test/base_controllers_test.dart
       - name: Verify shared Dart host
         working-directory: packages/server_core

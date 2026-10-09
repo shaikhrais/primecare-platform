@@ -23,3 +23,5 @@ export 'src/models/schedule_facility_maintenance_form_view_model.dart';
 export 'src/models/review_fleet_maintenance_form_view_model.dart';
 export 'src/models/base_workspace_state.dart';
 export 'src/models/base_logged_screen_state.dart';
+export 'src/models/user_model.dart';
+export 'src/models/clinical_article.dart';
