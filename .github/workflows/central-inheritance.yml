@@ -26,6 +26,9 @@ on:
       - 'apps/**/lib/**/*_screen_controller.dart'
       - 'packages/server_core/**'
       - 'services/**/bin/server.dart'
+      - 'services/**/lib/routes.dart'
+      - 'scripts/check-api-route-inheritance.py'
+      - 'docs/refactoring/api-route-migration.*'
       - 'services/**/pubspec.yaml'
       - 'services/**/Dockerfile'
       - 'docker-compose.yml'
@@ -58,6 +61,7 @@ jobs:
         run: |
           python3 scripts/check-controller-inheritance.py
           python3 scripts/check-http-host-inheritance.py
+          python3 scripts/check-api-route-inheritance.py
           python3 scripts/check-app-shell-inheritance.py
           python3 scripts/check-core-layer-migration.py
       - name: Resolve shared Flutter dependencies
