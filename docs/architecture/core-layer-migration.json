@@ -1,0 +1,350 @@
+{
+  "sourceCommit": "ef6e5a3c3291c679d5463d0408cff426bafc0bc4",
+  "files": [
+    {
+      "source": "packages/flutter_core/lib/domain_service.dart",
+      "target": "packages/flutter_core/lib/src/application/services/domain_service.dart",
+      "beforeSha256": "db766935aae0c4f912da4fe3ebe18ab2ac1bc705af52630f5e6b564cbfda1b5e",
+      "replacements": [
+        [
+          "class DomainService {\n  final Ref _ref;\n  late final ApiClient _apiClient;\n  late final ExecutionGateService _telemetry;\n\n  DomainService(this._ref) {\n    _apiClient = _ref.read(apiClientProvider);\n    _telemetry = _ref.read<ExecutionGateService>(executionGateProvider);\n  }",
+          "class DomainService extends BaseBusinessService {\n  DomainService(Ref ref) : super(ref.read(apiClientProvider), ref.read<ExecutionGateService>(executionGateProvider));"
+        ],
+        [
+          "_apiClient",
+          "apiClient"
+        ],
+        [
+          "_telemetry",
+          "telemetry"
+        ],
+        [
+          "Result.guardFuture",
+          "guard"
+        ]
+      ],
+      "prefix": "import 'base_business_service.dart';\n",
+      "facade": "export 'package:flutter_core/src/application/services/domain_service.dart';\n"
+    },
+    {
+      "source": "packages/flutter_core/lib/provider_service.dart",
+      "target": "packages/flutter_core/lib/src/application/services/provider_service.dart",
+      "beforeSha256": "884eb12a80c0dd648bf246a6dc2b793750f67ecafe5700443340b5d341d41f2d",
+      "replacements": [
+        [
+          "class ProviderService {\n  final ApiClient _apiClient;\n  final ExecutionGateService _telemetry;\n\n  ProviderService(this._apiClient, this._telemetry);",
+          "class ProviderService extends BaseBusinessService {\n  ProviderService(super.client, super.telemetry);"
+        ],
+        [
+          "_apiClient",
+          "apiClient"
+        ],
+        [
+          "_telemetry",
+          "telemetry"
+        ],
+        [
+          "Result.guardFuture",
+          "guard"
+        ],
+        [
+          "class ProviderProfile {",
+          "class ProviderProfile extends BaseEntity<String> {"
+        ],
+        [
+          "  final String id;\n",
+          ""
+        ],
+        [
+          "required this.id",
+          "required super.id"
+        ]
+      ],
+      "prefix": "import 'base_business_service.dart';\nimport '../../domain/models/base_entity.dart';\n",
+      "facade": "export 'package:flutter_core/src/application/services/provider_service.dart';\nexport 'package:flutter_core/src/domain/models/provider_profile.dart';\n",
+      "splitMarker": "class ProviderService extends BaseBusinessService {",
+      "modelTarget": "packages/flutter_core/lib/src/domain/models/provider_profile.dart"
+    },
+    {
+      "source": "packages/flutter_core/lib/verification_service.dart",
+      "target": "packages/flutter_core/lib/src/application/services/verification_service.dart",
+      "beforeSha256": "57ef8c2932a2be96527dbf49dffb6f85d4117a693aaa40d15863fc551ddd4e58",
+      "replacements": [
+        [
+          "class VerificationService {\n  final ApiClient _apiClient;\n  final ExecutionGateService _telemetry;\n\n  VerificationService(this._apiClient, this._telemetry);",
+          "class VerificationService extends BaseBusinessService {\n  VerificationService(super.client, super.telemetry);"
+        ],
+        [
+          "_apiClient",
+          "apiClient"
+        ],
+        [
+          "_telemetry",
+          "telemetry"
+        ],
+        [
+          "Result.guardFuture",
+          "guard"
+        ]
+      ],
+      "prefix": "import 'base_business_service.dart';\n",
+      "facade": "export 'package:flutter_core/src/application/services/verification_service.dart';\n"
+    },
+    {
+      "source": "packages/flutter_core/lib/report_service.dart",
+      "target": "packages/flutter_core/lib/src/application/services/report_service.dart",
+      "beforeSha256": "f6f3c093fb8d657d07a197c0ebd4581f162267b8528a764ca50f043ed1bd287b",
+      "replacements": [
+        [
+          "class ReportService {\n  final ApiClient _apiClient;\n  final ExecutionGateService _telemetry;\n\n  ReportService(this._apiClient, this._telemetry);",
+          "class ReportService extends BaseBusinessService {\n  ReportService(super.client, super.telemetry);"
+        ],
+        [
+          "_apiClient",
+          "apiClient"
+        ],
+        [
+          "_telemetry",
+          "telemetry"
+        ],
+        [
+          "Result.guardFuture",
+          "guard"
+        ],
+        [
+          "class ReportData {",
+          "class ReportData extends BaseEntity<String> {"
+        ],
+        [
+          "  final String id;\n",
+          ""
+        ],
+        [
+          "required this.id",
+          "required super.id"
+        ]
+      ],
+      "prefix": "import 'base_business_service.dart';\nimport '../../domain/models/base_entity.dart';\n",
+      "facade": "export 'package:flutter_core/src/application/services/report_service.dart';\nexport 'package:flutter_core/src/domain/models/report_models.dart';\n",
+      "splitMarker": "class ReportService extends BaseBusinessService {",
+      "modelTarget": "packages/flutter_core/lib/src/domain/models/report_models.dart"
+    },
+    {
+      "source": "packages/flutter_core/lib/preference_service.dart",
+      "target": "packages/flutter_core/lib/src/application/services/preference_service.dart",
+      "beforeSha256": "381cdf604068c05fd287798a3c150390a3fb7b580d5770352dd6ba9f0fff0e06",
+      "replacements": [
+        [
+          "class PreferenceService {\n  final SharedPreferences _prefs;\n  final ExecutionGateService _telemetry;\n\n  PreferenceService(this._prefs, this._telemetry);",
+          "class PreferenceService extends BasePreferenceService {\n  PreferenceService(super.preferences, super.telemetry);"
+        ],
+        [
+          "_prefs",
+          "preferences"
+        ],
+        [
+          "_telemetry",
+          "telemetry"
+        ],
+        [
+          "Result.guardFuture",
+          "guard"
+        ],
+        [
+          "import 'package:shared_preferences/shared_preferences.dart';\n",
+          ""
+        ]
+      ],
+      "prefix": "import 'base_business_service.dart';\n",
+      "facade": "export 'package:flutter_core/src/application/services/preference_service.dart';\n"
+    },
+    {
+      "source": "packages/flutter_core/lib/src/models/scheduler_models.dart",
+      "target": "packages/flutter_core/lib/src/domain/models/scheduler_models.dart",
+      "beforeSha256": "52a81cb7835196a55781e2abfd4a185e593cf8b49450c0b562d969357f5bb4f3",
+      "replacements": [
+        [
+          "class InstitutionalResource {",
+          "class InstitutionalResource extends BaseEntity<String> {"
+        ],
+        [
+          "class StaffMember {",
+          "class StaffMember extends BaseEntity<String> {"
+        ],
+        [
+          "class Appointment {",
+          "class Appointment extends BaseEntity<String> {"
+        ],
+        [
+          "  final String id;\n",
+          ""
+        ],
+        [
+          "required this.id",
+          "required super.id"
+        ]
+      ],
+      "prefix": "import 'base_entity.dart';\n",
+      "facade": "export 'package:flutter_core/src/domain/models/scheduler_models.dart';\n"
+    },
+    {
+      "source": "packages/flutter_core/lib/src/models/dashboard_models.dart",
+      "target": "packages/flutter_core/lib/src/domain/models/dashboard_models.dart",
+      "beforeSha256": "a23281a18db316b1b6d8174f8616acb635d309ecbd10c261f4d0a8fdbf0163e0",
+      "replacements": [
+        [
+          "class AnalyticsChart {",
+          "class AnalyticsChart extends BaseEntity<String> {"
+        ],
+        [
+          "class ActivityItem {",
+          "class ActivityItem extends BaseEntity<String> {"
+        ],
+        [
+          "class IntelligenceInsight {",
+          "class IntelligenceInsight extends BaseEntity<String> {"
+        ],
+        [
+          "  final String id;\n",
+          ""
+        ],
+        [
+          "required this.id",
+          "required super.id"
+        ]
+      ],
+      "prefix": "import 'base_entity.dart';\n",
+      "facade": "export 'package:flutter_core/src/domain/models/dashboard_models.dart';\n"
+    },
+    {
+      "source": "packages/flutter_core/lib/src/models/psw_models.dart",
+      "target": "packages/flutter_core/lib/src/domain/models/psw_models.dart",
+      "beforeSha256": "2623e2e650a4db70ef2b6026e220bd0a666af42c511cdf724d77bbf4b9a27876",
+      "replacements": [
+        [
+          "class PswClient {",
+          "class PswClient extends BaseEntity<String> {"
+        ],
+        [
+          "class PswTask {",
+          "class PswTask extends BaseEntity<String> {"
+        ],
+        [
+          "  final String id;\n",
+          ""
+        ],
+        [
+          "required this.id",
+          "required super.id"
+        ]
+      ],
+      "prefix": "import 'base_entity.dart';\n",
+      "facade": "export 'package:flutter_core/src/domain/models/psw_models.dart';\n"
+    },
+    {
+      "source": "packages/flutter_core/lib/src/models/aura_intent.dart",
+      "target": "packages/flutter_core/lib/src/domain/models/aura_intent.dart",
+      "beforeSha256": "42465f97ca3096e26256621c5c7ec1be10853ee78e27d7d433ad2c41a89ecfeb",
+      "replacements": [
+        [
+          "class AuraIntent {",
+          "class AuraIntent extends BaseEntity<String> {"
+        ],
+        [
+          "  final String id;\n",
+          ""
+        ],
+        [
+          "required this.id",
+          "required super.id"
+        ]
+      ],
+      "prefix": "import 'base_entity.dart';\n",
+      "facade": "export 'package:flutter_core/src/domain/models/aura_intent.dart';\n"
+    },
+    {
+      "source": "packages/flutter_core/lib/models/domain_response.dart",
+      "target": "packages/flutter_core/lib/src/domain/models/domain_response.dart",
+      "beforeSha256": "a81d60a9bc6dc836a3328f12e93bf2a983297dc9683401f39055e1b4a943d0df",
+      "replacements": [
+        [
+          "class DomainResponse {",
+          "class DomainResponse extends BaseResponseEnvelope {"
+        ],
+        [
+          "  final Map<String, dynamic> data;\n  final bool success;\n  final String? message;\n  final String? error;\n\n  DomainResponse({\n    required this.data,\n    this.success = true,\n    this.message,\n    this.error,\n  });\n",
+          "  DomainResponse({required super.data, super.success = true, super.message, super.error});\n"
+        ],
+        [
+          "  Map<String, dynamic> toJson() {\n    return {\n      'data': data,\n      'success': success,\n      'message': message,\n      'error': error,\n    };\n  }",
+          ""
+        ]
+      ],
+      "prefix": "import 'base_response_envelope.dart';\n",
+      "facade": "export 'package:flutter_core/src/domain/models/domain_response.dart';\n"
+    },
+    {
+      "source": "packages/flutter_core/lib/src/repositories/own_notifications_repository.dart",
+      "target": "packages/flutter_core/lib/src/infrastructure/repositories/own_notifications_repository.dart",
+      "beforeSha256": "09188dc93b22ac362657c4b801ed96c5ef16f729e167087e22666a28a5038226",
+      "replacements": [
+        [
+          "class OwnNotificationsRepository {\n  OwnNotificationsRepository(this._client);\n  final ApiClient _client;",
+          "class OwnNotificationsRepository extends BaseApiRepository {\n  OwnNotificationsRepository(super.client);"
+        ],
+        [
+          "_client.get(",
+          "get("
+        ],
+        [
+          "import '../network/api_client.dart';",
+          "import '../../network/api_client.dart';"
+        ]
+      ],
+      "prefix": "import 'base_api_repository.dart';\n",
+      "facade": "export 'package:flutter_core/src/infrastructure/repositories/own_notifications_repository.dart';\n"
+    },
+    {
+      "source": "packages/flutter_core/lib/network/permission_service.dart",
+      "target": "packages/flutter_core/lib/src/security/policies/base_permission_policy.dart",
+      "beforeSha256": "f09c941782a4aa380e4cccc178f68edc951b95893983e37ed48ec2644b6e9739",
+      "replacements": [
+        [
+          "class PermissionService {",
+          "abstract class BasePermissionPolicy {"
+        ],
+        [
+          "  static const String _cacheKey = 'primecare_role_permissions';",
+          "  String get cacheKey;\n  String get endpoint;\n  Map<String, List<String>> get fallbackPermissions;\n  void synchronizePermissions(Map<String, List<String>> permissions);"
+        ],
+        [
+          "static Future<void>",
+          "Future<void>"
+        ],
+        [
+          "_cacheKey",
+          "cacheKey"
+        ],
+        [
+          "RouteGuard.synchronizePermissions",
+          "synchronizePermissions"
+        ],
+        [
+          "RouteGuard.defaultPermissions",
+          "fallbackPermissions"
+        ],
+        [
+          "ApiConfig.endpoints['systemPermissions']!",
+          "endpoint"
+        ],
+        [
+          "import 'package:flutter_core/flutter_core.dart';",
+          "import '../../network/api_client.dart';"
+        ]
+      ],
+      "prefix": "",
+      "facade": "import '../src/network/api_client.dart';\nimport '../src/security/policies/route_permission_policy.dart';\n\n/// Compatibility entry point; policy/cache mechanics live in shared security parents.\nclass PermissionService {\n  static final RoutePermissionPolicy _policy = RoutePermissionPolicy();\n  static Future<void> loadCachedPermissions() => _policy.loadCachedPermissions();\n  static Future<void> fetchAndSyncPermissions(ApiClient apiClient) => _policy.fetchAndSyncPermissions(apiClient);\n}\n"
+    }
+  ],
+  "newApiCompletions": 0
+}
