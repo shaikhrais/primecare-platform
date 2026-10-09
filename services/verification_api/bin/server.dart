@@ -3,18 +3,17 @@ import 'package:server_core/server_core.dart';
 import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 
 Future<void> main() async {
   await VerificationApiHost().run();
 }
 
-class VerificationApiHost extends BaseServiceHost {
+class VerificationApiHost extends BaseCorsServiceHost {
   VerificationApiHost()
     : super(serviceName: 'verification-api', defaultPort: 8800);
 
   @override
-  Future<Handler> createHandler() async {
+  Future<Handler> createRoutes() async {
     final router = Router();
 
     // Base path /v4 as per legacy Hono app
@@ -51,12 +50,7 @@ class VerificationApiHost extends BaseServiceHost {
 
     router.mount('/v4/', v4Router.call);
 
-    final handler = const Pipeline()
-        .addMiddleware(logRequests())
-        .addMiddleware(corsHeaders())
-        .addHandler(router.call);
-
-    return handler;
+    return router.call;
   }
 
   @override

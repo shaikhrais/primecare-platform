@@ -4,18 +4,17 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 import 'package:database_client/database_client.dart';
 
 Future<void> main() async {
   await VisitApiHost().run();
 }
 
-class VisitApiHost extends BaseServiceHost {
+class VisitApiHost extends BaseCorsServiceHost {
   VisitApiHost() : super(serviceName: 'visit-api', defaultPort: 8080);
 
   @override
-  Future<Handler> createHandler() async {
+  Future<Handler> createRoutes() async {
     final db = PlatformDatabase();
     await db.initialize();
 
@@ -68,12 +67,7 @@ class VisitApiHost extends BaseServiceHost {
       }
     });
 
-    final handler = const Pipeline()
-        .addMiddleware(logRequests())
-        .addMiddleware(corsHeaders())
-        .addHandler(router.call);
-
-    return handler;
+    return router.call;
   }
 
   @override

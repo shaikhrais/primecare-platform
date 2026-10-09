@@ -11,12 +11,12 @@ Future<void> main() async {
   await ApiGatewayHost().run();
 }
 
-class ApiGatewayHost extends BaseServiceHost {
+class ApiGatewayHost extends BaseHttpServiceHost {
   late ServiceMesh mesh;
   ApiGatewayHost() : super(serviceName: 'api-gateway', defaultPort: 8700);
 
   @override
-  Future<Handler> createHandler() async {
+  Future<Handler> createRoutes() async {
     // 1. Core Services Initialization
     final db = PlatformDatabase();
     await db.initialize();
@@ -39,25 +39,24 @@ class ApiGatewayHost extends BaseServiceHost {
     }
 
     // 4. Middleware Pipeline
-    final handler = const Pipeline()
-        .addMiddleware(logRequests())
-        .addMiddleware(
-          corsHeaders(
-            headers: {
-              'Access-Control-Allow-Origin':
-                  Platform.environment['CORS_ALLOWED_ORIGIN'] ??
-                  'http://localhost:8085',
-              'Access-Control-Allow-Credentials': 'true',
-              'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-              'Access-Control-Allow-Headers':
-                  'Origin, Content-Type, Accept, Authorization, x-device-id, x-device-fingerprint, x-tenant-id, x-request-signature, x-requested-signature, x-requested-with, x-app-version, x-api-key',
-            },
-          ),
-        )
-        .addHandler(router.call);
-
-    return handler;
+    return router.call;
   }
+
+  @override
+  List<Middleware> get middleware => [
+    logRequests(),
+    corsHeaders(
+      headers: {
+        'Access-Control-Allow-Origin':
+            Platform.environment['CORS_ALLOWED_ORIGIN'] ??
+            'http://localhost:8085',
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers':
+            'Origin, Content-Type, Accept, Authorization, x-device-id, x-device-fingerprint, x-tenant-id, x-request-signature, x-requested-signature, x-requested-with, x-app-version, x-api-key',
+      },
+    ),
+  ];
 
   @override
   void onStarted(HttpServer server) {
