@@ -53,8 +53,8 @@ void same(dynamic before, dynamic after) {
   if (jsonEncode(left) != jsonEncode(right)) throw StateError('Metadata changed: $left != $right');
   cases++;
 }
-String parsingTrace(Map<String, dynamic> input, bool current) {
-  try { return jsonEncode(snapshot(current ? NEW.fromJson(input) : OLD.fromJson(input))); }
+String parsingTrace(Map<String, dynamic> input, bool useCurrent) {
+  try { return jsonEncode(snapshot(useCurrent ? NEW.fromJson(input) : OLD.fromJson(input))); }
   catch (error) {return error.runtimeType.toString();}
 }
 void verify() {
