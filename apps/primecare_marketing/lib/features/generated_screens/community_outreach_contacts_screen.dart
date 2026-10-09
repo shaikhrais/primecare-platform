@@ -1,3 +1,4 @@
+import 'package:primecare_models/primecare_models.dart';
 /* 
 PRIME:SCREEN=community_outreach_contacts
 PRIME:DESIGN=DESIGN_APPROVED
@@ -19,40 +20,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class CommunityOutreachContactsScreenState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-  final bool hasData;
+class CommunityOutreachContactsScreenState extends BaseWorkspaceState<CommunityOutreachContactsScreenState> {
 
   const CommunityOutreachContactsScreenState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-    required this.hasData,
+    required super.isLoading,
+    super.error,
+    required super.title,
+    required super.logs,
+    required super.hasData,
   });
 
-  CommunityOutreachContactsScreenState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-    bool? hasData,
-  }) {
-    return CommunityOutreachContactsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-      hasData: hasData ?? this.hasData,
-    );
-  }
+
+  @override
+  CommunityOutreachContactsScreenState rebuild({required bool isLoading, required String? error,
+    required String title, required List<String> logs, required bool hasData}) =>
+      CommunityOutreachContactsScreenState(isLoading: isLoading, error: error, title: title, logs: logs, hasData: hasData);
 }
 
 // --- Controller (Notifier) ---
-class CommunityOutreachContactsScreenController extends StateNotifier<CommunityOutreachContactsScreenState> {
+class CommunityOutreachContactsScreenController extends BaseWorkspaceController<CommunityOutreachContactsScreenState> {
   final Ref ref;
 
   CommunityOutreachContactsScreenController(this.ref)
@@ -74,25 +60,15 @@ class CommunityOutreachContactsScreenController extends StateNotifier<CommunityO
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

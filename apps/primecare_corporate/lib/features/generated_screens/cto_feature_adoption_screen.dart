@@ -1,3 +1,4 @@
+import 'package:primecare_models/primecare_models.dart';
 /* 
 PRIME:SCREEN=cto_feature_adoption
 PRIME:DESIGN=DESIGN_APPROVED
@@ -19,40 +20,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class CtoFeatureAdoptionScreenState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-  final bool hasData;
+class CtoFeatureAdoptionScreenState extends BaseWorkspaceState<CtoFeatureAdoptionScreenState> {
 
   const CtoFeatureAdoptionScreenState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-    required this.hasData,
+    required super.isLoading,
+    super.error,
+    required super.title,
+    required super.logs,
+    required super.hasData,
   });
 
-  CtoFeatureAdoptionScreenState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-    bool? hasData,
-  }) {
-    return CtoFeatureAdoptionScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-      hasData: hasData ?? this.hasData,
-    );
-  }
+
+  @override
+  CtoFeatureAdoptionScreenState rebuild({required bool isLoading, required String? error,
+    required String title, required List<String> logs, required bool hasData}) =>
+      CtoFeatureAdoptionScreenState(isLoading: isLoading, error: error, title: title, logs: logs, hasData: hasData);
 }
 
 // --- Controller (Notifier) ---
-class CtoFeatureAdoptionScreenController extends StateNotifier<CtoFeatureAdoptionScreenState> {
+class CtoFeatureAdoptionScreenController extends BaseWorkspaceController<CtoFeatureAdoptionScreenState> {
   final Ref ref;
 
   CtoFeatureAdoptionScreenController(this.ref)
@@ -74,25 +60,15 @@ class CtoFeatureAdoptionScreenController extends StateNotifier<CtoFeatureAdoptio
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

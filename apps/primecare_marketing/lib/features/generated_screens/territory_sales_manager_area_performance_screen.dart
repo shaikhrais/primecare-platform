@@ -1,3 +1,4 @@
+import 'package:primecare_models/primecare_models.dart';
 /* 
 PRIME:SCREEN=territory_sales_manager_area_performance
 PRIME:DESIGN=DESIGN_APPROVED
@@ -19,40 +20,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class TerritorySalesManagerAreaPerformanceScreenState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-  final bool hasData;
+class TerritorySalesManagerAreaPerformanceScreenState extends BaseWorkspaceState<TerritorySalesManagerAreaPerformanceScreenState> {
 
   const TerritorySalesManagerAreaPerformanceScreenState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-    required this.hasData,
+    required super.isLoading,
+    super.error,
+    required super.title,
+    required super.logs,
+    required super.hasData,
   });
 
-  TerritorySalesManagerAreaPerformanceScreenState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-    bool? hasData,
-  }) {
-    return TerritorySalesManagerAreaPerformanceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-      hasData: hasData ?? this.hasData,
-    );
-  }
+
+  @override
+  TerritorySalesManagerAreaPerformanceScreenState rebuild({required bool isLoading, required String? error,
+    required String title, required List<String> logs, required bool hasData}) =>
+      TerritorySalesManagerAreaPerformanceScreenState(isLoading: isLoading, error: error, title: title, logs: logs, hasData: hasData);
 }
 
 // --- Controller (Notifier) ---
-class TerritorySalesManagerAreaPerformanceScreenController extends StateNotifier<TerritorySalesManagerAreaPerformanceScreenState> {
+class TerritorySalesManagerAreaPerformanceScreenController extends BaseWorkspaceController<TerritorySalesManagerAreaPerformanceScreenState> {
   final Ref ref;
 
   TerritorySalesManagerAreaPerformanceScreenController(this.ref)
@@ -74,25 +60,15 @@ class TerritorySalesManagerAreaPerformanceScreenController extends StateNotifier
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

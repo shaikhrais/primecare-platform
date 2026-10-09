@@ -1,3 +1,4 @@
+import 'package:primecare_models/primecare_models.dart';
 import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=adverse_event_reporting_portal
@@ -20,40 +21,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class AdverseEventReportingPortalScreenState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-  final bool hasData;
+class AdverseEventReportingPortalScreenState extends BaseWorkspaceState<AdverseEventReportingPortalScreenState> {
 
   const AdverseEventReportingPortalScreenState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-    required this.hasData,
+    required super.isLoading,
+    super.error,
+    required super.title,
+    required super.logs,
+    required super.hasData,
   });
 
-  AdverseEventReportingPortalScreenState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-    bool? hasData,
-  }) {
-    return AdverseEventReportingPortalScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-      hasData: hasData ?? this.hasData,
-    );
-  }
+
+  @override
+  AdverseEventReportingPortalScreenState rebuild({required bool isLoading, required String? error,
+    required String title, required List<String> logs, required bool hasData}) =>
+      AdverseEventReportingPortalScreenState(isLoading: isLoading, error: error, title: title, logs: logs, hasData: hasData);
 }
 
 // --- Controller (Notifier) ---
-class AdverseEventReportingPortalScreenController extends StateNotifier<AdverseEventReportingPortalScreenState> {
+class AdverseEventReportingPortalScreenController extends BaseWorkspaceController<AdverseEventReportingPortalScreenState> {
   final Ref ref;
 
   AdverseEventReportingPortalScreenController(this.ref)
@@ -75,25 +61,15 @@ class AdverseEventReportingPortalScreenController extends StateNotifier<AdverseE
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

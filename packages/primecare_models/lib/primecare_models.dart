@@ -21,3 +21,5 @@ export 'src/models/deployment_readiness_model.dart';
 export 'src/models/main_project_selection_view_model.dart';
 export 'src/models/schedule_facility_maintenance_form_view_model.dart';
 export 'src/models/review_fleet_maintenance_form_view_model.dart';
+export 'src/models/base_workspace_state.dart';
+export 'src/models/base_logged_screen_state.dart';

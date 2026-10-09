@@ -1,11 +1,12 @@
 // Generated scheduling screen bindings have no verified business implementation.
 // Keep their exact routes available, but never claim an empty read or completed action.
 import 'dart:convert';
+import 'package:server_core/server_core.dart';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-class ApiRoutes {
+class ApiRoutes extends BaseApiRoutes {
   static const screenPaths = <String>[
     '/api/family-member-loved-one-schedule-screen',
     '/api/psw-schedule-screen',
@@ -32,12 +33,11 @@ class ApiRoutes {
     headers: {'content-type': 'application/json', 'cache-control': 'no-store'},
   );
 
-  Router get router {
-    final router = Router();
+  @override
+  void registerRoutes(Router router) {
     for (final path in screenPaths) {
       router.get(path, _unsupported);
       router.post('$path/action', _unsupported);
     }
-    return router;
   }
 }

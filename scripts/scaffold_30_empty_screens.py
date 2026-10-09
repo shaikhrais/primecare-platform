@@ -8,19 +8,16 @@ TEMPLATE = """// Governance - Category: view | Purpose: UI Screen component rend
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_models/primecare_models.dart';
 
 // --- MVC State Model ---
-class {class_name}State {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
+class {class_name}State extends BaseLoggedScreenState {
 
   const {class_name}State({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
+    required super.isLoading,
+    super.error,
+    required super.title,
+    required super.logs,
   });
 
   {class_name}State copyWith({

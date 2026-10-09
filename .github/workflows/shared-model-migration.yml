@@ -4,6 +4,11 @@ on:
     paths:
       - 'packages/primecare_models/**'
       - '**/*_model.dart'
+      - '**/*_screen.dart'
+      - 'scripts/*workspace_states.py'
+      - 'scripts/scaffold_30_empty_screens.py'
+      - 'scripts/generate_and_verify_planned_screens.py'
+      - 'docs/refactoring/workspace-state-migration.json'
       - 'scripts/*shared_model*.py'
       - 'docs/refactoring/*model-migration.json'
       - 'scripts/verify_remaining_models.py'
@@ -25,6 +30,7 @@ jobs:
         working-directory: packages/primecare_models
       - run: python3 scripts/verify_shared_models.py
       - run: python3 scripts/verify_remaining_models.py
+      - run: python3 scripts/verify_workspace_states.py
       - run: dart analyze
         working-directory: packages/primecare_models
       - run: dart test

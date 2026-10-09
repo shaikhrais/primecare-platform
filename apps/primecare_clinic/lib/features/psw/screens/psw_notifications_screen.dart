@@ -1,3 +1,4 @@
+import 'package:primecare_models/primecare_models.dart';
 /* 
 PRIME:SCREEN=psw_notifications
 PRIME:DESIGN=DESIGN_APPROVED
@@ -16,26 +17,22 @@ PRIME:NEXT_ACTION=
 // Governance - Category: view | Purpose: UI Screen component rendering the PswNotificationsScreen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart' show StateNotifier, StateNotifierProvider;
+import 'package:flutter_riverpod/legacy.dart' show StateNotifierProvider;
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/flutter_core.dart' show ownNotificationsRepositoryProvider;
 
 // --- MVC State Model ---
-class PswNotificationsScreenState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-  final bool hasData;
+class PswNotificationsScreenState extends BaseWorkspaceState<PswNotificationsScreenState> {
 
   const PswNotificationsScreenState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-    required this.hasData,
+    required super.isLoading,
+    super.error,
+    required super.title,
+    required super.logs,
+    required super.hasData,
   });
 
+  @override
   PswNotificationsScreenState copyWith({
     bool? isLoading,
     String? error,
@@ -52,10 +49,15 @@ class PswNotificationsScreenState {
       hasData: hasData ?? this.hasData,
     );
   }
+
+  @override
+  PswNotificationsScreenState rebuild({required bool isLoading, required String? error,
+    required String title, required List<String> logs, required bool hasData}) =>
+      copyWith(isLoading: isLoading, error: error, title: title, logs: logs, hasData: hasData);
 }
 
 // --- Controller (Notifier) ---
-class PswNotificationsScreenController extends StateNotifier<PswNotificationsScreenState> {
+class PswNotificationsScreenController extends BaseWorkspaceController<PswNotificationsScreenState> {
   final Ref ref;
 
   PswNotificationsScreenController(this.ref)
@@ -77,22 +79,18 @@ class PswNotificationsScreenController extends StateNotifier<PswNotificationsScr
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
+
+
+
+  @override
   void toggleEmpty() {
     state = state.copyWith(isLoading: false, clearError: true, hasData: false);
   }
 
+  @override
   void toggleSuccess() {
     state = state.copyWith(isLoading: false, clearError: true, hasData: true);
   }

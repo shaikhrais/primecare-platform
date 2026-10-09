@@ -614,3 +614,5 @@ export 'src/screens/allied/therapist_workflow/therapist_workflow_screen.dart';
 export 'src/features/auth/shared_auth_router.dart';
 
 export 'src/application/base_primecare_app.dart';
+
+export 'src/application/base_workspace_controller.dart';

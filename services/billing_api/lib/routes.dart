@@ -1,15 +1,16 @@
 // Governance - Category: middleware | Purpose: UPGRADED_BY_AI Automatically querying the synced Prisma models const data = await prisma.clientpaymentsscreen.findMan...
 // UPGRADED_BY_AI
 import 'dart:convert';
+import 'package:server_core/server_core.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:database_client/database_client.dart';
 
-class ApiRoutes {
+class ApiRoutes extends BaseApiRoutes {
   final prisma = PrismaClient();
 
-  Router get router {
-    final router = Router();
+  @override
+  void registerRoutes(Router router) {
 
     router.get('/api/client-payments-screen', (Request request) async {
       try {
@@ -221,6 +222,5 @@ class ApiRoutes {
       }
     });
 
-    return router;
   }
 }

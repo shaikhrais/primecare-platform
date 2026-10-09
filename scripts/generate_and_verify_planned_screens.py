@@ -10,19 +10,16 @@ UI_ENTRY_PATH = os.path.join(PROJECT_ROOT, "packages", "primecare_ui", "lib", "p
 
 TEMPLATE = """// Governance - Category: view | Purpose: UI Screen component rendering the {screen_name} workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_models/primecare_models.dart';
 
 // --- MVC State Model ---
-class {state_class} {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
+class {state_class} extends BaseLoggedScreenState {
 
   const {state_class}({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
+    required super.isLoading,
+    super.error,
+    required super.title,
+    required super.logs,
   });
 
   {state_class} copyWith({

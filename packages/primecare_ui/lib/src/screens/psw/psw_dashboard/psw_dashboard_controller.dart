@@ -1,14 +1,10 @@
+import 'package:primecare_models/primecare_models.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/flutter_core.dart' as core;
 
 // --- MVC State Model ---
-class PswDashboardScreenState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-  final bool hasData;
+class PswDashboardScreenState extends BaseWorkspaceState<PswDashboardScreenState> {
   final bool isShiftActive;
   final List<core.PswClient> clients;
   final List<core.PswTask> tasks;
@@ -16,11 +12,11 @@ class PswDashboardScreenState {
   final double shiftProgress;
 
   const PswDashboardScreenState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-    required this.hasData,
+    required super.isLoading,
+    super.error,
+    required super.title,
+    required super.logs,
+    required super.hasData,
     required this.isShiftActive,
     required this.clients,
     required this.tasks,
@@ -28,6 +24,7 @@ class PswDashboardScreenState {
     required this.shiftProgress,
   });
 
+  @override
   PswDashboardScreenState copyWith({
     bool? isLoading,
     String? error,
@@ -53,10 +50,15 @@ class PswDashboardScreenState {
       shiftProgress: shiftProgress ?? this.shiftProgress,
     );
   }
+
+  @override
+  PswDashboardScreenState rebuild({required bool isLoading, required String? error,
+    required String title, required List<String> logs, required bool hasData}) =>
+      copyWith(isLoading: isLoading, error: error, title: title, logs: logs, hasData: hasData);
 }
 
 // --- Controller (Notifier) ---
-class PswDashboardScreenController extends StateNotifier<PswDashboardScreenState> {
+class PswDashboardScreenController extends BaseWorkspaceController<PswDashboardScreenState> {
   final Ref ref;
 
   PswDashboardScreenController(this.ref)
@@ -83,9 +85,7 @@ class PswDashboardScreenController extends StateNotifier<PswDashboardScreenState
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
+
 
   void toggleShift() {
     final nextState = !state.isShiftActive;

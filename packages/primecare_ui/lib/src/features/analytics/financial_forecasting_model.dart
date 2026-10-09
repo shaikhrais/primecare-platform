@@ -1,3 +1,4 @@
+import 'package:primecare_models/primecare_models.dart';
 import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=financial_forecasting_model
@@ -20,40 +21,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class FinancialForecastingModelScreenState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-  final bool hasData;
+class FinancialForecastingModelScreenState extends BaseWorkspaceState<FinancialForecastingModelScreenState> {
 
   const FinancialForecastingModelScreenState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-    required this.hasData,
+    required super.isLoading,
+    super.error,
+    required super.title,
+    required super.logs,
+    required super.hasData,
   });
 
-  FinancialForecastingModelScreenState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-    bool? hasData,
-  }) {
-    return FinancialForecastingModelScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-      hasData: hasData ?? this.hasData,
-    );
-  }
+
+  @override
+  FinancialForecastingModelScreenState rebuild({required bool isLoading, required String? error,
+    required String title, required List<String> logs, required bool hasData}) =>
+      FinancialForecastingModelScreenState(isLoading: isLoading, error: error, title: title, logs: logs, hasData: hasData);
 }
 
 // --- Controller (Notifier) ---
-class FinancialForecastingModelScreenController extends StateNotifier<FinancialForecastingModelScreenState> {
+class FinancialForecastingModelScreenController extends BaseWorkspaceController<FinancialForecastingModelScreenState> {
   final Ref ref;
 
   FinancialForecastingModelScreenController(this.ref)
@@ -75,25 +61,15 @@ class FinancialForecastingModelScreenController extends StateNotifier<FinancialF
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);
