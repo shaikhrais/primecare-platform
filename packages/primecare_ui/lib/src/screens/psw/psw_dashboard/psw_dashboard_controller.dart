@@ -58,7 +58,7 @@ class PswDashboardScreenState extends BaseWorkspaceState<PswDashboardScreenState
 }
 
 // --- Controller (Notifier) ---
-class PswDashboardScreenController extends StateNotifier<PswDashboardScreenState> {
+class PswDashboardScreenController extends BaseWorkspaceController<PswDashboardScreenState> {
   final Ref ref;
 
   PswDashboardScreenController(this.ref)
@@ -85,9 +85,7 @@ class PswDashboardScreenController extends StateNotifier<PswDashboardScreenState
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
+
 
   void toggleShift() {
     final nextState = !state.isShiftActive;

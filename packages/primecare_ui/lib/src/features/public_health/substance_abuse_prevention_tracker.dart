@@ -39,7 +39,7 @@ class SubstanceAbusePreventionTrackerScreenState extends BaseWorkspaceState<Subs
 }
 
 // --- Controller (Notifier) ---
-class SubstanceAbusePreventionTrackerScreenController extends StateNotifier<SubstanceAbusePreventionTrackerScreenState> {
+class SubstanceAbusePreventionTrackerScreenController extends BaseWorkspaceController<SubstanceAbusePreventionTrackerScreenState> {
   final Ref ref;
 
   SubstanceAbusePreventionTrackerScreenController(this.ref)
@@ -61,25 +61,15 @@ class SubstanceAbusePreventionTrackerScreenController extends StateNotifier<Subs
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

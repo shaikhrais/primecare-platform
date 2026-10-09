@@ -39,7 +39,7 @@ class VendorRiskAssessorScreenState extends BaseWorkspaceState<VendorRiskAssesso
 }
 
 // --- Controller (Notifier) ---
-class VendorRiskAssessorScreenController extends StateNotifier<VendorRiskAssessorScreenState> {
+class VendorRiskAssessorScreenController extends BaseWorkspaceController<VendorRiskAssessorScreenState> {
   final Ref ref;
 
   VendorRiskAssessorScreenController(this.ref)
@@ -61,25 +61,15 @@ class VendorRiskAssessorScreenController extends StateNotifier<VendorRiskAssesso
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

@@ -45,6 +45,29 @@ def convert_block(name,block):
 '''.replace('NAME',name).replace('FACTORY',factory)
     return s[:-1]+rebuild+'}',common
 
+METHODS={
+    'addLog': 'void addLog(String entry) { state = state.copyWith(logs: [...state.logs, entry]); }',
+    'toggleLoading': 'void toggleLoading() { state = state.copyWith(isLoading: true, error: null); }',
+    'toggleError': 'void toggleError(String msg) { state = state.copyWith(isLoading: false, error: msg, hasData: false); }',
+    'toggleEmpty': 'void toggleEmpty() { state = state.copyWith(isLoading: false, error: null, hasData: false); }',
+    'toggleSuccess': 'void toggleSuccess() { state = state.copyWith(isLoading: false, error: null, hasData: true); }',
+}
+def convert_controller(source,name):
+    match=re.search(r'class (\w+) extends StateNotifier<'+re.escape(name)+r'> \{',source)
+    assert match,'Missing inline controller for '+name
+    start=match.start();end=source.find('// --- Provider',start)
+    assert end>start,'Missing provider boundary'
+    block=source[start:end].replace('extends StateNotifier<'+name+'>','extends BaseWorkspaceController<'+name+'>',1)
+    for method,expected in METHODS.items():
+        m=re.search(r'  void '+method+r'\([^)]*\) \{[^}]*\}',block)
+        if not m:continue
+        if compact(m[0])==compact(expected):
+            block=block[:m.start()]+block[m.end():]
+        else:
+            assert 'clearError: true' in m[0],'Unknown custom controller transition'
+            block=block[:m.start()]+'  @override\n'+block[m.start():]
+    return source[:start]+block+source[end:]
+
 def convert(source):
     matches=list(states(source));details=[]
     for name,start,end,block in reversed(matches):
@@ -53,4 +76,5 @@ def convert(source):
         details.append({'class':name,'customCopyWith':not common})
     if matches:
         source="import 'package:primecare_models/primecare_models.dart';\n"+source
+        for name,_,_,_ in matches: source=convert_controller(source,name)
     return source,list(reversed(details))

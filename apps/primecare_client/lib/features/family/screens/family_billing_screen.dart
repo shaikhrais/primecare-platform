@@ -38,7 +38,7 @@ class FamilyBillingScreenState extends BaseWorkspaceState<FamilyBillingScreenSta
 }
 
 // --- Controller (Notifier) ---
-class FamilyBillingScreenController extends StateNotifier<FamilyBillingScreenState> {
+class FamilyBillingScreenController extends BaseWorkspaceController<FamilyBillingScreenState> {
   final Ref ref;
 
   FamilyBillingScreenController(this.ref)
@@ -60,25 +60,15 @@ class FamilyBillingScreenController extends StateNotifier<FamilyBillingScreenSta
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

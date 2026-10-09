@@ -57,7 +57,7 @@ class PswNotificationsScreenState extends BaseWorkspaceState<PswNotificationsScr
 }
 
 // --- Controller (Notifier) ---
-class PswNotificationsScreenController extends StateNotifier<PswNotificationsScreenState> {
+class PswNotificationsScreenController extends BaseWorkspaceController<PswNotificationsScreenState> {
   final Ref ref;
 
   PswNotificationsScreenController(this.ref)
@@ -79,22 +79,18 @@ class PswNotificationsScreenController extends StateNotifier<PswNotificationsScr
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
+
+
+
+  @override
   void toggleEmpty() {
     state = state.copyWith(isLoading: false, clearError: true, hasData: false);
   }
 
+  @override
   void toggleSuccess() {
     state = state.copyWith(isLoading: false, clearError: true, hasData: true);
   }

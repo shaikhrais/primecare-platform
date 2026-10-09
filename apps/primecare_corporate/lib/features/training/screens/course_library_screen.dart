@@ -38,7 +38,7 @@ class CourseLibraryScreenState extends BaseWorkspaceState<CourseLibraryScreenSta
 }
 
 // --- Controller (Notifier) ---
-class CourseLibraryScreenController extends StateNotifier<CourseLibraryScreenState> {
+class CourseLibraryScreenController extends BaseWorkspaceController<CourseLibraryScreenState> {
   final Ref ref;
 
   CourseLibraryScreenController(this.ref)
@@ -60,25 +60,15 @@ class CourseLibraryScreenController extends StateNotifier<CourseLibraryScreenSta
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

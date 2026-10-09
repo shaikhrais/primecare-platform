@@ -39,7 +39,7 @@ class SuccessProfileScreenState extends BaseWorkspaceState<SuccessProfileScreenS
 }
 
 // --- Controller (Notifier) ---
-class SuccessProfileScreenController extends StateNotifier<SuccessProfileScreenState> {
+class SuccessProfileScreenController extends BaseWorkspaceController<SuccessProfileScreenState> {
   final Ref ref;
 
   SuccessProfileScreenController(this.ref)
@@ -61,25 +61,15 @@ class SuccessProfileScreenController extends StateNotifier<SuccessProfileScreenS
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

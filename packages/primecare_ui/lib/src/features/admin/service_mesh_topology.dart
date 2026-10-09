@@ -39,7 +39,7 @@ class ServiceMeshTopologyScreenState extends BaseWorkspaceState<ServiceMeshTopol
 }
 
 // --- Controller (Notifier) ---
-class ServiceMeshTopologyScreenController extends StateNotifier<ServiceMeshTopologyScreenState> {
+class ServiceMeshTopologyScreenController extends BaseWorkspaceController<ServiceMeshTopologyScreenState> {
   final Ref ref;
 
   ServiceMeshTopologyScreenController(this.ref)
@@ -61,25 +61,15 @@ class ServiceMeshTopologyScreenController extends StateNotifier<ServiceMeshTopol
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

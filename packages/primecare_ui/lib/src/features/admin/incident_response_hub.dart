@@ -39,7 +39,7 @@ class IncidentResponseHubScreenState extends BaseWorkspaceState<IncidentResponse
 }
 
 // --- Controller (Notifier) ---
-class IncidentResponseHubScreenController extends StateNotifier<IncidentResponseHubScreenState> {
+class IncidentResponseHubScreenController extends BaseWorkspaceController<IncidentResponseHubScreenState> {
   final Ref ref;
 
   IncidentResponseHubScreenController(this.ref)
@@ -61,25 +61,15 @@ class IncidentResponseHubScreenController extends StateNotifier<IncidentResponse
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

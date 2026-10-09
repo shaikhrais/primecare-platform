@@ -38,7 +38,7 @@ class TrainingDirectorCertificatesScreenState extends BaseWorkspaceState<Trainin
 }
 
 // --- Controller (Notifier) ---
-class TrainingDirectorCertificatesScreenController extends StateNotifier<TrainingDirectorCertificatesScreenState> {
+class TrainingDirectorCertificatesScreenController extends BaseWorkspaceController<TrainingDirectorCertificatesScreenState> {
   final Ref ref;
 
   TrainingDirectorCertificatesScreenController(this.ref)
@@ -60,25 +60,15 @@ class TrainingDirectorCertificatesScreenController extends StateNotifier<Trainin
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

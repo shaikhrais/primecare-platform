@@ -39,7 +39,7 @@ class GrantFundingAllocationScreenState extends BaseWorkspaceState<GrantFundingA
 }
 
 // --- Controller (Notifier) ---
-class GrantFundingAllocationScreenController extends StateNotifier<GrantFundingAllocationScreenState> {
+class GrantFundingAllocationScreenController extends BaseWorkspaceController<GrantFundingAllocationScreenState> {
   final Ref ref;
 
   GrantFundingAllocationScreenController(this.ref)
@@ -61,25 +61,15 @@ class GrantFundingAllocationScreenController extends StateNotifier<GrantFundingA
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

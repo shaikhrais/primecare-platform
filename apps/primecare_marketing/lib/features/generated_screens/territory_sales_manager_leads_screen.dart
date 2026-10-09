@@ -38,7 +38,7 @@ class TerritorySalesManagerLeadsScreenState extends BaseWorkspaceState<Territory
 }
 
 // --- Controller (Notifier) ---
-class TerritorySalesManagerLeadsScreenController extends StateNotifier<TerritorySalesManagerLeadsScreenState> {
+class TerritorySalesManagerLeadsScreenController extends BaseWorkspaceController<TerritorySalesManagerLeadsScreenState> {
   final Ref ref;
 
   TerritorySalesManagerLeadsScreenController(this.ref)
@@ -60,25 +60,15 @@ class TerritorySalesManagerLeadsScreenController extends StateNotifier<Territory
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

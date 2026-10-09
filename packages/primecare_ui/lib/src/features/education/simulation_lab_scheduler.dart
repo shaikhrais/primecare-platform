@@ -39,7 +39,7 @@ class SimulationLabSchedulerScreenState extends BaseWorkspaceState<SimulationLab
 }
 
 // --- Controller (Notifier) ---
-class SimulationLabSchedulerScreenController extends StateNotifier<SimulationLabSchedulerScreenState> {
+class SimulationLabSchedulerScreenController extends BaseWorkspaceController<SimulationLabSchedulerScreenState> {
   final Ref ref;
 
   SimulationLabSchedulerScreenController(this.ref)
@@ -61,25 +61,15 @@ class SimulationLabSchedulerScreenController extends StateNotifier<SimulationLab
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

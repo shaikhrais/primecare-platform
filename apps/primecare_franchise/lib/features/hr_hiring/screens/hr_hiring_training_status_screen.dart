@@ -38,7 +38,7 @@ class HrHiringTrainingStatusScreenState extends BaseWorkspaceState<HrHiringTrain
 }
 
 // --- Controller (Notifier) ---
-class HrHiringTrainingStatusScreenController extends StateNotifier<HrHiringTrainingStatusScreenState> {
+class HrHiringTrainingStatusScreenController extends BaseWorkspaceController<HrHiringTrainingStatusScreenState> {
   final Ref ref;
 
   HrHiringTrainingStatusScreenController(this.ref)
@@ -60,25 +60,15 @@ class HrHiringTrainingStatusScreenController extends StateNotifier<HrHiringTrain
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

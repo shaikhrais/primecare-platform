@@ -38,7 +38,7 @@ class FranchiseSalesManagerLeadsScreenState extends BaseWorkspaceState<Franchise
 }
 
 // --- Controller (Notifier) ---
-class FranchiseSalesManagerLeadsScreenController extends StateNotifier<FranchiseSalesManagerLeadsScreenState> {
+class FranchiseSalesManagerLeadsScreenController extends BaseWorkspaceController<FranchiseSalesManagerLeadsScreenState> {
   final Ref ref;
 
   FranchiseSalesManagerLeadsScreenController(this.ref)
@@ -60,25 +60,15 @@ class FranchiseSalesManagerLeadsScreenController extends StateNotifier<Franchise
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

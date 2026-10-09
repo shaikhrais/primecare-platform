@@ -38,7 +38,7 @@ class TrainingReportsScreenState extends BaseWorkspaceState<TrainingReportsScree
 }
 
 // --- Controller (Notifier) ---
-class TrainingReportsScreenController extends StateNotifier<TrainingReportsScreenState> {
+class TrainingReportsScreenController extends BaseWorkspaceController<TrainingReportsScreenState> {
   final Ref ref;
 
   TrainingReportsScreenController(this.ref)
@@ -60,25 +60,15 @@ class TrainingReportsScreenController extends StateNotifier<TrainingReportsScree
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

@@ -38,7 +38,7 @@ class LocalMarketingManagerCampaignsScreenState extends BaseWorkspaceState<Local
 }
 
 // --- Controller (Notifier) ---
-class LocalMarketingManagerCampaignsScreenController extends StateNotifier<LocalMarketingManagerCampaignsScreenState> {
+class LocalMarketingManagerCampaignsScreenController extends BaseWorkspaceController<LocalMarketingManagerCampaignsScreenState> {
   final Ref ref;
 
   LocalMarketingManagerCampaignsScreenController(this.ref)
@@ -60,25 +60,15 @@ class LocalMarketingManagerCampaignsScreenController extends StateNotifier<Local
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

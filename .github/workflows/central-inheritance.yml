@@ -5,6 +5,7 @@ on:
       - 'packages/primecare_ui/lib/src/application/**'
       - 'packages/primecare_ui/lib/primecare_ui.dart'
       - 'packages/primecare_ui/test/base_primecare_app_test.dart'
+      - 'packages/primecare_ui/test/base_workspace_controller_test.dart'
       - 'apps/*/lib/main.dart'
       - 'scripts/check-app-shell-inheritance.py'
       - 'packages/flutter_core/lib/business_core.dart'
@@ -90,8 +91,8 @@ jobs:
         working-directory: packages/primecare_ui
         run: |
           flutter pub get
-          flutter analyze lib/src/application test/base_primecare_app_test.dart
-          flutter test test/base_primecare_app_test.dart
+          flutter analyze lib/src/application test/base_primecare_app_test.dart test/base_workspace_controller_test.dart
+          flutter test test/base_primecare_app_test.dart test/base_workspace_controller_test.dart
       - name: Verify business, repository, model and permission parents
         working-directory: packages/flutter_core
         run: |

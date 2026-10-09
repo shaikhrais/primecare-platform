@@ -39,7 +39,7 @@ class VirtualWaitingRoomScreenState extends BaseWorkspaceState<VirtualWaitingRoo
 }
 
 // --- Controller (Notifier) ---
-class VirtualWaitingRoomScreenController extends StateNotifier<VirtualWaitingRoomScreenState> {
+class VirtualWaitingRoomScreenController extends BaseWorkspaceController<VirtualWaitingRoomScreenState> {
   final Ref ref;
 
   VirtualWaitingRoomScreenController(this.ref)
@@ -61,25 +61,15 @@ class VirtualWaitingRoomScreenController extends StateNotifier<VirtualWaitingRoo
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

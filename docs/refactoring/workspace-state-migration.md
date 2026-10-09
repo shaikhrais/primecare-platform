@@ -13,10 +13,13 @@ BaseWorkspaceState derives from that storage parent and adds hasData.
 The verification harness compiles all 404 migrated classes together with their
 pinned original implementations. It compares copy behavior, subtype return
 values, unchanged log identity, null-as-unchanged semantics, explicit error
-clearing, and retained PSW fields. Whole-file comparison checks that widget and
-controller code outside the state block remains byte-identical.
+clearing, and retained PSW fields. Whole-file comparison checks that code outside the migrated state and exact
+shared controller methods remains byte-identical. All 404 inline controllers
+inherit BaseWorkspaceController. Existing API calls and custom methods stay
+with each child; matching log/loading/error/empty/success methods are shared.
+The notifications controller retains its custom explicit error-clearing methods.
 
-This pass changes state structure only. Embedded screen controllers, API
+This pass changes state structure only. API calls, API
 fallbacks, UI layout, and unfinished workflows are unchanged. Other existing
 state shapes retain their own implementation. Domain models, screen state,
 Flutter controllers, and server routing each have a separate shared parent;

@@ -38,7 +38,7 @@ class ClinicalDirectorQualityMetricsScreenState extends BaseWorkspaceState<Clini
 }
 
 // --- Controller (Notifier) ---
-class ClinicalDirectorQualityMetricsScreenController extends StateNotifier<ClinicalDirectorQualityMetricsScreenState> {
+class ClinicalDirectorQualityMetricsScreenController extends BaseWorkspaceController<ClinicalDirectorQualityMetricsScreenState> {
   final Ref ref;
 
   ClinicalDirectorQualityMetricsScreenController(this.ref)
@@ -60,25 +60,15 @@ class ClinicalDirectorQualityMetricsScreenController extends StateNotifier<Clini
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

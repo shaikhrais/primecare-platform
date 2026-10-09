@@ -39,7 +39,7 @@ class PublicHealthAlertBroadcasterScreenState extends BaseWorkspaceState<PublicH
 }
 
 // --- Controller (Notifier) ---
-class PublicHealthAlertBroadcasterScreenController extends StateNotifier<PublicHealthAlertBroadcasterScreenState> {
+class PublicHealthAlertBroadcasterScreenController extends BaseWorkspaceController<PublicHealthAlertBroadcasterScreenState> {
   final Ref ref;
 
   PublicHealthAlertBroadcasterScreenController(this.ref)
@@ -61,25 +61,15 @@ class PublicHealthAlertBroadcasterScreenController extends StateNotifier<PublicH
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

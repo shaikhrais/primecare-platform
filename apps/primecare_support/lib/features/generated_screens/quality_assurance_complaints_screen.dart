@@ -38,7 +38,7 @@ class QualityAssuranceComplaintsScreenState extends BaseWorkspaceState<QualityAs
 }
 
 // --- Controller (Notifier) ---
-class QualityAssuranceComplaintsScreenController extends StateNotifier<QualityAssuranceComplaintsScreenState> {
+class QualityAssuranceComplaintsScreenController extends BaseWorkspaceController<QualityAssuranceComplaintsScreenState> {
   final Ref ref;
 
   QualityAssuranceComplaintsScreenController(this.ref)
@@ -60,25 +60,15 @@ class QualityAssuranceComplaintsScreenController extends StateNotifier<QualityAs
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

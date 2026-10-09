@@ -39,7 +39,7 @@ class RoleAccessMatrixScreenState extends BaseWorkspaceState<RoleAccessMatrixScr
 }
 
 // --- Controller (Notifier) ---
-class RoleAccessMatrixScreenController extends StateNotifier<RoleAccessMatrixScreenState> {
+class RoleAccessMatrixScreenController extends BaseWorkspaceController<RoleAccessMatrixScreenState> {
   final Ref ref;
 
   RoleAccessMatrixScreenController(this.ref)
@@ -61,25 +61,15 @@ class RoleAccessMatrixScreenController extends StateNotifier<RoleAccessMatrixScr
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);

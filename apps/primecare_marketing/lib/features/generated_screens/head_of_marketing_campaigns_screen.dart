@@ -38,7 +38,7 @@ class HeadOfMarketingCampaignsScreenState extends BaseWorkspaceState<HeadOfMarke
 }
 
 // --- Controller (Notifier) ---
-class HeadOfMarketingCampaignsScreenController extends StateNotifier<HeadOfMarketingCampaignsScreenState> {
+class HeadOfMarketingCampaignsScreenController extends BaseWorkspaceController<HeadOfMarketingCampaignsScreenState> {
   final Ref ref;
 
   HeadOfMarketingCampaignsScreenController(this.ref)
@@ -60,25 +60,15 @@ class HeadOfMarketingCampaignsScreenController extends StateNotifier<HeadOfMarke
     await refreshData();
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
 
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
 
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
 
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
 
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
+
+
+
+
+
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);
