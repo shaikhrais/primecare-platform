@@ -1,35 +1,10 @@
+import 'package:primecare_models/src/models/patient_charting_screen_state.dart';
+export 'package:primecare_models/src/models/patient_charting_screen_state.dart' show PatientChartingState;
 import 'package:flutter_riverpod/legacy.dart';
 // Governance - Category: view | Purpose: UI Screen component rendering the PatientChartingScreen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class PatientChartingState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-
-  const PatientChartingState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-  });
-
-  PatientChartingState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-  }) {
-    return PatientChartingState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-    );
-  }
-}
 
 // --- Controller (Notifier) ---
 class PatientChartingController extends StateNotifier<PatientChartingState> {

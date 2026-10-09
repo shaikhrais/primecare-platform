@@ -28,6 +28,8 @@ on:
       - 'packages/server_core/**'
       - 'services/**/bin/server.dart'
       - 'services/**/lib/routes.dart'
+      - 'services/governance_api/lib/src/routes/governance_routes.dart'
+      - 'services/governance_api/test/governance_route_skeleton_test.dart'
       - 'scripts/check-api-route-inheritance.py'
       - 'docs/refactoring/api-route-migration.*'
       - 'services/**/pubspec.yaml'
@@ -87,6 +89,9 @@ jobs:
               (cd "$service" && dart pub get && dart analyze bin/server.dart)
             fi
           done
+      - name: Verify governance static route compatibility
+        working-directory: services/governance_api
+        run: dart test test/governance_route_skeleton_test.dart
       - name: Verify shared Flutter application shell
         working-directory: packages/primecare_ui
         run: |

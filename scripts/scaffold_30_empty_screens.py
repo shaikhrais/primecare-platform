@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from refactor_custom_screen_states import write_screen_model
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(PROJECT_ROOT, ".agents", "governance", "governance.db")
@@ -289,8 +290,7 @@ def main():
         
         # Write to physical file
         os.makedirs(os.path.dirname(abs_path), exist_ok=True)
-        with open(abs_path, 'w', encoding='utf-8') as f:
-            f.write(code)
+        write_screen_model(PROJECT_ROOT, abs_path, code, class_name + "State")
             
         scaffolded_count += 1
         print(f"  Scaffolded physical file: {rel_path} -> Class: {class_name}")
