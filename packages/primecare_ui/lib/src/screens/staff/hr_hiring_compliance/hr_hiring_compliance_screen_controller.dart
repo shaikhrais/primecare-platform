@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HrHiringComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class HrHiringComplianceScreenState
+    extends DashboardState<HrHiringComplianceScreenState> {
+  HrHiringComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  HrHiringComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  HrHiringComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return HrHiringComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  HrHiringComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => HrHiringComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class HrHiringComplianceScreenController extends StateNotifier<HrHiringComplianceScreenState> {
-  final Ref ref;
-  HrHiringComplianceScreenController(this.ref) : super(HrHiringComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/hr-hiring-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class HrHiringComplianceScreenController
+    extends BaseDashboardController<HrHiringComplianceScreenState> {
+  HrHiringComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: HrHiringComplianceScreenState(isLoading: true, data: {}),
+        endpoint: '/staff/hr-hiring-compliance',
+      );
 }
 
-final hr_hiring_complianceControllerProvider = StateNotifierProvider<HrHiringComplianceScreenController, HrHiringComplianceScreenState>((ref) {
-  return HrHiringComplianceScreenController(ref);
-});
+final hr_hiring_complianceControllerProvider =
+    StateNotifierProvider<
+      HrHiringComplianceScreenController,
+      HrHiringComplianceScreenState
+    >((ref) {
+      return HrHiringComplianceScreenController(ref);
+    });

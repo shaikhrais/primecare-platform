@@ -24,6 +24,8 @@ class GovernanceRouter {
     GoRouterRedirect? redirect,
     GoRouterWidgetBuilder? guestErrorBuilder,
     List<GoRoute> publicRoutes = const [],
+    GoRouterWidgetBuilder? governedScreenBuilder,
+    List<String> additionalGovernedRoutes = const [],
   }) {
     // 0. Register all screens of the application in GovernanceRegistry for domain integrity tracking
     for (final module in application.modules) {
@@ -46,13 +48,18 @@ class GovernanceRouter {
           authorizedRoutes.add(
             GoRoute(
               path: screen.route,
-              builder: (context, state) => screen.build(context),
+              builder: governedScreenBuilder ?? ((context, state) => screen.build(context)),
             ),
           );
         }
       }
     }
 
+    for (final path in additionalGovernedRoutes) {
+      if (!authorizedRoutes.any((route) => route.path == path) && governedScreenBuilder != null) {
+        authorizedRoutes.add(GoRoute(path: path, builder: governedScreenBuilder));
+      }
+    }
     if (authorizedRoutes.isEmpty) {
       final fallbackPath = (initialLocation == CommonRoutes.login ||
                              initialLocation == CommonRoutes.authCallback ||

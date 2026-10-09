@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PartnershipManagerComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class PartnershipManagerComplianceScreenState
+    extends DashboardState<PartnershipManagerComplianceScreenState> {
+  PartnershipManagerComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  PartnershipManagerComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  PartnershipManagerComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return PartnershipManagerComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  PartnershipManagerComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => PartnershipManagerComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class PartnershipManagerComplianceScreenController extends StateNotifier<PartnershipManagerComplianceScreenState> {
-  final Ref ref;
-  PartnershipManagerComplianceScreenController(this.ref) : super(PartnershipManagerComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/partnership-manager-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class PartnershipManagerComplianceScreenController
+    extends BaseDashboardController<PartnershipManagerComplianceScreenState> {
+  PartnershipManagerComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: PartnershipManagerComplianceScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/management/partnership-manager-compliance',
+      );
 }
 
-final partnership_manager_complianceControllerProvider = StateNotifierProvider<PartnershipManagerComplianceScreenController, PartnershipManagerComplianceScreenState>((ref) {
-  return PartnershipManagerComplianceScreenController(ref);
-});
+final partnership_manager_complianceControllerProvider =
+    StateNotifierProvider<
+      PartnershipManagerComplianceScreenController,
+      PartnershipManagerComplianceScreenState
+    >((ref) {
+      return PartnershipManagerComplianceScreenController(ref);
+    });

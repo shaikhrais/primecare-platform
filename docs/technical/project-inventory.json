@@ -1,0 +1,372 @@
+{
+  "sourceCommit": "3979ed1028c8b7dfdb9acca72b1ea53d4d034127",
+  "countingRule": "Directory existence is not executable readiness, deployment, or authority.",
+  "projects": [
+    {
+      "path": "apps/primecare_business_development",
+      "tree": "8ae0e360a465181e0a165bf08b6bfc6e549a1521",
+      "manifests": [
+        {
+          "path": "apps/primecare_business_development/pubspec.yaml",
+          "blob": "44df3f338909cd92ddf7d7486e232d3abecbba64"
+        },
+        {
+          "path": "apps/primecare_business_development/wrangler.toml",
+          "blob": "e6862bf9c50ed1b0dd0de8246ba8b1a23dd0f1ef"
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client",
+      "tree": "ece68ca72811809d9249299fa3da4c3f550fa70c",
+      "manifests": [
+        {
+          "path": "apps/primecare_client/pubspec.yaml",
+          "blob": "16fd03fc9eedc56e2b19d3a37ace2e95500d19e6"
+        },
+        {
+          "path": "apps/primecare_client/wrangler.toml",
+          "blob": "d9484ec7e6a9a47afa13f68b54c78847f2927bce"
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic",
+      "tree": "3fbef45c7f1bd9793bc11501d616c28ea40581cd",
+      "manifests": [
+        {
+          "path": "apps/primecare_clinic/pubspec.yaml",
+          "blob": "bdb30c12aa03c365636b8eb9b542292adbc8949c"
+        },
+        {
+          "path": "apps/primecare_clinic/wrangler.toml",
+          "blob": "6c0677e8b1d618ebd958864f0a00d668daadf32b"
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate",
+      "tree": "4d546f598fa5cbcfb9c55cf856438e52b69dfab3",
+      "manifests": [
+        {
+          "path": "apps/primecare_corporate/pubspec.yaml",
+          "blob": "181bc00745eae179093b3a1ea406e50d67b17e8a"
+        },
+        {
+          "path": "apps/primecare_corporate/wrangler.toml",
+          "blob": "44b2d96a374b4fa54412f33027fb90ddb71ec59e"
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_enterprise_blueprint",
+      "tree": "76bb3df00145d55b6be6b1a2cdf68c8ce8312483",
+      "manifests": [
+        {
+          "path": "apps/primecare_enterprise_blueprint/pubspec.yaml",
+          "blob": "69837424efd220d41786dcaf9ecebca99a839a67"
+        },
+        {
+          "path": "apps/primecare_enterprise_blueprint/wrangler.toml",
+          "blob": "dabc79a2d9a3d8389c8a5e0dc4de7707c4521fae"
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise",
+      "tree": "edd4e5a64bd78dc356930627ee6ea3e3a35e36d3",
+      "manifests": [
+        {
+          "path": "apps/primecare_franchise/pubspec.yaml",
+          "blob": "5c62f3332753c8f5288c5d8d0a44f5c06f87d42c"
+        },
+        {
+          "path": "apps/primecare_franchise/wrangler.toml",
+          "blob": "a530610f4bacea9de20931d0cabc3719d86bed45"
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance",
+      "tree": "cd4239fe0af69086b74c04e7757bc3d716073087",
+      "manifests": [
+        {
+          "path": "apps/primecare_governance/pubspec.yaml",
+          "blob": "195c9477075103e71680c140c5cbe06df53da30d"
+        },
+        {
+          "path": "apps/primecare_governance/wrangler.toml",
+          "blob": "b38e27803a083e585d5ccd5d6f59c42afc3126c9"
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance_worker",
+      "tree": "0f2beffa6224ae7f2de36ea77660fd0086010f0d",
+      "manifests": [
+        {
+          "path": "apps/primecare_governance_worker/wrangler.toml",
+          "blob": "ddabd8ba92dd5ec63fc54566157bbc72d38eea61"
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing",
+      "tree": "7eccf197122ccb29935005509d65e71812571e3f",
+      "manifests": [
+        {
+          "path": "apps/primecare_marketing/pubspec.yaml",
+          "blob": "6b8fbcdacc8775ff1f5ecad871f1285a8e187583"
+        },
+        {
+          "path": "apps/primecare_marketing/wrangler.toml",
+          "blob": "f9aab1b0b2591b6d0b75651da3c954b28015d8cb"
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support",
+      "tree": "a8111b2a2ee32119716c9d4390f59cf855aec541",
+      "manifests": [
+        {
+          "path": "apps/primecare_support/pubspec.yaml",
+          "blob": "c96d8c13dc12fa48c183a4ff7e96ed9b8b41df42"
+        },
+        {
+          "path": "apps/primecare_support/wrangler.toml",
+          "blob": "e1b9f8a335661593ba4e147bbdc641931f808879"
+        }
+      ]
+    },
+    {
+      "path": "services/api_gateway",
+      "tree": "ce65b02c93840d859e70c7a4a96c594467251911",
+      "manifests": [
+        {
+          "path": "services/api_gateway/pubspec.yaml",
+          "blob": "361dac9f65fb1b1f42d09cf2887b288465e9fade"
+        }
+      ]
+    },
+    {
+      "path": "services/auth_api",
+      "tree": "d0b15de43f9c2b0240e297865ba525cf2268cf86",
+      "manifests": [
+        {
+          "path": "services/auth_api/pubspec.yaml",
+          "blob": "b88a0a51a7427e6854af951842d79a19f9d12eb9"
+        }
+      ]
+    },
+    {
+      "path": "services/billing_api",
+      "tree": "f8d6d808423522b04238520821d0ba2d304f8e84",
+      "manifests": [
+        {
+          "path": "services/billing_api/pubspec.yaml",
+          "blob": "86618da75fbc7711e6a6939db88efb803fb965c7"
+        }
+      ]
+    },
+    {
+      "path": "services/client_api",
+      "tree": "ad0c84ab3bd42e39cca9056d88f8f6e608e51f73",
+      "manifests": [
+        {
+          "path": "services/client_api/pubspec.yaml",
+          "blob": "a4748c85fb3e7ef8b31ef9cb0a9de1b4bd726194"
+        }
+      ]
+    },
+    {
+      "path": "services/compliance_api",
+      "tree": "523f2c35766d292af678cbf7919d062a4c817d41",
+      "manifests": [
+        {
+          "path": "services/compliance_api/pubspec.yaml",
+          "blob": "775ba9822902e8fd63fa995cfe3d193f661f1cc7"
+        }
+      ]
+    },
+    {
+      "path": "services/franchise_reporting_api",
+      "tree": "394a6b9f4cd62e0e9d018f593d8d7e8e564ba44b",
+      "manifests": [
+        {
+          "path": "services/franchise_reporting_api/pubspec.yaml",
+          "blob": "218319e549cf613eadb14bda14f221493029bdb3"
+        }
+      ]
+    },
+    {
+      "path": "services/governance_api",
+      "tree": "25730d13144ab027629d7db5af7103f5a4bbc2e2",
+      "manifests": [
+        {
+          "path": "services/governance_api/pubspec.yaml",
+          "blob": "5049a6b9c5fa9f0631c7cb362c2b08d983ba6bde"
+        }
+      ]
+    },
+    {
+      "path": "services/notes_api",
+      "tree": "be202e2585a55a2db3033d40ff180a1b181451e1",
+      "manifests": [
+        {
+          "path": "services/notes_api/pubspec.yaml",
+          "blob": "e749af0ce499bad76080ec6fa3ade35caa36a86a"
+        }
+      ]
+    },
+    {
+      "path": "services/notification_api",
+      "tree": "84166dd888d7fb39ed2bf2e64852a8e41de3e5d3",
+      "manifests": [
+        {
+          "path": "services/notification_api/pubspec.yaml",
+          "blob": "b5dab6a8e0faf5ac2be100d8aa1ffd7f0cc90618"
+        }
+      ]
+    },
+    {
+      "path": "services/provider_api",
+      "tree": "689d95801f8a21f8d5509d83266c1599ddd28c2f",
+      "manifests": [
+        {
+          "path": "services/provider_api/pubspec.yaml",
+          "blob": "363e3b7ac6bc787bfdbe97603fae543b1841f382"
+        }
+      ]
+    },
+    {
+      "path": "services/scheduling_api",
+      "tree": "44c4b5df1befd07d35ae1ebc92a20e02fea87dd8",
+      "manifests": [
+        {
+          "path": "services/scheduling_api/pubspec.yaml",
+          "blob": "be24e87bd605e16fda81e48fc982345de7ad63de"
+        }
+      ]
+    },
+    {
+      "path": "services/verification_api",
+      "tree": "43de8247409995af12c1ede96d64bec50253dd99",
+      "manifests": [
+        {
+          "path": "services/verification_api/pubspec.yaml",
+          "blob": "35b42e497caf3a0a584e99b8a3a8ddf233884de8"
+        }
+      ]
+    },
+    {
+      "path": "services/visit_api",
+      "tree": "7a08ce71c54879a118babd7502bd7dc12228f16c",
+      "manifests": [
+        {
+          "path": "services/visit_api/pubspec.yaml",
+          "blob": "ad0502af890245b76ba4ddb648909a16abc25f25"
+        }
+      ]
+    },
+    {
+      "path": "packages/contracts",
+      "tree": "faa1571d69d62505b499a4a96aa13d2a7f07f356",
+      "manifests": [
+        {
+          "path": "packages/contracts/package.json",
+          "blob": "d1e2a20f6d76e5782c7bc405112b67ea6a77c1e5"
+        }
+      ]
+    },
+    {
+      "path": "packages/database",
+      "tree": "66e7035d7ddca7556d0758603d2fd5010efb4d3a",
+      "manifests": [
+        {
+          "path": "packages/database/package.json",
+          "blob": "ea38da5e303ca86d3cae898770f1567626480053"
+        }
+      ]
+    },
+    {
+      "path": "packages/database_client",
+      "tree": "0803a34f2d904830c7a79e267ead75df814dc565",
+      "manifests": [
+        {
+          "path": "packages/database_client/pubspec.yaml",
+          "blob": "55ea268b4f55771d500d69cf90177047c23df6e3"
+        }
+      ]
+    },
+    {
+      "path": "packages/domain",
+      "tree": "f3760038bac250580d2c3e3c7b00d5b81ed61a49",
+      "manifests": [
+        {
+          "path": "packages/domain/package.json",
+          "blob": "0ea620550fdf33e4808c0119f20e1baeb9cb4cc2"
+        }
+      ]
+    },
+    {
+      "path": "packages/factory_system",
+      "tree": "3d34dc8e9c77aeda0e7c21563d21e227985f4bed",
+      "manifests": []
+    },
+    {
+      "path": "packages/flutter_core",
+      "tree": "d3024a25d01ad7fd003d0d2e060a496f91293199",
+      "manifests": [
+        {
+          "path": "packages/flutter_core/pubspec.yaml",
+          "blob": "10ee944b3220dd86e7b61ab08c11a57bb5c53d32"
+        }
+      ]
+    },
+    {
+      "path": "packages/infrastructure",
+      "tree": "83c735a3614f1aba0ad85d72e8d620d42940f637",
+      "manifests": [
+        {
+          "path": "packages/infrastructure/package.json",
+          "blob": "18b281e5b019c4baa517d7fde24b1e78e6fe22c7"
+        }
+      ]
+    },
+    {
+      "path": "packages/messaging",
+      "tree": "60f410b59ee486c44c93720c1997bec94686dc27",
+      "manifests": [
+        {
+          "path": "packages/messaging/package.json",
+          "blob": "903689b603b9b9a968b6fcf3467be517b769888d"
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui",
+      "tree": "de8a99a8c8116a3375defa4e4b1c58f9e417f9b7",
+      "manifests": [
+        {
+          "path": "packages/primecare_ui/pubspec.yaml",
+          "blob": "a368771a28ccc6e246c982cf28ecae0c5d7642fa"
+        }
+      ]
+    },
+    {
+      "path": "packages/security",
+      "tree": "1d87e83d520b4bc8db3e9d1370f5fbd09146ec28",
+      "manifests": [
+        {
+          "path": "packages/security/package.json",
+          "blob": "6210f9a7675bd8c4e927220387ee05866a626808"
+        }
+      ]
+    },
+    {
+      "path": "packages/worker-api",
+      "tree": "56aec2d097617de427ed96233e07c7d19051fef8",
+      "manifests": []
+    }
+  ]
+}

@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HrDirectorStaffFilesScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class HrDirectorStaffFilesScreenState
+    extends DashboardState<HrDirectorStaffFilesScreenState> {
+  HrDirectorStaffFilesScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  HrDirectorStaffFilesScreenState({required this.isLoading, this.error, required this.data});
-
-  HrDirectorStaffFilesScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return HrDirectorStaffFilesScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  HrDirectorStaffFilesScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => HrDirectorStaffFilesScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class HrDirectorStaffFilesScreenController extends StateNotifier<HrDirectorStaffFilesScreenState> {
-  final Ref ref;
-  HrDirectorStaffFilesScreenController(this.ref) : super(HrDirectorStaffFilesScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/hr-director-staff-files');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class HrDirectorStaffFilesScreenController
+    extends BaseDashboardController<HrDirectorStaffFilesScreenState> {
+  HrDirectorStaffFilesScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: HrDirectorStaffFilesScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/executive/hr-director-staff-files',
+      );
 }
 
-final hr_director_staff_filesControllerProvider = StateNotifierProvider<HrDirectorStaffFilesScreenController, HrDirectorStaffFilesScreenState>((ref) {
-  return HrDirectorStaffFilesScreenController(ref);
-});
+final hr_director_staff_filesControllerProvider =
+    StateNotifierProvider<
+      HrDirectorStaffFilesScreenController,
+      HrDirectorStaffFilesScreenState
+    >((ref) {
+      return HrDirectorStaffFilesScreenController(ref);
+    });

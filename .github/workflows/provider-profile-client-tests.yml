@@ -1,0 +1,37 @@
+name: Provider owned profile client tests
+on:
+  pull_request:
+    paths:
+      - 'packages/flutter_core/lib/provider_service.dart'
+      - 'packages/flutter_core/lib/src/network/api_client.dart'
+      - 'packages/flutter_core/test/provider_profile_test.dart'
+      - 'cloudflare/workers/src/provider-self.ts'
+      - '.github/workflows/provider-profile-client-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'packages/flutter_core/lib/provider_service.dart'
+      - 'packages/flutter_core/lib/src/network/api_client.dart'
+      - 'packages/flutter_core/test/provider_profile_test.dart'
+      - 'cloudflare/workers/src/provider-self.ts'
+      - '.github/workflows/provider-profile-client-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  provider-profile-client:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter test test/provider_profile_test.dart test/auth_transport_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter analyze lib/provider_service.dart lib/src/network/api_client.dart test/provider_profile_test.dart
+        working-directory: packages/flutter_core

@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BusinessDevelopmentAnalyticsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class BusinessDevelopmentAnalyticsScreenState
+    extends DashboardState<BusinessDevelopmentAnalyticsScreenState> {
+  BusinessDevelopmentAnalyticsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  BusinessDevelopmentAnalyticsScreenState({required this.isLoading, this.error, required this.data});
-
-  BusinessDevelopmentAnalyticsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return BusinessDevelopmentAnalyticsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  BusinessDevelopmentAnalyticsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => BusinessDevelopmentAnalyticsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class BusinessDevelopmentAnalyticsScreenController extends StateNotifier<BusinessDevelopmentAnalyticsScreenState> {
-  final Ref ref;
-  BusinessDevelopmentAnalyticsScreenController(this.ref) : super(BusinessDevelopmentAnalyticsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/business-development-analytics');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class BusinessDevelopmentAnalyticsScreenController
+    extends BaseDashboardController<BusinessDevelopmentAnalyticsScreenState> {
+  BusinessDevelopmentAnalyticsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: BusinessDevelopmentAnalyticsScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/common/business-development-analytics',
+      );
 }
 
-final business_development_analyticsControllerProvider = StateNotifierProvider<BusinessDevelopmentAnalyticsScreenController, BusinessDevelopmentAnalyticsScreenState>((ref) {
-  return BusinessDevelopmentAnalyticsScreenController(ref);
-});
+final business_development_analyticsControllerProvider =
+    StateNotifierProvider<
+      BusinessDevelopmentAnalyticsScreenController,
+      BusinessDevelopmentAnalyticsScreenState
+    >((ref) {
+      return BusinessDevelopmentAnalyticsScreenController(ref);
+    });

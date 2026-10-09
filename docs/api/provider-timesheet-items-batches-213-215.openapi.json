@@ -1,0 +1,373 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Own Timesheet Item Metadata",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/provider/timesheet-items": {
+      "get": {
+        "operationId": "provider_own_timesheet_items",
+        "summary": "provider own timesheet items",
+        "description": "Active explicit bearer session, matching actor tenant and unique owned provider profile required. Every item query joins timesheets and restricts provider_id and tenant_id to that profile and actor. Foreign or missing item returns 404. Only id, signed stored minutes and created_at are projected. Visit identifiers, patient data, reviewer identities and private columns are excluded. No filters overriding owner, tenant, timesheet or status; no writes. Summary groups by stored parent timesheet status, null last, counting items and summing their signed minutes exactly as strings; pagination totals count groups. Does not establish payroll approval, billability or completed visits. Existing authenticated_provider_profile_owner authority only.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned item metadata or stored status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "items",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "minutes",
+                          "created_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                          },
+                          "minutes": {
+                            "type": "integer",
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100,
+                          "default": 25
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000,
+                          "default": 0
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or identifier"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own provider profile or item absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Schema dependency or data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/timesheet-items/{itemId}": {
+      "get": {
+        "operationId": "provider_own_timesheet_item_detail",
+        "summary": "provider own timesheet item detail",
+        "description": "Active explicit bearer session, matching actor tenant and unique owned provider profile required. Every item query joins timesheets and restricts provider_id and tenant_id to that profile and actor. Foreign or missing item returns 404. Only id, signed stored minutes and created_at are projected. Visit identifiers, patient data, reviewer identities and private columns are excluded. No filters overriding owner, tenant, timesheet or status; no writes. Summary groups by stored parent timesheet status, null last, counting items and summing their signed minutes exactly as strings; pagination totals count groups. Does not establish payroll approval, billability or completed visits. Existing authenticated_provider_profile_owner authority only.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "itemId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned item metadata or stored status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "item"
+                  ],
+                  "properties": {
+                    "item": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "minutes",
+                        "created_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                        },
+                        "minutes": {
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or identifier"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own provider profile or item absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Schema dependency or data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/timesheet-items/summary": {
+      "get": {
+        "operationId": "provider_own_timesheet_item_summary",
+        "summary": "provider own timesheet item summary",
+        "description": "Active explicit bearer session, matching actor tenant and unique owned provider profile required. Every item query joins timesheets and restricts provider_id and tenant_id to that profile and actor. Foreign or missing item returns 404. Only id, signed stored minutes and created_at are projected. Visit identifiers, patient data, reviewer identities and private columns are excluded. No filters overriding owner, tenant, timesheet or status; no writes. Summary groups by stored parent timesheet status, null last, counting items and summing their signed minutes exactly as strings; pagination totals count groups. Does not establish payroll approval, billability or completed visits. Existing authenticated_provider_profile_owner authority only.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned item metadata or stored status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "status",
+                          "count",
+                          "totalMinutes"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 9007199254740991
+                          },
+                          "totalMinutes": {
+                            "type": "string",
+                            "pattern": "^-?\\d+$",
+                            "description": "Exact sum of signed stored item minutes; no payroll or approval inference."
+                          }
+                        }
+                      },
+                      "maxItems": 100
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100,
+                          "default": 25
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000,
+                          "default": 0
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or identifier"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own provider profile or item absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Schema dependency or data unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

@@ -10,6 +10,9 @@ REV = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True)
 REMOTE = 'https://github.com/shaikhrais/primecare-platform'
 
 def source(path, line=1, end=None):
+    lines = (ROOT / path).read_text().splitlines()
+    if not 1 <= line <= len(lines) or end is not None and not line <= end <= len(lines):
+        raise ValueError('Invalid evidence range: ' + str(path))
     item = {'path': str(path), 'line': line}
     if end: item['end_line'] = end
     return item
@@ -138,10 +141,10 @@ def generate():
     service = 'cloudflare/workers/src/service.ts'
     auth = 'cloudflare/workers/src/auth.ts'
     maps.insert(0, diagram('worker-request', 'Cloudflare request path', [
-        node('client', 'Shared API client', 'frontend', api, [40, 60], 'Native default URL', 606, 610),
-        node('gateway', 'Worker gateway', 'cloud', worker, [500, 60], 'Prefix routing', 65, 70),
-        node('handler', 'Service worker', 'backend', service, [500, 310], 'SERVICE_NAME dispatch', 63, 88),
-        node('database', 'PostgreSQL client', 'database', auth, [40, 310], 'DB_URL connection', 41, 48),
+        node('client', 'Shared API client', 'frontend', api, [40, 60], 'Native default URL'),
+        node('gateway', 'Worker gateway', 'cloud', worker, [500, 60], 'Prefix routing'),
+        node('handler', 'Service worker', 'backend', service, [500, 310], 'SERVICE_NAME dispatch'),
+        node('database', 'PostgreSQL client', 'database', auth, [40, 310], 'DB_URL connection'),
     ], [edge('client','gateway','native default'), edge('gateway','handler','service binding'), edge('handler','database','withDb')],
     ['Web defaults to same-origin; native defaults to the Worker gateway. API_BASE_URL can override both.',
      'The configured proxy path is source evidence, not proof of a live deployment.',

@@ -1,0 +1,405 @@
+[
+  {
+    "path": "/conversation-threads",
+    "table": "messages_threads",
+    "collection": "threads",
+    "item": "thread",
+    "fields": [
+      "id",
+      "thread_type",
+      "created_at"
+    ],
+    "listBatch": 51,
+    "summaryBatch": 52,
+    "summaryField": "thread_type",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "thread_type": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/timesheets",
+    "table": "timesheets",
+    "collection": "timesheets",
+    "item": "timesheet",
+    "fields": [
+      "id",
+      "week_id",
+      "status",
+      "total_minutes",
+      "submitted_at",
+      "reviewed_at",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 53,
+    "summaryBatch": 54,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "week_id": "string",
+      "status": [
+        "string",
+        "null"
+      ],
+      "total_minutes": [
+        "integer",
+        "null"
+      ],
+      "submitted_at": [
+        "string",
+        "null"
+      ],
+      "reviewed_at": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "submitted_at",
+      "reviewed_at",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/availability-overrides",
+    "table": "provider_availability_overrides",
+    "collection": "overrides",
+    "item": "override",
+    "fields": [
+      "id",
+      "date",
+      "start_time",
+      "end_time",
+      "is_available"
+    ],
+    "listBatch": 55,
+    "orderField": "date",
+    "summaryBatch": 99,
+    "summaryField": "is_available",
+    "types": {
+      "id": "string",
+      "date": "string",
+      "start_time": "string",
+      "end_time": "string",
+      "is_available": "boolean"
+    },
+    "dateFields": [
+      "date"
+    ]
+  },
+  {
+    "path": "/mileage-logs",
+    "table": "mileage_logs",
+    "collection": "logs",
+    "item": "log",
+    "fields": [
+      "id",
+      "date",
+      "distance_km",
+      "travel_minutes",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 56,
+    "summaryBatch": 57,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "date": "string",
+      "distance_km": "number",
+      "travel_minutes": [
+        "integer",
+        "null"
+      ],
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "date",
+      "created_at"
+    ]
+  },
+  {
+    "path": "/payouts",
+    "table": "payouts",
+    "collection": "payouts",
+    "item": "payout",
+    "fields": [
+      "id",
+      "currency",
+      "status",
+      "processed_at",
+      "created_at"
+    ],
+    "listBatch": 58,
+    "summaryBatch": 59,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "currency": "string",
+      "status": "string",
+      "processed_at": [
+        "string",
+        "null"
+      ],
+      "created_at": "string"
+    },
+    "dateFields": [
+      "processed_at",
+      "created_at"
+    ]
+  },
+  {
+    "path": "/performance-reviews",
+    "table": "performance_reviews",
+    "collection": "reviews",
+    "item": "review",
+    "fields": [
+      "id",
+      "period_start",
+      "period_end",
+      "status",
+      "acknowledged_at",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 60,
+    "orderField": "created_at",
+    "summaryBatch": 98,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "period_start": "string",
+      "period_end": "string",
+      "status": "string",
+      "acknowledged_at": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "period_start",
+      "period_end",
+      "acknowledged_at",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/visit-check-events",
+    "table": "visit_check_events",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "event_type",
+      "result",
+      "device_time_iso",
+      "server_time",
+      "created_at"
+    ],
+    "listBatch": 61,
+    "summaryBatch": 62,
+    "summaryField": "result",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "event_type": "string",
+      "result": "string",
+      "device_time_iso": [
+        "string",
+        "null"
+      ],
+      "server_time": [
+        "string",
+        "null"
+      ],
+      "created_at": "string"
+    },
+    "dateFields": [
+      "device_time_iso",
+      "server_time",
+      "created_at"
+    ]
+  },
+  {
+    "path": "/fleet-status",
+    "table": "fleet_status",
+    "item": "fleet",
+    "fields": [
+      "id",
+      "status",
+      "battery_level",
+      "last_heartbeat_at"
+    ],
+    "listBatch": 63,
+    "singleton": true,
+    "tenantThroughProvider": true,
+    "orderField": "last_heartbeat_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "battery_level": [
+        "integer",
+        "null"
+      ],
+      "last_heartbeat_at": "string"
+    },
+    "dateFields": [
+      "last_heartbeat_at"
+    ]
+  },
+  {
+    "path": "/visit-matches",
+    "table": "visit_matches",
+    "collection": "matches",
+    "item": "match",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 64,
+    "summaryBatch": 65,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/shift-assignment-records",
+    "table": "shift_assignments",
+    "collection": "assignments",
+    "item": "assignment",
+    "fields": [
+      "id",
+      "status",
+      "assigned_at"
+    ],
+    "listBatch": 160,
+    "orderField": "assigned_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "assigned_at": "string"
+    },
+    "dateFields": [
+      "assigned_at"
+    ]
+  },
+  {
+    "path": "/handover-records",
+    "table": "shift_handovers",
+    "collection": "handovers",
+    "item": "handover",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 161,
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/authored-visit-note-records",
+    "table": "visit_notes",
+    "collection": "notes",
+    "item": "note",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 162,
+    "orderField": "created_at",
+    "tenantThroughProvider": true,
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/authored-checklist-records",
+    "table": "visit_checklists",
+    "collection": "checklists",
+    "item": "checklist",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 163,
+    "orderField": "created_at",
+    "tenantThroughProvider": true,
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/training-assignment-records",
+    "table": "training_assignments",
+    "collection": "assignments",
+    "item": "assignment",
+    "fields": [
+      "id",
+      "status",
+      "assigned_at",
+      "due_date",
+      "completed_at"
+    ],
+    "listBatch": 217,
+    "summaryBatch": 218,
+    "summaryField": "status",
+    "tenantThroughProvider": true,
+    "orderField": "assigned_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "assigned_at": "string",
+      "due_date": [
+        "string",
+        "null"
+      ],
+      "completed_at": [
+        "string",
+        "null"
+      ]
+    },
+    "dateFields": [
+      "assigned_at",
+      "due_date",
+      "completed_at"
+    ]
+  }
+]

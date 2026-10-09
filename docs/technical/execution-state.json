@@ -1,0 +1,78 @@
+{
+  "sourceBaseline": "3979ed1028c8b7dfdb9acca72b1ea53d4d034127",
+  "countingRule": "Exact unique method/path baseline; documentation, field repairs and grant evidence recovery earn no API implementation credit",
+  "baseline": {
+    "uniqueOperations": 1415,
+    "unitEvidenceRecorded": 343,
+    "retiredWithEvidence": 9,
+    "pending": 1049,
+    "blocked": 14,
+    "newApiCompletions": 0
+  },
+  "packages": [
+    {
+      "id": "P00",
+      "name": "Recover raw authority facts and expose registry identity conflicts",
+      "status": "implemented_tested_and_merged",
+      "pullRequest": 151,
+      "testedHead": "208806f588f6688a9faa36c582c850c0178ab8f0",
+      "mergeCommit": "8bea69963c12d73f0c000a2632f41d27acdf76ef",
+      "testedAndMergedTree": "9609062b92ccb7b06d3f9ebe5b0fbab5dafb4847",
+      "applicableCiWorkflowsPassed": 2,
+      "authorityAuditTestsPassed": 16,
+      "auditRunId": 37855007573,
+      "artifactId": 11583985637,
+      "databaseSha256": "42d350b6b3ab46540cbc58f2696d896f3afe6658b1f5153bec410dfce87d1262",
+      "databaseWrites": 0,
+      "observations": {
+        "auditedOperations": 1063,
+        "pendingOperations": 1049,
+        "blockedOperations": 14,
+        "rawGrantRows": 52096,
+        "operationsWithRawGrantRows": 814,
+        "registryMethodPathMismatches": 52096,
+        "linkedFunctionRows": 0,
+        "linkedExecutionGrantRows": 0,
+        "meaning": "Stored-key registry correlations are conflicting evidence, not proof of original approved grant provenance or API authority"
+      },
+      "apiCompletionCredits": 0
+    },
+    {
+      "id": "P01",
+      "name": "Technical specification, operating manual and exact operation traceability",
+      "status": "specification_baseline_written_and_locally_validated",
+      "apiCompletionCredits": 0,
+      "publicationEvidence": "Associated pull request CI and merge record; writing documents does not activate APIs"
+    },
+    {
+      "id": "P02",
+      "name": "Canonical authenticated identity implementation",
+      "status": "blocked_by_primary_contract_method_role_encoding_and_grant_provenance_decisions",
+      "apiCompletionCredits": 0
+    },
+    {
+      "id": "P03",
+      "name": "Reviewed governance identifier and grant integrity repair",
+      "status": "mapping_and_decision_review_required",
+      "apiCompletionCredits": 0
+    },
+    {
+      "id": "P04",
+      "name": "Implement complete workflow families",
+      "status": "queued_by_106_family_decision_register",
+      "apiCompletionCredits": 0
+    },
+    {
+      "id": "P05",
+      "name": "Reproducible runtime and release chain",
+      "status": "documented_requirements_not_implemented_in_this_package",
+      "apiCompletionCredits": 0
+    },
+    {
+      "id": "P06",
+      "name": "Operational acceptance and maintenance",
+      "status": "documented_requirements_not_verified_in_production",
+      "apiCompletionCredits": 0
+    }
+  ]
+}

@@ -1,31 +1,14 @@
-// Governance - Category: controller | Purpose: Standalone compile-safe Notifier for TrainingDirectorTrainingProgramsScreenController
+// Governance - Category: controller | Purpose: Non-executable scaffold for TrainingDirectorTrainingProgramsScreenController
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/controllers.dart';
 
-final trainingDirectorTrainingProgramsScreenControllerProvider = NotifierProvider<TrainingDirectorTrainingProgramsScreenController, AsyncValue<Map<String, dynamic>>>(() {
-  return TrainingDirectorTrainingProgramsScreenController();
-});
-
-class TrainingDirectorTrainingProgramsScreenController extends Notifier<AsyncValue<Map<String, dynamic>>> {
-  @override
-  AsyncValue<Map<String, dynamic>> build() {
-    _init();
-    return const AsyncValue.data({});
-  }
-
-  Future<void> _init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    state = const AsyncValue.data({
-      'status': 'success',
-      'featuresEnabled': true,
-      'dataLoaded': true,
+final trainingDirectorTrainingProgramsScreenControllerProvider =
+    NotifierProvider<
+      TrainingDirectorTrainingProgramsScreenController,
+      AsyncValue<Map<String, dynamic>>
+    >(() {
+      return TrainingDirectorTrainingProgramsScreenController();
     });
-  }
 
-  Future<void> performAction() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      await Future<void>.delayed(const Duration(milliseconds: 500));
-      return {'status': 'action_completed'};
-    });
-  }
-}
+class TrainingDirectorTrainingProgramsScreenController
+    extends BaseScaffoldController {}

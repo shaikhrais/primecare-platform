@@ -1,4 +1,27 @@
 :root { color-scheme: light; }
+button:disabled { opacity: .55; cursor: default; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--color-info); outline-offset: 3px; }
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--spacing-md); }
+.metric { display: grid; gap: var(--spacing-sm); padding: var(--spacing-lg); background: var(--color-surface-soft); border-radius: var(--radius-lg); }
+.metric strong { font-size: var(--font-size-heading); overflow-wrap: anywhere; }
+.metric span { color: var(--color-text); }
+.role-bars { display: grid; gap: var(--spacing-md); margin-bottom: var(--spacing-lg); }
+.role-bars > div > div { display: flex; justify-content: space-between; }
+.role-bars meter { width: 100%; height: var(--spacing-lg); }
+.activity-list { list-style: none; padding: 0; display: grid; gap: var(--spacing-md); }
+.activity-list li { display: flex; justify-content: space-between; gap: var(--spacing-md); border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-sm); }
+.activity-list time { color: var(--color-text-muted); }
+.notice { border-left: 3px solid var(--color-info); padding: var(--spacing-sm) var(--spacing-md); color: var(--color-text-muted); }
+.quick-links { display: flex; flex-wrap: wrap; gap: var(--spacing-md); }
+.quick-links a { padding: var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.inventory-controls { display: flex; align-items: center; flex-wrap: wrap; gap: var(--spacing-md); margin-bottom: var(--spacing-lg); }
+.inventory-controls label { display: grid; gap: var(--spacing-xs); }
+.inventory-controls input[type="checkbox"] { width: auto; }
+.table-scroll { overflow: auto; }
+table { width: 100%; border-collapse: collapse; text-align: start; }
+th, td { border-bottom: 1px solid var(--color-border); padding: var(--spacing-md); vertical-align: top; }
+.pagination { display: flex; align-items: center; justify-content: flex-end; gap: var(--spacing-md); margin-top: var(--spacing-md); }
+nav a[aria-current="page"] { background: var(--color-primary-hover); font-weight: var(--font-weight-bold); }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--color-background); color: var(--color-text); font-family: var(--font-family); font-size: var(--font-size-body); }
 a { color: inherit; }

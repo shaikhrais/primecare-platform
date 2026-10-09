@@ -1,0 +1,15 @@
+# Offline API permission quarantine
+
+`quarantine-api-grants.py` removes only proven corrupt permission links from an explicitly selected offline SQLite file. It never remaps IDs, copies grants to another endpoint, or invents business authority. The repository database and production databases were not changed.
+
+Run a read-only preflight with `python scripts/quarantine-api-grants.py --db /absolute/path/to/offline-copy.db`. Inspect the returned classifications and `planDigest`. Apply that exact plan with the same command plus `--apply-digest <planDigest>`. The CLI verifies there are no runtime references to `api_permissions` in Cloudflare, services, packages, or apps before either action. Currently those runtimes use independent registered authority policies; the corrupt grant table has no runtime code consumer.
+
+A candidate requires exact generator-key provenance (`api_permission_` plus the same-numbered registry endpoint code) and either a different method/path identity in the foreign-key endpoint or an absent endpoint. Unknown key origins and identity-matching rows stay untouched and require explicit authority review. Table columns, primary/unique keys, declared foreign keys, triggers, and incoming foreign-key references are validated before writes. Unreviewed incoming references or triggers stop the migration.
+
+Within `BEGIN IMMEDIATE`, the source snapshot and candidate digests must match preflight. Every complete source row, including original ID, nullable values, timestamp and access flag, is stored as canonical JSON in `api_permission_quarantine`, with its digest, classification, immutable endpoint/registry provenance, and plan digest. Stored values are checked before deleting the original link. Any error rolls back rows and newly created quarantine tables together. A source-ID conflict is rejected. A run record permits a repeat of the same digest only when the post-migration source and schema are unchanged.
+
+Eight isolated regression tests cover exact preservation, foreign keys, repeat application, transaction rollback, stale-plan rejection, unknown-key retention, incoming references, unreviewed triggers, changed post-apply state, and runtime-consumer rejection. Run `python scripts/test-quarantine-api-grants.py`.
+
+Validation on a scratch backup of the current repository database quarantined **79,936** rows (**57,984** identity mismatches and **21,952** missing endpoints), preserved **79,936** exact source snapshots, left zero links, and repeated with zero additional changes. No new `api_permissions` foreign-key violations occurred. The original database has an unrelated invalid `translations` → `languages` foreign-key definition, so global `PRAGMA foreign_key_check` cannot run. Validation checks the modified grant table specifically, preserves its schema, rejects incoming dependencies, and touches no parent tables. This does not claim that unrelated database constraints are repaired.
+
+Quarantine repairs corrupt metadata links; it earns **zero completed API operations**. Grant reactivation requires explicit reconciled business authority and is outside this migration.

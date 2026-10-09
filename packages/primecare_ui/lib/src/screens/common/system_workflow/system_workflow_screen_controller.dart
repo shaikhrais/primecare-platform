@@ -1,55 +1,38 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SystemWorkflowScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class SystemWorkflowScreenState
+    extends DashboardState<SystemWorkflowScreenState> {
+  SystemWorkflowScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  SystemWorkflowScreenState({required this.isLoading, this.error, required this.data});
-
-  SystemWorkflowScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return SystemWorkflowScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  SystemWorkflowScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) =>
+      SystemWorkflowScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class SystemWorkflowScreenController extends StateNotifier<SystemWorkflowScreenState> {
-  final Ref ref;
-  SystemWorkflowScreenController(this.ref) : super(SystemWorkflowScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/system-workflow');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class SystemWorkflowScreenController
+    extends BaseDashboardController<SystemWorkflowScreenState> {
+  SystemWorkflowScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: SystemWorkflowScreenState(isLoading: true, data: {}),
+        endpoint: '/common/system-workflow',
+      );
 }
 
-final system_workflowControllerProvider = StateNotifierProvider<SystemWorkflowScreenController, SystemWorkflowScreenState>((ref) {
-  return SystemWorkflowScreenController(ref);
-});
+final system_workflowControllerProvider =
+    StateNotifierProvider<
+      SystemWorkflowScreenController,
+      SystemWorkflowScreenState
+    >((ref) {
+      return SystemWorkflowScreenController(ref);
+    });

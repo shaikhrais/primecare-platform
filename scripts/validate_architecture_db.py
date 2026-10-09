@@ -1,5 +1,6 @@
 import sqlite3
 import os
+from api_authority_integrity import assert_api_authority_integrity
 
 PROJECT_ROOT = r"C:\Users\Admin2\Documents\GitHub\primecare-platform"
 DB_PATH = os.path.join(PROJECT_ROOT, ".agents", "governance", "governance.db")
@@ -13,6 +14,8 @@ def write_report(filename, lines):
 def main():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
+    # Never publish a compliant report from colliding or fabricated API metadata.
+    assert_api_authority_integrity(conn)
     c = conn.cursor()
 
     # Load schemas/tables

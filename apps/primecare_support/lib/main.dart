@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Initialize Deep Link listener for Native SSO Sync languageProvider with EasyLocalization
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:go_router/go_router.dart';
 import 'core/routing/support_routes.dart';
 import 'core/routing/app_router.dart';
 
@@ -22,30 +23,10 @@ void main() {
   );
 }
 
-class PrimeCareSupportApp extends ConsumerWidget {
+class PrimeCareSupportApp extends BaseStandardPrimeCareApp {
   const PrimeCareSupportApp({super.key});
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    AppErrorBoundary.drainToTelemetry(ref.read(executionGateProvider));
-
-
-    final router = ref.watch(appRouterProvider);
-    const primeTheme = PrimeThemeData();
-
-    return AppShellBoundary(
-      child: PrimeTheme(
-        data: primeTheme,
-        child: MaterialApp.router(
-          title: 'PrimeCare Support',
-          debugShowCheckedModeBanner: false,
-          theme: primeTheme.toThemeData(),
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          routerConfig: router,
-        ),
-      ),
-    );
-  }
+  String get applicationTitle => 'PrimeCare Support';
+  @override
+  GoRouter routerFor(WidgetRef ref) => ref.watch(appRouterProvider);
 }

@@ -1,0 +1,257 @@
+{
+  "scope": "contract_alignment",
+  "authorityAdded": false,
+  "routesAdded": false,
+  "changes": [
+    {
+      "batch": 1001,
+      "service": "client",
+      "path": "/consents"
+    },
+    {
+      "batch": 1002,
+      "service": "provider",
+      "path": "/conversation-threads"
+    },
+    {
+      "batch": 1003,
+      "service": "auth",
+      "path": "/me/notifications"
+    },
+    {
+      "batch": 1004,
+      "service": "client",
+      "path": "/service-authorizations"
+    },
+    {
+      "batch": 1005,
+      "service": "provider",
+      "path": "/timesheets"
+    },
+    {
+      "batch": 1006,
+      "service": "auth",
+      "path": "/me/activities"
+    },
+    {
+      "batch": 1007,
+      "service": "client",
+      "path": "/waitlist"
+    },
+    {
+      "batch": 1008,
+      "service": "provider",
+      "path": "/availability-overrides"
+    },
+    {
+      "batch": 1009,
+      "service": "auth",
+      "path": "/me/wellness-pulses"
+    },
+    {
+      "batch": 1010,
+      "service": "client",
+      "path": "/feedback"
+    },
+    {
+      "batch": 1011,
+      "service": "provider",
+      "path": "/mileage-logs"
+    },
+    {
+      "batch": 1012,
+      "service": "auth",
+      "path": "/me/device-events"
+    },
+    {
+      "batch": 1013,
+      "service": "client",
+      "path": "/care-feedback"
+    },
+    {
+      "batch": 1014,
+      "service": "provider",
+      "path": "/payouts"
+    },
+    {
+      "batch": 1015,
+      "service": "auth",
+      "path": "/me/devices"
+    },
+    {
+      "batch": 1016,
+      "service": "client",
+      "path": "/conversation-threads"
+    },
+    {
+      "batch": 1017,
+      "service": "provider",
+      "path": "/performance-reviews"
+    },
+    {
+      "batch": 1018,
+      "service": "auth",
+      "path": "/me/health-ids"
+    },
+    {
+      "batch": 1019,
+      "service": "client",
+      "path": "/family-links"
+    },
+    {
+      "batch": 1020,
+      "service": "provider",
+      "path": "/visit-check-events"
+    },
+    {
+      "batch": 1021,
+      "service": "auth",
+      "path": "/me/survey-submissions"
+    },
+    {
+      "batch": 1022,
+      "service": "client",
+      "path": "/alert-records"
+    },
+    {
+      "batch": 1023,
+      "service": "provider",
+      "path": "/visit-matches"
+    },
+    {
+      "batch": 1024,
+      "service": "auth",
+      "path": "/me/group-memberships"
+    },
+    {
+      "batch": 1025,
+      "service": "client",
+      "path": "/insurance-claim-records"
+    },
+    {
+      "batch": 1026,
+      "service": "provider",
+      "path": "/shift-assignment-records"
+    },
+    {
+      "batch": 1027,
+      "service": "auth",
+      "path": "/me/password-history"
+    },
+    {
+      "batch": 1028,
+      "service": "client",
+      "path": "/prescription-records"
+    },
+    {
+      "batch": 1029,
+      "service": "provider",
+      "path": "/handover-records"
+    },
+    {
+      "batch": 1030,
+      "service": "auth",
+      "path": "/me/shift-logs"
+    },
+    {
+      "batch": 1031,
+      "service": "client",
+      "path": "/care-plan-records"
+    },
+    {
+      "batch": 1032,
+      "service": "provider",
+      "path": "/authored-visit-note-records"
+    },
+    {
+      "batch": 1033,
+      "service": "auth",
+      "path": "/me/daily-entry-records"
+    },
+    {
+      "batch": 1034,
+      "service": "client",
+      "path": "/assessment-records"
+    },
+    {
+      "batch": 1035,
+      "service": "provider",
+      "path": "/authored-checklist-records"
+    },
+    {
+      "batch": 1036,
+      "service": "auth",
+      "path": "/me/adl-log-records"
+    },
+    {
+      "batch": 1037,
+      "service": "client",
+      "path": "/medication-reconciliation-records"
+    },
+    {
+      "batch": 1038,
+      "service": "provider",
+      "path": "/training-assignment-records"
+    },
+    {
+      "batch": 1039,
+      "service": "auth",
+      "path": "/me/vital-sign-records"
+    },
+    {
+      "batch": 1040,
+      "service": "client",
+      "path": "/shift-log-records"
+    },
+    {
+      "batch": 1041,
+      "service": "auth",
+      "path": "/me/behavior-note-records"
+    },
+    {
+      "batch": 1042,
+      "service": "client",
+      "path": "/adl-records"
+    },
+    {
+      "batch": 1043,
+      "service": "auth",
+      "path": "/me/nutrition-records"
+    },
+    {
+      "batch": 1044,
+      "service": "client",
+      "path": "/vital-observation-records"
+    },
+    {
+      "batch": 1045,
+      "service": "auth",
+      "path": "/me/mobility-records"
+    },
+    {
+      "batch": 1046,
+      "service": "client",
+      "path": "/behavior-observation-records"
+    },
+    {
+      "batch": 1047,
+      "service": "auth",
+      "path": "/me/infection-control-records"
+    },
+    {
+      "batch": 1048,
+      "service": "client",
+      "path": "/nutrition-observation-records"
+    },
+    {
+      "batch": 1049,
+      "service": "auth",
+      "path": "/me/narrative-note-records"
+    },
+    {
+      "batch": 1050,
+      "service": "client",
+      "path": "/mobility-observation-records"
+    }
+  ]
+}

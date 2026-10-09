@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class IncidentManagementScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class IncidentManagementScreenState
+    extends DashboardState<IncidentManagementScreenState> {
+  IncidentManagementScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  IncidentManagementScreenState({required this.isLoading, this.error, required this.data});
-
-  IncidentManagementScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return IncidentManagementScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  IncidentManagementScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => IncidentManagementScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class IncidentManagementScreenController extends StateNotifier<IncidentManagementScreenState> {
-  final Ref ref;
-  IncidentManagementScreenController(this.ref) : super(IncidentManagementScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/incident-management');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class IncidentManagementScreenController
+    extends BaseDashboardController<IncidentManagementScreenState> {
+  IncidentManagementScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: IncidentManagementScreenState(isLoading: true, data: {}),
+        endpoint: '/management/incident-management',
+      );
 }
 
-final incident_managementControllerProvider = StateNotifierProvider<IncidentManagementScreenController, IncidentManagementScreenState>((ref) {
-  return IncidentManagementScreenController(ref);
-});
+final incident_managementControllerProvider =
+    StateNotifierProvider<
+      IncidentManagementScreenController,
+      IncidentManagementScreenState
+    >((ref) {
+      return IncidentManagementScreenController(ref);
+    });

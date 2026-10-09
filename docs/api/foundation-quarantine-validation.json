@@ -1,0 +1,31 @@
+{
+  "scope": "disposable_local_sqlite_copy",
+  "sourceDatabase": "repository_seed",
+  "productionApplied": false,
+  "permissionFirstApply": {
+    "quarantinedRows": 79936,
+    "remainingGrantRows": 0,
+    "planDigest": "28453901188b3155352aefd80f6c3def74f625f8d5b9a3e5a9e0a047123169b0",
+    "newForeignKeyViolations": 0,
+    "foreignKeyCheckScope": "api_permissions; no incoming FK references permitted"
+  },
+  "permissionSecondApply": {
+    "quarantinedRows": 0,
+    "remainingGrantRows": 0,
+    "planDigest": "28453901188b3155352aefd80f6c3def74f625f8d5b9a3e5a9e0a047123169b0",
+    "newForeignKeyViolations": 0,
+    "alreadyApplied": true
+  },
+  "schemaFirstApply": {
+    "api_request_schemas": 1249,
+    "api_response_schemas": 1249
+  },
+  "schemaSecondApply": {
+    "api_request_schemas": 0,
+    "api_response_schemas": 0
+  },
+  "preservedGrantRows": 79936,
+  "preservedSchemaRows": 2498,
+  "authorityIntegrity": "passed",
+  "newCompletedOperations": 0
+}

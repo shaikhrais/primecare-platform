@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegionalBdmDashboardScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class RegionalBdmDashboardScreenState
+    extends DashboardState<RegionalBdmDashboardScreenState> {
+  RegionalBdmDashboardScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  RegionalBdmDashboardScreenState({required this.isLoading, this.error, required this.data});
-
-  RegionalBdmDashboardScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return RegionalBdmDashboardScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  RegionalBdmDashboardScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => RegionalBdmDashboardScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class RegionalBdmDashboardScreenController extends StateNotifier<RegionalBdmDashboardScreenState> {
-  final Ref ref;
-  RegionalBdmDashboardScreenController(this.ref) : super(RegionalBdmDashboardScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/business_development/roles/regional_bdm/dashboard');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class RegionalBdmDashboardScreenController
+    extends BaseDashboardController<RegionalBdmDashboardScreenState> {
+  RegionalBdmDashboardScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: RegionalBdmDashboardScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/offices/business_development/roles/regional_bdm/dashboard',
+      );
 }
 
-final regional_bdm_dashboardControllerProvider = StateNotifierProvider<RegionalBdmDashboardScreenController, RegionalBdmDashboardScreenState>((ref) {
-  return RegionalBdmDashboardScreenController(ref);
-});
+final regional_bdm_dashboardControllerProvider =
+    StateNotifierProvider<
+      RegionalBdmDashboardScreenController,
+      RegionalBdmDashboardScreenState
+    >((ref) {
+      return RegionalBdmDashboardScreenController(ref);
+    });

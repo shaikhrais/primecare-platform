@@ -1,31 +1,14 @@
-// Governance - Category: controller | Purpose: Standalone compile-safe Notifier for QualityAssuranceScorecardsScreenController
+// Governance - Category: controller | Purpose: Non-executable scaffold for QualityAssuranceScorecardsScreenController
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/controllers.dart';
 
-final qualityAssuranceScorecardsScreenControllerProvider = NotifierProvider<QualityAssuranceScorecardsScreenController, AsyncValue<Map<String, dynamic>>>(() {
-  return QualityAssuranceScorecardsScreenController();
-});
-
-class QualityAssuranceScorecardsScreenController extends Notifier<AsyncValue<Map<String, dynamic>>> {
-  @override
-  AsyncValue<Map<String, dynamic>> build() {
-    _init();
-    return const AsyncValue.data({});
-  }
-
-  Future<void> _init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    state = const AsyncValue.data({
-      'status': 'success',
-      'featuresEnabled': true,
-      'dataLoaded': true,
+final qualityAssuranceScorecardsScreenControllerProvider =
+    NotifierProvider<
+      QualityAssuranceScorecardsScreenController,
+      AsyncValue<Map<String, dynamic>>
+    >(() {
+      return QualityAssuranceScorecardsScreenController();
     });
-  }
 
-  Future<void> performAction() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      await Future<void>.delayed(const Duration(milliseconds: 500));
-      return {'status': 'action_completed'};
-    });
-  }
-}
+class QualityAssuranceScorecardsScreenController
+    extends BaseScaffoldController {}

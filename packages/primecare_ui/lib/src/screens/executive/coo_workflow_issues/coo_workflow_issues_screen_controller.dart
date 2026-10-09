@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CooWorkflowIssuesScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class CooWorkflowIssuesScreenState
+    extends DashboardState<CooWorkflowIssuesScreenState> {
+  CooWorkflowIssuesScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  CooWorkflowIssuesScreenState({required this.isLoading, this.error, required this.data});
-
-  CooWorkflowIssuesScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return CooWorkflowIssuesScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  CooWorkflowIssuesScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => CooWorkflowIssuesScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class CooWorkflowIssuesScreenController extends StateNotifier<CooWorkflowIssuesScreenState> {
-  final Ref ref;
-  CooWorkflowIssuesScreenController(this.ref) : super(CooWorkflowIssuesScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/coo-workflow-issues');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class CooWorkflowIssuesScreenController
+    extends BaseDashboardController<CooWorkflowIssuesScreenState> {
+  CooWorkflowIssuesScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: CooWorkflowIssuesScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/coo-workflow-issues',
+      );
 }
 
-final coo_workflow_issuesControllerProvider = StateNotifierProvider<CooWorkflowIssuesScreenController, CooWorkflowIssuesScreenState>((ref) {
-  return CooWorkflowIssuesScreenController(ref);
-});
+final coo_workflow_issuesControllerProvider =
+    StateNotifierProvider<
+      CooWorkflowIssuesScreenController,
+      CooWorkflowIssuesScreenState
+    >((ref) {
+      return CooWorkflowIssuesScreenController(ref);
+    });

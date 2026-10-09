@@ -1,0 +1,1200 @@
+{
+  "scope": "Pending GET admin and governance operations only",
+  "summary": {
+    "reviewedUniqueOperations": 36,
+    "resolved": 0,
+    "needsBusinessAndAuthorityContract": 36
+  },
+  "authorityWarning": "api_permissions rows are retained as evidence, not treated as grants: sampled keys refer to unrelated workflows. Screen visibility alone is not endpoint authority.",
+  "canonicalAlternatives": [
+    {
+      "operation": "GET /v1/governance/overview",
+      "authority": "workspace-registry.permissions.organization",
+      "limitation": "Tenant account/session/domain counts; not legacy dashboard metrics/insights/timeline contract."
+    },
+    {
+      "operation": "GET /v1/auth/me/audit-event-records",
+      "authority": "Actor ownership via self-records registry",
+      "limitation": "Personal records; not system transaction ledger."
+    }
+  ],
+  "operations": [
+    {
+      "api": "GET /v1/admin/api-keys",
+      "declarationIds": [
+        832
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 832,
+          "endpoint_code": "API__V1_ADMIN_API-KEYS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_alerts_and_risks_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/audit-logs",
+      "declarationIds": [
+        833
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 833,
+          "endpoint_code": "API__V1_ADMIN_AUDIT-LOGS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_approvals_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [
+        {
+          "file": "packages/primecare_ui/lib/src/features/admin/audit_log_viewer.dart",
+          "line": 6,
+          "source": "final response = await api.get('/v1/admin/audit-logs');"
+        }
+      ],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/bot-audits",
+      "declarationIds": [
+        855
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 855,
+          "endpoint_code": "API__V1_ADMIN_BOT-AUDITS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_corrective_actions_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/capacity/forecast",
+      "declarationIds": [
+        860
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 860,
+          "endpoint_code": "API__V1_ADMIN_CAPACITY_FORECAST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_risk_register_create_post",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/compliance/access-reviews",
+      "declarationIds": [
+        830
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 830,
+          "endpoint_code": "API__V1_ADMIN_COMPLIANCE_ACCESS-REVIEWS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_clinic_history_logs_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/compliance/consents",
+      "declarationIds": [
+        836
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 836,
+          "endpoint_code": "API__V1_ADMIN_COMPLIANCE_CONSENTS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_franchise_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/compliance/data-privacy",
+      "declarationIds": [
+        837
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 837,
+          "endpoint_code": "API__V1_ADMIN_COMPLIANCE_DATA-PRIVACY",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_growth_pipeline_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/compliance/hipaa-audit",
+      "declarationIds": [
+        843
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 843,
+          "endpoint_code": "API__V1_ADMIN_COMPLIANCE_HIPAA-AUDIT",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_reports_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/compliance/osha-incidents",
+      "declarationIds": [
+        848
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 848,
+          "endpoint_code": "API__V1_ADMIN_COMPLIANCE_OSHA-INCIDENTS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_cfo_financial_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/compliance/policy-exceptions",
+      "declarationIds": [
+        849
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 849,
+          "endpoint_code": "API__V1_ADMIN_COMPLIANCE_POLICY-EXCEPTIONS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_cfo_franchise_financials_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/compliance/regulatory-radar",
+      "declarationIds": [
+        853
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 853,
+          "endpoint_code": "API__V1_ADMIN_COMPLIANCE_REGULATORY-RADAR",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_compliance_cases_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/compliance/security-incidents",
+      "declarationIds": [
+        858
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 858,
+          "endpoint_code": "API__V1_ADMIN_COMPLIANCE_SECURITY-INCIDENTS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_policies_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/compliance/training",
+      "declarationIds": [
+        834
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 834,
+          "endpoint_code": "API__V1_ADMIN_COMPLIANCE_TRAINING",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/compliance/vendor-risk",
+      "declarationIds": [
+        867
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 867,
+          "endpoint_code": "API__V1_ADMIN_COMPLIANCE_VENDOR-RISK",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_coo_reports_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/configs/versions",
+      "declarationIds": [
+        835
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 835,
+          "endpoint_code": "API__V1_ADMIN_CONFIGS_VERSIONS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_enterprise_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/devices",
+      "declarationIds": [
+        838
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 838,
+          "endpoint_code": "API__V1_ADMIN_DEVICES",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_leadership_reports_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [
+        {
+          "file": "packages/primecare_ui/lib/src/features/admin/device_fleet_manager.dart",
+          "line": 6,
+          "source": "final response = await api.get('/v1/admin/devices');"
+        }
+      ],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/ecosystem",
+      "declarationIds": [
+        839
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 839,
+          "endpoint_code": "API__V1_ADMIN_ECOSYSTEM",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_organization_map_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/faqs",
+      "declarationIds": [
+        840
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 840,
+          "endpoint_code": "API__V1_ADMIN_FAQS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_region_performance_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/feature-flags",
+      "declarationIds": [
+        841
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 841,
+          "endpoint_code": "API__V1_ADMIN_FEATURE-FLAGS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_region_performance_create_post",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/incidents/active",
+      "declarationIds": [
+        844
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 844,
+          "endpoint_code": "API__V1_ADMIN_INCIDENTS_ACTIVE",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_revenue_summary_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/integrations/health",
+      "declarationIds": [
+        845
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 845,
+          "endpoint_code": "API__V1_ADMIN_INTEGRATIONS_HEALTH",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_ceo_strategic_kpis_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/leads",
+      "declarationIds": [
+        846
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 846,
+          "endpoint_code": "API__V1_ADMIN_LEADS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_cfo_accounts_payable_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/marketing/touchpoints",
+      "declarationIds": [
+        865
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 865,
+          "endpoint_code": "API__V1_ADMIN_MARKETING_TOUCHPOINTS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_coo_branch_operations_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/message-archive",
+      "declarationIds": [
+        847
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 847,
+          "endpoint_code": "API__V1_ADMIN_MESSAGE-ARCHIVE",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_cfo_accounts_receivable_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/policies",
+      "declarationIds": [
+        862
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 862,
+          "endpoint_code": "API__V1_ADMIN_POLICIES",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_risk_register_detail_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [
+        {
+          "file": "packages/primecare_ui/lib/src/features/admin/system_policy_editor.dart",
+          "line": 6,
+          "source": "final response = await api.get('/v1/admin/policies');"
+        }
+      ],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/protocols/logs",
+      "declarationIds": [
+        850
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 850,
+          "endpoint_code": "API__V1_ADMIN_PROTOCOLS_LOGS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_cfo_reports_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/providers/performance",
+      "declarationIds": [
+        851
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 851,
+          "endpoint_code": "API__V1_ADMIN_PROVIDERS_PERFORMANCE",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_cfo_tax_and_remittance_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/qa/metrics",
+      "declarationIds": [
+        852
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 852,
+          "endpoint_code": "API__V1_ADMIN_QA_METRICS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_audits_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/registry",
+      "declarationIds": [
+        863
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 863,
+          "endpoint_code": "API__V1_ADMIN_REGISTRY",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_risk_register_delete_delete",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [
+        {
+          "file": "packages/primecare_ui/lib/src/features/admin/system_registry_dashboard.dart",
+          "line": 6,
+          "source": "final response = await api.get('/v1/admin/registry');"
+        }
+      ],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/resources/allocation",
+      "declarationIds": [
+        854
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 854,
+          "endpoint_code": "API__V1_ADMIN_RESOURCES_ALLOCATION",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_compliance_reports_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/roles/matrix",
+      "declarationIds": [
+        856
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 856,
+          "endpoint_code": "API__V1_ADMIN_ROLES_MATRIX",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_credential_tracking_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/system-events",
+      "declarationIds": [
+        861
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 861,
+          "endpoint_code": "API__V1_ADMIN_SYSTEM-EVENTS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_risk_register_update_patch",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [
+        {
+          "file": "packages/primecare_ui/lib/src/features/admin/system_event_monitor.dart",
+          "line": 6,
+          "source": "final response = await api.get('/v1/admin/system-events');"
+        }
+      ],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/tenants",
+      "declarationIds": [
+        864
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 864,
+          "endpoint_code": "API__V1_ADMIN_TENANTS",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_training_compliance_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/topology",
+      "declarationIds": [
+        859
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 859,
+          "endpoint_code": "API__V1_ADMIN_TOPOLOGY",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_risk_register_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "forwarded": []
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/admin/users/privileged",
+      "declarationIds": [
+        831
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 831,
+          "endpoint_code": "API__V1_ADMIN_USERS_PRIVILEGED",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_clinic_incident_report_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [],
+      "routingEvidence": {
+        "classification": "credential_or_authority_required",
+        "status": 401,
+        "forwarded": [
+          {
+            "binding": "AUTH",
+            "workerPath": "/admin/users/privileged"
+          }
+        ]
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    },
+    {
+      "api": "GET /v1/governance/dashboard",
+      "declarationIds": [
+        888
+      ],
+      "disposition": "needs_business_and_authority_contract",
+      "completedCredit": false,
+      "endpointEvidence": [
+        {
+          "id": 888,
+          "endpoint_code": "API__V1_GOVERNANCE_DASHBOARD",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "registeredGrantKeys": [
+            {
+              "permission_key": "api_permission_api_v1_cto_api_monitoring_list_get",
+              "grantRows": 64,
+              "allowedRows": 64
+            }
+          ]
+        }
+      ],
+      "callers": [
+        {
+          "file": "packages/flutter_core/lib/src/network/api_client.dart",
+          "line": 160,
+          "source": "if (cleanPath == '/v1/governance/dashboard' || cleanPath == '/v1/governance/dashboard-metrics') {"
+        },
+        {
+          "file": "packages/flutter_core/lib/src/network/api_client.dart",
+          "line": 620,
+          "source": "'dashboard-metrics': '/v1/governance/dashboard',"
+        },
+        {
+          "file": "packages/primecare_ui/lib/src/features/generated_screens/audit_logs.dart",
+          "line": 47,
+          "source": "final response = await api.get('/v1/governance/dashboard');"
+        },
+        {
+          "file": "packages/primecare_ui/lib/src/features/generated_screens/strategic_kpis.dart",
+          "line": 53,
+          "source": "final response = await api.get('/v1/governance/dashboard');"
+        }
+      ],
+      "routingEvidence": {
+        "classification": "worker_route_not_found",
+        "status": 404,
+        "forwarded": [
+          {
+            "binding": "GOVERNANCE",
+            "workerPath": "/dashboard"
+          }
+        ]
+      },
+      "reason": "Endpoint permission key is missing. Existing api_permissions rows cannot substitute for a defined endpoint permission or establish a scoped workflow. Register operation-specific authority and response contract before implementing or aliasing."
+    }
+  ]
+}

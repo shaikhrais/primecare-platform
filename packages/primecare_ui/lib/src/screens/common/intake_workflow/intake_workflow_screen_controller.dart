@@ -1,55 +1,38 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class IntakeWorkflowScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class IntakeWorkflowScreenState
+    extends DashboardState<IntakeWorkflowScreenState> {
+  IntakeWorkflowScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  IntakeWorkflowScreenState({required this.isLoading, this.error, required this.data});
-
-  IntakeWorkflowScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return IntakeWorkflowScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  IntakeWorkflowScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) =>
+      IntakeWorkflowScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class IntakeWorkflowScreenController extends StateNotifier<IntakeWorkflowScreenState> {
-  final Ref ref;
-  IntakeWorkflowScreenController(this.ref) : super(IntakeWorkflowScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/intake_coordinator/workflow');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class IntakeWorkflowScreenController
+    extends BaseDashboardController<IntakeWorkflowScreenState> {
+  IntakeWorkflowScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: IntakeWorkflowScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/intake_coordinator/workflow',
+      );
 }
 
-final intake_workflowControllerProvider = StateNotifierProvider<IntakeWorkflowScreenController, IntakeWorkflowScreenState>((ref) {
-  return IntakeWorkflowScreenController(ref);
-});
+final intake_workflowControllerProvider =
+    StateNotifierProvider<
+      IntakeWorkflowScreenController,
+      IntakeWorkflowScreenState
+    >((ref) {
+      return IntakeWorkflowScreenController(ref);
+    });

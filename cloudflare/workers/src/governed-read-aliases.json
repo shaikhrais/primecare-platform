@@ -1,0 +1,506 @@
+[
+  {
+    "batch": 106,
+    "path": "/v1/premium/appnotification",
+    "service": "auth",
+    "targetPath": "/me/notifications",
+    "canonical": "/v1/auth/me/notifications"
+  },
+  {
+    "batch": 107,
+    "path": "/v1/premium/stafftask",
+    "service": "auth",
+    "targetPath": "/me/assigned-task-records",
+    "canonical": "/v1/auth/me/assigned-task-records"
+  },
+  {
+    "batch": 108,
+    "path": "/v1/premium/booking",
+    "service": "client",
+    "targetPath": "/bookings",
+    "canonical": "/v1/client/bookings"
+  },
+  {
+    "batch": 109,
+    "path": "/v1/premium/bookingrequest",
+    "service": "client",
+    "targetPath": "/booking-requests",
+    "canonical": "/v1/client/booking-requests"
+  },
+  {
+    "batch": 110,
+    "path": "/v1/premium/providerdocument",
+    "service": "provider",
+    "targetPath": "/documents",
+    "canonical": "/v1/provider/documents"
+  },
+  {
+    "batch": 111,
+    "path": "/v1/premium/dailyactivity",
+    "service": "auth",
+    "targetPath": "/me/activities",
+    "canonical": "/v1/auth/me/activities"
+  },
+  {
+    "batch": 112,
+    "path": "/v1/premium/wellnesspulse",
+    "service": "auth",
+    "targetPath": "/me/wellness-pulses",
+    "canonical": "/v1/auth/me/wellness-pulses"
+  },
+  {
+    "batch": 113,
+    "path": "/v1/premium/iotevent",
+    "service": "auth",
+    "targetPath": "/me/device-events",
+    "canonical": "/v1/auth/me/device-events"
+  },
+  {
+    "batch": 114,
+    "path": "/v1/premium/provideravailability",
+    "service": "provider",
+    "targetPath": "/availability",
+    "canonical": "/v1/provider/availability"
+  },
+  {
+    "batch": 115,
+    "path": "/v1/premium/availabilityoverride",
+    "service": "provider",
+    "targetPath": "/availability-overrides",
+    "canonical": "/v1/provider/availability-overrides"
+  },
+  {
+    "batch": 116,
+    "path": "/v1/premium/dailyauditsignoff",
+    "service": "auth",
+    "targetPath": "/me/audit-signoff-records",
+    "canonical": "/v1/auth/me/audit-signoff-records"
+  },
+  {
+    "batch": 117,
+    "path": "/v1/premium/incident",
+    "service": "auth",
+    "targetPath": "/me/reported-incident-records",
+    "canonical": "/v1/auth/me/reported-incident-records"
+  },
+  {
+    "batch": 118,
+    "path": "/v1/premium/medicationrecon",
+    "service": "auth",
+    "targetPath": "/me/medication-reconciliation-records",
+    "canonical": "/v1/auth/me/medication-reconciliation-records"
+  },
+  {
+    "batch": 119,
+    "path": "/v1/premium/performancereview",
+    "service": "auth",
+    "targetPath": "/me/authored-review-records",
+    "canonical": "/v1/auth/me/authored-review-records"
+  },
+  {
+    "batch": 120,
+    "path": "/v1/premium/technicalaudit",
+    "service": "auth",
+    "targetPath": "/me/technical-audit-records",
+    "canonical": "/v1/auth/me/technical-audit-records"
+  },
+  {
+    "batch": 121,
+    "path": "/v1/premium/userdevice",
+    "service": "auth",
+    "targetPath": "/me/devices",
+    "canonical": "/v1/auth/me/devices"
+  },
+  {
+    "batch": 122,
+    "path": "/v1/premium/healthid",
+    "service": "auth",
+    "targetPath": "/me/health-ids",
+    "canonical": "/v1/auth/me/health-ids"
+  },
+  {
+    "batch": 123,
+    "path": "/v1/premium/surveyresponse",
+    "service": "auth",
+    "targetPath": "/me/survey-submissions",
+    "canonical": "/v1/auth/me/survey-submissions"
+  },
+  {
+    "batch": 124,
+    "path": "/v1/premium/staffgroupmember",
+    "service": "auth",
+    "targetPath": "/me/group-memberships",
+    "canonical": "/v1/auth/me/group-memberships"
+  },
+  {
+    "batch": 125,
+    "path": "/v1/premium/providershiftlog",
+    "service": "auth",
+    "targetPath": "/me/shift-logs",
+    "canonical": "/v1/auth/me/shift-logs"
+  },
+  {
+    "batch": 126,
+    "path": "/v1/premium/dailyentry",
+    "service": "auth",
+    "targetPath": "/me/daily-entry-records",
+    "canonical": "/v1/auth/me/daily-entry-records"
+  },
+  {
+    "batch": 127,
+    "path": "/v1/premium/adlcarelog",
+    "service": "auth",
+    "targetPath": "/me/adl-log-records",
+    "canonical": "/v1/auth/me/adl-log-records"
+  },
+  {
+    "batch": 128,
+    "path": "/v1/premium/providervitalsign",
+    "service": "auth",
+    "targetPath": "/me/vital-sign-records",
+    "canonical": "/v1/auth/me/vital-sign-records"
+  },
+  {
+    "batch": 129,
+    "path": "/v1/premium/behaviornote",
+    "service": "auth",
+    "targetPath": "/me/behavior-note-records",
+    "canonical": "/v1/auth/me/behavior-note-records"
+  },
+  {
+    "batch": 130,
+    "path": "/v1/premium/nutritionrecord",
+    "service": "auth",
+    "targetPath": "/me/nutrition-records",
+    "canonical": "/v1/auth/me/nutrition-records"
+  },
+  {
+    "batch": 131,
+    "path": "/v1/premium/mobilitylog",
+    "service": "auth",
+    "targetPath": "/me/mobility-records",
+    "canonical": "/v1/auth/me/mobility-records"
+  },
+  {
+    "batch": 132,
+    "path": "/v1/premium/infectioncontrolchecklist",
+    "service": "auth",
+    "targetPath": "/me/infection-control-records",
+    "canonical": "/v1/auth/me/infection-control-records"
+  },
+  {
+    "batch": 133,
+    "path": "/v1/premium/narrativeprogressnote",
+    "service": "auth",
+    "targetPath": "/me/narrative-note-records",
+    "canonical": "/v1/auth/me/narrative-note-records"
+  },
+  {
+    "batch": 134,
+    "path": "/v1/premium/careplanfollowup",
+    "service": "auth",
+    "targetPath": "/me/care-plan-follow-up-records",
+    "canonical": "/v1/auth/me/care-plan-follow-up-records"
+  },
+  {
+    "batch": 135,
+    "path": "/v1/premium/clinicalassessment",
+    "service": "auth",
+    "targetPath": "/me/assessment-records",
+    "canonical": "/v1/auth/me/assessment-records"
+  },
+  {
+    "batch": 136,
+    "path": "/v1/premium/supervisionlog",
+    "service": "auth",
+    "targetPath": "/me/supervision-records",
+    "canonical": "/v1/auth/me/supervision-records"
+  },
+  {
+    "batch": 137,
+    "path": "/v1/premium/careplan",
+    "service": "auth",
+    "targetPath": "/me/authored-care-plan-records",
+    "canonical": "/v1/auth/me/authored-care-plan-records"
+  },
+  {
+    "batch": 138,
+    "path": "/v1/premium/telehealthsession",
+    "service": "auth",
+    "targetPath": "/me/telehealth-records",
+    "canonical": "/v1/auth/me/telehealth-records"
+  },
+  {
+    "batch": 139,
+    "path": "/v1/premium/consentform",
+    "service": "client",
+    "targetPath": "/consents",
+    "canonical": "/v1/client/consents"
+  },
+  {
+    "batch": 140,
+    "path": "/v1/premium/serviceauthorization",
+    "service": "client",
+    "targetPath": "/service-authorizations",
+    "canonical": "/v1/client/service-authorizations"
+  },
+  {
+    "batch": 141,
+    "path": "/v1/premium/waitlistentry",
+    "service": "client",
+    "targetPath": "/waitlist",
+    "canonical": "/v1/client/waitlist"
+  },
+  {
+    "batch": 142,
+    "path": "/v1/premium/feedback",
+    "service": "client",
+    "targetPath": "/feedback",
+    "canonical": "/v1/client/feedback"
+  },
+  {
+    "batch": 143,
+    "path": "/v1/premium/carefeedback",
+    "service": "client",
+    "targetPath": "/care-feedback",
+    "canonical": "/v1/client/care-feedback"
+  },
+  {
+    "batch": 144,
+    "path": "/v1/premium/familymember",
+    "service": "client",
+    "targetPath": "/family-links",
+    "canonical": "/v1/client/family-links"
+  },
+  {
+    "batch": 145,
+    "path": "/v1/premium/messagethread",
+    "service": "client",
+    "targetPath": "/conversation-threads",
+    "canonical": "/v1/client/conversation-threads"
+  },
+  {
+    "batch": 146,
+    "path": "/v1/premium/timesheet",
+    "service": "provider",
+    "targetPath": "/timesheets",
+    "canonical": "/v1/provider/timesheets"
+  },
+  {
+    "batch": 147,
+    "path": "/v1/premium/mileagelog",
+    "service": "provider",
+    "targetPath": "/mileage-logs",
+    "canonical": "/v1/provider/mileage-logs"
+  },
+  {
+    "batch": 148,
+    "path": "/v1/premium/payout",
+    "service": "provider",
+    "targetPath": "/payouts",
+    "canonical": "/v1/provider/payouts"
+  },
+  {
+    "batch": 149,
+    "path": "/v1/premium/visitcheckevent",
+    "service": "provider",
+    "targetPath": "/visit-check-events",
+    "canonical": "/v1/provider/visit-check-events"
+  },
+  {
+    "batch": 150,
+    "path": "/v1/premium/visitmatch",
+    "service": "provider",
+    "targetPath": "/visit-matches",
+    "canonical": "/v1/provider/visit-matches"
+  },
+  {
+    "batch": 151,
+    "path": "/v1/premium/invoice",
+    "service": "client",
+    "targetPath": "/invoices",
+    "canonical": "/v1/client/invoices"
+  },
+  {
+    "batch": 152,
+    "path": "/v1/premium/visit",
+    "service": "client",
+    "targetPath": "/visits",
+    "canonical": "/v1/client/visits"
+  },
+  {
+    "batch": 153,
+    "path": "/v1/premium/gamificationprofile",
+    "service": "auth",
+    "targetPath": "/me/rewards",
+    "canonical": "/v1/auth/me/rewards"
+  },
+  {
+    "batch": 154,
+    "path": "/v1/premium/userreputation",
+    "service": "auth",
+    "targetPath": "/me/reputation",
+    "canonical": "/v1/auth/me/reputation"
+  },
+  {
+    "batch": 155,
+    "path": "/v1/premium/fleetstatus",
+    "service": "provider",
+    "targetPath": "/fleet-status",
+    "canonical": "/v1/provider/fleet-status"
+  },
+  {
+    "batch": 156,
+    "path": "/v1/premium/clientprofile",
+    "service": "client",
+    "targetPath": "/home/profile",
+    "canonical": "/v1/client/home/profile"
+  },
+  {
+    "batch": 157,
+    "path": "/v1/premium/providerprofile",
+    "service": "provider",
+    "targetPath": "/profile",
+    "canonical": "/v1/provider/profile"
+  },
+  {
+    "batch": 158,
+    "path": "/v1/premium/auditlog",
+    "service": "auth",
+    "targetPath": "/me/audit-event-records",
+    "canonical": "/v1/auth/me/audit-event-records"
+  },
+  {
+    "batch": 159,
+    "path": "/v1/premium/systemevent",
+    "service": "auth",
+    "targetPath": "/me/system-event-records",
+    "canonical": "/v1/auth/me/system-event-records"
+  },
+  {
+    "batch": 160,
+    "path": "/v1/premium/shiftassignment",
+    "service": "provider",
+    "targetPath": "/shift-assignment-records",
+    "canonical": "/v1/provider/shift-assignment-records"
+  },
+  {
+    "batch": 161,
+    "path": "/v1/premium/shifthandover",
+    "service": "provider",
+    "targetPath": "/handover-records",
+    "canonical": "/v1/provider/handover-records"
+  },
+  {
+    "batch": 162,
+    "path": "/v1/premium/visitnote",
+    "service": "provider",
+    "targetPath": "/authored-visit-note-records",
+    "canonical": "/v1/provider/authored-visit-note-records"
+  },
+  {
+    "batch": 163,
+    "path": "/v1/premium/visitchecklist",
+    "service": "provider",
+    "targetPath": "/authored-checklist-records",
+    "canonical": "/v1/provider/authored-checklist-records"
+  },
+  {
+    "batch": 166,
+    "path": "/v1/premium/patientalert",
+    "service": "client",
+    "targetPath": "/alert-records",
+    "canonical": "/v1/client/alert-records"
+  },
+  {
+    "batch": 167,
+    "path": "/v1/premium/claim",
+    "service": "client",
+    "targetPath": "/insurance-claim-records",
+    "canonical": "/v1/client/insurance-claim-records"
+  },
+  {
+    "batch": 168,
+    "path": "/v1/premium/prescription",
+    "service": "client",
+    "targetPath": "/prescription-records",
+    "canonical": "/v1/client/prescription-records"
+  },
+  {
+    "batch": 212,
+    "path": "/v1/premium/payment",
+    "service": "client",
+    "targetPath": "/payments",
+    "canonical": "/v1/client/payments"
+  },
+  {
+    "batch": 216,
+    "path": "/v1/premium/timesheetitem",
+    "service": "provider",
+    "targetPath": "/timesheet-items",
+    "canonical": "/v1/provider/timesheet-items"
+  },
+  {
+    "batch": 219,
+    "path": "/v1/premium/trainingassignment",
+    "service": "provider",
+    "targetPath": "/training-assignment-records",
+    "canonical": "/v1/provider/training-assignment-records"
+  },
+  {
+    "batch": 221,
+    "path": "/v1/premium/message",
+    "service": "auth",
+    "targetPath": "/me/authored-message-records",
+    "canonical": "/v1/auth/me/authored-message-records"
+  },
+  {
+    "batch": 224,
+    "path": "/v1/premium/familynotification",
+    "service": "client",
+    "targetPath": "/family-notification-records",
+    "canonical": "/v1/client/family-notification-records"
+  },
+  {
+    "batch": 232,
+    "path": "/v1/premium/blogpost",
+    "service": "auth",
+    "targetPath": "/me/authored-post-records",
+    "canonical": "/v1/auth/me/authored-post-records"
+  },
+  {
+    "batch": 233,
+    "path": "/v1/premium/transactionledger",
+    "service": "auth",
+    "targetPath": "/me/ledger-event-records",
+    "canonical": "/v1/auth/me/ledger-event-records"
+  },
+  {
+    "batch": 234,
+    "path": "/v1/premium/inventoryitem",
+    "service": "client",
+    "targetPath": "/inventory-item-records",
+    "canonical": "/v1/client/inventory-item-records"
+  },
+  {
+    "batch": 235,
+    "path": "/v1/premium/purchaseorder",
+    "service": "client",
+    "targetPath": "/purchase-order-records",
+    "canonical": "/v1/client/purchase-order-records"
+  },
+  {
+    "batch": 240,
+    "path": "/v1/premium/vitalsign",
+    "service": "client",
+    "targetPath": "/patient-vital-records",
+    "canonical": "/v1/client/patient-vital-records"
+  },
+  {
+    "batch": 241,
+    "path": "/v1/premium/mar_entry",
+    "service": "client",
+    "targetPath": "/medication-administration-records",
+    "canonical": "/v1/client/medication-administration-records"
+  }
+]

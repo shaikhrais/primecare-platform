@@ -1,0 +1,60 @@
+[
+  {
+    "service": "billing",
+    "path": "/api/invoices",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "service": "client",
+    "path": "/api/clients",
+    "methods": [
+      "GET",
+      "POST"
+    ]
+  },
+  {
+    "service": "compliance",
+    "path": "/api/compliance/audits",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "service": "compliance",
+    "path": "/api/compliance/findings",
+    "methods": [
+      "POST"
+    ]
+  },
+  {
+    "service": "provider",
+    "path": "/api/providers",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "service": "provider",
+    "path": "/api/providers/{providerId}",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "service": "scheduling",
+    "path": "/api/schedules",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "service": "visit",
+    "path": "/api/visits",
+    "methods": [
+      "GET",
+      "POST"
+    ]
+  }
+]

@@ -1,55 +1,45 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TerritorySalesManagerComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class TerritorySalesManagerComplianceScreenState
+    extends DashboardState<TerritorySalesManagerComplianceScreenState> {
+  TerritorySalesManagerComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  TerritorySalesManagerComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  TerritorySalesManagerComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return TerritorySalesManagerComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TerritorySalesManagerComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => TerritorySalesManagerComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class TerritorySalesManagerComplianceScreenController extends StateNotifier<TerritorySalesManagerComplianceScreenState> {
-  final Ref ref;
-  TerritorySalesManagerComplianceScreenController(this.ref) : super(TerritorySalesManagerComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/territory-sales-manager-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class TerritorySalesManagerComplianceScreenController
+    extends
+        BaseDashboardController<TerritorySalesManagerComplianceScreenState> {
+  TerritorySalesManagerComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: TerritorySalesManagerComplianceScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/management/territory-sales-manager-compliance',
+      );
 }
 
-final territory_sales_manager_complianceControllerProvider = StateNotifierProvider<TerritorySalesManagerComplianceScreenController, TerritorySalesManagerComplianceScreenState>((ref) {
-  return TerritorySalesManagerComplianceScreenController(ref);
-});
+final territory_sales_manager_complianceControllerProvider =
+    StateNotifierProvider<
+      TerritorySalesManagerComplianceScreenController,
+      TerritorySalesManagerComplianceScreenState
+    >((ref) {
+      return TerritorySalesManagerComplianceScreenController(ref);
+    });

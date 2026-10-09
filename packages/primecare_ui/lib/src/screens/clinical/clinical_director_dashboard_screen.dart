@@ -5,6 +5,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 // --- MVC State Model ---
 class ClinicalDirectorDashboardState {
   final bool isLoading;
+  final bool hasValidatedMetrics;
   final String? error;
   final String title;
   final List<String> logs;
@@ -63,7 +64,8 @@ class ClinicalDirectorDashboardState {
   final double payrollRatio;
   final double outstandingPayments;
   final List<Map<String, dynamic>> revenueByService;
-  final List<Map<String, dynamic>> revenueByTherapist; // Representing Department Cost/Revenues
+  final List<Map<String, dynamic>>
+  revenueByTherapist; // Representing Department Cost/Revenues
 
   // Operations Metrics (Facility Units & Supplies)
   final List<Map<String, dynamic>> roomUtilization; // Facility Unit Occupancy
@@ -74,6 +76,7 @@ class ClinicalDirectorDashboardState {
 
   const ClinicalDirectorDashboardState({
     required this.isLoading,
+    this.hasValidatedMetrics = false,
     this.error,
     required this.title,
     required this.logs,
@@ -126,6 +129,8 @@ class ClinicalDirectorDashboardState {
 
   ClinicalDirectorDashboardState copyWith({
     bool? isLoading,
+    bool? hasValidatedMetrics,
+    bool clearError = false,
     String? error,
     String? title,
     List<String>? logs,
@@ -177,7 +182,8 @@ class ClinicalDirectorDashboardState {
   }) {
     return ClinicalDirectorDashboardState(
       isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
+      hasValidatedMetrics: hasValidatedMetrics ?? this.hasValidatedMetrics,
+      error: clearError ? null : error ?? this.error,
       title: title ?? this.title,
       logs: logs ?? this.logs,
       activeTab: activeTab ?? this.activeTab,
@@ -192,30 +198,43 @@ class ClinicalDirectorDashboardState {
       fallRate: fallRate ?? this.fallRate,
       pressureUlcersCount: pressureUlcersCount ?? this.pressureUlcersCount,
       wanderingAlertsCount: wanderingAlertsCount ?? this.wanderingAlertsCount,
-      missedRepositioningsCount: missedRepositioningsCount ?? this.missedRepositioningsCount,
+      missedRepositioningsCount:
+          missedRepositioningsCount ?? this.missedRepositioningsCount,
       weightLossRiskCount: weightLossRiskCount ?? this.weightLossRiskCount,
-      dehydrationAlertCount: dehydrationAlertCount ?? this.dehydrationAlertCount,
-      highRiskResidentsList: highRiskResidentsList ?? this.highRiskResidentsList,
+      dehydrationAlertCount:
+          dehydrationAlertCount ?? this.dehydrationAlertCount,
+      highRiskResidentsList:
+          highRiskResidentsList ?? this.highRiskResidentsList,
       pswToResidentRatio: pswToResidentRatio ?? this.pswToResidentRatio,
       overtimeHours: overtimeHours ?? this.overtimeHours,
       sickCalls: sickCalls ?? this.sickCalls,
       agencyStaffUsage: agencyStaffUsage ?? this.agencyStaffUsage,
-      trainingCompletionRate: trainingCompletionRate ?? this.trainingCompletionRate,
-      expiringCertifications: expiringCertifications ?? this.expiringCertifications,
+      trainingCompletionRate:
+          trainingCompletionRate ?? this.trainingCompletionRate,
+      expiringCertifications:
+          expiringCertifications ?? this.expiringCertifications,
       staffWorkloadList: staffWorkloadList ?? this.staffWorkloadList,
-      missingADLChartingCount: missingADLChartingCount ?? this.missingADLChartingCount,
-      lateIncidentReportsCount: lateIncidentReportsCount ?? this.lateIncidentReportsCount,
-      overdueCarePlansCount: overdueCarePlansCount ?? this.overdueCarePlansCount,
+      missingADLChartingCount:
+          missingADLChartingCount ?? this.missingADLChartingCount,
+      lateIncidentReportsCount:
+          lateIncidentReportsCount ?? this.lateIncidentReportsCount,
+      overdueCarePlansCount:
+          overdueCarePlansCount ?? this.overdueCarePlansCount,
       privacyBreachCount: privacyBreachCount ?? this.privacyBreachCount,
-      activeAbuseInvestigationsCount: activeAbuseInvestigationsCount ?? this.activeAbuseInvestigationsCount,
-      activeInfectionsCount: activeInfectionsCount ?? this.activeInfectionsCount,
+      activeAbuseInvestigationsCount:
+          activeAbuseInvestigationsCount ?? this.activeAbuseInvestigationsCount,
+      activeInfectionsCount:
+          activeInfectionsCount ?? this.activeInfectionsCount,
       isolationCount: isolationCount ?? this.isolationCount,
       ppeInventoryLevel: ppeInventoryLevel ?? this.ppeInventoryLevel,
-      handHygieneAuditScore: handHygieneAuditScore ?? this.handHygieneAuditScore,
+      handHygieneAuditScore:
+          handHygieneAuditScore ?? this.handHygieneAuditScore,
       outbreakStatus: outbreakStatus ?? this.outbreakStatus,
-      activeComplaintsCount: activeComplaintsCount ?? this.activeComplaintsCount,
+      activeComplaintsCount:
+          activeComplaintsCount ?? this.activeComplaintsCount,
       satisfactionRate: satisfactionRate ?? this.satisfactionRate,
-      pendingFamilyCallsCount: pendingFamilyCallsCount ?? this.pendingFamilyCallsCount,
+      pendingFamilyCallsCount:
+          pendingFamilyCallsCount ?? this.pendingFamilyCallsCount,
       moodTrends: moodTrends ?? this.moodTrends,
       profitMargin: profitMargin ?? this.profitMargin,
       payrollRatio: payrollRatio ?? this.payrollRatio,
@@ -229,185 +248,263 @@ class ClinicalDirectorDashboardState {
   }
 }
 
+// This validates the existing screen's input needs, not an approved API contract.
+void _validateClinicalDashboard(dynamic data) {
+  if (data is! Map<String, dynamic>)
+    throw const FormatException('Invalid dashboard');
+  const integers = [
+    'residentsToday',
+    'staffOnShift',
+    'openShifts',
+    'fallsToday',
+    'incidentsToday',
+    'hospitalTransfers',
+    'activeOutbreaks',
+    'pressureUlcersCount',
+    'wanderingAlertsCount',
+    'missedRepositioningsCount',
+    'weightLossRiskCount',
+    'dehydrationAlertCount',
+    'sickCalls',
+    'agencyStaffUsage',
+    'expiringCertifications',
+    'missingADLChartingCount',
+    'lateIncidentReportsCount',
+    'overdueCarePlansCount',
+    'privacyBreachCount',
+    'activeAbuseInvestigationsCount',
+    'activeInfectionsCount',
+    'isolationCount',
+    'activeComplaintsCount',
+    'pendingFamilyCallsCount',
+  ];
+  const decimals = [
+    'staffAttendance',
+    'fallRate',
+    'overtimeHours',
+    'trainingCompletionRate',
+    'handHygieneAuditScore',
+    'satisfactionRate',
+    'profitMargin',
+    'payrollRatio',
+    'outstandingPayments',
+  ];
+  const strings = [
+    'pswToResidentRatio',
+    'ppeInventoryLevel',
+    'outbreakStatus',
+    'moodTrends',
+  ];
+  const lists = [
+    'highRiskResidentsList',
+    'staffWorkloadList',
+    'revenueByService',
+    'revenueByTherapist',
+    'roomUtilization',
+    'inventoryAlerts',
+    'redFlags',
+  ];
+  for (final key in [...integers, ...decimals]) {
+    final value = data[key];
+    if (value is! num ||
+        !value.isFinite ||
+        (integers.contains(key) &&
+            (value < 0 || value != value.truncateToDouble()))) {
+      throw const FormatException('Invalid dashboard metric');
+    }
+  }
+  for (final key in strings) {
+    if (data[key] is! String || (data[key] as String).trim().isEmpty) {
+      throw const FormatException('Invalid dashboard status');
+    }
+  }
+  for (final key in lists) {
+    final value = data[key];
+    if (value is! List || value.any((row) => row is! Map<String, dynamic>)) {
+      throw const FormatException('Invalid dashboard rows');
+    }
+  }
+  const rowStrings = {
+    'highRiskResidentsList': ['name', 'riskType', 'status'],
+    'staffWorkloadList': ['name'],
+    'revenueByService': ['service'],
+    'inventoryAlerts': ['item', 'level'],
+    'redFlags': ['level', 'message', 'type'],
+  };
+  const rowNumbers = {
+    'staffWorkloadList': ['load', 'breaksSkipped'],
+    'revenueByService': ['amount'],
+  };
+  for (final key in lists) {
+    for (final row in data[key] as List) {
+      for (final field in rowStrings[key] ?? <String>[]) {
+        if (row[field] is! String || (row[field] as String).trim().isEmpty) {
+          throw const FormatException('Invalid dashboard row text');
+        }
+      }
+      for (final field in rowNumbers[key] ?? <String>[]) {
+        final value = row[field];
+        if (value is! num || !value.isFinite) {
+          throw const FormatException('Invalid dashboard row number');
+        }
+      }
+    }
+  }
+
+}
+
 // --- Controller (Notifier) ---
 class ClinicalDirectorDashboardController
     extends StateNotifier<ClinicalDirectorDashboardState> {
-  final Ref ref;
+  final Future<ApiResponse> Function() _fetchMetrics;
+  int _loadGeneration = 0;
 
-  ClinicalDirectorDashboardController(this.ref)
-      : super(
-          const ClinicalDirectorDashboardState(
-            isLoading: false,
-            title: 'Care Director Control Room',
-            logs: ['Care facility gateway online.', 'System parameters validated.'],
-          ),
-        ) {
+  ClinicalDirectorDashboardController(Ref ref)
+    : this.withLoader(
+        () => ref.read(apiClientProvider).get('/v1/clinical/dashboard'),
+      );
+
+  ClinicalDirectorDashboardController.withLoader(this._fetchMetrics)
+    : super(
+        const ClinicalDirectorDashboardState(
+          isLoading: false,
+          title: 'Care Director Control Room',
+          logs: [],
+        ),
+      ) {
     loadDashboardMetrics();
   }
 
   Future<void> loadDashboardMetrics() async {
-    state = state.copyWith(isLoading: true);
+    final generation = ++_loadGeneration;
+    state = state.copyWith(
+      isLoading: true,
+      hasValidatedMetrics: false,
+      clearError: true,
+    );
     try {
-      final apiClient = ref.read(apiClientProvider);
-      final response = await apiClient.get('/v1/clinical/dashboard');
+      final response = await _fetchMetrics();
+      if (!mounted || generation != _loadGeneration) return;
       if (response.isSuccess && response.data != null) {
-        final d = response.data['data'] ?? response.data;
+        final payload = response.data;
+        if (payload is! Map<String, dynamic>) {
+          throw const FormatException('Invalid dashboard');
+        }
+        final d = payload.containsKey('data') ? payload['data'] : payload;
+        _validateClinicalDashboard(d);
         state = state.copyWith(
           isLoading: false,
-          residentsToday: (d['residentsToday'] as num?)?.toInt() ?? 142,
-          staffOnShift: (d['staffOnShift'] as num?)?.toInt() ?? 18,
-          openShifts: (d['openShifts'] as num?)?.toInt() ?? 3,
-          fallsToday: (d['fallsToday'] as num?)?.toInt() ?? 1,
-          incidentsToday: (d['incidentsToday'] as num?)?.toInt() ?? 2,
-          hospitalTransfers: (d['hospitalTransfers'] as num?)?.toInt() ?? 1,
-          staffAttendance: (d['staffAttendance'] as num?)?.toDouble() ?? 96.5,
-          activeOutbreaks: (d['activeOutbreaks'] as num?)?.toInt() ?? 0,
+          hasValidatedMetrics: true,
+          clearError: true,
+          residentsToday: (d['residentsToday'] as num).toInt(),
+          staffOnShift: (d['staffOnShift'] as num).toInt(),
+          openShifts: (d['openShifts'] as num).toInt(),
+          fallsToday: (d['fallsToday'] as num).toInt(),
+          incidentsToday: (d['incidentsToday'] as num).toInt(),
+          hospitalTransfers: (d['hospitalTransfers'] as num).toInt(),
+          staffAttendance: (d['staffAttendance'] as num).toDouble(),
+          activeOutbreaks: (d['activeOutbreaks'] as num).toInt(),
 
-          fallRate: (d['fallRate'] as num?)?.toDouble() ?? 1.2,
-          pressureUlcersCount: (d['pressureUlcersCount'] as num?)?.toInt() ?? 2,
-          wanderingAlertsCount: (d['wanderingAlertsCount'] as num?)?.toInt() ?? 0,
-          missedRepositioningsCount: (d['missedRepositioningsCount'] as num?)?.toInt() ?? 1,
-          weightLossRiskCount: (d['weightLossRiskCount'] as num?)?.toInt() ?? 4,
-          dehydrationAlertCount: (d['dehydrationAlertCount'] as num?)?.toInt() ?? 1,
+          fallRate: (d['fallRate'] as num).toDouble(),
+          pressureUlcersCount: (d['pressureUlcersCount'] as num).toInt(),
+          wanderingAlertsCount: (d['wanderingAlertsCount'] as num).toInt(),
+          missedRepositioningsCount: (d['missedRepositioningsCount'] as num)
+              .toInt(),
+          weightLossRiskCount: (d['weightLossRiskCount'] as num).toInt(),
+          dehydrationAlertCount: (d['dehydrationAlertCount'] as num).toInt(),
 
           highRiskResidentsList: List<Map<String, dynamic>>.from(
-            (d['highRiskResidentsList'] as List?)?.map((e) => Map<String, dynamic>.from(e as Map)) ?? []
+            (d['highRiskResidentsList'] as List).map(
+              (e) => Map<String, dynamic>.from(e as Map),
+            ),
           ),
 
-          pswToResidentRatio: (d['pswToResidentRatio'] as String?) ?? '1:8',
-          overtimeHours: (d['overtimeHours'] as num?)?.toDouble() ?? 12.5,
-          sickCalls: (d['sickCalls'] as num?)?.toInt() ?? 2,
-          agencyStaffUsage: (d['agencyStaffUsage'] as num?)?.toInt() ?? 1,
-          trainingCompletionRate: (d['trainingCompletionRate'] as num?)?.toDouble() ?? 98.2,
-          expiringCertifications: (d['expiringCertifications'] as num?)?.toInt() ?? 2,
+          pswToResidentRatio: d['pswToResidentRatio'] as String,
+          overtimeHours: (d['overtimeHours'] as num).toDouble(),
+          sickCalls: (d['sickCalls'] as num).toInt(),
+          agencyStaffUsage: (d['agencyStaffUsage'] as num).toInt(),
+          trainingCompletionRate: (d['trainingCompletionRate'] as num)
+              .toDouble(),
+          expiringCertifications: (d['expiringCertifications'] as num).toInt(),
 
           staffWorkloadList: List<Map<String, dynamic>>.from(
-            (d['staffWorkloadList'] as List?)?.map((e) => Map<String, dynamic>.from(e as Map)) ?? []
+            (d['staffWorkloadList'] as List).map(
+              (e) => Map<String, dynamic>.from(e as Map),
+            ),
           ),
 
-          missingADLChartingCount: (d['missingADLChartingCount'] as num?)?.toInt() ?? 4,
-          lateIncidentReportsCount: (d['lateIncidentReportsCount'] as num?)?.toInt() ?? 1,
-          overdueCarePlansCount: (d['overdueCarePlansCount'] as num?)?.toInt() ?? 2,
-          privacyBreachCount: (d['privacyBreachCount'] as num?)?.toInt() ?? 0,
-          activeAbuseInvestigationsCount: (d['activeAbuseInvestigationsCount'] as num?)?.toInt() ?? 0,
+          missingADLChartingCount: (d['missingADLChartingCount'] as num)
+              .toInt(),
+          lateIncidentReportsCount: (d['lateIncidentReportsCount'] as num)
+              .toInt(),
+          overdueCarePlansCount: (d['overdueCarePlansCount'] as num).toInt(),
+          privacyBreachCount: (d['privacyBreachCount'] as num).toInt(),
+          activeAbuseInvestigationsCount:
+              (d['activeAbuseInvestigationsCount'] as num).toInt(),
 
-          activeInfectionsCount: (d['activeInfectionsCount'] as num?)?.toInt() ?? 3,
-          isolationCount: (d['isolationCount'] as num?)?.toInt() ?? 2,
-          ppeInventoryLevel: (d['ppeInventoryLevel'] as String?) ?? 'Adequate',
-          handHygieneAuditScore: (d['handHygieneAuditScore'] as num?)?.toDouble() ?? 95.0,
-          outbreakStatus: (d['outbreakStatus'] as String?) ?? 'Clear',
+          activeInfectionsCount: (d['activeInfectionsCount'] as num).toInt(),
+          isolationCount: (d['isolationCount'] as num).toInt(),
+          ppeInventoryLevel: d['ppeInventoryLevel'] as String,
+          handHygieneAuditScore: (d['handHygieneAuditScore'] as num).toDouble(),
+          outbreakStatus: d['outbreakStatus'] as String,
 
-          activeComplaintsCount: (d['activeComplaintsCount'] as num?)?.toInt() ?? 1,
-          satisfactionRate: (d['satisfactionRate'] as num?)?.toDouble() ?? 94.2,
-          pendingFamilyCallsCount: (d['pendingFamilyCallsCount'] as num?)?.toInt() ?? 3,
-          moodTrends: (d['moodTrends'] as String?) ?? 'Stable',
+          activeComplaintsCount: (d['activeComplaintsCount'] as num).toInt(),
+          satisfactionRate: (d['satisfactionRate'] as num).toDouble(),
+          pendingFamilyCallsCount: (d['pendingFamilyCallsCount'] as num)
+              .toInt(),
+          moodTrends: d['moodTrends'] as String,
 
-          profitMargin: (d['profitMargin'] as num?)?.toDouble() ?? 24.5,
-          payrollRatio: (d['payrollRatio'] as num?)?.toDouble() ?? 48.0,
-          outstandingPayments: (d['outstandingPayments'] as num?)?.toDouble() ?? 1480.0,
+          profitMargin: (d['profitMargin'] as num).toDouble(),
+          payrollRatio: (d['payrollRatio'] as num).toDouble(),
+          outstandingPayments: (d['outstandingPayments'] as num).toDouble(),
 
           revenueByService: List<Map<String, dynamic>>.from(
-            (d['revenueByService'] as List?)?.map((e) => Map<String, dynamic>.from(e as Map)) ?? []
+            (d['revenueByService'] as List).map(
+              (e) => Map<String, dynamic>.from(e as Map),
+            ),
           ),
           revenueByTherapist: List<Map<String, dynamic>>.from(
-            (d['revenueByTherapist'] as List?)?.map((e) => Map<String, dynamic>.from(e as Map)) ?? []
+            (d['revenueByTherapist'] as List).map(
+              (e) => Map<String, dynamic>.from(e as Map),
+            ),
           ),
           roomUtilization: List<Map<String, dynamic>>.from(
-            (d['roomUtilization'] as List?)?.map((e) => Map<String, dynamic>.from(e as Map)) ?? []
+            (d['roomUtilization'] as List).map(
+              (e) => Map<String, dynamic>.from(e as Map),
+            ),
           ),
           inventoryAlerts: List<Map<String, dynamic>>.from(
-            (d['inventoryAlerts'] as List?)?.map((e) => Map<String, dynamic>.from(e as Map)) ?? []
+            (d['inventoryAlerts'] as List).map(
+              (e) => Map<String, dynamic>.from(e as Map),
+            ),
           ),
           redFlags: List<Map<String, dynamic>>.from(
-            (d['redFlags'] as List?)?.map((e) => Map<String, dynamic>.from(e as Map)) ?? []
+            (d['redFlags'] as List).map(
+              (e) => Map<String, dynamic>.from(e as Map),
+            ),
           ),
         );
       } else {
-        _setMockMetrics();
+        _setUnavailable();
       }
-    } catch (e) {
-      _setMockMetrics();
+    } catch (_) {
+      if (!mounted || generation != _loadGeneration) return;
+      _setUnavailable();
     }
   }
 
-  void _setMockMetrics() {
+  void _setUnavailable() {
     state = state.copyWith(
       isLoading: false,
-      residentsToday: 142,
-      staffOnShift: 18,
-      openShifts: 3,
-      fallsToday: 1,
-      incidentsToday: 2,
-      hospitalTransfers: 1,
-      staffAttendance: 96.5,
-      activeOutbreaks: 0,
-      fallRate: 1.2,
-      pressureUlcersCount: 2,
-      wanderingAlertsCount: 0,
-      missedRepositioningsCount: 1,
-      weightLossRiskCount: 4,
-      dehydrationAlertCount: 1,
-      highRiskResidentsList: const [
-        {'name': 'Alice Miller', 'riskType': 'Falls Risk / Dementia', 'status': 'High Monitoring'},
-        {'name': 'Robert Chen', 'riskType': 'Medication Support', 'status': 'Stable'},
-        {'name': 'Margaret Sullivan', 'riskType': 'Nutrition Risk', 'status': 'Assisted Feeding'}
-      ],
-      pswToResidentRatio: '1:8',
-      overtimeHours: 12.5,
-      sickCalls: 2,
-      agencyStaffUsage: 1,
-      trainingCompletionRate: 98.2,
-      expiringCertifications: 2,
-      staffWorkloadList: const [
-        {'name': 'Emily Watson (PSW)', 'load': 85.0, 'breaksSkipped': 0},
-        {'name': 'James Davis (PSW Team Lead)', 'load': 70.0, 'breaksSkipped': 0},
-        {'name': 'Sarah Connor (PSW)', 'load': 90.0, 'breaksSkipped': 1}
-      ],
-      missingADLChartingCount: 4,
-      lateIncidentReportsCount: 1,
-      overdueCarePlansCount: 2,
-      privacyBreachCount: 0,
-      activeAbuseInvestigationsCount: 0,
-      activeInfectionsCount: 3,
-      isolationCount: 2,
-      ppeInventoryLevel: 'Adequate (30 days supply)',
-      handHygieneAuditScore: 95.0,
-      outbreakStatus: 'Clear',
-      activeComplaintsCount: 1,
-      satisfactionRate: 94.2,
-      pendingFamilyCallsCount: 3,
-      moodTrends: 'Stable',
-      profitMargin: 24.5,
-      payrollRatio: 48.0,
-      outstandingPayments: 1480.0,
-      revenueByService: const [
-        {'service': 'Home Care Services', 'amount': 18500.0},
-        {'service': 'Retirement Resident Fees', 'amount': 24000.0},
-        {'service': 'Agency Staff Provision', 'amount': 10000.0}
-      ],
-      revenueByTherapist: const [
-        {'name': 'East Wing (Retirement)', 'amount': 12000.0},
-        {'name': 'West Wing (Assisted Living)', 'amount': 14000.0},
-        {'name': 'Memory Care Unit', 'amount': 10000.0},
-        {'name': 'Outpatient Home Care', 'amount': 6500.0}
-      ],
-      roomUtilization: const [
-        {'room': 'East Wing (Retirement)', 'occupancy': 92.0},
-        {'room': 'West Wing (Assisted Living)', 'occupancy': 88.0},
-        {'room': 'Memory Care Unit', 'occupancy': 95.0}
-      ],
-      inventoryAlerts: const [
-        {'item': 'PPE Face Masks (N95)', 'level': 'Low (2 boxes remaining)'},
-        {'item': 'Hand Sanitizer Gel', 'level': 'Adequate'},
-        {'item': 'Linens / Patient Gowns', 'level': 'Adequate'}
-      ],
-      redFlags: const [
-        {'id': '1', 'level': 'danger', 'type': 'safety', 'message': 'Repeated falls (2 in 48h) detected for resident John Smith.'},
-        {'id': '2', 'level': 'warning', 'type': 'compliance', 'message': '4 ADL charting logs missing for morning shift.'},
-        {'id': '3', 'level': 'warning', 'type': 'staff', 'message': 'Sarah Connor (PSW) schedule load exceeds 90% (burnout warning).'},
-        {'id': '4', 'level': 'warning', 'type': 'infection', 'message': 'Low hand-hygiene score (78%) in memory care unit.'}
-      ]
+      hasValidatedMetrics: false,
+      error: 'Clinical dashboard data is unavailable.',
     );
+  }
+
+  void _setActionUnavailable() {
+    ++_loadGeneration;
+    state = state.copyWith(isLoading: false, hasValidatedMetrics: false,
+      error: 'Clinical dashboard actions are unavailable.');
   }
 
   void changeTab(int index) {
@@ -415,58 +512,27 @@ class ClinicalDirectorDashboardController
   }
 
   Future<void> runComplianceScan() async {
-    state = state.copyWith(isLoading: true);
-    await Future<void>.delayed(const Duration(seconds: 1));
-    state = state.copyWith(
-      isLoading: false,
-      logs: [
-        ...state.logs,
-        'Incident audit executed at ${DateTime.now().toIso8601String()}',
-        'All resident safety logs and care plans validated.',
-      ],
-    );
+    _setActionUnavailable();
   }
 
   void syncPosture() {
-    state = state.copyWith(
-      logs: [...state.logs, 'Care plan synchronization sweep completed.'],
-    );
+    _setActionUnavailable();
   }
 
   void updatePolicy() {
-    state = state.copyWith(
-      logs: [...state.logs, 'Ministry safety policy updated and validated.'],
-    );
+    _setActionUnavailable();
   }
 
   void exportLogs() {
-    state = state.copyWith(
-      logs: [...state.logs, 'Compliance logs successfully compiled and exported.'],
-    );
+    _setActionUnavailable();
   }
 
   void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
+    _setActionUnavailable();
   }
 
   void triggerEmergencyAlert({required String type, required String wing}) {
-    final newLogs = [
-      ...state.logs,
-      '🚨 CRITICAL EMERGENCY: Broadcasted $type for $wing at ${DateTime.now().toLocal().toString().substring(11, 19)}',
-    ];
-    final newRedFlags = [
-      {
-        'id': DateTime.now().millisecondsSinceEpoch.toString(),
-        'level': 'danger',
-        'type': 'safety',
-        'message': '$type activated in $wing! Response teams dispatched immediately.',
-      },
-      ...state.redFlags,
-    ];
-    state = state.copyWith(
-      logs: newLogs,
-      redFlags: newRedFlags,
-    );
+    _setActionUnavailable();
   }
 
   void submitIncident({
@@ -475,31 +541,7 @@ class ClinicalDirectorDashboardController
     required String severity,
     required String details,
   }) {
-    final isFall = type.toLowerCase().contains('fall');
-    final isHospitalTransfer = type.toLowerCase().contains('transfer');
-    final newLogs = [
-      ...state.logs,
-      'Reported incident ($type) for resident $resident. Severity: $severity.',
-    ];
-    final newRedFlags = severity.toLowerCase() == 'critical' || severity.toLowerCase() == 'danger'
-        ? [
-            {
-              'id': DateTime.now().millisecondsSinceEpoch.toString(),
-              'level': 'danger',
-              'type': 'safety',
-              'message': 'CRITICAL INCIDENT: $type logged for $resident. Details: $details',
-            },
-            ...state.redFlags,
-          ]
-        : state.redFlags;
-
-    state = state.copyWith(
-      incidentsToday: state.incidentsToday + 1,
-      fallsToday: isFall ? state.fallsToday + 1 : state.fallsToday,
-      hospitalTransfers: isHospitalTransfer ? state.hospitalTransfers + 1 : state.hospitalTransfers,
-      logs: newLogs,
-      redFlags: newRedFlags,
-    );
+    _setActionUnavailable();
   }
 
   void submitStaffCallOff({
@@ -507,36 +549,15 @@ class ClinicalDirectorDashboardController
     required String shift,
     required bool autoSuggest,
   }) {
-    final newLogs = [
-      ...state.logs,
-      'Staff call-off registered: $name on $shift shift.',
-      if (autoSuggest) 'AI auto-suggested replacement coverage list dispatched to team leads.',
-    ];
-    state = state.copyWith(
-      sickCalls: state.sickCalls + 1,
-      staffOnShift: (state.staffOnShift - 1).clamp(0, 100),
-      openShifts: state.openShifts + 1,
-      logs: newLogs,
-    );
+    _setActionUnavailable();
   }
 
   void submitResidentLookup({required String query}) {
-    state = state.copyWith(
-      logs: [
-        ...state.logs,
-        'Resident lookup query executed for: "$query".',
-      ],
-    );
+    _setActionUnavailable();
   }
 
   void resolveMissingCharting({required String description}) {
-    state = state.copyWith(
-      missingADLChartingCount: (state.missingADLChartingCount - 1).clamp(0, 100),
-      logs: [
-        ...state.logs,
-        'Resolved ADL documentation gap: $description.',
-      ],
-    );
+    _setActionUnavailable();
   }
 }
 
@@ -584,26 +605,23 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
             ),
           ],
         ),
-        body: Cy(
+        body: !state.hasValidatedMetrics || state.isLoading
+            ? Center(child: state.isLoading
+                ? const CircularProgressIndicator(key: Key('clinical-dashboard-loading'))
+                : Column(mainAxisSize: MainAxisSize.min, children: [
+                    Text(state.error ?? 'Clinical dashboard data is unavailable.',
+                      key: Key('clinical-dashboard-unavailable')),
+                    TextButton(onPressed: controller.loadDashboardMetrics,
+                      child: const Text('Retry')),
+                  ]))
+            : Cy(
           id: 'clinicaldashboard-content',
           child: ResponsiveSplitDashboard(
           metrics: [
-            GovMetricCard(
-              title: 'Residents Census'.tr(),
-              value: '${state.residentsToday}',
-              trendLabel: 'Stable',
-              progress: 0.95,
-              icon: LucideIcons.home,
-              brandColor: theme.colors.primary,
-            ),
-            GovMetricCard(
-              title: 'Staff Coverage'.tr(),
-              value: '${state.staffOnShift} PSWs',
-              trendLabel: '100% Covered',
-              progress: state.staffOnShift / 20.0,
-              icon: LucideIcons.userCheck,
-              brandColor: const Color(0xFF0D9488),
-            ),
+            _buildExecMetricItem(context, title: 'Residents Census',
+              value: '${state.residentsToday}', icon: LucideIcons.home),
+            _buildExecMetricItem(context, title: 'Staff On Shift',
+              value: '${state.staffOnShift} PSWs', icon: LucideIcons.userCheck),
             GovMetricCard(
               title: 'Active Outbreaks'.tr(),
               value: state.activeOutbreaks == 0 ? 'Clear'.tr() : '${state.activeOutbreaks}',
@@ -890,12 +908,7 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
           ),
         ),
         const SizedBox(height: 24),
-        GovTelemetryChart(
-          title: 'Resident Safety Level Telemetry'.tr(),
-          dataPoints: const [95, 94, 98, 92, 96, 99],
-          labels: const ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-          accentColor: theme.colors.primary,
-        ),
+        const Text('Resident safety telemetry is unavailable.'),
       ],
     );
   }
@@ -1243,15 +1256,7 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
       key: const ValueKey('tab-incidents'),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GovComplianceAuditTable(
-          title: 'Recent Care Incidents Log'.tr(),
-          columns: const ['Title', 'Description'],
-          data: const [
-            {'Title': 'Resident Fall Audit', 'Description': 'Fall logged for John Smith in East Wing. Post-fall assessment complete.', 'status': 'Warning', 'date': '2026-06-04'},
-            {'Title': 'Medication Error Review', 'Description': 'Missed dose of blood pressure medication reported.', 'status': 'Warning', 'date': '2026-06-04'},
-            {'Title': 'Isolation Compliance Outbreak Check', 'Description': 'Respiratory infection isolation room 104 audit.', 'status': 'Secure', 'date': '2026-06-03'},
-          ],
-        ),
+        const Text('Care incident records are unavailable.'),
       ],
     );
   }
@@ -1649,7 +1654,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         backgroundColor: const Color(0xFFDC2626),
-                        content: Text('Safety Alarm Broadcasted successfully!'.tr()),
+                        content: Text('Clinical dashboard actions are unavailable.'.tr()),
                       ),
                     );
                   },
@@ -1665,7 +1670,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
 
   void _showNewIncidentDialog(BuildContext context, ClinicalDirectorDashboardController controller) {
     final theme = context.theme;
-    final residentController = TextEditingController(text: 'John Smith');
+    final residentController = TextEditingController();
     final detailsController = TextEditingController(text: 'Resident experienced minor loss of balance in common room.');
     String selectedType = 'Resident Fall';
     String selectedSeverity = 'Critical';
@@ -1791,7 +1796,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         backgroundColor: theme.colors.primary,
-                        content: Text('Incident logged and flagged successfully!'.tr()),
+                        content: Text('Clinical dashboard actions are unavailable.'.tr()),
                       ),
                     );
                   },
@@ -1807,7 +1812,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
 
   void _showStaffCallOffDialog(BuildContext context, ClinicalDirectorDashboardController controller) {
     final theme = context.theme;
-    final staffController = TextEditingController(text: 'Emily Watson (PSW)');
+    final staffController = TextEditingController();
     String selectedShift = 'Day Shift (07:00 - 15:00)';
     bool autoSuggest = true;
 
@@ -1902,7 +1907,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         backgroundColor: const Color(0xFF2563EB),
-                        content: Text('Staff Call-Off logged. Staffing updated.'.tr()),
+                        content: Text('Clinical dashboard actions are unavailable.'.tr()),
                       ),
                     );
                   },
@@ -1993,7 +1998,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: const Color(0xFF16A34A),
-                                  content: Text('Resident profile details retrieved for ${res['name']}.'.tr()),
+                                  content: Text('Clinical dashboard actions are unavailable.'.tr()),
                                 ),
                               );
                             },
@@ -2019,12 +2024,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
 
   void _showMissingChartingDialog(BuildContext context, ClinicalDirectorDashboardController controller, ClinicalDirectorDashboardState state) {
     final theme = context.theme;
-    final List<Map<String, String>> outstandingLogs = [
-      {'patient': 'Margaret Sullivan', 'task': 'Lunch Hydration ADL Intake missing'},
-      {'patient': 'John Smith', 'task': 'Morning Repositioning log missing'},
-      {'patient': 'Alice Miller', 'task': 'Evening Medication adherence check missing'},
-      {'patient': 'Robert Chen', 'task': 'Night Safety check-in missing'}
-    ];
+    final List<Map<String, String>> outstandingLogs = [];
 
     showDialog<void>(
       context: context,
@@ -2076,7 +2076,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                               onPressed: () {
                                 controller.resolveMissingCharting(description: '${log['task']} for ${log['patient']}');
                                 setState(() {
-                                  outstandingLogs.removeAt(idx);
+
                                 });
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -2110,7 +2110,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    
+
     // Category configs
     final List<Map<String, dynamic>> categories = [
       {
@@ -2344,7 +2344,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
             ],
           ),
           const SizedBox(height: 14),
-          
+
           // Category Tab Selector
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -2387,7 +2387,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
             ),
           ),
           const SizedBox(height: 18),
-          
+
           // Action Buttons Wrap Grid
           Wrap(
             spacing: 12,
@@ -2426,7 +2426,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           backgroundColor: activeCategory['color'] as Color,
-                          content: Text('Action "$label" executed successfully!'.tr()),
+                          content: Text('Clinical dashboard actions are unavailable.'.tr()),
                         ),
                       );
                     }

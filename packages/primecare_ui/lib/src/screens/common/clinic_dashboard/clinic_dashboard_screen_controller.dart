@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ClinicDashboardScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ClinicDashboardScreenState
+    extends DashboardState<ClinicDashboardScreenState> {
+  ClinicDashboardScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ClinicDashboardScreenState({required this.isLoading, this.error, required this.data});
-
-  ClinicDashboardScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ClinicDashboardScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ClinicDashboardScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ClinicDashboardScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ClinicDashboardScreenController extends StateNotifier<ClinicDashboardScreenState> {
-  final Ref ref;
-  ClinicDashboardScreenController(this.ref) : super(ClinicDashboardScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/clinical_director/clinic-dashboard');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ClinicDashboardScreenController
+    extends BaseDashboardController<ClinicDashboardScreenState> {
+  ClinicDashboardScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ClinicDashboardScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/clinical_director/clinic-dashboard',
+      );
 }
 
-final clinic_dashboardControllerProvider = StateNotifierProvider<ClinicDashboardScreenController, ClinicDashboardScreenState>((ref) {
-  return ClinicDashboardScreenController(ref);
-});
+final clinic_dashboardControllerProvider =
+    StateNotifierProvider<
+      ClinicDashboardScreenController,
+      ClinicDashboardScreenState
+    >((ref) {
+      return ClinicDashboardScreenController(ref);
+    });

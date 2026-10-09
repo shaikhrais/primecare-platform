@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SocialWorkerDashboardScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class SocialWorkerDashboardScreenState
+    extends DashboardState<SocialWorkerDashboardScreenState> {
+  SocialWorkerDashboardScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  SocialWorkerDashboardScreenState({required this.isLoading, this.error, required this.data});
-
-  SocialWorkerDashboardScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return SocialWorkerDashboardScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  SocialWorkerDashboardScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => SocialWorkerDashboardScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class SocialWorkerDashboardScreenController extends StateNotifier<SocialWorkerDashboardScreenState> {
-  final Ref ref;
-  SocialWorkerDashboardScreenController(this.ref) : super(SocialWorkerDashboardScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/social_worker/dashboard');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class SocialWorkerDashboardScreenController
+    extends BaseDashboardController<SocialWorkerDashboardScreenState> {
+  SocialWorkerDashboardScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: SocialWorkerDashboardScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/offices/clinical/roles/social_worker/dashboard',
+      );
 }
 
-final social_worker_dashboardControllerProvider = StateNotifierProvider<SocialWorkerDashboardScreenController, SocialWorkerDashboardScreenState>((ref) {
-  return SocialWorkerDashboardScreenController(ref);
-});
+final social_worker_dashboardControllerProvider =
+    StateNotifierProvider<
+      SocialWorkerDashboardScreenController,
+      SocialWorkerDashboardScreenState
+    >((ref) {
+      return SocialWorkerDashboardScreenController(ref);
+    });

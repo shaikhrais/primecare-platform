@@ -1,0 +1,84 @@
+{
+  "sourceCommit": "85e842ab603b72b1dd1d0da6211530ea3a234fff",
+  "hosts": [
+    {
+      "path": "services/api_gateway/bin/server.dart",
+      "class": "ApiGatewayHost",
+      "defaultPort": 8700,
+      "beforeSha256": "0f63f89710416c74ccdc84879f1affa281d6c8a12df402deccfc0ab3f9c96a58"
+    },
+    {
+      "path": "services/auth_api/bin/server.dart",
+      "class": "AuthApiHost",
+      "defaultPort": 8080,
+      "beforeSha256": "e06183ab4866d6f572cce8ddfbecc075a020a3893502d7132477b650ad660ba0"
+    },
+    {
+      "path": "services/billing_api/bin/server.dart",
+      "class": "BillingApiHost",
+      "defaultPort": 8080,
+      "beforeSha256": "dc471743c545a7443f8b9ed17ee6f6a13b6a7bd0080be3b4d2c5e6e863b75ec1"
+    },
+    {
+      "path": "services/client_api/bin/server.dart",
+      "class": "ClientApiHost",
+      "defaultPort": 8080,
+      "beforeSha256": "ae6d1e3d157b863b71993a4078bd2cd294db57e295a7c4442b856c1f693bc3bf"
+    },
+    {
+      "path": "services/compliance_api/bin/server.dart",
+      "class": "ComplianceApiHost",
+      "defaultPort": 8080,
+      "beforeSha256": "949f4da065e49a59ea35b2c5bd718b521520bea62818c68d8bcacbd2a3121bc7"
+    },
+    {
+      "path": "services/franchise_reporting_api/bin/server.dart",
+      "class": "FranchiseReportingApiHost",
+      "defaultPort": 8080,
+      "beforeSha256": "169000f378283237f4ebe2493ca368f08d568d28128097300f3d07b9b6b4e5cb"
+    },
+    {
+      "path": "services/governance_api/bin/server.dart",
+      "class": "GovernanceApiHost",
+      "defaultPort": 8080,
+      "beforeSha256": "0632a938563d01e9765149983c9e9392a1c9ac984da47701eec5d1ab0e3d9675"
+    },
+    {
+      "path": "services/notes_api/bin/server.dart",
+      "class": "NotesApiHost",
+      "defaultPort": 8080,
+      "beforeSha256": "64f8c7a6fa44a0b90a1840b80a82603ec71844bcaa9820d6aa7e868cf9eadc4e"
+    },
+    {
+      "path": "services/notification_api/bin/server.dart",
+      "class": "NotificationApiHost",
+      "defaultPort": 8080,
+      "beforeSha256": "a1aa63856207a2f0f8d4594985552bbe2bd22fe7ec61745575cb169c1c4a2632"
+    },
+    {
+      "path": "services/provider_api/bin/server.dart",
+      "class": "ProviderApiHost",
+      "defaultPort": 8080,
+      "beforeSha256": "2773b92e2df5c40d7badb213184b6e8e3970edc0ca28e84698671575d351a58e"
+    },
+    {
+      "path": "services/scheduling_api/bin/server.dart",
+      "class": "SchedulingApiHost",
+      "defaultPort": 8080,
+      "beforeSha256": "e2bc4e091783584e245bb6520d48a8341a69edd85ca69f7d3445cefafb189c0b"
+    },
+    {
+      "path": "services/verification_api/bin/server.dart",
+      "class": "VerificationApiHost",
+      "defaultPort": 8800,
+      "beforeSha256": "1c060d971989d92dffd629e7c820cf14c67f92b840e1beab346eb207877e4f5f"
+    },
+    {
+      "path": "services/visit_api/bin/server.dart",
+      "class": "VisitApiHost",
+      "defaultPort": 8080,
+      "beforeSha256": "e6580350ad3eff4a8172966cce99972702041d0d0668d41ff7395ee6dbfe422f"
+    }
+  ],
+  "newApiCompletions": 0
+}

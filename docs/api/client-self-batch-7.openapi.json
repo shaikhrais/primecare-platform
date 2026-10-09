@@ -1,0 +1,274 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Own Client Data Batch 7",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/client/home/profile": {
+      "get": {
+        "operationId": "client_self_profile",
+        "summary": "Read own client profile",
+        "description": "Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Invoice query additionally checks invoice tenant and owner profile. Missing profile returns 404; conflicting tenant header returns 403. No clinical details or payment processor identifiers are returned. Nullable stored status/currency and amounts remain null; no default currency or zero amount is inferred. Decimal values and sums remain exact finite decimal strings when present; malformed projected IDs, timestamps, labels, amounts and counts fail closed with sanitized 503. NaN/infinite numeric storage is not exposed as an amount. No new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Owner data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "profile"
+                  ],
+                  "properties": {
+                    "profile": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "full_name",
+                        "city",
+                        "province",
+                        "postal_code",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string"
+                        },
+                        "city": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "province": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "postal_code": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own client profile absent"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Database unavailable or schema dependency missing"
+          }
+        }
+      }
+    },
+    "/v1/client/invoices": {
+      "get": {
+        "operationId": "client_self_invoices",
+        "summary": "List own invoices",
+        "description": "Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Invoice query additionally checks invoice tenant and owner profile. Missing profile returns 404; conflicting tenant header returns 403. No clinical details or payment processor identifiers are returned. Nullable stored status/currency and amounts remain null; no default currency or zero amount is inferred. Decimal values and sums remain exact finite decimal strings when present; malformed projected IDs, timestamps, labels, amounts and counts fail closed with sanitized 503. NaN/infinite numeric storage is not exposed as an amount. No new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owner data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "invoices",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "invoices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "status",
+                          "currency",
+                          "subtotal",
+                          "tax",
+                          "total",
+                          "created_at",
+                          "updated_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "currency": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "subtotal": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
+                            "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
+                          },
+                          "tax": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
+                            "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
+                          },
+                          "total": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
+                            "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own client profile absent"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Database unavailable or schema dependency missing"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

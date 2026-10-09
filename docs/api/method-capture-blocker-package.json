@@ -1,0 +1,180 @@
+{
+  "name": "Explicit method-capture and unsupported-feedback blockers",
+  "implementedOperations": 0,
+  "resolvedOperations": 0,
+  "newBlockedOperations": 4,
+  "operations": [
+    "POST /v1/admin/users/churn-heatmap",
+    "POST /v1/client/feedback",
+    "POST /v1/client/feedback/surveys",
+    "POST /v1/client/feedback/analytics"
+  ],
+  "sourceHashes": {
+    "cloudflare/workers/src/gateway.ts": "c023259fa073c3efeca3de80a3cc684da8deecf22982d187f5623f56c8473e2b",
+    "cloudflare/workers/src/account-admin.ts": "b93b16c000f0c02e387fef5b3566b79f2c786f8b62fb23176471b506390d9b92",
+    "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5",
+    "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5",
+    "packages/domain/src/registries/FormRegistry/client-forms.ts": "f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516",
+    "cloudflare/workers/src/core/base-worker.ts": "58c2df259e14e6078a6476407de0946f8efa159c1685931b5f8bba30c055803c",
+    "cloudflare/workers/src/service.ts": "bd52f6638c2a95ccf8d8188fd86811424f7978aa31c494632536c8c1e6f60473",
+    "cloudflare/workers/src/business-modules.ts": "0b794f814aa5aa96414b55d93acf56d2a020d4545e2c03303e60e2fddd8a6339"
+  },
+  "reviews": {
+    "POST /v1/admin/users/churn-heatmap": {
+      "declarationIds": [
+        12
+      ],
+      "method": "POST",
+      "path": "/v1/admin/users/churn-heatmap",
+      "disposition": "requires_workflow_contract",
+      "verificationState": "blocked",
+      "blockerReason": "generic_owned_detail_capture_not_workflow",
+      "routingClassification": "workflow_name_captured_as_record_id",
+      "observed": {
+        "status": 405,
+        "allow": "GET",
+        "forwarded": [
+          {
+            "binding": "AUTH",
+            "workerPath": "/admin/users/churn-heatmap"
+          }
+        ],
+        "databaseConnectionAttempts": 0
+      },
+      "matchedHandler": {
+        "pattern": "/admin/users/{userId}",
+        "parameter": "userId",
+        "value": "churn-heatmap",
+        "source": "cloudflare/workers/src/account-admin.ts"
+      },
+      "missingAuthority": [
+        "permission_key",
+        "request_schema",
+        "response_schema"
+      ],
+      "finding": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only."
+    },
+    "POST /v1/client/feedback": {
+      "declarationIds": [
+        251
+      ],
+      "method": "POST",
+      "path": "/v1/client/feedback",
+      "disposition": "requires_workflow_contract",
+      "verificationState": "blocked",
+      "blockerReason": "feedback_submission_authority_and_write_handler_missing",
+      "routingClassification": "unsupported_feedback_submission",
+      "observed": {
+        "status": 405,
+        "allow": "GET",
+        "forwarded": [
+          {
+            "binding": "CLIENT",
+            "workerPath": "/feedback"
+          }
+        ],
+        "databaseConnectionAttempts": 0
+      },
+      "matchedHandler": {
+        "pattern": "/feedback",
+        "parameter": null,
+        "value": null,
+        "source": "cloudflare/workers/src/client-self.ts"
+      },
+      "missingAuthority": [
+        "permission_key",
+        "request_schema",
+        "response_schema"
+      ],
+      "finding": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only."
+    },
+    "POST /v1/client/feedback/surveys": {
+      "declarationIds": [
+        252
+      ],
+      "method": "POST",
+      "path": "/v1/client/feedback/surveys",
+      "disposition": "requires_workflow_contract",
+      "verificationState": "blocked",
+      "blockerReason": "generic_owned_detail_capture_not_workflow",
+      "routingClassification": "workflow_name_captured_as_record_id",
+      "observed": {
+        "status": 405,
+        "allow": "GET",
+        "forwarded": [
+          {
+            "binding": "CLIENT",
+            "workerPath": "/feedback/surveys"
+          }
+        ],
+        "databaseConnectionAttempts": 0
+      },
+      "matchedHandler": {
+        "pattern": "/feedback/{recordId}",
+        "parameter": "recordId",
+        "value": "surveys",
+        "source": "cloudflare/workers/src/client-self.ts"
+      },
+      "missingAuthority": [
+        "permission_key",
+        "request_schema",
+        "response_schema"
+      ],
+      "finding": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only."
+    },
+    "POST /v1/client/feedback/analytics": {
+      "declarationIds": [
+        253
+      ],
+      "method": "POST",
+      "path": "/v1/client/feedback/analytics",
+      "disposition": "requires_workflow_contract",
+      "verificationState": "blocked",
+      "blockerReason": "generic_owned_detail_capture_not_workflow",
+      "routingClassification": "workflow_name_captured_as_record_id",
+      "observed": {
+        "status": 405,
+        "allow": "GET",
+        "forwarded": [
+          {
+            "binding": "CLIENT",
+            "workerPath": "/feedback/analytics"
+          }
+        ],
+        "databaseConnectionAttempts": 0
+      },
+      "matchedHandler": {
+        "pattern": "/feedback/{recordId}",
+        "parameter": "recordId",
+        "value": "analytics",
+        "source": "cloudflare/workers/src/client-self.ts"
+      },
+      "missingAuthority": [
+        "permission_key",
+        "request_schema",
+        "response_schema"
+      ],
+      "finding": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only."
+    }
+  },
+  "countingRule": "Classify four previously pending unsupported workflows as blocked. No runtime handler, permission grant, GET alias, retirement, or implemented-API credit. Unique baseline remains unchanged.",
+  "validation": [
+    "node --test scripts/test-method-capture-blockers.mjs"
+  ],
+  "limits": [
+    "An HTTP405 response alone does not prove advertised workflow behavior.",
+    "Owner GET detail handlers accept these strings as IDs. Blocking declaration metadata does not reserve those runtime IDs or modify existing owner-read behavior.",
+    "POSTfeedback actual form remains intact but cannot execute a governed write until submission authority and transaction contract exist."
+  ],
+  "validationResults": {
+    "actualGatewayAndAuditTestsPassed": 20,
+    "failed": 0,
+    "evidenceScope": "Offline bundled real handlers and generated in-memory report; no real database, production, or new business workflow"
+  },
+  "reportAccounting": {
+    "pendingArray": "operations",
+    "blockedArray": "reviewedBlockedOperations",
+    "blockedSummary": "reviewedBlockedSummary",
+    "rule": "Only four exact reviewed blocked IDs are additionally probed. Their probes never enter pending denominator or API-completion count. Inventory/source drift aborts reviewed blocker evidence instead of silently falling back."
+  }
+}
