@@ -1,3 +1,4 @@
+import {BaseWorker, workerHandler} from './core/base-worker';
 import governedReadAliases from './governed-read-aliases.json';
 interface Service { fetch(request: Request): Promise<Response> }
 interface Env {
@@ -35,13 +36,17 @@ function withGatewayHeaders(request: Request, response: Response): Response {
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
 }
 
-export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+export class GatewayWorker extends BaseWorker<Env> {
+  protected override preflight(request: Request): Response | null {
     if (request.method === 'OPTIONS') {
       const origin = request.headers.get('Origin');
       const headers = corsHeaders(request);
       return new Response(null, { status: origin && headers.has('Access-Control-Allow-Origin') ? 204 : 403, headers });
     }
+    return null;
+  }
+
+  protected override async handle(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     // Exact submission compatibility route; share canonical ownership and retry semantics.
     if(url.pathname==='/v1/client/bookings/request'||['/v1/client/bookings/requests','/v1/client/bookings'].includes(url.pathname)&&request.method==='POST') {
@@ -87,5 +92,7 @@ export default {
     url.pathname = match[2] || '/';
     const response = await env[routes[match[1]]].fetch(new Request(url, request));
     return withGatewayHeaders(request, response);
-  },
-} satisfies ExportedHandler<Env>;
+  }
+}
+
+export default workerHandler(new GatewayWorker()) satisfies ExportedHandler<Env>;
