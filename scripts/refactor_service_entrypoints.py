@@ -39,6 +39,10 @@ def current_host_source(path):
         manifest=json.loads(MANIFEST.read_text())
         for entry in manifest['services']:
             if entry['entrypoint']==path:
+                if entry['application'] == 'services/api_gateway/lib/src/application/api_gateway_host.dart' and (ROOT/'docs/refactoring/gateway-layer-migration.json').exists():
+                    from refactor_gateway_layers import verify_gateway, original, HOST
+                    verify_gateway()
+                    return original(HOST)
                 if entry['application'] == 'services/auth_api/lib/src/application/auth_api_host.dart' and (ROOT/'docs/refactoring/auth-layer-migration.json').exists():
                     from refactor_auth_layers import verify_auth, original
                     verify_auth()
@@ -66,7 +70,11 @@ def main():
     if args.check:
         assert json.loads(MANIFEST.read_text())==expected,'Service inventory changed'
         for path,content in outputs.items():
-            if path == 'services/auth_api/lib/src/application/auth_api_host.dart' and (ROOT/'docs/refactoring/auth-layer-migration.json').exists():
+            if path == 'services/api_gateway/lib/src/application/api_gateway_host.dart' and (ROOT/'docs/refactoring/gateway-layer-migration.json').exists():
+                from refactor_gateway_layers import verify_gateway, original, HOST
+                verify_gateway()
+                assert original(HOST) == content, 'Gateway host baseline changed'
+            elif path == 'services/auth_api/lib/src/application/auth_api_host.dart' and (ROOT/'docs/refactoring/auth-layer-migration.json').exists():
                 from refactor_auth_layers import verify_auth, original
                 verify_auth()
                 assert original() == content, 'Auth host baseline changed'

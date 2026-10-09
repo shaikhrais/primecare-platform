@@ -1,0 +1,13 @@
+{
+  "sourceCommit": "04213b2d17199af8284062ef38edcd2b8c1df4fa",
+  "files": [
+    "services/api_gateway/lib/src/gateway_core.dart",
+    "services/api_gateway/lib/src/application/api_gateway_host.dart",
+    "services/api_gateway/lib/src/controllers/gateway_controller.dart",
+    "services/api_gateway/lib/src/infrastructure/service_mesh.dart",
+    "services/api_gateway/lib/src/repositories/gateway_repository.dart",
+    "services/api_gateway/lib/src/routes/gateway_api_routes.dart"
+  ],
+  "existingQueries": 1,
+  "completedWorkflows": 0
+}
