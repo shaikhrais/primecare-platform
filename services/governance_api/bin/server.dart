@@ -1,7 +1,7 @@
+import 'package:server_core/server_core.dart';
 // Governance - Category: service | Purpose: Helper to add CORS headers
 import 'dart:io';
 import 'package:shelf/shelf.dart';
-import 'package:shelf/shelf_io.dart';
 import 'package:governance_api/src/database/database_controller.dart';
 import 'package:governance_api/src/routes/governance_routes.dart';
 
@@ -26,24 +26,32 @@ Middleware corsMiddleware() {
   };
 }
 
-void main(List<String> args) async {
-  // 1. Initialize Database & Run Migrations
-  print('Initializing database...');
-  await DatabaseController.initialize();
-  print('Database initialized.');
+Future<void> main(List<String> args) async {
+  await GovernanceApiHost().run();
+}
 
-  // 2. Setup Routing
-  final router = GovernanceRoutes.router;
+class GovernanceApiHost extends BaseHttpServiceHost {
+  GovernanceApiHost() : super(serviceName: 'governance-api', defaultPort: 8080);
 
-  // 3. Configure Pipeline
-  final ip = InternetAddress.anyIPv4;
-  final handler = Pipeline()
-      .addMiddleware(corsMiddleware())
-      .addMiddleware(logRequests())
-      .addHandler(router.call);
+  @override
+  Future<Handler> createRoutes() async {
+    // 1. Initialize Database & Run Migrations
+    print('Initializing database...');
+    await DatabaseController.initialize();
+    print('Database initialized.');
 
-  // 4. Start Server
-  final port = int.parse(Platform.environment['PORT'] ?? '8080');
-  final server = await serve(handler, ip, port);
-  print('Governance Service listening on port ${server.port}');
+    // 2. Setup Routing
+    final router = GovernanceRoutes.router;
+
+    // 3. Configure Pipeline
+    return router.call;
+  }
+
+  @override
+  List<Middleware> get middleware => [corsMiddleware(), logRequests()];
+
+  @override
+  void onStarted(HttpServer server) {
+    print('Governance Service listening on port ${server.port}');
+  }
 }

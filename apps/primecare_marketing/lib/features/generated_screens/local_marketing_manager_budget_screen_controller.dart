@@ -1,31 +1,14 @@
-// Governance - Category: controller | Purpose: Standalone compile-safe Notifier for LocalMarketingManagerBudgetScreenController
+// Governance - Category: controller | Purpose: Non-executable scaffold for LocalMarketingManagerBudgetScreenController
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/controllers.dart';
 
-final localMarketingManagerBudgetScreenControllerProvider = NotifierProvider<LocalMarketingManagerBudgetScreenController, AsyncValue<Map<String, dynamic>>>(() {
-  return LocalMarketingManagerBudgetScreenController();
-});
-
-class LocalMarketingManagerBudgetScreenController extends Notifier<AsyncValue<Map<String, dynamic>>> {
-  @override
-  AsyncValue<Map<String, dynamic>> build() {
-    _init();
-    return const AsyncValue.data({});
-  }
-
-  Future<void> _init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    state = const AsyncValue.data({
-      'status': 'success',
-      'featuresEnabled': true,
-      'dataLoaded': true,
+final localMarketingManagerBudgetScreenControllerProvider =
+    NotifierProvider<
+      LocalMarketingManagerBudgetScreenController,
+      AsyncValue<Map<String, dynamic>>
+    >(() {
+      return LocalMarketingManagerBudgetScreenController();
     });
-  }
 
-  Future<void> performAction() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      await Future<void>.delayed(const Duration(milliseconds: 500));
-      return {'status': 'action_completed'};
-    });
-  }
-}
+class LocalMarketingManagerBudgetScreenController
+    extends BaseScaffoldController {}

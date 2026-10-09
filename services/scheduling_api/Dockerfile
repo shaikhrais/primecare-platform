@@ -1,24 +1,9 @@
-# Official Dart image
-FROM dart:stable AS build
-
-# Resolve app dependencies
-WORKDIR /app
-COPY pubspec.* ./
+FROM dart:3.11.3
+WORKDIR /workspace
+COPY packages/database_client packages/database_client
+COPY packages/server_core packages/server_core
+COPY services/scheduling_api services/scheduling_api
+WORKDIR /workspace/services/scheduling_api
 RUN dart pub get
-
-# Copy app source code
-COPY . .
-
-# Ensure packages are still up-to-date if anything has changed
-RUN dart pub get --offline
-RUN dart compile exe bin/server.dart -o bin/server
-
-# Build minimal serving image from AOT-compiled /server and required system
-# libraries and configuration files stored in /runtime/ from the build stage.
-FROM scratch
-COPY --from=build /runtime/ /
-COPY --from=build /app/bin/server /app/bin/
-
-# Start server.
 EXPOSE 8080
-CMD ["/app/bin/server"]
+CMD ["dart", "run", "bin/server.dart"]

@@ -1,0 +1,632 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Workspace Count Validation",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/governance/workspace": {
+      "get": {
+        "operationId": "governance_workspace",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "screen",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_]{1,160}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Governed workspace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "identity",
+                    "screens",
+                    "overview"
+                  ],
+                  "properties": {
+                    "identity": {
+                      "type": "object"
+                    },
+                    "screens": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "overview": {
+                      "type": "object",
+                      "required": [
+                        "activeAccounts",
+                        "activeSessions",
+                        "accountRoles",
+                        "activity",
+                        "metrics",
+                        "scope"
+                      ],
+                      "properties": {
+                        "activeAccounts": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "activeSessions": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "accountRoles": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "role",
+                              "count"
+                            ],
+                            "properties": {
+                              "role": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "count": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 9007199254740991
+                              }
+                            }
+                          }
+                        },
+                        "activity": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "metrics": {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "code",
+                                  "available"
+                                ],
+                                "properties": {
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "available": {
+                                    "const": false
+                                  }
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "code",
+                                  "available",
+                                  "count"
+                                ],
+                                "properties": {
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "available": {
+                                    "const": true
+                                  },
+                                  "count": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 9007199254740991
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "scope": {
+                          "enum": [
+                            "organization",
+                            "personal"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query"
+          },
+          "401": {
+            "description": "No active session"
+          },
+          "403": {
+            "description": "Permission or tenant mismatch"
+          },
+          "404": {
+            "description": "Unknown screen"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          }
+        },
+        "description": "Existing active bearer session, matching tenant and catalog organization/screen authority remain required. Live counts require nonnegative safe integers; role groups must be unique nonempty strings. Invalid projections return sanitized 503 and roll back the read-only repeatable-read transaction. No new grants or production-readiness claims."
+      }
+    },
+    "/v1/governance/overview": {
+      "get": {
+        "operationId": "governance_overview",
+        "summary": "Read live tenant-scoped account, session and domain counts.",
+        "description": "Existing active bearer session, matching tenant and catalog organization/screen authority remain required. Live counts require nonnegative safe integers; role groups must be unique nonempty strings. Invalid projections return sanitized 503 and roll back the read-only repeatable-read transaction. No new grants or production-readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "app",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 80
+            }
+          },
+          {
+            "name": "screen",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "pagination",
+                    "source"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "activeAccounts",
+                          "activeSessions",
+                          "accountRoles",
+                          "activity",
+                          "metrics",
+                          "scope"
+                        ],
+                        "properties": {
+                          "activeAccounts": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "activeSessions": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "accountRoles": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "required": [
+                                "role",
+                                "count"
+                              ],
+                              "properties": {
+                                "role": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "count": {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 9007199254740991
+                                }
+                              }
+                            }
+                          },
+                          "activity": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          },
+                          "metrics": {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "required": [
+                                    "code",
+                                    "available"
+                                  ],
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "available": {
+                                      "const": false
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "required": [
+                                    "code",
+                                    "available",
+                                    "count"
+                                  ],
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "available": {
+                                      "const": true
+                                    },
+                                    "count": {
+                                      "type": "integer",
+                                      "minimum": 0,
+                                      "maximum": 9007199254740991
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "scope": {
+                            "enum": [
+                              "organization",
+                              "personal"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "source": {
+                      "type": "object",
+                      "required": [
+                        "catalogVersion",
+                        "evidenceType"
+                      ],
+                      "properties": {
+                        "catalogVersion": {
+                          "type": "string"
+                        },
+                        "evidenceType": {
+                          "enum": [
+                            "registered_governance",
+                            "live_tenant_data",
+                            "approved_reporting_and_live_tenant_counts"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query"
+          },
+          "401": {
+            "description": "Missing or expired session"
+          },
+          "403": {
+            "description": "Permission or tenant mismatch"
+          },
+          "405": {
+            "description": "Read-only endpoint"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          }
+        }
+      }
+    },
+    "/v1/governance/organization-map": {
+      "get": {
+        "operationId": "governance_organization_map",
+        "summary": "Read approved administrative reporting and live tenant account counts.",
+        "description": "Existing active bearer session, matching tenant and catalog organization/screen authority remain required. Live counts require nonnegative safe integers; role groups must be unique nonempty strings. Invalid projections return sanitized 503 and roll back the read-only repeatable-read transaction. No new grants or production-readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "app",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 80
+            }
+          },
+          {
+            "name": "screen",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "pagination",
+                    "source"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "role",
+                          "activeAccounts",
+                          "inheritsPermissions"
+                        ],
+                        "properties": {
+                          "role": {
+                            "type": "string"
+                          },
+                          "activeAccounts": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "inheritsPermissions": {
+                            "const": false
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "source": {
+                      "type": "object",
+                      "required": [
+                        "catalogVersion",
+                        "evidenceType"
+                      ],
+                      "properties": {
+                        "catalogVersion": {
+                          "type": "string"
+                        },
+                        "evidenceType": {
+                          "enum": [
+                            "registered_governance",
+                            "live_tenant_data",
+                            "approved_reporting_and_live_tenant_counts"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query"
+          },
+          "401": {
+            "description": "Missing or expired session"
+          },
+          "403": {
+            "description": "Permission or tenant mismatch"
+          },
+          "405": {
+            "description": "Read-only endpoint"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

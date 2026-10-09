@@ -1,3 +1,4 @@
+import {sourceLimitAllowed} from './source-limit-result';
 import {isIP} from 'node:net';
 import policy from './auth-source-policy.json';
 
@@ -20,7 +21,7 @@ export async function sourceLoginLimit(request: Request, env: SourceLimitEnv): P
     const digest = await crypto.subtle.digest('SHA-256',new TextEncoder().encode('auth-source-login:'+ip));
     const key = [...new Uint8Array(digest)].map(byte=>byte.toString(16).padStart(2,'0')).join('');
     const result = await env.AUTH_SOURCE_LIMIT.limit({key});
-    return result.success ? null : Response.json({error:'Too many requests'},{status:429,headers});
+    return sourceLimitAllowed(result) ? null : Response.json({error:'Too many requests'},{status:429,headers});
   } catch {
     // Do not log addresses, keys, credentials or provider exception details.
     return Response.json({error:'Authentication temporarily unavailable'},{status:503,headers});

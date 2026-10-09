@@ -1,0 +1,26 @@
+{
+  "baselineStages": {
+    "blocked": 14,
+    "needs_contract_and_verification": 1049,
+    "retired_with_evidence": 9,
+    "unit_evidence_recorded": 343
+  },
+  "baselineUniqueOperations": 1415,
+  "databaseWrites": 0,
+  "decisionSlotsRemaining": 17008,
+  "draftStructures": 1063,
+  "explicitStructuresCompiled": 0,
+  "families": 106,
+  "implementationCredits": 0,
+  "inputHashes": {
+    "checklist": "0b3504e403c081c94a5b8f2d16bd54a4516448f6d852b2a9943853273ed91823",
+    "explicitContracts": null,
+    "reviews": "784a3ddfea7eb8a5b59dd42d85f6fdde00a7192691aee83fa548e19af05c1e15"
+  },
+  "meaning": "Structure compilation never establishes governance approval, implementation, authorization enforcement, or deployment readiness.",
+  "noActivation": true,
+  "retirementCredits": 0,
+  "runtimeHandlersGenerated": 0,
+  "unresolvedUniqueOperations": 1063,
+  "version": 1
+}

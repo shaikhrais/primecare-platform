@@ -1,0 +1,415 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Validated Owned Client Counts",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/client/booking-requests/summary": {
+      "operationId": "client_own_booking_request_status_summary",
+      "summary": "client own booking request status summary",
+      "description": "Active explicit bearer session, unique owned client profile and matching non-null tenant required. Booking-request queries bind client_id and tenant_id. Payments join their invoice and bind invoice ID, client ID and tenant ID. Runtime totals must be nonnegative safe integers without coercion; malformed driver values return a sanitized 503. Stored status groups retain null values. Read only; no processor identifiers, owner overrides, role grants, settlement, approval or completion claims.",
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "limit",
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 25
+          }
+        },
+        {
+          "in": "query",
+          "name": "offset",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000,
+            "default": 0
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Owned metadata or status groups",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "groups",
+                  "pagination"
+                ],
+                "properties": {
+                  "groups": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "status",
+                        "count"
+                      ],
+                      "properties": {
+                        "status": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "count": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    }
+                  },
+                  "pagination": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "limit",
+                      "offset",
+                      "total",
+                      "hasMore"
+                    ],
+                    "properties": {
+                      "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 100
+                      },
+                      "offset": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "total": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "hasMore": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Invalid ID/query/body"
+        },
+        "401": {
+          "description": "No active bearer session"
+        },
+        "403": {
+          "description": "Tenant mismatch"
+        },
+        "404": {
+          "description": "Owned profile/invoice/payment absent"
+        },
+        "405": {
+          "description": "Read only"
+        },
+        "429": {
+          "description": "Source limit"
+        },
+        "503": {
+          "description": "Data unavailable"
+        }
+      }
+    },
+    "/v1/client/invoices/{invoiceId}/payments": {
+      "operationId": "client_own_invoice_payments",
+      "summary": "client own invoice payments",
+      "description": "Active explicit bearer session, unique owned client profile and matching non-null tenant required. Booking-request queries bind client_id and tenant_id. Payments join their invoice and bind invoice ID, client ID and tenant ID. Runtime totals must be nonnegative safe integers without coercion; malformed driver values return a sanitized 503. Stored status groups retain null values. Read only; no processor identifiers, owner overrides, role grants, settlement, approval or completion claims.",
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "limit",
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 25
+          }
+        },
+        {
+          "in": "query",
+          "name": "offset",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000,
+            "default": 0
+          }
+        },
+        {
+          "in": "path",
+          "name": "invoiceId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Owned metadata or status groups",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "payments",
+                  "pagination"
+                ],
+                "properties": {
+                  "payments": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "amount",
+                        "status",
+                        "created_at",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "amount": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "description": "Exact recorded decimal; no currency or settlement inference."
+                        },
+                        "status": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "pagination": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "limit",
+                      "offset",
+                      "total",
+                      "hasMore"
+                    ],
+                    "properties": {
+                      "limit": {
+                        "type": "integer"
+                      },
+                      "offset": {
+                        "type": "integer"
+                      },
+                      "total": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "hasMore": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Invalid ID/query/body"
+        },
+        "401": {
+          "description": "No active bearer session"
+        },
+        "403": {
+          "description": "Tenant mismatch"
+        },
+        "404": {
+          "description": "Owned profile/invoice/payment absent"
+        },
+        "405": {
+          "description": "Read only"
+        },
+        "429": {
+          "description": "Source limit"
+        },
+        "503": {
+          "description": "Data unavailable"
+        }
+      }
+    },
+    "/v1/client/invoices/{invoiceId}/payments/summary": {
+      "operationId": "client_own_invoice_payment_status_summary",
+      "summary": "client own invoice payment status summary",
+      "description": "Active explicit bearer session, unique owned client profile and matching non-null tenant required. Booking-request queries bind client_id and tenant_id. Payments join their invoice and bind invoice ID, client ID and tenant ID. Runtime totals must be nonnegative safe integers without coercion; malformed driver values return a sanitized 503. Stored status groups retain null values. Read only; no processor identifiers, owner overrides, role grants, settlement, approval or completion claims.",
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "limit",
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 25
+          }
+        },
+        {
+          "in": "query",
+          "name": "offset",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000,
+            "default": 0
+          }
+        },
+        {
+          "in": "path",
+          "name": "invoiceId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Owned metadata or status groups",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "groups",
+                  "pagination"
+                ],
+                "properties": {
+                  "groups": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "status",
+                        "count"
+                      ],
+                      "properties": {
+                        "status": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "count": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    }
+                  },
+                  "pagination": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "limit",
+                      "offset",
+                      "total",
+                      "hasMore"
+                    ],
+                    "properties": {
+                      "limit": {
+                        "type": "integer"
+                      },
+                      "offset": {
+                        "type": "integer"
+                      },
+                      "total": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "hasMore": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Invalid ID/query/body"
+        },
+        "401": {
+          "description": "No active bearer session"
+        },
+        "403": {
+          "description": "Tenant mismatch"
+        },
+        "404": {
+          "description": "Owned profile/invoice/payment absent"
+        },
+        "405": {
+          "description": "Read only"
+        },
+        "429": {
+          "description": "Source limit"
+        },
+        "503": {
+          "description": "Data unavailable"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

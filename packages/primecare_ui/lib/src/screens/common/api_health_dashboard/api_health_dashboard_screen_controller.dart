@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ApiHealthDashboardScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ApiHealthDashboardScreenState
+    extends DashboardState<ApiHealthDashboardScreenState> {
+  ApiHealthDashboardScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ApiHealthDashboardScreenState({required this.isLoading, this.error, required this.data});
-
-  ApiHealthDashboardScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ApiHealthDashboardScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ApiHealthDashboardScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ApiHealthDashboardScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ApiHealthDashboardScreenController extends StateNotifier<ApiHealthDashboardScreenState> {
-  final Ref ref;
-  ApiHealthDashboardScreenController(this.ref) : super(ApiHealthDashboardScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/api-health-dashboard');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ApiHealthDashboardScreenController
+    extends BaseDashboardController<ApiHealthDashboardScreenState> {
+  ApiHealthDashboardScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ApiHealthDashboardScreenState(isLoading: true, data: {}),
+        endpoint: '/common/api-health-dashboard',
+      );
 }
 
-final api_health_dashboardControllerProvider = StateNotifierProvider<ApiHealthDashboardScreenController, ApiHealthDashboardScreenState>((ref) {
-  return ApiHealthDashboardScreenController(ref);
-});
+final api_health_dashboardControllerProvider =
+    StateNotifierProvider<
+      ApiHealthDashboardScreenController,
+      ApiHealthDashboardScreenState
+    >((ref) {
+      return ApiHealthDashboardScreenController(ref);
+    });

@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TestingOverviewScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class TestingOverviewScreenState
+    extends DashboardState<TestingOverviewScreenState> {
+  TestingOverviewScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  TestingOverviewScreenState({required this.isLoading, this.error, required this.data});
-
-  TestingOverviewScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return TestingOverviewScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TestingOverviewScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => TestingOverviewScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class TestingOverviewScreenController extends StateNotifier<TestingOverviewScreenState> {
-  final Ref ref;
-  TestingOverviewScreenController(this.ref) : super(TestingOverviewScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/testing-overview');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class TestingOverviewScreenController
+    extends BaseDashboardController<TestingOverviewScreenState> {
+  TestingOverviewScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: TestingOverviewScreenState(isLoading: true, data: {}),
+        endpoint: '/staff/testing-overview',
+      );
 }
 
-final testing_overviewControllerProvider = StateNotifierProvider<TestingOverviewScreenController, TestingOverviewScreenState>((ref) {
-  return TestingOverviewScreenController(ref);
-});
+final testing_overviewControllerProvider =
+    StateNotifierProvider<
+      TestingOverviewScreenController,
+      TestingOverviewScreenState
+    >((ref) {
+      return TestingOverviewScreenController(ref);
+    });

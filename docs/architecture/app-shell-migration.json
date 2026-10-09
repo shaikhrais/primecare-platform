@@ -1,0 +1,64 @@
+{
+  "sourceCommit": "e52aa42a42a815b79008a2528261b4d857b25b80",
+  "apps": [
+    {
+      "path": "apps/primecare_business_development/lib/main.dart",
+      "class": "PrimeCareBusinessDevelopmentApp",
+      "parent": "BaseStandardPrimeCareApp",
+      "title": "PrimeCare BusinessDevelopment",
+      "beforeSha256": "abcc2ea09e3484a27185a74702bb5b7a87d444589bca1ebb2976554727e7afcf"
+    },
+    {
+      "path": "apps/primecare_client/lib/main.dart",
+      "class": "PrimeCareClientApp",
+      "parent": "BaseStandardPrimeCareApp",
+      "title": "PrimeCare Client",
+      "beforeSha256": "5f3dcac3c9882d6cd805ecde4e111379d9f06f1943256d37f3dff0035bf53315"
+    },
+    {
+      "path": "apps/primecare_clinic/lib/main.dart",
+      "class": "PrimeCareClinicApp",
+      "parent": "BaseThemedPrimeCareApp",
+      "title": "PrimeCare Clinic Portal",
+      "beforeSha256": "0c88e69683c1eabe75b41135aced4081b50427848505491fe89677901448bbd8"
+    },
+    {
+      "path": "apps/primecare_corporate/lib/main.dart",
+      "class": "PrimeCareCorporateApp",
+      "parent": "BasePrimeCareApp",
+      "title": "PrimeCare Corporate Portal",
+      "beforeSha256": "fc93ecdc9c4a4ef6f8e6040e1016aa577d641e9cb7b9b0df6dd0b9e04b4f08f3"
+    },
+    {
+      "path": "apps/primecare_franchise/lib/main.dart",
+      "class": "PrimeCareFranchiseApp",
+      "parent": "BaseStandardPrimeCareApp",
+      "title": "PrimeCare Franchise",
+      "beforeSha256": "22ed4bcfdf5158d5774f3afcd924c470bfe22b31b2c61d89ec837cfbe3e1366f"
+    },
+    {
+      "path": "apps/primecare_governance/lib/main.dart",
+      "class": "PrimeCareApp",
+      "parent": "BaseThemedPrimeCareApp",
+      "title": "PrimeCare Enterprise",
+      "beforeSha256": "4b1fc27944f7647ab9699f0e600c2d2f29a88c58d6c7a5cb043ef3a4d3170177"
+    },
+    {
+      "path": "apps/primecare_marketing/lib/main.dart",
+      "class": "PrimeCareMarketingApp",
+      "parent": "BaseStandardPrimeCareApp",
+      "title": "PrimeCare Marketing",
+      "beforeSha256": "db433465eaeca1b12ca0d6ff33589ff78d66108b7a65db219cda52eb46913766"
+    },
+    {
+      "path": "apps/primecare_support/lib/main.dart",
+      "class": "PrimeCareSupportApp",
+      "parent": "BaseStandardPrimeCareApp",
+      "title": "PrimeCare Support",
+      "beforeSha256": "5c71c8fe4de8fd6e142bafeb292f83697d24c5ee97928f8e3f1f74c2a7388f38"
+    }
+  ],
+  "excluded": [
+    "apps/primecare_enterprise_blueprint/lib/main.dart"
+  ]
+}

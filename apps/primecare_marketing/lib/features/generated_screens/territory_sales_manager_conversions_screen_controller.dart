@@ -1,31 +1,14 @@
-// Governance - Category: controller | Purpose: Standalone compile-safe Notifier for TerritorySalesManagerConversionsScreenController
+// Governance - Category: controller | Purpose: Non-executable scaffold for TerritorySalesManagerConversionsScreenController
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/controllers.dart';
 
-final territorySalesManagerConversionsScreenControllerProvider = NotifierProvider<TerritorySalesManagerConversionsScreenController, AsyncValue<Map<String, dynamic>>>(() {
-  return TerritorySalesManagerConversionsScreenController();
-});
-
-class TerritorySalesManagerConversionsScreenController extends Notifier<AsyncValue<Map<String, dynamic>>> {
-  @override
-  AsyncValue<Map<String, dynamic>> build() {
-    _init();
-    return const AsyncValue.data({});
-  }
-
-  Future<void> _init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    state = const AsyncValue.data({
-      'status': 'success',
-      'featuresEnabled': true,
-      'dataLoaded': true,
+final territorySalesManagerConversionsScreenControllerProvider =
+    NotifierProvider<
+      TerritorySalesManagerConversionsScreenController,
+      AsyncValue<Map<String, dynamic>>
+    >(() {
+      return TerritorySalesManagerConversionsScreenController();
     });
-  }
 
-  Future<void> performAction() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      await Future<void>.delayed(const Duration(milliseconds: 500));
-      return {'status': 'action_completed'};
-    });
-  }
-}
+class TerritorySalesManagerConversionsScreenController
+    extends BaseScaffoldController {}

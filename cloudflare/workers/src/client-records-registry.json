@@ -1,0 +1,731 @@
+[
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 21,
+    "summaryBatch": 22,
+    "summaryField": "status",
+    "path": "/consents",
+    "table": "consent_forms",
+    "collection": "consents",
+    "item": "consent",
+    "fields": [
+      "id",
+      "form_type",
+      "status",
+      "signed_at",
+      "expires_at",
+      "template_version",
+      "created_at",
+      "updated_at"
+    ],
+    "dateFields": [
+      "signed_at",
+      "expires_at",
+      "created_at",
+      "updated_at"
+    ],
+    "types": {
+      "id": "string",
+      "form_type": "string",
+      "status": "string",
+      "signed_at": [
+        "string",
+        "null"
+      ],
+      "expires_at": [
+        "string",
+        "null"
+      ],
+      "template_version": "integer",
+      "created_at": "string",
+      "updated_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 21,
+    "summaryBatch": 22,
+    "summaryField": "status",
+    "path": "/service-authorizations",
+    "table": "service_authorizations",
+    "collection": "authorizations",
+    "item": "authorization",
+    "fields": [
+      "id",
+      "service_id",
+      "funding_source",
+      "authorized_hours",
+      "used_hours",
+      "start_date",
+      "end_date",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "dateFields": [
+      "start_date",
+      "end_date",
+      "created_at",
+      "updated_at"
+    ],
+    "types": {
+      "id": "string",
+      "service_id": [
+        "string",
+        "null"
+      ],
+      "funding_source": "string",
+      "authorized_hours": "number",
+      "used_hours": "number",
+      "start_date": "string",
+      "end_date": "string",
+      "status": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 21,
+    "summaryBatch": 22,
+    "summaryField": "status",
+    "path": "/waitlist",
+    "table": "waitlist_entries",
+    "collection": "entries",
+    "item": "entry",
+    "fields": [
+      "id",
+      "service_id",
+      "priority",
+      "status",
+      "requested_start_at",
+      "created_at"
+    ],
+    "dateFields": [
+      "requested_start_at",
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "service_id": "string",
+      "priority": "integer",
+      "status": "string",
+      "requested_start_at": [
+        "string",
+        "null"
+      ],
+      "created_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 36,
+    "summaryBatch": 37,
+    "summaryField": "status",
+    "path": "/feedback",
+    "table": "feedbacks",
+    "collection": "feedback",
+    "item": "feedback",
+    "fields": [
+      "id",
+      "rating",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ],
+    "types": {
+      "id": "string",
+      "rating": "integer",
+      "status": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 38,
+    "summaryBatch": 39,
+    "summaryField": "triage_status",
+    "path": "/care-feedback",
+    "table": "care_feedbacks",
+    "collection": "feedback",
+    "item": "feedback",
+    "fields": [
+      "id",
+      "rating",
+      "triage_status",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "rating": "integer",
+      "triage_status": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 46,
+    "summaryBatch": 47,
+    "summaryField": "thread_type",
+    "path": "/conversation-threads",
+    "table": "messages_threads",
+    "collection": "threads",
+    "item": "thread",
+    "fields": [
+      "id",
+      "thread_type",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "thread_type": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 48,
+    "summaryBatch": 49,
+    "summaryField": "relationship",
+    "path": "/family-links",
+    "table": "family_members",
+    "collection": "links",
+    "item": "link",
+    "fields": [
+      "id",
+      "relationship",
+      "created_at",
+      "updated_at"
+    ],
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ],
+    "types": {
+      "id": "string",
+      "relationship": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "patient_id",
+    "batch": 166,
+    "summaryBatch": 169,
+    "summaryField": "status",
+    "path": "/alert-records",
+    "table": "patient_alerts",
+    "collection": "alerts",
+    "item": "alert",
+    "fields": [
+      "id",
+      "type",
+      "severity",
+      "status",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "type": "string",
+      "severity": "string",
+      "status": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "patient_id",
+    "batch": 167,
+    "summaryBatch": 170,
+    "summaryField": "status",
+    "path": "/insurance-claim-records",
+    "table": "claims",
+    "collection": "claims",
+    "item": "claim",
+    "fields": [
+      "id",
+      "status",
+      "service_date",
+      "created_at"
+    ],
+    "dateFields": [
+      "service_date",
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "status": "string",
+      "service_date": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "patient_id",
+    "batch": 168,
+    "summaryBatch": 171,
+    "summaryField": "status",
+    "path": "/prescription-records",
+    "table": "prescriptions",
+    "collection": "prescriptions",
+    "item": "prescription",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 172,
+    "summaryBatch": 175,
+    "summaryField": "status",
+    "path": "/care-plan-records",
+    "table": "care_plans",
+    "collection": "plans",
+    "item": "plan",
+    "fields": [
+      "id",
+      "status",
+      "review_date",
+      "created_at",
+      "updated_at"
+    ],
+    "dateFields": [
+      "review_date",
+      "created_at",
+      "updated_at"
+    ],
+    "types": {
+      "id": "string",
+      "status": "string",
+      "review_date": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 173,
+    "summaryBatch": 176,
+    "summaryField": "type",
+    "path": "/assessment-records",
+    "table": "clinical_assessments",
+    "collection": "assessments",
+    "item": "assessment",
+    "fields": [
+      "id",
+      "type",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "type": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 174,
+    "summaryBatch": 177,
+    "summaryField": "status",
+    "path": "/medication-reconciliation-records",
+    "table": "medication_reconciliations",
+    "collection": "reconciliations",
+    "item": "reconciliation",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "orderField": "start_time",
+    "ownerField": "client_id",
+    "batch": 179,
+    "summaryBatch": 188,
+    "summaryField": "shiftStatus",
+    "path": "/shift-log-records",
+    "table": "provider_shift_logs",
+    "collection": "shifts",
+    "item": "shift",
+    "fields": [
+      "id",
+      "shiftStatus",
+      "start_time",
+      "end_time"
+    ],
+    "dateFields": [
+      "start_time",
+      "end_time"
+    ],
+    "types": {
+      "id": "string",
+      "shiftStatus": "string",
+      "start_time": "string",
+      "end_time": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 180,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/adl-records",
+    "table": "adl_care_logs",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 181,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/vital-observation-records",
+    "table": "psw_vital_signs",
+    "collection": "observations",
+    "item": "observation",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 182,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/behavior-observation-records",
+    "table": "behavior_notes",
+    "collection": "observations",
+    "item": "observation",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 183,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/nutrition-observation-records",
+    "table": "nutrition_records",
+    "collection": "observations",
+    "item": "observation",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 184,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/mobility-observation-records",
+    "table": "mobility_logs",
+    "collection": "observations",
+    "item": "observation",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 185,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/infection-checklist-records",
+    "table": "infection_control_checklists",
+    "collection": "checklists",
+    "item": "checklist",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 186,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/progress-note-records",
+    "table": "narrative_progress_notes",
+    "collection": "notes",
+    "item": "note",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 187,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/care-follow-up-records",
+    "table": "care_plan_follow_ups",
+    "collection": "followUps",
+    "item": "followUp",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 222,
+    "summaryBatch": 223,
+    "summaryField": "type",
+    "path": "/family-notification-records",
+    "table": "family_notifications",
+    "collection": "notifications",
+    "item": "notification",
+    "fields": [
+      "id",
+      "type",
+      "is_read",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "type": "string",
+      "is_read": "boolean",
+      "created_at": "string"
+    }
+  },
+  {
+    "path": "/inventory-item-records",
+    "table": "inventory_items",
+    "ownerField": "clientProfileId",
+    "collection": "items",
+    "item": "item",
+    "fields": [
+      "id",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 229,
+    "batch": 229,
+    "summaryBatch": 0,
+    "orderField": "created_at",
+    "strictSummaryTypes": true,
+    "types": {
+      "id": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/purchase-order-records",
+    "table": "purchase_orders",
+    "ownerField": "clientProfileId",
+    "collection": "orders",
+    "item": "order",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 230,
+    "batch": 230,
+    "summaryBatch": 231,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "strictSummaryTypes": true,
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/patient-vital-records",
+    "table": "vital_signs",
+    "ownerField": "patient_id",
+    "tenantThroughClient": true,
+    "collection": "observations",
+    "item": "observation",
+    "fields": [
+      "id",
+      "type",
+      "recorded_at"
+    ],
+    "orderField": "recorded_at",
+    "listBatch": 236,
+    "batch": 236,
+    "summaryBatch": 237,
+    "summaryField": "type",
+    "strictSummaryTypes": true,
+    "types": {
+      "id": "string",
+      "type": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/medication-administration-records",
+    "table": "mar_entries",
+    "ownerField": "patient_id",
+    "tenantThroughClient": true,
+    "recordTenantMatch": true,
+    "collection": "entries",
+    "item": "entry",
+    "fields": [
+      "id",
+      "status",
+      "admin_time"
+    ],
+    "orderField": "admin_time",
+    "listBatch": 238,
+    "batch": 238,
+    "summaryBatch": 239,
+    "summaryField": "status",
+    "strictSummaryTypes": true,
+    "types": {
+      "id": "string",
+      "status": "string",
+      "admin_time": "string"
+    },
+    "dateFields": [
+      "admin_time"
+    ]
+  }
+]

@@ -16,7 +16,9 @@ PRIME:NEXT_ACTION=
 // Governance - Category: view | Purpose: UI Screen component rendering the PswNotificationsScreen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart' show StateNotifier, StateNotifierProvider;
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart' show ownNotificationsRepositoryProvider;
 
 // --- MVC State Model ---
 class PswNotificationsScreenState {
@@ -37,13 +39,14 @@ class PswNotificationsScreenState {
   PswNotificationsScreenState copyWith({
     bool? isLoading,
     String? error,
+    bool clearError = false,
     String? title,
     List<String>? logs,
     bool? hasData,
   }) {
     return PswNotificationsScreenState(
       isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
+      error: clearError ? null : (error ?? this.error),
       title: title ?? this.title,
       logs: logs ?? this.logs,
       hasData: hasData ?? this.hasData,
@@ -87,11 +90,11 @@ class PswNotificationsScreenController extends StateNotifier<PswNotificationsScr
   }
 
   void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
+    state = state.copyWith(isLoading: false, clearError: true, hasData: false);
   }
 
   void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
+    state = state.copyWith(isLoading: false, clearError: true, hasData: true);
   }
 
   Future<void> refreshData() async {
@@ -99,16 +102,16 @@ class PswNotificationsScreenController extends StateNotifier<PswNotificationsScr
     
     try {
 
-      final res_loadApiV1PswNotificationsList = await ref.read(generatedApiClientProvider).loadApiV1PswNotificationsList();
+      final res_loadApiV1PswNotificationsList = await ref.read(ownNotificationsRepositoryProvider).load();
       if (!res_loadApiV1PswNotificationsList.isSuccess) {
         state = state.copyWith(isLoading: false, error: res_loadApiV1PswNotificationsList.error ?? 'Failed to load Load Psw Notifications List Data', hasData: false);
         return;
       }
       if (res_loadApiV1PswNotificationsList.data == null || (res_loadApiV1PswNotificationsList.data is List && (res_loadApiV1PswNotificationsList.data as List).isEmpty)) {
-        state = state.copyWith(isLoading: false, error: null, hasData: false);
+        state = state.copyWith(isLoading: false, clearError: true, hasData: false);
         return;
       }
-      state = state.copyWith(isLoading: false, hasData: true);
+      state = state.copyWith(isLoading: false, clearError: true, hasData: true);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString(), hasData: false);
     }

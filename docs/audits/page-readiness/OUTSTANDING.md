@@ -18,7 +18,7 @@ Generated from governance.db. Created means an authorized shared page exists; it
 
 - 944 pages: Business workflow and domain data binding need verification.
 - 944 pages: Authenticated browser and accessibility evidence is pending.
-- 919 pages: No domain API is linked to this page.
+- 909 pages: No domain API is linked to this page.
 - 25 pages: Domain API authorization or schemas are incomplete.
 
 The CSV inventory contains every page, its exact route, linked API methods, acceptance criteria and named pending actions.

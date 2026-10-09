@@ -1,0 +1,295 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Own Client Data Batch 12",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/client/invoices/{invoiceId}": {
+      "get": {
+        "operationId": "client_self_invoice_detail",
+        "summary": "Read own invoice",
+        "description": "Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Invoice query additionally checks invoice tenant and owner profile. Missing profile returns 404; conflicting tenant header returns 403. No clinical details or payment processor identifiers are returned. Nullable stored status/currency and amounts remain null; no default currency or zero amount is inferred. Decimal values and sums remain exact finite decimal strings when present; malformed projected IDs, timestamps, labels, amounts and counts fail closed with sanitized 503. NaN/infinite numeric storage is not exposed as an amount. No new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "invoiceId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owner data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "invoice"
+                  ],
+                  "properties": {
+                    "invoice": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "status",
+                        "currency",
+                        "subtotal",
+                        "tax",
+                        "total",
+                        "created_at",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "currency": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "subtotal": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "pattern": "^-?\\d+(?:\\.\\d+)?$",
+                          "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
+                        },
+                        "tax": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "pattern": "^-?\\d+(?:\\.\\d+)?$",
+                          "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
+                        },
+                        "total": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "pattern": "^-?\\d+(?:\\.\\d+)?$",
+                          "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own client profile or invoice absent"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Database unavailable or schema dependency missing"
+          }
+        }
+      }
+    },
+    "/v1/client/invoices/summary": {
+      "get": {
+        "operationId": "client_self_invoice_summary",
+        "summary": "Summarize own invoices by currency and stored status",
+        "description": "Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Invoice query additionally checks invoice tenant and owner profile. Missing profile returns 404; conflicting tenant header returns 403. No clinical details or payment processor identifiers are returned. Nullable stored status/currency and amounts remain null; no default currency or zero amount is inferred. Decimal values and sums remain exact finite decimal strings when present; malformed projected IDs, timestamps, labels, amounts and counts fail closed with sanitized 503. NaN/infinite numeric storage is not exposed as an amount. No new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owner data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "currency",
+                          "status",
+                          "invoiceCount",
+                          "subtotal",
+                          "tax",
+                          "total"
+                        ],
+                        "properties": {
+                          "currency": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "invoiceCount": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "subtotal": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
+                            "description": "Nullable exact decimal sum within this currency/status group."
+                          },
+                          "tax": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
+                            "description": "Nullable exact decimal sum within this currency/status group."
+                          },
+                          "total": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
+                            "description": "Nullable exact decimal sum within this currency/status group."
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own client profile or invoice absent"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Database unavailable or schema dependency missing"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

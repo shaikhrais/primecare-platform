@@ -1,3 +1,4 @@
+import {auditFixture} from './auth-audit-fixtures.mjs';
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -6,7 +7,8 @@ const {manageAccount,validateAccountUpdate}=await import('data:text/javascript;b
 const actor={id:'actor',roles:'ceo',tenant_id:'tenant-a'};
 const input={id:'11111111-1111-1111-1111-111111111111',role:'rmt',status:'inactive'};
 function fixture(found=true){const calls=[];return {calls,async query(sql,values){calls.push({sql,values});
-  return {rows:sql.startsWith('SELECT')?(found?[{id:input.id,roles:'rmt',status:'active'}]:[]):sql.startsWith('UPDATE')?[{id:input.id,roles:input.role,status:input.status,tenant_id:actor.tenant_id}]:[]};}};}
+  const audit=auditFixture(sql,values);if(audit)return audit;
+  return {rows:sql.startsWith('SELECT')?(found?[{id:input.id,roles:'rmt',status:'active'}]:[]):sql.startsWith('UPDATE')?[{id:input.id,email:'target@example.invalid',roles:input.role,status:input.status,tenant_id:actor.tenant_id}]:[]};}};}
 test('rejects unknown role, mass assignment and invalid statuses',()=>{
  assert.deepEqual(validateAccountUpdate(input),input);
  for(const data of [{...input,role:'superadmin'},{...input,tenant_id:'other'},{...input,status:'deleted'},null]) assert.equal(validateAccountUpdate(data),null);
@@ -34,3 +36,8 @@ test('updates tenant-scoped target, revokes sessions and appends audit',async()=
  assert.ok(db.calls.some(c=>c.sql.startsWith('DELETE FROM auth_sessions')));
  assert.ok(db.calls.some(c=>c.sql.startsWith('INSERT INTO auth_management_audit')));
 });
+
+test('management projects returned account fields only',async()=>{const db=fixture();const query=db.query.bind(db);db.query=async(sql,values)=>{const r=await query(sql,values);if(sql.startsWith('UPDATE'))r.rows[0].password_hash='never-return-this';return r;};const result=await manageAccount(db,actor,input);assert.equal(result.status,200);assert.deepEqual(Object.keys(result.body.user).sort(),['id','email','roles','status','tenant_id'].sort());});
+test('malformed management results cannot revoke sessions or append audit',async()=>{for(const change of [{id:'other'},{email:null},{roles:'ceo'},{status:'active'},{tenant_id:'other'}]){const db=fixture();const query=db.query.bind(db);db.query=async(sql,values)=>{const r=await query(sql,values);if(sql.startsWith('UPDATE'))Object.assign(r.rows[0],change);return r;};await assert.rejects(manageAccount(db,actor,input));assert.ok(!db.calls.some(c=>c.sql.startsWith('DELETE FROM auth_sessions')||c.sql.startsWith('INSERT INTO auth_management_audit')));}});
+
+test('missing management RETURNING row prevents audit and revocation',async()=>{const db=fixture();const query=db.query.bind(db);db.query=async(sql,values)=>{const r=await query(sql,values);return sql.startsWith('UPDATE')?{rows:[]}:r;};await assert.rejects(manageAccount(db,actor,input));assert.ok(!db.calls.some(c=>c.sql.startsWith('DELETE FROM auth_sessions')||c.sql.startsWith('INSERT INTO auth_management_audit')));});

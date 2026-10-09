@@ -1,55 +1,28 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class GovernedState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class GovernedState extends DashboardState<GovernedState> {
+  GovernedState({required super.isLoading, super.error, required super.data});
 
-  GovernedState({required this.isLoading, this.error, required this.data});
-
-  GovernedState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return GovernedState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  GovernedState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => GovernedState(isLoading: isLoading, error: error, data: data);
 }
 
-class GovernedController extends StateNotifier<GovernedState> {
-  final Ref ref;
-  GovernedController(this.ref) : super(GovernedState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/generated/governed');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class GovernedController extends BaseDashboardController<GovernedState> {
+  GovernedController(Ref ref)
+    : super(
+        ref,
+        initialState: GovernedState(isLoading: true, data: {}),
+        endpoint: '/generated/governed',
+      );
 }
 
-final governedControllerProvider = StateNotifierProvider<GovernedController, GovernedState>((ref) {
-  return GovernedController(ref);
-});
+final governedControllerProvider =
+    StateNotifierProvider<GovernedController, GovernedState>((ref) {
+      return GovernedController(ref);
+    });

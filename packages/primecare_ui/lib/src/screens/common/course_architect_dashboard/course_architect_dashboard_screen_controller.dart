@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CourseArchitectDashboardScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class CourseArchitectDashboardScreenState
+    extends DashboardState<CourseArchitectDashboardScreenState> {
+  CourseArchitectDashboardScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  CourseArchitectDashboardScreenState({required this.isLoading, this.error, required this.data});
-
-  CourseArchitectDashboardScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return CourseArchitectDashboardScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  CourseArchitectDashboardScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => CourseArchitectDashboardScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class CourseArchitectDashboardScreenController extends StateNotifier<CourseArchitectDashboardScreenState> {
-  final Ref ref;
-  CourseArchitectDashboardScreenController(this.ref) : super(CourseArchitectDashboardScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/course-architect-dashboard');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class CourseArchitectDashboardScreenController
+    extends BaseDashboardController<CourseArchitectDashboardScreenState> {
+  CourseArchitectDashboardScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: CourseArchitectDashboardScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/common/course-architect-dashboard',
+      );
 }
 
-final course_architect_dashboardControllerProvider = StateNotifierProvider<CourseArchitectDashboardScreenController, CourseArchitectDashboardScreenState>((ref) {
-  return CourseArchitectDashboardScreenController(ref);
-});
+final course_architect_dashboardControllerProvider =
+    StateNotifierProvider<
+      CourseArchitectDashboardScreenController,
+      CourseArchitectDashboardScreenState
+    >((ref) {
+      return CourseArchitectDashboardScreenController(ref);
+    });

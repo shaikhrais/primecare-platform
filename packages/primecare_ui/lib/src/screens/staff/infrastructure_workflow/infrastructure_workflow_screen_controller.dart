@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class InfrastructureWorkflowScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class InfrastructureWorkflowScreenState
+    extends DashboardState<InfrastructureWorkflowScreenState> {
+  InfrastructureWorkflowScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  InfrastructureWorkflowScreenState({required this.isLoading, this.error, required this.data});
-
-  InfrastructureWorkflowScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return InfrastructureWorkflowScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  InfrastructureWorkflowScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => InfrastructureWorkflowScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class InfrastructureWorkflowScreenController extends StateNotifier<InfrastructureWorkflowScreenState> {
-  final Ref ref;
-  InfrastructureWorkflowScreenController(this.ref) : super(InfrastructureWorkflowScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/infrastructure-workflow');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class InfrastructureWorkflowScreenController
+    extends BaseDashboardController<InfrastructureWorkflowScreenState> {
+  InfrastructureWorkflowScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: InfrastructureWorkflowScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/common/infrastructure-workflow',
+      );
 }
 
-final infrastructure_workflowControllerProvider = StateNotifierProvider<InfrastructureWorkflowScreenController, InfrastructureWorkflowScreenState>((ref) {
-  return InfrastructureWorkflowScreenController(ref);
-});
+final infrastructure_workflowControllerProvider =
+    StateNotifierProvider<
+      InfrastructureWorkflowScreenController,
+      InfrastructureWorkflowScreenState
+    >((ref) {
+      return InfrastructureWorkflowScreenController(ref);
+    });

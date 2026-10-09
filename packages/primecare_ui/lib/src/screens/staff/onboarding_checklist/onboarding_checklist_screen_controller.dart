@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OnboardingChecklistScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class OnboardingChecklistScreenState
+    extends DashboardState<OnboardingChecklistScreenState> {
+  OnboardingChecklistScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  OnboardingChecklistScreenState({required this.isLoading, this.error, required this.data});
-
-  OnboardingChecklistScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return OnboardingChecklistScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  OnboardingChecklistScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => OnboardingChecklistScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class OnboardingChecklistScreenController extends StateNotifier<OnboardingChecklistScreenState> {
-  final Ref ref;
-  OnboardingChecklistScreenController(this.ref) : super(OnboardingChecklistScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/onboarding-checklist');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class OnboardingChecklistScreenController
+    extends BaseDashboardController<OnboardingChecklistScreenState> {
+  OnboardingChecklistScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: OnboardingChecklistScreenState(isLoading: true, data: {}),
+        endpoint: '/staff/onboarding-checklist',
+      );
 }
 
-final onboarding_checklistControllerProvider = StateNotifierProvider<OnboardingChecklistScreenController, OnboardingChecklistScreenState>((ref) {
-  return OnboardingChecklistScreenController(ref);
-});
+final onboarding_checklistControllerProvider =
+    StateNotifierProvider<
+      OnboardingChecklistScreenController,
+      OnboardingChecklistScreenState
+    >((ref) {
+      return OnboardingChecklistScreenController(ref);
+    });

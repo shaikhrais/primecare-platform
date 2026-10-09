@@ -71,8 +71,17 @@ test('deployment generator attaches governed binding only to auth Worker',()=>{
   execFileSync(process.execPath,['scripts/generate-cloudflare-worker-config.mjs',dir]);
   const policy=JSON.parse(readFileSync('cloudflare/workers/src/auth-source-policy.json','utf8')).login;
   const auth=JSON.parse(readFileSync(join(dir,'auth.jsonc'),'utf8'));
-  assert.deepEqual(auth.ratelimits,[{name:'AUTH_SOURCE_LIMIT',namespace_id:policy.namespaceId,simple:{limit:policy.maxAttempts,period:policy.windowSeconds}}]);
-  for(const name of ['gateway','client'])assert.equal(JSON.parse(readFileSync(join(dir,name+'.jsonc'),'utf8')).ratelimits,undefined);
+  assert.deepEqual(auth.ratelimits,[
+    {name:'AUTH_SOURCE_LIMIT',namespace_id:policy.namespaceId,simple:{limit:policy.maxAttempts,period:policy.windowSeconds}},
+    {name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100402',simple:{limit:120,period:60}},
+  ]);
+  const governance=JSON.parse(readFileSync(join(dir,'governance.jsonc'),'utf8'));
+  assert.notEqual(governance.ratelimits[0].namespace_id,auth.ratelimits[1].namespace_id);
+  const provider=JSON.parse(readFileSync(join(dir,'provider.jsonc'),'utf8'));
+  assert.deepEqual(provider.ratelimits,[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100404',simple:{limit:120,period:60}}]);
+  const client=JSON.parse(readFileSync(join(dir,'client.jsonc'),'utf8'));
+  assert.deepEqual(client.ratelimits,[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100403',simple:{limit:120,period:60}}]);
+  for(const name of ['gateway'])assert.equal(JSON.parse(readFileSync(join(dir,name+'.jsonc'),'utf8')).ratelimits,undefined);
  } finally {rmSync(dir,{recursive:true,force:true})}
 });
 

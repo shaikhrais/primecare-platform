@@ -1,31 +1,14 @@
-// Governance - Category: controller | Purpose: Standalone compile-safe Notifier for ComplianceManagerDashboardScreenController
+// Governance - Category: controller | Purpose: Non-executable scaffold for ComplianceManagerDashboardScreenController
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/controllers.dart';
 
-final complianceManagerDashboardScreenControllerProvider = NotifierProvider<ComplianceManagerDashboardScreenController, AsyncValue<Map<String, dynamic>>>(() {
-  return ComplianceManagerDashboardScreenController();
-});
-
-class ComplianceManagerDashboardScreenController extends Notifier<AsyncValue<Map<String, dynamic>>> {
-  @override
-  AsyncValue<Map<String, dynamic>> build() {
-    _init();
-    return const AsyncValue.data({});
-  }
-
-  Future<void> _init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    state = const AsyncValue.data({
-      'status': 'success',
-      'featuresEnabled': true,
-      'dataLoaded': true,
+final complianceManagerDashboardScreenControllerProvider =
+    NotifierProvider<
+      ComplianceManagerDashboardScreenController,
+      AsyncValue<Map<String, dynamic>>
+    >(() {
+      return ComplianceManagerDashboardScreenController();
     });
-  }
 
-  Future<void> performAction() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      await Future<void>.delayed(const Duration(milliseconds: 500));
-      return {'status': 'action_completed'};
-    });
-  }
-}
+class ComplianceManagerDashboardScreenController
+    extends BaseScaffoldController {}

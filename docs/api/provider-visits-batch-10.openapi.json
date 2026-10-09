@@ -1,0 +1,273 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Assigned Provider Visits Batch 10",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/provider/visits": {
+      "get": {
+        "operationId": "provider_assigned_visits",
+        "summary": "List assigned visits",
+        "description": "Active explicit bearer session. provider_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary providerId/userId/tenant overrides. Visit queries additionally require assigned_provider_id to match the owned provider profile and tenant_id to match the actor tenant. Missing profile returns 404; conflicting tenant header returns 403. Only operational visit summaries are returned. No client identifiers, addresses or clinical/management notes. No new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owner data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "visits",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "visits": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "service_id",
+                          "requested_start_at",
+                          "duration_minutes",
+                          "status",
+                          "priority",
+                          "updated_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "service_id": {
+                            "type": "string"
+                          },
+                          "requested_start_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "duration_minutes": {
+                            "type": "integer"
+                          },
+                          "status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "priority": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own provider profile or assigned visit absent"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Database unavailable or schema dependency missing"
+          }
+        }
+      }
+    },
+    "/v1/provider/visits/{visitId}": {
+      "get": {
+        "operationId": "provider_assigned_visit_detail",
+        "summary": "Read assigned visit",
+        "description": "Active explicit bearer session. provider_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary providerId/userId/tenant overrides. Visit queries additionally require assigned_provider_id to match the owned provider profile and tenant_id to match the actor tenant. Missing profile returns 404; conflicting tenant header returns 403. Only operational visit summaries are returned. No client identifiers, addresses or clinical/management notes. No new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "visitId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owner data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "visit"
+                  ],
+                  "properties": {
+                    "visit": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "service_id",
+                        "requested_start_at",
+                        "duration_minutes",
+                        "status",
+                        "priority",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "service_id": {
+                          "type": "string"
+                        },
+                        "requested_start_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "duration_minutes": {
+                          "type": "integer"
+                        },
+                        "status": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "priority": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own provider profile or assigned visit absent"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Database unavailable or schema dependency missing"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

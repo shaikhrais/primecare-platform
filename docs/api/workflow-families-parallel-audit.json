@@ -1,0 +1,2779 @@
+{
+  "baseCommit": "9164e8806ed9e954affcd18908a598f673ea2f3d",
+  "newOperationsResolved": 0,
+  "countingNote": "Classifications do not count as completed operations; existing blocked stages unchanged.",
+  "complianceScanDeclarations": [
+    {
+      "declarationId": 1159,
+      "operation": "POST /v1/adjustment-notes/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_receptionist_calls_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1242,
+      "operation": "POST /v1/agent-dispatch/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_remote_patient_monitoring_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1243,
+      "operation": "POST /v1/api-health-dashboard/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_telehealth_consultation_room_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1275,
+      "operation": "POST /v1/api-monitoring/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1436,
+      "operation": "POST /v1/applicant-tracking/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1276,
+      "operation": "POST /v1/appointment-overview/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1244,
+      "operation": "POST /v1/appointment/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_telehealth_quality_metrics_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1201,
+      "operation": "POST /v1/assessment/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_formulary_compliance_manager_create_post"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1355,
+      "operation": "POST /v1/attendance/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1356,
+      "operation": "POST /v1/audit-review/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1245,
+      "operation": "POST /v1/billing-overview/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_telemedicine_prescription_pad_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1246,
+      "operation": "POST /v1/billing/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_virtual_waiting_room_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1277,
+      "operation": "POST /v1/booking/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1278,
+      "operation": "POST /v1/branch-performance/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1357,
+      "operation": "POST /v1/brand-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1437,
+      "operation": "POST /v1/calendar-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1358,
+      "operation": "POST /v1/campaign-dashboard/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1405,
+      "operation": "POST /v1/care-plan-review/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1249,
+      "operation": "POST /v1/care-plan/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_admin_health_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1250,
+      "operation": "POST /v1/care-updates/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1385,
+      "operation": "POST /v1/caregiver-client-profile/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1386,
+      "operation": "POST /v1/caregiver-incident-report/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1387,
+      "operation": "POST /v1/caregiver-schedule/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1388,
+      "operation": "POST /v1/caregiver-tasks/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1389,
+      "operation": "POST /v1/caregiver-visit-notes/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1438,
+      "operation": "POST /v1/certification-tracking/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1279,
+      "operation": "POST /v1/cfo-cashflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1280,
+      "operation": "POST /v1/cfo-expenses/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1281,
+      "operation": "POST /v1/cfo-invoices/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1282,
+      "operation": "POST /v1/cfo-payroll/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1283,
+      "operation": "POST /v1/cfo-profitability/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1284,
+      "operation": "POST /v1/cfo-revenue/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1285,
+      "operation": "POST /v1/cfo-tax/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1160,
+      "operation": "POST /v1/chiropractic-assessment/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_receptionist_visitors_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1161,
+      "operation": "POST /v1/chiropractic-progress-tracking/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_scheduler_availability_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1162,
+      "operation": "POST /v1/chiropractor-appointments/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_scheduler_shifts_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1163,
+      "operation": "POST /v1/chiropractor-assessment/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_brand_asset_library_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1164,
+      "operation": "POST /v1/chiropractor-billing-link/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_campaign_performance_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1165,
+      "operation": "POST /v1/chiropractor-client-intake/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_campaign_performance_create_post"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1166,
+      "operation": "POST /v1/chiropractor-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_campaign_performance_update_patch"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1167,
+      "operation": "POST /v1/chiropractor-exercise-plan/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_competitor_analysis_board_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1168,
+      "operation": "POST /v1/chiropractor-reports/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_email_marketing_automator_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1169,
+      "operation": "POST /v1/chiropractor-treatment-notes/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_event_and_webinar_manager_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1439,
+      "operation": "POST /v1/cisoanalytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1440,
+      "operation": "POST /v1/cisoworkflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1441,
+      "operation": "POST /v1/claims-processing/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1286,
+      "operation": "POST /v1/client-intake/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1442,
+      "operation": "POST /v1/client-issue/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1170,
+      "operation": "POST /v1/client-progress/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_lead_conversion_funnel_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1206,
+      "operation": "POST /v1/clinical-director-approvals/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_patient_medication_adherence_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1207,
+      "operation": "POST /v1/clinical-director-compliance/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_pharmacy_dispensing_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1209,
+      "operation": "POST /v1/clinical-director-incident-review/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_pharmacy_inventory_management_create_post"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1210,
+      "operation": "POST /v1/clinical-director-performance/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_pharmacy_inventory_management_update_patch"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1211,
+      "operation": "POST /v1/clinical-director-reports/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_pharmacy_inventory_management_detail_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1212,
+      "operation": "POST /v1/clinical-director-staff-quality/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_pharmacy_inventory_management_delete_delete"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1213,
+      "operation": "POST /v1/clinical-operations4-k/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_community_health_needs_assessment_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1214,
+      "operation": "POST /v1/clinical-quality/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_environmental_health_hazards_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1202,
+      "operation": "POST /v1/clinical/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_formulary_compliance_manager_update_patch"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1406,
+      "operation": "POST /v1/cns-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1407,
+      "operation": "POST /v1/cns-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1443,
+      "operation": "POST /v1/communication/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1444,
+      "operation": "POST /v1/communityoutreachanalytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1445,
+      "operation": "POST /v1/communityoutreachworkflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1359,
+      "operation": "POST /v1/compliance-dashboard/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1287,
+      "operation": "POST /v1/compliance-overview/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1217,
+      "operation": "POST /v1/compliance-review/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_public_health_alert_broadcaster_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1446,
+      "operation": "POST /v1/conflict-resolution/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1288,
+      "operation": "POST /v1/coo-branch-comparison/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1289,
+      "operation": "POST /v1/coo-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1291,
+      "operation": "POST /v1/coo-operations-overview/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1292,
+      "operation": "POST /v1/coo-scheduling-health/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1293,
+      "operation": "POST /v1/coo-staffing/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1294,
+      "operation": "POST /v1/coo-workflow-issues/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1360,
+      "operation": "POST /v1/corrective-action/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1447,
+      "operation": "POST /v1/course-assignment/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1361,
+      "operation": "POST /v1/credential-expiry/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1295,
+      "operation": "POST /v1/cx-director-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1296,
+      "operation": "POST /v1/cx-director-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1362,
+      "operation": "POST /v1/daily-operations/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1448,
+      "operation": "POST /v1/defect-tracking/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1297,
+      "operation": "POST /v1/deployment-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1251,
+      "operation": "POST /v1/documents/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1252,
+      "operation": "POST /v1/drift-findings/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1253,
+      "operation": "POST /v1/dynamicworkflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1254,
+      "operation": "POST /v1/emergency-contacts/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1449,
+      "operation": "POST /v1/employee-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1363,
+      "operation": "POST /v1/employee-records/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1452,
+      "operation": "POST /v1/employee-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1298,
+      "operation": "POST /v1/enterprise-command-center4-k/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1299,
+      "operation": "POST /v1/enterprise-health/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1300,
+      "operation": "POST /v1/executive-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1218,
+      "operation": "POST /v1/exercise-prescription/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_school_health_program_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1301,
+      "operation": "POST /v1/expense-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1453,
+      "operation": "POST /v1/failed-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1255,
+      "operation": "POST /v1/family-overview/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1256,
+      "operation": "POST /v1/file-verification-dashboard/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1302,
+      "operation": "POST /v1/finance-director-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1303,
+      "operation": "POST /v1/finance-director-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1304,
+      "operation": "POST /v1/financial-dashboard/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1305,
+      "operation": "POST /v1/financial-operations4-k/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1306,
+      "operation": "POST /v1/followup/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1308,
+      "operation": "POST /v1/franchise-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1307,
+      "operation": "POST /v1/franchise-command-center4-k/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1364,
+      "operation": "POST /v1/franchise-lead/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1309,
+      "operation": "POST /v1/franchise-overview/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1310,
+      "operation": "POST /v1/franchise-owner-appointments/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1311,
+      "operation": "POST /v1/franchise-owner-branch-overview/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1312,
+      "operation": "POST /v1/franchise-owner-clients/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1313,
+      "operation": "POST /v1/franchise-owner-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1314,
+      "operation": "POST /v1/franchise-owner-compliance/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1315,
+      "operation": "POST /v1/franchise-owner-finance-snapshot/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1316,
+      "operation": "POST /v1/franchise-owner-reports/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1317,
+      "operation": "POST /v1/franchise-owner-staff/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1318,
+      "operation": "POST /v1/franchise-sales-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1319,
+      "operation": "POST /v1/franchise-sales-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1257,
+      "operation": "POST /v1/governance-control-room/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1258,
+      "operation": "POST /v1/governance-operations4-k/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1365,
+      "operation": "POST /v1/growth-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1259,
+      "operation": "POST /v1/guest-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1366,
+      "operation": "POST /v1/hiring-pipeline/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1171,
+      "operation": "POST /v1/home-care-plan/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_patient_acquisition_cost_tracker_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1320,
+      "operation": "POST /v1/hr-director-credential-expiry/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1321,
+      "operation": "POST /v1/hr-director-hiring-pipeline/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1322,
+      "operation": "POST /v1/hr-director-onboarding/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1323,
+      "operation": "POST /v1/hr-director-staff-files/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1324,
+      "operation": "POST /v1/hr-director-training/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1454,
+      "operation": "POST /v1/hr-hiring-applicants/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1455,
+      "operation": "POST /v1/hr-hiring-credentials/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1456,
+      "operation": "POST /v1/hr-hiring-interviews/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1457,
+      "operation": "POST /v1/hr-hiring-offers/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1458,
+      "operation": "POST /v1/hr-hiring-onboarding/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1367,
+      "operation": "POST /v1/incident-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1222,
+      "operation": "POST /v1/incident-oversight/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_vulnerable_population_registry_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1390,
+      "operation": "POST /v1/incident-report/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1408,
+      "operation": "POST /v1/incident-review/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1459,
+      "operation": "POST /v1/infrastructureanalytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1460,
+      "operation": "POST /v1/infrastructureworkflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1325,
+      "operation": "POST /v1/intake-coordinator-assessment-queue/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1326,
+      "operation": "POST /v1/intake-coordinator-booking/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1327,
+      "operation": "POST /v1/intake-coordinator-documents/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1328,
+      "operation": "POST /v1/intake-coordinator-follow-up/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1329,
+      "operation": "POST /v1/intake-coordinator-new-client-intake/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1330,
+      "operation": "POST /v1/intake-coordinator-referrals/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1461,
+      "operation": "POST /v1/interview-scheduling/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1462,
+      "operation": "POST /v1/invoice-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1368,
+      "operation": "POST /v1/lead-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1369,
+      "operation": "POST /v1/legalanalytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1370,
+      "operation": "POST /v1/legalworkflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1426,
+      "operation": "POST /v1/lpn-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1427,
+      "operation": "POST /v1/lpn-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1172,
+      "operation": "POST /v1/massage-assessment/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_referral_network_manager_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1409,
+      "operation": "POST /v1/medication-administration/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1225,
+      "operation": "POST /v1/medication/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_adverse_event_reporting_portal_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1391,
+      "operation": "POST /v1/messaging/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1410,
+      "operation": "POST /v1/np-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1411,
+      "operation": "POST /v1/np-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1228,
+      "operation": "POST /v1/nursing-task/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_grant_funding_allocation_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1463,
+      "operation": "POST /v1/offer-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1464,
+      "operation": "POST /v1/onboarding-checklist/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1371,
+      "operation": "POST /v1/onboarding/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1465,
+      "operation": "POST /v1/open-shift/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1331,
+      "operation": "POST /v1/operations-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1372,
+      "operation": "POST /v1/outreach-campaign/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1373,
+      "operation": "POST /v1/partnership-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1260,
+      "operation": "POST /v1/patient-appointments/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1261,
+      "operation": "POST /v1/patient-billing/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1262,
+      "operation": "POST /v1/patient-care-plan/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1412,
+      "operation": "POST /v1/patient-charting/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1263,
+      "operation": "POST /v1/patient-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1264,
+      "operation": "POST /v1/patient-documents/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1265,
+      "operation": "POST /v1/patient-messages/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1229,
+      "operation": "POST /v1/patient-observation/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_informed_consent_tracker_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1266,
+      "operation": "POST /v1/patient-profile/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1466,
+      "operation": "POST /v1/payment-tracking/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1332,
+      "operation": "POST /v1/payroll/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1230,
+      "operation": "POST /v1/pediatric-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_informed_consent_tracker_create_post"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1233,
+      "operation": "POST /v1/pediatric-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_patient_trial_outcomeser_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1267,
+      "operation": "POST /v1/pending-task-queue/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1234,
+      "operation": "POST /v1/physician-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_research_protocol_manager_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1237,
+      "operation": "POST /v1/physician-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_asynchronous_consultation_inbox_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1173,
+      "operation": "POST /v1/physiotherapist-appointments/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_social_media_sentiment_analyzer_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1174,
+      "operation": "POST /v1/physiotherapist-assessment/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_territory_sales_mapping_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1175,
+      "operation": "POST /v1/physiotherapist-billing-link/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_app_notification_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1176,
+      "operation": "POST /v1/physiotherapist-client-intake/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_app_notification_create_post"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1177,
+      "operation": "POST /v1/physiotherapist-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_app_notification_update_patch"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1178,
+      "operation": "POST /v1/physiotherapist-exercise-plan/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_gamification_profile_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1179,
+      "operation": "POST /v1/physiotherapist-reports/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_gamification_profile_create_post"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1180,
+      "operation": "POST /v1/physiotherapist-treatment-notes/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_gamification_profile_update_patch"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1374,
+      "operation": "POST /v1/policy-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1268,
+      "operation": "POST /v1/portal-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1269,
+      "operation": "POST /v1/portal-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1383,
+      "operation": "POST /v1/premium-concierge-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1384,
+      "operation": "POST /v1/premium-concierge-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1238,
+      "operation": "POST /v1/progress-tracking/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_chronic_care_management_tracker_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1392,
+      "operation": "POST /v1/psw-care-plan/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1393,
+      "operation": "POST /v1/psw-client-profile/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1394,
+      "operation": "POST /v1/psw-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1395,
+      "operation": "POST /v1/psw-documents/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1396,
+      "operation": "POST /v1/psw-incident-report/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1397,
+      "operation": "POST /v1/psw-messages/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1398,
+      "operation": "POST /v1/psw-my-shifts/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1399,
+      "operation": "POST /v1/psw-visit-notes/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1400,
+      "operation": "POST /v1/psw-vitals-log/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1467,
+      "operation": "POST /v1/quality-audit/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1333,
+      "operation": "POST /v1/referral-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1468,
+      "operation": "POST /v1/refund-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1334,
+      "operation": "POST /v1/regionalbdmanalytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1335,
+      "operation": "POST /v1/regionalbdmworkflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1336,
+      "operation": "POST /v1/regionalmanagerusaanalytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1337,
+      "operation": "POST /v1/regionalmanagerusaworkflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1338,
+      "operation": "POST /v1/release-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1270,
+      "operation": "POST /v1/release-operations/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1469,
+      "operation": "POST /v1/resolution-tracking/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1271,
+      "operation": "POST /v1/responsive-preview/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1339,
+      "operation": "POST /v1/revenue-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1341,
+      "operation": "POST /v1/revenue-snapshot/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1340,
+      "operation": "POST /v1/revenue/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1342,
+      "operation": "POST /v1/risk-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1181,
+      "operation": "POST /v1/rmt-appointments/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_security_incident_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1182,
+      "operation": "POST /v1/rmt-assessment/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_security_incident_create_post"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1183,
+      "operation": "POST /v1/rmt-billing-link/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_security_incident_update_patch"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1184,
+      "operation": "POST /v1/rmt-client-intake/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_service_procurement_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1185,
+      "operation": "POST /v1/rmt-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_service_procurement_create_post"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1190,
+      "operation": "POST /v1/rmt-exercise-plan/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_virtual_consult_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1191,
+      "operation": "POST /v1/rmt-reports/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_virtual_consult_create_post"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1192,
+      "operation": "POST /v1/rmt-treatment-notes/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_virtual_consult_update_patch"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1413,
+      "operation": "POST /v1/rn-care-plan-review/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1414,
+      "operation": "POST /v1/rn-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1415,
+      "operation": "POST /v1/rn-field-supervisor-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1418,
+      "operation": "POST /v1/rn-field-supervisor-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1419,
+      "operation": "POST /v1/rn-incident-review/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1420,
+      "operation": "POST /v1/rn-medications/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1421,
+      "operation": "POST /v1/rn-patient-charting/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1422,
+      "operation": "POST /v1/rn-reports/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1423,
+      "operation": "POST /v1/rn-tasks/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1424,
+      "operation": "POST /v1/rn-vitals/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1272,
+      "operation": "POST /v1/role-coverage-dashboard/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1428,
+      "operation": "POST /v1/rpn-care-plan-review/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1429,
+      "operation": "POST /v1/rpn-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1430,
+      "operation": "POST /v1/rpn-incident-review/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1431,
+      "operation": "POST /v1/rpn-medications/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1432,
+      "operation": "POST /v1/rpn-patient-charting/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1433,
+      "operation": "POST /v1/rpn-reports/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1434,
+      "operation": "POST /v1/rpn-tasks/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1435,
+      "operation": "POST /v1/rpn-vitals/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1273,
+      "operation": "POST /v1/runtime-verification/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1401,
+      "operation": "POST /v1/schedule/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1470,
+      "operation": "POST /v1/scheduler-booking-requests/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1471,
+      "operation": "POST /v1/scheduler-calendar/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1472,
+      "operation": "POST /v1/scheduler-command-center/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1473,
+      "operation": "POST /v1/scheduler-conflicts/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1474,
+      "operation": "POST /v1/scheduler-open-shifts/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1475,
+      "operation": "POST /v1/scheduler-provider-availability/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1476,
+      "operation": "POST /v1/scheduling-dashboard/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1377,
+      "operation": "POST /v1/scheduling-health/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1477,
+      "operation": "POST /v1/scheduling-operations4-k/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1478,
+      "operation": "POST /v1/scrummasteranalytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1479,
+      "operation": "POST /v1/scrummasterworkflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1343,
+      "operation": "POST /v1/security-audit/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1378,
+      "operation": "POST /v1/service-issue/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1344,
+      "operation": "POST /v1/service-quality/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1345,
+      "operation": "POST /v1/shareholder-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1346,
+      "operation": "POST /v1/shareholder-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1425,
+      "operation": "POST /v1/shift-report/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1402,
+      "operation": "POST /v1/shift-tasks/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1379,
+      "operation": "POST /v1/social-media/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1193,
+      "operation": "POST /v1/socialworkeranalytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_chemotherapy_protocol_builder_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1194,
+      "operation": "POST /v1/socialworkerworkflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_chemotherapy_protocol_builder_create_post"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1348,
+      "operation": "POST /v1/staff-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1239,
+      "operation": "POST /v1/staff-performance/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_device_integration_hub_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1480,
+      "operation": "POST /v1/staff-progress/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 186,
+      "operation": "POST /v1/staff/ops/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_training_hub_analytics_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1347,
+      "operation": "POST /v1/staffing-overview/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1349,
+      "operation": "POST /v1/system-health/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1350,
+      "operation": "POST /v1/tax-compliance/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1481,
+      "operation": "POST /v1/testing-overview/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1195,
+      "operation": "POST /v1/therapist-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_chemotherapy_protocol_builder_update_patch"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1198,
+      "operation": "POST /v1/therapist-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_controlled_substance_log_update_patch"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1482,
+      "operation": "POST /v1/ticket-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1483,
+      "operation": "POST /v1/training-dashboard/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1351,
+      "operation": "POST /v1/training-director-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1380,
+      "operation": "POST /v1/training-management/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1199,
+      "operation": "POST /v1/treatment-notes/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_drug_interaction_alert_center_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1240,
+      "operation": "POST /v1/treatment-plan/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_digital_symptom_checker_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1352,
+      "operation": "POST /v1/vip-manager-analytics/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1353,
+      "operation": "POST /v1/vip-manager-workflow/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1403,
+      "operation": "POST /v1/visit-notes/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1404,
+      "operation": "POST /v1/vitals-entry/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1241,
+      "operation": "POST /v1/vitals-tracking/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_remote_diagnosticser_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1274,
+      "operation": "POST /v1/workflow-execution/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1354,
+      "operation": "POST /v1/workflow-issue/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    },
+    {
+      "declarationId": 1200,
+      "operation": "POST /v1/xray-review/compliance/scan",
+      "endpointPermission": null,
+      "hasRequestSchema": false,
+      "hasResponseSchema": false,
+      "legacyGrantKeys": [
+        "api_permission_api_v1_formulary_compliance_manager_list_get"
+      ],
+      "disposition": "blocked_contract_and_permission_reconciliation"
+    }
+  ],
+  "testEvidence": {
+    "command": "node --test scripts/test-legacy-domain-api.mjs",
+    "passed": 16,
+    "failed": 0
+  },
+  "findings": [
+    "Per-screen scan family has no defined scan inputs, outputs, or matching endpoint permission. Legacy grant keys refer to unrelated routes.",
+    "OpenAPI describes GET /v1/client/billing/invoices with status/page filters and array output; governance declares POST and existing owner-scoped /v1/client/invoices returns a paginated envelope. Simple aliasing is not contract compatible.",
+    "Dart notes and notification services expose only root greetings; verification has placeholders; generated Dart scheduling/billing/reporting screen handlers return empty data or fake successful actions."
+  ]
+}

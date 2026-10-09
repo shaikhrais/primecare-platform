@@ -1,55 +1,35 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OnboardingScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class OnboardingScreenState extends DashboardState<OnboardingScreenState> {
+  OnboardingScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  OnboardingScreenState({required this.isLoading, this.error, required this.data});
-
-  OnboardingScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return OnboardingScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  OnboardingScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => OnboardingScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class OnboardingScreenController extends StateNotifier<OnboardingScreenState> {
-  final Ref ref;
-  OnboardingScreenController(this.ref) : super(OnboardingScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/onboarding');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class OnboardingScreenController
+    extends BaseDashboardController<OnboardingScreenState> {
+  OnboardingScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: OnboardingScreenState(isLoading: true, data: {}),
+        endpoint: '/management/onboarding',
+      );
 }
 
-final onboardingControllerProvider = StateNotifierProvider<OnboardingScreenController, OnboardingScreenState>((ref) {
-  return OnboardingScreenController(ref);
-});
+final onboardingControllerProvider =
+    StateNotifierProvider<OnboardingScreenController, OnboardingScreenState>((
+      ref,
+    ) {
+      return OnboardingScreenController(ref);
+    });

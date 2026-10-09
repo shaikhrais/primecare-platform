@@ -1,0 +1,39 @@
+{
+  "name": "Reconcile client billing invoice read callers with canonical owner reads",
+  "operations": [
+    "POST /v1/client/billing/invoices"
+  ],
+  "retirements": {
+    "POST /v1/client/billing/invoices": {
+      "declarationIds": [
+        248
+      ],
+      "replacement": "GET /v1/client/invoices",
+      "reason": "Unlinked legacy billing list POST declaration duplicates canonical owner invoice GET. Billing registry list/detail now target canonical invoice read routes; source billing content specifies invoice viewing. No executable legacy method caller or legacy response contract exists. Tombstone retains declaration identity and dependent references; no invoice write grant is introduced.",
+      "evidence": [
+        "packages/domain/src/registries/ApiRegistry/tenancy.ts",
+        "packages/domain/src/registries/content/domain_features_r2r3.ts",
+        "scripts/reconcile-client-billing-declarations.py",
+        "scripts/test-client-billing-retirements.py",
+        "scripts/test-client-billing-reconciliation.mjs",
+        "scripts/test-client-self-api.mjs",
+        "scripts/test-client-self-postgres.mjs"
+      ]
+    }
+  },
+  "reviews": {
+    "POST /v1/client/billing/invoices": {
+      "disposition": "retire_duplicate_read_declaration",
+      "finding": "Unlinked legacy billing list POST declaration duplicates canonical owner invoice GET. Billing registry list/detail now target canonical invoice read routes; source billing content specifies invoice viewing. No executable legacy method caller or legacy response contract exists. Tombstone retains declaration identity and dependent references; no invoice write grant is introduced.",
+      "evidence": [
+        "packages/domain/src/registries/ApiRegistry/tenancy.ts",
+        "packages/domain/src/registries/content/domain_features_r2r3.ts",
+        "scripts/reconcile-client-billing-declarations.py",
+        "scripts/test-client-billing-retirements.py",
+        "scripts/test-client-billing-reconciliation.mjs",
+        "scripts/test-client-self-api.mjs",
+        "scripts/test-client-self-postgres.mjs"
+      ]
+    }
+  }
+}

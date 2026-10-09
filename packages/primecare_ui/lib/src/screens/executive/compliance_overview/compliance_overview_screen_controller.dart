@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ComplianceOverviewScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ComplianceOverviewScreenState
+    extends DashboardState<ComplianceOverviewScreenState> {
+  ComplianceOverviewScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ComplianceOverviewScreenState({required this.isLoading, this.error, required this.data});
-
-  ComplianceOverviewScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ComplianceOverviewScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ComplianceOverviewScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ComplianceOverviewScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ComplianceOverviewScreenController extends StateNotifier<ComplianceOverviewScreenState> {
-  final Ref ref;
-  ComplianceOverviewScreenController(this.ref) : super(ComplianceOverviewScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/compliance-overview');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ComplianceOverviewScreenController
+    extends BaseDashboardController<ComplianceOverviewScreenState> {
+  ComplianceOverviewScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ComplianceOverviewScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/compliance-overview',
+      );
 }
 
-final compliance_overviewControllerProvider = StateNotifierProvider<ComplianceOverviewScreenController, ComplianceOverviewScreenState>((ref) {
-  return ComplianceOverviewScreenController(ref);
-});
+final compliance_overviewControllerProvider =
+    StateNotifierProvider<
+      ComplianceOverviewScreenController,
+      ComplianceOverviewScreenState
+    >((ref) {
+      return ComplianceOverviewScreenController(ref);
+    });

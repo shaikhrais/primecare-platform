@@ -36,7 +36,16 @@ await build({entryPoints:['cloudflare/workers/src/auth.ts'],bundle:true,platform
         }
       }`}));
   }}]});
-const {auth} = createRequire(import.meta.url)(outfile);
+const {auth:directAuth} = createRequire(import.meta.url)(outfile);
+const gatewayFile=join(directory,'gateway.cjs');
+await build({entryPoints:['cloudflare/workers/src/gateway.ts'],bundle:true,platform:'node',format:'cjs',outfile:gatewayFile});
+const {default:gateway}=createRequire(import.meta.url)(gatewayFile);
+// Exercise public routing and the actual PostgreSQL handler together.
+const auth=(request,env,path)=>{
+ const url=new URL(request.url);
+ url.pathname=path==='/change-password'?'/v1/user/change-password':path.startsWith('/admin/')?'/v1'+path:'/v1/auth'+path;
+ return gateway.fetch(new Request(url,request),{AUTH:{fetch:r=>directAuth(r,env,new URL(r.url).pathname,{})}});
+};
 const db = new Client({connectionString});
 await db.connect();
 const email = `fixture-${randomUUID()}@example.invalid`;
@@ -108,6 +117,25 @@ try {
   const rateHash=createHash('sha256').update('login:'+rateEmail).digest('hex');
   await db.query("UPDATE auth_rate_limits SET reset_at=NOW()-INTERVAL '1 second' WHERE subject_hash=$1",[rateHash]);
   assert.equal((await call('/login','POST',{email:rateEmail,password:'not-a-real-password'})).status,401);passed++;
+  // NOW() is the queued transaction's start time. If a locked row's reset
+  // advances while that request waits, using NOW() produces a false 61-second
+  // retry. Actual wall time must be used when projecting the returned retry.
+  await db.query('BEGIN');
+  await db.query('SELECT subject_hash FROM auth_rate_limits WHERE subject_hash=$1 FOR UPDATE',[rateHash]);
+  const blocker=(await db.query('SELECT pg_backend_pid() AS pid')).rows[0].pid;
+  const queued=call('/login','POST',{email:rateEmail,password:'not-a-real-password'});
+  try {
+    const deadline=Date.now()+5000;let waiting=false;
+    while(Date.now()<deadline){
+      await db.query('SELECT pg_stat_clear_snapshot()');
+      waiting=(await db.query('SELECT COUNT(*)::int AS count FROM pg_stat_activity WHERE $1=ANY(pg_blocking_pids(pid))',[blocker])).rows[0].count>0;
+      if(waiting)break;await new Promise(resolve=>setTimeout(resolve,5));
+    }
+    assert.ok(waiting,'queued rate attempt must wait on the held row');
+    await db.query("UPDATE auth_rate_limits SET reset_at=clock_timestamp()+INTERVAL '60 seconds' WHERE subject_hash=$1",[rateHash]);
+    await db.query('COMMIT');
+    assert.equal((await queued).status,401);passed++;
+  }finally {await db.query('ROLLBACK');await queued.catch(()=>{});}
   const changedPassword=randomUUID();
   assert.equal((await call('/change-password','POST',{currentPassword:password,newPassword:changedPassword},admin.token)).status,200);passed++;
   assert.equal((await call('/me','GET',undefined,admin.token)).status,401);
@@ -117,6 +145,79 @@ try {
   const latestToken=(await latestLogin.json()).token;
   const loginHash=createHash('sha256').update('login:'+email).digest('hex');
   await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[loginHash]);
+  // A persisted future reset must not become an unbounded Retry-After value
+  // or permit protected work. Exercise the public gateway with real int4 rows.
+  const snapshot=async()=>({
+    users:(await db.query('SELECT id,email,roles,status,password_hash,updated_at FROM users ORDER BY id')).rows,
+    sessions:(await db.query('SELECT token_hash,user_id,expires_at FROM auth_sessions ORDER BY token_hash')).rows,
+    counts:(await db.query(`SELECT
+      (SELECT COUNT(*)::int FROM auth_account_audit) AS creation,
+      (SELECT COUNT(*)::int FROM auth_management_audit) AS management,
+      (SELECT COUNT(*)::int FROM auth_password_audit) AS password,
+      (SELECT COUNT(*)::int FROM auth_password_resets) AS resets`)).rows,
+  });
+  for(const mode of ['suppress','corrupt']) {
+    await db.query(`CREATE OR REPLACE FUNCTION fixture_session_result() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.token_hash := repeat('f',64); RETURN NEW;"} END $$`);
+    await db.query('CREATE TRIGGER fixture_session_result BEFORE INSERT ON auth_sessions FOR EACH ROW EXECUTE FUNCTION fixture_session_result()');
+    try{await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[loginHash]);const before=await snapshot();const r=await call('/login','POST',{email,password:changedPassword});assert.equal(r.status,mode==='suppress'?401:503);assert.equal(r.headers.get('set-cookie'),null);assert.deepEqual(await snapshot(),before);passed++;}finally{await db.query('DROP TRIGGER fixture_session_result ON auth_sessions');}
+  }
+  env.EMAIL_FROM='PrimeCare <test@example.com>';
+  env.EMAIL={send:async()=>assert.fail('malformed rate result must not send email')};
+  try {
+    for(const [path,body,subject] of [
+      ['/login',{email,password:changedPassword},'login:'+email],
+      ['/forgot-password',{email},'forgot:'+email],
+      ['/reset-password',{email,code:'ABC123ABC123',newPassword:randomUUID()},'reset:'+email],
+      ['/change-password',{currentPassword:changedPassword,newPassword:randomUUID()},'changePassword:'+userId],
+      ['/admin/users',{id:createdId,role:'rmt',status:'active'},'manageAccount:'+userId],
+      ['/register',{email:`rate-invalid-${randomUUID()}@example.invalid`,password:randomUUID(),role:'rmt'},'createAccount:'+userId],
+    ]) {
+      const hash=createHash('sha256').update(subject).digest('hex');
+      await db.query(`INSERT INTO auth_rate_limits(subject_hash,attempts,reset_at)
+        VALUES($1,1,NOW()+INTERVAL '1 day') ON CONFLICT(subject_hash)
+        DO UPDATE SET attempts=1,reset_at=EXCLUDED.reset_at`,[hash]);
+      try {
+        const before=await snapshot();
+        const rejected=await call(path,'POST',body,latestToken);
+        assert.equal(rejected.status,503);
+        assert.equal(rejected.headers.get('cache-control'),'no-store');
+        assert.equal(rejected.headers.get('set-cookie'),null);
+        assert.equal(rejected.headers.get('retry-after'),null);
+        assert.deepEqual(await rejected.json(),{error:'Authentication service unavailable'});
+        assert.deepEqual(await snapshot(),before);
+        assert.equal((await db.query('SELECT attempts FROM auth_rate_limits WHERE subject_hash=$1',[hash])).rows[0].attempts,2);
+        passed++;
+      }finally {await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[hash]);}
+    }
+  }finally {delete env.EMAIL;delete env.EMAIL_FROM;}
+  // Private source-provider corruption is rejected before reads/revocation.
+  let sourceCalls=0;
+  env.WORKSPACE_SOURCE_LIMIT={limit:async()=>{sourceCalls++;return {success:'true'};}};
+  try {
+    for(const [path,method] of [
+      ['/admin/users','GET'],['/admin/users/'+createdId,'GET'],
+      ['/admin/users/'+createdId+'/sessions','DELETE'],
+      ['/user/sessions','GET'],['/user/sessions','DELETE'],
+    ]) {
+      const before=await snapshot(),callsBefore=sourceCalls;
+      const rejected=await call(path,method,undefined,latestToken);
+      assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+      assert.equal(rejected.headers.get('set-cookie'),null);assert.equal(rejected.headers.get('retry-after'),null);
+      assert.equal(sourceCalls,callsBefore+1);assert.deepEqual(await snapshot(),before);passed++;
+    }
+  }finally {delete env.WORKSPACE_SOURCE_LIMIT;}
+  const previousRole=(await db.query('SELECT roles FROM users WHERE id=$1',[userId])).rows[0].roles;
+  const priorSessionCount=(await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[userId])).rows[0].count;
+  await db.query("UPDATE users SET roles='' WHERE id=$1",[userId]);
+  try {
+    const malformedLogin=await call('/login','POST',{email,password:changedPassword});
+    assert.equal(malformedLogin.status,503);assert.equal(malformedLogin.headers.get('set-cookie'),null);
+    assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[userId])).rows[0].count,priorSessionCount);passed++;
+    for(const method of ['GET','POST']){const malformedIdentity=await call('/me',method,undefined,latestToken);assert.equal(malformedIdentity.status,503);assert.equal(malformedIdentity.headers.get('cache-control'),'no-store');passed++;}
+  }finally {
+    await db.query('UPDATE users SET roles=$2 WHERE id=$1',[userId,previousRole]);
+    await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[loginHash]);
+  }
   const racePassword=randomUUID();
   globalThis.__authBeforeInsert=async()=>{
     assert.equal((await call('/change-password','POST',{
@@ -169,6 +270,47 @@ try {
   // Live authorization, tenant binding, encrypted persistence and stale-save behavior.
   const maintenanceToken=(await (await call('/login','POST',{email,password:resetPasswordValue})).json()).token;
   assert.ok(maintenanceToken);
+  for(const mode of ['suppress','corrupt']) {
+    await db.query(`CREATE OR REPLACE FUNCTION fixture_password_audit_confirmation() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.created_at := 'infinity'; RETURN NEW;"} END $$`);
+    await db.query('CREATE TRIGGER fixture_password_audit_confirmation BEFORE INSERT ON auth_password_audit FOR EACH ROW EXECUTE FUNCTION fixture_password_audit_confirmation()');
+    try{
+      await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[mutationHash]);const before=await snapshot();const r=await call('/change-password','POST',{currentPassword:resetPasswordValue,newPassword:randomUUID()},maintenanceToken);assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.deepEqual(await snapshot(),before);passed++;
+      await db.query("INSERT INTO auth_password_resets(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '15 minutes')",[resetHash,userId]);
+      await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('reset:'+email).digest('hex')]);
+      const resetBefore=await snapshot(),codesBefore=(await db.query('SELECT * FROM auth_password_resets ORDER BY token_hash')).rows;
+      const rejected=await call('/reset-password','POST',{email,code,newPassword:randomUUID()});assert.equal(rejected.status,503);assert.equal(rejected.headers.get('set-cookie'),null);assert.equal(rejected.headers.get('cache-control'),'no-store');assert.deepEqual(await snapshot(),resetBefore);assert.deepEqual((await db.query('SELECT * FROM auth_password_resets ORDER BY token_hash')).rows,codesBefore);passed++;
+      await db.query('DELETE FROM auth_password_resets WHERE token_hash=$1',[resetHash]);
+    }finally{await db.query('DROP TRIGGER fixture_password_audit_confirmation ON auth_password_audit');}
+  }
+  // Real trigger suppression/corruption must never yield password success or
+  // revoke sessions. Reset rollback also restores the consumed one-time code.
+  for(const mode of ['suppress','corrupt']) {
+    await db.query(`CREATE OR REPLACE FUNCTION fixture_password_result() RETURNS trigger LANGUAGE plpgsql AS $$
+      BEGIN IF NEW.id::text='${userId}' AND NEW.password_hash IS DISTINCT FROM OLD.password_hash THEN
+        ${mode==='suppress'?'RETURN NULL;':"NEW.password_hash='fixture-corrupt-hash';"}
+      END IF; RETURN NEW; END $$`);
+    await db.query('CREATE TRIGGER fixture_password_result BEFORE UPDATE ON users FOR EACH ROW EXECUTE FUNCTION fixture_password_result()');
+    try {
+      await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[mutationHash]);
+      const before=await snapshot();
+      const own=await call('/change-password','POST',{currentPassword:resetPasswordValue,newPassword:randomUUID()},maintenanceToken);
+      assert.equal(own.status,503);assert.equal(own.headers.get('cache-control'),'no-store');
+      assert.deepEqual(await own.json(),{error:'Authentication service unavailable'});
+      assert.deepEqual(await snapshot(),before);passed++;
+      await db.query("INSERT INTO auth_password_resets(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '15 minutes')",[resetHash,userId]);
+      await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('reset:'+email).digest('hex')]);
+      const resetBefore=await snapshot();
+      const reset=await call('/reset-password','POST',{email,code,newPassword:randomUUID()});
+      assert.equal(reset.status,503);assert.equal(reset.headers.get('cache-control'),'no-store');
+      assert.deepEqual(await reset.json(),{error:'Authentication service unavailable'});
+      assert.deepEqual(await snapshot(),resetBefore);passed++;
+      await db.query('DELETE FROM auth_password_resets WHERE token_hash=$1',[resetHash]);
+    }finally {
+      await db.query('DROP TRIGGER IF EXISTS fixture_password_result ON users');
+      await db.query('DROP FUNCTION IF EXISTS fixture_password_result()');
+    }
+  }
+
   env.CONFIG_ENCRYPTION_KEY='a'.repeat(64);
   await db.query("UPDATE users SET roles='rmt' WHERE id=$1",[userId]);
   assert.equal((await call('/maintenance/configuration','GET',undefined,maintenanceToken)).status,403);passed++;
@@ -181,8 +323,144 @@ try {
   assert.equal(visible.keyConfigured,false);assert.equal(visible.provider,'cloudflare');assert.equal(visible.revision,1);passed++;
   const storedConfiguration=(await db.query('SELECT api_key_ciphertext FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)])).rows[0];
   assert.equal(storedConfiguration.api_key_ciphertext,null);passed++;
+  const baselineConfig=(await db.query('SELECT * FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)])).rows[0];
+  const restoreConfig=()=>db.query('UPDATE tenant_mail_configuration SET sender=$2,templates=$3,revision=$4,updated_at=$5 WHERE tenant_id=$1',[String(tenantId),baselineConfig.sender,JSON.stringify(baselineConfig.templates),baselineConfig.revision,baselineConfig.updated_at]);
+  const maintenanceState=async()=>({accounts:await snapshot(),audit:(await db.query('SELECT * FROM tenant_configuration_audit WHERE tenant_id=$1 ORDER BY id',[String(tenantId)])).rows});
+  const saveState=async()=>({...await maintenanceState(),configuration:(await db.query('SELECT * FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)])).rows});
+  const clearMaintenanceRate=()=>db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('maintenance:'+userId).digest('hex')]);
+  // int4 overflow is a request failure; corrupt locked revision is a service
+  // failure. Neither may mutate configuration or append an audit.
+  const beforeOverflow=await saveState();
+  assert.equal((await call('/maintenance/configuration','POST',{...settings,revision:2147483647},maintenanceToken)).status,400);
+  assert.deepEqual(await saveState(),beforeOverflow);passed++;
+  await db.query('UPDATE tenant_mail_configuration SET revision=0 WHERE tenant_id=$1',[String(tenantId)]);
+  try {
+    const before=await saveState();
+    assert.equal((await call('/maintenance/configuration','POST',settings,maintenanceToken)).status,503);
+    assert.deepEqual(await saveState(),before);passed++;
+  }finally {await restoreConfig();}
+  for(const mode of ['suppress','corrupt']) {
+    await db.query(`CREATE OR REPLACE FUNCTION fixture_configuration_result() RETURNS trigger LANGUAGE plpgsql AS $$
+      BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.sender='other@example.invalid'; RETURN NEW;"} END $$`);
+    await db.query('CREATE TRIGGER fixture_configuration_result BEFORE INSERT OR UPDATE ON tenant_mail_configuration FOR EACH ROW EXECUTE FUNCTION fixture_configuration_result()');
+    try {
+      await clearMaintenanceRate();const before=await saveState();
+      const rejected=await call('/maintenance/configuration','POST',{...settings,revision:1},maintenanceToken);
+      assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+      assert.deepEqual(await rejected.json(),{error:'Authentication service unavailable'});
+      assert.deepEqual(await saveState(),before);passed++;
+    }finally {
+      await db.query('DROP TRIGGER IF EXISTS fixture_configuration_result ON tenant_mail_configuration');
+      await db.query('DROP FUNCTION IF EXISTS fixture_configuration_result()');
+    }
+    await db.query(`CREATE OR REPLACE FUNCTION fixture_configuration_audit_result() RETURNS trigger LANGUAGE plpgsql AS $$
+      BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.action='fixture-corrupt-action'; RETURN NEW;"} END $$`);
+    await db.query('CREATE TRIGGER fixture_configuration_audit_result BEFORE INSERT ON tenant_configuration_audit FOR EACH ROW EXECUTE FUNCTION fixture_configuration_audit_result()');
+    try {
+      env.EMAIL_FROM='it@example.com';let sends=0;env.EMAIL={send:async()=>{sends++;return {messageId:'fixture-only'};}};
+      for(const path of ['/maintenance/configuration','/maintenance/configuration/test-email']) {
+        await clearMaintenanceRate();const before=await saveState(),sentBefore=sends;
+        const rejected=await call(path,'POST',path.endsWith('/test-email')?{}:{...settings,revision:1},maintenanceToken);
+        assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+        assert.deepEqual(await rejected.json(),{error:'Authentication service unavailable'});
+        assert.equal(sends-sentBefore,path.endsWith('/test-email')?1:0);
+        assert.deepEqual(await saveState(),before);passed++;
+      }
+    }finally {
+      await db.query('DROP TRIGGER IF EXISTS fixture_configuration_audit_result ON tenant_configuration_audit');
+      await db.query('DROP FUNCTION IF EXISTS fixture_configuration_audit_result()');
+      delete env.EMAIL;delete env.EMAIL_FROM;
+    }
+  }
+
+  try {
+    for(const [set,value] of [['revision=$2',0],["updated_at=$2",'infinity'],['templates=$2',JSON.stringify({password_reset:{subject:'Reset',title:'Reset',body:'missing required code'}})],['sender=$2','private-invalid-address']]) {
+      await db.query('UPDATE tenant_mail_configuration SET '+set+' WHERE tenant_id=$1',[String(tenantId),value]);
+      const before=await maintenanceState();
+      const rejected=await call('/maintenance/configuration','GET',undefined,maintenanceToken);
+      assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+      assert.deepEqual(await rejected.json(),{error:'Authentication service unavailable'});
+      assert.deepEqual(await maintenanceState(),before);passed++;
+      await restoreConfig();
+    }
+    // Ignore unapproved stored fields, but derive the real required variables.
+    await db.query('UPDATE tenant_mail_configuration SET templates=$2 WHERE tenant_id=$1',[String(tenantId),JSON.stringify({password_reset:{subject:'Reset',title:'Reset',body:'Use {{code}}.',required:['private-variable'],private:'private-template'}})]);
+    const projected=await (await call('/maintenance/configuration','GET',undefined,maintenanceToken)).json();
+    assert.deepEqual(projected.templates.password_reset,{subject:'Reset',title:'Reset',body:'Use {{code}}.',required:['code']});
+    assert.ok(!JSON.stringify(projected).includes('private-'));passed++;
+    await restoreConfig();
+    const audit=(await db.query('SELECT id,action,created_at FROM tenant_configuration_audit WHERE tenant_id=$1 ORDER BY id LIMIT 1',[String(tenantId)])).rows[0];
+    assert.ok(audit);
+    try {
+      for(const [set,value] of [['action=$2','private-action'],['created_at=$2','infinity']]) {
+        await db.query('UPDATE tenant_configuration_audit SET '+set+' WHERE id=$1',[audit.id,value]);
+        const before=await maintenanceState();
+        const rejected=await call('/maintenance/configuration','GET',undefined,maintenanceToken);
+        assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+        assert.deepEqual(await maintenanceState(),before);passed++;
+        await db.query('UPDATE tenant_configuration_audit SET action=$2,created_at=$3 WHERE id=$1',[audit.id,audit.action,audit.created_at]);
+      }
+    }finally {await db.query('UPDATE tenant_configuration_audit SET action=$2,created_at=$3 WHERE id=$1',[audit.id,audit.action,audit.created_at]);}
+    await db.query('UPDATE tenant_mail_configuration SET sender=$2 WHERE tenant_id=$1',[String(tenantId),'private-invalid-address']);
+    let sends=0;env.EMAIL={send:async()=>{sends++;assert.fail('corrupt stored sender must not send')}};env.EMAIL_FROM='it@example.com';
+    const counters=(await db.query('SELECT * FROM auth_rate_limits ORDER BY subject_hash')).rows;
+    const before=await maintenanceState();
+    const recovery=await call('/forgot-password','POST',{email});
+    assert.equal(recovery.status,503);assert.equal(recovery.headers.get('cache-control'),'no-store');
+    assert.deepEqual((await db.query('SELECT * FROM auth_rate_limits ORDER BY subject_hash')).rows,counters);
+    assert.deepEqual(await maintenanceState(),before);passed++;
+    const testMail=await call('/maintenance/configuration/test-email','POST',{},maintenanceToken);
+    assert.equal(testMail.status,503);assert.equal(testMail.headers.get('cache-control'),'no-store');
+    assert.deepEqual(await maintenanceState(),before);assert.equal(sends,0);passed++;
+  }finally {await restoreConfig();delete env.EMAIL;delete env.EMAIL_FROM;}
   await db.query('DELETE FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)]);
   await db.query('DELETE FROM tenant_configuration_audit WHERE tenant_id=$1',[String(tenantId)]);
+  // A truthy malformed native receipt must not leave a usable reset code or
+  // create an acceptance audit. Test only the synthetic fixture address/binding.
+  env.EMAIL_FROM='it@example.com';
+  try {
+    for(const messageId of [1,' ']) {
+      let sends=0;env.EMAIL={send:async()=>{sends++;return {messageId};}};
+      const before=await snapshot();
+      const recovery=await call('/forgot-password','POST',{email});
+      assert.equal(recovery.status,503);assert.equal(recovery.headers.get('cache-control'),'no-store');
+      assert.equal(sends,1);assert.deepEqual(await snapshot(),before);passed++;
+    }
+    const auditCount=(await db.query('SELECT COUNT(*)::int AS count FROM tenant_configuration_audit WHERE tenant_id=$1',[String(tenantId)])).rows[0].count;
+    const testEmail=await call('/maintenance/configuration/test-email','POST',{},maintenanceToken);
+    assert.equal(testEmail.status,503);assert.equal(testEmail.headers.get('cache-control'),'no-store');
+    assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM tenant_configuration_audit WHERE tenant_id=$1',[String(tenantId)])).rows[0].count,auditCount);passed++;
+  }finally {delete env.EMAIL;delete env.EMAIL_FROM;}
+
+  // Recovery validates actual persisted identity/hash and rolls back suppressed
+  // or corrupted inserts before invoking the synthetic native mail binding.
+  env.EMAIL_FROM='it@example.com';
+  try {
+    for(const mode of ['suppress','corrupt']) {
+      let sends=0;env.EMAIL={send:async()=>{sends++;return {messageId:'fixture'};}};
+      await db.query(`CREATE OR REPLACE FUNCTION fixture_reset_result() RETURNS trigger LANGUAGE plpgsql AS $$
+        BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.token_hash=repeat('f',64); RETURN NEW;"} END $$`);
+      await db.query('CREATE TRIGGER fixture_reset_result BEFORE INSERT ON auth_password_resets FOR EACH ROW EXECUTE FUNCTION fixture_reset_result()');
+      try {
+        await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('forgot:'+email).digest('hex')]);
+        const before=await snapshot();
+        const recovery=await call('/forgot-password','POST',{email});
+        assert.equal(recovery.status,503);assert.equal(recovery.headers.get('cache-control'),'no-store');
+        assert.deepEqual(await recovery.json(),{error:'Authentication service unavailable'});
+        assert.equal(sends,0);assert.deepEqual(await snapshot(),before);passed++;
+      }finally {
+        await db.query('DROP TRIGGER IF EXISTS fixture_reset_result ON auth_password_resets');
+        await db.query('DROP FUNCTION IF EXISTS fixture_reset_result()');
+      }
+    }
+  }finally {delete env.EMAIL;delete env.EMAIL_FROM;}
+  const countersBefore=(await db.query('SELECT COUNT(*)::int AS count FROM auth_rate_limits')).rows[0].count;
+  for(const path of ['/login','/forgot-password','/reset-password','/change-password','/admin/users','/register']) {
+    const oversized=await call(path,'POST',{value:'é'.repeat(25_000)},'A'.repeat(43));
+    assert.equal(oversized.status,413);assert.equal(oversized.headers.get('cache-control'),'no-store');
+    assert.deepEqual(await oversized.json(),{error:'Request too large'});passed++;
+  }
+  assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM auth_rate_limits')).rows[0].count,countersBefore);passed++;
   console.log(JSON.stringify({passed, database:'isolated PostgreSQL', productionVerified:false}));
 } finally {
   globalThis.__authBeforeInsert=null;

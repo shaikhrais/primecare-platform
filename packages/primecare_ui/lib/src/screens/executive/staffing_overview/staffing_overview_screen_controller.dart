@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class StaffingOverviewScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class StaffingOverviewScreenState
+    extends DashboardState<StaffingOverviewScreenState> {
+  StaffingOverviewScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  StaffingOverviewScreenState({required this.isLoading, this.error, required this.data});
-
-  StaffingOverviewScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return StaffingOverviewScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  StaffingOverviewScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => StaffingOverviewScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class StaffingOverviewScreenController extends StateNotifier<StaffingOverviewScreenState> {
-  final Ref ref;
-  StaffingOverviewScreenController(this.ref) : super(StaffingOverviewScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/staffing-overview');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class StaffingOverviewScreenController
+    extends BaseDashboardController<StaffingOverviewScreenState> {
+  StaffingOverviewScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: StaffingOverviewScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/staffing-overview',
+      );
 }
 
-final staffing_overviewControllerProvider = StateNotifierProvider<StaffingOverviewScreenController, StaffingOverviewScreenState>((ref) {
-  return StaffingOverviewScreenController(ref);
-});
+final staffing_overviewControllerProvider =
+    StateNotifierProvider<
+      StaffingOverviewScreenController,
+      StaffingOverviewScreenState
+    >((ref) {
+      return StaffingOverviewScreenController(ref);
+    });

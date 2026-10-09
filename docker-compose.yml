@@ -16,8 +16,8 @@ services:
 
   api_gateway:
     build:
-      context: ./services/api_gateway
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/api_gateway/Dockerfile
     ports:
       - "3001:8080"
     environment:
@@ -40,8 +40,8 @@ services:
 
   auth_api:
     build:
-      context: ./services/auth_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/auth_api/Dockerfile
     ports:
       - "3003:8080"
     environment:
@@ -64,8 +64,8 @@ services:
 
   billing_api:
     build:
-      context: ./services/billing_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/billing_api/Dockerfile
     ports:
       - "3005:8080"
     environment:
@@ -76,8 +76,8 @@ services:
 
   client_api:
     build:
-      context: ./services/client_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/client_api/Dockerfile
     ports:
       - "3006:8080"
     environment:
@@ -88,8 +88,8 @@ services:
 
   compliance_api:
     build:
-      context: ./services/compliance_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/compliance_api/Dockerfile
     ports:
       - "3007:8080"
     environment:
@@ -100,8 +100,8 @@ services:
 
   franchise_reporting_api:
     build:
-      context: ./services/franchise_reporting_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/franchise_reporting_api/Dockerfile
     ports:
       - "3008:8080"
     environment:
@@ -112,8 +112,8 @@ services:
 
   governance_api:
     build:
-      context: ./services/governance_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/governance_api/Dockerfile
     ports:
       - "3009:8080"
     environment:
@@ -136,8 +136,8 @@ services:
 
   notes_api:
     build:
-      context: ./services/notes_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/notes_api/Dockerfile
     ports:
       - "3011:8080"
     environment:
@@ -160,8 +160,8 @@ services:
 
   notification_api:
     build:
-      context: ./services/notification_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/notification_api/Dockerfile
     ports:
       - "3013:8080"
     environment:
@@ -172,8 +172,8 @@ services:
 
   provider_api:
     build:
-      context: ./services/provider_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/provider_api/Dockerfile
     ports:
       - "3014:8080"
     environment:
@@ -184,8 +184,8 @@ services:
 
   scheduling_api:
     build:
-      context: ./services/scheduling_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/scheduling_api/Dockerfile
     ports:
       - "3015:8080"
     environment:
@@ -196,8 +196,8 @@ services:
 
   verification_api:
     build:
-      context: ./services/verification_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/verification_api/Dockerfile
     ports:
       - "3016:8080"
     environment:
@@ -208,8 +208,8 @@ services:
 
   visit_api:
     build:
-      context: ./services/visit_api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/visit_api/Dockerfile
     ports:
       - "3017:8080"
     environment:

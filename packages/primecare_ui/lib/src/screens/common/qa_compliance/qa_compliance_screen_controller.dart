@@ -1,55 +1,36 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class QaComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class QaComplianceScreenState extends DashboardState<QaComplianceScreenState> {
+  QaComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  QaComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  QaComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return QaComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  QaComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => QaComplianceScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class QaComplianceScreenController extends StateNotifier<QaComplianceScreenState> {
-  final Ref ref;
-  QaComplianceScreenController(this.ref) : super(QaComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/qa-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class QaComplianceScreenController
+    extends BaseDashboardController<QaComplianceScreenState> {
+  QaComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: QaComplianceScreenState(isLoading: true, data: {}),
+        endpoint: '/common/qa-compliance',
+      );
 }
 
-final qa_complianceControllerProvider = StateNotifierProvider<QaComplianceScreenController, QaComplianceScreenState>((ref) {
-  return QaComplianceScreenController(ref);
-});
+final qa_complianceControllerProvider =
+    StateNotifierProvider<
+      QaComplianceScreenController,
+      QaComplianceScreenState
+    >((ref) {
+      return QaComplianceScreenController(ref);
+    });

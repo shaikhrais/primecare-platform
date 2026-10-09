@@ -1,0 +1,983 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Authentication JSON Body Bounds",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/auth/login": {
+      "post": {
+        "operationId": "authBodyBounds254login",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Nonempty after trimming; normalized to lowercase; maximum 254 code units."
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "writeOnly": true,
+                    "description": "Maximum 72 UTF-8 bytes."
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Existing handler success; account recovery remains enumeration resistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "userId",
+                    "role",
+                    "token",
+                    "status"
+                  ],
+                  "properties": {
+                    "userId": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "const": "authenticated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload exceeds 50,000 wire bytes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Request too large"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-batch": 254,
+        "x-max-body-bytes": 50000,
+        "x-governance-promotion": false,
+        "description": " Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations."
+      }
+    },
+    "/v1/auth/forgot-password": {
+      "post": {
+        "operationId": "authBodyBounds255forgotpassword",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Trimmed and normalized to lowercase; valid email, maximum 254 code units."
+                  }
+                },
+                "required": [
+                  "email"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Existing handler success; account recovery remains enumeration resistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload exceeds 50,000 wire bytes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Request too large"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-batch": 255,
+        "x-max-body-bytes": 50000,
+        "x-governance-promotion": false,
+        "description": " Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations."
+      }
+    },
+    "/v1/auth/reset-password": {
+      "post": {
+        "operationId": "authBodyBounds255resetpassword",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Trimmed and normalized to lowercase; valid email, maximum 254 code units."
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "Trimmed and uppercased to exactly 12 hexadecimal characters."
+                  },
+                  "newPassword": {
+                    "type": "string",
+                    "minLength": 12,
+                    "writeOnly": true,
+                    "description": "At least 12 JavaScript string code units; maximum 72 UTF-8 bytes."
+                  }
+                },
+                "required": [
+                  "email",
+                  "code",
+                  "newPassword"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Existing handler success; account recovery remains enumeration resistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "reauthenticationRequired"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "password_reset"
+                    },
+                    "reauthenticationRequired": {
+                      "const": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload exceeds 50,000 wire bytes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Request too large"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-batch": 255,
+        "x-max-body-bytes": 50000,
+        "x-governance-promotion": false,
+        "description": " Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations."
+      }
+    },
+    "/v1/user/change-password": {
+      "post": {
+        "operationId": "existingAuthBatch246",
+        "description": "Change own password after current-password verification; revoke all sessions and password resets. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful existing handler response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status",
+                    "reauthenticationRequired"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "password_changed"
+                    },
+                    "reauthenticationRequired": {
+                      "const": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid session or current credentials"
+          },
+          "403": {
+            "description": "Existing authority or tenant policy rejects request"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          },
+          "413": {
+            "description": "Payload exceeds 50,000 wire bytes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Request too large"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "currentPassword",
+                  "newPassword"
+                ],
+                "properties": {
+                  "currentPassword": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "At most 72 UTF-8 bytes; must match the current password."
+                  },
+                  "newPassword": {
+                    "type": "string",
+                    "description": "At least 12 JavaScript UTF-16 code units and at most 72 UTF-8 bytes; validated by the handler."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-batch": 256,
+        "x-max-body-bytes": 50000,
+        "x-governance-promotion": false
+      }
+    },
+    "/v1/admin/users": {
+      "post": {
+        "operationId": "existingAuthBatch242",
+        "description": "Manage another account in the active CEO tenant; revoke target sessions and audit the change. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful existing handler response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "user"
+                  ],
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "email",
+                        "tenant_id",
+                        "roles",
+                        "status"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "tenant_id": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid session or current credentials"
+          },
+          "403": {
+            "description": "Existing authority or tenant policy rejects request"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          },
+          "404": {
+            "description": "Target absent in the actor tenant"
+          },
+          "413": {
+            "description": "Payload exceeds 50,000 wire bytes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Request too large"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "role",
+                  "status"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "admin",
+                      "bus_dev",
+                      "caregiver",
+                      "ceo",
+                      "cfo",
+                      "chiropractor",
+                      "ciso",
+                      "clinical_director",
+                      "cns",
+                      "community_outreach",
+                      "compliance",
+                      "coo",
+                      "cto",
+                      "customer_support",
+                      "cx_director",
+                      "dynamic",
+                      "employee",
+                      "family",
+                      "finance_director",
+                      "franchise_sales",
+                      "gm",
+                      "governance",
+                      "guest",
+                      "hr_director",
+                      "hr_hiring",
+                      "hsw",
+                      "infrastructure",
+                      "intake",
+                      "legal",
+                      "local_marketing",
+                      "lpn",
+                      "marketing",
+                      "np",
+                      "ops_manager",
+                      "owner",
+                      "partnership",
+                      "patient",
+                      "pediatric",
+                      "physician",
+                      "physio",
+                      "portal",
+                      "premium_concierge",
+                      "psw",
+                      "qa_specialist",
+                      "regional_bdm",
+                      "regional_manager_usa",
+                      "rmt",
+                      "rn",
+                      "rn_field_supervisor",
+                      "rpn",
+                      "scheduler",
+                      "scrum_master",
+                      "shareholder",
+                      "social_worker",
+                      "system_verification",
+                      "territory_expansion",
+                      "territory_sales",
+                      "therapist",
+                      "training",
+                      "training_coordinator",
+                      "training_director",
+                      "vip_manager",
+                      "volunteer",
+                      "volunteer_coordinator",
+                      "maintenance"
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "active",
+                      "inactive"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-batch": 257,
+        "x-max-body-bytes": 50000,
+        "x-governance-promotion": false
+      }
+    },
+    "/v1/auth/register": {
+      "post": {
+        "operationId": "existingAuthBatch245",
+        "description": "Create a tenant account under the existing CEO or HR role assignment policy. Explicit bearer required. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful existing handler response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "user"
+                  ],
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "email",
+                        "tenant_id",
+                        "roles",
+                        "status"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "tenant_id": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid session or current credentials"
+          },
+          "403": {
+            "description": "Existing authority or tenant policy rejects request"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          },
+          "409": {
+            "description": "Account cannot be created"
+          },
+          "413": {
+            "description": "Payload exceeds 50,000 wire bytes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Request too large"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "email",
+                  "password",
+                  "role"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Trimmed and lowercased before email validation; normalized value is at most 254 UTF-16 code units."
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "At least 12 JavaScript UTF-16 code units and at most 72 UTF-8 bytes; validated by the handler."
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "admin",
+                      "bus_dev",
+                      "caregiver",
+                      "ceo",
+                      "cfo",
+                      "chiropractor",
+                      "ciso",
+                      "clinical_director",
+                      "cns",
+                      "community_outreach",
+                      "compliance",
+                      "coo",
+                      "cto",
+                      "customer_support",
+                      "cx_director",
+                      "dynamic",
+                      "employee",
+                      "family",
+                      "finance_director",
+                      "franchise_sales",
+                      "gm",
+                      "governance",
+                      "guest",
+                      "hr_director",
+                      "hr_hiring",
+                      "hsw",
+                      "infrastructure",
+                      "intake",
+                      "legal",
+                      "local_marketing",
+                      "lpn",
+                      "maintenance",
+                      "marketing",
+                      "np",
+                      "ops_manager",
+                      "owner",
+                      "partnership",
+                      "patient",
+                      "pediatric",
+                      "physician",
+                      "physio",
+                      "portal",
+                      "premium_concierge",
+                      "psw",
+                      "qa_specialist",
+                      "regional_bdm",
+                      "regional_manager_usa",
+                      "rmt",
+                      "rn",
+                      "rn_field_supervisor",
+                      "rpn",
+                      "scheduler",
+                      "scrum_master",
+                      "shareholder",
+                      "social_worker",
+                      "system_verification",
+                      "territory_expansion",
+                      "territory_sales",
+                      "therapist",
+                      "training",
+                      "training_coordinator",
+                      "training_director",
+                      "vip_manager",
+                      "volunteer",
+                      "volunteer_coordinator"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-batch": 258,
+        "x-max-body-bytes": 50000,
+        "x-governance-promotion": false
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "session_token"
+      }
+    }
+  }
+}

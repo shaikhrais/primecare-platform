@@ -7,6 +7,8 @@ environment:
   sdk: ^3.11.3
 
 dependencies:
+  server_core:
+    path: ../../packages/server_core
   shelf: ^1.4.2
   shelf_router: ^1.1.4
   shelf_cors_headers: ^0.1.5

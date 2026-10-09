@@ -3,15 +3,77 @@
 Created pages are partial until domain workflow, browser and accessibility
 evidence exists. This script never turns template evidence into readiness.
 """
-import csv, json, re, sqlite3
+import csv, hashlib, json, re, sqlite3
+import runpy
 from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DB = ROOT / '.agents/governance/governance.db'
+import subprocess,sys
+subprocess.run([sys.executable,str(ROOT/'scripts/repair-local-api-metadata.py'),str(DB)],check=True)
 PORTALS = {'corporate': 'co', 'clinic': 'ci', 'clinical': 'ci', 'client': 'cl',
            'support': 'su', 'franchise': 'fr', 'marketing': 'ma',
            'business-development': 'bd', 'governance': 'go'}
+runpy.run_path(str(ROOT/'scripts/register-owner-summaries-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-visit-document-summaries-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-provider-documents-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-invoices-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-visits-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-provider-visits-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-provider-self-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-provider-availability-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-legacy-domain-security.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-bookings-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-booking-requests-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-booking-lifecycle-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-records-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-record-summaries-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-booking-payment-reads-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-payment-history-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-self-records-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-provider-records-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-provider-timesheet-items-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-self-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-operational-projections-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-count-validation-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-provider-operational-projections-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-generated-record-count-validation-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-owned-commerce-authoring-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-self-sessions-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-owner-session-count-validation-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-account-list-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-account-admin-batch.py'))
+runpy.run_path(str(ROOT/'scripts/register-account-detail-batch.py'))
+runpy.run_path(str(ROOT/'scripts/register-account-count-validation-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-governance-api-batch.py'))
+runpy.run_path(str(ROOT/'scripts/register-api-execution-status.py'))
+runpy.run_path(str(ROOT/'scripts/register-contract-gap-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-api-service-status.py'))
+runpy.run_path(str(ROOT/'scripts/register-auth-delivery-work-package.py'))
+runpy.run_path(str(ROOT/'scripts/register-existing-auth-contracts.py'))
+runpy.run_path(str(ROOT/'scripts/register-account-read-validation-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-integer-contracts-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-identifier-contracts-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-summary-contracts-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-list-page-contracts-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-response-envelope-contracts-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-read-envelope-page-contracts-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-timestamp-contracts-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-governed-read-aliases.py'))
+runpy.run_path(str(ROOT/'scripts/register-booking-submission-delivery.py'))
+runpy.run_path(str(ROOT/'scripts/register-booking-requests-delivery.py'))
+runpy.run_path(str(ROOT/'scripts/register-booking-collection-delivery.py'))
+runpy.run_path(str(ROOT/'scripts/reconcile-client-read-declarations.py'),run_name='__main__')
+runpy.run_path(str(ROOT/'scripts/reconcile-auth-root-declarations.py'),run_name='__main__')
+runpy.run_path(str(ROOT/'scripts/reconcile-prefix-declarations.py'),run_name='__main__')
+runpy.run_path(str(ROOT/'scripts/reconcile-client-billing-declarations.py'),run_name='__main__')
+runpy.run_path(str(ROOT/'scripts/reconcile-provider-profile-declaration.py'),run_name='__main__')
+# This bootstrap already operates on a derived local database after quarantine.
+method_blockers = runpy.run_path(str(ROOT/'scripts/register-method-capture-blockers.py'))
+with sqlite3.connect(DB) as blocker_db:
+    method_blockers['reconcile'](blocker_db)
+runpy.run_path(str(ROOT/'scripts/generate-api-execution-inventory.py'))
 with sqlite3.connect(DB) as db:
     db.row_factory = sqlite3.Row
     db.execute('''CREATE TABLE IF NOT EXISTS screen_runtime_views (
@@ -69,6 +131,8 @@ with sqlite3.connect(DB) as db:
       'role_screen_permissions.can_view',?,1)''', (apps['gv'], endpoint, response_schema))
     api_id = db.execute('SELECT id FROM api_endpoints WHERE app_id=? AND route_path=? AND http_method=\'GET\'', (apps['gv'],endpoint)).fetchone()[0]
     db.execute('UPDATE api_endpoints SET rate_limit_key=\'workspace.source\',uses_pagination=0 WHERE id=?',(api_id,))
+    db.commit()
+    runpy.run_path(str(ROOT/'scripts/register-workspace-count-validation-api.py'))
     screens = []
     for row in db.execute('''SELECT s.*,r.role_code,a.app_code FROM screens s
       LEFT JOIN roles r ON r.id=s.role_id LEFT JOIN apps a ON a.id=s.app_id
@@ -102,10 +166,15 @@ with sqlite3.connect(DB) as db:
         contracts=[dict(a) for a in db.execute('''SELECT DISTINCT a.endpoint_code code,a.http_method method,
           a.route_path route,a.implementation_status implementation,a.permission_key permission,
           a.health_status health,a.last_tested_at lastTested,
+          a.request_schema requestSchema,a.response_schema responseSchema,
           CASE WHEN a.request_schema IS NOT NULL AND a.response_schema IS NOT NULL THEN 1 ELSE 0 END schemas
           FROM api_endpoints a WHERE a.id IN
           (SELECT api_id FROM screen_api_links WHERE screen_id=? UNION SELECT api_id FROM screen_api_map WHERE screen_id=?)
           ORDER BY a.route_path,a.http_method''',(s['id'],s['id']))]
+        for contract in contracts:
+            for field in ('requestSchema','responseSchema'):
+                try: contract[field]=json.loads(contract[field]) if contract[field] else None
+                except (ValueError,TypeError): contract[field]=None
         pending_actions=[dict(e) for e in db.execute('''SELECT element_key key,label,action_tag status,api_usage apiUsage
           FROM screen_section_elements WHERE screen_id=? AND required=1 AND action_required=1
           AND COALESCE(action_tag,'') NOT IN ('implemented','functional','action_implemented') ORDER BY element_order''',(s['id'],))]
@@ -146,6 +215,10 @@ with sqlite3.connect(DB) as db:
         'workspace.previous':'Previous page','workspace.next':'Next page'}}
     target=ROOT/'cloudflare/workers/src/workspace-registry.json'
     target.write_text(json.dumps(registry,separators=(',',':'))+'\n')
+    catalog_path=ROOT/'cloudflare/workers/src/governance-api-registry.json'
+    catalog=json.loads(catalog_path.read_text())
+    catalog['version']=hashlib.sha256(json.dumps({'bindings':catalog['bindings'],'roles':catalog['roles'],'hierarchy':catalog['hierarchy'],'workspace':registry},sort_keys=True).encode()).hexdigest()[:16]
+    catalog_path.write_text(json.dumps(catalog,separators=(',',':'))+'\n')
     for key,text in registry['resources'].items():
         db.execute('INSERT OR IGNORE INTO language_resources(resource_key,resource_group,description,context,active) VALUES(?,\'workspace\',?,\'Authenticated governed workspace\',1)',(key,text))
         resource=db.execute('SELECT resource_id FROM language_resources WHERE resource_key=?',(key,)).fetchone()[0]
@@ -163,6 +236,10 @@ with sqlite3.connect(DB) as db:
             landings[code]=(configured or next((s for s in allowed if s['renderer']=='dashboard'),allowed[0]))['route']
     registry['landings']=landings
     target.write_text(json.dumps(registry,separators=(',',':'))+'\n')
+    catalog_path=ROOT/'cloudflare/workers/src/governance-api-registry.json'
+    catalog=json.loads(catalog_path.read_text())
+    catalog['version']=hashlib.sha256(json.dumps({'bindings':catalog['bindings'],'roles':catalog['roles'],'hierarchy':catalog['hierarchy'],'workspace':registry},sort_keys=True).encode()).hexdigest()[:16]
+    catalog_path.write_text(json.dumps(catalog,separators=(',',':'))+'\n')
     dart+='const governedWorkspaceLandings = <String, String>'+json.dumps(landings,indent=2)+';\n'
     out=ROOT/'packages/primecare_ui/lib/src/features/workspace/workspace_routes_generated.dart';out.parent.mkdir(parents=True,exist_ok=True);out.write_text(dart)
     report=ROOT/'docs/audits/page-readiness';report.mkdir(parents=True,exist_ok=True)

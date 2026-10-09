@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FinanceDirectorAnalyticsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class FinanceDirectorAnalyticsScreenState
+    extends DashboardState<FinanceDirectorAnalyticsScreenState> {
+  FinanceDirectorAnalyticsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  FinanceDirectorAnalyticsScreenState({required this.isLoading, this.error, required this.data});
-
-  FinanceDirectorAnalyticsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return FinanceDirectorAnalyticsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  FinanceDirectorAnalyticsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => FinanceDirectorAnalyticsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class FinanceDirectorAnalyticsScreenController extends StateNotifier<FinanceDirectorAnalyticsScreenState> {
-  final Ref ref;
-  FinanceDirectorAnalyticsScreenController(this.ref) : super(FinanceDirectorAnalyticsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/finance-director-analytics');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class FinanceDirectorAnalyticsScreenController
+    extends BaseDashboardController<FinanceDirectorAnalyticsScreenState> {
+  FinanceDirectorAnalyticsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: FinanceDirectorAnalyticsScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/executive/finance-director-analytics',
+      );
 }
 
-final finance_director_analyticsControllerProvider = StateNotifierProvider<FinanceDirectorAnalyticsScreenController, FinanceDirectorAnalyticsScreenState>((ref) {
-  return FinanceDirectorAnalyticsScreenController(ref);
-});
+final finance_director_analyticsControllerProvider =
+    StateNotifierProvider<
+      FinanceDirectorAnalyticsScreenController,
+      FinanceDirectorAnalyticsScreenState
+    >((ref) {
+      return FinanceDirectorAnalyticsScreenController(ref);
+    });

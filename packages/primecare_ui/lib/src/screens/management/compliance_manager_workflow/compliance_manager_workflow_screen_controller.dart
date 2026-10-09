@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ComplianceManagerWorkflowScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ComplianceManagerWorkflowScreenState
+    extends DashboardState<ComplianceManagerWorkflowScreenState> {
+  ComplianceManagerWorkflowScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ComplianceManagerWorkflowScreenState({required this.isLoading, this.error, required this.data});
-
-  ComplianceManagerWorkflowScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ComplianceManagerWorkflowScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ComplianceManagerWorkflowScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ComplianceManagerWorkflowScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ComplianceManagerWorkflowScreenController extends StateNotifier<ComplianceManagerWorkflowScreenState> {
-  final Ref ref;
-  ComplianceManagerWorkflowScreenController(this.ref) : super(ComplianceManagerWorkflowScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/compliance-manager-workflow');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ComplianceManagerWorkflowScreenController
+    extends BaseDashboardController<ComplianceManagerWorkflowScreenState> {
+  ComplianceManagerWorkflowScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ComplianceManagerWorkflowScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/management/compliance-manager-workflow',
+      );
 }
 
-final compliance_manager_workflowControllerProvider = StateNotifierProvider<ComplianceManagerWorkflowScreenController, ComplianceManagerWorkflowScreenState>((ref) {
-  return ComplianceManagerWorkflowScreenController(ref);
-});
+final compliance_manager_workflowControllerProvider =
+    StateNotifierProvider<
+      ComplianceManagerWorkflowScreenController,
+      ComplianceManagerWorkflowScreenState
+    >((ref) {
+      return ComplianceManagerWorkflowScreenController(ref);
+    });

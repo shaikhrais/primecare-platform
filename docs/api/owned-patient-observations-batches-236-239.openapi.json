@@ -1,0 +1,697 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Own Patient Observation Metadata",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/client/patient-vital-records": {
+      "get": {
+        "operationId": "client_own_vital_signs_list",
+        "summary": "Read own vital signs list",
+        "description": "Read own patient-linked observation metadata only. Every query joins patient_id to the current ClientProfile and rebinds the unique owned profile ID, actor tenant and actor User. VitalSign has no tenant column; scope follows the current owned profile. MAR additionally requires its recorded non-null tenant_id to match; its bare client_id grants no access. Project only ID, recorded type/status and registered ordering timestamp. Exclude vital values/unit/source, medication names/doses/routes/prescription IDs, administrator IDs and notes. Recorded admin_time and stored status do not prove actual medication administration, correctness, clinical safety or authority to act. Bounded stable paging, exact owned detail, stored label group counts, no-store read-only repeatable-read snapshots, active explicit bearer, source limits and sanitized failures. No proxy access, writes or new grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned projected metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "observations",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "observations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "type",
+                          "recorded_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "recorded_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100,
+                          "default": 25
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000,
+                          "default": 0
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or ID"
+          },
+          "401": {
+            "description": "No active bearer"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Unavailable or invalid data"
+          }
+        }
+      }
+    },
+    "/v1/client/patient-vital-records/{recordId}": {
+      "get": {
+        "operationId": "client_own_vital_signs_detail",
+        "summary": "Read own vital signs detail",
+        "description": "Read own patient-linked observation metadata only. Every query joins patient_id to the current ClientProfile and rebinds the unique owned profile ID, actor tenant and actor User. VitalSign has no tenant column; scope follows the current owned profile. MAR additionally requires its recorded non-null tenant_id to match; its bare client_id grants no access. Project only ID, recorded type/status and registered ordering timestamp. Exclude vital values/unit/source, medication names/doses/routes/prescription IDs, administrator IDs and notes. Recorded admin_time and stored status do not prove actual medication administration, correctness, clinical safety or authority to act. Bounded stable paging, exact owned detail, stored label group counts, no-store read-only repeatable-read snapshots, active explicit bearer, source limits and sanitized failures. No proxy access, writes or new grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned projected metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "observation"
+                  ],
+                  "properties": {
+                    "observation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "type",
+                        "recorded_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "recorded_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or ID"
+          },
+          "401": {
+            "description": "No active bearer"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Unavailable or invalid data"
+          }
+        }
+      }
+    },
+    "/v1/client/patient-vital-records/summary": {
+      "get": {
+        "operationId": "client_own_vital_signs_summary",
+        "summary": "Read own vital signs summary",
+        "description": "Read own patient-linked observation metadata only. Every query joins patient_id to the current ClientProfile and rebinds the unique owned profile ID, actor tenant and actor User. VitalSign has no tenant column; scope follows the current owned profile. MAR additionally requires its recorded non-null tenant_id to match; its bare client_id grants no access. Project only ID, recorded type/status and registered ordering timestamp. Exclude vital values/unit/source, medication names/doses/routes/prescription IDs, administrator IDs and notes. Recorded admin_time and stored status do not prove actual medication administration, correctness, clinical safety or authority to act. Bounded stable paging, exact owned detail, stored label group counts, no-store read-only repeatable-read snapshots, active explicit bearer, source limits and sanitized failures. No proxy access, writes or new grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned projected metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "type",
+                          "count"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 9007199254740991
+                          }
+                        }
+                      },
+                      "maxItems": 100
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100,
+                          "default": 25
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000,
+                          "default": 0
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or ID"
+          },
+          "401": {
+            "description": "No active bearer"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Unavailable or invalid data"
+          }
+        }
+      }
+    },
+    "/v1/client/medication-administration-records": {
+      "get": {
+        "operationId": "client_own_mar_entries_list",
+        "summary": "Read own mar entries list",
+        "description": "Read own patient-linked observation metadata only. Every query joins patient_id to the current ClientProfile and rebinds the unique owned profile ID, actor tenant and actor User. VitalSign has no tenant column; scope follows the current owned profile. MAR additionally requires its recorded non-null tenant_id to match; its bare client_id grants no access. Project only ID, recorded type/status and registered ordering timestamp. Exclude vital values/unit/source, medication names/doses/routes/prescription IDs, administrator IDs and notes. Recorded admin_time and stored status do not prove actual medication administration, correctness, clinical safety or authority to act. Bounded stable paging, exact owned detail, stored label group counts, no-store read-only repeatable-read snapshots, active explicit bearer, source limits and sanitized failures. No proxy access, writes or new grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned projected metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "entries",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "status",
+                          "admin_time"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "admin_time": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100,
+                          "default": 25
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000,
+                          "default": 0
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or ID"
+          },
+          "401": {
+            "description": "No active bearer"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Unavailable or invalid data"
+          }
+        }
+      }
+    },
+    "/v1/client/medication-administration-records/{recordId}": {
+      "get": {
+        "operationId": "client_own_mar_entries_detail",
+        "summary": "Read own mar entries detail",
+        "description": "Read own patient-linked observation metadata only. Every query joins patient_id to the current ClientProfile and rebinds the unique owned profile ID, actor tenant and actor User. VitalSign has no tenant column; scope follows the current owned profile. MAR additionally requires its recorded non-null tenant_id to match; its bare client_id grants no access. Project only ID, recorded type/status and registered ordering timestamp. Exclude vital values/unit/source, medication names/doses/routes/prescription IDs, administrator IDs and notes. Recorded admin_time and stored status do not prove actual medication administration, correctness, clinical safety or authority to act. Bounded stable paging, exact owned detail, stored label group counts, no-store read-only repeatable-read snapshots, active explicit bearer, source limits and sanitized failures. No proxy access, writes or new grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned projected metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "entry"
+                  ],
+                  "properties": {
+                    "entry": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "status",
+                        "admin_time"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "admin_time": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or ID"
+          },
+          "401": {
+            "description": "No active bearer"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Unavailable or invalid data"
+          }
+        }
+      }
+    },
+    "/v1/client/medication-administration-records/summary": {
+      "get": {
+        "operationId": "client_own_mar_entries_summary",
+        "summary": "Read own mar entries summary",
+        "description": "Read own patient-linked observation metadata only. Every query joins patient_id to the current ClientProfile and rebinds the unique owned profile ID, actor tenant and actor User. VitalSign has no tenant column; scope follows the current owned profile. MAR additionally requires its recorded non-null tenant_id to match; its bare client_id grants no access. Project only ID, recorded type/status and registered ordering timestamp. Exclude vital values/unit/source, medication names/doses/routes/prescription IDs, administrator IDs and notes. Recorded admin_time and stored status do not prove actual medication administration, correctness, clinical safety or authority to act. Bounded stable paging, exact owned detail, stored label group counts, no-store read-only repeatable-read snapshots, active explicit bearer, source limits and sanitized failures. No proxy access, writes or new grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned projected metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "status",
+                          "count"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 9007199254740991
+                          }
+                        }
+                      },
+                      "maxItems": 100
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100,
+                          "default": 25
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000,
+                          "default": 0
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or ID"
+          },
+          "401": {
+            "description": "No active bearer"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Unavailable or invalid data"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

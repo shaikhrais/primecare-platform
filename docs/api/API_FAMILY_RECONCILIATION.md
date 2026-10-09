@@ -1,0 +1,40 @@
+# API family reconciliation
+
+One exact HTTP method + path; field repairs and test totals do not increment completed operations.
+
+**1049 active pending operations classified exactly once.**
+
+| Baseline evidence stage | Unique operations |
+| --- | ---: |
+| blocked | 14 |
+| needs_contract_and_verification | 1049 |
+| retired_with_evidence | 9 |
+| unit_evidence_recorded | 343 |
+
+Documented retirements outside the active denominator: **9**. Retirements are not implemented APIs.
+
+| Pending family | Operations |
+| --- | ---: |
+| compliance_scan_requires_workflow_contract | 292 |
+| forwarded_operation_requires_handler_review | 26 |
+| gateway_unmapped_requires_workflow_review | 543 |
+| legacy_auth_method_or_workflow_reconciliation | 8 |
+| legacy_model_collection_requires_contract_review | 179 |
+| protected_route_requires_authenticated_workflow_review | 1 |
+
+| Missing pending contract field | Operations |
+| --- | ---: |
+| permission | 1049 |
+| requestSchema | 1049 |
+| responseSchema | 1049 |
+| screenLink | 1004 |
+
+Missing declaration authority can be reconciled with a reviewed existing canonical handler. Route responses and full-path literal absence do not prove business implementation, absence, or obsolescence. Generic role grants are not workflow authority. No new resolved API credit is awarded by this report.
+
+## Parallel work boundaries
+
+Choose families with reviewed canonical authority first. Resolve exact callers, methods and ownership before adding adapters. Review unreferenced declarations for evidence-backed retirement; never infer retirement from a failed probe. Keep premium model collections behind explicit entity scope. Run shared routing contract tests plus operation-specific negative authorization and PostgreSQL tests before claiming implementation.
+
+## Catalog grant examples
+
+These active records require scrutiny; their presence does not establish permission for the advertised operation.

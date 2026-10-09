@@ -1,0 +1,458 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Client Booking Request Lifecycle Batch 19",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/client/booking-requests": {
+      "post": {
+        "operationId": "client_booking_request_create",
+        "summary": "Submit own booking request",
+        "description": "Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Mutations lock the active actor and owned profile, use an actor/tenant idempotency key and write audit atomically. Cancellation is restricted to pending requests. Audit joins the owned request. Additive booking_request_audit migration required. Missing profile returns 404; conflicting tenant header returns 403. Notes are excluded. No clinical details or payment processor identifiers are returned. No new role grants. Mutation and stored retry responses validate exact request identity, expected action status, fields and UTC timestamps. Invalid results return sanitized 503, without success or replay headers, and roll back writes before audit/commit. Audit events validate the created/null/pending and cancelled/pending/cancelled transitions. Stored retry extras are excluded from responses.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{8,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "service_type": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "preferred_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?Z$"
+                  },
+                  "preferred_time": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+                  },
+                  "notes": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "maxLength": 2000
+                  }
+                },
+                "required": [
+                  "service_type",
+                  "preferred_date"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Owner data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "request"
+                  ],
+                  "properties": {
+                    "request": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "service_type",
+                        "preferred_date",
+                        "preferred_time",
+                        "status",
+                        "created_at",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                        },
+                        "service_type": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "preferred_date": {
+                          "type": "string",
+                          "format": "date-time",
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?Z$"
+                        },
+                        "preferred_time": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "pending",
+                            "cancelled"
+                          ]
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own client profile or booking absent"
+          },
+          "409": {
+            "description": "Idempotency or state conflict"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Database unavailable or schema dependency missing"
+          }
+        }
+      }
+    },
+    "/v1/client/booking-requests/{requestId}/cancel": {
+      "post": {
+        "operationId": "client_booking_request_cancel",
+        "summary": "Cancel own pending booking request",
+        "description": "Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Mutations lock the active actor and owned profile, use an actor/tenant idempotency key and write audit atomically. Cancellation is restricted to pending requests. Audit joins the owned request. Additive booking_request_audit migration required. Missing profile returns 404; conflicting tenant header returns 403. Notes are excluded. No clinical details or payment processor identifiers are returned. No new role grants. Mutation and stored retry responses validate exact request identity, expected action status, fields and UTC timestamps. Invalid results return sanitized 503, without success or replay headers, and roll back writes before audit/commit. Audit events validate the created/null/pending and cancelled/pending/cancelled transitions. Stored retry extras are excluded from responses.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{8,100}$"
+            }
+          },
+          {
+            "in": "path",
+            "name": "requestId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owner data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "request"
+                  ],
+                  "properties": {
+                    "request": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "service_type",
+                        "preferred_date",
+                        "preferred_time",
+                        "status",
+                        "created_at",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                        },
+                        "service_type": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "preferred_date": {
+                          "type": "string",
+                          "format": "date-time",
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?Z$"
+                        },
+                        "preferred_time": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "pending",
+                            "cancelled"
+                          ]
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own client profile or booking absent"
+          },
+          "409": {
+            "description": "Idempotency or state conflict"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Database unavailable or schema dependency missing"
+          }
+        }
+      }
+    },
+    "/v1/client/booking-requests/{requestId}/audit": {
+      "get": {
+        "operationId": "client_booking_request_audit",
+        "summary": "Read own booking request history",
+        "description": "Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Mutations lock the active actor and owned profile, use an actor/tenant idempotency key and write audit atomically. Cancellation is restricted to pending requests. Audit joins the owned request. Additive booking_request_audit migration required. Missing profile returns 404; conflicting tenant header returns 403. Notes are excluded. No clinical details or payment processor identifiers are returned. No new role grants. Mutation and stored retry responses validate exact request identity, expected action status, fields and UTC timestamps. Invalid results return sanitized 503, without success or replay headers, and roll back writes before audit/commit. Audit events validate the created/null/pending and cancelled/pending/cancelled transitions. Stored retry extras are excluded from responses.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          },
+          {
+            "in": "path",
+            "name": "requestId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owner data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "events",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "events": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "pattern": "^[1-9][0-9]*$"
+                          },
+                          "action": {
+                            "enum": [
+                              "created",
+                              "cancelled"
+                            ]
+                          },
+                          "previous_status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "enum": [
+                              null,
+                              "pending"
+                            ]
+                          },
+                          "new_status": {
+                            "type": "string",
+                            "enum": [
+                              "pending",
+                              "cancelled"
+                            ]
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "action",
+                          "previous_status",
+                          "new_status",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own client profile or booking absent"
+          },
+          "409": {
+            "description": "Idempotency or state conflict"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Database unavailable or schema dependency missing"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

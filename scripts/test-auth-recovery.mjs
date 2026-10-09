@@ -1,3 +1,4 @@
+import {auditFixture} from './auth-audit-fixtures.mjs';
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -22,7 +23,7 @@ test('missing mail configuration does not claim email success or access database
 });
 test('recovery sends code, stores only its bound hash, and cleans up provider failures',async()=>{
  const calls=[];let sent;
- const db={query:async(sql,values)=>{calls.push({sql,values});if(sql.includes('auth_rate_limits'))return {rows:[{attempts:1,retry_after:900}]};if(sql.startsWith('SELECT id,email'))return {rows:[{id:'user',email:'a@example.com'}]};return {rows:[]};}};
+ const db={query:async(sql,values)=>{calls.push({sql,values});const audit=auditFixture(sql,values);if(audit)return audit;if(sql.includes('auth_rate_limits'))return {rows:[{attempts:1,retry_after:900}]};if(sql.startsWith('SELECT id,email'))return {rows:[{id:'user',email:'a@example.com'}]};if(sql.startsWith('INSERT INTO auth_password_resets'))return {rows:[{token_hash:values[0],user_id:values[1]}]};return {rows:[]};}};
  const original=env.EMAIL.send;
  try {
   env.EMAIL.send=async(message)=>{sent=message;return {messageId:'provider-id'};};
@@ -45,7 +46,7 @@ test('expired or replayed code rolls back without updating credentials',async()=
  assert.ok(calls.includes('ROLLBACK'));assert.ok(!calls.some(sql=>sql.startsWith('UPDATE users')));
 });
 test('valid code updates bcrypt hash, revokes sessions and all reset codes atomically',async()=>{
- const calls=[];const db={query:async(sql,values)=>{calls.push({sql,values});return {rows:sql.includes('auth_rate_limits')?[{attempts:1,retry_after:900}]:sql.startsWith('SELECT id FROM')?[{id:'user'}]:sql.includes('RETURNING user_id')?[{user_id:'user'}]:[]};}};
+ const calls=[];const db={query:async(sql,values)=>{calls.push({sql,values});const audit=auditFixture(sql,values);if(audit)return audit;return {rows:sql.includes('auth_rate_limits')?[{attempts:1,retry_after:900}]:sql.startsWith('SELECT id FROM')?[{id:'user'}]:sql.includes('RETURNING user_id')?[{user_id:'user'}]:sql.startsWith('UPDATE users')?[{id:values[1],password_hash:values[0]}]:[]};}};
  const password='long-enough-password';
  assert.equal((await resetPassword(db,{email:'a@example.com',code:'ABC123ABC123',newPassword:password})).status,200);
  assert.ok(await bcrypt.compare(password,calls.find(c=>c.sql.startsWith('UPDATE users')).values[0]));

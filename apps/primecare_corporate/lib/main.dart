@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Initialize Deep Link listener for Native SSO
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:go_router/go_router.dart';
 import 'core/routing/corporate_routes.dart' as corporate;
 import 'core/routing/app_router.dart';
 
@@ -17,29 +18,19 @@ void main() {
   PrimeCareAppRunner.run(
     appWidget: const PrimeCareCorporateApp(),
     overrides: [
-      platformApplicationProvider.overrideWithValue(corporate.CorporateApplication()),
+      platformApplicationProvider.overrideWithValue(
+        corporate.CorporateApplication(),
+      ),
     ],
   );
 }
 
-class PrimeCareCorporateApp extends ConsumerWidget {
+class PrimeCareCorporateApp extends BasePrimeCareApp {
   const PrimeCareCorporateApp({super.key});
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-
-    final tenant = corporate.PrimeCareTenant();
-
-    return AppShellBoundary(
-      child: MaterialApp.router(
-        title: 'PrimeCare Corporate Portal',
-        theme: tenant.branding,
-        routerConfig: ref.watch(appRouterProvider),
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-      ),
-    );
-  }
+  String get applicationTitle => 'PrimeCare Corporate Portal';
+  @override
+  GoRouter routerFor(WidgetRef ref) => ref.watch(appRouterProvider);
+  @override
+  ThemeData get applicationTheme => corporate.PrimeCareTenant().branding;
 }

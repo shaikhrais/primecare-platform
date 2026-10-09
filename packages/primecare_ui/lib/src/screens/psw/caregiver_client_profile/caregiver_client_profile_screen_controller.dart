@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CaregiverClientProfileScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class CaregiverClientProfileScreenState
+    extends DashboardState<CaregiverClientProfileScreenState> {
+  CaregiverClientProfileScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  CaregiverClientProfileScreenState({required this.isLoading, this.error, required this.data});
-
-  CaregiverClientProfileScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return CaregiverClientProfileScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  CaregiverClientProfileScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => CaregiverClientProfileScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class CaregiverClientProfileScreenController extends StateNotifier<CaregiverClientProfileScreenState> {
-  final Ref ref;
-  CaregiverClientProfileScreenController(this.ref) : super(CaregiverClientProfileScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/caregiver/client-profile');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class CaregiverClientProfileScreenController
+    extends BaseDashboardController<CaregiverClientProfileScreenState> {
+  CaregiverClientProfileScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: CaregiverClientProfileScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/offices/clinical/roles/caregiver/client-profile',
+      );
 }
 
-final caregiver_client_profileControllerProvider = StateNotifierProvider<CaregiverClientProfileScreenController, CaregiverClientProfileScreenState>((ref) {
-  return CaregiverClientProfileScreenController(ref);
-});
+final caregiver_client_profileControllerProvider =
+    StateNotifierProvider<
+      CaregiverClientProfileScreenController,
+      CaregiverClientProfileScreenState
+    >((ref) {
+      return CaregiverClientProfileScreenController(ref);
+    });

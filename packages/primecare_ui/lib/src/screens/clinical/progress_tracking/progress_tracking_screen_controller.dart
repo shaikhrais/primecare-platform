@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProgressTrackingScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ProgressTrackingScreenState
+    extends DashboardState<ProgressTrackingScreenState> {
+  ProgressTrackingScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ProgressTrackingScreenState({required this.isLoading, this.error, required this.data});
-
-  ProgressTrackingScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ProgressTrackingScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ProgressTrackingScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ProgressTrackingScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ProgressTrackingScreenController extends StateNotifier<ProgressTrackingScreenState> {
-  final Ref ref;
-  ProgressTrackingScreenController(this.ref) : super(ProgressTrackingScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/physiotherapist/progress-tracking');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ProgressTrackingScreenController
+    extends BaseDashboardController<ProgressTrackingScreenState> {
+  ProgressTrackingScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ProgressTrackingScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/physiotherapist/progress-tracking',
+      );
 }
 
-final progress_trackingControllerProvider = StateNotifierProvider<ProgressTrackingScreenController, ProgressTrackingScreenState>((ref) {
-  return ProgressTrackingScreenController(ref);
-});
+final progress_trackingControllerProvider =
+    StateNotifierProvider<
+      ProgressTrackingScreenController,
+      ProgressTrackingScreenState
+    >((ref) {
+      return ProgressTrackingScreenController(ref);
+    });

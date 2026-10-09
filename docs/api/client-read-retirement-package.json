@@ -1,0 +1,65 @@
+{
+  "name": "Retire unused client profile and invoice POST read declarations",
+  "operations": [
+    "POST /v1/client/home/profile",
+    "POST /v1/client/invoices"
+  ],
+  "retirements": {
+    "POST /v1/client/home/profile": {
+      "replacement": "GET /v1/client/home/profile",
+      "reason": "Unused legacy POST declaration has no registered screen link or map and no executable caller; existing canonical GET defines authenticated client-profile ownership and read contract. POST runtime already rejects this method with 405.",
+      "evidence": [
+        "scripts/reconcile-client-read-declarations.py",
+        "scripts/register-client-self-api.py",
+        "cloudflare/workers/src/client-self.ts",
+        "scripts/test-client-self-api.mjs",
+        "scripts/test-client-self-postgres.mjs",
+        "packages/domain/src/registries/ApiRegistry/tenancy.ts"
+      ],
+      "declarationIds": [
+        235
+      ]
+    },
+    "POST /v1/client/invoices": {
+      "replacement": "GET /v1/client/invoices",
+      "reason": "Unused legacy POST declaration has no registered screen link or map and no executable caller; existing canonical GET defines authenticated client-profile ownership and read contract. POST runtime already rejects this method with 405.",
+      "evidence": [
+        "scripts/reconcile-client-read-declarations.py",
+        "scripts/register-client-self-api.py",
+        "cloudflare/workers/src/client-self.ts",
+        "scripts/test-client-self-api.mjs",
+        "scripts/test-client-self-postgres.mjs",
+        "packages/domain/src/registries/ApiRegistry/tenancy.ts"
+      ],
+      "declarationIds": [
+        239
+      ]
+    }
+  },
+  "reviews": {
+    "POST /v1/client/home/profile": {
+      "disposition": "retire_stale_read_declaration",
+      "finding": "Unused legacy POST declaration has no registered screen link or map and no executable caller; existing canonical GET defines authenticated client-profile ownership and read contract. POST runtime already rejects this method with 405.",
+      "evidence": [
+        "scripts/reconcile-client-read-declarations.py",
+        "scripts/register-client-self-api.py",
+        "cloudflare/workers/src/client-self.ts",
+        "scripts/test-client-self-api.mjs",
+        "scripts/test-client-self-postgres.mjs",
+        "packages/domain/src/registries/ApiRegistry/tenancy.ts"
+      ]
+    },
+    "POST /v1/client/invoices": {
+      "disposition": "retire_stale_read_declaration",
+      "finding": "Unused legacy POST declaration has no registered screen link or map and no executable caller; existing canonical GET defines authenticated client-profile ownership and read contract. POST runtime already rejects this method with 405.",
+      "evidence": [
+        "scripts/reconcile-client-read-declarations.py",
+        "scripts/register-client-self-api.py",
+        "cloudflare/workers/src/client-self.ts",
+        "scripts/test-client-self-api.mjs",
+        "scripts/test-client-self-postgres.mjs",
+        "packages/domain/src/registries/ApiRegistry/tenancy.ts"
+      ]
+    }
+  }
+}

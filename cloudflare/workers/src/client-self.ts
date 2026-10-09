@@ -1,0 +1,227 @@
+import {validDatabaseInteger} from './database-integer-validation';
+import {projectReferenceId} from './reference-read-projection';
+import {summaryRows} from './summary-results';
+import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
+import {accountId} from './account-read-projection';
+import {projectRecordTimestamp,validRecordTimestamp} from './record-date-validation';
+import {sourceLimitAllowed} from './source-limit-result';
+import {json,withDb,tokenFrom,sha256,type Env} from './auth';
+import recordRegistry from './client-records-registry.json';
+
+/** Ownership comes from the registered client_profiles.user_id relationship,
+ * never from caller-supplied profile identifiers or presentation grants. */
+export async function clientSelf(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null> {
+  const recordSummary=recordRegistry.find(r=>r.summaryBatch>0&&path===r.path+'/summary');
+  const record=recordSummary??recordRegistry.find(r=>path===r.path||path.startsWith(r.path+'/')&&path!==r.path+'/summary'&&!path.slice(r.path.length+1).includes('/'));
+  const recordId=record&&!recordSummary&&path!==record.path?path.slice(record.path.length+1):null;
+  const invoiceSummary=path==='/invoices/summary';
+  const invoiceMatch=!invoiceSummary?/^\/invoices\/([^/]+)$/.exec(path):null;
+  const visitSummary=path==='/visits/summary';
+  const visitMatch=!visitSummary?/^\/visits\/([^/]+)$/.exec(path):null;
+  const statusSummary=path==='/bookings/summary';
+  const bookingMatch=!statusSummary?/^\/bookings\/([^/]+)$/.exec(path):null;
+  const requestSummary=path==='/booking-requests/summary';
+  const paymentMatch=/^\/invoices\/([^/]+)\/payments(?:\/([^/]+))?$/.exec(path);
+  const ownedPaymentSummary=path==='/payments/summary';
+  const ownedPaymentMatch=!ownedPaymentSummary?/^\/payments\/([^/]+)$/.exec(path):null;
+  const ownedPayments=path==='/payments'||ownedPaymentSummary||ownedPaymentMatch!==null;
+  const paymentSummary=paymentMatch?.[2]==='summary'||ownedPaymentSummary;
+  const paymentId=paymentMatch?.[2]&&!paymentSummary?paymentMatch[2]:ownedPaymentMatch?.[1]??null;
+  const requestMatch=!requestSummary?/^\/booking-requests\/([^/]+)$/.exec(path):null;
+  if(env.SERVICE_NAME!=='client'||!record&&!paymentMatch&&!ownedPayments&&!requestSummary&&!requestMatch&&!bookingMatch&&!visitMatch&&!invoiceMatch&&!invoiceSummary&&!statusSummary&&!visitSummary&&!['/home/profile','/invoices','/bookings','/visits','/booking-requests'].includes(path))return null;
+  const safe=new Headers(headers);safe.set('cache-control','no-store');
+  if(request.method!=='GET'){safe.set('allow','GET');return json({error:'Method not allowed'},405,safe);}
+  const params=new URL(request.url).searchParams,keys=paymentMatch||ownedPayments?(paymentId!==null?[]:['limit','offset']):record?(recordId===null?['limit','offset']:[]):(requestSummary||visitSummary||statusSummary||invoiceSummary||['/invoices','/bookings','/visits','/booking-requests'].includes(path))?['limit','offset']:[];
+  const limit=params.get('limit')??'25',offset=params.get('offset')??'0';
+  if(request.body!==null||[...params.keys()].some(k=>!keys.includes(k)||params.getAll(k).length!==1)||!/^[1-9]\d{0,2}$/.test(limit)||Number(limit)>100||!/^\d{1,6}$/.test(offset)||Number(offset)>100000)return json({error:'Invalid query or body'},400,safe);
+  if(bookingMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(bookingMatch[1]))return json({error:'Invalid booking identifier'},400,safe);
+  if(visitMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(visitMatch[1]))return json({error:'Invalid visit identifier'},400,safe);
+  if(invoiceMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(invoiceMatch[1]))return json({error:'Invalid invoice identifier'},400,safe);
+  if(requestMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(requestMatch[1]))return json({error:'Invalid booking request identifier'},400,safe);
+  if(recordId!==null&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(recordId))return json({error:'Invalid record identifier'},400,safe);
+  if(paymentMatch&&[paymentMatch[1],paymentMatch[2]].filter(Boolean).some(id=>!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(id!)))return json({error:'Invalid payment identifier'},400,safe);
+  if(ownedPaymentMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(ownedPaymentMatch[1]))return json({error:'Invalid payment identifier'},400,safe);
+  const token=request.headers.has('authorization')?tokenFrom(request):null;if(!token)return json({error:'No session'},401,safe);
+  try{
+    if(env.WORKSPACE_SOURCE_LIMIT&&!sourceLimitAllowed(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('client-self:'+(request.headers.get('cf-connecting-ip')??'unknown'))}))){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
+    return await withDb(env,async db=>{
+      await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
+      try{
+        const actor=scopedActor((await db.query("SELECT u.id,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1",[await sha256(token)])).rows);
+        if(!actor)return json({error:'Invalid session'},401,safe);
+        if(!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,safe);
+        const profiles=resultRows((await db.query('SELECT id,full_name,city,province,postal_code,updated_at FROM client_profiles WHERE user_id::text=$1 AND tenant_id::text=$2 LIMIT 2',[String(actor.id),String(actor.tenant_id)])).rows,1);
+        if(!profiles.length)return json({error:'Client profile not found'},404,safe);
+        if(profiles.length!==1)return json({error:'Client data unavailable'},503,safe);
+        const p=profiles[0];accountId(p.id);
+        const requiredString=(value:unknown)=>typeof value==='string';
+        const nullableString=(value:unknown)=>value===null||typeof value==='string';
+        const dateTime=(value:unknown)=>validRecordTimestamp(value);
+        const count=(rows:Record<string,unknown>[],label:string)=>{const value=requiredRow(rows).count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid '+label+' count');return value;};
+        const statusGroup=(row:Record<string,unknown>,label:string)=>{if(!nullableString(row.status)||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid '+label+' summary');return {status:row.status,count:row.count};};
+        if(path==='/home/profile'){
+          if(!requiredString(p.id)||!requiredString(p.full_name)||![p.city,p.province,p.postal_code].every(nullableString)||!dateTime(p.updated_at))throw Error('Invalid client profile data');
+          return json({profile:{id:p.id,full_name:p.full_name,city:p.city,province:p.province,postal_code:p.postal_code,updated_at:projectRecordTimestamp(p.updated_at)}},200,safe);
+        }
+        const values=[String(p.id),String(actor.tenant_id)];
+        if(paymentMatch||ownedPayments){
+          const paymentValues=paymentMatch?[...values,paymentMatch[1]]:values;
+          if(paymentMatch){
+            const invoice=boundRow((await db.query('SELECT id FROM invoices WHERE client_id::text=$1 AND tenant_id::text=$2 AND id::text=$3',paymentValues)).rows,paymentMatch![1]);
+            if(!invoice)return json({error:'Invoice not found'},404,safe);
+          }
+          // Payment has no tenant column: every data query rebinds the invoice
+          // relationship to the same owned client and tenant within this snapshot.
+          const scope=' FROM payments pay JOIN invoices i ON i.id=pay.invoice_id WHERE i.client_id::text=$1 AND i.tenant_id::text=$2'+(paymentMatch?' AND i.id::text=$3':'');
+          const next=paymentValues.length+1;
+          const paging=' LIMIT $'+next+' OFFSET $'+(next+1);
+          if(paymentSummary){
+            const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT pay.status'+scope+' GROUP BY pay.status) groups',paymentValues)).rows,'payment summary');
+            const rows=(await db.query('SELECT pay.status,COUNT(*)::int AS count'+scope+' GROUP BY pay.status ORDER BY pay.status NULLS LAST'+paging,[...paymentValues,Number(limit),Number(offset)])).rows;
+            const groups=summaryRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit),['status']).map(row=>{if((row.status!==null&&typeof row.status!=='string')||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid payment summary');return {status:row.status,count:row.count};});
+            return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          }
+          const fields='pay.id,pay.amount::text AS amount,pay.status,pay.created_at,pay.updated_at';
+          const project=(row:Record<string,unknown>)=>{
+            if(typeof row.id!=='string'||(row.amount!==null&&(typeof row.amount!=='string'||! /^-?\d+(?:\.\d+)?$/.test(row.amount)))||(row.status!==null&&typeof row.status!=='string')||![row.created_at,row.updated_at].every(v=>validRecordTimestamp(v)))throw Error('Invalid payment data');
+            return {id:row.id,amount:row.amount,status:row.status,created_at:projectRecordTimestamp(row.created_at),updated_at:projectRecordTimestamp(row.updated_at)};
+          };
+          if(paymentId!==null){
+            const row=boundRow((await db.query('SELECT '+fields+scope+' AND pay.id::text=$'+next,[...paymentValues,paymentId])).rows,paymentId);
+            return row?json({payment:project(row)},200,safe):json({error:'Payment not found'},404,safe);
+          }
+          const total=count((await db.query('SELECT COUNT(*)::int AS count'+scope,paymentValues)).rows,'payment');
+          const rows=(await db.query('SELECT '+fields+scope+' ORDER BY pay.created_at DESC,pay.id DESC'+paging,[...paymentValues,Number(limit),Number(offset)])).rows;
+          return json({payments:recordRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
+        if(requestSummary){
+          const filter='client_id::text=$1 AND tenant_id::text=$2';
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM booking_requests WHERE '+filter+' GROUP BY status) groups',values)).rows,'booking request summary');
+          const rows=(await db.query('SELECT status,COUNT(*)::int AS count FROM booking_requests WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          const groups=summaryRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit),['status']).map(row=>{if((row.status!==null&&typeof row.status!=='string')||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid booking request summary');return {status:row.status,count:row.count};});
+          return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
+        if(record){
+          // Table and column identifiers come only from the generated, governed
+          // projection catalog. Request input is confined to bound values.
+          const column=(name:string)=>/[A-Z]/.test(name)?'"'+name+'"':name;
+          const ownerJoin='tenantThroughClient' in record&&record.tenantThroughClient===true;
+          const recordedTenant='recordTenantMatch' in record&&record.recordTenantMatch===true;
+          const prefix=ownerJoin?'r.':'',ownerField=column(record.ownerField??'client_id');
+          const recordValues=ownerJoin?[...values,String(actor.id)]:values,next=recordValues.length+1;
+          const fields=record.fields.map(field=>prefix+column(field)).join(',');
+          const scope=ownerJoin?' FROM '+record.table+' r JOIN client_profiles owner ON owner.id::text=r.'+ownerField+'::text WHERE r.'+ownerField+'::text=$1 AND owner.tenant_id::text=$2 AND owner.user_id::text=$3'+(recordedTenant?' AND r.tenant_id::text=$2':''):' FROM '+record.table+' WHERE '+ownerField+'::text=$1 AND tenant_id::text=$2';
+          const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{
+            const types=(record.types as Record<string,string|string[]>)[field],allowed=Array.isArray(types)?types:[types],value=row[field];
+            const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?validRecordTimestamp(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('integer')?validDatabaseInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';
+            if(!valid)throw Error('Invalid record data');
+            return [field,field==='id'?String(value):field.endsWith('_id')?projectReferenceId(value,allowed.includes('null')):record.dateFields.includes(field)?projectRecordTimestamp(value):value];
+          }));
+          const count=(rows:Record<string,unknown>[])=>{const value=requiredRow(rows).count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid record count');return value;};
+          if(recordSummary){
+            const field=record.summaryField,sqlField=prefix+column(field);
+            const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+sqlField+scope+' GROUP BY '+sqlField+') groups',recordValues)).rows);
+            const rows=(await db.query('SELECT '+sqlField+',COUNT(*)::int AS count'+scope+' GROUP BY '+sqlField+' ORDER BY '+sqlField+' NULLS LAST LIMIT $'+next+' OFFSET $'+(next+1),[...recordValues,Number(limit),Number(offset)])).rows;
+            const groups=summaryRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit),[field]).map(row=>{
+              const declared=(record.types as Record<string,string|string[]>)[field],types=Array.isArray(declared)?declared:[declared];
+              const strict='strictSummaryTypes' in record&&record.strictSummaryTypes===true;
+              if((row[field]===null?strict&&!types.includes('null'):typeof row[field]!=='string')||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid summary data');
+              return {[field]:row[field],count:row.count};
+            });
+            if(!Number.isSafeInteger(total)||total<0)throw Error('Invalid summary count');
+            return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          }
+          if(recordId!==null){
+            const row=boundRow((await db.query('SELECT '+fields+scope+' AND '+prefix+'id::text=$'+next,[...recordValues,recordId])).rows,recordId);
+            return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);
+          }
+          const total=count((await db.query('SELECT COUNT(*)::int AS count'+scope,recordValues)).rows);
+          const rows=(await db.query('SELECT '+fields+scope+' ORDER BY '+prefix+column(record.orderField)+' DESC,'+prefix+'id DESC LIMIT $'+next+' OFFSET $'+(next+1),[...recordValues,Number(limit),Number(offset)])).rows;
+          return json({[record.collection]:recordRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
+        if(path==='/booking-requests'||requestMatch){
+          const fields='id,service_type,preferred_date,preferred_time,status,created_at,updated_at';
+          const project=(r:Record<string,unknown>)=>{
+            if(![r.id,r.service_type,r.status].every(requiredString)||!nullableString(r.preferred_time)||![r.preferred_date,r.created_at,r.updated_at].every(dateTime))throw Error('Invalid booking request data');
+            return {id:r.id,service_type:r.service_type,preferred_date:projectRecordTimestamp(r.preferred_date),preferred_time:r.preferred_time,status:r.status,created_at:projectRecordTimestamp(r.created_at),updated_at:projectRecordTimestamp(r.updated_at)};
+          };
+          const filter='client_id::text=$1 AND tenant_id::text=$2';
+          if(requestMatch){
+            const row=boundRow((await db.query('SELECT '+fields+' FROM booking_requests WHERE '+filter+' AND id::text=$3',[...values,requestMatch[1]])).rows,requestMatch[1]);
+            return row?json({request:project(row)},200,safe):json({error:'Booking request not found'},404,safe);
+          }
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM booking_requests WHERE '+filter,values)).rows,'booking request');
+          const rows=(await db.query('SELECT '+fields+' FROM booking_requests WHERE '+filter+' ORDER BY created_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          return json({requests:recordRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
+        if(visitSummary){
+          const filter='client_id::text=$1 AND tenant_id::text=$2';
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM visits WHERE '+filter+' GROUP BY status) groups',values)).rows,'visit summary');
+          const rows=(await db.query('SELECT status,COUNT(*)::int AS count FROM visits WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          return json({groups:summaryRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit),['status']).map(g=>statusGroup(g,'visit')),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
+        if(path==='/visits'||visitMatch){
+          const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';
+          const project=(v:Record<string,unknown>)=>{
+            if(![v.id,v.service_id].every(requiredString)||![v.requested_start_at,v.updated_at].every(dateTime)||!validDatabaseInteger(v.duration_minutes)||!nullableString(v.status)||!nullableString(v.priority))throw Error('Invalid visit data');
+            return {id:v.id,service_id:projectReferenceId(v.service_id),requested_start_at:projectRecordTimestamp(v.requested_start_at),duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:projectRecordTimestamp(v.updated_at)};
+          };
+          const filter='client_id::text=$1 AND tenant_id::text=$2';
+          if(visitMatch){
+            const visit=boundRow((await db.query('SELECT '+fields+' FROM visits WHERE '+filter+' AND id::text=$3',[...values,visitMatch[1]])).rows,visitMatch[1]);
+            return visit?json({visit:project(visit)},200,safe):json({error:'Visit not found'},404,safe);
+          }
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM visits WHERE '+filter,values)).rows,'visit');
+          const rows=(await db.query('SELECT '+fields+' FROM visits WHERE '+filter+' ORDER BY requested_start_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          return json({visits:recordRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
+        if(statusSummary){
+          const filter='client_id::text=$1 AND tenant_id::text=$2';
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM bookings WHERE '+filter+' GROUP BY status) groups',values)).rows,'booking summary');
+          const rows=(await db.query('SELECT status,COUNT(*)::int AS count FROM bookings WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          return json({groups:summaryRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit),['status']).map(g=>statusGroup(g,'booking')),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
+        if(path==='/bookings'||bookingMatch){
+          const fields='id,start_at,end_at,service_type,priority,status,recurrence_rule';
+          const project=(b:Record<string,unknown>)=>{
+            if(![b.id,b.service_type,b.priority,b.status].every(requiredString)||![b.start_at,b.end_at].every(dateTime)||!nullableString(b.recurrence_rule))throw Error('Invalid booking data');
+            return {id:b.id,start_at:projectRecordTimestamp(b.start_at),end_at:projectRecordTimestamp(b.end_at),service_type:b.service_type,priority:b.priority,status:b.status,recurrence_rule:b.recurrence_rule};
+          };
+          const filter='client_id::text=$1 AND tenant_id::text=$2';
+          if(bookingMatch){
+            const booking=boundRow((await db.query('SELECT '+fields+' FROM bookings WHERE '+filter+' AND id::text=$3',[...values,bookingMatch[1]])).rows,bookingMatch[1]);
+            return booking?json({booking:project(booking)},200,safe):json({error:'Booking not found'},404,safe);
+          }
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM bookings WHERE '+filter,values)).rows,'booking');
+          const rows=(await db.query('SELECT '+fields+' FROM bookings WHERE '+filter+' ORDER BY start_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          return json({bookings:recordRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
+        const invoiceFields='id,status,currency,subtotal::text AS subtotal,tax::text AS tax,total::text AS total,created_at,updated_at';
+        const decimal=(value:unknown)=>value===null||typeof value==='string'&&/^-?\d+(?:\.\d+)?$/.test(value);
+        const invoiceCount=(rows:Record<string,unknown>[])=>{const value=requiredRow(rows).count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid invoice count');return value;};
+        const invoiceProject=(i:Record<string,unknown>)=>{
+          if(typeof i.id!=='string'||![i.status,i.currency].every(nullableString)||![i.subtotal,i.tax,i.total].every(decimal)||![i.created_at,i.updated_at].every(value=>validRecordTimestamp(value)))throw Error('Invalid invoice data');
+          return {id:i.id,status:i.status,currency:i.currency,subtotal:i.subtotal,tax:i.tax,total:i.total,created_at:projectRecordTimestamp(i.created_at),updated_at:projectRecordTimestamp(i.updated_at)};
+        };
+        const invoiceGroup=(g:Record<string,unknown>)=>{
+          if(![g.status,g.currency].every(nullableString)||![g.subtotal,g.tax,g.total].every(decimal)||typeof g.invoiceCount!=='number'||!Number.isSafeInteger(g.invoiceCount)||g.invoiceCount<0)throw Error('Invalid invoice group');
+          return {currency:g.currency,status:g.status,invoiceCount:g.invoiceCount,subtotal:g.subtotal,tax:g.tax,total:g.total};
+        };
+        const invoiceFilter='client_id::text=$1 AND tenant_id::text=$2';
+        if(invoiceMatch){
+          const invoice=boundRow((await db.query('SELECT '+invoiceFields+' FROM invoices WHERE '+invoiceFilter+' AND id::text=$3',[...values,invoiceMatch[1]])).rows,invoiceMatch[1]);
+          return invoice?json({invoice:invoiceProject(invoice)},200,safe):json({error:'Invoice not found'},404,safe);
+        }
+        if(invoiceSummary){
+          const total=invoiceCount((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT currency,status FROM invoices WHERE '+invoiceFilter+' GROUP BY currency,status) groups',values)).rows);
+          const groups=(await db.query('SELECT currency,status,COUNT(*)::int AS "invoiceCount",SUM(subtotal)::text AS subtotal,SUM(tax)::text AS tax,SUM(total)::text AS total FROM invoices WHERE '+invoiceFilter+' GROUP BY currency,status ORDER BY currency,status LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          return json({groups:summaryRows(pageRows(groups,Number(limit),Number(offset),total),Number(limit),['currency','status'],'invoiceCount').map(invoiceGroup),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
+        const filter='client_id::text=$1 AND tenant_id::text=$2';
+        const total=invoiceCount((await db.query('SELECT COUNT(*)::int AS count FROM invoices WHERE '+filter,values)).rows);
+        const rows=(await db.query('SELECT id,status,currency,subtotal::text AS subtotal,tax::text AS tax,total::text AS total,created_at,updated_at FROM invoices WHERE '+filter+' ORDER BY created_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+        return json({invoices:recordRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit)).map(invoiceProject),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+      }finally{await db.query('ROLLBACK');}
+    });
+  }catch{return json({error:'Client data unavailable'},503,safe);}
+}

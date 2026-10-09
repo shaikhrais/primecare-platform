@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OperationsManagerWorkflowScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class OperationsManagerWorkflowScreenState
+    extends DashboardState<OperationsManagerWorkflowScreenState> {
+  OperationsManagerWorkflowScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  OperationsManagerWorkflowScreenState({required this.isLoading, this.error, required this.data});
-
-  OperationsManagerWorkflowScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return OperationsManagerWorkflowScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  OperationsManagerWorkflowScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => OperationsManagerWorkflowScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class OperationsManagerWorkflowScreenController extends StateNotifier<OperationsManagerWorkflowScreenState> {
-  final Ref ref;
-  OperationsManagerWorkflowScreenController(this.ref) : super(OperationsManagerWorkflowScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/operations-manager-workflow');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class OperationsManagerWorkflowScreenController
+    extends BaseDashboardController<OperationsManagerWorkflowScreenState> {
+  OperationsManagerWorkflowScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: OperationsManagerWorkflowScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/management/operations-manager-workflow',
+      );
 }
 
-final operations_manager_workflowControllerProvider = StateNotifierProvider<OperationsManagerWorkflowScreenController, OperationsManagerWorkflowScreenState>((ref) {
-  return OperationsManagerWorkflowScreenController(ref);
-});
+final operations_manager_workflowControllerProvider =
+    StateNotifierProvider<
+      OperationsManagerWorkflowScreenController,
+      OperationsManagerWorkflowScreenState
+    >((ref) {
+      return OperationsManagerWorkflowScreenController(ref);
+    });
