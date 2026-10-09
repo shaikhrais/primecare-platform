@@ -1,0 +1,48 @@
+{
+  "sourceCommit": "b41d21be2ac6de9ae8b32e4adadf24c66081c440",
+  "completedWorkflows": 0,
+  "services": [
+    {
+      "path": "services/auth_api/lib/routes.dart",
+      "beforeSha256": "6fb07e43171703cabc1bac9af50a192f48f4797fcdcd70e39b813a7856112472",
+      "routes": 2,
+      "features": 1
+    },
+    {
+      "path": "services/billing_api/lib/routes.dart",
+      "beforeSha256": "7e20b07629db1a1d0f524f0c6050f1faca55e0d5cc07c76522d43fa19daeb94d",
+      "routes": 14,
+      "features": 7
+    },
+    {
+      "path": "services/client_api/lib/routes.dart",
+      "beforeSha256": "bc228c441a201feaf687dfb324852d68dfb060e46c14fce686548fd33d03e737",
+      "routes": 309,
+      "features": 155
+    },
+    {
+      "path": "services/compliance_api/lib/routes.dart",
+      "beforeSha256": "d815601c6e9838895745d80f9e3aa167c1a9d8ce59c9e7c64aef93f75ed66826",
+      "routes": 34,
+      "features": 17
+    },
+    {
+      "path": "services/franchise_reporting_api/lib/routes.dart",
+      "beforeSha256": "b26b0e2796e6158bfbc96b373f048d27145cbbf1bc1c01ce1e26a792b0eaf743",
+      "routes": 142,
+      "features": 71
+    },
+    {
+      "path": "services/governance_api/lib/routes.dart",
+      "beforeSha256": "c4f075ffeb13591f2138439c0a2f3b90917fb596e6c12059647333eafffa1df8",
+      "routes": 6,
+      "features": 3
+    },
+    {
+      "path": "services/scheduling_api/lib/routes.dart",
+      "beforeSha256": "85f061cd01539b8567de9f17c2ee4ebe2adee9b337a881c31e7b65a9d09cc2f2",
+      "routes": 26,
+      "features": 1
+    }
+  ]
+}

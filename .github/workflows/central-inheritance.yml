@@ -28,6 +28,10 @@ on:
       - 'packages/server_core/**'
       - 'services/**/bin/server.dart'
       - 'services/**/lib/routes.dart'
+      - 'services/**/lib/src/features/**'
+      - 'scripts/refactor_api_features.py'
+      - 'scripts/verify_api_feature_parity.py'
+      - 'docs/refactoring/api-feature-migration.*'
       - 'scripts/check-api-route-inheritance.py'
       - 'docs/refactoring/api-route-migration.*'
       - 'services/**/pubspec.yaml'
@@ -63,6 +67,7 @@ jobs:
           python3 scripts/check-controller-inheritance.py
           python3 scripts/check-http-host-inheritance.py
           python3 scripts/check-api-route-inheritance.py
+          python3 scripts/refactor_api_features.py --check
           python3 scripts/check-app-shell-inheritance.py
           python3 scripts/check-core-layer-migration.py
       - name: Resolve shared Flutter dependencies
@@ -87,6 +92,8 @@ jobs:
               (cd "$service" && dart pub get && dart analyze bin/server.dart)
             fi
           done
+      - name: Compare every extracted route against its original response
+        run: python3 scripts/verify_api_feature_parity.py
       - name: Verify shared Flutter application shell
         working-directory: packages/primecare_ui
         run: |
