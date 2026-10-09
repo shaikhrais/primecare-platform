@@ -32,6 +32,13 @@ on:
       - 'scripts/refactor_api_features.py'
       - 'scripts/verify_api_feature_parity.py'
       - 'docs/refactoring/api-feature-migration.*'
+      - 'services/governance_api/lib/src/**'
+      - 'services/governance_api/test/governance_shared_parents_test.dart'
+      - 'packages/database_client/lib/src/base_repository.dart'
+      - 'packages/database_client/lib/database_client.dart'
+      - 'scripts/refactor_governance_layers.py'
+      - 'scripts/verify_governance_layer_parity.py'
+      - 'docs/refactoring/governance-layer-migration.*'
       - 'scripts/check-api-route-inheritance.py'
       - 'docs/refactoring/api-route-migration.*'
       - 'services/**/pubspec.yaml'
@@ -68,6 +75,7 @@ jobs:
           python3 scripts/check-http-host-inheritance.py
           python3 scripts/check-api-route-inheritance.py
           python3 scripts/refactor_api_features.py --check
+          python3 scripts/refactor_governance_layers.py --check
           python3 scripts/check-app-shell-inheritance.py
           python3 scripts/check-core-layer-migration.py
       - name: Resolve shared Flutter dependencies
@@ -94,6 +102,12 @@ jobs:
           done
       - name: Compare every extracted route against its original response
         run: python3 scripts/verify_api_feature_parity.py
+      - name: Verify governance controller and repository extraction
+        run: |
+          python3 scripts/verify_governance_layer_parity.py
+          cd services/governance_api
+          dart analyze lib/src/controllers lib/src/core/base_controller.dart lib/src/core/base_repository.dart lib/src/repositories/governance_repository.dart lib/src/routes test/governance_shared_parents_test.dart
+          dart test test/governance_shared_parents_test.dart
       - name: Verify shared Flutter application shell
         working-directory: packages/primecare_ui
         run: |
