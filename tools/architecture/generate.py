@@ -149,13 +149,13 @@ def generate():
     ['Web defaults to same-origin; native defaults to the Worker gateway. API_BASE_URL can override both.',
      'The configured proxy path is source evidence, not proof of a live deployment.',
      'Unsupported domain routes can return 404; bindings do not imply complete API coverage.']))
-    dart = 'services/api_gateway/lib/src/gateway_core.dart'
+    dart = 'services/api_gateway/lib/src/infrastructure/service_mesh.dart'
     db = 'packages/database_client/lib/database_client.dart'
     maps.insert(1, diagram('dart-gateway', 'Dart gateway service mesh', [
-        node('entry','Shelf gateway','backend','services/api_gateway/lib/src/application/api_gateway_host.dart',[40,60],'Router + service mesh',17,28),
-        node('mesh','ServiceMesh','backend',dart,[500,60],'Environment URLs',39,53),
-        node('proxy','HTTP upstream','backend',dart,[500,310],'Streaming + timeout',60,98),
-        node('health','Gateway DB health','database',dart,[40,310],'SELECT 1',17,25),
+        node('entry','Shelf gateway','backend','services/api_gateway/lib/src/routes/gateway_api_routes.dart',[40,60],'Router + service mesh',13,29),
+        node('mesh','ServiceMesh','backend',dart,[500,60],'Environment URLs',16,30),
+        node('proxy','HTTP upstream','backend',dart,[500,310],'Streaming + timeout',38,76),
+        node('health','Gateway DB health','database','services/api_gateway/lib/src/repositories/gateway_repository.dart',[40,310],'SELECT 1',3,7),
     ], [edge('entry','mesh','registerRoutes'),edge('mesh','proxy','HTTP proxy'),edge('entry','health','healthCheck')],
     ['This is the Dart runtime path, separate from TypeScript Worker service bindings.',
      'Proxy timeout produces 504; transport failure produces 502.',

@@ -1,0 +1,82 @@
+import 'dart:io';
+import 'dart:async';
+import 'package:server_core/server_core.dart';
+import 'package:shelf/shelf.dart' as shelf;
+import 'package:shelf_router/shelf_router.dart';
+import 'package:http/http.dart' as http;
+
+/// [ServiceMesh] - Manages the configuration and proxying of microservices.
+class ServiceMesh extends BaseApiRoutes {
+  final Map<String, String> services;
+  final http.Client _client;
+
+  ServiceMesh(this.services, {http.Client? client}) : _client = client ?? http.Client();
+
+  factory ServiceMesh.fromEnvironment() {
+    return ServiceMesh({
+      'auth': Platform.environment['AUTH_SERVICE_URL'] ?? 'http://auth_api:8080',
+      'providers': Platform.environment['PROVIDER_SERVICE_URL'] ?? 'http://provider_api:8080',
+      'clients': Platform.environment['CLIENT_SERVICE_URL'] ?? 'http://client_api:8080',
+      'billing': Platform.environment['BILLING_SERVICE_URL'] ?? 'http://billing_api:8080',
+      'governance': Platform.environment['GOVERNANCE_SERVICE_URL'] ?? 'http://governance_api:8080',
+      'verification': Platform.environment['VERIFICATION_SERVICE_URL'] ?? 'http://verification_api:8080',
+      'compliance': Platform.environment['COMPLIANCE_SERVICE_URL'] ?? 'http://compliance_api:8080',
+      'scheduling': Platform.environment['SCHEDULING_SERVICE_URL'] ?? 'http://scheduling_api:8080',
+      'visits': Platform.environment['VISIT_SERVICE_URL'] ?? 'http://visit_api:8080',
+      'notes': Platform.environment['NOTES_SERVICE_URL'] ?? 'http://notes_api:8080',
+      'notifications': Platform.environment['NOTIFICATION_SERVICE_URL'] ?? 'http://notification_api:8080',
+      'franchise-reporting': Platform.environment['FRANCHISE_REPORTING_SERVICE_URL'] ?? 'http://franchise_reporting_api:8080',
+    });
+  }
+
+  @override
+  void registerRoutes(Router router) {
+    services.forEach((key, url) {
+      print('Registering route: /v1/$key/ to $url');
+
+      final handler = (shelf.Request request) async {
+        final remainingPath = request.params['path'] ?? '';
+        final upstream = Uri.parse(url);
+        final target = upstream.replace(
+          pathSegments: [...upstream.pathSegments.where((part) => part.isNotEmpty),
+            ...remainingPath.split('/').where((part) => part.isNotEmpty)],
+          query: request.requestedUri.hasQuery ? request.requestedUri.query : null,
+        );
+
+        try {
+          final proxiedRequest = http.StreamedRequest(request.method, target);
+          for (final entry in request.headers.entries) {
+            if (!const {'host', 'connection', 'transfer-encoding', 'content-length'}
+                .contains(entry.key.toLowerCase())) {
+              proxiedRequest.headers[entry.key] = entry.value;
+            }
+          }
+          // Start the HTTP client reading the body before waiting for the sink.
+          // StreamedRequest.close can wait for a listener on an empty GET body.
+          final responseFuture = _client.send(proxiedRequest)
+              .timeout(const Duration(seconds: 30));
+          await proxiedRequest.sink.addStream(request.read());
+          await proxiedRequest.sink.close();
+
+          final upstreamResponse = await responseFuture;
+          final responseHeaders = Map<String, String>.from(upstreamResponse.headers)
+            ..removeWhere((key, value) =>
+                const {'connection', 'transfer-encoding', 'content-length'}
+                    .contains(key.toLowerCase()));
+          return shelf.Response(
+            upstreamResponse.statusCode,
+            body: upstreamResponse.stream,
+            headers: responseHeaders,
+          );
+        } on TimeoutException {
+          return shelf.Response(504, body: 'Upstream service timed out');
+        } catch (_) {
+          return shelf.Response(502, body: 'Upstream service unavailable');
+        }
+      };
+
+      router.all('/api/$key/<path|.*>', handler);
+      router.all('/v1/$key/<path|.*>', handler);
+    });
+  }
+}
