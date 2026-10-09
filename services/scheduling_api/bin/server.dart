@@ -5,18 +5,17 @@ import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:scheduling_api/routes.dart';
-import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 import 'package:database_client/database_client.dart';
 
 Future<void> main() async {
   await SchedulingApiHost().run();
 }
 
-class SchedulingApiHost extends BaseServiceHost {
+class SchedulingApiHost extends BaseCorsServiceHost {
   SchedulingApiHost() : super(serviceName: 'scheduling-api', defaultPort: 8080);
 
   @override
-  Future<Handler> createHandler() async {
+  Future<Handler> createRoutes() async {
     final db = PlatformDatabase();
     await db.initialize();
 
@@ -59,12 +58,7 @@ class SchedulingApiHost extends BaseServiceHost {
       }
     });
 
-    final handler = const Pipeline()
-        .addMiddleware(logRequests())
-        .addMiddleware(corsHeaders())
-        .addHandler(router.call);
-
-    return handler;
+    return router.call;
   }
 
   @override

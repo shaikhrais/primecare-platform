@@ -42,7 +42,7 @@ def check():
         path=record['path'];current=(ROOT/path).read_text()
         original=subprocess.check_output(['git','show',hosts['sourceCommit']+':'+path],cwd=ROOT,text=True)
         assert hashlib.sha256(original.encode()).hexdigest()==record['beforeSha256'], 'Host original drift '+path
-        assert 'extends BaseServiceHost' in current, 'Missing host parent '+path
+        assert re.search(r'extends Base(?:ServiceHost|HttpServiceHost|CorsServiceHost)\b', current), 'Missing host parent '+path
         assert not re.search(r'\b(?:run|serve)\s*\([^;]*\)\s*(?:async\s*)?\{',current), 'Host overrides central startup '+path
         def routes(text):
             return re.findall(r"\brouter\.(get|post|put|patch|delete|all|mount)\(\s*'([^']*)'",text)

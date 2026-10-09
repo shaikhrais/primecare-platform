@@ -1,0 +1,83 @@
+{
+  "sourceCommit": "256d1fb4af38cf17fc740c1374b8933bc62e7c31",
+  "hosts": [
+    {
+      "path": "services/api_gateway/bin/server.dart",
+      "parent": "BaseHttpServiceHost",
+      "beforeSha256": "89fc0891cc57fb7613c140559e7a76ce8b7cc61cb1482b1ab93e3e16a060fa13",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addMiddleware(\n          corsHeaders(\n            headers: {\n              'Access-Control-Allow-Origin':\n                  Platform.environment['CORS_ALLOWED_ORIGIN'] ??\n                  'http://localhost:8085',\n              'Access-Control-Allow-Credentials': 'true',\n              'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',\n              'Access-Control-Allow-Headers':\n                  'Origin, Content-Type, Accept, Authorization, x-device-id, x-device-fingerprint, x-tenant-id, x-request-signature, x-requested-signature, x-requested-with, x-app-version, x-api-key',\n            },\n          ),\n        )\n        .addHandler(router.call);\n\n    return handler;"
+    },
+    {
+      "path": "services/auth_api/bin/server.dart",
+      "parent": "BaseHttpServiceHost",
+      "beforeSha256": "e057739eb9f64a4f6f64e92ab90bb228a484aee8887e5c069ae05f313775ecf9",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addHandler(router.call);\n    return handler;"
+    },
+    {
+      "path": "services/billing_api/bin/server.dart",
+      "parent": "BaseCorsServiceHost",
+      "beforeSha256": "a08d997ebc2ed6030458b8100d730dece30ce2a969bf74bbf42347746d04ec46",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addMiddleware(corsHeaders())\n        .addHandler(router.call);\n\n    return handler;"
+    },
+    {
+      "path": "services/client_api/bin/server.dart",
+      "parent": "BaseCorsServiceHost",
+      "beforeSha256": "dba8688838c87dddc48869da6c1bba7241ef872a5d080fb07ae7b7877457e2c1",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addMiddleware(corsHeaders())\n        .addHandler(router.call);\n\n    return handler;"
+    },
+    {
+      "path": "services/compliance_api/bin/server.dart",
+      "parent": "BaseCorsServiceHost",
+      "beforeSha256": "395419fc172148f576255ef58a5a93d471411d8f5188d363ad8bebd56176a66e",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addMiddleware(corsHeaders())\n        .addHandler(router.call);\n\n    return handler;"
+    },
+    {
+      "path": "services/franchise_reporting_api/bin/server.dart",
+      "parent": "BaseCorsServiceHost",
+      "beforeSha256": "7565a9982a97be3d79f90642a04f834c3e4c11d3d8fef1632d9dbf74d9c216cd",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addMiddleware(corsHeaders())\n        .addHandler(router.call);\n    return handler;"
+    },
+    {
+      "path": "services/governance_api/bin/server.dart",
+      "parent": "BaseHttpServiceHost",
+      "beforeSha256": "1827a95c4f6d2baa68b39e7c9b8fb37fdac872d3141d3554671f31b670d6e281",
+      "originalPipeline": "    final handler = Pipeline()\n        .addMiddleware(corsMiddleware())\n        .addMiddleware(logRequests())\n        .addHandler(router.call);\n\n    return handler;"
+    },
+    {
+      "path": "services/notes_api/bin/server.dart",
+      "parent": "BaseCorsServiceHost",
+      "beforeSha256": "cd3aa79828d29424a90e5fa3559c879c4a9143d917cc34e2d34a61ddfb2a8713",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addMiddleware(corsHeaders())\n        .addHandler(router.call);\n    return handler;"
+    },
+    {
+      "path": "services/notification_api/bin/server.dart",
+      "parent": "BaseCorsServiceHost",
+      "beforeSha256": "61cb9513c8614dfc961d42c61fd05dee04cd56d967a142e70de54a43b3c32786",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addMiddleware(corsHeaders())\n        .addHandler(router.call);\n    return handler;"
+    },
+    {
+      "path": "services/provider_api/bin/server.dart",
+      "parent": "BaseCorsServiceHost",
+      "beforeSha256": "af3377b71d6ea9abd7df106d90b653dd8fd5351eb8483bc17fdc8a8b678339aa",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addMiddleware(corsHeaders())\n        .addHandler(router.call);\n\n    return handler;"
+    },
+    {
+      "path": "services/scheduling_api/bin/server.dart",
+      "parent": "BaseCorsServiceHost",
+      "beforeSha256": "4605ed0770f0201f34f4a8e7987f31efc46fded39ca7b79026f3f9fef5f7f3a8",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addMiddleware(corsHeaders())\n        .addHandler(router.call);\n\n    return handler;"
+    },
+    {
+      "path": "services/verification_api/bin/server.dart",
+      "parent": "BaseCorsServiceHost",
+      "beforeSha256": "649b2184ec1c8af59c53acb80566cf4efe129ed749294dea2db1e65a3d537d39",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addMiddleware(corsHeaders())\n        .addHandler(router.call);\n\n    return handler;"
+    },
+    {
+      "path": "services/visit_api/bin/server.dart",
+      "parent": "BaseCorsServiceHost",
+      "beforeSha256": "035c92d72c5a43da97950109db1d1937d1aebfdecbd119fd6fa75e46cd625f32",
+      "originalPipeline": "    final handler = const Pipeline()\n        .addMiddleware(logRequests())\n        .addMiddleware(corsHeaders())\n        .addHandler(router.call);\n\n    return handler;"
+    }
+  ]
+}

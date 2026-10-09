@@ -30,11 +30,11 @@ Future<void> main(List<String> args) async {
   await GovernanceApiHost().run();
 }
 
-class GovernanceApiHost extends BaseServiceHost {
+class GovernanceApiHost extends BaseHttpServiceHost {
   GovernanceApiHost() : super(serviceName: 'governance-api', defaultPort: 8080);
 
   @override
-  Future<Handler> createHandler() async {
+  Future<Handler> createRoutes() async {
     // 1. Initialize Database & Run Migrations
     print('Initializing database...');
     await DatabaseController.initialize();
@@ -44,13 +44,11 @@ class GovernanceApiHost extends BaseServiceHost {
     final router = GovernanceRoutes.router;
 
     // 3. Configure Pipeline
-    final handler = Pipeline()
-        .addMiddleware(corsMiddleware())
-        .addMiddleware(logRequests())
-        .addHandler(router.call);
-
-    return handler;
+    return router.call;
   }
+
+  @override
+  List<Middleware> get middleware => [corsMiddleware(), logRequests()];
 
   @override
   void onStarted(HttpServer server) {

@@ -51,11 +51,11 @@ Future<void> main() async {
   await AuthApiHost().run();
 }
 
-class AuthApiHost extends BaseServiceHost {
+class AuthApiHost extends BaseHttpServiceHost {
   AuthApiHost() : super(serviceName: 'auth-api', defaultPort: 8080);
 
   @override
-  Future<Handler> createHandler() async {
+  Future<Handler> createRoutes() async {
     final db = PlatformDatabase();
     await db.initialize();
     final router = Router();
@@ -168,10 +168,7 @@ class AuthApiHost extends BaseServiceHost {
 
     router.mount('/', ApiRoutes().router.call);
 
-    final handler = const Pipeline()
-        .addMiddleware(logRequests())
-        .addHandler(router.call);
-    return handler;
+    return router.call;
   }
 
   @override

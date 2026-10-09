@@ -3,29 +3,24 @@ import 'package:server_core/server_core.dart';
 import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 
 Future<void> main() async {
   await NotificationApiHost().run();
 }
 
-class NotificationApiHost extends BaseServiceHost {
+class NotificationApiHost extends BaseCorsServiceHost {
   NotificationApiHost()
     : super(serviceName: 'notification-api', defaultPort: 8080);
 
   @override
-  Future<Handler> createHandler() async {
+  Future<Handler> createRoutes() async {
     final router = Router();
     router.get(
       '/',
       (Request request) =>
           Response.ok('Hello from notification-api (Migrated to Dart)'),
     );
-    final handler = const Pipeline()
-        .addMiddleware(logRequests())
-        .addMiddleware(corsHeaders())
-        .addHandler(router.call);
-    return handler;
+    return router.call;
   }
 
   @override

@@ -5,18 +5,17 @@ import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:compliance_api/routes.dart';
-import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 import 'package:database_client/database_client.dart';
 
 Future<void> main() async {
   await ComplianceApiHost().run();
 }
 
-class ComplianceApiHost extends BaseServiceHost {
+class ComplianceApiHost extends BaseCorsServiceHost {
   ComplianceApiHost() : super(serviceName: 'compliance-api', defaultPort: 8080);
 
   @override
-  Future<Handler> createHandler() async {
+  Future<Handler> createRoutes() async {
     final db = PlatformDatabase();
     await db.initialize();
 
@@ -76,12 +75,7 @@ class ComplianceApiHost extends BaseServiceHost {
       }
     });
 
-    final handler = const Pipeline()
-        .addMiddleware(logRequests())
-        .addMiddleware(corsHeaders())
-        .addHandler(router.call);
-
-    return handler;
+    return router.call;
   }
 
   @override

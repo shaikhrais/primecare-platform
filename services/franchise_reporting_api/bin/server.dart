@@ -4,18 +4,17 @@ import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:franchise_reporting_api/routes.dart';
-import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 
 Future<void> main() async {
   await FranchiseReportingApiHost().run();
 }
 
-class FranchiseReportingApiHost extends BaseServiceHost {
+class FranchiseReportingApiHost extends BaseCorsServiceHost {
   FranchiseReportingApiHost()
     : super(serviceName: 'franchise-reporting-api', defaultPort: 8080);
 
   @override
-  Future<Handler> createHandler() async {
+  Future<Handler> createRoutes() async {
     final router = Router();
 
     // Mount the 456 AI-generated routes
@@ -26,11 +25,7 @@ class FranchiseReportingApiHost extends BaseServiceHost {
       (Request request) =>
           Response.ok('Hello from franchise-reporting-api (Migrated to Dart)'),
     );
-    final handler = const Pipeline()
-        .addMiddleware(logRequests())
-        .addMiddleware(corsHeaders())
-        .addHandler(router.call);
-    return handler;
+    return router.call;
   }
 
   @override
