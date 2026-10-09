@@ -145,9 +145,9 @@ class OldModule extends old.PlatformModule {
   OldModule(this.screens);
 }
 Object moduleTrace(dynamic module) => [module.moduleId, module.name, module.icon.codePoint,
-  [for (final dynamic role in module.allowedRoles) role.name],
-  [for (final dynamic screen in module.screens) [screen.title, screen.route, screen.requiredRole.name, screen.icon?.codePoint]]];
-Object definitionTrace(dynamic definition) => definition == null ? [] : [definition.role.name, definition.label, definition.dashboardRoute,
+  [for (final dynamic role in module.allowedRoles) (role as PlatformRole).name],
+  [for (final dynamic screen in module.screens) [screen.title, screen.route, (screen.requiredRole as PlatformRole).name, screen.icon?.codePoint]]];
+Object definitionTrace(dynamic definition) => definition == null ? [] : [(definition.role as PlatformRole).name, definition.label, definition.dashboardRoute,
   [for (final dynamic module in definition.modules) moduleTrace(module)],
   [for (final dynamic item in definition.navigationItems) [item.label, item.route, item.icon.codePoint]]];
 
