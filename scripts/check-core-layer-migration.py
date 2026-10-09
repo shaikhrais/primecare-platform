@@ -8,6 +8,12 @@ def tokens(s):
  p=r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|//[^\n]*|/\*[\s\S]*?\*/|\w+|[^\s]'''
  ts=[t for t in re.findall(p,s) if not t.startswith(('//','/*'))]
  return [t for i,t in enumerate(ts) if not(t==',' and i+1<len(ts) and ts[i+1] in [')',']','}'])]
+def canonical(path):
+ current=(r/path).read_text()
+ shared=re.fullmatch(r"// Compatibility export: canonical implementation is shared with APIs.\nexport 'package:primecare_models/src/models/([a-z_]+\.dart)';\n", current)
+ if shared:
+  return (r/'packages/primecare_models/lib/src/models'/shared[1]).read_text()
+ return current
 for rec in m['files']:
  source=rec['source'];old=subprocess.check_output(['git','show',m['sourceCommit']+':'+source],cwd=r,text=True)
  assert hashlib.sha256(old.encode()).hexdigest()==rec['beforeSha256'],source+' pinned source differs'
@@ -15,8 +21,8 @@ for rec in m['files']:
  for a,b in rec['replacements']:
   assert a in expected,(source,a);expected=expected.replace(a,b)
  expected=rec['prefix']+expected
- current=(r/rec['target']).read_text()
- if rec.get('modelTarget'):current=(r/rec['modelTarget']).read_text()+current
+ current=canonical(rec['target'])
+ if rec.get('modelTarget'):current=canonical(rec['modelTarget'])+current
  if rec.get('modelTarget'):expected=strip_imports(expected);current=strip_imports(current)
  assert tokens(expected)==tokens(current),source+' behavior changed beyond declared extraction'
  assert tokens((r/source).read_text())==tokens(rec['facade']),source+' compatibility facade differs'
