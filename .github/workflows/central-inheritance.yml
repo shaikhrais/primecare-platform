@@ -2,6 +2,11 @@ name: Central Dart and UI inheritance
 on:
   pull_request:
     paths:
+      - 'packages/primecare_ui/lib/src/application/**'
+      - 'packages/primecare_ui/lib/primecare_ui.dart'
+      - 'packages/primecare_ui/test/base_primecare_app_test.dart'
+      - 'apps/*/lib/main.dart'
+      - 'scripts/check-app-shell-inheritance.py'
       - 'packages/flutter_core/lib/controllers.dart'
       - 'packages/flutter_core/lib/src/controllers/**'
       - 'packages/flutter_core/test/base_controllers_test.dart'
@@ -41,6 +46,7 @@ jobs:
         run: |
           python3 scripts/check-controller-inheritance.py
           python3 scripts/check-http-host-inheritance.py
+          python3 scripts/check-app-shell-inheritance.py
       - name: Resolve shared Flutter dependencies
         working-directory: packages/flutter_core
         run: flutter pub get
@@ -63,3 +69,9 @@ jobs:
               (cd "$service" && dart pub get && dart analyze bin/server.dart)
             fi
           done
+      - name: Verify shared Flutter application shell
+        working-directory: packages/primecare_ui
+        run: |
+          flutter pub get
+          flutter analyze lib/src/application test/base_primecare_app_test.dart
+          flutter test test/base_primecare_app_test.dart
