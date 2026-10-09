@@ -24386,7 +24386,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -24427,7 +24432,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -24471,7 +24481,12 @@
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
         "cloudflare/workers/src/service.ts",
-        "packages/domain/src/registries/FormRegistry/shared-forms.ts"
+        "packages/domain/src/registries/FormRegistry/shared-forms.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -24563,7 +24578,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -24732,7 +24752,12 @@
         "cloudflare/workers/src/gateway.ts",
         "cloudflare/workers/src/service.ts",
         "packages/domain/src/registries/ApiRegistry/platform.ts",
-        "packages/flutter_core/lib/src/network/api_client.dart"
+        "packages/flutter_core/lib/src/network/api_client.dart",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -24763,7 +24788,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -24794,7 +24824,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -24846,7 +24881,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -24887,7 +24927,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -24989,7 +25034,12 @@
         "cloudflare/workers/src/service.ts",
         "packages/domain/src/registries/FormRegistry/platform-forms.ts",
         "packages/domain/src/registries/PageRegistry/homes.ts",
-        "packages/domain/src/registries/PageRegistry/lists.ts"
+        "packages/domain/src/registries/PageRegistry/lists.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -25020,7 +25070,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -25050,7 +25105,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -25128,7 +25188,12 @@
         "cloudflare/workers/src/gateway.ts",
         "cloudflare/workers/src/service.ts",
         "packages/domain/src/registries/ApiRegistry/index.ts",
-        "packages/flutter_core/lib/auth_service.dart"
+        "packages/flutter_core/lib/auth_service.dart",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -25174,7 +25239,12 @@
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
         "cloudflare/workers/src/service.ts",
-        "packages/flutter_core/lib/src/network/api_client.dart"
+        "packages/flutter_core/lib/src/network/api_client.dart",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ],
       "reviewFinding": "",
       "implementationCredits": 0,
@@ -46128,7 +46198,7 @@
     "cloudflare/workers/src/legacy-domain.ts": "3065972b37a81b95724a53d1351a987c3b0b8666b60d9fc8d30035ae247e973d",
     "cloudflare/workers/src/provider-records-registry.json": "98473c2cd57e5a0aeceda75954ce4bd8fb745059b9c6f0e9c00497759abce371",
     "cloudflare/workers/src/self-records-registry.json": "7f5a7a841fb6567c953e0e07a661a38763e500c85e31379ce1404e0b934ffd9e",
-    "cloudflare/workers/src/service.ts": "bd52f6638c2a95ccf8d8188fd86811424f7978aa31c494632536c8c1e6f60473",
+    "cloudflare/workers/src/service.ts": "fa19183dee1ef774c35db7205c03d9ba24e508b09699e36a15bbaed8f832e37e",
     "cloudflare/workers/src/workspace-registry.json": "b58b5b67b9e88bb6386cc07e8a9cecd3408b780cb1cdeb3936125416c775a887",
     "cloudflare/workers/src/workspace.ts": "c1d0a24f202f96133fe000db6972cff73bf7052eaac6196fbf2db2b93d41d247",
     "docs/api/api-delivery-checklist.json": "654f5e898ed10281b931c5d4817a99dcad56ae8b0a91951fbf01ded48672934d",
@@ -46397,11 +46467,14 @@
     "scripts/register-client-booking-lifecycle-api.py": "fb7e1f8673295ae7cc6792d0e4027b11ae2cc27cd15b9e4525df06430bcc61e7",
     "scripts/register-client-invoices-api.py": "44c3e7692f1936292e9afdb7b6601a59e4b16da89908e969c3ea1927d9ab8eb3",
     "scripts/register-legacy-domain-security.py": "35c3c57d4f15679dd65105473c22e12c0760636f4ecdaa18f7f35bd04265692d",
-    "scripts/register-method-capture-blockers.py": "5940dfd926df093b47ec42cb3d5c688c3088846bd9250c70a3184312b30b7350",
+    "scripts/register-method-capture-blockers.py": "0cf6dd64a045e37f2287c7a2a936bb71f0daa6a739d6b7a1907b745977e86e92",
     "scripts/scaffold_30_empty_screens.py": "809db4e0fb2324092486815f52daebd857ad57021cf5cf7eb282dde95f48d2a5",
     "scripts/test-method-capture-blockers.mjs": "65c4ab5da0407c1f385aa362e531999278c1a5c75fb7933b0293b161f18b5a02",
     "scripts/test-method-capture-blockers.py": "c75297e97668734b8f5ce9eaa830488ee60e34ff7a30a93065a7431f381e62da",
     "cloudflare/workers/src/core/base-worker.ts": "58c2df259e14e6078a6476407de0946f8efa159c1685931b5f8bba30c055803c",
-    "cloudflare/workers/src/business-modules.ts": "0b794f814aa5aa96414b55d93acf56d2a020d4545e2c03303e60e2fddd8a6339"
+    "cloudflare/workers/src/business-modules.ts": "0b794f814aa5aa96414b55d93acf56d2a020d4545e2c03303e60e2fddd8a6339",
+    "cloudflare/workers/src/runtime/worker-application.ts": "d15343e639df5523847767854bdc535658b577120bd7f3b8b9cc9e229e8cd288",
+    "cloudflare/workers/src/runtime/handler-pipeline.ts": "d5f3241e46fc9455df12c5c7c2ee674b2bcec723f6590c1ed56b38c8a42acd41",
+    "cloudflare/workers/src/service-application.ts": "75ccdd8a409fd82b1162b2643066ce1f8549c632568f679457a30da9ec70e721"
   }
 }

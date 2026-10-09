@@ -3,8 +3,9 @@
 ## Implemented Worker hierarchy
 
 `BaseWorker<Environment>` owns the request lifecycle: preflight, dispatch and
-error handling. `ServiceWorker` and `GatewayWorker` inherit it and supply their
-host behaviour. Worker exports remain plain objects with a bound fetch closure,
+error handling. `GatewayWorker` inherits it directly; `ServiceWorker` inherits it through
+`ServiceApplication` and `WorkerApplication`. The service parent owns CORS, health
+and fallback responses; the application composes the ordered handler pipeline. Worker exports remain plain objects with a bound fetch closure,
 so destructured host calls work. Instances store no request, actor, tenant or
 mutable policy state.
 
@@ -19,7 +20,9 @@ checks. This refactor adds no workflow authority and completes zero new APIs.
 | Change required | Central location |
 | --- | --- |
 | Shared request lifecycle | cloudflare/workers/src/core/base-worker.ts |
-| Service dispatch, service preflight and safe failures | cloudflare/workers/src/service.ts |
+| Service CORS, health, fallback and safe failures | cloudflare/workers/src/runtime/worker-application.ts |
+| Ordered legacy/auth/domain dispatch | cloudflare/workers/src/service-application.ts and runtime/handler-pipeline.ts |
+| Stable bound service export | cloudflare/workers/src/service.ts |
 | Domain registration and precedence | cloudflare/workers/src/business-modules.ts |
 | Gateway paths and service bindings | cloudflare/workers/src/gateway.ts |
 | Authentication and verified request identity | cloudflare/workers/src/auth.ts |

@@ -1327,7 +1327,7 @@ Acceptance today is limited to the source-grounded plan and explicit unresolved 
 
 ## Chapter 10: family-decision-register.md
 
-<!-- Source: docs/technical/family-decision-register.md; SHA256: c291961ff9f2a3f8b8c2b2d20775bfb33bd88be0bfd99cb75f02005576a15366 -->
+<!-- Source: docs/technical/family-decision-register.md; SHA256: 05b325846d8b32a32ca46bcefccd11a9f4239c7530849281be18757de11370f5 -->
 
 # Operation and family decision register
 
@@ -2965,6 +2965,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 
 - `cloudflare/workers/src/gateway.ts`
 - `cloudflare/workers/src/service.ts`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -2999,6 +3004,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 - `packages/domain/src/registries/FormRegistry/platform-forms.ts`
 - `packages/domain/src/registries/PageRegistry/homes.ts`
 - `packages/domain/src/registries/PageRegistry/lists.ts`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3022,6 +3032,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 
 - `cloudflare/workers/src/gateway.ts`
 - `cloudflare/workers/src/service.ts`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3049,6 +3064,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 
 - `cloudflare/workers/src/gateway.ts`
 - `cloudflare/workers/src/service.ts`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3072,6 +3092,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 
 - `cloudflare/workers/src/gateway.ts`
 - `cloudflare/workers/src/service.ts`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3097,6 +3122,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 
 - `cloudflare/workers/src/gateway.ts`
 - `cloudflare/workers/src/service.ts`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3123,6 +3153,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 - `cloudflare/workers/src/gateway.ts`
 - `cloudflare/workers/src/service.ts`
 - `packages/domain/src/registries/FormRegistry/shared-forms.ts`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3164,6 +3199,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 - `cloudflare/workers/src/service.ts`
 - `packages/domain/src/registries/ApiRegistry/platform.ts`
 - `packages/flutter_core/lib/src/network/api_client.dart`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3188,6 +3228,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 
 - `cloudflare/workers/src/gateway.ts`
 - `cloudflare/workers/src/service.ts`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3219,6 +3264,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 
 - `cloudflare/workers/src/gateway.ts`
 - `cloudflare/workers/src/service.ts`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3243,6 +3293,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 
 - `cloudflare/workers/src/gateway.ts`
 - `cloudflare/workers/src/service.ts`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3274,6 +3329,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 - `cloudflare/workers/src/service.ts`
 - `packages/domain/src/registries/ApiRegistry/index.ts`
 - `packages/flutter_core/lib/auth_service.dart`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3298,6 +3358,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 
 - `cloudflare/workers/src/gateway.ts`
 - `cloudflare/workers/src/service.ts`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 
@@ -3324,6 +3389,11 @@ Status: requires a defined workflow contract; implementation credit remains zero
 - `cloudflare/workers/src/gateway.ts`
 - `cloudflare/workers/src/service.ts`
 - `packages/flutter_core/lib/src/network/api_client.dart`
+- `cloudflare/workers/src/core/base-worker.ts`
+- `cloudflare/workers/src/runtime/worker-application.ts`
+- `cloudflare/workers/src/runtime/handler-pipeline.ts`
+- `cloudflare/workers/src/service-application.ts`
+- `cloudflare/workers/src/business-modules.ts`
 
 ### Required implementation record
 

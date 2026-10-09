@@ -72,11 +72,16 @@ test('central module registry retains reviewed precedence and cannot mutate',()=
 const {default:ts}=await import('typescript');
 const {readFileSync}=await import('node:fs');
 test('concrete Workers inherit fetch and cannot bypass the central lifecycle',()=>{
-  for(const path of ['cloudflare/workers/src/service.ts','cloudflare/workers/src/gateway.ts']) {
+  for(const [path,parent] of [
+    ['cloudflare/workers/src/service.ts','ServiceApplication'],
+    ['cloudflare/workers/src/service-application.ts','WorkerApplication'],
+    ['cloudflare/workers/src/runtime/worker-application.ts','BaseWorker'],
+    ['cloudflare/workers/src/gateway.ts','BaseWorker'],
+  ]) {
     const source=ts.createSourceFile(path,readFileSync(path,'utf8'),ts.ScriptTarget.Latest,true);
     const classes=source.statements.filter(ts.isClassDeclaration);
     assert.equal(classes.length,1,path);
-    assert.ok(classes[0].heritageClauses.some(clause=>clause.types.some(type=>type.expression.getText(source)==='BaseWorker')),path);
+    assert.ok(classes[0].heritageClauses.some(clause=>clause.types.some(type=>type.expression.getText(source)===parent)),path);
     assert.ok(!classes[0].members.some(member=>member.name?.getText(source)==='fetch'),path);
   }
 });

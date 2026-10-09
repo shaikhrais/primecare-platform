@@ -16,8 +16,11 @@
     "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5",
     "packages/domain/src/registries/FormRegistry/client-forms.ts": "f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516",
     "cloudflare/workers/src/core/base-worker.ts": "58c2df259e14e6078a6476407de0946f8efa159c1685931b5f8bba30c055803c",
-    "cloudflare/workers/src/service.ts": "bd52f6638c2a95ccf8d8188fd86811424f7978aa31c494632536c8c1e6f60473",
-    "cloudflare/workers/src/business-modules.ts": "0b794f814aa5aa96414b55d93acf56d2a020d4545e2c03303e60e2fddd8a6339"
+    "cloudflare/workers/src/service.ts": "fa19183dee1ef774c35db7205c03d9ba24e508b09699e36a15bbaed8f832e37e",
+    "cloudflare/workers/src/business-modules.ts": "0b794f814aa5aa96414b55d93acf56d2a020d4545e2c03303e60e2fddd8a6339",
+    "cloudflare/workers/src/runtime/worker-application.ts": "d15343e639df5523847767854bdc535658b577120bd7f3b8b9cc9e229e8cd288",
+    "cloudflare/workers/src/runtime/handler-pipeline.ts": "d5f3241e46fc9455df12c5c7c2ee674b2bcec723f6590c1ed56b38c8a42acd41",
+    "cloudflare/workers/src/service-application.ts": "75ccdd8a409fd82b1162b2643066ce1f8549c632568f679457a30da9ec70e721"
   },
   "reviews": {
     "POST /v1/admin/users/churn-heatmap": {
