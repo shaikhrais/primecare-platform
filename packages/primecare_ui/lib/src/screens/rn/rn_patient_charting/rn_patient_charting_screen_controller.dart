@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RnPatientChartingScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class RnPatientChartingScreenState
+    extends DashboardState<RnPatientChartingScreenState> {
+  RnPatientChartingScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  RnPatientChartingScreenState({required this.isLoading, this.error, required this.data});
-
-  RnPatientChartingScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return RnPatientChartingScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  RnPatientChartingScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => RnPatientChartingScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class RnPatientChartingScreenController extends StateNotifier<RnPatientChartingScreenState> {
-  final Ref ref;
-  RnPatientChartingScreenController(this.ref) : super(RnPatientChartingScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/rn/patient-charting');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class RnPatientChartingScreenController
+    extends BaseDashboardController<RnPatientChartingScreenState> {
+  RnPatientChartingScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: RnPatientChartingScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/rn/patient-charting',
+      );
 }
 
-final rn_patient_chartingControllerProvider = StateNotifierProvider<RnPatientChartingScreenController, RnPatientChartingScreenState>((ref) {
-  return RnPatientChartingScreenController(ref);
-});
+final rn_patient_chartingControllerProvider =
+    StateNotifierProvider<
+      RnPatientChartingScreenController,
+      RnPatientChartingScreenState
+    >((ref) {
+      return RnPatientChartingScreenController(ref);
+    });

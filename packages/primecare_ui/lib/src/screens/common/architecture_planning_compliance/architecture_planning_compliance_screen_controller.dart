@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ArchitecturePlanningComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ArchitecturePlanningComplianceScreenState
+    extends DashboardState<ArchitecturePlanningComplianceScreenState> {
+  ArchitecturePlanningComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ArchitecturePlanningComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  ArchitecturePlanningComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ArchitecturePlanningComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ArchitecturePlanningComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ArchitecturePlanningComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ArchitecturePlanningComplianceScreenController extends StateNotifier<ArchitecturePlanningComplianceScreenState> {
-  final Ref ref;
-  ArchitecturePlanningComplianceScreenController(this.ref) : super(ArchitecturePlanningComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/architecture-planning-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ArchitecturePlanningComplianceScreenController
+    extends BaseDashboardController<ArchitecturePlanningComplianceScreenState> {
+  ArchitecturePlanningComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ArchitecturePlanningComplianceScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/common/architecture-planning-compliance',
+      );
 }
 
-final architecture_planning_complianceControllerProvider = StateNotifierProvider<ArchitecturePlanningComplianceScreenController, ArchitecturePlanningComplianceScreenState>((ref) {
-  return ArchitecturePlanningComplianceScreenController(ref);
-});
+final architecture_planning_complianceControllerProvider =
+    StateNotifierProvider<
+      ArchitecturePlanningComplianceScreenController,
+      ArchitecturePlanningComplianceScreenState
+    >((ref) {
+      return ArchitecturePlanningComplianceScreenController(ref);
+    });

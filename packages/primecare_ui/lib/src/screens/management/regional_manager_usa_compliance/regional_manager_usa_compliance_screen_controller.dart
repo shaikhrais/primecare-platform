@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegionalManagerUsaComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class RegionalManagerUsaComplianceScreenState
+    extends DashboardState<RegionalManagerUsaComplianceScreenState> {
+  RegionalManagerUsaComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  RegionalManagerUsaComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  RegionalManagerUsaComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return RegionalManagerUsaComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  RegionalManagerUsaComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => RegionalManagerUsaComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class RegionalManagerUsaComplianceScreenController extends StateNotifier<RegionalManagerUsaComplianceScreenState> {
-  final Ref ref;
-  RegionalManagerUsaComplianceScreenController(this.ref) : super(RegionalManagerUsaComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/regional-manager-usa-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class RegionalManagerUsaComplianceScreenController
+    extends BaseDashboardController<RegionalManagerUsaComplianceScreenState> {
+  RegionalManagerUsaComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: RegionalManagerUsaComplianceScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/management/regional-manager-usa-compliance',
+      );
 }
 
-final regional_manager_usa_complianceControllerProvider = StateNotifierProvider<RegionalManagerUsaComplianceScreenController, RegionalManagerUsaComplianceScreenState>((ref) {
-  return RegionalManagerUsaComplianceScreenController(ref);
-});
+final regional_manager_usa_complianceControllerProvider =
+    StateNotifierProvider<
+      RegionalManagerUsaComplianceScreenController,
+      RegionalManagerUsaComplianceScreenState
+    >((ref) {
+      return RegionalManagerUsaComplianceScreenController(ref);
+    });

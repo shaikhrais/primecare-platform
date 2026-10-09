@@ -1,31 +1,13 @@
-// Governance - Category: controller | Purpose: Standalone compile-safe Notifier for CooReportsScreenController
+// Governance - Category: controller | Purpose: Non-executable scaffold for CooReportsScreenController
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/controllers.dart';
 
-final cooReportsScreenControllerProvider = NotifierProvider<CooReportsScreenController, AsyncValue<Map<String, dynamic>>>(() {
-  return CooReportsScreenController();
-});
-
-class CooReportsScreenController extends Notifier<AsyncValue<Map<String, dynamic>>> {
-  @override
-  AsyncValue<Map<String, dynamic>> build() {
-    _init();
-    return const AsyncValue.data({});
-  }
-
-  Future<void> _init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    state = const AsyncValue.data({
-      'status': 'success',
-      'featuresEnabled': true,
-      'dataLoaded': true,
+final cooReportsScreenControllerProvider =
+    NotifierProvider<
+      CooReportsScreenController,
+      AsyncValue<Map<String, dynamic>>
+    >(() {
+      return CooReportsScreenController();
     });
-  }
 
-  Future<void> performAction() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      await Future<void>.delayed(const Duration(milliseconds: 500));
-      return {'status': 'action_completed'};
-    });
-  }
-}
+class CooReportsScreenController extends BaseScaffoldController {}

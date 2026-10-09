@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ChiropractorBillingLinkScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ChiropractorBillingLinkScreenState
+    extends DashboardState<ChiropractorBillingLinkScreenState> {
+  ChiropractorBillingLinkScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ChiropractorBillingLinkScreenState({required this.isLoading, this.error, required this.data});
-
-  ChiropractorBillingLinkScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ChiropractorBillingLinkScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ChiropractorBillingLinkScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ChiropractorBillingLinkScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ChiropractorBillingLinkScreenController extends StateNotifier<ChiropractorBillingLinkScreenState> {
-  final Ref ref;
-  ChiropractorBillingLinkScreenController(this.ref) : super(ChiropractorBillingLinkScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/chiropractor/billing-link');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ChiropractorBillingLinkScreenController
+    extends BaseDashboardController<ChiropractorBillingLinkScreenState> {
+  ChiropractorBillingLinkScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ChiropractorBillingLinkScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/offices/clinical/roles/chiropractor/billing-link',
+      );
 }
 
-final chiropractor_billing_linkControllerProvider = StateNotifierProvider<ChiropractorBillingLinkScreenController, ChiropractorBillingLinkScreenState>((ref) {
-  return ChiropractorBillingLinkScreenController(ref);
-});
+final chiropractor_billing_linkControllerProvider =
+    StateNotifierProvider<
+      ChiropractorBillingLinkScreenController,
+      ChiropractorBillingLinkScreenState
+    >((ref) {
+      return ChiropractorBillingLinkScreenController(ref);
+    });

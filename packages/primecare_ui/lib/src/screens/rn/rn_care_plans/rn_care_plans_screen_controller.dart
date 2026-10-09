@@ -1,55 +1,35 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RnCarePlansScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class RnCarePlansScreenState extends DashboardState<RnCarePlansScreenState> {
+  RnCarePlansScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  RnCarePlansScreenState({required this.isLoading, this.error, required this.data});
-
-  RnCarePlansScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return RnCarePlansScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  RnCarePlansScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => RnCarePlansScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class RnCarePlansScreenController extends StateNotifier<RnCarePlansScreenState> {
-  final Ref ref;
-  RnCarePlansScreenController(this.ref) : super(RnCarePlansScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/rn/rn-care-plans');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class RnCarePlansScreenController
+    extends BaseDashboardController<RnCarePlansScreenState> {
+  RnCarePlansScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: RnCarePlansScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/rn/rn-care-plans',
+      );
 }
 
-final rn_care_plansControllerProvider = StateNotifierProvider<RnCarePlansScreenController, RnCarePlansScreenState>((ref) {
-  return RnCarePlansScreenController(ref);
-});
+final rn_care_plansControllerProvider =
+    StateNotifierProvider<RnCarePlansScreenController, RnCarePlansScreenState>((
+      ref,
+    ) {
+      return RnCarePlansScreenController(ref);
+    });

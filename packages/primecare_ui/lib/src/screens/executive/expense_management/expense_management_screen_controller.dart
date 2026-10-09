@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ExpenseManagementScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ExpenseManagementScreenState
+    extends DashboardState<ExpenseManagementScreenState> {
+  ExpenseManagementScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ExpenseManagementScreenState({required this.isLoading, this.error, required this.data});
-
-  ExpenseManagementScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ExpenseManagementScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ExpenseManagementScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ExpenseManagementScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ExpenseManagementScreenController extends StateNotifier<ExpenseManagementScreenState> {
-  final Ref ref;
-  ExpenseManagementScreenController(this.ref) : super(ExpenseManagementScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/expense-management');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ExpenseManagementScreenController
+    extends BaseDashboardController<ExpenseManagementScreenState> {
+  ExpenseManagementScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ExpenseManagementScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/expense-management',
+      );
 }
 
-final expense_managementControllerProvider = StateNotifierProvider<ExpenseManagementScreenController, ExpenseManagementScreenState>((ref) {
-  return ExpenseManagementScreenController(ref);
-});
+final expense_managementControllerProvider =
+    StateNotifierProvider<
+      ExpenseManagementScreenController,
+      ExpenseManagementScreenState
+    >((ref) {
+      return ExpenseManagementScreenController(ref);
+    });

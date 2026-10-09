@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RpnCarePlanReviewScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class RpnCarePlanReviewScreenState
+    extends DashboardState<RpnCarePlanReviewScreenState> {
+  RpnCarePlanReviewScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  RpnCarePlanReviewScreenState({required this.isLoading, this.error, required this.data});
-
-  RpnCarePlanReviewScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return RpnCarePlanReviewScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  RpnCarePlanReviewScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => RpnCarePlanReviewScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class RpnCarePlanReviewScreenController extends StateNotifier<RpnCarePlanReviewScreenState> {
-  final Ref ref;
-  RpnCarePlanReviewScreenController(this.ref) : super(RpnCarePlanReviewScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/rpn/rpn-care-plan-review');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class RpnCarePlanReviewScreenController
+    extends BaseDashboardController<RpnCarePlanReviewScreenState> {
+  RpnCarePlanReviewScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: RpnCarePlanReviewScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/rpn/rpn-care-plan-review',
+      );
 }
 
-final rpn_care_plan_reviewControllerProvider = StateNotifierProvider<RpnCarePlanReviewScreenController, RpnCarePlanReviewScreenState>((ref) {
-  return RpnCarePlanReviewScreenController(ref);
-});
+final rpn_care_plan_reviewControllerProvider =
+    StateNotifierProvider<
+      RpnCarePlanReviewScreenController,
+      RpnCarePlanReviewScreenState
+    >((ref) {
+      return RpnCarePlanReviewScreenController(ref);
+    });

@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PatientCarePlanScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class PatientCarePlanScreenState
+    extends DashboardState<PatientCarePlanScreenState> {
+  PatientCarePlanScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  PatientCarePlanScreenState({required this.isLoading, this.error, required this.data});
-
-  PatientCarePlanScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return PatientCarePlanScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  PatientCarePlanScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => PatientCarePlanScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class PatientCarePlanScreenController extends StateNotifier<PatientCarePlanScreenState> {
-  final Ref ref;
-  PatientCarePlanScreenController(this.ref) : super(PatientCarePlanScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/patient-care-plan');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class PatientCarePlanScreenController
+    extends BaseDashboardController<PatientCarePlanScreenState> {
+  PatientCarePlanScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: PatientCarePlanScreenState(isLoading: true, data: {}),
+        endpoint: '/common/patient-care-plan',
+      );
 }
 
-final patient_care_planControllerProvider = StateNotifierProvider<PatientCarePlanScreenController, PatientCarePlanScreenState>((ref) {
-  return PatientCarePlanScreenController(ref);
-});
+final patient_care_planControllerProvider =
+    StateNotifierProvider<
+      PatientCarePlanScreenController,
+      PatientCarePlanScreenState
+    >((ref) {
+      return PatientCarePlanScreenController(ref);
+    });

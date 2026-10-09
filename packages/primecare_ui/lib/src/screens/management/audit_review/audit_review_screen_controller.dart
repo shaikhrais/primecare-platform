@@ -1,55 +1,35 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AuditReviewScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class AuditReviewScreenState extends DashboardState<AuditReviewScreenState> {
+  AuditReviewScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  AuditReviewScreenState({required this.isLoading, this.error, required this.data});
-
-  AuditReviewScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return AuditReviewScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  AuditReviewScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => AuditReviewScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class AuditReviewScreenController extends StateNotifier<AuditReviewScreenState> {
-  final Ref ref;
-  AuditReviewScreenController(this.ref) : super(AuditReviewScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/audit-review');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class AuditReviewScreenController
+    extends BaseDashboardController<AuditReviewScreenState> {
+  AuditReviewScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: AuditReviewScreenState(isLoading: true, data: {}),
+        endpoint: '/management/audit-review',
+      );
 }
 
-final audit_reviewControllerProvider = StateNotifierProvider<AuditReviewScreenController, AuditReviewScreenState>((ref) {
-  return AuditReviewScreenController(ref);
-});
+final audit_reviewControllerProvider =
+    StateNotifierProvider<AuditReviewScreenController, AuditReviewScreenState>((
+      ref,
+    ) {
+      return AuditReviewScreenController(ref);
+    });

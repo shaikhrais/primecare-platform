@@ -1,55 +1,45 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ChiropracticProgressTrackingScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ChiropracticProgressTrackingScreenState
+    extends DashboardState<ChiropracticProgressTrackingScreenState> {
+  ChiropracticProgressTrackingScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ChiropracticProgressTrackingScreenState({required this.isLoading, this.error, required this.data});
-
-  ChiropracticProgressTrackingScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ChiropracticProgressTrackingScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ChiropracticProgressTrackingScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ChiropracticProgressTrackingScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ChiropracticProgressTrackingScreenController extends StateNotifier<ChiropracticProgressTrackingScreenState> {
-  final Ref ref;
-  ChiropracticProgressTrackingScreenController(this.ref) : super(ChiropracticProgressTrackingScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/chiropractor/chiropractic-progress-tracking');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ChiropracticProgressTrackingScreenController
+    extends BaseDashboardController<ChiropracticProgressTrackingScreenState> {
+  ChiropracticProgressTrackingScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ChiropracticProgressTrackingScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint:
+            '/offices/clinical/roles/chiropractor/chiropractic-progress-tracking',
+      );
 }
 
-final chiropractic_progress_trackingControllerProvider = StateNotifierProvider<ChiropracticProgressTrackingScreenController, ChiropracticProgressTrackingScreenState>((ref) {
-  return ChiropracticProgressTrackingScreenController(ref);
-});
+final chiropractic_progress_trackingControllerProvider =
+    StateNotifierProvider<
+      ChiropracticProgressTrackingScreenController,
+      ChiropracticProgressTrackingScreenState
+    >((ref) {
+      return ChiropracticProgressTrackingScreenController(ref);
+    });

@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FranchiseOwnerReportsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class FranchiseOwnerReportsScreenState
+    extends DashboardState<FranchiseOwnerReportsScreenState> {
+  FranchiseOwnerReportsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  FranchiseOwnerReportsScreenState({required this.isLoading, this.error, required this.data});
-
-  FranchiseOwnerReportsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return FranchiseOwnerReportsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  FranchiseOwnerReportsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => FranchiseOwnerReportsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class FranchiseOwnerReportsScreenController extends StateNotifier<FranchiseOwnerReportsScreenState> {
-  final Ref ref;
-  FranchiseOwnerReportsScreenController(this.ref) : super(FranchiseOwnerReportsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/franchise/roles/franchise_owner/reports');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class FranchiseOwnerReportsScreenController
+    extends BaseDashboardController<FranchiseOwnerReportsScreenState> {
+  FranchiseOwnerReportsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: FranchiseOwnerReportsScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/offices/franchise/roles/franchise_owner/reports',
+      );
 }
 
-final franchise_owner_reportsControllerProvider = StateNotifierProvider<FranchiseOwnerReportsScreenController, FranchiseOwnerReportsScreenState>((ref) {
-  return FranchiseOwnerReportsScreenController(ref);
-});
+final franchise_owner_reportsControllerProvider =
+    StateNotifierProvider<
+      FranchiseOwnerReportsScreenController,
+      FranchiseOwnerReportsScreenState
+    >((ref) {
+      return FranchiseOwnerReportsScreenController(ref);
+    });

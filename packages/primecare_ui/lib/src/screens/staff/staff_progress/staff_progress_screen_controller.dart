@@ -1,55 +1,38 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class StaffProgressScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class StaffProgressScreenState
+    extends DashboardState<StaffProgressScreenState> {
+  StaffProgressScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  StaffProgressScreenState({required this.isLoading, this.error, required this.data});
-
-  StaffProgressScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return StaffProgressScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  StaffProgressScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) =>
+      StaffProgressScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class StaffProgressScreenController extends StateNotifier<StaffProgressScreenState> {
-  final Ref ref;
-  StaffProgressScreenController(this.ref) : super(StaffProgressScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/staff-progress');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class StaffProgressScreenController
+    extends BaseDashboardController<StaffProgressScreenState> {
+  StaffProgressScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: StaffProgressScreenState(isLoading: true, data: {}),
+        endpoint: '/staff/staff-progress',
+      );
 }
 
-final staff_progressControllerProvider = StateNotifierProvider<StaffProgressScreenController, StaffProgressScreenState>((ref) {
-  return StaffProgressScreenController(ref);
-});
+final staff_progressControllerProvider =
+    StateNotifierProvider<
+      StaffProgressScreenController,
+      StaffProgressScreenState
+    >((ref) {
+      return StaffProgressScreenController(ref);
+    });

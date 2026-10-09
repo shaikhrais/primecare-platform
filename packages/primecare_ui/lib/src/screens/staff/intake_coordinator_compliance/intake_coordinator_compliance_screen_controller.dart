@@ -1,55 +1,45 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class IntakeCoordinatorComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class IntakeCoordinatorComplianceScreenState
+    extends DashboardState<IntakeCoordinatorComplianceScreenState> {
+  IntakeCoordinatorComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  IntakeCoordinatorComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  IntakeCoordinatorComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return IntakeCoordinatorComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  IntakeCoordinatorComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => IntakeCoordinatorComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class IntakeCoordinatorComplianceScreenController extends StateNotifier<IntakeCoordinatorComplianceScreenState> {
-  final Ref ref;
-  IntakeCoordinatorComplianceScreenController(this.ref) : super(IntakeCoordinatorComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/intake_coordinator/coordinator-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class IntakeCoordinatorComplianceScreenController
+    extends BaseDashboardController<IntakeCoordinatorComplianceScreenState> {
+  IntakeCoordinatorComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: IntakeCoordinatorComplianceScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint:
+            '/offices/clinical/roles/intake_coordinator/coordinator-compliance',
+      );
 }
 
-final intake_coordinator_complianceControllerProvider = StateNotifierProvider<IntakeCoordinatorComplianceScreenController, IntakeCoordinatorComplianceScreenState>((ref) {
-  return IntakeCoordinatorComplianceScreenController(ref);
-});
+final intake_coordinator_complianceControllerProvider =
+    StateNotifierProvider<
+      IntakeCoordinatorComplianceScreenController,
+      IntakeCoordinatorComplianceScreenState
+    >((ref) {
+      return IntakeCoordinatorComplianceScreenController(ref);
+    });

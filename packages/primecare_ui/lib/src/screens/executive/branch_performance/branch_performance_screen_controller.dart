@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BranchPerformanceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class BranchPerformanceScreenState
+    extends DashboardState<BranchPerformanceScreenState> {
+  BranchPerformanceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  BranchPerformanceScreenState({required this.isLoading, this.error, required this.data});
-
-  BranchPerformanceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return BranchPerformanceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  BranchPerformanceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => BranchPerformanceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class BranchPerformanceScreenController extends StateNotifier<BranchPerformanceScreenState> {
-  final Ref ref;
-  BranchPerformanceScreenController(this.ref) : super(BranchPerformanceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/branch-performance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class BranchPerformanceScreenController
+    extends BaseDashboardController<BranchPerformanceScreenState> {
+  BranchPerformanceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: BranchPerformanceScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/branch-performance',
+      );
 }
 
-final branch_performanceControllerProvider = StateNotifierProvider<BranchPerformanceScreenController, BranchPerformanceScreenState>((ref) {
-  return BranchPerformanceScreenController(ref);
-});
+final branch_performanceControllerProvider =
+    StateNotifierProvider<
+      BranchPerformanceScreenController,
+      BranchPerformanceScreenState
+    >((ref) {
+      return BranchPerformanceScreenController(ref);
+    });

@@ -1,55 +1,35 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AppointmentScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class AppointmentScreenState extends DashboardState<AppointmentScreenState> {
+  AppointmentScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  AppointmentScreenState({required this.isLoading, this.error, required this.data});
-
-  AppointmentScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return AppointmentScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  AppointmentScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => AppointmentScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class AppointmentScreenController extends StateNotifier<AppointmentScreenState> {
-  final Ref ref;
-  AppointmentScreenController(this.ref) : super(AppointmentScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/appointment');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class AppointmentScreenController
+    extends BaseDashboardController<AppointmentScreenState> {
+  AppointmentScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: AppointmentScreenState(isLoading: true, data: {}),
+        endpoint: '/common/appointment',
+      );
 }
 
-final appointmentControllerProvider = StateNotifierProvider<AppointmentScreenController, AppointmentScreenState>((ref) {
-  return AppointmentScreenController(ref);
-});
+final appointmentControllerProvider =
+    StateNotifierProvider<AppointmentScreenController, AppointmentScreenState>((
+      ref,
+    ) {
+      return AppointmentScreenController(ref);
+    });

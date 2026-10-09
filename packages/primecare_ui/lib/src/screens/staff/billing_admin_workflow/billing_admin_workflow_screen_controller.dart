@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BillingAdminWorkflowScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class BillingAdminWorkflowScreenState
+    extends DashboardState<BillingAdminWorkflowScreenState> {
+  BillingAdminWorkflowScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  BillingAdminWorkflowScreenState({required this.isLoading, this.error, required this.data});
-
-  BillingAdminWorkflowScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return BillingAdminWorkflowScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  BillingAdminWorkflowScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => BillingAdminWorkflowScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class BillingAdminWorkflowScreenController extends StateNotifier<BillingAdminWorkflowScreenState> {
-  final Ref ref;
-  BillingAdminWorkflowScreenController(this.ref) : super(BillingAdminWorkflowScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/billing-admin-workflow');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class BillingAdminWorkflowScreenController
+    extends BaseDashboardController<BillingAdminWorkflowScreenState> {
+  BillingAdminWorkflowScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: BillingAdminWorkflowScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/staff/billing-admin-workflow',
+      );
 }
 
-final billing_admin_workflowControllerProvider = StateNotifierProvider<BillingAdminWorkflowScreenController, BillingAdminWorkflowScreenState>((ref) {
-  return BillingAdminWorkflowScreenController(ref);
-});
+final billing_admin_workflowControllerProvider =
+    StateNotifierProvider<
+      BillingAdminWorkflowScreenController,
+      BillingAdminWorkflowScreenState
+    >((ref) {
+      return BillingAdminWorkflowScreenController(ref);
+    });

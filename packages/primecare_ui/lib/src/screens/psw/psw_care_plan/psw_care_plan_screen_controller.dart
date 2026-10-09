@@ -1,55 +1,35 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PswCarePlanScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class PswCarePlanScreenState extends DashboardState<PswCarePlanScreenState> {
+  PswCarePlanScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  PswCarePlanScreenState({required this.isLoading, this.error, required this.data});
-
-  PswCarePlanScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return PswCarePlanScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  PswCarePlanScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => PswCarePlanScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class PswCarePlanScreenController extends StateNotifier<PswCarePlanScreenState> {
-  final Ref ref;
-  PswCarePlanScreenController(this.ref) : super(PswCarePlanScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/psw/care-plan');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class PswCarePlanScreenController
+    extends BaseDashboardController<PswCarePlanScreenState> {
+  PswCarePlanScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: PswCarePlanScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/psw/care-plan',
+      );
 }
 
-final psw_care_planControllerProvider = StateNotifierProvider<PswCarePlanScreenController, PswCarePlanScreenState>((ref) {
-  return PswCarePlanScreenController(ref);
-});
+final psw_care_planControllerProvider =
+    StateNotifierProvider<PswCarePlanScreenController, PswCarePlanScreenState>((
+      ref,
+    ) {
+      return PswCarePlanScreenController(ref);
+    });

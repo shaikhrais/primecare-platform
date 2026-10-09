@@ -1,55 +1,38 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OwnerAnalyticsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class OwnerAnalyticsScreenState
+    extends DashboardState<OwnerAnalyticsScreenState> {
+  OwnerAnalyticsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  OwnerAnalyticsScreenState({required this.isLoading, this.error, required this.data});
-
-  OwnerAnalyticsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return OwnerAnalyticsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  OwnerAnalyticsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) =>
+      OwnerAnalyticsScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class OwnerAnalyticsScreenController extends StateNotifier<OwnerAnalyticsScreenState> {
-  final Ref ref;
-  OwnerAnalyticsScreenController(this.ref) : super(OwnerAnalyticsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/owner-analytics');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class OwnerAnalyticsScreenController
+    extends BaseDashboardController<OwnerAnalyticsScreenState> {
+  OwnerAnalyticsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: OwnerAnalyticsScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/owner-analytics',
+      );
 }
 
-final owner_analyticsControllerProvider = StateNotifierProvider<OwnerAnalyticsScreenController, OwnerAnalyticsScreenState>((ref) {
-  return OwnerAnalyticsScreenController(ref);
-});
+final owner_analyticsControllerProvider =
+    StateNotifierProvider<
+      OwnerAnalyticsScreenController,
+      OwnerAnalyticsScreenState
+    >((ref) {
+      return OwnerAnalyticsScreenController(ref);
+    });
