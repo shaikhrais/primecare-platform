@@ -1,23 +1,20 @@
-class CeoDashboardModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class CeoDashboardModel extends BaseScreenState<CeoDashboardModel> {
   const CeoDashboardModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  CeoDashboardModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return CeoDashboardModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  CeoDashboardModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => CeoDashboardModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

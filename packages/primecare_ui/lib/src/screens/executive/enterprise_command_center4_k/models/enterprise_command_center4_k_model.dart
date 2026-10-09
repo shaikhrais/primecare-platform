@@ -1,23 +1,20 @@
-class EnterpriseCommandCenter4KModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class EnterpriseCommandCenter4KModel extends BaseScreenState<EnterpriseCommandCenter4KModel> {
   const EnterpriseCommandCenter4KModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  EnterpriseCommandCenter4KModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return EnterpriseCommandCenter4KModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  EnterpriseCommandCenter4KModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => EnterpriseCommandCenter4KModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

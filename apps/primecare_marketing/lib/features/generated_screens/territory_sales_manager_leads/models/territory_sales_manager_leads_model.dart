@@ -1,23 +1,20 @@
-class TerritorySalesManagerLeadsModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class TerritorySalesManagerLeadsModel extends BaseScreenState<TerritorySalesManagerLeadsModel> {
   const TerritorySalesManagerLeadsModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  TerritorySalesManagerLeadsModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return TerritorySalesManagerLeadsModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TerritorySalesManagerLeadsModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => TerritorySalesManagerLeadsModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

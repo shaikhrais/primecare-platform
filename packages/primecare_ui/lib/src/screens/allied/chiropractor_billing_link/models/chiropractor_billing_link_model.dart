@@ -1,23 +1,20 @@
-class ChiropractorBillingLinkModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class ChiropractorBillingLinkModel extends BaseScreenState<ChiropractorBillingLinkModel> {
   const ChiropractorBillingLinkModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  ChiropractorBillingLinkModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return ChiropractorBillingLinkModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ChiropractorBillingLinkModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => ChiropractorBillingLinkModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

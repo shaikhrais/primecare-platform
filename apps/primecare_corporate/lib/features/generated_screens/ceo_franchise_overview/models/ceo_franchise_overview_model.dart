@@ -1,23 +1,20 @@
-class CeoFranchiseOverviewModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class CeoFranchiseOverviewModel extends BaseScreenState<CeoFranchiseOverviewModel> {
   const CeoFranchiseOverviewModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  CeoFranchiseOverviewModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return CeoFranchiseOverviewModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  CeoFranchiseOverviewModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => CeoFranchiseOverviewModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

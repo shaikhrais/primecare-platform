@@ -1,23 +1,20 @@
-class FranchiseOwnerFinancialSnapshotModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class FranchiseOwnerFinancialSnapshotModel extends BaseScreenState<FranchiseOwnerFinancialSnapshotModel> {
   const FranchiseOwnerFinancialSnapshotModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  FranchiseOwnerFinancialSnapshotModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return FranchiseOwnerFinancialSnapshotModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  FranchiseOwnerFinancialSnapshotModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => FranchiseOwnerFinancialSnapshotModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

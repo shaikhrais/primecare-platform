@@ -1,23 +1,20 @@
-class SchedulerCoordinatorAppointmentCalendarModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class SchedulerCoordinatorAppointmentCalendarModel extends BaseScreenState<SchedulerCoordinatorAppointmentCalendarModel> {
   const SchedulerCoordinatorAppointmentCalendarModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  SchedulerCoordinatorAppointmentCalendarModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return SchedulerCoordinatorAppointmentCalendarModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  SchedulerCoordinatorAppointmentCalendarModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => SchedulerCoordinatorAppointmentCalendarModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }
