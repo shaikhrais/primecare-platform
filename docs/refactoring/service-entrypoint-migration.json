@@ -1,0 +1,84 @@
+{
+  "sourceCommit": "b41d21be2ac6de9ae8b32e4adadf24c66081c440",
+  "services": [
+    {
+      "entrypoint": "services/api_gateway/bin/server.dart",
+      "application": "services/api_gateway/lib/src/application/api_gateway_host.dart",
+      "class": "ApiGatewayHost",
+      "beforeSha256": "3de422547fb56109e927976ce34c5a6cfe75f9235fc5f6ac24a1f69c5c582cbf"
+    },
+    {
+      "entrypoint": "services/auth_api/bin/server.dart",
+      "application": "services/auth_api/lib/src/application/auth_api_host.dart",
+      "class": "AuthApiHost",
+      "beforeSha256": "315ab13bab862548518687ac6233b8f25b237d87196db238c69000ba7f02410c"
+    },
+    {
+      "entrypoint": "services/billing_api/bin/server.dart",
+      "application": "services/billing_api/lib/src/application/billing_api_host.dart",
+      "class": "BillingApiHost",
+      "beforeSha256": "c2f0025404afaa468878ae05ad64637c3931b60ea44646dcbb0dc9670fc2e529"
+    },
+    {
+      "entrypoint": "services/client_api/bin/server.dart",
+      "application": "services/client_api/lib/src/application/client_api_host.dart",
+      "class": "ClientApiHost",
+      "beforeSha256": "9b8425023ad806fdd27550af2cd46988c3973a799a7e73c816c560f1b3d2ca87"
+    },
+    {
+      "entrypoint": "services/compliance_api/bin/server.dart",
+      "application": "services/compliance_api/lib/src/application/compliance_api_host.dart",
+      "class": "ComplianceApiHost",
+      "beforeSha256": "e680df8e25304d06ddd042fcf26d781a9a14cfe56ef72005dbc1bcf3445729fc"
+    },
+    {
+      "entrypoint": "services/franchise_reporting_api/bin/server.dart",
+      "application": "services/franchise_reporting_api/lib/src/application/franchise_reporting_api_host.dart",
+      "class": "FranchiseReportingApiHost",
+      "beforeSha256": "3a705f7c786d334b17581a7b4470d460453fa378321ec77b2f4895035970d0cd"
+    },
+    {
+      "entrypoint": "services/governance_api/bin/server.dart",
+      "application": "services/governance_api/lib/src/application/governance_api_host.dart",
+      "class": "GovernanceApiHost",
+      "beforeSha256": "b5f550b96e6ce617125ca5faf77147556ce5196094bcde88e4e3245f3be2a541"
+    },
+    {
+      "entrypoint": "services/notes_api/bin/server.dart",
+      "application": "services/notes_api/lib/src/application/notes_api_host.dart",
+      "class": "NotesApiHost",
+      "beforeSha256": "8eece08f28e923e463b119057ad2d7256e2c4e874d84a477ffee38859069133d"
+    },
+    {
+      "entrypoint": "services/notification_api/bin/server.dart",
+      "application": "services/notification_api/lib/src/application/notification_api_host.dart",
+      "class": "NotificationApiHost",
+      "beforeSha256": "1a4405b7e09209825801053c4b9ff6ae8dbc7958a9e44738f407bcd9241e8c04"
+    },
+    {
+      "entrypoint": "services/provider_api/bin/server.dart",
+      "application": "services/provider_api/lib/src/application/provider_api_host.dart",
+      "class": "ProviderApiHost",
+      "beforeSha256": "27618cf8970d69409262d8818317e45adfa018d4a7bff9b8d5c4c2ae0853bb3c"
+    },
+    {
+      "entrypoint": "services/scheduling_api/bin/server.dart",
+      "application": "services/scheduling_api/lib/src/application/scheduling_api_host.dart",
+      "class": "SchedulingApiHost",
+      "beforeSha256": "b6dcb32869d9ef7e535dd68da62c915fb41a74dbef5ce8b2f209d8b2643c2672"
+    },
+    {
+      "entrypoint": "services/verification_api/bin/server.dart",
+      "application": "services/verification_api/lib/src/application/verification_api_host.dart",
+      "class": "VerificationApiHost",
+      "beforeSha256": "e608346f14e9f95a20592dc4a33162278892423ba93b6f6dfaed72a4da87b3d4"
+    },
+    {
+      "entrypoint": "services/visit_api/bin/server.dart",
+      "application": "services/visit_api/lib/src/application/visit_api_host.dart",
+      "class": "VisitApiHost",
+      "beforeSha256": "e33dd3dbef13fb09179ea9f8b5126270e493b0dfee73c85c29d1df805fbefa76"
+    }
+  ],
+  "completedWorkflows": 0
+}

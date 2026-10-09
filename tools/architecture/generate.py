@@ -152,7 +152,7 @@ def generate():
     dart = 'services/api_gateway/lib/src/gateway_core.dart'
     db = 'packages/database_client/lib/database_client.dart'
     maps.insert(1, diagram('dart-gateway', 'Dart gateway service mesh', [
-        node('entry','Shelf gateway','backend','services/api_gateway/bin/server.dart',[40,60],'Router + middleware',10,27),
+        node('entry','Shelf gateway','backend','services/api_gateway/lib/src/application/api_gateway_host.dart',[40,60],'Router + service mesh',17,28),
         node('mesh','ServiceMesh','backend',dart,[500,60],'Environment URLs',39,53),
         node('proxy','HTTP upstream','backend',dart,[500,310],'Streaming + timeout',60,98),
         node('health','Gateway DB health','database',dart,[40,310],'SELECT 1',17,25),
