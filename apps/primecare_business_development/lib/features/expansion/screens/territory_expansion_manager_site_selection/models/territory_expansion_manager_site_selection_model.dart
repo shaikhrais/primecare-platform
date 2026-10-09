@@ -1,23 +1,20 @@
-class TerritoryExpansionManagerSiteSelectionModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class TerritoryExpansionManagerSiteSelectionModel extends BaseScreenState<TerritoryExpansionManagerSiteSelectionModel> {
   const TerritoryExpansionManagerSiteSelectionModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  TerritoryExpansionManagerSiteSelectionModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return TerritoryExpansionManagerSiteSelectionModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TerritoryExpansionManagerSiteSelectionModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => TerritoryExpansionManagerSiteSelectionModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

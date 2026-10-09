@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_models:
+    path: ../primecare_models
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
