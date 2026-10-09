@@ -12,6 +12,13 @@ on:
       - 'packages/flutter_core/lib/providers/user_management_provider.dart'
       - 'packages/flutter_core/test/shared_data_model_imports_test.dart'
       - 'packages/primecare_models/**'
+      - 'scripts/refactor_platform_governance.py'
+      - 'scripts/verify_platform_governance_parity.py'
+      - 'docs/refactoring/platform-governance-migration.*'
+      - 'packages/flutter_core/lib/models/domain_governance.dart'
+      - 'packages/flutter_core/lib/models/platform_types.dart'
+      - 'packages/flutter_core/lib/registry/platform_role.dart'
+      - 'packages/flutter_core/lib/src/domain/governance/**'
       - 'scripts/refactor_shared_data_models.py'
       - 'docs/refactoring/shared-data-model-migration.*'
       - 'packages/flutter_core/lib/business_core.dart'
@@ -101,6 +108,7 @@ jobs:
           python3 scripts/refactor_service_entrypoints.py --check
           python3 scripts/refactor_auth_layers.py --check
           python3 scripts/refactor_shared_data_models.py --check
+          python3 scripts/refactor_platform_governance.py --check
           python3 scripts/refactor_gateway_layers.py --check
           python3 scripts/refactor_domain_hosts.py --check
           python3 scripts/check-app-shell-inheritance.py
@@ -114,6 +122,11 @@ jobs:
       - name: Resolve shared Flutter dependencies
         working-directory: packages/flutter_core
         run: flutter pub get
+      - name: Verify platform roles and governance extraction
+        run: |
+          python3 scripts/verify_platform_governance_parity.py --flutter flutter
+          cd packages/flutter_core
+          flutter analyze lib/models/platform_types.dart lib/registry/platform_role.dart lib/models/domain_governance.dart lib/src/domain/governance lib/src/application/services/data_logistics_hub.dart
       - name: Compile every migrated controller and test shared lifecycle
         run: |
           python3 scripts/generate-controller-compile-test.py
