@@ -3,15 +3,17 @@ import json
 import re
 import subprocess
 import tempfile
+from urllib.parse import urljoin
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 manifest=json.loads((ROOT/'docs/refactoring/shared-model-migration.json').read_text())
 with tempfile.TemporaryDirectory() as tmp:
     work=Path(tmp)
-    (work/'packages.json').write_text(json.dumps({'configVersion':2,'packages':[{
-        'name':'primecare_models',
-        'rootUri':(ROOT/'packages/primecare_models').as_uri()+'/',
-        'packageUri':'lib/','languageVersion':'3.11'}]}))
+    config_path=ROOT/'packages/primecare_models/.dart_tool/package_config.json'
+    config=json.loads(config_path.read_text())
+    for package in config['packages']:
+        package['rootUri']=urljoin(config_path.as_uri(),package['rootUri'])
+    (work/'packages.json').write_text(json.dumps(config))
     imports=[];checks=[];count=0
     for i,record in enumerate(manifest['files']):
         if record['kind']!='inherited_screen_state':continue

@@ -1,12 +1,12 @@
+import 'package:primecare_models/primecare_models.dart';
+
 // Governance - Category: model | Purpose: Data entity definition for NursingTaskScreen
 // TODO: Implement DTO, serialization mapping, and state values.
 
-class NursingTaskModel {
+class NursingTaskModel extends BaseEmptyModel {
   const NursingTaskModel();
-  
+
   factory NursingTaskModel.fromJson(Map<String, dynamic> json) {
     return const NursingTaskModel();
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

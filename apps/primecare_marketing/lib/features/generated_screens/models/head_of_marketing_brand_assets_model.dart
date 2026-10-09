@@ -1,12 +1,12 @@
+import 'package:primecare_models/primecare_models.dart';
+
 // Governance - Category: model | Purpose: Data entity definition for Head Of Marketing Brand Assets
 // TODO: Implement DTO, serialization mapping, and state values.
 
-class HeadOfMarketingBrandAssetsModel {
+class HeadOfMarketingBrandAssetsModel extends BaseEmptyModel {
   const HeadOfMarketingBrandAssetsModel();
-  
+
   factory HeadOfMarketingBrandAssetsModel.fromJson(Map<String, dynamic> json) {
     return const HeadOfMarketingBrandAssetsModel();
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

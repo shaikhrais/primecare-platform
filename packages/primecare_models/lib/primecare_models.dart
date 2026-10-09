@@ -7,3 +7,17 @@ export 'src/models/scheduler_models.dart';
 export 'src/models/report_models.dart';
 export 'src/models/aura_intent.dart';
 export 'src/models/base_screen_state.dart';
+export 'src/models/base_empty_model.dart';
+export 'src/models/insight_impact.dart';
+export 'src/models/dashboard_models.dart';
+export 'src/models/platform_geometry.dart';
+export 'src/models/governance_types.dart';
+export 'src/models/api_metadata.dart';
+// Legacy endpoint API remains available through its individual library.
+export 'src/models/api_endpoint.dart' hide PrimeCareApi;
+export 'src/models/primecare_view_model.dart';
+export 'src/models/correction_ticket_model.dart';
+export 'src/models/deployment_readiness_model.dart';
+export 'src/models/main_project_selection_view_model.dart';
+export 'src/models/schedule_facility_maintenance_form_view_model.dart';
+export 'src/models/review_fleet_maintenance_form_view_model.dart';
