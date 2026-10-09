@@ -1,10 +1,10 @@
 import 'package:server_core/server_core.dart';
+import '../controllers/billing_api_http_controller.dart';
+import '../repositories/billing_api_repository.dart';
+import '../routes/billing_api_service_routes.dart';
 // Governance - Category: service | Purpose: Mount the 456 AI-generated routes Fetch all invoices
 import 'dart:io';
-import 'dart:convert';
 import 'package:shelf/shelf.dart';
-import 'package:shelf_router/shelf_router.dart';
-import 'package:billing_api/routes.dart';
 import 'package:database_client/database_client.dart';
 
 
@@ -17,35 +17,7 @@ class BillingApiHost extends BaseCorsServiceHost {
     final db = PlatformDatabase();
     await db.initialize();
 
-    final router = Router();
-
-    // Mount the 456 AI-generated routes
-    final apiRoutes = ApiRoutes();
-    router.mount('/', apiRoutes.router.call);
-
-    router.get('/', (Request request) {
-      return Response.ok(
-        'Hello from billing-api (Hydrated with Dart DB Client)',
-      );
-    });
-
-    // Fetch all invoices
-    router.get('/api/invoices', (Request request) async {
-      try {
-        final results = await db.query('SELECT * FROM invoices');
-        return Response.ok(
-          jsonEncode(results),
-          headers: {'Content-Type': 'application/json'},
-        );
-      } catch (e) {
-        return Response.internalServerError(
-          body: jsonEncode({'error': e.toString()}),
-          headers: {'Content-Type': 'application/json'},
-        );
-      }
-    });
-
-    return router.call;
+    return BillingServiceRoutes(BillingHttpController(BillingRepository(db))).router.call;
   }
 
   @override

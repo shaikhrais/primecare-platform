@@ -1,0 +1,56 @@
+{
+  "sourceCommit": "e0709f8b832ad21b574295e1b5975674a0694057",
+  "services": [
+    {
+      "service": "billing_api",
+      "application": "services/billing_api/lib/src/application/billing_api_host.dart",
+      "queries": 1
+    },
+    {
+      "service": "client_api",
+      "application": "services/client_api/lib/src/application/client_api_host.dart",
+      "queries": 2
+    },
+    {
+      "service": "compliance_api",
+      "application": "services/compliance_api/lib/src/application/compliance_api_host.dart",
+      "queries": 2
+    },
+    {
+      "service": "franchise_reporting_api",
+      "application": "services/franchise_reporting_api/lib/src/application/franchise_reporting_api_host.dart",
+      "queries": 0
+    },
+    {
+      "service": "notes_api",
+      "application": "services/notes_api/lib/src/application/notes_api_host.dart",
+      "queries": 0
+    },
+    {
+      "service": "notification_api",
+      "application": "services/notification_api/lib/src/application/notification_api_host.dart",
+      "queries": 0
+    },
+    {
+      "service": "provider_api",
+      "application": "services/provider_api/lib/src/application/provider_api_host.dart",
+      "queries": 2
+    },
+    {
+      "service": "scheduling_api",
+      "application": "services/scheduling_api/lib/src/application/scheduling_api_host.dart",
+      "queries": 1
+    },
+    {
+      "service": "verification_api",
+      "application": "services/verification_api/lib/src/application/verification_api_host.dart",
+      "queries": 0
+    },
+    {
+      "service": "visit_api",
+      "application": "services/visit_api/lib/src/application/visit_api_host.dart",
+      "queries": 2
+    }
+  ],
+  "completedWorkflows": 0
+}

@@ -29,6 +29,15 @@ on:
       - 'services/**/bin/server.dart'
       - 'services/**/lib/src/application/**'
       - 'scripts/refactor_service_entrypoints.py'
+      - 'scripts/refactor_auth_layers.py'
+      - 'scripts/refactor_domain_hosts.py'
+      - 'scripts/verify_domain_host_parity.py'
+      - 'docs/refactoring/domain-host-migration.*'
+      - 'services/**/lib/src/controllers/**'
+      - 'services/**/lib/src/repositories/**'
+      - 'services/**/lib/src/routes/**'
+      - 'docs/refactoring/auth-layer-migration.*'
+      - 'packages/database_client/lib/src/base_platform_repository.dart'
       - 'docs/refactoring/service-entrypoint-migration.*'
       - 'services/**/lib/routes.dart'
       - 'services/**/lib/src/features/**'
@@ -80,6 +89,8 @@ jobs:
           python3 scripts/refactor_api_features.py --check
           python3 scripts/refactor_governance_layers.py --check
           python3 scripts/refactor_service_entrypoints.py --check
+          python3 scripts/refactor_auth_layers.py --check
+          python3 scripts/refactor_domain_hosts.py --check
           python3 scripts/check-app-shell-inheritance.py
           python3 scripts/check-core-layer-migration.py
       - name: Resolve shared Flutter dependencies
@@ -104,6 +115,16 @@ jobs:
               (cd "$service" && dart pub get && dart analyze bin/server.dart)
             fi
           done
+      - name: Analyze separated service layers and verify handler parity
+        run: |
+          for service in auth_api billing_api client_api compliance_api franchise_reporting_api notes_api notification_api provider_api scheduling_api verification_api visit_api; do
+            paths=(lib/src/application)
+            for layer in controllers repositories routes; do
+              if [ -d "services/$service/lib/src/$layer" ]; then paths+=("lib/src/$layer"); fi
+            done
+            (cd "services/$service" && dart analyze "${paths[@]}")
+          done
+          python3 scripts/verify_domain_host_parity.py
       - name: Compare every extracted route against its original response
         run: python3 scripts/verify_api_feature_parity.py
       - name: Verify governance controller and repository extraction

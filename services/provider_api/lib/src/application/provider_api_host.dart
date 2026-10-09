@@ -1,9 +1,10 @@
 import 'package:server_core/server_core.dart';
+import '../controllers/provider_api_http_controller.dart';
+import '../repositories/provider_api_repository.dart';
+import '../routes/provider_api_service_routes.dart';
 // Governance - Category: service | Purpose: Fetch all providers
 import 'dart:io';
-import 'dart:convert';
 import 'package:shelf/shelf.dart';
-import 'package:shelf_router/shelf_router.dart';
 import 'package:database_client/database_client.dart';
 
 
@@ -16,51 +17,7 @@ class ProviderApiHost extends BaseCorsServiceHost {
     final db = PlatformDatabase();
     await db.initialize();
 
-    final router = Router();
-
-    router.get('/', (Request request) {
-      return Response.ok(
-        'Hello from provider-api (Hydrated with Dart DB Client)',
-      );
-    });
-
-    // Fetch all providers
-    router.get('/api/providers', (Request request) async {
-      try {
-        final results = await db.query('SELECT * FROM providers');
-        return Response.ok(
-          jsonEncode(results),
-          headers: {'Content-Type': 'application/json'},
-        );
-      } catch (e) {
-        return Response.internalServerError(
-          body: jsonEncode({'error': e.toString()}),
-          headers: {'Content-Type': 'application/json'},
-        );
-      }
-    });
-
-    // Fetch provider by ID
-    router.get('/api/providers/<id>', (Request request, String id) async {
-      try {
-        final results = await db.query(
-          'SELECT * FROM providers WHERE id = @id',
-          substitutionValues: {'id': id},
-        );
-        if (results.isEmpty) return Response.notFound('Provider not found');
-        return Response.ok(
-          jsonEncode(results.first),
-          headers: {'Content-Type': 'application/json'},
-        );
-      } catch (e) {
-        return Response.internalServerError(
-          body: jsonEncode({'error': e.toString()}),
-          headers: {'Content-Type': 'application/json'},
-        );
-      }
-    });
-
-    return router.call;
+    return ProviderServiceRoutes(ProviderHttpController(ProviderRepository(db))).router.call;
   }
 
   @override
