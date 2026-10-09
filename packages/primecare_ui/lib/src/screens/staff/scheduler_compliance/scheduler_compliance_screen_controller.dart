@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SchedulerComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class SchedulerComplianceScreenState
+    extends DashboardState<SchedulerComplianceScreenState> {
+  SchedulerComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  SchedulerComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  SchedulerComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return SchedulerComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  SchedulerComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => SchedulerComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class SchedulerComplianceScreenController extends StateNotifier<SchedulerComplianceScreenState> {
-  final Ref ref;
-  SchedulerComplianceScreenController(this.ref) : super(SchedulerComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/scheduler-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class SchedulerComplianceScreenController
+    extends BaseDashboardController<SchedulerComplianceScreenState> {
+  SchedulerComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: SchedulerComplianceScreenState(isLoading: true, data: {}),
+        endpoint: '/staff/scheduler-compliance',
+      );
 }
 
-final scheduler_complianceControllerProvider = StateNotifierProvider<SchedulerComplianceScreenController, SchedulerComplianceScreenState>((ref) {
-  return SchedulerComplianceScreenController(ref);
-});
+final scheduler_complianceControllerProvider =
+    StateNotifierProvider<
+      SchedulerComplianceScreenController,
+      SchedulerComplianceScreenState
+    >((ref) {
+      return SchedulerComplianceScreenController(ref);
+    });

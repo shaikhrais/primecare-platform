@@ -1,12 +1,6 @@
-import {providerTimesheetItems} from './provider-timesheet-items';
-import {clientBookingLifecycle} from './client-booking-lifecycle';
+import {businessModules} from './business-modules';
 import {legacyDomain} from './legacy-domain';
-import {providerSelf} from './provider-self';
-import {providerRecords} from './provider-records';
-import {clientSelf} from './client-self';
 import {sourceLoginLimit} from './auth-source-limit';
-import {workspace} from './workspace';
-import {governanceApi} from './governance-api';
 import { auth, withDb, type Env } from './auth';
 
 import {HandlerPipeline, type WorkerContext} from './runtime/handler-pipeline';
@@ -35,13 +29,7 @@ const pipeline = new HandlerPipeline<Env>([
       return auth(request, env, path, headers);
     },
   },
-  stage('client-booking-lifecycle', clientBookingLifecycle),
-  stage('provider-timesheet-items', providerTimesheetItems),
-  stage('provider-records', providerRecords),
-  stage('provider-self', providerSelf),
-  stage('client-self', clientSelf),
-  stage('governance', governanceApi),
-  stage('workspace', workspace),
+  ...businessModules.map(module => stage(module.name, module.handle)),
 ]);
 
 /** Shared service implementation inherited by the existing Worker entry point. */

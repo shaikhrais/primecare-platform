@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FranchiseCommandCenterScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class FranchiseCommandCenterScreenState
+    extends DashboardState<FranchiseCommandCenterScreenState> {
+  FranchiseCommandCenterScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  FranchiseCommandCenterScreenState({required this.isLoading, this.error, required this.data});
-
-  FranchiseCommandCenterScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return FranchiseCommandCenterScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  FranchiseCommandCenterScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => FranchiseCommandCenterScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class FranchiseCommandCenterScreenController extends StateNotifier<FranchiseCommandCenterScreenState> {
-  final Ref ref;
-  FranchiseCommandCenterScreenController(this.ref) : super(FranchiseCommandCenterScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/franchise-command-center');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class FranchiseCommandCenterScreenController
+    extends BaseDashboardController<FranchiseCommandCenterScreenState> {
+  FranchiseCommandCenterScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: FranchiseCommandCenterScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/executive/franchise-command-center',
+      );
 }
 
-final franchise_command_centerControllerProvider = StateNotifierProvider<FranchiseCommandCenterScreenController, FranchiseCommandCenterScreenState>((ref) {
-  return FranchiseCommandCenterScreenController(ref);
-});
+final franchise_command_centerControllerProvider =
+    StateNotifierProvider<
+      FranchiseCommandCenterScreenController,
+      FranchiseCommandCenterScreenState
+    >((ref) {
+      return FranchiseCommandCenterScreenController(ref);
+    });

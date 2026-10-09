@@ -4,7 +4,7 @@
   "sourceCommit": "3979ed1028c8b7dfdb9acca72b1ea53d4d034127",
   "inputs": {
     "docs/api/api-delivery-checklist.json": "654f5e898ed10281b931c5d4817a99dcad56ae8b0a91951fbf01ded48672934d",
-    "docs/api/workflow-contract-reviews.json": "1060ba0be0e91e9a4062a8fa4c30e8ff233425e5f7ce6ea85dbdf1ee74e13081"
+    "docs/api/workflow-contract-reviews.json": "f426d4d1a156ac9456fd465bd07c80c4c1e86e224bfb0210bdfc8d877baf44d2"
   },
   "uniqueOperations": 1415,
   "unresolvedOperations": 1063,
@@ -81487,7 +81487,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -81522,7 +81527,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -81560,7 +81570,12 @@
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
         "cloudflare/workers/src/service.ts",
-        "packages/domain/src/registries/FormRegistry/shared-forms.ts"
+        "packages/domain/src/registries/FormRegistry/shared-forms.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -81646,7 +81661,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -81809,7 +81829,12 @@
         "cloudflare/workers/src/gateway.ts",
         "cloudflare/workers/src/service.ts",
         "packages/domain/src/registries/ApiRegistry/platform.ts",
-        "packages/flutter_core/lib/src/network/api_client.dart"
+        "packages/flutter_core/lib/src/network/api_client.dart",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -81834,7 +81859,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -81859,7 +81889,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -81905,7 +81940,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -81940,7 +81980,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -82036,7 +82081,12 @@
         "cloudflare/workers/src/service.ts",
         "packages/domain/src/registries/FormRegistry/platform-forms.ts",
         "packages/domain/src/registries/PageRegistry/homes.ts",
-        "packages/domain/src/registries/PageRegistry/lists.ts"
+        "packages/domain/src/registries/PageRegistry/lists.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -82061,7 +82111,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -82085,7 +82140,12 @@
       ],
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
-        "cloudflare/workers/src/service.ts"
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -82157,7 +82217,12 @@
         "cloudflare/workers/src/gateway.ts",
         "cloudflare/workers/src/service.ts",
         "packages/domain/src/registries/ApiRegistry/index.ts",
-        "packages/flutter_core/lib/auth_service.dart"
+        "packages/flutter_core/lib/auth_service.dart",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {
@@ -82197,7 +82262,12 @@
       "evidencePaths": [
         "cloudflare/workers/src/gateway.ts",
         "cloudflare/workers/src/service.ts",
-        "packages/flutter_core/lib/src/network/api_client.dart"
+        "packages/flutter_core/lib/src/network/api_client.dart",
+        "cloudflare/workers/src/core/base-worker.ts",
+        "cloudflare/workers/src/runtime/worker-application.ts",
+        "cloudflare/workers/src/runtime/handler-pipeline.ts",
+        "cloudflare/workers/src/service-application.ts",
+        "cloudflare/workers/src/business-modules.ts"
       ]
     },
     {

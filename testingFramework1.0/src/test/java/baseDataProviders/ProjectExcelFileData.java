@@ -48,12 +48,20 @@ public class ProjectExcelFileData {
 		return MainDataExcelFile().getProperty("browser", System.getProperty("browser", "chrome"));
 	}
 
+	/**
+	 * Legacy website URL from Eclipse VM arguments or MainData.xlsx/config.
+	 * No PrimeCare fallback: this provider is shared by unrelated websites.
+	 */
 	public static String url() {
-		try {
-			return primecare.testing.framework.DatabaseConfig.ensureSemanticsUrl(primecare.testing.framework.DatabaseConfig.getAuthUrl() + "/language");
-		} catch (Exception e) {
-			return "https://primecare-auth.pages.dev/language?enable-semantics=true";
+		String configuredUrl = System.getProperty("url");
+		if (configuredUrl == null || configuredUrl.isBlank()) {
+			configuredUrl = MainDataExcelFile().getProperty("url");
 		}
+		if (configuredUrl == null || configuredUrl.isBlank()) {
+			throw new IllegalStateException(
+					"Set -Durl=<website URL> in Eclipse VM arguments or url in MainData.xlsx/config.");
+		}
+		return configuredUrl.trim();
 	}
 
 	public static String testEmail() throws FileNotFoundException {

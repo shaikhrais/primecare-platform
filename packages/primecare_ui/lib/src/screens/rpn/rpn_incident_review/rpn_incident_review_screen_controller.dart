@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RpnIncidentReviewScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class RpnIncidentReviewScreenState
+    extends DashboardState<RpnIncidentReviewScreenState> {
+  RpnIncidentReviewScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  RpnIncidentReviewScreenState({required this.isLoading, this.error, required this.data});
-
-  RpnIncidentReviewScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return RpnIncidentReviewScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  RpnIncidentReviewScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => RpnIncidentReviewScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class RpnIncidentReviewScreenController extends StateNotifier<RpnIncidentReviewScreenState> {
-  final Ref ref;
-  RpnIncidentReviewScreenController(this.ref) : super(RpnIncidentReviewScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/rpn/rpn-incident-review');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class RpnIncidentReviewScreenController
+    extends BaseDashboardController<RpnIncidentReviewScreenState> {
+  RpnIncidentReviewScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: RpnIncidentReviewScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/rpn/rpn-incident-review',
+      );
 }
 
-final rpn_incident_reviewControllerProvider = StateNotifierProvider<RpnIncidentReviewScreenController, RpnIncidentReviewScreenState>((ref) {
-  return RpnIncidentReviewScreenController(ref);
-});
+final rpn_incident_reviewControllerProvider =
+    StateNotifierProvider<
+      RpnIncidentReviewScreenController,
+      RpnIncidentReviewScreenState
+    >((ref) {
+      return RpnIncidentReviewScreenController(ref);
+    });

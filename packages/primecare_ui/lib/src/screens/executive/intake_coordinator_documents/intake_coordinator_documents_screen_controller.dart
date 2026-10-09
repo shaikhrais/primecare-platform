@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class IntakeCoordinatorDocumentsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class IntakeCoordinatorDocumentsScreenState
+    extends DashboardState<IntakeCoordinatorDocumentsScreenState> {
+  IntakeCoordinatorDocumentsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  IntakeCoordinatorDocumentsScreenState({required this.isLoading, this.error, required this.data});
-
-  IntakeCoordinatorDocumentsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return IntakeCoordinatorDocumentsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  IntakeCoordinatorDocumentsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => IntakeCoordinatorDocumentsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class IntakeCoordinatorDocumentsScreenController extends StateNotifier<IntakeCoordinatorDocumentsScreenState> {
-  final Ref ref;
-  IntakeCoordinatorDocumentsScreenController(this.ref) : super(IntakeCoordinatorDocumentsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/intake-coordinator-documents');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class IntakeCoordinatorDocumentsScreenController
+    extends BaseDashboardController<IntakeCoordinatorDocumentsScreenState> {
+  IntakeCoordinatorDocumentsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: IntakeCoordinatorDocumentsScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/executive/intake-coordinator-documents',
+      );
 }
 
-final intake_coordinator_documentsControllerProvider = StateNotifierProvider<IntakeCoordinatorDocumentsScreenController, IntakeCoordinatorDocumentsScreenState>((ref) {
-  return IntakeCoordinatorDocumentsScreenController(ref);
-});
+final intake_coordinator_documentsControllerProvider =
+    StateNotifierProvider<
+      IntakeCoordinatorDocumentsScreenController,
+      IntakeCoordinatorDocumentsScreenState
+    >((ref) {
+      return IntakeCoordinatorDocumentsScreenController(ref);
+    });

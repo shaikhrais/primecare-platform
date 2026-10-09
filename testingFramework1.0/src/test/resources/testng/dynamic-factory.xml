@@ -10,7 +10,7 @@
     </listeners>
     <test name="Dynamic Level-Driven Testing">
         <classes>
-            <class name="primecare.testing.framework.factory.PrimeCareLayerTestFactory" />
+            <class name="primecare.testing.framework.PrimeCareLayerTestFactory" />
         </classes>
     </test>
 </suite>

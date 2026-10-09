@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SchedulerBookingRequestsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class SchedulerBookingRequestsScreenState
+    extends DashboardState<SchedulerBookingRequestsScreenState> {
+  SchedulerBookingRequestsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  SchedulerBookingRequestsScreenState({required this.isLoading, this.error, required this.data});
-
-  SchedulerBookingRequestsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return SchedulerBookingRequestsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  SchedulerBookingRequestsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => SchedulerBookingRequestsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class SchedulerBookingRequestsScreenController extends StateNotifier<SchedulerBookingRequestsScreenState> {
-  final Ref ref;
-  SchedulerBookingRequestsScreenController(this.ref) : super(SchedulerBookingRequestsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/scheduler-booking-requests');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class SchedulerBookingRequestsScreenController
+    extends BaseDashboardController<SchedulerBookingRequestsScreenState> {
+  SchedulerBookingRequestsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: SchedulerBookingRequestsScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/staff/scheduler-booking-requests',
+      );
 }
 
-final scheduler_booking_requestsControllerProvider = StateNotifierProvider<SchedulerBookingRequestsScreenController, SchedulerBookingRequestsScreenState>((ref) {
-  return SchedulerBookingRequestsScreenController(ref);
-});
+final scheduler_booking_requestsControllerProvider =
+    StateNotifierProvider<
+      SchedulerBookingRequestsScreenController,
+      SchedulerBookingRequestsScreenState
+    >((ref) {
+      return SchedulerBookingRequestsScreenController(ref);
+    });

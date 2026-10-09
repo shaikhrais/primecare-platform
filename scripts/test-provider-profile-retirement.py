@@ -96,6 +96,22 @@ class ProviderRetirementTests(unittest.TestCase):
         self.config.write_text(self.config.read_text().replace("'providerProfile': '/v1/provider/profile'", "'providerProfile': '/wrong'"))
         self.rejects()
 
+    def test_exact_compatibility_facade_checks_moved_implementation(self):
+        implementation = self.root / 'packages/flutter_core/lib/src/application/services/provider_service.dart'
+        implementation.parent.mkdir(parents=True)
+        implementation.write_text("ApiConfig.endpoints['providerProfile']")
+        self.service.write_text("export 'package:flutter_core/src/application/services/provider_service.dart';\n"
+                                "export 'package:flutter_core/src/domain/models/provider_profile.dart';\n")
+        module.check_callers(self.root)
+        implementation.write_text("ApiConfig.endpoints['wrong']")
+        with self.assertRaises(ValueError): module.check_callers(self.root)
+        implementation.unlink()
+        with self.assertRaises(FileNotFoundError): module.check_callers(self.root)
+
+    def test_unknown_export_cannot_bypass_caller_check(self):
+        self.service.write_text("export 'package:flutter_core/some_other_service.dart';\n")
+        with self.assertRaises(ValueError): module.check_callers(self.root)
+
     def test_trigger_and_missing_canonical_fail_before_tombstone(self):
         self.db.execute("CREATE TRIGGER unsafe AFTER UPDATE ON api_endpoints BEGIN SELECT 1; END")
         self.rejects()

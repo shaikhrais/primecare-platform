@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PswClientProfileScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class PswClientProfileScreenState
+    extends DashboardState<PswClientProfileScreenState> {
+  PswClientProfileScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  PswClientProfileScreenState({required this.isLoading, this.error, required this.data});
-
-  PswClientProfileScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return PswClientProfileScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  PswClientProfileScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => PswClientProfileScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class PswClientProfileScreenController extends StateNotifier<PswClientProfileScreenState> {
-  final Ref ref;
-  PswClientProfileScreenController(this.ref) : super(PswClientProfileScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/psw/profile');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class PswClientProfileScreenController
+    extends BaseDashboardController<PswClientProfileScreenState> {
+  PswClientProfileScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: PswClientProfileScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/psw/profile',
+      );
 }
 
-final psw_client_profileControllerProvider = StateNotifierProvider<PswClientProfileScreenController, PswClientProfileScreenState>((ref) {
-  return PswClientProfileScreenController(ref);
-});
+final psw_client_profileControllerProvider =
+    StateNotifierProvider<
+      PswClientProfileScreenController,
+      PswClientProfileScreenState
+    >((ref) {
+      return PswClientProfileScreenController(ref);
+    });

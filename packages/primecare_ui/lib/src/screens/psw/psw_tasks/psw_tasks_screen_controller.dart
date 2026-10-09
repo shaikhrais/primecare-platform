@@ -1,55 +1,33 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TaskListScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class TaskListScreenState extends DashboardState<TaskListScreenState> {
+  TaskListScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  TaskListScreenState({required this.isLoading, this.error, required this.data});
-
-  TaskListScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return TaskListScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TaskListScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => TaskListScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class TaskListScreenController extends StateNotifier<TaskListScreenState> {
-  final Ref ref;
-  TaskListScreenController(this.ref) : super(TaskListScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/psw/visit-checklist');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class TaskListScreenController
+    extends BaseDashboardController<TaskListScreenState> {
+  TaskListScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: TaskListScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/psw/visit-checklist',
+      );
 }
 
-final psw_tasksControllerProvider = StateNotifierProvider<TaskListScreenController, TaskListScreenState>((ref) {
-  return TaskListScreenController(ref);
-});
+final psw_tasksControllerProvider =
+    StateNotifierProvider<TaskListScreenController, TaskListScreenState>((ref) {
+      return TaskListScreenController(ref);
+    });

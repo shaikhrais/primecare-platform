@@ -136,3 +136,7 @@ cloudflare/workers/src/workspace-registry.json
 cloudflare/workers/src/governance-api-registry.json
 
 cloudflare/workers/src/api-execution-inventory.json
+
+# Reproducible architecture tooling and large generated viewers
+.architecture-tools/
+docs/architecture/generated/

@@ -1,55 +1,35 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RpnReportsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class RpnReportsScreenState extends DashboardState<RpnReportsScreenState> {
+  RpnReportsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  RpnReportsScreenState({required this.isLoading, this.error, required this.data});
-
-  RpnReportsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return RpnReportsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  RpnReportsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => RpnReportsScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class RpnReportsScreenController extends StateNotifier<RpnReportsScreenState> {
-  final Ref ref;
-  RpnReportsScreenController(this.ref) : super(RpnReportsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/rpn/rpn-reports');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class RpnReportsScreenController
+    extends BaseDashboardController<RpnReportsScreenState> {
+  RpnReportsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: RpnReportsScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/rpn/rpn-reports',
+      );
 }
 
-final rpn_reportsControllerProvider = StateNotifierProvider<RpnReportsScreenController, RpnReportsScreenState>((ref) {
-  return RpnReportsScreenController(ref);
-});
+final rpn_reportsControllerProvider =
+    StateNotifierProvider<RpnReportsScreenController, RpnReportsScreenState>((
+      ref,
+    ) {
+      return RpnReportsScreenController(ref);
+    });

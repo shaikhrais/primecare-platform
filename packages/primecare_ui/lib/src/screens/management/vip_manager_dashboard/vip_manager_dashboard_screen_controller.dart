@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class VipManagerDashboardScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class VipManagerDashboardScreenState
+    extends DashboardState<VipManagerDashboardScreenState> {
+  VipManagerDashboardScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  VipManagerDashboardScreenState({required this.isLoading, this.error, required this.data});
-
-  VipManagerDashboardScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return VipManagerDashboardScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  VipManagerDashboardScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => VipManagerDashboardScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class VipManagerDashboardScreenController extends StateNotifier<VipManagerDashboardScreenState> {
-  final Ref ref;
-  VipManagerDashboardScreenController(this.ref) : super(VipManagerDashboardScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/vip-manager-dashboard');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class VipManagerDashboardScreenController
+    extends BaseDashboardController<VipManagerDashboardScreenState> {
+  VipManagerDashboardScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: VipManagerDashboardScreenState(isLoading: true, data: {}),
+        endpoint: '/management/vip-manager-dashboard',
+      );
 }
 
-final vip_manager_dashboardControllerProvider = StateNotifierProvider<VipManagerDashboardScreenController, VipManagerDashboardScreenState>((ref) {
-  return VipManagerDashboardScreenController(ref);
-});
+final vip_manager_dashboardControllerProvider =
+    StateNotifierProvider<
+      VipManagerDashboardScreenController,
+      VipManagerDashboardScreenState
+    >((ref) {
+      return VipManagerDashboardScreenController(ref);
+    });

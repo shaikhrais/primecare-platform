@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CxDirectorWorkflowScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class CxDirectorWorkflowScreenState
+    extends DashboardState<CxDirectorWorkflowScreenState> {
+  CxDirectorWorkflowScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  CxDirectorWorkflowScreenState({required this.isLoading, this.error, required this.data});
-
-  CxDirectorWorkflowScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return CxDirectorWorkflowScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  CxDirectorWorkflowScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => CxDirectorWorkflowScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class CxDirectorWorkflowScreenController extends StateNotifier<CxDirectorWorkflowScreenState> {
-  final Ref ref;
-  CxDirectorWorkflowScreenController(this.ref) : super(CxDirectorWorkflowScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/cx-director-workflow');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class CxDirectorWorkflowScreenController
+    extends BaseDashboardController<CxDirectorWorkflowScreenState> {
+  CxDirectorWorkflowScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: CxDirectorWorkflowScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/cx-director-workflow',
+      );
 }
 
-final cx_director_workflowControllerProvider = StateNotifierProvider<CxDirectorWorkflowScreenController, CxDirectorWorkflowScreenState>((ref) {
-  return CxDirectorWorkflowScreenController(ref);
-});
+final cx_director_workflowControllerProvider =
+    StateNotifierProvider<
+      CxDirectorWorkflowScreenController,
+      CxDirectorWorkflowScreenState
+    >((ref) {
+      return CxDirectorWorkflowScreenController(ref);
+    });

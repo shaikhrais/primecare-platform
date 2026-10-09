@@ -1,9 +1,12 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
-import {stripTypeScriptTypes} from 'node:module';
+import {build} from 'esbuild';
 
-const load = async path => import('data:text/javascript;base64,' + Buffer.from(stripTypeScriptTypes(readFileSync(path, 'utf8'))).toString('base64'));
+const load = async path => {
+  const built = await build({entryPoints:[path], bundle:true, write:false, platform:'node', format:'esm'});
+  return import('data:text/javascript;base64,' + Buffer.from(built.outputFiles[0].text).toString('base64'));
+};
+const {workerHandler} = await load('cloudflare/workers/src/core/base-worker.ts');
 const {WorkerApplication} = await load('cloudflare/workers/src/runtime/worker-application.ts');
 const {HandlerPipeline} = await load('cloudflare/workers/src/runtime/handler-pipeline.ts');
 class FixtureApplication extends WorkerApplication {
@@ -84,7 +87,7 @@ test('one application isolates concurrent requests and supports extracted fetch'
     if (context.env.SERVICE_NAME === 'client') await paused;
     return Response.json({service:context.env.SERVICE_NAME, token:context.request.headers.get('authorization'), origin:new Headers(context.headers).get('access-control-allow-origin')});
   });
-  const fetch = app.fetch;
+  const {fetch} = workerHandler(app);
   const first = fetch(request('/owned', {headers:{authorization:'client-token',origin:'https://primecare-client.pages.dev'}}), {SERVICE_NAME:'client'});
   const second = await fetch(request('/owned', {headers:{authorization:'provider-token',origin:'https://primecare-provider.pages.dev'}}), {SERVICE_NAME:'provider'});
   release();

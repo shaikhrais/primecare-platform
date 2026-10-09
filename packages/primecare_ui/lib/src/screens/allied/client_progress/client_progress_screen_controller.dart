@@ -1,55 +1,38 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ClientProgressScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ClientProgressScreenState
+    extends DashboardState<ClientProgressScreenState> {
+  ClientProgressScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ClientProgressScreenState({required this.isLoading, this.error, required this.data});
-
-  ClientProgressScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ClientProgressScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ClientProgressScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) =>
+      ClientProgressScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class ClientProgressScreenController extends StateNotifier<ClientProgressScreenState> {
-  final Ref ref;
-  ClientProgressScreenController(this.ref) : super(ClientProgressScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/rmt/client-progress');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ClientProgressScreenController
+    extends BaseDashboardController<ClientProgressScreenState> {
+  ClientProgressScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ClientProgressScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/rmt/client-progress',
+      );
 }
 
-final client_progressControllerProvider = StateNotifierProvider<ClientProgressScreenController, ClientProgressScreenState>((ref) {
-  return ClientProgressScreenController(ref);
-});
+final client_progressControllerProvider =
+    StateNotifierProvider<
+      ClientProgressScreenController,
+      ClientProgressScreenState
+    >((ref) {
+      return ClientProgressScreenController(ref);
+    });

@@ -58,3 +58,29 @@ test('inventory exports exact statuses and safely escapes spreadsheet formulas a
  const s={...registry.screens[0],name:'=SUM(1,2)',blockers:['Needs "review"']};
  const csv=inventoryCsv([s]);assert.ok(csv.includes('"\t=SUM(1,2)"'));assert.ok(csv.includes('Needs ""review""'));assert.ok(csv.includes('"No"'));
 });
+
+test('delivery details show the actual page contracts and pending actions without executing markup',async()=>{
+ const {dom,root,data}=browser();
+ const page=data.screens.find(p=>p.code==='ceo_dashboard');
+ page.requirements={business_purpose:'<img src=x onerror=alert(1)>',acceptance_criteria:'Tenant scoped data'};
+ page.pendingActions=[{key:'approve',label:'Approve request',status:'action_pending'}];
+ await renderWorkspace(root,'https://gateway.test');
+ const details=root.querySelector('[data-cy="workspace-delivery"]');
+ assert.ok(details.textContent.includes('Tenant scoped data'));
+ assert.ok(details.textContent.includes('Approve request'));
+ assert.ok(details.textContent.includes('/v1/governance/workspace'));
+ assert.equal(details.querySelector('img'),null);
+ assert.equal(root.textContent.includes('GUEST Role Badge'),false);
+ assert.ok(root.querySelector('[data-cy="inventory-next"]').getAttribute('aria-label'));
+ dom.window.close();
+});
+test('all active role landings resolve to their own authorized governed page',async()=>{
+ for(const role of Object.keys(registry.landings)) {
+  const {dom,root}=browser(role);
+  await renderWorkspace(root,'https://gateway.test');
+  assert.equal(location.pathname,registry.landings[role],role);
+  assert.ok(root.querySelector('[data-cy="workspace-title"]'),role);
+  assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
+  dom.window.close();
+ }
+});

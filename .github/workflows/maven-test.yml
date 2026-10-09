@@ -91,6 +91,14 @@ jobs:
             -Dsurefire.printSummary=true \
             -Dsurefire.useFile=true
 
+      - name: Validate offline website setup and cleanup
+        working-directory: testingFramework1.0
+        run: |
+          mvn --batch-mode --no-transfer-progress test \
+            -Dtest=SharedWebsiteSetupTest \
+            -Dsurefire.printSummary=true \
+            -Dsurefire.useFile=true
+
       - name: Publish test summary
         if: always()
         shell: bash

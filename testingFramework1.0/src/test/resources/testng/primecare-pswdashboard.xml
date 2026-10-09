@@ -12,7 +12,7 @@
     </listeners>
     <test name="PrimeCare PSW Dashboard Tests">
         <classes>
-            <class name="primecare.testing.framework.factory.PrimeCareLayerTestFactory" />
+            <class name="primecare.testing.framework.PrimeCareLayerTestFactory" />
         </classes>
     </test>
 </suite>

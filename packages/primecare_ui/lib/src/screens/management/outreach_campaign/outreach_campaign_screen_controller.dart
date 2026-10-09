@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OutreachCampaignScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class OutreachCampaignScreenState
+    extends DashboardState<OutreachCampaignScreenState> {
+  OutreachCampaignScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  OutreachCampaignScreenState({required this.isLoading, this.error, required this.data});
-
-  OutreachCampaignScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return OutreachCampaignScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  OutreachCampaignScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => OutreachCampaignScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class OutreachCampaignScreenController extends StateNotifier<OutreachCampaignScreenState> {
-  final Ref ref;
-  OutreachCampaignScreenController(this.ref) : super(OutreachCampaignScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/outreach-campaign');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class OutreachCampaignScreenController
+    extends BaseDashboardController<OutreachCampaignScreenState> {
+  OutreachCampaignScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: OutreachCampaignScreenState(isLoading: true, data: {}),
+        endpoint: '/management/outreach-campaign',
+      );
 }
 
-final outreach_campaignControllerProvider = StateNotifierProvider<OutreachCampaignScreenController, OutreachCampaignScreenState>((ref) {
-  return OutreachCampaignScreenController(ref);
-});
+final outreach_campaignControllerProvider =
+    StateNotifierProvider<
+      OutreachCampaignScreenController,
+      OutreachCampaignScreenState
+    >((ref) {
+      return OutreachCampaignScreenController(ref);
+    });

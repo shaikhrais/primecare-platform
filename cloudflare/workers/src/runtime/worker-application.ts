@@ -1,3 +1,4 @@
+import {BaseWorker} from '../core/base-worker';
 import type {WorkerContext} from './handler-pipeline';
 
 export interface ServiceEnvironment { SERVICE_NAME: string }
@@ -8,7 +9,7 @@ const allowedOrigins = [
 ];
 
 /** Shared service lifecycle. Gateway CORS remains a separate, existing boundary. */
-export abstract class WorkerApplication<E extends ServiceEnvironment> {
+export abstract class WorkerApplication<E extends ServiceEnvironment> extends BaseWorker<E> {
   protected abstract healthy(env: E): Promise<void>;
   protected abstract dispatch(context: WorkerContext<E>): Promise<Response | null>;
 
@@ -23,29 +24,34 @@ export abstract class WorkerApplication<E extends ServiceEnvironment> {
     };
   }
 
-  // Bound callback also works when the runtime extracts fetch from the instance.
-  readonly fetch = async (request: Request, env: E): Promise<Response> => {
+  protected override preflight(request: Request): Response | null {
     const origin = request.headers.get('origin');
     const headers = this.cors(origin);
     if (origin && !Object.keys(headers).length) return new Response('Origin not allowed', {status: 403});
     if (request.method === 'OPTIONS') return new Response(null, {status: 204, headers});
+    return null;
+  }
+
+  protected override async handle(request: Request, env: E): Promise<Response> {
+    const headers = this.cors(request.headers.get('origin'));
     const path = new URL(request.url).pathname;
-    try {
-      if (path === '/health') {
-        await this.healthy(env);
-        return Response.json({status: 'healthy', service: env.SERVICE_NAME, runtime: 'cloudflare-worker-typescript'}, {status: 200, headers});
-      }
-      if (path === '/') return Response.json({status: 'ok', service: env.SERVICE_NAME}, {status: 200, headers});
-      const response = await this.dispatch({request, env, path, headers});
-      if (response !== null) return response;
-      if (/^\/api\/[a-z0-9-]+-screen$/.test(path) && request.method === 'GET')
-        return Response.json({error: 'Business data binding is not implemented', status: 'not_implemented'}, {status: 501, headers});
-      if (/^\/api\/([a-z0-9-]+-screen)\/action$/.test(path) && request.method === 'POST')
-        return Response.json({error: 'Business action is not implemented', status: 'not_implemented'}, {status: 501, headers});
-      return Response.json({error: 'Route not found', service: env.SERVICE_NAME}, {status: 404, headers});
-    } catch (error) {
-      console.error(error);
-      return Response.json({error: 'Internal server error', service: env.SERVICE_NAME}, {status: 500, headers});
+    if (path === '/health') {
+      await this.healthy(env);
+      return Response.json({status: 'healthy', service: env.SERVICE_NAME, runtime: 'cloudflare-worker-typescript'}, {status: 200, headers});
     }
-  };
+    if (path === '/') return Response.json({status: 'ok', service: env.SERVICE_NAME}, {status: 200, headers});
+    const response = await this.dispatch({request, env, path, headers});
+    if (response !== null) return response;
+    if (/^\/api\/[a-z0-9-]+-screen$/.test(path) && request.method === 'GET')
+      return Response.json({error: 'Business data binding is not implemented', status: 'not_implemented'}, {status: 501, headers});
+    if (/^\/api\/([a-z0-9-]+-screen)\/action$/.test(path) && request.method === 'POST')
+      return Response.json({error: 'Business action is not implemented', status: 'not_implemented'}, {status: 501, headers});
+    return Response.json({error: 'Route not found', service: env.SERVICE_NAME}, {status: 404, headers});
+  }
+
+  protected override onError(error: unknown, request: Request, env: E): Response {
+    console.error(error);
+    return Response.json({error: 'Internal server error', service: env.SERVICE_NAME},
+      {status: 500, headers: this.cors(request.headers.get('origin'))});
+  }
 }

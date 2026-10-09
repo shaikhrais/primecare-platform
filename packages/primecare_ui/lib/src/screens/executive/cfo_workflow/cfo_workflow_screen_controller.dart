@@ -1,55 +1,35 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CfoWorkflowScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class CfoWorkflowScreenState extends DashboardState<CfoWorkflowScreenState> {
+  CfoWorkflowScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  CfoWorkflowScreenState({required this.isLoading, this.error, required this.data});
-
-  CfoWorkflowScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return CfoWorkflowScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  CfoWorkflowScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => CfoWorkflowScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class CfoWorkflowScreenController extends StateNotifier<CfoWorkflowScreenState> {
-  final Ref ref;
-  CfoWorkflowScreenController(this.ref) : super(CfoWorkflowScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/cfo-workflow');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class CfoWorkflowScreenController
+    extends BaseDashboardController<CfoWorkflowScreenState> {
+  CfoWorkflowScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: CfoWorkflowScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/cfo-workflow',
+      );
 }
 
-final cfo_workflowControllerProvider = StateNotifierProvider<CfoWorkflowScreenController, CfoWorkflowScreenState>((ref) {
-  return CfoWorkflowScreenController(ref);
-});
+final cfo_workflowControllerProvider =
+    StateNotifierProvider<CfoWorkflowScreenController, CfoWorkflowScreenState>((
+      ref,
+    ) {
+      return CfoWorkflowScreenController(ref);
+    });
