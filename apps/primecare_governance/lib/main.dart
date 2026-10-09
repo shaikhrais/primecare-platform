@@ -24,7 +24,9 @@ void main() async {
 
   // 3. Initialize and register all governance screens
   Registry.registerAll();
-  debugPrint('Registry Hydrated: ${Registry.getAllScreens().length} screens registered.');
+  debugPrint(
+    'Registry Hydrated: ${Registry.getAllScreens().length} screens registered.',
+  );
 
   PrimeCareAppRunner.run(
     appWidget: const PrimeCareApp(),
@@ -34,28 +36,12 @@ void main() async {
   );
 }
 
-class PrimeCareApp extends ConsumerWidget {
+class PrimeCareApp extends BaseThemedPrimeCareApp {
   const PrimeCareApp({super.key});
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-
-    const primeTheme = PrimeThemeData();
-
-    return AppShellBoundary(
-      child: PrimeTheme(
-        data: primeTheme,
-        child: MaterialApp.router(
-          title: 'PrimeCare Enterprise',
-          theme: primeTheme.toThemeData(),
-          themeMode: ThemeMode.light,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          routerConfig: ref.watch(appRouterProvider),
-          debugShowCheckedModeBanner: false,
-        ),
-      ),
-    );
-  }
+  String get applicationTitle => 'PrimeCare Enterprise';
+  @override
+  GoRouter routerFor(WidgetRef ref) => ref.watch(appRouterProvider);
+  @override
+  ThemeMode get applicationThemeMode => ThemeMode.light;
 }

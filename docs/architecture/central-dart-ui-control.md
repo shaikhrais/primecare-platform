@@ -63,3 +63,14 @@ transactions retain their current types. Some existing routes remain scaffolds.
 This migration does not certify complete business implementation, all-app builds,
 new API completion, changed permission policy or production readiness. Further
 extraction must follow verified contracts and tested workflow equivalence.
+
+## Application root inheritance
+
+All eight product roots inherit BasePrimeCareApp, which owns MaterialApp router
+construction, localization binding and shell placement. BaseThemedPrimeCareApp
+adds PrimeTheme; BaseStandardPrimeCareApp retains telemetry draining for client,
+support, franchise, marketing and business development. Clinic retains its tenant
+theme without a shell boundary, corporate retains its branding without PrimeTheme,
+and governance retains light mode. Product router providers, class names and main
+bootstrap/application overrides are unchanged. The separate enterprise blueprint
+demo remains excluded. The pinned app-shell migration check verifies this boundary.
