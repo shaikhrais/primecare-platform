@@ -19,6 +19,7 @@ EOF
 mkdir -p "$test_root/lib" "$test_root/test"
 # Exact source copies give the analyzer the isolated package configuration too.
 cp "$repo_root/services/scheduling_api/lib/routes.dart" "$test_root/lib/routes.dart"
+cp -R "$repo_root/services/scheduling_api/lib/src" "$test_root/lib/src"
 cp "$repo_root/services/scheduling_api/test/routes_test.dart" "$test_root/test/routes_test.dart"
 cd "$test_root"
 dart pub get
