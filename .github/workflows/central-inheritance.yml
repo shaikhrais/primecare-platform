@@ -7,6 +7,18 @@ on:
       - 'packages/primecare_ui/test/base_primecare_app_test.dart'
       - 'apps/*/lib/main.dart'
       - 'scripts/check-app-shell-inheritance.py'
+      - 'packages/flutter_core/lib/business_core.dart'
+      - 'packages/flutter_core/lib/*_service.dart'
+      - 'packages/flutter_core/lib/models/domain_response.dart'
+      - 'packages/flutter_core/lib/network/permission_service.dart'
+      - 'packages/flutter_core/lib/src/application/**'
+      - 'packages/flutter_core/lib/src/domain/models/**'
+      - 'packages/flutter_core/lib/src/infrastructure/**'
+      - 'packages/flutter_core/lib/src/security/policies/**'
+      - 'packages/flutter_core/lib/src/models/**'
+      - 'packages/flutter_core/lib/src/repositories/**'
+      - 'packages/flutter_core/test/business_core_test.dart'
+      - 'scripts/check-core-layer-migration.py'
       - 'packages/flutter_core/lib/controllers.dart'
       - 'packages/flutter_core/lib/src/controllers/**'
       - 'packages/flutter_core/test/base_controllers_test.dart'
@@ -47,6 +59,7 @@ jobs:
           python3 scripts/check-controller-inheritance.py
           python3 scripts/check-http-host-inheritance.py
           python3 scripts/check-app-shell-inheritance.py
+          python3 scripts/check-core-layer-migration.py
       - name: Resolve shared Flutter dependencies
         working-directory: packages/flutter_core
         run: flutter pub get
@@ -75,3 +88,8 @@ jobs:
           flutter pub get
           flutter analyze lib/src/application test/base_primecare_app_test.dart
           flutter test test/base_primecare_app_test.dart
+      - name: Verify business, repository, model and permission parents
+        working-directory: packages/flutter_core
+        run: |
+          flutter analyze lib/business_core.dart lib/src/application lib/src/domain/models lib/src/infrastructure lib/src/security/policies lib/network/permission_service.dart test/business_core_test.dart
+          flutter test test/business_core_test.dart test/provider_profile_test.dart test/own_notifications_repository_test.dart test/business_development_transport_test.dart
