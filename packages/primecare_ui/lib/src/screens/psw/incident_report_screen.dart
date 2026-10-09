@@ -1,35 +1,10 @@
+import 'package:primecare_models/src/models/incident_report_screen_state.dart';
+export 'package:primecare_models/src/models/incident_report_screen_state.dart' show IncidentReportState;
 import 'package:flutter_riverpod/legacy.dart';
 // Governance - Category: view | Purpose: UI Screen component rendering the IncidentReportScreen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class IncidentReportState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-
-  const IncidentReportState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-  });
-
-  IncidentReportState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-  }) {
-    return IncidentReportState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-    );
-  }
-}
 
 // --- Controller (Notifier) ---
 class IncidentReportController extends StateNotifier<IncidentReportState> {

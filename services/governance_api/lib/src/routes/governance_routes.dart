@@ -1,11 +1,16 @@
 // Governance - Category: middleware | Purpose: Sanity / Test routes Apps Roles Modules
+import 'package:server_core/server_core.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import '../controllers/governance_controller.dart';
 
 class GovernanceRoutes {
-  static Router get router {
-    final router = Router();
+  static Router get router => _GovernanceRouteBindings().router;
+}
+
+class _GovernanceRouteBindings extends BaseApiRoutes {
+  @override
+  void registerRoutes(Router router) {
 
     // Sanity / Test routes
     router.get('/', (Request request) => Response.ok('Hello, World!\n'));
@@ -51,6 +56,5 @@ class GovernanceRoutes {
     router.get('/api/statuses', GovernanceController.getStatuses);
     router.post('/api/statuses', GovernanceController.createStatus);
 
-    return router;
   }
 }

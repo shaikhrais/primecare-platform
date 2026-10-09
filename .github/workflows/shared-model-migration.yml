@@ -6,6 +6,9 @@ on:
       - '**/*_model.dart'
       - '**/*_screen.dart'
       - 'scripts/*workspace_states.py'
+      - 'scripts/*custom_screen_states.py'
+      - 'docs/refactoring/custom-screen-state-migration.json'
+      - 'services/governance_api/lib/src/routes/governance_routes.dart'
       - 'scripts/scaffold_30_empty_screens.py'
       - 'scripts/generate_and_verify_planned_screens.py'
       - 'docs/refactoring/workspace-state-migration.json'
@@ -31,6 +34,7 @@ jobs:
       - run: python3 scripts/verify_shared_models.py
       - run: python3 scripts/verify_remaining_models.py
       - run: python3 scripts/verify_workspace_states.py
+      - run: python3 scripts/verify_custom_screen_states.py
       - run: dart analyze
         working-directory: packages/primecare_models
       - run: dart test

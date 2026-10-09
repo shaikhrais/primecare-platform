@@ -1,0 +1,39 @@
+{
+  "sourceCommit": "b41d21be2ac6de9ae8b32e4adadf24c66081c440",
+  "files": [
+    {
+      "path": "packages/primecare_ui/lib/src/screens/allied/treatment_notes_screen.dart",
+      "shared": "packages/primecare_models/lib/src/models/treatment_notes_screen_state.dart",
+      "class": "TreatmentNotesState",
+      "beforeSha256": "f2ac3f6aaeba8f00cfa93832eeba663c911718041ada822bf55d8231dc3d834d"
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/clinical/assessment_screen.dart",
+      "shared": "packages/primecare_models/lib/src/models/assessment_screen_state.dart",
+      "class": "AssessmentState",
+      "beforeSha256": "10c0b34637e78f2fcec0e97f4807f6d58961b4224a4be317d80036aa9e4c0fd3"
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/clinical/clinical_director_dashboard_screen.dart",
+      "shared": "packages/primecare_models/lib/src/models/clinical_director_dashboard_screen_state.dart",
+      "class": "ClinicalDirectorDashboardState",
+      "beforeSha256": "8e053e0cb5e659042a6b42b89a024aa7d3415757bc57d9dc94c06b83f7052acf"
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/psw/incident_report_screen.dart",
+      "shared": "packages/primecare_models/lib/src/models/incident_report_screen_state.dart",
+      "class": "IncidentReportState",
+      "beforeSha256": "5e9bffe7f4b7de75f77af674628b614fc033e49550a745ff19467e5908617546"
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/rn/patient_charting_screen.dart",
+      "shared": "packages/primecare_models/lib/src/models/patient_charting_screen_state.dart",
+      "class": "PatientChartingState",
+      "beforeSha256": "003ed73d9ea639f293dc0edcd21db552b2d178f393fe3b6348eb8514ad449f86"
+    }
+  ],
+  "governanceRoute": {
+    "path": "services/governance_api/lib/src/routes/governance_routes.dart",
+    "beforeSha256": "e921fa7c6f50d65fed1ec0aed8fb4856ef681503f8611522327373377a0b96ae"
+  }
+}
