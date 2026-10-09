@@ -2,10 +2,10 @@ import 'package:server_core/server_core.dart';
 // Governance - Category: service | Purpose: 1. Core Services Initialization 2. Route Registration (OOP Pattern) 3. UI Compatibility Layer
 import 'dart:io';
 import 'package:shelf/shelf.dart';
-import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 import 'package:database_client/database_client.dart';
 import '../gateway_core.dart';
+import '../routes/gateway_api_routes.dart';
 
 
 
@@ -21,23 +21,7 @@ class ApiGatewayHost extends BaseHttpServiceHost {
 
     mesh = ServiceMesh.fromEnvironment();
     final controller = GatewayController(db);
-    final router = Router();
-
-    // 2. Route Registration (OOP Pattern)
-    router.get('/health', controller.healthCheck);
-    mesh.registerRoutes(router);
-
-    // 3. Development-only UI compatibility layer. Production must never
-    // silently return generated data for an unknown clinical endpoint.
-    final mockUiEnabled =
-        Platform.environment['ENABLE_MOCK_UI']?.toLowerCase() == 'true';
-    if (mockUiEnabled) {
-      router.all('/v1/<ignored|.*>', controller.mockUI);
-      router.all('/dashboard/<ignored|.*>', controller.mockUI);
-    }
-
-    // 4. Middleware Pipeline
-    return router.call;
+    return GatewayApiRoutes(mesh, controller).router.call;
   }
 
   @override

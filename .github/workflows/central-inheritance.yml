@@ -35,6 +35,10 @@ on:
       - 'services/**/bin/server.dart'
       - 'services/**/lib/src/application/**'
       - 'scripts/refactor_service_entrypoints.py'
+      - 'scripts/refactor_gateway_layers.py'
+      - 'docs/refactoring/gateway-layer-migration.*'
+      - 'services/api_gateway/lib/src/infrastructure/**'
+      - 'services/api_gateway/lib/src/gateway_core.dart'
       - 'scripts/refactor_auth_layers.py'
       - 'scripts/refactor_domain_hosts.py'
       - 'scripts/verify_domain_host_parity.py'
@@ -97,6 +101,7 @@ jobs:
           python3 scripts/refactor_service_entrypoints.py --check
           python3 scripts/refactor_auth_layers.py --check
           python3 scripts/refactor_shared_data_models.py --check
+          python3 scripts/refactor_gateway_layers.py --check
           python3 scripts/refactor_domain_hosts.py --check
           python3 scripts/check-app-shell-inheritance.py
           python3 scripts/check-core-layer-migration.py
