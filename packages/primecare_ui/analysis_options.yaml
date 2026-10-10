@@ -1,17 +1,6 @@
 analyzer:
-  exclude:
-    - build/**
-    - android/**
-    - ios/**
-    - web/**
-    - windows/**
-    - macos/**
-    - linux/**
-    # Legacy screen snapshots are retained as design/reference artifacts. They
-    # are not exported by the production package and are validated by the
-    # platform build workflows instead of the package analyzer.
-    - lib/src/features/generated_screens/**
-    # This generated registry is compiled by every platform build; its dynamic
-    # database fields are not useful package-analysis targets.
-    - lib/src/governance/screen_self_diagnosis.dart
-include: ../../analysis_options.yaml
+  errors:
+    dead_code: warning
+linter:
+  rules:
+    - avoid_print

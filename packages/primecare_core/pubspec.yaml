@@ -1,0 +1,12 @@
+name: primecare_core
+description: Pure Dart business service parents shared by PrimeCare API and UI.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  http: ^1.6.0
+  primecare_models:
+    path: ../primecare_models
+dev_dependencies:
+  test: ^1.25.0

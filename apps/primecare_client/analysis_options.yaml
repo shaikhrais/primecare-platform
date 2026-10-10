@@ -1,10 +1,6 @@
 analyzer:
-  exclude:
-    - build/**
-    - android/**
-    - ios/**
-    - web/**
-    - windows/**
-    - macos/**
-    - linux/**
-include: ../../analysis_options.yaml
+  errors:
+    dead_code: warning
+linter:
+  rules:
+    - avoid_print
