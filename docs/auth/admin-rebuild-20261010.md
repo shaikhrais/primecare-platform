@@ -65,3 +65,20 @@ The expanded verification includes 26 Admin database/Gateway checks, 90 existing
 This extension changes 29 source/config/test/documentation files (19 existing files and 10 new files). All nine app shells inherit the localization setup without per-app copies. This file count describes the scoped extension, not completion of the whole legacy repository. The verification workflow is manual again after the passing run.
 
 New Admin/localization production rollout, native-platform verification of this extension, and production E2E have not been performed. The prior Auth deployment/native results do not certify this newer Admin code. Admin remains first in the queue; no additional role is marked complete.
+
+## Account discovery and audit targeting extension
+
+The existing two Admin read operations now support tenant-scoped discovery; the unique API operation count remains four.
+
+- `GET /v1/auth/admin/workspace?offset=0&search=...` searches email substrings, normalizes trim/case in `AdminWorkflow`, and reports matching total/active counts. Search is limited to 254 characters and rejects control characters. PostgreSQL binds the literal search parameter using `POSITION`; percent/underscore characters are not SQL wildcards. No tenant override is accepted.
+- `GET /v1/auth/admin/workspace/audit?offset=0&userId=...` selects one account’s audit history. The central workflow validates and normalizes the UUID. The repository checks that the account belongs to the actor’s tenant before reading events; nonexistent and cross-tenant accounts both return 404. Omitting the filter selects all history in the authorized tenant.
+
+`BaseAdminWorkflow` retains the applied search and audit target through refresh/pagination; account mutation reloads retain the search. The shared UI adds search/clear controls, matching-count labels, each account’s history action, and a clear-filter action on the inherited audit screen. Screens receive the same `AdminUser` model used by the workflow; API authorization remains authoritative. Search/filter responses are bound to their echoed query, and filtered events with a different target are rejected by the core workflow.
+
+The editable catalog contains 92 keys in each of EN/ES/FR. This adds no per-app screen copies, runtime role subclasses, elevated privileges, or database migration. The focused verification adds literal-search, normalization, invalid-query, pagination, cross-tenant, missing-target, query-state, response-binding, and localized rate-limit cases. Browser tests exercise search, filtered history, clearing filters and the existing create/update/deactivate/logout flow in all three languages.
+
+### Verified search/filter result
+
+[CI run 38095857175](https://github.com/shaikhrais/primecare-platform/actions/runs/38095857175) passed: Worker type checks; 90 Auth regression and 36 Admin PostgreSQL/Gateway checks; shared package analysis/tests (including four new core filter tests); the 92-key EN/ES/FR catalog check; a Support release build; and Chromium E2E in English, Spanish, and French. Each browser flow creates/updates/deactivates an account, searches its email, opens its two-event audit history, clears the audit filter, clears search, reviews all tenant history and signs out. Fixtures are cleaned up by the scripts and the disposable database is destroyed by CI.
+
+Four unique Admin API operations remain implemented. This package enhances two existing read operations; it does not add two new API operations. Inheritance and tenant authority stay centralized. Production rollout, native-platform verification of the newer Admin code, broader organization setup/elevated-role policy, and production E2E remain outside this isolated verification result. No additional role is marked complete. The verification workflow is manual after the passing run.
