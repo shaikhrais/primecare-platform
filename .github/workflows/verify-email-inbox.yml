@@ -1,8 +1,5 @@
 name: Verify private Cloudflare inbox delivery
 on:
-  push:
-    branches: [deploy/email-inbox-20261010]
-    paths: [.github/workflows/verify-email-inbox.yml]
   workflow_dispatch:
 permissions:
   contents: read

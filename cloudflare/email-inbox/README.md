@@ -22,3 +22,7 @@ The token needs Zone / Email Routing Rules / Edit and Zone / Email Routing Setti
 After receiving is enabled, run `node cloudflare/email-inbox/connect-routing.mjs` with the Cloudflare token/account environment variables. It creates two exact recipient rules pointing at this Worker, checks account ownership and all conflicts first, preserves catch-all and existing rules, and never changes DNS.
 
 Then send a synthetic message to each address and inspect KV receipt before claiming delivery works. Password recovery and the eight application templates still require live receipt verification; successful provider acceptance alone is insufficient.
+
+## Live verification: 2026-10-10
+
+Updated production credentials connected both exact recipient rules successfully. Run 38073498464 sent all eight synthetic template messages using native Cloudflare sending and verified each receipt in private KV, including seven-day expiry for temp and no expiry for auth-test. This verifies sending, receiving, storage, and retention; application-triggered recovery/reset remains a separate test.
