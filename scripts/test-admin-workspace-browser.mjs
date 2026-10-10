@@ -57,8 +57,8 @@ try {
  const login=await gateway.fetch(new Request('https://fixture/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:userEmail,password:'initial-password-1234'})}),env);assert.equal(login.status,200);const userToken=(await login.json()).token;
  phase='edit role and deactivate';await page.getByRole('button',{name:'Edit '+userEmail,exact:true}).click();
  await fillFlutterField(page,'User email',updatedEmail);
- await page.getByText('client',{exact:true}).click();await page.getByText('rmt',{exact:true}).click();
- await page.getByText('active',{exact:true}).click();await page.getByText('inactive',{exact:true}).click();
+ await page.getByText('Role client',{exact:true}).click();await page.getByText('rmt',{exact:true}).click();
+ await page.getByText('Account status active',{exact:true}).click();await page.getByText('inactive',{exact:true}).click();
  const mutation=page.waitForResponse(r=>r.url().endsWith('/admin/workspace/users/'+user.id)&&r.request().method()==='PUT');
  await page.getByRole('button',{name:'Save user',exact:true}).click();assert.equal((await mutation).status(),200);
  await page.getByText(updatedEmail,{exact:true}).waitFor();
