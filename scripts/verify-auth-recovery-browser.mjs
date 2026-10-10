@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {chromium} from 'playwright';
+import {fillFlutterField} from './flutter-browser-input.mjs';
 /** Drives recovery/reset through the published shared Flutter screen. Never captures reset codes. */
 export async function openRecoveryBrowser(email) {
  const browser=await chromium.launch({headless:true});
@@ -9,8 +10,8 @@ export async function openRecoveryBrowser(email) {
   await page.goto(process.env.AUTH_UI_URL || 'https://primecare-client.pages.dev/',{waitUntil:'networkidle',timeout:60000});
   const placeholder=page.locator('flt-semantics-placeholder');
   if(await placeholder.count())await placeholder.evaluate(element=>element.click());
-  async function fill(label,value){await page.getByRole('textbox',{name:label,exact:true}).click();await page.locator('input:focus').fill(value);}
-  async function secret(label,value){await page.getByLabel(label,{exact:true}).click();await page.locator('input:focus').fill(value);}
+  const fill=(label,value)=>fillFlutterField(page,label,value);
+  const secret=(label,value)=>fillFlutterField(page,label,value,true);
   await page.getByRole('button',{name:'Forgot password?',exact:true}).click();
   await fill('Email',email);
   const recovered=page.waitForResponse(r=>r.url().endsWith('/v1/auth/forgot-password')&&r.request().method()==='POST');
@@ -23,7 +24,6 @@ export async function openRecoveryBrowser(email) {
     let phase='fill reset code';
     try {
     await fill('Reset code',code);phase='fill new password';await secret('New password',password);
-    await page.locator('input:focus').press('Tab');
     phase='submit reset form';
     const response=page.waitForResponse(r=>r.url().endsWith('/v1/auth/reset-password')&&r.request().method()==='POST');
     await page.getByRole('button',{name:'Reset password',exact:true}).click();

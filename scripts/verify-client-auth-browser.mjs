@@ -1,6 +1,7 @@
 // Browser smoke uses only the disposable account owned by the production test.
 import assert from 'node:assert/strict';
 import {chromium} from 'playwright';
+import {fillFlutterField} from './flutter-browser-input.mjs';
 export async function verifyClientAuthBrowser(email,password) {
  const browser=await chromium.launch({headless:true});
  let phase='load published Client';
@@ -13,11 +14,8 @@ export async function verifyClientAuthBrowser(email,password) {
   phase='find accessible login form';
   const emailField=page.getByRole('textbox',{name:'Email',exact:true});
   await emailField.waitFor({timeout:30000});
-  await emailField.click();
-  await page.locator('input:focus').fill(email);
-  const passwordField=page.getByLabel('Password',{exact:true});
-  await passwordField.click();
-  await page.locator('input:focus').fill(password);
+  await fillFlutterField(page,'Email',email);
+  await fillFlutterField(page,'Password',password,true);
   phase='submit browser login';
   const loginResponse=page.waitForResponse(response=>response.url().endsWith('/v1/auth/login')&&response.request().method()==='POST');
   await page.getByRole('button',{name:'Sign in',exact:true}).click();
