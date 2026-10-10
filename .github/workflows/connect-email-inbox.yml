@@ -1,5 +1,8 @@
 name: Connect Cloudflare email inbox routing
 on:
+  push:
+    branches: [deploy/email-inbox-20261010]
+    paths: [.github/workflows/connect-email-inbox.yml]
   workflow_dispatch:
 permissions:
   contents: read
