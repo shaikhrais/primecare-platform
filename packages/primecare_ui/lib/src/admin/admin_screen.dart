@@ -1,3 +1,4 @@
+import '../localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_core/primecare_core.dart';
 import '../screens/base_primecare_screen.dart';
@@ -10,6 +11,8 @@ class AdminScreen extends BasePrimecareScreen {
   @override
   String get title => 'Admin workspace';
   @override
+  String get titleKey => 'admin.workspace';
+  @override
   Widget buildContent(BuildContext context) => _AdminWorkspace(request: request);
 }
 
@@ -21,6 +24,7 @@ class _AdminWorkspace extends StatefulWidget {
 }
 class _AdminWorkspaceState extends State<_AdminWorkspace> {
   late final AdminController controller;
+  AppStrings get strings => AppStrings.of(context);
   @override
   void initState() {
     super.initState();
@@ -38,25 +42,25 @@ class _AdminWorkspaceState extends State<_AdminWorkspace> {
   }
   @override
   Widget build(BuildContext context) => ListView(padding: const EdgeInsets.all(24), children: [
-    Text(controller.organization.isEmpty ? 'Organization' : controller.organization, style: Theme.of(context).textTheme.headlineSmall),
-    Text('${controller.total} users · ${controller.active} active'),
+    Text(controller.organization.isEmpty ? strings.text('admin.organization') : controller.organization, style: Theme.of(context).textTheme.headlineSmall),
+    Text(strings.text('admin.counts', {'total': controller.total, 'active': controller.active})),
     if (controller.busy) const LinearProgressIndicator(),
-    if (controller.error != null) Text(controller.error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+    if (controller.error != null) Text(strings.text(controller.errorCode ?? 'error.unavailable'), style: TextStyle(color: Theme.of(context).colorScheme.error)),
     Wrap(spacing: 12, children: [
-      OutlinedButton(onPressed: controller.busy ? null : () => controller.load(pageOffset: controller.offset), child: const Text('Refresh users')),
-      FilledButton(onPressed: controller.busy || controller.assignableRoles.isEmpty ? null : () => edit(), child: const Text('Create user')),
+      OutlinedButton(onPressed: controller.busy ? null : () => controller.load(pageOffset: controller.offset), child: Text(strings.text('admin.refresh'))),
+      FilledButton(onPressed: controller.busy || controller.assignableRoles.isEmpty ? null : () => edit(), child: Text(strings.text('admin.create'))),
     ]),
-    if (!controller.busy && controller.error == null && controller.users.isEmpty) const Text('No users on this page.'),
+    if (!controller.busy && controller.error == null && controller.users.isEmpty) Text(strings.text('admin.empty')),
     ...controller.users.map((user) => Card(child: Semantics(container: true, explicitChildNodes: true, child: Padding(
       padding: const EdgeInsets.all(16),
       child: Row(children: [
-        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(user.email), Text('${user.role} · ${user.status}')])),
-        if (controller.assignableRoles.contains(user.role)) IconButton(tooltip: 'Edit ${user.email}', onPressed: controller.busy ? null : () => edit(user), icon: const Icon(Icons.edit)) else const Text('Protected'),
+        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(user.email), Text('${strings.role(user.role)} · ${strings.text(user.status)}')])),
+        if (controller.assignableRoles.contains(user.role)) IconButton(tooltip: strings.text('admin.editAccount', {'email': user.email}), onPressed: controller.busy ? null : () => edit(user), icon: const Icon(Icons.edit)) else Text(strings.text('admin.protected')),
       ]),
     )))),
     Wrap(spacing: 12, children: [
-      TextButton(onPressed: controller.busy || controller.offset == 0 ? null : () => controller.load(pageOffset: controller.offset - 25), child: const Text('Previous page')),
-      TextButton(onPressed: controller.busy || !controller.hasNext ? null : () => controller.load(pageOffset: controller.offset + 25), child: const Text('Next page')),
+      TextButton(onPressed: controller.busy || controller.offset == 0 ? null : () => controller.load(pageOffset: controller.offset - 25), child: Text(strings.text('previous'))),
+      TextButton(onPressed: controller.busy || !controller.hasNext ? null : () => controller.load(pageOffset: controller.offset + 25), child: Text(strings.text('next'))),
     ]),
   ]);
 }
@@ -74,6 +78,7 @@ class _AdminUserEditor extends StatefulWidget {
 }
 class _AdminUserEditorState extends State<_AdminUserEditor> {
   final form = GlobalKey<FormState>();
+  AppStrings get strings => AppStrings.of(context);
   late final TextEditingController email;
   final password = TextEditingController();
   late String role, status;
@@ -93,14 +98,14 @@ class _AdminUserEditorState extends State<_AdminUserEditor> {
   }
   @override
   Widget build(BuildContext context) => AlertDialog(
-    title: Text(widget.user == null ? 'Create user' : 'Edit user'),
+    title: Text(widget.user == null ? strings.text('admin.create') : strings.text('admin.edit')),
     content: SizedBox(width: 420, child: SingleChildScrollView(child: Form(key: form, child: Column(mainAxisSize: MainAxisSize.min, children: [
-      TextFormField(controller: email, decoration: const InputDecoration(labelText: 'User email'), validator: (value) => value == null || !RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(value.trim()) ? 'Enter a valid email' : null),
-      DropdownButtonFormField<String>(initialValue: role, decoration: const InputDecoration(labelText: 'Role'), items: widget.roles.map((value) => DropdownMenuItem(value: value, child: Text(value))).toList(), onChanged: (value) { if (value != null) setState(() => role = value); }),
-      if (widget.user == null) TextFormField(controller: password, obscureText: true, decoration: const InputDecoration(labelText: 'Initial password'), validator: (value) => (value?.length ?? 0) < 12 ? 'Use at least 12 characters' : null),
-      if (widget.user != null) DropdownButtonFormField<String>(initialValue: status, decoration: const InputDecoration(labelText: 'Account status'), items: ['active','inactive'].map((value) => DropdownMenuItem(value: value, child: Text(value))).toList(), onChanged: (value) { if (value != null) setState(() => status = value); }),
-      if (widget.user != null) const Text('Saving revokes this user’s current sessions.'),
+      TextFormField(controller: email, decoration: InputDecoration(labelText: strings.text('admin.email')), validator: (value) => value == null || !RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(value.trim()) ? strings.text('error.email') : null),
+      DropdownButtonFormField<String>(initialValue: role, decoration: InputDecoration(labelText: strings.text('admin.role')), items: widget.roles.map((value) => DropdownMenuItem(value: value, child: Text(strings.role(value)))).toList(), onChanged: (value) { if (value != null) setState(() => role = value); }),
+      if (widget.user == null) TextFormField(controller: password, obscureText: true, decoration: InputDecoration(labelText: strings.text('admin.password')), validator: (value) => (value?.length ?? 0) < 12 ? strings.text('error.minimumPassword') : null),
+      if (widget.user != null) DropdownButtonFormField<String>(initialValue: status, decoration: InputDecoration(labelText: strings.text('admin.status')), items: ['active','inactive'].map((value) => DropdownMenuItem(value: value, child: Text(strings.text(value)))).toList(), onChanged: (value) { if (value != null) setState(() => status = value); }),
+      if (widget.user != null) Text(strings.text('admin.revokes')),
     ])))),
-    actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')), FilledButton(onPressed: save, child: const Text('Save user'))],
+    actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text(strings.text('cancel'))), FilledButton(onPressed: save, child: Text(strings.text('admin.save')))],
   );
 }

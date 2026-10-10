@@ -14,7 +14,8 @@ abstract interface class AuthTransport {
 class AuthFailure implements Exception {
   final String message;
   final int? status;
-  const AuthFailure(this.message, {this.status});
+  final String? code;
+  const AuthFailure(this.message, {this.status, this.code});
   @override
   String toString() => message;
 }
@@ -33,17 +34,17 @@ abstract class BaseAuthWorkflow {
     try {
       return AuthSession.fromJson(data);
     } on FormatException {
-      throw const AuthFailure('Invalid authentication response');
+      throw const AuthFailure('Invalid authentication response', code: 'error.invalidResponse');
     }
   }
 
   Future<void> login(String email, String password) async {
     if (_email(email).isEmpty || password.isEmpty) {
-      throw const AuthFailure('Email and password are required');
+      throw const AuthFailure('Email and password are required', code: 'error.credentials');
     }
     _validateEmail(email);
     if (utf8.encode(password).length > 72) {
-      throw const AuthFailure('Password exceeds 72 UTF-8 bytes');
+      throw const AuthFailure('Password exceeds 72 UTF-8 bytes', code: 'error.password');
     }
     final data = await transport.send(
       'POST',
@@ -53,7 +54,7 @@ abstract class BaseAuthWorkflow {
     final next = _readSession(data);
     final token = data['token'];
     if (token is! String || !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(token)) {
-      throw const AuthFailure('Invalid authentication response');
+      throw const AuthFailure('Invalid authentication response', code: 'error.invalidResponse');
     }
     _token = token;
     _session = next;
@@ -94,14 +95,14 @@ abstract class BaseAuthWorkflow {
     final normalized = _email(email);
     if (normalized.length > 254 ||
         !RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(normalized)) {
-      throw const AuthFailure('Enter a valid email');
+      throw const AuthFailure('Enter a valid email', code: 'error.email');
     }
   }
 
   void _validateNewPassword(String password) {
     if (password.length < 12 || utf8.encode(password).length > 72) {
       throw const AuthFailure(
-        'Use at least 12 characters, up to 72 UTF-8 bytes.',
+        'Use at least 12 characters, up to 72 UTF-8 bytes.', code: 'error.minimumPassword',
       );
     }
   }
@@ -123,7 +124,7 @@ abstract class BaseAuthWorkflow {
     _validateNewPassword(password);
     if (!RegExp(r'^[A-F0-9]{12}$').hasMatch(code.trim().toUpperCase())) {
       throw const AuthFailure(
-        'Enter the 12-character reset code from your email',
+        'Enter the 12-character reset code from your email', code: 'error.resetCode',
       );
     }
     await transport.send(
@@ -142,13 +143,13 @@ abstract class BaseAuthWorkflow {
 
   Future<void> changePassword(String current, String next) async {
     if (_token == null)
-      throw const AuthFailure('Sign in before changing your password');
+      throw const AuthFailure('Sign in before changing your password', code: 'error.signInRequired');
     _validateNewPassword(next);
     if (current.isEmpty ||
         utf8.encode(current).length > 72 ||
         current == next) {
       throw const AuthFailure(
-        'Enter your current password and a different new password',
+        'Enter your current password and a different new password', code: 'error.password',
       );
     }
     await transport.send(

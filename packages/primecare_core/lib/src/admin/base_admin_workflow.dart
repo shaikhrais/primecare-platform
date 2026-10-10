@@ -15,13 +15,15 @@ abstract class BaseAdminWorkflow {
   int offset = 0;
   bool busy = false;
   String? error;
+  String? errorCode;
   bool get hasNext => offset + users.length < total;
   void changed() {}
   Future<void> _run(Future<void> Function() operation) async {
     if (busy) return;
-    busy = true; error = null; changed();
+    busy = true; error = null; errorCode = null; changed();
     try { await operation(); }
-    catch (failure) { error = failure is AuthFailure ? failure.message : 'Admin service unavailable. Please retry.'; }
+    catch (failure) { error = failure is AuthFailure ? failure.message : 'Admin service unavailable. Please retry.';
+      errorCode = failure is AuthFailure ? (failure.code ?? switch(failure.status) {403 => 'error.forbidden', 401 => 'error.signInRequired', 404 => 'error.notFound', 409 => 'error.duplicateEmail', 400 => 'error.invalidRequest', _ => 'error.unavailable'}) : 'error.unavailable'; }
     finally { busy = false; changed(); }
   }
   Future<void> _load(int pageOffset) async {

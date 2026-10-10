@@ -1,3 +1,4 @@
+import '../localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_core/primecare_core.dart' show AuthTransport;
 import '../screens/auth_screen.dart';
@@ -14,7 +15,10 @@ abstract class BasePrimecareApp extends StatelessWidget {
     this.authTransport,
   });
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(BuildContext context) => AnimatedBuilder(listenable: applicationLanguage, builder: (_, _) => MaterialApp(
+    locale: Locale(applicationLanguage.language.name),
+    supportedLocales: AppStrings.locales,
+    localizationsDelegates: AppStrings.delegates,
     title: title,
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
@@ -22,5 +26,5 @@ abstract class BasePrimecareApp extends StatelessWidget {
       colorSchemeSeed: const Color(0xFF00695C),
     ),
     home: AuthScreen(title: title, transport: authTransport),
-  );
+  ));
 }

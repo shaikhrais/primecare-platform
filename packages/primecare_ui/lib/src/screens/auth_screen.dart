@@ -1,3 +1,4 @@
+import '../localization/app_localizations.dart';
 import '../admin/admin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -27,6 +28,7 @@ class _AuthScreenState extends State<BaseAuthScreen> {
   AuthController? _auth;
   String _mode = 'login';
   String? _message;
+  AppStrings get strings => AppStrings.of(context);
   bool _busy = false;
   @override
   void initState() {
@@ -42,7 +44,7 @@ class _AuthScreenState extends State<BaseAuthScreen> {
         if (mounted) setState(() {});
       });
     } on AuthFailure catch (error) {
-      _message = error.message;
+      _message = 'error.notConfigured';
     }
   }
 
@@ -65,11 +67,11 @@ class _AuthScreenState extends State<BaseAuthScreen> {
     try {
       await operation();
     } on AuthFailure catch (error) {
-      if (mounted) setState(() => _message = error.message);
+      if (mounted) setState(() => _message = strings.failureKey(error));
     } catch (_) {
       if (mounted)
         setState(
-          () => _message = 'Authentication unavailable. Please try again.',
+          () => _message = 'error.authUnavailable',
         );
     } finally {
       if (mounted) {
@@ -86,10 +88,10 @@ class _AuthScreenState extends State<BaseAuthScreen> {
       final auth = _auth!;
       switch (_mode) {
         case 'recover':
-          final message = await auth.recover(_email.text);
+          await auth.recover(_email.text);
           if (mounted)
             setState(() {
-              _message = message;
+              _message = 'auth.recoverySent';
               _mode = 'reset';
             });
         case 'reset':
@@ -97,14 +99,14 @@ class _AuthScreenState extends State<BaseAuthScreen> {
           if (mounted)
             setState(() {
               _mode = 'login';
-              _message = 'Password reset. Sign in again.';
+              _message = 'auth.resetDone';
             });
         case 'change':
           await auth.changePassword(_password.text, _newPassword.text);
           if (mounted)
             setState(() {
               _mode = 'login';
-              _message = 'Password changed. Sign in again.';
+              _message = 'auth.changeDone';
             });
         default:
           await auth.login(_email.text, _password.text);
@@ -124,7 +126,7 @@ class _AuthScreenState extends State<BaseAuthScreen> {
       obscureText: secret,
       autocorrect: !secret,
       enableSuggestions: !secret,
-      keyboardType: label == 'Email'
+      keyboardType: controller == _email
           ? TextInputType.emailAddress
           : TextInputType.text,
       decoration: InputDecoration(
@@ -132,7 +134,7 @@ class _AuthScreenState extends State<BaseAuthScreen> {
         border: const OutlineInputBorder(),
       ),
       validator: (value) {
-        if (value == null || value.trim().isEmpty) return '$label is required';
+        if (value == null || value.trim().isEmpty) return strings.text('required', {'field': label});
         return null;
       },
     ),
@@ -152,7 +154,7 @@ class _AuthScreenState extends State<BaseAuthScreen> {
     final session = _auth?.session;
     final signedIn = session != null && _mode != 'change';
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(title: Text(widget.title), actions: const [LanguageSelector()]),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -167,79 +169,77 @@ class _AuthScreenState extends State<BaseAuthScreen> {
                     children: [
                       Text(
                         signedIn
-                            ? 'Signed in'
+                            ? strings.text('auth.signedIn')
                             : switch (_mode) {
-                                'recover' => 'Recover password',
-                                'reset' => 'Reset password',
-                                'change' => 'Change password',
-                                _ => 'Sign in',
+                                'recover' => strings.text('auth.recover'),
+                                'reset' => strings.text('auth.reset'),
+                                'change' => strings.text('auth.changePassword'),
+                                _ => strings.text('auth.signIn'),
                               },
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 24),
                       if (signedIn) ...[
-                        Text('User: ${session.userId}\nRole: ${session.role}'),
+                        Text(strings.text('auth.identity', {'id': session.userId, 'role': strings.role(session.role)})),
                         if (session.role == 'admin') FilledButton(
                           onPressed: _busy ? null : () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => AdminScreen(request: _auth!.authorizedRequest))),
-                          child: const Text('Open admin workspace'),
+                          child: Text(strings.text('admin.open')),
                         ),
                         const SizedBox(height: 16),
                         FilledButton(
                           onPressed: _busy
                               ? null
                               : () => _run(_auth!.refreshSession),
-                          child: const Text('Check session'),
+                          child: Text(strings.text('auth.checkSession')),
                         ),
                         TextButton(
                           onPressed: _busy ? null : () => _select('change'),
-                          child: const Text('Change password'),
+                          child: Text(strings.text('auth.changePassword')),
                         ),
                         OutlinedButton(
                           onPressed: _busy ? null : () => _run(_auth!.logout),
-                          child: const Text('Sign out'),
+                          child: Text(strings.text('auth.signOut')),
                         ),
                       ] else if (_auth != null) ...[
-                        if (_mode != 'change') _field(_email, 'Email'),
+                        if (_mode != 'change') _field(_email, strings.text('auth.email')),
                         if (_mode == 'login' || _mode == 'change')
                           _field(
                             _password,
-                            _mode == 'change' ? 'Current password' : 'Password',
+                            _mode == 'change' ? strings.text('auth.currentPassword') : strings.text('auth.password'),
                             secret: true,
                           ),
-                        if (_mode == 'reset') _field(_code, 'Reset code'),
+                        if (_mode == 'reset') _field(_code, strings.text('auth.resetCode')),
                         if (_mode == 'reset' || _mode == 'change') ...[
-                          _field(_newPassword, 'New password', secret: true),
-                          const Text(
-                            'Use at least 12 characters, up to 72 UTF-8 bytes.',
-                          ),
+                          _field(_newPassword, strings.text('auth.newPassword'), secret: true),
+                          Text(strings.text('error.minimumPassword')),
                         ],
                         const SizedBox(height: 16),
                         FilledButton(
                           onPressed: _busy ? null : _submit,
                           child: Text(switch (_mode) {
-                            'recover' => 'Send recovery instructions',
-                            'reset' => 'Reset password',
-                            'change' => 'Change password',
-                            _ => 'Sign in',
+                            'recover' => strings.text('auth.sendRecovery'),
+                            'reset' => strings.text('auth.reset'),
+                            'change' => strings.text('auth.changePassword'),
+                            _ => strings.text('auth.signIn'),
                           }),
                         ),
                         if (_mode == 'login')
                           TextButton(
                             onPressed: _busy ? null : () => _select('recover'),
-                            child: const Text('Forgot password?'),
+                            child: Text(strings.text('auth.forgot')),
                           ),
                         if (_mode == 'login')
                           TextButton(
                             onPressed: _busy ? null : () => _select('reset'),
-                            child: const Text('Already have a reset code?'),
+                            child: Text(strings.text('auth.haveCode')),
                           ),
                         if (_mode != 'login')
                           TextButton(
                             onPressed: _busy ? null : () => _select('login'),
                             child: Text(
                               session != null
-                                  ? 'Back to account'
-                                  : 'Back to sign in',
+                                  ? strings.text('auth.backAccount')
+                                  : strings.text('auth.backSignIn'),
                             ),
                           ),
                       ],
@@ -251,7 +251,7 @@ class _AuthScreenState extends State<BaseAuthScreen> {
                       if (_message != null)
                         Padding(
                           padding: const EdgeInsets.only(top: 16),
-                          child: Text(_message!, semanticsLabel: _message),
+                          child: Text(strings.text(_message!), semanticsLabel: strings.text(_message!)),
                         ),
                     ],
                   ),

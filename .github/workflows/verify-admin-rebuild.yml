@@ -1,6 +1,9 @@
 name: Verify inherited Admin rebuild
 # Verify accessible menu labels and fail-closed legacy account status projection.
 on:
+  push:
+    branches: [deploy/email-inbox-20261010]
+    paths: ['.github/workflows/verify-admin-rebuild.yml']
   workflow_dispatch:
 concurrency:
   group: admin-rebuild-${{ github.ref }}
@@ -42,6 +45,7 @@ jobs:
           node scripts/test-admin-workspace-postgres.mjs
       - name: Shared model, core, and UI checks
         run: |
+          python scripts/generate-app-localizations.py --check
           for package in primecare_models primecare_core primecare_ui; do
             (cd packages/$package && flutter pub get && dart format lib test && flutter analyze && flutter test)
           done
