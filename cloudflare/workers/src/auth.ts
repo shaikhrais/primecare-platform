@@ -148,8 +148,8 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         if(!read){await db.query('COMMIT');committed=true;}
         return json(result,create?201:200,headers);
       }catch(error){
-        if(error instanceof WorkflowFailure)return json({error:error.message},error.status,headers);
-        if((error as {code?:string}).code==='23505')return json({error:'Email is already registered'},409,headers);
+        if(error instanceof WorkflowFailure)return json({error:error.message,code:error.code},error.status,headers);
+        if((error as {code?:string}).code==='23505')return json({error:'Email is already registered',code:'error.duplicateEmail'},409,headers);
         throw error;
       }finally{if(!committed)await db.query('ROLLBACK');}
     });
@@ -339,7 +339,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     const password = typeof body.password === 'string' ? body.password : '';
     if (!email || email.length > 254 || !password) return json({ error: 'Email and password are required' }, 400, headers);
     // bcrypt ignores bytes beyond 72; never accept a suffix alias of a password.
-    if (new TextEncoder().encode(password).length > 72) return json({error:'Invalid credentials'},401,headers);
+    if (new TextEncoder().encode(password).length > 72) return json({error:'Invalid credentials',code:'error.credentials'},401,headers);
 
     return withDb(env, async (db) => {
       const retryAfter = await loginRateLimit(db, await sha256('login:' + email));
@@ -350,7 +350,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
       const user = result.rows[0];
       if (result.rows.length !== 1 || !user || (typeof user.status !== 'string' || user.status.toLowerCase() !== 'active') ||
           typeof user.password_hash !== 'string' || !await bcrypt.compare(password, user.password_hash)) {
-        return json({ error: 'Invalid credentials' }, 401, headers);
+        return json({ error: 'Invalid credentials', code:'error.credentials' }, 401, headers);
       }
       const identity = authIdentity(user);
       const token = newToken();
@@ -366,7 +366,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
            WHERE u.id=$2 AND u.password_hash=$3 AND LOWER(u.status)='active'
            FOR SHARE OF u RETURNING token_hash,user_id`,
           [tokenHash, user.id, user.password_hash]);
-        if(resultRows(session.rows).length===0){await db.query('ROLLBACK');return json({error:'Invalid credentials'},401,headers);}
+        if(resultRows(session.rows).length===0){await db.query('ROLLBACK');return json({error:'Invalid credentials',code:'error.credentials'},401,headers);}
         const stored=requiredRow(session.rows);
         if(stored.token_hash!==tokenHash || accountId(stored.user_id)!==identity.userId)throw Error('Invalid persisted session');
         await db.query('COMMIT');

@@ -1,7 +1,7 @@
 export const assignableRoles = ['client','employee','psw','rn','rpn','rmt','physio','scheduler','customer_support','intake'] as const;
 export type Actor = {id:string; roles:string; tenant_id:string};
 export class WorkflowFailure extends Error {
-  constructor(public status:number, message:string){super(message);}
+  constructor(public status:number, message:string, public code:string = status===403?(message==='Protected account'?'error.protected':'error.forbidden'):status===404?(message==='Organization not found'?'error.organizationNotFound':'error.notFound'):'error.invalidRequest'){super(message);}
 }
 export abstract class BaseTenantWorkflow {
   constructor(protected actor:Actor){}

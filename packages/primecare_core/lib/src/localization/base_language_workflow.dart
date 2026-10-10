@@ -17,8 +17,9 @@ abstract class BaseTextCatalog {
   final Map<String, Map<String, String>> catalogs;
   const BaseTextCatalog(this.languageCode, this.catalogs);
   String text(String key, [Map<String, Object> arguments = const {}]) {
-    var value = catalogs[languageCode]?[key] ?? catalogs['en']?[key];
-    if (value == null) throw ArgumentError('Unknown localization key: $key');
+    final template = catalogs[languageCode]?[key] ?? catalogs['en']?[key];
+    if (template == null) throw ArgumentError('Unknown localization key: $key');
+    var value = template;
     for (final entry in arguments.entries) { value = value.replaceAll('{${entry.key}}',entry.value.toString()); }
     return value;
   }
