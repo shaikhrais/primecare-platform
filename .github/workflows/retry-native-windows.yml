@@ -1,8 +1,5 @@
 name: Retry Windows native auth and builds
 on:
-  push:
-    branches: [deploy/email-inbox-20261010]
-    paths: [.github/workflows/retry-native-windows.yml]
   workflow_dispatch:
 permissions:
   contents: read
