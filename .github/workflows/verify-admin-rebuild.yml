@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Real browser E2E includes the lifecycle-owned account editor.
+# Real browser E2E includes explicit account row accessibility and editor lifecycle.
 on:
   push:
     branches: [deploy/email-inbox-20261010]

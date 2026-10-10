@@ -47,7 +47,13 @@ class _AdminWorkspaceState extends State<_AdminWorkspace> {
       FilledButton(onPressed: controller.busy || controller.assignableRoles.isEmpty ? null : () => edit(), child: const Text('Create user')),
     ]),
     if (!controller.busy && controller.error == null && controller.users.isEmpty) const Text('No users on this page.'),
-    ...controller.users.map((user) => Card(child: ListTile(title: Text(user.email), subtitle: Text('${user.role} · ${user.status}'), trailing: controller.assignableRoles.contains(user.role) ? IconButton(tooltip: 'Edit ${user.email}', onPressed: controller.busy ? null : () => edit(user), icon: const Icon(Icons.edit)) : const Text('Protected')))),
+    ...controller.users.map((user) => Card(child: Semantics(container: true, explicitChildNodes: true, child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(children: [
+        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(user.email), Text('${user.role} · ${user.status}')])),
+        if (controller.assignableRoles.contains(user.role)) IconButton(tooltip: 'Edit ${user.email}', onPressed: controller.busy ? null : () => edit(user), icon: const Icon(Icons.edit)) else const Text('Protected'),
+      ]),
+    )))),
     Wrap(spacing: 12, children: [
       TextButton(onPressed: controller.busy || controller.offset == 0 ? null : () => controller.load(pageOffset: controller.offset - 25), child: const Text('Previous page')),
       TextButton(onPressed: controller.busy || !controller.hasNext ? null : () => controller.load(pageOffset: controller.offset + 25), child: const Text('Next page')),
