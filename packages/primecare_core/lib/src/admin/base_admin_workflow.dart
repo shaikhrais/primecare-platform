@@ -12,6 +12,7 @@ abstract class BaseAdminWorkflow {
   int auditOffset = 0;
   String auditUserId = '';
   bool get hasNextAudit => auditOffset + events.length < auditTotal;
+  List<AdminTask> tasks = const [];
   List<AdminUser> users = const [];
   List<String> assignableRoles = const [];
   String organization = '';
@@ -39,11 +40,17 @@ abstract class BaseAdminWorkflow {
     final org = data['organization'];
     final rows = data['users'];
     final roles = data['assignableRoles'];
+    final definitions = data['tasks'] ?? const <dynamic>[];
+    if(definitions is! List || definitions.length > 50 || definitions.any((row)=>row is! Map)) throw const AuthFailure('Invalid task catalog',code:'error.invalidResponse');
+    late final List<AdminTask> parsedTasks;
+    try {parsedTasks = definitions.map((row)=>AdminTask.fromJson(Map<String,dynamic>.from(row as Map))).toList();}
+    on FormatException {throw const AuthFailure('Invalid task catalog',code:'error.invalidResponse');}
+    if(parsedTasks.map((task)=>task.id).toSet().length != parsedTasks.length) throw const AuthFailure('Duplicate task definitions',code:'error.invalidResponse');
     if ((data['search'] ?? '') != nextSearch || org is! Map || org['name'] is! String || rows is! List || roles is! List || roles.any((r) => r is! String) || data['total'] is! int || data['active'] is! int || data['offset'] != pageOffset || data['limit'] != 25 || rows.length > 25 || (data['total'] as int) < 0 || (data['active'] as int) < 0 || (data['active'] as int) > (data['total'] as int)) {
       throw const AuthFailure('Invalid admin response', code: 'error.invalidResponse');
     }
     final parsed = rows.map((row) => AdminUser.fromJson(Map<String,dynamic>.from(row as Map))).toList();
-    users = parsed; assignableRoles = List<String>.from(roles); organization = org['name'] as String;
+    tasks = List<AdminTask>.unmodifiable(parsedTasks); users = parsed; assignableRoles = List<String>.from(roles); organization = org['name'] as String;
     total = data['total'] as int; active = data['active'] as int; offset = pageOffset; search = nextSearch;
   }
   Future<void> loadAudit({int pageOffset = 0, String? userId}) => _run(() async {

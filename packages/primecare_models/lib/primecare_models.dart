@@ -66,3 +66,5 @@ export 'src/models/auth_session.dart';
 export 'src/models/admin_user.dart';
 
 export 'src/models/admin_audit_event.dart';
+
+export 'src/models/admin_task.dart';

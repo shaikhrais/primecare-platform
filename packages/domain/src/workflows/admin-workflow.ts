@@ -1,3 +1,4 @@
+import {adminTasks} from './admin-task';
 export const assignableRoles = ['client','employee','psw','rn','rpn','rmt','physio','scheduler','customer_support','intake'] as const;
 export type Actor = {id:string; roles:string; tenant_id:string};
 export class WorkflowFailure extends Error {
@@ -39,7 +40,7 @@ export class AdminWorkflow extends BaseTenantWorkflow {
     this.authorize('admin');this.pageOffset(offset);
     if(typeof search!=='string'||search.length>254||/[\u0000-\u001f\u007f]/.test(search))throw new WorkflowFailure(400,'Invalid search');
     const normalized=search.trim().toLowerCase();
-    return {organization:await this.repository.organization(),...await this.repository.users(offset,normalized),assignableRoles,search:normalized};
+    return {organization:await this.repository.organization(),...await this.repository.users(offset,normalized),assignableRoles,search:normalized,tasks:adminTasks()};
   }
   async readAudit(offset:number,userId:string=''){
     this.authorize('admin');this.pageOffset(offset);

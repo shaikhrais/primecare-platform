@@ -1,0 +1,59 @@
+{
+  "role": "admin",
+  "tasks": [
+    {
+      "id": "workspace",
+      "titleKey": "task.workspace.title",
+      "descriptionKey": "task.workspace.description",
+      "operation": "workspace.read"
+    },
+    {
+      "id": "users",
+      "titleKey": "task.users.title",
+      "descriptionKey": "task.users.description",
+      "operation": "workspace.read"
+    },
+    {
+      "id": "search",
+      "titleKey": "task.search.title",
+      "descriptionKey": "task.search.description",
+      "operation": "workspace.read"
+    },
+    {
+      "id": "create",
+      "titleKey": "task.create.title",
+      "descriptionKey": "task.create.description",
+      "operation": "accounts.create"
+    },
+    {
+      "id": "update",
+      "titleKey": "task.update.title",
+      "descriptionKey": "task.update.description",
+      "operation": "accounts.update"
+    },
+    {
+      "id": "status",
+      "titleKey": "task.status.title",
+      "descriptionKey": "task.status.description",
+      "operation": "accounts.update"
+    },
+    {
+      "id": "audit",
+      "titleKey": "task.audit.title",
+      "descriptionKey": "task.audit.description",
+      "operation": "audit.read"
+    },
+    {
+      "id": "audit-filter",
+      "titleKey": "task.audit-filter.title",
+      "descriptionKey": "task.audit-filter.description",
+      "operation": "audit.read"
+    },
+    {
+      "id": "language",
+      "titleKey": "task.language.title",
+      "descriptionKey": "task.language.description",
+      "operation": "language.select"
+    }
+  ]
+}

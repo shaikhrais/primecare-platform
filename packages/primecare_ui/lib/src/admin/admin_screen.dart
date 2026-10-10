@@ -1,3 +1,4 @@
+import 'admin_tasks_screen.dart';
 import 'admin_audit_screen.dart';
 import '../localization/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,7 @@ class _AdminWorkspaceState extends State<_AdminWorkspace> {
     Text(strings.text(controller.search.isEmpty ? 'admin.counts' : 'admin.matchingCounts', {'total': controller.total, 'active': controller.active})),
     if (controller.busy) const LinearProgressIndicator(),
     if (controller.error != null) Text(strings.text(controller.errorCode ?? 'error.unavailable'), style: TextStyle(color: Theme.of(context).colorScheme.error)),
+    TextButton(onPressed:controller.busy||controller.tasks.isEmpty?null:()=>Navigator.push(context,MaterialPageRoute<void>(builder:(_)=>AdminTasksScreen(tasks:controller.tasks))),child:Text(strings.text('admin.tasks'))),
     TextButton(onPressed: () => Navigator.push(context,MaterialPageRoute<void>(builder: (_) => AdminAuditScreen(request:widget.request))),child:Text(strings.text('audit.title'))),
     TextField(controller:search, enabled:!controller.busy, decoration:InputDecoration(labelText:strings.text('admin.searchLabel')), onSubmitted: (_) => controller.load(query:search.text)),
     Wrap(spacing:12, children:[

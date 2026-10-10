@@ -54,6 +54,9 @@ try {
  await page.getByRole('button',{name:strings['auth.signIn'],exact:true}).click();
  await page.getByRole('button',{name:strings['admin.open'],exact:true}).click();
  await page.getByText('Browser QA organization',{exact:true}).waitFor();
+ phase='task overview';await page.getByRole('button',{name:strings['admin.tasks'],exact:true}).click();
+ await page.getByText(strings['admin.tasksIntro'],{exact:true}).waitFor();await page.getByText(strings['task.create.title'],{exact:true}).waitFor();await page.getByText(strings['task.create.description'],{exact:true}).waitFor();
+ await page.getByRole('button',{name:strings['back'],exact:true}).click();
  phase='create user';await page.getByRole('button',{name:strings['admin.create'],exact:true}).click();
  await fillFlutterField(page,strings['admin.email'],userEmail);await fillFlutterField(page,strings['admin.password'],'initial-password-1234',true);
  const creation=page.waitForResponse(r=>r.url().endsWith('/admin/workspace/users')&&r.request().method()==='POST');
@@ -84,7 +87,7 @@ try {
  phase='audit history';await page.getByRole('button',{name:strings['audit.title'],exact:true}).click();await page.getByText(strings['audit.account_created'],{exact:true}).first().waitFor();await page.getByText(strings['audit.account_updated'],{exact:true}).first().waitFor();await page.getByRole('button',{name:strings['back'],exact:true}).click();
  phase='logout';await page.getByRole('button',{name:strings['back'],exact:true}).click();await page.getByRole('button',{name:strings['auth.signOut'],exact:true}).click();await page.getByRole('button',{name:strings['auth.signIn'],exact:true}).waitFor();
  assert.equal((await db.query('SELECT count(*)::int AS n FROM auth_sessions WHERE user_id=$1',[admin])).rows[0].n,0);
- await page.close();console.log('PASS '+language+': Admin browser E2E login, inherited workspace, create, edit email/role, deactivate, persistence, search, filtered audit, session revocation and logout');
+ await page.close();console.log('PASS '+language+': Admin browser E2E login, inherited workspace, create, edit email/role, deactivate, persistence, task overview, search, filtered audit, session revocation and logout');
  }
 }catch(error){console.error('Admin browser E2E failed during '+phase);if(browser){const page=browser.contexts().flatMap(c=>c.pages())[0];if(page){await page.screenshot({path:'admin-rebuild-failure.png'});console.error((await page.locator('flt-semantics').allTextContents()).slice(-30));console.error(await page.locator('[role],[aria-label]').evaluateAll(nodes=>nodes.map(n=>({role:n.getAttribute('role'),label:n.getAttribute('aria-label')})).slice(-35)));}}throw error;}
 finally {

@@ -16,6 +16,7 @@ abstract class BaseTextCatalog {
   final String languageCode;
   final Map<String, Map<String, String>> catalogs;
   const BaseTextCatalog(this.languageCode, this.catalogs);
+  bool containsKey(String key) => catalogs[languageCode]?.containsKey(key) == true || catalogs['en']?.containsKey(key) == true;
   String text(String key, [Map<String, Object> arguments = const {}]) {
     final template = catalogs[languageCode]?[key] ?? catalogs['en']?[key];
     if (template == null) throw ArgumentError('Unknown localization key: $key');

@@ -10,3 +10,5 @@ export 'src/admin/admin_controller.dart';
 export 'src/localization/app_localizations.dart';
 
 export 'src/admin/admin_audit_screen.dart';
+
+export 'src/admin/admin_tasks_screen.dart';

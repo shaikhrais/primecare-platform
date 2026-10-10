@@ -1,6 +1,9 @@
 name: Verify inherited Admin rebuild
-# Verify shared account search/audit filters and explicitly typed test fixtures in EN/ES/FR.
+# Verify central Admin task metadata and inherited EN/ES/FR task instructions.
 on:
+  push:
+    branches: [deploy/email-inbox-20261010]
+    paths: ['.github/workflows/verify-admin-rebuild.yml']
   workflow_dispatch:
 concurrency:
   group: admin-rebuild-${{ github.ref }}
