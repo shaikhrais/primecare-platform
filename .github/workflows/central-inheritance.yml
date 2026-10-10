@@ -12,6 +12,17 @@ on:
       - 'packages/flutter_core/lib/providers/user_management_provider.dart'
       - 'packages/flutter_core/test/shared_data_model_imports_test.dart'
       - 'packages/primecare_models/**'
+      - 'scripts/refactor_runtime_contracts.py'
+      - 'scripts/verify_runtime_contract_parity.py'
+      - 'scripts/verify_runtime_flutter_parity.py'
+      - 'docs/refactoring/runtime-contract-migration.*'
+      - 'packages/flutter_core/lib/auth_service.dart'
+      - 'packages/flutter_core/lib/aura*.dart'
+      - 'packages/flutter_core/lib/intelligence_service.dart'
+      - 'packages/flutter_core/lib/src/resilience/result.dart'
+      - 'packages/flutter_core/lib/src/resilience/execution_gate_service.dart'
+      - 'packages/flutter_core/lib/src/application/controllers/**'
+      - 'packages/flutter_core/test/runtime_contract_imports_test.dart'
       - 'scripts/refactor_screen_metadata.py'
       - 'scripts/verify_screen_metadata_parity.py'
       - 'docs/refactoring/screen-metadata-migration.*'
@@ -115,6 +126,7 @@ jobs:
           python3 scripts/refactor_shared_data_models.py --check
           python3 scripts/refactor_platform_governance.py --check
           python3 scripts/refactor_screen_metadata.py --check
+          python3 scripts/refactor_runtime_contracts.py --check
           python3 scripts/refactor_gateway_layers.py --check
           python3 scripts/refactor_domain_hosts.py --check
           python3 scripts/check-app-shell-inheritance.py
@@ -138,6 +150,13 @@ jobs:
           python3 scripts/verify_screen_metadata_parity.py --flutter flutter
           cd packages/flutter_core
           flutter analyze lib/models/screen_metadata.dart lib/models/navigation_item.dart
+      - name: Verify runtime contracts and Flutter service extraction
+        run: |
+          python3 scripts/verify_runtime_contract_parity.py
+          python3 scripts/verify_runtime_flutter_parity.py
+          cd packages/flutter_core
+          flutter test test/runtime_contract_imports_test.dart test/auth_session_test.dart test/auth_route_guard_test.dart test/auth_transport_test.dart test/telemetry_sync_test.dart
+          flutter analyze lib/auth_service.dart lib/aura_providers.dart lib/aura_command_service.dart lib/aura_pulse_service.dart lib/aura_behavioral_telemetry.dart lib/intelligence_service.dart lib/src/application/controllers lib/src/application/services/aura_command_service.dart lib/src/application/services/aura_pulse_service.dart lib/src/application/services/aura_behavioral_telemetry.dart lib/src/application/services/intelligence_service.dart lib/src/controllers/base_value_notifier.dart lib/src/controllers/aura_context_notifier.dart lib/src/controllers/aura_active_visualization_notifier.dart lib/src/controllers/aura_snooze_notifier.dart lib/src/controllers/aura_query_notifier.dart lib/src/controllers/aura_pulse_event_notifier.dart lib/src/resilience/result.dart lib/src/resilience/execution_gate_service.dart lib/src/infrastructure/telemetry/execution_gate_service.dart
       - name: Compile every migrated controller and test shared lifecycle
         run: |
           python3 scripts/generate-controller-compile-test.py
