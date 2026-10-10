@@ -1,8 +1,5 @@
 name: Verify published Client authentication
 on:
-  push:
-    branches: [deploy/email-inbox-20261010]
-    paths: ['scripts/verify-client-auth-browser.mjs', 'scripts/verify-production-auth.mjs', '.github/workflows/verify-client-auth-live.yml']
   workflow_dispatch:
 permissions:
   contents: read

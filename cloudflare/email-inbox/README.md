@@ -26,3 +26,7 @@ Then send a synthetic message to each address and inspect KV receipt before clai
 ## Live verification: 2026-10-10
 
 Updated production credentials connected both exact recipient rules successfully. Run 38073498464 sent all eight synthetic template messages using native Cloudflare sending and verified each receipt in private KV, including seven-day expiry for temp and no expiry for auth-test. This verifies sending, receiving, storage, and retention; application-triggered recovery/reset remains a separate test.
+
+## Auth E2E: 2026-10-10
+
+Run 38076511156 passed 37 production checks. It covered published Chromium login/logout before and after recovery; gateway account creation, tenant/role isolation, dashboard API access, deactivation, password change, and session revocation; and real forgot-password delivery into this inbox, MIME decoding, hash matching, reset with the received code, weak/wrong/expired code rejection, replay rejection, old-password rejection, and reset cleanup. Expiry was simulated only on the isolated fixture reset row. All temporary QA tenant/accounts, sessions, audit/reset rows, and account rate counters were removed. Recovery/reset form submission itself was exercised through the API; browser verification covered login/logout.
