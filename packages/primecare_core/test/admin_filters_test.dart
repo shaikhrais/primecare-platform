@@ -5,11 +5,11 @@ class _Admin extends BaseAdminWorkflow {
   _Admin(super.request);
 }
 void main() {
-  Map<String,dynamic> workspace(Uri uri) => {'organization':{'name':'Organization'},'users':[],'assignableRoles':['client'],'total':0,'active':0,'offset':int.parse(uri.queryParameters['offset']!),'limit':25,'search':uri.queryParameters['search']??''};
+  Map<String,dynamic> workspace(Uri uri) => {'organization':{'name':'Organization'},'users':<Map<String,dynamic>>[],'assignableRoles':['client'],'total':0,'active':0,'offset':int.parse(uri.queryParameters['offset']!),'limit':25,'search':uri.queryParameters['search']??''};
   test('Shared search normalizes, encodes and survives mutations and pagination', () async {
     final paths=<String>[];
     Future<Map<String,dynamic>> request(String method,String path,{Map<String,dynamic>? body}) async {
-      paths.add('$method $path');return method=='GET'?workspace(Uri.parse(path)):{'user':{}};
+      paths.add('$method $path');return method=='GET'?workspace(Uri.parse(path)):{'user':<String,dynamic>{}};
     }
     final admin=_Admin(request);
     await admin.load(query:'  CASE+TAG@EXAMPLE.COM  ');expect(admin.search,'case+tag@example.com');expect(admin.error,isNull);
@@ -28,11 +28,11 @@ void main() {
     const id='aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';var wrongTarget=false;final paths=<String>[];
     Future<Map<String,dynamic>> request(String method,String path,{Map<String,dynamic>? body}) async {
       paths.add(path);final uri=Uri.parse(path);final userId=uri.queryParameters['userId']??'';
-      return {'events':[{'id':'event','actor':'actor','target':wrongTarget?'wrong':id,'action':'account_created','createdAt':'2026-10-10T12:00:00Z','before':null,'after':null}],'total':1,'offset':int.parse(uri.queryParameters['offset']!),'limit':25,'userId':userId};
+      return {'events':<Map<String,dynamic>>[if(uri.queryParameters['offset']=='0'){'id':'event','actor':'actor','target':wrongTarget?'wrong':id,'action':'account_created','createdAt':'2026-10-10T12:00:00Z','before':null,'after':null}],'total':1,'offset':int.parse(uri.queryParameters['offset']!),'limit':25,'userId':userId};
     }
     final admin=_Admin(request);await admin.loadAudit(userId:id.toUpperCase());expect(admin.auditUserId,id);expect(admin.error,isNull);
     await admin.loadAudit(pageOffset:25);expect(Uri.parse(paths.last).queryParameters['userId'],id);
-    wrongTarget=true;await admin.loadAudit();expect(admin.errorCode,'error.invalidResponse');expect(admin.events.single.target,id);
+    await admin.loadAudit();wrongTarget=true;await admin.loadAudit();expect(admin.errorCode,'error.invalidResponse');expect(admin.events.single.target,id);
     wrongTarget=false;await admin.loadAudit(userId:'');expect(admin.auditUserId,'');expect(paths.last,'/admin/workspace/audit?offset=0');
   });
   test('Rate limits use a central localized error code', () async {
