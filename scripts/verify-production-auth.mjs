@@ -35,6 +35,11 @@ try {
  const login=await call('/v1/auth/login','POST',{email,password});
  check(login.status===200&&login.data.role==='ceo'&&login.data.userId===actorId,'login resolves fixture CEO');
  const token=login.data.token;
+ if(process.env.VERIFY_CLIENT_BROWSER==='1') {
+  const {verifyClientAuthBrowser}=await import('./verify-client-auth-browser.mjs');
+  await verifyClientAuthBrowser(email,password);
+  check(true,'published Client browser login and logout');
+ }
  for(const method of ['GET','POST']) {
   const me=await call('/v1/auth/me',method,undefined,token);
   check(me.status===200&&me.data.userId===actorId&&me.data.roles==='ceo',method+' session identity');

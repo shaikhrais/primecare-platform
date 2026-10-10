@@ -1,7 +1,5 @@
 name: Publish Client with shared authentication
 on:
-  push:
-    branches: [deploy/client-auth-20261010]
   workflow_dispatch:
 permissions:
   contents: read

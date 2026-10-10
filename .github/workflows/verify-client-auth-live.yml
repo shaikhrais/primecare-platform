@@ -1,0 +1,33 @@
+name: Verify published Client authentication
+on:
+  push:
+    branches: [deploy/client-auth-20261010]
+    paths: ['scripts/verify-client-auth-browser.mjs', 'scripts/verify-production-auth.mjs', '.github/workflows/verify-client-auth-live.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: production-auth-smoke
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install live verification dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/live-auth-dependencies" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2 playwright@1.60.0
+          ln -s "$RUNNER_TEMP/live-auth-dependencies/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Verify browser and real PostgreSQL auth lifecycle
+        env:
+          CONFIRM_AUTH_SMOKE: VERIFY_AUTH
+          VERIFY_CLIENT_BROWSER: '1'
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
+        run: node scripts/verify-production-auth.mjs
