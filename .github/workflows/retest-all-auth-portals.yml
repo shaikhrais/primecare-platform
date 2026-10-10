@@ -1,8 +1,5 @@
 name: Retest all published auth portals
 on:
-  push:
-    branches: [deploy/email-inbox-20261010]
-    paths: [.github/workflows/retest-all-auth-portals.yml]
   workflow_dispatch:
 permissions:
   contents: read

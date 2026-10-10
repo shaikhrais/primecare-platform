@@ -1,8 +1,5 @@
 name: Publish and verify all authentication portals
 on:
-  push:
-    branches: [deploy/email-inbox-20261010]
-    paths: [.github/workflows/publish-all-auth-portals.yml]
   workflow_dispatch:
 permissions:
   contents: read
