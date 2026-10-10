@@ -1,8 +1,5 @@
 name: Verify published Client authentication
 on:
-  push:
-    branches: [deploy/email-inbox-20261010]
-    paths: ['scripts/verify-auth-recovery-browser.mjs', 'scripts/verify-auth-email-recovery.mjs']
   workflow_dispatch:
 permissions:
   contents: read

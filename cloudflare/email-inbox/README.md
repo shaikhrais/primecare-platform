@@ -30,3 +30,7 @@ Updated production credentials connected both exact recipient rules successfully
 ## Auth E2E: 2026-10-10
 
 Run 38076511156 passed 37 production checks. It covered published Chromium login/logout before and after recovery; gateway account creation, tenant/role isolation, dashboard API access, deactivation, password change, and session revocation; and real forgot-password delivery into this inbox, MIME decoding, hash matching, reset with the received code, weak/wrong/expired code rejection, replay rejection, old-password rejection, and reset cleanup. Expiry was simulated only on the isolated fixture reset row. All temporary QA tenant/accounts, sessions, audit/reset rows, and account rate counters were removed. Recovery/reset form submission itself was exercised through the API; browser verification covered login/logout.
+
+## Browser recovery/reset verified: 2026-10-10
+
+Run 38076978422 passed all 37 checks with recovery and reset submitted through the deployed Flutter UI. One Chromium page requested recovery, received its actual code through private Cloudflare KV, submitted Reset password, returned to Sign in, authenticated with the new password, and signed out. The browser driver moves focus out of the new-password field before submitting the reset form. The earlier UI test timed out waiting for reset submission; the retry passed. Temporary QA tenant/accounts were removed.
