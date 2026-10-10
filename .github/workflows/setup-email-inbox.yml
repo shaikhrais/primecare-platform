@@ -1,73 +1,26 @@
-name: Inspect email domain configuration
+name: Prepare private Cloudflare email inbox
 on:
   push:
     branches: [deploy/email-inbox-20261010]
-    paths: [.github/workflows/setup-email-inbox.yml]
+    paths: [.github/workflows/setup-email-inbox.yml, cloudflare/email-inbox/**]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  inspect:
+  setup:
     runs-on: ubuntu-latest
     environment: production
-    timeout-minutes: 5
+    timeout-minutes: 10
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
-      - name: Inspect domain and email configuration without exposing secrets
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        shell: python
-        run: |
-          import os, json, urllib.request, urllib.error
-          domain = "15minutes-email.com"
-          token = os.environ.get("CLOUDFLARE_API_TOKEN", "")
-          account = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "")
-          report = {"domain": domain, "configured_secrets": {k: bool(os.environ.get(k)) for k in ["CLOUDFLARE_API_TOKEN", "CLOUDFLARE_ACCOUNT_ID"]}}
-          def get(base, path, key):
-              request = urllib.request.Request(base + path, headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"})
-              try:
-                  with urllib.request.urlopen(request, timeout=25) as response:
-                      return json.load(response)
-              except urllib.error.HTTPError as error:
-                  return {"success": False, "http_status": error.code}
-              except Exception as error:
-                  return {"success": False, "error_type": type(error).__name__}
-          if token:
-              base = "https://api.cloudflare.com/client/v4"
-              zones = get(base, "/zones?name=" + domain, token)
-              report["zone_query_success"] = zones.get("success", False)
-              report["zone_query_http_status"] = zones.get("http_status")
-              report["zones"] = []
-              for zone in zones.get("result", []):
-                  item = {k: zone.get(k) for k in ["id", "name", "status", "name_servers", "original_name_servers"]}
-                  zid = zone["id"]
-                  dns = get(base, "/zones/" + zid + "/dns_records?per_page=100", token)
-                  item["dns_query_success"] = dns.get("success", False)
-                  item["dns_http_status"] = dns.get("http_status")
-                  item["email_dns"] = [{"type": r.get("type"), "name": r.get("name"), "content": r.get("content"), "priority": r.get("priority")} for r in dns.get("result", []) if r.get("type") in ["MX", "TXT"] and (r.get("type") == "MX" or any(s in r.get("content", "") for s in ["v=spf1", "v=DKIM1", "v=DMARC1"]) or "_domainkey" in r.get("name", ""))]
-                  routing = get(base, "/zones/" + zid + "/email/routing", token)
-                  item["email_routing_query_success"] = routing.get("success", False)
-                  item["email_routing_http_status"] = routing.get("http_status")
-                  item["email_routing_enabled"] = routing.get("result", {}).get("enabled") if isinstance(routing.get("result"), dict) else None
-                  sending = get(base, "/zones/" + zid + "/email/sending/subdomains", token)
-                  item["email_sending_query_success"] = sending.get("success", False)
-                  item["email_sending_http_status"] = sending.get("http_status")
-                  rules = get(base, "/zones/" + zid + "/email/routing/rules?per_page=100", token)
-                  item["routing_rules"] = rules.get("result")
-                  item["routing_rules_http_status"] = rules.get("http_status")
-                  report["zones"].append(item)
-              if account:
-                  namespaces = get(base, "/accounts/" + account + "/storage/kv/namespaces?per_page=100", token)
-                  report["kv_available"] = namespaces.get("success", False)
-                  report["kv_http_status"] = namespaces.get("http_status")
-                  report["inbox_namespaces"] = [n for n in namespaces.get("result", []) if n.get("title") == "primecare-email-inbox"]
-                  settings = get(base, "/accounts/" + account + "/workers/scripts/primecare-auth-api/settings", token)
-                  report["auth_worker_settings_success"] = settings.get("success", False)
-                  report["auth_worker_http_status"] = settings.get("http_status")
-                  result = settings.get("result", {})
-                  bindings = result.get("bindings", []) if isinstance(result, dict) else []
-                  report["auth_worker_binding_names"] = sorted(b.get("name", "") for b in bindings)
-                  report["native_email_binding_present"] = any(b.get("name") == "EMAIL" for b in bindings)
-          print(json.dumps(report, indent=2))
-          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as summary:
-              summary.write("## Email domain configuration\n\n```json\n" + json.dumps(report, indent=2) + "\n```\n")
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --test cloudflare/email-inbox/worker.test.mjs
+      - run: node cloudflare/email-inbox/setup.mjs
+      - run: npx --yes wrangler@4.68.1 deploy --config cloudflare/email-inbox/wrangler.generated.json
+      - name: Record routing prerequisite
+        run: echo 'Storage Worker deployed. Addresses are not active until Email Routing rules are connected; current token returned HTTP 403 for Routing and DNS.' >> "$GITHUB_STEP_SUMMARY"
