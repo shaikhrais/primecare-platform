@@ -8,6 +8,11 @@ root.mkdir(parents=True,exist_ok=True)
 for package in ['primecare_models','primecare_core','primecare_ui']:
  shutil.copytree(repo/'packages'/package,root/'packages'/package,dirs_exist_ok=True,ignore=shutil.ignore_patterns('.dart_tool','build','.git'))
 apps=sorted(p.parent.name for p in (repo/'apps').glob('*/pubspec.yaml'))
+requested=os.environ.get('NATIVE_APPS')
+if requested:
+ selected=requested.split(',')
+ if any(app not in apps for app in selected): raise SystemExit('Unknown native portal')
+ apps=selected
 for app in apps:
  host=root/'apps'/app
  subprocess.run([shutil.which('flutter') or 'flutter','create','--no-pub','--platforms='+platform,'--org=com.primecare','--project-name='+app,str(host)],check=True)

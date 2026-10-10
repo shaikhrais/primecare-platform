@@ -42,8 +42,17 @@ class FakeAuth implements AuthTransport {
   }
 }
 
+Future<void> tapVisible(WidgetTester tester, Finder finder) async {
+  FocusManager.instance.primaryFocus?.unfocus();
+  await tester.pumpAndSettle();
+  await tester.ensureVisible(finder);
+  await tester.pumpAndSettle();
+  await tester.tap(finder);
+}
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  WidgetController.hitTestWarningShouldBeFatal = true;
   testWidgets('native app reaches live auth and authenticates', (tester) async {
     final client = HttpClient();
     try {
@@ -56,13 +65,13 @@ void main() {
     await tester.pumpAndSettle();
     await tester.enterText(find.widgetWithText(TextFormField, 'Email'), const String.fromEnvironment('QA_EMAIL'));
     await tester.enterText(find.widgetWithText(TextFormField, 'Password'), const String.fromEnvironment('QA_PASSWORD'));
-    await tester.tap(find.widgetWithText(FilledButton, 'Sign in'));
+    await tapVisible(tester,find.widgetWithText(FilledButton, 'Sign in'));
     for (var i = 0; i < 300 && find.text('Signed in').evaluate().isEmpty; i++) {
       await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 100)));
       await tester.pump();
     }
     expect(find.text('Signed in'), findsOneWidget);
-    await tester.tap(find.text('Sign out'));
+    await tapVisible(tester,find.text('Sign out'));
     for (var i = 0; i < 300 && find.text('Signed in').evaluate().isNotEmpty; i++) {
       await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 100)));
       await tester.pump();
@@ -87,11 +96,11 @@ void main() {
       find.widgetWithText(TextFormField, 'Password'),
       'password',
     );
-    await tester.tap(find.widgetWithText(FilledButton, 'Sign in'));
+    await tapVisible(tester,find.widgetWithText(FilledButton, 'Sign in'));
     await tester.pumpAndSettle();
     expect(api.path, '/login');
     expect(find.text('Signed in'), findsOneWidget);
-    await tester.tap(find.text('Sign out'));
+    await tapVisible(tester,find.text('Sign out'));
     await tester.pumpAndSettle();
     expect(api.path, '/logout');
     expect(find.text('Signed in'), findsNothing);
@@ -105,13 +114,13 @@ void main() {
         home: AuthScreen(title: 'Auth', transport: api),
       ),
     );
-    await tester.tap(find.text('Forgot password?'));
+    await tapVisible(tester,find.text('Forgot password?'));
     await tester.pumpAndSettle();
     await tester.enterText(
       find.widgetWithText(TextFormField, 'Email'),
       'user@example.com',
     );
-    await tester.tap(
+    await tapVisible(tester,
       find.widgetWithText(FilledButton, 'Send recovery instructions'),
     );
     await tester.pumpAndSettle();
@@ -125,7 +134,7 @@ void main() {
       find.widgetWithText(TextFormField, 'New password'),
       'new-password-12',
     );
-    await tester.tap(find.widgetWithText(FilledButton, 'Reset password'));
+    await tapVisible(tester,find.widgetWithText(FilledButton, 'Reset password'));
     await tester.pumpAndSettle();
     expect(api.path, '/reset-password');
     expect(find.text('Password reset. Sign in again.'), findsOneWidget);
