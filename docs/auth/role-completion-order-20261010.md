@@ -34,7 +34,7 @@ The workspace `.agents/governance/governance.db` could not be read because SQLit
 
 | Order | Stage | Role code | Primary app | Business E2E status |
 | --- | --- | --- | --- | --- |
-| 1 | Access and organization setup | `admin` | support | Fresh account workflows verified in CI; audit and EN/ES/FR extension under verification; full acceptance/deployment pending |
+| 1 | Access and organization setup | `admin` | support | Fresh account/audit workflows and EN/ES/FR browser E2E verified in CI; full acceptance/deployment/native verification pending |
 | 2 | Access and organization setup | `owner` | franchise | Pending fresh verification |
 | 3 | Access and organization setup | `gm` | support | Pending fresh verification |
 | 4 | Access and organization setup | `ops_manager` | support | Pending fresh verification |

@@ -44,7 +44,7 @@ This is the fresh tenant-account Admin implementation. Global tenant creation, u
 
 Browser E2E signed in as Admin, opened the inherited workspace, created a Client account, authenticated that new account through the API, edited its email and role, deactivated it, confirmed durable database state and session denial, refreshed the workspace, and signed out. All test accounts and their related tenant/session/audit records were cleaned up; the disposable database was destroyed by CI. These are isolated CI results, not production rollout evidence. The local-test web build uses a loopback HTTPS API and is never uploaded to production.
 
-Three unique Admin API operations were implemented; 20 is the number of database/gateway checks, not the number of APIs. Legacy `deactivated` or other non-active stored states project to inactive in the new account model. The account editor owns its controllers through its widget lifecycle; account identity/status and edit controls have separate accessibility nodes. Browser dropdown tests use Flutter's field semantics and menu accessibility labels.
+The initial rebuild implemented three unique Admin API operations; the audit extension adds a fourth. Check totals count database/Gateway cases, not API operations. Legacy `deactivated` or other non-active stored states project to inactive in the new account model. The account editor owns its controllers through its widget lifecycle; account identity/status and edit controls have separate accessibility nodes. Browser dropdown tests use Flutter's field semantics and menu accessibility labels.
 
 The workflow is manual after verification. Production websites and Workers have not been redeployed for this Admin rewrite, and Admin remains incomplete against the broader role acceptance gate until its remaining scope and production E2E are finished.
 
@@ -57,3 +57,11 @@ Language selection changes labels and messages, including displayed roles/status
 Audit history combines existing account-creation and account-management audit tables inside a tenant-scoped read-only repeatable-read transaction. Pagination sorts by timestamp then namespaced audit ID. Only email/role/status are projected from audit JSON; credentials, password hashes, session tokens and unrelated JSON fields are excluded. The new entity validates allowed actions, dates, and safe immutable state maps. The screen translates event labels and role/status descriptions while preserving recorded identity values.
 
 The expanded verification includes 26 Admin database/Gateway checks, 90 existing Auth regression checks, shared model/core/UI tests, catalog parity checks, a release web build, and actual browser create/update/deactivate/audit/logout flows in all three languages. Production deployment and production Admin E2E remain separate acceptance work. Global tenant creation and any elevated-role policy remain outside this bounded tenant-account implementation.
+
+### Verified extension result
+
+[CI run 38094865819](https://github.com/shaikhrais/primecare-platform/actions/runs/38094865819) passed all steps: Worker type checks; 90 Auth and 26 Admin real-PostgreSQL/Gateway checks; model/core/UI analysis and tests; 85-key EN/ES/FR catalog parity; Support release web build; and Chromium create/update/deactivate/audit/logout flows in English, Spanish, and French. UI tests also verify language changes preserve entered Auth form data and localize permission-denied states. Audit cards expose event labels/details through separate accessibility nodes.
+
+This extension changes 29 source/config/test/documentation files (19 existing files and 10 new files). All nine app shells inherit the localization setup without per-app copies. This file count describes the scoped extension, not completion of the whole legacy repository. The verification workflow is manual again after the passing run.
+
+New Admin/localization production rollout, native-platform verification of this extension, and production E2E have not been performed. The prior Auth deployment/native results do not certify this newer Admin code. Admin remains first in the queue; no additional role is marked complete.

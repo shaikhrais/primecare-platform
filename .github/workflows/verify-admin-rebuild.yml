@@ -1,9 +1,6 @@
 name: Verify inherited Admin rebuild
 # Verify separate audit accessibility nodes and inherited EN/ES/FR Admin workflows.
 on:
-  push:
-    branches: [deploy/email-inbox-20261010]
-    paths: ['.github/workflows/verify-admin-rebuild.yml']
   workflow_dispatch:
 concurrency:
   group: admin-rebuild-${{ github.ref }}
