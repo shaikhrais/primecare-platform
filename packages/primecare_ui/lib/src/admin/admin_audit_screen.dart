@@ -37,13 +37,13 @@ class _AuditHistoryState extends State<_AuditHistory> {
       if(controller.error!=null)Text(strings.text(controller.errorCode??'error.unavailable')),
       OutlinedButton(onPressed:controller.busy?null:()=>controller.loadAudit(pageOffset:controller.auditOffset),child:Text(strings.text('audit.refresh'))),
       if(!controller.busy&&controller.error==null&&controller.events.isEmpty)Text(strings.text('audit.empty')),
-      ...controller.events.map((event)=>Card(child:Padding(padding:const EdgeInsets.all(16),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
+      ...controller.events.map((event)=>Card(child:Semantics(container:true,explicitChildNodes:true,child:Padding(padding:const EdgeInsets.all(16),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
         Text(strings.text('audit.${event.action}')),
         Text('${MaterialLocalizations.of(context).formatMediumDate(event.createdAt.toLocal())} ${TimeOfDay.fromDateTime(event.createdAt.toLocal()).format(context)}'),
         Text(strings.text('audit.actor',{'id':event.actor})),Text(strings.text('audit.target',{'id':event.target})),
         if(event.before.isNotEmpty)Text(strings.text('audit.before',{'state':state(event.before)})),
         if(event.after.isNotEmpty)Text(strings.text('audit.after',{'state':state(event.after)})),
-      ])))),
+      ]))))),
       Wrap(children:[
         TextButton(onPressed:controller.busy||controller.auditOffset==0?null:()=>controller.loadAudit(pageOffset:controller.auditOffset-25),child:Text(strings.text('previous'))),
         TextButton(onPressed:controller.busy||!controller.hasNextAudit?null:()=>controller.loadAudit(pageOffset:controller.auditOffset+25),child:Text(strings.text('next'))),
