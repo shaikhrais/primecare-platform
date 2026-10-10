@@ -129,7 +129,8 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     const method=read?'GET':create?'POST':'PUT';
     if(request.method!==method)return json({error:'Method not allowed'},405,{...headers,allow:method});
     const params=new URL(request.url).searchParams;
-    if([...params.keys()].some(k=>!read||k!=='offset')||params.getAll('offset').length>1||!/^\d{1,6}$/.test(params.get('offset')??'0'))return json({error:'Invalid query'},400,headers);
+    const queryKeys=read?['offset',audit?'userId':'search']:[];
+    if([...params.keys()].some(k=>!queryKeys.includes(k)||params.getAll(k).length!==1)||!/^\d{1,6}$/.test(params.get('offset')??'0'))return json({error:'Invalid query'},400,headers);
     const token=request.headers.has('authorization')?tokenFrom(request):null;
     if(!token)return json({error:'No session'},401,headers);
     let body:unknown;
@@ -144,7 +145,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         if(!actor)return json({error:'Invalid session'},401,headers);
         if(actor.roles!=='admin'||!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,headers);
         const workflow=new AdminWorkflow(actor,new AdminSqlRepository(db,actor.tenant_id));
-        const result=read?(audit?await workflow.readAudit(Number(params.get('offset')??'0')):await workflow.read(Number(params.get('offset')??'0'))):create?await workflow.create(body):await workflow.update(update![1],body);
+        const result=read?(audit?await workflow.readAudit(Number(params.get('offset')??'0'),params.get('userId')??''):await workflow.read(Number(params.get('offset')??'0'),params.get('search')??'')):create?await workflow.create(body):await workflow.update(update![1],body);
         if(!read){await db.query('COMMIT');committed=true;}
         return json(result,create?201:200,headers);
       }catch(error){

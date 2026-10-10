@@ -84,7 +84,14 @@
     "role.customer_support": "Customer support",
     "role.intake": "Intake coordinator",
     "role.admin": "Administrator",
-    "role.ceo": "Chief executive officer"
+    "role.ceo": "Chief executive officer",
+    "admin.searchLabel": "Search accounts by email",
+    "admin.searchApply": "Search accounts",
+    "admin.searchClear": "Clear search",
+    "admin.matchingCounts": "{total} matching users · {active} active",
+    "audit.viewAccount": "View history for {email}",
+    "audit.accountHistory": "History for {email}",
+    "audit.clearFilter": "Show all account history"
   },
   "es": {
     "language": "Idioma",
@@ -171,7 +178,14 @@
     "role.customer_support": "Atención al cliente",
     "role.intake": "Coordinador de admisión",
     "role.admin": "Administrador",
-    "role.ceo": "Director ejecutivo"
+    "role.ceo": "Director ejecutivo",
+    "admin.searchLabel": "Buscar cuentas por correo electrónico",
+    "admin.searchApply": "Buscar cuentas",
+    "admin.searchClear": "Borrar búsqueda",
+    "admin.matchingCounts": "{total} usuarios encontrados · {active} activos",
+    "audit.viewAccount": "Ver historial de {email}",
+    "audit.accountHistory": "Historial de {email}",
+    "audit.clearFilter": "Mostrar el historial de todas las cuentas"
   },
   "fr": {
     "language": "Langue",
@@ -258,6 +272,13 @@
     "role.customer_support": "Service à la clientèle",
     "role.intake": "Coordonnateur de l’admission",
     "role.admin": "Administrateur",
-    "role.ceo": "Directeur général"
+    "role.ceo": "Directeur général",
+    "admin.searchLabel": "Rechercher des comptes par courriel",
+    "admin.searchApply": "Rechercher des comptes",
+    "admin.searchClear": "Effacer la recherche",
+    "admin.matchingCounts": "{total} utilisateurs correspondants · {active} actifs",
+    "audit.viewAccount": "Voir l’historique de {email}",
+    "audit.accountHistory": "Historique de {email}",
+    "audit.clearFilter": "Afficher l’historique de tous les comptes"
   }
 }

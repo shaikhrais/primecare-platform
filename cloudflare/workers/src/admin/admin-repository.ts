@@ -7,13 +7,14 @@ export abstract class BaseTenantRepository {
   constructor(protected db:Client, protected tenantId:string){}
 }
 export class AdminSqlRepository extends BaseTenantRepository implements AdminRepository {
-  async audit(offset:number){
-    const source=`SELECT 'creation:' || id::text AS id,actor_user_id::text AS actor,target_user_id::text AS target,action,created_at AS "createdAt",NULL::jsonb AS "before",NULL::jsonb AS "after" FROM auth_account_audit WHERE tenant_id=$1
+  async audit(offset:number,userId:string){
+    if(userId&&(await this.db.query('SELECT id FROM users WHERE id::text=$1 AND tenant_id=$2',[userId,this.tenantId])).rows.length!==1)throw new WorkflowFailure(404,'Account not found');
+    const source=`SELECT 'creation:' || id::text AS id,actor_user_id::text AS actor,target_user_id::text AS target,action,created_at AS "createdAt",NULL::jsonb AS "before",NULL::jsonb AS "after" FROM auth_account_audit WHERE tenant_id=$1 AND ($2='' OR target_user_id::text=$2)
       UNION ALL SELECT 'management:' || id::text,actor_user_id::text,target_user_id::text,CASE WHEN new_state->>'action'='sessions_revoked' THEN 'sessions_revoked' ELSE 'account_updated' END,created_at,
       jsonb_strip_nulls(jsonb_build_object('email',previous_state->>'email','role',previous_state->>'role','status',previous_state->>'status')),
-      jsonb_strip_nulls(jsonb_build_object('email',new_state->>'email','role',new_state->>'role','status',new_state->>'status')) FROM auth_management_audit WHERE tenant_id=$1`;
-    const count=await this.db.query(`SELECT COUNT(*)::int AS total FROM (${source}) events`,[this.tenantId]);
-    const rows=await this.db.query(`SELECT * FROM (${source}) events ORDER BY "createdAt" DESC,id DESC LIMIT 25 OFFSET $2`,[this.tenantId,offset]);
+      jsonb_strip_nulls(jsonb_build_object('email',new_state->>'email','role',new_state->>'role','status',new_state->>'status')) FROM auth_management_audit WHERE tenant_id=$1 AND ($2='' OR target_user_id::text=$2)`;
+    const count=await this.db.query(`SELECT COUNT(*)::int AS total FROM (${source}) events`,[this.tenantId,userId]);
+    const rows=await this.db.query(`SELECT * FROM (${source}) events ORDER BY "createdAt" DESC,id DESC LIMIT 25 OFFSET $3`,[this.tenantId,userId,offset]);
     return {events:rows.rows,total:count.rows[0].total,offset,limit:25};
   }
   async lockedAccount(id:string){
@@ -25,9 +26,9 @@ export class AdminSqlRepository extends BaseTenantRepository implements AdminRep
     if(result.rows.length!==1)throw new WorkflowFailure(404,'Organization not found');
     return result.rows[0];
   }
-  async users(offset:number){
-    const counts=await this.db.query("SELECT COUNT(*)::int AS total, COUNT(*) FILTER (WHERE LOWER(status)='active')::int AS active FROM users WHERE tenant_id=$1",[this.tenantId]);
-    const result=await this.db.query("SELECT id,email,roles AS role,CASE WHEN LOWER(status)='active' THEN 'active' ELSE 'inactive' END AS status FROM users WHERE tenant_id=$1 ORDER BY LOWER(email),id LIMIT 25 OFFSET $2",[this.tenantId,offset]);
+  async users(offset:number,search:string){
+    const counts=await this.db.query("SELECT COUNT(*)::int AS total, COUNT(*) FILTER (WHERE LOWER(status)='active')::int AS active FROM users WHERE tenant_id=$1 AND POSITION($2 IN LOWER(email))>0",[this.tenantId,search]);
+    const result=await this.db.query("SELECT id,email,roles AS role,CASE WHEN LOWER(status)='active' THEN 'active' ELSE 'inactive' END AS status FROM users WHERE tenant_id=$1 AND POSITION($2 IN LOWER(email))>0 ORDER BY LOWER(email),id LIMIT 25 OFFSET $3",[this.tenantId,search,offset]);
     return {users:result.rows,total:counts.rows[0].total,active:counts.rows[0].active,offset,limit:25};
   }
   async create(actorId:string, input:UserInput){

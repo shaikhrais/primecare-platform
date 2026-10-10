@@ -38,6 +38,11 @@ try {
  const created=await call('/users','POST',input);assert.equal(created.status,201);createdId=(await created.json()).user.id;checks++;
  assert.equal((await call('/users','POST',input)).status,409);checks++;
  assert.equal((await db.query('SELECT count(*)::int AS n FROM auth_account_audit WHERE target_user_id=$1',[createdId])).rows[0].n,1);checks++;
+ const searched=await (await call('?search='+encodeURIComponent('  '+input.email.toUpperCase()+'  '))).json();assert.equal(searched.total,1);assert.equal(searched.active,1);assert.equal(searched.search,input.email);assert.equal(searched.users[0].id,createdId);checks++;
+ const otherSearch=await (await call('?search='+encodeURIComponent(`admin-${ids[2]}@example.invalid`))).json();assert.equal(otherSearch.total,0);assert.deepEqual(otherSearch.users,[]);checks++;
+ for(const search of ['%','_',"' OR 1=1 --"]){const response=await call('?search='+encodeURIComponent(search));assert.equal(response.status,200);assert.equal((await response.json()).total,0);}checks++;
+ for(const query of ['?search=a&search=b','?search='+encodeURIComponent('a'.repeat(255)),'?search='+encodeURIComponent('line\nbreak'),'?userId='+ids[1]])assert.equal((await call(query)).status,400);checks++;
+ const searchedPage=await (await call('?offset=25&search='+encodeURIComponent(input.email))).json();assert.equal(searchedPage.total,1);assert.equal(searchedPage.users.length,0);checks++;
  const token='m'.repeat(43);await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[hash(token),createdId]);
  const update={email:input.email,role:'rn',status:'inactive'};
  assert.equal((await call('/users/'+createdId,'PUT',update)).status,200);checks++;
@@ -52,6 +57,11 @@ try {
  assert.equal((await call('/audit?offset=0&offset=1')).status,400);assert.equal((await call('/audit','POST',{})).status,405);checks++;
  await db.query("UPDATE auth_management_audit SET new_state=new_state || '{\"password_hash\":\"secret-fixture\",\"token\":\"secret-token\"}'::jsonb WHERE target_user_id=$1",[createdId]);
  const safeAudit=await (await call('/audit')).json();assert(!JSON.stringify(safeAudit).includes('secret-'));assert(!JSON.stringify(safeAudit).includes('password_hash'));assert(safeAudit.events.every(e=>Object.keys(e.after??{}).every(k=>['email','role','status'].includes(k))));checks++;
+ const filteredAudit=await (await call('/audit?userId='+createdId.toUpperCase())).json();assert.equal(filteredAudit.userId,createdId);assert.equal(filteredAudit.total,2);assert(filteredAudit.events.every(e=>e.target===createdId));checks++;
+ const noEvents=await (await call('/audit?userId='+ids[1])).json();assert.equal(noEvents.total,0);assert.deepEqual(noEvents.events,[]);checks++;
+ assert.equal((await call('/audit?userId='+createdId,'GET',undefined,tokens[2])).status,404);assert.equal((await call('/audit?userId='+ids[2])).status,404);assert.equal((await call('/audit?userId='+randomUUID())).status,404);checks++;
+ for(const query of ['/audit?userId=invalid','/audit?userId='+createdId+'&userId='+ids[1],'/audit?search=client'])assert.equal((await call(query)).status,400);checks++;
+ const filteredPage=await (await call('/audit?offset=25&userId='+createdId)).json();assert.equal(filteredPage.total,2);assert.deepEqual(filteredPage.events,[]);checks++;
  const auditPage=await (await call('/audit?offset=25')).json();assert.equal(auditPage.total,2);assert.deepEqual(auditPage.events,[]);assert.equal(auditPage.offset,25);checks++;
  const empty=await (await call('?offset=25')).json();assert.equal(empty.users.length,0);assert.equal(empty.total,3);checks++;
  assert.equal((await call('/users','DELETE')).status,405);checks++;

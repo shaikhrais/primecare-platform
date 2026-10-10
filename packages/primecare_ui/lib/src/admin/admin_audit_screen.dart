@@ -6,17 +6,19 @@ import 'admin_controller.dart';
 
 class AdminAuditScreen extends BasePrimecareScreen {
   final AuthorizedRequest request;
-  const AdminAuditScreen({super.key,required this.request});
+  final AdminUser? account;
+  const AdminAuditScreen({super.key,required this.request,this.account});
   @override
   String get title => 'Audit history';
   @override
   String get titleKey => 'audit.title';
   @override
-  Widget buildContent(BuildContext context) => _AuditHistory(request:request);
+  Widget buildContent(BuildContext context) => _AuditHistory(request:request,account:account);
 }
 class _AuditHistory extends StatefulWidget {
   final AuthorizedRequest request;
-  const _AuditHistory({required this.request});
+  final AdminUser? account;
+  const _AuditHistory({required this.request,this.account});
   @override
   State<_AuditHistory> createState() => _AuditHistoryState();
 }
@@ -25,13 +27,15 @@ class _AuditHistoryState extends State<_AuditHistory> {
   @override
   void initState() {
     super.initState();controller=AdminController(widget.request,(){if(mounted)setState((){});});
-    WidgetsBinding.instance.addPostFrameCallback((_){if(mounted)controller.loadAudit();});
+    WidgetsBinding.instance.addPostFrameCallback((_){if(mounted)controller.loadAudit(userId:widget.account?.id ?? '');});
   }
   @override
   Widget build(BuildContext context) {
     final strings=AppStrings.of(context);
     String state(Map<String,String> data) => data.entries.map((entry) => switch(entry.key){'role'=>strings.role(entry.value),'status'=>['active','inactive'].contains(entry.value)?strings.text(entry.value):entry.value,_=>entry.value}).join(' · ');
     return ListView(padding:const EdgeInsets.all(24),children:[
+      if(controller.auditUserId.isNotEmpty && widget.account != null)Text(strings.text('audit.accountHistory',{'email':widget.account!.email})),
+      if(controller.auditUserId.isNotEmpty)TextButton(onPressed:controller.busy?null:()=>controller.loadAudit(userId:''),child:Text(strings.text('audit.clearFilter'))),
       Text(strings.text('audit.count',{'total':controller.auditTotal})),
       if(controller.busy)const LinearProgressIndicator(),
       if(controller.error!=null)Text(strings.text(controller.errorCode??'error.unavailable')),

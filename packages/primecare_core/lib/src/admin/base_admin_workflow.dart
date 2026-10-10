@@ -10,10 +10,12 @@ abstract class BaseAdminWorkflow {
   List<AdminAuditEvent> events = const [];
   int auditTotal = 0;
   int auditOffset = 0;
+  String auditUserId = '';
   bool get hasNextAudit => auditOffset + events.length < auditTotal;
   List<AdminUser> users = const [];
   List<String> assignableRoles = const [];
   String organization = '';
+  String search = '';
   int total = 0;
   int active = 0;
   int offset = 0;
@@ -27,29 +29,34 @@ abstract class BaseAdminWorkflow {
     busy = true; error = null; errorCode = null; changed();
     try { await operation(); }
     catch (failure) { error = failure is AuthFailure ? failure.message : 'Admin service unavailable. Please retry.';
-      errorCode = failure is AuthFailure ? (failure.code ?? switch(failure.status) {403 => 'error.forbidden', 401 => 'error.signInRequired', 404 => 'error.notFound', 409 => 'error.duplicateEmail', 400 => 'error.invalidRequest', _ => 'error.unavailable'}) : 'error.unavailable'; }
+      errorCode = failure is AuthFailure ? (failure.code ?? switch(failure.status) {403 => 'error.forbidden', 401 => 'error.signInRequired', 404 => 'error.notFound', 409 => 'error.duplicateEmail', 400 || 413 => 'error.invalidRequest', 429 => 'error.rateLimit', _ => 'error.unavailable'}) : 'error.unavailable'; }
     finally { busy = false; changed(); }
   }
-  Future<void> _load(int pageOffset) async {
-    final data = await request('GET','/admin/workspace?offset=$pageOffset');
+  Future<void> _load(int pageOffset, {String? query}) async {
+    final nextSearch = (query ?? search).trim().toLowerCase();
+    final path = '/admin/workspace?offset=$pageOffset${nextSearch.isEmpty ? '' : '&search=${Uri.encodeQueryComponent(nextSearch)}'}';
+    final data = await request('GET',path);
     final org = data['organization'];
     final rows = data['users'];
     final roles = data['assignableRoles'];
-    if (org is! Map || org['name'] is! String || rows is! List || roles is! List || roles.any((r) => r is! String) || data['total'] is! int || data['active'] is! int || data['offset'] != pageOffset || data['limit'] != 25 || rows.length > 25 || (data['total'] as int) < 0 || (data['active'] as int) < 0 || (data['active'] as int) > (data['total'] as int)) {
-      throw const AuthFailure('Invalid admin response');
+    if ((data['search'] ?? '') != nextSearch || org is! Map || org['name'] is! String || rows is! List || roles is! List || roles.any((r) => r is! String) || data['total'] is! int || data['active'] is! int || data['offset'] != pageOffset || data['limit'] != 25 || rows.length > 25 || (data['total'] as int) < 0 || (data['active'] as int) < 0 || (data['active'] as int) > (data['total'] as int)) {
+      throw const AuthFailure('Invalid admin response', code: 'error.invalidResponse');
     }
     final parsed = rows.map((row) => AdminUser.fromJson(Map<String,dynamic>.from(row as Map))).toList();
     users = parsed; assignableRoles = List<String>.from(roles); organization = org['name'] as String;
-    total = data['total'] as int; active = data['active'] as int; offset = pageOffset;
+    total = data['total'] as int; active = data['active'] as int; offset = pageOffset; search = nextSearch;
   }
-  Future<void> loadAudit({int pageOffset = 0}) => _run(() async {
-    final data = await request('GET','/admin/workspace/audit?offset=$pageOffset');
+  Future<void> loadAudit({int pageOffset = 0, String? userId}) => _run(() async {
+    final nextUserId = (userId ?? auditUserId).toLowerCase();
+    final path = '/admin/workspace/audit?offset=$pageOffset${nextUserId.isEmpty ? '' : '&userId=${Uri.encodeQueryComponent(nextUserId)}'}';
+    final data = await request('GET',path);
     final rows = data['events'];
-    if(rows is! List || rows.length > 25 || data['total'] is! int || (data['total'] as int) < 0 || data['offset'] != pageOffset || data['limit'] != 25) throw const AuthFailure('Invalid audit response',code:'error.invalidResponse');
+    if((data['userId'] ?? '') != nextUserId || rows is! List || rows.length > 25 || data['total'] is! int || (data['total'] as int) < 0 || data['offset'] != pageOffset || data['limit'] != 25) throw const AuthFailure('Invalid audit response',code:'error.invalidResponse');
     final parsed = rows.map((row) => AdminAuditEvent.fromJson(Map<String,dynamic>.from(row as Map))).toList();
-    events = parsed; auditTotal = data['total'] as int; auditOffset = pageOffset;
+    if(nextUserId.isNotEmpty && parsed.any((event) => event.target != nextUserId)) throw const AuthFailure('Invalid audit target',code:'error.invalidResponse');
+    events = parsed; auditTotal = data['total'] as int; auditOffset = pageOffset; auditUserId = nextUserId;
   });
-  Future<void> load({int pageOffset = 0}) => _run(() => _load(pageOffset));
+  Future<void> load({int pageOffset = 0, String? query}) => _run(() => _load(pageOffset,query:query));
   Future<void> create(String email, String role, String password) => _run(() async {
     await request('POST','/admin/workspace/users',body: {'email':email,'role':role,'password':password});
     await _load(0);

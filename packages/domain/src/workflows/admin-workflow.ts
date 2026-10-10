@@ -10,9 +10,9 @@ export abstract class BaseTenantWorkflow {
   }
 }
 export interface AdminRepository {
-  audit(offset:number):Promise<{events:Record<string,unknown>[];total:number;offset:number;limit:number}>;
+  audit(offset:number,userId:string):Promise<{events:Record<string,unknown>[];total:number;offset:number;limit:number}>;
   organization():Promise<Record<string,unknown>>;
-  users(offset:number):Promise<{users:Record<string,unknown>[];total:number;active:number;offset:number;limit:number}>;
+  users(offset:number,search:string):Promise<{users:Record<string,unknown>[];total:number;active:number;offset:number;limit:number}>;
   lockedAccount(id:string):Promise<{id:string;role:string}|null>;
   create(actorId:string,input:UserInput):Promise<Record<string,unknown>>;
   update(actorId:string,id:string,input:UserInput):Promise<Record<string,unknown>>;
@@ -34,8 +34,19 @@ export function validateUser(value:unknown,create:boolean):UserInput {
 /** Business rules are independent of HTTP and UI. The caller owns the transaction. */
 export class AdminWorkflow extends BaseTenantWorkflow {
   constructor(actor:Actor,private repository:AdminRepository){super(actor);}
-  async read(offset:number){this.authorize('admin');if(!Number.isInteger(offset)||offset<0||offset>999999)throw new WorkflowFailure(400,'Invalid offset');return {organization:await this.repository.organization(),...await this.repository.users(offset),assignableRoles};}
-  async readAudit(offset:number){this.authorize('admin');if(!Number.isInteger(offset)||offset<0||offset>999999)throw new WorkflowFailure(400,'Invalid offset');return this.repository.audit(offset);}
+  private pageOffset(offset:number){if(!Number.isInteger(offset)||offset<0||offset>999999)throw new WorkflowFailure(400,'Invalid offset');}
+  async read(offset:number,search:string=''){
+    this.authorize('admin');this.pageOffset(offset);
+    if(typeof search!=='string'||search.length>254||/[\u0000-\u001f\u007f]/.test(search))throw new WorkflowFailure(400,'Invalid search');
+    const normalized=search.trim().toLowerCase();
+    return {organization:await this.repository.organization(),...await this.repository.users(offset,normalized),assignableRoles,search:normalized};
+  }
+  async readAudit(offset:number,userId:string=''){
+    this.authorize('admin');this.pageOffset(offset);
+    if(typeof userId!=='string'||(userId!==''&&!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(userId)))throw new WorkflowFailure(400,'Invalid account filter');
+    const normalized=userId.toLowerCase();
+    return {...await this.repository.audit(offset,normalized),userId:normalized};
+  }
   async create(value:unknown){this.authorize('admin');return {user:await this.repository.create(this.actor.id,validateUser(value,true))};}
   async update(id:string,value:unknown){this.authorize('admin');if(id===this.actor.id)throw new WorkflowFailure(403,'Protected account');const input=validateUser(value,false);const target=await this.repository.lockedAccount(id);if(!target)throw new WorkflowFailure(404,'Account not found');if(!assignableRoles.includes(target.role as typeof assignableRoles[number]))throw new WorkflowFailure(403,'Protected account');return {user:await this.repository.update(this.actor.id,id,input)};}
 }
