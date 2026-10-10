@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Central workflow and PostgreSQL adapter are verified together.
+# Real browser E2E verifies the final central workflow and SQL adapter.
 on:
   push:
     branches: [deploy/email-inbox-20261010]
@@ -33,7 +33,7 @@ jobs:
           cache: true
       - name: Isolated Worker dependencies
         run: |
-          npm install --prefix "$RUNNER_TEMP/admin-deps" --ignore-scripts esbuild@0.27.2 pg@8.16.3 bcryptjs@3.0.2 typescript@5.9.3 @types/pg@8.15.5 @cloudflare/workers-types@4.20260403.1
+          npm install --prefix "$RUNNER_TEMP/admin-deps" --ignore-scripts esbuild@0.27.2 pg@8.16.3 bcryptjs@3.0.2 playwright@1.60.0 typescript@5.9.3 @types/pg@8.15.5 @cloudflare/workers-types@4.20260403.1
           ln -s "$RUNNER_TEMP/admin-deps/node_modules" node_modules
       - name: Worker type checks and auth regression
         run: |
@@ -49,4 +49,19 @@ jobs:
         run: |
           cd apps/primecare_support
           flutter pub get
-          flutter build web --release --dart-define=AUTH_API_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/auth
+          flutter build web --release --dart-define=AUTH_API_URL=https://127.0.0.1:8443/v1/auth
+      - name: Admin browser E2E against disposable PostgreSQL
+        env:
+          ADMIN_TEST_TLS_KEY: ${{ runner.temp }}/admin-test.key
+          ADMIN_TEST_TLS_CERT: ${{ runner.temp }}/admin-test.crt
+        run: |
+          node_modules/.bin/playwright install --with-deps chromium
+          openssl req -x509 -newkey rsa:2048 -nodes -keyout "$ADMIN_TEST_TLS_KEY" -out "$ADMIN_TEST_TLS_CERT" -days 1 -subj '/CN=localhost'
+          node scripts/test-admin-workspace-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: admin-rebuild-failure
+          path: admin-rebuild-failure.png
+          if-no-files-found: ignore
+          retention-days: 1
