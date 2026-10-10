@@ -6,7 +6,7 @@ export async function openRecoveryBrowser(email) {
  try {
   const page=await browser.newPage();
   page.setDefaultTimeout(30000);
-  await page.goto('https://primecare-client.pages.dev/',{waitUntil:'networkidle',timeout:60000});
+  await page.goto(process.env.AUTH_UI_URL || 'https://primecare-client.pages.dev/',{waitUntil:'networkidle',timeout:60000});
   const placeholder=page.locator('flt-semantics-placeholder');
   if(await placeholder.count())await placeholder.evaluate(element=>element.click());
   async function fill(label,value){await page.getByRole('textbox',{name:label,exact:true}).click();await page.locator('input:focus').fill(value);}

@@ -1,0 +1,93 @@
+name: Publish and verify all authentication portals
+on:
+  push:
+    branches: [deploy/email-inbox-20261010]
+    paths: [.github/workflows/publish-all-auth-portals.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: production-auth-smoke
+  cancel-in-progress: false
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: |
+          (cd packages/primecare_models && dart pub get && dart analyze && dart test)
+          (cd packages/primecare_core && dart pub get && dart analyze && dart test)
+          (cd packages/primecare_ui && flutter pub get && flutter analyze && flutter test)
+  publish:
+    needs: contracts
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        app: [primecare_client, primecare_clinic, primecare_corporate, primecare_franchise, primecare_support, primecare_marketing, primecare_business_development, primecare_governance, primecare_enterprise_blueprint]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build inherited authentication app
+        working-directory: apps/${{ matrix.app }}
+        run: |
+          flutter pub get
+          flutter analyze lib
+          flutter build web --release --dart-define=AUTH_API_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/auth
+      - name: Publish portal
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PORTAL_APP: ${{ matrix.app }}
+        run: |
+          project="${PORTAL_APP//_/-}"
+          npx --yes wrangler@4.68.1 pages deploy "apps/$PORTAL_APP/build/web" --project-name="$project" --branch=main --commit-hash="$GITHUB_SHA"
+          curl --fail --retry 5 --retry-delay 5 --output /dev/null "https://$project.pages.dev/"
+  verify:
+    needs: publish
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install browser verification dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/auth-e2e" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2 playwright@1.60.0 postal-mime@2.4.3
+          ln -s "$RUNNER_TEMP/auth-e2e/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Test auth UI and real recovery on every portal
+        env:
+          CONFIRM_AUTH_SMOKE: VERIFY_AUTH
+          VERIFY_CLIENT_BROWSER: '1'
+          VERIFY_AUTH_EMAIL: '1'
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
+        run: |
+          failed=0
+          for project in primecare-client primecare-clinic primecare-corporate primecare-franchise primecare-support primecare-marketing primecare-business-development primecare-governance primecare-enterprise-blueprint; do
+            echo "Verifying portal: $project"
+            if AUTH_UI_URL="https://$project.pages.dev/" node scripts/verify-production-auth.mjs; then
+              echo "PASS portal: $project" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "FAIL portal: $project" >> "$GITHUB_STEP_SUMMARY"
+              failed=1
+            fi
+          done
+          exit "$failed"

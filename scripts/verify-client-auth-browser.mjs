@@ -6,7 +6,7 @@ export async function verifyClientAuthBrowser(email,password) {
  let phase='load published Client';
  try {
   const page=await browser.newPage();
-  await page.goto('https://primecare-client.pages.dev/',{waitUntil:'networkidle',timeout:60000});
+  await page.goto(process.env.AUTH_UI_URL || 'https://primecare-client.pages.dev/',{waitUntil:'networkidle',timeout:60000});
   // Flutter exposes its form through the web semantics tree after activation.
   const placeholder=page.locator('flt-semantics-placeholder');
   if(await placeholder.count())await placeholder.evaluate(element=>element.click());

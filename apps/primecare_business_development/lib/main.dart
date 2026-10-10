@@ -1,25 +1,12 @@
-// Governance - Category: service | Purpose: Initialize Deep Link listener for Native SSO Sync languageProvider with EasyLocalization
+import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:go_router/go_router.dart';
-import 'core/routing/business_development_routes.dart';
-import 'core/routing/app_router.dart';
 
-void main() {
-  configureUrlStrategy();
-  PrimeCareAppRunner.run(
-    appWidget: const PrimeCareBusinessDevelopmentApp(),
-    overrides: [
-      platformApplicationProvider.overrideWithValue(
-        BusinessDevelopmentApplication(),
-      ),
-    ],
-  );
-}
+void main() => runApp(const PrimecareBusinessDevelopmentApp());
 
-class PrimeCareBusinessDevelopmentApp extends BaseStandardPrimeCareApp {
-  const PrimeCareBusinessDevelopmentApp({super.key});
-  @override
-  String get applicationTitle => 'PrimeCare BusinessDevelopment';
-  @override
-  GoRouter routerFor(WidgetRef ref) => ref.watch(appRouterProvider);
+class PrimecareBusinessDevelopmentApp extends BasePrimecareApp {
+  const PrimecareBusinessDevelopmentApp({super.key})
+    : super(
+        appCode: 'primecare_business_development',
+        title: 'Primecare Business Development',
+      );
 }
