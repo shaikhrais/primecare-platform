@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Verify central Admin task metadata and inherited EN/ES/FR task instructions.
+# Verify immutable task contracts, rejected metadata, and EN/ES/FR Admin task instructions.
 on:
   push:
     branches: [deploy/email-inbox-20261010]
