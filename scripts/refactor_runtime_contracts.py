@@ -22,7 +22,7 @@ def snake(name):
     return re.sub(r'(?<!^)(?=[A-Z])', '_', name).lower()
 def render():
     files = {}
-    auth = original(CORE + 'auth_service.dart')
+    auth = original(CORE + 'auth_service.dart').replace("import 'package:flutter/foundation.dart';\n", '')
     start, end, state = take_class(auth, 'AuthState')
     ctor = state.index('  AuthState(')
     copy = state.index('  AuthState copyWith(')
