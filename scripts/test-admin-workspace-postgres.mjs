@@ -66,6 +66,8 @@ try {
  const auditPage=await (await call('/audit?offset=25')).json();assert.equal(auditPage.total,2);assert.deepEqual(auditPage.events,[]);assert.equal(auditPage.offset,25);checks++;
  const empty=await (await call('?offset=25')).json();assert.equal(empty.users.length,0);assert.equal(empty.total,3);checks++;
  assert.equal((await call('/users','DELETE')).status,405);checks++;
+ assert.equal((await call('/users/'+createdId,'PUT',{...update,status:'active'})).status,200);assert.equal((await db.query('SELECT status FROM users WHERE id=$1',[createdId])).rows[0].status,'active');checks++;
+ assert.equal((await call('/users/'+createdId,'PUT',update)).status,200);assert.equal((await db.query('SELECT status FROM users WHERE id=$1',[createdId])).rows[0].status,'inactive');checks++;
  // Audit failure must roll back both account changes and session revocation.
  await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[hash(token),createdId]);
  await db.query("CREATE FUNCTION admin_qa_reject_audit() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'fixture audit failure'; END $$");

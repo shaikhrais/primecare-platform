@@ -73,21 +73,31 @@ try {
  await page.getByText(updatedEmail,{exact:true}).waitFor();
  const persisted=(await db.query('SELECT email,roles,status FROM users WHERE id=$1',[user.id])).rows[0];assert.deepEqual(persisted,{email:updatedEmail,roles:'rmt',status:'inactive'});
  const me=await gateway.fetch(new Request('https://fixture/v1/auth/me',{headers:{authorization:'Bearer '+userToken}}),env);assert.equal(me.status,401);
+ phase='reactivate account';await page.getByRole('button',{name:strings['admin.editAccount'].replace('{email}',updatedEmail),exact:true}).click();
+ await page.getByText(strings['admin.status']+' '+strings['inactive'],{exact:true}).click();await page.getByLabel(strings['active'],{exact:true}).click();
+ const reactivation=page.waitForResponse(r=>r.url().endsWith('/admin/workspace/users/'+user.id)&&r.request().method()==='PUT');
+ await page.getByRole('button',{name:strings['admin.save'],exact:true}).click();assert.equal((await reactivation).status(),200);await page.getByText(updatedEmail,{exact:true}).waitFor();
+ const resumed=await gateway.fetch(new Request('https://fixture/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:updatedEmail,password:'initial-password-1234'})}),env);assert.equal(resumed.status,200);const resumedToken=(await resumed.json()).token;
+ phase='deactivate reactivated account';await page.getByRole('button',{name:strings['admin.editAccount'].replace('{email}',updatedEmail),exact:true}).click();
+ await page.getByText(strings['admin.status']+' '+strings['active'],{exact:true}).click();await page.getByLabel(strings['inactive'],{exact:true}).click();
+ const finalDeactivation=page.waitForResponse(r=>r.url().endsWith('/admin/workspace/users/'+user.id)&&r.request().method()==='PUT');
+ await page.getByRole('button',{name:strings['admin.save'],exact:true}).click();assert.equal((await finalDeactivation).status(),200);await page.getByText(updatedEmail,{exact:true}).waitFor();
+ assert.equal((await gateway.fetch(new Request('https://fixture/v1/auth/me',{headers:{authorization:'Bearer '+resumedToken}}),env)).status,401);
  phase='reload';await page.getByRole('button',{name:strings['admin.refresh'],exact:true}).click();await page.getByText(updatedEmail,{exact:true}).waitFor();
  phase='search account';await fillFlutterField(page,strings['admin.searchLabel'],updatedEmail.toUpperCase());
  await page.getByRole('button',{name:strings['admin.searchApply'],exact:true}).click();await page.getByText(strings['admin.matchingCounts'].replace('{total}','1').replace('{active}','0'),{exact:true}).waitFor();
  await page.getByText(updatedEmail,{exact:true}).waitFor();
  phase='filtered audit';await page.getByRole('button',{name:strings['audit.viewAccount'].replace('{email}',updatedEmail),exact:true}).click();
- await page.getByText(strings['audit.accountHistory'].replace('{email}',updatedEmail),{exact:true}).waitFor();await page.getByText(strings['audit.count'].replace('{total}','2'),{exact:true}).waitFor();
- assert.equal(await page.getByText(strings['audit.target'].replace('{id}',user.id),{exact:true}).count(),2);
- await page.getByRole('button',{name:strings['audit.clearFilter'],exact:true}).click();await page.getByText(strings['audit.count'].replace('{total}',String(2*(['en','es','fr'].indexOf(language)+1))),{exact:true}).waitFor();
+ await page.getByText(strings['audit.accountHistory'].replace('{email}',updatedEmail),{exact:true}).waitFor();await page.getByText(strings['audit.count'].replace('{total}','4'),{exact:true}).waitFor();
+ assert.equal(await page.getByText(strings['audit.target'].replace('{id}',user.id),{exact:true}).count(),4);
+ await page.getByRole('button',{name:strings['audit.clearFilter'],exact:true}).click();await page.getByText(strings['audit.count'].replace('{total}',String(4*(['en','es','fr'].indexOf(language)+1))),{exact:true}).waitFor();
  await page.getByRole('button',{name:strings['back'],exact:true}).click();
  await page.getByRole('button',{name:strings['admin.searchClear'],exact:true}).click();
  await page.getByText(strings['admin.counts'].replace('{total}',String(['en','es','fr'].indexOf(language)+2)).replace('{active}','1'),{exact:true}).waitFor();
  phase='audit history';await page.getByRole('button',{name:strings['audit.title'],exact:true}).click();await page.getByText(strings['audit.account_created'],{exact:true}).first().waitFor();await page.getByText(strings['audit.account_updated'],{exact:true}).first().waitFor();await page.getByRole('button',{name:strings['back'],exact:true}).click();
  phase='logout';await page.getByRole('button',{name:strings['back'],exact:true}).click();await page.getByRole('button',{name:strings['auth.signOut'],exact:true}).click();await page.getByRole('button',{name:strings['auth.signIn'],exact:true}).waitFor();
  assert.equal((await db.query('SELECT count(*)::int AS n FROM auth_sessions WHERE user_id=$1',[admin])).rows[0].n,0);
- await page.close();console.log('PASS '+language+': Admin browser E2E login, inherited workspace, create, edit email/role, deactivate, persistence, task overview, search, filtered audit, session revocation and logout');
+ await page.close();console.log('PASS '+language+': Admin browser E2E login, inherited workspace, create, edit email/role, deactivate/reactivate, persistence, task overview, search, filtered audit, session revocation and logout');
  }
 }catch(error){console.error('Admin browser E2E failed during '+phase);if(browser){const page=browser.contexts().flatMap(c=>c.pages())[0];if(page){await page.screenshot({path:'admin-rebuild-failure.png'});console.error((await page.locator('flt-semantics').allTextContents()).slice(-30));console.error(await page.locator('[role],[aria-label]').evaluateAll(nodes=>nodes.map(n=>({role:n.getAttribute('role'),label:n.getAttribute('aria-label')})).slice(-35)));}}throw error;}
 finally {

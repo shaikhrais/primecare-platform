@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Verify immutable task contracts, rejected metadata, and EN/ES/FR Admin task instructions.
+# Verify task contracts and complete activate/deactivate access policy in EN/ES/FR.
 on:
   push:
     branches: [deploy/email-inbox-20261010]
