@@ -28,29 +28,13 @@ class _AdminWorkspaceState extends State<_AdminWorkspace> {
     WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted) controller.load(); });
   }
   Future<void> edit([AdminUser? user]) async {
-    final email = TextEditingController(text: user?.email ?? '');
-    final password = TextEditingController();
-    var role = user?.role ?? controller.assignableRoles.first;
-    var status = user?.status ?? 'active';
-    final form = GlobalKey<FormState>();
-    final accepted = await showDialog<bool>(context: context, builder: (context) => StatefulBuilder(builder: (context, update) => AlertDialog(
-      title: Text(user == null ? 'Create user' : 'Edit user'),
-      content: SizedBox(width: 420, child: SingleChildScrollView(child: Form(key: form, child: Column(mainAxisSize: MainAxisSize.min, children: [
-        TextFormField(controller: email, decoration: const InputDecoration(labelText: 'User email'), validator: (value) => value == null || !RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(value.trim()) ? 'Enter a valid email' : null),
-        DropdownButtonFormField<String>(initialValue: role, decoration: const InputDecoration(labelText: 'Role'), items: controller.assignableRoles.map((value) => DropdownMenuItem(value: value, child: Text(value))).toList(), onChanged: (value) { if (value != null) update(() => role = value); }),
-        if (user == null) TextFormField(controller: password, obscureText: true, decoration: const InputDecoration(labelText: 'Initial password'), validator: (value) => (value?.length ?? 0) < 12 ? 'Use at least 12 characters' : null),
-        if (user != null) DropdownButtonFormField<String>(initialValue: status, decoration: const InputDecoration(labelText: 'Account status'), items: ['active','inactive'].map((value) => DropdownMenuItem(value: value, child: Text(value))).toList(), onChanged: (value) { if (value != null) update(() => status = value); }),
-        if (user != null) const Text('Saving revokes this user’s current sessions.'),
-      ])))),
-      actions: [TextButton(onPressed: () => Navigator.pop(context,false), child: const Text('Cancel')), FilledButton(onPressed: () { if (form.currentState!.validate()) Navigator.pop(context,true); }, child: const Text('Save user'))],
-    )));
-    final emailValue = email.text, passwordValue = password.text;
-    // Dialog route animations can still reference their controllers until the next frame.
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    email.dispose(); password.dispose();
-    if (accepted != true || !mounted) return;
-    if (user == null) { await controller.create(emailValue,role,passwordValue); }
-    else { await controller.update(user,emailValue,role,status); }
+    final result = await showDialog<_UserEdit>(
+      context: context,
+      builder: (_) => _AdminUserEditor(user: user, roles: controller.assignableRoles),
+    );
+    if (result == null || !mounted) return;
+    if (user == null) { await controller.create(result.email,result.role,result.password); }
+    else { await controller.update(user,result.email,result.role,result.status); }
   }
   @override
   Widget build(BuildContext context) => ListView(padding: const EdgeInsets.all(24), children: [
@@ -69,4 +53,48 @@ class _AdminWorkspaceState extends State<_AdminWorkspace> {
       TextButton(onPressed: controller.busy || !controller.hasNext ? null : () => controller.load(pageOffset: controller.offset + 25), child: const Text('Next page')),
     ]),
   ]);
+}
+
+class _UserEdit {
+  final String email, role, password, status;
+  const _UserEdit(this.email,this.role,this.password,this.status);
+}
+class _AdminUserEditor extends StatefulWidget {
+  final AdminUser? user;
+  final List<String> roles;
+  const _AdminUserEditor({required this.user,required this.roles});
+  @override
+  State<_AdminUserEditor> createState() => _AdminUserEditorState();
+}
+class _AdminUserEditorState extends State<_AdminUserEditor> {
+  final form = GlobalKey<FormState>();
+  late final TextEditingController email;
+  final password = TextEditingController();
+  late String role, status;
+  @override
+  void initState() {
+    super.initState();
+    email = TextEditingController(text: widget.user?.email ?? '');
+    role = widget.user?.role ?? widget.roles.first;
+    status = widget.user?.status ?? 'active';
+  }
+  @override
+  void dispose() { email.dispose(); password.dispose(); super.dispose(); }
+  void save() {
+    if (!form.currentState!.validate()) return;
+    FocusManager.instance.primaryFocus?.unfocus();
+    Navigator.pop(context,_UserEdit(email.text,role,password.text,status));
+  }
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+    title: Text(widget.user == null ? 'Create user' : 'Edit user'),
+    content: SizedBox(width: 420, child: SingleChildScrollView(child: Form(key: form, child: Column(mainAxisSize: MainAxisSize.min, children: [
+      TextFormField(controller: email, decoration: const InputDecoration(labelText: 'User email'), validator: (value) => value == null || !RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(value.trim()) ? 'Enter a valid email' : null),
+      DropdownButtonFormField<String>(initialValue: role, decoration: const InputDecoration(labelText: 'Role'), items: widget.roles.map((value) => DropdownMenuItem(value: value, child: Text(value))).toList(), onChanged: (value) { if (value != null) setState(() => role = value); }),
+      if (widget.user == null) TextFormField(controller: password, obscureText: true, decoration: const InputDecoration(labelText: 'Initial password'), validator: (value) => (value?.length ?? 0) < 12 ? 'Use at least 12 characters' : null),
+      if (widget.user != null) DropdownButtonFormField<String>(initialValue: status, decoration: const InputDecoration(labelText: 'Account status'), items: ['active','inactive'].map((value) => DropdownMenuItem(value: value, child: Text(value))).toList(), onChanged: (value) { if (value != null) setState(() => status = value); }),
+      if (widget.user != null) const Text('Saving revokes this user’s current sessions.'),
+    ])))),
+    actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')), FilledButton(onPressed: save, child: const Text('Save user'))],
+  );
 }

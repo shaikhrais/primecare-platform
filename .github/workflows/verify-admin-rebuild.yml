@@ -1,10 +1,13 @@
 name: Verify inherited Admin rebuild
-# Real browser E2E verifies the final central workflow and SQL adapter.
+# Real browser E2E includes the lifecycle-owned account editor.
 on:
   push:
     branches: [deploy/email-inbox-20261010]
     paths: [.github/workflows/verify-admin-rebuild.yml]
   workflow_dispatch:
+concurrency:
+  group: admin-rebuild-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
