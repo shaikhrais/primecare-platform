@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Verify central Admin audit controls, safe projections, EN/ES/FR, and form preservation.
+# Verify inherited Admin language control with ListenableBuilder and safe audit projections.
 on:
   push:
     branches: [deploy/email-inbox-20261010]

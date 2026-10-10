@@ -102,7 +102,7 @@ abstract class BaseAuthWorkflow {
   void _validateNewPassword(String password) {
     if (password.length < 12 || utf8.encode(password).length > 72) {
       throw const AuthFailure(
-        'Use at least 12 characters, up to 72 UTF-8 bytes.', code: 'error.minimumPassword',
+        'Use at least 12 characters, up to 72 UTF-8 bytes.', code: 'error.password',
       );
     }
   }

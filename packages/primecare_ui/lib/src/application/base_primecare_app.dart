@@ -15,7 +15,7 @@ abstract class BasePrimecareApp extends StatelessWidget {
     this.authTransport,
   });
   @override
-  Widget build(BuildContext context) => AnimatedBuilder(listenable: applicationLanguage, builder: (_, _) => MaterialApp(
+  Widget build(BuildContext context) => ListenableBuilder(listenable: applicationLanguage, builder: (_, _) => MaterialApp(
     locale: Locale(applicationLanguage.language.name),
     supportedLocales: AppStrings.locales,
     localizationsDelegates: AppStrings.delegates,

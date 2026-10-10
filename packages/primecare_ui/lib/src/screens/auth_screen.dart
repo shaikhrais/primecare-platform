@@ -211,7 +211,7 @@ class _AuthScreenState extends State<BaseAuthScreen> {
                         if (_mode == 'reset') _field(_code, strings.text('auth.resetCode')),
                         if (_mode == 'reset' || _mode == 'change') ...[
                           _field(_newPassword, strings.text('auth.newPassword'), secret: true),
-                          Text(strings.text('error.minimumPassword')),
+                          Text(strings.text('error.password')),
                         ],
                         const SizedBox(height: 16),
                         FilledButton(
