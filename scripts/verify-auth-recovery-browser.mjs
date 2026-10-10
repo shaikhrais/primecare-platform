@@ -20,13 +20,26 @@ export async function openRecoveryBrowser(email) {
   await page.getByRole('textbox',{name:'Reset code',exact:true}).waitFor();
   return {status,
    async reset(code,password){
-    await fill('Reset code',code);await secret('New password',password);
+    let phase='fill reset code';
+    try {
+    await fill('Reset code',code);phase='fill new password';await secret('New password',password);
+    await page.locator('input:focus').press('Tab');
+    phase='submit reset form';
     const response=page.waitForResponse(r=>r.url().endsWith('/v1/auth/reset-password')&&r.request().method()==='POST');
     await page.getByRole('button',{name:'Reset password',exact:true}).click();
+    phase='wait reset response';
     const result=await response;
     assert.equal(result.status(),200,'Browser reset request accepted');
     await page.getByRole('button',{name:'Sign in',exact:true}).waitFor();
     return {status:result.status(),data:await result.json()};
+    }catch(error){
+     console.error('UI recovery phase: '+phase);
+     console.error('UI input diagnostics: '+JSON.stringify(await page.locator('input').evaluateAll(elements=>elements.map(e=>({type:e.type,length:e.value.length,focused:e===document.activeElement})))));
+     for(const message of ['Email is required','Reset code is required','New password is required','Enter the 12-character reset code from your email','Authentication unavailable. Please try again.']) {
+      if(await page.getByText(message,{exact:true}).count()) console.error('UI validation: '+message);
+     }
+     throw error;
+    }
    },
    async loginLogout(password){
     await fill('Email',email);await secret('Password',password);
