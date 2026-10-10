@@ -87,9 +87,10 @@ try {
  phase='search account';await fillFlutterField(page,strings['admin.searchLabel'],updatedEmail.toUpperCase());
  await page.getByRole('button',{name:strings['admin.searchApply'],exact:true}).click();await page.getByText(strings['admin.matchingCounts'].replace('{total}','1').replace('{active}','0'),{exact:true}).waitFor();
  await page.getByText(updatedEmail,{exact:true}).waitFor();
- phase='filtered audit';await page.getByRole('button',{name:strings['audit.viewAccount'].replace('{email}',updatedEmail),exact:true}).click();
+ phase='filtered audit';const filteredResponse=page.waitForResponse(r=>r.request().method()==='GET'&&new URL(r.url()).pathname.endsWith('/admin/workspace/audit')&&new URL(r.url()).searchParams.get('userId')===user.id);await page.getByRole('button',{name:strings['audit.viewAccount'].replace('{email}',updatedEmail),exact:true}).click();
  await page.getByText(strings['audit.accountHistory'].replace('{email}',updatedEmail),{exact:true}).waitFor();await page.getByText(strings['audit.count'].replace('{total}','4'),{exact:true}).waitFor();
- assert.equal(await page.getByText(strings['audit.target'].replace('{id}',user.id),{exact:true}).count(),4);
+ const filteredData=await (await filteredResponse).json();assert.equal(filteredData.total,4);assert(filteredData.events.every(event=>event.target===user.id));
+ await page.getByText(strings['audit.target'].replace('{id}',user.id),{exact:true}).first().waitFor();
  await page.getByRole('button',{name:strings['audit.clearFilter'],exact:true}).click();await page.getByText(strings['audit.count'].replace('{total}',String(4*(['en','es','fr'].indexOf(language)+1))),{exact:true}).waitFor();
  await page.getByRole('button',{name:strings['back'],exact:true}).click();
  await page.getByRole('button',{name:strings['admin.searchClear'],exact:true}).click();
