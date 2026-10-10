@@ -31,3 +31,9 @@ jobs:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
         run: node scripts/verify-production-auth.mjs
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: client-auth-failure
+          path: client-auth-failure.png
+          if-no-files-found: ignore

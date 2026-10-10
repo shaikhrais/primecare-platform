@@ -13,9 +13,11 @@ export async function verifyClientAuthBrowser(email,password) {
   phase='find accessible login form';
   const emailField=page.getByRole('textbox',{name:'Email',exact:true});
   await emailField.waitFor({timeout:30000});
-  await emailField.click();await page.keyboard.insertText(email);
+  await emailField.click();
+  await page.locator('input:focus').fill(email);
   const passwordField=page.getByLabel('Password',{exact:true});
-  await passwordField.click();await page.keyboard.insertText(password);
+  await passwordField.click();
+  await page.locator('input:focus').fill(password);
   phase='submit browser login';
   const loginResponse=page.waitForResponse(response=>response.url().endsWith('/v1/auth/login')&&response.request().method()==='POST');
   await page.getByRole('button',{name:'Sign in',exact:true}).click();
@@ -26,6 +28,15 @@ export async function verifyClientAuthBrowser(email,password) {
   await page.getByRole('button',{name:'Sign out',exact:true}).click();
   assert.equal((await logoutResponse).status(),200,'Browser logout must revoke its session');
   await page.getByRole('button',{name:'Sign in',exact:true}).waitFor({timeout:15000});
- }catch(error){console.error('Browser verification failed during '+phase);throw error;}
+ }catch(error){
+  console.error('Browser verification failed during '+phase);
+  // Diagnostic screenshot contains only synthetic QA identity and hidden password.
+  const pages=browser.contexts().flatMap(context=>context.pages());
+  if(pages[0]) {
+    console.error('Field diagnostics: '+JSON.stringify(await pages[0].locator('input').evaluateAll(elements=>elements.map(e=>({type:e.type,length:e.value.length,focused:e===document.activeElement})))));
+    await pages[0].screenshot({path:'client-auth-failure.png'}).catch(()=>{});
+  }
+  throw error;
+ }
  finally {await browser.close();}
 }
