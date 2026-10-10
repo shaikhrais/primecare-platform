@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_core/primecare_core.dart';
-import 'package:primecare_models/primecare_models.dart';
 import '../screens/base_primecare_screen.dart';
 import 'admin_controller.dart';
 

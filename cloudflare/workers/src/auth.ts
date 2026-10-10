@@ -1,4 +1,5 @@
-import {AdminWorkflow,AdminRepository,WorkflowFailure} from './admin/admin-workflow';
+import {AdminWorkflow,WorkflowFailure} from '../../../packages/domain/src/workflows/admin-workflow';
+import {AdminSqlRepository} from './admin/admin-repository';
 import {confirmedAudit} from './audit-confirmation';
 import {optionalRow,requiredRow,resultRows} from './database-results';
 import {accountId} from './account-read-projection';
@@ -142,7 +143,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         const actor=privilegedActor((await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active'"+(!read?' FOR SHARE OF u,s':' LIMIT 1'),[await sha256(token)])).rows);
         if(!actor)return json({error:'Invalid session'},401,headers);
         if(actor.roles!=='admin'||!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,headers);
-        const workflow=new AdminWorkflow(actor,new AdminRepository(db,actor.tenant_id));
+        const workflow=new AdminWorkflow(actor,new AdminSqlRepository(db,actor.tenant_id));
         const result=read?await workflow.read(Number(params.get('offset')??'0')):create?await workflow.create(body):await workflow.update(update![1],body);
         if(!read){await db.query('COMMIT');committed=true;}
         return json(result,create?201:200,headers);

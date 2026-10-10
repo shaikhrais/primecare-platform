@@ -1,4 +1,5 @@
 name: Verify inherited Admin rebuild
+# Central workflow and PostgreSQL adapter are verified together.
 on:
   push:
     branches: [deploy/email-inbox-20261010]
