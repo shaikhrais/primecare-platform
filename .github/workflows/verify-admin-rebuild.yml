@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Browser dropdown locators use the observed Flutter field label and value.
+# Verify accessible menu labels and fail-closed legacy account status projection.
 on:
   push:
     branches: [deploy/email-inbox-20261010]

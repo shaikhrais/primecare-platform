@@ -29,6 +29,9 @@ try {
  assert.equal((await call('','GET',undefined,'invalid')).status,401);checks++;
  assert.equal((await call('','GET',undefined,tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;
  assert.equal((await call('?offset=-1')).status,400);assert.equal((await call('?offset=0&offset=1')).status,400);assert.equal((await call('?tenant_id='+tenants[1])).status,400);checks++;
+ await db.query("UPDATE users SET status='deactivated' WHERE id=$1",[ids[1]]);
+ const legacy=await (await call('')).json();assert.equal(legacy.users.find(u=>u.id===ids[1]).status,'inactive');assert.equal(legacy.active,1);checks++;
+ await db.query("UPDATE users SET status='active' WHERE id=$1",[ids[1]]);
  const input={email:`created-${randomUUID()}@example.invalid`,role:'rmt',password:'initial-password-1234'};
  assert.equal((await call('/users','POST',{...input,role:'admin'})).status,400);checks++;
  assert.equal((await call('/users','POST',{...input,tenantId:tenants[1]})).status,400);checks++;

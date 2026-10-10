@@ -17,8 +17,8 @@ export class AdminSqlRepository extends BaseTenantRepository implements AdminRep
     return result.rows[0];
   }
   async users(offset:number){
-    const counts=await this.db.query("SELECT COUNT(*)::int AS total, COUNT(*) FILTER (WHERE status='active')::int AS active FROM users WHERE tenant_id=$1",[this.tenantId]);
-    const result=await this.db.query('SELECT id,email,roles AS role,status FROM users WHERE tenant_id=$1 ORDER BY LOWER(email),id LIMIT 25 OFFSET $2',[this.tenantId,offset]);
+    const counts=await this.db.query("SELECT COUNT(*)::int AS total, COUNT(*) FILTER (WHERE LOWER(status)='active')::int AS active FROM users WHERE tenant_id=$1",[this.tenantId]);
+    const result=await this.db.query("SELECT id,email,roles AS role,CASE WHEN LOWER(status)='active' THEN 'active' ELSE 'inactive' END AS status FROM users WHERE tenant_id=$1 ORDER BY LOWER(email),id LIMIT 25 OFFSET $2",[this.tenantId,offset]);
     return {users:result.rows,total:counts.rows[0].total,active:counts.rows[0].active,offset,limit:25};
   }
   async create(actorId:string, input:UserInput){
