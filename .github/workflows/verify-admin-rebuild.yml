@@ -1,9 +1,6 @@
 name: Verify inherited Admin rebuild
 # Verify accessible menu labels and fail-closed legacy account status projection.
 on:
-  push:
-    branches: [deploy/email-inbox-20261010]
-    paths: [.github/workflows/verify-admin-rebuild.yml]
   workflow_dispatch:
 concurrency:
   group: admin-rebuild-${{ github.ref }}
