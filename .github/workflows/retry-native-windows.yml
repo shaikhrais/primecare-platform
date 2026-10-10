@@ -1,0 +1,113 @@
+name: Retry Windows native auth and builds
+on:
+  push:
+    branches: [deploy/email-inbox-20261010]
+    paths: [.github/workflows/retry-native-windows.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: windows
+            runner: windows-latest
+    runs-on: ${{ matrix.runner }}
+    environment: production
+    timeout-minutes: 75
+    env:
+      NATIVE_PLATFORM: ${{ matrix.platform }}
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            native
+            scripts
+            apps
+            packages/primecare_models
+            packages/primecare_core
+            packages/primecare_ui
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-java@v4
+        if: matrix.platform == 'android'
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Linux desktop libraries
+        if: matrix.platform == 'linux'
+        run: sudo apt-get update && sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev xvfb
+      - name: Allow Android hardware acceleration
+        if: matrix.platform == 'android'
+        run: sudo chmod 666 /dev/kvm
+      - name: Prepare clean native shells for all nine portals
+        run: python scripts/prepare-native-hosts.py "$NATIVE_PLATFORM"
+      - name: Analyze and test shared UI on native runner
+        run: |
+          cd packages/primecare_ui
+          flutter pub get
+          flutter analyze
+          flutter test
+      - name: Build release packages for nine portals
+        id: builds
+        run: python scripts/build-native-hosts.py "$NATIVE_PLATFORM"
+      - name: Install isolated QA fixture dependencies
+        if: always() && steps.builds.outcome != 'skipped'
+        run: |
+          npm install --prefix "$RUNNER_TEMP/native-auth-deps" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2
+          node -e "require('fs').symlinkSync(require('path').join(process.env.RUNNER_TEMP,'native-auth-deps','node_modules'),'node_modules','junction')"
+      - name: Create isolated native QA account
+        id: fixture
+        if: always() && steps.builds.outcome != 'skipped'
+        run: node scripts/native-auth-fixture.mjs create
+      - name: Desktop integration tests
+        if: always() && steps.fixture.outcome == 'success' && matrix.platform != 'android' && matrix.platform != 'ios'
+        run: |
+          cd "$RUNNER_TEMP/primecare-native/$NATIVE_PLATFORM/apps/primecare_client"
+          if [ "$NATIVE_PLATFORM" = linux ]; then
+            xvfb-run -a flutter test integration_test/auth_test.dart -d linux --dart-define-from-file="$RUNNER_TEMP/primecare-native/$NATIVE_PLATFORM/qa-defines.json"
+          else
+            flutter test integration_test/auth_test.dart -d "$NATIVE_PLATFORM" --dart-define-from-file="$RUNNER_TEMP/primecare-native/$NATIVE_PLATFORM/qa-defines.json"
+          fi
+      - name: Android emulator integration tests
+        if: always() && steps.fixture.outcome == 'success' && matrix.platform == 'android'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          target: google_apis
+          disable-animations: true
+          script: cd "$RUNNER_TEMP/primecare-native/android/apps/primecare_client" && flutter test integration_test/auth_test.dart -d emulator-5554 --dart-define-from-file="$RUNNER_TEMP/primecare-native/android/qa-defines.json"
+      - name: iOS simulator integration tests
+        if: always() && steps.fixture.outcome == 'success' && matrix.platform == 'ios'
+        run: |
+          device=$(xcrun simctl list devices available -j | python -c 'import json,sys; d=json.load(sys.stdin)["devices"]; print(next(x["udid"] for k in sorted(d,reverse=True) if "iOS" in k for x in d[k] if "iPhone" in x["name"]))')
+          xcrun simctl boot "$device" || true
+          xcrun simctl bootstatus "$device" -b
+          cd "$RUNNER_TEMP/primecare-native/ios/apps/primecare_client"
+          flutter test integration_test/auth_test.dart -d "$device" --dart-define-from-file="$RUNNER_TEMP/primecare-native/ios/qa-defines.json"
+      - name: Remove isolated native QA account
+        if: always() && steps.fixture.outcome != 'skipped'
+        run: node scripts/native-auth-fixture.mjs cleanup
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: primecare-native-${{ matrix.platform }}
+          path: ${{ runner.temp }}/primecare-native/${{ matrix.platform }}/artifacts
+          retention-days: 1
+          if-no-files-found: ignore

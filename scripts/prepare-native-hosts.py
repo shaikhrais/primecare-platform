@@ -10,7 +10,7 @@ for package in ['primecare_models','primecare_core','primecare_ui']:
 apps=sorted(p.parent.name for p in (repo/'apps').glob('*/pubspec.yaml'))
 for app in apps:
  host=root/'apps'/app
- subprocess.run(['flutter','create','--no-pub','--platforms='+platform,'--org=com.primecare','--project-name='+app,str(host)],check=True)
+ subprocess.run([shutil.which('flutter') or 'flutter','create','--no-pub','--platforms='+platform,'--org=com.primecare','--project-name='+app,str(host)],check=True)
  shutil.rmtree(host/'lib');shutil.copytree(repo/'apps'/app/'lib',host/'lib')
  spec=(repo/'apps'/app/'pubspec.yaml').read_text().replace('dev_dependencies:\n','dev_dependencies:\n  integration_test:\n    sdk: flutter\n  primecare_core:\n    path: ../../packages/primecare_core\n')
  (host/'pubspec.yaml').write_text(spec)
@@ -25,6 +25,6 @@ for app in apps:
    if 'com.apple.security.network.client' not in s:s=s.replace('</dict>','<key>com.apple.security.network.client</key><true/>\n</dict>')
    p.write_text(s)
  (host/'test').mkdir(exist_ok=True)
- subprocess.run(['flutter','pub','get'],cwd=host,check=True)
+ subprocess.run([shutil.which('flutter') or 'flutter','pub','get'],cwd=host,check=True)
 (root/'apps.json').write_text(json.dumps(apps))
 print('Prepared '+str(len(apps))+' inherited '+platform+' hosts')

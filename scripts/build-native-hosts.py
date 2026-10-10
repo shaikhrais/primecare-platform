@@ -4,7 +4,7 @@ platform=sys.argv[1];root=Path(os.environ['RUNNER_TEMP'])/'primecare-native'/pla
 artifacts=root/'artifacts';artifacts.mkdir(exist_ok=True);results=[]
 for app in json.loads((root/'apps.json').read_text()):
  host=root/'apps'/app
- command=['flutter','build',{'android':'apk','ios':'ios'}.get(platform,platform),'--release','--dart-define=AUTH_API_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/auth']
+ command=[shutil.which('flutter') or 'flutter','build',{'android':'apk','ios':'ios'}.get(platform,platform),'--release','--dart-define=AUTH_API_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/auth']
  if platform=='ios':command+=['--no-codesign']
  code=subprocess.run(command,cwd=host).returncode
  results.append({'app':app,'platform':platform,'build':'passed' if code==0 else 'failed'})
