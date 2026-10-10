@@ -1,19 +1,13 @@
-// Governance - Category: model | Purpose: Layer: 01_INFRASTRUCTURE
-// Layer: 01_INFRASTRUCTURE
+// Flutter icon adapter for the shared navigation contract.
 import 'package:flutter/material.dart';
+import 'package:primecare_models/primecare_models.dart' show BaseNavigationItem;
 
-class PrimeCareNavigationItem {
-  final String label;
-  final IconData icon;
-  final String route;
-  final String? section;
-  final IconData? activeIcon;
-
+class PrimeCareNavigationItem extends BaseNavigationItem<IconData> {
   const PrimeCareNavigationItem({
-    required this.label,
-    required this.icon,
-    required this.route,
-    this.section,
-    this.activeIcon,
+    required super.label,
+    required super.icon,
+    required super.route,
+    super.section,
+    super.activeIcon,
   });
 }
