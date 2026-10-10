@@ -1,3 +1,4 @@
+import {AdminWorkflow,AdminRepository,WorkflowFailure} from './admin/admin-workflow';
 import {confirmedAudit} from './audit-confirmation';
 import {optionalRow,requiredRow,resultRows} from './database-results';
 import {accountId} from './account-read-projection';
@@ -120,6 +121,38 @@ export async function parseBody(request: Request): Promise<Json> {
 }
 
 async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
+  if(path==='/admin/workspace'||path.startsWith('/admin/workspace/')) {
+    const update=/^\/admin\/workspace\/users\/([0-9a-f-]{36})$/.exec(path);
+    const read=path==='/admin/workspace',create=path==='/admin/workspace/users';
+    if(!read&&!create&&!update)return json({error:'Not found'},404,headers);
+    const method=read?'GET':create?'POST':'PUT';
+    if(request.method!==method)return json({error:'Method not allowed'},405,{...headers,allow:method});
+    const params=new URL(request.url).searchParams;
+    if([...params.keys()].some(k=>!read||k!=='offset')||params.getAll('offset').length>1||!/^\d{1,6}$/.test(params.get('offset')??'0'))return json({error:'Invalid query'},400,headers);
+    const token=request.headers.has('authorization')?tokenFrom(request):null;
+    if(!token)return json({error:'No session'},401,headers);
+    let body:unknown;
+    try{if(!read)body=await parseBody(request);else if(request.body!==null)return json({error:'Invalid body'},400,headers);}
+    catch(error){return bodyFailure(error,'Invalid request',headers);}
+    return withDb(env,async db=>{
+      if(!read){const limited=await mutationLimit(db,token,'manageAccount',headers);if(limited)return limited;}
+      await db.query(read?'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY':'BEGIN');
+      let committed=false;
+      try {
+        const actor=privilegedActor((await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active'"+(!read?' FOR SHARE OF u,s':' LIMIT 1'),[await sha256(token)])).rows);
+        if(!actor)return json({error:'Invalid session'},401,headers);
+        if(actor.roles!=='admin'||!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,headers);
+        const workflow=new AdminWorkflow(actor,new AdminRepository(db,actor.tenant_id));
+        const result=read?await workflow.read(Number(params.get('offset')??'0')):create?await workflow.create(body):await workflow.update(update![1],body);
+        if(!read){await db.query('COMMIT');committed=true;}
+        return json(result,create?201:200,headers);
+      }catch(error){
+        if(error instanceof WorkflowFailure)return json({error:error.message},error.status,headers);
+        if((error as {code?:string}).code==='23505')return json({error:'Email is already registered'},409,headers);
+        throw error;
+      }finally{if(!committed)await db.query('ROLLBACK');}
+    });
+  }
   const records=await selfRecords(request,env,path,headers);
   if(records)return records;
   const personal=await selfSessions(request,env,path,headers);

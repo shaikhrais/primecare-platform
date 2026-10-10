@@ -44,3 +44,5 @@ export 'src/application/base_auth_sql_repository.dart';
 export 'src/application/base_governance_sql_repository.dart';
 export 'src/auth/base_auth_workflow.dart';
 export 'src/auth/http_auth_transport.dart';
+
+export 'src/admin/base_admin_workflow.dart';

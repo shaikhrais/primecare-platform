@@ -60,6 +60,11 @@ abstract class BaseAuthWorkflow {
     changed();
   }
 
+  Future<Map<String, dynamic>> authorizedRequest(String method, String path, {Map<String, dynamic>? body}) async {
+    if (_token == null) throw const AuthFailure('Sign in before continuing', status: 401);
+    return transport.send(method, path, body: body, token: _token);
+  }
+
   Future<void> refreshSession() async {
     if (_token == null) return;
     try {

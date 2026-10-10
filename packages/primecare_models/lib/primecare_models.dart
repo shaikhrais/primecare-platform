@@ -62,3 +62,5 @@ export 'src/models/governance_audit_contracts.dart';
 export 'src/models/role_metadata.dart';
 export 'src/models/premium_screen_definition.dart';
 export 'src/models/auth_session.dart';
+
+export 'src/models/admin_user.dart';

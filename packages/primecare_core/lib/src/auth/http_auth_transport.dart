@@ -31,7 +31,11 @@ class HttpAuthTransport implements AuthTransport {
     String? token,
   }) async {
     final prefix = baseUrl.path.replaceFirst(RegExp(r'/$'), '');
-    final request = http.Request(method, baseUrl.replace(path: '$prefix$path'));
+    final relative = Uri.parse(path);
+    if (relative.hasScheme || relative.hasAuthority || relative.hasFragment || !relative.path.startsWith('/')) {
+      throw const AuthFailure('Invalid service path');
+    }
+    final request = http.Request(method, baseUrl.replace(path: '$prefix${relative.path}', query: relative.hasQuery ? relative.query : null));
     request.followRedirects = false;
     request.headers['content-type'] = 'application/json';
     if (token != null) request.headers['authorization'] = 'Bearer $token';

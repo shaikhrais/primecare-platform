@@ -3,3 +3,6 @@ export 'src/screens/base_primecare_screen.dart';
 export 'src/screens/rebuild_screen.dart';
 export 'src/screens/auth_screen.dart';
 export 'src/auth/auth_controller.dart';
+
+export 'src/admin/admin_screen.dart';
+export 'src/admin/admin_controller.dart';

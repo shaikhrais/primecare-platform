@@ -58,7 +58,6 @@ part 'src/features/owner_dashboard_screen_routes/owner_dashboard_screen_routes.d
 part 'src/features/shareholder_dashboard_screen_routes/shareholder_dashboard_screen_routes.dart';
 part 'src/features/training_director_dashboard_screen_routes/training_director_dashboard_screen_routes.dart';
 part 'src/features/volunteer_coordinator_dashboard_screen_routes/volunteer_coordinator_dashboard_screen_routes.dart';
-part 'src/features/admin_dashboard_screen_routes/admin_dashboard_screen_routes.dart';
 part 'src/features/franchise_owner_appointments_screen_routes/franchise_owner_appointments_screen_routes.dart';
 part 'src/features/franchise_owner_branch_overview_screen_routes/franchise_owner_branch_overview_screen_routes.dart';
 part 'src/features/franchise_owner_dashboard_screen_routes/franchise_owner_dashboard_screen_routes.dart';
@@ -136,7 +135,6 @@ class ApiRoutes extends BaseModularApiRoutes {
     ShareholderDashboardScreenRoutes(prisma),
     TrainingDirectorDashboardScreenRoutes(prisma),
     VolunteerCoordinatorDashboardScreenRoutes(prisma),
-    AdminDashboardScreenRoutes(prisma),
     FranchiseOwnerAppointmentsScreenRoutes(prisma),
     FranchiseOwnerBranchOverviewScreenRoutes(prisma),
     FranchiseOwnerDashboardScreenRoutes(prisma),

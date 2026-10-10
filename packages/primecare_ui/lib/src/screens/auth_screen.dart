@@ -1,3 +1,4 @@
+import '../admin/admin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:primecare_core/primecare_core.dart';
@@ -178,6 +179,10 @@ class _AuthScreenState extends State<BaseAuthScreen> {
                       const SizedBox(height: 24),
                       if (signedIn) ...[
                         Text('User: ${session.userId}\nRole: ${session.role}'),
+                        if (session.role == 'admin') FilledButton(
+                          onPressed: _busy ? null : () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => AdminScreen(request: _auth!.authorizedRequest))),
+                          child: const Text('Open admin workspace'),
+                        ),
                         const SizedBox(height: 16),
                         FilledButton(
                           onPressed: _busy
