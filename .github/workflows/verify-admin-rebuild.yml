@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Verify inherited Admin account/audit workflows, safe projections, and EN/ES/FR state.
+# Verify central Admin audit controls, safe projections, EN/ES/FR, and form preservation.
 on:
   push:
     branches: [deploy/email-inbox-20261010]

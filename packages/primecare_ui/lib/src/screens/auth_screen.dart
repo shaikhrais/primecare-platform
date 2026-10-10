@@ -43,7 +43,7 @@ class _AuthScreenState extends State<BaseAuthScreen> {
       _auth = AuthController(transport, () {
         if (mounted) setState(() {});
       });
-    } on AuthFailure catch (error) {
+    } on AuthFailure {
       _message = 'error.notConfigured';
     }
   }

@@ -52,7 +52,7 @@ class HttpAuthTransport implements AuthTransport {
               ? decoded['error'] as String
               : 'Authentication request failed',
           status: response.statusCode,
-          code: decoded["code"] is String ? decoded["code"] as String : null,
+          code: decoded['code'] is String ? decoded['code'] as String : null,
         );
       }
       return decoded;
