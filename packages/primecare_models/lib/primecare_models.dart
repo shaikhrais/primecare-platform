@@ -64,3 +64,5 @@ export 'src/models/premium_screen_definition.dart';
 export 'src/models/auth_session.dart';
 
 export 'src/models/admin_user.dart';
+
+export 'src/models/admin_audit_event.dart';

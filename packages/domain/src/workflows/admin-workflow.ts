@@ -10,6 +10,7 @@ export abstract class BaseTenantWorkflow {
   }
 }
 export interface AdminRepository {
+  audit(offset:number):Promise<{events:Record<string,unknown>[];total:number;offset:number;limit:number}>;
   organization():Promise<Record<string,unknown>>;
   users(offset:number):Promise<{users:Record<string,unknown>[];total:number;active:number;offset:number;limit:number}>;
   lockedAccount(id:string):Promise<{id:string;role:string}|null>;
@@ -34,6 +35,7 @@ export function validateUser(value:unknown,create:boolean):UserInput {
 export class AdminWorkflow extends BaseTenantWorkflow {
   constructor(actor:Actor,private repository:AdminRepository){super(actor);}
   async read(offset:number){this.authorize('admin');if(!Number.isInteger(offset)||offset<0||offset>999999)throw new WorkflowFailure(400,'Invalid offset');return {organization:await this.repository.organization(),...await this.repository.users(offset),assignableRoles};}
+  async readAudit(offset:number){this.authorize('admin');if(!Number.isInteger(offset)||offset<0||offset>999999)throw new WorkflowFailure(400,'Invalid offset');return this.repository.audit(offset);}
   async create(value:unknown){this.authorize('admin');return {user:await this.repository.create(this.actor.id,validateUser(value,true))};}
   async update(id:string,value:unknown){this.authorize('admin');if(id===this.actor.id)throw new WorkflowFailure(403,'Protected account');const input=validateUser(value,false);const target=await this.repository.lockedAccount(id);if(!target)throw new WorkflowFailure(404,'Account not found');if(!assignableRoles.includes(target.role as typeof assignableRoles[number]))throw new WorkflowFailure(403,'Protected account');return {user:await this.repository.update(this.actor.id,id,input)};}
 }

@@ -124,7 +124,7 @@ export async function parseBody(request: Request): Promise<Json> {
 async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
   if(path==='/admin/workspace'||path.startsWith('/admin/workspace/')) {
     const update=/^\/admin\/workspace\/users\/([0-9a-f-]{36})$/.exec(path);
-    const read=path==='/admin/workspace',create=path==='/admin/workspace/users';
+    const audit=path==='/admin/workspace/audit',read=path==='/admin/workspace'||audit,create=path==='/admin/workspace/users';
     if(!read&&!create&&!update)return json({error:'Not found'},404,headers);
     const method=read?'GET':create?'POST':'PUT';
     if(request.method!==method)return json({error:'Method not allowed'},405,{...headers,allow:method});
@@ -144,7 +144,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         if(!actor)return json({error:'Invalid session'},401,headers);
         if(actor.roles!=='admin'||!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,headers);
         const workflow=new AdminWorkflow(actor,new AdminSqlRepository(db,actor.tenant_id));
-        const result=read?await workflow.read(Number(params.get('offset')??'0')):create?await workflow.create(body):await workflow.update(update![1],body);
+        const result=read?(audit?await workflow.readAudit(Number(params.get('offset')??'0')):await workflow.read(Number(params.get('offset')??'0'))):create?await workflow.create(body):await workflow.update(update![1],body);
         if(!read){await db.query('COMMIT');committed=true;}
         return json(result,create?201:200,headers);
       }catch(error){

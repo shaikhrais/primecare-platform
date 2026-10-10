@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Verify accessible menu labels and fail-closed legacy account status projection.
+# Verify inherited Admin account and audit workflows in EN, ES, and FR.
 on:
   push:
     branches: [deploy/email-inbox-20261010]

@@ -1,3 +1,4 @@
+import 'admin_audit_screen.dart';
 import '../localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_core/primecare_core.dart';
@@ -46,6 +47,7 @@ class _AdminWorkspaceState extends State<_AdminWorkspace> {
     Text(strings.text('admin.counts', {'total': controller.total, 'active': controller.active})),
     if (controller.busy) const LinearProgressIndicator(),
     if (controller.error != null) Text(strings.text(controller.errorCode ?? 'error.unavailable'), style: TextStyle(color: Theme.of(context).colorScheme.error)),
+    TextButton(onPressed: () => Navigator.push(context,MaterialPageRoute<void>(builder: (_) => AdminAuditScreen(request:widget.request))),child:Text(strings.text('audit.title'))),
     Wrap(spacing: 12, children: [
       OutlinedButton(onPressed: controller.busy ? null : () => controller.load(pageOffset: controller.offset), child: Text(strings.text('admin.refresh'))),
       FilledButton(onPressed: controller.busy || controller.assignableRoles.isEmpty ? null : () => edit(), child: Text(strings.text('admin.create'))),

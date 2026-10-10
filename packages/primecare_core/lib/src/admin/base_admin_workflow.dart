@@ -7,6 +7,10 @@ typedef AuthorizedRequest = Future<Map<String, dynamic>> Function(String method,
 abstract class BaseAdminWorkflow {
   final AuthorizedRequest request;
   BaseAdminWorkflow(this.request);
+  List<AdminAuditEvent> events = const [];
+  int auditTotal = 0;
+  int auditOffset = 0;
+  bool get hasNextAudit => auditOffset + events.length < auditTotal;
   List<AdminUser> users = const [];
   List<String> assignableRoles = const [];
   String organization = '';
@@ -38,6 +42,13 @@ abstract class BaseAdminWorkflow {
     users = parsed; assignableRoles = List<String>.from(roles); organization = org['name'] as String;
     total = data['total'] as int; active = data['active'] as int; offset = pageOffset;
   }
+  Future<void> loadAudit({int pageOffset = 0}) => _run(() async {
+    final data = await request('GET','/admin/workspace/audit?offset=$pageOffset');
+    final rows = data['events'];
+    if(rows is! List || rows.length > 25 || data['total'] is! int || (data['total'] as int) < 0 || data['offset'] != pageOffset || data['limit'] != 25) throw const AuthFailure('Invalid audit response',code:'error.invalidResponse');
+    final parsed = rows.map((row) => AdminAuditEvent.fromJson(Map<String,dynamic>.from(row as Map))).toList();
+    events = parsed; auditTotal = data['total'] as int; auditOffset = pageOffset;
+  });
   Future<void> load({int pageOffset = 0}) => _run(() => _load(pageOffset));
   Future<void> create(String email, String role, String password) => _run(() async {
     await request('POST','/admin/workspace/users',body: {'email':email,'role':role,'password':password});

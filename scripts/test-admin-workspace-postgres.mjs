@@ -46,6 +46,13 @@ try {
  assert.equal((await call('/users/'+createdId,'PUT',update,tokens[2])).status,404);checks++;
  assert.equal((await call('/users/'+ids[0],'PUT',update)).status,403);assert.equal((await call('/users/'+ids[2],'PUT',update)).status,404);checks++;
  const event=(await db.query('SELECT previous_state,new_state FROM auth_management_audit WHERE target_user_id=$1',[createdId])).rows[0];assert.equal(event.previous_state.role,'rmt');assert.equal(event.new_state.role,'rn');checks++;
+ const auditResponse=await call('/audit');assert.equal(auditResponse.status,200);const audit=await auditResponse.json();assert.equal(audit.total,2);assert.equal(audit.events.length,2);assert(audit.events.every(e=>e.target===createdId&&e.actor===ids[0]));checks++;
+ assert.equal((await call('/audit','GET',undefined,tokens[1])).status,403);assert.equal((await call('/audit','GET',undefined,'invalid')).status,401);checks++;
+ const otherAudit=await (await call('/audit','GET',undefined,tokens[2])).json();assert.equal(otherAudit.total,0);assert.deepEqual(otherAudit.events,[]);checks++;
+ assert.equal((await call('/audit?offset=0&offset=1')).status,400);assert.equal((await call('/audit','POST',{})).status,405);checks++;
+ await db.query("UPDATE auth_management_audit SET new_state=new_state || '{\"password_hash\":\"secret-fixture\",\"token\":\"secret-token\"}'::jsonb WHERE target_user_id=$1",[createdId]);
+ const safeAudit=await (await call('/audit')).json();assert(!JSON.stringify(safeAudit).includes('secret-'));assert(!JSON.stringify(safeAudit).includes('password_hash'));assert(safeAudit.events.every(e=>Object.keys(e.after??{}).every(k=>['email','role','status'].includes(k))));checks++;
+ const auditPage=await (await call('/audit?offset=25')).json();assert.equal(auditPage.total,2);assert.deepEqual(auditPage.events,[]);assert.equal(auditPage.offset,25);checks++;
  const empty=await (await call('?offset=25')).json();assert.equal(empty.users.length,0);assert.equal(empty.total,3);checks++;
  assert.equal((await call('/users','DELETE')).status,405);checks++;
  // Audit failure must roll back both account changes and session revocation.

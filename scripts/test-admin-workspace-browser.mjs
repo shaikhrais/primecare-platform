@@ -71,6 +71,7 @@ try {
  const persisted=(await db.query('SELECT email,roles,status FROM users WHERE id=$1',[user.id])).rows[0];assert.deepEqual(persisted,{email:updatedEmail,roles:'rmt',status:'inactive'});
  const me=await gateway.fetch(new Request('https://fixture/v1/auth/me',{headers:{authorization:'Bearer '+userToken}}),env);assert.equal(me.status,401);
  phase='reload';await page.getByRole('button',{name:strings['admin.refresh'],exact:true}).click();await page.getByText(updatedEmail,{exact:true}).waitFor();
+ phase='audit history';await page.getByRole('button',{name:strings['audit.title'],exact:true}).click();await page.getByText(strings['audit.account_created'],{exact:true}).first().waitFor();await page.getByText(strings['audit.account_updated'],{exact:true}).first().waitFor();await page.getByRole('button',{name:strings['back'],exact:true}).click();
  phase='logout';await page.getByRole('button',{name:strings['back'],exact:true}).click();await page.getByRole('button',{name:strings['auth.signOut'],exact:true}).click();await page.getByRole('button',{name:strings['auth.signIn'],exact:true}).waitFor();
  assert.equal((await db.query('SELECT count(*)::int AS n FROM auth_sessions WHERE user_id=$1',[admin])).rows[0].n,0);
  await page.close();console.log('PASS '+language+': Admin browser E2E login, inherited workspace, create, edit email/role, deactivate, persistence, session revocation and logout');
