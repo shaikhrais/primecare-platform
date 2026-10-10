@@ -10,7 +10,7 @@ if(gateway.origin!=='https://primecare-api-gateway.itpro-mohammed.workers.dev')
 if(process.env.CONFIRM_AUTH_SMOKE!=='VERIFY_AUTH') throw new Error('Auth smoke confirmation required');
 const db=new Client({connectionString:process.env.PRODUCTION_DATABASE_URL,connectionTimeoutMillis:10000});
 const tenantId=randomUUID(),actorId=randomUUID(),suffix=randomUUID();
-const email=`auth-smoke-${suffix}@example.invalid`;
+const email=process.env.VERIFY_AUTH_EMAIL==='1'?'auth-test@15minutes-email.com':`auth-smoke-${suffix}@example.invalid`;
 const targetEmail=`auth-target-${suffix}@example.invalid`;
 const password=randomBytes(24).toString('base64url');
 let targetId,fixtureCreated=false,passed=0,phase='connect';
@@ -23,6 +23,10 @@ async function call(path,method='GET',body,token,extra={}) {
 }
 try {
  await db.connect();
+ if(process.env.VERIFY_AUTH_EMAIL==='1') {
+  const existing=await db.query('SELECT id FROM users WHERE LOWER(email)=$1',[email]);
+  if(existing.rows.length)throw new Error('Owned QA mailbox already belongs to an account; refusing to alter it');
+ }
  await db.query('BEGIN');
   try {
   phase='create QA tenant';
@@ -70,6 +74,10 @@ try {
  check(relogin.status===200,'new password authenticates');
  check((await call('/v1/auth/logout','POST',{},relogin.data.token)).status===200,'logout succeeds');
  check((await call('/v1/auth/me','GET',undefined,relogin.data.token)).status===401,'logged-out session rejected');
+ if(process.env.VERIFY_AUTH_EMAIL==='1') {
+  const {verifyAuthEmailRecovery}=await import('./verify-auth-email-recovery.mjs');
+  await verifyAuthEmailRecovery({db,call,check,email,actorId,password:newPassword});
+ }
  console.log(`Production auth smoke passed ${passed} checks.`);
 } catch(error) {
  console.error(`Production auth smoke failed after ${passed} checks. No credentials or response bodies logged.`);
@@ -87,6 +95,7 @@ try {
    for(const id of ids) {
     for(const operation of ['changePassword','createAccount','manageAccount'])
      await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update(operation+':'+id).digest('hex')]);
+    await db.query('DELETE FROM auth_password_resets WHERE user_id=$1',[id]);
     await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[id]);
     await db.query('DELETE FROM auth_password_audit WHERE user_id=$1',[id]);
    }
@@ -95,7 +104,8 @@ try {
    await db.query('DELETE FROM users WHERE tenant_id=$1',[tenantId]);
    await db.query('DELETE FROM tenants WHERE id=$1',[tenantId]);
    for(const fixtureEmail of [email,targetEmail])
-    await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('login:'+fixtureEmail).digest('hex')]);
+    for(const operation of ['login','forgot','reset'])
+     await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update(operation+':'+fixtureEmail).digest('hex')]);
    await db.query('COMMIT');console.log('Temporary QA tenant and accounts removed.');
   } catch {await db.query('ROLLBACK').catch(()=>{});console.error('QA cleanup failed; operator review required.');process.exitCode=1;}
  }
