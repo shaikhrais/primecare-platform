@@ -1,8 +1,5 @@
 name: Prepare private Cloudflare email inbox
 on:
-  push:
-    branches: [deploy/email-inbox-20261010]
-    paths: [.github/workflows/setup-email-inbox.yml, cloudflare/email-inbox/**]
   workflow_dispatch:
 permissions:
   contents: read
