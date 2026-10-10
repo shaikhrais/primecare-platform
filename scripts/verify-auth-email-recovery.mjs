@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {createHash,randomBytes} from 'node:crypto';
 import PostalMime from 'postal-mime';
+import {openRecoveryBrowser} from './verify-auth-recovery-browser.mjs';
 export async function verifyAuthEmailRecovery({db,call,check,email,actorId,password}) {
  const account=process.env.CLOUDFLARE_ACCOUNT_ID, token=process.env.CLOUDFLARE_API_TOKEN;
  if(!account||!token)throw new Error('Cloudflare email verification credentials missing');
@@ -10,7 +11,9 @@ export async function verifyAuthEmailRecovery({db,call,check,email,actorId,passw
  const namespace=namespaces.find(n=>n.title==='primecare-email-inbox');assert.ok(namespace,'Private inbox exists');
  const started=Date.now();
  const initial=await call('/v1/auth/login','POST',{email,password});check(initial.status===200,'pre-recovery session established');
- const recovery=await call('/v1/auth/forgot-password','POST',{email});check(recovery.status===200,'real account recovery accepted');
+ const recoveryBrowser=await openRecoveryBrowser(email);
+ try {
+ check(recoveryBrowser.status===200,'published recovery form submits real account request');
  let code;
  const deadline=Date.now()+180000;
  while(!code&&Date.now()<deadline){
@@ -40,14 +43,14 @@ export async function verifyAuthEmailRecovery({db,call,check,email,actorId,passw
  await db.query("UPDATE auth_password_resets SET expires_at=NOW()-INTERVAL '1 minute' WHERE token_hash=$1 AND user_id=$2",[hash,actorId]);
  check((await call('/v1/auth/reset-password','POST',{email,code,newPassword:next})).status===400,'expired reset code rejected');
  await db.query("UPDATE auth_password_resets SET expires_at=NOW()+INTERVAL '5 minutes' WHERE token_hash=$1 AND user_id=$2",[hash,actorId]);
- const reset=await call('/v1/auth/reset-password','POST',{email,code,newPassword:next});
- check(reset.status===200&&reset.data.reauthenticationRequired===true,'received email code resets password');
+ const reset=await recoveryBrowser.reset(code,next);
+ check(reset.status===200&&reset.data.reauthenticationRequired===true,'published reset form accepts received email code');
  check((await call('/v1/auth/me','GET',undefined,initial.data.token)).status===401,'recovery reset revokes previous sessions');
  check((await call('/v1/auth/reset-password','POST',{email,code,newPassword:next})).status===400,'reset code cannot be reused');
  check((await call('/v1/auth/login','POST',{email,password})).status===401,'pre-reset password rejected');
  const login=await call('/v1/auth/login','POST',{email,password:next});check(login.status===200,'reset password authenticates');
  check((await db.query('SELECT token_hash FROM auth_password_resets WHERE user_id=$1',[actorId])).rows.length===0,'consumed reset codes removed');
- const {verifyClientAuthBrowser}=await import('./verify-client-auth-browser.mjs');
- await verifyClientAuthBrowser(email,next);check(true,'published browser login and logout after email recovery');
+ await recoveryBrowser.loginLogout(next);check(true,'same browser completes recovery reset login and logout');
  await call('/v1/auth/logout','POST',{},login.data.token);
+ } finally {await recoveryBrowser.close();}
 }
