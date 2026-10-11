@@ -22,6 +22,11 @@ for app in apps:
  shutil.rmtree(host/'test',ignore_errors=True)
  (host/'integration_test').mkdir(exist_ok=True)
  shutil.copyfile(repo/'native/auth_integration_test.dart',host/'integration_test/auth_test.dart')
+ shutil.copyfile(repo/'native/admin_integration_test.dart',host/'integration_test/admin_test.dart')
+ cases=host/'integration_test/admin_cases'
+ cases.mkdir(exist_ok=True)
+ for name in ['admin_rebuild_test.dart','admin_status_filter_test.dart']:
+  shutil.copyfile(repo/'packages/primecare_ui/test'/name,cases/name)
  if platform=='android':
   manifest=host/'android/app/src/main/AndroidManifest.xml';s=manifest.read_text();s=s.replace('    <application','    <uses-permission android:name="android.permission.INTERNET"/>\n    <application',1);manifest.write_text(s)
  if platform=='macos':

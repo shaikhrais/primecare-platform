@@ -1,4 +1,4 @@
-name: Build nine portals and test auth on five native platforms
+name: Build nine portals and test Auth and shared Admin on five native platforms
 on:
   workflow_dispatch:
 permissions:
@@ -36,6 +36,7 @@ jobs:
             native
             scripts
             apps
+            packages/contracts
             packages/primecare_models
             packages/primecare_core
             packages/primecare_ui
@@ -85,9 +86,9 @@ jobs:
         run: |
           cd "$RUNNER_TEMP/primecare-native/$NATIVE_PLATFORM/apps/primecare_client"
           if [ "$NATIVE_PLATFORM" = linux ]; then
-            xvfb-run -a flutter test integration_test/auth_test.dart -d linux --dart-define-from-file="$RUNNER_TEMP/primecare-native/$NATIVE_PLATFORM/qa-defines.json"
+            xvfb-run -a flutter test integration_test/auth_test.dart integration_test/admin_test.dart -d linux --dart-define-from-file="$RUNNER_TEMP/primecare-native/$NATIVE_PLATFORM/qa-defines.json"
           else
-            flutter test integration_test/auth_test.dart -d "$NATIVE_PLATFORM" --dart-define-from-file="$RUNNER_TEMP/primecare-native/$NATIVE_PLATFORM/qa-defines.json"
+            flutter test integration_test/auth_test.dart integration_test/admin_test.dart -d "$NATIVE_PLATFORM" --dart-define-from-file="$RUNNER_TEMP/primecare-native/$NATIVE_PLATFORM/qa-defines.json"
           fi
       - name: Android emulator integration tests
         if: always() && steps.fixture.outcome == 'success' && matrix.platform == 'android'
@@ -97,7 +98,7 @@ jobs:
           arch: x86_64
           target: google_apis
           disable-animations: true
-          script: cd "$RUNNER_TEMP/primecare-native/android/apps/primecare_client" && flutter test integration_test/auth_test.dart -d emulator-5554 --dart-define-from-file="$RUNNER_TEMP/primecare-native/android/qa-defines.json"
+          script: cd "$RUNNER_TEMP/primecare-native/android/apps/primecare_client" && flutter test integration_test/auth_test.dart integration_test/admin_test.dart -d emulator-5554 --dart-define-from-file="$RUNNER_TEMP/primecare-native/android/qa-defines.json"
       - name: iOS simulator integration tests
         if: always() && steps.fixture.outcome == 'success' && matrix.platform == 'ios'
         run: |
@@ -105,7 +106,7 @@ jobs:
           xcrun simctl boot "$device" || true
           xcrun simctl bootstatus "$device" -b
           cd "$RUNNER_TEMP/primecare-native/ios/apps/primecare_client"
-          flutter test integration_test/auth_test.dart -d "$device" --dart-define-from-file="$RUNNER_TEMP/primecare-native/ios/qa-defines.json"
+          flutter test integration_test/auth_test.dart integration_test/admin_test.dart -d "$device" --dart-define-from-file="$RUNNER_TEMP/primecare-native/ios/qa-defines.json"
       - name: Remove isolated native QA account
         if: always() && steps.fixture.outcome != 'skipped'
         run: node scripts/native-auth-fixture.mjs cleanup
