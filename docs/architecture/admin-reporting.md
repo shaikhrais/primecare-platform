@@ -43,6 +43,8 @@ Report audit stores actor, tenant, report and operation. Delivery audit addition
 | Delivery | CC/BCC, recipient groups, bounces, complaints, delivery events and suppression | Recipient policy and authenticated provider-event ingestion |
 | Analytics | Drill-down, trends, cohorts, benchmarks and anomaly alerts | Verified historical snapshots and metric semantics |
 
+The four report endpoints extend the full API execution inventory. Their contracts and reporting CI track this new feature separately from the fixed legacy API migration denominator. Exact scope matching rejects accidental expansion of that exclusion.
+
 These features are planned, not implemented. No unresolved workflow from the existing finite API checklist is credited as completed by this reporting change. Updated source hashes describe the additive report integration; prior operation stages remain intact.
 
 ## Validation
