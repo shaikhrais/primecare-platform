@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Verify catalog-driven status filters, failure recovery and pagination in EN/ES/FR.
+# Verify applied status selection after fast failures and tenant pagination in EN/ES/FR.
 on:
   push:
     branches: [deploy/email-inbox-20261010]

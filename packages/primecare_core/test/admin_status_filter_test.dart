@@ -22,7 +22,7 @@ void main() {
   test('Unsupported status is rejected before transport without losing state', () async {
     var calls=0;
     Future<Map<String,dynamic>> request(String method,String path,{Map<String,dynamic>? body}) async {calls++;return _workspace(path);}
-    final admin=_Admin(request);await admin.load(statusFilter:'active');await admin.load(statusFilter:'paused');expect(calls,1);expect(admin.accountStatus,'active');expect(admin.errorCode,'error.invalidRequest');
+    final admin=_Admin(request);await admin.load(statusFilter:'active');await admin.load(statusFilter:'paused');expect(calls,1);expect(admin.stateRevision,2);expect(admin.accountStatus,'active');expect(admin.errorCode,'error.invalidRequest');
   });
   test('Mismatched status echo preserves the previous valid workspace', () async {
     var mismatch=false;

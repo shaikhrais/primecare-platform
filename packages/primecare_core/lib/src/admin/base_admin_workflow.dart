@@ -22,6 +22,7 @@ abstract class BaseAdminWorkflow {
   int active = 0;
   int offset = 0;
   bool busy = false;
+  int stateRevision = 0;
   String? error;
   String? errorCode;
   bool get hasNext => offset + users.length < total;
@@ -32,7 +33,7 @@ abstract class BaseAdminWorkflow {
     try { await operation(); }
     catch (failure) { error = failure is AuthFailure ? failure.message : 'Admin service unavailable. Please retry.';
       errorCode = failure is AuthFailure ? (failure.code ?? switch(failure.status) {403 => 'error.forbidden', 401 => 'error.signInRequired', 404 => 'error.notFound', 409 => 'error.duplicateEmail', 400 || 413 => 'error.invalidRequest', 429 => 'error.rateLimit', _ => 'error.unavailable'}) : 'error.unavailable'; }
-    finally { busy = false; changed(); }
+    finally { busy = false; stateRevision++; changed(); }
   }
   Future<void> _load(int pageOffset, {String? query, String? statusFilter}) async {
     final nextStatus = statusFilter ?? accountStatus;
