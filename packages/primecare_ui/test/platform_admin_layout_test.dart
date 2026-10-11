@@ -11,14 +11,16 @@ void main(){
  tearDown(()=>applicationLanguage.selectLanguage(SupportedLanguage.en));
  for(final language in SupportedLanguage.values){
   for(final width in [320.0,600.0,1024.0,1920.0,3840.0]){
-   testWidgets('Platform sections fit ${language.name} at $width',(tester) async {
+   for(final scale in width==320?[1.0,2.0]:[1.0]){
+   testWidgets('Platform sections fit ${language.name} at $width scale $scale',(tester) async {
     tester.view.physicalSize=Size(width,900);tester.view.devicePixelRatio=1;addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
     applicationLanguage.selectLanguage(language);final strings=AppStrings(language.name);
-    await tester.pumpWidget(MaterialApp(locale:Locale(language.name),supportedLocales:AppStrings.locales,localizationsDelegates:AppStrings.delegates,home:PlatformAdminScreen(request:request)));await tester.pumpAndSettle();expect(tester.takeException(),isNull);
+    await tester.pumpWidget(MaterialApp(locale:Locale(language.name),supportedLocales:AppStrings.locales,localizationsDelegates:AppStrings.delegates,builder:(context,child)=>MediaQuery(data:MediaQuery.of(context).copyWith(textScaler:TextScaler.linear(scale)),child:child!),home:PlatformAdminScreen(request:request)));await tester.pumpAndSettle();expect(tester.takeException(),isNull);
     for(final key in ['control.tenants','control.accounts','control.masters','control.audit','control.monitor']){
      final button=find.widgetWithText(TextButton,strings.text(key));await tester.ensureVisible(button);await tester.tap(button);await tester.pumpAndSettle();expect(tester.takeException(),isNull);
     }
    });
+   }
   }
  }
 }
