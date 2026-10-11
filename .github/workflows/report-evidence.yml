@@ -1,0 +1,31 @@
+name: Report screenshot evidence
+on:
+  pull_request:
+    paths: ['evidence/report_capture_test.dart', '.github/workflows/report-evidence.yml']
+permissions:
+  contents: read
+jobs:
+  capture:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - run: cp evidence/report_capture_test.dart packages/primecare_ui/test/report_capture_test.dart
+      - name: Capture actual reporting widget and rerun PDF tests
+        working-directory: packages/primecare_ui
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter test --reporter expanded test/report_capture_test.dart test/report_pdf_exporter_test.dart 2>&1 | tee report-test.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: report-screenshots-and-log
+          path: |
+            packages/primecare_ui/evidence/*.png
+            packages/primecare_ui/report-test.log
