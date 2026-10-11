@@ -54,7 +54,7 @@
     "cloudflare/workers/src/record-date-validation.ts": "5845be96636aad3c86daa5e59634dbba6b64005e3fbbb09de4be64f1bfa67014",
     "cloudflare/workers/src/reference-read-projection.ts": "888e754d9ca31eddd9584c2ad3dee7117533fc766b500bb18968d129f2b61027",
     "cloudflare/workers/src/report-registry.json": "1b44eacad23db5984cb05358e796eae9eb3ef6b34b3a99528fa5498532e574a3",
-    "cloudflare/workers/src/reporting.ts": "c4901f427a0f1be9c8b32195f44fade5412c57f525821722c5317a9e315ca001",
+    "cloudflare/workers/src/reporting.ts": "73481410bbad32891356ac1b33868157732151e785e3c38f45f4196207853fa8",
     "cloudflare/workers/src/self-records-registry.json": "7f5a7a841fb6567c953e0e07a661a38763e500c85e31379ce1404e0b934ffd9e",
     "cloudflare/workers/src/self-records.ts": "5f90368d032b7a1dfdb48974aab6a120d95d61dc9edb2a95c9a9d43ad258cb9d",
     "cloudflare/workers/src/self-sessions.ts": "b68c4ca2580872dd7820ac5dd340304dad84c70aa3b9be944d81967bb6935f25",

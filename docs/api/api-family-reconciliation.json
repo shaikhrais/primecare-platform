@@ -20119,7 +20119,7 @@
   ],
   "sourceHashes": {
     "docs/api/api-delivery-checklist.json": "654f5e898ed10281b931c5d4817a99dcad56ae8b0a91951fbf01ded48672934d",
-    "docs/api/api-reachability-audit.json": "3309dc2bbaac03101e6d05c0d3d1fda214ceb78baa7dae3cd15b52e0d43e2392",
+    "docs/api/api-reachability-audit.json": "2add98ceaba104ed587d3f72e155f716ea4c4e5c9c32500bb42ffdb9d9af5dc6",
     "docs/api/api-delivery-work-package.json": "0047e477b23fe01a8be7dde97cf394de2b04ad495612121ab86f0ce79196bc6b",
     ".agents/governance/governance.db": "42d350b6b3ab46540cbc58f2696d896f3afe6658b1f5153bec410dfce87d1262"
   }

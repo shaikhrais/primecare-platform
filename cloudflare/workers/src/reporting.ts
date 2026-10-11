@@ -163,7 +163,7 @@ export async function reporting(request:Request,env:Env,path:string,headers:Head
     const bytes=action==='pdf'?new PdfReportRenderer().render(report):null;
     const audit=(await db.query('INSERT INTO report_audit(actor_id,tenant_id,report_id,operation) VALUES($1,$2,$3,$4) RETURNING id',[identity.id,identity.tenant_id,id,action==='pdf'?'pdf':'run'])).rows;if(audit.length!==1||!audit[0].id)throw Error('Report audit failed');
     await db.query('COMMIT');committed=true;
-    if(bytes){safe.set('content-type','application/pdf');safe.set('content-disposition',`attachment; filename="${id}.pdf"`);return new Response(bytes,{headers:safe});}
+    if(bytes){safe.set('content-type','application/pdf');safe.set('content-disposition',`attachment; filename="${id}.pdf"`);const body=new ArrayBuffer(bytes.byteLength);new Uint8Array(body).set(bytes);return new Response(body,{headers:safe});}
     return json(report,200,safe);
    }finally{if(!committed)await db.query('ROLLBACK');}
   });
