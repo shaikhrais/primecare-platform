@@ -1,7 +1,7 @@
 name: Shared admin reporting
 on:
   pull_request:
-    paths: ['cloudflare/workers/**', 'packages/primecare_models/**', 'packages/primecare_ui/**', 'packages/flutter_core/lib/src/network/api_client.dart', 'scripts/*admin-reports*', '.github/workflows/admin-reports.yml']
+    paths: ['cloudflare/workers/**', 'packages/primecare_models/**', 'packages/primecare_ui/**', 'packages/flutter_core/lib/src/network/api_client.dart', 'scripts/*admin-reports*', 'scripts/generate-cloudflare-worker-config.mjs', 'packages/database/migrations/*admin_reports.sql', '.github/workflows/admin-reports.yml']
   workflow_dispatch:
 permissions:
   contents: read

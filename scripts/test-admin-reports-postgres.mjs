@@ -14,7 +14,7 @@ const schema='report_test_'+Date.now();await setup.query(`CREATE SCHEMA ${schema
 const u=new URL(connection);u.searchParams.set('options',`-c search_path=${schema}`);const scoped=u.toString();
 await setup.query(`SET search_path TO ${schema}`);
 await setup.query('CREATE TABLE users(id text PRIMARY KEY,roles text,tenant_id text,status text); CREATE TABLE auth_sessions(user_id text,token_hash text,expires_at timestamptz); CREATE TABLE tenant_mail_configuration(tenant_id text,sender text,api_key_ciphertext text,templates jsonb)');
-await setup.query(await readFile('cloudflare/workers/contracts/admin-reports.sql','utf8'));
+await setup.query(await readFile('packages/database/migrations/20261011_admin_reports.sql','utf8'));
 const token='a'.repeat(43);const digest=Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token))).toString('hex');
 await setup.query("INSERT INTO users VALUES('actor','admin','tenant-a','active'); INSERT INTO users VALUES('other','admin','tenant-b','active')");
 await setup.query("INSERT INTO auth_sessions VALUES('actor',$1,NOW()+INTERVAL '1 hour')",[digest]);
