@@ -8,7 +8,7 @@ The authenticated workspace returns the nine task definitions from `packages/con
 | --- | --- | --- |
 | Workspace summary | Read the server-authorized organization and total/active account counts. | GET workspace |
 | User directory | Read tenant accounts in pages of 25; refresh and paginate. | GET workspace |
-| Account search | Apply a normalized literal email substring; clear it to restore all tenant accounts. | GET workspace with search |
+| Account discovery | Combine a normalized literal email substring with all/active/inactive status filtering. Clear each filter independently; refresh, pagination and mutations retain the applied filters. | GET workspace with search/status |
 | Create account | Enter email, password and a permitted role; validate centrally, hash the password and commit the account with its audit record. | POST workspace/users |
 | Update account | Edit email or permitted role; reject protected accounts/escalation, commit changes and revoke target sessions. | PUT workspace/users/{id} |
 | Activate/deactivate | Set active/inactive; revoke sessions on changes. Inactive accounts cannot authenticate; reactivated accounts can sign in again. | PUT workspace/users/{id} |
@@ -18,6 +18,10 @@ The authenticated workspace returns the nine task definitions from `packages/con
 
 Sign-in, sign-out, account recovery and other common authentication workflows remain in the shared Auth layer rather than being copied into Admin.
 
+## API mapping
+
+All paths use the Gateway prefix `/v1/auth`. The four unique operations are `GET /admin/workspace`, `POST /admin/workspace/users`, `PUT /admin/workspace/users/{id}` and `GET /admin/workspace/audit`. Workspace reads accept offset, literal email search and canonical status (`active`, `inactive`, or empty/omitted for all). Audit reads accept offset and an account UUID. Unknown/duplicate query fields are rejected. Search and status combine with AND inside the same tenant snapshot, and both count and page queries use identical predicates. Every stored state other than case-insensitive active projects as inactive, including legacy deactivated values.
+
 ## Inheritance and centralized control
 
 | Layer | Class hierarchy | Responsibility |
@@ -26,7 +30,7 @@ Sign-in, sign-out, account recovery and other common authentication workflows re
 | Shared Dart task model | AdminTask extends BaseRoleTask extends BaseEntity | Validate task metadata and expose it to the inherited UI. |
 | Worker business rules | AdminWorkflow extends BaseTenantWorkflow | Authorize the active Admin actor, validate input, enforce role and tenant rules. |
 | Persistence | AdminSqlRepository extends BaseTenantRepository | Bind tenant-scoped SQL; commit mutation, session revocation and audit atomically. |
-| UI workflow | AdminController extends BaseAdminWorkflow | Maintain loading/error/search/filter state and call the shared API transport. |
+| UI workflow | AdminController extends BaseAdminWorkflow | Maintain loading/error/search/status/audit-filter state and call the shared API transport; reject mismatched response filters and restore the last applied selector after failures. |
 | Screens | AdminScreen, AdminAuditScreen and AdminTasksScreen extend BasePrimecareScreen | Render shared models and use the common navigation/language controls. |
 | Localization | AppStrings extends BaseTextCatalog; AppLanguageController extends BaseLanguageWorkflow | Use one editable catalog and one language controller across inherited app shells. |
 
@@ -42,3 +46,13 @@ Production Worker/Pages rollout and production Admin E2E are pending. Native-pla
 
 [CI run 38097091443](https://github.com/shaikhrais/primecare-platform/actions/runs/38097091443) passed all steps: Worker type checks; 90 Auth regression and 39 Admin PostgreSQL/Gateway checks; 37 model, 85 core (one skipped) and 13 UI tests; 112-key EN/ES/FR catalog validation; Support release web build; and Chromium E2E in English, Spanish and French. Each browser scenario opens the inherited task overview, creates an account, changes email/role and deactivates it, reactivates it and verifies real sign-in, deactivates again and verifies the new session is revoked, then checks persistence, search, account-bound audit history, filter clearing and logout.
 
+
+## Verified account status filtering — 2026-10-11
+
+[CI run 38098719953](https://github.com/shaikhrais/primecare-platform/actions/runs/38098719953) passed all stages: Worker type checks; 90 Auth regression plus 46 Admin PostgreSQL/Gateway checks; 37 model, 90 core (one skipped) and 17 UI tests; the 114-key EN/ES/FR catalog check; Support release web build; and complete Chromium flows in English, Spanish and French. Browser tests verify combined email/status filtering, empty Active results for the inactive edited account, its return under Inactive, refresh and independent filter clearing, alongside the existing task overview, account lifecycle, audit, session-revocation and logout checks.
+
+`GET /v1/auth/admin/workspace` now accepts optional canonical `status=active` or `status=inactive`; empty/omitted means all. The central domain workflow validates the filter, and identical tenant/search/status predicates bind both count and page queries. Legacy stored non-active states project as inactive consistently. Database tests exercise real two-page active results (28 accounts, pages of 25 and 3, with no duplicate IDs), combined filters, invalid/duplicate query fields and cross-tenant isolation. The shared core preserves filters through refresh, pagination and mutation reloads and rejects mismatched filter echoes, rows or counts.
+
+The inherited UI uses the shared EN/ES/FR catalog. A regression test caught stale selector text after an immediate API failure; completion revisions in `BaseAdminWorkflow` now restore the last successfully applied filter even when loading/error notifications happen before a rendered frame. This is shared presentation state; permissions remain on the server.
+
+The task catalog still describes nine workflows and the API still has four unique Admin operations. Status filtering extends account discovery rather than adding another operation. This work changes 15 source/config/test/documentation files, including two new focused test files. Production rollout/E2E, native verification of the newer Admin code, organization creation and elevated-role policy remain pending. The verification workflow is manual after the passing run. The disposable test build is not deployed.

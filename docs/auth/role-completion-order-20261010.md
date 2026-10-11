@@ -36,7 +36,7 @@ The implemented Admin task register is [admin-task-register-20261010.md](admin-t
 
 | Order | Stage | Role code | Primary app | Business E2E status |
 | --- | --- | --- | --- | --- |
-| 1 | Access and organization setup | `admin` | support | Fresh accounts, search, audit filters, task overview and activation lifecycle verified in EN/ES/FR CI 38097091443; full acceptance/deployment/native verification pending |
+| 1 | Access and organization setup | `admin` | support | Fresh accounts, search/status filters, audit, task overview and activation lifecycle verified in EN/ES/FR CI 38098719953; full acceptance/deployment/native verification pending |
 | 2 | Access and organization setup | `owner` | franchise | Pending fresh verification |
 | 3 | Access and organization setup | `gm` | support | Pending fresh verification |
 | 4 | Access and organization setup | `ops_manager` | support | Pending fresh verification |
