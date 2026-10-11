@@ -49,4 +49,24 @@ The command entry point of `tools/governance/recreate_clean_templates.py` is dis
 
 ## Verification
 
-The retirement command verifies every deleted file against its Git blob identity and refuses local/staged changes or mismatched recovery trees before deleting. Only tracked files are removed; untracked content is preserved. Four tests cover dry-run records, preservation of untracked/live files, dirty-file refusal and recovery-tree refusal. Auth/Admin regression results will be recorded after CI completes.
+The retirement command verifies every deleted file against its Git blob identity and refuses local/staged changes or mismatched recovery trees before deleting. Only tracked files are removed; untracked content is preserved. Four tests cover dry-run records, preservation of untracked/live files, dirty-file refusal and recovery-tree refusal. Auth/Admin regression verification is complete for cleanup commit `64e40b5bc0499d320142f52543fcb11d6ec3a313`. [CI run 38138817826](https://github.com/shaikhrais/primecare-platform/actions/runs/38138817826) passed on 11 October 2026; every required verification step succeeded.
+
+| Verification | Result |
+|---|---|
+| Worker type checks and Auth PostgreSQL regression | Passed |
+| Admin workspace PostgreSQL/gateway | 46 checks passed |
+| Platform Admin domain | 43 checks passed; 16 master categories |
+| Platform Admin Gateway/PostgreSQL | 54 checks passed |
+| Retirement safety tests in CI | 4 passed |
+| Shared model tests | 42 passed; analysis clean |
+| Shared core tests | 100 passed, 1 skipped; analysis clean |
+| Shared UI tests | 78 passed; analysis clean |
+| EN/ES/FR catalog generation | 176 keys verified |
+| Inherited Support portal release web build | Passed |
+| Admin browser workflows in EN/ES/FR | Passed in all three languages |
+
+Browser coverage includes login/logout, tenant creation, selected-tenant account creation/editing, activation/deactivation, session revocation, persisted changes, search/status filters, translated master records, monitoring and audit history. Tests use disposable PostgreSQL; this evidence does not certify production rollout or native-platform builds.
+
+Continuation verification independently passed the four retirement safety tests, 13 current provider-profile retirement tests and localization generation checks. The decompressed inventory checksum, all 34,693 records, 17,291 deletion rows, byte totals and recovery references were validated. GitHub's published recovery commit was checked directly: its backup tree is `303d846c72c79359d715c64fbe8f99067d41e003`, exactly matching the inventory.
+
+The pending recovery-record publication and Auth/Admin verification for this archived-backup cleanup are now complete. Retained files still require individual dependency/behavior review before any further deletion; this report does not certify the full skeleton migration.
