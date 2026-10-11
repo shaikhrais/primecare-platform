@@ -29,7 +29,7 @@ class FixtureApi extends Fake implements ApiClient {
   @override
   Future<ApiResponse> revokeSession(String token) => post('/v1/auth/logout');
   @override
-  Future<ApiResponse> post(String path, {dynamic body}) async {
+  Future<ApiResponse> post(String path, {dynamic body, Map<String, String>? headers}) async {
     calls.add(path);
     lastBody = body;
     return ApiResponse(statusCode: status, data: <String, dynamic>{});
@@ -50,7 +50,7 @@ class DeferredApi extends Fake implements ApiClient {
   }
 
   @override
-  Future<ApiResponse> post(String path, {dynamic body}) {
+  Future<ApiResponse> post(String path, {dynamic body, Map<String, String>? headers}) {
     final result = Completer<ApiResponse>();
     logins.add(result);
     return result.future;
