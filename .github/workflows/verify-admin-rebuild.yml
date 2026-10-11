@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Verify mobile-to-4K inherited Admin screens and account workflows in EN/ES/FR.
+# Verify mobile-to-4K layouts, accessible forms and Admin workflows in EN/ES/FR.
 on:
   push:
     branches: [deploy/email-inbox-20261010]
