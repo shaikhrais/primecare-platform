@@ -38,7 +38,7 @@ class _AdminReportsPanelState extends ConsumerState<AdminReportsPanel> {
     if (_busy || !mounted) return;
     setState(() { _busy = true; _notice = null; });
     try { await work(); }
-    catch (_) { if (mounted) setState(() { _notice = label('error'); }); }
+    catch (_) { if (mounted) setState(() { _notice = label(_deliveryUnknown ? 'unknown' : 'error'); }); }
     finally { if (mounted) setState(() { _busy = false; }); }
   }
   Future<void> _load() => action(() async {

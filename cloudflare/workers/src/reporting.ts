@@ -113,7 +113,7 @@ export class ReportDeliveryService {
  }
 }
 async function emailBody(request:Request):Promise<unknown> {
- if(!request.headers.get('content-type')?.toLowerCase().startsWith('application/json'))fail(400,'JSON required');
+ if(request.headers.get('content-type')?.split(';')[0].trim().toLowerCase()!=='application/json')fail(400,'JSON required');
  const reader=request.body?.getReader();if(!reader)fail(400,'JSON required');
  const chunks:Uint8Array[]=[];let size=0;
  try{while(true){const {done,value}=await reader!.read();if(done)break;size+=value.length;if(size>8192){await reader!.cancel();fail(413,'Request too large');}chunks.push(value);}}finally{reader!.releaseLock();}
@@ -130,7 +130,7 @@ export async function reporting(request:Request,env:Env,path:string,headers:Head
   if(request.method!==method){safe.set('allow',method);fail(405,'Method not allowed');}
   const token=request.headers.has('authorization')?tokenFrom(request):null;if(!token)fail(401,'No session');
   const params=new URL(request.url).searchParams;if([...params.keys()].some(k=>params.getAll(k).length!==1))fail(400,'Duplicate report option');
-  const options=parseReportRequest(Object.fromEntries(params));if(!id&&(options.search||options.readiness!=='all'))fail(400,'Invalid catalog option');
+  const options=parseReportRequest(Object.fromEntries(params));if(!id&&[...params.keys()].some(k=>k!=='locale'))fail(400,'Invalid catalog option');
   if(action==='email'&&params.size)fail(400,'Email options belong in JSON');
   if(method==='GET'&&request.body!==null)fail(400,'Unexpected body');
   const delivery=action==='email'?parseReportEmail(await emailBody(request)):null;
