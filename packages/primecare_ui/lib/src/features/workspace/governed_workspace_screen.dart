@@ -20,7 +20,7 @@ class _WorkspaceState extends ConsumerState<GovernedWorkspaceScreen> {
 
   String label(String key) => (_workspace?['resources'] as Map?)?['workspace.$key']?.toString() ?? 'workspace.$key'.tr();
   List<Map<String, dynamic>> list(dynamic value) => value is List
-      ? value.whereType<Map>().map((v) => Map<String, dynamic>.from(v)).toList() : [];
+      ? value.whereType<Map<dynamic, dynamic>>().map((v) => Map<String, dynamic>.from(v)).toList() : [];
   List<Map<String, dynamic>> get _pages => list(_workspace?['screens']);
   @override
   void initState() { super.initState(); Future.microtask(_load); }

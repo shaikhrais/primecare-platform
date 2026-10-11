@@ -63,7 +63,7 @@ const {businessModules}=await import('data:text/javascript;base64,'+Buffer.from(
 test('central module registry retains reviewed precedence and cannot mutate',()=>{
   assert.deepEqual(businessModules.map(module=>module.name),[
     'client-booking-lifecycle','provider-timesheet-items','provider-records',
-    'provider-self','client-self','governance','workspace',
+    'provider-self','client-self','governance','workspace','reporting',
   ]);
   assert.ok(Object.isFrozen(businessModules));
   assert.ok(businessModules.every(module=>Object.isFrozen(module)));

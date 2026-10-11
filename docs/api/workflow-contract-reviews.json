@@ -46397,7 +46397,7 @@
     "scripts/register-client-booking-lifecycle-api.py": "fb7e1f8673295ae7cc6792d0e4027b11ae2cc27cd15b9e4525df06430bcc61e7",
     "scripts/register-client-invoices-api.py": "44c3e7692f1936292e9afdb7b6601a59e4b16da89908e969c3ea1927d9ab8eb3",
     "scripts/register-legacy-domain-security.py": "35c3c57d4f15679dd65105473c22e12c0760636f4ecdaa18f7f35bd04265692d",
-    "scripts/register-method-capture-blockers.py": "5940dfd926df093b47ec42cb3d5c688c3088846bd9250c70a3184312b30b7350",
+    "scripts/register-method-capture-blockers.py": "6d7950c27ac7f8d14711b63397b76ffcb06cd2c94225a7b204ec5382cb8a15da",
     "scripts/scaffold_30_empty_screens.py": "3113e002d4d450717f7c0447e7796ef6362fb2039c2e984650e83944a8f3ebdf",
     "scripts/test-method-capture-blockers.mjs": "65c4ab5da0407c1f385aa362e531999278c1a5c75fb7933b0293b161f18b5a02",
     "scripts/test-method-capture-blockers.py": "c75297e97668734b8f5ce9eaa830488ee60e34ff7a30a93065a7431f381e62da",

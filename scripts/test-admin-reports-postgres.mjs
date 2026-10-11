@@ -1,7 +1,8 @@
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Client} from 'pg';
+import pg from 'pg';
+const {Client}=pg;
 import {readFile,mkdtemp} from 'node:fs/promises';
 import {join} from 'node:path';
 import {tmpdir} from 'node:os';

@@ -42,7 +42,7 @@ dependencies:
   local_auth_darwin: any
   app_links: ^7.0.0
   protocol_registry: ^0.0.5
-  image: ^4.0.17
+  image: 4.11.1 # 4.11.0 allowed incompatible archive versions; fixed constraint requires 4.4.0.
   drift: ^2.31.0
 
   flutter_test:
