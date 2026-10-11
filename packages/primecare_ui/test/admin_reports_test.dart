@@ -54,21 +54,28 @@ void main() {
     valid=false;await expectLater(service.pdf('page_readiness',const AdminReportRequest()),throwsFormatException);
   });
   for(final width in [320.0,768.0,1440.0,3840.0]) {
-    testWidgets('report controls fit $width and honor server capabilities', (tester) async {
+   for(final enabled in [false,true]) {
+    testWidgets('report controls fit $width with delivery enabled=$enabled', (tester) async {
       tester.view.physicalSize=Size(width,1200);tester.view.devicePixelRatio=1;
       addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
       dio.interceptors.add(InterceptorsWrapper(onRequest:(o,h) => h.resolve(Response(
         requestOptions:o,statusCode:200,data:{'reports':[{'id':'page_readiness',
-          'title':'Authorized page readiness','classification':'internal','canExport':false,'canEmail':false}],
+          'title':'Authorized page readiness','classification':'internal','canExport':enabled,'canEmail':enabled,'supportsFilters':enabled}],
           'resources':{'title':'Reports','report':'Report','generate':'Generate','refresh':'Refresh',
-            'search':'Search','all':'All','created':'Created','ready':'Ready','working':'Working'}}))));
+            'search':'Search','all':'All','created':'Created','ready':'Ready','working':'Working',
+            'pdf':'Download PDF','recipient':'Recipient','subject':'Subject','message':'Message',
+            'confirm':'I confirm this recipient may receive this report','email':'Email report'}}))));
       await tester.pumpWidget(ProviderScope(overrides:[apiClientProvider.overrideWithValue(client)],
         child:MaterialApp(home:PrimeTheme(data:const PrimeThemeData(),child:Scaffold(body:SingleChildScrollView(
           child:AdminReportsPanel(endpoint:'/v1/governance/reports')))))));
       await tester.pumpAndSettle();
       expect(find.text('Reports'),findsOneWidget);expect(find.text('Generate'),findsOneWidget);
-      expect(find.byType(CheckboxListTile),findsNothing);expect(tester.takeException(),isNull);
+      expect(find.byType(CheckboxListTile),enabled ? findsOneWidget : findsNothing);
+      expect(find.text('Download PDF'),enabled ? findsOneWidget : findsNothing);
+      expect(find.text('Email report'),enabled ? findsOneWidget : findsNothing);
+      expect(tester.takeException(),isNull);
       await tester.pumpWidget(const SizedBox());
     });
+   }
   }
 }
