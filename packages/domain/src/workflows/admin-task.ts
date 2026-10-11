@@ -11,7 +11,7 @@ export abstract class BaseRoleTask {
 export class AdminTask extends BaseRoleTask {
   constructor(definition:RoleTaskDefinition){
     super('admin',definition);
-    if(!['workspace.read','accounts.create','accounts.update','audit.read','language.select'].includes(definition.operation))throw Error('Invalid Admin task operation');
+    if(!['workspace.read','accounts.create','accounts.update','audit.read','language.select','tenants.create','masters.manage','monitor.read'].includes(definition.operation))throw Error('Invalid Admin task operation');
   }
 }
 export function adminTasks(){

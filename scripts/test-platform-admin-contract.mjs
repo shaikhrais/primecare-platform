@@ -1,0 +1,41 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {createRequire} from 'node:module';
+import {mkdtempSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+const dir=mkdtempSync(join(tmpdir(),'platform-admin-contract-'));
+try {
+ const binary=process.env.ESBUILD_BINARY||'node_modules/.bin/esbuild';
+ execFileSync(binary,['packages/domain/src/workflows/platform-admin-workflow.ts','--bundle','--platform=node','--format=cjs','--outfile='+join(dir,'workflow.cjs')]);
+ const {PlatformAdminWorkflow,masterCategories}=createRequire(import.meta.url)(join(dir,'workflow.cjs'));
+ const calls=[];
+ const repo=Object.fromEntries(['tenants','createTenant','accounts','createAccount','masters','createMaster','updateMaster','monitor','audit'].map(key=>[key,async(...args)=>{calls.push({key,args});return {id:'created'};}]));
+ const actor={id:'admin',roles:'admin',tenant_id:'home'};
+ const admin=new PlatformAdminWorkflow(actor,repo),tenantId='aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
+ let checks=0;
+ const rejected=async(work,status)=>{const before=calls.length;await assert.rejects(work,error=>error.status===status);assert.equal(calls.length,before);checks++;};
+ await rejected(()=>new PlatformAdminWorkflow({...actor,roles:'client'},repo).monitor(),403);
+ await rejected(()=>new PlatformAdminWorkflow({...actor,tenant_id:''},repo).tenants(0),403);
+ await rejected(()=>admin.tenants(-1),400);
+ await rejected(()=>admin.createTenant({name:'Company',slug:'Company'}),400);
+ await rejected(()=>admin.createTenant({name:'Company',slug:'company',roles:'admin'}),400);
+ await admin.createTenant({name:' Company ',slug:'company'});assert.deepEqual(calls.at(-1).args,['admin','Company','company']);checks++;
+ await admin.accounts(tenantId.toUpperCase(),25);assert.deepEqual(calls.at(-1).args,[tenantId,25]);checks++;
+ await rejected(()=>admin.accounts('home',0),400);
+ await rejected(()=>admin.createAccount({tenantId,email:'user@example.invalid',role:'admin',password:'initial-password-1234'}),400);
+ await admin.createAccount({tenantId,email:' USER@EXAMPLE.INVALID ',role:'client',password:'initial-password-1234'});assert.equal(calls.at(-1).args[1],tenantId);assert.equal(calls.at(-1).args[2].email,'user@example.invalid');checks++;
+ const input={tenantId:null,category:'services',code:'home-care',labels:{en:'Care',es:'Cuidado',fr:'Soins'},status:'active'};
+ for(const category of masterCategories){await admin.createMaster({...input,category});assert.equal(calls.at(-1).args[1].category,category);checks++;}
+ await rejected(()=>admin.createMaster({...input,labels:{en:'Care',es:'Cuidado'}}),400);
+ await rejected(()=>admin.createMaster({...input,labels:{...input.labels,de:'Pflege'}}),400);
+ await rejected(()=>admin.createMaster({...input,category:'arbitrary-table'}),400);
+ await rejected(()=>admin.createMaster({...input,status:'paused'}),400);
+ await rejected(()=>admin.updateMaster(tenantId,{labels:input.labels,status:'active',tenantId}),400);
+ await admin.updateMaster(tenantId,{labels:input.labels,status:'inactive'});assert.equal(calls.at(-1).key,'updateMaster');checks++;
+ await admin.masters('services',null,0);assert.deepEqual(calls.at(-1).args,['services',null,0]);checks++;
+ await admin.masters('services',tenantId,0);assert.deepEqual(calls.at(-1).args,['services',tenantId,0]);checks++;
+ await rejected(()=>admin.audit(1.5),400);
+ const monitor=await admin.monitor();assert.deepEqual(monitor.categories,masterCategories);assert(!monitor.assignableRoles.includes('admin'));checks++;
+ console.log(`PASS: ${checks} platform Admin domain checks; ${masterCategories.length} master categories`);
+}finally{rmSync(dir,{recursive:true,force:true});}

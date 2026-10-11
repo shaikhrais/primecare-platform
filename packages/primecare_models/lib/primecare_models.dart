@@ -68,3 +68,4 @@ export 'src/models/admin_user.dart';
 export 'src/models/admin_audit_event.dart';
 
 export 'src/models/admin_task.dart';
+export 'src/models/platform_admin_models.dart';

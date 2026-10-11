@@ -25,7 +25,7 @@ try {
   await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[hash(tokens[i]),ids[i]]);
  }
  const workspace=await call('');assert.equal(workspace.status,200);const data=await workspace.json();assert.equal(data.total,2);assert.equal(data.users.length,2);assert.equal(data.organization.id,tenants[0]);assert(!data.assignableRoles.includes('admin'));assert(data.users.every(u=>!('password_hash' in u)));checks++;
- assert.equal(data.tasks.length,9);assert.equal(new Set(data.tasks.map(t=>t.id)).size,9);assert(data.tasks.every(t=>Object.keys(t).sort().join(',')==='descriptionKey,id,operation,titleKey'));checks++;
+ assert.equal(data.tasks.length,12);assert.equal(new Set(data.tasks.map(t=>t.id)).size,12);assert(data.tasks.every(t=>Object.keys(t).sort().join(',')==='descriptionKey,id,operation,titleKey'));checks++;
  assert.equal((await call('','GET',undefined,tokens[1])).status,403);checks++;
  assert.equal((await call('','GET',undefined,'invalid')).status,401);checks++;
  assert.equal((await call('','GET',undefined,tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;

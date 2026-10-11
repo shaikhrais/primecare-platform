@@ -54,6 +54,24 @@
       "titleKey": "task.language.title",
       "descriptionKey": "task.language.description",
       "operation": "language.select"
+    },
+    {
+      "id": "tenants",
+      "titleKey": "task.tenants.title",
+      "descriptionKey": "task.tenants.description",
+      "operation": "tenants.create"
+    },
+    {
+      "id": "masters",
+      "titleKey": "task.masters.title",
+      "descriptionKey": "task.masters.description",
+      "operation": "masters.manage"
+    },
+    {
+      "id": "monitor",
+      "titleKey": "task.monitor.title",
+      "descriptionKey": "task.monitor.description",
+      "operation": "monitor.read"
     }
   ]
 }

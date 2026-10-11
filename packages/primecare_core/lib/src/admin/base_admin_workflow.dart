@@ -27,7 +27,7 @@ abstract class BaseAdminWorkflow {
   String? errorCode;
   bool get hasNext => offset + users.length < total;
   void changed() {}
-  Future<void> _run(Future<void> Function() operation) async {
+  Future<void> execute(Future<void> Function() operation) async {
     if (busy) return;
     busy = true; error = null; errorCode = null; changed();
     try { await operation(); }
@@ -58,7 +58,7 @@ abstract class BaseAdminWorkflow {
     tasks = List<AdminTask>.unmodifiable(parsedTasks); users = parsed; assignableRoles = List<String>.from(roles); organization = org['name'] as String;
     total = data['total'] as int; active = data['active'] as int; offset = pageOffset; search = nextSearch; accountStatus = nextStatus;
   }
-  Future<void> loadAudit({int pageOffset = 0, String? userId}) => _run(() async {
+  Future<void> loadAudit({int pageOffset = 0, String? userId}) => execute(() async {
     final nextUserId = (userId ?? auditUserId).toLowerCase();
     final path = '/admin/workspace/audit?offset=$pageOffset${nextUserId.isEmpty ? '' : '&userId=${Uri.encodeQueryComponent(nextUserId)}'}';
     final data = await request('GET',path);
@@ -68,12 +68,12 @@ abstract class BaseAdminWorkflow {
     if(nextUserId.isNotEmpty && parsed.any((event) => event.target != nextUserId)) throw const AuthFailure('Invalid audit target',code:'error.invalidResponse');
     events = parsed; auditTotal = data['total'] as int; auditOffset = pageOffset; auditUserId = nextUserId;
   });
-  Future<void> load({int pageOffset = 0, String? query, String? statusFilter}) => _run(() => _load(pageOffset,query:query,statusFilter:statusFilter));
-  Future<void> create(String email, String role, String password) => _run(() async {
+  Future<void> load({int pageOffset = 0, String? query, String? statusFilter}) => execute(() => _load(pageOffset,query:query,statusFilter:statusFilter));
+  Future<void> create(String email, String role, String password) => execute(() async {
     await request('POST','/admin/workspace/users',body: {'email':email,'role':role,'password':password});
     await _load(0);
   });
-  Future<void> update(AdminUser user, String email, String role, String status) => _run(() async {
+  Future<void> update(AdminUser user, String email, String role, String status) => execute(() async {
     await request('PUT','/admin/workspace/users/${Uri.encodeComponent(user.id)}',body: {'email':email,'role':role,'status':status});
     await _load(offset);
   });

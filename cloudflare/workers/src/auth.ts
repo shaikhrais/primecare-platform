@@ -1,5 +1,7 @@
 import {AdminWorkflow,WorkflowFailure} from '../../../packages/domain/src/workflows/admin-workflow';
 import {AdminSqlRepository} from './admin/admin-repository';
+import {PlatformAdminWorkflow} from '../../../packages/domain/src/workflows/platform-admin-workflow';
+import {PlatformSqlRepository} from './admin/platform-repository';
 import {confirmedAudit} from './audit-confirmation';
 import {optionalRow,requiredRow,resultRows} from './database-results';
 import {accountId} from './account-read-projection';
@@ -122,6 +124,7 @@ export async function parseBody(request: Request): Promise<Json> {
 }
 
 async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
+  if(path.startsWith('/admin/control/'))return platformControl(request,env,path,headers);
   if(path==='/admin/workspace'||path.startsWith('/admin/workspace/')) {
     const update=/^\/admin\/workspace\/users\/([0-9a-f-]{36})$/.exec(path);
     const audit=path==='/admin/workspace/audit',read=path==='/admin/workspace'||audit,create=path==='/admin/workspace/users';
@@ -408,4 +411,79 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     });
   }
   return null;
+}
+
+/** Platform authority is deliberately separate from the tenant-bound workspace. */
+async function platformControl(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response> {
+ const resource=path.slice('/admin/control/'.length),masterId=/^masters\/([0-9a-f-]{36})$/.exec(resource);
+ const collections=['tenants','accounts','masters'];
+ const allowed=masterId?['PUT']:collections.includes(resource)?['GET','POST']:['monitor','audit'].includes(resource)?['GET']:[];
+ if(!allowed.length)return json({error:'Not found'},404,headers);
+ if(!allowed.includes(request.method))return json({error:'Method not all…8757 tokens truncated…es pour supprimer le filtre.",
+    "task.language.title": "Choisir l’anglais, l’espagnol ou le français",
+    "task.language.description": "Utilisez le bouton de langue dans l’en-tête. Les libellés changent tout en conservant les données saisies. La langue revient à l’anglais lors d’un nouveau lancement.",
+    "admin.tasks": "Tâches d’administration",
+    "admin.tasksIntro": "Tâches disponibles dans votre organisation. Le serveur vérifie chaque opération sur un compte.",
+    "admin.statusFilter": "État du compte",
+    "admin.allStatuses": "Tous les états",
+    "control.title": "Administration de la plateforme",
+    "control.scopeNotice": "Admin gère les organisations de la plateforme. Les modifications utilisent l’organisation sélectionnée.",
+    "control.monitor": "Surveillance",
+    "control.sampled": "État au {time}",
+    "control.tenants": "Organisations",
+    "control.createTenant": "Créer une organisation",
+    "control.manageTenant": "Gérer l’organisation",
+    "control.accounts": "Comptes",
+    "control.selectTenant": "Sélectionnez une organisation pour gérer les comptes.",
+    "control.selectedTenant": "Organisation sélectionnée : {name}",
+    "control.masters": "Référentiels",
+    "control.globalMasters": "Référentiels globaux",
+    "control.category": "Catégorie",
+    "control.createMaster": "Créer une entrée de référence",
+    "control.editMaster": "Modifier une entrée de référence",
+    "control.referenceNotice": "Définitions de référence uniquement ; tarifs, demandes et dossiers cliniques conservent leurs propres processus.",
+    "control.audit": "Historique des modifications",
+    "error.controlDuplicate": "Cette organisation, ce compte ou ce code existe déjà.",
+    "control.field.name": "Nom",
+    "control.field.slug": "Code unique de l’organisation",
+    "control.field.email": "Adresse e-mail",
+    "control.field.password": "Mot de passe initial",
+    "control.field.code": "Code",
+    "control.field.en": "Libellé anglais",
+    "control.field.es": "Libellé espagnol",
+    "control.field.fr": "Libellé français",
+    "metric.tenantsTotal": "Total des organisations",
+    "metric.tenantsActive": "Organisations actives",
+    "metric.usersTotal": "Total des comptes",
+    "metric.usersActive": "Comptes actifs",
+    "metric.sessionsActive": "Sessions actives",
+    "metric.mastersTotal": "Total des références",
+    "metric.mastersActive": "Références actives",
+    "control.event.tenant_created": "Organisation créée",
+    "control.event.account_created": "Compte créé",
+    "control.event.master_created": "Référence créée",
+    "control.event.master_updated": "Référence modifiée",
+    "master.services": "Services",
+    "master.locations": "Lieux",
+    "master.regions": "Régions",
+    "master.departments": "Départements",
+    "master.staff-groups": "Groupes de personnel",
+    "master.insurance-providers": "Assureurs",
+    "master.training-categories": "Catégories de formation",
+    "master.document-types": "Types de documents",
+    "master.specialties": "Spécialités",
+    "master.credentials": "Qualifications",
+    "master.referral-sources": "Sources de recommandation",
+    "master.incident-types": "Types d’incidents",
+    "master.payment-methods": "Modes de paiement",
+    "master.cancellation-reasons": "Motifs d’annulation",
+    "master.contact-types": "Types de contacts",
+    "master.equipment-types": "Types d’équipements",
+    "task.tenants.title": "Créer des organisations",
+    "task.tenants.description": "Créer des organisations et en sélectionner une pour créer des comptes.",
+    "task.masters.title": "Gérer les référentiels",
+    "task.masters.description": "Gérer les références globales ou par organisation avec des libellés EN, ES et FR.",
+    "task.monitor.title": "Surveiller la plateforme",
+    "task.monitor.description": "Consulter les nombres d’organisations, comptes, sessions et références et l’historique."
+  }
 }

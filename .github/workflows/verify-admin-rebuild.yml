@@ -1,6 +1,9 @@
 name: Verify inherited Admin rebuild
 # Verify inherited Auth/Admin layouts, scaled displays and EN/ES/FR workflows.
 on:
+  push:
+    branches: [deploy/email-inbox-20261010]
+    paths: [.github/workflows/verify-admin-rebuild.yml]
   workflow_call:
   workflow_dispatch:
 concurrency:
@@ -41,6 +44,8 @@ jobs:
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/auth.ts cloudflare/workers/src/gateway.ts
           node scripts/test-auth-postgres.mjs
           node scripts/test-admin-workspace-postgres.mjs
+          node scripts/test-platform-admin-contract.mjs
+          node scripts/test-platform-admin-postgres.mjs
       - name: Shared model, core, and UI checks
         run: |
           python scripts/generate-app-localizations.py --check

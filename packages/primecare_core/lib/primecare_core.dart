@@ -48,3 +48,4 @@ export 'src/auth/http_auth_transport.dart';
 export 'src/admin/base_admin_workflow.dart';
 
 export 'src/localization/base_language_workflow.dart';
+export 'src/admin/base_platform_admin_workflow.dart';
