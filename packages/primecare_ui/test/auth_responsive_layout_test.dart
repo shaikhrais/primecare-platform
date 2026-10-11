@@ -101,9 +101,14 @@ void main() {
       for (final dimensions in [const Size(667, 375), const Size(3840, 2160), const Size(320, 640)]) {
         viewport(tester, dimensions.width, dimensions.height); await tester.pumpAndSettle();
         expect(find.text('draft@example.invalid'), findsOneWidget);
-        expect(tester.widget<TextFormField>(find.widgetWithText(TextFormField, AppStrings('fr').text('auth.password'))).obscureText, isTrue);
+        expect(tester.widget<EditableText>(find.descendant(of: find.widgetWithText(TextFormField, AppStrings('fr').text('auth.password')), matching: find.byType(EditableText))).obscureText, isTrue);
         expect(tester.takeException(), isNull);
       }
+      tester.view.physicalSize = const Size(3840, 2160); tester.view.devicePixelRatio = 2;
+      await tester.pumpAndSettle();
+      expect(tester.getSize(find.byType(Form)).width, lessThanOrEqualTo(440));
+      expect(find.text('draft@example.invalid'), findsOneWidget);
+      expect(tester.takeException(), isNull);
       expect(api.paths, isEmpty);
     });
   }
