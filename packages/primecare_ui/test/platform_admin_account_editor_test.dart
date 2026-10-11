@@ -18,7 +18,7 @@ void main(){
   }
   applicationLanguage.selectLanguage(language);final strings=AppStrings(language.name);
   await tester.pumpWidget(MaterialApp(locale:Locale(language.name),supportedLocales:AppStrings.locales,localizationsDelegates:AppStrings.delegates,builder:(context,child)=>MediaQuery(data:MediaQuery.of(context).copyWith(textScaler:TextScaler.linear(2)),child:child!),home:PlatformAdminScreen(request:request)));await tester.pumpAndSettle();
-  Future<void> tap(Finder finder) async {await tester.ensureVisible(finder);await tester.pumpAndSettle();await tester.tap(finder);await tester.pumpAndSettle();}
+  Future<void> tap(Finder finder) async {if(finder.evaluate().isEmpty){await tester.scrollUntilVisible(finder,150,scrollable:find.descendant(of:find.byType(ListView),matching:find.byType(Scrollable)).first);}await tester.ensureVisible(finder);await tester.pumpAndSettle();await tester.tap(finder);await tester.pumpAndSettle();}
   await tap(find.widgetWithText(TextButton,strings.text('control.tenants')));
   await tap(find.widgetWithText(TextButton,strings.text('control.manageTenant')));
   await tap(find.byTooltip(strings.text('admin.editAccount',{'email':'user@example.invalid'})));

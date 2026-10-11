@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Verify inherited platform account updates, session revocation and provisioning.
+# Verify inherited account updates, session revocation and lazy mobile editors.
 on:
   push:
     branches: [deploy/email-inbox-20261010]
