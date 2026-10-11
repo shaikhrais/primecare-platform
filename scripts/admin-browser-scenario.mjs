@@ -1,6 +1,7 @@
 // One inherited Admin browser workflow shared by isolated CI and live verification.
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
+import {runPlatformAdminBrowserScenario} from './platform-admin-browser-scenario.mjs';
 import {fillFlutterField} from './flutter-browser-input.mjs';
 
 async function refreshWorkspace(page,strings) {
@@ -10,7 +11,7 @@ async function refreshWorkspace(page,strings) {
  await page.getByRole('button',{name:strings['admin.refresh'],exact:true,disabled:false}).waitFor();
 }
 
-export async function runAdminBrowserScenario({browser,db,language,strings,email,password,tenant,admin,organization,uiUrl,api,accountsBefore=1,auditBefore=0,ignoreHTTPSErrors=false,onPhase=()=>{}}) {
+export async function runAdminBrowserScenario({browser,db,language,strings,email,password,tenant,admin,organization,uiUrl,api,accountsBefore=1,auditBefore=0,ignoreHTTPSErrors=false,platformControl=false,onPhase=()=>{}}) {
  const userEmail=`browser-user-${randomUUID()}@example.invalid`,updatedEmail=`updated-${randomUUID()}@example.invalid`;
  const page=await browser.newPage({ignoreHTTPSErrors,viewport:{width:1280,height:1000}});
  page.setDefaultTimeout(20000);
@@ -71,6 +72,7 @@ export async function runAdminBrowserScenario({browser,db,language,strings,email
  await page.getByRole('button',{name:strings['admin.searchClear'],exact:true}).click();
  await page.getByText(strings['admin.counts'].replace('{total}',String(accountsBefore+1)).replace('{active}','1'),{exact:true}).waitFor();
  onPhase('audit history');await page.getByRole('button',{name:strings['audit.title'],exact:true}).click();await page.getByText(strings['audit.account_created'],{exact:true}).first().waitFor();await page.getByText(strings['audit.account_updated'],{exact:true}).first().waitFor();await page.getByRole('button',{name:strings['back'],exact:true}).click();
+ if(platformControl)await runPlatformAdminBrowserScenario({page,db,strings,language,onPhase});
  onPhase('logout');await page.getByRole('button',{name:strings['back'],exact:true}).click();await page.getByRole('button',{name:strings['auth.signOut'],exact:true}).click();await page.getByRole('button',{name:strings['auth.signIn'],exact:true}).waitFor();
  assert.equal((await db.query('SELECT count(*)::int AS n FROM auth_sessions WHERE user_id=$1',[admin])).rows[0].n,0);
  await page.close();console.log('PASS '+language+': Admin browser E2E login, inherited workspace, create, edit email/role, deactivate/reactivate, persistence, task overview, search/status filters, filtered audit, session revocation and logout');

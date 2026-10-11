@@ -35,7 +35,7 @@ const server=createServer({key:await readFile(process.env.ADMIN_TEST_TLS_KEY),ce
 });
 let browser;let phase='setup';
 try {
- await db.query("INSERT INTO tenants(id,name,status) VALUES($1,'Browser QA organization','active')",[tenant]);
+ await db.query("INSERT INTO tenants(id,name,slug,status) VALUES($1,'Browser QA organization','browser-qa','active')",[tenant]);
  await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'admin',$3,$4,'active')",[admin,email,tenant,await bcrypt.hash(password,12)]);
  await new Promise(resolve=>server.listen(8443,'127.0.0.1',resolve));
  browser=await chromium.launch({headless:true});
@@ -45,7 +45,7 @@ try {
  // Reset only the owned actor counters; production rate policy remains enforced.
  await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=ANY($1::text[])', [['manageAccount','createAccount'].map(operation=>createHash('sha256').update(operation+':'+admin).digest('hex'))]);
  const strings=catalogs[language];
- await runAdminBrowserScenario({browser,db,language,strings,email,password,tenant,admin,organization:'Browser QA organization',uiUrl:'https://127.0.0.1:8443/',api:(path,options={})=>gateway.fetch(new Request('https://fixture/v1/auth'+path,options),env),accountsBefore:['en','es','fr'].indexOf(language)+1,auditBefore:4*['en','es','fr'].indexOf(language),ignoreHTTPSErrors:true,onPhase:value=>phase=value});
+ await runAdminBrowserScenario({browser,db,language,strings,email,password,tenant,admin,organization:'Browser QA organization',uiUrl:'https://127.0.0.1:8443/',api:(path,options={})=>gateway.fetch(new Request('https://fixture/v1/auth'+path,options),env),accountsBefore:['en','es','fr'].indexOf(language)+1,auditBefore:4*['en','es','fr'].indexOf(language),ignoreHTTPSErrors:true,platformControl:true,onPhase:value=>phase=value});
  }
 }catch(error){console.error('Admin browser E2E failed during '+phase);if(browser){const page=browser.contexts().flatMap(c=>c.pages())[0];if(page){await page.screenshot({path:'admin-rebuild-failure.png'});console.error((await page.locator('flt-semantics').allTextContents()).slice(-30));console.error(await page.locator('[role],[aria-label]').evaluateAll(nodes=>nodes.map(n=>({role:n.getAttribute('role'),label:n.getAttribute('aria-label')})).slice(-35)));}}throw error;}
 finally {

@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Verify platform provisioning forms, inherited layouts and EN/ES/FR.
+# Verify full platform provisioning E2E, inherited layouts and EN/ES/FR.
 on:
   push:
     branches: [deploy/email-inbox-20261010]
