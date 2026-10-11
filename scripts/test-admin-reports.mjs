@@ -6,14 +6,14 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createRequire} from 'node:module';
 const dir=await mkdtemp(join(tmpdir(),'primecare-reports-'));
-await build({entryPoints:['cloudflare/workers/src/reporting.ts'],bundle:true,platform:'node',format:'cjs',outfile:join(dir,'reporting.cjs'),plugins:[{name:'db',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export class Client {async connect(){} async end(){} async query(sql,values){return globalThis.__reportQuery(sql,values)}}',loader:'js'}));}}]});
+await build({entryPoints:['cloudflare/workers/src/reporting.ts','cloudflare/workers/src/service.ts','cloudflare/workers/src/gateway.ts'],bundle:true,platform:'node',format:'cjs',outdir:dir,outExtension:{'.js':'.cjs'},plugins:[{name:'db',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export class Client {async connect(){} async end(){} async query(sql,values){return globalThis.__reportQuery(sql,values)}}',loader:'js'}));}}]});
 const {reporting,ReportService,ReportPolicy,PdfReportRenderer,parseReportRequest,parseReportEmail,ReportDeliveryService}=createRequire(import.meta.url)(join(dir,'reporting.cjs'));
 const registry=JSON.parse(await readFile('cloudflare/workers/src/report-registry.json','utf8'));
 const workspace=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));
 let sent=[];const env={SERVICE_NAME:'governance',DB_URL:'fixture',EMAIL_FROM:'reports@example.com',EMAIL:{send:async m=>{sent.push(m);return {messageId:'mail-1'};}}};
 const body={to:'outside@example.net',confirmed:true};
 function fixture(role='ceo',tenant='tenant-a') {
- const queries=[],deliveries=new Map();sent=[];let quota=0;
+ const queries=[],deliveries=new Map();sent=[];env.EMAIL.send=async m=>{sent.push(m);return {messageId:'mail-1'};};let quota=0;
  globalThis.__reportQuery=async(sql,v)=>{
   queries.push({sql,v});
   if(sql.includes('WHERE s.token_hash=$1'))return {rows:role?[{id:'actor',roles:role,tenant_id:tenant}]:[]};
@@ -105,3 +105,19 @@ test('quota, missing mail binding, missing migration and corrupt counts fail hon
  fixture();const valid=globalThis.__reportQuery;globalThis.__reportQuery=async(sql,v)=>sql.includes('SELECT roles AS role')?{rows:[{role:'ceo',count:-1}]}:valid(sql,v);assert.equal((await call('/reports/organization_summary')).status,503);
 });
 test('routes execute only on governance service',async()=>{fixture();assert.equal(await call('/reports','GET',undefined,{}, {...env,SERVICE_NAME:'billing'}),null);});
+
+test('gateway and service dispatch catalog, PDF and email through the shared report policy',async()=>{
+ const require=createRequire(import.meta.url);
+ const service=require(join(dir,'service.cjs')).default,gateway=require(join(dir,'gateway.cjs')).default;
+ const bindings={GOVERNANCE:{fetch:request=>service.fetch(request,env)}};
+ const request=(path,method='GET',data)=>new Request('https://api.test/v1/governance'+path,{method,headers:{authorization:'Bearer '+'a'.repeat(43),...(data?{'content-type':'application/json','idempotency-key':'gateway-delivery-key-123'}:{})},...(data?{body:JSON.stringify(data)}:{})});
+ fixture('admin');
+ const catalog=await gateway.fetch(request('/reports?locale=es'),bindings);
+ assert.equal(catalog.status,200);assert.equal((await catalog.json()).reports.length,1);
+ const pdf=await gateway.fetch(request('/reports/page_readiness/pdf?locale=fr'),bindings);
+ assert.equal(pdf.status,200);assert.equal(Buffer.from(await pdf.arrayBuffer()).subarray(0,5).toString(),'%PDF-');
+ const email=await gateway.fetch(request('/reports/page_readiness/email','POST',body),bindings);
+ assert.equal(email.status,202);assert.equal(sent.length,1);
+ assert.equal((await gateway.fetch(request('/reports/organization_summary'),bindings)).status,403);
+ assert.equal(email.headers.get('x-primecare-gateway'),'cloudflare-worker-typescript');
+});

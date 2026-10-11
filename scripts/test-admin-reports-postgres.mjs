@@ -19,7 +19,7 @@ const token='a'.repeat(43);const digest=Buffer.from(await crypto.subtle.digest('
 await setup.query("INSERT INTO users VALUES('actor','admin','tenant-a','active'); INSERT INTO users VALUES('other','admin','tenant-b','active')");
 await setup.query("INSERT INTO auth_sessions VALUES('actor',$1,NOW()+INTERVAL '1 hour')",[digest]);
 const dir=await mkdtemp(join(tmpdir(),'report-pg-'));
-await build({entryPoints:['cloudflare/workers/src/reporting.ts'],bundle:true,platform:'node',format:'cjs',outfile:join(dir,'reporting.cjs'),external:['pg','bcryptjs']});
+await build({entryPoints:['cloudflare/workers/src/reporting.ts'],bundle:true,platform:'node',format:'cjs',outfile:join(dir,'reporting.cjs'),external:['pg']});
 // Resolve real database packages from this repository's dependency directory.
 const module=await readFile(join(dir,'reporting.cjs'),'utf8');await import('node:fs/promises').then(fs=>fs.writeFile(join(dir,'reporting.cjs'),module.replace('require("pg")',`require(${JSON.stringify(join(process.cwd(),'node_modules/pg'))})`).replace('require("bcryptjs")',`require(${JSON.stringify(join(process.cwd(),'node_modules/bcryptjs'))})`)));
 const {reporting}=createRequire(import.meta.url)(join(dir,'reporting.cjs'));
