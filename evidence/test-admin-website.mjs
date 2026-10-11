@@ -8,7 +8,8 @@ const screens=registry.screens.filter(s=>s.grants.some(g=>g.role==='admin'&&g.vi
 const site=resolve('artifacts/admin-website/site'), out=resolve('artifacts/admin-website');
 await mkdir(site,{recursive:true});await mkdir(join(out,'screenshots'),{recursive:true});
 const origin='http://127.0.0.1:4173';
-await writeFile(join(site,'portal.json'),JSON.stringify({name:'PrimeCare Admin - isolated test website',appCode:'fr',apiGateway:origin+'/test-api',theme:{},resources:{}}));
+const manifest=JSON.parse(await readFile('artifacts/admin-website/manifests/primecare-franchise/portal.json','utf8'));
+await writeFile(join(site,'portal.json'),JSON.stringify({...manifest,name:'PrimeCare Admin - isolated test website',apiGateway:origin+'/test-api'}));
 const fixture={identity:{userId:'synthetic-admin',role:'admin'},landing:registry.landings.admin,screens,inventory:registry.screens,actions:[],resources:registry.resources,overview:{activeAccounts:4,activeSessions:1,accountRoles:[{role:'admin',count:1},{role:'rmt',count:3}],activity:[{action:'Synthetic admin test session',created_at:'2026-10-11T22:40:00Z'}],metrics:[],scope:'test-organization'}};
 let password='TestOnly-Admin-2026!',logged=false;const requests=[];
 const server=createServer(async(req,res)=>{
@@ -41,6 +42,7 @@ async function step(task,instruction,work,status='PASS'){
 }
 try{
  await page.goto(origin+'/login');
+ assert.ok((await page.evaluate(()=>getComputedStyle(document.body).fontFamily)).length>0);
  await step('Sign in as admin','Enter the test admin email and password; click Sign in.',async()=>{await page.locator('[data-cy=login-email]').fill('admin@example.test');await page.locator('[data-cy=login-password]').fill(password);await page.waitForTimeout(1500);await page.locator('[data-cy=login-submit]').click();await page.locator('[data-cy=screen-office_dashboard]').waitFor();assert.equal(await page.evaluate(()=>sessionStorage.getItem('primecare_session')),'synthetic-admin-token');});
  await step('Review monitoring','Review organization counts, role totals and recent activity.',async()=>{assert.match(await page.locator('[data-cy=workspace-overview]').innerText(),/4/);await page.locator('[data-cy=workspace-activity]').scrollIntoViewIfNeeded();assert.match(await page.locator('[data-cy=workspace-activity]').innerText(),/Synthetic admin test session/);});
  for(const screen of screens){await step(`Open ${screen.name}`,'Select the sidebar page; inspect delivery details and unfinished actions.',async()=>{await page.locator(`[data-cy=sidebar-item-${screen.code}]`).first().click();await page.locator(`[data-cy=screen-${screen.code}]`).waitFor();assert.equal(await page.locator('[data-cy=workspace-title]').innerText(),screen.name);const detail=page.locator(`[data-cy=workspace-delivery] [data-cy=delivery-${screen.code}]`);await detail.locator('summary').click();await detail.scrollIntoViewIfNeeded();assert.match(await detail.innerText(),/API connections/);},screen.productionReady?'PASS':'PAGE PASS / BUSINESS TASK BLOCKED');}
