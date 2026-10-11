@@ -30,6 +30,7 @@ class PrimecareLayoutData {
   };
   double get contentWidth => width.clamp(0, maxContentWidth).toDouble();
   double get fontSizeFactor => size == PrimecareWindowSize.ultraWide ? 1.2 : 1;
+  double get dialogWidth => size == PrimecareWindowSize.ultraWide ? 560 : 420;
   EdgeInsets get pageInsets => EdgeInsets.all(padding);
   static bool hasLargeText(BuildContext context) => MediaQuery.textScalerOf(context).scale(16) > 24;
   static PrimecareLayoutData of(BuildContext context) =>
@@ -72,4 +73,20 @@ class PrimecareDetailLayout extends StatelessWidget {
         ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [details, const SizedBox(height: 8), actions])
         : Row(children: [Expanded(child: details), const SizedBox(width: 12), actions]);
   });
+}
+
+/// Long translated titles and form fields scroll together on short windows.
+/// Actions stay outside that scroll area and wrap through Material's dialog.
+class PrimecareFormDialog extends StatelessWidget {
+  final Widget title;
+  final Widget content;
+  final List<Widget> actions;
+  const PrimecareFormDialog({super.key, required this.title, required this.content, required this.actions});
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+    scrollable: true,
+    title: title,
+    content: SizedBox(width: PrimecareLayoutData.of(context).dialogWidth, child: content),
+    actions: actions,
+  );
 }

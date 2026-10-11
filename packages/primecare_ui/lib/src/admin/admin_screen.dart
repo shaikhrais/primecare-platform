@@ -114,15 +114,15 @@ class _AdminUserEditorState extends State<_AdminUserEditor> {
     Navigator.pop(context,_UserEdit(email.text,role,password.text,status));
   }
   @override
-  Widget build(BuildContext context) => AlertDialog(
+  Widget build(BuildContext context) => PrimecareFormDialog(
     title: Text(widget.user == null ? strings.text('admin.create') : strings.text('admin.edit')),
-    content: SizedBox(width: 420, child: SingleChildScrollView(child: Form(key: form, child: Column(mainAxisSize: MainAxisSize.min, children: [
+    content: Form(key: form, child: Column(mainAxisSize: MainAxisSize.min, children: [
       TextFormField(controller: email, decoration: InputDecoration(labelText: strings.text('admin.email')), validator: (value) => value == null || !RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(value.trim()) ? strings.text('error.email') : null),
       DropdownButtonFormField<String>(isExpanded: true, initialValue: role, decoration: InputDecoration(labelText: strings.text('admin.role')), items: widget.roles.map((value) => DropdownMenuItem(value: value, child: Text(strings.role(value),overflow:TextOverflow.ellipsis))).toList(), onChanged: (value) { if (value != null) setState(() => role = value); }),
       if (widget.user == null) TextFormField(controller: password, obscureText: true, decoration: InputDecoration(labelText: strings.text('admin.password')), validator: (value) => (value?.length ?? 0) < 12 ? strings.text('error.minimumPassword') : null),
       if (widget.user != null) DropdownButtonFormField<String>(isExpanded: true, initialValue: status, decoration: InputDecoration(labelText: strings.text('admin.status')), items: ['active','inactive'].map((value) => DropdownMenuItem(value: value, child: Text(strings.text(value)))).toList(), onChanged: (value) { if (value != null) setState(() => status = value); }),
       if (widget.user != null) Text(strings.text('admin.revokes')),
-    ])))),
+    ])),
     actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text(strings.text('cancel'))), FilledButton(onPressed: save, child: Text(strings.text('admin.save')))],
   );
 }
