@@ -59,6 +59,7 @@ jobs:
           if [ ! -d macos/Runner.xcodeproj ]; then
             flutter create --platforms=macos .
           fi
+          python3 ../../scripts/configure-report-macos.py .
           flutter build macos --release
 
       - name: Upload macOS Artifact

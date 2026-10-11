@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -53,9 +54,13 @@ void main() {
     expect(await service.pdf('page_readiness',const AdminReportRequest()),isNotEmpty);
     valid=false;await expectLater(service.pdf('page_readiness',const AdminReportRequest()),throwsFormatException);
   });
+  for(final platform in [TargetPlatform.android, TargetPlatform.iOS,
+    TargetPlatform.windows, TargetPlatform.macOS, TargetPlatform.linux]) {
   for(final width in [320.0,768.0,1440.0,3840.0]) {
    for(final enabled in [false,true]) {
-    testWidgets('report controls fit $width with delivery enabled=$enabled', (tester) async {
+    testWidgets('$platform report controls fit $width with delivery enabled=$enabled', (tester) async {
+      debugDefaultTargetPlatformOverride = platform;
+      addTearDown(() { debugDefaultTargetPlatformOverride = null; });
       tester.view.physicalSize=Size(width,1200);tester.view.devicePixelRatio=1;
       addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
       dio.interceptors.add(InterceptorsWrapper(onRequest:(o,h) => h.resolve(Response(
@@ -77,5 +82,6 @@ void main() {
       await tester.pumpWidget(const SizedBox());
     });
    }
+  }
   }
 }

@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_models/primecare_models.dart';
-import 'package:printing/printing.dart';
 import 'admin_report_service.dart';
+import 'report_pdf_exporter.dart';
 
 /// Shared presentation for governed report surfaces; grants and labels come from API.
 class AdminReportsPanel extends ConsumerStatefulWidget {
@@ -83,7 +83,7 @@ class _AdminReportsPanelState extends ConsumerState<AdminReportsPanel> {
           })),
           if (definition?.canExport == true) PrimeButton(label:label('pdf'), dataCy:'report-pdf', onPressed:_busy || result == null ? null : () => action(() async {
             final bytes = await service.pdf(_selected!,options);
-            await Printing.sharePdf(bytes:bytes, filename:'${_selected!}.pdf');
+            await ReportPdfExporter().export(bytes, '${_selected!}.pdf');
           })),
         ]),
         if (result != null) ...[
