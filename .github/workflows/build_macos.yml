@@ -37,7 +37,7 @@ jobs:
     
     timeout-minutes: 45
     strategy:
-      max-parallel: 2
+      max-parallel: 4
       fail-fast: false
       matrix:
         app: 
