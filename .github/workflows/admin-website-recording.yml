@@ -1,0 +1,33 @@
+name: Admin website task recording
+on:
+  pull_request:
+    paths: ['evidence/test-admin-website.mjs', '.github/workflows/admin-website-recording.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browser tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/admin-browser-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0
+          ln -s "$RUNNER_TEMP/admin-browser-tools/node_modules" node_modules
+          "$RUNNER_TEMP/admin-browser-tools/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Build actual test website
+        run: |
+          mkdir -p artifacts/admin-website/site/assets
+          node_modules/.bin/esbuild websites/typescript/src/main.ts --bundle --outfile=artifacts/admin-website/site/assets/app.js
+          cp websites/typescript/src/styles.css artifacts/admin-website/site/assets/app.css
+          cp websites/typescript/index.html artifacts/admin-website/site/index.html
+      - name: Perform and record admin tasks one by one
+        run: node evidence/test-admin-website.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: admin-website-task-video-and-log
+          path: artifacts/admin-website/
