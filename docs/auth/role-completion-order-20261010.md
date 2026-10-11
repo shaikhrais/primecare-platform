@@ -15,7 +15,7 @@ Admin E2E acceptance:
 1. Sign in as the isolated Admin fixture and resolve server-issued tenant, roles, and permissions; load the inherited dashboard.
 2. Perform permitted user creation, profile update, and role assignment; reload and verify database-backed results through the API and UI.
 3. Reject unauthorized role escalation and wrong-role requests. Reject cross-tenant list, detail, and mutation attempts. Verify the intended validation and unauthenticated responses.
-4. Deactivate the fixture user and verify new access is denied and session policy is enforced. Verify sign-out revocation.
+4. Deactivate the fixture user and verify new access is denied and session policy is enforced. Reactivate it and verify sign-in succeeds, then deactivate again and verify the new session is revoked. Verify sign-out revocation.
 5. Exercise empty, loading, validation, permission-denied, and API-error states; no placeholder actions or simulated success.
 6. Verify durable state after reload, review relevant audit events, and remove every owned fixture record.
 7. Pass focused model/core/API tests and browser E2E for the primary portal. Verify the shared native UI when workflow or platform behavior changes. Publish the implementation and rerun production smoke/E2E before marking complete.
@@ -30,11 +30,13 @@ For each role record: workflow, UI entry, API method/path, permission, tenant sc
 
 The workspace `.agents/governance/governance.db` could not be read because SQLite reported a malformed database. It was left untouched. Recover or obtain a valid governance snapshot before using it to expand the scope beyond the explicit role inventory and verified contracts.
 
+The implemented Admin task register is [admin-task-register-20261010.md](admin-task-register-20261010.md). Its nine workflow descriptions use four unique Admin API operations and local language selection; metadata does not grant permission.
+
 ## Ordered queue
 
 | Order | Stage | Role code | Primary app | Business E2E status |
 | --- | --- | --- | --- | --- |
-| 1 | Access and organization setup | `admin` | support | Fresh accounts, search, audit filters and EN/ES/FR browser E2E verified in CI; full acceptance/deployment/native verification pending |
+| 1 | Access and organization setup | `admin` | support | Fresh accounts, search, audit filters, task overview and activation lifecycle verified in EN/ES/FR CI 38097091443; full acceptance/deployment/native verification pending |
 | 2 | Access and organization setup | `owner` | franchise | Pending fresh verification |
 | 3 | Access and organization setup | `gm` | support | Pending fresh verification |
 | 4 | Access and organization setup | `ops_manager` | support | Pending fresh verification |
