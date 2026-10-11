@@ -1,6 +1,9 @@
 name: Verify inherited Admin rebuild
-# Verify combined accessibility text, platform provisioning and inherited layouts.
+# Verify inherited platform account updates, session revocation and provisioning.
 on:
+  push:
+    branches: [deploy/email-inbox-20261010]
+    paths: [.github/workflows/verify-admin-rebuild.yml]
   workflow_call:
   workflow_dispatch:
 concurrency:

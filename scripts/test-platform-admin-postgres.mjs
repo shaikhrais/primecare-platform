@@ -16,6 +16,7 @@ const db=new Client({connectionString:url.href});await db.connect();
 await db.query("ALTER TABLE tenants ADD COLUMN IF NOT EXISTS slug TEXT,ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT NOW(),ADD COLUMN IF NOT EXISTS allowed_vpn_ranges TEXT DEFAULT '',ADD COLUMN IF NOT EXISTS cors_allowed_origins JSONB DEFAULT '[]',ADD COLUMN IF NOT EXISTS cors_allowed_methods JSONB DEFAULT '[]',ADD COLUMN IF NOT EXISTS cors_allowed_headers JSONB DEFAULT '[]'");
 await db.query('CREATE UNIQUE INDEX IF NOT EXISTS test_tenant_slug_unique ON tenants(slug)');
 await db.query(await readFile('packages/database/migrations/20261011_admin_control.sql','utf8'));
+await db.query(await readFile('packages/database/migrations/20261011_admin_account_updates.sql','utf8'));
 const tenants=[randomUUID(),randomUUID()],users=[randomUUID(),randomUUID()],tokens=[randomBytes(32).toString('base64url'),randomBytes(32).toString('base64url')];
 const hash=s=>createHash('sha256').update(s).digest('hex');
 const call=(path,method='GET',body,token=tokens[0],headers={})=>gateway.fetch(new Request('https://fixture/v1/auth/admin/control/'+path,{method,headers:{authorization:'Bearer '+token,...headers},...(body===undefined?{}:{body:JSON.stringify(body)})}),{AUTH:{fetch:r=>auth(r,{SERVICE_NAME:'auth',DB_URL:url.href},new URL(r.url).pathname,{})}});
@@ -42,6 +43,22 @@ try{
  const email=randomUUID()+'@example.invalid';const account=await mutation('accounts','POST',{tenantId:tenant.id,email,role:'client',password:'initial-password-1234'});assert.equal(account.status,201);const accountId=(await account.json()).user.id;users.push(accountId);checks++;
  const stored=(await db.query('SELECT tenant_id,password_hash FROM users WHERE id=$1',[accountId])).rows[0];assert.equal(stored.tenant_id,tenant.id);assert(stored.password_hash.startsWith('$2'));checks++;
  const accounts=await(await call('accounts?tenantId='+tenant.id)).json();assert.equal(accounts.tenantId,tenant.id);assert(accounts.items.some(u=>u.id===accountId));assert(!JSON.stringify(accounts).includes('password'));checks++;
+ const update={tenantId:tenant.id,email:'updated-'+email,role:'rn',status:'inactive'};
+ assert.equal((await mutation('accounts/'+accountId,'PUT',{...update,tenantId:tenants[1]})).status,404);checks++;
+ assert.equal((await mutation('accounts/'+users[0],'PUT',{...update,tenantId:tenants[0]})).status,403);checks++;
+ assert.equal((await mutation('accounts/'+accountId,'PUT',{...update,role:'admin'})).status,400);checks++;
+ await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[hash(randomBytes(32).toString('base64url')),accountId]);
+ assert.equal((await call('accounts/'+accountId,'PUT',update,tokens[1])).status,403);assert.equal((await call('accounts/'+accountId,'GET')).status,405);checks++;
+ const updated=await mutation('accounts/'+accountId,'PUT',update);assert.equal(updated.status,200);assert.equal((await updated.json()).user.tenantId,tenant.id);checks++;
+ assert.equal((await db.query('SELECT count(*)::int AS n FROM auth_sessions WHERE user_id=$1',[accountId])).rows[0].n,0);checks++;
+ assert.deepEqual((await db.query('SELECT email,roles,status FROM users WHERE id=$1',[accountId])).rows[0],{email:update.email,roles:'rn',status:'inactive'});checks++;
+ await db.query("CREATE FUNCTION platform_qa_reject_audit() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'fixture history failure'; END $$");
+ await db.query('CREATE TRIGGER platform_qa_reject_audit BEFORE INSERT ON admin_control_audit FOR EACH ROW EXECUTE FUNCTION platform_qa_reject_audit()');
+ await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[hash(randomBytes(32).toString('base64url')),accountId]);
+ assert.equal((await mutation('accounts/'+accountId,'PUT',{...update,status:'active'})).status,503);
+ assert.equal((await db.query('SELECT status FROM users WHERE id=$1',[accountId])).rows[0].status,'inactive');
+ assert.equal((await db.query('SELECT count(*)::int AS n FROM auth_sessions WHERE user_id=$1',[accountId])).rows[0].n,1);checks++;
+ await db.query('DROP TRIGGER platform_qa_reject_audit ON admin_control_audit');await db.query('DROP FUNCTION platform_qa_reject_audit()');
  const labels={en:'Care',es:'Cuidado',fr:'Soins'};const code='qa-'+users[0];let record;
  for(const category of monitor.categories){const response=await mutation('masters','POST',{tenantId:null,category,code,labels,status:'active'});assert.equal(response.status,201);if(category==='services')record=(await response.json()).record;checks++;}
  const scoped=await mutation('masters','POST',{tenantId:tenant.id,category:'services',code,labels,status:'active'});assert.equal(scoped.status,201);checks++;
@@ -55,6 +72,8 @@ try{
  const snapshot=await(await call('monitor')).json();assert(snapshot.mastersTotal>=17);assert(snapshot.mastersActive<snapshot.mastersTotal);checks++;
  console.log(`PASS: ${checks} platform Admin Gateway/PostgreSQL checks`);
 }finally{
+ await db.query('DROP TRIGGER IF EXISTS platform_qa_reject_audit ON admin_control_audit');await db.query('DROP FUNCTION IF EXISTS platform_qa_reject_audit()');
+ await db.query('DELETE FROM auth_management_audit WHERE target_user_id=ANY($1::uuid[])',[users]);
  await db.query('DELETE FROM admin_master_records WHERE code=$1',['qa-'+users[0]]);
  await db.query('DELETE FROM admin_control_audit WHERE actor_user_id=$1',[users[0]]);
  await db.query('DELETE FROM auth_account_audit WHERE target_user_id=ANY($1::uuid[])',[users]);

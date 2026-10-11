@@ -26,9 +26,9 @@ class _PlatformState extends State<_PlatformContent> {
  String section='control.monitor';
  AppStrings get strings=>AppStrings.of(context);
  @override void initState(){super.initState();controller=_Controller(widget.request,(){if(mounted)setState((){});});WidgetsBinding.instance.addPostFrameCallback((_){if(mounted)controller.refresh();});}
- Future<Map<String,String>?> editor(String mode,{AdminMasterRecord? record})=>showDialog<Map<String,String>>(context:context,builder:(_)=>_ControlEditor(mode:mode,roles:controller.assignableRoles,record:record));
+ Future<Map<String,String>?> editor(String mode,{AdminMasterRecord? record,AdminUser? user})=>showDialog<Map<String,String>>(context:context,builder:(_)=>_ControlEditor(mode:mode,roles:controller.assignableRoles,record:record,user:user));
  Future<void> tenant() async {final data=await editor('tenant');if(data!=null&&mounted)await controller.provisionTenant(data['name']!,data['slug']!);}
- Future<void> account() async {final data=await editor('account');if(data!=null&&mounted)await controller.provisionAccount(data['email']!,data['role']!,data['password']!);}
+ Future<void> account([AdminUser? user]) async {final data=await editor('account',user:user);if(data!=null&&mounted){if(user==null){await controller.provisionAccount(data['email']!,data['role']!,data['password']!);}else{await controller.updateTenantAccount(user,data['email']!,data['role']!,data['status']!);}}}
  Future<void> master([AdminMasterRecord? record]) async {final data=await editor('master',record:record);if(data!=null&&mounted)await controller.saveMaster(data['code']!,{for(final language in ['en','es','fr'])language:data[language]!},data['status']!,record:record);}
  Widget heading(String key)=>Padding(padding:const EdgeInsets.symmetric(vertical:16),child:Text(strings.text(key),style:Theme.of(context).textTheme.titleLarge));
  Widget pages(int offset,int count,int total,void Function(int) load)=>Wrap(children:[TextButton(onPressed:controller.busy||offset==0?null:()=>load(offset-25),child:Text(strings.text('previous'))),TextButton(onPressed:controller.busy||offset+count>=total?null:()=>load(offset+25),child:Text(strings.text('next')))]);
@@ -54,8 +54,8 @@ class _PlatformState extends State<_PlatformContent> {
   if(section=='control.accounts')...[
   heading('control.accounts'),
   Text(controller.selectedTenant==null?strings.text('control.selectTenant'):strings.text('control.selectedTenant',{'name':controller.selectedTenant!.name})),
-  FilledButton(onPressed:controller.busy||controller.selectedTenant==null||controller.assignableRoles.isEmpty?null:account,child:Text(strings.text('admin.create'))),
-  ...controller.accounts.map((user)=>Card(child:Padding(padding:const EdgeInsets.all(16),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(user.email),Text('${strings.role(user.role)} · ${strings.text(user.status)}')])))),
+  FilledButton(onPressed:controller.busy||controller.selectedTenant==null||controller.assignableRoles.isEmpty?null:()=>account(),child:Text(strings.text('admin.create'))),
+  ...controller.accounts.map((user)=>Card(child:Padding(padding:const EdgeInsets.all(16),child:PrimecareDetailLayout(details:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(user.email),Text('${strings.role(user.role)} · ${strings.text(user.status)}')]),actions:IconButton(tooltip:strings.text('admin.editAccount',{'email':user.email}),onPressed:controller.busy||!controller.assignableRoles.contains(user.role)?null:()=>account(user),icon:const Icon(Icons.edit)))))),
   pages(controller.accountOffset,controller.accounts.length,controller.accountTotal,controller.loadAccounts),
   ],
   if(section=='control.masters')...[
@@ -79,18 +79,19 @@ class _ControlEditor extends StatefulWidget {
  final String mode;
  final List<String> roles;
  final AdminMasterRecord? record;
- const _ControlEditor({required this.mode,required this.roles,this.record});
+ final AdminUser? user;
+ const _ControlEditor({required this.mode,required this.roles,this.record,this.user});
  @override State<_ControlEditor> createState()=>_ControlEditorState();
 }
 class _ControlEditorState extends State<_ControlEditor> {
  final form=GlobalKey<FormState>();
  late final Map<String,TextEditingController> fields;
  late String role,status;
- @override void initState(){super.initState();fields={for(final key in widget.mode=='tenant'?['name','slug']:widget.mode=='account'?['email','password']:['code','en','es','fr'])key:TextEditingController(text:key=='code'?widget.record?.code:widget.record?.labels[key])};role=widget.roles.isEmpty?'client':widget.roles.first;status=widget.record?.status??'active';}
+ @override void initState(){super.initState();fields={for(final key in widget.mode=='tenant'?['name','slug']:widget.mode=='account'?(widget.user==null?['email','password']:['email']):['code','en','es','fr'])key:TextEditingController(text:key=='email'?widget.user?.email:key=='code'?widget.record?.code:widget.record?.labels[key])};role=widget.user?.role??(widget.roles.isEmpty?'client':widget.roles.first);status=widget.user?.status??widget.record?.status??'active';}
  @override void dispose(){for(final value in fields.values){value.dispose();}super.dispose();}
- @override Widget build(BuildContext context){final strings=AppStrings.of(context);return PrimecareFormDialog(title:Text(strings.text(widget.mode=='tenant'?'control.createTenant':widget.mode=='account'?'admin.create':widget.record==null?'control.createMaster':'control.editMaster')),content:Form(key:form,child:Column(mainAxisSize:MainAxisSize.min,children:[
+ @override Widget build(BuildContext context){final strings=AppStrings.of(context);return PrimecareFormDialog(title:Text(strings.text(widget.mode=='tenant'?'control.createTenant':widget.mode=='account'?(widget.user==null?'admin.create':'admin.edit'):widget.record==null?'control.createMaster':'control.editMaster')),content:Form(key:form,child:Column(mainAxisSize:MainAxisSize.min,children:[
   for(final entry in fields.entries)TextFormField(controller:entry.value,enabled:!(entry.key=='code'&&widget.record!=null),obscureText:entry.key=='password',decoration:InputDecoration(labelText:strings.text('control.field.${entry.key}')),validator:(value)=>value==null||value.trim().isEmpty?strings.text('required',{'field':strings.text('control.field.${entry.key}')}):null),
   if(widget.mode=='account')DropdownButtonFormField<String>(initialValue:role,isExpanded:true,decoration:InputDecoration(labelText:strings.text('admin.role')),items:widget.roles.map((value)=>DropdownMenuItem(value:value,child:Text(strings.role(value),overflow:TextOverflow.ellipsis))).toList(),onChanged:(value){if(value!=null)setState(()=>role=value);}),
-  if(widget.mode=='master')DropdownButtonFormField<String>(initialValue:status,isExpanded:true,decoration:InputDecoration(labelText:strings.text('admin.status')),items:['active','inactive'].map((value)=>DropdownMenuItem(value:value,child:Text(strings.text(value)))).toList(),onChanged:(value){if(value!=null)setState(()=>status=value);}),
+  if(widget.mode=='master'||widget.user!=null)DropdownButtonFormField<String>(initialValue:status,isExpanded:true,decoration:InputDecoration(labelText:strings.text('admin.status')),items:['active','inactive'].map((value)=>DropdownMenuItem(value:value,child:Text(strings.text(value)))).toList(),onChanged:(value){if(value!=null)setState(()=>status=value);}),
  ])),actions:[TextButton(onPressed:()=>Navigator.pop(context),child:Text(strings.text('cancel'))),FilledButton(onPressed:(){if(!form.currentState!.validate())return;FocusManager.instance.primaryFocus?.unfocus();Navigator.pop(context,{for(final entry in fields.entries)entry.key:entry.value.text,'role':role,'status':status});},child:Text(strings.text('control.save')))]);}
 }

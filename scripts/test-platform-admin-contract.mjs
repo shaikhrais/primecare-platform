@@ -10,7 +10,7 @@ try {
  execFileSync(binary,['packages/domain/src/workflows/platform-admin-workflow.ts','--bundle','--platform=node','--format=cjs','--outfile='+join(dir,'workflow.cjs')]);
  const {PlatformAdminWorkflow,masterCategories}=createRequire(import.meta.url)(join(dir,'workflow.cjs'));
  const calls=[];
- const repo=Object.fromEntries(['tenants','createTenant','accounts','createAccount','masters','createMaster','updateMaster','monitor','audit'].map(key=>[key,async(...args)=>{calls.push({key,args});return {id:'created'};}]));
+ const repo=Object.fromEntries(['tenants','createTenant','accounts','createAccount','updateAccount','masters','createMaster','updateMaster','monitor','audit'].map(key=>[key,async(...args)=>{calls.push({key,args});return {id:'created'};}]));
  const actor={id:'admin',roles:'admin',tenant_id:'home'};
  const admin=new PlatformAdminWorkflow(actor,repo),tenantId='aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
  let checks=0;
@@ -25,6 +25,9 @@ try {
  await rejected(()=>admin.accounts('home',0),400);
  await rejected(()=>admin.createAccount({tenantId,email:'user@example.invalid',role:'admin',password:'initial-password-1234'}),400);
  await admin.createAccount({tenantId,email:' USER@EXAMPLE.INVALID ',role:'client',password:'initial-password-1234'});assert.equal(calls.at(-1).args[1],tenantId);assert.equal(calls.at(-1).args[2].email,'user@example.invalid');checks++;
+ await rejected(()=>admin.updateAccount(tenantId,{tenantId,email:'user@example.invalid',role:'admin',status:'active'}),400);
+ await rejected(()=>admin.updateAccount(tenantId,{tenantId,email:'user@example.invalid',role:'client',status:'active',password:'forbidden'}),400);
+ await admin.updateAccount(tenantId,{tenantId,email:' UPDATED@EXAMPLE.INVALID ',role:'rn',status:'inactive'});assert.equal(calls.at(-1).key,'updateAccount');assert.equal(calls.at(-1).args[3].email,'updated@example.invalid');checks++;
  const input={tenantId:null,category:'services',code:'home-care',labels:{en:'Care',es:'Cuidado',fr:'Soins'},status:'active'};
  for(const category of masterCategories){await admin.createMaster({...input,category});assert.equal(calls.at(-1).args[1].category,category);checks++;}
  await rejected(()=>admin.createMaster({...input,labels:{en:'Care',es:'Cuidado'}}),400);

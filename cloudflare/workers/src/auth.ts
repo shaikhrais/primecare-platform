@@ -415,9 +415,9 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
 
 /** Platform authority is deliberately separate from the tenant-bound workspace. */
 async function platformControl(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response> {
- const resource=path.slice('/admin/control/'.length),masterId=/^masters\/([0-9a-f-]{36})$/.exec(resource);
+ const resource=path.slice('/admin/control/'.length),masterId=/^masters\/([0-9a-f-]{36})$/.exec(resource),accountIdMatch=/^accounts\/([0-9a-f-]{36})$/.exec(resource);
  const collections=['tenants','accounts','masters'];
- const allowed=masterId?['PUT']:collections.includes(resource)?['GET','POST']:['monitor','audit'].includes(resource)?['GET']:[];
+ const allowed=masterId||accountIdMatch?['PUT']:collections.includes(resource)?['GET','POST']:['monitor','audit'].includes(resource)?['GET']:[];
  if(!allowed.length)return json({error:'Not found'},404,headers);
  if(!allowed.includes(request.method))return json({error:'Method not allowed'},405,{...headers,allow:allowed.join(', ')});
  const read=request.method==='GET',params=new URL(request.url).searchParams;
@@ -436,9 +436,9 @@ async function platformControl(request:Request,env:Env,path:string,headers:Heade
    if(actor.roles!=='admin'||!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==actor.tenant_id))return json({error:'Forbidden'},403,headers);
    const workflow=new PlatformAdminWorkflow({...actor,tenant_id:actor.tenant_id},new PlatformSqlRepository(db,actor.tenant_id,read));
    const offset=Number(params.get('offset')??'0');
-   const result=read?(resource==='tenants'?await workflow.tenants(offset):resource==='accounts'?await workflow.accounts(params.get('tenantId')??'',offset):resource==='masters'?await workflow.masters(params.get('category')??'',params.get('tenantId'),offset):resource==='monitor'?await workflow.monitor():await workflow.audit(offset)):masterId?await workflow.updateMaster(masterId[1],body):resource==='tenants'?await workflow.createTenant(body):resource==='accounts'?await workflow.createAccount(body):await workflow.createMaster(body);
+   const result=read?(resource==='tenants'?await workflow.tenants(offset):resource==='accounts'?await workflow.accounts(params.get('tenantId')??'',offset):resource==='masters'?await workflow.masters(params.get('category')??'',params.get('tenantId'),offset):resource==='monitor'?await workflow.monitor():await workflow.audit(offset)):accountIdMatch?await workflow.updateAccount(accountIdMatch[1],body):masterId?await workflow.updateMaster(masterId[1],body):resource==='tenants'?await workflow.createTenant(body):resource==='accounts'?await workflow.createAccount(body):await workflow.createMaster(body);
    if(!read){await db.query('COMMIT');committed=true;}
-   return json(result,!read&&!masterId?201:200,headers);
+   return json(result,!read&&!masterId&&!accountIdMatch?201:200,headers);
   }catch(error){if(error instanceof WorkflowFailure)return json({error:error.message,code:error.code},error.status,headers);if((error as {code?:string}).code==='23505')return json({error:'A tenant slug, account email or record code already exists',code:'error.controlDuplicate'},409,headers);throw error;}
   finally{if(!committed)await db.query('ROLLBACK');}
  });

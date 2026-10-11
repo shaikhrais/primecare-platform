@@ -21,6 +21,17 @@ export async function runPlatformAdminBrowserScenario({page,db,strings,language,
  const account=page.waitForResponse(r=>r.request().method()==='POST'&&new URL(r.url()).pathname.endsWith('/admin/control/accounts'));
  await page.getByRole('button',{name:strings['control.save'],exact:true}).click();assert.equal((await account).status(),201);await visible(email);
  assert.equal((await db.query('SELECT tenant_id FROM users WHERE email=$1',[email])).rows[0].tenant_id,tenant.id);
+ onPhase('selected tenant account edit and session revocation');
+ const updatedEmail='updated-'+email;
+ await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) SELECT $1,id,NOW()+INTERVAL '1 hour' FROM users WHERE email=$2",['fixture-'+suffix,email]);
+ await page.getByRole('button',{name:strings['admin.editAccount'].replace('{email}',email),exact:true}).click();
+ await fillFlutterField(page,strings['control.field.email'],updatedEmail);
+ await page.getByText(strings['admin.role']+' '+strings['role.client'],{exact:true}).click();await page.getByLabel(strings['role.rn'],{exact:true}).click();
+ await page.getByText(strings['admin.status']+' '+strings['active'],{exact:true}).click();await page.getByLabel(strings['inactive'],{exact:true}).click();
+ const edit=page.waitForResponse(r=>r.request().method()==='PUT'&&new URL(r.url()).pathname.includes('/admin/control/accounts/'));
+ await page.getByRole('button',{name:strings['control.save'],exact:true}).click();assert.equal((await edit).status(),200);await visible(updatedEmail);
+ const user=(await db.query('SELECT id,email,roles,status FROM users WHERE email=$1',[updatedEmail])).rows[0];assert.equal(user.roles,'rn');assert.equal(user.status,'inactive');
+ assert.equal((await db.query('SELECT count(*)::int AS n FROM auth_sessions WHERE user_id=$1',[user.id])).rows[0].n,0);
  onPhase('localized master provisioning');
  await page.getByRole('button',{name:strings['control.masters'],exact:true}).click();await page.getByRole('button',{name:strings['control.createMaster'],exact:true,disabled:false}).click();
  for(const [key,value] of Object.entries({code:'care-'+suffix,en:'Care '+suffix,es:'Cuidado '+suffix,fr:'Soins '+suffix}))await fillFlutterField(page,strings['control.field.'+key],value);
@@ -30,9 +41,9 @@ export async function runPlatformAdminBrowserScenario({page,db,strings,language,
  const persisted=(await db.query('SELECT labels,status FROM admin_master_records WHERE tenant_id=$1',[tenant.id])).rows[0];assert.equal(persisted.labels.fr,'Soins '+suffix);assert.equal(persisted.status,'active');
  onPhase('platform monitoring and history');
  await page.getByRole('button',{name:strings['control.monitor'],exact:true}).click();await visible(strings['metric.tenantsTotal']+': 2');
- await page.getByRole('button',{name:strings['control.audit'],exact:true}).click();await visible(strings['control.event.tenant_created']);await visible(strings['control.event.account_created']);
+ await page.getByRole('button',{name:strings['control.audit'],exact:true}).click();await visible(strings['control.event.tenant_created']);await visible(strings['control.event.account_created']);await visible(strings['control.event.account_updated']);
  await page.getByRole('button',{name:strings['back'],exact:true}).click();
  // Remove only owned fixtures so each language observes the same baseline.
- await db.query('DELETE FROM admin_master_records WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM admin_control_audit WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM auth_account_audit WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM users WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM tenants WHERE id=$1',[tenant.id]);
- console.log('PASS '+language+': platform tenant, selected-tenant account, translated master, monitoring and history browser E2E');
+ await db.query('DELETE FROM admin_master_records WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM admin_control_audit WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM auth_management_audit WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM auth_account_audit WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM users WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM tenants WHERE id=$1',[tenant.id]);
+ console.log('PASS '+language+': platform tenant, selected-tenant account create/edit, session revocation, translated master, monitoring and history browser E2E');
 }

@@ -30,4 +30,16 @@ void main(){
   const record=AdminMasterRecord(id:'record',tenantId:null,category:'services',code:'care',status:'active',labels:{'en':'Care','es':'Cuidado','fr':'Soins'});
   await admin.saveMaster('ignored',record.labels,'inactive',record:record);expect(sent!.keys.toSet(),{'labels','status'});expect(admin.error,isNull);
  });
+ test('Selected tenant updates use the shared lifecycle and immutable scope',() async {
+  const user=AdminUser(id:'user',email:'old@example.invalid',role:'client',status:'active');Map<String,dynamic>? sent;
+  final admin=Admin((method,path,{body}) async {if(method=='PUT'){sent=body;return {}; }return path.endsWith('monitor')?snapshot():page(Uri.parse(path));});
+  admin.selectedTenant=const AdminTenant(id:'tenant',name:'Tenant',slug:'tenant',status:'active');admin.accounts=[user];admin.assignableRoles=['client','rn'];
+  await admin.updateTenantAccount(user,'new@example.invalid','rn','inactive');expect(sent,{'tenantId':'tenant','email':'new@example.invalid','role':'rn','status':'inactive'});expect(admin.error,isNull);expect(admin.busy,false);
+ });
+ test('Protected accounts cannot open a client-side mutation',() async {
+  var calls=0;final admin=Admin((method,path,{body}) async {calls++;return {};});
+  admin.selectedTenant=const AdminTenant(id:'tenant',name:'Tenant',slug:'tenant',status:'active');const user=AdminUser(id:'admin',email:'admin@example.invalid',role:'admin',status:'active');admin.accounts=[user];
+  await admin.updateTenantAccount(user,user.email,'client','active');expect(calls,0);expect(admin.errorCode,'error.protected');
+ });
+
 }

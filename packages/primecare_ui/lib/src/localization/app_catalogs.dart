@@ -176,6 +176,7 @@ const appCatalogs = <String, Map<String, String>>{
     "task.monitor.description": "Review tenant, account, session and reference counts and provisioning history.",
     "control.save": "Save",
     "control.refresh": "Refresh",
+    "control.event.account_updated": "Account updated",
   },
   "es": {
     "language": "Idioma",
@@ -353,6 +354,7 @@ const appCatalogs = <String, Map<String, String>>{
     "task.monitor.description": "Consultar cantidades de inquilinos, cuentas, sesiones y referencias y el historial.",
     "control.save": "Guardar",
     "control.refresh": "Actualizar",
+    "control.event.account_updated": "Cuenta actualizada",
   },
   "fr": {
     "language": "Langue",
@@ -530,5 +532,6 @@ const appCatalogs = <String, Map<String, String>>{
     "task.monitor.description": "Consulter les nombres d’organisations, comptes, sessions et références et l’historique.",
     "control.save": "Enregistrer",
     "control.refresh": "Actualiser",
+    "control.event.account_updated": "Compte modifié",
   },
 };

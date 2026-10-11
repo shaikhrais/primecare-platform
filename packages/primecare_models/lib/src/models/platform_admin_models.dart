@@ -20,7 +20,7 @@ class AdminControlEvent extends BaseEntity<String> {
  final String actor,target,action;
  final DateTime createdAt;
  const AdminControlEvent({required super.id,required this.actor,required this.target,required this.action,required this.createdAt});
- factory AdminControlEvent.fromJson(Map<String,dynamic> data){if(!['tenant_created','account_created','master_created','master_updated'].contains(data['action']))throw const FormatException('Invalid event');return AdminControlEvent(id:_text(data['id']),actor:_text(data['actor']),target:_text(data['target']),action:_text(data['action']),createdAt:DateTime.parse(_text(data['createdAt'])));}
+ factory AdminControlEvent.fromJson(Map<String,dynamic> data){if(!['tenant_created','account_created','account_updated','master_created','master_updated'].contains(data['action']))throw const FormatException('Invalid event');return AdminControlEvent(id:_text(data['id']),actor:_text(data['actor']),target:_text(data['target']),action:_text(data['action']),createdAt:DateTime.parse(_text(data['createdAt'])));}
 }
 class AdminPlatformSnapshot extends BaseEntity<String> {
  static const metrics=['tenantsTotal','tenantsActive','usersTotal','usersActive','sessionsActive','mastersTotal','mastersActive'];
