@@ -170,13 +170,16 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Screen Health',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
+                  Expanded(
+                    child: Text(
+                      'Screen Health',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.5,
+                      ),
                     ),
                   ),
+                  const SizedBox(width: 8),
                   _buildStatusPill(health.isProductionReady),
                 ],
               ),
@@ -433,11 +436,13 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
             size: 14,
           ),
           const SizedBox(width: 10),
-          Text(
-            title,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: checked ? theme.textTheme.bodyLarge?.color : theme.hintColor,
-              fontWeight: checked ? FontWeight.w500 : FontWeight.normal,
+          Expanded(
+            child: Text(
+              title,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: checked ? theme.textTheme.bodyLarge?.color : theme.hintColor,
+                fontWeight: checked ? FontWeight.w500 : FontWeight.normal,
+              ),
             ),
           ),
         ],
