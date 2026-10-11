@@ -1,0 +1,24 @@
+{
+  "baseline": "556f7a9a3990ce8be894b0081c81c2c04fdef8b1",
+  "removed_files": 16343,
+  "identical_canonical_copies": 7360,
+  "historical_copies_not_identical": 8983,
+  "retained_evidence_files": [
+    "generated_screen_backup_before_template_reset/screens/allied/treatment_notes_screen.dart",
+    "generated_screen_backup_before_template_reset/screens/clinical/assessment_screen.dart",
+    "generated_screen_backup_before_template_reset/screens/psw/incident_report_screen.dart",
+    "generated_screen_backup_before_template_reset/screens/rn/patient_charting_screen.dart"
+  ],
+  "groups": {
+    "archive": 7203,
+    "cypress": 7,
+    "navigation_registry.dart": 1,
+    "routes": 11,
+    "screens": 9121
+  },
+  "removed_bytes": 25098348,
+  "active_source_removed": false,
+  "complete_historical_source_preserved": true,
+  "purpose_review": "Definitions/imports/TODO inventory; no claim of complete behavior reconstruction",
+  "archive_sha256_before_inventory_append": "b94a25a49fff89df33e839979dc33d0a4633d8d0f6d00fda4b7f4350d5789e8c"
+}
