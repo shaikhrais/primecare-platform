@@ -3,6 +3,13 @@ import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {fillFlutterField} from './flutter-browser-input.mjs';
 
+async function refreshWorkspace(page,strings) {
+ const response=page.waitForResponse(r=>r.request().method()==='GET'&&new URL(r.url()).pathname.endsWith('/admin/workspace'));
+ await page.getByRole('button',{name:strings['admin.refresh'],exact:true}).click();
+ assert.equal((await response).status(),200);
+ await page.getByRole('button',{name:strings['admin.refresh'],exact:true,disabled:false}).waitFor();
+}
+
 export async function runAdminBrowserScenario({browser,db,language,strings,email,password,tenant,admin,organization,uiUrl,api,accountsBefore=1,auditBefore=0,ignoreHTTPSErrors=false,onPhase=()=>{}}) {
  const userEmail=`browser-user-${randomUUID()}@example.invalid`,updatedEmail=`updated-${randomUUID()}@example.invalid`;
  const page=await browser.newPage({ignoreHTTPSErrors,viewport:{width:1280,height:1000}});
@@ -44,7 +51,7 @@ export async function runAdminBrowserScenario({browser,db,language,strings,email
  const finalDeactivation=page.waitForResponse(r=>r.url().endsWith('/admin/workspace/users/'+user.id)&&r.request().method()==='PUT');
  await page.getByRole('button',{name:strings['admin.save'],exact:true}).click();assert.equal((await finalDeactivation).status(),200);await page.getByText(updatedEmail,{exact:true}).waitFor();
  assert.equal((await api('/me',{headers:{authorization:'Bearer '+resumedToken}})).status,401);
- onPhase('reload');await page.getByRole('button',{name:strings['admin.refresh'],exact:true}).click();await page.getByText(updatedEmail,{exact:true}).waitFor();
+ onPhase('reload');await refreshWorkspace(page,strings);await page.getByText(updatedEmail,{exact:true}).waitFor();
  onPhase('search account');await fillFlutterField(page,strings['admin.searchLabel'],updatedEmail.toUpperCase());
  await page.getByRole('button',{name:strings['admin.searchApply'],exact:true}).click();await page.getByText(strings['admin.matchingCounts'].replace('{total}','1').replace('{active}','0'),{exact:true}).waitFor();
  await page.getByText(updatedEmail,{exact:true}).waitFor();
@@ -52,7 +59,7 @@ export async function runAdminBrowserScenario({browser,db,language,strings,email
  await page.getByText(strings['admin.matchingCounts'].replace('{total}','0').replace('{active}','0'),{exact:true}).waitFor();await page.getByText(strings['admin.empty'],{exact:true}).waitFor();
  await page.getByText(strings['admin.statusFilter']+' '+strings['active'],{exact:true}).click();await page.getByLabel(strings['inactive'],{exact:true}).click();
  await page.getByText(strings['admin.matchingCounts'].replace('{total}','1').replace('{active}','0'),{exact:true}).waitFor();await page.getByText(updatedEmail,{exact:true}).waitFor();
- await page.getByRole('button',{name:strings['admin.refresh'],exact:true}).click();await page.getByText(updatedEmail,{exact:true}).waitFor();
+ await refreshWorkspace(page,strings);await page.getByText(updatedEmail,{exact:true}).waitFor();
  await page.getByText(strings['admin.statusFilter']+' '+strings['inactive'],{exact:true}).click();await page.getByLabel(strings['admin.allStatuses'],{exact:true}).click();
  await page.getByText(strings['admin.matchingCounts'].replace('{total}','1').replace('{active}','0'),{exact:true}).waitFor();
  onPhase('filtered audit');const filteredResponse=page.waitForResponse(r=>r.request().method()==='GET'&&new URL(r.url()).pathname.endsWith('/admin/workspace/audit')&&new URL(r.url()).searchParams.get('userId')===user.id);await page.getByRole('button',{name:strings['audit.viewAccount'].replace('{email}',updatedEmail),exact:true}).click();

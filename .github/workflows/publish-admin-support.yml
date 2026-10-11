@@ -4,6 +4,11 @@ on:
     branches: [deploy/email-inbox-20261010]
     paths: ['.github/workflows/publish-admin-support.yml']
   workflow_dispatch:
+    inputs:
+      publish:
+        description: Deploy Worker and Support before live verification
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -44,12 +49,14 @@ jobs:
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts
           node scripts/check-auth-schema.mjs
       - name: Build inherited Support with production API
+        if: inputs.publish
         working-directory: apps/primecare_support
         run: |
           flutter pub get
           flutter analyze lib
           flutter build web --release --dart-define=AUTH_API_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/auth
       - name: Deploy Auth Worker and Support Pages
+        if: inputs.publish
         run: |
           node scripts/generate-cloudflare-worker-config.mjs
           node_modules/.bin/wrangler deploy --config .cloudflare-workers/auth.jsonc
@@ -66,7 +73,7 @@ jobs:
         run: |
           node_modules/.bin/playwright install --with-deps chromium
           node scripts/verify-production-admin.mjs
-          echo 'PASS: published Support Admin and Auth Worker; production EN/ES/FR account, filter, audit, session and policy verification; owned fixtures removed.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'PASS: live Support Admin and Auth Worker; production EN/ES/FR account, filter, audit, session and policy verification; owned fixtures removed.' >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
