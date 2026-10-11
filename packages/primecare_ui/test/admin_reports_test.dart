@@ -58,8 +58,6 @@ void main() {
   for(final width in [320.0,768.0,1440.0,3840.0]) {
    for(final enabled in [false,true]) {
     testWidgets('report controls fit ${platform.name} at $width with delivery enabled=$enabled', (tester) async {
-      debugDefaultTargetPlatformOverride = platform;
-      addTearDown(() => debugDefaultTargetPlatformOverride = null);
       tester.view.physicalSize=Size(width,1200);tester.view.devicePixelRatio=1;
       addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
       dio.interceptors.add(InterceptorsWrapper(onRequest:(o,h) => h.resolve(Response(
@@ -79,7 +77,7 @@ void main() {
       expect(find.text('Email report'),enabled ? findsOneWidget : findsNothing);
       expect(tester.takeException(),isNull);
       await tester.pumpWidget(const SizedBox());
-    });
+    }, variant: TargetPlatformVariant({platform}));
    }
   }
   }
