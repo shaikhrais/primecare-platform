@@ -270,10 +270,12 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
                     children: [
                       Icon(LucideIcons.checkCircle2, color: Colors.green, size: 16),
                       const SizedBox(width: 8),
-                      Text(
-                        'All features fully verified and complete.',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: Colors.green.shade700,
+                      Expanded(
+                        child: Text(
+                          'All features fully verified and complete.',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: Colors.green.shade700,
+                          ),
                         ),
                       ),
                     ],
