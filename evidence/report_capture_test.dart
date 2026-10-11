@@ -16,10 +16,12 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() async {
     final bytes = await File('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf').readAsBytes();
-    for(final family in ['Roboto','Inter','Manrope']) {
+    for(final family in ['Roboto','Inter','Manrope','Segoe UI','Ubuntu','.SF UI Text','.SF UI Display','CupertinoSystemText','CupertinoSystemDisplay','Arial','sans-serif']) {
       final loader=FontLoader(family)..addFont(Future.value(ByteData.sublistView(bytes)));
       await loader.load();
     }
+    final icons=FontLoader('MaterialIcons')..addFont(Future.value(ByteData.sublistView(await File('/tmp/report-material-icons.otf').readAsBytes())));
+    await icons.load();
     Directory('evidence').createSync();
   });
   late ProviderContainer container;
@@ -79,7 +81,7 @@ void main() {
             'pdf':'Download PDF','recipient':'Recipient','subject':'Subject','message':'Message',
             'confirm':'I confirm this recipient may receive this report','email':'Email report'}}))));
       await tester.pumpWidget(ProviderScope(overrides:[apiClientProvider.overrideWithValue(client)],
-        child:RepaintBoundary(key:const ValueKey("capture"),child:MaterialApp(theme: ThemeData(platform: platform), home:PrimeTheme(data:const PrimeThemeData(),child:Scaffold(body:SingleChildScrollView(
+        child:RepaintBoundary(key:const ValueKey("capture"),child:MaterialApp(debugShowCheckedModeBanner:false,theme: ThemeData(platform: platform), home:PrimeTheme(data:const PrimeThemeData(),child:Scaffold(body:SingleChildScrollView(
           child:AdminReportsPanel(endpoint:'/v1/governance/reports'))))))));
       await tester.pumpAndSettle();
       expect(find.text('Reports'),findsOneWidget);expect(find.text('Generate'),findsOneWidget);
