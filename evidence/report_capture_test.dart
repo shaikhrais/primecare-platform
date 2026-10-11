@@ -16,7 +16,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() async {
     final bytes = await File('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf').readAsBytes();
-    for(final family in ['Roboto','Inter','Manrope','Segoe UI','Ubuntu','.SF UI Text','.SF UI Display','CupertinoSystemText','CupertinoSystemDisplay','Arial','sans-serif']) {
+    for(final family in ['Roboto','Inter','Manrope','Segoe UI','Ubuntu','.SF UI Text','.SF UI Display','CupertinoSystemText','CupertinoSystemDisplay','Arial','sans-serif','.AppleSystemUIFont','.SF Pro Text','.SF Pro Display']) {
       final loader=FontLoader(family)..addFont(Future.value(ByteData.sublistView(bytes)));
       await loader.load();
     }
