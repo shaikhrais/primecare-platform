@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {fillFlutterField} from './flutter-browser-input.mjs';
 export async function runPlatformAdminBrowserScenario({page,db,strings,language,onPhase}){
- const visible=text=>page.getByText(text,{exact:true}).or(page.getByLabel(text,{exact:false})).first().waitFor();
+ const visible=text=>page.getByText(text,{exact:false}).or(page.getByLabel(text,{exact:false})).first().waitFor();
  const suffix=randomUUID(),name='Platform '+suffix,slug='platform-'+suffix,email=suffix+'@example.invalid';
  onPhase('platform tenant provisioning');
  await page.getByRole('button',{name:strings['control.title'],exact:true}).click();

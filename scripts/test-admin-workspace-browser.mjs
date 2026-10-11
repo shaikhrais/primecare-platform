@@ -47,9 +47,11 @@ try {
  const strings=catalogs[language];
  await runAdminBrowserScenario({browser,db,language,strings,email,password,tenant,admin,organization:'Browser QA organization',uiUrl:'https://127.0.0.1:8443/',api:(path,options={})=>gateway.fetch(new Request('https://fixture/v1/auth'+path,options),env),accountsBefore:['en','es','fr'].indexOf(language)+1,auditBefore:4*['en','es','fr'].indexOf(language),ignoreHTTPSErrors:true,platformControl:true,onPhase:value=>phase=value});
  }
-}catch(error){console.error('Admin browser E2E failed during '+phase);if(browser){const page=browser.contexts().flatMap(c=>c.pages())[0];if(page){await page.screenshot({path:'admin-rebuild-failure.png'});console.error((await page.locator('flt-semantics').allTextContents()).slice(-30));console.error(await page.locator('[role],[aria-label]').evaluateAll(nodes=>nodes.map(n=>({role:n.getAttribute('role'),label:n.getAttribute('aria-label')})).slice(-35)));}}throw error;}
+}catch(error){console.error('Admin browser E2E failed during '+phase);console.error(error);if(browser){const page=browser.contexts().flatMap(c=>c.pages())[0];if(page){await page.screenshot({path:'admin-rebuild-failure.png'});console.error((await page.locator('flt-semantics').allTextContents()).slice(-30));console.error(await page.locator('[role],[aria-label]').evaluateAll(nodes=>nodes.map(n=>({role:n.getAttribute('role'),label:n.getAttribute('aria-label')})).slice(-35)));}}throw error;}
 finally {
  if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));
- await db.query('DELETE FROM auth_management_audit WHERE tenant_id=$1',[tenant]);await db.query('DELETE FROM auth_account_audit WHERE tenant_id=$1',[tenant]);
- await db.query('DELETE FROM auth_sessions WHERE user_id IN (SELECT id FROM users WHERE tenant_id=$1)',[tenant]);await db.query('DELETE FROM users WHERE tenant_id=$1',[tenant]);await db.query('DELETE FROM tenants WHERE id=$1',[tenant]);await db.end();
+ const owned=(await db.query('SELECT id FROM tenants WHERE id=$1 OR id::text IN (SELECT tenant_id FROM admin_control_audit WHERE actor_user_id=$2)',[tenant,admin])).rows.map(row=>row.id);
+ await db.query('DELETE FROM admin_master_records WHERE tenant_id=ANY($1::uuid[])',[owned]);await db.query('DELETE FROM admin_control_audit WHERE actor_user_id=$1',[admin]);
+ await db.query('DELETE FROM auth_management_audit WHERE tenant_id=ANY($1::uuid[]) OR actor_user_id=$2',[owned,admin]);await db.query('DELETE FROM auth_account_audit WHERE tenant_id=ANY($1::uuid[]) OR actor_user_id=$2',[owned,admin]);
+ await db.query('DELETE FROM auth_sessions WHERE user_id IN (SELECT id FROM users WHERE tenant_id=ANY($1::uuid[]))',[owned]);await db.query('DELETE FROM users WHERE tenant_id=ANY($1::uuid[])',[owned]);await db.query('DELETE FROM tenants WHERE id=ANY($1::uuid[])',[owned]);await db.end();
 }
