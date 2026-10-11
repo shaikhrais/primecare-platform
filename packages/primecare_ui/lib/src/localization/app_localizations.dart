@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:primecare_core/primecare_core.dart';
 import 'app_catalogs.dart';
+import '../layout/base_primecare_layout.dart';
 
 class AppLanguageController extends BaseLanguageWorkflow with ChangeNotifier {
   @override
@@ -33,7 +34,7 @@ class LanguageSelector extends StatelessWidget {
   const LanguageSelector({super.key});
   @override
   Widget build(BuildContext context) => Row(mainAxisSize: MainAxisSize.min,children: [
-    if (MediaQuery.sizeOf(context).width >= 600 && MediaQuery.textScalerOf(context).scale(16) <= 24)
+    if (PrimecareLayoutData.of(context).size != PrimecareWindowSize.mobile && !PrimecareLayoutData.hasLargeText(context))
       Text(switch(applicationLanguage.language){SupportedLanguage.en=>'English',SupportedLanguage.es=>'Español',SupportedLanguage.fr=>'Français'}),
     PopupMenuButton<SupportedLanguage>(tooltip: AppStrings.of(context).text('language'),icon:const Icon(Icons.language),onSelected: applicationLanguage.selectLanguage,
       itemBuilder: (_) => [const PopupMenuItem(value:SupportedLanguage.en,child:Text('English')),const PopupMenuItem(value:SupportedLanguage.es,child:Text('Español')),const PopupMenuItem(value:SupportedLanguage.fr,child:Text('Français'))]),

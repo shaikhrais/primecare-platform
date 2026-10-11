@@ -6,10 +6,11 @@ enum PrimecareWindowSize { mobile, tablet, desktop, wide, ultraWide }
 /// not device pixels or physical inches; accessibility scaling stays enabled.
 @immutable
 class PrimecareLayoutData {
+  static const mobileBreakpoint = 600.0;
   final double width;
   const PrimecareLayoutData(this.width);
   PrimecareWindowSize get size => switch (width) {
-    < 600 => PrimecareWindowSize.mobile,
+    < mobileBreakpoint => PrimecareWindowSize.mobile,
     < 1024 => PrimecareWindowSize.tablet,
     < 1920 => PrimecareWindowSize.desktop,
     < 2560 => PrimecareWindowSize.wide,
@@ -30,6 +31,7 @@ class PrimecareLayoutData {
   double get contentWidth => width.clamp(0, maxContentWidth).toDouble();
   double get fontSizeFactor => size == PrimecareWindowSize.ultraWide ? 1.2 : 1;
   EdgeInsets get pageInsets => EdgeInsets.all(padding);
+  static bool hasLargeText(BuildContext context) => MediaQuery.textScalerOf(context).scale(16) > 24;
   static PrimecareLayoutData of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<_LayoutScope>()?.data ??
       PrimecareLayoutData(MediaQuery.sizeOf(context).width);
@@ -65,7 +67,7 @@ class PrimecareDetailLayout extends StatelessWidget {
   const PrimecareDetailLayout({super.key, required this.details, required this.actions});
   @override
   Widget build(BuildContext context) => LayoutBuilder(builder: (context, constraints) {
-    final stacked = constraints.maxWidth < 600 || MediaQuery.textScalerOf(context).scale(16) > 24;
+    final stacked = constraints.maxWidth < PrimecareLayoutData.mobileBreakpoint || PrimecareLayoutData.hasLargeText(context);
     return stacked
         ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [details, const SizedBox(height: 8), actions])
         : Row(children: [Expanded(child: details), const SizedBox(width: 12), actions]);
