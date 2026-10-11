@@ -1,11 +1,11 @@
 import catalog from '../../../contracts/admin-master-categories.json';
-import {BaseTenantWorkflow,WorkflowFailure,validateUser,assignableRoles,type Actor,type UserInput} from './admin-workflow';
+import {BaseTenantWorkflow,WorkflowFailure,normalizeAccountFilters,validateUser,assignableRoles,type Actor,type UserInput} from './admin-workflow';
 export const masterCategories:readonly string[]=catalog.categories;
 export type MasterInput={tenantId:string|null;category:string;code:string;labels:Record<string,string>;status:string};
 export interface PlatformAdminRepository {
  tenants(offset:number):Promise<Record<string,unknown>>;
  createTenant(actorId:string,name:string,slug:string):Promise<Record<string,unknown>>;
- accounts(tenantId:string,offset:number):Promise<Record<string,unknown>>;
+ accounts(tenantId:string,offset:number,search:string,status:string):Promise<Record<string,unknown>>;
  createAccount(actorId:string,tenantId:string,input:UserInput):Promise<Record<string,unknown>>;
  updateAccount(actorId:string,tenantId:string,id:string,input:UserInput):Promise<Record<string,unknown>>;
  masters(category:string,tenantId:string|null,offset:number):Promise<Record<string,unknown>>;
@@ -31,7 +31,7 @@ export class PlatformAdminWorkflow extends BaseTenantWorkflow {
  private check(offset=0){this.authorize('admin');if(!Number.isInteger(offset)||offset<0||offset>999999)throw new WorkflowFailure(400,'Invalid offset');}
  async tenants(offset:number){this.check(offset);return this.repository.tenants(offset);}
  async createTenant(value:unknown){this.check();const data=fields(value,['name','slug']),name=text(data.name,150),slug=text(data.slug,63);if(!/^[a-z0-9](?:[a-z0-9-]{1,61}[a-z0-9])$/.test(slug))throw new WorkflowFailure(400,'Invalid tenant slug');return {tenant:await this.repository.createTenant(this.actor.id,name,slug)};}
- async accounts(tenantId:string,offset:number){this.check(offset);return this.repository.accounts(uuid(tenantId),offset);}
+ async accounts(tenantId:string,offset:number,search:string='',status:string=''){this.check(offset);const filter=normalizeAccountFilters(search,status);return this.repository.accounts(uuid(tenantId),offset,filter.search,filter.status);}
  async createAccount(value:unknown){this.check();const data=fields(value,['tenantId','email','role','password']);const tenantId=uuid(data.tenantId),input=validateUser({email:data.email,role:data.role,password:data.password},true);return {user:await this.repository.createAccount(this.actor.id,tenantId,input)};}
  async updateAccount(id:string,value:unknown){this.check();const data=fields(value,['tenantId','email','role','status']);const tenantId=uuid(data.tenantId),input=validateUser({email:data.email,role:data.role,status:data.status},false);return {user:await this.repository.updateAccount(this.actor.id,tenantId,uuid(id),input)};}
  async masters(category:string,tenantId:string|null,offset:number){this.check(offset);if(!masterCategories.includes(category))throw new WorkflowFailure(400,'Unknown master category');return this.repository.masters(category,tenantId===null?null:uuid(tenantId),offset);}

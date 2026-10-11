@@ -32,6 +32,16 @@ export async function runPlatformAdminBrowserScenario({page,db,strings,language,
  await page.getByRole('button',{name:strings['control.save'],exact:true}).click();assert.equal((await edit).status(),200);await visible(updatedEmail);
  const user=(await db.query('SELECT id,email,roles,status FROM users WHERE email=$1',[updatedEmail])).rows[0];assert.equal(user.roles,'rn');assert.equal(user.status,'inactive');
  assert.equal((await db.query('SELECT count(*)::int AS n FROM auth_sessions WHERE user_id=$1',[user.id])).rows[0].n,0);
+ onPhase('selected tenant email and status filters');
+ await fillFlutterField(page,strings['admin.searchLabel'],updatedEmail.toUpperCase());await page.getByRole('button',{name:strings['admin.searchApply'],exact:true}).click();
+ await visible(strings['admin.matchingCounts'].replace('{total}','1').replace('{active}','0'));
+ await page.getByText(strings['admin.statusFilter']+' '+strings['admin.allStatuses'],{exact:true}).click();await page.getByLabel(strings['active'],{exact:true}).click();
+ await visible(strings['admin.matchingCounts'].replace('{total}','0').replace('{active}','0'));
+ await page.getByText(strings['admin.statusFilter']+' '+strings['active'],{exact:true}).click();await page.getByLabel(strings['inactive'],{exact:true}).click();
+ await visible(updatedEmail);await visible(strings['admin.matchingCounts'].replace('{total}','1').replace('{active}','0'));
+ const refresh=page.waitForResponse(r=>r.request().method()==='GET'&&new URL(r.url()).pathname.endsWith('/admin/control/accounts')&&new URL(r.url()).searchParams.get('search')===updatedEmail&&new URL(r.url()).searchParams.get('status')==='inactive');
+ await page.getByRole('button',{name:strings['control.refresh'],exact:true,disabled:false}).click();assert.equal((await refresh).status(),200);await page.getByRole('button',{name:strings['control.refresh'],exact:true,disabled:false}).waitFor();await visible(updatedEmail);
+ await page.getByText(strings['admin.statusFilter']+' '+strings['inactive'],{exact:true}).click();await page.getByLabel(strings['admin.allStatuses'],{exact:true}).click();await page.getByRole('button',{name:strings['admin.searchClear'],exact:true}).click();
  onPhase('localized master provisioning');
  await page.getByRole('button',{name:strings['control.masters'],exact:true}).click();await page.getByRole('button',{name:strings['control.createMaster'],exact:true,disabled:false}).click();
  for(const [key,value] of Object.entries({code:'care-'+suffix,en:'Care '+suffix,es:'Cuidado '+suffix,fr:'Soins '+suffix}))await fillFlutterField(page,strings['control.field.'+key],value);
@@ -45,5 +55,5 @@ export async function runPlatformAdminBrowserScenario({page,db,strings,language,
  await page.getByRole('button',{name:strings['back'],exact:true}).click();
  // Remove only owned fixtures so each language observes the same baseline.
  await db.query('DELETE FROM admin_master_records WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM admin_control_audit WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM auth_management_audit WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM auth_account_audit WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM users WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM tenants WHERE id=$1',[tenant.id]);
- console.log('PASS '+language+': platform tenant, selected-tenant account create/edit, session revocation, translated master, monitoring and history browser E2E');
+ console.log('PASS '+language+': platform tenant, selected-tenant account create/edit, session revocation, search/status filters, translated master, monitoring and history browser E2E');
 }

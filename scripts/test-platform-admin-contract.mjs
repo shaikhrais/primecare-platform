@@ -21,8 +21,12 @@ try {
  await rejected(()=>admin.createTenant({name:'Company',slug:'Company'}),400);
  await rejected(()=>admin.createTenant({name:'Company',slug:'company',roles:'admin'}),400);
  await admin.createTenant({name:' Company ',slug:'company'});assert.deepEqual(calls.at(-1).args,['admin','Company','company']);checks++;
- await admin.accounts(tenantId.toUpperCase(),25);assert.deepEqual(calls.at(-1).args,[tenantId,25]);checks++;
+ await admin.accounts(tenantId.toUpperCase(),25);assert.deepEqual(calls.at(-1).args,[tenantId,25,'','']);checks++;
  await rejected(()=>admin.accounts('home',0),400);
+ await admin.accounts(tenantId,0,'  USER@EXAMPLE.INVALID  ','inactive');assert.deepEqual(calls.at(-1).args,[tenantId,0,'user@example.invalid','inactive']);checks++;
+ await rejected(()=>admin.accounts(tenantId,0,'x','paused'),400);
+ await rejected(()=>admin.accounts(tenantId,0,'x'.repeat(255)),400);
+ await rejected(()=>admin.accounts(tenantId,0,'line\nbreak'),400);
  await rejected(()=>admin.createAccount({tenantId,email:'user@example.invalid',role:'admin',password:'initial-password-1234'}),400);
  await admin.createAccount({tenantId,email:' USER@EXAMPLE.INVALID ',role:'client',password:'initial-password-1234'});assert.equal(calls.at(-1).args[1],tenantId);assert.equal(calls.at(-1).args[2].email,'user@example.invalid');checks++;
  await rejected(()=>admin.updateAccount(tenantId,{tenantId,email:'user@example.invalid',role:'admin',status:'active'}),400);

@@ -1,3 +1,4 @@
+import 'admin_account_filters.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_core/primecare_core.dart';
 import '../screens/base_primecare_screen.dart';
@@ -24,10 +25,13 @@ class _PlatformContent extends StatefulWidget {
 class _PlatformState extends State<_PlatformContent> {
  late final _Controller controller;
  String section='control.monitor';
+ final accountSearch=TextEditingController();
+ @override void dispose(){accountSearch.dispose();super.dispose();}
+ Future<void> selectTenant(AdminTenant? item) async {await controller.selectTenant(item);if(mounted)accountSearch.text=controller.search;}
  AppStrings get strings=>AppStrings.of(context);
  @override void initState(){super.initState();controller=_Controller(widget.request,(){if(mounted)setState((){});});WidgetsBinding.instance.addPostFrameCallback((_){if(mounted)controller.refresh();});}
  Future<Map<String,String>?> editor(String mode,{AdminMasterRecord? record,AdminUser? user})=>showDialog<Map<String,String>>(context:context,builder:(_)=>_ControlEditor(mode:mode,roles:controller.assignableRoles,record:record,user:user));
- Future<void> tenant() async {final data=await editor('tenant');if(data!=null&&mounted)await controller.provisionTenant(data['name']!,data['slug']!);}
+ Future<void> tenant() async {final data=await editor('tenant');if(data!=null&&mounted){await controller.provisionTenant(data['name']!,data['slug']!);if(mounted)accountSearch.text=controller.search;}}
  Future<void> account([AdminUser? user]) async {final data=await editor('account',user:user);if(data!=null&&mounted){if(user==null){await controller.provisionAccount(data['email']!,data['role']!,data['password']!);}else{await controller.updateTenantAccount(user,data['email']!,data['role']!,data['status']!);}}}
  Future<void> master([AdminMasterRecord? record]) async {final data=await editor('master',record:record);if(data!=null&&mounted)await controller.saveMaster(data['code']!,{for(final language in ['en','es','fr'])language:data[language]!},data['status']!,record:record);}
  Widget heading(String key)=>Padding(padding:const EdgeInsets.symmetric(vertical:16),child:Text(strings.text(key),style:Theme.of(context).textTheme.titleLarge));
@@ -48,20 +52,24 @@ class _PlatformState extends State<_PlatformContent> {
   if(section=='control.tenants')...[
   heading('control.tenants'),
   FilledButton(onPressed:controller.busy||controller.snapshot==null?null:tenant,child:Text(strings.text('control.createTenant'))),
-  ...controller.tenants.map((item)=>Card(child:Padding(padding:const EdgeInsets.all(16),child:PrimecareDetailLayout(details:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(item.name),Text('${item.slug} · ${strings.containsKey(item.status)?strings.text(item.status):item.status}')]),actions:TextButton(onPressed:controller.busy?null:(){setState(()=>section='control.accounts');controller.selectTenant(item);},child:Text(strings.text('control.manageTenant'))))))),
+  ...controller.tenants.map((item)=>Card(child:Padding(padding:const EdgeInsets.all(16),child:PrimecareDetailLayout(details:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(item.name),Text('${item.slug} · ${strings.containsKey(item.status)?strings.text(item.status):item.status}')]),actions:TextButton(onPressed:controller.busy?null:(){setState(()=>section='control.accounts');selectTenant(item);},child:Text(strings.text('control.manageTenant'))))))),
   pages(controller.tenantOffset,controller.tenants.length,controller.tenantTotal,controller.loadTenants),
   ],
   if(section=='control.accounts')...[
   heading('control.accounts'),
   Text(controller.selectedTenant==null?strings.text('control.selectTenant'):strings.text('control.selectedTenant',{'name':controller.selectedTenant!.name})),
+  if(controller.selectedTenant!=null)...[
+   Text(strings.text(controller.search.isEmpty&&controller.accountStatus.isEmpty?'admin.counts':'admin.matchingCounts',{'total':controller.accountTotal,'active':controller.accountActive})),
+   AdminAccountFilters(search:accountSearch,busy:controller.busy,status:controller.accountStatus,revision:controller.stateRevision,onSearch:()=>controller.loadAccounts(0,query:accountSearch.text),onStatus:(value)=>controller.loadAccounts(0,statusFilter:value),onClear:(){accountSearch.clear();controller.loadAccounts(0,query:'');}),
+  ],
   FilledButton(onPressed:controller.busy||controller.selectedTenant==null||controller.assignableRoles.isEmpty?null:()=>account(),child:Text(strings.text('admin.create'))),
   ...controller.accounts.map((user)=>Card(child:Padding(padding:const EdgeInsets.all(16),child:PrimecareDetailLayout(details:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(user.email),Text('${strings.role(user.role)} · ${strings.text(user.status)}')]),actions:IconButton(tooltip:strings.text('admin.editAccount',{'email':user.email}),onPressed:controller.busy||!controller.assignableRoles.contains(user.role)?null:()=>account(user),icon:const Icon(Icons.edit)))))),
-  pages(controller.accountOffset,controller.accounts.length,controller.accountTotal,controller.loadAccounts),
+  pages(controller.accountOffset,controller.accounts.length,controller.accountTotal,(offset)=>controller.loadAccounts(offset)),
   ],
   if(section=='control.masters')...[
   heading('control.masters'),
   Text(controller.selectedTenant==null?strings.text('control.globalMasters'):strings.text('control.selectedTenant',{'name':controller.selectedTenant!.name})),
-  TextButton(onPressed:controller.busy?null:()=>controller.selectTenant(null),child:Text(strings.text('control.globalMasters'))),
+  TextButton(onPressed:controller.busy?null:()=>selectTenant(null),child:Text(strings.text('control.globalMasters'))),
   if(controller.categories.isNotEmpty)DropdownButtonFormField<String>(key:ValueKey((controller.category,controller.stateRevision)),initialValue:controller.category,isExpanded:true,decoration:InputDecoration(labelText:strings.text('control.category')),items:controller.categories.map((code)=>DropdownMenuItem(value:code,child:Text(strings.text('master.$code'),overflow:TextOverflow.ellipsis))).toList(),onChanged:controller.busy?null:(value){if(value!=null)controller.selectCategory(value);}),
   FilledButton(onPressed:controller.busy||controller.snapshot==null?null:()=>master(),child:Text(strings.text('control.createMaster'))),
   Text(strings.text('control.referenceNotice')),

@@ -14,7 +14,7 @@ void main(){
    final uri=Uri.parse(path),tenant=uri.queryParameters['tenantId'];
    if(uri.path.endsWith('monitor'))return {'sampledAt':'2026-10-11T00:00:00Z',for(final key in AdminPlatformSnapshot.metrics)key:0,'categories':['services'],'assignableRoles':['client','rn']};
    final rows=<Map<String,dynamic>>[if(uri.path.endsWith('tenants')){'id':'tenant','name':'Organization','slug':'organization','status':'active'},if(uri.path.endsWith('accounts')){'id':'user','email':'user@example.invalid','role':'client','status':'active'}];
-   return {'items':rows,'total':rows.length,'offset':0,'limit':25,if(uri.path.endsWith('accounts'))'tenantId':tenant,if(uri.path.endsWith('masters'))...{'tenantId':tenant,'category':'services'}};
+   return {'items':rows,'total':rows.length,'offset':0,'limit':25,if(uri.path.endsWith('accounts'))...{'search':uri.queryParameters['search']??'','status':uri.queryParameters['status']??'','active':1,'tenantId':tenant},if(uri.path.endsWith('masters'))...{'tenantId':tenant,'category':'services'}};
   }
   applicationLanguage.selectLanguage(language);final strings=AppStrings(language.name);
   await tester.pumpWidget(MaterialApp(locale:Locale(language.name),supportedLocales:AppStrings.locales,localizationsDelegates:AppStrings.delegates,builder:(context,child)=>MediaQuery(data:MediaQuery.of(context).copyWith(textScaler:TextScaler.linear(2)),child:child!),home:PlatformAdminScreen(request:request)));await tester.pumpAndSettle();

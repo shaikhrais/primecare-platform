@@ -421,7 +421,7 @@ async function platformControl(request:Request,env:Env,path:string,headers:Heade
  if(!allowed.length)return json({error:'Not found'},404,headers);
  if(!allowed.includes(request.method))return json({error:'Method not allowed'},405,{...headers,allow:allowed.join(', ')});
  const read=request.method==='GET',params=new URL(request.url).searchParams;
- const keys=read?(resource==='accounts'?['offset','tenantId']:resource==='masters'?['offset','tenantId','category']:resource==='monitor'?[]:['offset']):[];
+ const keys=read?(resource==='accounts'?['offset','tenantId','search','status']:resource==='masters'?['offset','tenantId','category']:resource==='monitor'?[]:['offset']):[];
  if([...params.keys()].some(k=>!keys.includes(k)||params.getAll(k).length!==1)||!/^\d{1,6}$/.test(params.get('offset')??'0'))return json({error:'Invalid query'},400,headers);
  const token=request.headers.has('authorization')?tokenFrom(request):null;
  if(!token)return json({error:'No session'},401,headers);
@@ -436,7 +436,7 @@ async function platformControl(request:Request,env:Env,path:string,headers:Heade
    if(actor.roles!=='admin'||!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==actor.tenant_id))return json({error:'Forbidden'},403,headers);
    const workflow=new PlatformAdminWorkflow({...actor,tenant_id:actor.tenant_id},new PlatformSqlRepository(db,actor.tenant_id,read));
    const offset=Number(params.get('offset')??'0');
-   const result=read?(resource==='tenants'?await workflow.tenants(offset):resource==='accounts'?await workflow.accounts(params.get('tenantId')??'',offset):resource==='masters'?await workflow.masters(params.get('category')??'',params.get('tenantId'),offset):resource==='monitor'?await workflow.monitor():await workflow.audit(offset)):accountIdMatch?await workflow.updateAccount(accountIdMatch[1],body):masterId?await workflow.updateMaster(masterId[1],body):resource==='tenants'?await workflow.createTenant(body):resource==='accounts'?await workflow.createAccount(body):await workflow.createMaster(body);
+   const result=read?(resource==='tenants'?await workflow.tenants(offset):resource==='accounts'?await workflow.accounts(params.get('tenantId')??'',offset,params.get('search')??'',params.get('status')??''):resource==='masters'?await workflow.masters(params.get('category')??'',params.get('tenantId'),offset):resource==='monitor'?await workflow.monitor():await workflow.audit(offset)):accountIdMatch?await workflow.updateAccount(accountIdMatch[1],body):masterId?await workflow.updateMaster(masterId[1],body):resource==='tenants'?await workflow.createTenant(body):resource==='accounts'?await workflow.createAccount(body):await workflow.createMaster(body);
    if(!read){await db.query('COMMIT');committed=true;}
    return json(result,!read&&!masterId&&!accountIdMatch?201:200,headers);
   }catch(error){if(error instanceof WorkflowFailure)return json({error:error.message,code:error.code},error.status,headers);if((error as {code?:string}).code==='23505')return json({error:'A tenant slug, account email or record code already exists',code:'error.controlDuplicate'},409,headers);throw error;}

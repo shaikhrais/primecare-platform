@@ -35,10 +35,13 @@ abstract class BaseAdminWorkflow {
       errorCode = failure is AuthFailure ? (failure.code ?? switch(failure.status) {403 => 'error.forbidden', 401 => 'error.signInRequired', 404 => 'error.notFound', 409 => 'error.duplicateEmail', 400 || 413 => 'error.invalidRequest', 429 => 'error.rateLimit', _ => 'error.unavailable'}) : 'error.unavailable'; }
     finally { busy = false; stateRevision++; changed(); }
   }
+  ({String search,String status}) accountFilters(String query,String status){
+    if(!['','active','inactive'].contains(status)||query.length>254||RegExp(r'[\x00-\x1f\x7f]').hasMatch(query))throw const AuthFailure('Invalid account filter',code:'error.invalidRequest');
+    return (search:query.trim().toLowerCase(),status:status);
+  }
   Future<void> _load(int pageOffset, {String? query, String? statusFilter}) async {
-    final nextStatus = statusFilter ?? accountStatus;
-    if (!['','active','inactive'].contains(nextStatus)) throw const AuthFailure('Invalid status filter',code:'error.invalidRequest');
-    final nextSearch = (query ?? search).trim().toLowerCase();
+    final filter=accountFilters(query??search,statusFilter??accountStatus);
+    final nextStatus=filter.status,nextSearch=filter.search;
     final path = '/admin/workspace?offset=$pageOffset${nextSearch.isEmpty ? '' : '&search=${Uri.encodeQueryComponent(nextSearch)}'}${nextStatus.isEmpty ? '' : '&status=$nextStatus'}';
     final data = await request('GET',path);
     final org = data['organization'];

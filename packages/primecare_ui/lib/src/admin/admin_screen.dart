@@ -1,3 +1,4 @@
+import 'admin_account_filters.dart';
 import 'platform_admin_screen.dart';
 import '../layout/base_primecare_layout.dart';
 import 'admin_tasks_screen.dart';
@@ -56,12 +57,7 @@ class _AdminWorkspaceState extends State<_AdminWorkspace> {
     TextButton(onPressed:controller.busy?null:()=>Navigator.push(context,MaterialPageRoute<void>(builder:(_)=>PlatformAdminScreen(request:widget.request))),child:Text(strings.text('control.title'))),
     TextButton(onPressed:controller.busy||controller.tasks.isEmpty?null:()=>Navigator.push(context,MaterialPageRoute<void>(builder:(_)=>AdminTasksScreen(tasks:controller.tasks))),child:Text(strings.text('admin.tasks'))),
     TextButton(onPressed: () => Navigator.push(context,MaterialPageRoute<void>(builder: (_) => AdminAuditScreen(request:widget.request))),child:Text(strings.text('audit.title'))),
-    TextField(controller:search, enabled:!controller.busy, decoration:InputDecoration(labelText:strings.text('admin.searchLabel')), onSubmitted: (_) => controller.load(query:search.text)),
-    DropdownButtonFormField<String>(key:ValueKey((controller.accountStatus,controller.stateRevision)),isExpanded:true,initialValue:controller.accountStatus,decoration:InputDecoration(labelText:strings.text('admin.statusFilter')),items:['','active','inactive'].map((value)=>DropdownMenuItem(value:value,child:Text(strings.text(value.isEmpty?'admin.allStatuses':value)))).toList(),onChanged:controller.busy?null:(value){if(value!=null)controller.load(statusFilter:value);}),
-    Wrap(spacing:12, children:[
-      FilledButton(onPressed:controller.busy?null:()=>controller.load(query:search.text),child:Text(strings.text('admin.searchApply'))),
-      TextButton(onPressed:controller.busy?null:(){search.clear();controller.load(query:'');},child:Text(strings.text('admin.searchClear'))),
-    ]),
+    AdminAccountFilters(search:search,busy:controller.busy,status:controller.accountStatus,revision:controller.stateRevision,onSearch:()=>controller.load(query:search.text),onStatus:(value)=>controller.load(statusFilter:value),onClear:(){search.clear();controller.load(query:'');}),
     Wrap(spacing: 12, children: [
       OutlinedButton(onPressed: controller.busy ? null : () => controller.load(pageOffset: controller.offset), child: Text(strings.text('admin.refresh'))),
       FilledButton(onPressed: controller.busy || controller.assignableRoles.isEmpty ? null : () => edit(), child: Text(strings.text('admin.create'))),

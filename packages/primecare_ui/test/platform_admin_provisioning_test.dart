@@ -16,7 +16,7 @@ void main(){
     if(uri.path.endsWith('masters')){record={'id':'record',...body};return {'record':record};}
    }
    if(uri.path.endsWith('monitor'))return {'sampledAt':'2026-10-11T00:00:00Z',for(final key in AdminPlatformSnapshot.metrics)key:0,'categories':['services'],'assignableRoles':['client']};
-   return {'items':[if(uri.path.endsWith('tenants')&&tenant!=null)tenant,if(uri.path.endsWith('masters')&&record!=null)record],'total':uri.path.endsWith('tenants')&&tenant!=null||uri.path.endsWith('masters')&&record!=null?1:0,'offset':0,'limit':25,if(uri.path.endsWith('accounts'))'tenantId':uri.queryParameters['tenantId'],if(uri.path.endsWith('masters'))...{'category':'services','tenantId':uri.queryParameters['tenantId']}};
+   return {'items':[if(uri.path.endsWith('tenants')&&tenant!=null)tenant,if(uri.path.endsWith('masters')&&record!=null)record],'total':uri.path.endsWith('tenants')&&tenant!=null||uri.path.endsWith('masters')&&record!=null?1:0,'offset':0,'limit':25,if(uri.path.endsWith('accounts'))...{'search':uri.queryParameters['search']??'','status':uri.queryParameters['status']??'','active':0,'tenantId':uri.queryParameters['tenantId']},if(uri.path.endsWith('masters'))...{'category':'services','tenantId':uri.queryParameters['tenantId']}};
   }
   applicationLanguage.selectLanguage(language);final strings=AppStrings(language.name);
   await tester.pumpWidget(MaterialApp(locale:Locale(language.name),supportedLocales:AppStrings.locales,localizationsDelegates:AppStrings.delegates,home:PlatformAdminScreen(request:request)));await tester.pumpAndSettle();

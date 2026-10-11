@@ -1,6 +1,9 @@
 name: Verify inherited Admin rebuild
-# Verify inherited account updates, session revocation and lazy mobile editors.
+# Verify centralized selected-tenant search/status filters and inherited layouts.
 on:
+  push:
+    branches: [deploy/email-inbox-20261010]
+    paths: [.github/workflows/verify-admin-rebuild.yml]
   workflow_call:
   workflow_dispatch:
 concurrency:

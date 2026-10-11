@@ -59,6 +59,13 @@ try{
  assert.equal((await db.query('SELECT status FROM users WHERE id=$1',[accountId])).rows[0].status,'inactive');
  assert.equal((await db.query('SELECT count(*)::int AS n FROM auth_sessions WHERE user_id=$1',[accountId])).rows[0].n,1);checks++;
  await db.query('DROP TRIGGER platform_qa_reject_audit ON admin_control_audit');await db.query('DROP FUNCTION platform_qa_reject_audit()');
+ const queryPath='accounts?tenantId='+tenant.id;
+ const search=await(await call(queryPath+'&search='+encodeURIComponent('  '+update.email.toUpperCase()+'  ')+'&status=inactive')).json();assert.equal(search.search,update.email);assert.equal(search.status,'inactive');assert.equal(search.total,1);assert.equal(search.active,0);assert.equal(search.items[0].id,accountId);checks++;
+ const activeSearch=await(await call(queryPath+'&search='+encodeURIComponent(update.email)+'&status=active')).json();assert.equal(activeSearch.total,0);assert.equal(activeSearch.active,0);assert.deepEqual(activeSearch.items,[]);checks++;
+ const otherTenant=await(await call('accounts?tenantId='+tenants[1]+'&search='+encodeURIComponent(update.email))).json();assert.equal(otherTenant.total,0);checks++;
+ for(const literal of ['%','_',"' OR 1=1 --"]){const result=await(await call(queryPath+'&search='+encodeURIComponent(literal))).json();assert.equal(result.total,0);}checks++;
+ for(const extra of ['&status=paused','&status=active&status=inactive','&search=a&search=b','&search='+encodeURIComponent('x'.repeat(255)),'&search='+encodeURIComponent('line\nbreak')])assert.equal((await call(queryPath+extra)).status,400);checks++;
+ const nextPage=await(await call(queryPath+'&search='+encodeURIComponent(update.email)+'&status=inactive&offset=25')).json();assert.equal(nextPage.total,1);assert.equal(nextPage.active,0);assert.deepEqual(nextPage.items,[]);checks++;
  const labels={en:'Care',es:'Cuidado',fr:'Soins'};const code='qa-'+users[0];let record;
  for(const category of monitor.categories){const response=await mutation('masters','POST',{tenantId:null,category,code,labels,status:'active'});assert.equal(response.status,201);if(category==='services')record=(await response.json()).record;checks++;}
  const scoped=await mutation('masters','POST',{tenantId:tenant.id,category:'services',code,labels,status:'active'});assert.equal(scoped.status,201);checks++;

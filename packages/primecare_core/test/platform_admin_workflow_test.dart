@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:primecare_core/primecare_core.dart';
 class Admin extends BasePlatformAdminWorkflow { Admin(super.request); }
 Map<String,dynamic> snapshot()=>{'sampledAt':'2026-10-11T00:00:00Z',for(final key in AdminPlatformSnapshot.metrics)key:0,'categories':['services'],'assignableRoles':['client']};
-Map<String,dynamic> page(Uri uri)=>{'items':<Map<String,dynamic>>[],'total':0,'offset':int.parse(uri.queryParameters['offset']??'0'),'limit':25,if(uri.path.endsWith('accounts'))'tenantId':uri.queryParameters['tenantId'],if(uri.path.endsWith('masters'))...{'tenantId':uri.queryParameters['tenantId'],'category':uri.queryParameters['category']}};
+Map<String,dynamic> page(Uri uri)=>{'items':<Map<String,dynamic>>[],'total':0,'offset':int.parse(uri.queryParameters['offset']??'0'),'limit':25,if(uri.path.endsWith('accounts'))...{'search':uri.queryParameters['search']??'','status':uri.queryParameters['status']??'','active':0,'tenantId':uri.queryParameters['tenantId']},if(uri.path.endsWith('masters'))...{'tenantId':uri.queryParameters['tenantId'],'category':uri.queryParameters['category']}};
 void main(){
  test('Refresh inherits lifecycle and reads global masters',() async {
   final paths=<String>[];
@@ -40,6 +40,25 @@ void main(){
   var calls=0;final admin=Admin((method,path,{body}) async {calls++;return {};});
   admin.selectedTenant=const AdminTenant(id:'tenant',name:'Tenant',slug:'tenant',status:'active');const user=AdminUser(id:'admin',email:'admin@example.invalid',role:'admin',status:'active');admin.accounts=[user];
   await admin.updateTenantAccount(user,user.email,'client','active');expect(calls,0);expect(admin.errorCode,'error.protected');
+ });
+
+ test('Selected-tenant filters normalize and persist through pagination and refresh',() async {
+  final paths=<String>[];final admin=Admin((method,path,{body}) async {paths.add(path);return path.endsWith('monitor')?snapshot():page(Uri.parse(path));});
+  await admin.selectTenant(const AdminTenant(id:'tenant',name:'Tenant',slug:'tenant',status:'active'));
+  await admin.loadAccounts(0,query:'  USER+TAG@EXAMPLE.INVALID  ',statusFilter:'inactive');expect(admin.search,'user+tag@example.invalid');expect(admin.accountStatus,'inactive');expect(admin.error,isNull);
+  await admin.loadAccounts(25);expect(admin.accountOffset,25);expect(Uri.parse(paths.last).queryParameters['search'],admin.search);expect(Uri.parse(paths.last).queryParameters['status'],'inactive');
+  await admin.refresh();expect(admin.search,'user+tag@example.invalid');expect(admin.accountStatus,'inactive');expect(admin.accountOffset,25);
+  await admin.selectTenant(const AdminTenant(id:'other',name:'Other',slug:'other',status:'active'));expect(admin.search,'');expect(admin.accountStatus,'');expect(admin.accountOffset,0);
+ });
+ test('Wrong filter echo keeps the previous valid account view',() async {
+  var mismatch=false;final admin=Admin((method,path,{body}) async=>{...page(Uri.parse(path)),if(mismatch&&path.contains('accounts'))'search':'wrong'});
+  await admin.selectTenant(const AdminTenant(id:'tenant',name:'Tenant',slug:'tenant',status:'active'));await admin.loadAccounts(0,query:'first');mismatch=true;
+  await admin.loadAccounts(0,query:'second');expect(admin.search,'first');expect(admin.errorCode,'error.invalidResponse');expect(admin.busy,false);
+ });
+ test('Invalid selected-tenant filters fail before transport',() async {
+  var calls=0;final admin=Admin((method,path,{body}) async {calls++;return {};});admin.selectedTenant=const AdminTenant(id:'tenant',name:'Tenant',slug:'tenant',status:'active');
+  await admin.loadAccounts(0,query:'x'*255);expect(calls,0);expect(admin.errorCode,'error.invalidRequest');
+  await admin.loadAccounts(0,statusFilter:'paused');expect(calls,0);expect(admin.errorCode,'error.invalidRequest');
  });
 
 }

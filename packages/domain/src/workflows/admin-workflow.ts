@@ -32,15 +32,19 @@ export function validateUser(value:unknown,create:boolean):UserInput {
   if(!['active','inactive'].includes(String(v.status)))throw new WorkflowFailure(400,'Invalid status');
   return {email,role:v.role,status:String(v.status)};
 }
+/** One literal-search/status policy for both Admin namespaces. */
+export function normalizeAccountFilters(search:string='',status:string=''){
+ if(!['','active','inactive'].includes(status))throw new WorkflowFailure(400,'Invalid status filter');
+ if(typeof search!=='string'||search.length>254||/[\u0000-\u001f\u007f]/.test(search))throw new WorkflowFailure(400,'Invalid search');
+ return {search:search.trim().toLowerCase(),status};
+}
 /** Business rules are independent of HTTP and UI. The caller owns the transaction. */
 export class AdminWorkflow extends BaseTenantWorkflow {
   constructor(actor:Actor,private repository:AdminRepository){super(actor);}
   private pageOffset(offset:number){if(!Number.isInteger(offset)||offset<0||offset>999999)throw new WorkflowFailure(400,'Invalid offset');}
   async read(offset:number,search:string='',status:string=''){
     this.authorize('admin');this.pageOffset(offset);
-    if(!['','active','inactive'].includes(status))throw new WorkflowFailure(400,'Invalid status filter');
-    if(typeof search!=='string'||search.length>254||/[\u0000-\u001f\u007f]/.test(search))throw new WorkflowFailure(400,'Invalid search');
-    const normalized=search.trim().toLowerCase();
+    const normalized=normalizeAccountFilters(search,status).search;
     return {organization:await this.repository.organization(),...await this.repository.users(offset,normalized,status),assignableRoles,search:normalized,status,tasks:adminTasks()};
   }
   async readAudit(offset:number,userId:string=''){
