@@ -25,7 +25,7 @@ void main() {
   for (final language in SupportedLanguage.values) {
     for (final width in [320.0, 600.0, 1024.0, 1920.0, 3840.0]) {
       testWidgets('Admin screens fit ${width.toInt()} logical pixels in ${language.name}', (tester) async {
-        tester.view.physicalSize = Size(width, 2160); tester.view.devicePixelRatio = 1;
+        tester.view.physicalSize = Size(width, switch(width) {320 => 568, 600 => 960, 1024 => 768, 1920 => 1080, _ => 2160}); tester.view.devicePixelRatio = 1;
         addTearDown(tester.view.resetPhysicalSize); addTearDown(tester.view.resetDevicePixelRatio);
         applicationLanguage.selectLanguage(language);
         for (final screen in [AdminScreen(request: request), AdminAuditScreen(request: request), const AdminTasksScreen(tasks: [task])]) {
@@ -39,12 +39,12 @@ void main() {
       });
     }
     testWidgets('Mobile Admin editor supports double-size text in ${language.name}', (tester) async {
-      tester.view.physicalSize = const Size(320, 1000); tester.view.devicePixelRatio = 1;
+      tester.view.physicalSize = const Size(320, 640); tester.view.devicePixelRatio = 1;
       addTearDown(tester.view.resetPhysicalSize); addTearDown(tester.view.resetDevicePixelRatio);
       applicationLanguage.selectLanguage(language); final strings = AppStrings(language.name);
       await tester.pumpWidget(host(AdminScreen(request: request), language, textScale: 2)); await tester.pumpAndSettle();
       final create = find.widgetWithText(FilledButton, strings.text('admin.create'));
-      await tester.ensureVisible(create); await tester.tap(create); await tester.pumpAndSettle();
+      await tester.ensureVisible(create); await tester.pumpAndSettle(); await tester.tap(create); await tester.pumpAndSettle();
       expect(find.byType(AlertDialog), findsOneWidget); expect(tester.takeException(), isNull);
       await tester.enterText(find.widgetWithText(TextFormField, strings.text('admin.email')), 'draft@example.invalid');
       tester.view.physicalSize = const Size(3840, 2160); await tester.pumpAndSettle();
