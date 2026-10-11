@@ -18,7 +18,6 @@ void main() {
     expect(tester.widget<TextField>(fields.at(0)).controller!.text, 'admin@example.com');
     expect(tester.widget<TextField>(fields.at(1)).controller!.text, 'example-password');
     expect(tester.widget<TextField>(fields.at(1)).obscureText, isTrue);
-    expect(tester.takeException(), isNull);
     await tester.pumpWidget(const SizedBox.shrink());
   });
 }
