@@ -43,8 +43,14 @@ export function reviewedBlockedGroups(data) {
  return grouped;
 }
 
+export function legacyAuditInventory(rows,checklist){
+ const legacy=new Set(checklist.operations.map(o=>o.api));
+ return rows.filter(row=>legacy.has(row.api));
+}
+
 export async function auditReachability({inventoryData=null,writeReport=true}={}) {
 const source='docs/api/api-execution-inventory.json',inventory={data:inventoryData??JSON.parse(readFileSync(source)).data};
+if(inventoryData===null)inventory.data=legacyAuditInventory(inventory.data,JSON.parse(readFileSync('docs/api/api-delivery-checklist.json')));
 const grouped=new Map();
 for(const r of inventory.data)if(r.verificationState==='verification_pending'){
  if(!grouped.has(r.api))grouped.set(r.api,[]);grouped.get(r.api).push(r);
@@ -77,7 +83,7 @@ try{for(const [api,rows] of [...grouped,...blockedGroups]){
  const targetCounts=blockedGroups.has(api)?blockedCounts:counts;targetCounts[classification]=(targetCounts[classification]??0)+1;
  (blockedGroups.has(api)?reviewedBlockedOperations:operations).push({...blocker,api,probePath,declarationIds:rows.map(r=>r.id),classification,status:response.status,allow:response.headers.get('allow'),forwarded,databaseConnectionAttempts:connections,businessOperationVerified:false,productionVerified:false});
 }}finally{console.error=previousError;}
-const files=[source,'scripts/audit-api-reachability.mjs','packages/domain/src/registries/FormRegistry/client-forms.ts',...readdirSync('cloudflare/workers/src').filter(f=>/\.(ts|json)$/.test(f)).sort().map(f=>'cloudflare/workers/src/'+f)];
+const files=[source,'docs/api/api-delivery-checklist.json','scripts/audit-api-reachability.mjs','packages/domain/src/registries/FormRegistry/client-forms.ts',...readdirSync('cloudflare/workers/src').filter(f=>/\.(ts|json)$/.test(f)).sort().map(f=>'cloudflare/workers/src/'+f)];
 const sourceHashes=Object.fromEntries(files.map(path=>[path,createHash('sha256').update(readFileSync(path)).digest('hex')]));
 const report={scope:'local_unauthenticated_route_triage',request:'Declared method with no bearer/cookie/tenant override; GET has no body, other methods use empty JSON; path parameters use synthetic audit-record IDs.',database:'Connections disabled before SQL; no email or external requests.',summary:{uniquePendingOperations:grouped.size,reviewed:operations.length,classifications:counts},sourceHashes,operations,reviewedBlockedOperations,reviewedBlockedSummary:{uniqueReviewedBlockedOperations:blockedGroups.size,reviewed:reviewedBlockedOperations.length,classifications:blockedCounts}};
 if(operations.length!==grouped.size||reviewedBlockedOperations.length!==blockedGroups.size)throw Error('Incomplete reachability audit');
@@ -86,7 +92,7 @@ writeFileSync('docs/api/api-reachability-audit.json',JSON.stringify(report,null,
 const lines=['# Remaining API route triage','',`**${operations.length}/${grouped.size} unique pending declarations probed locally.**`,
  '', 'These probes use the declared method without credentials. They classify routing behavior, not business completion. Database connections are stopped before SQL, no email is sent, and production is not contacted. A 404 is specific to this probe; a 401/403 requires authenticated verification. A 405 identifies a method mismatch, not a completed write. Dynamic ID handlers can capture workflow-like names: a protected or method-rejected response does not prove that the advertised workflow exists. Do not switch callers to GET blindly. Service status is not an auth workflow.','',
  '| Probe classification | Operations |','| --- | ---: |',...Object.entries(counts).sort().map(([k,v])=>`| ${k} | ${v} |`),'',
- 'The JSON contains every exact method/path, HTTP status, allowed method, forwarding destination and source hashes. Retire or replace stale declarations only after checking callers and intended workflows. Register business authority and contracts before implementing missing actions. Existing unit-evidence operations are excluded. The four specifically reviewed method/workflow blockers are probed in a separate reviewedBlockedOperations array and never enter the pending denominator.',''];
+ 'Scope is the fixed legacy migration checklist. New reporting APIs are covered by their separate report contracts and authenticated reporting tests.','', 'The JSON contains every exact method/path, HTTP status, allowed method, forwarding destination and source hashes. Retire or replace stale declarations only after checking callers and intended workflows. Register business authority and contracts before implementing missing actions. Existing unit-evidence operations are excluded. The four specifically reviewed method/workflow blockers are probed in a separate reviewedBlockedOperations array and never enter the pending denominator.',''];
 lines.push(`Separately reviewed blockers: ${reviewedBlockedOperations.length}/${blockedGroups.size}. These remain blocked and do not add pending operations or implemented API credit.`, '');
 writeFileSync('docs/api/API_REACHABILITY_AUDIT.md',lines.join('\n'));
 console.log(JSON.stringify(report.summary));
