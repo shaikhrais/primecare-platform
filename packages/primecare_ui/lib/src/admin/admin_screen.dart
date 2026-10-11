@@ -1,3 +1,4 @@
+import '../layout/base_primecare_layout.dart';
 import 'admin_tasks_screen.dart';
 import 'admin_audit_screen.dart';
 import '../localization/app_localizations.dart';
@@ -46,7 +47,7 @@ class _AdminWorkspaceState extends State<_AdminWorkspace> {
     else { await controller.update(user,result.email,result.role,result.status); }
   }
   @override
-  Widget build(BuildContext context) => ListView(padding: const EdgeInsets.all(24), children: [
+  Widget build(BuildContext context) => ListView(padding: PrimecareLayoutData.of(context).pageInsets, children: [
     Text(controller.organization.isEmpty ? strings.text('admin.organization') : controller.organization, style: Theme.of(context).textTheme.headlineSmall),
     Text(strings.text(controller.search.isEmpty && controller.accountStatus.isEmpty ? 'admin.counts' : 'admin.matchingCounts', {'total': controller.total, 'active': controller.active})),
     if (controller.busy) const LinearProgressIndicator(),
@@ -66,11 +67,13 @@ class _AdminWorkspaceState extends State<_AdminWorkspace> {
     if (!controller.busy && controller.error == null && controller.users.isEmpty) Text(strings.text('admin.empty')),
     ...controller.users.map((user) => Card(child: Semantics(container: true, explicitChildNodes: true, child: Padding(
       padding: const EdgeInsets.all(16),
-      child: Row(children: [
-        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(user.email), Text('${strings.role(user.role)} · ${strings.text(user.status)}')])),
+      child: PrimecareDetailLayout(
+        details: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(user.email), Text('${strings.role(user.role)} · ${strings.text(user.status)}')]),
+        actions: Wrap(crossAxisAlignment: WrapCrossAlignment.center, children: [
         IconButton(tooltip:strings.text('audit.viewAccount',{'email':user.email}),onPressed:controller.busy?null:()=>Navigator.push(context,MaterialPageRoute<void>(builder:(_)=>AdminAuditScreen(request:widget.request,account:user))),icon:const Icon(Icons.history)),
         if (controller.assignableRoles.contains(user.role)) IconButton(tooltip: strings.text('admin.editAccount', {'email': user.email}), onPressed: controller.busy ? null : () => edit(user), icon: const Icon(Icons.edit)) else Text(strings.text('admin.protected')),
       ]),
+      ),
     )))),
     Wrap(spacing: 12, children: [
       TextButton(onPressed: controller.busy || controller.offset == 0 ? null : () => controller.load(pageOffset: controller.offset - 25), child: Text(strings.text('previous'))),

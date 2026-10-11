@@ -26,6 +26,8 @@ All paths use the Gateway prefix `/v1/auth`. The four unique operations are `GET
 
 ## Inheritance and centralized control
 
+Admin screen layout now also inherits `BasePrimecareLayout` through `BasePrimecareScreen`. Shared window rules cover mobile through 4K, with readable content limits, adaptive account actions and accessibility scaling. See [layout policy and verification](admin-responsive-layout-20261011.md).
+
 | Layer | Class hierarchy | Responsibility |
 | --- | --- | --- |
 | Worker task contract | AdminTask extends BaseRoleTask | Validate and serialize the central task definitions. |

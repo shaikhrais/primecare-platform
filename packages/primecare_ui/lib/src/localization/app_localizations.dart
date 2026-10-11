@@ -33,7 +33,8 @@ class LanguageSelector extends StatelessWidget {
   const LanguageSelector({super.key});
   @override
   Widget build(BuildContext context) => Row(mainAxisSize: MainAxisSize.min,children: [
-    Text(switch(applicationLanguage.language){SupportedLanguage.en=>'English',SupportedLanguage.es=>'Español',SupportedLanguage.fr=>'Français'}),
+    if (MediaQuery.sizeOf(context).width >= 600 && MediaQuery.textScalerOf(context).scale(16) <= 24)
+      Text(switch(applicationLanguage.language){SupportedLanguage.en=>'English',SupportedLanguage.es=>'Español',SupportedLanguage.fr=>'Français'}),
     PopupMenuButton<SupportedLanguage>(tooltip: AppStrings.of(context).text('language'),icon:const Icon(Icons.language),onSelected: applicationLanguage.selectLanguage,
       itemBuilder: (_) => [const PopupMenuItem(value:SupportedLanguage.en,child:Text('English')),const PopupMenuItem(value:SupportedLanguage.es,child:Text('Español')),const PopupMenuItem(value:SupportedLanguage.fr,child:Text('Français'))]),
   ]);

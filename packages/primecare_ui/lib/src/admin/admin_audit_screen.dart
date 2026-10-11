@@ -1,3 +1,4 @@
+import '../layout/base_primecare_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_core/primecare_core.dart';
 import '../localization/app_localizations.dart';
@@ -33,7 +34,7 @@ class _AuditHistoryState extends State<_AuditHistory> {
   Widget build(BuildContext context) {
     final strings=AppStrings.of(context);
     String state(Map<String,String> data) => data.entries.map((entry) => switch(entry.key){'role'=>strings.role(entry.value),'status'=>['active','inactive'].contains(entry.value)?strings.text(entry.value):entry.value,_=>entry.value}).join(' · ');
-    return ListView(padding:const EdgeInsets.all(24),children:[
+    return ListView(padding:PrimecareLayoutData.of(context).pageInsets,children:[
       if(controller.auditUserId.isNotEmpty && widget.account != null)Text(strings.text('audit.accountHistory',{'email':widget.account!.email})),
       if(controller.auditUserId.isNotEmpty)TextButton(onPressed:controller.busy?null:()=>controller.loadAudit(userId:''),child:Text(strings.text('audit.clearFilter'))),
       Text(strings.text('audit.count',{'total':controller.auditTotal})),
