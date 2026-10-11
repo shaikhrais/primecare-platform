@@ -9,7 +9,7 @@ import {readFile,mkdtemp} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join,resolve,extname} from 'node:path';
 import {createRequire} from 'node:module';
-import {randomUUID} from 'node:crypto';
+import {randomUUID,createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');
 if(!['localhost','127.0.0.1'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test only');
@@ -43,6 +43,9 @@ try {
  browser=await chromium.launch({headless:true});
  const catalogs=JSON.parse(await readFile('packages/contracts/locales/admin.json','utf8'));
  for(const language of ['en','es','fr']) {
+ // Each language is an independent scenario in this disposable database.
+ // Reset only the owned actor counters; production rate policy remains enforced.
+ await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=ANY($1::text[])', [['manageAccount','createAccount'].map(operation=>createHash('sha256').update(operation+':'+admin).digest('hex'))]);
  const strings=catalogs[language];
  userEmail=`browser-user-${randomUUID()}@example.invalid`;updatedEmail=`updated-${randomUUID()}@example.invalid`;
  const page=await browser.newPage({ignoreHTTPSErrors:true,viewport:{width:1280,height:1000}});
