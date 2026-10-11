@@ -1,3 +1,4 @@
+import {reportPanel} from './reports';
 type Page = {code:string;name:string;route:string;role:string;appCode:string;renderer:string;lifecycle:string;
   productionReady:boolean;blockers:string[];
   requirements?:{business_purpose?:string;user_story?:string;acceptance_criteria?:string};
@@ -6,7 +7,7 @@ type Page = {code:string;name:string;route:string;role:string;appCode:string;ren
   sections:{code:string;name:string;type:string;purpose:string;testId:string;
   elements:{key:string;label:string;testId:string;actionRequired:number}[]}[]};
 type Workspace = {identity:{userId:string;role:string};landing:string;screens:Page[];inventory:Page[];actions:Page[];
-  resources:Record<string,string>;overview:{activeAccounts:number;activeSessions:number;accountRoles:{role:string;count:number}[];
+  reporting?:{endpoint:string;screens:string[]}|null;resources:Record<string,string>;overview:{activeAccounts:number;activeSessions:number;accountRoles:{role:string;count:number}[];
   activity:{action:string;created_at:string}[];metrics:{code:string;available:boolean;count?:number}[];scope:string}};
 export const escapeHtml = (value:unknown) => String(value??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]!));
 const routeUrl = (route:string) => `${route}${route.includes('?')?'&':'?'}enable-semantics=true`;
@@ -34,6 +35,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     root.innerHTML=`<main data-cy="error-state" role="alert"><p>${escapeHtml((error as Error).message)}</p><button data-cy="workspace-retry">Retry</button></main>`;
     root.querySelector('button')?.addEventListener('click',()=>void renderWorkspace(root,gateway));return;
   }
+  const reportPanels=new Map<string,HTMLElement>();
   let search='';let pendingOnly=false;let pageNumber=0;
   const t=(key:string)=>escapeHtml(data.resources['workspace.'+key]??key);
   const link=(page:Page)=>`<a href="${escapeHtml(routeUrl(page.route))}" data-route="${escapeHtml(page.route)}" data-cy="sidebar-item-${escapeHtml(page.code)}">${escapeHtml(page.name)}</a>`;
@@ -83,6 +85,11 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       <section class="section" data-cy="workspace-inventory"><h2>${t('inventory')}</h2><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
       <div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></section>`}</main></div></div>`;
     root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();history.pushState({},'',a.href);draw();root.querySelector<HTMLElement>('h1')?.focus();}));
+    if(page && data.reporting?.screens.includes(page.code)) {
+      let panel=reportPanels.get(page.code);
+      if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId);reportPanels.set(page.code,panel);}
+      root.querySelector('main')!.insertBefore(panel,root.querySelector('[data-cy="workspace-inventory"]'));
+    }
     root.querySelector('[data-cy="sidebar-toggle"]')?.addEventListener('click',()=>root.querySelector('aside')?.classList.toggle('open'));
     root.querySelector('[data-cy="workspace-refresh"]')?.addEventListener('click',()=>void renderWorkspace(root,gateway));
     root.querySelector('[data-cy="workspace-logout"]')?.addEventListener('click',async()=>{await fetch(`${gateway}/v1/auth/logout`,{method:'POST',headers:{authorization:'Bearer '+token}}).catch(()=>undefined);sessionStorage.removeItem('primecare_session');location.assign(routeUrl('/login'));});
