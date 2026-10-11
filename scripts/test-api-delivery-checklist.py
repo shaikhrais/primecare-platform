@@ -8,6 +8,20 @@ def row(id,state='unit_fixtures_recorded',missing=None,method='GET'):
             'verificationState':state,'missingContractFields':missing or []}
 
 class ChecklistTests(unittest.TestCase):
+    def test_reporting_scope_excludes_only_exact_new_operations(self):
+        contract={'paths':{'/v1/governance/reports':{'get':{}},
+          '/v1/governance/reports/{reportId}':{'get':{}},
+          '/v1/governance/reports/{reportId}/pdf':{'get':{}},
+          '/v1/governance/reports/{reportId}/email':{'post':{}}}}
+        legacy=row(1)
+        report={**row(2),'route':'/v1/governance/reports'}
+        unrelated={**row(3),'route':'/v1/governance/reports/legacy'}
+        rows=[legacy,report,unrelated]
+        self.assertEqual(module.legacy_scope(rows,contract),[legacy,unrelated])
+        self.assertEqual(len(rows),3)
+        contract['paths']['/v1/governance/reports/legacy']={'get':{}}
+        with self.assertRaises(ValueError): module.legacy_scope(rows,contract)
+
     def test_explicit_blocker_is_not_resolved_or_unit_evidence(self):
         api='GET /v1/auth/example'
         evidence={'declarationIds':[1],'blockerReason':'missing_write_authority','finding':'Define the exact workflow authority','evidence':['reviewed-handler']}

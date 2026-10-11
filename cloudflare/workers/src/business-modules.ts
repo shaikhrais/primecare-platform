@@ -1,3 +1,4 @@
+import {reporting} from './reporting';
 import {providerTimesheetItems} from './provider-timesheet-items';
 import {clientBookingLifecycle} from './client-booking-lifecycle';
 import {providerSelf} from './provider-self';
@@ -20,4 +21,5 @@ export const businessModules: readonly Readonly<{name: string; handle: BusinessH
     {name: 'client-self', handle: clientSelf},
     {name: 'governance', handle: governanceApi},
     {name: 'workspace', handle: workspace},
+    {name: 'reporting', handle: reporting},
   ].map(module => Object.freeze(module)));

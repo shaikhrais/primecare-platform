@@ -2,6 +2,7 @@ import {optionalRow,requiredRow,resultRows} from './database-results';
 import {privilegedActor} from './auth-projection';
 import {sourceLimitAllowed} from './source-limit-result';
 import registry from './workspace-registry.json';
+import reportRegistry from './report-registry.json';
 import {json, withDb, tokenFrom, sha256, type Env} from './auth';
 import type {Client} from 'pg';
 import {accountTimestamp} from './account-read-projection';
@@ -95,6 +96,7 @@ export async function workspace(request:Request,env:Env,path:string,headers:Head
           landing:(registry.landings as Record<string,string>)[actor.roles],screens,
           screen:code?screens.find(s=>s.code===code):null,inventory,
           actions:registry.screens.filter(s=>s.code==='MAINTENANCE_CONFIGURATION' && s.grants.some(g=>g.role===actor.roles&&g.view===1)),
+          reporting:reportRegistry.definitions.some(d=>d.grants.some(g=>g.role===actor.roles&&g.view===1)) ? {endpoint:reportRegistry.endpoint,screens:reportRegistry.surfaces.filter(s=>screens.some(p=>p.code===s.screen)).map(s=>s.screen)} : null,
           resources:registry.resources,overview:data,generatedFrom:'governance.db'},200,safeHeaders);
       } finally {await db.query('ROLLBACK');}
     });

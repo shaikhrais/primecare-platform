@@ -1,7 +1,7 @@
 import templates from './email-templates.json';
 import {validatedEmailTemplate} from './email-template-validation';
 export interface NativeEmailBinding {
- send(message:{from:string;to:string;subject:string;text:string;html:string}):Promise<{messageId:string}>;
+ send(message:{from:string;to:string;subject:string;text:string;html:string;attachments?:{content:Uint8Array;filename:string;type:string;disposition:"attachment"}[]}):Promise<{messageId:string}>;
 }
 export interface MailEnv { EMAIL?:NativeEmailBinding; EMAIL_FROM?:string; EMAIL_ALLOWED_SENDER?:string; EMAIL_TEMPLATES?:Partial<typeof templates> }
 /** Parse configured sender without allowing header injection. */

@@ -12,7 +12,7 @@ class MockApiClient implements ApiClient {
   }
 
   @override
-  Future<ApiResponse> post(String path, {dynamic body}) async {
+  Future<ApiResponse> post(String path, {dynamic body, Map<String, String>? headers}) async {
     return ApiResponse(data: <String, dynamic>{}, statusCode: 200);
   }
 

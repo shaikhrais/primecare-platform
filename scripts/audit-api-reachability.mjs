@@ -6,7 +6,7 @@ import {pathToFileURL} from 'node:url';
 
 // Exact reviewed declarations only. A 405 on a wildcard detail route is not a
 // workflow implementation, and a real feedback submission is not a read alias.
-export const METHOD_BLOCKER_SOURCE_HASHES = {"cloudflare/workers/src/gateway.ts": "c023259fa073c3efeca3de80a3cc684da8deecf22982d187f5623f56c8473e2b", "cloudflare/workers/src/account-admin.ts": "b93b16c000f0c02e387fef5b3566b79f2c786f8b62fb23176471b506390d9b92", "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5", "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5", "packages/domain/src/registries/FormRegistry/client-forms.ts": "f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516", "cloudflare/workers/src/core/base-worker.ts": "58c2df259e14e6078a6476407de0946f8efa159c1685931b5f8bba30c055803c", "cloudflare/workers/src/service.ts": "bd52f6638c2a95ccf8d8188fd86811424f7978aa31c494632536c8c1e6f60473", "cloudflare/workers/src/business-modules.ts": "0b794f814aa5aa96414b55d93acf56d2a020d4545e2c03303e60e2fddd8a6339"};
+export const METHOD_BLOCKER_SOURCE_HASHES = {"cloudflare/workers/src/gateway.ts": "c023259fa073c3efeca3de80a3cc684da8deecf22982d187f5623f56c8473e2b", "cloudflare/workers/src/account-admin.ts": "b93b16c000f0c02e387fef5b3566b79f2c786f8b62fb23176471b506390d9b92", "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5", "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5", "packages/domain/src/registries/FormRegistry/client-forms.ts": "f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516", "cloudflare/workers/src/core/base-worker.ts": "58c2df259e14e6078a6476407de0946f8efa159c1685931b5f8bba30c055803c", "cloudflare/workers/src/service.ts": "bd52f6638c2a95ccf8d8188fd86811424f7978aa31c494632536c8c1e6f60473", "cloudflare/workers/src/business-modules.ts": "74bba6eb7682bc314fc2e9cf353e5aedfc04ce04b5deba00625e0db98466daea"};
 export function reviewedMethodBlocker(observation, sources) {
  if(!observation||typeof observation!=='object'||!sources||typeof sources!=='object'||!Array.isArray(observation.declarationIds)||!Array.isArray(observation.forwarded)||observation.forwarded.some(f=>!f||typeof f!=='object'))return null;
  for(const [path,expected] of Object.entries(METHOD_BLOCKER_SOURCE_HASHES))if(typeof sources[path]!=='string'||createHash('sha256').update(sources[path]).digest('hex')!==expected)return null;
@@ -43,8 +43,14 @@ export function reviewedBlockedGroups(data) {
  return grouped;
 }
 
+export function legacyAuditInventory(rows,checklist){
+ const legacy=new Set(checklist.operations.map(o=>o.api));
+ return rows.filter(row=>legacy.has(row.api));
+}
+
 export async function auditReachability({inventoryData=null,writeReport=true}={}) {
 const source='docs/api/api-execution-inventory.json',inventory={data:inventoryData??JSON.parse(readFileSync(source)).data};
+if(inventoryData===null)inventory.data=legacyAuditInventory(inventory.data,JSON.parse(readFileSync('docs/api/api-delivery-checklist.json')));
 const grouped=new Map();
 for(const r of inventory.data)if(r.verificationState==='verification_pending'){
  if(!grouped.has(r.api))grouped.set(r.api,[]);grouped.get(r.api).push(r);
@@ -77,7 +83,7 @@ try{for(const [api,rows] of [...grouped,...blockedGroups]){
  const targetCounts=blockedGroups.has(api)?blockedCounts:counts;targetCounts[classification]=(targetCounts[classification]??0)+1;
  (blockedGroups.has(api)?reviewedBlockedOperations:operations).push({...blocker,api,probePath,declarationIds:rows.map(r=>r.id),classification,status:response.status,allow:response.headers.get('allow'),forwarded,databaseConnectionAttempts:connections,businessOperationVerified:false,productionVerified:false});
 }}finally{console.error=previousError;}
-const files=[source,'scripts/audit-api-reachability.mjs','packages/domain/src/registries/FormRegistry/client-forms.ts',...readdirSync('cloudflare/workers/src').filter(f=>/\.(ts|json)$/.test(f)).sort().map(f=>'cloudflare/workers/src/'+f)];
+const files=[source,'docs/api/api-delivery-checklist.json','scripts/audit-api-reachability.mjs','packages/domain/src/registries/FormRegistry/client-forms.ts',...readdirSync('cloudflare/workers/src').filter(f=>/\.(ts|json)$/.test(f)).sort().map(f=>'cloudflare/workers/src/'+f)];
 const sourceHashes=Object.fromEntries(files.map(path=>[path,createHash('sha256').update(readFileSync(path)).digest('hex')]));
 const report={scope:'local_unauthenticated_route_triage',request:'Declared method with no bearer/cookie/tenant override; GET has no body, other methods use empty JSON; path parameters use synthetic audit-record IDs.',database:'Connections disabled before SQL; no email or external requests.',summary:{uniquePendingOperations:grouped.size,reviewed:operations.length,classifications:counts},sourceHashes,operations,reviewedBlockedOperations,reviewedBlockedSummary:{uniqueReviewedBlockedOperations:blockedGroups.size,reviewed:reviewedBlockedOperations.length,classifications:blockedCounts}};
 if(operations.length!==grouped.size||reviewedBlockedOperations.length!==blockedGroups.size)throw Error('Incomplete reachability audit');
@@ -86,7 +92,7 @@ writeFileSync('docs/api/api-reachability-audit.json',JSON.stringify(report,null,
 const lines=['# Remaining API route triage','',`**${operations.length}/${grouped.size} unique pending declarations probed locally.**`,
  '', 'These probes use the declared method without credentials. They classify routing behavior, not business completion. Database connections are stopped before SQL, no email is sent, and production is not contacted. A 404 is specific to this probe; a 401/403 requires authenticated verification. A 405 identifies a method mismatch, not a completed write. Dynamic ID handlers can capture workflow-like names: a protected or method-rejected response does not prove that the advertised workflow exists. Do not switch callers to GET blindly. Service status is not an auth workflow.','',
  '| Probe classification | Operations |','| --- | ---: |',...Object.entries(counts).sort().map(([k,v])=>`| ${k} | ${v} |`),'',
- 'The JSON contains every exact method/path, HTTP status, allowed method, forwarding destination and source hashes. Retire or replace stale declarations only after checking callers and intended workflows. Register business authority and contracts before implementing missing actions. Existing unit-evidence operations are excluded. The four specifically reviewed method/workflow blockers are probed in a separate reviewedBlockedOperations array and never enter the pending denominator.',''];
+ 'Scope is the fixed legacy migration checklist. New reporting APIs are covered by their separate report contracts and authenticated reporting tests.','', 'The JSON contains every exact method/path, HTTP status, allowed method, forwarding destination and source hashes. Retire or replace stale declarations only after checking callers and intended workflows. Register business authority and contracts before implementing missing actions. Existing unit-evidence operations are excluded. The four specifically reviewed method/workflow blockers are probed in a separate reviewedBlockedOperations array and never enter the pending denominator.',''];
 lines.push(`Separately reviewed blockers: ${reviewedBlockedOperations.length}/${blockedGroups.size}. These remain blocked and do not add pending operations or implemented API credit.`, '');
 writeFileSync('docs/api/API_REACHABILITY_AUDIT.md',lines.join('\n'));
 console.log(JSON.stringify(report.summary));

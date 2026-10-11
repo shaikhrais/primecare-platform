@@ -33,3 +33,5 @@ export 'src/models/base_platform_role_definition.dart';
 export 'src/models/base_platform_application.dart';
 export 'src/models/base_screen_metadata.dart';
 export 'src/models/base_navigation_item.dart';
+
+export 'src/models/admin_report_models.dart';

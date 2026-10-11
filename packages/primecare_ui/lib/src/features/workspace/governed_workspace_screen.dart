@@ -1,5 +1,6 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
+import '../reports/admin_reports_panel.dart';
 
 /// Shared presentation of server-authorized governance pages and live telemetry.
 /// The server supplies navigation, labels, grants and organization scope.
@@ -19,7 +20,7 @@ class _WorkspaceState extends ConsumerState<GovernedWorkspaceScreen> {
 
   String label(String key) => (_workspace?['resources'] as Map?)?['workspace.$key']?.toString() ?? 'workspace.$key'.tr();
   List<Map<String, dynamic>> list(dynamic value) => value is List
-      ? value.whereType<Map>().map((v) => Map<String, dynamic>.from(v)).toList() : [];
+      ? value.whereType<Map<dynamic, dynamic>>().map((v) => Map<String, dynamic>.from(v)).toList() : [];
   List<Map<String, dynamic>> get _pages => list(_workspace?['screens']);
   @override
   void initState() { super.initState(); Future.microtask(_load); }
@@ -101,6 +102,9 @@ class _WorkspaceState extends ConsumerState<GovernedWorkspaceScreen> {
         _card(label('activity'), list(overview['activity']).isEmpty ? Text(label('empty')) : Column(children: [
           for (final item in list(overview['activity'])) ListTile(title: Text(item['action'].toString()), subtitle: Text(item['created_at'].toString())),
         ]), 'workspace-recent-activity'),
+        if ((_workspace?['reporting'] as Map?)?['screens'] is List &&
+            ((_workspace!['reporting'] as Map)['screens'] as List).contains(page['code']))
+          AdminReportsPanel(key: ValueKey('reports-${page['code']}'), endpoint: (_workspace!['reporting'] as Map)['endpoint'] as String),
         for (final section in list(page['sections'])) _section(page, section, overview, pages),
         _card(label('inventory'), Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Semantics(label: 'workspace-search', child: TextField(controller: _searchController,

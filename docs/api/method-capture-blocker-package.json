@@ -17,7 +17,7 @@
     "packages/domain/src/registries/FormRegistry/client-forms.ts": "f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516",
     "cloudflare/workers/src/core/base-worker.ts": "58c2df259e14e6078a6476407de0946f8efa159c1685931b5f8bba30c055803c",
     "cloudflare/workers/src/service.ts": "bd52f6638c2a95ccf8d8188fd86811424f7978aa31c494632536c8c1e6f60473",
-    "cloudflare/workers/src/business-modules.ts": "0b794f814aa5aa96414b55d93acf56d2a020d4545e2c03303e60e2fddd8a6339"
+    "cloudflare/workers/src/business-modules.ts": "74bba6eb7682bc314fc2e9cf353e5aedfc04ce04b5deba00625e0db98466daea"
   },
   "reviews": {
     "POST /v1/admin/users/churn-heatmap": {

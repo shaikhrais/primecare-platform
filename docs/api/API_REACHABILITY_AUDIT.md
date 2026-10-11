@@ -10,6 +10,8 @@ These probes use the declared method without credentials. They classify routing 
 | gateway_route_not_found | 1013 |
 | worker_route_not_found | 35 |
 
+Scope is the fixed legacy migration checklist. New reporting APIs are covered by their separate report contracts and authenticated reporting tests.
+
 The JSON contains every exact method/path, HTTP status, allowed method, forwarding destination and source hashes. Retire or replace stale declarations only after checking callers and intended workflows. Register business authority and contracts before implementing missing actions. Existing unit-evidence operations are excluded. The four specifically reviewed method/workflow blockers are probed in a separate reviewedBlockedOperations array and never enter the pending denominator.
 
 Separately reviewed blockers: 4/4. These remain blocked and do not add pending operations or implemented API credit.
