@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {mkdtemp,readFile,writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
+import {execFileSync} from 'node:child_process';
 import {createRequire} from 'node:module';
 const dir=await mkdtemp(join(tmpdir(),'primecare-reports-'));
 await build({entryPoints:['cloudflare/workers/src/reporting.ts','cloudflare/workers/src/service.ts','cloudflare/workers/src/gateway.ts'],bundle:true,platform:'node',format:'cjs',outdir:dir,outExtension:{'.js':'.cjs'},plugins:[{name:'db',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export class Client {async connect(){} async end(){} async query(sql,values){return globalThis.__reportQuery(sql,values)}}',loader:'js'}));}}]});
@@ -120,4 +121,22 @@ test('gateway and service dispatch catalog, PDF and email through the shared rep
  assert.equal(email.status,202);assert.equal(sent.length,1);
  assert.equal((await gateway.fetch(request('/reports/organization_summary'),bindings)).status,403);
  assert.equal(email.headers.get('x-primecare-gateway'),'cloudflare-worker-typescript');
+});
+
+test('deployment gives governance a restricted native mail binding and includes the report migration',async()=>{
+ const configs=await mkdtemp(join(tmpdir(),'report-worker-configs-'));
+ execFileSync(process.execPath,['scripts/generate-cloudflare-worker-config.mjs',configs]);
+ for(const name of ['auth','governance','client','billing']) {
+  const config=JSON.parse(await readFile(join(configs,name+'.jsonc'),'utf8'));
+  if(['auth','governance'].includes(name)){
+   assert.equal(config.send_email[0].name,'EMAIL');
+   assert.deepEqual(config.send_email[0].allowed_sender_addresses,[config.vars.EMAIL_FROM]);
+   assert.equal(config.vars.EMAIL_ALLOWED_SENDER,config.vars.EMAIL_FROM);
+  }else assert.equal(config.send_email,undefined);
+ }
+ const migration=await readFile('packages/database/migrations/20261011_admin_reports.sql','utf8');
+ assert.ok(migration.includes('CREATE TABLE IF NOT EXISTS report_delivery'));
+ assert.ok(migration.includes('CREATE TABLE IF NOT EXISTS report_audit'));
+ const workflow=await readFile('.github/workflows/deploy-database-migrations.yml','utf8');
+ assert.ok(workflow.includes('packages/database/migrations/*.sql'));
 });

@@ -4,6 +4,7 @@ const sourcePolicy = JSON.parse(readFileSync(new URL('../cloudflare/workers/src/
 
 const services = ['auth', 'client', 'provider', 'visit', 'notes', 'billing', 'scheduling',
   'notification', 'verification', 'compliance', 'governance', 'franchise-reporting'];
+const emailServices = new Set(['auth', 'governance']);
 const output = process.argv[2] || '.cloudflare-workers';
 mkdirSync(output, { recursive: true });
 
@@ -22,8 +23,8 @@ for (const service of services) {
     ...(service === 'governance' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100401',
       simple:{limit:120,period:60}}]} : {}),
     observability: { enabled: true },
-    vars: { SERVICE_NAME: service, ...(service === 'auth' ? {EMAIL_FROM:'noreply@15minutes-email.com',EMAIL_ALLOWED_SENDER:'noreply@15minutes-email.com'} : {}) },
-    ...(service === 'auth' ? {send_email:[{name:'EMAIL',allowed_sender_addresses:['noreply@15minutes-email.com']}]} : {}),
+    vars: { SERVICE_NAME: service, ...(emailServices.has(service) ? {EMAIL_FROM:'noreply@15minutes-email.com',EMAIL_ALLOWED_SENDER:'noreply@15minutes-email.com'} : {}) },
+    ...(emailServices.has(service) ? {send_email:[{name:'EMAIL',allowed_sender_addresses:['noreply@15minutes-email.com']}]} : {}),
   }, null, 2)}\n`);
 }
 
