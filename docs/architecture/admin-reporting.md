@@ -82,3 +82,9 @@ under Android, iOS, Windows, macOS and Linux platform themes. These are widget
 and dispatch tests; final native Save/share dialog interactions, real device
 keyboard/safe-area behavior, signed releases and browser download UX require
 runtime checks on their respective devices. Tests never send live email.
+
+Windows builds use the Visual Studio 2022 runner: the shared local_auth_windows
+2.0.2 plugin uses experimental coroutines rejected by the latest VS 2026 STL.
+The supported toolchain is pinned centrally in report and full-app Windows CI;
+no compiler errors or authentication checks are suppressed. Linux runners install
+libsecret-1-dev required by shared secure storage.
