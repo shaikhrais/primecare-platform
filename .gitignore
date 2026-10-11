@@ -140,3 +140,9 @@ cloudflare/workers/src/api-execution-inventory.json
 # Reproducible architecture tooling and large generated viewers
 .architecture-tools/
 docs/architecture/generated/
+
+# Disposable root workspace and generated governance exports.
+/scratch/*
+!/scratch/README.md
+/agent_context/
+/dom_logs/
