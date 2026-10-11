@@ -21,14 +21,14 @@ The API and UI share business contracts and concepts across TypeScript and Dart.
 | Create tenant | Validate name/unique slug; create tenant and audit event in one transaction |
 | Select tenant | Load that tenant's accounts and references; clear old rows before switching |
 | Create account | Validate selected tenant, email, password and permitted role; hash password and record history atomically |
-| Existing account administration | Existing tenant workspace supports search, status filters, creation and updates with session revocation |
+| Account administration | Selected-tenant control supports email/role/status updates with session revocation; the existing home-tenant workspace also supports search and status filters |
 | Maintain references | Create records or edit EN/ES/FR labels and active status; category/code/scope remain immutable |
 | Global references | Global scope is explicit and separate from tenant scope; code uniqueness applies within category/scope |
 | Monitor | Read timestamped counts of tenants, accounts, active sessions and references |
 | Review history | Read paginated provisioning actions without credentials or secret snapshots |
-| Change language | Shared EN/ES/FR catalog; all 175 keys and placeholders match |
+| Change language | Shared EN/ES/FR catalog; all 176 keys and placeholders match |
 
-There are 12 task definitions, four existing Admin API operations and nine new platform-control operations. The central reference registry exposes 16 categories: services, locations, regions, departments, staff groups, insurance providers, training categories, document types, specialties, credentials, referral sources, incident types, payment methods, cancellation reasons, contact types and equipment types.
+There are 12 task definitions, four existing Admin API operations and ten platform-control operations. The central reference registry exposes 16 categories: services, locations, regions, departments, staff groups, insurance providers, training categories, document types, specialties, credentials, referral sources, incident types, payment methods, cancellation reasons, contact types and equipment types.
 
 These are reference definitions. They do not yet integrate the existing rich Service, Region, StaffGroup, InsuranceProvider or TrainingModule tables. Service prices, claims, training assignments and clinical workflows retain their existing business logic. Monitoring is an administrative database snapshot; Worker uptime, latency and alerting are not implemented here.
 
@@ -46,9 +46,9 @@ A 75-inch screen follows its logical resolution and operating-system scaling; ph
 
 ## Validation and rollout
 
-Local checks: Worker Auth bundle succeeds; 36 domain checks pass; 175 localization keys match. Added five core workflow tests, 18 EN/ES/FR layout cases at 320/600/1024/1920/3840, three UI provisioning cases, five model checks, and Gateway/PostgreSQL provisioning checks to the isolated verification workflow. CI run [38104776020](https://github.com/shaikhrais/primecare-platform/actions/runs/38104776020) passed against source `042669ba173db3fac5e28f10f9e3edac46a6502e`: Worker type checks; 90 Auth, 46 existing Admin, 36 new domain and 40 new Gateway/PostgreSQL checks; 42 model, 95 core and 75 UI tests (212 passed, one pre-existing core test skipped); release Support web build; existing and new browser workflows in EN/ES/FR. These are isolated tests, not production verification.
+CI run [38107169545](https://github.com/shaikhrais/primecare-platform/actions/runs/38107169545) passed against source `e291c93bae94a9321f399144b54b96325fff978f`: Worker type checks; 90 Auth, 46 original Admin, 39 platform domain and 48 platform Gateway/PostgreSQL checks; 42 model, 97 core and 78 UI tests (217 passed, one pre-existing core test skipped); release Support web build; original and platform browser workflows in EN/ES/FR. The browser tests include selected-tenant email/role/status edits and session revocation. Database checks verify wrong-tenant rejection, protected accounts, and rollback of account changes/session deletion on audit failure. Layout tests cover 320–3840 logical pixels and double-size mobile text; translated account-editor drafts survive resizing to 4K. These are isolated tests, not production verification. All 176 localization keys match across the three languages.
 
-Production requires migration `20261011_admin_control.sql` before the new API/UI rollout. This migration creates a reference registry and provisioning history, and accepts the existing text or UUID tenant identity type. New functionality is not yet deployed or certified on native platforms. Previous Auth/Admin verification does not prove this new scope.
+Production requires migrations `20261011_admin_control.sql` and `20261011_admin_account_updates.sql`, in that order, before the new API/UI rollout. This migration creates a reference registry and provisioning history, and accepts the existing text or UUID tenant identity type. New functionality is not yet deployed or certified on native platforms. Previous Auth/Admin verification does not prove this new scope.
 
 ## Complete task catalog
 
@@ -67,4 +67,10 @@ Production requires migration `20261011_admin_control.sql` before the new API/UI
 | Manage master records | Maintain global or tenant reference definitions with EN, ES and FR labels. |
 | Monitor platform | Review tenant, account, session and reference counts and provisioning history. |
 
-Batch inventory: 25 code files added or changed; 21,378 tracked code files untouched by this batch. This is a batch inventory, not a claim about the remaining migration backlog.
+Latest batch inventory: 12 code files added or changed; 21,392 tracked code files untouched by this batch. This is a batch inventory, not a claim about the remaining migration backlog.
+
+## Selected-tenant account updates
+
+`PUT /admin/control/accounts/{id}` accepts exactly `tenantId`, `email`, `role`, and `status`. An active database-backed platform Admin is required. The tenant is selected explicitly; the account must already belong to it. Tenant identity and passwords cannot be changed through this command. Self and privileged accounts remain protected.
+
+`PlatformSqlRepository.updateAccount` reuses `AdminSqlRepository.update`, which locks the account, applies existing validation/protection, revokes sessions and writes account history. Platform history is added in the same transaction. Any audit failure rolls back the account change and session deletion. The inherited client workflow owns busy/error state and refreshes the selected tenant after completion. The shared editor supports EN/ES/FR and keeps drafts during mobile/4K resizing.
