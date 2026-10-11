@@ -8,13 +8,15 @@ import 'package:primecare_governance/governance/services/governance_history_serv
 import 'package:primecare_governance/governance/models/governance_report.dart';
 import 'package:primecare_governance/core/governance/governance_api_service.dart';
 import 'package:mocktail/mocktail.dart';
+import 'support/governance_test_app.dart';
 
 class MockGovernanceHistoryService extends Mock implements GovernanceHistoryService {}
 class FakeGovernanceReport extends Fake implements GovernanceReport {}
 class MockGovernanceApiService extends Mock implements GovernanceApiService {}
 
 void main() {
-  setUpAll(() {
+  setUpAll(() async {
+    await initializeGovernanceTestApp();
     registerFallbackValue(FakeGovernanceReport());
   });
   testWidgets('GovernanceDashboard boots and renders without structural exceptions', (
@@ -34,9 +36,7 @@ void main() {
           governanceHistoryServiceProvider.overrideWithValue(mockHistoryService),
           governanceApiServiceProvider.overrideWithValue(mockApiService),
         ],
-        child: const MaterialApp(
-          home: GovernanceDashboard(),
-        ),
+        child: governanceTestApp(const GovernanceDashboard()),
       ),
     );
 

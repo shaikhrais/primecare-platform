@@ -1,5 +1,6 @@
 // Governance - Category: test | Purpose: UI Screen component rendering the Screen Registry Parity Test workspace interface.
 import 'dart:io';
+import 'support/repository_root.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
@@ -20,8 +21,7 @@ void main() {
   });
   TestWidgetsFlutterBinding.ensureInitialized();
   test('Audit Screen Registry Parity', () async {
-    final projectRoot =
-        'c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform';
+    final projectRoot = repositoryRoot().path;
     final blueprintPath = p.join(
       projectRoot,
       '.agents/governance/blueprints.yaml',
@@ -60,10 +60,11 @@ void main() {
         governanceHistoryServiceProvider.overrideWithValue(mockHistoryService),
       ],
     );
+    addTearDown(container.dispose);
+    Registry.registerAll();
     await container.read(governanceProvider.notifier).hydrateRegistries();
     
     // Fallback registration for hardcoded screens not in blueprints
-    Registry.registerAll();
     final registeredScreens = PlatformScreenRegistry.screens;
 
     PrimeLogger.info('Found ${blueprintMap.length} blueprints.');
@@ -102,8 +103,7 @@ void main() {
 
           final required = blueprintMap[blueprintId];
           if (required == null) {
-            print('ERROR: Blueprint $blueprintId not found.');
-            continue;
+            fail('Blueprint $blueprintId not found.');
           }
 
           final implemented = screen.implementedComponents;

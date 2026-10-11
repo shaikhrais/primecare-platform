@@ -1,5 +1,6 @@
 // Governance - Category: test | Purpose: Core implementation file for the Audit Parity Test platform logic.
 import 'dart:io';
+import 'support/repository_root.dart';
 import 'package:path/path.dart' as p;
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
@@ -9,12 +10,11 @@ import 'package:flutter_core/flutter_core.dart';
 
 void main() {
   test('Audit Form Provider Parity', () async {
-    final projectRoot =
-        'c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform';
+    final projectRoot = repositoryRoot().path;
 
     final enumPath = p.join(
       projectRoot,
-      'packages/flutter_core/lib/models/platform_types.dart',
+      'packages/primecare_models/lib/src/models/platform_types.dart',
     );
     final providerPath = p.join(
       projectRoot,
@@ -51,6 +51,8 @@ void main() {
     PrimeLogger.info('Found ${enumValues.length} enum values.');
     PrimeLogger.info('Found ${providerCases.length} switch cases.');
 
+    expect(enumValues, isNotEmpty, reason: 'PrimeCareForm declarations must be found');
+    expect(providerCases, isNotEmpty, reason: 'Provider mappings must be found');
     final missing = <String>[];
     for (final value in enumValues) {
       if (!providerCases.contains(value)) {

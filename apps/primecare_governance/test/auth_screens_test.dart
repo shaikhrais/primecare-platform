@@ -1,64 +1,46 @@
-// Governance - Category: test | Purpose: Verify screen elements
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'support/governance_test_app.dart';
 
 void main() {
-  group('Auth Screens Verification', () {
-    testWidgets('ForgotPasswordView renders correctly', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        ProviderScope(
-          child: PrimeTheme(
-            data: const PrimeThemeData(),
-            child: const MaterialApp(
-              home: ForgotPasswordView(),
-            ),
-          ),
-        ),
-      );
-
-      // Verify screen elements
-      expect(find.byType(ForgotPasswordView), findsOneWidget);
-      expect(find.text('Reset Password'), findsOneWidget);
-      expect(find.text('SEND RECOVERY LINK'), findsOneWidget);
-      expect(find.byType(TextField), findsOneWidget); // Email input
-    });
-
-    testWidgets('MfaView renders correctly', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        ProviderScope(
-          child: PrimeTheme(
-            data: const PrimeThemeData(),
-            child: const MaterialApp(
-              home: MfaView(),
-            ),
-          ),
-        ),
-      );
-
-      // Verify screen elements
-      expect(find.byType(MfaView), findsOneWidget);
-      expect(find.text('Two-Factor Authentication'), findsOneWidget);
-      expect(find.text('VERIFY CODE'), findsOneWidget);
-      expect(find.byType(TextField), findsOneWidget); // Code input
-    });
-
-    testWidgets('ResetPasswordView renders correctly', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        ProviderScope(
-          child: PrimeTheme(
-            data: const PrimeThemeData(),
-            child: const MaterialApp(
-              home: ResetPasswordView(),
-            ),
-          ),
-        ),
-      );
-
-      // Verify screen elements
-      expect(find.byType(ResetPasswordView), findsOneWidget);
-      expect(find.text('Set New Password'), findsOneWidget);
-      expect(find.text('UPDATE PASSWORD'), findsOneWidget);
-      expect(find.byType(TextField), findsNWidgets(2)); // Password and Confirm Password inputs
-    });
+  setUpAll(initializeGovernanceTestApp);
+  testWidgets('ForgotPasswordView requests a recovery email', (tester) async {
+    await tester.pumpWidget(ProviderScope(child: governanceTestApp(const ForgotPasswordView())));
+    await tester.pumpAndSettle();
+    expect(find.text('Forgot your password?'), findsOneWidget);
+    expect(find.text('Email reset code'), findsOneWidget);
+    expect(find.byType(TextField), findsOneWidget);
+    await tester.tap(find.text('Email reset code'));
+    await tester.pump();
+    expect(find.text('Enter a valid email address.'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+  testWidgets('MfaView truthfully reports the unavailable capability', (tester) async {
+    await tester.pumpWidget(ProviderScope(child: governanceTestApp(const MfaView())));
+    await tester.pumpAndSettle();
+    expect(find.text('Verify it’s you'), findsOneWidget);
+    expect(find.textContaining('This feature is not enabled.'), findsOneWidget);
+    expect(find.byType(TextField), findsNothing);
+    expect(find.text('VERIFY CODE'), findsNothing);
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+  testWidgets('ResetPasswordView requires email, code and matching passwords', (tester) async {
+    await tester.pumpWidget(ProviderScope(child: governanceTestApp(const ResetPasswordView())));
+    await tester.pumpAndSettle();
+    expect(find.text('Choose a new password'), findsOneWidget);
+    expect(find.text('Reset password'), findsOneWidget);
+    expect(find.byType(TextField), findsNWidgets(4));
+    final fields = find.byType(TextField);
+    expect(tester.widget<TextField>(fields.at(2)).obscureText, isTrue);
+    expect(tester.widget<TextField>(fields.at(3)).obscureText, isTrue);
+    await tester.enterText(fields.at(0), 'admin@example.com');
+    await tester.ensureVisible(find.text('Reset password'));
+    await tester.tap(find.text('Reset password'));
+    await tester.pump();
+    expect(find.text('Enter the 12-character code from your email.'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox.shrink());
   });
 }
