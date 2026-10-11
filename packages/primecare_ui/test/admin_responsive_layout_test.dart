@@ -21,6 +21,7 @@ Widget host(Widget child, SupportedLanguage language, {double textScale = 1}) =>
 );
 
 void main() {
+  WidgetController.hitTestWarningShouldBeFatal = true;
   tearDown(() => applicationLanguage.selectLanguage(SupportedLanguage.en));
   for (final language in SupportedLanguage.values) {
     for (final width in [320.0, 600.0, 1024.0, 1920.0, 3840.0]) {
@@ -44,7 +45,7 @@ void main() {
       applicationLanguage.selectLanguage(language); final strings = AppStrings(language.name);
       await tester.pumpWidget(host(AdminScreen(request: request), language, textScale: 2)); await tester.pumpAndSettle();
       final create = find.widgetWithText(FilledButton, strings.text('admin.create'));
-      await tester.ensureVisible(create); await tester.pumpAndSettle(); await tester.tap(create); await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(create, 200); await tester.pumpAndSettle(); await tester.tap(create); await tester.pumpAndSettle();
       expect(find.byType(AlertDialog), findsOneWidget); expect(tester.takeException(), isNull);
       await tester.enterText(find.widgetWithText(TextFormField, strings.text('admin.email')), 'draft@example.invalid');
       tester.view.physicalSize = const Size(3840, 2160); await tester.pumpAndSettle();
