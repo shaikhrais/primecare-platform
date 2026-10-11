@@ -146,3 +146,5 @@ docs/architecture/generated/
 !/scratch/README.md
 /agent_context/
 /dom_logs/
+/screen_agent_context/
+/SCREEN_DATA_CONTEXT_*.md

@@ -1,0 +1,13 @@
+{
+  "baseline": "a870a7caa571eb18aee9008d3988adfac6a2f437",
+  "removed_files": 949,
+  "groups": {
+    "root_screen_context_documents": 948,
+    "screen_agent_context_exports": 1
+  },
+  "removed_bytes": 3375912,
+  "cumulative_removed": 20616,
+  "original_source_preserved": true,
+  "maintained_generators_retained": true,
+  "semantic_rewrite_complete": false
+}
