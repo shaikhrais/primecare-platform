@@ -36,7 +36,8 @@
     "account_updated": "Account updated; sessions revoked.",
     "master_updated": "Master record updated.",
     "active": "Active",
-    "inactive": "Inactive"
+    "inactive": "Inactive",
+    "working": "Working"
   },
   "fr": {
     "title": "Administration de la plateforme",
@@ -75,7 +76,8 @@
     "account_updated": "Compte modifié ; sessions révoquées.",
     "master_updated": "Donnée de référence modifiée.",
     "active": "Actif",
-    "inactive": "Inactif"
+    "inactive": "Inactif",
+    "working": "En cours"
   },
   "es": {
     "title": "Administración de la plataforma",
@@ -114,6 +116,7 @@
     "account_updated": "Cuenta actualizada; sesiones revocadas.",
     "master_updated": "Dato de referencia actualizado.",
     "active": "Activo",
-    "inactive": "Inactivo"
+    "inactive": "Inactivo",
+    "working": "En proceso"
   }
 }
