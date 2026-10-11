@@ -1,6 +1,9 @@
 name: Verify inherited Admin rebuild
-# Verify shared mobile-to-4K layouts, scrolling dialogs and Admin workflows in EN/ES/FR.
+# Verify inherited Auth/Admin layouts and workflows in EN/ES/FR.
 on:
+  push:
+    branches: [deploy/email-inbox-20261010]
+    paths: [.github/workflows/verify-admin-rebuild.yml]
   workflow_call:
   workflow_dispatch:
 concurrency:

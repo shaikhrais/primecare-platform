@@ -31,6 +31,8 @@ class PrimecareLayoutData {
   double get contentWidth => width.clamp(0, maxContentWidth).toDouble();
   double get fontSizeFactor => size == PrimecareWindowSize.ultraWide ? 1.2 : 1;
   double get dialogWidth => size == PrimecareWindowSize.ultraWide ? 560 : 420;
+  double get authFormWidth => size == PrimecareWindowSize.ultraWide ? 560 : 440;
+  double get authContentWidth => (authFormWidth + padding * 2).clamp(0, width).toDouble();
   EdgeInsets get pageInsets => EdgeInsets.all(padding);
   static bool hasLargeText(BuildContext context) => MediaQuery.textScalerOf(context).scale(16) > 24;
   static PrimecareLayoutData of(BuildContext context) =>

@@ -20,6 +20,8 @@ The authenticated workspace returns the nine task definitions from `packages/con
 
 Sign-in, sign-out, account recovery and other common authentication workflows remain in the shared Auth layer rather than being copied into Admin.
 
+Auth presentation now reuses the Admin screen/layout base, including central EN/ES/FR selection and mobile-to-4K sizing. See [Auth layout and language verification](auth-layout-localization-20261011.md).
+
 ## API mapping
 
 All paths use the Gateway prefix `/v1/auth`. The four unique operations are `GET /admin/workspace`, `POST /admin/workspace/users`, `PUT /admin/workspace/users/{id}` and `GET /admin/workspace/audit`. Workspace reads accept offset, literal email search and canonical status (`active`, `inactive`, or empty/omitted for all). Audit reads accept offset and an account UUID. Unknown/duplicate query fields are rejected. Search and status combine with AND inside the same tenant snapshot, and both count and page queries use identical predicates. Every stored state other than case-insensitive active projects as inactive, including legacy deactivated values.

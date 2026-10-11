@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:primecare_core/primecare_core.dart';
 import '../auth/auth_controller.dart';
+import '../layout/base_primecare_layout.dart';
+import 'base_primecare_screen.dart';
 
 /// All app-specific authentication screens inherit this shared form host.
 abstract class BaseAuthScreen extends StatefulWidget {
@@ -16,6 +18,21 @@ abstract class BaseAuthScreen extends StatefulWidget {
 
 class AuthScreen extends BaseAuthScreen {
   const AuthScreen({super.key, required super.title, super.transport});
+}
+
+/// The stateful Auth host retains credentials; its presentation inherits the
+/// same responsive frame, language header and theme as role screens.
+class _AuthLayout extends BasePrimecareScreen {
+  @override
+  final String title;
+  final WidgetBuilder content;
+  const _AuthLayout({required this.title, required this.content});
+  @override
+  Alignment get contentAlignment => Alignment.center;
+  @override
+  double contentWidth(PrimecareLayoutData layout) => layout.authContentWidth;
+  @override
+  Widget buildContent(BuildContext context) => content(context);
 }
 
 class _AuthScreenState extends State<BaseAuthScreen> {
@@ -132,6 +149,7 @@ class _AuthScreenState extends State<BaseAuthScreen> {
       decoration: InputDecoration(
         labelText: label,
         border: const OutlineInputBorder(),
+        errorMaxLines: 3,
       ),
       validator: (value) {
         if (value == null || value.trim().isEmpty) return strings.text('required', {'field': label});
@@ -153,15 +171,11 @@ class _AuthScreenState extends State<BaseAuthScreen> {
   Widget build(BuildContext context) {
     final session = _auth?.session;
     final signedIn = session != null && _mode != 'change';
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title), actions: const [LanguageSelector()]),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 440),
-              child: AutofillGroup(
+    return _AuthLayout(
+      title: widget.title,
+      content: (context) => SingleChildScrollView(
+        padding: PrimecareLayoutData.of(context).pageInsets,
+        child: AutofillGroup(
                 child: Form(
                   key: _form,
                   child: Column(
@@ -257,9 +271,6 @@ class _AuthScreenState extends State<BaseAuthScreen> {
                   ),
                 ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }
