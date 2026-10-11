@@ -87,7 +87,8 @@
             "schema": {
               "enum": [
                 "page_readiness",
-                "organization_summary"
+                "organization_summary",
+                "platform_administration"
               ]
             }
           },
@@ -183,7 +184,8 @@
             "schema": {
               "enum": [
                 "page_readiness",
-                "organization_summary"
+                "organization_summary",
+                "platform_administration"
               ]
             }
           },
@@ -280,7 +282,8 @@
             "schema": {
               "enum": [
                 "page_readiness",
-                "organization_summary"
+                "organization_summary",
+                "platform_administration"
               ]
             }
           },

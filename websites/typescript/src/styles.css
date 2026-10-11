@@ -72,3 +72,8 @@ h1 { font-size: var(--font-size-heading); }
 .report-consent input { width:auto; }
 textarea { font:inherit;max-width:100%;min-height:5rem; }
 [data-cy="report-status"] { display:block;margin-top:var(--spacing-md); }
+.topbar:has([data-cy="platform-language"]) { flex-wrap:wrap; }
+[data-cy="platform-language"] { width:auto; }
+[data-cy^="platform-"] input, [data-cy^="platform-"] select { min-width:0; }
+[data-cy="platform-tenant-form"], [data-cy="platform-account-form"], [data-cy="platform-master-form"] { display:grid;gap:var(--spacing-md); }
+.workspace { min-width:0; }

@@ -1,3 +1,4 @@
+execFileSync('python3',['scripts/register-platform-admin-role.py']);
 execFileSync('python3',['scripts/register-maintenance-governance.py']);
 execFileSync('python3',['scripts/register-workspace-governance.py']);
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';

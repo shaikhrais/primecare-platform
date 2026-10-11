@@ -1,3 +1,4 @@
+import {platformAdministration} from './platform-administration';
 import {reporting} from './reporting';
 import {providerTimesheetItems} from './provider-timesheet-items';
 import {clientBookingLifecycle} from './client-booking-lifecycle';
@@ -22,4 +23,5 @@ export const businessModules: readonly Readonly<{name: string; handle: BusinessH
     {name: 'governance', handle: governanceApi},
     {name: 'workspace', handle: workspace},
     {name: 'reporting', handle: reporting},
+    {name: 'platform-administration', handle: platformAdministration},
   ].map(module => Object.freeze(module)));

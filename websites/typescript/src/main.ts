@@ -1,3 +1,4 @@
+import {renderPlatformAdmin} from './platform-admin';
 import { login } from './auth-client';
 import {renderMaintenance} from './maintenance';
 import {renderWorkspace} from './workspace';
@@ -59,10 +60,10 @@ function renderAuth(manifest: PortalManifest): void {
       const identityResponse=await fetch(`${manifest.apiGateway}/v1/auth/me`,{headers:{authorization:'Bearer '+token},cache:'no-store'});
       const identity=await identityResponse.json() as {roles?:string};
       const returnUrl=new URLSearchParams(location.search).get('returnUrl');
-      location.assign(identityResponse.ok && (identity.roles==='maintenance' || (identity.roles==='ceo' && returnUrl==='/maintenance/configuration'))?'/maintenance/configuration':'/');
+      location.assign(identityResponse.ok && identity.roles==='platform_admin'?'/platform/administration':identityResponse.ok && (identity.roles==='maintenance' || (identity.roles==='ceo' && returnUrl==='/maintenance/configuration'))?'/maintenance/configuration':'/');
     } catch (error) { status.value = error instanceof Error ? error.message : 'Sign in failed'; }
   });
 }
 
-loadManifest().then((manifest) => { applyTheme(manifest.theme); location.pathname==='/maintenance/configuration'?void renderMaintenance(root,manifest.apiGateway):location.pathname==='/login' || manifest.appCode === 'au' ? renderAuth(manifest) : void renderWorkspace(root,manifest.apiGateway); })
+loadManifest().then((manifest) => { applyTheme(manifest.theme); location.pathname==='/platform/administration'?void renderPlatformAdmin(root,manifest.apiGateway):location.pathname==='/maintenance/configuration'?void renderMaintenance(root,manifest.apiGateway):location.pathname==='/login' || manifest.appCode === 'au' ? renderAuth(manifest) : void renderWorkspace(root,manifest.apiGateway); })
   .catch((error) => { root.innerHTML = `<main class="fatal" data-cy="error-state"><h1>Unable to start PrimeCare</h1><p>${escapeHtml(error)}</p></main>`; });

@@ -138,7 +138,7 @@ with sqlite3.connect(DB) as db:
       LEFT JOIN roles r ON r.id=s.role_id LEFT JOIN apps a ON a.id=s.app_id
       WHERE s.active=1 ORDER BY s.id''').fetchall():
         s = dict(row)
-        protected_auth = s['screen_code'] in ['consent', 'mfa', 'reset_password', 'MAINTENANCE_CONFIGURATION'] or s['app_code']=='au'
+        protected_auth = s['screen_code'] in ['consent', 'mfa', 'reset_password', 'MAINTENANCE_CONFIGURATION', 'PLATFORM_ADMINISTRATION'] or s['app_code']=='au'
         blockers = [] if protected_auth else ['Business workflow and domain data binding need verification',
           'Authenticated browser and accessibility evidence is pending']
         renderer = 'account' if protected_auth else 'dashboard' if 'dashboard' in s['screen_code'] else 'governed_page'
