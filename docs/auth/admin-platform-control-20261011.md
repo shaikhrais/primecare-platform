@@ -21,7 +21,7 @@ The API and UI share business contracts and concepts across TypeScript and Dart.
 | Create tenant | Validate name/unique slug; create tenant and audit event in one transaction |
 | Select tenant | Load that tenant's accounts and references; clear old rows before switching |
 | Create account | Validate selected tenant, email, password and permitted role; hash password and record history atomically |
-| Account administration | Selected-tenant control supports email/role/status updates with session revocation; the existing home-tenant workspace also supports search and status filters |
+| Account administration | Selected-tenant control supports email/role/status updates with session revocation; both account views share email search and status filters |
 | Maintain references | Create records or edit EN/ES/FR labels and active status; category/code/scope remain immutable |
 | Global references | Global scope is explicit and separate from tenant scope; code uniqueness applies within category/scope |
 | Monitor | Read timestamped counts of tenants, accounts, active sessions and references |
@@ -46,7 +46,7 @@ A 75-inch screen follows its logical resolution and operating-system scaling; ph
 
 ## Validation and rollout
 
-CI run [38107169545](https://github.com/shaikhrais/primecare-platform/actions/runs/38107169545) passed against source `e291c93bae94a9321f399144b54b96325fff978f`: Worker type checks; 90 Auth, 46 original Admin, 39 platform domain and 48 platform Gateway/PostgreSQL checks; 42 model, 97 core and 78 UI tests (217 passed, one pre-existing core test skipped); release Support web build; original and platform browser workflows in EN/ES/FR. The browser tests include selected-tenant email/role/status edits and session revocation. Database checks verify wrong-tenant rejection, protected accounts, and rollback of account changes/session deletion on audit failure. Layout tests cover 320–3840 logical pixels and double-size mobile text; translated account-editor drafts survive resizing to 4K. These are isolated tests, not production verification. All 176 localization keys match across the three languages.
+CI run [38135303446](https://github.com/shaikhrais/primecare-platform/actions/runs/38135303446) passed against source `a6eb14974b810b19a45375a21bc7697bc3a66e22`: Worker type checks; 90 Auth, 46 original Admin, 43 platform domain and 54 platform Gateway/PostgreSQL checks; 42 model, 100 core and 78 UI tests (220 passed, one pre-existing core test skipped); release Support web build; original and platform browser workflows in EN/ES/FR. The browser tests include selected-tenant email/role/status edits, session revocation, normalized email search, active/inactive filters, filtered refresh and settled navigation/logout. Database checks verify wrong-tenant rejection, protected accounts, and rollback of account changes/session deletion on audit failure. Layout tests cover 320–3840 logical pixels and double-size mobile text; translated account-editor drafts survive resizing to 4K. These are isolated tests, not production verification. All 176 localization keys match across the three languages.
 
 Production requires migrations `20261011_admin_control.sql` and `20261011_admin_account_updates.sql`, in that order, before the new API/UI rollout. This migration creates a reference registry and provisioning history, and accepts the existing text or UUID tenant identity type. New functionality is not yet deployed or certified on native platforms. Previous Auth/Admin verification does not prove this new scope.
 
@@ -67,10 +67,18 @@ Production requires migrations `20261011_admin_control.sql` and `20261011_admin_
 | Manage master records | Maintain global or tenant reference definitions with EN, ES and FR labels. |
 | Monitor platform | Review tenant, account, session and reference counts and provisioning history. |
 
-Latest batch inventory: 12 code files added or changed; 21,392 tracked code files untouched by this batch. This is a batch inventory, not a claim about the remaining migration backlog.
+Latest batch inventory against local baseline `7b0284b7`: 17 code files added or changed; 22,719 tracked code files untouched by this batch. Counted extensions: Dart, TS/TSX, JS/JSX/MJS/CJS, Python, SQL, shell, Java, Kotlin, Swift, C/C++/headers, C#, Go, Rust, PHP and Ruby. This broader explicit inventory replaces the earlier unspecified count; it includes tracked dependency code and is not a measure of the remaining migration backlog.
 
 ## Selected-tenant account updates
 
 `PUT /admin/control/accounts/{id}` accepts exactly `tenantId`, `email`, `role`, and `status`. An active database-backed platform Admin is required. The tenant is selected explicitly; the account must already belong to it. Tenant identity and passwords cannot be changed through this command. Self and privileged accounts remain protected.
 
 `PlatformSqlRepository.updateAccount` reuses `AdminSqlRepository.update`, which locks the account, applies existing validation/protection, revokes sessions and writes account history. Platform history is added in the same transaction. Any audit failure rolls back the account change and session deletion. The inherited client workflow owns busy/error state and refreshes the selected tenant after completion. The shared editor supports EN/ES/FR and keeps drafts during mobile/4K resizing.
+
+## Centralized selected-tenant account filters
+
+The original workspace and platform account view now share `normalizeAccountFilters` in the API, the inherited `BaseAdminWorkflow.accountFilters` policy in Dart, and `AdminAccountFilters` for translated UI controls. Search is trimmed, lowercased and treated as a literal email substring; raw input is limited to 254 characters and excludes control characters. Status is All, active or inactive.
+
+`GET /admin/control/accounts` accepts `tenantId`, `offset`, `search` and `status`. Tenant, normalized search, status and filtered active counts are echoed and checked by the client. Search/status persist through paging, refresh and account mutations, and reset when selecting another tenant. A failed or mismatched response does not replace the last valid filtered account view. This extends an existing operation; the total remains 14 Admin API operations.
+
+Shared filter actions and the inherited Back control dismiss text-field focus before acting. The browser scenario waits for the destination workspace to become interactive before the next navigation action.
