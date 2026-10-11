@@ -5,6 +5,19 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 void main() {
   tearDown(()=>applicationLanguage.selectLanguage(SupportedLanguage.en));
+  testWidgets('A rejected status request restores the last applied filter label', (tester) async {
+    tester.view.physicalSize=const Size(1200,1200);tester.view.devicePixelRatio=1;
+    addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
+    Future<Map<String,dynamic>> request(String method,String path,{Map<String,dynamic>? body}) async {
+      if(Uri.parse(path).queryParameters.containsKey('status')) throw const AuthFailure('Unavailable',status:503);
+      return {'organization':{'name':'Organization'},'users':<Map<String,dynamic>>[],'assignableRoles':['client'],'total':0,'active':0,'offset':0,'limit':25};
+    }
+    await tester.pumpWidget(MaterialApp(home:AdminScreen(request:request)));await tester.pumpAndSettle();
+    await tester.tap(find.byType(DropdownButtonFormField<String>));await tester.pumpAndSettle();
+    await tester.tap(find.text('Inactive').last);await tester.pumpAndSettle();
+    expect(tester.widget<DropdownButtonFormField<String>>(find.byType(DropdownButtonFormField<String>)).initialValue,'');
+    expect(find.text('All statuses'),findsOneWidget);
+  });
   for(final language in SupportedLanguage.values) {
     testWidgets('Inherited status filter uses localized labels and canonical values in ${language.name}', (tester) async {
       tester.view.physicalSize=const Size(1200,1200);tester.view.devicePixelRatio=1;

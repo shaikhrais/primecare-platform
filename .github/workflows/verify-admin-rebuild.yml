@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Verify central status filters and real account pagination in EN/ES/FR.
+# Verify central status filters, failure recovery and pagination in EN/ES/FR.
 on:
   push:
     branches: [deploy/email-inbox-20261010]
