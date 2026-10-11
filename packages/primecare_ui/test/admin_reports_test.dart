@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart' show ApiClient, apiClientProvider;
@@ -53,9 +54,12 @@ void main() {
     expect(await service.pdf('page_readiness',const AdminReportRequest()),isNotEmpty);
     valid=false;await expectLater(service.pdf('page_readiness',const AdminReportRequest()),throwsFormatException);
   });
+  for (final platform in TargetPlatform.values) {
   for(final width in [320.0,768.0,1440.0,3840.0]) {
    for(final enabled in [false,true]) {
-    testWidgets('report controls fit $width with delivery enabled=$enabled', (tester) async {
+    testWidgets('report controls fit ${platform.name} at $width with delivery enabled=$enabled', (tester) async {
+      debugDefaultTargetPlatformOverride = platform;
+      addTearDown(() => debugDefaultTargetPlatformOverride = null);
       tester.view.physicalSize=Size(width,1200);tester.view.devicePixelRatio=1;
       addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
       dio.interceptors.add(InterceptorsWrapper(onRequest:(o,h) => h.resolve(Response(
@@ -66,7 +70,7 @@ void main() {
             'pdf':'Download PDF','recipient':'Recipient','subject':'Subject','message':'Message',
             'confirm':'I confirm this recipient may receive this report','email':'Email report'}}))));
       await tester.pumpWidget(ProviderScope(overrides:[apiClientProvider.overrideWithValue(client)],
-        child:MaterialApp(home:PrimeTheme(data:const PrimeThemeData(),child:Scaffold(body:SingleChildScrollView(
+        child:MaterialApp(theme: ThemeData(platform: platform), home:PrimeTheme(data:const PrimeThemeData(),child:Scaffold(body:SingleChildScrollView(
           child:AdminReportsPanel(endpoint:'/v1/governance/reports')))))));
       await tester.pumpAndSettle();
       expect(find.text('Reports'),findsOneWidget);expect(find.text('Generate'),findsOneWidget);
@@ -77,5 +81,6 @@ void main() {
       await tester.pumpWidget(const SizedBox());
     });
    }
+  }
   }
 }
