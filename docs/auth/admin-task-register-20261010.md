@@ -1,5 +1,7 @@
 # Admin task register — 2026-10-10
 
+Current status: Auth Worker and Support production EN/ES/FR E2E passed [run 38099908370](https://github.com/shaikhrais/primecare-platform/actions/runs/38099908370). See [production verification](admin-production-verification-20261010.md) for deployment provenance and remaining acceptance work.
+
 ## Implemented tasks
 
 The authenticated workspace returns the nine task definitions from `packages/contracts/admin-tasks.json`. The inherited Admin tasks screen renders their instructions from the shared EN/ES/FR catalog. This metadata describes implemented workflows and does not grant permission. Task counts are not endpoint counts: these tasks use four unique Admin API operations and local language selection.
@@ -40,7 +42,7 @@ The locale generator checks duplicate keys, matching EN/ES/FR keys and placehold
 
 ## Remaining acceptance work
 
-Production Worker/Pages rollout and production Admin E2E are pending. Native-platform verification of this newer Admin code is pending; earlier Auth native results do not certify it. Organization creation/global administration and elevated-role assignment require an explicit policy and are not implemented by these nine tasks. The historical 64-role queue still has no role marked fully accepted; Admin remains first.
+Auth Worker and Support Pages rollout and production Admin E2E are verified in EN/ES/FR. The other eight portal deployments were not republished in this work package. Native-platform verification of this newer Admin code is pending; earlier Auth native results do not certify it. Organization creation/global administration and elevated-role assignment require an explicit policy and are not implemented by these nine tasks. The historical 64-role queue still has no role marked fully accepted; Admin remains first.
 
 ## Verified task overview and activation lifecycle — 2026-10-11
 

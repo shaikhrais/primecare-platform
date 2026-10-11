@@ -1,8 +1,5 @@
 name: Deploy and verify inherited Admin on Support
 on:
-  push:
-    branches: [deploy/email-inbox-20261010]
-    paths: ['.github/workflows/publish-admin-support.yml']
   workflow_dispatch:
     inputs:
       publish:
