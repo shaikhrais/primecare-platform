@@ -266,3 +266,6 @@ with sqlite3.connect(DB) as db:
             translations=json.loads(path.read_text());translations['workspace']={k.split('.',1)[1]:v for k,v in registry['resources'].items()}
             path.write_text(json.dumps(translations,ensure_ascii=False,indent=4)+'\n')
 print(json.dumps({'screens':len(screens),'created':sum(s['renderer']!='account' for s in screens),'production_ready':0}))
+
+# Shared reporting is a versioned governance migration; keep its separate policy reproducible.
+runpy.run_path(str(ROOT/'scripts/register-admin-reports.py'), run_name='__main__')
