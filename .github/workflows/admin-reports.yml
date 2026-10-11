@@ -43,9 +43,9 @@ jobs:
           cache: true
       - run: flutter pub get
         working-directory: packages/primecare_ui
-      - run: flutter analyze lib/src/features/reports lib/src/features/workspace/governed_workspace_screen.dart test/admin_reports_test.dart
+      - run: flutter analyze lib/src/features/reports lib/src/features/workspace/governed_workspace_screen.dart test/admin_reports_test.dart test/report_pdf_exporter_test.dart
         working-directory: packages/primecare_ui
-      - run: flutter test test/admin_reports_test.dart
+      - run: flutter test test/admin_reports_test.dart test/report_pdf_exporter_test.dart
         working-directory: packages/primecare_ui
       - run: dart test test/admin_report_models_test.dart
         working-directory: packages/primecare_models

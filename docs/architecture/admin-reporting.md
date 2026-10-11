@@ -52,3 +52,39 @@ These features are planned, not implemented. No unresolved workflow from the exi
 Node API fixtures test catalogs, every role grant, search/locales, tenant denial, unavailable data, complete PDFs, escaping, bounded input, consent, claims, replay, payload conflicts, mail failures and quotas. An independent PDF parser verified a 27-page fixture, including its final row and French accents. PostgreSQL integration tests exercise actual migrations, six concurrent duplicate requests, cross-tenant denial, run audit, uncertain delivery, stuck claims and quotas. Flutter tests exercise shared model inheritance, real failure propagation, byte validation, email request headers, server capabilities and controls at 320/768/1440/3840 logical widths. CI validates registration parity and runs existing workspace/email tests. Full native platform builds, live delivery and patient-data disclosure are outside these tests.
 
 CI also exposed an existing image/archive dependency mismatch (image 4.11.0 with archive 4.0.9). The shared Flutter dependency pins image 4.10.2, compatible with the supported Dart SDK and pdf 3.12's archive <4.1.0 constraint. image 4.11.1 requires archive 4.4.0 and cannot resolve alongside that PDF version. This is necessary to compile the report PDF/share package and existing UI tests.
+
+
+## Cross-platform report export
+
+The same report panel, governance catalog, permissions, locales and server email
+transport are shared by web, Android, iOS, Windows, macOS and Linux. Desktop PDF
+export opens a native Save dialog via Flutter file_selector; Android/iOS use the
+printing share sheet, and web uses its browser download. Cancelling a save is a
+normal result; a failed write propagates to the existing localized error notice
+without automatically sharing the file elsewhere. Email continues through the
+server on every platform and does not depend on a local mail client.
+
+Both tracked macOS runners grant outbound network access and user-selected file
+read/write access in debug and release entitlements. The macOS build workflow
+applies the same central configuration to generated runners for all nine apps.
+No broad filesystem or storage permission is added.
+
+`report-platforms.yml` runs behavioral tests on Linux, Windows and macOS runners
+and compiles the actual shared reporting UI and registered plugins for all six
+platforms in disposable Flutter apps. This is a report compilation check, not a
+claim that all nine full apps pass native builds. iOS builds are unsigned and
+Android builds are debug APKs. Existing full-app distribution workflows remain
+responsible for complete applications and signing.
+
+Exporter tests cover native/platform routing, web on every target, cancellation
+and failed writes. Layout controls are tested at 320/768/1440/3840 logical widths
+under Android, iOS, Windows, macOS and Linux platform themes. These are widget
+and dispatch tests; final native Save/share dialog interactions, real device
+keyboard/safe-area behavior, signed releases and browser download UX require
+runtime checks on their respective devices. Tests never send live email.
+
+Windows builds use the Visual Studio 2022 runner: the shared local_auth_windows
+2.0.2 plugin uses experimental coroutines rejected by the latest VS 2026 STL.
+The supported toolchain is pinned centrally in report and full-app Windows CI;
+no compiler errors or authentication checks are suppressed. Linux runners install
+libsecret-1-dev required by shared secure storage.

@@ -6,6 +6,7 @@ import subprocess
 from pathlib import Path
 
 NETWORK_CLIENT = 'com.apple.security.network.client'
+USER_SELECTED_FILES = 'com.apple.security.files.user-selected.read-write'
 SANDBOX = 'com.apple.security.app-sandbox'
 
 
@@ -16,6 +17,7 @@ def prepare(app_directory):
         if values.get(SANDBOX) is not True:
             raise ValueError(f'{path}: app sandbox must remain enabled')
         values[NETWORK_CLIENT] = True
+        values[USER_SELECTED_FILES] = True
         path.write_bytes(plistlib.dumps(values, sort_keys=False))
 
 
@@ -27,9 +29,9 @@ def verify_built(app_directory):
     result = subprocess.run(['codesign', '-d', '--entitlements', ':-', str(apps[0])],
                             check=True, capture_output=True)
     values = plistlib.loads(result.stdout)
-    if values.get(SANDBOX) is not True or values.get(NETWORK_CLIENT) is not True:
-        raise ValueError(f'{apps[0]}: signed sandbox/network entitlements are missing')
-    print(f'Verified signed sandbox and outgoing network entitlement: {apps[0].name}')
+    if any(values.get(key) is not True for key in (SANDBOX, NETWORK_CLIENT, USER_SELECTED_FILES)):
+        raise ValueError(f'{apps[0]}: signed sandbox/network/file entitlements are missing')
+    print(f'Verified signed sandbox, network and user-selected file entitlements: {apps[0].name}')
 
 
 if __name__ == '__main__':
