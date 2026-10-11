@@ -53,6 +53,7 @@ export async function runPlatformAdminBrowserScenario({page,db,strings,language,
  await page.getByRole('button',{name:strings['control.monitor'],exact:true}).click();await visible(strings['metric.tenantsTotal']+': 2');
  await page.getByRole('button',{name:strings['control.audit'],exact:true}).click();await visible(strings['control.event.tenant_created']);await visible(strings['control.event.account_created']);await visible(strings['control.event.account_updated']);
  await page.getByRole('button',{name:strings['back'],exact:true}).click();
+ const workspace=page.getByRole('button',{name:strings['control.title'],exact:true});await workspace.waitFor();await workspace.click({trial:true});
  // Remove only owned fixtures so each language observes the same baseline.
  await db.query('DELETE FROM admin_master_records WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM admin_control_audit WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM auth_management_audit WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM auth_account_audit WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM users WHERE tenant_id=$1',[tenant.id]);await db.query('DELETE FROM tenants WHERE id=$1',[tenant.id]);
  console.log('PASS '+language+': platform tenant, selected-tenant account create/edit, session revocation, search/status filters, translated master, monitoring and history browser E2E');

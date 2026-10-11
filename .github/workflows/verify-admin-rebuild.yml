@@ -1,5 +1,5 @@
 name: Verify inherited Admin rebuild
-# Verify centralized selected-tenant search/status filters and inherited layouts.
+# Verify shared account filters, keyboard dismissal and settled navigation.
 on:
   push:
     branches: [deploy/email-inbox-20261010]

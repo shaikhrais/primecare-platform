@@ -12,7 +12,7 @@ abstract class BasePrimecareScreen extends BasePrimecareLayout {
   Widget buildContent(BuildContext context);
   @override
   Widget buildLayout(BuildContext context, PrimecareLayoutData layout) => Scaffold(
-    appBar: AppBar(leading: Navigator.canPop(context) ? IconButton(tooltip: AppStrings.of(context).text('back'), icon: const Icon(Icons.arrow_back), onPressed: () => Navigator.maybePop(context)) : null, title: Text(titleKey.isEmpty ? title : AppStrings.of(context).text(titleKey)), actions: const [LanguageSelector()]),
+    appBar: AppBar(leading: Navigator.canPop(context) ? IconButton(tooltip: AppStrings.of(context).text('back'), icon: const Icon(Icons.arrow_back), onPressed: () {FocusManager.instance.primaryFocus?.unfocus();Navigator.maybePop(context);}) : null, title: Text(titleKey.isEmpty ? title : AppStrings.of(context).text(titleKey)), actions: const [LanguageSelector()]),
     body: SafeArea(child: Align(alignment: contentAlignment, child: SizedBox(width: contentWidth(layout), child: buildContent(context)))),
   );
 }
