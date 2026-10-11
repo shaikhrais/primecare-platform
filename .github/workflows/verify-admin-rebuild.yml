@@ -1,6 +1,7 @@
 name: Verify inherited Admin rebuild
 # Verify applied status selection after fast failures and tenant pagination in EN/ES/FR.
 on:
+  workflow_call:
   workflow_dispatch:
 concurrency:
   group: admin-rebuild-${{ github.ref }}
