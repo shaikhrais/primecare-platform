@@ -419,71 +419,27 @@ async function platformControl(request:Request,env:Env,path:string,headers:Heade
  const collections=['tenants','accounts','masters'];
  const allowed=masterId?['PUT']:collections.includes(resource)?['GET','POST']:['monitor','audit'].includes(resource)?['GET']:[];
  if(!allowed.length)return json({error:'Not found'},404,headers);
- if(!allowed.includes(request.method))return json({error:'Method not all…8757 tokens truncated…es pour supprimer le filtre.",
-    "task.language.title": "Choisir l’anglais, l’espagnol ou le français",
-    "task.language.description": "Utilisez le bouton de langue dans l’en-tête. Les libellés changent tout en conservant les données saisies. La langue revient à l’anglais lors d’un nouveau lancement.",
-    "admin.tasks": "Tâches d’administration",
-    "admin.tasksIntro": "Tâches disponibles dans votre organisation. Le serveur vérifie chaque opération sur un compte.",
-    "admin.statusFilter": "État du compte",
-    "admin.allStatuses": "Tous les états",
-    "control.title": "Administration de la plateforme",
-    "control.scopeNotice": "Admin gère les organisations de la plateforme. Les modifications utilisent l’organisation sélectionnée.",
-    "control.monitor": "Surveillance",
-    "control.sampled": "État au {time}",
-    "control.tenants": "Organisations",
-    "control.createTenant": "Créer une organisation",
-    "control.manageTenant": "Gérer l’organisation",
-    "control.accounts": "Comptes",
-    "control.selectTenant": "Sélectionnez une organisation pour gérer les comptes.",
-    "control.selectedTenant": "Organisation sélectionnée : {name}",
-    "control.masters": "Référentiels",
-    "control.globalMasters": "Référentiels globaux",
-    "control.category": "Catégorie",
-    "control.createMaster": "Créer une entrée de référence",
-    "control.editMaster": "Modifier une entrée de référence",
-    "control.referenceNotice": "Définitions de référence uniquement ; tarifs, demandes et dossiers cliniques conservent leurs propres processus.",
-    "control.audit": "Historique des modifications",
-    "error.controlDuplicate": "Cette organisation, ce compte ou ce code existe déjà.",
-    "control.field.name": "Nom",
-    "control.field.slug": "Code unique de l’organisation",
-    "control.field.email": "Adresse e-mail",
-    "control.field.password": "Mot de passe initial",
-    "control.field.code": "Code",
-    "control.field.en": "Libellé anglais",
-    "control.field.es": "Libellé espagnol",
-    "control.field.fr": "Libellé français",
-    "metric.tenantsTotal": "Total des organisations",
-    "metric.tenantsActive": "Organisations actives",
-    "metric.usersTotal": "Total des comptes",
-    "metric.usersActive": "Comptes actifs",
-    "metric.sessionsActive": "Sessions actives",
-    "metric.mastersTotal": "Total des références",
-    "metric.mastersActive": "Références actives",
-    "control.event.tenant_created": "Organisation créée",
-    "control.event.account_created": "Compte créé",
-    "control.event.master_created": "Référence créée",
-    "control.event.master_updated": "Référence modifiée",
-    "master.services": "Services",
-    "master.locations": "Lieux",
-    "master.regions": "Régions",
-    "master.departments": "Départements",
-    "master.staff-groups": "Groupes de personnel",
-    "master.insurance-providers": "Assureurs",
-    "master.training-categories": "Catégories de formation",
-    "master.document-types": "Types de documents",
-    "master.specialties": "Spécialités",
-    "master.credentials": "Qualifications",
-    "master.referral-sources": "Sources de recommandation",
-    "master.incident-types": "Types d’incidents",
-    "master.payment-methods": "Modes de paiement",
-    "master.cancellation-reasons": "Motifs d’annulation",
-    "master.contact-types": "Types de contacts",
-    "master.equipment-types": "Types d’équipements",
-    "task.tenants.title": "Créer des organisations",
-    "task.tenants.description": "Créer des organisations et en sélectionner une pour créer des comptes.",
-    "task.masters.title": "Gérer les référentiels",
-    "task.masters.description": "Gérer les références globales ou par organisation avec des libellés EN, ES et FR.",
-    "task.monitor.title": "Surveiller la plateforme",
-    "task.monitor.description": "Consulter les nombres d’organisations, comptes, sessions et références et l’historique."
-  }
+ if(!allowed.includes(request.method))return json({error:'Method not allowed'},405,{...headers,allow:allowed.join(', ')});
+ const read=request.method==='GET',params=new URL(request.url).searchParams;
+ const keys=read?(resource==='accounts'?['offset','tenantId']:resource==='masters'?['offset','tenantId','category']:resource==='monitor'?[]:['offset']):[];
+ if([...params.keys()].some(k=>!keys.includes(k)||params.getAll(k).length!==1)||!/^\d{1,6}$/.test(params.get('offset')??'0'))return json({error:'Invalid query'},400,headers);
+ const token=request.headers.has('authorization')?tokenFrom(request):null;
+ if(!token)return json({error:'No session'},401,headers);
+ let body:unknown;
+ try{if(!read)body=await parseBody(request);else if(request.body!==null)return json({error:'Invalid body'},400,headers);}catch(error){return bodyFailure(error,'Invalid request',headers);}
+ return withDb(env,async db=>{
+  if(!read){const limited=await mutationLimit(db,token,'manageAccount',headers);if(limited)return limited;}
+  await db.query(read?'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY':'BEGIN');let committed=false;
+  try{
+   const actor=privilegedActor((await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active'"+(read?' LIMIT 1':' FOR SHARE OF u,s'),[await sha256(token)])).rows);
+   if(!actor)return json({error:'Invalid session'},401,headers);
+   if(actor.roles!=='admin'||!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==actor.tenant_id))return json({error:'Forbidden'},403,headers);
+   const workflow=new PlatformAdminWorkflow({...actor,tenant_id:actor.tenant_id},new PlatformSqlRepository(db,actor.tenant_id,read));
+   const offset=Number(params.get('offset')??'0');
+   const result=read?(resource==='tenants'?await workflow.tenants(offset):resource==='accounts'?await workflow.accounts(params.get('tenantId')??'',offset):resource==='masters'?await workflow.masters(params.get('category')??'',params.get('tenantId'),offset):resource==='monitor'?await workflow.monitor():await workflow.audit(offset)):masterId?await workflow.updateMaster(masterId[1],body):resource==='tenants'?await workflow.createTenant(body):resource==='accounts'?await workflow.createAccount(body):await workflow.createMaster(body);
+   if(!read){await db.query('COMMIT');committed=true;}
+   return json(result,!read&&!masterId?201:200,headers);
+  }catch(error){if(error instanceof WorkflowFailure)return json({error:error.message,code:error.code},error.status,headers);if((error as {code?:string}).code==='23505')return json({error:'A tenant slug, account email or record code already exists',code:'error.controlDuplicate'},409,headers);throw error;}
+  finally{if(!committed)await db.query('ROLLBACK');}
+ });
 }
