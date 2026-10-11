@@ -1,0 +1,25 @@
+{
+  "recoveryCommit": "9c1940505df948975775071db8a903e11e7859bb",
+  "localHeadAtInventory": "b18249e5e1e6aaca5fa693c1e2bf117209fc326a",
+  "backupTree": "303d846c72c79359d715c64fbe8f99067d41e003",
+  "trackedFilesReviewed": 34693,
+  "decisions": {
+    "retain_pending_dependency_and_behavior_review": 14722,
+    "retain_runtime_contract_build_or_tooling": 2680,
+    "delete_archived_backup": 17291
+  },
+  "deletedPurposes": {
+    "screen section": 9100,
+    "service/API adapter": 2011,
+    "screen state/provider": 2011,
+    "screen composition": 1126,
+    "data model": 1127,
+    "test scenario": 1901,
+    "routing/navigation": 12,
+    "supporting repository artifact": 3
+  },
+  "deletedBytes": 25457517,
+  "inventorySha256": "cc248c0f3153f81ebfaa5d741897cfdc74256f89a8f64699c65071fef2f3e250",
+  "applied": true,
+  "limitations": "Purposes/topics are source-path classifications; declarations and endpoints are extracted evidence, not validated business requirements. Git retains full source. Retained decisions do not certify skeleton completion."
+}

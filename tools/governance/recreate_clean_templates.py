@@ -499,4 +499,4 @@ def main():
         conn.close()
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit("Retired: this generator recreates obsolete screens. See docs/refactoring/legacy-retirement-20261011/README.md; extend the inherited skeleton instead.")

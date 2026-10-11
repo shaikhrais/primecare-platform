@@ -1,6 +1,9 @@
 name: Verify inherited Admin rebuild
-# Verify shared account filters, keyboard dismissal and settled navigation.
+# Verify inherited Auth/Admin after retiring disconnected screen backups.
 on:
+  push:
+    branches: [deploy/email-inbox-20261010]
+    paths: [.github/workflows/verify-admin-rebuild.yml]
   workflow_call:
   workflow_dispatch:
 concurrency:
@@ -45,6 +48,8 @@ jobs:
           node scripts/test-platform-admin-postgres.mjs
       - name: Shared model, core, and UI checks
         run: |
+          python scripts/test-legacy-backup-retirement.py
+          python scripts/test-provider-profile-retirement.py
           python scripts/generate-app-localizations.py --check
           for package in primecare_models primecare_core primecare_ui; do
             (cd packages/$package && flutter pub get && dart format lib test && flutter analyze && flutter test)
