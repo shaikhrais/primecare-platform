@@ -36,7 +36,7 @@ class _PlatformState extends State<_PlatformContent> {
   Text(strings.text('control.scopeNotice')),
   if(controller.busy)const LinearProgressIndicator(),
   if(controller.error!=null)Text(strings.text(controller.errorCode??'error.unavailable'),style:TextStyle(color:Theme.of(context).colorScheme.error)),
-  OutlinedButton(onPressed:controller.busy?null:controller.refresh,child:Text(strings.text('admin.refresh'))),
+  OutlinedButton(onPressed:controller.busy?null:controller.refresh,child:Text(strings.text('control.refresh'))),
   Wrap(spacing:8,runSpacing:8,children:[for(final key in ['control.monitor','control.tenants','control.accounts','control.masters','control.audit'])TextButton(onPressed:()=>setState(()=>section=key),child:Text(strings.text(key)))]),
   if(section=='control.monitor')...[
   heading('control.monitor'),
@@ -92,5 +92,5 @@ class _ControlEditorState extends State<_ControlEditor> {
   for(final entry in fields.entries)TextFormField(controller:entry.value,enabled:!(entry.key=='code'&&widget.record!=null),obscureText:entry.key=='password',decoration:InputDecoration(labelText:strings.text('control.field.${entry.key}')),validator:(value)=>value==null||value.trim().isEmpty?strings.text('required',{'field':strings.text('control.field.${entry.key}')}):null),
   if(widget.mode=='account')DropdownButtonFormField<String>(initialValue:role,isExpanded:true,decoration:InputDecoration(labelText:strings.text('admin.role')),items:widget.roles.map((value)=>DropdownMenuItem(value:value,child:Text(strings.role(value),overflow:TextOverflow.ellipsis))).toList(),onChanged:(value){if(value!=null)setState(()=>role=value);}),
   if(widget.mode=='master')DropdownButtonFormField<String>(initialValue:status,isExpanded:true,decoration:InputDecoration(labelText:strings.text('admin.status')),items:['active','inactive'].map((value)=>DropdownMenuItem(value:value,child:Text(strings.text(value)))).toList(),onChanged:(value){if(value!=null)setState(()=>status=value);}),
- ])),actions:[TextButton(onPressed:()=>Navigator.pop(context),child:Text(strings.text('cancel'))),FilledButton(onPressed:(){if(!form.currentState!.validate())return;FocusManager.instance.primaryFocus?.unfocus();Navigator.pop(context,{for(final entry in fields.entries)entry.key:entry.value.text,'role':role,'status':status});},child:Text(strings.text('admin.save')))]);}
+ ])),actions:[TextButton(onPressed:()=>Navigator.pop(context),child:Text(strings.text('cancel'))),FilledButton(onPressed:(){if(!form.currentState!.validate())return;FocusManager.instance.primaryFocus?.unfocus();Navigator.pop(context,{for(final entry in fields.entries)entry.key:entry.value.text,'role':role,'status':status});},child:Text(strings.text('control.save')))]);}
 }

@@ -26,7 +26,7 @@ The API and UI share business contracts and concepts across TypeScript and Dart.
 | Global references | Global scope is explicit and separate from tenant scope; code uniqueness applies within category/scope |
 | Monitor | Read timestamped counts of tenants, accounts, active sessions and references |
 | Review history | Read paginated provisioning actions without credentials or secret snapshots |
-| Change language | Shared EN/ES/FR catalog; all 173 keys and placeholders match |
+| Change language | Shared EN/ES/FR catalog; all 175 keys and placeholders match |
 
 There are 12 task definitions, four existing Admin API operations and nine new platform-control operations. The central reference registry exposes 16 categories: services, locations, regions, departments, staff groups, insurance providers, training categories, document types, specialties, credentials, referral sources, incident types, payment methods, cancellation reasons, contact types and equipment types.
 
@@ -46,6 +46,6 @@ A 75-inch screen follows its logical resolution and operating-system scaling; ph
 
 ## Validation and rollout
 
-Local checks: Worker Auth bundle succeeds; 36 domain checks pass; 173 localization keys match. Added five core workflow tests, 15 EN/ES/FR layout cases at 320/600/1024/1920/3840, and Gateway/PostgreSQL provisioning checks to the isolated verification workflow. CI results must be reviewed before reporting them as passed.
+Local checks: Worker Auth bundle succeeds; 36 domain checks pass; 175 localization keys match. Added five core workflow tests, 18 EN/ES/FR layout cases at 320/600/1024/1920/3840, three UI provisioning cases, five model checks, and Gateway/PostgreSQL provisioning checks to the isolated verification workflow. CI results must be reviewed before reporting them as passed.
 
 Production requires migration `20261011_admin_control.sql` before the new API/UI rollout. This migration creates a reference registry and provisioning history, and accepts the existing text or UUID tenant identity type. New functionality is not yet deployed or certified on native platforms. Previous Auth/Admin verification does not prove this new scope.

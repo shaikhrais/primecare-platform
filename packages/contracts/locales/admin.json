@@ -172,7 +172,9 @@
     "task.masters.title": "Manage master records",
     "task.masters.description": "Maintain global or tenant reference definitions with EN, ES and FR labels.",
     "task.monitor.title": "Monitor platform",
-    "task.monitor.description": "Review tenant, account, session and reference counts and provisioning history."
+    "task.monitor.description": "Review tenant, account, session and reference counts and provisioning history.",
+    "control.save": "Save",
+    "control.refresh": "Refresh"
   },
   "es": {
     "language": "Idioma",
@@ -347,7 +349,9 @@
     "task.masters.title": "Administrar registros maestros",
     "task.masters.description": "Mantener referencias globales o por inquilino con etiquetas EN, ES y FR.",
     "task.monitor.title": "Supervisar plataforma",
-    "task.monitor.description": "Consultar cantidades de inquilinos, cuentas, sesiones y referencias y el historial."
+    "task.monitor.description": "Consultar cantidades de inquilinos, cuentas, sesiones y referencias y el historial.",
+    "control.save": "Guardar",
+    "control.refresh": "Actualizar"
   },
   "fr": {
     "language": "Langue",
@@ -522,6 +526,8 @@
     "task.masters.title": "Gérer les référentiels",
     "task.masters.description": "Gérer les références globales ou par organisation avec des libellés EN, ES et FR.",
     "task.monitor.title": "Surveiller la plateforme",
-    "task.monitor.description": "Consulter les nombres d’organisations, comptes, sessions et références et l’historique."
+    "task.monitor.description": "Consulter les nombres d’organisations, comptes, sessions et références et l’historique.",
+    "control.save": "Enregistrer",
+    "control.refresh": "Actualiser"
   }
 }

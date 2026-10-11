@@ -174,6 +174,8 @@ const appCatalogs = <String, Map<String, String>>{
     "task.masters.description": "Maintain global or tenant reference definitions with EN, ES and FR labels.",
     "task.monitor.title": "Monitor platform",
     "task.monitor.description": "Review tenant, account, session and reference counts and provisioning history.",
+    "control.save": "Save",
+    "control.refresh": "Refresh",
   },
   "es": {
     "language": "Idioma",
@@ -349,6 +351,8 @@ const appCatalogs = <String, Map<String, String>>{
     "task.masters.description": "Mantener referencias globales o por inquilino con etiquetas EN, ES y FR.",
     "task.monitor.title": "Supervisar plataforma",
     "task.monitor.description": "Consultar cantidades de inquilinos, cuentas, sesiones y referencias y el historial.",
+    "control.save": "Guardar",
+    "control.refresh": "Actualizar",
   },
   "fr": {
     "language": "Langue",
@@ -524,5 +528,7 @@ const appCatalogs = <String, Map<String, String>>{
     "task.masters.description": "Gérer les références globales ou par organisation avec des libellés EN, ES et FR.",
     "task.monitor.title": "Surveiller la plateforme",
     "task.monitor.description": "Consulter les nombres d’organisations, comptes, sessions et références et l’historique.",
+    "control.save": "Enregistrer",
+    "control.refresh": "Actualiser",
   },
 };
