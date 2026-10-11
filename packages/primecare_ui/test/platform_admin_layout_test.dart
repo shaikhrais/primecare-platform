@@ -8,6 +8,7 @@ Future<Map<String,dynamic>> request(String method,String path,{Map<String,dynami
  return {'items':<Map<String,dynamic>>[],'total':0,'offset':0,'limit':25,if(uri.path.endsWith('masters'))...{'category':'services','tenantId':null}};
 }
 void main(){
+ WidgetController.hitTestWarningShouldBeFatal=true;
  tearDown(()=>applicationLanguage.selectLanguage(SupportedLanguage.en));
  for(final language in SupportedLanguage.values){
   for(final width in [320.0,600.0,1024.0,1920.0,3840.0]){
@@ -17,7 +18,7 @@ void main(){
     applicationLanguage.selectLanguage(language);final strings=AppStrings(language.name);
     await tester.pumpWidget(MaterialApp(locale:Locale(language.name),supportedLocales:AppStrings.locales,localizationsDelegates:AppStrings.delegates,builder:(context,child)=>MediaQuery(data:MediaQuery.of(context).copyWith(textScaler:TextScaler.linear(scale)),child:child!),home:PlatformAdminScreen(request:request)));await tester.pumpAndSettle();expect(tester.takeException(),isNull);
     for(final key in ['control.tenants','control.accounts','control.masters','control.audit','control.monitor']){
-     final button=find.widgetWithText(TextButton,strings.text(key));await tester.ensureVisible(button);await tester.tap(button);await tester.pumpAndSettle();expect(tester.takeException(),isNull);
+     final button=find.widgetWithText(TextButton,strings.text(key));await tester.ensureVisible(button);await tester.pumpAndSettle();await tester.tap(button);await tester.pumpAndSettle();expect(tester.takeException(),isNull);
     }
    });
    }
