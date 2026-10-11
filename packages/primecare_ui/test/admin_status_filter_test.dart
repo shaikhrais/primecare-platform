@@ -14,7 +14,7 @@ void main() {
     }
     await tester.pumpWidget(MaterialApp(home:AdminScreen(request:request)));await tester.pumpAndSettle();
     await tester.tap(find.byType(DropdownButtonFormField<String>));await tester.pumpAndSettle();
-    await tester.tap(find.text('Inactive').last);await tester.pumpAndSettle();
+    await tester.tap(find.text(AppStrings('en').text('inactive')).last);await tester.pumpAndSettle();
     expect(tester.widget<DropdownButtonFormField<String>>(find.byType(DropdownButtonFormField<String>)).initialValue,'');
     expect(find.text('All statuses'),findsOneWidget);
   });
