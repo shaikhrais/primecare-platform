@@ -46,10 +46,10 @@ void main() => runApp(ProviderScope(child: MaterialApp(home: PrimeTheme(
     child: AdminReportsPanel(endpoint: '/v1/governance/reports')))))));
 ''')
 if args.platform == 'macos':
-    spec = importlib.util.spec_from_file_location('macos', root / 'scripts/configure-report-macos.py')
+    spec = importlib.util.spec_from_file_location('macos', root / 'scripts/prepare-macos-entitlements.py')
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    module.configure(app)
+    module.prepare(app)
 run('pub', 'get')
 build_args = {'android': ['apk', '--debug'], 'ios': ['ios', '--release', '--no-codesign']}
 run('build', *build_args.get(args.platform, [args.platform, '--release']))

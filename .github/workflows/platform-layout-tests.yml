@@ -1,0 +1,63 @@
+name: Cross-platform responsive layouts
+on:
+  pull_request:
+    paths: ['packages/primecare_ui/**', 'packages/flutter_core/**', 'packages/primecare_models/**', 'apps/primecare_governance/test/**', '.github/workflows/platform-layout-tests.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  shared-layouts:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-2022, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter test test/admin_reports_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter pub get
+        working-directory: apps/primecare_governance
+      - run: flutter test test/auth_screens_test.dart test/auth_flow_test.dart test/app_boot_test.dart
+        working-directory: apps/primecare_governance
+  web-layouts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter test --platform chrome test/admin_reports_test.dart
+        working-directory: packages/primecare_ui
+  web-builds:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      max-parallel: 3
+      fail-fast: false
+      matrix:
+        app: [primecare_business_development, primecare_client, primecare_clinic, primecare_corporate, primecare_franchise, primecare_marketing, primecare_support, primecare_governance, primecare_enterprise_blueprint]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: apps/${{ matrix.app }}
+      - run: flutter build web --release --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev
+        working-directory: apps/${{ matrix.app }}
