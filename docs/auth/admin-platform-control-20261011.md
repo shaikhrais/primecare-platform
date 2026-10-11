@@ -46,6 +46,25 @@ A 75-inch screen follows its logical resolution and operating-system scaling; ph
 
 ## Validation and rollout
 
-Local checks: Worker Auth bundle succeeds; 36 domain checks pass; 175 localization keys match. Added five core workflow tests, 18 EN/ES/FR layout cases at 320/600/1024/1920/3840, three UI provisioning cases, five model checks, and Gateway/PostgreSQL provisioning checks to the isolated verification workflow. CI results must be reviewed before reporting them as passed.
+Local checks: Worker Auth bundle succeeds; 36 domain checks pass; 175 localization keys match. Added five core workflow tests, 18 EN/ES/FR layout cases at 320/600/1024/1920/3840, three UI provisioning cases, five model checks, and Gateway/PostgreSQL provisioning checks to the isolated verification workflow. CI run [38104776020](https://github.com/shaikhrais/primecare-platform/actions/runs/38104776020) passed against source `042669ba173db3fac5e28f10f9e3edac46a6502e`: Worker type checks; 90 Auth, 46 existing Admin, 36 new domain and 40 new Gateway/PostgreSQL checks; 42 model, 95 core and 75 UI tests (212 passed, one pre-existing core test skipped); release Support web build; existing and new browser workflows in EN/ES/FR. These are isolated tests, not production verification.
 
 Production requires migration `20261011_admin_control.sql` before the new API/UI rollout. This migration creates a reference registry and provisioning history, and accepts the existing text or UUID tenant identity type. New functionality is not yet deployed or certified on native platforms. Previous Auth/Admin verification does not prove this new scope.
+
+## Complete task catalog
+
+| Task | Behavior |
+|---|---|
+| View organization and counts | Open the Admin workspace to see your organization and its account counts. |
+| Browse accounts | Review accounts in pages of 25. Refresh the page to load current records. |
+| Find an account | Search accounts by email and optionally filter active or inactive accounts. Clear search or choose All statuses to remove the corresponding filter. |
+| Create an account | Choose Create user, enter an email and initial password, and select a permitted role. The account is saved with a creation audit event. |
+| Update email or role | Choose Edit on an account and save its email or permitted role. Your own account and privileged accounts are protected. Saving revokes the account’s existing sessions. |
+| Activate or deactivate an account | Edit the account status and save. An inactive account cannot sign in, and existing sessions are revoked. |
+| Review account history | Open Audit history to review creation, update and session-revocation events in your organization. Credentials are excluded. |
+| Review one account’s history | Use the history button beside an account to filter its audit events. Choose Show all account history to clear the filter. |
+| Choose English, Spanish or French | Use the language button in the page header. Labels change while entered form data is preserved. The language resets to English on a fresh launch. |
+| Create tenants | Create organizations and select one for account provisioning. |
+| Manage master records | Maintain global or tenant reference definitions with EN, ES and FR labels. |
+| Monitor platform | Review tenant, account, session and reference counts and provisioning history. |
+
+Batch inventory: 25 code files added or changed; 21,378 tracked code files untouched by this batch. This is a batch inventory, not a claim about the remaining migration backlog.
