@@ -97,7 +97,7 @@
     "task.users.title": "Browse accounts",
     "task.users.description": "Review accounts in pages of 25. Refresh the page to load current records.",
     "task.search.title": "Find an account",
-    "task.search.description": "Search by email, review matching counts, or clear search to return to all accounts in your organization.",
+    "task.search.description": "Search accounts by email and optionally filter active or inactive accounts. Clear search or choose All statuses to remove the corresponding filter.",
     "task.create.title": "Create an account",
     "task.create.description": "Choose Create user, enter an email and initial password, and select a permitted role. The account is saved with a creation audit event.",
     "task.update.title": "Update email or role",
@@ -111,7 +111,9 @@
     "task.language.title": "Choose English, Spanish or French",
     "task.language.description": "Use the language button in the page header. Labels change while entered form data is preserved. The language resets to English on a fresh launch.",
     "admin.tasks": "Admin tasks",
-    "admin.tasksIntro": "Tasks available in your organization. Every account operation is checked by the server."
+    "admin.tasksIntro": "Tasks available in your organization. Every account operation is checked by the server.",
+    "admin.statusFilter": "Account status",
+    "admin.allStatuses": "All statuses"
   },
   "es": {
     "language": "Idioma",
@@ -211,7 +213,7 @@
     "task.users.title": "Explorar cuentas",
     "task.users.description": "Revise las cuentas en páginas de 25. Actualice la página para cargar los registros actuales.",
     "task.search.title": "Buscar una cuenta",
-    "task.search.description": "Busque por correo electrónico, revise los recuentos encontrados o borre la búsqueda para volver a todas las cuentas de su organización.",
+    "task.search.description": "Busca cuentas por correo electrónico y filtra opcionalmente las cuentas activas o inactivas. Borra la búsqueda o elige Todos los estados para quitar el filtro correspondiente.",
     "task.create.title": "Crear una cuenta",
     "task.create.description": "Seleccione Crear usuario, ingrese un correo y una contraseña inicial, y elija un rol permitido. La cuenta se guarda con un evento de auditoría de creación.",
     "task.update.title": "Actualizar correo o rol",
@@ -225,7 +227,9 @@
     "task.language.title": "Elegir inglés, español o francés",
     "task.language.description": "Use el botón de idioma en la cabecera. Las etiquetas cambian y los datos ingresados se conservan. El idioma vuelve a inglés al iniciar de nuevo.",
     "admin.tasks": "Tareas de administración",
-    "admin.tasksIntro": "Tareas disponibles en su organización. El servidor verifica cada operación de cuenta."
+    "admin.tasksIntro": "Tareas disponibles en su organización. El servidor verifica cada operación de cuenta.",
+    "admin.statusFilter": "Estado de la cuenta",
+    "admin.allStatuses": "Todos los estados"
   },
   "fr": {
     "language": "Langue",
@@ -325,7 +329,7 @@
     "task.users.title": "Parcourir les comptes",
     "task.users.description": "Consultez les comptes par pages de 25. Actualisez la page pour charger les données actuelles.",
     "task.search.title": "Trouver un compte",
-    "task.search.description": "Recherchez par courriel, consultez les totaux correspondants ou effacez la recherche pour revenir à tous les comptes de votre organisation.",
+    "task.search.description": "Recherchez des comptes par courriel et filtrez éventuellement les comptes actifs ou inactifs. Effacez la recherche ou choisissez Tous les états pour retirer le filtre correspondant.",
     "task.create.title": "Créer un compte",
     "task.create.description": "Choisissez Créer un utilisateur, saisissez un courriel et un mot de passe initial, puis sélectionnez un rôle autorisé. La création du compte est enregistrée dans l’audit.",
     "task.update.title": "Modifier le courriel ou le rôle",
@@ -339,6 +343,8 @@
     "task.language.title": "Choisir l’anglais, l’espagnol ou le français",
     "task.language.description": "Utilisez le bouton de langue dans l’en-tête. Les libellés changent tout en conservant les données saisies. La langue revient à l’anglais lors d’un nouveau lancement.",
     "admin.tasks": "Tâches d’administration",
-    "admin.tasksIntro": "Tâches disponibles dans votre organisation. Le serveur vérifie chaque opération sur un compte."
+    "admin.tasksIntro": "Tâches disponibles dans votre organisation. Le serveur vérifie chaque opération sur un compte.",
+    "admin.statusFilter": "État du compte",
+    "admin.allStatuses": "Tous les états"
   }
 }

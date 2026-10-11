@@ -48,12 +48,13 @@ class _AdminWorkspaceState extends State<_AdminWorkspace> {
   @override
   Widget build(BuildContext context) => ListView(padding: const EdgeInsets.all(24), children: [
     Text(controller.organization.isEmpty ? strings.text('admin.organization') : controller.organization, style: Theme.of(context).textTheme.headlineSmall),
-    Text(strings.text(controller.search.isEmpty ? 'admin.counts' : 'admin.matchingCounts', {'total': controller.total, 'active': controller.active})),
+    Text(strings.text(controller.search.isEmpty && controller.accountStatus.isEmpty ? 'admin.counts' : 'admin.matchingCounts', {'total': controller.total, 'active': controller.active})),
     if (controller.busy) const LinearProgressIndicator(),
     if (controller.error != null) Text(strings.text(controller.errorCode ?? 'error.unavailable'), style: TextStyle(color: Theme.of(context).colorScheme.error)),
     TextButton(onPressed:controller.busy||controller.tasks.isEmpty?null:()=>Navigator.push(context,MaterialPageRoute<void>(builder:(_)=>AdminTasksScreen(tasks:controller.tasks))),child:Text(strings.text('admin.tasks'))),
     TextButton(onPressed: () => Navigator.push(context,MaterialPageRoute<void>(builder: (_) => AdminAuditScreen(request:widget.request))),child:Text(strings.text('audit.title'))),
     TextField(controller:search, enabled:!controller.busy, decoration:InputDecoration(labelText:strings.text('admin.searchLabel')), onSubmitted: (_) => controller.load(query:search.text)),
+    DropdownButtonFormField<String>(key:ValueKey(controller.accountStatus),isExpanded:true,initialValue:controller.accountStatus,decoration:InputDecoration(labelText:strings.text('admin.statusFilter')),items:['','active','inactive'].map((value)=>DropdownMenuItem(value:value,child:Text(strings.text(value.isEmpty?'admin.allStatuses':value)))).toList(),onChanged:controller.busy?null:(value){if(value!=null)controller.load(statusFilter:value);}),
     Wrap(spacing:12, children:[
       FilledButton(onPressed:controller.busy?null:()=>controller.load(query:search.text),child:Text(strings.text('admin.searchApply'))),
       TextButton(onPressed:controller.busy?null:(){search.clear();controller.load(query:'');},child:Text(strings.text('admin.searchClear'))),

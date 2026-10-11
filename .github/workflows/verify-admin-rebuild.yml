@@ -1,6 +1,9 @@
 name: Verify inherited Admin rebuild
-# Verify independent localized Admin task and account lifecycle scenarios.
+# Verify central status filters and real account pagination in EN/ES/FR.
 on:
+  push:
+    branches: [deploy/email-inbox-20261010]
+    paths: ['.github/workflows/verify-admin-rebuild.yml']
   workflow_dispatch:
 concurrency:
   group: admin-rebuild-${{ github.ref }}

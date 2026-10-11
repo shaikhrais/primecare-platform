@@ -26,9 +26,9 @@ export class AdminSqlRepository extends BaseTenantRepository implements AdminRep
     if(result.rows.length!==1)throw new WorkflowFailure(404,'Organization not found');
     return result.rows[0];
   }
-  async users(offset:number,search:string){
-    const counts=await this.db.query("SELECT COUNT(*)::int AS total, COUNT(*) FILTER (WHERE LOWER(status)='active')::int AS active FROM users WHERE tenant_id=$1 AND POSITION($2 IN LOWER(email))>0",[this.tenantId,search]);
-    const result=await this.db.query("SELECT id,email,roles AS role,CASE WHEN LOWER(status)='active' THEN 'active' ELSE 'inactive' END AS status FROM users WHERE tenant_id=$1 AND POSITION($2 IN LOWER(email))>0 ORDER BY LOWER(email),id LIMIT 25 OFFSET $3",[this.tenantId,search,offset]);
+  async users(offset:number,search:string,status:string){
+    const counts=await this.db.query("SELECT COUNT(*)::int AS total, COUNT(*) FILTER (WHERE LOWER(status)='active')::int AS active FROM users WHERE tenant_id=$1 AND POSITION($2 IN LOWER(email))>0 AND ($3='' OR CASE WHEN LOWER(status)='active' THEN 'active' ELSE 'inactive' END=$3)",[this.tenantId,search,status]);
+    const result=await this.db.query("SELECT id,email,roles AS role,CASE WHEN LOWER(status)='active' THEN 'active' ELSE 'inactive' END AS status FROM users WHERE tenant_id=$1 AND POSITION($2 IN LOWER(email))>0 AND ($3='' OR CASE WHEN LOWER(status)='active' THEN 'active' ELSE 'inactive' END=$3) ORDER BY LOWER(email),id LIMIT 25 OFFSET $4",[this.tenantId,search,status,offset]);
     return {users:result.rows,total:counts.rows[0].total,active:counts.rows[0].active,offset,limit:25};
   }
   async create(actorId:string, input:UserInput){

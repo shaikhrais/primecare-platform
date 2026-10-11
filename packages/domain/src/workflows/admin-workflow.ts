@@ -13,7 +13,7 @@ export abstract class BaseTenantWorkflow {
 export interface AdminRepository {
   audit(offset:number,userId:string):Promise<{events:Record<string,unknown>[];total:number;offset:number;limit:number}>;
   organization():Promise<Record<string,unknown>>;
-  users(offset:number,search:string):Promise<{users:Record<string,unknown>[];total:number;active:number;offset:number;limit:number}>;
+  users(offset:number,search:string,status:string):Promise<{users:Record<string,unknown>[];total:number;active:number;offset:number;limit:number}>;
   lockedAccount(id:string):Promise<{id:string;role:string}|null>;
   create(actorId:string,input:UserInput):Promise<Record<string,unknown>>;
   update(actorId:string,id:string,input:UserInput):Promise<Record<string,unknown>>;
@@ -36,11 +36,12 @@ export function validateUser(value:unknown,create:boolean):UserInput {
 export class AdminWorkflow extends BaseTenantWorkflow {
   constructor(actor:Actor,private repository:AdminRepository){super(actor);}
   private pageOffset(offset:number){if(!Number.isInteger(offset)||offset<0||offset>999999)throw new WorkflowFailure(400,'Invalid offset');}
-  async read(offset:number,search:string=''){
+  async read(offset:number,search:string='',status:string=''){
     this.authorize('admin');this.pageOffset(offset);
+    if(!['','active','inactive'].includes(status))throw new WorkflowFailure(400,'Invalid status filter');
     if(typeof search!=='string'||search.length>254||/[\u0000-\u001f\u007f]/.test(search))throw new WorkflowFailure(400,'Invalid search');
     const normalized=search.trim().toLowerCase();
-    return {organization:await this.repository.organization(),...await this.repository.users(offset,normalized),assignableRoles,search:normalized,tasks:adminTasks()};
+    return {organization:await this.repository.organization(),...await this.repository.users(offset,normalized,status),assignableRoles,search:normalized,status,tasks:adminTasks()};
   }
   async readAudit(offset:number,userId:string=''){
     this.authorize('admin');this.pageOffset(offset);

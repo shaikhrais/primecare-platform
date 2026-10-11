@@ -32,6 +32,9 @@ try {
  assert.equal((await call('?offset=-1')).status,400);assert.equal((await call('?offset=0&offset=1')).status,400);assert.equal((await call('?tenant_id='+tenants[1])).status,400);checks++;
  await db.query("UPDATE users SET status='deactivated' WHERE id=$1",[ids[1]]);
  const legacy=await (await call('')).json();assert.equal(legacy.users.find(u=>u.id===ids[1]).status,'inactive');assert.equal(legacy.active,1);checks++;
+ const legacyInactive=await (await call('?status=inactive')).json();assert.equal(legacyInactive.status,'inactive');assert.equal(legacyInactive.total,1);assert.equal(legacyInactive.active,0);assert.equal(legacyInactive.users[0].id,ids[1]);checks++;
+ const activeOnly=await (await call('?status=active')).json();assert.equal(activeOnly.total,1);assert.equal(activeOnly.active,1);assert.equal(activeOnly.users[0].id,ids[0]);checks++;
+ for(const query of ['?status=paused','?status=ACTIVE','?status=active&status=inactive','/audit?status=active'])assert.equal((await call(query)).status,400);checks++;
  await db.query("UPDATE users SET status='active' WHERE id=$1",[ids[1]]);
  const input={email:`created-${randomUUID()}@example.invalid`,role:'rmt',password:'initial-password-1234'};
  assert.equal((await call('/users','POST',{...input,role:'admin'})).status,400);checks++;
@@ -48,6 +51,13 @@ try {
  const update={email:input.email,role:'rn',status:'inactive'};
  assert.equal((await call('/users/'+createdId,'PUT',update)).status,200);checks++;
  assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM auth_sessions WHERE user_id=$1',[createdId])).rows[0].n,0);checks++;
+ const inactiveSearch=await (await call('?status=inactive&search='+encodeURIComponent(input.email))).json();assert.equal(inactiveSearch.total,1);assert.equal(inactiveSearch.active,0);assert.equal(inactiveSearch.users[0].id,createdId);checks++;
+ const activeSearch=await (await call('?status=active&search='+encodeURIComponent(input.email))).json();assert.equal(activeSearch.total,0);assert.deepEqual(activeSearch.users,[]);checks++;
+ const otherStatus=await (await call('?status=inactive','GET',undefined,tokens[2])).json();assert.equal(otherStatus.total,0);checks++;
+ const pageIds=Array.from({length:26},()=>randomUUID());
+ for(const id of pageIds)await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'client',$3,'unused','active')",[id,'z-page-'+id+'@example.invalid',tenants[0]]);
+ const fullPage=await (await call('?status=active')).json(),nextPage=await (await call('?status=active&offset=25')).json();assert.equal(fullPage.total,28);assert.equal(fullPage.users.length,25);assert.equal(nextPage.total,28);assert.equal(nextPage.users.length,3);assert.equal(new Set([...fullPage.users,...nextPage.users].map(user=>user.id)).size,28);assert([...fullPage.users,...nextPage.users].every(user=>user.status==='active'));checks++;
+ await db.query('DELETE FROM users WHERE id=ANY($1::uuid[])',[pageIds]);
  const row=(await db.query('SELECT roles,status FROM users WHERE id=$1',[createdId])).rows[0];assert.equal(row.roles,'rn');assert.equal(row.status,'inactive');checks++;
  assert.equal((await call('/users/'+createdId,'PUT',update,tokens[2])).status,404);checks++;
  assert.equal((await call('/users/'+ids[0],'PUT',update)).status,403);assert.equal((await call('/users/'+ids[2],'PUT',update)).status,404);checks++;
