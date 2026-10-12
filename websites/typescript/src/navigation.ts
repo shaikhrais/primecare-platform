@@ -21,5 +21,5 @@ export function mountNavigation(host:HTMLElement,title:string,locale:NavigationL
  mounted.set(host,{locale,update:(title,scope,entries)=>{heading.textContent=title;scopeLine.textContent=text.scope+': '+scope;currentEntries=entries;input.value='';hide();}});
  input.addEventListener('input',draw);input.addEventListener('focus',()=>{if(input.value.trim())draw();});
  box.addEventListener('keydown',event=>{if(event.key==='Escape'){input.focus();hide();}if(event.key==='ArrowDown'&&event.target===input){event.preventDefault();list.querySelector<HTMLButtonElement>('button')?.focus();}});
- box.addEventListener('focusout',()=>{queueMicrotask(()=>{if(!box.contains(document.activeElement))hide();});});
+ box.addEventListener('focusout',event=>{if(event.relatedTarget instanceof Node&&box.contains(event.relatedTarget))return;setTimeout(()=>{if(!box.contains(document.activeElement))hide();},0);});
 }
