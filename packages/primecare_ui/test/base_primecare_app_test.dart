@@ -1,3 +1,5 @@
+import 'package:flutter_core/theme/theme_settings_provider.dart';
+import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart' show AppShellBoundary;
@@ -79,6 +81,16 @@ void main() {
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     await EasyLocalization.ensureInitialized();
+  });
+  testWidgets('personal theme updates Material and PrimeTheme from one shared root', (tester) async {
+    final router=await mount(tester,(r)=>ThemedApp(r));
+    final scope=ProviderScope.containerOf(tester.element(find.byType(ThemedApp)),listen:false);
+    await scope.read(themeSettingsProvider.notifier).applyPersonalTheme(PersonalTheme(name:'My theme',preset:'dark1',fontScale:1.25,radius:16,colors:{'primary':'#ffffff'}));
+    await tester.pumpAndSettle();
+    final material=tester.widget<MaterialApp>(find.byType(MaterialApp));final prime=tester.widget<PrimeTheme>(find.byType(PrimeTheme));
+    expect(material.theme!.colorScheme.primary,const Color(0xffffffff));expect(material.theme!.colorScheme.onPrimary,const Color(0xff000000));
+    expect(prime.data.colors.primary,material.theme!.colorScheme.primary);expect(prime.data.radiusDefault,16);expect(prime.data.typography.bodyMedium.fontSize,const PrimeTypography().bodyMedium.fontSize! * 1.25);
+    await tester.pumpWidget(const SizedBox());router.dispose();
   });
   testWidgets(
     'themed root retains router, title, localization and shell order',
