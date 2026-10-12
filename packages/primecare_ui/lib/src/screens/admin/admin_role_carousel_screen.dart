@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import '../../localization/admin_role_carousel_text.dart';
 
 /// Admin screen representing the Role Screen Carousel system.
 class AdminRoleCarouselScreen extends ConsumerStatefulWidget {
@@ -14,6 +15,18 @@ class AdminRoleCarouselScreen extends ConsumerStatefulWidget {
 }
 
 class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScreen> {
+  String _t(String key, {Map<String, String> args = const {}}) =>
+      AdminRoleCarouselText.resolve(Localizations.localeOf(context).languageCode, key, args: args);
+
+  String _bodyCounts(ScreenHealthStatus screen) => _t('bodyCounts', args: {
+    'total': '${screen.screenBodyTotalInteractions}',
+    'buttons': '${screen.screenBodyButtonCount}',
+    'forms': '${screen.screenBodyFormCount}',
+    'filters': '${screen.screenBodyFilterCount}',
+    'tables': '${screen.screenBodyTableActionCount}',
+    'cards': '${screen.screenBodyClickableCardCount}',
+  });
+
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
   String _selectedRoleFilter = 'All'; // 'All', or specific roleKey
@@ -114,7 +127,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
 
     for (final screen in filteredScreens) {
       final rkey = screen.roleKey ?? 'unassigned';
-      final rname = screen.roleName ?? 'Unassigned Roles';
+      final rname = screen.roleName ?? _t('unassigned');
       final rcat = screen.roleCategory ?? 'common';
 
       roleNames[rkey] = rname;
@@ -169,7 +182,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Role Screen Carousel Audits',
+                      _t('title'),
                       style: theme.textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: theme.textTheme.bodyLarge?.color,
@@ -177,7 +190,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Browse and audit high-fidelity user roles, screen completion metrics, and documentation alignment.',
+                      _t('description'),
                       style: theme.textTheme.bodySmall?.copyWith(color: theme.hintColor),
                     ),
                   ],
@@ -185,7 +198,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                 ElevatedButton.icon(
                   onPressed: _loadScreens,
                   icon: const Icon(LucideIcons.refreshCw, size: 16),
-                  label: const Text('Reload Database'),
+                  label: Text(_t('reload')),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.primaryColor,
                     foregroundColor: theme.colorScheme.onPrimary,
@@ -271,36 +284,36 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
             children: [
               _buildKpiCard(
                 theme,
-                title: 'Total Screens / Roles',
+                title: _t('total'),
                 value: '$total / ${150}',
-                subtitle: 'Assigned and classified',
+                subtitle: _t('assigned'),
                 icon: LucideIcons.layers,
                 color: theme.primaryColor,
                 width: cardWidth,
               ),
               _buildKpiCard(
                 theme,
-                title: 'Production Ready vs Incomplete',
+                title: _t('readyIncomplete'),
                 value: '$prodReady / $incomplete',
-                subtitle: 'SLA target: 100% ready',
+                subtitle: _t('target'),
                 icon: LucideIcons.checkCircle2,
                 color: Colors.green,
                 width: cardWidth,
               ),
               _buildKpiCard(
                 theme,
-                title: 'False Progress / Zero Interaction',
+                title: _t('falseZero'),
                 value: '$falseProgress / $zeroInteraction',
-                subtitle: 'Action required now',
+                subtitle: _t('actionRequired'),
                 icon: LucideIcons.alertTriangle,
                 color: Colors.red,
                 width: cardWidth,
               ),
               _buildKpiCard(
                 theme,
-                title: 'Avg Progress / Interactive Objects',
+                title: _t('average'),
                 value: '${avgProgress.toStringAsFixed(1)}% / ${avgInteractive.toStringAsFixed(1)}',
-                subtitle: 'Needing Review: $needingReview screens',
+                subtitle: _t('reviewCount', args: {'count': '$needingReview'}),
                 icon: LucideIcons.activity,
                 color: Colors.amber,
                 width: cardWidth,
@@ -404,11 +417,12 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                     child: TextField(
                       controller: _searchController,
                       decoration: InputDecoration(
-                        hintText: 'Search roles, screens, or route paths...',
+                        hintText: _t('search'),
                         prefixIcon: const Icon(LucideIcons.search, size: 16),
                         suffixIcon: _searchQuery.isNotEmpty
                             ? IconButton(
                                 icon: const Icon(LucideIcons.x, size: 14),
+                                tooltip: _t('clearSearch'),
                                 onPressed: () {
                                   setState(() {
                                     _searchController.clear();
@@ -457,9 +471,9 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                             }
                           },
                           items: [
-                            const DropdownMenuItem<String>(
+                            DropdownMenuItem<String>(
                               value: 'All',
-                              child: Text('All Roles Filter'),
+                              child: Text(_t('allRoles')),
                             ),
                             ...sortedAllRoles.map((entry) {
                               return DropdownMenuItem<String>(
@@ -487,7 +501,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                       });
                     },
                   ),
-                  const Text('Incomplete Screens Only'),
+                  Text(_t('incompleteOnly')),
                   const SizedBox(width: 20),
                   Checkbox(
                     value: _onlyProductionReady,
@@ -497,7 +511,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                       });
                     },
                   ),
-                  const Text('Production Ready Only'),
+                  Text(_t('readyOnly')),
                   const SizedBox(width: 20),
                   Checkbox(
                     value: _onlyFalseProgress,
@@ -507,7 +521,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                       });
                     },
                   ),
-                  const Text('False Progress Only'),
+                  Text(_t('falseOnly')),
                 ],
               ),
             ],
@@ -570,7 +584,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
-                              roleCategory.toUpperCase(),
+                              (AdminRoleCarouselText.contains('category.$roleCategory') ? _t('category.$roleCategory') : roleCategory).toUpperCase(),
                               style: theme.textTheme.labelSmall?.copyWith(
                                 fontSize: context.theme.scaleFont(9),
                                 fontWeight: FontWeight.bold,
@@ -582,7 +596,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        'Screens: $total | Production Ready: $prodReady | Avg Progress: ${avgProg.toStringAsFixed(1)}%',
+                        _t('roleSummary', args: {'total': '$total', 'ready': '$prodReady', 'progress': avgProg.toStringAsFixed(1)}),
                         style: theme.textTheme.bodySmall?.copyWith(color: theme.hintColor),
                       ),
                     ],
@@ -593,10 +607,12 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                   children: [
                     IconButton(
                       icon: const Icon(LucideIcons.chevronLeft),
+                      tooltip: _t('previous'),
                       onPressed: () => _scrollCarousel(roleKey, false),
                     ),
                     IconButton(
                       icon: const Icon(LucideIcons.chevronRight),
+                      tooltip: _t('next'),
                       onPressed: () => _scrollCarousel(roleKey, true),
                     ),
                   ],
@@ -667,8 +683,8 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                   ),
                   child: Text(
                     screen.hardFail
-                        ? 'FAILED'
-                        : (screen.productionReady ? 'PROD READY' : (screen.isPlaceholder ? 'STUB' : 'IN_DEV')),
+                        ? _t('failed')
+                        : (screen.productionReady ? _t('productionReadyBadge') : (screen.isPlaceholder ? _t('stub') : _t('inDevelopment'))),
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: statusColor,
                       fontWeight: FontWeight.bold,
@@ -702,21 +718,21 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildMetaTextItem(theme, 'Component File', screen.componentFile),
-                    _buildMetaTextItem(theme, 'Visual Status', screen.visualStatus ?? 'N/A'),
-                    _buildMetaTextItem(theme, 'Progress', '${screen.progressPercent}%'),
-                    _buildMetaTextItem(theme, 'Screen Body Interactions', '${screen.screenBodyTotalInteractions} (Btn: ${screen.screenBodyButtonCount}, Form: ${screen.screenBodyFormCount}, Filter: ${screen.screenBodyFilterCount}, Table: ${screen.screenBodyTableActionCount}, Card: ${screen.screenBodyClickableCardCount})'),
-                    _buildMetaTextItem(theme, 'Global Navigation Count', '${screen.globalNavigationCount}'),
-                    _buildMetaTextItem(theme, 'Interaction Status', screen.meaningfulInteractionStatus),
-                    _buildMetaTextItem(theme, 'False Progress Stub', screen.falseProgress ? 'YES' : 'NO'),
-                    _buildMetaTextItem(theme, 'Business Ready', screen.businessReady ? 'YES' : 'NO'),
-                    _buildMetaTextItem(theme, 'Business Score', '${screen.businessWorkflowScore}'),
-                    _buildMetaTextItem(theme, 'Role Expectation Score', '${screen.roleExpectationScore}'),
-                    _buildMetaTextItem(theme, 'Missing Business Features', screen.missingBusinessFeatures ?? 'None'),
-                    _buildMetaTextItem(theme, 'Hard Fail Workflow Audit', screen.hardFail ? 'YES - FAILED ROLE EXPECTATIONS' : 'NO'),
-                    _buildMetaTextItem(theme, 'Screen Purpose', screen.screenPurpose ?? 'N/A'),
-                    _buildMetaTextItem(theme, 'Primary User Goal', screen.primaryUserGoal ?? 'N/A'),
-                    _buildMetaTextItem(theme, 'Expected User Actions', screen.expectedUserActions ?? 'N/A'),
+                    _buildMetaTextItem(theme, _t('componentFile'), screen.componentFile),
+                    _buildMetaTextItem(theme, _t('visualStatus'), screen.visualStatus ?? _t('notAvailable')),
+                    _buildMetaTextItem(theme, _t('progress'), '${screen.progressPercent}%'),
+                    _buildMetaTextItem(theme, _t('bodyInteractions'), _bodyCounts(screen)),
+                    _buildMetaTextItem(theme, _t('globalNavigation'), '${screen.globalNavigationCount}'),
+                    _buildMetaTextItem(theme, _t('interactionStatus'), screen.meaningfulInteractionStatus),
+                    _buildMetaTextItem(theme, _t('falseProgress'), screen.falseProgress ? _t('yes') : _t('no')),
+                    _buildMetaTextItem(theme, _t('businessReady'), screen.businessReady ? _t('yes') : _t('no')),
+                    _buildMetaTextItem(theme, _t('businessScore'), '${screen.businessWorkflowScore}'),
+                    _buildMetaTextItem(theme, _t('roleScore'), '${screen.roleExpectationScore}'),
+                    _buildMetaTextItem(theme, _t('missingFeatures'), screen.missingBusinessFeatures ?? _t('none')),
+                    _buildMetaTextItem(theme, _t('hardFail'), screen.hardFail ? _t('failedExpectations') : _t('no')),
+                    _buildMetaTextItem(theme, _t('purpose'), screen.screenPurpose ?? _t('notAvailable')),
+                    _buildMetaTextItem(theme, _t('primaryGoal'), screen.primaryUserGoal ?? _t('notAvailable')),
+                    _buildMetaTextItem(theme, _t('expectedActions'), screen.expectedUserActions ?? _t('notAvailable')),
                   ],
                 ),
               ),
@@ -736,7 +752,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                         GoRouter.of(context).go(screen.routePath);
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Cannot navigate: $e'), backgroundColor: Colors.red),
+                          SnackBar(content: Text(_t('cannotNavigate', args: {'error': '$e'})), backgroundColor: Colors.red),
                         );
                       }
                     },
@@ -748,7 +764,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                       padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
                     child: Text(
-                      'OPEN SCREEN',
+                      _t('open'),
                       style: theme.textTheme.labelLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: context.theme.scaleFont(11),
@@ -759,17 +775,17 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                 const SizedBox(width: 8),
                 IconButton(
                   icon: const Icon(LucideIcons.copy, size: 16),
-                  tooltip: 'Copy File Path',
+                  tooltip: _t('copyPath'),
                   onPressed: () {
                     Clipboard.setData(ClipboardData(text: screen.componentFile));
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Copied component file path to clipboard: ${screen.componentFile.split("/").last}')),
+                      SnackBar(content: Text(_t('copiedPath', args: {'file': screen.componentFile.split('/').last}))),
                     );
                   },
                 ),
                 IconButton(
                   icon: const Icon(LucideIcons.heart, size: 16),
-                  tooltip: 'View Screen Health Details',
+                  tooltip: _t('healthDetails'),
                   onPressed: () => _showHealthDetailsDialog(theme, screen),
                 ),
               ],
@@ -811,7 +827,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
             children: [
               const Icon(LucideIcons.heart, color: Colors.red),
               const SizedBox(width: 8),
-              Text('${screen.screenName} Health'),
+              Text(_t('healthTitle', args: {'name': screen.screenName})),
             ],
           ),
           content: SizedBox(
@@ -821,29 +837,29 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildDetailRow(theme, 'Route Path', screen.routePath),
-                  _buildDetailRow(theme, 'Component File', screen.componentFile),
-                  _buildDetailRow(theme, 'Progress', '${screen.progressPercent}% (Stage ${screen.currentStage})'),
-                  _buildDetailRow(theme, 'Production Ready', screen.productionReady ? 'YES' : 'NO'),
-                  _buildDetailRow(theme, 'False Progress Stub', screen.falseProgress ? 'YES' : 'NO'),
-                  _buildDetailRow(theme, 'Business Ready', screen.businessReady ? 'YES' : 'NO'),
-                  _buildDetailRow(theme, 'Business Score', '${screen.businessWorkflowScore}'),
-                  _buildDetailRow(theme, 'Role Expectation Score', '${screen.roleExpectationScore}'),
-                  _buildDetailRow(theme, 'Missing Business Features', screen.missingBusinessFeatures ?? 'None'),
-                  _buildDetailRow(theme, 'Hard Fail Workflow Audit', screen.hardFail ? 'YES - FAILED ROLE EXPECTATIONS' : 'NO'),
-                  _buildDetailRow(theme, 'Screen Body Interactions', 'Total: ${screen.screenBodyTotalInteractions} (Buttons: ${screen.screenBodyButtonCount}, Forms: ${screen.screenBodyFormCount}, Filters: ${screen.screenBodyFilterCount}, Tables: ${screen.screenBodyTableActionCount}, Cards: ${screen.screenBodyClickableCardCount})'),
-                  _buildDetailRow(theme, 'Global Navigation Count', '${screen.globalNavigationCount}'),
-                  _buildDetailRow(theme, 'Interaction Status', screen.meaningfulInteractionStatus),
-                  _buildDetailRow(theme, 'Interactive Objects', 'Total: ${screen.totalInteractiveObjects} (Buttons: ${screen.buttonCount}, Fields: ${screen.formFieldCount}, Tables/Actions: ${screen.tableActionCount})'),
-                  _buildDetailRow(theme, 'Screen Purpose', screen.screenPurpose ?? 'N/A'),
-                  _buildDetailRow(theme, 'Primary User Goal', screen.primaryUserGoal ?? 'N/A'),
-                  _buildDetailRow(theme, 'Expected User Actions', screen.expectedUserActions ?? 'N/A'),
-                  _buildDetailRow(theme, 'Business Reason', screen.businessReason ?? 'N/A'),
+                  _buildDetailRow(theme, _t('route'), screen.routePath),
+                  _buildDetailRow(theme, _t('componentFile'), screen.componentFile),
+                  _buildDetailRow(theme, _t('progress'), _t('stageProgress', args: {'progress': '${screen.progressPercent}', 'stage': '${screen.currentStage}'})),
+                  _buildDetailRow(theme, _t('productionReady'), screen.productionReady ? _t('yes') : _t('no')),
+                  _buildDetailRow(theme, _t('falseProgress'), screen.falseProgress ? _t('yes') : _t('no')),
+                  _buildDetailRow(theme, _t('businessReady'), screen.businessReady ? _t('yes') : _t('no')),
+                  _buildDetailRow(theme, _t('businessScore'), '${screen.businessWorkflowScore}'),
+                  _buildDetailRow(theme, _t('roleScore'), '${screen.roleExpectationScore}'),
+                  _buildDetailRow(theme, _t('missingFeatures'), screen.missingBusinessFeatures ?? _t('none')),
+                  _buildDetailRow(theme, _t('hardFail'), screen.hardFail ? _t('failedExpectations') : _t('no')),
+                  _buildDetailRow(theme, _t('bodyInteractions'), _bodyCounts(screen)),
+                  _buildDetailRow(theme, _t('globalNavigation'), '${screen.globalNavigationCount}'),
+                  _buildDetailRow(theme, _t('interactionStatus'), screen.meaningfulInteractionStatus),
+                  _buildDetailRow(theme, _t('interactiveObjects'), _t('objectCounts', args: {'total': '${screen.totalInteractiveObjects}', 'buttons': '${screen.buttonCount}', 'fields': '${screen.formFieldCount}', 'tables': '${screen.tableActionCount}'})),
+                  _buildDetailRow(theme, _t('purpose'), screen.screenPurpose ?? _t('notAvailable')),
+                  _buildDetailRow(theme, _t('primaryGoal'), screen.primaryUserGoal ?? _t('notAvailable')),
+                  _buildDetailRow(theme, _t('expectedActions'), screen.expectedUserActions ?? _t('notAvailable')),
+                  _buildDetailRow(theme, _t('businessReason'), screen.businessReason ?? _t('notAvailable')),
                   const SizedBox(height: 12),
-                  const Text('Missing Implementation Items:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(_t('missingItems'), style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 4),
                   if (screen.missingItems.isEmpty)
-                    const Text('None! Screen is fully production-ready.')
+                    Text(_t('noMissingItems'))
                   else
                     ...screen.missingItems.map((item) => Padding(
                           padding: const EdgeInsets.only(bottom: 2),
@@ -863,7 +879,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                           ),
                         )),
                   const SizedBox(height: 12),
-                  _buildDetailRow(theme, 'Next Suggested Action', screen.nextAction.isNotEmpty ? screen.nextAction : 'None'),
+                  _buildDetailRow(theme, _t('nextAction'), screen.nextAction.isNotEmpty ? screen.nextAction : _t('none')),
                 ],
               ),
             ),
@@ -871,7 +887,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Close'),
+              child: Text(_t('close')),
             ),
           ],
         );
@@ -902,7 +918,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
           const Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
           const SizedBox(height: 12),
           Text(
-            'No screens matched your criteria.',
+            _t('empty'),
             style: theme.textTheme.titleMedium?.copyWith(color: theme.hintColor),
           ),
         ],
