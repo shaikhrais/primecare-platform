@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import '../../localization/admin_reality_filter_text.dart';
 
 /// Admin screen representing the Reality Check auditing dashboard.
 class AdminRealityCheckScreen extends ConsumerStatefulWidget {
@@ -10,6 +11,8 @@ class AdminRealityCheckScreen extends ConsumerStatefulWidget {
 }
 
 class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScreen> {
+  String _filterText(String key) => AdminRealityFilterText.resolve(Localizations.localeOf(context).languageCode, key);
+
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
   String _realityFilter = 'All'; // 'All', 'Zero Interaction', 'Low Interaction', 'Unclear Purpose', 'No User Value', 'False Progress'
@@ -339,7 +342,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                 child: TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    hintText: 'Search route, name, or purpose...',
+                    hintText: _filterText('search'),
                     prefixIcon: const Icon(LucideIcons.search, size: 18),
                     suffixIcon: _searchQuery.isNotEmpty
                         ? IconButton(
@@ -400,7 +403,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text('$value Filter'),
+                          child: Text(_filterText(value)),
                         );
                       }).toList(),
                     ),
@@ -413,7 +416,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
               IconButton(
                 icon: const Icon(LucideIcons.refreshCw),
                 onPressed: _loadScreens,
-                tooltip: 'Reload database check metrics',
+                tooltip: _filterText('reload'),
               ),
             ],
           ),

@@ -26,7 +26,17 @@ remain unchanged. Unknown role-category codes remain visible as record data.
 An empty missing-items list is described as empty; it is not treated as proof
 of production readiness.
 
-Scope: this screen is covered. Admin Reality Check, Screenshot Gallery,
+Reality Check's search placeholder, six filter display labels and reload
+tooltip now resolve eight shared en/es/fr resources. Stored filter identifiers
+stay unchanged, and locale changes preserve the selected filter and typed query.
+The widget test checks this against zero-interaction and active screen records.
+Run `python3 scripts/register-admin-reality-filters.py` to register and export;
+`--check` validates the export against a read-only governance copy with the
+migration applied. Translation rows are pending language review. The binary
+database is excluded from the code change.
+
+Scope: the carousel and Reality Check filter bar are covered. Reality Check's
+header, KPI cards, status pills and detail labels, Screenshot Gallery,
 Theme Center's remaining raw option labels and other legacy screens still
 need their own localization migrations. This is not an application-wide
 translation-completion claim. Responsive testing of this legacy admin screen
