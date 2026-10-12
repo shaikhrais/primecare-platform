@@ -1,3 +1,4 @@
+import {mountLayoutCustomizer} from './layout-customizer';
 import {bindSidebar} from './sidebar';
 import {mountNavigation,type NavigationLocale,type SearchEntry} from './navigation';
 type ShellContent={home:string;role:string;description?:string;navigation:string;controls:string;content:string;mainAttributes?:string;menuLabel?:string};
@@ -20,7 +21,8 @@ export function renderShell(root:HTMLElement,options:ShellContent):void {
  }
  shells.set(root,options);
 }
-export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,scope:string,entries:()=>SearchEntry[]):void {
+export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,scope:string,entries:()=>SearchEntry[],profileScope?:string):void {
  bindSidebar(root);
  mountNavigation(root.querySelector<HTMLElement>('[data-cy=global-navigation]')!,title,locale,scope,entries);
+ if(profileScope)mountLayoutCustomizer(root,profileScope,locale);
 }

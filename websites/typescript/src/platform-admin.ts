@@ -34,7 +34,7 @@ ${view==='audit'&&selected?`<section id="audit" class="section"><h2 tabindex="-1
  ...tenants.map(t=>({title:t.name,detail:t.slug+' · '+text('tenant'),open:()=>{selected=t.id;view='accounts';users=[];records=[];events=[];void action(async()=>{await load();});}})),
  ...users.map(u=>({title:u.email,detail:u.roles+' · '+text('accounts'),open:()=>jump('accounts')})),
  ...records.map(r=>({title:r.label,detail:r.type+' / '+r.code+' · '+text('masters'),open:()=>jump('masters')})),
- ...Array.from(reports?.querySelectorAll<HTMLOptionElement>('[data-cy=report-select] option')??[]).map(o=>({title:o.textContent!,detail:text('reports'),open:()=>{const select=reports!.querySelector<HTMLSelectElement>('[data-cy=report-select]')!;select.value=o.value;select.dispatchEvent(new Event('change'));jump('reports');}}))]);
+ ...Array.from(reports?.querySelectorAll<HTMLOptionElement>('[data-cy=report-select] option')??[]).map(o=>({title:o.textContent!,detail:text('reports'),open:()=>{const select=reports!.querySelector<HTMLSelectElement>('[data-cy=report-select]')!;select.value=o.value;select.dispatchEvent(new Event('change'));jump('reports');}}))], 'platform_admin:'+actor);
  root.querySelectorAll<HTMLInputElement|HTMLButtonElement|HTMLSelectElement>('input,button,select').forEach(e=>{if(!reports?.contains(e))e.disabled=busy;});
  root.querySelector<HTMLButtonElement>('[data-cy=platform-refresh]')!.onclick=()=>void action(async()=>load(true));
  root.querySelector<HTMLButtonElement>('[data-cy=platform-logout]')!.onclick=()=>void action(async()=>{await fetch(gateway.replace(/\/+$/,'')+'/v1/auth/logout',{method:'POST',headers:{authorization:'Bearer '+token}});sessionStorage.removeItem('primecare_session');location.assign('/login');});
