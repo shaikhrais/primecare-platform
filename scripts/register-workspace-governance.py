@@ -229,9 +229,11 @@ with sqlite3.connect(DB) as db:
     route_map={s['route']:s['code'] for s in screens if s['route'] and s['renderer']!='account'}
     dart='// Generated from governance.db by register-workspace-governance.py.\n'
     dart+='const governedWorkspaceRoutes = <String, String>'+json.dumps(route_map,indent=2)+';\n'
-    dart+='const governedWorkspaceRoleRoutes = <String, List<String>>'+json.dumps({r:[s['route'] for s in screens if s['renderer']!='account' and any(g['role']==r and g['view'] for g in s['grants'])] for r in roles},indent=2)+';\n'
+    dart+='const governedWorkspaceRoleRoutes = <String, List<String>>'+json.dumps({r:[s['route'] for s in screens if s['renderer']!='account' and any(g['role']==r and g['view'] for g in s['grants'])] for r in roles if r!='platform_admin'},indent=2)+';\n'
     landings={}
     for code,role in roles.items():
+        # Platform administration is a website console, not a Flutter workspace route.
+        if code=='platform_admin': continue
         allowed=[s for s in screens if s['renderer']!='account' and any(g['role']==code and g['view'] for g in s['grants'])]
         if allowed:
             configured=next((s for s in allowed if s['route']==role['post_login_route']),None)
