@@ -16,7 +16,8 @@ Color readableThemeForeground(Color background, Color candidate) {
 
 /// Keep all stops readable with the same foreground as the primary color.
 List<Color> readableThemeGradient(Color background, Color foreground) {
-  final toward = foreground.computeLuminance() > .5 ? Colors.black : Colors.white;
+  final toward = foreground.computeLuminance() > background.computeLuminance()
+      ? Colors.black : Colors.white;
   return [background, Color.lerp(background, toward, .12)!,
     Color.lerp(background, toward, .24)!];
 }

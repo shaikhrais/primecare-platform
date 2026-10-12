@@ -6,6 +6,12 @@ import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
 
 void main() {
+  test('gradient keeps a mid-tone readable foreground above the contrast threshold', () {
+    const foreground = Color(0xff777777);
+    for (final stop in readableThemeGradient(Colors.black, foreground)) {
+      expect(themeContrastRatio(stop, foreground), greaterThanOrEqualTo(4.5));
+    }
+  });
   test('all palettes replace legacy filled inputs and retain readable gradients', () {
     final branding = ThemeData(
       cardTheme: const CardThemeData(color: Colors.white, elevation: 7),
