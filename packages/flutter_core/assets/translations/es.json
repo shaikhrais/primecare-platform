@@ -4558,5 +4558,6 @@
     "login_slogan_6": "CAPA 4 DE SEGURIDAD EMPRESARIAL",
     "login_slogan_7": "PROTECCIÓN DE IDENTIDAD DESCENTRALIZADA",
     "login_slogan_8": "VALIDACIÓN DE PARIDAD CONTINUA",
-    "login_slogan_9": "REGISTRO DE GOBERNANZA REFORZADO"
+    "login_slogan_9": "REGISTRO DE GOBERNANZA REFORZADO",
+    "auth_flow_unavailable": "Esta función de autenticación aún no está disponible. Comuníquese con su administrador."
 }
