@@ -8,6 +8,12 @@ individual app translation files do not need duplicate copies of these keys.
 The active Material locale selects the catalog, so language changes rebuild
 labels while preserving the search controller and filters.
 
+`scripts/audit-ui-localization.py` inventories direct Flutter text candidates
+and compares existing en/es/fr JSON catalogs for missing keys, empty values
+and named/positional placeholder differences. Identical values are reported
+for review, not automatically treated as translation defects. Existing
+catalog gaps are reported without marking unrelated legacy screens complete.
+
 After editing JSON sources, run `python3 scripts/check-admin-localization.py`.
 CI runs `python3 scripts/check-admin-localization.py --check`: it verifies key
 parity, nonempty values, named interpolation parameters, referenced keys,
