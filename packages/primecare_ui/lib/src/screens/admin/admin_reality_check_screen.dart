@@ -508,7 +508,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                       '${screen.totalInteractiveObjects} items',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 12,
+                        fontSize: context.theme.scaleFont(12),
                         color: isZero ? Colors.red : isLow ? Colors.orange : Colors.green,
                       ),
                     ),
@@ -547,7 +547,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                   const Expanded(
                     child: Text(
                       'ZERO INTERACTION ALERT: Screen has no transactional value. Verify and add actions or consolidate route.',
-                      style: TextStyle(color: Colors.red, fontSize: 12, fontWeight: FontWeight.w600),
+                      style: theme.textTheme.bodySmall?.copyWith(color: Colors.red, fontSize: context.theme.scaleFont(12), fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
@@ -569,7 +569,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                   const Expanded(
                     child: Text(
                       'LOW INTERACTION WARNING: Review screen value. Less than 3 interactive objects found.',
-                      style: TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.w600),
+                      style: theme.textTheme.bodySmall?.copyWith(color: Colors.orange, fontSize: context.theme.scaleFont(12), fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
@@ -699,8 +699,8 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
       ),
       child: Text(
         status.replaceAll('_', ' '),
-        style: TextStyle(
-          fontSize: 8,
+        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+          fontSize: context.theme.scaleFont(8),
           fontWeight: FontWeight.bold,
           color: text,
         ),
@@ -716,10 +716,10 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
         borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
       ),
-      child: const Text(
+      child: Text(
         'NEEDS REVIEW',
-        style: TextStyle(
-          fontSize: 8,
+        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+          fontSize: context.theme.scaleFont(8),
           fontWeight: FontWeight.bold,
           color: Colors.red,
         ),
