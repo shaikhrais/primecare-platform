@@ -1,20 +1,23 @@
-# Admin website workflow acceptance
+# Platform and tenant administration
 
-The TypeScript website now mounts the shared report panel only on report surfaces returned by the authenticated workspace API. It uses the existing governed catalog, report generation, PDF and email endpoints. Labels and capabilities come from the server; English, French and Spanish are supported. Reports include provenance and a bounded, escaped table preview. Browser downloads validate the PDF signature. Changing filters or language invalidates the preview and consent. Recipient or message changes invalidate consent.
+The selected model is a separate `platform_admin` role. Ordinary tenant admins and CEOs retain their existing authority; neither can promote itself to platform administration. The platform role provisions canonical `tenants` records, manages tenant-scoped accounts and roles, manages reference metadata (locations, departments and service categories), reads administration audits and produces a platform metadata report. Clinical records and billing transactions are outside this console.
 
-An email request carries an idempotency key and explicit recipient consent. A pending marker is saved before sending, scoped to user and report. Unknown outcomes remain blocked across redraws, navigation and refresh; successful acceptance clears the marker. The UI reports provider acceptance without claiming inbox delivery. Known validation failures permit correction; uncertain responses do not trigger automatic resends.
+## Central contracts and control
 
-Browser acceptance tests use the real website bundle, governed portal theme and actual PDF renderer with synthetic data. All browser requests are restricted to the loopback test server. Backend report policy, PostgreSQL integration and API regression tests run independently. The fixture recording is not evidence of live production delivery.
+The `platform_administration_policy` is enforced by the governance Worker through the shared business-module registry. Eleven exact operations are registered by `register-platform-admin-role.py`; `platform-admin.openapi.json` describes their methods, fields, path scope, errors and idempotency. The registration script is an additive, versioned governance overlay on the tracked seed and runs during website/report generation. It creates role/screen/API metadata, not user accounts. Generated report policy includes the platform report and preserves all existing organization authority. Source provenance refreshes describe these additive routes; unresolved legacy APIs receive zero implementation credits.
 
-## Unresolved domain contracts
+Tenant creation writes the existing `tenants` table, including its required update timestamp. The migration adapts master/audit foreign keys to existing text or UUID tenant/user identifiers. It never rewrites the core identity tables. New accounts derive their tenant from the route and cannot receive `platform_admin`. Role/status changes revoke all target sessions. Platform accounts and the actor's own account cannot be modified through this console. No clinical rows, password hashes or session tokens are returned by administrative reads.
 
-These remain unresolved rather than being replaced with fabricated actions:
+Every mutation requires an idempotency key, has an actor-specific attempt budget and commits the domain mutation, verified audit and verified replay record atomically. Duplicate submissions return the original response; changed payloads conflict. Master-record updates require the current version. Audit failures roll back business changes. Lists show a maximum of 100 rows; platform reports reject results beyond the shared 1,000-row report bound.
 
-| Task | Existing authority or contract | Required decision/implementation |
-| --- | --- | --- |
-| Account creation, role/status changes, session administration | Auth APIs explicitly restrict mutations to CEO in the actor's tenant | Define delegation for admin in the central account policy before exposing or widening mutations |
-| Tenant creation | No verified admin tenant-provisioning API | Define platform versus tenant administrator authority, tenant ownership, provisioning and audit/rollback semantics |
-| Master records | No defined admin master-record entity contract | Define entity registry, schema, scope, validation, duplicate handling, audit and delete semantics |
-| Invoice, claim, payment, refund and reconciliation pages | Pages exist but domain data/actions are not wired | Define transaction, approval, accounting and reconciliation contracts; preserve authorization and idempotency |
+## Website workflows
 
-A successful page-navigation test does not mark a business workflow complete. Existing governance readiness values are preserved. The website reporting integration is an additive fix; it does not complete tenant provisioning or billing workflows.
+The website uses the actual governed theme and centralized English/French/Spanish platform labels. Login routes the platform role to `/platform/administration`; the console API validates authority independently. Tenant selection scopes accounts, master records and audits. Reference records use reversible active/inactive status instead of deletion. Patient and accounting workflows are explicitly outside this role's task inventory.
+
+The shared report panel is also mounted on tenant reporting surfaces returned by the authenticated workspace API. It uses the existing catalog, report generation, PDF and email endpoints. Report labels and capabilities come from the server. Filters or language changes invalidate the previous preview and consent; recipient/message edits invalidate consent. Previews escape data and show at most 50 rows; PDFs contain the complete bounded report. Browser downloads validate PDF bytes. Email requires recipient consent and an idempotency key. Unknown outcomes remain blocked across redraws, navigation and refresh; acceptance is distinguished from inbox delivery.
+
+## Validation and release
+
+The platform acceptance suite tests real PostgreSQL migrations, canonical tenant/user foreign keys, text and UUID identities, denied ordinary roles, replay/concurrency, cross-tenant target denial, stale master updates, audit rollback and mutation rate limits. The browser suite records the actual website against actual authentication/platform/report Worker handlers and an isolated PostgreSQL schema. Only the mail provider binding is mocked; no live email or production data is used. Existing report/API/Flutter regressions continue independently.
+
+Apply `20261011_platform_administration.sql` through the normal release migration process. The production deployment workflow already applies all migrations. First-role provisioning uses the protected `Bootstrap first platform administrator` workflow with production environment controls, explicit `CREATE_FIRST_PLATFORM_ADMIN`, an existing active root tenant and dedicated email/password secrets. It is one-time, audited and refuses to overwrite or promote an existing account. This workflow is provided but not executed by the development task. Deploy Workers and website together after validation, then verify authenticated production behavior and mail configuration. Build and test success does not imply deployment, signing or real email delivery.

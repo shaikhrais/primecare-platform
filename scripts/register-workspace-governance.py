@@ -73,6 +73,8 @@ runpy.run_path(str(ROOT/'scripts/reconcile-provider-profile-declaration.py'),run
 method_blockers = runpy.run_path(str(ROOT/'scripts/register-method-capture-blockers.py'))
 with sqlite3.connect(DB) as blocker_db:
     method_blockers['reconcile'](blocker_db)
+with sqlite3.connect(DB) as platform_db:
+    runpy.run_path(str(ROOT/'scripts/register-platform-admin-role.py'))['register'](platform_db,apis=True)
 runpy.run_path(str(ROOT/'scripts/generate-api-execution-inventory.py'))
 with sqlite3.connect(DB) as db:
     db.row_factory = sqlite3.Row

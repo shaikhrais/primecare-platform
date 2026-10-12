@@ -2040,7 +2040,8 @@ const governedWorkspaceRoleRoutes = <String, List<String>>{
   "maintenance": [
     "/management/screen-progress-dashboard",
     "/admin/screen-health"
-  ]
+  ],
+  "platform_admin": []
 };
 const governedWorkspaceLandings = <String, String>{
   "chiropractor": "/offices/clinical/roles/chiropractor/dashboard",

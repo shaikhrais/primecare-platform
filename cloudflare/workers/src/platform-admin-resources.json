@@ -37,7 +37,8 @@
     "master_updated": "Master record updated.",
     "active": "Active",
     "inactive": "Inactive",
-    "working": "Working"
+    "working": "Working",
+    "choose_role": "Choose a role"
   },
   "fr": {
     "title": "Administration de la plateforme",
@@ -77,7 +78,8 @@
     "master_updated": "Donnée de référence modifiée.",
     "active": "Actif",
     "inactive": "Inactif",
-    "working": "En cours"
+    "working": "En cours",
+    "choose_role": "Choisir un rôle"
   },
   "es": {
     "title": "Administración de la plataforma",
@@ -117,6 +119,7 @@
     "master_updated": "Dato de referencia actualizado.",
     "active": "Activo",
     "inactive": "Inactivo",
-    "working": "En proceso"
+    "working": "En proceso",
+    "choose_role": "Elegir rol"
   }
 }

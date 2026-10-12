@@ -26,7 +26,7 @@ const fixture=(role='ceo',tenant='tenant-a')=>{
  };return queries;
 };
 test('every created page has a governed route, sections and grants; readiness is never invented',()=>{
- assert.equal(registry.screens.length,948);
+ assert.equal(registry.screens.length,949);
  for(const s of registry.screens.filter(s=>s.renderer!=='account')){
   assert.ok(s.route.startsWith('/'),s.code);assert.ok(s.sections.length,s.code);
   assert.ok(s.grants.length,s.code);assert.equal(s.productionReady,false,s.code);

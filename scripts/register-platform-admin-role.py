@@ -1,7 +1,7 @@
 """Register a distinct platform role; do not assign it to existing users."""
 import sqlite3,json
 from pathlib import Path
-def register(db):
+def register(db, apis=False):
     db.execute("INSERT OR IGNORE INTO roles(role_code,role_name,role_type,active,primary_app_code,post_login_route) VALUES('platform_admin','Platform Administrator','Infrastructure',1,'go','/platform/administration')")
     db.execute("UPDATE roles SET role_name='Platform Administrator',primary_app_code='go',post_login_route='/platform/administration' WHERE role_code='platform_admin'")
     role=db.execute("SELECT id FROM roles WHERE role_code='platform_admin'").fetchone()[0]
@@ -10,6 +10,7 @@ def register(db):
     screen=db.execute("SELECT id FROM screens WHERE screen_code='PLATFORM_ADMINISTRATION'").fetchone()[0]
     db.execute("INSERT OR IGNORE INTO role_screen_permissions(role_id,screen_id,can_view,can_create,can_edit) VALUES(?,?,1,1,1)",(role,screen))
 
+    if not apis: return
     api_app=db.execute("SELECT id FROM apps WHERE app_code='gv'").fetchone()[0]
     routes=[('GET',''),('GET','/tenants'),('POST','/tenants'),('GET','/tenants/{tenantId}'),('GET','/tenants/{tenantId}/accounts'),('POST','/tenants/{tenantId}/accounts'),('PATCH','/tenants/{tenantId}/accounts/{userId}'),('GET','/tenants/{tenantId}/masters'),('POST','/tenants/{tenantId}/masters'),('PATCH','/tenants/{tenantId}/masters/{recordId}'),('GET','/tenants/{tenantId}/audit')]
     for method,suffix in routes:

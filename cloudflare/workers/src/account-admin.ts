@@ -69,7 +69,7 @@ export async function accountAdministration(db:Client,actor:Actor,input:AdminInp
     return {status:200,body:{events:recordRows(pageRows(rows,input.limit,input.offset,total),input.limit).map(r=>{if(typeof r.action!=='string' || !['account_updated','sessions_revoked'].includes(r.action))throw Error('Invalid account audit action');return {...auditIdentity(r,input.userId),action:r.action,previous:safeState(r.previous),current:safeState(r.current)};}),pagination:pagination(input,total)}};
   }
   if(input.operation==='sessions_revoke'&&input.userId.toLowerCase()===String(actor.id).toLowerCase())return {status:403,body:{error:'Self revocation is not allowed'}};
-  const target=optionalRow((await db.query('SELECT id FROM users WHERE id::text=$1 AND tenant_id::text=$2'+(input.operation==='sessions_revoke'?' FOR UPDATE':''),[input.userId,String(actor.tenant_id)])).rows);
+  const target=optionalRow((await db.query("SELECT id FROM users WHERE id::text=$1 AND tenant_id::text=$2 AND roles IS DISTINCT FROM 'platform_admin'"+(input.operation==='sessions_revoke'?' FOR UPDATE':''),[input.userId,String(actor.tenant_id)])).rows);
   if(!target)return {status:404,body:{error:'Account not found'}};
   if(accountId(target.id)!==input.userId)throw Error('Invalid session target binding');
   if(input.operation==='sessions_revoke') {

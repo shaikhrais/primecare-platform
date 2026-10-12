@@ -36,7 +36,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     root.querySelector('button')?.addEventListener('click',()=>void renderWorkspace(root,gateway));return;
   }
   const reportPanels=new Map<string,HTMLElement>();
-  if(data.identity.role==='platform_admin'){location.assign('/platform/administration');return;}
+  if(data.identity.role==='platform_admin'&&location.pathname!=='/success'){location.assign('/platform/administration');return;}
   let search='';let pendingOnly=false;let pageNumber=0;
   const t=(key:string)=>escapeHtml(data.resources['workspace.'+key]??key);
   const link=(page:Page)=>`<a href="${escapeHtml(routeUrl(page.route))}" data-route="${escapeHtml(page.route)}" data-cy="sidebar-item-${escapeHtml(page.code)}">${escapeHtml(page.name)}</a>`;

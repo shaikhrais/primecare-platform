@@ -29,7 +29,7 @@ jobs:
           ln -s "$RUNNER_TEMP/platform-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - name: Validate authority, persistence, concurrency and rollback
-        run: node --test scripts/test-platform-administration-postgres.mjs
+        run: node --test scripts/test-platform-bootstrap.mjs scripts/test-platform-administration-postgres.mjs
       - name: Build actual website from governed metadata
         run: |
           python3 scripts/register-platform-admin-role.py

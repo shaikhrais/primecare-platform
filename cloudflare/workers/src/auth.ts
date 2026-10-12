@@ -60,7 +60,7 @@ export async function withDb<T>(env: Env, operation: (client: Client) => Promise
 }
 
 class RequestTooLarge extends Error {}
-function bodyFailure(error: unknown, message: string, headers: HeadersInit): Response {
+export function bodyFailure(error: unknown, message: string, headers: HeadersInit): Response {
   return error instanceof RequestTooLarge ? json({error:'Request too large'},413,headers) : json({error:message},400,headers);
 }
 
