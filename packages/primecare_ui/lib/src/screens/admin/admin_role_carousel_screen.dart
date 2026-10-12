@@ -572,7 +572,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                             child: Text(
                               roleCategory.toUpperCase(),
                               style: theme.textTheme.labelSmall?.copyWith(
-                                fontSize: 9,
+                                fontSize: context.theme.scaleFont(9),
                                 fontWeight: FontWeight.bold,
                                 color: theme.hintColor,
                               ),
@@ -669,10 +669,10 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                     screen.hardFail
                         ? 'FAILED'
                         : (screen.productionReady ? 'PROD READY' : (screen.isPlaceholder ? 'STUB' : 'IN_DEV')),
-                    style: TextStyle(
+                    style: theme.textTheme.labelSmall?.copyWith(
                       color: statusColor,
                       fontWeight: FontWeight.bold,
-                      fontSize: 10,
+                      fontSize: context.theme.scaleFont(10),
                     ),
                   ),
                 ),
@@ -685,7 +685,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
               screen.routePath,
               style: theme.textTheme.bodySmall?.copyWith(
                 fontFamily: 'monospace',
-                fontSize: 11,
+                fontSize: context.theme.scaleFont(11),
                 color: theme.hintColor,
               ),
               maxLines: 1,
@@ -747,7 +747,13 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(context.theme.radiusDefault)),
                       padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
-                    child: const Text('OPEN SCREEN', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
+                    child: Text(
+                      'OPEN SCREEN',
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: context.theme.scaleFont(11),
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -845,7 +851,14 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                             children: [
                               const Icon(Icons.close, color: Colors.red, size: 14),
                               const SizedBox(width: 6),
-                              Expanded(child: Text(item, style: const TextStyle(fontSize: 12))),
+                              Expanded(
+                                child: Text(
+                                  item,
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    fontSize: context.theme.scaleFont(12),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         )),
