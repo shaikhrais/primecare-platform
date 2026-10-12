@@ -15,10 +15,10 @@ ThemeData applyPersonalThemeData(ThemeData baseTheme,PersonalTheme personal) {
     final resolvedPrimary=resolved('primary',palette.primary),resolvedPrimaryContainer=resolved('primaryContainer',palette.primaryContainer),resolvedSidebarBg=resolved('sidebar',palette.sidebarBackground),resolvedTopbarBg=resolved('topbar',palette.topbarBackground),background=resolved('background',palette.background),surface=resolved('surface',palette.surface),text=resolved('text',palette.textPrimary),muted=resolved('muted',palette.textSecondary),border=resolved('border',palette.divider);
     
     Color commonForeground(Color candidate) {double ratio(Color a,Color b){final x=a.computeLuminance(),y=b.computeLuminance();return (x>y?(x+.05)/(y+.05):(y+.05)/(x+.05));}return [candidate,Colors.black,Colors.white].firstWhere((c)=>ratio(c,background)>=4.5 && ratio(c,surface)>=4.5);}
-    final readable=commonForeground(text);
+    final readable=commonForeground(text),readableMuted=commonForeground(muted);
     final fontFamily=style.fontFamily=='system'?null:style.fontFamily;
     return baseTheme.copyWith(
-      primaryColor:resolvedPrimary,scaffoldBackgroundColor:background,dividerColor:border,
+      primaryColor:resolvedPrimary,scaffoldBackgroundColor:background,dividerColor:border,hintColor:readableMuted,
       textTheme:baseTheme.textTheme.apply(fontFamily:fontFamily,fontSizeFactor:style.fontScale,bodyColor:readable,displayColor:readable),
       cardTheme:CardThemeData(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()))),
       inputDecorationTheme:baseTheme.inputDecorationTheme.copyWith(border:OutlineInputBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()))),
@@ -26,7 +26,7 @@ ThemeData applyPersonalThemeData(ThemeData baseTheme,PersonalTheme personal) {
       outlinedButtonTheme:OutlinedButtonThemeData(style:OutlinedButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))),
       textButtonTheme:TextButtonThemeData(style:TextButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))),
       elevatedButtonTheme:ElevatedButtonThemeData(style:ElevatedButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))),
-      colorScheme:baseTheme.colorScheme.copyWith(brightness:palette.brightness,primary:resolvedPrimary,onPrimary:foreground(resolvedPrimary,palette.onPrimary),primaryContainer:resolvedPrimaryContainer,secondary:resolved('secondary',palette.secondary),surface:surface,onSurface:readable,outline:border),
+      colorScheme:baseTheme.colorScheme.copyWith(brightness:palette.brightness,primary:resolvedPrimary,onPrimary:foreground(resolvedPrimary,palette.onPrimary),primaryContainer:resolvedPrimaryContainer,secondary:resolved('secondary',palette.secondary),surface:surface,onSurface:readable,onSurfaceVariant:readableMuted,outline:border),
       extensions:[...baseTheme.extensions.values.where((e)=>e is! GovernanceThemeColors),GovernanceThemeColors(sidebarBackground:resolvedSidebarBg,topbarBackground:resolvedTopbarBg,sidebarTextColor:foreground(resolvedSidebarBg,muted),sidebarSelectedTextColor:foreground(surface,text),sidebarIconColor:foreground(resolvedSidebarBg,muted),sidebarSelectedIconColor:foreground(surface,text),sidebarSelectedTileColor:surface,sidebarDividerColor:border,topbarTextColor:foreground(resolvedTopbarBg,muted),topbarSelectedTextColor:foreground(resolvedTopbarBg,text),topbarIconColor:foreground(resolvedTopbarBg,muted),topbarSelectedIconColor:foreground(resolvedTopbarBg,text),topbarDividerColor:border)],
     );
 
