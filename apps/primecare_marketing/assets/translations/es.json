@@ -4623,5 +4623,6 @@
     "auth_design_signed_out": "Volver al inicio de sesión",
     "ceo_workspace_title": "Espacio del director ejecutivo",
     "ceo_workspace_pending": "Los datos del panel de gestión aún no están disponibles.",
-    "ceo_workspace_account": "Mi cuenta"
+    "ceo_workspace_account": "Mi cuenta",
+    "auth_flow_unavailable": "Esta función de autenticación aún no está disponible. Comuníquese con su administrador."
 }

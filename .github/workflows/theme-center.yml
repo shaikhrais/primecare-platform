@@ -1,7 +1,7 @@
 name: Theme Center shared native and website suite
 on:
   pull_request:
-    paths: ['websites/typescript/**', 'packages/domain/src/theme_center.ts', 'packages/flutter_core/lib/theme/**', 'packages/flutter_core/lib/registry/widgets/**', 'packages/flutter_core/test/theme*.dart', 'packages/primecare_ui/lib/src/theme/**', 'packages/primecare_ui/lib/src/localization/**', 'packages/primecare_ui/lib/src/components/governance_components.dart', 'packages/primecare_ui/lib/src/screens/admin/**', 'packages/primecare_ui/test/admin_role_carousel_localization_test.dart', 'packages/primecare_ui/test/theme_consumers_test.dart', 'packages/primecare_ui/test/fixtures/generated_theme_fixture.dart', 'apps/primecare_enterprise_blueprint/**', 'scripts/check-admin-localization.py', 'scripts/audit-ui-localization.py', 'scripts/implement_screens_from_db.py', 'scripts/test-theme-center-browser.mjs', 'scripts/generate-theme-center-catalog.mjs', 'scripts/fuse_presets.json', '.github/workflows/theme-center.yml']
+    paths: ['websites/typescript/**', 'packages/domain/src/theme_center.ts', 'packages/flutter_core/lib/theme/**', 'packages/flutter_core/lib/registry/widgets/**', 'packages/flutter_core/test/theme*.dart', 'packages/primecare_ui/lib/src/theme/**', 'packages/primecare_ui/lib/src/localization/**', 'packages/primecare_ui/lib/src/components/governance_components.dart', 'packages/primecare_ui/lib/src/screens/admin/**', 'packages/primecare_ui/test/admin_role_carousel_localization_test.dart', 'packages/primecare_ui/test/auth_unavailable_localization_test.dart', 'apps/**/assets/translations/**', 'packages/flutter_core/assets/translations/**', 'packages/flutter_core/lib/src/localization/*.json', 'packages/primecare_ui/test/theme_consumers_test.dart', 'packages/primecare_ui/test/fixtures/generated_theme_fixture.dart', 'apps/primecare_enterprise_blueprint/**', 'scripts/check-admin-localization.py', 'scripts/audit-ui-localization.py', 'scripts/implement_screens_from_db.py', 'scripts/test-theme-center-browser.mjs', 'scripts/generate-theme-center-catalog.mjs', 'scripts/fuse_presets.json', '.github/workflows/theme-center.yml']
 permissions:
   contents: read
 concurrency:
@@ -46,7 +46,7 @@ jobs:
       - run: python3 scripts/audit-ui-localization.py
       - run: flutter pub get
         working-directory: packages/primecare_ui
-      - run: flutter test test/theme_consumers_test.dart test/base_primecare_app_test.dart test/admin_role_carousel_localization_test.dart
+      - run: flutter test test/theme_consumers_test.dart test/base_primecare_app_test.dart test/admin_role_carousel_localization_test.dart test/auth_unavailable_localization_test.dart
         working-directory: packages/primecare_ui
       - run: flutter pub get
         working-directory: apps/primecare_enterprise_blueprint

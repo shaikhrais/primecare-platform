@@ -4624,5 +4624,6 @@
         "schedules": "Schedules",
         "unconnected": "Data source unavailable",
         "request_failed": "Request failed"
-    }
+    },
+    "auth_flow_unavailable": "This authentication feature is not available yet. Please contact your administrator."
 }

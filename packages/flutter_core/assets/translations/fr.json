@@ -4558,5 +4558,6 @@
     "login_slogan_6": "COUCHE 4 DE SÉCURITÉ D'ENTREPRISE",
     "login_slogan_7": "PROTECTION D'IDENTITÉ DÉCENTRALISÉE",
     "login_slogan_8": "VALIDATION DE PARITÉ CONTINUE",
-    "login_slogan_9": "REGISTRE DE GOUVERNANCE RENFORCÉ"
+    "login_slogan_9": "REGISTRE DE GOUVERNANCE RENFORCÉ",
+    "auth_flow_unavailable": "Cette fonctionnalité d’authentification n’est pas encore disponible. Veuillez contacter votre administrateur."
 }
