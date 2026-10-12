@@ -26,18 +26,34 @@ remain unchanged. Unknown role-category codes remain visible as record data.
 An empty missing-items list is described as empty; it is not treated as proof
 of production readiness.
 
-Reality Check's search placeholder, six filter display labels and reload
-tooltip now resolve eight shared en/es/fr resources. Stored filter identifiers
-stay unchanged, and locale changes preserve the selected filter and typed query.
-The widget test checks this against zero-interaction and active screen records.
+Reality Check now resolves its interface text from 35 shared en/es/fr
+resources: header, KPIs, filter bar, counters, purpose labels, known status
+labels, alerts and empty-state text. Record names, routes, purpose descriptions
+and unknown status codes remain record data. Named count/label parameters are
+replaced once, preserving parameter-like text within record values. The widget
+test verifies visible labels and filtering while changing locale without losing
+the selected filter or search query.
 Run `python3 scripts/register-admin-reality-filters.py` to register and export;
 `--check` validates the export against a read-only governance copy with the
 migration applied. Translation rows are pending language review. The binary
-database is excluded from the code change.
+database is excluded from the code change. This legacy screen's mobile layout
+and record-data translations remain separate work.
 
-Scope: the carousel and Reality Check filter bar are covered. Reality Check's
-header, KPI cards, status pills and detail labels, Screenshot Gallery,
+Scope: the carousel and Reality Check interface text are covered. Screenshot Gallery,
 Theme Center's remaining raw option labels and other legacy screens still
 need their own localization migrations. This is not an application-wide
 translation-completion claim. Responsive testing of this legacy admin screen
 is currently at desktop width; its older mobile layout remains separate work.
+
+
+Reality Check text is now grouped in one screen JSON document:
+`packages/primecare_ui/lib/src/localization/screens/admin_reality_check.json`.
+Its version, screen ID and locale maps form the editable transfer format.
+Programmatic updates use
+`python3 scripts/register-admin-reality-filters.py --import-json /path/to/screen.json`.
+The importer checks en/es/fr key parity, nonempty text, size limits and named
+parameters before writing governance and regenerating the shared Dart catalog.
+Existing resource keys and translation row identities are preserved; changed
+translations return to unreviewed status. Ordinary regeneration preserves later
+reviewed governance translations. Runtime updates currently require a rebuild;
+authenticated in-app editing, audit history and live refresh are not implemented.

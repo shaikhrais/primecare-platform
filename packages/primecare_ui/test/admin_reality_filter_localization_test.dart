@@ -16,7 +16,7 @@ void main() {
 
   test('filter catalogs contain matching nonempty keys and reject unknown keys', () {
     final keys = adminRealityFilterCatalog['en']!.keys.toSet();
-    expect(keys.length, 8);
+    expect(keys.length, 35);
     for (final language in ['en', 'es', 'fr']) {
       final entries = adminRealityFilterCatalog[language]!;
       expect(entries.keys.toSet(), keys);
@@ -27,6 +27,8 @@ void main() {
     expect(AdminRealityFilterText.resolve('de', 'search'),
       AdminRealityFilterText.resolve('en', 'search'));
     expect(() => AdminRealityFilterText.resolve('fr', 'unknown'), throwsArgumentError);
+    expect(() => AdminRealityFilterText.resolve('fr', 'items'), throwsArgumentError);
+    expect(AdminRealityFilterText.resolve('es', 'counter', args: {'label': '{count}', 'count': '3'}), '{count}: 3');
   });
 
   testWidgets('search and filter labels switch en/es/fr while query and filtering survive', (tester) async {
@@ -60,6 +62,11 @@ void main() {
     for (final language in ['en', 'es', 'fr']) {
       await tester.element(screen).setLocale(Locale(language));
       await tester.pumpAndSettle();
+      expect(find.text(AdminRealityFilterText.resolve(language, 'title')), findsOneWidget);
+      expect(find.text(AdminRealityFilterText.resolve(language, 'zeroAlert')), findsOneWidget);
+      expect(find.text(AdminRealityFilterText.resolve(language, 'items', args: {'count': '0'})), findsOneWidget);
+      expect(find.text(AdminRealityFilterText.resolve(language, 'screenPurpose')), findsOneWidget);
+      expect(find.text(AdminRealityFilterText.resolve(language, 'status.NO_USER_VALUE')), findsOneWidget);
       final widget = tester.widget<DropdownButton<String>>(dropdown);
       expect(widget.value, 'Zero Interaction');
       for (final item in widget.items!) {

@@ -11,7 +11,7 @@ class AdminRealityCheckScreen extends ConsumerStatefulWidget {
 }
 
 class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScreen> {
-  String _filterText(String key) => AdminRealityFilterText.resolve(Localizations.localeOf(context).languageCode, key);
+  String _filterText(String key, {Map<String, String> args = const {}}) => AdminRealityFilterText.resolve(Localizations.localeOf(context).languageCode, key, args: args);
 
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
@@ -103,7 +103,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Reality Check Dashboard',
+                        _filterText('title'),
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: theme.primaryColor,
@@ -111,7 +111,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Every screen must have a clear USER PURPOSE and INTERACTION to justify its existence on the platform.',
+                        _filterText('intro'),
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.hintColor,
                         ),
@@ -128,7 +128,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                     }
                   },
                   icon: const Icon(LucideIcons.layers, size: 16),
-                  label: const Text('View Role Carousel'),
+                  label: Text(_filterText('carousel')),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.primaryColor,
                     foregroundColor: theme.colorScheme.onPrimary,
@@ -199,7 +199,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
             children: [
               _buildStatCard(
                 theme,
-                title: 'Total Screens',
+                title: _filterText('totalScreens'),
                 value: totalCount.toString(),
                 icon: LucideIcons.layers,
                 color: theme.primaryColor,
@@ -207,7 +207,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
               ),
               _buildStatCard(
                 theme,
-                title: 'Zero Inter.',
+                title: _filterText('Zero Interaction'),
                 value: zeroCount.toString(),
                 icon: LucideIcons.mousePointer,
                 color: Colors.red,
@@ -215,7 +215,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
               ),
               _buildStatCard(
                 theme,
-                title: 'Low Inter.',
+                title: _filterText('Low Interaction'),
                 value: lowCount.toString(),
                 icon: LucideIcons.activity,
                 color: Colors.orange,
@@ -223,7 +223,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
               ),
               _buildStatCard(
                 theme,
-                title: 'Clear Purpose',
+                title: _filterText('clearPurpose'),
                 value: clearCount.toString(),
                 icon: LucideIcons.shieldCheck,
                 color: Colors.green,
@@ -231,7 +231,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
               ),
               _buildStatCard(
                 theme,
-                title: 'Unclear Purp.',
+                title: _filterText('Unclear Purpose'),
                 value: unclearCount.toString(),
                 icon: LucideIcons.helpCircle,
                 color: Colors.amber,
@@ -239,7 +239,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
               ),
               _buildStatCard(
                 theme,
-                title: 'No User Value',
+                title: _filterText('No User Value'),
                 value: noUserValueCount.toString(),
                 icon: LucideIcons.trash2,
                 color: Colors.red.shade800,
@@ -247,7 +247,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
               ),
               _buildStatCard(
                 theme,
-                title: 'False Progress',
+                title: _filterText('False Progress'),
                 value: falseCount.toString(),
                 icon: LucideIcons.alertOctagon,
                 color: Colors.purple,
@@ -508,7 +508,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      '${screen.totalInteractiveObjects} items',
+                      _filterText('items', args: {'count': screen.totalInteractiveObjects.toString()}),
                       style: theme.textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: context.theme.scaleFont(12),
@@ -549,7 +549,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'ZERO INTERACTION ALERT: Screen has no transactional value. Verify and add actions or consolidate route.',
+                      _filterText('zeroAlert'),
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: Colors.red,
                         fontSize: context.theme.scaleFont(12),
@@ -575,7 +575,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'LOW INTERACTION WARNING: Review screen value. Less than 3 interactive objects found.',
+                      _filterText('lowAlert'),
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: Colors.orange,
                         fontSize: context.theme.scaleFont(12),
@@ -597,12 +597,12 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
       spacing: 12,
       runSpacing: 8,
       children: [
-        _buildCounterLabel(theme, 'Buttons', s.buttonCount),
-        _buildCounterLabel(theme, 'Forms', s.formFieldCount),
-        _buildCounterLabel(theme, 'Links', s.linkCount),
-        _buildCounterLabel(theme, 'Table Actions', s.tableActionCount),
-        _buildCounterLabel(theme, 'Filters', s.filterCount),
-        _buildCounterLabel(theme, 'Navigation', s.navigationActionCount),
+        _buildCounterLabel(theme, _filterText('buttons'), s.buttonCount),
+        _buildCounterLabel(theme, _filterText('forms'), s.formFieldCount),
+        _buildCounterLabel(theme, _filterText('links'), s.linkCount),
+        _buildCounterLabel(theme, _filterText('tableActions'), s.tableActionCount),
+        _buildCounterLabel(theme, _filterText('filters'), s.filterCount),
+        _buildCounterLabel(theme, _filterText('navigation'), s.navigationActionCount),
       ],
     );
   }
@@ -616,7 +616,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
         border: Border.all(color: theme.dividerColor.withValues(alpha: 0.05)),
       ),
       child: Text(
-        '$label: $count',
+        _filterText('counter', args: {'label': label, 'count': count.toString()}),
         style: theme.textTheme.labelMedium?.copyWith(
           fontWeight: count > 0 ? FontWeight.bold : FontWeight.normal,
           color: count > 0 ? theme.primaryColor : theme.hintColor,
@@ -636,13 +636,13 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _buildPurposeField(theme, 'Screen Purpose', s.screenPurpose ?? 'Unchecked'),
+          _buildPurposeField(theme, _filterText('screenPurpose'), s.screenPurpose ?? _filterText('unchecked')),
           const SizedBox(height: 6),
-          _buildPurposeField(theme, 'Primary User Goal', s.primaryUserGoal ?? 'Unchecked'),
+          _buildPurposeField(theme, _filterText('primaryUserGoal'), s.primaryUserGoal ?? _filterText('unchecked')),
           const SizedBox(height: 6),
-          _buildPurposeField(theme, 'Expected Actions', s.expectedUserActions ?? 'Unchecked'),
+          _buildPurposeField(theme, _filterText('expectedActions'), s.expectedUserActions ?? _filterText('unchecked')),
           const SizedBox(height: 6),
-          _buildPurposeField(theme, 'Business Reason', s.businessReason ?? 'Unchecked'),
+          _buildPurposeField(theme, _filterText('businessReason'), s.businessReason ?? _filterText('unchecked')),
         ],
       ),
     );
@@ -709,7 +709,9 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
         border: Border.all(color: border),
       ),
       child: Text(
-        status.replaceAll('_', ' '),
+        ['CLEAR_PURPOSE', 'UNCLEAR_PURPOSE', 'DUPLICATE_PURPOSE', 'NO_USER_VALUE'].contains(status)
+            ? _filterText('status.$status')
+            : status,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
           fontSize: context.theme.scaleFont(8),
           fontWeight: FontWeight.bold,
@@ -728,7 +730,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
         border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
       ),
       child: Text(
-        'NEEDS REVIEW',
+        _filterText('needsReview'),
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
           fontSize: context.theme.scaleFont(8),
           fontWeight: FontWeight.bold,
@@ -746,7 +748,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
           Icon(LucideIcons.searchX, size: 64, color: theme.hintColor),
           const SizedBox(height: 16),
           Text(
-            'No matching screens found',
+            _filterText('empty'),
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: theme.hintColor,
@@ -754,7 +756,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
           ),
           const SizedBox(height: 4),
           Text(
-            'Refine your query or filters and try again.',
+            _filterText('refine'),
             style: theme.textTheme.bodyMedium?.copyWith(color: theme.hintColor),
           ),
         ],
