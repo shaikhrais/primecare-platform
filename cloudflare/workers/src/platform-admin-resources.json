@@ -38,7 +38,11 @@
     "active": "Active",
     "inactive": "Inactive",
     "working": "Working",
-    "choose_role": "Choose a role"
+    "choose_role": "Choose a role",
+    "reports": "Reports",
+    "search_scope": "Available tenants; accounts and master records in the selected tenant (up to 100 per list)",
+    "task": "Task",
+    "tenant": "Tenant"
   },
   "fr": {
     "title": "Administration de la plateforme",
@@ -79,7 +83,11 @@
     "active": "Actif",
     "inactive": "Inactif",
     "working": "En cours",
-    "choose_role": "Choisir un rôle"
+    "choose_role": "Choisir un rôle",
+    "reports": "Rapports",
+    "search_scope": "Locataires disponibles ; comptes et référentiels du locataire sélectionné (100 par liste maximum)",
+    "task": "Tâche",
+    "tenant": "Locataire"
   },
   "es": {
     "title": "Administración de la plataforma",
@@ -120,6 +128,10 @@
     "active": "Activo",
     "inactive": "Inactivo",
     "working": "En proceso",
-    "choose_role": "Elegir rol"
+    "choose_role": "Elegir rol",
+    "reports": "Informes",
+    "search_scope": "Organizaciones disponibles; cuentas y registros maestros de la organización seleccionada (hasta 100 por lista)",
+    "task": "Tarea",
+    "tenant": "Organización"
   }
 }

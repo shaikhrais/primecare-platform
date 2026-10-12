@@ -1,3 +1,4 @@
+import {mountNavigation} from './navigation';
 import {bindSidebar} from './sidebar';
 import {reportPanel} from './reports';
 type Page = {code:string;name:string;route:string;role:string;appCode:string;renderer:string;lifecycle:string;
@@ -78,7 +79,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${t('created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
     root.innerHTML=`<div class="app-shell" data-cy="app-shell"><aside id="app-sidebar" data-cy="app-sidebar"><button class="sidebar-close" data-cy="sidebar-close" aria-label="Close navigation">×</button><a class="brand" href="${escapeHtml(routeUrl(data.landing??'/'))}">PrimeCare</a><p>${escapeHtml(data.identity.role)}</p><nav aria-label="${t('pages')}">${nav}</nav></aside>
       <div class="workspace"><header class="topbar" data-cy="app-topbar"><button class="menu" data-cy="sidebar-toggle" aria-controls="app-sidebar" aria-expanded="false" aria-label="${t('pages')}">☰</button>
-      <button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button></header>
+      <div data-cy="global-navigation"></div><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button></header>
       <main data-cy="screen-${escapeHtml(page?.code??'account')}"><div class="screen-header"><div><p class="eyebrow">${escapeHtml(data.identity.role)}</p><h1 tabindex="-1" data-cy="workspace-title">${account?t('account'):escapeHtml(page?.name)}</h1></div><span class="badge">${t('created')}</span></div>
       ${account?`<section class="section"><p>${escapeHtml(data.identity.role)}</p><form data-cy="change-password-form"><label>${t('current_password')}<input required type="password" name="currentPassword" autocomplete="current-password" data-cy="current-password"></label><label>${t('new_password')}<input required minlength="12" type="password" name="newPassword" autocomplete="new-password" data-cy="new-password"></label><button type="submit" data-cy="change-password-submit">${t('change_password')}</button><output role="status" data-cy="change-password-status"></output></form></section>`:
       `<section class="section" data-cy="workspace-overview"><h2>${t('title')}</h2><div class="metric-grid">${cards}</div></section>
@@ -92,6 +93,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId);reportPanels.set(page.code,panel);}
       root.querySelector('main')!.insertBefore(panel,root.querySelector('[data-cy="workspace-inventory"]'));
     }
+    mountNavigation(root.querySelector<HTMLElement>('[data-cy=global-navigation]')!,account?data.resources['workspace.account']:page?.name??'PrimeCare','en','Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>{history.pushState({},'',routeUrl(s.route));draw();root.querySelector<HTMLElement>('h1')?.focus();}})));
     bindSidebar(root);
     root.querySelector('[data-cy="workspace-refresh"]')?.addEventListener('click',()=>void renderWorkspace(root,gateway));
     root.querySelector('[data-cy="workspace-logout"]')?.addEventListener('click',async()=>{await fetch(`${gateway}/v1/auth/logout`,{method:'POST',headers:{authorization:'Bearer '+token}}).catch(()=>undefined);sessionStorage.removeItem('primecare_session');location.assign(routeUrl('/login'));});
