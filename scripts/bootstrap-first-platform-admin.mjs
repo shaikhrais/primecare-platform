@@ -1,4 +1,4 @@
-import {Client} from 'pg';import bcrypt from 'bcryptjs';import {pathToFileURL} from 'node:url';import {randomUUID} from 'node:crypto';import {validateBootstrap} from './bootstrap-first-ceo.mjs';
+import pg from 'pg';const {Client}=pg;import bcrypt from 'bcryptjs';import {pathToFileURL} from 'node:url';import {randomUUID} from 'node:crypto';import {validateBootstrap} from './bootstrap-validation.mjs';
 /** Protected operator workflow only. Never promote or overwrite an existing account. */
 export async function bootstrapPlatform(db,input){
  const {email,tenant,password}=validateBootstrap(input);const hash=await bcrypt.hash(password,12);await db.query('BEGIN');
