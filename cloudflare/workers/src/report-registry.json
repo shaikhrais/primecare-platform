@@ -269,6 +269,12 @@
           "email": 1
         },
         {
+          "role": "platform_admin",
+          "view": 1,
+          "export": 1,
+          "email": 1
+        },
+        {
           "role": "portal",
           "view": 1,
           "export": 1,
@@ -413,6 +419,20 @@
           "email": 1
         }
       ]
+    },
+    {
+      "report_id": "platform_administration",
+      "source": "platform_administration_policy",
+      "classification": "internal",
+      "requirement": "Platform administrator only: managed tenant metadata and aggregate account/master counts.",
+      "grants": [
+        {
+          "role": "platform_admin",
+          "view": 1,
+          "export": 1,
+          "email": 1
+        }
+      ]
     }
   ],
   "resources": {
@@ -437,6 +457,7 @@
       "page": "Page",
       "pages": "Authorized page readiness",
       "pdf": "Download PDF",
+      "platform": "Platform administration",
       "readiness": "Readiness",
       "ready": "Production ready",
       "recipient": "Recipient email",
@@ -474,6 +495,7 @@
       "page": "Page",
       "pages": "État des pages autorisées",
       "pdf": "Télécharger le PDF",
+      "platform": "Administration de la plateforme",
       "readiness": "État de préparation",
       "ready": "Prête pour la production",
       "recipient": "Adresse du destinataire",
@@ -511,6 +533,7 @@
       "page": "Página",
       "pages": "Estado de páginas autorizadas",
       "pdf": "Descargar PDF",
+      "platform": "Administración de la plataforma",
       "readiness": "Preparación",
       "ready": "Lista para producción",
       "recipient": "Correo del destinatario",

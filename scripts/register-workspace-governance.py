@@ -73,6 +73,8 @@ runpy.run_path(str(ROOT/'scripts/reconcile-provider-profile-declaration.py'),run
 method_blockers = runpy.run_path(str(ROOT/'scripts/register-method-capture-blockers.py'))
 with sqlite3.connect(DB) as blocker_db:
     method_blockers['reconcile'](blocker_db)
+with sqlite3.connect(DB) as platform_db:
+    runpy.run_path(str(ROOT/'scripts/register-platform-admin-role.py'))['register'](platform_db,apis=True)
 runpy.run_path(str(ROOT/'scripts/generate-api-execution-inventory.py'))
 with sqlite3.connect(DB) as db:
     db.row_factory = sqlite3.Row
@@ -138,7 +140,7 @@ with sqlite3.connect(DB) as db:
       LEFT JOIN roles r ON r.id=s.role_id LEFT JOIN apps a ON a.id=s.app_id
       WHERE s.active=1 ORDER BY s.id''').fetchall():
         s = dict(row)
-        protected_auth = s['screen_code'] in ['consent', 'mfa', 'reset_password', 'MAINTENANCE_CONFIGURATION'] or s['app_code']=='au'
+        protected_auth = s['screen_code'] in ['consent', 'mfa', 'reset_password', 'MAINTENANCE_CONFIGURATION', 'PLATFORM_ADMINISTRATION'] or s['app_code']=='au'
         blockers = [] if protected_auth else ['Business workflow and domain data binding need verification',
           'Authenticated browser and accessibility evidence is pending']
         renderer = 'account' if protected_auth else 'dashboard' if 'dashboard' in s['screen_code'] else 'governed_page'
@@ -227,9 +229,11 @@ with sqlite3.connect(DB) as db:
     route_map={s['route']:s['code'] for s in screens if s['route'] and s['renderer']!='account'}
     dart='// Generated from governance.db by register-workspace-governance.py.\n'
     dart+='const governedWorkspaceRoutes = <String, String>'+json.dumps(route_map,indent=2)+';\n'
-    dart+='const governedWorkspaceRoleRoutes = <String, List<String>>'+json.dumps({r:[s['route'] for s in screens if s['renderer']!='account' and any(g['role']==r and g['view'] for g in s['grants'])] for r in roles},indent=2)+';\n'
+    dart+='const governedWorkspaceRoleRoutes = <String, List<String>>'+json.dumps({r:[s['route'] for s in screens if s['renderer']!='account' and any(g['role']==r and g['view'] for g in s['grants'])] for r in roles if r!='platform_admin'},indent=2)+';\n'
     landings={}
     for code,role in roles.items():
+        # Platform administration is a website console, not a Flutter workspace route.
+        if code=='platform_admin': continue
         allowed=[s for s in screens if s['renderer']!='account' and any(g['role']==code and g['view'] for g in s['grants'])]
         if allowed:
             configured=next((s for s in allowed if s['route']==role['post_login_route']),None)

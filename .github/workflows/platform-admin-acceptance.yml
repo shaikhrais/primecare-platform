@@ -1,0 +1,50 @@
+name: Platform admin database and browser acceptance
+on:
+  pull_request:
+    paths: ['cloudflare/workers/**', 'websites/typescript/**', 'scripts/*platform*', 'packages/database/migrations/20261011_platform_administration.sql', '.github/workflows/platform-admin-acceptance.yml']
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: platform
+          POSTGRES_PASSWORD: integration-only
+          POSTGRES_DB: platform
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U platform" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PLATFORM_TEST_DATABASE_URL: postgresql://platform:integration-only@localhost:5432/platform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/platform-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.11.3 bcryptjs@3
+          ln -s "$RUNNER_TEMP/platform-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Validate authority, persistence, concurrency and rollback
+        run: node --test scripts/test-platform-bootstrap.mjs scripts/test-platform-administration-postgres.mjs
+      - name: Build actual website from governed metadata
+        run: |
+          python3 scripts/register-platform-admin-role.py
+          python3 scripts/register-admin-reports.py
+          python3 scripts/export-typescript-websites.py --output artifacts/admin-website/manifests --gateway http://127.0.0.1:4184/test-api
+          mkdir -p artifacts/admin-website/site/assets
+          node_modules/.bin/esbuild websites/typescript/src/main.ts --bundle --outfile=artifacts/admin-website/site/assets/app.js
+          cp websites/typescript/src/styles.css artifacts/admin-website/site/assets/app.css
+          cp websites/typescript/index.html artifacts/admin-website/site/index.html
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/platform-administration.ts websites/typescript/src/main.ts
+      - name: Record real platform-admin browser workflows
+        run: node scripts/test-platform-admin-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: platform-admin-workflow-video
+          path: artifacts/platform-admin-browser/
+

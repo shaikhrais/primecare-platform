@@ -28,7 +28,7 @@ export class ReportPolicy {
   if(!actor.tenant_id||!definition!.grants.some(g=>g.role===actor.roles&&g[action]===1))fail(403,'Forbidden');
   return definition!;
  }
- catalog(actor:Actor,locale:Locale) {return registry.definitions.filter(d=>d.grants.some(g=>g.role===actor.roles&&g.view===1)).map(d=>({id:d.report_id,title:d.report_id==='page_readiness'?labels(locale).pages:labels(locale).organization,classification:d.classification,supportsFilters:d.report_id==='page_readiness',canExport:d.grants.some(g=>g.role===actor.roles&&g.export===1),canEmail:d.grants.some(g=>g.role===actor.roles&&g.email===1)}));}
+ catalog(actor:Actor,locale:Locale) {return registry.definitions.filter(d=>d.grants.some(g=>g.role===actor.roles&&g.view===1)).map(d=>({id:d.report_id,title:d.report_id==='page_readiness'?labels(locale).pages:d.report_id==='platform_administration'?labels(locale).platform:labels(locale).organization,classification:d.classification,supportsFilters:d.report_id==='page_readiness',canExport:d.grants.some(g=>g.role===actor.roles&&g.export===1),canEmail:d.grants.some(g=>g.role===actor.roles&&g.email===1)}));}
 }
 export abstract class AdminReportDefinition {
  constructor(readonly id:string){}
@@ -55,14 +55,24 @@ export class OrganizationSummaryReport extends AdminReportDefinition {
   return {scope:'organization',source:'PostgreSQL tenant-scoped aggregates',columns:[{key:'metric',label:l.metric},{key:'value',label:l.value}],rows};
  }
 }
+export class PlatformAdministrationReport extends AdminReportDefinition {
+ constructor(){super('platform_administration');}
+ async rows(db:Client,actor:Actor,request:ReportRequest){
+  if(actor.roles!=='platform_admin')fail(403,'Forbidden');
+  if(request.search||request.readiness!=='all')fail(400,'Filters are not supported by this report');
+  const rows=(await db.query(`SELECT t.slug AS tenant,t.name,COUNT(DISTINCT u.id)::int AS accounts,COUNT(DISTINCT m.id)::int AS masters FROM tenants t LEFT JOIN users u ON u.tenant_id::text=t.id::text AND u.roles<>'platform_admin' AND LOWER(u.status)='active' LEFT JOIN platform_master_records m ON m.tenant_id::text=t.id::text GROUP BY t.id,t.slug,t.name ORDER BY t.slug LIMIT 1001`)).rows;
+  const l=labels(request.locale);
+  return {scope:'platform_tenant_metadata',source:'PostgreSQL platform tenant metadata',columns:[{key:'tenant',label:l.scope},{key:'name',label:l.page},{key:'accounts',label:l.activeAccounts},{key:'masters',label:l.count}],rows};
+ }
+}
 export class ReportService {
  readonly policy=new ReportPolicy();
- readonly definitions:readonly AdminReportDefinition[]=[new PageReadinessReport(),new OrganizationSummaryReport()];
+ readonly definitions:readonly AdminReportDefinition[]=[new PageReadinessReport(),new OrganizationSummaryReport(),new PlatformAdministrationReport()];
  async run(db:Client,actor:Actor,id:string,request:ReportRequest,action:'view'|'export'|'email'='view'):Promise<ReportResult> {
   const definition=this.policy.definition(actor,id,action),handler=this.definitions.find(d=>d.id===id)!;
   const data=await handler.rows(db,actor,request);
   if(data.rows.length>1000)fail(413,'Report row limit exceeded');
-  return {id,title:id==='page_readiness'?labels(request.locale).pages:labels(request.locale).organization,...data,generatedAt:new Date().toISOString(),classification:definition.classification,locale:request.locale};
+  return {id,title:id==='page_readiness'?labels(request.locale).pages:id==='platform_administration'?labels(request.locale).platform:labels(request.locale).organization,...data,generatedAt:new Date().toISOString(),classification:definition.classification,locale:request.locale};
  }
 }
 export abstract class ReportRenderer {abstract render(result:ReportResult):Uint8Array;}
