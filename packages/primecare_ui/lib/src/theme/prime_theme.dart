@@ -501,6 +501,10 @@ class RuntimePrimeTypography extends PrimeTypography {
 }
 
 class PrimeThemeData {
+  /// Explicit legacy sizes must still follow the user's saved text scale.
+  double scaleFont(double size) => typography is RuntimePrimeTypography
+      ? size * (typography as RuntimePrimeTypography).personal.fontScale
+      : size;
   final PrimeColors colors;
   final PrimeTypography typography;
   final PrimeSpacing spacing;
@@ -587,7 +591,7 @@ class PrimeThemeData {
         space: 1,
       ),
       cardTheme: CardThemeData(
-        color: Colors.white,
+        color: colors.surface,
         elevation: 0,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
@@ -597,7 +601,7 @@ class PrimeThemeData {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.white,
+        fillColor: colors.surface,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 12,

@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: [Component] - GovDashboardHero A premium header card with a gradient, role title, and security status.
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 
 /// [Component] - GovDashboardHero
 /// A premium header card with a gradient, role title, and security status.
@@ -20,13 +21,9 @@ class GovDashboardHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    final isTeal = theme.colors.primary.value == 0xFF0F766E;
-    
-    final gradientColors = [
-      theme.colors.primary,
-      isTeal ? const Color(0xFF115E59) : const Color(0xFF1E3A8A),
-      const Color(0xFF0F172A), // Slate 900
-    ];
+    final foreground = readableThemeForeground(theme.colors.primary, theme.colors.onPrimary);
+    final success = readableThemeForeground(theme.colors.primary, theme.colors.success);
+    final gradientColors = readableThemeGradient(theme.colors.primary, foreground);
 
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 600),
@@ -51,7 +48,7 @@ class GovDashboardHero extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(theme.radiusMd),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+          border: Border.all(color: foreground.withValues(alpha: 0.12)),
           boxShadow: [
             BoxShadow(
               color: theme.colors.primary.withValues(alpha: 0.2),
@@ -66,31 +63,31 @@ class GovDashboardHero extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
+                Expanded(child: Row(
                   children: [
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.12),
+                        color: foreground.withValues(alpha: 0.12),
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
+                        border: Border.all(color: foreground.withValues(alpha: 0.2)),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         LucideIcons.shieldCheck,
                         size: 24,
-                        color: Color(0xFF22C55E), // Neon success green
+                        color: success, // Neon success green
                       ),
                     ),
                     const SizedBox(width: 12),
-                    Column(
+                    Expanded(child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           roleName.toUpperCase(),
                           style: theme.typography.labelBold.copyWith(
-                            color: Colors.white.withValues(alpha: 0.9),
+                            color: foreground,
                             letterSpacing: 1.5,
-                            fontSize: 11,
+                            fontSize: theme.scaleFont(11),
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -99,12 +96,12 @@ class GovDashboardHero extends StatelessWidget {
                             Container(
                               width: 8,
                               height: 8,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFF22C55E),
+                              decoration: BoxDecoration(
+                                color: success,
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color(0xFF22C55E),
+                                    color: success,
                                     blurRadius: 6,
                                     spreadRadius: 2,
                                   )
@@ -112,21 +109,21 @@ class GovDashboardHero extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 6),
-                            Text(
+                            Flexible(child: Text(
                               'ACTIVE & SECURE',
                               style: theme.typography.bodySmall.copyWith(
-                                color: const Color(0xFF22C55E),
+                                color: success,
                                 fontWeight: FontWeight.w700,
-                                fontSize: 10,
+                                fontSize: theme.scaleFont(10),
                                 letterSpacing: 0.5,
                               ),
-                            ),
+                            )),
                           ],
                         ),
                       ],
-                    ),
+                    )),
                   ],
-                ),
+                )),
                 if (onRefresh != null)
                   Material(
                     color: Colors.transparent,
@@ -136,10 +133,10 @@ class GovDashboardHero extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.08),
+                          color: foreground.withValues(alpha: 0.08),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(LucideIcons.refreshCw, color: Colors.white, size: 18),
+                        child: Icon(LucideIcons.refreshCw, color: foreground, size: 18),
                       ),
                     ),
                   ),
@@ -149,16 +146,16 @@ class GovDashboardHero extends StatelessWidget {
             Text(
               title,
               style: theme.typography.h1.copyWith(
-                color: Colors.white,
+                color: foreground,
                 fontWeight: FontWeight.w800,
-                fontSize: 28,
+                fontSize: theme.scaleFont(28),
               ),
             ),
             const SizedBox(height: 8),
             Text(
               description,
               style: theme.typography.bodyMedium.copyWith(
-                color: Colors.white.withValues(alpha: 0.75),
+                color: foreground,
                 height: 1.5,
               ),
             ),
@@ -205,7 +202,7 @@ class GovMetricCard extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: theme.colors.surface,
                 borderRadius: BorderRadius.circular(theme.radiusMd),
                 border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
                 boxShadow: [
@@ -259,7 +256,7 @@ class GovMetricCard extends StatelessWidget {
                               style: theme.typography.bodySmall.copyWith(
                                 color: const Color(0xFF15803D),
                                 fontWeight: FontWeight.bold,
-                                fontSize: 10,
+                                fontSize: theme.scaleFont(10),
                               ),
                             )),
                           ],
@@ -272,7 +269,7 @@ class GovMetricCard extends StatelessWidget {
                     title,
                     style: theme.typography.labelMedium.copyWith(
                       color: theme.colors.onSurfaceVariant,
-                      fontSize: 12,
+                      fontSize: theme.scaleFont(12),
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -296,7 +293,7 @@ class GovMetricCard extends StatelessWidget {
                             'Utilization',
                             style: theme.typography.bodySmall.copyWith(
                               color: theme.colors.outline,
-                              fontSize: 10,
+                              fontSize: theme.scaleFont(10),
                             ),
                           )),
                           const SizedBox(width: 8),
@@ -305,7 +302,7 @@ class GovMetricCard extends StatelessWidget {
                             style: theme.typography.bodySmall.copyWith(
                               color: brandColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: 10,
+                              fontSize: theme.scaleFont(10),
                             ),
                           )),
                         ],
@@ -409,15 +406,15 @@ class _GovIngestionFormState extends State<GovIngestionForm> {
       }
       widget.onSubmit(values);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Row(
             children: [
-              Icon(LucideIcons.checkCircle2, color: Colors.white),
+              Icon(LucideIcons.checkCircle2, color: readableThemeForeground(const Color(0xFF10B981), Colors.white)),
               SizedBox(width: 12),
-              Text('Operational Form Hydrated & Dispatched Successfully.'),
+              Text('Operational Form Hydrated & Dispatched Successfully.', style: TextStyle(color: readableThemeForeground(const Color(0xFF10B981), Colors.white))),
             ],
           ),
-          backgroundColor: Color(0xFF10B981),
+          backgroundColor: const Color(0xFF10B981),
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -430,7 +427,7 @@ class _GovIngestionFormState extends State<GovIngestionForm> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(theme.radiusMd),
         border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
         boxShadow: [
@@ -588,7 +585,7 @@ class _GovComplianceAuditTableState extends State<GovComplianceAuditTable> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(theme.radiusMd),
         border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
         boxShadow: [
@@ -634,7 +631,7 @@ class _GovComplianceAuditTableState extends State<GovComplianceAuditTable> {
                         style: theme.typography.bodySmall.copyWith(
                           color: theme.colors.primary,
                           fontWeight: FontWeight.bold,
-                          fontSize: 10,
+                          fontSize: theme.scaleFont(10),
                         ),
                       ),
                     ),
@@ -752,7 +749,7 @@ class _GovComplianceAuditTableState extends State<GovComplianceAuditTable> {
                                   style: theme.typography.bodySmall.copyWith(
                                     color: statusColor,
                                     fontWeight: FontWeight.w800,
-                                    fontSize: 9,
+                                    fontSize: theme.scaleFont(9),
                                     letterSpacing: 0.5,
                                   ),
                                 ),
@@ -778,7 +775,7 @@ class _GovComplianceAuditTableState extends State<GovComplianceAuditTable> {
                                     row['date'] ?? '',
                                     style: theme.typography.bodySmall.copyWith(
                                       color: theme.colors.outline,
-                                      fontSize: 11,
+                                      fontSize: theme.scaleFont(11),
                                     ),
                                   ),
                                 ],
@@ -832,7 +829,7 @@ class _GovSettingsPanelState extends State<GovSettingsPanel> {
     final theme = context.theme;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(theme.radiusMd),
         border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
         boxShadow: [
@@ -934,7 +931,7 @@ class GovTelemetryChart extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: theme.colors.surface,
             borderRadius: BorderRadius.circular(theme.radiusMd),
             border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
             boxShadow: [
@@ -980,7 +977,7 @@ class GovTelemetryChart extends StatelessWidget {
                           style: theme.typography.bodySmall.copyWith(
                             color: accentColor,
                             fontWeight: FontWeight.w800,
-                            fontSize: 9,
+                            fontSize: theme.scaleFont(9),
                             letterSpacing: 0.5,
                           ),
                         ),
@@ -1048,7 +1045,7 @@ class GovTelemetryChart extends StatelessWidget {
                                 Text(
                                   labels[index],
                                   style: theme.typography.bodySmall.copyWith(
-                                    fontSize: 10,
+                                    fontSize: theme.scaleFont(10),
                                     fontWeight: FontWeight.w600,
                                     color: theme.colors.onSurfaceVariant,
                                   ),

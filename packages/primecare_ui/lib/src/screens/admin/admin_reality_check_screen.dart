@@ -128,8 +128,8 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                   label: const Text('View Role Carousel'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.primaryColor,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    foregroundColor: theme.colorScheme.onPrimary,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(context.theme.radiusDefault)),
                   ),
                 ),
               ],
@@ -269,8 +269,8 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
       width: width,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(color: theme.dividerColor.withValues(alpha: 0.08)),
         boxShadow: [
           BoxShadow(
@@ -286,7 +286,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.08),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(context.theme.radiusDefault),
             ),
             child: Icon(icon, color: color, size: 20),
           ),
@@ -326,7 +326,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(context.theme.radiusDefault),
           side: BorderSide(color: theme.dividerColor.withValues(alpha: 0.1)),
         ),
         child: Padding(
@@ -356,7 +356,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                     fillColor: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
                     contentPadding: const EdgeInsets.symmetric(vertical: 8),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                       borderSide: BorderSide.none,
                     ),
                   ),
@@ -376,7 +376,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   decoration: BoxDecoration(
                     color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
@@ -431,8 +431,8 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(
           color: isZero
               ? Colors.red.withValues(alpha: 0.15)
@@ -537,7 +537,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: Colors.red.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                 border: Border.all(color: Colors.red.withValues(alpha: 0.15)),
               ),
               child: Row(
@@ -559,7 +559,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: Colors.orange.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                 border: Border.all(color: Colors.orange.withValues(alpha: 0.15)),
               ),
               child: Row(
@@ -601,7 +601,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
         color: theme.scaffoldBackgroundColor.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(color: theme.dividerColor.withValues(alpha: 0.05)),
       ),
       child: Text(
@@ -619,7 +619,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: theme.scaffoldBackgroundColor.withValues(alpha: 0.3),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(color: theme.dividerColor.withValues(alpha: 0.05)),
       ),
       child: Column(
@@ -694,7 +694,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
         color: bg,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(color: border),
       ),
       child: Text(
@@ -713,7 +713,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
         color: Colors.red.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
       ),
       child: const Text(
