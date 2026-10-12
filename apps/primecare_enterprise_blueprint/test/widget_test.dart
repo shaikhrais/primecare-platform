@@ -47,9 +47,10 @@ void main() {
     expect(find.text('Theme Center'), findsWidgets);
     expect(tester.takeException(), isNull);
     final scope = ProviderScope.containerOf(tester.element(find.byType(MyApp)), listen: false);
-    await scope.read(themeSettingsProvider.notifier).applyPersonalTheme(PersonalTheme(name: 'Test', preset: 'dark1', colors: {'primary': '#ffffff'}));
+    await scope.read(themeSettingsProvider.notifier).applyPersonalTheme(PersonalTheme(name: 'Test', preset: 'dark1', fontScale: 1.5, colors: {'primary': '#ffffff'}));
     await tester.pumpAndSettle();
     expect(tester.widget<MaterialApp>(find.byType(MaterialApp)).theme!.colorScheme.primary, Colors.white);
     expect(find.text('1'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }
