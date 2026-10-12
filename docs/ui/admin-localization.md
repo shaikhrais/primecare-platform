@@ -26,8 +26,16 @@ remain unchanged. Unknown role-category codes remain visible as record data.
 An empty missing-items list is described as empty; it is not treated as proof
 of production readiness.
 
-Scope: this screen is covered. Admin Reality Check, Screenshot Gallery,
-Theme Center's remaining raw option labels and other legacy screens still
+Theme Center's three font choices, ten color-field labels, invalid-color
+feedback and default duplicate-name suffix now use shared en/es/fr resources.
+Stored font/color codes and user-created names remain stable. Hex color input
+keeps the locale-independent `#RRGGBB` format. Register the resources with
+`python3 scripts/register-theme-center-options.py`; `--check` verifies export
+against a read-only governance copy with the migration applied. Translation
+rows remain unreviewed until a language review approves them.
+
+Scope: the carousel and this Theme Center option group are covered. Admin Reality Check, Screenshot Gallery,
+other Theme Center inline labels and other legacy screens still
 need their own localization migrations. This is not an application-wide
 translation-completion claim. Responsive testing of this legacy admin screen
 is currently at desktop width; its older mobile layout remains separate work.
