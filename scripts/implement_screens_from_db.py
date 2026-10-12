@@ -236,7 +236,7 @@ class {class_name} extends GovernedConsumerWidget {{
                   const SizedBox(height: 10),
                   Text('{purpose}', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(13), height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: {user_story}', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12), italic: true)),
+                  Text('User Story: {user_story}', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12), fontStyle: FontStyle.italic)),
                 ],
               ),
             ),

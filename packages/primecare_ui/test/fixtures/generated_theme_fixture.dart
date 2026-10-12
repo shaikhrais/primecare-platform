@@ -98,7 +98,7 @@ class ThemeFixtureScreen extends GovernedConsumerWidget {
                   const SizedBox(height: 10),
                   Text('Test governed data', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(13), height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: Review data', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12), italic: true)),
+                  Text('User Story: Review data', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12), fontStyle: FontStyle.italic)),
                 ],
               ),
             ),

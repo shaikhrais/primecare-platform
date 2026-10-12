@@ -42,6 +42,10 @@ void main() {
     // Verify that our counter has incremented.
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
+    await tester.tap(find.byTooltip('Theme Center'));
+    await tester.pumpAndSettle();
+    expect(find.text('Theme Center'), findsWidgets);
+    expect(tester.takeException(), isNull);
     final scope = ProviderScope.containerOf(tester.element(find.byType(MyApp)), listen: false);
     await scope.read(themeSettingsProvider.notifier).applyPersonalTheme(PersonalTheme(name: 'Test', preset: 'dark1', colors: {'primary': '#ffffff'}));
     await tester.pumpAndSettle();

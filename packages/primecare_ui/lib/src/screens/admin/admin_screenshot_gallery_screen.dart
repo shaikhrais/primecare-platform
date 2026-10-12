@@ -341,8 +341,8 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(color: theme.colorScheme.onSurfaceVariant, fontSize: 12)),
-          Text(val, style: TextStyle(color: theme.colorScheme.onSurface, fontWeight: FontWeight.bold, fontSize: 12)),
+          Text(label, style: TextStyle(color: theme.colorScheme.onSurfaceVariant, fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 12 / 14)),
+          Text(val, style: TextStyle(color: theme.colorScheme.onSurface, fontWeight: FontWeight.bold, fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 12 / 14)),
         ],
       ),
     );
@@ -409,7 +409,7 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                                   screen.renderError!,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 10 / 14, color: Colors.grey),
+                                  style: TextStyle(fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 10 / 14, color: theme.colorScheme.onSurfaceVariant),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
