@@ -17,9 +17,28 @@ ThemeData applyPersonalThemeData(ThemeData baseTheme,PersonalTheme personal) {
     Color commonForeground(Color candidate) {double ratio(Color a,Color b){final x=a.computeLuminance(),y=b.computeLuminance();return (x>y?(x+.05)/(y+.05):(y+.05)/(x+.05));}return [candidate,Colors.black,Colors.white].firstWhere((c)=>ratio(c,background)>=4.5 && ratio(c,surface)>=4.5);}
     final readable=commonForeground(text),readableMuted=commonForeground(muted);
     final fontFamily=style.fontFamily=='system'?null:style.fontFamily;
+    final seed=ThemeData(brightness:palette.brightness).textTheme;
+    TextStyle sized(TextStyle? original,TextStyle? fallback)=>(original ?? fallback ?? const TextStyle()).copyWith(fontSize:original?.fontSize ?? fallback?.fontSize ?? 14);
+    final completeText=TextTheme(
+      displayLarge:sized(baseTheme.textTheme.displayLarge,seed.displayLarge),
+      displayMedium:sized(baseTheme.textTheme.displayMedium,seed.displayMedium),
+      displaySmall:sized(baseTheme.textTheme.displaySmall,seed.displaySmall),
+      headlineLarge:sized(baseTheme.textTheme.headlineLarge,seed.headlineLarge),
+      headlineMedium:sized(baseTheme.textTheme.headlineMedium,seed.headlineMedium),
+      headlineSmall:sized(baseTheme.textTheme.headlineSmall,seed.headlineSmall),
+      titleLarge:sized(baseTheme.textTheme.titleLarge,seed.titleLarge),
+      titleMedium:sized(baseTheme.textTheme.titleMedium,seed.titleMedium),
+      titleSmall:sized(baseTheme.textTheme.titleSmall,seed.titleSmall),
+      bodyLarge:sized(baseTheme.textTheme.bodyLarge,seed.bodyLarge),
+      bodyMedium:sized(baseTheme.textTheme.bodyMedium,seed.bodyMedium),
+      bodySmall:sized(baseTheme.textTheme.bodySmall,seed.bodySmall),
+      labelLarge:sized(baseTheme.textTheme.labelLarge,seed.labelLarge),
+      labelMedium:sized(baseTheme.textTheme.labelMedium,seed.labelMedium),
+      labelSmall:sized(baseTheme.textTheme.labelSmall,seed.labelSmall),
+    );
     return baseTheme.copyWith(
       primaryColor:resolvedPrimary,scaffoldBackgroundColor:background,dividerColor:border,hintColor:readableMuted,
-      textTheme:baseTheme.textTheme.apply(fontFamily:fontFamily,fontSizeFactor:style.fontScale,bodyColor:readable,displayColor:readable),
+      textTheme:completeText.apply(fontFamily:fontFamily,fontSizeFactor:style.fontScale,bodyColor:readable,displayColor:readable),
       cardTheme:CardThemeData(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()))),
       inputDecorationTheme:baseTheme.inputDecorationTheme.copyWith(border:OutlineInputBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()))),
       filledButtonTheme:FilledButtonThemeData(style:FilledButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))),
