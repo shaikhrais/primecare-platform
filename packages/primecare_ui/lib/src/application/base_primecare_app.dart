@@ -21,7 +21,10 @@ abstract class BasePrimeCareApp extends ConsumerWidget {
   bool get useShellBoundary => true;
   bool get drainTelemetry => false;
   Widget decorateApplication(Widget child) => child;
-  Widget decorateResolvedApplication(Widget child,ThemeData theme,PersonalTheme? personal) => decorateApplication(child);
+  Widget decorateResolvedApplication(Widget child,ThemeData theme,PersonalTheme? personal) {
+    if (personal == null) return decorateApplication(child);
+    return PrimeTheme(data:resolvePersonalPrimeTheme(const PrimeThemeData(),theme,personal),child:decorateApplication(child));
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,8 +61,7 @@ abstract class BaseThemedPrimeCareApp extends BasePrimeCareApp {
   @override
   Widget decorateResolvedApplication(Widget child,ThemeData theme,PersonalTheme? personal) {
     if(personal==null)return decorateApplication(child);
-    final chrome=theme.extension<GovernanceThemeColors>();
-    return PrimeTheme(data:PrimeThemeData(colors:primeTheme.colors.copyWith(primary:theme.colorScheme.primary,onPrimary:theme.colorScheme.onPrimary,primaryContainer:theme.colorScheme.primaryContainer,secondary:theme.colorScheme.secondary,background:theme.scaffoldBackgroundColor,dashboardBackground:theme.scaffoldBackgroundColor,surface:theme.colorScheme.surface,onSurface:theme.colorScheme.onSurface,onSurfaceVariant:theme.colorScheme.onSurfaceVariant,textSecondary:theme.hintColor,surfaceContainer:theme.colorScheme.surface,surfaceContainerLow:theme.colorScheme.surface,surfaceContainerHigh:theme.colorScheme.surface,surfaceContainerLowest:theme.colorScheme.surface,surfaceContainerHighest:theme.colorScheme.surface,sidebarBackground:chrome?.sidebarBackground,topbarBackground:chrome?.topbarBackground,sidebarTextColor:chrome?.sidebarTextColor,sidebarSelectedTextColor:chrome?.sidebarSelectedTextColor,sidebarIconColor:chrome?.sidebarIconColor,sidebarSelectedIconColor:chrome?.sidebarSelectedIconColor,sidebarSelectedTileColor:chrome?.sidebarSelectedTileColor,sidebarDividerColor:chrome?.sidebarDividerColor,topbarTextColor:chrome?.topbarTextColor,topbarSelectedTextColor:chrome?.topbarSelectedTextColor,topbarIconColor:chrome?.topbarIconColor,topbarSelectedIconColor:chrome?.topbarSelectedIconColor,topbarDividerColor:chrome?.topbarDividerColor,outline:theme.colorScheme.outline,border:theme.colorScheme.outline,divider:theme.dividerColor),typography:RuntimePrimeTypography(primeTheme.typography,personal,theme.colorScheme.onSurface),spacing:primeTheme.spacing,radiusXs:personal.radius.toDouble(),radiusSm:personal.radius.toDouble(),radiusDefault:personal.radius.toDouble(),radiusMd:personal.radius.toDouble(),radiusLg:personal.radius.toDouble(),radiusXl:personal.radius.toDouble(),shadowsSurface1:primeTheme.shadowsSurface1,shadowsSurface2:primeTheme.shadowsSurface2),child:child);
+    return PrimeTheme(data:resolvePersonalPrimeTheme(primeTheme,theme,personal),child:child);
   }
 }
 
@@ -68,4 +70,9 @@ abstract class BaseStandardPrimeCareApp extends BaseThemedPrimeCareApp {
   const BaseStandardPrimeCareApp({super.key});
   @override
   bool get drainTelemetry => true;
+}
+
+PrimeThemeData resolvePersonalPrimeTheme(PrimeThemeData base,ThemeData theme,PersonalTheme personal) {
+  final chrome=theme.extension<GovernanceThemeColors>();
+  return PrimeThemeData(colors:base.colors.copyWith(primary:theme.colorScheme.primary,onPrimary:theme.colorScheme.onPrimary,primaryContainer:theme.colorScheme.primaryContainer,secondary:theme.colorScheme.secondary,background:theme.scaffoldBackgroundColor,dashboardBackground:theme.scaffoldBackgroundColor,surface:theme.colorScheme.surface,onSurface:theme.colorScheme.onSurface,onSurfaceVariant:theme.colorScheme.onSurfaceVariant,textSecondary:theme.hintColor,surfaceContainer:theme.colorScheme.surface,surfaceContainerLow:theme.colorScheme.surface,surfaceContainerHigh:theme.colorScheme.surface,surfaceContainerLowest:theme.colorScheme.surface,surfaceContainerHighest:theme.colorScheme.surface,sidebarBackground:chrome?.sidebarBackground,topbarBackground:chrome?.topbarBackground,sidebarTextColor:chrome?.sidebarTextColor,sidebarSelectedTextColor:chrome?.sidebarSelectedTextColor,sidebarIconColor:chrome?.sidebarIconColor,sidebarSelectedIconColor:chrome?.sidebarSelectedIconColor,sidebarSelectedTileColor:chrome?.sidebarSelectedTileColor,sidebarDividerColor:chrome?.sidebarDividerColor,topbarTextColor:chrome?.topbarTextColor,topbarSelectedTextColor:chrome?.topbarSelectedTextColor,topbarIconColor:chrome?.topbarIconColor,topbarSelectedIconColor:chrome?.topbarSelectedIconColor,topbarDividerColor:chrome?.topbarDividerColor,outline:theme.colorScheme.outline,border:theme.colorScheme.outline,divider:theme.dividerColor),typography:RuntimePrimeTypography(base.typography,personal,theme.colorScheme.onSurface),spacing:base.spacing,radiusXs:personal.radius.toDouble(),radiusSm:personal.radius.toDouble(),radiusDefault:personal.radius.toDouble(),radiusMd:personal.radius.toDouble(),radiusLg:personal.radius.toDouble(),radiusXl:personal.radius.toDouble(),shadowsSurface1:base.shadowsSurface1,shadowsSurface2:base.shadowsSurface2);
 }

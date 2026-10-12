@@ -92,6 +92,20 @@ void main() {
     expect(prime.data.colors.primary,material.theme!.colorScheme.primary);expect(prime.data.radiusDefault,16);expect(prime.data.typography.bodyMedium.fontSize,const PrimeTypography().bodyMedium.fontSize! * 1.25);
     await tester.pumpWidget(const SizedBox());router.dispose();
   });
+  testWidgets('branded corporate root exposes personal tokens without changing default branding', (tester) async {
+    final router = await mount(tester, (r) => BrandedApp(r, ThemeData(colorSchemeSeed: Colors.orange)));
+    expect(find.byType(PrimeTheme), findsNothing);
+    final scope = ProviderScope.containerOf(tester.element(find.byType(BrandedApp)), listen: false);
+    await scope.read(themeSettingsProvider.notifier).applyPersonalTheme(PersonalTheme(name: 'Corporate', preset: 'dark1', fontScale: 1.5));
+    await tester.pumpAndSettle();
+    final material = tester.widget<MaterialApp>(find.byType(MaterialApp)).theme!;
+    final prime = tester.widget<PrimeTheme>(find.byType(PrimeTheme)).data;
+    expect(prime.colors.surface, material.colorScheme.surface);
+    expect(prime.colors.onSurface, material.colorScheme.onSurface);
+    expect(prime.scaleFont(12), 18);
+    await tester.pumpWidget(const SizedBox());
+    router.dispose();
+  });
   testWidgets(
     'themed root retains router, title, localization and shell order',
     (tester) async {

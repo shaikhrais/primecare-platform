@@ -31,6 +31,14 @@ Legacy Flutter global theme preference keys are not copied into each user's name
 
 Saving is local to this browser/device. JSON export/import transfers a style manually. There is no cloud sync, tenant-wide publishing, central administration of other users' themes, remote fonts, arbitrary CSS or DevExpress skin loading. Required form fields and permissions cannot be changed by a theme. Legacy screens that hardcode colors rather than consuming shared Material/PrimeTheme tokens are not converted into a new design system by this change.
 
+## Legacy consumer migration
+
+The follow-up migration replaces fixed dashboard card surfaces, hero/insight gradients, neutral text and panel borders with shared theme values. Explicit shared component font sizes honor the saved scale; quick-action tiles grow with text and the hero heading wraps. Admin reality-check, role-carousel and screenshot-gallery surfaces/buttons use their current theme. Filled input backgrounds and enabled-border radii no longer retain the original branding after a personal style is applied.
+
+Branded application roots expose the same personal PrimeTheme tokens as Material when a personal theme is active. The enterprise blueprint demo also consumes the personal Material appearance and offers the theme drawer; it remains a demo, with authenticated account requirements unchanged for named theme saving.
+
+The SQLite screen generator now emits runtime appearance tokens and scaled text. Existing generated screen files are not regenerated in bulk: doing so could overwrite their individual API and authorization work. Older direct color literals outside these shared components remain for subsequent screen-specific migration. Status colors and audit labels retain their meaning.
+
 ## Verification
 
 Dedicated browser coverage exercises all 37 palettes, live state retention, named CRUD, persistence across reload, per-account isolation, collection bounds and JSON rejection/export/import at mobile/desktop sizes. Shared Flutter tests exercise all catalog presets, personal theme validation, scoped settings/collection CRUD, restart restoration, role/account switching, malformed preferences and collection bounds. Shared app tests and platform compilation must pass before merge.

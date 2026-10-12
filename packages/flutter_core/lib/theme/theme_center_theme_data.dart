@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'app_theme.dart';
 import 'personal_theme.dart';
 import 'theme_config_generated.dart';
+import 'theme_contrast.dart';
 
 ThemeData applyPersonalThemeData(ThemeData baseTheme,PersonalTheme personal) {
     Color? parseHexColor(String? value) => value != null && RegExp(r'^#[0-9a-fA-F]{6}$').hasMatch(value) ? Color(int.parse(value.substring(1),radix:16) | 0xff000000) : null;
-    Color foreground(Color background,Color candidate) {
-      double contrast(Color text) {final a=text.computeLuminance(),b=background.computeLuminance();return (a>b?(a+.05)/(b+.05):(b+.05)/(a+.05));}
-      if(contrast(candidate)>=4.5)return candidate;return contrast(Colors.black)>=contrast(Colors.white)?Colors.black:Colors.white;
-    }
+    Color foreground(Color background,Color candidate) => readableThemeForeground(background,candidate);
     final style=personal;
     final palette = ThemeConfig.getAppPalette(style.preset);
     Color resolved(String key,Color fallback) => parseHexColor(style.colors[key]) ?? fallback;
@@ -39,8 +37,10 @@ ThemeData applyPersonalThemeData(ThemeData baseTheme,PersonalTheme personal) {
     return baseTheme.copyWith(
       primaryColor:resolvedPrimary,scaffoldBackgroundColor:background,dividerColor:border,hintColor:readableMuted,
       textTheme:completeText.apply(fontFamily:fontFamily,fontSizeFactor:style.fontScale,bodyColor:readable,displayColor:readable),
-      cardTheme:CardThemeData(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()))),
-      inputDecorationTheme:baseTheme.inputDecorationTheme.copyWith(border:OutlineInputBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())),focusedBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()),borderSide:BorderSide(color:foreground(surface,resolvedPrimary),width:2)),floatingLabelStyle:TextStyle(color:foreground(surface,resolvedPrimary))),
+      cardTheme:baseTheme.cardTheme.copyWith(color:surface,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()))),
+      appBarTheme:baseTheme.appBarTheme.copyWith(backgroundColor:resolvedTopbarBg,foregroundColor:foreground(resolvedTopbarBg,text)),
+      iconTheme:baseTheme.iconTheme.copyWith(color:readable),
+      inputDecorationTheme:baseTheme.inputDecorationTheme.copyWith(fillColor:surface,labelStyle:TextStyle(color:readableMuted),hintStyle:TextStyle(color:readableMuted),border:OutlineInputBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()),borderSide:BorderSide(color:border)),enabledBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()),borderSide:BorderSide(color:border)),focusedBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()),borderSide:BorderSide(color:foreground(surface,resolvedPrimary),width:2)),floatingLabelStyle:TextStyle(color:foreground(surface,resolvedPrimary))),
       filledButtonTheme:FilledButtonThemeData(style:FilledButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))),
       outlinedButtonTheme:OutlinedButtonThemeData(style:OutlinedButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))),
       textButtonTheme:TextButtonThemeData(style:TextButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))),

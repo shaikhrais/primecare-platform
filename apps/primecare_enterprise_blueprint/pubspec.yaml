@@ -38,6 +38,8 @@ dependencies:
     path: ../../packages/flutter_core
   primecare_ui:
     path: ../../packages/primecare_ui
+  easy_localization: ^3.0.8
+  shared_preferences: ^2.5.5
 
 dev_dependencies:
   integration_test:

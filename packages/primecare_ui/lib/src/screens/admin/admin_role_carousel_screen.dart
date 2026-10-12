@@ -188,8 +188,8 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                   label: const Text('Reload Database'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.primaryColor,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    foregroundColor: theme.colorScheme.onPrimary,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(context.theme.radiusDefault)),
                   ),
                 ),
               ],
@@ -326,7 +326,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: theme.cardColor,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(color: theme.dividerColor.withValues(alpha: 0.08)),
         boxShadow: [
           BoxShadow(
@@ -342,7 +342,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(context.theme.radiusDefault),
             ),
             child: Icon(icon, color: color, size: 22),
           ),
@@ -388,7 +388,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(context.theme.radiusDefault),
           side: BorderSide(color: theme.dividerColor.withValues(alpha: 0.1)),
         ),
         child: Padding(
@@ -421,7 +421,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                         fillColor: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
                         contentPadding: const EdgeInsets.symmetric(vertical: 8),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                           borderSide: BorderSide.none,
                         ),
                       ),
@@ -441,7 +441,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       decoration: BoxDecoration(
                         color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
@@ -538,7 +538,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
       margin: const EdgeInsets.only(bottom: 24),
       decoration: BoxDecoration(
         color: theme.cardColor,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(color: theme.dividerColor.withValues(alpha: 0.06)),
       ),
       child: Column(
@@ -635,8 +635,8 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
       width: 350,
       margin: const EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
-        color: isDark ? Colors.grey[900] : Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(
           color: screen.productionReady
               ? Colors.green.withValues(alpha: 0.3)
@@ -663,7 +663,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: statusColor.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                   ),
                   child: Text(
                     screen.hardFail
@@ -744,7 +744,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                       backgroundColor: theme.primaryColor.withValues(alpha: 0.1),
                       foregroundColor: theme.primaryColor,
                       elevation: 0,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(context.theme.radiusDefault)),
                       padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
                     child: const Text('OPEN SCREEN', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
