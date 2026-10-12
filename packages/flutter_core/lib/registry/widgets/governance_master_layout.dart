@@ -19,7 +19,6 @@ import '../../config/screen_breakpoints.dart';
 import '../../config/adaptive_scaling_config.dart';
 
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'dart:ui';
 import '../role_registry.dart';
 import '../../src/localization/language_provider.dart';
 
@@ -727,7 +726,7 @@ class _RoleSwitcherDialog extends StatefulWidget {
 
 class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
   final TextEditingController _searchController = TextEditingController();
-  String _searchQuery = "";
+  String _searchQuery = '';
 
   @override
   void dispose() {
@@ -861,7 +860,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
                             onTap: () {
                               _searchController.clear();
                               setState(() {
-                                _searchQuery = "";
+                                _searchQuery = '';
                               });
                             },
                             child: Icon(
