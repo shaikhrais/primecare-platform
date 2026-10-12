@@ -1,0 +1,4 @@
+<PrimeCareLayout version="1">
+  <Theme preset="default" accent=""/>
+  <Shell sidebar="left" navigation="expanded" density="comfortable" contentWidth="100"/>
+</PrimeCareLayout>
