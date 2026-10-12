@@ -42,7 +42,12 @@
     "reports": "Reports",
     "search_scope": "Available tenants; accounts and master records in the selected tenant (up to 100 per list)",
     "task": "Task",
-    "tenant": "Tenant"
+    "tenant": "Tenant",
+    "current_password": "Current password",
+    "new_password": "New password",
+    "change_password": "Change password",
+    "request_failed": "Request failed.",
+    "unavailable": "Service unavailable."
   },
   "fr": {
     "title": "Administration de la plateforme",
@@ -87,7 +92,12 @@
     "reports": "Rapports",
     "search_scope": "Locataires disponibles ; comptes et référentiels du locataire sélectionné (100 par liste maximum)",
     "task": "Tâche",
-    "tenant": "Locataire"
+    "tenant": "Locataire",
+    "current_password": "Mot de passe actuel",
+    "new_password": "Nouveau mot de passe",
+    "change_password": "Modifier le mot de passe",
+    "request_failed": "Échec de la demande.",
+    "unavailable": "Service indisponible."
   },
   "es": {
     "title": "Administración de la plataforma",
@@ -132,6 +142,11 @@
     "reports": "Informes",
     "search_scope": "Organizaciones disponibles; cuentas y registros maestros de la organización seleccionada (hasta 100 por lista)",
     "task": "Tarea",
-    "tenant": "Organización"
+    "tenant": "Organización",
+    "current_password": "Contraseña actual",
+    "new_password": "Nueva contraseña",
+    "change_password": "Cambiar contraseña",
+    "request_failed": "La solicitud falló.",
+    "unavailable": "Servicio no disponible."
   }
 }

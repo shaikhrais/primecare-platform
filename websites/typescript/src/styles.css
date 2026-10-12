@@ -91,3 +91,7 @@ main > section[id] { scroll-margin-top:12rem; }
 @media (max-width:600px) { .global-navigation { flex-basis:100%;flex-direction:column;align-items:stretch;order:2; } .global-search-results { position:fixed;top:12rem;left:var(--spacing-sm);right:var(--spacing-sm);max-height:calc(100dvh - 15rem); } }
 
 .topbar-tenant { display:grid;gap:var(--spacing-xs);flex:0 1 14rem;min-width:0;font-size:var(--font-size-caption); }
+
+.shell-controls { display:flex;flex-wrap:wrap;align-items:center;gap:var(--spacing-md); }
+.shell-controls .topbar-tenant { flex-basis:14rem; }
+@media (max-width:600px) { .shell-controls { flex:1 1 auto; } }

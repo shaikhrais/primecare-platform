@@ -1,3 +1,4 @@
+import {renderShell,bindShell} from './shell';
 const escape=(v:unknown)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 export async function renderMaintenance(root:HTMLElement,gateway:string) {
  const token=sessionStorage.getItem('primecare_session');
@@ -16,7 +17,7 @@ export async function renderMaintenance(root:HTMLElement,gateway:string) {
   const identity=await request(gateway.replace(/\/+$/,'')+'/v1/auth/me');
   if(!['ceo','maintenance'].includes(identity.roles))throw new Error('CEO or maintenance access required.');
   const data=await request(endpoint);
-  root.innerHTML=`<main class="maintenance"><header><p class="eyebrow">PrimeCare · IT maintenance</p><h1>Organization configuration</h1><a href="/">Portal</a> · <button id="signout">Sign out</button></header>
+  renderShell(root,{home:'/',role:escape(identity.roles),navigation:'<a href="/maintenance/configuration">Organization configuration</a><a href="/success">Account</a>',controls:'<a href="/success">Account</a><a href="/">Portal</a><button id="signout">Sign out</button>',mainAttributes:'class="maintenance"',content:`<h1>Organization configuration</h1>
   <p>Manage settings for your organization. This account does not grant access to patient records or other organizations.</p><output id="maintenance-status" aria-live="polite"></output>
   <section class="section"><h2>Status and pending work</h2><p>${data.emailReady?'Email configuration is present. Inbox delivery still needs verification.':'Email setup is incomplete. Password recovery cannot send email yet.'}</p><ol>${data.pending.map((task:string)=>`<li>${escape(task)}</li>`).join('')}</ol></section>
   <form id="settings" class="section"><h2>Email delivery</h2><p>Provider: Cloudflare Email Service. No provider API key is required.</p>
@@ -26,7 +27,8 @@ export async function renderMaintenance(root:HTMLElement,gateway:string) {
   <button type="submit" ${data.settingsReady?'':'disabled'}>Save settings and templates</button><button type="button" id="test-email">Send test email to my signed-in account</button></form>
   <section class="section"><h2>Deployment configuration</h2>${data.externalConfiguration.map((item:any)=>`<h3>${escape(item.name)}</h3><p>${escape(item.value)}</p><p>${escape(item.instructions)}</p>`).join('')}</section>
   ${identity.roles==='ceo'?`<form id="create-account" class="section"><h2>Create IT maintenance account</h2><p>Create one named account per IT member. Share access through your approved IT process.</p><label>IT member email<input name="email" type="email" required maxlength="254"></label><label>Initial password<input name="password" type="password" minlength="12" required autocomplete="new-password"></label><button>Create maintenance account</button></form>`:''}
-  <section class="section"><h2>Recent activity</h2><ul>${data.audit.length?data.audit.map((item:any)=>`<li>${escape(item.action)} · ${escape(item.created_at)}</li>`).join(''):'<li>No maintenance changes recorded.</li>'}</ul></section></main>`;
+  <section class="section"><h2>Recent activity</h2><ul>${data.audit.length?data.audit.map((item:any)=>`<li>${escape(item.action)} · ${escape(item.created_at)}</li>`).join(''):'<li>No maintenance changes recorded.</li>'}</ul></section>`});
+  bindShell(root,'Organization configuration','en','Authorized maintenance tasks',()=>[{title:'Organization configuration',detail:'Email settings and templates',open:()=>root.querySelector('#settings')?.scrollIntoView()},{title:'Account',detail:'Change password',open:()=>location.assign('/success')}]);
   status=root.querySelector('#maintenance-status');
   const action=async(button:HTMLButtonElement,operation:()=>Promise<Record<string,any>>)=>{
    const buttons=[...root.querySelectorAll<HTMLButtonElement>('button')];buttons.forEach(b=>b.disabled=true);
