@@ -1,3 +1,4 @@
+import {validatePersonalTheme,type PersonalTheme} from '../../../packages/domain/src/theme_center';
 import {defaultLayoutProfile,validateLayoutProfile,type LayoutProfile} from '../../../packages/domain/src/layout_profile';
 import {BaseThemeManager} from './theme-manager';
 export {defaultLayoutProfile};export type {LayoutProfile};
@@ -17,6 +18,7 @@ export class XmlLayoutManager {
  }
 }
 export class BaseLayoutManager {
+ private personal:PersonalTheme|null=null;
  readonly xml=new XmlLayoutManager();private theme=new BaseThemeManager();private profile:LayoutProfile={...defaultLayoutProfile};private undoStack:LayoutProfile[]=[];private redoStack:LayoutProfile[]=[];
  constructor(private root:HTMLElement,private readonly storageKey:string){try{const saved=localStorage.getItem(storageKey);if(saved)this.profile=this.xml.fromXml(saved);}catch{/* Fall back without applying malformed preferences. */}this.attach();}
  get current():LayoutProfile{return {...this.profile};}get canUndo():boolean{return this.undoStack.length>0;}get canRedo():boolean{return this.redoStack.length>0;}
@@ -26,6 +28,8 @@ export class BaseLayoutManager {
  reset():void {this.change(defaultLayoutProfile);}
  importXml(xml:string):void {this.change(this.xml.fromXml(xml));}
  exportXml():string{return this.xml.toXml(this.profile);}
+ setPersonalTheme(value:unknown|null):void {this.personal=value===null?null:validatePersonalTheme(value);this.attach();}
+ get personalTheme():PersonalTheme|null{return this.personal?structuredClone(this.personal):null;}
  save():void {localStorage.setItem(this.storageKey,this.exportXml());}
- attach():void {const shell=this.root.querySelector<HTMLElement>('.app-shell');if(!shell)return;this.theme.apply(this.profile);shell.dataset.sidebarPosition=this.profile.sidebar;shell.dataset.navigationMode=this.profile.navigation;shell.dataset.density=this.profile.density;shell.style.setProperty('--layout-content-width',this.profile.contentWidth+'%');shell.dataset.layoutVersion='1';}
+ attach():void {const shell=this.root.querySelector<HTMLElement>('.app-shell');if(!shell)return;this.theme.apply(this.profile,this.personal);shell.dataset.sidebarPosition=this.profile.sidebar;shell.dataset.navigationMode=this.profile.navigation;shell.dataset.density=this.profile.density;shell.style.setProperty('--layout-content-width',this.profile.contentWidth+'%');shell.dataset.layoutVersion='1';if(this.personal)shell.dataset.themeCenterActive='true';else delete shell.dataset.themeCenterActive;}
 }

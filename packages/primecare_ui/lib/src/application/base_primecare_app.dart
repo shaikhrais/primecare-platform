@@ -1,3 +1,6 @@
+import 'package:flutter_core/theme/theme_settings_provider.dart';
+import 'package:flutter_core/theme/theme_center_theme_data.dart';
+import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +20,7 @@ abstract class BasePrimeCareApp extends ConsumerWidget {
   bool get useShellBoundary => true;
   bool get drainTelemetry => false;
   Widget decorateApplication(Widget child) => child;
+  Widget decorateResolvedApplication(Widget child,ThemeData theme,PersonalTheme? personal) => decorateApplication(child);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,17 +28,19 @@ abstract class BasePrimeCareApp extends ConsumerWidget {
       AppErrorBoundary.drainToTelemetry(ref.read(executionGateProvider));
     }
     final router = routerFor(ref);
+    final personal=ref.watch(themeSettingsProvider).personalTheme;
+    final resolvedTheme=personal==null?applicationTheme:applyPersonalThemeData(applicationTheme,personal);
     final app = MaterialApp.router(
       title: applicationTitle,
       debugShowCheckedModeBanner: false,
-      theme: applicationTheme,
+      theme: resolvedTheme,
       themeMode: applicationThemeMode,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       routerConfig: router,
     );
-    final decorated = decorateApplication(app);
+    final decorated = decorateResolvedApplication(app,resolvedTheme,personal);
     return useShellBoundary ? AppShellBoundary(child: decorated) : decorated;
   }
 }
@@ -48,6 +54,11 @@ abstract class BaseThemedPrimeCareApp extends BasePrimeCareApp {
   @override
   Widget decorateApplication(Widget child) =>
       PrimeTheme(data: primeTheme, child: child);
+  @override
+  Widget decorateResolvedApplication(Widget child,ThemeData theme,PersonalTheme? personal) {
+    if(personal==null)return decorateApplication(child);
+    return PrimeTheme(data:PrimeThemeData(colors:primeTheme.colors.copyWith(primary:theme.colorScheme.primary,onPrimary:theme.colorScheme.onPrimary,primaryContainer:theme.colorScheme.primaryContainer,secondary:theme.colorScheme.secondary,background:theme.scaffoldBackgroundColor,dashboardBackground:theme.scaffoldBackgroundColor,surface:theme.colorScheme.surface,onSurface:theme.colorScheme.onSurface,outline:theme.colorScheme.outline,border:theme.colorScheme.outline,divider:theme.dividerColor),typography:RuntimePrimeTypography(primeTheme.typography,personal,theme.colorScheme.onSurface),spacing:primeTheme.spacing,radiusXs:personal.radius.toDouble(),radiusSm:personal.radius.toDouble(),radiusDefault:personal.radius.toDouble(),radiusMd:personal.radius.toDouble(),radiusLg:personal.radius.toDouble(),radiusXl:personal.radius.toDouble(),shadowsSurface1:primeTheme.shadowsSurface1,shadowsSurface2:primeTheme.shadowsSurface2),child:child);
+  }
 }
 
 /// Existing shared policy for client/support/franchise/marketing/BDM roots.

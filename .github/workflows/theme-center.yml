@@ -1,0 +1,43 @@
+name: Theme Center shared native and website suite
+on:
+  pull_request:
+    paths: ['websites/typescript/**', 'packages/domain/src/theme_center.ts', 'packages/flutter_core/lib/theme/**', 'packages/flutter_core/lib/registry/widgets/theme*', 'packages/flutter_core/lib/registry/widgets/governance_master_layout.dart', 'packages/flutter_core/test/theme_center_test.dart', 'scripts/test-theme-center-browser.mjs', 'scripts/generate-theme-center-catalog.mjs', 'scripts/fuse_presets.json', '.github/workflows/theme-center.yml']
+permissions:
+  contents: read
+concurrency:
+  group: theme-center-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  website:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/theme-center-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3
+          ln -s "$RUNNER_TEMP/theme-center-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - run: node scripts/generate-theme-center-catalog.mjs --check
+      - run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable websites/typescript/src/main.ts
+      - run: node scripts/test-layout-manager-browser.mjs
+      - run: node scripts/test-theme-center-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: theme-center-website, path: artifacts/theme-center}
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter analyze lib/theme/personal_theme.dart lib/theme/theme_library_provider.dart lib/theme/theme_settings_provider.dart lib/registry/widgets/theme_center_panel.dart lib/registry/widgets/theme_settings_drawer.dart lib/registry/widgets/governance_master_layout.dart
+        working-directory: packages/flutter_core
+      - run: flutter test test/theme_center_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter test test
+        working-directory: packages/flutter_core
