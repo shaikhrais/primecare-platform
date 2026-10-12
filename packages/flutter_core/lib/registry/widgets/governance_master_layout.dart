@@ -448,7 +448,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                   child: CircleAvatar(
                                     radius: 16,
-                                    backgroundColor: resolvedPrimary.withValues(alpha: 0.1),
+                                    backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
                                     backgroundImage: NetworkImage(
                                       'https://api.dicebear.com/7.x/avataaars/png?seed=${ref.watch(authProvider).userName ?? 'User'}',
                                     ),
