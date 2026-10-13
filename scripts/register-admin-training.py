@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SEED=ROOT/'docs/training/admin-course-seed.json'
 OUTPUT=ROOT/'websites/typescript/src/training/admin-course.json'
+DART=ROOT/'packages/primecare_ui/lib/src/features/training/localization/admin_training_catalog_generated.dart'
 
 def register(db):
     seed=json.loads(SEED.read_text());locales=seed['locales']
@@ -43,7 +44,23 @@ def register(db):
         governed[language]={key.removeprefix('screenText.admin_training.'):value for key,value in db.execute("SELECT r.resource_key,v.translated_text FROM language_resources r JOIN language_resource_values v USING(resource_id) JOIN languages l USING(language_id) WHERE r.context='admin_training' AND l.language_code=?",(language,))}
     assert governed==locales,'Training seed differs from governed text; review the change before export'
     seed['locales']=governed
+    db.execute('CREATE TABLE IF NOT EXISTS admin_training_native_surfaces(surface TEXT PRIMARY KEY,source_path TEXT NOT NULL,authority TEXT NOT NULL)')
+    for surface,path in [('account','packages/primecare_ui/lib/src/features/auth/auth_experience.dart'),('workspace','packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart')]:
+        db.execute('INSERT OR REPLACE INTO admin_training_native_surfaces VALUES(?,?,?)',(surface,path,'Authenticated active account with verified userId; educational only; no domain authority'))
     db.commit();return seed
+
+def dart_export(seed):
+    def literal(value):return json.dumps(value,ensure_ascii=False).replace('$',r'\$')
+    lines=["// Generated from governed administrator training; do not hand edit.","import '../models/admin_training_lesson.dart';",'const adminTrainingCourseId = '+literal(seed['course'])+';','const adminTrainingCourseVersion = '+literal(seed['version'])+';','const adminTrainingLessons = <AdminTrainingLesson>[']
+    for module in seed['modules']:
+        keys=module['keys']; fields=['id: '+literal(module['id'])]+[name+'Key: '+literal(keys[name]) for name in ['title','procedure','practice','question']]+['optionKeys: '+literal(keys['options']),'correct: '+str(module['correct'])]
+        lines.append('  AdminTrainingLesson('+', '.join(fields)+'),')
+    lines+= ['];','const adminTrainingCatalog = <String, Map<String,String>>{']
+    for lang,entries in seed['locales'].items():
+        lines.append('  '+literal(lang)+': {')
+        for key,value in entries.items():lines.append('    '+literal(key)+': '+literal(value)+',')
+        lines.append('  },')
+    return '\n'.join(lines+['};'])+'\n'
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');args=p.parse_args()
@@ -51,7 +68,11 @@ if __name__=='__main__':
         db=sqlite3.connect(':memory:') if args.check else sqlite3.connect(ROOT/'.agents/governance/governance.db')
         if args.check:source.backup(db)
         data=register(db);encoded=json.dumps(data,ensure_ascii=False,indent=2)+'\n'
-        if args.check:assert OUTPUT.read_text()==encoded,'Training export differs from governance'
-        else:OUTPUT.write_text(encoded)
+        if args.check:
+            assert OUTPUT.read_text()==encoded,'Training export differs from governance'
+            assert DART.read_text()==dart_export(data),'Native training export differs from governance'
+        else:
+            OUTPUT.write_text(encoded)
+            DART.write_text(dart_export(data))
         db.close()
     print('Registered eight training lessons, authenticated learning grants and EN/FR/ES resources; local progress only')

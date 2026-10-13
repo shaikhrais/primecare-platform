@@ -9,7 +9,7 @@ import 'auth_design_test.dart' show localized;
 class CeoAuthFixture extends AuthNotifier {
   @override
   AuthState build() => AuthState(isInitialized: true, isAuthenticated: true,
-    role: 'ceo', userName: 'ceo@example.test', token: 'test-token');
+    role: 'ceo', userId:'ceo-learner', userName: 'ceo@example.test', token: 'test-token');
 }
 
 class CeoWorkspaceApi extends Fake implements ApiClient {
@@ -64,6 +64,12 @@ void main() {
       expect(find.text('Account destination'), findsOneWidget);
     });
   }
+  testWidgets('authorized native workspace opens local training without extra API requests', (tester) async {
+    final api=CeoWorkspaceApi('en');
+    await tester.pumpWidget(ProviderScope(overrides:[authProvider.overrideWith(CeoAuthFixture.new),apiClientProvider.overrideWithValue(api)],child:localized(const CeoDashboardScreen())));
+    await tester.pumpAndSettle();await tester.tap(find.byKey(const ValueKey('workspace-training')));await tester.pumpAndSettle();
+    expect(find.textContaining('Lessons passed'),findsOneWidget);expect(api.calls,['/v1/governance/workspace']);expect(tester.takeException(),isNull);
+  });
   test('CEO dashboard excludes guests and ordinary client roles', () {
     const route = '/offices/corporate/roles/ceo/dashboard';
     expect(RouteGuard.verify(requestedRoute: route, isLoggedIn: false, userRole: null).isAllowed, isFalse);
