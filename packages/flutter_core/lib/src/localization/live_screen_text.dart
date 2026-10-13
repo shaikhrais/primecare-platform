@@ -16,7 +16,7 @@ class LiveScreenTextStore extends ChangeNotifier {
       : client = client ?? http.Client(), baseUrl = baseUrl ?? ApiConfig.baseUrl;
   String? text(String screen, String language, String key) => _catalogs[screen]?[language]?[key];
 
-  Future<dynamic> _get(String path) async {
+  Future<Object?> _get(String path) async {
     final response = await client.get(Uri.parse('$baseUrl/v1/governance/screen-text$path')).timeout(const Duration(seconds: 10));
     if (response.statusCode != 200 || response.bodyBytes.length > 100000) throw const FormatException('Text resources unavailable');
     return jsonDecode(response.body);
@@ -28,23 +28,36 @@ class LiveScreenTextStore extends ChangeNotifier {
     bool changed = false;
     try {
       final manifest = await _get('');
-      if (manifest is! Map || manifest['screens'] is! List || (manifest['screens'] as List).length > 500) throw const FormatException('Invalid text manifest');
-      for (final row in manifest['screens']) {
-        if (row is! Map || row['id'] is! String || row['version'] is! int) throw const FormatException('Invalid text version');
-        final screen = row['id'] as String;
-        if (!RegExp(r'^[a-z][a-z0-9_]{0,79}$').hasMatch(screen) || row['version'] < 0) throw const FormatException('Invalid screen');
-        if (_versions[screen] == row['version']) continue;
+      if (manifest is! Map<String, Object?>) throw const FormatException('Invalid text manifest');
+      final rows = manifest['screens'];
+      if (rows is! List<Object?> || rows.length > 500) throw const FormatException('Invalid text manifest');
+      for (final row in rows) {
+        if (row is! Map<String, Object?>) throw const FormatException('Invalid text version');
+        final screen = row['id'];
+        final version = row['version'];
+        if (screen is! String || version is! int || version < 0 ||
+            !RegExp(r'^[a-z][a-z0-9_]{0,79}$').hasMatch(screen)) throw const FormatException('Invalid screen');
+        if (_versions[screen] == version) continue;
         final value = await _get('/$screen');
         if (_disposed) return;
-        if (value is! Map || value['screen'] != screen || value['version'] is! int || value['locales'] is! Map) throw const FormatException('Invalid text catalog');
+        if (value is! Map<String, Object?> || value['screen'] != screen) throw const FormatException('Invalid text catalog');
+        final catalogVersion = value['version'];
+        final rawLocales = value['locales'];
+        if (catalogVersion is! int || catalogVersion < 0 || rawLocales is! Map<String, Object?>) throw const FormatException('Invalid text catalog');
         final locales = <String, Map<String, String>>{};
         for (final language in const ['en','fr','es']) {
-          final entries = value['locales'][language];
-          if (entries is! Map || entries.isEmpty || entries.values.any((v) => v is! String || v.trim().isEmpty || v.length > 2000)) throw const FormatException('Invalid text resources');
-          locales[language] = Map<String, String>.from(entries);
+          final entries = rawLocales[language];
+          if (entries is! Map<String, Object?> || entries.isEmpty) throw const FormatException('Invalid text resources');
+          final textEntries = <String,String>{};
+          for (final entry in entries.entries) {
+            final text = entry.value;
+            if (text is! String || text.trim().isEmpty || text.length > 2000) throw const FormatException('Invalid text resource');
+            textEntries[entry.key] = text;
+          }
+          locales[language] = textEntries;
         }
         _catalogs[screen] = locales;
-        _versions[screen] = value['version'];
+        _versions[screen] = catalogVersion;
         changed = true;
       }
     } catch (_) {
