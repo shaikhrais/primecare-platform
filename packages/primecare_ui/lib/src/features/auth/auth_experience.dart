@@ -2,10 +2,11 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'auth_design_tokens.dart';
 import 'password_recovery_form.dart';
+import '../../localization/auth_screen_text.dart';
 
 enum AuthPage { login, signup, forgot, reset, mfa, language, consent, success, error }
 
-String _copy(BuildContext context, String key) => 'auth_design_$key'.tr(context: context);
+String _copy(BuildContext context, String key) => authScreenText(context, key);
 
 /// Shared, responsive presentation. Controllers own authentication decisions.
 class PrimeAuthExperience extends ConsumerWidget {

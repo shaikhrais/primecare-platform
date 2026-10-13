@@ -1,7 +1,7 @@
 name: Live screen text editor and refresh
 on:
   pull_request:
-    paths: ['cloudflare/workers/src/screen-text*', 'cloudflare/workers/src/business-modules.ts', 'cloudflare/workers/src/governance-api.ts', 'packages/database/migrations/*screen_text*', 'websites/typescript/src/**', 'packages/flutter_core/lib/src/localization/**', 'packages/flutter_core/lib/theme/theme_center_text_generated.dart', 'packages/flutter_core/lib/registry/widgets/theme_center_panel.dart', 'packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart', 'packages/primecare_ui/lib/src/application/base_primecare_app.dart', 'packages/primecare_ui/lib/src/localization/screens/**', 'packages/primecare_ui/lib/src/screens/admin/**', 'packages/primecare_ui/lib/src/features/workspace/**', 'packages/primecare_ui/lib/src/features/reports/**', 'scripts/*screen-text*', 'packages/flutter_core/test/live_screen_text_test.dart', '.github/workflows/live-screen-text.yml']
+    paths: ['cloudflare/workers/src/screen-text*', 'cloudflare/workers/src/business-modules.ts', 'cloudflare/workers/src/governance-api.ts', 'packages/database/migrations/*screen_text*', 'websites/typescript/src/**', 'packages/flutter_core/lib/src/localization/**', 'packages/flutter_core/lib/theme/theme_center_text_generated.dart', 'packages/flutter_core/lib/registry/widgets/theme_center_panel.dart', 'packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart', 'packages/primecare_ui/lib/src/application/base_primecare_app.dart', 'packages/primecare_ui/lib/src/localization/screens/**', 'packages/primecare_ui/lib/src/screens/admin/**', 'packages/primecare_ui/lib/src/features/workspace/**', 'packages/primecare_ui/lib/src/features/reports/**', 'packages/primecare_ui/lib/src/features/auth/**', 'packages/primecare_ui/lib/src/localization/auth_screen_text*', 'packages/primecare_ui/test/auth_live_screen_text_test.dart', 'scripts/*screen-text*', 'packages/flutter_core/test/live_screen_text_test.dart', '.github/workflows/live-screen-text.yml']
 permissions:
   contents: read
 concurrency:
@@ -45,5 +45,5 @@ jobs:
         working-directory: packages/flutter_core
       - run: flutter pub get
         working-directory: packages/primecare_ui
-      - run: flutter test test/admin_reality_filter_localization_test.dart test/admin_role_carousel_localization_test.dart test/base_primecare_app_test.dart test/ceo_workspace_test.dart test/admin_reports_test.dart
+      - run: flutter test test/admin_reality_filter_localization_test.dart test/admin_role_carousel_localization_test.dart test/base_primecare_app_test.dart test/ceo_workspace_test.dart test/admin_reports_test.dart test/auth_design_test.dart test/auth_unavailable_localization_test.dart test/auth_live_screen_text_test.dart
         working-directory: packages/primecare_ui

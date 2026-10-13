@@ -18,7 +18,7 @@ Writes recheck session authority under transaction locks, apply a per-actor
 limit of 30 attempts/minute, and commit catalog/history together.
 
 The supported live surfaces are Reality Check, Role Carousel, Theme Center,
-workspace, reports, platform administration and the text editor. Flutter uses
+workspace, reports, platform administration, the text editor, shared Flutter authentication and password recovery. Flutter uses
 the inherited shared app scope; websites use the shared live catalog store.
 They check versions every 30 seconds while active and retain fallback/last
 valid text on refresh failures. Browser refresh avoids overwriting active
@@ -72,3 +72,16 @@ changes: a live-text import and label lookup. Its authorized route selection,
 returned section loop, visible cards and stable semantics remain unchanged.
 The audit still rejects unrendered/dead section loops and does not promote
 production readiness.
+
+## Shared authentication catalogs
+
+`auth` reuses the 62 registered authentication resources for the shared Flutter
+login, provisioning information, recovery shell, language selection, session
+summary and unavailable-capability pages. `password_recovery` adds 18 governed
+labels and validation/status messages in English, French and Spanish. Recovery
+status stores resource keys so language changes and remote text edits update
+messages while retaining email, code and password drafts. Server failures use
+a localized generic status; authentication requests and validation rules are
+unchanged. The TypeScript authentication pages still require their own resolver
+migration. This brings the live catalog count to nine; historical reference
+files are not counted as additional runtime migrations.
