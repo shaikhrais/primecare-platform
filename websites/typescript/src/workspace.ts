@@ -1,3 +1,4 @@
+import {openAdminTraining,trainingText} from './admin-training';
 import {liveScreenText} from './screen-text';
 import {accountMarkup,bindAccount} from './account';
 import {renderShell,bindShell} from './shell';
@@ -79,7 +80,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       return `<section class="section" data-cy="${escapeHtml(section.testId||section.code)}"><h2>${escapeHtml(section.name)}</h2>${body}</section>`;
     }).join('')??'';
     const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${t('created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
-    renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(data.identity.role),navigation:nav,menuLabel:t('pages'),controls:`<button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header"><div><p class="eyebrow">${escapeHtml(data.identity.role)}</p><h1 tabindex="-1" data-cy="workspace-title">${account?t('account'):escapeHtml(page?.name)}</h1></div><span class="badge">${t('created')}</span></div>
+    renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(data.identity.role),navigation:nav,menuLabel:t('pages'),controls:`<button data-cy="workspace-training">${escapeHtml(trainingText(gateway,'en','nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header"><div><p class="eyebrow">${escapeHtml(data.identity.role)}</p><h1 tabindex="-1" data-cy="workspace-title">${account?t('account'):escapeHtml(page?.name)}</h1></div><span class="badge">${t('created')}</span></div>
       ${account?accountMarkup(t):
       `<section class="section" data-cy="workspace-overview"><h2>${t('title')}</h2><div class="metric-grid">${cards}</div></section>
       <section class="section" data-cy="workspace-organization"><h2>${t('roles')}</h2>${chart()}<div class="metric-grid">${data.overview.metrics.map(m=>metric(t(m.code),m.available?m.count:data.resources['workspace.unconnected'])).join('')}</div></section>
@@ -93,6 +94,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       root.querySelector('main')!.insertBefore(panel,root.querySelector('[data-cy="workspace-inventory"]'));
     }
     bindShell(root,account?data.resources['workspace.account']:page?.name??'PrimeCare','en','Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>{history.pushState({},'',routeUrl(s.route));draw();root.querySelector<HTMLElement>('h1')?.focus();}})),data.identity.role+':'+data.identity.userId);
+    root.querySelector<HTMLButtonElement>('[data-cy="workspace-training"]')!.onclick=()=>openAdminTraining(gateway,data.identity.userId);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-refresh"]')!.onclick=()=>void renderWorkspace(root,gateway);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-logout"]')!.onclick=async()=>{await fetch(`${gateway}/v1/auth/logout`,{method:'POST',headers:{authorization:'Bearer '+token}}).catch(()=>undefined);sessionStorage.removeItem('primecare_session');location.assign(routeUrl('/login'));};
     root.querySelector<HTMLInputElement>('[data-cy="workspace-search"]')?.addEventListener('input',e=>{const input=e.currentTarget as HTMLInputElement;const cursor=input.selectionStart;search=input.value;pageNumber=0;draw();const next=root.querySelector<HTMLInputElement>('[data-cy="workspace-search"]');next?.focus();next?.setSelectionRange(cursor,cursor);});

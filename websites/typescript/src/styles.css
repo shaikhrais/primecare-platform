@@ -121,3 +121,10 @@ aside nav a[aria-current="page"], aside nav a:hover, aside nav a:focus-visible {
 
 .app-shell[data-theme-center-active] .section { --color-text:var(--color-surface-text);--color-text-muted:var(--color-surface-muted);color:var(--color-surface-text); }
 .layout-customizer[data-theme-center-active] { --color-text:var(--color-surface-text);--color-text-muted:var(--color-surface-muted);color:var(--color-surface-text); }
+
+.admin-training nav, .admin-training fieldset { display:flex;flex-wrap:wrap;gap:var(--spacing-sm);margin-block:var(--spacing-md); }
+.admin-training nav button { text-align:start; }
+.admin-training [aria-pressed="true"], .admin-training [aria-current="step"] { outline:2px solid var(--color-primary);outline-offset:2px; }
+.admin-training p, .admin-training button { overflow-wrap:anywhere; }
+.admin-training fieldset { border:1px solid var(--color-border);padding:var(--spacing-md);min-width:0; }
+.admin-training [data-cy="training-status"] { display:block;margin-block:var(--spacing-md); }
