@@ -68,7 +68,14 @@ void main() {
         addTearDown(store.dispose);
         Widget screen()=>ProviderScope(overrides:[authProvider.overrideWith(TrainingAuth.new)],child:localized(LiveScreenTextScope(store:store,child:AdminTrainingScreen(actor:'learner-a',gateway:'https://one',progress:progress,exporter:exporter)),language:language));
         await tester.pumpWidget(screen());await tester.pumpAndSettle();
-        Future<void> tap(String key) async {final finder=find.byKey(ValueKey(key));await tester.ensureVisible(finder);await tester.tap(finder);await tester.pumpAndSettle();}
+        Future<void> tap(String key) async {
+          final finder=find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy==key);
+          final scrollable=find.byType(Scrollable).first;
+          tester.state<ScrollableState>(scrollable).position.jumpTo(0);
+          await tester.pumpAndSettle();
+          await tester.scrollUntilVisible(finder,250,scrollable:scrollable,maxScrolls:100);
+          await tester.ensureVisible(finder);await tester.tap(finder);await tester.pumpAndSettle();
+        }
         await tap('training-submit');expect(find.text(adminTrainingCatalog[language]!['select_answer']!),findsOneWidget);
         await tap('training-answer-0');await tap('training-submit');expect(await progress.results(),isEmpty);
         await tap('training-answer-1');await tap('training-language-fr');
@@ -90,7 +97,7 @@ void main() {
   testWidgets('verified account opens training; switching account hides old progress', (tester) async {
     final container=ProviderContainer(overrides:[authProvider.overrideWith(TrainingAuth.new)]);addTearDown(container.dispose);
     await tester.pumpWidget(UncontrolledProviderScope(container:container,child:localized(const Scaffold(body:AdminTrainingLauncher()))));await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const ValueKey('workspace-training')));await tester.pumpAndSettle();expect(find.byType(AdminTrainingScreen),findsOneWidget);
+    await tester.tap(find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy=='workspace-training'));await tester.pumpAndSettle();expect(find.byType(AdminTrainingScreen),findsOneWidget);
     (container.read(authProvider.notifier) as TrainingAuth).switchAccount('learner-b');await tester.pumpAndSettle();expect(find.byKey(const ValueKey('training-submit')),findsNothing);
     (container.read(authProvider.notifier) as TrainingAuth).switchAccount(null);await tester.pumpAndSettle();expect(find.byKey(const ValueKey('training-export')),findsNothing);
   });
