@@ -9,6 +9,9 @@ and Pages workflows, and public catalog/bundle verification in that order.
 
 All jobs use the triggering source commit. Production jobs are skipped on pull
 requests. The workflow does not commit or publish the SQLite governance database.
+Before release tests, it stops standalone Flutter Pages deployments for this
+same main commit, preventing competing builds from overwriting the TypeScript
+portal release. Native builds and releases of other commits are untouched.
 The smoke check reads public text catalogs and website bundles only; it does
 not create users or change production business data. Any verification/migration
 failure prevents later deployment jobs. Actual rollout success must be reported
