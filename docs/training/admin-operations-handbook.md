@@ -1,6 +1,6 @@
 # PrimeCare Administrator Operations Handbook
 
-Version 1.0 | 13 October 2026 | Audience: platform administrators, administrative assistants and their supervisors
+Version 1.1 | 13 October 2026 | Audience: platform administrators, administrative assistants and their supervisors
 
 ## 1. Purpose and authority
 
@@ -124,7 +124,7 @@ These settings do not change business permissions, database rules or other users
 
 ## 6. In-app training
 
-Platform administrators open Training from the platform sidebar. Authenticated workspace users open Training from the top bar. Workspace access to educational material does not grant platform administration. The training includes eight lessons:
+On the websites, platform administrators open Training from the platform sidebar. Authenticated workspace users open Training from the top bar. Workspace access to educational material does not grant platform administration. Native app users open Training from Account or the school icon in an authorized workspace toolbar. The verified account ID scopes progress; signing out or switching accounts hides the previous account’s controls. The training includes eight lessons:
 
 1. Role and safe access.
 2. Daily work and handover.
@@ -137,7 +137,7 @@ Platform administrators open Training from the platform sidebar. Authenticated w
 
 Read each procedure and discuss its practice task with your supervisor. Select an answer and check it. Incorrect answers do not pass the lesson. Correct answers are saved on this device under the current account, gateway and course version. English, French and Spanish use the same lesson and answer definitions.
 
-You can change lesson language, resume saved progress, download a JSON training summary or reset your device results. A storage failure is reported and does not record that attempt. Clearing browser data, using another device or another course version does not carry progress forward. No central employee training database, assignment workflow or certification is created by this module.
+You can change lesson language, resume saved progress, download a JSON training summary on the website or save/share a PDF summary from the native app. You can also reset your device results. A storage failure is reported and does not record that attempt. Clearing browser data, using another device or another course version does not carry progress forward. No central employee training database, assignment workflow or certification is created by this module.
 
 The downloadable summary is explicitly a device self-assessment with supervisorVerified set to false. It contains lesson identifiers and pass times, not credentials, patient data or operational records. Anyone with device access can alter local records, so it must not be treated as independent proof of competence. Send it through an approved channel for supervisor review.
 
@@ -176,10 +176,10 @@ Approve independent duties only after the organization's practical and access re
 
 ## 9. Implementation reference and readiness
 
-Reviewed source baseline: merged commit a1c211140c436b13e73c6d8e492dcf069d7989be plus this training change. Training course version: 2026-10-13.1.
+Reviewed source baseline: merged commit 586af8133b96118cacd6feb4345b16fa47152f0c plus the native training change in PR200. Training course version: 2026-10-13.1.
 
 Authority and workflow references: scripts/register-platform-admin-role.py; websites/typescript/src/platform-admin.ts; cloudflare/workers/src/platform-administration.ts; websites/typescript/src/reports.ts; cloudflare/workers/src/reporting.ts; scripts/register-admin-reports.py; websites/typescript/src/screen-text.ts; docs/architecture/admin-website-workflows.md; docs/architecture/admin-reporting.md.
 
-Training is implemented as a shared TypeScript module with a governance-derived course and device-local controller. It is available in the responsive website, including mobile browsers. A native Flutter training screen, central completion tracking, course assignments and supervisor approval workflow are separate future work. Existing native authentication, reports and shared skeleton work do not imply that this new training screen is already native.
+Training is implemented as a shared TypeScript module with a governance-derived course and device-local controller. It is available in the responsive website, including mobile browsers. Native Flutter users open Training from Account or the authorized workspace toolbar. The same course is available with local app progress and a save/share PDF summary. Native app preferences and TypeScript browser storage do not synchronize automatically. Central completion tracking, course assignments and supervisor approval workflow remain separate future work.
 
 Legacy inventory readiness, business API coverage, verified mail delivery and formal accessibility certification retain their own evidence requirements. This handbook does not mark all historical admin screens or all business workflows complete.

@@ -1263,7 +1263,11 @@
       "presentation_option_2": "Yes; it certifies practical competence",
       "language_en": "English",
       "language_fr": "Français",
-      "language_es": "Español"
+      "language_es": "Español",
+      "export_pdf": "Save or share training PDF",
+      "export_error": "The training summary could not be exported. Your saved progress is unchanged.",
+      "export_saved": "Training summary exported.",
+      "export_cancelled": "Export cancelled."
     },
     "fr": {
       "title": "Formation des administrateurs",
@@ -1349,7 +1353,11 @@
       "presentation_option_2": "Oui; cela certifie la compétence pratique",
       "language_en": "English",
       "language_fr": "Français",
-      "language_es": "Español"
+      "language_es": "Español",
+      "export_pdf": "Enregistrer ou partager le PDF de formation",
+      "export_error": "Le bilan de formation n’a pas pu être exporté. Votre progression enregistrée reste inchangée.",
+      "export_saved": "Bilan de formation exporté.",
+      "export_cancelled": "Exportation annulée."
     },
     "es": {
       "title": "Formación de administradores",
@@ -1435,7 +1443,11 @@
       "presentation_option_2": "Sí; certifica la competencia práctica",
       "language_en": "English",
       "language_fr": "Français",
-      "language_es": "Español"
+      "language_es": "Español",
+      "export_pdf": "Guardar o compartir el PDF de formación",
+      "export_error": "No se pudo exportar el resumen de formación. Su progreso guardado permanece sin cambios.",
+      "export_saved": "Resumen de formación exportado.",
+      "export_cancelled": "Exportación cancelada."
     }
   }
 }

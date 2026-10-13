@@ -1,3 +1,4 @@
+import '../training/admin_training_launcher.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'auth_design_tokens.dart';
@@ -134,6 +135,7 @@ class PrimeAuthExperience extends ConsumerWidget {
           Icon(Icons.check_circle_outline_rounded, size: AuthDesignTokens.markSize, color: theme.colors.primary), gap,
           Text(_copy(context, 'account'), style: theme.typography.labelBold),
           Text(auth.userName ?? '', style: theme.typography.bodyLarge), gap,
+          const AdminTrainingLauncher(), gap,
           Text(_copy(context, 'role'), style: theme.typography.labelBold),
           Text(auth.role ?? '', style: theme.typography.bodyLarge), gap,
           if (['ceo', 'maintenance'].contains(auth.role)) TextButton(onPressed: () => _go(context, '/maintenance/configuration'), child: const Text('IT maintenance configuration')),

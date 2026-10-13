@@ -1,3 +1,4 @@
+import '../training/admin_training_launcher.dart';
 import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
@@ -68,6 +69,7 @@ class _WorkspaceState extends ConsumerState<GovernedWorkspaceScreen> {
     return Scaffold(
       backgroundColor: theme.colors.background,
       appBar: AppBar(title: Text(page?['name']?.toString() ?? label('title')), actions: [
+        if(_workspace!=null && page!=null)const AdminTrainingLauncher(compact:true),
         IconButton(tooltip: label('refresh'), onPressed: _loading ? null : _load, icon: const Icon(Icons.refresh)),
         IconButton(tooltip: label('account'), onPressed: () => context.go('/success'), icon: const Icon(Icons.account_circle_outlined)),
         IconButton(tooltip: label('sign_out'), onPressed: () async {
