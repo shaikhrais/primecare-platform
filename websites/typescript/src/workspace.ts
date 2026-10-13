@@ -1,3 +1,4 @@
+import {liveScreenText} from './screen-text';
 import {accountMarkup,bindAccount} from './account';
 import {renderShell,bindShell} from './shell';
 import {reportPanel} from './reports';
@@ -39,8 +40,9 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   }
   const reportPanels=new Map<string,HTMLElement>();
   if(data.identity.role==='platform_admin'&&location.pathname!=='/success'){location.assign('/platform/administration');return;}
+  const live=liveScreenText(gateway);let dirtyForm=false;root.addEventListener('input',()=>dirtyForm=true);
   let search='';let pendingOnly=false;let pageNumber=0;
-  const t=(key:string)=>escapeHtml(data.resources['workspace.'+key]??key);
+  const t=(key:string)=>escapeHtml(live.text('workspace','en',key,data.resources['workspace.'+key]??key));
   const link=(page:Page)=>`<a href="${escapeHtml(routeUrl(page.route))}" data-route="${escapeHtml(page.route)}" data-cy="sidebar-item-${escapeHtml(page.code)}">${escapeHtml(page.name)}</a>`;
   const metric=(label:string,value:unknown)=>`<article class="metric"><span>${label}</span><strong>${escapeHtml(value)}</strong></article>`;
   const details=(p:Page)=>`<details data-cy="delivery-${escapeHtml(p.code)}"><summary>${t('details')}</summary>
@@ -100,5 +102,6 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([inventoryCsv(rows)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
     bindAccount(root,gateway,token,data.resources['workspace.request_failed'],data.resources['workspace.unavailable']);
   };
+  const unsubscribe=live.subscribe(()=>{if(!root.querySelector('[data-cy=workspace-organization]')){unsubscribe();return;}if(!dirtyForm)draw();});
   window.onpopstate=draw;draw();
 }

@@ -1,3 +1,5 @@
+import 'package:flutter_core/src/localization/live_screen_text.dart';
+import '../../localization/admin_role_carousel_catalog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,7 +18,7 @@ class AdminRoleCarouselScreen extends ConsumerStatefulWidget {
 
 class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScreen> {
   String _t(String key, {Map<String, String> args = const {}}) =>
-      AdminRoleCarouselText.resolve(Localizations.localeOf(context).languageCode, key, args: args);
+      liveScreenText(context,'admin_role_carousel',Localizations.localeOf(context).languageCode,key,adminRoleCarouselCatalog[Localizations.localeOf(context).languageCode]?[key] ?? adminRoleCarouselCatalog['en']![key]!,args:args);
 
   String _bodyCounts(ScreenHealthStatus screen) => _t('bodyCounts', args: {
     'total': '${screen.screenBodyTotalInteractions}',

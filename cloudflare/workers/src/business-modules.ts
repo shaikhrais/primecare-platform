@@ -1,3 +1,4 @@
+import {screenText} from './screen-text';
 import {platformAdministration} from './platform-administration';
 import {reporting} from './reporting';
 import {providerTimesheetItems} from './provider-timesheet-items';
@@ -23,5 +24,6 @@ export const businessModules: readonly Readonly<{name: string; handle: BusinessH
     {name: 'governance', handle: governanceApi},
     {name: 'workspace', handle: workspace},
     {name: 'reporting', handle: reporting},
+    {name: 'screen-text', handle: screenText},
     {name: 'platform-administration', handle: platformAdministration},
   ].map(module => Object.freeze(module)));

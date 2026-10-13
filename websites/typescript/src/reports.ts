@@ -1,3 +1,4 @@
+import {liveScreenText} from './screen-text';
 import {escapeHtml} from './workspace';
 type Definition={id:string;title:string;canExport:boolean;canEmail:boolean;supportsFilters:boolean};
 type Result={title:string;classification:string;generatedAt:string;scope:string;columns:{key:string;label:string}[];rows:Record<string,unknown>[]};
@@ -8,7 +9,7 @@ export function reportPanel(gateway:string,endpoint:string,token:string,userId:s
  let locale='en',reports:Definition[]=[],labels:Record<string,string>={},selected='',search='',readiness='all',result:Result|null=null,busy=false,notice='';
  let to='',subject='',message='',confirmed=false;
  const url=gateway.replace(/\/+$/,'')+endpoint;
- const label=(key:string)=>escapeHtml(labels[key]??key);
+ const live=liveScreenText(gateway);const label=(key:string)=>escapeHtml(live.text('reports',locale,key,labels[key]??key));
  const definition=()=>reports.find(r=>r.id===selected);
  const options=()=>({locale,search:definition()?.supportsFilters?search:'',readiness:definition()?.supportsFilters?readiness:'all'});
  const pendingKey=()=>`primecare-report-pending:${userId}:${selected}`;
@@ -36,5 +37,6 @@ export function reportPanel(gateway:string,endpoint:string,token:string,userId:s
  }
  async function action(work:()=>Promise<void>){if(busy)return;busy=true;notice='';draw();try{await work();}catch{notice=labels.error??'Report request failed.';}finally{busy=false;draw();}}
  async function load(){reset();reports=[];await action(async()=>{const r=await fetch(url+'?locale='+locale,{headers:headers(),cache:'no-store'});const data=await r.json();if(!r.ok||!Array.isArray(data.reports)||!data.resources)throw new Error();reports=data.reports;labels=data.resources;selected=reports.some(d=>d.id===selected)?selected:reports[0]?.id??'';reset();});}
+ let attached=false;const unsubscribe=live.subscribe(()=>{if(root.isConnected)attached=true;else if(attached){unsubscribe();return;}if(!root.isConnected)return;if(!busy&&!root.querySelector('input:focus,textarea:focus,select:focus')){labels={...labels};draw();}});
  void load();return root;
 }
