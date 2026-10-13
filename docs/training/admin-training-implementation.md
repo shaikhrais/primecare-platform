@@ -1,0 +1,11 @@
+# Admin training implementation
+
+Requirement: provide administrator duty instructions, management reporting guidance and in-system training. One shared TypeScript panel serves the authenticated platform console and workspace dialog. Educational read access applies to active roles; domain authority remains with existing authenticated parent APIs. No role promotions, new business APIs, outbound messages or operational mutations are introduced.
+
+`register-admin-training.py` registers the course, active-role learning grants, platform section, controls, approved button mapping and EN/FR/ES resources before generating `admin-course.json`. `register-live-screen-text.py` includes its governed text in `admin_training`. Rerun both scripts with `--check` against the tracked seed to validate reproducibility. The binary governance database is not published.
+
+`TrainingProgress` owns account/gateway/course-version storage and answer validation. The view renders course data and records successful checks only after durable local storage succeeds. Corrupt or inaccessible storage falls back safely. Reset removes only this course/account key. Export is an unverified self-assessment with no credentials or operational records. A malicious device owner can tamper with progress; never consume it as trusted certification or permission evidence.
+
+The panel uses buttons with aria-pressed, a knowledge-check legend, live status, focusable lesson headings and the existing responsive theme tokens. Text changes update text nodes rather than replacing answers. The modal uses native dialog focus containment, Escape and close behaviour. Browser tests cover desktop/mobile layouts, keyboard use, EN/FR/ES, incorrect/correct answers, persistence, account isolation, export, reset and storage failure. Existing platform/PostgreSQL tests verify authority and reporting independently.
+
+The handbook gives a recommended operating cadence and report cover-note template. Actual organizational approvals, reporting lines, deadlines and sharing rules are supplied by the employer. Provider acceptance remains distinct from inbox delivery. Central training records, assignment, certification, automatic reporting schedules and a native Flutter training screen remain outside this implementation.

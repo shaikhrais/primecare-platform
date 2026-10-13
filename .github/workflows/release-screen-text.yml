@@ -74,7 +74,7 @@ jobs:
           ln -s "$RUNNER_TEMP/screen-text-release/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - run: python3 scripts/register-live-screen-text.py --check
-      - run: node --test scripts/test-screen-text.mjs scripts/test-screen-text-cache.mjs scripts/test-screen-text-postgres.mjs scripts/test-screen-text-browser.mjs
+      - run: node --test scripts/test-screen-text.mjs scripts/test-screen-text-cache.mjs scripts/test-screen-text-postgres.mjs scripts/test-screen-text-browser.mjs scripts/test-admin-training.mjs scripts/test-admin-training-browser.mjs
   migration:
     needs: release_tests
     runs-on: ubuntu-latest

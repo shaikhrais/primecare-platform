@@ -92,6 +92,8 @@ if __name__ == '__main__':
         if args.check: source.backup(db)
         try:
             catalogs.update(auth_catalogs(db))
+            training=runpy.run_path(str(ROOT/'scripts/register-admin-training.py'))['register'](db)
+            catalogs['admin_training']=training['locales']
             register(db,catalogs)
             output={}
             for name, locales in catalogs.items():
