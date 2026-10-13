@@ -621,7 +621,11 @@
       "working": "Working",
       "conflict": "Another edit was saved. Reload before saving; your draft is still visible.",
       "denied": "Platform administrator access required",
-      "failed": "Request failed. Your unsaved draft is retained."
+      "failed": "Request failed. Your unsaved draft is retained.",
+      "changes": "View changes",
+      "before": "Before",
+      "after": "After",
+      "language": "Language"
     },
     "fr": {
       "title": "Éditeur des textes",
@@ -645,7 +649,11 @@
       "working": "En cours",
       "conflict": "Une autre modification a été enregistrée. Actualisez avant d’enregistrer ; votre brouillon reste visible.",
       "denied": "Accès administrateur de plateforme requis",
-      "failed": "Échec de la demande. Votre brouillon est conservé."
+      "failed": "Échec de la demande. Votre brouillon est conservé.",
+      "changes": "Voir les modifications",
+      "before": "Avant",
+      "after": "Après",
+      "language": "Langue"
     },
     "es": {
       "title": "Editor de textos",
@@ -669,7 +677,11 @@
       "working": "Procesando",
       "conflict": "Se guardó otra edición. Actualice antes de guardar; su borrador sigue visible.",
       "denied": "Se requiere acceso de administrador de plataforma",
-      "failed": "La solicitud falló. Se conserva su borrador."
+      "failed": "La solicitud falló. Se conserva su borrador.",
+      "changes": "Ver cambios",
+      "before": "Antes",
+      "after": "Después",
+      "language": "Idioma"
     }
   },
   "workspace": {
