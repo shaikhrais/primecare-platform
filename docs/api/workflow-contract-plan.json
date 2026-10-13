@@ -91714,7 +91714,7 @@
     "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5",
     "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5",
     "cloudflare/workers/src/gateway.ts": "c023259fa073c3efeca3de80a3cc684da8deecf22982d187f5623f56c8473e2b",
-    "cloudflare/workers/src/governance-api.ts": "b89f1564feae8ab896a0a45f1dcb471b8905a3eccf19dc4375364ade1c2b4d7b",
+    "cloudflare/workers/src/governance-api.ts": "e79696a9932ce00009ea84ecf85e43f0869e7f937f7759c383db12c8d0bb3ee8",
     "cloudflare/workers/src/legacy-domain-registry.json": "ebb5891fa57650c61b749b4817a1f8bfc5b1722ba425488dfc460216e1de7336",
     "cloudflare/workers/src/legacy-domain.ts": "3065972b37a81b95724a53d1351a987c3b0b8666b60d9fc8d30035ae247e973d",
     "cloudflare/workers/src/provider-records-registry.json": "98473c2cd57e5a0aeceda75954ce4bd8fb745059b9c6f0e9c00497759abce371",

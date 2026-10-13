@@ -1,3 +1,4 @@
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:flutter_core/theme/app_theme.dart' show GovernanceThemeColors;
 import 'package:flutter_core/theme/theme_settings_provider.dart';
 import 'package:flutter_core/theme/theme_center_theme_data.dart';
@@ -43,6 +44,7 @@ abstract class BasePrimeCareApp extends ConsumerWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       routerConfig: router,
+      builder: (context, child) => LiveScreenTextScope(child: child ?? const SizedBox.shrink()),
     );
     final decorated = decorateResolvedApplication(app,resolvedTheme,personal);
     return useShellBoundary ? AppShellBoundary(child: decorated) : decorated;

@@ -63,5 +63,6 @@ The importer checks en/es/fr key parity, nonempty text, size limits and named
 parameters before writing governance and regenerating the shared Dart catalog.
 Existing resource keys and translation row identities are preserved; changed
 translations return to unreviewed status. Ordinary regeneration preserves later
-reviewed governance translations. Runtime updates currently require a rebuild;
-authenticated in-app editing, audit history and live refresh are not implemented.
+reviewed governance translations. Bundled programmatic updates require a rebuild. The shared live screen-text
+service adds authenticated in-app editing, audit history and runtime refresh;
+see live-screen-text.md for its deployment prerequisites and supported surfaces.

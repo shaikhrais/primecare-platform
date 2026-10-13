@@ -1,6 +1,7 @@
+import 'package:flutter_core/src/localization/live_screen_text.dart';
+import '../../localization/admin_reality_filter_catalog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import '../../localization/admin_reality_filter_text.dart';
 
 /// Admin screen representing the Reality Check auditing dashboard.
 class AdminRealityCheckScreen extends ConsumerStatefulWidget {
@@ -11,7 +12,7 @@ class AdminRealityCheckScreen extends ConsumerStatefulWidget {
 }
 
 class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScreen> {
-  String _filterText(String key, {Map<String, String> args = const {}}) => AdminRealityFilterText.resolve(Localizations.localeOf(context).languageCode, key, args: args);
+  String _filterText(String key, {Map<String, String> args = const {}}) => liveScreenText(context,'admin_reality_check',Localizations.localeOf(context).languageCode,key,adminRealityFilterCatalog[Localizations.localeOf(context).languageCode]?[key] ?? adminRealityFilterCatalog['en']![key]!,args:args);
 
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';

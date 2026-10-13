@@ -1,3 +1,4 @@
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'dart:math';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_models/primecare_models.dart';
@@ -20,7 +21,7 @@ class _AdminReportsPanelState extends ConsumerState<AdminReportsPanel> {
   final _search = TextEditingController(), _to = TextEditingController(),
     _subject = TextEditingController(), _message = TextEditingController();
   AdminReportService get service => AdminReportService(ref.read(apiClientProvider), widget.endpoint);
-  String label(String key) => _catalog?.resources[key] ?? 'reports.$key'.tr();
+  String label(String key) => liveScreenText(context,'reports',Localizations.localeOf(context).languageCode,key,_catalog?.resources[key] ?? 'reports.$key'.tr());
   AdminReportRequest get options => AdminReportRequest(locale: _locale,
     search: definition?.supportsFilters == true ? _search.text : '',
     readiness: definition?.supportsFilters == true ? _readiness : 'all');

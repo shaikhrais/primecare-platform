@@ -148,3 +148,7 @@ docs/architecture/generated/
 /dom_logs/
 /screen_agent_context/
 /SCREEN_DATA_CONTEXT_*.md
+
+# Reproducible historical screen JSON exports; deliverable ZIP is saved separately.
+docs/refactoring/screen-json-references/*.json
+!docs/refactoring/screen-json-references/summary.json

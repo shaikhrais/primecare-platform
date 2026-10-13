@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / ".agents" / "governance" / "governance.db"
 WORKSPACE_RENDERER = 'packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart'
 # Bounded reviewed renderer: changed control flow requires another source review.
-WORKSPACE_RENDERER_SHA256 = 'ad7516278e27b34cf6d8e5a299c8e96cadd0370cd3a1d55cbad71d4341814935'
+WORKSPACE_RENDERER_SHA256 = '33f4f7d3cfeaf5dca9d0ce5d79c2b3fb0ac0491ecf8a21b719265d937eadd526'
 CLASS_RE = re.compile(r"\bclass\s+([A-Za-z_]\w*)\b")
 CONSTRUCTOR_RE = re.compile(r"(?<![.\w])([A-Z][A-Za-z0-9_]*)\s*\(")
 SCREEN_CLASS_RE = re.compile(

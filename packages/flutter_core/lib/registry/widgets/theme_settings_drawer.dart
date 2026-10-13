@@ -38,7 +38,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                   const Icon(LucideIcons.settings, size: 24),
                   const SizedBox(width: 12),
                   Expanded(child: Text(
-                    themeCenterText(context,'Theme Center','Centre des thèmes','Centro de temas'),
+                    themeCenterText(context,'theme_center'),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),

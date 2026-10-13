@@ -3430,10 +3430,7 @@
                                 "admin": {
                                     "dashboard": {
                                         "title": {
-                                            "value": {
-                                                "title": "Value",
-                                                "subtitle": "Title"
-                                            },
+                                            "value": "Valeur",
                                             "subtitle": "Admin Tableau de Bord"
                                         },
                                         "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
@@ -3547,10 +3544,7 @@
                                 "familyMember": {
                                     "dashboard": {
                                         "title": {
-                                            "value": {
-                                                "title": "Value",
-                                                "subtitle": "Title"
-                                            },
+                                            "value": "Valeur",
                                             "subtitle": "Familymember Tableau de Bord"
                                         },
                                         "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
@@ -3559,10 +3553,7 @@
                                 "patient": {
                                     "dashboard": {
                                         "title": {
-                                            "value": {
-                                                "title": "Value",
-                                                "subtitle": "Title"
-                                            },
+                                            "value": "Valeur",
                                             "subtitle": "Patient Tableau de Bord"
                                         },
                                         "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
@@ -3797,23 +3788,14 @@
                                 "client_dashboard": {
                                     "client_dashboard_screen": {
                                         "title": {
-                                            "value": {
-                                                "title": "Value",
-                                                "subtitle": "Title"
-                                            },
+                                            "value": "Valeur",
                                             "subtitle": "Client Dashboard Screen"
                                         },
                                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                     },
                                     "sections": {
                                         "client_kpi_section": {
-                                            "title": {
-                                                "value": {
-                                                    "title": "Value",
-                                                    "subtitle": "Title"
-                                                },
-                                                "subtitle": "Client Kpi Section"
-                                            },
+                                            "title": "Indicateurs du client",
                                             "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                         }
                                     }
@@ -3821,23 +3803,14 @@
                                 "family_dashboard": {
                                     "family_dashboard_screen": {
                                         "title": {
-                                            "value": {
-                                                "title": "Value",
-                                                "subtitle": "Title"
-                                            },
+                                            "value": "Valeur",
                                             "subtitle": "Family Dashboard Screen"
                                         },
                                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                     },
                                     "sections": {
                                         "family_kpi_section": {
-                                            "title": {
-                                                "value": {
-                                                    "title": "Value",
-                                                    "subtitle": "Title"
-                                                },
-                                                "subtitle": "Family Kpi Section"
-                                            },
+                                            "title": "Indicateurs de la famille",
                                             "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                         }
                                     }
@@ -3865,23 +3838,14 @@
                                     "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
                                     "guest_dashboard_screen": {
                                         "title": {
-                                            "value": {
-                                                "title": "Value",
-                                                "subtitle": "Title"
-                                            },
+                                            "value": "Valeur",
                                             "subtitle": "Guest Dashboard Screen"
                                         },
                                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                     },
                                     "sections": {
                                         "guest_kpi_section": {
-                                            "title": {
-                                                "value": {
-                                                    "title": "Value",
-                                                    "subtitle": "Title"
-                                                },
-                                                "subtitle": "Guest Kpi Section"
-                                            },
+                                            "title": "Indicateurs de l’invité",
                                             "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                         }
                                     }
@@ -4559,5 +4523,42 @@
     "login_slogan_7": "PROTECTION D'IDENTITÉ DÉCENTRALISÉE",
     "login_slogan_8": "VALIDATION DE PARITÉ CONTINUE",
     "login_slogan_9": "REGISTRE DE GOUVERNANCE RENFORCÉ",
-    "auth_flow_unavailable": "Cette fonctionnalité d’authentification n’est pas encore disponible. Veuillez contacter votre administrateur."
+    "auth_flow_unavailable": "Cette fonctionnalité d’authentification n’est pas encore disponible. Veuillez contacter votre administrateur.",
+    "workspace": {
+        "title": "Vue d’ensemble de l’organisation",
+        "refresh": "Actualiser",
+        "pages": "Pages",
+        "pending": "Travail inachevé",
+        "search": "Rechercher des pages",
+        "sign_out": "Se déconnecter",
+        "empty": "Aucune activité pour le moment",
+        "unavailable": "Impossible de charger l’espace de travail. Réessayez.",
+        "created": "Page créée",
+        "account": "Compte",
+        "open": "Ouvrir la page",
+        "users": "Comptes actifs",
+        "sessions": "Sessions actives",
+        "roles": "Rôles du compte",
+        "activity": "Activité récente de l’organisation",
+        "inventory": "Inventaire des pages",
+        "export": "Télécharger l’inventaire",
+        "no_data": "Aucune source de données vérifiée n’est connectée à cette section.",
+        "no_action": "Cette action métier ne dispose pas encore d’une implémentation backend vérifiée.",
+        "forbidden": "Vous n’avez pas l’autorisation de consulter cette page.",
+        "loading": "Chargement de l’espace de travail",
+        "retry": "Réessayer",
+        "portal": "Portail",
+        "role": "Rôle",
+        "status": "État",
+        "current_password": "Mot de passe actuel",
+        "new_password": "Nouveau mot de passe",
+        "change_password": "Modifier le mot de passe",
+        "clients": "Clients",
+        "providers": "Prestataires",
+        "visits": "Visites",
+        "invoices": "Factures",
+        "schedules": "Plannings",
+        "unconnected": "Source de données indisponible",
+        "request_failed": "Échec de la demande"
+    }
 }

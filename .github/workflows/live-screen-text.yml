@@ -1,0 +1,49 @@
+name: Live screen text editor and refresh
+on:
+  pull_request:
+    paths: ['cloudflare/workers/src/screen-text*', 'cloudflare/workers/src/business-modules.ts', 'cloudflare/workers/src/governance-api.ts', 'packages/database/migrations/*screen_text*', 'websites/typescript/src/**', 'packages/flutter_core/lib/src/localization/**', 'packages/flutter_core/lib/theme/theme_center_text_generated.dart', 'packages/flutter_core/lib/registry/widgets/theme_center_panel.dart', 'packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart', 'packages/primecare_ui/lib/src/application/base_primecare_app.dart', 'packages/primecare_ui/lib/src/localization/screens/**', 'packages/primecare_ui/lib/src/screens/admin/**', 'packages/primecare_ui/lib/src/features/workspace/**', 'packages/primecare_ui/lib/src/features/reports/**', 'scripts/*screen-text*', 'packages/flutter_core/test/live_screen_text_test.dart', '.github/workflows/live-screen-text.yml']
+permissions:
+  contents: read
+concurrency:
+  group: live-screen-text-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  api-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env: {POSTGRES_PASSWORD: postgres, POSTGRES_DB: screen_text}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      SCREEN_TEXT_TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/screen_text
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/screen-text-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.11.3 bcryptjs@3 playwright@1.60.0
+          ln -s "$RUNNER_TEMP/screen-text-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - run: python3 scripts/register-live-screen-text.py --check
+      - run: node --test scripts/test-screen-text.mjs scripts/test-screen-text-postgres.mjs scripts/test-screen-text-browser.mjs
+      - run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/screen-text.ts websites/typescript/src/main.ts
+  flutter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter analyze lib/src/localization/live_screen_text.dart lib/registry/widgets/theme_center_panel.dart lib/registry/widgets/theme_settings_drawer.dart
+        working-directory: packages/flutter_core
+      - run: flutter test test/live_screen_text_test.dart test/theme_center_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter test test/admin_reality_filter_localization_test.dart test/admin_role_carousel_localization_test.dart test/base_primecare_app_test.dart test/ceo_workspace_test.dart test/admin_reports_test.dart
+        working-directory: packages/primecare_ui

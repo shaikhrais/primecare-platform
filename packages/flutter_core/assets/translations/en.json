@@ -3689,7 +3689,7 @@
                                 "admin": {
                                     "dashboard": {
                                         "title": {
-                                            "value": "@{title=Value; subtitle=Title}",
+                                            "value": "Value",
                                             "subtitle": "Admin Dashboard"
                                         },
                                         "subtitle": "Real-time overview fetched natively via API."
@@ -3803,7 +3803,7 @@
                                 "familyMember": {
                                     "dashboard": {
                                         "title": {
-                                            "value": "@{title=Value; subtitle=Title}",
+                                            "value": "Value",
                                             "subtitle": "Familymember Dashboard"
                                         },
                                         "subtitle": "Real-time overview fetched natively via API."
@@ -3812,7 +3812,7 @@
                                 "patient": {
                                     "dashboard": {
                                         "title": {
-                                            "value": "@{title=Value; subtitle=Title}",
+                                            "value": "Value",
                                             "subtitle": "Patient Dashboard"
                                         },
                                         "subtitle": "Real-time overview fetched natively via API."
@@ -4047,14 +4047,14 @@
                                 "client_dashboard": {
                                     "client_dashboard_screen": {
                                         "title": {
-                                            "value": "@{title=Value; subtitle=Title}",
+                                            "value": "Value",
                                             "subtitle": "Client Dashboard Screen"
                                         },
                                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                     },
                                     "sections": {
                                         "client_kpi_section": {
-                                            "title": "@{value=; subtitle=Client Kpi Section}",
+                                            "title": "Client indicators",
                                             "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                         }
                                     }
@@ -4062,14 +4062,14 @@
                                 "family_dashboard": {
                                     "family_dashboard_screen": {
                                         "title": {
-                                            "value": "@{title=Value; subtitle=Title}",
+                                            "value": "Value",
                                             "subtitle": "Family Dashboard Screen"
                                         },
                                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                     },
                                     "sections": {
                                         "family_kpi_section": {
-                                            "title": "@{value=; subtitle=Family Kpi Section}",
+                                            "title": "Family indicators",
                                             "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                         }
                                     }
@@ -4097,14 +4097,14 @@
                                     "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
                                     "guest_dashboard_screen": {
                                         "title": {
-                                            "value": "@{title=Value; subtitle=Title}",
+                                            "value": "Value",
                                             "subtitle": "Guest Dashboard Screen"
                                         },
                                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                     },
                                     "sections": {
                                         "guest_kpi_section": {
-                                            "title": "@{value=; subtitle=Guest Kpi Section}",
+                                            "title": "Guest indicators",
                                             "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                                         }
                                     }
