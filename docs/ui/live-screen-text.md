@@ -66,3 +66,9 @@ source hash and dependent generated evidence are refreshed for that additive
 change. The baseline remains 1,415 operations, including 1,063 unresolved
 operations; this refresh earns zero implementation or retirement credits and
 does not activate any unresolved workflow.
+
+The workspace renderer audit pin is also refreshed after reviewing its only
+changes: a live-text import and label lookup. Its authorized route selection,
+returned section loop, visible cards and stable semantics remain unchanged.
+The audit still rejects unrendered/dead section loops and does not promote
+production readiness.
