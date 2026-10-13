@@ -23,7 +23,7 @@ void main() {
         var edited = false;
         final client = MockClient((request) async {
           if (request.url.path.endsWith('/screen-text')) {
-            return http.Response(jsonEncode({'screens': [{'id': 'password_recovery', 'version': edited ? 1 : 0}]}), 200);
+            return http.Response(jsonEncode({'screens': [{'id': 'password_recovery', 'version': edited ? 1 : 0}]}), 200, headers: {'content-type': 'application/json; charset=utf-8'}, encoding: utf8);
           }
           return http.Response(jsonEncode({'screen': 'password_recovery', 'version': edited ? 1 : 0, 'locales': {
             for (final locale in ['en', 'fr', 'es']) locale: {
@@ -31,7 +31,7 @@ void main() {
               if (edited) 'email': 'Edited $locale',
               if (edited) 'invalid_email': 'Validation $locale',
             },
-          }}), 200);
+          }}), 200, headers: {'content-type': 'application/json; charset=utf-8'}, encoding: utf8);
         });
         final store = LiveScreenTextStore(client: client, baseUrl: 'https://test');
         addTearDown(store.dispose);

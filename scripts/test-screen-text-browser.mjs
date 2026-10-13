@@ -20,7 +20,7 @@ try{
    }else data={screen:'fixture',version,locales};
    await route.fulfill({status,contentType:'application/json',body:JSON.stringify(data)});
   });
-  await page.goto(base+'/?lang='+language);await page.locator('textarea[data-locale=en]').waitFor();await page.locator('[data-cy=text-screen]').selectOption('fixture');await page.waitForFunction(()=>document.querySelector('textarea[data-locale=en]')?.value==='Initial');
+  await page.goto(base+'/?lang='+language);await page.locator('textarea[data-locale=en]').first().waitFor();await page.locator('[data-cy=text-screen]').selectOption('fixture');await page.waitForFunction(()=>document.querySelector('textarea[data-locale=en]')?.value==='Initial');
   await page.locator('textarea[data-locale=en]').fill('<script>window.injected=true</script>');
   await page.locator('[data-cy=text-form] button:not([type="button"])').click();
   await page.waitForFunction(()=>document.querySelector('[data-version="1"]'));
@@ -39,7 +39,7 @@ try{
   await page.locator('[data-cy=text-import]').setInputFiles({name:'fixture.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(imported))});
   await page.waitForFunction(()=>document.querySelector('textarea')?.value==='Imported');assert.equal(version,0);
   await page.locator('[data-cy=text-form] button:not([type="button"])').click();await page.waitForFunction(()=>document.querySelector('[data-version="4"]'));assert.equal(version,0);assert.equal(await page.evaluate(()=>window.screenText.catalog('fixture').locales.en.title),'Imported');
-  await page.unroute('**/v1/governance/screen-text**');let offlineRequests=0;await page.route('**/v1/governance/screen-text**',route=>{offlineRequests++;return route.abort();});await page.reload();await page.locator('textarea[data-locale=en]').waitFor();await page.locator('[data-cy=text-screen]').selectOption('fixture');await page.waitForFunction(()=>document.querySelector('textarea[data-locale=en]')?.value==='Imported');assert.equal(await page.locator('textarea[data-locale=en]').inputValue(),'Imported');assert.equal(offlineRequests,0);
+  await page.unroute('**/v1/governance/screen-text**');let offlineRequests=0;await page.route('**/v1/governance/screen-text**',route=>{offlineRequests++;return route.abort();});await page.reload();await page.locator('textarea[data-locale=en]').first().waitFor();await page.locator('[data-cy=text-screen]').selectOption('fixture');await page.waitForFunction(()=>document.querySelector('textarea[data-locale=en]')?.value==='Imported');assert.equal(await page.locator('textarea[data-locale=en]').inputValue(),'Imported');assert.equal(offlineRequests,0);
   await page.close();
  });
 }finally{
