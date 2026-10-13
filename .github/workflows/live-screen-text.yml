@@ -28,7 +28,7 @@ jobs:
           ln -s "$RUNNER_TEMP/screen-text-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - run: python3 scripts/register-live-screen-text.py --check
-      - run: node --test scripts/test-screen-text.mjs scripts/test-screen-text-postgres.mjs scripts/test-screen-text-browser.mjs
+      - run: node --test scripts/test-screen-text.mjs scripts/test-screen-text-postgres.mjs scripts/test-screen-text-browser.mjs scripts/test-screen-text-cache.mjs
       - run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/screen-text.ts websites/typescript/src/main.ts
   flutter:
     runs-on: ubuntu-latest

@@ -12,6 +12,7 @@ import 'auth_design_test.dart' show localized;
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUp(() => SharedPreferences.setMockInitialValues({}));
   setUpAll(() async {
     SharedPreferences.setMockInitialValues({});
     await EasyLocalization.ensureInitialized();
@@ -49,8 +50,9 @@ void main() {
         expect(find.text(passwordRecoveryScreenCatalog[language]!['invalid_email']!), findsOneWidget);
         edited = true;
         await store.refresh();
-        await tester.pump();
-        expect(find.text('Edited $language'), findsOneWidget);
+        await tester.pumpAndSettle();
+        expect(store.text('password_recovery', language, 'email'), 'Edited $language');
+        expect(tester.widget<TextField>(fields.first).decoration!.labelText, 'Edited $language');
         expect(find.text('Validation $language'), findsOneWidget);
         expect(tester.widget<TextField>(fields.first).controller!.text, 'unsaved-invalid-email');
         if (reset) {
