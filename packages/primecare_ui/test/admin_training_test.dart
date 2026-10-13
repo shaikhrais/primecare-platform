@@ -96,7 +96,10 @@ void main() {
         expect((await progress.results()).length,8);expect(tester.takeException(),isNull);
         await tap('training-export');expect(exported,isNotNull);expect(ascii.decode(exported!.take(5).toList()),'%PDF-');
         await tester.pumpWidget(const SizedBox());await tester.pumpAndSettle();await tester.pumpWidget(screen());await tester.pumpAndSettle();
-        expect((await progress.results()).length,8);expect(find.textContaining('8/8'),findsOneWidget);
+        expect((await progress.results()).length,8);
+        final counter=find.textContaining('8/8');
+        await tester.scrollUntilVisible(counter,200,scrollable:find.byType(Scrollable).first,maxScrolls:100);
+        await tester.pumpAndSettle();expect(counter,findsOneWidget);
         await tap('training-reset');await tester.tap(find.text(adminTrainingCatalog[language]!['reset']!).last);await tester.pumpAndSettle();expect(await progress.results(),isEmpty);
         storage.writable=false;await tap('training-answer-1');await tap('training-submit');expect(find.text(adminTrainingCatalog[language]!['storage_error']!),findsOneWidget);expect(await progress.results(),isEmpty);
         expect(tester.takeException(),isNull);
