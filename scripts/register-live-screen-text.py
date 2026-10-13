@@ -62,7 +62,7 @@ def register(db, catalogs):
     runpy.run_path(str(ROOT / 'scripts/register-platform-admin-role.py'))['register'](db)
     screen = db.execute("SELECT id FROM screens WHERE screen_code='PLATFORM_ADMINISTRATION'").fetchone()[0]
     db.execute('CREATE TABLE IF NOT EXISTS live_screen_text_surfaces(screen_id INTEGER PRIMARY KEY REFERENCES screens(id),section_code TEXT NOT NULL,controls_json TEXT NOT NULL)')
-    db.execute('INSERT OR REPLACE INTO live_screen_text_surfaces VALUES(?,?,?)', (screen, 'screen_text_editor', json.dumps(['screen','search','en','fr','es','save','reload','import','export','history','restore'])))
+    db.execute('INSERT OR REPLACE INTO live_screen_text_surfaces VALUES(?,?,?)', (screen, 'screen_text_editor', json.dumps(['screen','search','en','fr','es','save','reload','download','import','export','history','restore'])))
     app = db.execute("SELECT id FROM apps WHERE app_code='gv'").fetchone()[0]
     for method, route, authenticated in [('GET','/screen-text',0),('GET','/screen-text/{screen}',0),('PUT','/screen-text/{screen}',1),('GET','/screen-text/{screen}/history',1)]:
         path='/v1/governance'+route
