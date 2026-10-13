@@ -11,7 +11,13 @@ assert '.github/workflows/release-screen-text.yml' not in workflow['on']['push']
 assert 'packages/flutter_core/lib/src/localization/live_screen_text.dart' in workflow['on']['push']['paths']
 jobs = workflow['jobs']
 assert jobs['release_tests']['if'] == "github.event_name == 'push' && github.ref == 'refs/heads/main'"
-for job, dependency in [('release_tests','contract'),('migration','release_tests'),('apis','migration'),('websites','apis'),('smoke','websites')]:
+assert jobs['prepare_portals']['if'] == jobs['release_tests']['if']
+assert jobs['prepare_portals']['permissions'] == {'contents':'read','actions':'write'}
+script = jobs['prepare_portals']['steps'][0]['with']['script']
+assert 'head_sha: context.sha' in script and 'run.head_sha !== context.sha' in script
+assert "run.name.startsWith('Deploy Web - ')" in script
+assert 'cancelWorkflowRun' in script
+for job, dependency in [('prepare_portals','contract'),('release_tests','prepare_portals'),('migration','release_tests'),('apis','migration'),('websites','apis'),('smoke','websites')]:
     assert jobs[job]['needs'] == dependency, f'{job} must wait for {dependency}'
 assert jobs['migration']['environment'] == 'production'
 commands = '\n'.join(step.get('run','') for job in jobs.values() for step in job.get('steps',[]))
