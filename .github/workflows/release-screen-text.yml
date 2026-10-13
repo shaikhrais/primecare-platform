@@ -1,0 +1,80 @@
+name: Release downloaded screen text
+on:
+  pull_request:
+    paths: ['.github/workflows/release-screen-text.yml', 'scripts/check-screen-text-release.py', 'scripts/verify-screen-text-deployment.mjs', 'docs/ui/screen-text-release.md']
+  push:
+    branches: [main]
+    paths: ['cloudflare/workers/src/screen-text*', 'packages/database/migrations/*screen_text*', 'packages/flutter_core/lib/src/localization/live_screen_text.dart', 'websites/typescript/src/screen-text.ts', 'websites/typescript/src/screen-text-editor.ts']
+permissions:
+  contents: read
+concurrency:
+  group: primecare-screen-text-release
+  cancel-in-progress: false
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check PyYAML==6.0.2
+      - run: python scripts/check-screen-text-release.py
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node --check scripts/verify-screen-text-deployment.mjs
+  release_tests:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env: {POSTGRES_PASSWORD: postgres, POSTGRES_DB: screen_text}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      SCREEN_TEXT_TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/screen_text
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/screen-text-release" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 pg@8.11.3 bcryptjs@3 playwright@1.60.0
+          ln -s "$RUNNER_TEMP/screen-text-release/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - run: python3 scripts/register-live-screen-text.py --check
+      - run: node --test scripts/test-screen-text.mjs scripts/test-screen-text-cache.mjs scripts/test-screen-text-postgres.mjs scripts/test-screen-text-browser.mjs
+  migration:
+    needs: release_tests
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    env:
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply the additive screen text migration
+        run: |
+          set -euo pipefail
+          test -n "$PRODUCTION_DATABASE_URL" || { echo '::error::Production database configuration is unavailable to this job'; exit 1; }
+          psql "$PRODUCTION_DATABASE_URL" -v ON_ERROR_STOP=1 -f packages/database/migrations/20261013_screen_text.sql
+  apis:
+    needs: migration
+    uses: ./.github/workflows/deploy-cloudflare-workers.yml
+    with: {confirm: DEPLOY}
+    secrets: inherit
+  websites:
+    needs: apis
+    uses: ./.github/workflows/deploy-typescript-websites.yml
+    with: {confirm: DEPLOY}
+    secrets: inherit
+  smoke:
+    needs: websites
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node scripts/verify-screen-text-deployment.mjs
