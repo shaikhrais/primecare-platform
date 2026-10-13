@@ -9,7 +9,7 @@ class AdminTrainingPdf {
     final language = adminTrainingCatalog.containsKey(locale) ? locale : 'en';
     final copy = adminTrainingCatalog[language]!;
     String text(String key) => copy[key]!.replaceAll('’', "'");
-    final records = (summary['passed'] as List).whereType<Map>().toList();
+    final records = (summary['passed'] as List<Object?>).whereType<Map<String,Object>>().toList();
     final document = pw.Document();
     document.addPage(pw.MultiPage(build: (_) => [
       pw.Header(level:0,child:pw.Text(text('title'))),

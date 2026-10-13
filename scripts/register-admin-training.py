@@ -50,7 +50,10 @@ def register(db):
     db.commit();return seed
 
 def dart_export(seed):
-    def literal(value):return json.dumps(value,ensure_ascii=False).replace('$',r'\$')
+    def literal(value):
+        if isinstance(value,list):return '['+', '.join(literal(v) for v in value)+']'
+        encoded=json.dumps(value,ensure_ascii=False)[1:-1].replace(r'\"','"').replace("'",r"\'").replace('$',r'\$')
+        return "'"+encoded+"'"
     lines=["// Generated from governed administrator training; do not hand edit.","import '../models/admin_training_lesson.dart';",'const adminTrainingCourseId = '+literal(seed['course'])+';','const adminTrainingCourseVersion = '+literal(seed['version'])+';','const adminTrainingLessons = <AdminTrainingLesson>[']
     for module in seed['modules']:
         keys=module['keys']; fields=['id: '+literal(module['id'])]+[name+'Key: '+literal(keys[name]) for name in ['title','procedure','practice','question']]+['optionKeys: '+literal(keys['options']),'correct: '+str(module['correct'])]
