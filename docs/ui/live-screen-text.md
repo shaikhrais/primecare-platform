@@ -56,3 +56,13 @@ history/restore, browser editing/conflict/JSON transfer and Flutter refresh
 without losing user drafts. Shared workspace, reports and admin localization
 regressions are included. Production readiness still requires applying the
 migration, deploying API/UI and verifying an authenticated production workflow.
+
+## Contract evidence review
+
+The governance handler gains only a `screenText` import and an early dispatch
+after its existing governance-service check. Existing registry reads, authority
+checks, route bindings and transaction logic are unchanged. The contract-review
+source hash and dependent generated evidence are refreshed for that additive
+change. The baseline remains 1,415 operations, including 1,063 unresolved
+operations; this refresh earns zero implementation or retirement credits and
+does not activate any unresolved workflow.
