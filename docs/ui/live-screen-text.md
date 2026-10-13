@@ -87,3 +87,5 @@ a localized generic status; authentication requests and validation rules are
 unchanged. The TypeScript authentication pages still require their own resolver
 migration. This brings the live catalog count to nine; historical reference
 files are not counted as additional runtime migrations.
+
+The TypeScript login page uses the governed `auth` catalog in the document/browser language (English, French or Spanish). Downloaded and device-edited labels update in place; email/password fields and active requests are preserved. Authentication still uses its existing online endpoint. Failed sign-in displays the localized catalog message rather than raw server text.

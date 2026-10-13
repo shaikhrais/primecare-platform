@@ -3,7 +3,9 @@ import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
 const playwright=process.env.SCREEN_TEXT_PLAYWRIGHT_PATH?require(process.env.SCREEN_TEXT_PLAYWRIGHT_PATH):require('playwright');
 const {outputFiles}=await build({stdin:{contents:"import {screenTextEditor} from './websites/typescript/src/screen-text-editor'; import {liveScreenText} from './websites/typescript/src/screen-text'; window.screenText=liveScreenText(location.origin); screenTextEditor(document.getElementById('editor'),location.origin,new URLSearchParams(location.search).get('lang')||'en');",resolveDir:process.cwd()},bundle:true,platform:'browser',write:false,format:'iife'});
-const server=createServer((req,res)=>{res.setHeader('content-type','text/html');res.end(`<html><head><style>body{font-family:sans-serif} .table-scroll{overflow-x:auto;max-width:100%} textarea{width:180px} input,select,button{min-height:36px}</style></head><body><div id=editor></div><script>${outputFiles[0].text.replaceAll('</script','<\\/script')}</script></body></html>`);});
+const authCatalog=JSON.parse(await readFile('packages/primecare_ui/lib/src/localization/screens/auth.json','utf8'));
+const authBundle=await build({stdin:{contents:"import {renderAuth} from './websites/typescript/src/auth-screen'; import {liveScreenText} from './websites/typescript/src/screen-text'; window.screenText=liveScreenText(location.origin); renderAuth(document.getElementById('editor'),location.origin,'PrimeCare',new URLSearchParams(location.search).get('lang')||'en');",resolveDir:process.cwd()},bundle:true,platform:'browser',write:false,format:'iife'});
+const server=createServer((req,res)=>{res.setHeader('content-type','text/html');res.end(`<html><head><style>body{font-family:sans-serif} .table-scroll{overflow-x:auto;max-width:100%} textarea{width:180px} input,select,button{min-height:36px}</style></head><body><div id=editor></div><script>${(req.url.startsWith('/login')?authBundle: {outputFiles}).outputFiles[0].text.replaceAll('</script','<\\/script')}</script></body></html>`);});
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base='http://127.0.0.1:'+server.address().port;
 const browser=await playwright.chromium.launch({headless:true});
 try{
@@ -42,6 +44,24 @@ try{
   await page.unroute('**/v1/governance/screen-text**');let offlineRequests=0;await page.route('**/v1/governance/screen-text**',route=>{offlineRequests++;return route.abort();});await page.reload();await page.locator('textarea[data-locale=en]').first().waitFor();await page.locator('[data-cy=text-screen]').selectOption('fixture');await page.waitForFunction(()=>document.querySelector('textarea[data-locale=en]')?.value==='Imported');assert.equal(await page.locator('textarea[data-locale=en]').inputValue(),'Imported');assert.equal(offlineRequests,0);
   await page.close();
  });
+ for(const language of ['en','fr','es'])await test(`login text updates preserve credentials and reload offline in ${language}`,async()=>{
+  const page=await browser.newPage();let catalogRequests=0,loginRequests=0;
+  await page.route('**/v1/governance/screen-text**',async route=>{
+   catalogRequests++;const manifest=new URL(route.request().url()).pathname.endsWith('/screen-text');
+   await route.fulfill({contentType:'application/json',body:JSON.stringify(manifest?{screens:[{id:'auth',version:authCatalog.version}]}:authCatalog)});
+  });
+  await page.route('**/v1/auth/login',async route=>{loginRequests++;assert.deepEqual(route.request().postDataJSON(),{email:'person@example.com',password:'private-password'});await route.fulfill({status:401,contentType:'application/json',body:JSON.stringify({error:'Internal English error'})});});
+  await page.goto(base+'/login?lang='+language);await page.waitForFunction(()=>window.screenText.availableScreens().includes('auth'));
+  assert.equal(await page.locator('[data-cy=login-submit]').textContent(),authCatalog.locales[language].login);
+  await page.locator('[data-cy=login-email]').fill('person@example.com');await page.locator('[data-cy=login-password]').fill('private-password');
+  await page.evaluate(language=>{const c=window.screenText.catalog('auth');c.locales[language].login='Device sign in';window.screenText.saveLocal('auth',c.version,c.locales);},language);
+  assert.equal(await page.locator('[data-cy=login-submit]').textContent(),'Device sign in');assert.equal(await page.locator('[data-cy=login-email]').inputValue(),'person@example.com');assert.equal(await page.locator('[data-cy=login-password]').inputValue(),'private-password');assert.equal(await page.locator('[data-cy=login-password]').getAttribute('type'),'password');
+  await page.locator('[data-cy=login-submit]').click();await page.waitForFunction(()=>document.querySelector('[data-cy=api-status]').value!==''&&!document.querySelector('[data-cy=api-status]').value.includes('…'));
+  assert.equal(await page.locator('[data-cy=api-status]').textContent(),authCatalog.locales[language].error_body);assert.equal(loginRequests,1);assert.equal(await page.locator('[data-cy=login-email]').inputValue(),'person@example.com');
+  await page.unroute('**/v1/governance/screen-text**');catalogRequests=0;await page.route('**/v1/governance/screen-text**',route=>{catalogRequests++;return route.abort();});await page.reload();await page.locator('[data-cy=login-submit]').waitFor();assert.equal(await page.locator('[data-cy=login-submit]').textContent(),'Device sign in');assert.equal(catalogRequests,0);
+  await page.close();
+ });
+
 }finally{
  await browser.close();await new Promise(resolve=>server.close(resolve));
 }
