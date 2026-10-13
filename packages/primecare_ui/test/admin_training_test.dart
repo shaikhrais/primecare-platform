@@ -74,7 +74,9 @@ void main() {
           tester.state<ScrollableState>(scrollable).position.jumpTo(0);
           await tester.pumpAndSettle();
           await tester.scrollUntilVisible(finder,250,scrollable:scrollable,maxScrolls:100);
-          await tester.ensureVisible(finder);await tester.tap(finder);await tester.pumpAndSettle();
+          await tester.ensureVisible(finder);await tester.pumpAndSettle();
+          expect(finder.hitTestable(),findsOneWidget,reason:'$key must be visible before tapping');
+          await tester.tap(finder);await tester.pumpAndSettle();
         }
         await tap('training-submit');expect(find.text(adminTrainingCatalog[language]!['select_answer']!),findsOneWidget);
         await tap('training-answer-0');await tap('training-submit');expect(await progress.results(),isEmpty);
