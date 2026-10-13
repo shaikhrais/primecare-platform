@@ -1,30 +1,32 @@
-# Live screen text
+# Downloaded screen text on this device
 
-The platform administrator's administration interface contains a Screen text
-section. Select a registered screen, search its keys and edit English, French
-and Spanish side by side. Save publishes all three locale maps as one version.
-The API checks key parity, named parameters, nonempty values and text limits.
-Import loads a JSON draft for review; export downloads a screen JSON document.
+Screen text is downloaded as JSON and stored in persistent local app storage,
+scoped to the API gateway. Flutter uses platform preferences in the app data
+area; websites use browser local storage. A valid saved copy loads on restart
+without API calls. First use can download a copy; there is no periodic polling
+or refresh on resume. Explicit download updates the local copy. Bundled governed
+text remains the fallback when no valid download is available.
 
-The editor reads the latest 50 history records, including actor and timestamp.
-Restore publishes a selected historical catalog as a new version, retaining
-the earlier history. Concurrent saves require the version originally read;
-stale edits receive 409 and their unsaved draft remains visible.
+The administration text editor saves English, French and Spanish changes on
+this device. Save, reload, JSON import/export, history and restore operate
+locally and do not publish changes or read server audit history. The latest
+50 local edits are retained, and restore creates a new local version. The
+separate Download from API action asks before replacing local text. Conflicting
+local edits preserve the unsaved draft. Local saves report storage failures
+instead of claiming a durable save.
 
-Only an active, authenticated `platform_admin` can save or read history.
-Ordinary roles cannot edit global text. Public reads contain plain registered
-interface text only, without actor history, user records or business data.
-Writes recheck session authority under transaction locks, apply a per-actor
-limit of 30 attempts/minute, and commit catalog/history together.
+Flutter provides `LiveScreenTextStore.saveLocal` and `localHistory` for device
+text changes. Cached text updates rebuild dependent widgets while retaining
+typed drafts. The shared API remains available for explicitly authorized
+server updates; the local editor does not call its write/history endpoints.
+Only plain interface text, catalog versions and local text history are stored,
+never passwords, recovery codes, session tokens or business records. This cache
+covers screen text; business/authentication operations keep their existing
+network requirements.
 
-The supported live surfaces are Reality Check, Role Carousel, Theme Center,
-workspace, reports, platform administration and the text editor. Flutter uses
-the inherited shared app scope; websites use the shared live catalog store.
-They check versions every 30 seconds while active and retain fallback/last
-valid text on refresh failures. Browser refresh avoids overwriting active
-drafts. Editing a supported resource needs no rebuild after the initial feature
-and additive database migration are deployed. Generated/legacy screens that
-have not adopted this resolver still require migration.
+The supported catalogs are Reality Check, Role Carousel, Theme Center, workspace,
+reports, platform administration, the text editor, shared Flutter authentication
+and password recovery. TypeScript authentication still needs migration.
 
 Bundled defaults are governed by `register-live-screen-text.py`. Changes in
 production are versioned in PostgreSQL, not written back automatically into
@@ -72,3 +74,16 @@ changes: a live-text import and label lookup. Its authorized route selection,
 returned section loop, visible cards and stable semantics remain unchanged.
 The audit still rejects unrendered/dead section loops and does not promote
 production readiness.
+
+## Shared authentication catalogs
+
+`auth` reuses the 62 registered authentication resources for the shared Flutter
+login, provisioning information, recovery shell, language selection, session
+summary and unavailable-capability pages. `password_recovery` adds 18 governed
+labels and validation/status messages in English, French and Spanish. Recovery
+status stores resource keys so language changes and remote text edits update
+messages while retaining email, code and password drafts. Server failures use
+a localized generic status; authentication requests and validation rules are
+unchanged. The TypeScript authentication pages still require their own resolver
+migration. This brings the live catalog count to nine; historical reference
+files are not counted as additional runtime migrations.

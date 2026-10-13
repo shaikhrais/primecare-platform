@@ -10,6 +10,39 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'cloudflare/workers/src/screen-text-defaults.json'
 
 
+def auth_catalogs(db):
+    """Reuse registered auth copy; recovery JSON seeds new governed resources."""
+    expected = {'login', 'signup', 'forgot_password', 'reset_password', 'mfa', 'consent', 'success', 'auth_error', 'language'}
+    routes = {row[0] for row in db.execute('SELECT route_code FROM auth_route_registry')}
+    if not expected <= routes:
+        raise ValueError('Shared auth route authority missing')
+    auth = {}
+    for locale in ['en', 'fr', 'es']:
+        rows = db.execute("SELECT r.resource_key,v.translated_text FROM language_resources r JOIN language_resource_values v USING(resource_id) JOIN languages l USING(language_id) WHERE r.resource_key GLOB 'auth_design_*' AND l.language_code=? ORDER BY r.resource_key", (locale,))
+        auth[locale] = {key.removeprefix('auth_design_'): value for key, value in rows}
+    recovery = json.loads((ROOT / 'packages/primecare_ui/lib/src/localization/screens/password_recovery.json').read_text())
+    if recovery.get('version') != 1 or recovery.get('screen') != 'password_recovery':
+        raise ValueError('Invalid recovery screen JSON')
+    result = {'auth': auth, 'password_recovery': recovery['locales']}
+    validate(result)
+    if not auth['en']:
+        raise ValueError('Registered auth copy missing')
+    return result
+
+
+def dart_catalogs(catalogs):
+    lines = ['// Generated from governed live screen text; do not hand edit.']
+    for screen, name in [('auth', 'authScreenCatalog'), ('password_recovery', 'passwordRecoveryScreenCatalog')]:
+        lines.append('const ' + name + ' = <String, Map<String,String>>{')
+        for locale, entries in catalogs[screen].items():
+            lines.append('  ' + json.dumps(locale) + ': {')
+            for key, value in entries.items():
+                lines.append('    ' + json.dumps(key) + ': ' + json.dumps(value, ensure_ascii=False).replace('$', r'\$') + ',')
+            lines.append('  },')
+        lines.append('};')
+    return '\n'.join(lines) + '\n'
+
+
 def validate(catalogs):
     for screen, locales in catalogs.items():
         if not re.fullmatch(r'[a-z][a-z0-9_]{0,79}', screen) or set(locales) != {'en', 'fr', 'es'}:
@@ -29,7 +62,7 @@ def register(db, catalogs):
     runpy.run_path(str(ROOT / 'scripts/register-platform-admin-role.py'))['register'](db)
     screen = db.execute("SELECT id FROM screens WHERE screen_code='PLATFORM_ADMINISTRATION'").fetchone()[0]
     db.execute('CREATE TABLE IF NOT EXISTS live_screen_text_surfaces(screen_id INTEGER PRIMARY KEY REFERENCES screens(id),section_code TEXT NOT NULL,controls_json TEXT NOT NULL)')
-    db.execute('INSERT OR REPLACE INTO live_screen_text_surfaces VALUES(?,?,?)', (screen, 'screen_text_editor', json.dumps(['screen','search','en','fr','es','save','reload','import','export','history','restore'])))
+    db.execute('INSERT OR REPLACE INTO live_screen_text_surfaces VALUES(?,?,?)', (screen, 'screen_text_editor', json.dumps(['screen','search','en','fr','es','save','reload','download','import','export','history','restore'])))
     app = db.execute("SELECT id FROM apps WHERE app_code='gv'").fetchone()[0]
     for method, route, authenticated in [('GET','/screen-text',0),('GET','/screen-text/{screen}',0),('PUT','/screen-text/{screen}',1),('GET','/screen-text/{screen}/history',1)]:
         path='/v1/governance'+route
@@ -58,6 +91,7 @@ if __name__ == '__main__':
         db=sqlite3.connect(':memory:') if args.check else sqlite3.connect(ROOT/'.agents/governance/governance.db')
         if args.check: source.backup(db)
         try:
+            catalogs.update(auth_catalogs(db))
             register(db,catalogs)
             output={}
             for name, locales in catalogs.items():
@@ -75,11 +109,19 @@ if __name__ == '__main__':
                 lines.append('  },')
             generated='\n'.join(lines+['};'])+'\n'
             dart=ROOT/'packages/flutter_core/lib/theme/theme_center_text_generated.dart'
+            auth_dart=ROOT/'packages/primecare_ui/lib/src/localization/auth_screen_text_generated.dart'
+            auth_generated=dart_catalogs(output)
+            auth_json=ROOT/'packages/primecare_ui/lib/src/localization/screens/auth.json'
+            auth_document=json.dumps({'version':1,'screen':'auth','locales':output['auth']},ensure_ascii=False,indent=2)+'\n'
             if args.check:
-                if output != catalogs: raise SystemExit('Live screen text differs from governance')
+                if output != json.loads(SOURCE.read_text()): raise SystemExit('Live screen text differs from governance')
                 if dart.read_text()!=generated: raise SystemExit('Theme Center fallback export differs from governance')
+                if not auth_dart.is_file() or auth_dart.read_text()!=auth_generated: raise SystemExit('Auth fallback export differs from governance')
+                if not auth_json.is_file() or auth_json.read_text()!=auth_document: raise SystemExit('Auth screen JSON differs from governance')
             else:
                 SOURCE.write_text(json.dumps(output,ensure_ascii=False,indent=2)+'\n')
                 dart.write_text(generated)
+                auth_dart.write_text(auth_generated)
+                auth_json.write_text(auth_document)
         finally: db.close()
     print(len(catalogs),'live screens registered; API/editor permissions and resource parity validated')
