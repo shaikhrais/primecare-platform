@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
@@ -68,6 +69,12 @@ void main() {
         addTearDown(store.dispose);
         Widget screen()=>ProviderScope(overrides:[authProvider.overrideWith(TrainingAuth.new)],child:localized(LiveScreenTextScope(store:store,child:AdminTrainingScreen(actor:'learner-a',gateway:'https://one',progress:progress,exporter:exporter)),language:language));
         await tester.pumpWidget(screen());await tester.pumpAndSettle();
+        final unselected=find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy=='training-language-${language=='en'?'fr':'en'}');
+        final textWidget=tester.widget<Text>(find.descendant(of:unselected,matching:find.byType(Text)));
+        final buttonWidget=tester.widget<ElevatedButton>(find.descendant(of:unselected,matching:find.byType(ElevatedButton)));
+        final foreground=textWidget.style!.color!.computeLuminance();
+        final background=buttonWidget.style!.backgroundColor!.resolve({})!.computeLuminance();
+        expect((math.max(foreground,background)+0.05)/(math.min(foreground,background)+0.05),greaterThanOrEqualTo(4.5));
         Future<void> tap(String key) async {
           final finder=find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy==key);
           final scrollable=find.byType(Scrollable).first;

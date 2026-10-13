@@ -77,7 +77,9 @@ class _AdminTrainingState extends ConsumerState<AdminTrainingScreen> {
   }
   Widget button(String labelKey,String id,VoidCallback action,{bool selected=false}) => Semantics(
     label:id,selected:selected,child:PrimeButton(key:ValueKey(id),dataCy:id,
-      label:text(labelKey),isGhost:!selected,onPressed:_busy?null:action));
+      label:text(labelKey),color:selected?context.theme.colors.primary:context.theme.colors.surface,
+      textColor:selected?context.theme.colors.onPrimary:context.theme.colors.onSurface,
+      borderColor:context.theme.colors.border,onPressed:_busy?null:action));
   @override
   Widget build(BuildContext context) {
     final spacing=context.theme.spacing;
@@ -99,7 +101,9 @@ class _AdminTrainingState extends ConsumerState<AdminTrainingScreen> {
           for(final lesson in adminTrainingLessons)Semantics(label:'training-lesson-${lesson.id}',selected:lesson.id==_lesson.id,child:PrimeButton(
             key:ValueKey('training-lesson-${lesson.id}'),dataCy:'training-lesson-${lesson.id}',
             label:'${text(lesson.titleKey)} · ${text(_results.any((r)=>r.lesson==lesson.id)?'passed':'pending')}',
-            isGhost:lesson.id!=_lesson.id,onPressed:_busy?null:()=>setState(() { _lesson=lesson;_answer=null;_notice=null; }))),
+            color:lesson.id==_lesson.id?context.theme.colors.primary:context.theme.colors.surface,
+            textColor:lesson.id==_lesson.id?context.theme.colors.onPrimary:context.theme.colors.onSurface,
+            borderColor:context.theme.colors.border,onPressed:_busy?null:()=>setState(() { _lesson=lesson;_answer=null;_notice=null; }))),
         ]),SizedBox(height:spacing.lg),
         Semantics(header:true,child:Text(text(_lesson.titleKey),style:context.theme.typography.h3)),
         SizedBox(height:spacing.md),Text(text('procedure'),style:context.theme.typography.labelBold),Text(text(_lesson.procedureKey)),
