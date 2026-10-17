@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "6e13f9f4bee20045553a51aaebeba394964061d0",
+  "purpose": "Preserve existing native presentation metadata when registering the separate public web recovery view. This is not native business completion evidence.",
+  "screens": [
+    {
+      "screen_code": "forgot_password",
+      "route_path": "/generated/forgot-password",
+      "actual_file_path": "packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart"
+    },
+    {
+      "screen_code": "reset_password",
+      "route_path": "/generated/reset-password",
+      "actual_file_path": "packages/primecare_ui/lib/src/features/generated_screens/reset_password.dart"
+    }
+  ]
+}

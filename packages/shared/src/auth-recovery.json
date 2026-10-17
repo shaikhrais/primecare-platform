@@ -39,5 +39,155 @@
       "recovery_unavailable": "El correo de recuperación no está disponible. Contacta al operador de la plataforma.",
       "recovery_limit": "Demasiadas solicitudes. Espera antes de reintentar."
     }
+  },
+  "views": {
+    "forgot": {
+      "screenCode": "forgot_password",
+      "route": "/forgot-password",
+      "file": "websites/typescript/src/auth-recovery.ts",
+      "section": "auth-recovery",
+      "endpoint": "/v1/auth/forgot-password",
+      "controls": [
+        {
+          "key": "recovery-form",
+          "kind": "form",
+          "componentId": 2,
+          "component": "prime_card",
+          "testId": "recovery-form"
+        },
+        {
+          "key": "recovery-email",
+          "kind": "input",
+          "componentId": 3,
+          "component": "prime_text_field",
+          "testId": "recovery-email"
+        },
+        {
+          "key": "recovery-code",
+          "kind": "input",
+          "componentId": 3,
+          "component": "prime_text_field",
+          "testId": "recovery-code"
+        },
+        {
+          "key": "recovery-password",
+          "kind": "input",
+          "componentId": 3,
+          "component": "prime_text_field",
+          "testId": "recovery-password"
+        },
+        {
+          "key": "recovery-confirm",
+          "kind": "input",
+          "componentId": 3,
+          "component": "prime_text_field",
+          "testId": "recovery-confirm"
+        },
+        {
+          "key": "recovery-submit",
+          "kind": "button",
+          "componentId": 1,
+          "component": "prime_button",
+          "testId": "recovery-submit"
+        },
+        {
+          "key": "recovery-status",
+          "kind": "card",
+          "componentId": 2,
+          "component": "prime_card",
+          "testId": "recovery-status"
+        },
+        {
+          "key": "recovery-reset-link",
+          "kind": "link",
+          "componentId": 1,
+          "component": "prime_button",
+          "testId": "recovery-reset-link"
+        },
+        {
+          "key": "recovery-back",
+          "kind": "link",
+          "componentId": 1,
+          "component": "prime_button",
+          "testId": "recovery-back"
+        }
+      ],
+      "implementationTag": "partial",
+      "testTag": "test_pending"
+    },
+    "reset": {
+      "screenCode": "reset_password",
+      "route": "/reset-password",
+      "file": "websites/typescript/src/auth-recovery.ts",
+      "section": "auth-recovery",
+      "endpoint": "/v1/auth/reset-password",
+      "controls": [
+        {
+          "key": "recovery-form",
+          "kind": "form",
+          "componentId": 2,
+          "component": "prime_card",
+          "testId": "recovery-form"
+        },
+        {
+          "key": "recovery-email",
+          "kind": "input",
+          "componentId": 3,
+          "component": "prime_text_field",
+          "testId": "recovery-email"
+        },
+        {
+          "key": "recovery-code",
+          "kind": "input",
+          "componentId": 3,
+          "component": "prime_text_field",
+          "testId": "recovery-code"
+        },
+        {
+          "key": "recovery-password",
+          "kind": "input",
+          "componentId": 3,
+          "component": "prime_text_field",
+          "testId": "recovery-password"
+        },
+        {
+          "key": "recovery-confirm",
+          "kind": "input",
+          "componentId": 3,
+          "component": "prime_text_field",
+          "testId": "recovery-confirm"
+        },
+        {
+          "key": "recovery-submit",
+          "kind": "button",
+          "componentId": 1,
+          "component": "prime_button",
+          "testId": "recovery-submit"
+        },
+        {
+          "key": "recovery-status",
+          "kind": "card",
+          "componentId": 2,
+          "component": "prime_card",
+          "testId": "recovery-status"
+        },
+        {
+          "key": "recovery-reset-link",
+          "kind": "link",
+          "componentId": 1,
+          "component": "prime_button",
+          "testId": "recovery-reset-link"
+        },
+        {
+          "key": "recovery-back",
+          "kind": "link",
+          "componentId": 1,
+          "component": "prime_button",
+          "testId": "recovery-back"
+        }
+      ],
+      "implementationTag": "partial",
+      "testTag": "test_pending"
+    }
   }
 }
