@@ -14,6 +14,7 @@ execFileSync('python3',['scripts/register-tenant-operations.py']);
 execFileSync('python3',['scripts/register-platform-bundle.py']);
 execFileSync('python3',['scripts/register-territory-intake.py']);
 execFileSync('python3',['scripts/register-care-governance.py']);
+execFileSync('python3',['scripts/register-response-compression.py']);
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';

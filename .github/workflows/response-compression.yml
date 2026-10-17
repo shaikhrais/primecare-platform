@@ -22,5 +22,10 @@ jobs:
           node-version: '24'
       - run: npm install --prefix "$RUNNER_TEMP/compression-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 miniflare@4.20260730.0
       - run: ln -s "$RUNNER_TEMP/compression-tools/node_modules" node_modules
+      - name: Reproduce registered transport policy from a clean database
+        run: |
+          python3 scripts/register-response-compression.py --database "$RUNNER_TEMP/transport.db" --output "$RUNNER_TEMP/compression-policy.json"
+          python3 scripts/register-response-compression.py --database "$RUNNER_TEMP/transport.db" --output "$RUNNER_TEMP/compression-policy.json"
+          cmp docs/transport/compression-policy.json "$RUNNER_TEMP/compression-policy.json"
       - run: node scripts/test-response-compression.mjs
       - run: node scripts/test-response-compression-runtime.mjs
