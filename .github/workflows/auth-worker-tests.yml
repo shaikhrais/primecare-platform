@@ -40,6 +40,7 @@ jobs:
         run: |
           python3 scripts/register-maintenance-governance.py
           python3 scripts/register-workspace-governance.py
+          python3 scripts/register-care-governance.py
       - name: Unit tests
         run: node scripts/verify-api-batches.mjs
       - name: Type check Workers
