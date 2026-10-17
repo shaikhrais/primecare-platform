@@ -80,6 +80,16 @@ cannot turn them into complete workflows.
 
 ## Verification and evidence
 
+`python3 scripts/check-skeleton-structure.py` checks the current registered
+skeleton without Git history: 1,161 controller inheritance links, eight app
+roots, 13 organized service hosts, two Worker subclasses and two web session
+clients. It rejects controllers that override the shared lifecycle, app roots
+that rebuild MaterialApp locally and service entrypoints that retain host classes.
+Central inheritance CI runs this in addition to the historical parity checks.
+The structural check does not replace compilation, workflow tests or historical
+behavior comparisons, and does not claim that every repository feature uses a
+base class.
+
 The base lifecycle tests cover preflight termination, asynchronous hook ordering,
 error delegation, parallel request isolation and detached fetch calls. Twelve
 service cases verify root responses, allowed preflights and rejected origins
