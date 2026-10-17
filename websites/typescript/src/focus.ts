@@ -5,9 +5,9 @@ export function focusInWorkspace(root:HTMLElement,target:HTMLElement|null):void{
  target.scrollIntoView({block:'nearest',inline:'nearest'});
  const shell=root.closest<HTMLElement>('[data-cy=app-shell]')??root;
  const topbar=shell.querySelector<HTMLElement>('[data-cy=app-topbar]');
- if(topbar&&getComputedStyle(topbar).position==='sticky'){
-  const clearance=topbar.getBoundingClientRect().bottom+parseFloat(getComputedStyle(topbar).paddingBottom||'0');
-  const top=target.getBoundingClientRect().top;
-  if(top<clearance)window.scrollBy({top:top-clearance});
- }
+ const clearance=topbar&&getComputedStyle(topbar).position==='sticky'
+  ?topbar.getBoundingClientRect().bottom+parseFloat(getComputedStyle(topbar).paddingBottom||'0'):0;
+ const top=target.getBoundingClientRect().top;
+ // Round away from zero so subpixel clipping also clears a non-sticky header.
+ if(top<clearance)window.scrollBy({top:Math.floor(top-clearance),behavior:'instant'});
 }

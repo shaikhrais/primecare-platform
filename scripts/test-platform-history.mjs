@@ -1,3 +1,4 @@
+import {launchCareBrowser} from './care-browser-launch.mjs';
 import {scanAccessibility} from './browser-accessibility.mjs';
 import {test,beforeEach} from 'node:test';
 import assert from 'node:assert/strict';
@@ -6,7 +7,7 @@ import {readFile,writeFile,mkdtemp,mkdir} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
 import {build} from 'esbuild';
-import {chromium} from 'playwright';
+
 import {createServer} from 'node:http';
 import {execFileSync} from 'node:child_process';
 const require=createRequire(import.meta.url),adapter=process.env.PLATFORM_TEST_ADAPTER;
@@ -82,7 +83,7 @@ try{
  const {outputFiles,metafile}=await build({stdin:{contents:"import {renderPlatformAdmin} from './websites/typescript/src/platform-admin';renderPlatformAdmin(document.getElementById('app'),location.origin);",resolveDir:process.cwd()},bundle:true,platform:'browser',format:'iife',write:false,metafile:true});assert.ok(!Object.keys(metafile.inputs).some(p=>p.includes('platform-bundle/service')||p.includes('node_modules/pg/')));
  const style=await readFile('websites/typescript/src/styles.css','utf8'),theme=JSON.parse(execFileSync('python3',['-c',"import sqlite3,json;d=sqlite3.connect('.agents/governance/governance.db');print(json.dumps(dict(d.execute('SELECT css_variable_name,token_value FROM theme_design_tokens WHERE theme_id=1 AND active=1'))))"]).toString());
  server=createServer(async(req,res)=>{try{if(req.url.startsWith('/v1/governance/platform')){const chunks=[];for await(const c of req)chunks.push(c);const body=Buffer.concat(chunks),path=req.url.replace('/v1/governance','');const r=await platformAdministration(new Request('http://localhost'+path,{method:req.method,headers:req.headers,...(body.length?{body}:{})}),env,path.split('?')[0],{});res.writeHead(r.status,Object.fromEntries(r.headers));res.end(Buffer.from(await r.arrayBuffer()));}else if(req.url==='/app.js'){res.setHeader('content-type','text/javascript');res.end(outputFiles[0].text);}else if(req.url.startsWith('/v1/')){res.writeHead(404);res.end('{}');}else{res.setHeader('content-type','text/html');res.end(`<html lang="en"><head><title>PrimeCare</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{${Object.entries(theme).map(([k,v])=>k+':'+v+';').join('')}}${style}</style></head><body><div id="app"></div><script src="/app.js"></script></body></html>`);}}catch(e){console.error(e);res.writeHead(500);res.end('{}');}}).listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));const base='http://127.0.0.1:'+server.address().port;
- browser=await chromium.launch({headless:true,...(process.env.GROWTH_BROWSER_EXECUTABLE?{executablePath:process.env.GROWTH_BROWSER_EXECUTABLE,args:['--no-sandbox','--disable-dev-shm-usage']}:{})});await mkdir('test-results/platform-history',{recursive:true});
+ browser=await launchCareBrowser();await mkdir('test-results/platform-history',{recursive:true});
  const labels=JSON.parse(await readFile('packages/shared/src/platform-bundle/registry.json','utf8')).locales;
  for(const lang of ['en','fr','es'])for(const width of [320,1440])await test(`paged histories preserve drafts and keyboard focus in ${lang} at ${width}px`,async()=>{
   await db.query('DELETE FROM platform_bundle_rate');const page=await browser.newPage({viewport:{width,height:1000},timezoneId:'America/Toronto'}),errors=[],el=id=>page.locator('[data-cy="'+id+'"]');page.on('pageerror',e=>errors.push(e.message));
