@@ -35,6 +35,30 @@ separate runtime adapters.
 
 ## Migration sequence for the rest of the repository
 
+### Web session transport
+
+`websites/typescript/src/infrastructure/http/base-session-client.ts` contains
+`BaseSessionClient`. `CareClient` and `GrowthClient` inherit its session checks,
+JSON transport and per-instance idempotency retry lifecycle. Concrete clients
+retain their governed endpoints, public request signatures and error policies.
+Care keeps typed HTTP errors; growth keeps its unauthorized redirect and uncertain
+delivery errors. Growth PDF validation remains in its adapter and uses the inherited
+session check. No account or tenant is stored globally by the base class.
+
+`scripts/test-session-client-inheritance.mjs` verifies both inheritance links,
+request payloads, retry reuse and reset, instance isolation, account changes before
+and after requests, domain error differences and PDF validation. Care acceptance
+CI includes this suite. This extraction creates no screens, APIs or permissions.
+
+This is a partial architecture migration. CareRepository remains a concrete class;
+care domain workflow handlers and web presentation functions have not all been
+converted to class hierarchies. Territory, tenant operations and other clients
+still have different transport contracts and need separate compatibility review.
+The existing Dart parents and Worker BaseWorker hierarchy remain authoritative
+for their runtimes; Dart base classes cannot be inherited by TypeScript code.
+
+### Remaining migration sequence
+
 This PR migrates the thirteen Worker entry points through two concrete classes.
 It does not migrate every Dart service, Flutter screen or domain handler into a
 new class hierarchy. The shared governed UI parent already exists and should be

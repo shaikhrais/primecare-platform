@@ -67,7 +67,7 @@ jobs:
       - name: Check read-only migration identity preflight
         run: node --test scripts/test-care-migration-target.mjs
       - name: Check care scope, state, concurrency, rollback and browser workflows
-        run: node --test scripts/test-care-delivery.mjs scripts/test-care-roster-search.mjs scripts/test-care-visit-picker.mjs scripts/test-care-form-drafts.mjs scripts/test-workspace.mjs scripts/test-auth-client.mjs
+        run: node --test scripts/test-care-delivery.mjs scripts/test-care-roster-search.mjs scripts/test-care-visit-picker.mjs scripts/test-care-form-drafts.mjs scripts/test-workspace.mjs scripts/test-auth-client.mjs scripts/test-session-client-inheritance.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
