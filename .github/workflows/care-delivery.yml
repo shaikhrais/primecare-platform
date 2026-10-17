@@ -64,6 +64,8 @@ jobs:
         run: |
           node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --types @cloudflare/workers-types cloudflare/workers/src/service.ts
           node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --lib ES2022,DOM,DOM.Iterable websites/typescript/src/main.ts
+      - name: Check read-only migration identity preflight
+        run: node --test scripts/test-care-migration-target.mjs
       - name: Check care scope, state, concurrency, rollback and browser workflows
         run: node --test scripts/test-care-delivery.mjs scripts/test-care-roster-search.mjs scripts/test-care-visit-picker.mjs scripts/test-care-form-drafts.mjs scripts/test-workspace.mjs scripts/test-auth-client.mjs
       - uses: actions/upload-artifact@v4

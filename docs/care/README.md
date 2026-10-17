@@ -241,3 +241,11 @@ At runtime commit `890e20abed3a833ecd8963024794200e5e6467bc`, all 17 GitHub Acti
 All eight care migrations are already applied twice in each isolated text/UUID test schema, verifying repeatability in native PostgreSQL CI. This does not establish compatibility with an unseen live schema or replace the normal backup and production migration process. No production database was modified during these checks.
 
 The remaining release work is code review, designated clinical/privacy/accessibility review, physical-device acceptance, organization-specific staff verification/training and the approved production migration/deployment process. These gates remain open; automated checks do not manufacture human acceptance. The current routine-support bundle is ready for code review, not declared ready for clinical operation.
+
+## Read-only identity preflight before migration
+
+Run `CARE_PREFLIGHT_DATABASE_URL` through the normal secret environment, then execute `node scripts/check-care-migration-target.mjs`. Use the intended migration role and search path. The command starts a read-only transaction, inspects PostgreSQL catalogs, and always rolls back. Its JSON contains schema/type/key metadata and compatibility issues; it never selects clinical rows, applies migrations, prints the connection URL or grants release approval. An incompatible target exits nonzero.
+
+This small preflight checks that `tenants.id`, `users.id` and `visits.id` resolve to tables, use an identity type accepted by the existing care migration, are non-null and have valid immediate single-column unique reference keys. It also checks column REFERENCES permission and CREATE permission on the target schema. Missing, nullable, composite-only, partial or deferrable keys cannot be accepted as compatible reference keys.
+
+A successful result means only that these base identity prerequisites passed. It does not inspect existing care-table drift, live row consistency, backups, retention, permissions on existing care objects, clinical authority or production migration approval. Native PostgreSQL CI runs `scripts/test-care-migration-target.mjs` against isolated synthetic schemas before the care acceptance suite.
