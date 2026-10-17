@@ -11,6 +11,8 @@ on:
       - 'websites/typescript/src/shell.ts'
       - 'websites/typescript/src/styles.css'
       - 'packages/shared/src/care/**'
+      - 'packages/shared/src/growth/**'
+      - 'websites/typescript/src/growth/forms.ts'
       - 'packages/database/migrations/20261017_care_delivery.sql'
       - 'packages/database/migrations/20261018_care_task_workflows.sql'
       - 'packages/database/migrations/20261019_care_staffing.sql'

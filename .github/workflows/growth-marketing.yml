@@ -27,7 +27,9 @@ jobs:
           node-version: '22'
       - run: npm install --prefix "$RUNNER_TEMP/growth-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.16.3 bcryptjs@3 playwright@1.60.0 jsqr@1.4.0 miniflare@4.20260730.0 jsdom@26
       - run: ln -s "$RUNNER_TEMP/growth-tools/node_modules" node_modules
-      - run: python3 scripts/register-admin-form-drafts.py --check && python3 scripts/register-admin-hierarchy.py --check && python3 scripts/register-workspace-governance.py && python3 scripts/register-growth-governance.py --check && python3 scripts/register-look-manager.py --check && python3 scripts/register-look-provider.py --check
+      - name: Register operations governance before export checks
+        run: python3 scripts/register-workspace-governance.py
+      - run: python3 scripts/register-admin-form-drafts.py --check && python3 scripts/register-admin-hierarchy.py --check && python3 scripts/register-growth-governance.py --check && python3 scripts/register-look-manager.py --check && python3 scripts/register-look-provider.py --check
       - run: node --test scripts/test-look-vision-provider.mjs scripts/test-look-vision-runtime.mjs scripts/test-growth.mjs scripts/test-method-capture-blockers.mjs scripts/test-existing-auth-contracts-api.mjs scripts/test-central-bootstrap.mjs
       - run: node --test scripts/test-growth-postgres.mjs scripts/test-growth-intake.mjs scripts/test-growth-reporting.mjs scripts/test-growth-business.mjs
       - run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/look/vision-provider.ts cloudflare/workers/src/growth/service.ts websites/typescript/src/main.ts
