@@ -12,7 +12,7 @@ if(process.env.LOOK_AI_SERVICE&&!/^[a-z0-9][a-z0-9-]{0,62}$/.test(process.env.LO
 if(process.env.LOOK_AI_MODEL&&!/^[a-zA-Z0-9._:-]{1,100}$/.test(process.env.LOOK_AI_MODEL))throw Error('Invalid LOOK_AI_MODEL');
 writeFileSync(`${output}/look-ai.jsonc`, `${JSON.stringify({
   name:visionPolicy.serviceName,main:'../cloudflare/workers/src/look/vision-provider.ts',
-  compatibility_date:visionPolicy.compatibilityDate,workers_dev:false,preview_urls:false,routes:[],
+  compatibility_date:visionPolicy.compatibilityDate,compatibility_flags:['nodejs_compat'],workers_dev:false,preview_urls:false,routes:[],
   observability:{enabled:false},vars:process.env.LOOK_AI_MODEL?{LOOK_AI_MODEL:process.env.LOOK_AI_MODEL}:{},
   durable_objects:{bindings:[{name:visionPolicy.jobBinding,class_name:visionPolicy.jobClass}]},
   migrations:[{tag:'vision-provider-v1',new_sqlite_classes:[visionPolicy.jobClass]}],
