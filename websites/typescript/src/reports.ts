@@ -3,10 +3,10 @@ import {escapeHtml} from './workspace';
 type Definition={id:string;title:string;canExport:boolean;canEmail:boolean;supportsFilters:boolean};
 type Result={title:string;classification:string;generatedAt:string;scope:string;columns:{key:string;label:string}[];rows:Record<string,unknown>[]};
 /** Shared browser adapter for the existing server-authorized reporting contract. */
-export function reportPanel(gateway:string,endpoint:string,token:string,userId:string):HTMLElement {
+export function reportPanel(gateway:string,endpoint:string,token:string,userId:string,initialLocale:'en'|'fr'|'es'='en'):HTMLElement {
  if(endpoint!=='/v1/governance/reports')throw new Error('Invalid reporting endpoint');
  const root=document.createElement('section');root.className='section';root.dataset.cy='shared-reports';
- let locale='en',reports:Definition[]=[],labels:Record<string,string>={},selected='',search='',readiness='all',result:Result|null=null,busy=false,notice='';
+ let locale=initialLocale as string,reports:Definition[]=[],labels:Record<string,string>={},selected='',search='',readiness='all',result:Result|null=null,busy=false,notice='';
  let to='',subject='',message='',confirmed=false;
  const url=gateway.replace(/\/+$/,'')+endpoint;
  const live=liveScreenText(gateway);const label=(key:string)=>escapeHtml(live.text('reports',locale,key,labels[key]??key));
@@ -16,13 +16,13 @@ export function reportPanel(gateway:string,endpoint:string,token:string,userId:s
  const pending=()=>!!sessionStorage.getItem(pendingKey());
  const headers=()=>({authorization:'Bearer '+token});
  function reset(){result=null;notice='';confirmed=false;}
- function draw(){const d=definition();root.innerHTML=`<h2>${label('title')}</h2>
+ function draw(){const d=definition();root.innerHTML=`<h2>${label('title')}</h2>${reports.length?`<p><a data-cy="report-review-document" href="/assets/reviews/PrimeCare_Admin_Marketing_Review.pdf" download>${label('review_document')}</a></p>`:''}
  <div class="report-controls"><label>${label('language')}<select data-cy="report-language" ${busy?'disabled':''}>${['en','fr','es'].map(l=>`<option ${l===locale?'selected':''}>${l}</option>`).join('')}</select></label>
  <label>${label('report')}<select data-cy="report-select" ${busy?'disabled':''}>${reports.map(r=>`<option value="${escapeHtml(r.id)}" ${r.id===selected?'selected':''}>${escapeHtml(r.title)}</option>`).join('')}</select></label>
  <button data-cy="report-refresh" ${busy?'disabled':''}>${label('refresh')}</button></div>
  ${d?.supportsFilters?`<div class="report-controls"><label>${label('search')}<input data-cy="report-search" maxlength="100" value="${escapeHtml(search)}" ${busy?'disabled':''}></label><label>${label('readiness')}<select data-cy="report-readiness" ${busy?'disabled':''}>${['all','created','ready'].map(v=>`<option value="${v}" ${v===readiness?'selected':''}>${label(v)}</option>`).join('')}</select></label></div>`:''}
  <div class="report-controls"><button data-cy="report-generate" ${busy||!d?'disabled':''}>${label('generate')}</button>${d?.canExport?`<button data-cy="report-pdf" ${busy||!result?'disabled':''}>${label('pdf')}</button>`:''}</div>
- ${result?`<div data-cy="report-result"><p>${escapeHtml(result.title)} · ${escapeHtml(result.classification)}</p><p>${label('generated')}: ${escapeHtml(result.generatedAt)} · ${label('scope')}: ${escapeHtml(result.scope)}</p><div class="table-scroll"><table data-cy="report-preview"><thead><tr>${result.columns.map(c=>`<th>${escapeHtml(c.label)}</th>`).join('')}</tr></thead><tbody>${result.rows.slice(0,50).map(r=>`<tr>${result!.columns.map(c=>`<td>${escapeHtml(r[c.key])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>${result.rows.length?'':`<p>${label('empty')}</p>`}</div>`:''}
+ ${result?`<div data-cy="report-result"><p>${escapeHtml(result.title)} · ${escapeHtml(result.classification)}</p><p>${label('generated')}: ${escapeHtml(result.generatedAt)} · ${label('scope')}: ${escapeHtml(result.scope)}</p><p data-cy="report-preview-count">${label('preview_count').replace('{shown}',String(Math.min(50,result.rows.length))).replace('{total}',String(result.rows.length))}</p><div class="table-scroll" tabindex="0" role="region" aria-label="${label('report')}"><table data-cy="report-preview"><thead><tr>${result.columns.map(c=>`<th>${escapeHtml(c.label)}</th>`).join('')}</tr></thead><tbody>${result.rows.slice(0,50).map(r=>`<tr>${result!.columns.map(c=>`<td>${escapeHtml(r[c.key])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>${result.rows.length?'':`<p>${label('empty')}</p>`}</div>`:''}
  ${d?.canEmail?`<form data-cy="report-email-form"><label>${label('recipient')}<input type="email" required maxlength="254" data-cy="report-recipient" value="${escapeHtml(to)}" ${busy?'disabled':''}></label><label>${label('subject')}<input maxlength="150" data-cy="report-subject" value="${escapeHtml(subject)}" ${busy?'disabled':''}></label><label>${label('message')}<textarea maxlength="1000" data-cy="report-message" ${busy?'disabled':''}>${escapeHtml(message)}</textarea></label><label class="report-consent"><input type="checkbox" data-cy="report-confirm" ${confirmed?'checked':''} ${busy?'disabled':''}>${label('confirm')}</label><button type="submit" data-cy="report-email" ${busy||!result||!confirmed||pending()?'disabled':''}>${label('email')}</button></form>`:''}
  <output aria-live="polite" data-cy="report-status">${busy?label('working'):pending()?label('unknown'):escapeHtml(notice)}</output>`;
  const el=(id:string)=>root.querySelector<HTMLInputElement>(`[data-cy=${id}]`)!;

@@ -26,10 +26,10 @@ const fixture=(role='ceo',tenant='tenant-a')=>{
  };return queries;
 };
 test('every created page has a governed route, sections and grants; readiness is never invented',()=>{
- assert.equal(registry.screens.length,949);
+ assert.equal(registry.screens.length,953);
  for(const s of registry.screens.filter(s=>s.renderer!=='account')){
   assert.ok(s.route.startsWith('/'),s.code);assert.ok(s.sections.length,s.code);
-  assert.ok(s.grants.length,s.code);assert.equal(s.productionReady,false,s.code);
+  if(s.code==='growth_public_enquiry')assert.equal(s.grants.length,0);else assert.ok(s.grants.length,s.code);assert.equal(s.productionReady,false,s.code);
   assert.ok(s.blockers.length>0,s.code);assert.equal(s.lifecycle,'created');
  }
  const ceo=visiblePages('ceo');assert.ok(ceo.some(p=>p.code==='ceo_dashboard'));

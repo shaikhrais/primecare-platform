@@ -1,0 +1,77 @@
+name: Care delivery authority and browser acceptance
+on:
+  pull_request:
+    paths:
+      - 'cloudflare/workers/src/care/**'
+      - 'cloudflare/workers/src/business-modules.ts'
+      - 'cloudflare/workers/src/workspace-registry.json'
+      - 'websites/typescript/src/care/**'
+      - 'websites/typescript/src/main.ts'
+      - 'websites/typescript/src/workspace.ts'
+      - 'websites/typescript/src/shell.ts'
+      - 'websites/typescript/src/styles.css'
+      - 'packages/shared/src/care/**'
+      - 'packages/shared/src/growth/**'
+      - 'websites/typescript/src/growth/forms.ts'
+      - 'packages/database/migrations/20261017_care_delivery.sql'
+      - 'packages/database/migrations/20261018_care_task_workflows.sql'
+      - 'packages/database/migrations/20261019_care_staffing.sql'
+      - 'packages/database/migrations/20261020_care_schedules_time.sql'
+      - 'packages/database/migrations/20261021_care_handover_followups.sql'
+      - 'packages/database/migrations/20261022_care_task_deadline_requests.sql'
+      - 'packages/database/migrations/20261023_care_task_workload.sql'
+      - 'packages/database/migrations/20261024_care_task_dependencies.sql'
+      - 'docs/care/**'
+      - 'scripts/*care*'
+      - '.github/workflows/care-delivery.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  care:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: care
+          POSTGRES_PASSWORD: integration-only
+          POSTGRES_DB: care
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U care" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      CARE_TEST_DATABASE_URL: postgresql://care:integration-only@localhost:5432/care
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install isolated test tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/care-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 @cloudflare/workers-types@4.20260403.1 pg@8.11.3 bcryptjs@3 axe-core@4.10.3
+          ln -s "$RUNNER_TEMP/care-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Reproduce care governance
+        run: |
+          python3 scripts/register-care-governance.py
+          python3 scripts/register-care-governance.py --check
+          git diff --exit-code packages/shared/src/care/registry.json cloudflare/workers/src/workspace-registry.json docs/care/openapi.json
+      - name: Check care API and website types
+        run: |
+          node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --types @cloudflare/workers-types cloudflare/workers/src/service.ts
+          node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --lib ES2022,DOM,DOM.Iterable websites/typescript/src/main.ts
+      - name: Check read-only migration identity preflight
+        run: node --test scripts/test-care-migration-target.mjs
+      - name: Check care scope, state, concurrency, rollback and browser workflows
+        run: node --test scripts/test-care-delivery.mjs scripts/test-care-roster-search.mjs scripts/test-care-visit-picker.mjs scripts/test-care-form-drafts.mjs scripts/test-workspace.mjs scripts/test-auth-client.mjs scripts/test-session-client-inheritance.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: synthetic-care-browser-evidence
+          path: |
+            test-results/care/
+            test-results/accessibility/care-*.json

@@ -1,0 +1,1005 @@
+{
+  "version": 1,
+  "endpoint": "/v1/governance/platform/territories",
+  "roles": {
+    "platform_admin": "global",
+    "central_admin": "global",
+    "tenant_admin": "own",
+    "owner": "own"
+  },
+  "services": [
+    "psw",
+    "home_care"
+  ],
+  "source": {
+    "year": 2021,
+    "table": "98-10-0027-01",
+    "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=9810002701",
+    "boundary": "Whole 2021 Census FSA polygons",
+    "draft": true,
+    "routingVerified": false
+  },
+  "locales": {
+    "en": {
+      "nav": "Territories",
+      "title": "Territory sales & allocation",
+      "intro": "Select a numbered green area, choose its operating tenant and record the confirmed sale.",
+      "available": "Available · pending sale",
+      "sold": "Sold · locked",
+      "reserve": "Reserve · not for sale",
+      "total": "Sale territories",
+      "seniors": "Residents aged 65+",
+      "sold_seniors": "Seniors in sold areas",
+      "available_seniors": "Seniors in available areas",
+      "reserve_seniors": "Seniors in reserves",
+      "source": "2021 Census · Statistics Canada table 98-10-0027-01. Whole postal FSA boundaries; draft planning areas, not current population or customers. Some rural pockets remain.",
+      "basemap": "Roads and water: Natural Earth (public domain). Place labels: GeoNames (CC BY). Travel times not verified.",
+      "choose": "Select a territory",
+      "tenant": "Operating tenant",
+      "choose_tenant": "Choose an active tenant",
+      "services": "Services",
+      "psw": "PSW services",
+      "home_care": "Home care",
+      "reference": "Confirmed sale / agreement reference",
+      "confirm": "I confirm the sale and tenant assignment have been approved.",
+      "save": "Record sale & lock territory",
+      "refresh": "Refresh board",
+      "zoom": "Zoom to selected area",
+      "overview": "Full map",
+      "details": "Territory details",
+      "postal": "Postal areas (FSA)",
+      "population": "Total population",
+      "name": "Territory",
+      "status": "Status",
+      "owner": "Assigned tenant",
+      "date": "Recorded on",
+      "no_owner": "Unassigned",
+      "locked": "Sold areas cannot be reassigned or sold again here.",
+      "note": "Recording a sale stores its approved reference; this screen does not take payment.",
+      "working": "Saving…",
+      "saved": "Sale recorded. Territory locked.",
+      "failed": "Unable to save. Refresh and check the territory before retrying.",
+      "conflict": "This territory changed or was already sold. Refresh the board.",
+      "empty": "No territories assigned yet.",
+      "own": "Your allocated PSW and home-care territories.",
+      "language": "Language",
+      "select": "Select",
+      "close": "Close details",
+      "reserves": "Reserve areas",
+      "evidence": "Sale reference",
+      "number": "No.",
+      "view": "View details",
+      "conflict_refreshed": "Another update was found. The board has been refreshed."
+    },
+    "fr": {
+      "nav": "Territoires",
+      "title": "Ventes et attribution des territoires",
+      "intro": "Sélectionnez une zone verte numérotée, choisissez le locataire exploitant et enregistrez la vente confirmée.",
+      "available": "Disponible · vente en attente",
+      "sold": "Vendu · verrouillé",
+      "reserve": "Réserve · non disponible",
+      "total": "Territoires à vendre",
+      "seniors": "Résidents de 65 ans et plus",
+      "sold_seniors": "Aînés dans les zones vendues",
+      "available_seniors": "Aînés dans les zones disponibles",
+      "reserve_seniors": "Aînés dans les réserves",
+      "source": "Recensement de 2021 · Statistique Canada, tableau 98-10-0027-01. Limites postales RTA entières; zones de planification provisoires, ni population actuelle ni clients. Certaines poches rurales demeurent.",
+      "basemap": "Routes et eau : Natural Earth (domaine public). Lieux : GeoNames (CC BY). Trajets non vérifiés.",
+      "choose": "Choisir un territoire",
+      "tenant": "Locataire exploitant",
+      "choose_tenant": "Choisir un locataire actif",
+      "services": "Services",
+      "psw": "Services de préposés aux soins",
+      "home_care": "Soins à domicile",
+      "reference": "Référence de vente ou d’accord confirmé",
+      "confirm": "Je confirme que la vente et l’attribution ont été approuvées.",
+      "save": "Enregistrer la vente et verrouiller",
+      "refresh": "Actualiser",
+      "zoom": "Agrandir la zone sélectionnée",
+      "overview": "Carte entière",
+      "details": "Détails du territoire",
+      "postal": "Zones postales (RTA)",
+      "population": "Population totale",
+      "name": "Territoire",
+      "status": "État",
+      "owner": "Locataire attribué",
+      "date": "Enregistré le",
+      "no_owner": "Non attribué",
+      "locked": "Les zones vendues ne peuvent être réattribuées ou revendues ici.",
+      "note": "L’enregistrement conserve la référence approuvée; cet écran ne perçoit aucun paiement.",
+      "working": "Enregistrement…",
+      "saved": "Vente enregistrée. Territoire verrouillé.",
+      "failed": "Échec. Actualisez et vérifiez le territoire avant de réessayer.",
+      "conflict": "Ce territoire a changé ou est vendu. Actualisez la carte.",
+      "empty": "Aucun territoire attribué.",
+      "own": "Vos territoires attribués de soins à domicile et de préposés aux soins.",
+      "language": "Langue",
+      "select": "Sélectionner",
+      "close": "Fermer les détails",
+      "reserves": "Zones de réserve",
+      "evidence": "Référence de vente",
+      "number": "N°",
+      "view": "Voir les détails",
+      "conflict_refreshed": "Une autre mise à jour a été trouvée. Le tableau a été actualisé."
+    },
+    "es": {
+      "nav": "Territorios",
+      "title": "Venta y asignación de territorios",
+      "intro": "Seleccione una zona verde numerada, elija el inquilino operador y registre la venta confirmada.",
+      "available": "Disponible · venta pendiente",
+      "sold": "Vendido · bloqueado",
+      "reserve": "Reserva · no en venta",
+      "total": "Territorios en venta",
+      "seniors": "Residentes de 65 años o más",
+      "sold_seniors": "Mayores en zonas vendidas",
+      "available_seniors": "Mayores en zonas disponibles",
+      "reserve_seniors": "Mayores en reservas",
+      "source": "Censo de 2021 · Statistics Canada, tabla 98-10-0027-01. Límites postales FSA completos; áreas de planificación provisionales, no población actual ni clientes. Quedan zonas rurales.",
+      "basemap": "Carreteras y agua: Natural Earth (dominio público). Lugares: GeoNames (CC BY). Tiempos de viaje sin verificar.",
+      "choose": "Seleccione un territorio",
+      "tenant": "Inquilino operador",
+      "choose_tenant": "Elija un inquilino activo",
+      "services": "Servicios",
+      "psw": "Servicios PSW",
+      "home_care": "Atención domiciliaria",
+      "reference": "Referencia de venta o acuerdo confirmado",
+      "confirm": "Confirmo que la venta y la asignación han sido aprobadas.",
+      "save": "Registrar venta y bloquear",
+      "refresh": "Actualizar",
+      "zoom": "Ampliar zona seleccionada",
+      "overview": "Mapa completo",
+      "details": "Detalles del territorio",
+      "postal": "Zonas postales (FSA)",
+      "population": "Población total",
+      "name": "Territorio",
+      "status": "Estado",
+      "owner": "Inquilino asignado",
+      "date": "Registrado el",
+      "no_owner": "Sin asignar",
+      "locked": "Las zonas vendidas no se pueden reasignar ni vender de nuevo aquí.",
+      "note": "El registro conserva la referencia aprobada; esta pantalla no cobra pagos.",
+      "working": "Guardando…",
+      "saved": "Venta registrada. Territorio bloqueado.",
+      "failed": "No se pudo guardar. Actualice y compruebe el territorio antes de reintentar.",
+      "conflict": "Este territorio cambió o ya se vendió. Actualice el mapa.",
+      "empty": "Aún no hay territorios asignados.",
+      "own": "Sus territorios asignados de PSW y atención domiciliaria.",
+      "language": "Idioma",
+      "select": "Seleccionar",
+      "close": "Cerrar detalles",
+      "reserves": "Áreas de reserva",
+      "evidence": "Referencia de venta",
+      "number": "N.º",
+      "view": "Ver detalles",
+      "conflict_refreshed": "Se encontró otra actualización. El panel se ha actualizado."
+    }
+  },
+  "theme": {
+    "available": "#166534",
+    "availableFill": "#dcfce7",
+    "sold": "#991b1b",
+    "soldFill": "#fee2e2",
+    "reserve": "#475569",
+    "reserveFill": "#e2e8f0",
+    "land": "#f8faf8",
+    "water": "#dceef7",
+    "road": "#b4aaa0",
+    "ink": "#183c48",
+    "label": "#ffffff"
+  },
+  "contracts": [
+    {
+      "method": "GET",
+      "suffix": "",
+      "request": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "required": [
+          "canManage",
+          "source",
+          "summary",
+          "territories",
+          "tenants"
+        ],
+        "properties": {
+          "canManage": {
+            "type": "boolean"
+          },
+          "source": {
+            "type": "object"
+          },
+          "territories": {
+            "type": "array",
+            "maxItems": 30,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "number",
+                "code",
+                "name",
+                "status",
+                "seniors65",
+                "population",
+                "fsas",
+                "canSell",
+                "version",
+                "allocation"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "integer"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "available",
+                    "sold",
+                    "reserve"
+                  ]
+                },
+                "seniors65": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "population": {
+                  "type": "integer"
+                },
+                "fsas": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "canSell": {
+                  "type": "boolean"
+                },
+                "version": {
+                  "enum": [
+                    0,
+                    1
+                  ]
+                },
+                "allocation": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "tenantId": {
+                      "type": "string"
+                    },
+                    "tenantName": {
+                      "type": "string"
+                    },
+                    "reference": {
+                      "type": "string"
+                    },
+                    "services": {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "psw",
+                          "home_care"
+                        ]
+                      }
+                    },
+                    "recordedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tenants": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "available": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "seniors65": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "sold": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "seniors65": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "reserve": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "seniors65": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/{id}/sale",
+      "request": {
+        "type": "object",
+        "required": [
+          "version",
+          "tenantId",
+          "services",
+          "reference",
+          "confirmed"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "type": "integer",
+            "const": 0
+          },
+          "tenantId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "services": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "psw",
+                "home_care"
+              ]
+            }
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 200
+          },
+          "confirmed": {
+            "const": true
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "required": [
+          "territoryId",
+          "status",
+          "version"
+        ],
+        "properties": {
+          "territoryId": {
+            "type": "string"
+          },
+          "status": {
+            "const": "sold"
+          },
+          "version": {
+            "const": 1
+          }
+        }
+      }
+    }
+  ],
+  "allocationIntegrity": {
+    "catalogFields": [
+      "id",
+      "order",
+      "code",
+      "name",
+      "fsas",
+      "seniors65",
+      "population",
+      "is_reserve"
+    ],
+    "unknownTerritory": "not_found",
+    "mismatch": "unavailable",
+    "conflictRecovery": "refresh_and_lock_if_sold",
+    "uncertainWrite": "retry_same_key"
+  },
+  "catalog": [
+    {
+      "id": "PC-REG-T0001",
+      "order": 1,
+      "code": "GUE-01",
+      "name": "Guelph-Cambridge-Doon urban corridor",
+      "fsas": [
+        "N1C",
+        "N1E",
+        "N1G",
+        "N1H",
+        "N1K",
+        "N1L",
+        "N1P",
+        "N1R",
+        "N1S",
+        "N1T",
+        "N2P",
+        "N3C",
+        "N3H"
+      ],
+      "seniors65": 50840,
+      "population": 315195,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0002",
+      "order": 2,
+      "code": "NIA-01",
+      "name": "St. Catharines-Thorold-Niagara Falls North-Welland",
+      "fsas": [
+        "L2E",
+        "L2H",
+        "L2J",
+        "L2M",
+        "L2N",
+        "L2P",
+        "L2R",
+        "L2S",
+        "L2T",
+        "L2V",
+        "L3B"
+      ],
+      "seniors65": 53925,
+      "population": 244895,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0003",
+      "order": 3,
+      "code": "HAM-01",
+      "name": "Hamilton West-Central and Aldershot",
+      "fsas": [
+        "L7T",
+        "L8B",
+        "L8L",
+        "L8M",
+        "L8N",
+        "L8P",
+        "L8R",
+        "L8S",
+        "L9C",
+        "L9G",
+        "L9H",
+        "L9K"
+      ],
+      "seniors65": 50700,
+      "population": 271560,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0004",
+      "order": 4,
+      "code": "HAM-02",
+      "name": "Hamilton East-Mountain and Stoney Creek",
+      "fsas": [
+        "L8E",
+        "L8G",
+        "L8H",
+        "L8J",
+        "L8K",
+        "L8T",
+        "L8V",
+        "L8W",
+        "L9A",
+        "L9B"
+      ],
+      "seniors65": 50770,
+      "population": 269240,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0005",
+      "order": 5,
+      "code": "HAL-01",
+      "name": "Burlington and West Oakville",
+      "fsas": [
+        "L6K",
+        "L6L",
+        "L6M",
+        "L7L",
+        "L7M",
+        "L7N",
+        "L7P",
+        "L7R",
+        "L7S"
+      ],
+      "seniors65": 52130,
+      "population": 285090,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0006",
+      "order": 6,
+      "code": "PEL-01",
+      "name": "Peel urban territory 01 / Halton, Toronto",
+      "fsas": [
+        "L6S",
+        "L6V",
+        "L6Z",
+        "L7A",
+        "L7G",
+        "L9T",
+        "M9V"
+      ],
+      "seniors65": 54350,
+      "population": 447525,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0007",
+      "order": 7,
+      "code": "PEL-02",
+      "name": "Peel urban territory 02",
+      "fsas": [
+        "L5N",
+        "L5V",
+        "L5W",
+        "L6T",
+        "L6W",
+        "L6X",
+        "L6Y"
+      ],
+      "seniors65": 51660,
+      "population": 393870,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0008",
+      "order": 8,
+      "code": "PEL-03",
+      "name": "Peel urban territory 03 / Toronto, York",
+      "fsas": [
+        "L4H",
+        "L4L",
+        "L6P",
+        "L6R",
+        "L7E",
+        "M9L"
+      ],
+      "seniors65": 51465,
+      "population": 363960,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0009",
+      "order": 9,
+      "code": "PEL-04",
+      "name": "Peel urban territory 04 / Halton",
+      "fsas": [
+        "L5H",
+        "L5J",
+        "L5K",
+        "L5L",
+        "L5M",
+        "L6H",
+        "L6J"
+      ],
+      "seniors65": 50995,
+      "population": 306120,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0010",
+      "order": 10,
+      "code": "PEL-05",
+      "name": "Peel urban territory 05",
+      "fsas": [
+        "L4W",
+        "L4X",
+        "L4Y",
+        "L4Z",
+        "L5A",
+        "L5B",
+        "L5C",
+        "L5R"
+      ],
+      "seniors65": 51345,
+      "population": 280005,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0011",
+      "order": 11,
+      "code": "TOR-01",
+      "name": "Toronto urban territory 01 / Peel",
+      "fsas": [
+        "L4T",
+        "L5E",
+        "L5G",
+        "M8V",
+        "M8W",
+        "M8Y",
+        "M8Z",
+        "M9B",
+        "M9C",
+        "M9W"
+      ],
+      "seniors65": 51230,
+      "population": 292630,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0012",
+      "order": 12,
+      "code": "TOR-02",
+      "name": "Toronto urban territory 02",
+      "fsas": [
+        "M3K",
+        "M3L",
+        "M3M",
+        "M3N",
+        "M6A",
+        "M6B",
+        "M6L",
+        "M9A",
+        "M9M",
+        "M9N",
+        "M9P",
+        "M9R"
+      ],
+      "seniors65": 53860,
+      "population": 305330,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0013",
+      "order": 13,
+      "code": "TOR-03",
+      "name": "Toronto urban territory 03",
+      "fsas": [
+        "M6E",
+        "M6H",
+        "M6J",
+        "M6K",
+        "M6M",
+        "M6N",
+        "M6P",
+        "M6R",
+        "M6S",
+        "M8X"
+      ],
+      "seniors65": 51610,
+      "population": 341910,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0014",
+      "order": 14,
+      "code": "TOR-04",
+      "name": "Toronto urban territory 04",
+      "fsas": [
+        "M2K",
+        "M2L",
+        "M2M",
+        "M2N",
+        "M2P",
+        "M2R",
+        "M3H",
+        "M4N",
+        "M5M"
+      ],
+      "seniors65": 51445,
+      "population": 271760,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0015",
+      "order": 15,
+      "code": "TOR-05",
+      "name": "Toronto urban territory 05",
+      "fsas": [
+        "M4P",
+        "M4R",
+        "M4S",
+        "M4T",
+        "M4V",
+        "M4W",
+        "M4Y",
+        "M5N",
+        "M5P",
+        "M5R",
+        "M5S",
+        "M6C",
+        "M6G"
+      ],
+      "seniors65": 51810,
+      "population": 282755,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0016",
+      "order": 16,
+      "code": "TOR-06",
+      "name": "Toronto urban territory 06",
+      "fsas": [
+        "M1R",
+        "M1T",
+        "M1W",
+        "M2H",
+        "M2J",
+        "M3A",
+        "M3B"
+      ],
+      "seniors65": 50720,
+      "population": 244550,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0017",
+      "order": 17,
+      "code": "TOR-07",
+      "name": "Toronto urban territory 07",
+      "fsas": [
+        "M4C",
+        "M4G",
+        "M4H",
+        "M4J",
+        "M4K",
+        "M4L",
+        "M4M",
+        "M4X",
+        "M5A",
+        "M5B",
+        "M5E",
+        "M5G",
+        "M5J",
+        "M5T",
+        "M5V"
+      ],
+      "seniors65": 51630,
+      "population": 410565,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0018",
+      "order": 18,
+      "code": "TOR-08",
+      "name": "Toronto urban territory 08",
+      "fsas": [
+        "M1J",
+        "M1K",
+        "M1L",
+        "M1M",
+        "M1N",
+        "M1P",
+        "M3C",
+        "M4A",
+        "M4B",
+        "M4E"
+      ],
+      "seniors65": 53545,
+      "population": 310690,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0019",
+      "order": 19,
+      "code": "TOR-09",
+      "name": "Toronto urban territory 09 / York",
+      "fsas": [
+        "L3S",
+        "M1B",
+        "M1G",
+        "M1H",
+        "M1S",
+        "M1V",
+        "M1X"
+      ],
+      "seniors65": 51540,
+      "population": 279115,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0020",
+      "order": 20,
+      "code": "YRK-01",
+      "name": "York urban territory 01",
+      "fsas": [
+        "L3P",
+        "L3X",
+        "L3Y",
+        "L3Z",
+        "L4A",
+        "L4G",
+        "L6E"
+      ],
+      "seniors65": 51610,
+      "population": 318100,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0021",
+      "order": 21,
+      "code": "YRK-02",
+      "name": "York urban territory 02 / Toronto",
+      "fsas": [
+        "L3R",
+        "L4E",
+        "L4K",
+        "L4S",
+        "L6A",
+        "L6C",
+        "M3J"
+      ],
+      "seniors65": 50550,
+      "population": 341150,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0022",
+      "order": 22,
+      "code": "YRK-03",
+      "name": "York urban territory 03",
+      "fsas": [
+        "L3T",
+        "L4B",
+        "L4C",
+        "L4J"
+      ],
+      "seniors65": 51690,
+      "population": 236240,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0023",
+      "order": 23,
+      "code": "DUR-01",
+      "name": "Durham urban territory 01 / Toronto, York",
+      "fsas": [
+        "L1P",
+        "L1S",
+        "L1T",
+        "L1V",
+        "L1W",
+        "L1X",
+        "L1Z",
+        "L6B",
+        "M1C",
+        "M1E"
+      ],
+      "seniors65": 54780,
+      "population": 363890,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-T0024",
+      "order": 24,
+      "code": "DUR-02",
+      "name": "Durham urban territory 02",
+      "fsas": [
+        "L1C",
+        "L1E",
+        "L1G",
+        "L1H",
+        "L1J",
+        "L1K",
+        "L1L",
+        "L1M",
+        "L1N"
+      ],
+      "seniors65": 52100,
+      "population": 326185,
+      "is_reserve": false
+    },
+    {
+      "id": "PC-REG-R0025",
+      "order": 25,
+      "code": "RES-NIA-02",
+      "name": "Niagara urban reserve 02",
+      "fsas": [
+        "L3M"
+      ],
+      "seniors65": 6080,
+      "population": 28430,
+      "is_reserve": true
+    },
+    {
+      "id": "PC-REG-R0026",
+      "order": 26,
+      "code": "RES-NIA-03",
+      "name": "Niagara urban reserve 03",
+      "fsas": [
+        "L3C"
+      ],
+      "seniors65": 8100,
+      "population": 33460,
+      "is_reserve": true
+    },
+    {
+      "id": "PC-REG-R0027",
+      "order": 27,
+      "code": "RES-NIA-04",
+      "name": "Niagara urban reserve 04",
+      "fsas": [
+        "L2G"
+      ],
+      "seniors65": 6770,
+      "population": 30345,
+      "is_reserve": true
+    },
+    {
+      "id": "PC-REG-R0028",
+      "order": 28,
+      "code": "RES-NIA-05",
+      "name": "Niagara urban reserve 05",
+      "fsas": [
+        "L2A"
+      ],
+      "seniors65": 4425,
+      "population": 17295,
+      "is_reserve": true
+    },
+    {
+      "id": "PC-REG-R0029",
+      "order": 29,
+      "code": "RES-YRK-04",
+      "name": "York urban reserve 04",
+      "fsas": [
+        "L6G"
+      ],
+      "seniors65": 1295,
+      "population": 8360,
+      "is_reserve": true
+    },
+    {
+      "id": "PC-REG-R0030",
+      "order": 30,
+      "code": "RES-DUR-03",
+      "name": "Durham urban reserve 03",
+      "fsas": [
+        "L1R"
+      ],
+      "seniors65": 5665,
+      "population": 42220,
+      "is_reserve": true
+    }
+  ]
+}
