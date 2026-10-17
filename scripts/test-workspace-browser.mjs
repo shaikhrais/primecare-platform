@@ -79,11 +79,22 @@ test('delivery details show the actual page contracts and pending actions withou
 });
 test('all active role landings resolve to their own authorized governed page',async()=>{
  for(const role of Object.keys(registry.landings)) {
-  const {dom,root}=browser(role);
-  await renderWorkspace(root,'https://gateway.test');
-  assert.equal(location.pathname,registry.landings[role],role);
-  assert.ok(root.querySelector('[data-cy="workspace-title"]'),role);
-  assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
+  const {dom,root,data}=browser(role);
+  const landing=registry.landings[role];
+  if(landing==='/care'||role==='platform_admin') {
+   assert.ok(data.screens.some(screen=>screen.route===landing),role+' must have a granted landing');
+   const navigations=[];
+   globalThis.location={pathname:'/',search:dom.window.location.search,assign:href=>navigations.push(new URL(href,dom.window.location.href))};
+   await renderWorkspace(root,'https://gateway.test');
+   assert.equal(navigations.length,1,role+' must navigate once');
+   assert.equal(navigations[0].pathname,landing,role);
+   assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
+  } else {
+   await renderWorkspace(root,'https://gateway.test');
+   assert.equal(location.pathname,landing,role);
+   assert.ok(root.querySelector('[data-cy="workspace-title"]'),role);
+   assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
+  }
   dom.window.close();
  }
 });
