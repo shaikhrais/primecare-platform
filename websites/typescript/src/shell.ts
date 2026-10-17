@@ -1,13 +1,17 @@
+import media from '../../../packages/shared/src/media/registry.json';
 import {mountLayoutCustomizer} from './layout-customizer';
+import {BaseMediaLook,applyMediaTokens} from './media-look';
 import {bindSidebar} from './sidebar';
 import {mountNavigation,type NavigationLocale,type SearchEntry} from './navigation';
 type ShellContent={home:string;role:string;description?:string;navigation:string;controls:string;content:string;mainAttributes?:string;menuLabel?:string};
 /** One authenticated website layout for every role. HTML slots are built by escaped app renderers. */
 export function shellMarkup(options:ShellContent):string {
- return `<div class="app-shell" data-cy="app-shell"><aside id="app-sidebar" data-cy="app-sidebar"><button class="sidebar-close" data-cy="sidebar-close" aria-label="Close navigation">×</button><a class="brand" href="${options.home}">PrimeCare</a><p>${options.role}</p>${options.description?`<p>${options.description}</p>`:''}<nav aria-label="Navigation">${options.navigation}</nav></aside><div class="workspace"><header class="topbar" data-cy="app-topbar"><button class="menu" data-cy="sidebar-toggle" aria-controls="app-sidebar" aria-expanded="false" aria-label="${options.menuLabel??'Open navigation'}">☰</button><div data-cy="global-navigation"></div><div class="shell-controls" data-cy="shell-controls">${options.controls}</div></header><main ${options.mainAttributes??''}>${options.content}</main></div></div>`;
+ const look=new BaseMediaLook();
+ return `<div class="app-shell" data-cy="app-shell"><aside id="app-sidebar" data-cy="app-sidebar"><button class="sidebar-close" data-cy="sidebar-close" aria-label="${look.text('nav_close')}">×</button><a class="brand media-shell-brand" href="${options.home}">${new BaseMediaLook().brand()}<span>PrimeCare</span></a><p>${options.role}</p>${options.description?`<p>${options.description}</p>`:''}<nav aria-label="${look.text('nav_label')}">${options.navigation}</nav></aside><div class="workspace"><header class="topbar" data-cy="app-topbar"><button class="menu" data-cy="sidebar-toggle" aria-controls="app-sidebar" aria-expanded="false" aria-label="${options.menuLabel??look.text('nav_open')}">☰</button><div data-cy="global-navigation"></div><div class="shell-controls" data-cy="shell-controls">${options.controls}</div></header><main ${options.mainAttributes??''}>${options.content}</main></div></div>`;
 }
 const shells=new WeakMap<HTMLElement,ShellContent>();
 export function renderShell(root:HTMLElement,options:ShellContent):void {
+ applyMediaTokens();
  const previous=shells.get(root);
  const main=root.querySelector<HTMLElement>('.workspace > main');
  if(!previous||!main||previous.role!==options.role||previous.home!==options.home){root.innerHTML=shellMarkup(options);}
@@ -21,8 +25,14 @@ export function renderShell(root:HTMLElement,options:ShellContent):void {
  }
  shells.set(root,options);
 }
-export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,scope:string,entries:()=>SearchEntry[],profileScope?:string):void {
+export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,scope:string,entries:()=>SearchEntry[],profileScope?:string,defaultTheme:Record<string,string>={}):void {
+ document.documentElement.lang=locale;
+ const labels=media.locales[locale];
+ root.querySelector('[data-cy=sidebar-toggle]')?.setAttribute('aria-label',labels.nav_open);
+ root.querySelector('[data-cy=sidebar-close]')?.setAttribute('aria-label',labels.nav_close);
+ root.querySelector('[data-cy=app-sidebar] nav')?.setAttribute('aria-label',labels.nav_label);
+ applyMediaTokens();
  bindSidebar(root);
  mountNavigation(root.querySelector<HTMLElement>('[data-cy=global-navigation]')!,title,locale,scope,entries);
- if(profileScope)mountLayoutCustomizer(root,profileScope,locale);
+ if(profileScope)mountLayoutCustomizer(root,profileScope,locale,defaultTheme);
 }

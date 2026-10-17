@@ -89,8 +89,7 @@ async function mutationLimit(db:Client,token:string,operation:AuthOperation,head
 }
 
 /** Bound parsed authentication JSON by wire bytes, including chunked requests. */
-export async function parseBody(request: Request): Promise<Json> {
-  const limit = 50_000;
+export async function parseBody(request: Request, limit = 50_000): Promise<Json> {
   const declared = request.headers.get('content-length');
   if (declared !== null && /^\d+$/.test(declared) && Number(declared) > limit) throw new RequestTooLarge();
   const reader = request.body?.getReader();

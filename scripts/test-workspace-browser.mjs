@@ -11,6 +11,7 @@ const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-regis
 function browser(role='ceo') {
  const dom=new JSDOM('<div id="app"></div>',{url:'https://primecare-corporate.pages.dev/?enable-semantics=true'});
  for(const key of ['window','document','location','history','sessionStorage','HTMLInputElement'])globalThis[key]=dom.window[key];
+ globalThis.getComputedStyle=dom.window.getComputedStyle.bind(dom.window);
  globalThis.sessionStorage.setItem('primecare_session','fixture-token');
  const screens=registry.screens.filter(s=>s.renderer!=='account'&&s.grants.some(g=>g.role===role&&g.view));
  const data={identity:{userId:'fixture',role},landing:registry.landings[role],screens,inventory:role==='ceo'?registry.screens:screens,resources:registry.resources,
@@ -34,8 +35,10 @@ test('CEO login landing renders real dashboard, every CEO route, governed sectio
 test('sidebar actions, search, pagination and unfinished filter work',async()=>{
  const {dom,root}=browser();await renderWorkspace(root,'https://gateway.test');
  const nav=root.querySelector('[data-cy="sidebar-item-ceo_reports"]');nav.click();assert.ok(root.querySelector('[data-cy="screen-ceo_reports"]'));
+ root.querySelector('[data-cy="workspace-inventory"]').open=true;
  const search=root.querySelector('[data-cy="workspace-search"]');search.value='ceo';search.dispatchEvent(new window.Event('input'));
  assert.ok(Number(root.querySelector('[data-cy="inventory-count"]').textContent.split(' · ')[0])<948);
+ assert.equal(root.querySelector('[data-cy="workspace-inventory"]').open,true,'Inventory stays open while searching');
  const filter=root.querySelector('[data-cy="workspace-pending"]');filter.checked=true;filter.dispatchEvent(new window.Event('change'));
  assert.ok(root.querySelector('[data-cy="workspace-inventory"]'));
  dom.window.close();

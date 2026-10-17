@@ -1,0 +1,3436 @@
+{
+  "version": 1,
+  "endpoint": "/v1/governance/growth",
+  "route": "/growth",
+  "roles": [
+    "ceo",
+    "marketing",
+    "local_marketing",
+    "growth_caller",
+    "growth_google",
+    "growth_meta",
+    "growth_seo",
+    "growth_offline",
+    "growth_coordinator",
+    "tenant_admin",
+    "owner"
+  ],
+  "pipelines": {
+    "tenant": [
+      "new",
+      "discussion",
+      "demo",
+      "pilot",
+      "active"
+    ],
+    "client": [
+      "new",
+      "assessment",
+      "agreed",
+      "started",
+      "recurring"
+    ]
+  },
+  "targets": {
+    "tenant": [
+      20,
+      5,
+      2,
+      1,
+      1
+    ],
+    "client": [
+      30,
+      12,
+      6,
+      3,
+      3
+    ]
+  },
+  "sources": [
+    "google_search",
+    "google_ads",
+    "facebook",
+    "instagram",
+    "offline",
+    "referral",
+    "website"
+  ],
+  "integrations": {
+    "google_ads": "not_connected",
+    "facebook": "not_connected"
+  },
+  "locales": {
+    "en": {
+      "title": "Founder growth dashboard",
+      "nav": "Growth and marketing",
+      "scope": "Your tenant only",
+      "reported": "Reported CRM milestones; care delivery is not verified here",
+      "targets_note": "Starting targets are planning assumptions, not forecasts",
+      "new": "New enquiry / prospect",
+      "discussion": "Owner discussion",
+      "demo": "Demonstration",
+      "pilot": "Pilot agreed",
+      "active": "Operating partner reported",
+      "assessment": "Needs discussion",
+      "agreed": "Care agreement reported",
+      "started": "First visit reported",
+      "recurring": "Recurring family reported",
+      "lost": "Closed / lost",
+      "tenant": "Partner recruitment",
+      "client": "Family enquiries",
+      "target": "Target",
+      "actual": "Actual",
+      "expected": "Expected by today",
+      "gap": "Gap today",
+      "rate": "Stage conversion",
+      "behind": "Behind plan",
+      "on_track": "On track",
+      "not_started": "Period has not started",
+      "fix": "Next action",
+      "fix_new": "Review source quality and invite suitable prospects",
+      "fix_discussion": "Review unanswered enquiries and agree follow-up times",
+      "fix_demo": "Review objections and offer a focused demonstration",
+      "fix_pilot": "Resolve onboarding, staffing and operating-workflow gaps",
+      "fix_active": "Verify pilot evidence and owner readiness before launch",
+      "fix_assessment": "Check service area, availability and enquiry response",
+      "fix_agreed": "Review service fit, price and remaining family questions",
+      "fix_started": "Confirm suitable staff and backup before the first visit",
+      "fix_recurring": "Review family feedback, continuity and agreed ongoing care",
+      "leads": "Lead work queue",
+      "campaigns": "Campaigns and source performance",
+      "tasks": "Corrective actions",
+      "owner": "Assigned owner",
+      "due": "Follow-up due",
+      "overdue": "Overdue follow-ups",
+      "spend": "Recorded spend (CAD)",
+      "cpl": "Cost per enquiry (CAD)",
+      "budget": "Budget (CAD)",
+      "save": "Save",
+      "refresh": "Refresh",
+      "back": "Back to workspace",
+      "add_lead": "Add enquiry / prospect",
+      "add_campaign": "Create campaign",
+      "add_task": "Assign corrective action",
+      "name": "Name / business",
+      "email": "Email",
+      "phone": "Phone",
+      "reference": "Source reference / evidence",
+      "source": "Lead source",
+      "pipeline": "Pipeline",
+      "campaign": "Campaign",
+      "none": "No campaign",
+      "unassigned": "Unassigned",
+      "stage": "Stage",
+      "advance": "Record next milestone",
+      "close": "Close lead",
+      "open": "Open",
+      "done": "Done",
+      "complete": "Complete action",
+      "evidence": "Completion evidence",
+      "google_search": "Google search research",
+      "google_ads": "Google Ads enquiries",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "offline": "Offline campaign",
+      "referral": "Referral",
+      "website": "Website",
+      "integrations": "Source connections",
+      "manual": "Manual source tracking available",
+      "not_connected": "Automatic import not connected",
+      "operations": "Care operations readiness",
+      "operations_note": "Staffing, completed visits and collected revenue need verified operational connections",
+      "empty": "No records yet",
+      "shown": "Records shown",
+      "total": "Total",
+      "plan": "Plan period and targets",
+      "start": "Start date (UTC)",
+      "end": "End date (UTC)",
+      "saved": "Saved to the system",
+      "loading": "Loading growth data",
+      "error": "Unable to complete this request",
+      "error_invalid_request": "Check the fields and required source reference",
+      "error_conflict": "Record changed or duplicate; refresh before retrying",
+      "error_forbidden": "Your account does not have this permission",
+      "error_unavailable": "Growth data is unavailable; setup or connection needs attention",
+      "contact_basis": "Contact basis",
+      "requested": "Person requested contact",
+      "business_prospect": "Public business prospect",
+      "not_requested": "No contact permission recorded",
+      "language": "Language",
+      "summary": "Today’s priorities",
+      "marketing_owner": "Marketing team: research, attribution and follow-up",
+      "version": "Version",
+      "cad": "CAD",
+      "description": "Action / campaign name",
+      "lost_reason": "Reason / evidence",
+      "period_note": "Funnels use leads created in the plan period. Work queues, campaign spend and campaign enquiry totals include all recorded history.",
+      "team": "Team specialties",
+      "specialty": "Work specialty",
+      "telephone_caller": "Telephone caller",
+      "google_specialist": "Google marketing specialist",
+      "meta_specialist": "Facebook / Instagram specialist",
+      "seo_content": "SEO and content specialist",
+      "offline_partnerships": "Offline partnerships specialist",
+      "care_handoff": "Care handoff coordinator",
+      "team_note": "Specialties organize work for existing authorized staff; they do not grant account permissions.",
+      "calls": "Caller workspace",
+      "call_note": "Record manual call outcomes only. No dialing or recording is connected. Do not enter clinical details. Contact requests and preferences must be checked before outreach.",
+      "lead": "Lead",
+      "outcome": "Call outcome",
+      "notes": "Business follow-up evidence",
+      "no_answer": "No answer",
+      "contacted": "Contacted",
+      "qualified": "Qualified enquiry",
+      "callback_requested": "Callback requested",
+      "wrong_number": "Wrong number",
+      "do_not_contact": "Do not contact",
+      "contact_blocked": "Contact blocked",
+      "appointments": "Appointments and handoffs",
+      "appointment_note": "Appointments are coordination records, not clinical assessments or confirmed care visits. Saving does not notify attendees.",
+      "starts_at": "Appointment start",
+      "duration": "Duration in minutes",
+      "scheduled": "Scheduled",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "no_show": "No show",
+      "record_call": "Record call",
+      "save_team": "Save specialty",
+      "book_appointment": "Book appointment",
+      "finish_appointment": "Save appointment outcome",
+      "call_attempts": "Recorded call attempts",
+      "appointments_due": "Upcoming appointments",
+      "error_contact_blocked": "This lead must not be contacted.",
+      "caller_script": "Confirm who you are speaking with and whether now is convenient. Explain the enquiry purpose, confirm location and timing, offer a suitable next appointment, and record their contact preference.",
+      "call_guidance": "Call guidance",
+      "call_queue": "Follow-up queue",
+      "assigned_scope": "Your assigned work only",
+      "campaign_scope": "Your campaign sources and assigned tasks only",
+      "search": "Search leads",
+      "query": "Name, email or phone",
+      "all": "All",
+      "filter": "Apply filters",
+      "clear_filters": "Clear filters",
+      "edit_contact": "Edit contact details",
+      "contact_save": "Save contact correction",
+      "duplicates": "Duplicate review",
+      "duplicate_note": "Exact shared email or phone in the same pipeline. Review before confirming. Confirmation closes the redundant lead, blocks further contact and retains its history; it does not merge histories.",
+      "canonical": "Keep this lead",
+      "redundant": "Redundant lead",
+      "distinct_person": "Different people sharing contact",
+      "duplicate_confirmed": "Confirm redundant lead",
+      "review": "Save review",
+      "duplicate_closed": "Retained duplicate record",
+      "contact_note": "Corrections preserve contact preferences and source history. Add business evidence; do not enter clinical details.",
+      "mine": "Assigned to me",
+      "brief": "Campaign brief",
+      "brief_draft": "Draft plan — advertisements are not published",
+      "audience": "Target audience and service area",
+      "offer": "Offer and call to action",
+      "creative": "Creative copy and asset instructions",
+      "landing_url": "Landing-page URL (optional)",
+      "target_leads": "Planned lead target",
+      "brief_save": "Save campaign brief",
+      "brief_note": "Saving stores a plan only. It does not approve a campaign, publish creative, build a landing page, spend a budget or connect lead intake. Do not include clinical or client details.",
+      "brief_owned_elsewhere": "Brief editing is limited to its assigned specialist or a marketing manager.",
+      "hero_description": "Track clients, partners and follow-ups in one place.",
+      "care_image_alt": "Illustration of a home support discussion",
+      "marketing_image_alt": "Illustration of a caller and marketing colleague",
+      "marketing_intro": "Plan campaigns, review leads and keep your next actions clear.",
+      "role_ceo": "Founder / CEO",
+      "role_marketing": "Marketing manager",
+      "role_local_marketing": "Local marketing manager",
+      "role_growth_caller": "Telephone caller",
+      "role_growth_coordinator": "Care coordinator",
+      "role_growth_google": "Google marketing specialist",
+      "role_growth_meta": "Facebook / Instagram specialist",
+      "role_growth_seo": "SEO and content specialist",
+      "role_growth_offline": "Offline partnerships specialist",
+      "review_pending_review": "Awaiting review",
+      "review_draft": "Draft",
+      "review_approved": "Approved",
+      "review_changes_requested": "Changes requested",
+      "review_rejected": "Rejected",
+      "review_submit": "Submit for review",
+      "review_withdraw": "Withdraw to edit",
+      "review_approve": "Approve",
+      "review_request_changes": "Request changes",
+      "review_reject": "Reject",
+      "review_action": "Review action",
+      "review_evidence": "Review notes",
+      "review_history": "Review history",
+      "review_version": "Brief version",
+      "review_self": "Founder self-review recorded",
+      "review_note": "Internal planning approval only. No ads are launched. Editing invalidates approval; withdraw a pending brief before editing.",
+      "review_locked": "Editing is locked while awaiting review. Withdraw the brief before editing.",
+      "task_priority": "Priority",
+      "low": "Low",
+      "normal": "Normal",
+      "high": "High",
+      "urgent": "Urgent",
+      "task_action": "Task action",
+      "task_reassign": "Reassign owner",
+      "task_reschedule": "Change deadline",
+      "task_priority_action": "Change priority",
+      "task_escalate": "Escalate blocker",
+      "task_resolve_escalation": "Resolve escalation",
+      "task_escalated": "Escalated",
+      "task_note": "Overdue and escalated tasks appear first. Escalation records a blocker for managers; it does not send notifications.",
+      "task_action_evidence": "Reason, blocker or resolution",
+      "intake": "Website enquiries",
+      "intake_create": "Create enquiry link",
+      "intake_title": "Public form title",
+      "intake_note": "Create separate client and partner links. The selected owner receives website leads. Disabled links stop new enquiries.",
+      "intake_enabled": "Enabled",
+      "intake_disabled": "Disabled",
+      "intake_toggle": "Enable / disable",
+      "intake_open": "Open public form",
+      "enquiry_title": "Request a conversation",
+      "enquiry_note": "Share contact details only. Please do not include health information. This form is not for emergencies.",
+      "enquiry_consent": "I ask PrimeCare to contact me about this enquiry. This is not consent to general advertising.",
+      "enquiry_submit": "Send enquiry",
+      "enquiry_received": "Thank you. Your enquiry has been received for review.",
+      "enquiry_error": "Unable to send. Check your contact details and try again.",
+      "enquiry_unavailable": "This enquiry link is unavailable.",
+      "enquiry_contact": "Provide an email address or telephone number.",
+      "intake_source": "Intake source",
+      "intake_attribution": "Event or referring organization",
+      "intake_source_note": "Select offline for events or printed campaigns, and referral for a referring organization. Each link keeps its original source.",
+      "intake_qr": "QR code for this enquiry link",
+      "intake_qr_download": "Download QR (SVG)",
+      "intake_qr_show": "Show QR code",
+      "intake_qr_error": "Unable to create QR code. Use the enquiry link.",
+      "intake_receipts": "Enquiries received",
+      "intake_new": "New leads",
+      "intake_repeat": "Repeat contacts",
+      "intake_legacy": "Earlier receipts without acquisition classification",
+      "intake_channels_note": "Create separate client and partner links. The selected owner receives enquiries. Disabled links stop new submissions.",
+      "alerts": "Reminders and notifications",
+      "alerts_note": "Upcoming appointments, due callbacks and blocked or overdue tasks. These are in-app reminders; no messages are sent automatically.",
+      "callback_due": "Callback due",
+      "appointment_due": "Appointment due",
+      "task_attention": "Task needs attention",
+      "performance": "Performance reports",
+      "performance_note": "Acquisition cohorts use the selected dates and achieved milestones through the period end. Owner counts use current assignment; call activity uses the recorded caller. These are CRM results, not proof of care delivery.",
+      "report_source": "Source acquisition",
+      "report_owner": "Owner and caller performance",
+      "report_client_leads": "Client leads",
+      "report_client_success": "Recurring clients",
+      "report_partner_leads": "Partner leads",
+      "report_partner_success": "Active partners",
+      "report_calls": "Call attempts",
+      "report_qualified_calls": "Qualified call outcomes",
+      "report_completed_tasks": "Dated task completions",
+      "report_run": "Run report",
+      "report_pdf": "Download PDF",
+      "report_email": "Email report",
+      "report_recipient": "Recipient email",
+      "report_confirm": "I reviewed the recipient and authorize sharing this internal business report.",
+      "report_accepted": "Email accepted by provider",
+      "report_unknown": "Delivery is uncertain. Check the delivery log before retrying.",
+      "report_mail_note": "Email needs the configured mail service. Provider acceptance does not confirm delivery. Earlier task completions without dates are excluded from period totals.",
+      "error_delivery_uncertain": "Delivery is uncertain. Do not resend until the provider status is checked.",
+      "report_deliveries": "Your report delivery log",
+      "report_sending": "Sending / awaiting confirmation",
+      "report_not_sent": "Confirmed not sent",
+      "report_resolve": "Record provider confirmation",
+      "report_resolve_note": "Use only after checking the provider. This records a reviewed outcome; it does not send an email.",
+      "business_ops": "Onboarding, care and finance",
+      "business_note": "Manual business verification does not grant clinical credentials. Care links use existing visits; finance is manually recorded in CAD.",
+      "onboarding": "Partner verification",
+      "business_kind": "Owner background",
+      "nurse": "Nurse business owner",
+      "retired_nurse": "Retired nurse business owner",
+      "care_entrepreneur": "Care business entrepreneur",
+      "identity_checked": "Identity reviewed",
+      "agreement_checked": "Business agreement reviewed",
+      "insurance_checked": "Insurance evidence reviewed",
+      "verify_partner": "Record verification",
+      "verified": "Verified; awaiting provisioning",
+      "provisioned": "Tenant and administrator created",
+      "revoked": "Verification revoked",
+      "revoke_verification": "Revoke verification",
+      "handoff": "Link an existing care visit",
+      "visit_id": "Existing visit ID",
+      "care_note": "Visit must match this tenant and the lead’s email. Scheduling and clinical work continue in the care workflow.",
+      "care_unavailable": "Care tables unavailable",
+      "finance": "Manual finance ledger",
+      "finance_kind": "Entry type",
+      "invoice": "Invoice",
+      "payment": "Payment received",
+      "refund": "Refund recorded",
+      "expense": "Operating expense",
+      "amount": "Amount in CAD",
+      "invoice_id": "Invoice ID for payment or refund",
+      "care_delivery": "Care delivery cost",
+      "overhead": "Overhead cost",
+      "entry_date": "Record date",
+      "record_entry": "Record entry",
+      "net_receipts": "Net client receipts",
+      "outstanding": "Outstanding invoices",
+      "operating_costs": "Recorded operating costs",
+      "cash_balance": "Recorded cash after operating and campaign costs",
+      "paying_clients": "Clients with net payments",
+      "paying_cac": "Campaign cost per paying client",
+      "finance_note": "Append-only records. Refunds reopen invoice balances. Campaign spend is separate from operating costs. These figures do not prove profit or owner independence.",
+      "cost_category": "Cost category",
+      "assigned": "Assigned",
+      "finance_fields_note": "For an invoice choose a client lead. For payment/refund enter only the invoice ID. For expenses choose a cost category. Use a unique accounting reference.",
+      "business_empty": "Choose / not applicable",
+      "business_evidence": "Review or accounting evidence reference",
+      "accounting_reference": "Unique accounting reference",
+      "role_tenant_admin": "Tenant Administrator",
+      "intake_delivery": "Enquiry delivery",
+      "direct": "Selected tenant inbox",
+      "territory": "Match service territory",
+      "intake_routing_note": "Delivery mode is fixed when the link is created. Territory forms request postal code and explicit permission to share details with the matching tenant. Unmatched enquiries await platform review.",
+      "enquiry_postal": "Canadian postal code",
+      "enquiry_service": "Requested service",
+      "enquiry_share": "I agree that PrimeCare may share my contact details and enquiry with the matching local care provider so they can respond.",
+      "psw": "PSW",
+      "home_care": "Home care",
+      "intake_routed": "Territory enquiries",
+      "intake_delivery_note": "Territory enquiries are not copied to this tenant inbox. The receiving tenant accepts them in Tenant launch & support.",
+      "role_owner": "Franchise Owner",
+      "owner_money_note": "Campaign budgets and spending changes require a franchise owner. You can prepare a campaign with zero budget for owner review.",
+      "tenant_console": "Tenant administration",
+      "marketing_model": "Central marketing model",
+      "marketing_proposal": "Proposed 5% contribution: 4% advertising allocation and 1% management allocation. Estimates only; no invoice or automatic charge.",
+      "marketing_basis": "Based on manually recorded payments less refunds in the current UTC calendar month. Invoices and expenses are excluded; a negative net produces a zero estimate. Records are not bank reconciliation.",
+      "marketing_period": "Reporting month (UTC)",
+      "marketing_recorded": "Recorded net receipts",
+      "marketing_contribution": "Proposed total contribution (5%)",
+      "marketing_advertising": "Advertising allocation (approximately 4%)",
+      "marketing_management": "Management allocation (1%)",
+      "marketing_gate": "Activation requires agreed franchise terms, an authorized advertising account and confirmed service capacity. Campaign review does not launch advertising.",
+      "marketing_central_campaigns": "Central team: prepare campaigns, creative, landing pages and territory targeting.",
+      "marketing_owner_budget": "Owner: approve the campaign brief and budget; confirm the territory can serve new clients.",
+      "marketing_tenant_followup": "Tenant admin and callers: contact assigned leads, record follow-ups and conversions.",
+      "marketing_central_reporting": "Central team and owner: review spending, lead quality and paying-client acquisition cost.",
+      "marketing_scope": "Each marketing account works within its assigned tenant. Cross-tenant agency access and provider launch are not enabled.",
+      "marketing_rounding": "Amounts round to cents; advertising receives the remainder so the allocations equal the total. No unused-balance figure is shown because monthly fund transactions are not recorded.",
+      "marketing_statement": "Monthly marketing proposal statement",
+      "marketing_month": "Statement month (UTC)",
+      "marketing_statement_run": "View month",
+      "marketing_statement_pdf": "Download statement PDF",
+      "marketing_statement_note": "Recalculated from recorded entries using the current proposal. Not an invoice, a frozen historical statement or proof of fund payments.",
+      "marketing_payments": "Recorded payments",
+      "marketing_refunds": "Recorded refunds",
+      "marketing_eligible": "Eligible nonnegative receipts",
+      "marketing_item": "Item",
+      "marketing_value": "Value",
+      "readiness_title": "Campaign readiness",
+      "readiness_note": "Campaign preparation checks only. Capacity is an owner statement, not reserved staffing or a clinical guarantee. Territory launch approval and consent rules still apply. No advertisement is launched here.",
+      "readiness_brief": "Owner-approved brief",
+      "readiness_budget": "Unspent campaign budget",
+      "readiness_capacity": "Current service-capacity confirmation",
+      "readiness_provider": "Advertising-provider launch connection",
+      "readiness_yes": "Ready",
+      "readiness_no": "Missing or stale",
+      "capacity_slots": "Additional clients the territory can currently accept",
+      "capacity_expiry": "Confirmation expires (UTC)",
+      "capacity_evidence": "Capacity evidence — no client or health details",
+      "capacity_save": "Record capacity confirmation",
+      "capacity_missing": "Capacity confirmation is not available yet. Contact platform support.",
+      "capacity_review": "Approve the client campaign brief before recording capacity.",
+      "capacity_zero": "Use zero slots to record that the territory cannot accept additional clients. Confirmations must expire within 30 days.",
+      "capacity_latest": "Latest capacity confirmation",
+      "readiness_schedule": "Campaign dates not expired",
+      "readiness_not_required": "Not required for partner recruitment"
+    },
+    "fr": {
+      "title": "Tableau de croissance du fondateur",
+      "nav": "Croissance et marketing",
+      "scope": "Votre organisation uniquement",
+      "reported": "Étapes CRM déclarées; les soins ne sont pas vérifiés ici",
+      "targets_note": "Les objectifs initiaux sont des hypothèses de planification",
+      "new": "Nouvelle demande / prospect",
+      "discussion": "Discussion avec le propriétaire",
+      "demo": "Démonstration",
+      "pilot": "Pilote convenu",
+      "active": "Partenaire opérationnel déclaré",
+      "assessment": "Discussion des besoins",
+      "agreed": "Accord de soins déclaré",
+      "started": "Première visite déclarée",
+      "recurring": "Famille régulière déclarée",
+      "lost": "Fermé / perdu",
+      "tenant": "Recrutement de partenaires",
+      "client": "Demandes des familles",
+      "target": "Objectif",
+      "actual": "Réel",
+      "expected": "Attendu à ce jour",
+      "gap": "Écart à ce jour",
+      "rate": "Conversion par étape",
+      "behind": "En retard",
+      "on_track": "En bonne voie",
+      "not_started": "La période n’a pas commencé",
+      "fix": "Prochaine action",
+      "fix_new": "Vérifier les sources et inviter des prospects adaptés",
+      "fix_discussion": "Examiner les demandes sans réponse et planifier le suivi",
+      "fix_demo": "Examiner les objections et proposer une démonstration ciblée",
+      "fix_pilot": "Résoudre les lacunes d’intégration, de personnel et de fonctionnement",
+      "fix_active": "Vérifier les preuves du pilote et la préparation du propriétaire",
+      "fix_assessment": "Vérifier la zone de service, la disponibilité et la réponse",
+      "fix_agreed": "Examiner les services, le prix et les questions des familles",
+      "fix_started": "Confirmer le personnel et la relève avant la première visite",
+      "fix_recurring": "Examiner les commentaires, la continuité et les soins convenus",
+      "leads": "File de prospects",
+      "campaigns": "Campagnes et résultats par source",
+      "tasks": "Actions correctives",
+      "owner": "Responsable",
+      "due": "Suivi prévu",
+      "overdue": "Suivis en retard",
+      "spend": "Dépenses enregistrées (CAD)",
+      "cpl": "Coût par demande (CAD)",
+      "budget": "Budget (CAD)",
+      "save": "Enregistrer",
+      "refresh": "Actualiser",
+      "back": "Retour à l’espace de travail",
+      "add_lead": "Ajouter une demande / prospect",
+      "add_campaign": "Créer une campagne",
+      "add_task": "Attribuer une action corrective",
+      "name": "Nom / entreprise",
+      "email": "Courriel",
+      "phone": "Téléphone",
+      "reference": "Référence de source / preuve",
+      "source": "Source du prospect",
+      "pipeline": "Parcours",
+      "campaign": "Campagne",
+      "none": "Aucune campagne",
+      "unassigned": "Non attribué",
+      "stage": "Étape",
+      "advance": "Enregistrer l’étape suivante",
+      "close": "Fermer le prospect",
+      "open": "Ouvert",
+      "done": "Terminé",
+      "complete": "Terminer l’action",
+      "evidence": "Preuve de réalisation",
+      "google_search": "Recherche Google",
+      "google_ads": "Demandes Google Ads",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "offline": "Campagne hors ligne",
+      "referral": "Recommandation",
+      "website": "Site Web",
+      "integrations": "Connexions des sources",
+      "manual": "Suivi manuel des sources disponible",
+      "not_connected": "Importation automatique non connectée",
+      "operations": "Préparation des opérations de soins",
+      "operations_note": "Le personnel, les visites et les revenus nécessitent des connexions vérifiées",
+      "empty": "Aucun enregistrement",
+      "shown": "Enregistrements affichés",
+      "total": "Total",
+      "plan": "Période et objectifs",
+      "start": "Date de début (UTC)",
+      "end": "Date de fin (UTC)",
+      "saved": "Enregistré dans le système",
+      "loading": "Chargement des données",
+      "error": "Impossible de terminer la demande",
+      "error_invalid_request": "Vérifier les champs et la référence requise",
+      "error_conflict": "Enregistrement modifié ou en double; actualiser",
+      "error_forbidden": "Votre compte ne possède pas cette autorisation",
+      "error_unavailable": "Données indisponibles; vérifier la configuration ou la connexion",
+      "contact_basis": "Base de contact",
+      "requested": "La personne a demandé un contact",
+      "business_prospect": "Prospect commercial public",
+      "not_requested": "Aucune autorisation de contact enregistrée",
+      "language": "Langue",
+      "summary": "Priorités du jour",
+      "marketing_owner": "Équipe marketing : recherche, attribution et suivi",
+      "version": "Version",
+      "cad": "CAD",
+      "description": "Nom de l’action / campagne",
+      "lost_reason": "Motif / preuve",
+      "period_note": "Les parcours utilisent les prospects créés pendant la période. Les files, dépenses et totaux des campagnes couvrent tout l’historique enregistré.",
+      "team": "Spécialités de l’équipe",
+      "specialty": "Spécialité professionnelle",
+      "telephone_caller": "Agent téléphonique",
+      "google_specialist": "Spécialiste marketing Google",
+      "meta_specialist": "Spécialiste Facebook / Instagram",
+      "seo_content": "Spécialiste SEO et contenu",
+      "offline_partnerships": "Spécialiste des partenariats locaux",
+      "care_handoff": "Coordinateur du transfert de soins",
+      "team_note": "Les spécialités organisent le travail du personnel autorisé sans accorder de permissions de compte.",
+      "calls": "Espace des appels",
+      "call_note": "Consignez uniquement les résultats des appels manuels. Aucun système d’appel ou d’enregistrement n’est connecté. Ne saisissez pas de détails cliniques. Vérifiez les demandes et préférences avant tout contact.",
+      "lead": "Prospect",
+      "outcome": "Résultat de l’appel",
+      "notes": "Preuve du suivi commercial",
+      "no_answer": "Sans réponse",
+      "contacted": "Contact établi",
+      "qualified": "Demande qualifiée",
+      "callback_requested": "Rappel demandé",
+      "wrong_number": "Mauvais numéro",
+      "do_not_contact": "Ne pas contacter",
+      "contact_blocked": "Contact bloqué",
+      "appointments": "Rendez-vous et transferts",
+      "appointment_note": "Les rendez-vous servent à la coordination, pas aux évaluations cliniques ni aux visites de soins confirmées. L’enregistrement n’avise pas les participants.",
+      "starts_at": "Début du rendez-vous",
+      "duration": "Durée en minutes",
+      "scheduled": "Planifié",
+      "completed": "Terminé",
+      "cancelled": "Annulé",
+      "no_show": "Absence",
+      "record_call": "Consigner l’appel",
+      "save_team": "Enregistrer la spécialité",
+      "book_appointment": "Planifier le rendez-vous",
+      "finish_appointment": "Enregistrer le résultat",
+      "call_attempts": "Tentatives d’appel consignées",
+      "appointments_due": "Rendez-vous à venir",
+      "error_contact_blocked": "Ce prospect ne doit pas être contacté.",
+      "caller_script": "Confirmez votre interlocuteur et sa disponibilité. Expliquez le but, confirmez le lieu et le moment, proposez un rendez-vous adapté et consignez la préférence de contact.",
+      "call_guidance": "Guide des appels",
+      "call_queue": "File de suivi",
+      "assigned_scope": "Votre travail attribué uniquement",
+      "campaign_scope": "Vos sources de campagne et tâches attribuées uniquement",
+      "search": "Rechercher des prospects",
+      "query": "Nom, courriel ou téléphone",
+      "all": "Tous",
+      "filter": "Appliquer les filtres",
+      "clear_filters": "Effacer les filtres",
+      "edit_contact": "Modifier les coordonnées",
+      "contact_save": "Enregistrer la correction",
+      "duplicates": "Examen des doublons",
+      "duplicate_note": "Courriel ou téléphone identique dans le même parcours. Vérifiez avant de confirmer. La confirmation ferme le prospect redondant, bloque les contacts et conserve son historique sans fusion.",
+      "canonical": "Conserver ce prospect",
+      "redundant": "Prospect redondant",
+      "distinct_person": "Personnes différentes partageant des coordonnées",
+      "duplicate_confirmed": "Confirmer le prospect redondant",
+      "review": "Enregistrer la vérification",
+      "duplicate_closed": "Doublon conservé",
+      "contact_note": "Les corrections conservent les préférences de contact et l’historique des sources. Ajoutez une preuve commerciale, sans détails cliniques.",
+      "mine": "Attribué à moi",
+      "brief": "Plan de campagne",
+      "brief_draft": "Plan provisoire — aucune publicité publiée",
+      "audience": "Public cible et zone de service",
+      "offer": "Offre et appel à l’action",
+      "creative": "Texte publicitaire et instructions visuelles",
+      "landing_url": "URL de destination (facultative)",
+      "target_leads": "Objectif de prospects prévu",
+      "brief_save": "Enregistrer le plan",
+      "brief_note": "L’enregistrement conserve uniquement un plan. Il n’approuve ni ne publie une campagne, ne crée pas de page, ne dépense pas de budget et ne connecte pas les prospects. Excluez les détails cliniques ou personnels des clients.",
+      "brief_owned_elsewhere": "La modification est réservée au spécialiste attribué ou au responsable marketing.",
+      "hero_description": "Suivez clients, partenaires et suivis au même endroit.",
+      "care_image_alt": "Illustration d’une discussion sur le soutien à domicile",
+      "marketing_image_alt": "Illustration d’un agent téléphonique et d’un collègue marketing",
+      "marketing_intro": "Planifiez les campagnes, examinez les prospects et précisez les prochaines actions.",
+      "role_ceo": "Fondateur / PDG",
+      "role_marketing": "Responsable marketing",
+      "role_local_marketing": "Responsable marketing local",
+      "role_growth_caller": "Agent téléphonique",
+      "role_growth_coordinator": "Coordinateur des soins",
+      "role_growth_google": "Spécialiste marketing Google",
+      "role_growth_meta": "Spécialiste Facebook / Instagram",
+      "role_growth_seo": "Spécialiste SEO et contenu",
+      "role_growth_offline": "Spécialiste des partenariats locaux",
+      "review_pending_review": "En attente de validation",
+      "review_draft": "Brouillon",
+      "review_approved": "Approuvé",
+      "review_changes_requested": "Modifications demandées",
+      "review_rejected": "Rejeté",
+      "review_submit": "Soumettre pour validation",
+      "review_withdraw": "Retirer pour modifier",
+      "review_approve": "Approuver",
+      "review_request_changes": "Demander des modifications",
+      "review_reject": "Rejeter",
+      "review_action": "Action de validation",
+      "review_evidence": "Notes de validation",
+      "review_history": "Historique de validation",
+      "review_version": "Version du brief",
+      "review_self": "Auto-validation du fondateur enregistrée",
+      "review_note": "Validation interne du plan uniquement. Aucune publicité lancée. Une modification annule la validation ; retirez un brief en attente avant de le modifier.",
+      "review_locked": "La modification est bloquée pendant la validation. Retirez le brief avant de le modifier.",
+      "task_priority": "Priorité",
+      "low": "Basse",
+      "normal": "Normale",
+      "high": "Haute",
+      "urgent": "Urgente",
+      "task_action": "Action de tâche",
+      "task_reassign": "Changer le responsable",
+      "task_reschedule": "Changer la date limite",
+      "task_priority_action": "Changer la priorité",
+      "task_escalate": "Signaler un blocage",
+      "task_resolve_escalation": "Résoudre le blocage",
+      "task_escalated": "Blocage signalé",
+      "task_note": "Les tâches en retard et bloquées apparaissent en premier. Le blocage est enregistré pour les responsables ; aucune notification envoyée.",
+      "task_action_evidence": "Motif, blocage ou résolution",
+      "intake": "Demandes du site",
+      "intake_create": "Créer un lien de demande",
+      "intake_title": "Titre du formulaire public",
+      "intake_note": "Créez des liens distincts pour clients et partenaires. Le responsable reçoit les demandes du site. Les liens désactivés bloquent les nouvelles demandes.",
+      "intake_enabled": "Activé",
+      "intake_disabled": "Désactivé",
+      "intake_toggle": "Activer / désactiver",
+      "intake_open": "Ouvrir le formulaire public",
+      "enquiry_title": "Demander un échange",
+      "enquiry_note": "Partagez uniquement vos coordonnées. Ne fournissez pas de renseignements de santé. Ce formulaire ne convient pas aux urgences.",
+      "enquiry_consent": "Je demande à PrimeCare de me contacter au sujet de cette demande. Cela ne vaut pas consentement à la publicité générale.",
+      "enquiry_submit": "Envoyer la demande",
+      "enquiry_received": "Merci. Votre demande a été reçue pour examen.",
+      "enquiry_error": "Envoi impossible. Vérifiez vos coordonnées et réessayez.",
+      "enquiry_unavailable": "Ce lien de demande est indisponible.",
+      "enquiry_contact": "Indiquez une adresse courriel ou un numéro de téléphone.",
+      "intake_source": "Origine de la demande",
+      "intake_attribution": "Événement ou organisme référent",
+      "intake_source_note": "Choisissez hors ligne pour les événements ou supports imprimés, et recommandation pour un organisme référent. Chaque lien conserve son origine.",
+      "intake_qr": "Code QR de ce lien de demande",
+      "intake_qr_download": "Télécharger le QR (SVG)",
+      "intake_qr_show": "Afficher le code QR",
+      "intake_qr_error": "Création du QR impossible. Utilisez le lien de demande.",
+      "intake_receipts": "Demandes reçues",
+      "intake_new": "Nouveaux prospects",
+      "intake_repeat": "Contacts répétés",
+      "intake_legacy": "Demandes anciennes sans classification d’acquisition",
+      "intake_channels_note": "Créez des liens distincts pour clients et partenaires. Le responsable reçoit les demandes. Les liens désactivés bloquent les nouveaux envois.",
+      "alerts": "Rappels et notifications",
+      "alerts_note": "Rendez-vous à venir, rappels téléphoniques et tâches bloquées ou en retard. Rappels internes ; aucun message envoyé automatiquement.",
+      "callback_due": "Rappel téléphonique dû",
+      "appointment_due": "Rendez-vous à venir",
+      "task_attention": "Tâche à traiter",
+      "performance": "Rapports de performance",
+      "performance_note": "Les cohortes utilisent les dates choisies et les étapes atteintes avant la fin. Les responsables sont les actuels ; les appels utilisent leur auteur enregistré. Résultats CRM, pas preuve de soins.",
+      "report_source": "Acquisition par origine",
+      "report_owner": "Performance des responsables et appelants",
+      "report_client_leads": "Prospects clients",
+      "report_client_success": "Clients récurrents",
+      "report_partner_leads": "Prospects partenaires",
+      "report_partner_success": "Partenaires actifs",
+      "report_calls": "Tentatives d’appel",
+      "report_qualified_calls": "Résultats d’appels qualifiés",
+      "report_completed_tasks": "Tâches terminées datées",
+      "report_run": "Générer le rapport",
+      "report_pdf": "Télécharger le PDF",
+      "report_email": "Envoyer le rapport par courriel",
+      "report_recipient": "Courriel du destinataire",
+      "report_confirm": "J’ai vérifié le destinataire et autorise le partage de ce rapport interne.",
+      "report_accepted": "Courriel accepté par le fournisseur",
+      "report_unknown": "Livraison incertaine. Vérifiez le journal avant de réessayer.",
+      "report_mail_note": "Le courriel exige un service configuré. L’acceptation ne confirme pas la livraison. Les tâches anciennes sans date de fin sont exclues des totaux.",
+      "error_delivery_uncertain": "Livraison incertaine. Ne renvoyez pas sans vérifier le statut du fournisseur.",
+      "report_deliveries": "Journal de vos envois",
+      "report_sending": "Envoi en cours / attente de confirmation",
+      "report_not_sent": "Non-envoi confirmé",
+      "report_resolve": "Enregistrer la confirmation du fournisseur",
+      "report_resolve_note": "À utiliser après vérification du fournisseur. Enregistre le résultat confirmé ; aucun courriel envoyé.",
+      "business_ops": "Intégration, soins et finances",
+      "business_note": "La vérification commerciale manuelle ne confère pas de qualifications cliniques. Les liens utilisent des visites existantes; les finances sont saisies en CAD.",
+      "onboarding": "Vérification du partenaire",
+      "business_kind": "Profil du propriétaire",
+      "nurse": "Propriétaire infirmier",
+      "retired_nurse": "Propriétaire infirmier retraité",
+      "care_entrepreneur": "Entrepreneur de soins",
+      "identity_checked": "Identité revue",
+      "agreement_checked": "Accord commercial revu",
+      "insurance_checked": "Preuve d’assurance revue",
+      "verify_partner": "Enregistrer la vérification",
+      "verified": "Vérifié; création attendue",
+      "provisioned": "Locataire et administrateur créés",
+      "revoked": "Vérification révoquée",
+      "revoke_verification": "Révoquer la vérification",
+      "handoff": "Lier une visite existante",
+      "visit_id": "Identifiant de visite existante",
+      "care_note": "La visite doit correspondre au locataire et au courriel du prospect. La planification et les soins continuent dans le parcours de soins.",
+      "care_unavailable": "Tables de soins indisponibles",
+      "finance": "Registre financier manuel",
+      "finance_kind": "Type d’écriture",
+      "invoice": "Facture",
+      "payment": "Paiement reçu",
+      "refund": "Remboursement enregistré",
+      "expense": "Dépense opérationnelle",
+      "amount": "Montant en CAD",
+      "invoice_id": "Identifiant de facture pour paiement ou remboursement",
+      "care_delivery": "Coût de prestation de soins",
+      "overhead": "Frais généraux",
+      "entry_date": "Date d’écriture",
+      "record_entry": "Enregistrer l’écriture",
+      "net_receipts": "Encaissements clients nets",
+      "outstanding": "Factures impayées",
+      "operating_costs": "Coûts opérationnels enregistrés",
+      "cash_balance": "Trésorerie après coûts opérationnels et campagnes",
+      "paying_clients": "Clients avec paiements nets",
+      "paying_cac": "Coût de campagne par client payant",
+      "finance_note": "Écritures immuables. Les remboursements réouvrent les soldes. Les campagnes sont séparées des frais opérationnels. Ces chiffres ne prouvent ni bénéfice ni autonomie.",
+      "cost_category": "Catégorie de coût",
+      "assigned": "Affecté",
+      "finance_fields_note": "Pour une facture, choisissez un prospect client. Pour un paiement/remboursement, indiquez seulement la facture. Pour les dépenses, choisissez une catégorie. Utilisez une référence unique.",
+      "business_empty": "Choisir / sans objet",
+      "business_evidence": "Référence de preuve de revue ou comptable",
+      "accounting_reference": "Référence comptable unique",
+      "role_tenant_admin": "Administrateur du locataire",
+      "intake_delivery": "Acheminement des demandes",
+      "direct": "Boîte du locataire sélectionné",
+      "territory": "Territoire du service",
+      "intake_routing_note": "Le mode est fixé à la création du lien. Le formulaire territorial demande le code postal et le consentement au partage avec le locataire correspondant. Les demandes sans correspondance attendent la plateforme.",
+      "enquiry_postal": "Code postal canadien",
+      "enquiry_service": "Service demandé",
+      "enquiry_share": "Je consens au partage de mes coordonnées et de ma demande par PrimeCare avec le prestataire local correspondant afin qu’il me réponde.",
+      "psw": "Préposé aux soins",
+      "home_care": "Soins à domicile",
+      "intake_routed": "Demandes territoriales",
+      "intake_delivery_note": "Les demandes territoriales ne sont pas copiées dans cette boîte. Le destinataire les accepte dans Lancement et soutien des locataires.",
+      "role_owner": "Propriétaire de franchise",
+      "owner_money_note": "Les budgets et dépenses de campagne exigent un propriétaire de franchise. Vous pouvez préparer une campagne sans budget pour sa révision.",
+      "tenant_console": "Administration du locataire",
+      "marketing_model": "Modèle de marketing centralisé",
+      "marketing_proposal": "Contribution proposée de 5 % : environ 4 % pour la publicité et 1 % pour la gestion. Estimations uniquement; aucune facture ni facturation automatique.",
+      "marketing_basis": "Selon les paiements saisis manuellement moins les remboursements du mois civil UTC courant. Factures et dépenses exclues; un solde négatif donne une estimation nulle. Ces écritures ne sont pas un rapprochement bancaire.",
+      "marketing_period": "Mois du rapport (UTC)",
+      "marketing_recorded": "Encaissements nets saisis",
+      "marketing_contribution": "Contribution totale proposée (5 %)",
+      "marketing_advertising": "Allocation publicitaire (environ 4 %)",
+      "marketing_management": "Allocation de gestion (1 %)",
+      "marketing_gate": "Activation après accord sur les conditions de franchise, connexion publicitaire autorisée et confirmation de capacité. La révision ne lance aucune publicité.",
+      "marketing_central_campaigns": "Équipe centrale : préparer campagnes, créations, pages et ciblage territorial.",
+      "marketing_owner_budget": "Propriétaire : approuver le dossier et le budget; confirmer la capacité du territoire.",
+      "marketing_tenant_followup": "Administration locale et téléphonistes : contacter les prospects attribués et consigner suivis et conversions.",
+      "marketing_central_reporting": "Équipe centrale et propriétaire : examiner dépenses, qualité des prospects et coût par client payant.",
+      "marketing_scope": "Chaque compte marketing reste dans son locataire attribué. Accès inter-locataires et lancement publicitaire non activés.",
+      "marketing_rounding": "Montants arrondis au cent; la publicité reçoit le reste pour équilibrer le total. Aucun solde inutilisé affiché sans écritures mensuelles du fonds.",
+      "marketing_statement": "Relevé mensuel de la proposition marketing",
+      "marketing_month": "Mois du relevé (UTC)",
+      "marketing_statement_run": "Voir le mois",
+      "marketing_statement_pdf": "Télécharger le PDF",
+      "marketing_statement_note": "Recalculé selon les écritures saisies et la proposition actuelle. Ni facture, ni relevé historique figé, ni preuve de versement au fonds.",
+      "marketing_payments": "Paiements saisis",
+      "marketing_refunds": "Remboursements saisis",
+      "marketing_eligible": "Encaissements admissibles non négatifs",
+      "marketing_item": "Élément",
+      "marketing_value": "Valeur",
+      "readiness_title": "Préparation de la campagne",
+      "readiness_note": "Vérifications de préparation uniquement. La capacité est déclarée par le propriétaire, pas une réservation de personnel ni une garantie clinique. Les règles de lancement du territoire et de consentement restent applicables. Aucune publicité ne démarre ici.",
+      "readiness_brief": "Dossier approuvé par le propriétaire",
+      "readiness_budget": "Budget de campagne restant",
+      "readiness_capacity": "Confirmation actuelle de capacité de service",
+      "readiness_provider": "Connexion au fournisseur publicitaire",
+      "readiness_yes": "Prêt",
+      "readiness_no": "Manquant ou périmé",
+      "capacity_slots": "Clients supplémentaires que le territoire peut accepter",
+      "capacity_expiry": "Expiration de la confirmation (UTC)",
+      "capacity_evidence": "Justification de capacité — aucune donnée client ou médicale",
+      "capacity_save": "Enregistrer la capacité",
+      "capacity_missing": "La confirmation de capacité n’est pas encore disponible. Contacter le soutien de la plateforme.",
+      "capacity_review": "Approuver le dossier client avant de confirmer la capacité.",
+      "capacity_zero": "Indiquer zéro si le territoire ne peut accepter aucun client supplémentaire. Les confirmations doivent expirer dans les 30 jours.",
+      "capacity_latest": "Dernière confirmation de capacité",
+      "readiness_schedule": "Dates de campagne non expirées",
+      "readiness_not_required": "Non requis pour recruter des partenaires"
+    },
+    "es": {
+      "title": "Panel de crecimiento del fundador",
+      "nav": "Crecimiento y marketing",
+      "scope": "Solo su organización",
+      "reported": "Hitos CRM declarados; la atención no se verifica aquí",
+      "targets_note": "Los objetivos iniciales son supuestos de planificación",
+      "new": "Nueva consulta / prospecto",
+      "discussion": "Conversación con propietario",
+      "demo": "Demostración",
+      "pilot": "Piloto acordado",
+      "active": "Socio operativo declarado",
+      "assessment": "Conversación sobre necesidades",
+      "agreed": "Acuerdo de atención declarado",
+      "started": "Primera visita declarada",
+      "recurring": "Familia recurrente declarada",
+      "lost": "Cerrado / perdido",
+      "tenant": "Captación de socios",
+      "client": "Consultas de familias",
+      "target": "Objetivo",
+      "actual": "Real",
+      "expected": "Esperado hasta hoy",
+      "gap": "Brecha actual",
+      "rate": "Conversión por etapa",
+      "behind": "Por debajo del plan",
+      "on_track": "En curso",
+      "not_started": "El período no ha comenzado",
+      "fix": "Próxima acción",
+      "fix_new": "Revisar fuentes e invitar prospectos adecuados",
+      "fix_discussion": "Revisar consultas sin respuesta y programar seguimiento",
+      "fix_demo": "Revisar objeciones y ofrecer una demostración específica",
+      "fix_pilot": "Resolver problemas de incorporación, personal y funcionamiento",
+      "fix_active": "Verificar evidencia del piloto y preparación del propietario",
+      "fix_assessment": "Revisar zona, disponibilidad y respuesta a consultas",
+      "fix_agreed": "Revisar servicio, precio y preguntas de la familia",
+      "fix_started": "Confirmar personal adecuado y respaldo antes de la primera visita",
+      "fix_recurring": "Revisar comentarios, continuidad y atención continuada acordada",
+      "leads": "Cola de prospectos",
+      "campaigns": "Campañas y resultados por fuente",
+      "tasks": "Acciones correctivas",
+      "owner": "Responsable",
+      "due": "Seguimiento previsto",
+      "overdue": "Seguimientos vencidos",
+      "spend": "Gasto registrado (CAD)",
+      "cpl": "Coste por consulta (CAD)",
+      "budget": "Presupuesto (CAD)",
+      "save": "Guardar",
+      "refresh": "Actualizar",
+      "back": "Volver al espacio de trabajo",
+      "add_lead": "Añadir consulta / prospecto",
+      "add_campaign": "Crear campaña",
+      "add_task": "Asignar acción correctiva",
+      "name": "Nombre / negocio",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "reference": "Referencia de fuente / evidencia",
+      "source": "Fuente del prospecto",
+      "pipeline": "Proceso",
+      "campaign": "Campaña",
+      "none": "Sin campaña",
+      "unassigned": "Sin asignar",
+      "stage": "Etapa",
+      "advance": "Registrar siguiente hito",
+      "close": "Cerrar prospecto",
+      "open": "Abierto",
+      "done": "Terminado",
+      "complete": "Completar acción",
+      "evidence": "Evidencia de finalización",
+      "google_search": "Investigación en Google",
+      "google_ads": "Consultas de Google Ads",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "offline": "Campaña presencial",
+      "referral": "Referencia",
+      "website": "Sitio web",
+      "integrations": "Conexiones de fuentes",
+      "manual": "Seguimiento manual de fuentes disponible",
+      "not_connected": "Importación automática no conectada",
+      "operations": "Preparación de operaciones de atención",
+      "operations_note": "Personal, visitas e ingresos necesitan conexiones operativas verificadas",
+      "empty": "Sin registros",
+      "shown": "Registros mostrados",
+      "total": "Total",
+      "plan": "Período y objetivos",
+      "start": "Fecha inicial (UTC)",
+      "end": "Fecha final (UTC)",
+      "saved": "Guardado en el sistema",
+      "loading": "Cargando datos",
+      "error": "No se puede completar la solicitud",
+      "error_invalid_request": "Revisar campos y referencia obligatoria",
+      "error_conflict": "Registro modificado o duplicado; actualizar",
+      "error_forbidden": "Su cuenta no tiene este permiso",
+      "error_unavailable": "Datos no disponibles; revisar configuración o conexión",
+      "contact_basis": "Base de contacto",
+      "requested": "La persona solicitó contacto",
+      "business_prospect": "Prospecto empresarial público",
+      "not_requested": "Sin permiso de contacto registrado",
+      "language": "Idioma",
+      "summary": "Prioridades de hoy",
+      "marketing_owner": "Equipo de marketing: investigación, atribución y seguimiento",
+      "version": "Versión",
+      "cad": "CAD",
+      "description": "Nombre de acción / campaña",
+      "lost_reason": "Motivo / evidencia",
+      "period_note": "Los procesos usan prospectos creados en el período. Las colas, gastos y totales de campañas incluyen todo el historial registrado.",
+      "team": "Especialidades del equipo",
+      "specialty": "Especialidad de trabajo",
+      "telephone_caller": "Agente telefónico",
+      "google_specialist": "Especialista en marketing de Google",
+      "meta_specialist": "Especialista en Facebook / Instagram",
+      "seo_content": "Especialista en SEO y contenido",
+      "offline_partnerships": "Especialista en alianzas locales",
+      "care_handoff": "Coordinador de derivación de atención",
+      "team_note": "Las especialidades organizan el trabajo del personal autorizado sin conceder permisos de cuenta.",
+      "calls": "Espacio de llamadas",
+      "call_note": "Registre solo resultados de llamadas manuales. No hay conexión de marcado ni grabación. No introduzca datos clínicos. Verifique solicitudes y preferencias antes de contactar.",
+      "lead": "Contacto potencial",
+      "outcome": "Resultado de la llamada",
+      "notes": "Evidencia de seguimiento comercial",
+      "no_answer": "Sin respuesta",
+      "contacted": "Contactado",
+      "qualified": "Consulta calificada",
+      "callback_requested": "Devolución de llamada solicitada",
+      "wrong_number": "Número incorrecto",
+      "do_not_contact": "No contactar",
+      "contact_blocked": "Contacto bloqueado",
+      "appointments": "Citas y derivaciones",
+      "appointment_note": "Las citas son registros de coordinación, no evaluaciones clínicas ni visitas de atención confirmadas. Guardar no notifica a los asistentes.",
+      "starts_at": "Inicio de la cita",
+      "duration": "Duración en minutos",
+      "scheduled": "Programado",
+      "completed": "Completado",
+      "cancelled": "Cancelado",
+      "no_show": "No se presentó",
+      "record_call": "Registrar llamada",
+      "save_team": "Guardar especialidad",
+      "book_appointment": "Programar cita",
+      "finish_appointment": "Guardar resultado de cita",
+      "call_attempts": "Intentos de llamada registrados",
+      "appointments_due": "Próximas citas",
+      "error_contact_blocked": "No se debe contactar a este contacto.",
+      "caller_script": "Confirme con quién habla y si es un buen momento. Explique el propósito, confirme ubicación y horario, ofrezca una cita adecuada y registre la preferencia de contacto.",
+      "call_guidance": "Guía de llamadas",
+      "call_queue": "Cola de seguimiento",
+      "assigned_scope": "Solo su trabajo asignado",
+      "campaign_scope": "Solo sus fuentes de campaña y tareas asignadas",
+      "search": "Buscar contactos",
+      "query": "Nombre, correo o teléfono",
+      "all": "Todos",
+      "filter": "Aplicar filtros",
+      "clear_filters": "Borrar filtros",
+      "edit_contact": "Editar datos de contacto",
+      "contact_save": "Guardar corrección de contacto",
+      "duplicates": "Revisión de duplicados",
+      "duplicate_note": "Correo o teléfono compartido en el mismo proceso. Revise antes de confirmar. La confirmación cierra el contacto redundante, bloquea el contacto y conserva su historial sin fusionarlo.",
+      "canonical": "Conservar este contacto",
+      "redundant": "Contacto redundante",
+      "distinct_person": "Personas distintas con datos compartidos",
+      "duplicate_confirmed": "Confirmar contacto redundante",
+      "review": "Guardar revisión",
+      "duplicate_closed": "Duplicado conservado",
+      "contact_note": "Las correcciones conservan preferencias de contacto e historial de fuentes. Añada evidencia comercial sin detalles clínicos.",
+      "mine": "Asignado a mí",
+      "brief": "Plan de campaña",
+      "brief_draft": "Plan preliminar — no se publican anuncios",
+      "audience": "Público objetivo y zona de servicio",
+      "offer": "Oferta y llamada a la acción",
+      "creative": "Texto publicitario e instrucciones visuales",
+      "landing_url": "URL de destino (opcional)",
+      "target_leads": "Objetivo previsto de contactos",
+      "brief_save": "Guardar plan de campaña",
+      "brief_note": "Guardar conserva solo un plan. No aprueba ni publica campañas, crea páginas, gasta presupuesto ni conecta contactos. No incluya datos clínicos ni personales de clientes.",
+      "brief_owned_elsewhere": "La edición está limitada al especialista asignado o al responsable de marketing.",
+      "hero_description": "Siga clientes, socios y seguimientos en un solo lugar.",
+      "care_image_alt": "Ilustración de una conversación sobre apoyo en el hogar",
+      "marketing_image_alt": "Ilustración de una agente telefónica y un colega de marketing",
+      "marketing_intro": "Planifique campañas, revise contactos y defina las próximas acciones.",
+      "role_ceo": "Fundador / Director general",
+      "role_marketing": "Responsable de marketing",
+      "role_local_marketing": "Responsable de marketing local",
+      "role_growth_caller": "Agente telefónico",
+      "role_growth_coordinator": "Coordinador de atención",
+      "role_growth_google": "Especialista en marketing de Google",
+      "role_growth_meta": "Especialista en Facebook / Instagram",
+      "role_growth_seo": "Especialista en SEO y contenido",
+      "role_growth_offline": "Especialista en alianzas locales",
+      "review_pending_review": "Pendiente de revisión",
+      "review_draft": "Borrador",
+      "review_approved": "Aprobado",
+      "review_changes_requested": "Cambios solicitados",
+      "review_rejected": "Rechazado",
+      "review_submit": "Enviar a revisión",
+      "review_withdraw": "Retirar para editar",
+      "review_approve": "Aprobar",
+      "review_request_changes": "Solicitar cambios",
+      "review_reject": "Rechazar",
+      "review_action": "Acción de revisión",
+      "review_evidence": "Notas de revisión",
+      "review_history": "Historial de revisión",
+      "review_version": "Versión del brief",
+      "review_self": "Autorrevisión del fundador registrada",
+      "review_note": "Solo aprobación interna del plan. No se publican anuncios. Editar invalida la aprobación; retire un brief pendiente antes de editarlo.",
+      "review_locked": "La edición está bloqueada durante la revisión. Retire el brief antes de editarlo.",
+      "task_priority": "Prioridad",
+      "low": "Baja",
+      "normal": "Normal",
+      "high": "Alta",
+      "urgent": "Urgente",
+      "task_action": "Acción de tarea",
+      "task_reassign": "Reasignar responsable",
+      "task_reschedule": "Cambiar fecha límite",
+      "task_priority_action": "Cambiar prioridad",
+      "task_escalate": "Escalar bloqueo",
+      "task_resolve_escalation": "Resolver escalación",
+      "task_escalated": "Escalada",
+      "task_note": "Las tareas vencidas y escaladas aparecen primero. La escalación registra un bloqueo para responsables; no envía notificaciones.",
+      "task_action_evidence": "Motivo, bloqueo o resolución",
+      "intake": "Consultas del sitio",
+      "intake_create": "Crear enlace de consulta",
+      "intake_title": "Título del formulario público",
+      "intake_note": "Cree enlaces separados para clientes y socios. El responsable recibe consultas del sitio. Los enlaces desactivados bloquean nuevas consultas.",
+      "intake_enabled": "Activo",
+      "intake_disabled": "Inactivo",
+      "intake_toggle": "Activar / desactivar",
+      "intake_open": "Abrir formulario público",
+      "enquiry_title": "Solicitar una conversación",
+      "enquiry_note": "Comparta solo datos de contacto. No incluya información de salud. Este formulario no es para emergencias.",
+      "enquiry_consent": "Solicito que PrimeCare me contacte sobre esta consulta. Esto no autoriza publicidad general.",
+      "enquiry_submit": "Enviar consulta",
+      "enquiry_received": "Gracias. Su consulta se ha recibido para revisión.",
+      "enquiry_error": "No se pudo enviar. Revise sus datos y vuelva a intentarlo.",
+      "enquiry_unavailable": "Este enlace de consulta no está disponible.",
+      "enquiry_contact": "Indique un correo electrónico o número de teléfono.",
+      "intake_source": "Origen de consulta",
+      "intake_attribution": "Evento u organización referente",
+      "intake_source_note": "Seleccione campaña presencial para eventos o impresos, y referencia para una organización referente. Cada enlace conserva su origen.",
+      "intake_qr": "Código QR de este enlace",
+      "intake_qr_download": "Descargar QR (SVG)",
+      "intake_qr_show": "Mostrar código QR",
+      "intake_qr_error": "No se pudo crear el QR. Use el enlace de consulta.",
+      "intake_receipts": "Consultas recibidas",
+      "intake_new": "Nuevos prospectos",
+      "intake_repeat": "Contactos repetidos",
+      "intake_legacy": "Consultas anteriores sin clasificación de adquisición",
+      "intake_channels_note": "Cree enlaces separados para clientes y socios. El responsable recibe consultas. Los enlaces desactivados bloquean nuevos envíos.",
+      "alerts": "Recordatorios y notificaciones",
+      "alerts_note": "Citas próximas, llamadas pendientes y tareas bloqueadas o vencidas. Son avisos internos; no se envían mensajes automáticamente.",
+      "callback_due": "Llamada pendiente",
+      "appointment_due": "Cita pendiente",
+      "task_attention": "Tarea requiere atención",
+      "performance": "Informes de rendimiento",
+      "performance_note": "Las cohortes usan las fechas elegidas y los hitos hasta el final. Los responsables son los actuales; las llamadas usan su autor registrado. Son resultados CRM, no prueba de atención.",
+      "report_source": "Adquisición por origen",
+      "report_owner": "Rendimiento de responsables y agentes",
+      "report_client_leads": "Prospectos clientes",
+      "report_client_success": "Clientes recurrentes",
+      "report_partner_leads": "Prospectos socios",
+      "report_partner_success": "Socios activos",
+      "report_calls": "Intentos de llamada",
+      "report_qualified_calls": "Resultados de llamadas calificadas",
+      "report_completed_tasks": "Tareas finalizadas con fecha",
+      "report_run": "Generar informe",
+      "report_pdf": "Descargar PDF",
+      "report_email": "Enviar informe por correo",
+      "report_recipient": "Correo del destinatario",
+      "report_confirm": "He revisado el destinatario y autorizo compartir este informe interno.",
+      "report_accepted": "Correo aceptado por el proveedor",
+      "report_unknown": "Entrega incierta. Revise el registro antes de reintentar.",
+      "report_mail_note": "El correo requiere un servicio configurado. La aceptación no confirma entrega. Las tareas anteriores sin fecha de finalización no se cuentan en el período.",
+      "error_delivery_uncertain": "Entrega incierta. No reenvíe sin revisar el estado del proveedor.",
+      "report_deliveries": "Registro de sus envíos",
+      "report_sending": "Envío pendiente de confirmación",
+      "report_not_sent": "Envío no realizado confirmado",
+      "report_resolve": "Registrar confirmación del proveedor",
+      "report_resolve_note": "Use tras revisar el proveedor. Registra un resultado confirmado; no envía correo.",
+      "business_ops": "Incorporación, atención y finanzas",
+      "business_note": "La verificación comercial manual no otorga credenciales clínicas. Los vínculos usan visitas existentes; las finanzas se registran en CAD.",
+      "onboarding": "Verificación del socio",
+      "business_kind": "Perfil del propietario",
+      "nurse": "Propietario enfermero",
+      "retired_nurse": "Propietario enfermero jubilado",
+      "care_entrepreneur": "Empresario de atención",
+      "identity_checked": "Identidad revisada",
+      "agreement_checked": "Acuerdo comercial revisado",
+      "insurance_checked": "Prueba de seguro revisada",
+      "verify_partner": "Registrar verificación",
+      "verified": "Verificado; pendiente de creación",
+      "provisioned": "Inquilino y administrador creados",
+      "revoked": "Verificación revocada",
+      "revoke_verification": "Revocar verificación",
+      "handoff": "Vincular una visita existente",
+      "visit_id": "Identificador de visita existente",
+      "care_note": "La visita debe coincidir con este inquilino y el correo del prospecto. La programación y atención continúan en el flujo de atención.",
+      "care_unavailable": "Tablas de atención no disponibles",
+      "finance": "Registro financiero manual",
+      "finance_kind": "Tipo de registro",
+      "invoice": "Factura",
+      "payment": "Pago recibido",
+      "refund": "Reembolso registrado",
+      "expense": "Gasto operativo",
+      "amount": "Importe en CAD",
+      "invoice_id": "Identificador de factura para pago o reembolso",
+      "care_delivery": "Costo de prestación de atención",
+      "overhead": "Gastos generales",
+      "entry_date": "Fecha de registro",
+      "record_entry": "Registrar entrada",
+      "net_receipts": "Cobros netos de clientes",
+      "outstanding": "Facturas pendientes",
+      "operating_costs": "Costos operativos registrados",
+      "cash_balance": "Efectivo tras costos operativos y campañas",
+      "paying_clients": "Clientes con pagos netos",
+      "paying_cac": "Costo de campaña por cliente pagador",
+      "finance_note": "Registros inmutables. Los reembolsos reabren saldos. Las campañas se separan de costos operativos. Estas cifras no prueban beneficios ni independencia.",
+      "cost_category": "Categoría de costo",
+      "assigned": "Asignado",
+      "finance_fields_note": "Para una factura elija un prospecto cliente. Para pago/reembolso introduzca solo la factura. Para gastos elija una categoría. Use una referencia contable única.",
+      "business_empty": "Elegir / no aplicable",
+      "business_evidence": "Referencia de evidencia de revisión o contable",
+      "accounting_reference": "Referencia contable única",
+      "role_tenant_admin": "Administrador del inquilino",
+      "intake_delivery": "Entrega de consultas",
+      "direct": "Bandeja del inquilino seleccionado",
+      "territory": "Territorio del servicio",
+      "intake_routing_note": "El modo se fija al crear el enlace. Los formularios territoriales solicitan código postal y consentimiento para compartir datos con el inquilino correspondiente. La plataforma revisa las consultas sin coincidencia.",
+      "enquiry_postal": "Código postal canadiense",
+      "enquiry_service": "Servicio solicitado",
+      "enquiry_share": "Acepto que PrimeCare comparta mis datos de contacto y consulta con el proveedor local correspondiente para que responda.",
+      "psw": "Asistente personal",
+      "home_care": "Atención domiciliaria",
+      "intake_routed": "Consultas territoriales",
+      "intake_delivery_note": "Las consultas territoriales no se copian a esta bandeja. El destinatario las acepta en Lanzamiento y soporte de inquilinos.",
+      "role_owner": "Propietario de franquicia",
+      "owner_money_note": "Los cambios de presupuesto y gasto requieren un propietario de franquicia. Puede preparar una campaña sin presupuesto para su revisión.",
+      "tenant_console": "Administración del inquilino",
+      "marketing_model": "Modelo de marketing centralizado",
+      "marketing_proposal": "Contribución propuesta del 5 %: aproximadamente 4 % para publicidad y 1 % para gestión. Solo estimaciones; sin factura ni cobro automático.",
+      "marketing_basis": "Basado en pagos registrados manualmente menos reembolsos del mes calendario UTC actual. Excluye facturas y gastos; un neto negativo produce una estimación cero. No es una conciliación bancaria.",
+      "marketing_period": "Mes del informe (UTC)",
+      "marketing_recorded": "Cobros netos registrados",
+      "marketing_contribution": "Contribución total propuesta (5 %)",
+      "marketing_advertising": "Asignación publicitaria (aproximadamente 4 %)",
+      "marketing_management": "Asignación de gestión (1 %)",
+      "marketing_gate": "La activación requiere condiciones de franquicia acordadas, cuenta publicitaria autorizada y capacidad confirmada. La revisión no lanza publicidad.",
+      "marketing_central_campaigns": "Equipo central: preparar campañas, creatividades, páginas y segmentación territorial.",
+      "marketing_owner_budget": "Propietario: aprobar propuesta y presupuesto; confirmar capacidad del territorio.",
+      "marketing_tenant_followup": "Administración local y telefonistas: contactar prospectos asignados y registrar seguimientos y conversiones.",
+      "marketing_central_reporting": "Equipo central y propietario: revisar gasto, calidad de prospectos y coste por cliente de pago.",
+      "marketing_scope": "Cada cuenta de marketing trabaja en su inquilino asignado. No se habilitan acceso entre inquilinos ni lanzamiento publicitario.",
+      "marketing_rounding": "Se redondea a céntimos; publicidad recibe el resto para cuadrar el total. Sin saldo no utilizado porque no se registran movimientos mensuales del fondo.",
+      "marketing_statement": "Estado mensual de la propuesta de marketing",
+      "marketing_month": "Mes del estado (UTC)",
+      "marketing_statement_run": "Ver mes",
+      "marketing_statement_pdf": "Descargar PDF",
+      "marketing_statement_note": "Recalculado con los registros y la propuesta actual. No es una factura, un estado histórico fijo ni prueba de aportaciones al fondo.",
+      "marketing_payments": "Pagos registrados",
+      "marketing_refunds": "Reembolsos registrados",
+      "marketing_eligible": "Cobros elegibles no negativos",
+      "marketing_item": "Concepto",
+      "marketing_value": "Valor",
+      "readiness_title": "Preparación de la campaña",
+      "readiness_note": "Solo comprobaciones de preparación. La capacidad es una declaración del propietario, no una reserva de personal ni garantía clínica. Siguen aplicándose la aprobación territorial y las reglas de consentimiento. Aquí no se lanza publicidad.",
+      "readiness_brief": "Propuesta aprobada por el propietario",
+      "readiness_budget": "Presupuesto de campaña disponible",
+      "readiness_capacity": "Confirmación vigente de capacidad de servicio",
+      "readiness_provider": "Conexión con el proveedor publicitario",
+      "readiness_yes": "Listo",
+      "readiness_no": "Falta o está desactualizado",
+      "capacity_slots": "Clientes adicionales que puede aceptar el territorio",
+      "capacity_expiry": "Vencimiento de la confirmación (UTC)",
+      "capacity_evidence": "Evidencia de capacidad — sin datos de clientes ni de salud",
+      "capacity_save": "Registrar capacidad",
+      "capacity_missing": "La confirmación de capacidad aún no está disponible. Contacte con soporte.",
+      "capacity_review": "Aprobar la propuesta de clientes antes de confirmar capacidad.",
+      "capacity_zero": "Indique cero si el territorio no puede aceptar clientes adicionales. Las confirmaciones deben vencer en un plazo de 30 días.",
+      "capacity_latest": "Última confirmación de capacidad",
+      "readiness_schedule": "Fechas de campaña vigentes",
+      "readiness_not_required": "No se requiere para captar socios"
+    }
+  },
+  "contracts": [
+    {
+      "method": "GET",
+      "suffix": "",
+      "request": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "business": {
+            "type": "object",
+            "properties": {
+              "canBusiness": {
+                "type": "boolean"
+              },
+              "marketing": {
+                "type": "object",
+                "required": [
+                  "eligibleReceiptsCents",
+                  "contributionCents",
+                  "advertisingCents",
+                  "managementCents",
+                  "policyVersion",
+                  "status",
+                  "currency",
+                  "basis",
+                  "netReceiptsCents",
+                  "billable",
+                  "period"
+                ],
+                "properties": {
+                  "eligibleReceiptsCents": {
+                    "type": "string",
+                    "pattern": "^[0-9]+$",
+                    "description": "CAD cents, encoded as a decimal string"
+                  },
+                  "contributionCents": {
+                    "type": "string",
+                    "pattern": "^[0-9]+$",
+                    "description": "CAD cents, encoded as a decimal string"
+                  },
+                  "advertisingCents": {
+                    "type": "string",
+                    "pattern": "^[0-9]+$",
+                    "description": "CAD cents, encoded as a decimal string"
+                  },
+                  "managementCents": {
+                    "type": "string",
+                    "pattern": "^[0-9]+$",
+                    "description": "CAD cents, encoded as a decimal string"
+                  },
+                  "policyVersion": {
+                    "const": "proposal-v1"
+                  },
+                  "status": {
+                    "const": "proposal_not_billable"
+                  },
+                  "currency": {
+                    "const": "CAD"
+                  },
+                  "basis": {
+                    "const": "recorded_monthly_payments_less_refunds"
+                  },
+                  "netReceiptsCents": {
+                    "type": "string",
+                    "pattern": "^-?[0-9]+$"
+                  },
+                  "billable": {
+                    "const": false
+                  },
+                  "period": {
+                    "type": "object",
+                    "required": [
+                      "start",
+                      "endExclusive"
+                    ],
+                    "properties": {
+                      "start": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "endExclusive": {
+                        "type": "string",
+                        "format": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "method": "PUT",
+      "suffix": "/plan",
+      "request": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "date"
+          },
+          "end": {
+            "type": "string",
+            "format": "date"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "targets": {
+            "type": "object",
+            "properties": {
+              "tenant": {
+                "type": "array",
+                "minItems": 5,
+                "maxItems": 5,
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                }
+              },
+              "client": {
+                "type": "array",
+                "minItems": 5,
+                "maxItems": 5,
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                }
+              }
+            },
+            "required": [
+              "tenant",
+              "client"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "start",
+          "end",
+          "version",
+          "targets"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/leads",
+      "request": {
+        "type": "object",
+        "properties": {
+          "pipeline": {
+            "enum": [
+              "tenant",
+              "client"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 254
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "source": {
+            "enum": [
+              "google_search",
+              "google_ads",
+              "facebook",
+              "instagram",
+              "offline",
+              "referral",
+              "website"
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "contactBasis": {
+            "enum": [
+              "requested",
+              "business_prospect",
+              "not_requested"
+            ]
+          },
+          "campaignId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "ownerId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "dueAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "UTC timestamp ending in Z; null clears follow-up."
+          }
+        },
+        "required": [
+          "pipeline",
+          "name",
+          "source",
+          "reference",
+          "contactBasis"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "PATCH",
+      "suffix": "/leads/{id}",
+      "request": {
+        "type": "object",
+        "properties": {
+          "stage": {
+            "enum": [
+              "started",
+              "new",
+              "discussion",
+              "agreed",
+              "demo",
+              "pilot",
+              "recurring",
+              "active",
+              "assessment",
+              "lost"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "ownerId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "dueAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "UTC timestamp ending in Z; null clears follow-up."
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "stage",
+          "version",
+          "ownerId",
+          "dueAt",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/campaigns",
+      "request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150
+          },
+          "source": {
+            "enum": [
+              "google_search",
+              "google_ads",
+              "facebook",
+              "instagram",
+              "offline",
+              "referral",
+              "website"
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "budgetCents": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000000
+          },
+          "spendCents": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000000
+          }
+        },
+        "required": [
+          "name",
+          "source",
+          "reference",
+          "budgetCents",
+          "spendCents"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "PATCH",
+      "suffix": "/campaigns/{id}",
+      "request": {
+        "type": "object",
+        "properties": {
+          "budgetCents": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000000
+          },
+          "spendCents": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000000
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        },
+        "required": [
+          "budgetCents",
+          "spendCents",
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/tasks",
+      "request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "ownerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "dueAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "name",
+          "ownerId",
+          "dueAt"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "PATCH",
+      "suffix": "/tasks/{id}",
+      "request": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "version",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "PUT",
+      "suffix": "/team/{id}",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "specialty": {
+            "type": "string",
+            "enum": [
+              "telephone_caller",
+              "google_specialist",
+              "meta_specialist",
+              "seo_content",
+              "offline_partnerships",
+              "care_handoff"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "specialty",
+          "version"
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/calls",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "leadId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "leadVersion": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "no_answer",
+              "contacted",
+              "qualified",
+              "callback_requested",
+              "wrong_number",
+              "do_not_contact"
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "dueAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "leadId",
+          "leadVersion",
+          "outcome",
+          "notes",
+          "dueAt"
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/appointments",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "leadId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ownerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "startsAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "duration": {
+            "type": "integer",
+            "minimum": 15,
+            "maximum": 180
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "leadId",
+          "ownerId",
+          "startsAt",
+          "duration",
+          "notes"
+        ]
+      }
+    },
+    {
+      "method": "PATCH",
+      "suffix": "/appointments/{id}",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "cancelled",
+              "no_show"
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "version",
+          "status",
+          "notes"
+        ]
+      }
+    },
+    {
+      "method": "PATCH",
+      "suffix": "/contacts/{id}",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 254
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "version",
+          "name",
+          "email",
+          "phone",
+          "evidence"
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/duplicates",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "canonicalId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "duplicateId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "canonicalVersion": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "duplicateVersion": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "reviewVersion": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "distinct_person",
+              "duplicate_confirmed"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "canonicalId",
+          "duplicateId",
+          "canonicalVersion",
+          "duplicateVersion",
+          "reviewVersion",
+          "decision",
+          "evidence"
+        ]
+      }
+    },
+    {
+      "method": "PUT",
+      "suffix": "/briefs/{id}",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ownerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "audience": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "offer": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "creative": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3000
+          },
+          "landingUrl": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "Empty or HTTPS URL without credentials; stored only, never fetched."
+          },
+          "pipeline": {
+            "type": "string",
+            "enum": [
+              "tenant",
+              "client"
+            ]
+          },
+          "targetLeads": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000
+          },
+          "start": {
+            "type": "string",
+            "format": "date"
+          },
+          "end": {
+            "type": "string",
+            "format": "date"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483647
+          }
+        },
+        "required": [
+          "ownerId",
+          "audience",
+          "offer",
+          "creative",
+          "landingUrl",
+          "pipeline",
+          "targetLeads",
+          "start",
+          "end",
+          "version"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/reviews/{id}",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "submit",
+              "withdraw",
+              "approve",
+              "request_changes",
+              "reject"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          }
+        },
+        "required": [
+          "action",
+          "version",
+          "evidence"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/task-actions/{id}",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action",
+          "version",
+          "evidence"
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "reassign",
+              "reschedule",
+              "priority",
+              "escalate",
+              "resolve_escalation"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483646
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "ownerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "dueAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "low",
+              "normal",
+              "high",
+              "urgent"
+            ]
+          }
+        },
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "const": "reassign"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              },
+              "ownerId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "evidence",
+              "ownerId"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "const": "reschedule"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              },
+              "dueAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "evidence",
+              "dueAt"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "const": "priority"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              },
+              "priority": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "normal",
+                  "high",
+                  "urgent"
+                ]
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "evidence",
+              "priority"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "const": "escalate"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "const": "resolve_escalation"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "evidence"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "required": [
+          "id",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/intake-links",
+      "request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "pipeline": {
+            "enum": [
+              "client",
+              "tenant"
+            ]
+          },
+          "ownerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "campaignId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "source": {
+            "enum": [
+              "website",
+              "offline",
+              "referral"
+            ],
+            "default": "website"
+          },
+          "attribution": {
+            "type": "string",
+            "maxLength": 200,
+            "default": ""
+          },
+          "routingMode": {
+            "enum": [
+              "direct",
+              "territory"
+            ],
+            "default": "direct"
+          }
+        },
+        "required": [
+          "name",
+          "pipeline",
+          "ownerId",
+          "campaignId"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "source"
+              ],
+              "properties": {
+                "source": {
+                  "enum": [
+                    "offline",
+                    "referral"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "attribution"
+              ],
+              "properties": {
+                "attribution": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "\\S"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "routingMode"
+              ],
+              "properties": {
+                "routingMode": {
+                  "const": "territory"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "pipeline": {
+                  "const": "client"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "PATCH",
+      "suffix": "/intake-links/{id}",
+      "request": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483646
+          }
+        },
+        "required": [
+          "active",
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "GET",
+      "suffix": "/enquiries/{key}",
+      "public": true,
+      "request": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "pipeline": {
+            "enum": [
+              "client",
+              "tenant"
+            ]
+          },
+          "consentVersion": {
+            "type": "string"
+          },
+          "routingMode": {
+            "enum": [
+              "direct",
+              "territory"
+            ]
+          },
+          "sharingConsentVersion": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "pipeline",
+          "consentVersion"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/enquiries/{key}",
+      "public": true,
+      "request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 254
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "consent": {
+            "const": true
+          },
+          "consentVersion": {
+            "const": "contact-response-v1"
+          },
+          "website": {
+            "const": ""
+          },
+          "postalCode": {
+            "type": "string",
+            "maxLength": 7
+          },
+          "service": {
+            "enum": [
+              "psw",
+              "home_care"
+            ]
+          },
+          "sharingConsent": {
+            "const": true
+          },
+          "sharingConsentVersion": {
+            "const": "territory-sharing-v1"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "phone",
+          "consent",
+          "consentVersion",
+          "website"
+        ],
+        "additionalProperties": false,
+        "description": "Territory links require postalCode, service, sharingConsent and sharingConsentVersion. Direct links reject these fields. Link mode is authoritative and immutable."
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "accepted": {
+            "const": true
+          }
+        },
+        "required": [
+          "accepted"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "GET",
+      "suffix": "/performance",
+      "request": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "date"
+          },
+          "end": {
+            "type": "string",
+            "format": "date"
+          },
+          "locale": {
+            "enum": [
+              "en",
+              "fr",
+              "es"
+            ]
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "GET",
+      "suffix": "/performance/pdf",
+      "request": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "date"
+          },
+          "end": {
+            "type": "string",
+            "format": "date"
+          },
+          "locale": {
+            "enum": [
+              "en",
+              "fr",
+              "es"
+            ]
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/performance/email",
+      "request": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "date"
+          },
+          "end": {
+            "type": "string",
+            "format": "date"
+          },
+          "locale": {
+            "enum": [
+              "en",
+              "fr",
+              "es"
+            ]
+          },
+          "to": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 254
+          },
+          "confirmed": {
+            "const": true
+          }
+        },
+        "required": [
+          "start",
+          "end",
+          "locale",
+          "to",
+          "confirmed"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/performance/deliveries/{id}",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "decision",
+          "evidence"
+        ],
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483646
+          },
+          "decision": {
+            "enum": [
+              "accepted",
+              "not_sent"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/onboarding",
+      "request": {
+        "type": "object",
+        "properties": {
+          "leadId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "businessKind": {
+            "enum": [
+              "nurse",
+              "retired_nurse",
+              "care_entrepreneur"
+            ]
+          },
+          "identityChecked": {
+            "const": true
+          },
+          "agreementChecked": {
+            "const": true
+          },
+          "insuranceChecked": {
+            "const": true
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "leadId",
+          "businessKind",
+          "identityChecked",
+          "agreementChecked",
+          "insuranceChecked",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "PATCH",
+      "suffix": "/onboarding/{id}",
+      "request": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "version",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/handoffs",
+      "request": {
+        "type": "object",
+        "properties": {
+          "leadId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "visitId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "leadId",
+          "visitId",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/finance",
+      "request": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "enum": [
+              "invoice",
+              "payment",
+              "refund",
+              "expense"
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "amountCents": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000000
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "leadId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "invoiceId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "category": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "kind",
+          "reference",
+          "amountCents",
+          "date",
+          "leadId",
+          "invoiceId",
+          "category",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "method": "GET",
+      "suffix": "/marketing-statement",
+      "request": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "fr",
+              "es"
+            ]
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "locale",
+          "columns",
+          "rows",
+          "generatedAt",
+          "scope",
+          "classification",
+          "source"
+        ],
+        "properties": {
+          "id": {
+            "const": "growth_marketing_statement"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "amount",
+                    "note"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "suffix": "/marketing-statement/pdf",
+      "request": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "fr",
+              "es"
+            ]
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "string",
+        "format": "binary"
+      }
+    },
+    {
+      "method": "PUT",
+      "suffix": "/capacity/{id}",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "briefVersion",
+          "clientSlots",
+          "expiresAt",
+          "evidence"
+        ],
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "briefVersion": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "clientSlots": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  ],
+  "specialties": [
+    "telephone_caller",
+    "google_specialist",
+    "meta_specialist",
+    "seo_content",
+    "offline_partnerships",
+    "care_handoff"
+  ],
+  "callOutcomes": [
+    "no_answer",
+    "contacted",
+    "qualified",
+    "callback_requested",
+    "wrong_number",
+    "do_not_contact"
+  ],
+  "appointmentStatuses": [
+    "scheduled",
+    "completed",
+    "cancelled",
+    "no_show"
+  ],
+  "roleDefinitions": {
+    "growth_caller": "Telephone Caller",
+    "growth_google": "Google Marketing Specialist",
+    "growth_meta": "Meta Marketing Specialist",
+    "growth_seo": "SEO and Content Specialist",
+    "growth_offline": "Offline Partnership Specialist",
+    "growth_coordinator": "Care Handoff Coordinator"
+  },
+  "staffPolicies": {
+    "growth_caller": {
+      "scope": "assigned",
+      "sources": [],
+      "commands": [
+        "calls:POST",
+        "appointments:POST",
+        "appointments:PATCH",
+        "tasks:PATCH",
+        "contacts:PATCH",
+        "task-actions:POST"
+      ]
+    },
+    "growth_coordinator": {
+      "scope": "assigned",
+      "sources": [],
+      "commands": [
+        "calls:POST",
+        "appointments:POST",
+        "appointments:PATCH",
+        "tasks:PATCH",
+        "contacts:PATCH",
+        "task-actions:POST"
+      ]
+    },
+    "growth_google": {
+      "scope": "campaigns",
+      "sources": [
+        "google_ads",
+        "google_search"
+      ],
+      "commands": [
+        "campaigns:POST",
+        "campaigns:PATCH",
+        "tasks:PATCH",
+        "briefs:PUT",
+        "reviews:POST",
+        "task-actions:POST"
+      ]
+    },
+    "growth_meta": {
+      "scope": "campaigns",
+      "sources": [
+        "facebook",
+        "instagram"
+      ],
+      "commands": [
+        "campaigns:POST",
+        "campaigns:PATCH",
+        "tasks:PATCH",
+        "briefs:PUT",
+        "reviews:POST",
+        "task-actions:POST"
+      ]
+    },
+    "growth_seo": {
+      "scope": "campaigns",
+      "sources": [
+        "website"
+      ],
+      "commands": [
+        "campaigns:POST",
+        "campaigns:PATCH",
+        "tasks:PATCH",
+        "briefs:PUT",
+        "reviews:POST",
+        "task-actions:POST"
+      ]
+    },
+    "growth_offline": {
+      "scope": "campaigns",
+      "sources": [
+        "offline",
+        "referral"
+      ],
+      "commands": [
+        "campaigns:POST",
+        "campaigns:PATCH",
+        "tasks:PATCH",
+        "briefs:PUT",
+        "reviews:POST",
+        "task-actions:POST"
+      ]
+    }
+  },
+  "preservedAccountGrants": [
+    "maintenance"
+  ],
+  "leadFilters": [
+    "offset",
+    "q",
+    "pipeline",
+    "stage",
+    "source",
+    "owner"
+  ],
+  "visual": {
+    "themeCode": "growth_daylight",
+    "theme": {
+      "--color-primary": "#0F766E",
+      "--color-primary-hover": "#115E59",
+      "--color-secondary": "#0369A1",
+      "--color-background": "#F6FAFB",
+      "--color-surface": "#FFFFFF",
+      "--color-surface-soft": "#EAF6F3",
+      "--color-text": "#183039",
+      "--color-text-muted": "#526870",
+      "--color-border": "#D7E6E6",
+      "--color-info": "#0369A1",
+      "--color-on-primary": "#FFFFFF",
+      "--color-sidebar": "#FFFFFF",
+      "--color-sidebar-text": "#183039",
+      "--color-topbar": "#FFFFFF",
+      "--color-topbar-text": "#183039",
+      "--media-max-width": "76rem",
+      "--media-form-width": "29rem",
+      "--media-icon-size": "1.25em",
+      "--media-brand-size": "2.5rem",
+      "--media-hero-min": "22rem",
+      "--media-photo-ratio": "16 / 9",
+      "--media-stroke": "1.8",
+      "--media-border-width": "1px",
+      "--media-control-height": "3rem"
+    },
+    "images": {
+      "care": "/assets/growth/home-care.png",
+      "marketing": "/assets/growth/marketing-team.png"
+    },
+    "icons": {
+      "chart": "<path d=\"M4 4v16h16M8 16v-5M13 16V7M18 16v-8\"/>",
+      "people": "<circle cx=\"9\" cy=\"8\" r=\"3\"/><path d=\"M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 5\"/>",
+      "phone": "<path d=\"M7 3H4a1 1 0 0 0-1 1c0 9 8 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 2a15 15 0 0 1-7-7l2-2-2-5Z\"/>",
+      "campaign": "<path d=\"m4 10 16-6v16L4 14v-4ZM7 15l2 6h3l-2-5M4 10H2v4h2\"/>",
+      "calendar": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"3\"/><path d=\"M7 3v4M17 3v4M3 11h18M7 15h3M14 15h3\"/>",
+      "check": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"3\"/><path d=\"m8 12 3 3 5-6\"/>",
+      "heart": "<path d=\"M20 5c-3-3-7-1-8 1-1-2-5-4-8-1-4 4 1 9 8 15 7-6 12-11 8-15Z\"/>",
+      "flag": "<path d=\"M5 21V3m0 1h14l-3 5 3 5H5\"/>",
+      "wallet": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"15\" rx=\"3\"/><path d=\"M3 7V5a2 2 0 0 1 2-2h12M16 11h5v5h-5v-5Z\"/>",
+      "clock": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/>",
+      "refresh": "<path d=\"M20 7v5h-5M4 17v-5h5M20 11a8 8 0 0 0-14-6M4 13a8 8 0 0 0 14 6\"/>",
+      "home": "<path d=\"m3 10 9-7 9 7v11H3V10Zm6 11v-7h6v7\"/>",
+      "link": "<path d=\"m10 13 4-4M8 15l-2 2a4 4 0 0 1-5-5l5-5a4 4 0 0 1 5 0M16 9l2-2a4 4 0 0 1 5 5l-5 5a4 4 0 0 1-5 0\"/>",
+      "arrow": "<path d=\"M4 12h16m-6-6 6 6-6 6\"/>"
+    },
+    "navigation": [
+      {
+        "key": "summary",
+        "icon": "chart"
+      },
+      {
+        "key": "leads",
+        "icon": "people"
+      },
+      {
+        "key": "campaigns",
+        "icon": "campaign"
+      },
+      {
+        "key": "tasks",
+        "icon": "check"
+      },
+      {
+        "key": "calls",
+        "icon": "phone"
+      },
+      {
+        "key": "appointments",
+        "icon": "calendar"
+      },
+      {
+        "key": "team",
+        "icon": "people"
+      },
+      {
+        "key": "performance",
+        "icon": "chart"
+      }
+    ]
+  },
+  "reviewPolicy": {
+    "roles": [
+      "owner",
+      "ceo"
+    ],
+    "selfReviewRoles": [
+      "owner",
+      "ceo"
+    ],
+    "states": [
+      "draft",
+      "pending_review",
+      "approved",
+      "changes_requested",
+      "rejected"
+    ],
+    "actions": [
+      "submit",
+      "withdraw",
+      "approve",
+      "request_changes",
+      "reject"
+    ]
+  },
+  "taskPolicy": {
+    "managerRoles": [
+      "ceo",
+      "marketing",
+      "local_marketing",
+      "tenant_admin",
+      "owner"
+    ],
+    "priorities": [
+      "low",
+      "normal",
+      "high",
+      "urgent"
+    ],
+    "managerActions": [
+      "reassign",
+      "reschedule",
+      "priority",
+      "resolve_escalation"
+    ],
+    "ownerActions": [
+      "escalate"
+    ]
+  },
+  "intakePolicy": {
+    "managerRoles": [
+      "ceo",
+      "marketing",
+      "local_marketing",
+      "tenant_admin",
+      "owner"
+    ],
+    "route": "/enquire/",
+    "consentVersion": "contact-response-v1",
+    "sourceRate": 20,
+    "linkRate": 100,
+    "sources": [
+      "website",
+      "offline",
+      "referral"
+    ],
+    "qr": {
+      "errorCorrection": "M",
+      "quietZone": 4,
+      "maxUrlLength": 512,
+      "foreground": "#000000",
+      "background": "#ffffff"
+    },
+    "routingModes": [
+      "direct",
+      "territory"
+    ],
+    "sharingConsentVersion": "territory-sharing-v1"
+  },
+  "reportPolicy": {
+    "roles": [
+      "ceo",
+      "marketing",
+      "local_marketing",
+      "tenant_admin",
+      "owner"
+    ],
+    "emailRoles": [
+      "ceo",
+      "marketing",
+      "local_marketing",
+      "tenant_admin",
+      "owner"
+    ],
+    "maxDays": 365,
+    "emailHourlyLimit": 10,
+    "maxOwners": 200
+  },
+  "alertPolicy": {
+    "horizonHours": 24,
+    "limitPerKind": 50,
+    "kinds": [
+      "callback_due",
+      "appointment_due",
+      "task_attention"
+    ]
+  },
+  "businessPolicy": {
+    "roles": [
+      "ceo",
+      "tenant_admin",
+      "owner"
+    ],
+    "businessKinds": [
+      "nurse",
+      "retired_nurse",
+      "care_entrepreneur"
+    ],
+    "currency": "CAD",
+    "maxCents": 1000000000,
+    "expenseCategories": [
+      "care_delivery",
+      "overhead"
+    ],
+    "financeKinds": [
+      "invoice",
+      "payment",
+      "refund",
+      "expense"
+    ],
+    "leadLimit": 200,
+    "eligibleStages": {
+      "client": [
+        "agreed",
+        "started",
+        "recurring"
+      ],
+      "tenant": [
+        "demo",
+        "pilot",
+        "active"
+      ]
+    }
+  },
+  "adminGrowthRoles": [
+    "tenant_admin",
+    "owner"
+  ],
+  "draftPolicy": {
+    "rowFieldPrefixes": [
+      "growth-owner-",
+      "growth-due-",
+      "growth-evidence-",
+      "growth-budget-",
+      "growth-spend-"
+    ],
+    "storage": "memory",
+    "scope": "current_actor_tenant_record_version",
+    "preserveOn": [
+      "language_change",
+      "failed_request"
+    ],
+    "clearOn": [
+      "successful_reload",
+      "server_version_change",
+      "account_change"
+    ]
+  },
+  "ownerPolicy": {
+    "roles": [
+      "owner",
+      "ceo"
+    ],
+    "teamRoles": [
+      "owner",
+      "ceo",
+      "tenant_admin"
+    ],
+    "submissionRoles": [
+      "owner",
+      "ceo",
+      "tenant_admin",
+      "marketing",
+      "local_marketing"
+    ],
+    "financeKinds": {
+      "owner": [
+        "invoice",
+        "payment",
+        "refund",
+        "expense"
+      ],
+      "ceo": [
+        "invoice",
+        "payment",
+        "refund",
+        "expense"
+      ],
+      "tenant_admin": [
+        "invoice",
+        "payment"
+      ]
+    },
+    "requirement": "User 2026-10-16: fix franchise-owner, tenant-admin and growth staff role gaps; owner authority for plans, campaign money and approval; tenant operations remain local.",
+    "adminConsoleRoles": [
+      "owner",
+      "tenant_admin"
+    ]
+  },
+  "centralMarketingPolicy": {
+    "version": "proposal-v1",
+    "status": "proposal_not_billable",
+    "currency": "CAD",
+    "basis": "recorded_monthly_payments_less_refunds",
+    "totalBasisPoints": 500,
+    "advertisingBasisPoints": 400,
+    "managementBasisPoints": 100,
+    "period": "utc_calendar_month",
+    "roles": [
+      "ceo",
+      "tenant_admin",
+      "owner"
+    ],
+    "requirement": "User 2026-10-16: centrally manage digital marketing with proposed 5 percent contribution; continue implementing model",
+    "responsibilities": [
+      "central_campaigns",
+      "owner_budget",
+      "tenant_followup",
+      "central_reporting"
+    ],
+    "activationGates": [
+      "agreement",
+      "provider_connection",
+      "service_capacity"
+    ],
+    "rounding": "total_half_up_then_management_half_up_advertising_remainder",
+    "reviewIncludesBudget": true,
+    "budgetChangeResetsBrief": true,
+    "statement": {
+      "minMonth": "2000-01",
+      "maxMonth": "current_utc_month",
+      "history": "recalculated_current_proposal",
+      "routes": [
+        "/marketing-statement",
+        "/marketing-statement/pdf"
+      ]
+    }
+  },
+  "capacityPolicy": {
+    "roles": [
+      "owner",
+      "ceo"
+    ],
+    "sources": [
+      "google_ads",
+      "facebook",
+      "instagram"
+    ],
+    "maxSlots": 1000,
+    "maxDays": 30,
+    "providerLaunchEnabled": false,
+    "table": "growth_campaign_capacity",
+    "fields": [
+      "id",
+      "tenant_id",
+      "campaign_id",
+      "actor_id",
+      "brief_version",
+      "version",
+      "client_slots",
+      "expires_at",
+      "evidence",
+      "created_at"
+    ],
+    "history": "append_only",
+    "requirement": "Continue central marketing: owner attests operational capacity against an approved client campaign; expiry, revocation and changed briefs fail closed; no clinical scheduling or provider launch",
+    "gates": [
+      "brief",
+      "budget",
+      "schedule",
+      "capacity",
+      "provider"
+    ],
+    "budgetRule": "unspent_budget_positive",
+    "scheduleRule": "campaign_end_not_expired"
+  },
+  "permissions": {
+    "ceo": {
+      "view": true,
+      "create": true,
+      "edit": true
+    },
+    "marketing": {
+      "view": true,
+      "create": true,
+      "edit": true
+    },
+    "local_marketing": {
+      "view": true,
+      "create": true,
+      "edit": true
+    },
+    "growth_caller": {
+      "view": true,
+      "create": true,
+      "edit": true
+    },
+    "growth_google": {
+      "view": true,
+      "create": true,
+      "edit": true
+    },
+    "growth_meta": {
+      "view": true,
+      "create": true,
+      "edit": true
+    },
+    "growth_seo": {
+      "view": true,
+      "create": true,
+      "edit": true
+    },
+    "growth_offline": {
+      "view": true,
+      "create": true,
+      "edit": true
+    },
+    "growth_coordinator": {
+      "view": true,
+      "create": true,
+      "edit": true
+    },
+    "tenant_admin": {
+      "view": true,
+      "create": true,
+      "edit": true
+    },
+    "owner": {
+      "view": true,
+      "create": true,
+      "edit": true
+    }
+  },
+  "planRoles": [
+    "owner",
+    "ceo"
+  ]
+}

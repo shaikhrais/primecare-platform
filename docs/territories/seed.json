@@ -1,0 +1,447 @@
+{
+  "version": 1,
+  "endpoint": "/v1/governance/platform/territories",
+  "roles": {
+    "platform_admin": "global",
+    "central_admin": "global",
+    "tenant_admin": "own",
+    "owner": "own"
+  },
+  "services": [
+    "psw",
+    "home_care"
+  ],
+  "source": {
+    "year": 2021,
+    "table": "98-10-0027-01",
+    "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=9810002701",
+    "boundary": "Whole 2021 Census FSA polygons",
+    "draft": true,
+    "routingVerified": false
+  },
+  "locales": {
+    "en": {
+      "nav": "Territories",
+      "title": "Territory sales & allocation",
+      "intro": "Select a numbered green area, choose its operating tenant and record the confirmed sale.",
+      "available": "Available · pending sale",
+      "sold": "Sold · locked",
+      "reserve": "Reserve · not for sale",
+      "total": "Sale territories",
+      "seniors": "Residents aged 65+",
+      "sold_seniors": "Seniors in sold areas",
+      "available_seniors": "Seniors in available areas",
+      "reserve_seniors": "Seniors in reserves",
+      "source": "2021 Census · Statistics Canada table 98-10-0027-01. Whole postal FSA boundaries; draft planning areas, not current population or customers. Some rural pockets remain.",
+      "basemap": "Roads and water: Natural Earth (public domain). Place labels: GeoNames (CC BY). Travel times not verified.",
+      "choose": "Select a territory",
+      "tenant": "Operating tenant",
+      "choose_tenant": "Choose an active tenant",
+      "services": "Services",
+      "psw": "PSW services",
+      "home_care": "Home care",
+      "reference": "Confirmed sale / agreement reference",
+      "confirm": "I confirm the sale and tenant assignment have been approved.",
+      "save": "Record sale & lock territory",
+      "refresh": "Refresh board",
+      "zoom": "Zoom to selected area",
+      "overview": "Full map",
+      "details": "Territory details",
+      "postal": "Postal areas (FSA)",
+      "population": "Total population",
+      "name": "Territory",
+      "status": "Status",
+      "owner": "Assigned tenant",
+      "date": "Recorded on",
+      "no_owner": "Unassigned",
+      "locked": "Sold areas cannot be reassigned or sold again here.",
+      "note": "Recording a sale stores its approved reference; this screen does not take payment.",
+      "working": "Saving…",
+      "saved": "Sale recorded. Territory locked.",
+      "failed": "Unable to save. Refresh and check the territory before retrying.",
+      "conflict": "This territory changed or was already sold. Refresh the board.",
+      "empty": "No territories assigned yet.",
+      "own": "Your allocated PSW and home-care territories.",
+      "language": "Language",
+      "select": "Select",
+      "close": "Close details",
+      "reserves": "Reserve areas",
+      "evidence": "Sale reference",
+      "number": "No.",
+      "view": "View details",
+      "conflict_refreshed": "Another update was found. The board has been refreshed."
+    },
+    "fr": {
+      "nav": "Territoires",
+      "title": "Ventes et attribution des territoires",
+      "intro": "Sélectionnez une zone verte numérotée, choisissez le locataire exploitant et enregistrez la vente confirmée.",
+      "available": "Disponible · vente en attente",
+      "sold": "Vendu · verrouillé",
+      "reserve": "Réserve · non disponible",
+      "total": "Territoires à vendre",
+      "seniors": "Résidents de 65 ans et plus",
+      "sold_seniors": "Aînés dans les zones vendues",
+      "available_seniors": "Aînés dans les zones disponibles",
+      "reserve_seniors": "Aînés dans les réserves",
+      "source": "Recensement de 2021 · Statistique Canada, tableau 98-10-0027-01. Limites postales RTA entières; zones de planification provisoires, ni population actuelle ni clients. Certaines poches rurales demeurent.",
+      "basemap": "Routes et eau : Natural Earth (domaine public). Lieux : GeoNames (CC BY). Trajets non vérifiés.",
+      "choose": "Choisir un territoire",
+      "tenant": "Locataire exploitant",
+      "choose_tenant": "Choisir un locataire actif",
+      "services": "Services",
+      "psw": "Services de préposés aux soins",
+      "home_care": "Soins à domicile",
+      "reference": "Référence de vente ou d’accord confirmé",
+      "confirm": "Je confirme que la vente et l’attribution ont été approuvées.",
+      "save": "Enregistrer la vente et verrouiller",
+      "refresh": "Actualiser",
+      "zoom": "Agrandir la zone sélectionnée",
+      "overview": "Carte entière",
+      "details": "Détails du territoire",
+      "postal": "Zones postales (RTA)",
+      "population": "Population totale",
+      "name": "Territoire",
+      "status": "État",
+      "owner": "Locataire attribué",
+      "date": "Enregistré le",
+      "no_owner": "Non attribué",
+      "locked": "Les zones vendues ne peuvent être réattribuées ou revendues ici.",
+      "note": "L’enregistrement conserve la référence approuvée; cet écran ne perçoit aucun paiement.",
+      "working": "Enregistrement…",
+      "saved": "Vente enregistrée. Territoire verrouillé.",
+      "failed": "Échec. Actualisez et vérifiez le territoire avant de réessayer.",
+      "conflict": "Ce territoire a changé ou est vendu. Actualisez la carte.",
+      "empty": "Aucun territoire attribué.",
+      "own": "Vos territoires attribués de soins à domicile et de préposés aux soins.",
+      "language": "Langue",
+      "select": "Sélectionner",
+      "close": "Fermer les détails",
+      "reserves": "Zones de réserve",
+      "evidence": "Référence de vente",
+      "number": "N°",
+      "view": "Voir les détails",
+      "conflict_refreshed": "Une autre mise à jour a été trouvée. Le tableau a été actualisé."
+    },
+    "es": {
+      "nav": "Territorios",
+      "title": "Venta y asignación de territorios",
+      "intro": "Seleccione una zona verde numerada, elija el inquilino operador y registre la venta confirmada.",
+      "available": "Disponible · venta pendiente",
+      "sold": "Vendido · bloqueado",
+      "reserve": "Reserva · no en venta",
+      "total": "Territorios en venta",
+      "seniors": "Residentes de 65 años o más",
+      "sold_seniors": "Mayores en zonas vendidas",
+      "available_seniors": "Mayores en zonas disponibles",
+      "reserve_seniors": "Mayores en reservas",
+      "source": "Censo de 2021 · Statistics Canada, tabla 98-10-0027-01. Límites postales FSA completos; áreas de planificación provisionales, no población actual ni clientes. Quedan zonas rurales.",
+      "basemap": "Carreteras y agua: Natural Earth (dominio público). Lugares: GeoNames (CC BY). Tiempos de viaje sin verificar.",
+      "choose": "Seleccione un territorio",
+      "tenant": "Inquilino operador",
+      "choose_tenant": "Elija un inquilino activo",
+      "services": "Servicios",
+      "psw": "Servicios PSW",
+      "home_care": "Atención domiciliaria",
+      "reference": "Referencia de venta o acuerdo confirmado",
+      "confirm": "Confirmo que la venta y la asignación han sido aprobadas.",
+      "save": "Registrar venta y bloquear",
+      "refresh": "Actualizar",
+      "zoom": "Ampliar zona seleccionada",
+      "overview": "Mapa completo",
+      "details": "Detalles del territorio",
+      "postal": "Zonas postales (FSA)",
+      "population": "Población total",
+      "name": "Territorio",
+      "status": "Estado",
+      "owner": "Inquilino asignado",
+      "date": "Registrado el",
+      "no_owner": "Sin asignar",
+      "locked": "Las zonas vendidas no se pueden reasignar ni vender de nuevo aquí.",
+      "note": "El registro conserva la referencia aprobada; esta pantalla no cobra pagos.",
+      "working": "Guardando…",
+      "saved": "Venta registrada. Territorio bloqueado.",
+      "failed": "No se pudo guardar. Actualice y compruebe el territorio antes de reintentar.",
+      "conflict": "Este territorio cambió o ya se vendió. Actualice el mapa.",
+      "empty": "Aún no hay territorios asignados.",
+      "own": "Sus territorios asignados de PSW y atención domiciliaria.",
+      "language": "Idioma",
+      "select": "Seleccionar",
+      "close": "Cerrar detalles",
+      "reserves": "Áreas de reserva",
+      "evidence": "Referencia de venta",
+      "number": "N.º",
+      "view": "Ver detalles",
+      "conflict_refreshed": "Se encontró otra actualización. El panel se ha actualizado."
+    }
+  },
+  "theme": {
+    "available": "#166534",
+    "availableFill": "#dcfce7",
+    "sold": "#991b1b",
+    "soldFill": "#fee2e2",
+    "reserve": "#475569",
+    "reserveFill": "#e2e8f0",
+    "land": "#f8faf8",
+    "water": "#dceef7",
+    "road": "#b4aaa0",
+    "ink": "#183c48",
+    "label": "#ffffff"
+  },
+  "contracts": [
+    {
+      "method": "GET",
+      "suffix": "",
+      "request": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "required": [
+          "canManage",
+          "source",
+          "summary",
+          "territories",
+          "tenants"
+        ],
+        "properties": {
+          "canManage": {
+            "type": "boolean"
+          },
+          "source": {
+            "type": "object"
+          },
+          "territories": {
+            "type": "array",
+            "maxItems": 30,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "number",
+                "code",
+                "name",
+                "status",
+                "seniors65",
+                "population",
+                "fsas",
+                "canSell",
+                "version",
+                "allocation"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "integer"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "available",
+                    "sold",
+                    "reserve"
+                  ]
+                },
+                "seniors65": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "population": {
+                  "type": "integer"
+                },
+                "fsas": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "canSell": {
+                  "type": "boolean"
+                },
+                "version": {
+                  "enum": [
+                    0,
+                    1
+                  ]
+                },
+                "allocation": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "tenantId": {
+                      "type": "string"
+                    },
+                    "tenantName": {
+                      "type": "string"
+                    },
+                    "reference": {
+                      "type": "string"
+                    },
+                    "services": {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "psw",
+                          "home_care"
+                        ]
+                      }
+                    },
+                    "recordedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tenants": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "available": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "seniors65": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "sold": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "seniors65": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "reserve": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "seniors65": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/{id}/sale",
+      "request": {
+        "type": "object",
+        "required": [
+          "version",
+          "tenantId",
+          "services",
+          "reference",
+          "confirmed"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "type": "integer",
+            "const": 0
+          },
+          "tenantId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "services": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "psw",
+                "home_care"
+              ]
+            }
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 200
+          },
+          "confirmed": {
+            "const": true
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "required": [
+          "territoryId",
+          "status",
+          "version"
+        ],
+        "properties": {
+          "territoryId": {
+            "type": "string"
+          },
+          "status": {
+            "const": "sold"
+          },
+          "version": {
+            "const": 1
+          }
+        }
+      }
+    }
+  ],
+  "allocationIntegrity": {
+    "catalogFields": [
+      "id",
+      "order",
+      "code",
+      "name",
+      "fsas",
+      "seniors65",
+      "population",
+      "is_reserve"
+    ],
+    "unknownTerritory": "not_found",
+    "mismatch": "unavailable",
+    "conflictRecovery": "refresh_and_lock_if_sold",
+    "uncertainWrite": "retry_same_key"
+  }
+}

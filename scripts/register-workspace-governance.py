@@ -76,6 +76,8 @@ with sqlite3.connect(DB) as blocker_db:
 with sqlite3.connect(DB) as platform_db:
     runpy.run_path(str(ROOT/'scripts/register-platform-admin-role.py'))['register'](platform_db,apis=True)
 runpy.run_path(str(ROOT/'scripts/generate-api-execution-inventory.py'))
+runpy.run_path(str(ROOT/'scripts/register-growth-governance.py'), run_name='__main__')
+runpy.run_path(str(ROOT/'scripts/register-look-manager.py'), run_name='__main__')
 with sqlite3.connect(DB) as db:
     db.row_factory = sqlite3.Row
     db.execute('''CREATE TABLE IF NOT EXISTS screen_runtime_views (

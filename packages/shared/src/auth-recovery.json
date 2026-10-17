@@ -1,0 +1,43 @@
+{
+  "routes": {
+    "forgot": "/forgot-password",
+    "reset": "/reset-password",
+    "login": "/login"
+  },
+  "endpoints": {
+    "forgot": "/v1/auth/forgot-password",
+    "reset": "/v1/auth/reset-password"
+  },
+  "locales": {
+    "en": {
+      "recovery_loading": "Requesting recovery instructions…",
+      "recovery_error": "Recovery could not be completed. Check the details and try again.",
+      "reset_success": "Password updated. Sign in with your new password.",
+      "reset_ready": "I have a recovery code",
+      "reset_guidance": "Use the 12-character code emailed to you. Your new password must contain at least 12 characters and no more than 72 UTF-8 bytes.",
+      "password_mismatch": "Passwords must match and meet the stated length.",
+      "recovery_unavailable": "Recovery email is unavailable. Contact the platform operator.",
+      "recovery_limit": "Too many requests. Wait before trying again."
+    },
+    "fr": {
+      "recovery_loading": "Demande des instructions de récupération…",
+      "recovery_error": "La récupération a échoué. Vérifiez les renseignements et réessayez.",
+      "reset_success": "Mot de passe modifié. Connectez-vous avec votre nouveau mot de passe.",
+      "reset_ready": "J’ai un code de récupération",
+      "reset_guidance": "Utilisez le code de 12 caractères reçu par courriel. Votre nouveau mot de passe doit contenir au moins 12 caractères et au plus 72 octets UTF-8.",
+      "password_mismatch": "Les mots de passe doivent être identiques et respecter la longueur indiquée.",
+      "recovery_unavailable": "Le courriel de récupération est indisponible. Contactez l’opérateur de la plateforme.",
+      "recovery_limit": "Trop de demandes. Attendez avant de réessayer."
+    },
+    "es": {
+      "recovery_loading": "Solicitando instrucciones de recuperación…",
+      "recovery_error": "No se pudo completar la recuperación. Revisa los datos y reintenta.",
+      "reset_success": "Contraseña actualizada. Inicia sesión con tu nueva contraseña.",
+      "reset_ready": "Tengo un código de recuperación",
+      "reset_guidance": "Usa el código de 12 caracteres recibido por correo. La nueva contraseña debe tener al menos 12 caracteres y no más de 72 bytes UTF-8.",
+      "password_mismatch": "Las contraseñas deben coincidir y cumplir la longitud indicada.",
+      "recovery_unavailable": "El correo de recuperación no está disponible. Contacta al operador de la plataforma.",
+      "recovery_limit": "Demasiadas solicitudes. Espera antes de reintentar."
+    }
+  }
+}

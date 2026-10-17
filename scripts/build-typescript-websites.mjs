@@ -1,6 +1,19 @@
 execFileSync('python3',['scripts/register-platform-admin-role.py']);
+execFileSync('python3',['scripts/register-admin-hierarchy.py']);
+execFileSync('python3',['scripts/register-admin-form-drafts.py']);
+execFileSync('python3',['scripts/register-admin-reports.py']);
+execFileSync('python3',['scripts/register-report-navigation.py']);
+execFileSync('python3',['scripts/register-look-manager.py']);
+execFileSync('python3',['scripts/register-look-provider.py']);
+execFileSync('python3',['scripts/register-auth-recovery-web.py']);
+execFileSync('python3',['scripts/register-media-look.py']);
 execFileSync('python3',['scripts/register-maintenance-governance.py']);
 execFileSync('python3',['scripts/register-workspace-governance.py']);
+execFileSync('python3',['scripts/register-workspace-visual-review.py']);
+execFileSync('python3',['scripts/register-tenant-operations.py']);
+execFileSync('python3',['scripts/register-platform-bundle.py']);
+execFileSync('python3',['scripts/register-territory-intake.py']);
+execFileSync('python3',['scripts/register-care-governance.py']);
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';
@@ -11,6 +24,7 @@ execFileSync('python3', ['scripts/export-typescript-websites.py', '--output', ge
 rmSync(dist, { recursive: true, force: true }); mkdirSync(join(dist, 'assets'), { recursive: true });
 execFileSync('npx', ['esbuild', join(source, 'src/main.ts'), '--bundle', '--minify', `--outfile=${join(dist, 'assets/app.js')}`], { stdio: 'inherit' });
 cpSync(join(source, 'src/styles.css'), join(dist, 'assets/app.css'));
+cpSync(join(source, 'public'), dist, { recursive: true });
 const projects = Object.keys(JSON.parse(readFileSync('websites/typescript/projects.json', 'utf8')));
 for (const project of projects) {
   const target = join(dist, project); mkdirSync(join(target, 'assets'), { recursive: true });
