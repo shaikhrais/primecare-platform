@@ -1,7 +1,7 @@
 name: Platform admin database and browser acceptance
 on:
   pull_request:
-    paths: ['cloudflare/workers/**', 'websites/typescript/**', 'scripts/*platform*', 'packages/database/migrations/20261011_platform_administration.sql', '.github/workflows/platform-admin-acceptance.yml']
+    paths: ['cloudflare/workers/**', 'websites/typescript/**', 'scripts/*platform*', 'scripts/*accessibility*', 'scripts/*contrast*', 'scripts/*media-look*', 'scripts/register-look-manager.py', 'packages/shared/src/media/**', 'packages/shared/src/growth/**', 'docs/appearance/media/**', 'scripts/*territor*', 'scripts/*tenant-operations*', 'docs/platform-operations/**', 'docs/platform-bundle/**', 'scripts/test-public-territory-intake.mjs', 'packages/database/migrations/20261016_territory_intake.sql', 'packages/shared/src/platform-bundle/**', 'packages/database/migrations/20261016_platform_bundle.sql', 'packages/database/migrations/20261017_growth_capacity.sql', 'packages/shared/src/tenant-operations.json', 'packages/database/migrations/*tenant_operations*', 'docs/territories/**', 'packages/shared/src/territories/**', 'packages/database/migrations/*territor*', 'packages/database/migrations/20261011_platform_administration.sql', '.github/workflows/platform-admin-acceptance.yml']
 permissions:
   contents: read
 jobs:
@@ -25,11 +25,50 @@ jobs:
         with:
           node-version: '22'
       - run: |
-          npm install --prefix "$RUNNER_TEMP/platform-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.11.3 bcryptjs@3
+          npm install --prefix "$RUNNER_TEMP/platform-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.11.3 bcryptjs@3 axe-core@4.10.3
           ln -s "$RUNNER_TEMP/platform-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - name: Validate authority, persistence, concurrency and rollback
         run: node --test scripts/test-platform-bootstrap.mjs scripts/test-platform-administration-postgres.mjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check territory geography export
+        run: |
+          python3 -m pip install shapely==2.2.0
+          python3 scripts/register-territory-governance.py --check
+      - name: Check tenant operations governance
+        run: python3 scripts/register-tenant-operations.py --check
+      - name: Register and verify the first platform bundle
+        run: |
+          python3 scripts/register-platform-bundle.py
+          python3 scripts/register-platform-bundle.py --check
+          python3 scripts/register-media-look.py
+          python3 scripts/register-media-look.py --check
+      - name: Validate launch, renewals, support and routing in PostgreSQL and browsers
+        run: node --test scripts/test-platform-bundle.mjs
+      - name: Validate bounded histories, scope, keyboard navigation and accessibility
+        env:
+          ACCESSIBILITY_CONTRAST_REVIEW: '1'
+        run: node --test scripts/test-platform-history.mjs
+      - name: Scan administrative and growth role accessibility
+        env:
+          ACCESSIBILITY_CONTRAST_REVIEW: '1'
+        run: node --test scripts/test-admin-growth-accessibility.mjs
+      - name: Summarize visible-state contrast evidence
+        run: node scripts/summarize-contrast-review.mjs
+      - name: Validate scoped attention queue and workflow correction navigation
+        run: node --test scripts/test-platform-attention.mjs
+      - name: Validate public territory routing with UUID and text tenant identities
+        run: |
+          python3 scripts/register-territory-intake.py
+          python3 scripts/register-territory-intake.py --check
+          node --test scripts/test-public-territory-intake.mjs
+          PLATFORM_TEST_IDENTITY=text node --test scripts/test-public-territory-intake.mjs
+      - name: Validate tenant operations summaries, scope and fix navigation
+        run: node --test scripts/test-tenant-operations.mjs
+      - name: Validate territory allocation, duplicate-sale races and browser workflows
+        run: node --test scripts/test-territory-allocation.mjs
       - name: Build actual website from governed metadata
         run: |
           python3 scripts/register-platform-admin-role.py
@@ -46,5 +85,14 @@ jobs:
         if: always()
         with:
           name: platform-admin-workflow-video
-          path: artifacts/platform-admin-browser/
+          path: |
+            artifacts/platform-admin-browser/
+            test-results/territories/
+            test-results/tenant-operations/
+            test-results/platform-bundle/
+            test-results/platform-attention/
+            test-results/platform-history/
+            test-results/accessibility/
+            test-results/contrast/
+            test-results/territory-intake/
 

@@ -1,7 +1,7 @@
 name: Shared admin reporting
 on:
   pull_request:
-    paths: ['cloudflare/workers/**', 'websites/typescript/**', 'packages/primecare_models/**', 'packages/primecare_ui/**', 'packages/flutter_core/lib/src/network/api_client.dart', 'scripts/*admin-reports*', 'scripts/generate-cloudflare-worker-config.mjs', 'packages/database/migrations/*admin_reports.sql', '.github/workflows/admin-reports.yml']
+    paths: ['cloudflare/workers/**', 'websites/typescript/**', 'packages/primecare_models/**', 'packages/primecare_ui/**', 'packages/flutter_core/lib/src/network/api_client.dart', 'scripts/*admin-reports*', 'scripts/register-workspace-governance.py', 'scripts/register-care-governance.py', 'scripts/generate-cloudflare-worker-config.mjs', 'packages/database/migrations/*admin_reports.sql', '.github/workflows/admin-reports.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -27,6 +27,10 @@ jobs:
           node-version: '24'
       - run: npm install --prefix "$RUNNER_TEMP/reports-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.8.3 @types/node@22 @types/pg@8 pg@8.11.3 bcryptjs@3
       - run: ln -s "$RUNNER_TEMP/reports-tools/node_modules" node_modules
+      - name: Register governed roles before deriving reporting grants
+        run: |
+          python3 scripts/register-workspace-governance.py
+          python3 scripts/register-care-governance.py
       - run: python3 scripts/register-admin-reports.py && python3 scripts/register-admin-reports.py --check
       - run: node --test scripts/test-admin-reports.mjs scripts/test-workspace.mjs scripts/test-auth-maintenance.mjs
       - run: node --test scripts/test-admin-reports-postgres.mjs

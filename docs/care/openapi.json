@@ -1,0 +1,2900 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare RN, supervisor and support care",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "paths": {
+    "/v1/governance/care": {
+      "get": {
+        "summary": "Read assigned care worklist and record",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "description": "Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.",
+        "responses": {
+          "200": {
+            "description": "Persisted scoped care result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "identity",
+                    "capabilities",
+                    "cases",
+                    "total",
+                    "offset",
+                    "limit",
+                    "people",
+                    "visits",
+                    "detail",
+                    "concerns",
+                    "assignmentTotal",
+                    "view",
+                    "staffing",
+                    "schedules",
+                    "timesheets",
+                    "handovers",
+                    "followups",
+                    "workload",
+                    "visitPicker"
+                  ],
+                  "properties": {
+                    "detail": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "required": [
+                            "id",
+                            "clinical",
+                            "plan",
+                            "events",
+                            "actions"
+                          ],
+                          "properties": {
+                            "clinical": {
+                              "type": "boolean"
+                            },
+                            "events": {
+                              "type": "array",
+                              "maxItems": 1000
+                            }
+                          },
+                          "allOf": [
+                            {
+                              "if": {
+                                "properties": {
+                                  "clinical": {
+                                    "const": false
+                                  }
+                                }
+                              },
+                              "then": {
+                                "properties": {
+                                  "plan": {
+                                    "type": "null"
+                                  },
+                                  "events": {
+                                    "maxItems": 0
+                                  }
+                                },
+                                "not": {
+                                  "required": [
+                                    "client"
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "cases": {
+                      "type": "array",
+                      "maxItems": 25,
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "state",
+                          "work"
+                        ],
+                        "properties": {
+                          "work": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "required": [
+                                  "step",
+                                  "ownerId",
+                                  "ownerKind",
+                                  "dueAt",
+                                  "late",
+                                  "lateMinutes"
+                                ],
+                                "properties": {
+                                  "step": {
+                                    "type": "string"
+                                  },
+                                  "ownerId": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  },
+                                  "ownerKind": {
+                                    "enum": [
+                                      "nurse",
+                                      "supervisor",
+                                      "worker",
+                                      "operations"
+                                    ]
+                                  },
+                                  "dueAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "late": {
+                                    "type": "boolean"
+                                  },
+                                  "lateMinutes": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "people": {
+                      "type": "array",
+                      "maxItems": 200
+                    },
+                    "visits": {
+                      "type": "array",
+                      "maxItems": 100
+                    },
+                    "staffing": {
+                      "type": "object",
+                      "required": [
+                        "records",
+                        "total",
+                        "offset",
+                        "limit",
+                        "canManage",
+                        "canCreate",
+                        "createActions",
+                        "staffOptions"
+                      ],
+                      "properties": {
+                        "records": {
+                          "type": "array",
+                          "maxItems": 25
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    },
+                    "visitPicker": {
+                      "type": "object",
+                      "required": [
+                        "total",
+                        "offset",
+                        "limit",
+                        "query"
+                      ],
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "const": 25
+                        },
+                        "query": {
+                          "type": "string",
+                          "maxLength": 100
+                        }
+                      }
+                    },
+                    "schedules": {
+                      "type": "object",
+                      "required": [
+                        "canManage",
+                        "templates",
+                        "sourcePicker",
+                        "series",
+                        "total",
+                        "offset",
+                        "limit"
+                      ],
+                      "properties": {
+                        "templates": {
+                          "type": "array",
+                          "maxItems": 25
+                        },
+                        "sourcePicker": {
+                          "type": "object",
+                          "required": [
+                            "query",
+                            "total",
+                            "offset",
+                            "limit"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields, consent or tenant override"
+          },
+          "401": {
+            "description": "Session inactive or expired"
+          },
+          "403": {
+            "description": "Role, qualification or action denied"
+          },
+          "404": {
+            "description": "Hidden or missing record"
+          },
+          "405": {
+            "description": "Method denied"
+          },
+          "409": {
+            "description": "Stale version or workflow state"
+          },
+          "413": {
+            "description": "Record limit"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Storage or schema unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          {
+            "name": "case",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "view",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "all",
+                "mine",
+                "late",
+                "concerns",
+                "coverage"
+              ]
+            }
+          },
+          {
+            "name": "staffingOffset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          {
+            "name": "staff",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "seriesOffset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          {
+            "name": "timeOffset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          {
+            "name": "handoverOffset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          {
+            "name": "followupOffset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          {
+            "name": "followupView",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "all",
+                "mine",
+                "late",
+                "review",
+                "extensions",
+                "blocked",
+                "waiting"
+              ]
+            }
+          },
+          {
+            "name": "followupOwner",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "workloadOffset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          {
+            "name": "workloadQuery",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "rosterQuery",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "visitQuery",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "visitOffset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          {
+            "name": "sourceQuery",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "sourceOffset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          }
+        ]
+      }
+    },
+    "/v1/governance/care/clearances": {
+      "post": {
+        "summary": "Scoped care clearances",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "description": "Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.",
+        "responses": {
+          "200": {
+            "description": "Persisted scoped care result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields, consent or tenant override"
+          },
+          "401": {
+            "description": "Session inactive or expired"
+          },
+          "403": {
+            "description": "Role, qualification or action denied"
+          },
+          "404": {
+            "description": "Hidden or missing record"
+          },
+          "405": {
+            "description": "Method denied"
+          },
+          "409": {
+            "description": "Stale version or workflow state"
+          },
+          "413": {
+            "description": "Record limit"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Storage or schema unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "staffId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2147483646
+                  },
+                  "status": {
+                    "enum": [
+                      "active",
+                      "revoked"
+                    ]
+                  },
+                  "expiresOn": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "registration": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 1
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2000
+                  },
+                  "checked": {
+                    "const": true
+                  },
+                  "profile": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "fullName",
+                      "languages",
+                      "serviceAreas",
+                      "skills",
+                      "approved"
+                    ],
+                    "properties": {
+                      "fullName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000
+                      },
+                      "languages": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000
+                      },
+                      "serviceAreas": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000
+                      },
+                      "skills": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000
+                      },
+                      "approved": {
+                        "const": true
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "staffId",
+                  "version",
+                  "status",
+                  "expiresOn",
+                  "registration",
+                  "evidence",
+                  "checked"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/care/cases": {
+      "post": {
+        "summary": "Scoped care cases",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "description": "Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.",
+        "responses": {
+          "201": {
+            "description": "Persisted scoped care result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields, consent or tenant override"
+          },
+          "401": {
+            "description": "Session inactive or expired"
+          },
+          "403": {
+            "description": "Role, qualification or action denied"
+          },
+          "404": {
+            "description": "Hidden or missing record"
+          },
+          "405": {
+            "description": "Method denied"
+          },
+          "409": {
+            "description": "Stale version or workflow state"
+          },
+          "413": {
+            "description": "Record limit"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Storage or schema unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "visitId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "nurseId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "supervisorId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "workerId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2000
+                  }
+                },
+                "required": [
+                  "visitId",
+                  "nurseId",
+                  "supervisorId",
+                  "workerId",
+                  "evidence"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/care/cases/{id}/actions": {
+      "post": {
+        "summary": "Scoped care cases {id} actions",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "description": "Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.",
+        "responses": {
+          "200": {
+            "description": "Persisted scoped care result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields, consent or tenant override"
+          },
+          "401": {
+            "description": "Session inactive or expired"
+          },
+          "403": {
+            "description": "Role, qualification or action denied"
+          },
+          "404": {
+            "description": "Hidden or missing record"
+          },
+          "405": {
+            "description": "Method denied"
+          },
+          "409": {
+            "description": "Stale version or workflow state"
+          },
+          "413": {
+            "description": "Record limit"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Storage or schema unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "save_plan"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "assessment": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "risks": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "escalation": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "consentEvidence": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "consentChecked": {
+                        "const": true
+                      },
+                      "validUntil": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "tasks": {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 20,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "kind",
+                            "instructions"
+                          ],
+                          "properties": {
+                            "kind": {
+                              "enum": [
+                                "personal_support",
+                                "mobility_support",
+                                "meal_support",
+                                "household_support",
+                                "companionship",
+                                "observation_report"
+                              ]
+                            },
+                            "instructions": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 1000,
+                              "pattern": "\\S"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note",
+                      "assessment",
+                      "risks",
+                      "escalation",
+                      "consentEvidence",
+                      "consentChecked",
+                      "validUntil",
+                      "tasks"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "submit_plan"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "approve_plan"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "return_plan"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "accept"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "start"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "consentChecked": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note",
+                      "consentChecked"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "task"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "taskId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "outcome": {
+                        "enum": [
+                          "done",
+                          "refused",
+                          "not_done",
+                          "concern"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note",
+                      "taskId",
+                      "outcome"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "concern"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "follow_up"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "eventId": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note",
+                      "eventId"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "submit_visit"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "complete_review"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "reassign"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "nurseId": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                      },
+                      "supervisorId": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                      },
+                      "workerId": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note",
+                      "nurseId",
+                      "supervisorId",
+                      "workerId"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "cancel"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "amendment"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "report_unavailable"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "reason": {
+                        "enum": [
+                          "cannot_attend",
+                          "client_unavailable",
+                          "no_access",
+                          "consent_unavailable",
+                          "other"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note",
+                      "reason"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "return_visit"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "reschedule"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "startsAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "durationMinutes": {
+                        "type": "integer",
+                        "minimum": 15,
+                        "maximum": 720
+                      },
+                      "confirmed": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note",
+                      "startsAt",
+                      "durationMinutes",
+                      "confirmed"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "cancel_visit"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "confirmed": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "note",
+                      "confirmed"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/care/staffing": {
+      "post": {
+        "summary": "Scoped care staffing",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "description": "Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.",
+        "responses": {
+          "200": {
+            "description": "Persisted scoped care result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 3
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields, consent or tenant override"
+          },
+          "401": {
+            "description": "Session inactive or expired"
+          },
+          "403": {
+            "description": "Role, qualification or action denied"
+          },
+          "404": {
+            "description": "Hidden or missing record"
+          },
+          "405": {
+            "description": "Method denied"
+          },
+          "409": {
+            "description": "Stale version or workflow state"
+          },
+          "413": {
+            "description": "Record limit"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Storage or schema unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "availability"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "staffId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "startsAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "endsAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "staffId",
+                      "startsAt",
+                      "endsAt"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "request_leave"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "staffId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "startsAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "endsAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "staffId",
+                      "startsAt",
+                      "endsAt"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "approve_leave"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 3
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "reject_leave"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 3
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "withdraw"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 3
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "revoke_leave"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 3
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/care/schedules": {
+      "post": {
+        "summary": "Scoped care schedules",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "description": "Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.",
+        "responses": {
+          "200": {
+            "description": "Persisted scoped care result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields, consent or tenant override"
+          },
+          "401": {
+            "description": "Session inactive or expired"
+          },
+          "403": {
+            "description": "Role, qualification or action denied"
+          },
+          "404": {
+            "description": "Hidden or missing record"
+          },
+          "405": {
+            "description": "Method denied"
+          },
+          "409": {
+            "description": "Stale version or workflow state"
+          },
+          "413": {
+            "description": "Record limit"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Storage or schema unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "preview"
+                      },
+                      "sourceVisitId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "localStart": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d$"
+                      },
+                      "timeZone": {
+                        "enum": [
+                          "America/Toronto",
+                          "UTC"
+                        ]
+                      },
+                      "count": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 12
+                      },
+                      "intervalWeeks": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 4
+                      },
+                      "durationMinutes": {
+                        "type": "integer",
+                        "minimum": 15,
+                        "maximum": 720
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "sourceVisitId",
+                      "localStart",
+                      "timeZone",
+                      "count",
+                      "intervalWeeks",
+                      "durationMinutes",
+                      "note"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "create"
+                      },
+                      "sourceVisitId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "localStart": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d$"
+                      },
+                      "timeZone": {
+                        "enum": [
+                          "America/Toronto",
+                          "UTC"
+                        ]
+                      },
+                      "count": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 12
+                      },
+                      "intervalWeeks": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 4
+                      },
+                      "durationMinutes": {
+                        "type": "integer",
+                        "minimum": 15,
+                        "maximum": 720
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "confirmed": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "sourceVisitId",
+                      "localStart",
+                      "timeZone",
+                      "count",
+                      "intervalWeeks",
+                      "durationMinutes",
+                      "note",
+                      "confirmed"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "cancel_occurrence"
+                      },
+                      "visitId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "visitId",
+                      "updatedAt",
+                      "note"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/care/time-records": {
+      "post": {
+        "summary": "Scoped care time-records",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "description": "Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.",
+        "responses": {
+          "200": {
+            "description": "Persisted scoped care result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "caseId",
+                    "version"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields, consent or tenant override"
+          },
+          "401": {
+            "description": "Session inactive or expired"
+          },
+          "403": {
+            "description": "Role, qualification or action denied"
+          },
+          "404": {
+            "description": "Hidden or missing record"
+          },
+          "405": {
+            "description": "Method denied"
+          },
+          "409": {
+            "description": "Stale version or workflow state"
+          },
+          "413": {
+            "description": "Record limit"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Storage or schema unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "submit"
+                      },
+                      "caseId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 49
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "actualStart": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "actualEnd": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "breakMinutes": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 1440
+                      },
+                      "attested": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "caseId",
+                      "version",
+                      "note",
+                      "actualStart",
+                      "actualEnd",
+                      "breakMinutes",
+                      "attested"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "approve"
+                      },
+                      "caseId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 49
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      },
+                      "checked": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "caseId",
+                      "version",
+                      "note",
+                      "checked"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "return"
+                      },
+                      "caseId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 49
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "caseId",
+                      "version",
+                      "note"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/care/handovers": {
+      "post": {
+        "summary": "Scoped care handovers",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "description": "Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.",
+        "responses": {
+          "200": {
+            "description": "Persisted scoped care result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "version"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields, consent or tenant override"
+          },
+          "401": {
+            "description": "Session inactive or expired"
+          },
+          "403": {
+            "description": "Role, qualification or action denied"
+          },
+          "404": {
+            "description": "Hidden or missing record"
+          },
+          "405": {
+            "description": "Method denied"
+          },
+          "409": {
+            "description": "Stale version or workflow state"
+          },
+          "413": {
+            "description": "Record limit"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Storage or schema unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "create"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "sourceCaseId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "targetCaseId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "summary": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "outstanding": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "precautions": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "sourceCaseId",
+                      "targetCaseId",
+                      "summary",
+                      "outstanding",
+                      "precautions"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "revise"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 20
+                      },
+                      "summary": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "outstanding": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "precautions": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version",
+                      "summary",
+                      "outstanding",
+                      "precautions"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "approve"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 20
+                      },
+                      "checked": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version",
+                      "checked"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "return"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 20
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "withdraw"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 20
+                      },
+                      "checked": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version",
+                      "checked"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "acknowledge"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 20
+                      },
+                      "checked": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version",
+                      "checked"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/care/followups": {
+      "post": {
+        "summary": "Scoped care followups",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "description": "Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.",
+        "responses": {
+          "200": {
+            "description": "Persisted scoped care result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "version"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields, consent or tenant override"
+          },
+          "401": {
+            "description": "Session inactive or expired"
+          },
+          "403": {
+            "description": "Role, qualification or action denied"
+          },
+          "404": {
+            "description": "Hidden or missing record"
+          },
+          "405": {
+            "description": "Method denied"
+          },
+          "409": {
+            "description": "Stale version or workflow state"
+          },
+          "413": {
+            "description": "Record limit"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Storage or schema unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "create"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "caseId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "category": {
+                        "enum": [
+                          "coverage",
+                          "plan_review",
+                          "visit_review",
+                          "documentation",
+                          "staff_clearance",
+                          "time_review",
+                          "handover_review",
+                          "other_operations"
+                        ]
+                      },
+                      "ownerId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "dueAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "prerequisiteIds": {
+                        "type": "array",
+                        "maxItems": 5,
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "caseId",
+                      "category",
+                      "ownerId",
+                      "dueAt"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "start"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "block"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "submit"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "verify"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      },
+                      "checked": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version",
+                      "checked"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "return"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "reassign"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      },
+                      "ownerId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "dueAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version",
+                      "ownerId",
+                      "dueAt"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "cancel"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "request_extension"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      },
+                      "dueAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version",
+                      "dueAt"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "withdraw_extension"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "approve_extension"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      },
+                      "checked": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version",
+                      "checked"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "decline_extension"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "action": {
+                        "const": "release_dependency"
+                      },
+                      "note": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "pattern": "\\S"
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 49
+                      },
+                      "prerequisiteId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "checked": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "note",
+                      "id",
+                      "version",
+                      "prerequisiteId",
+                      "checked"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

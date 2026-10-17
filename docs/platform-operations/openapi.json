@@ -1,0 +1,248 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Tenant Operations",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "paths": {
+    "/v1/governance/platform/operations": {
+      "get": {
+        "summary": "Read scoped tenant setup counts and issue navigation",
+        "x-authorization": {
+          "platform_admin": "global",
+          "central_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "Read-only endpoint; bounded 25-row pages and optional workspace source limiter",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "all",
+                "attention",
+                "active",
+                "inactive"
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Counts and scoped tenants from one repeatable-read snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "scope",
+                    "tenants",
+                    "summary",
+                    "pagination",
+                    "source"
+                  ],
+                  "properties": {
+                    "scope": {
+                      "enum": [
+                        "global",
+                        "own"
+                      ]
+                    },
+                    "source": {
+                      "type": "object"
+                    },
+                    "tenants": {
+                      "type": "array",
+                      "maxItems": 25,
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "name",
+                          "slug",
+                          "status",
+                          "counts",
+                          "checks",
+                          "issues",
+                          "actions"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "slug": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "enum": [
+                              "active",
+                              "inactive",
+                              "unknown"
+                            ]
+                          },
+                          "counts": {
+                            "type": "object",
+                            "properties": {
+                              "accounts": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "administrators": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "locations": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "categories": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "territories": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "seniors65": {
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            }
+                          },
+                          "checks": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          },
+                          "issues": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "actions": {
+                            "type": "array",
+                            "items": {
+                              "enum": [
+                                "accounts",
+                                "masters",
+                                "territories"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "summary": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "active": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "inactive": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "attention": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "territories": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "seniors65": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "limit": {
+                          "const": 25
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unknown, duplicated or invalid query / tenant override"
+          },
+          "401": {
+            "description": "Missing, expired or inactive session"
+          },
+          "403": {
+            "description": "Administrator role required"
+          },
+          "404": {
+            "description": "Unknown route"
+          },
+          "405": {
+            "description": "Read-only endpoint"
+          },
+          "429": {
+            "description": "Optional source limiter exceeded"
+          },
+          "503": {
+            "description": "Unavailable data; no partial success response"
+          }
+        }
+      }
+    }
+  }
+}

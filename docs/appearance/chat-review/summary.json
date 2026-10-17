@@ -1,0 +1,497 @@
+{
+  "scope": "isolated disposable test schema; not the live website",
+  "catalogScreens": 952,
+  "targetScreens": 943,
+  "roles": 74,
+  "apiCreatedAccounts": 73,
+  "bootstrapFixtures": 1,
+  "checked": 1886,
+  "samples": [
+    {
+      "file": "rmt-dashboard-320.png",
+      "screen": "rmt_dashboard",
+      "role": "rmt",
+      "width": 320,
+      "renderer": "dashboard"
+    },
+    {
+      "file": "rmt-governed_page-320.png",
+      "screen": "rmt_analytics",
+      "role": "rmt",
+      "width": 320,
+      "renderer": "governed_page"
+    },
+    {
+      "file": "rmt-dashboard-1440.png",
+      "screen": "rmt_dashboard",
+      "role": "rmt",
+      "width": 1440,
+      "renderer": "dashboard"
+    },
+    {
+      "file": "rmt-governed_page-1440.png",
+      "screen": "rmt_analytics",
+      "role": "rmt",
+      "width": 1440,
+      "renderer": "governed_page"
+    },
+    {
+      "file": "caregiver-dashboard-320.png",
+      "screen": "caregiver_dashboard",
+      "role": "caregiver",
+      "width": 320,
+      "renderer": "dashboard"
+    },
+    {
+      "file": "caregiver-governed_page-320.png",
+      "screen": "caregiver_tasks",
+      "role": "caregiver",
+      "width": 320,
+      "renderer": "governed_page"
+    },
+    {
+      "file": "caregiver-dashboard-1440.png",
+      "screen": "caregiver_dashboard",
+      "role": "caregiver",
+      "width": 1440,
+      "renderer": "dashboard"
+    },
+    {
+      "file": "caregiver-governed_page-1440.png",
+      "screen": "caregiver_tasks",
+      "role": "caregiver",
+      "width": 1440,
+      "renderer": "governed_page"
+    },
+    {
+      "file": "patient-dashboard-320.png",
+      "screen": "family_member_dashboard",
+      "role": "patient",
+      "width": 320,
+      "renderer": "dashboard"
+    },
+    {
+      "file": "patient-governed_page-320.png",
+      "screen": "patient_analytics",
+      "role": "patient",
+      "width": 320,
+      "renderer": "governed_page"
+    },
+    {
+      "file": "patient-dashboard-1440.png",
+      "screen": "family_member_dashboard",
+      "role": "patient",
+      "width": 1440,
+      "renderer": "dashboard"
+    },
+    {
+      "file": "patient-governed_page-1440.png",
+      "screen": "patient_analytics",
+      "role": "patient",
+      "width": 1440,
+      "renderer": "governed_page"
+    },
+    {
+      "file": "marketing-dashboard-320.png",
+      "screen": "head_of_marketing_dashboard",
+      "role": "marketing",
+      "width": 320,
+      "renderer": "dashboard"
+    },
+    {
+      "file": "marketing-governed_page-320.png",
+      "screen": "head_of_marketing_analytics",
+      "role": "marketing",
+      "width": 320,
+      "renderer": "governed_page"
+    },
+    {
+      "file": "marketing-dashboard-1440.png",
+      "screen": "head_of_marketing_dashboard",
+      "role": "marketing",
+      "width": 1440,
+      "renderer": "dashboard"
+    },
+    {
+      "file": "marketing-governed_page-1440.png",
+      "screen": "head_of_marketing_analytics",
+      "role": "marketing",
+      "width": 1440,
+      "renderer": "governed_page"
+    },
+    {
+      "file": "ceo-governed_page-320.png",
+      "screen": "executive_command_center",
+      "role": "ceo",
+      "width": 320,
+      "renderer": "governed_page"
+    },
+    {
+      "file": "ceo-dashboard-320.png",
+      "screen": "ceo_dashboard",
+      "role": "ceo",
+      "width": 320,
+      "renderer": "dashboard"
+    },
+    {
+      "file": "ceo-governed_page-1440.png",
+      "screen": "executive_command_center",
+      "role": "ceo",
+      "width": 1440,
+      "renderer": "governed_page"
+    },
+    {
+      "file": "ceo-dashboard-1440.png",
+      "screen": "ceo_dashboard",
+      "role": "ceo",
+      "width": 1440,
+      "renderer": "dashboard"
+    }
+  ],
+  "cleanup": {
+    "verified": true,
+    "accountScope": "Entire disposable schema removed; no production records touched"
+  },
+  "limitations": [
+    "Structural browser checks are not individual human approval or complete clinical workflow acceptance",
+    "Domain data/API dependencies remain as recorded in governance; no readiness flags changed",
+    "Account/MFA/consent and dedicated screens are separate surfaces, not generic workspace renderer passes"
+  ],
+  "successfulSignIns": 73,
+  "accountsBeforeCleanup": 74,
+  "workspaceRoleAccess": [
+    {
+      "role": "central_admin",
+      "authorizedScreens": 1
+    },
+    {
+      "role": "admin",
+      "authorizedScreens": 24
+    },
+    {
+      "role": "bus_dev",
+      "authorizedScreens": 12
+    },
+    {
+      "role": "caregiver",
+      "authorizedScreens": 8
+    },
+    {
+      "role": "ceo",
+      "authorizedScreens": 22
+    },
+    {
+      "role": "cfo",
+      "authorizedScreens": 23
+    },
+    {
+      "role": "chiropractor",
+      "authorizedScreens": 16
+    },
+    {
+      "role": "ciso",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "clinical_director",
+      "authorizedScreens": 20
+    },
+    {
+      "role": "cns",
+      "authorizedScreens": 3
+    },
+    {
+      "role": "community_outreach",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "compliance",
+      "authorizedScreens": 9
+    },
+    {
+      "role": "coo",
+      "authorizedScreens": 21
+    },
+    {
+      "role": "cto",
+      "authorizedScreens": 23
+    },
+    {
+      "role": "customer_support",
+      "authorizedScreens": 10
+    },
+    {
+      "role": "cx_director",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "dynamic",
+      "authorizedScreens": 6
+    },
+    {
+      "role": "employee",
+      "authorizedScreens": 3
+    },
+    {
+      "role": "family",
+      "authorizedScreens": 7
+    },
+    {
+      "role": "finance_director",
+      "authorizedScreens": 5
+    },
+    {
+      "role": "franchise_sales",
+      "authorizedScreens": 3
+    },
+    {
+      "role": "gm",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "governance",
+      "authorizedScreens": 20
+    },
+    {
+      "role": "growth_caller",
+      "authorizedScreens": 1
+    },
+    {
+      "role": "growth_coordinator",
+      "authorizedScreens": 1
+    },
+    {
+      "role": "growth_google",
+      "authorizedScreens": 1
+    },
+    {
+      "role": "growth_meta",
+      "authorizedScreens": 1
+    },
+    {
+      "role": "growth_offline",
+      "authorizedScreens": 1
+    },
+    {
+      "role": "growth_seo",
+      "authorizedScreens": 1
+    },
+    {
+      "role": "guest",
+      "authorizedScreens": 368
+    },
+    {
+      "role": "hr_director",
+      "authorizedScreens": 18
+    },
+    {
+      "role": "hr_hiring",
+      "authorizedScreens": 16
+    },
+    {
+      "role": "hsw",
+      "authorizedScreens": 5
+    },
+    {
+      "role": "infrastructure",
+      "authorizedScreens": 7
+    },
+    {
+      "role": "intake",
+      "authorizedScreens": 12
+    },
+    {
+      "role": "legal",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "local_marketing",
+      "authorizedScreens": 5
+    },
+    {
+      "role": "lpn",
+      "authorizedScreens": 3
+    },
+    {
+      "role": "maintenance",
+      "authorizedScreens": 2
+    },
+    {
+      "role": "marketing",
+      "authorizedScreens": 9
+    },
+    {
+      "role": "np",
+      "authorizedScreens": 3
+    },
+    {
+      "role": "ops_manager",
+      "authorizedScreens": 8
+    },
+    {
+      "role": "owner",
+      "authorizedScreens": 25
+    },
+    {
+      "role": "partnership",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "patient",
+      "authorizedScreens": 16
+    },
+    {
+      "role": "pediatric",
+      "authorizedScreens": 3
+    },
+    {
+      "role": "physician",
+      "authorizedScreens": 3
+    },
+    {
+      "role": "physio",
+      "authorizedScreens": 15
+    },
+    {
+      "role": "platform_admin",
+      "authorizedScreens": 1
+    },
+    {
+      "role": "portal",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "premium_concierge",
+      "authorizedScreens": 3
+    },
+    {
+      "role": "psw",
+      "authorizedScreens": 18
+    },
+    {
+      "role": "qa_specialist",
+      "authorizedScreens": 10
+    },
+    {
+      "role": "regional_bdm",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "regional_manager_usa",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "rmt",
+      "authorizedScreens": 15
+    },
+    {
+      "role": "rn",
+      "authorizedScreens": 18
+    },
+    {
+      "role": "rn_field_supervisor",
+      "authorizedScreens": 3
+    },
+    {
+      "role": "rpn",
+      "authorizedScreens": 16
+    },
+    {
+      "role": "scheduler",
+      "authorizedScreens": 19
+    },
+    {
+      "role": "scrum_master",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "shareholder",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "social_worker",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "system_verification",
+      "authorizedScreens": 9
+    },
+    {
+      "role": "tenant_admin",
+      "authorizedScreens": 2
+    },
+    {
+      "role": "territory_expansion",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "territory_sales",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "therapist",
+      "authorizedScreens": 3
+    },
+    {
+      "role": "training",
+      "authorizedScreens": 10
+    },
+    {
+      "role": "training_coordinator",
+      "authorizedScreens": 5
+    },
+    {
+      "role": "training_director",
+      "authorizedScreens": 17
+    },
+    {
+      "role": "vip_manager",
+      "authorizedScreens": 3
+    },
+    {
+      "role": "volunteer",
+      "authorizedScreens": 4
+    },
+    {
+      "role": "volunteer_coordinator",
+      "authorizedScreens": 7
+    }
+  ],
+  "accountActivity": [
+    {
+      "action": "account_created",
+      "n": 73
+    },
+    {
+      "action": "tenant_created",
+      "n": 1
+    }
+  ],
+  "date": "2026-10-14",
+  "structuralFailures": 0,
+  "governanceReadinessChanges": 0,
+  "browserServerDatabaseRuntimeModules": 0,
+  "additionalTestsPassed": 82,
+  "visuallyInspectedWorkspaceSamples": [
+    "rmt-dashboard-1440.png",
+    "rmt-governed_page-320.png",
+    "caregiver-dashboard-1440.png",
+    "caregiver-governed_page-320.png",
+    "patient-governed_page-320.png",
+    "marketing-governed_page-320.png",
+    "ceo-dashboard-1440.png"
+  ],
+  "chatAssessment": "Shared appearance improved; production acceptance pending. No human or durable AI rubric approval recorded.",
+  "remainingFindings": [
+    "Generic workspace domain sections remain unconnected as recorded by governance",
+    "Generated header sections still expose technical source labels; these pages require product-specific content before production approval",
+    "Maintenance, consent and MFA have no new rendered workflow acceptance evidence",
+    "Live admin, deployment, email delivery and native device review remain unverified"
+  ],
+  "sourceDigests": {
+    "websites/typescript/src/workspace.ts": "5d1fc46062a2060efe9df335ffa70c07f94cc9f22e6a83f1d0071341389d72e3",
+    "websites/typescript/src/styles.css": "a01f03905f32d3d84669b936d09a39d4214dc70bbe42becdbe6534cb7b043a5c",
+    "websites/typescript/src/auth-recovery.ts": "004840c0fbabaafd8fcede1aea9ff865292032252dc19ee0a5f7aa231ee5ac5d",
+    "websites/typescript/src/media-look.ts": "268b2ff9c29d1d6aaa52b02f59bce587beae883885809005460340ed8b9ccf32"
+  }
+}

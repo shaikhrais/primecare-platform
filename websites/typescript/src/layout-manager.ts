@@ -21,6 +21,7 @@ export class BaseLayoutManager {
  private personal:PersonalTheme|null=null;
  readonly xml=new XmlLayoutManager();private theme=new BaseThemeManager();private profile:LayoutProfile={...defaultLayoutProfile};private undoStack:LayoutProfile[]=[];private redoStack:LayoutProfile[]=[];
  constructor(private root:HTMLElement,private readonly storageKey:string){try{const saved=localStorage.getItem(storageKey);if(saved)this.profile=this.xml.fromXml(saved);}catch{/* Fall back without applying malformed preferences. */}this.attach();}
+ setDefaultTheme(values:Record<string,string>):void {this.theme.setDefaults(values);this.attach();}
  get current():LayoutProfile{return {...this.profile};}get canUndo():boolean{return this.undoStack.length>0;}get canRedo():boolean{return this.redoStack.length>0;}
  change(value:unknown):void {const next=validateLayoutProfile(value);if(JSON.stringify(next)===JSON.stringify(this.profile))return;this.undoStack.push(this.current);if(this.undoStack.length>30)this.undoStack.shift();this.redoStack=[];this.profile=next;this.attach();}
  undo():void {const previous=this.undoStack.pop();if(previous){this.redoStack.push(this.current);this.profile=previous;this.attach();}}

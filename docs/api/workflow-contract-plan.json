@@ -91707,9 +91707,9 @@
   "sourceHashes": {
     ".agents/governance/reconcile_db.py": "0314143078eef2b126e8601fc7d89e2e16f069612db515b76de3b9c1310c8f50",
     "apps/primecare_governance/lib/core/governance/registries/api_governance_registry.dart": "9898689ddc5aa366eade2a789439acef74d2e9d114a4415de52802a6c872ea71",
-    "cloudflare/workers/src/account-admin.ts": "078a9a9b47849ab321b808ebbd6b1f61fc4d9e432baf7c644c01a8407c693c24",
-    "cloudflare/workers/src/account-policy.json": "74d51cb199e3ac6522acd0723561d7af93327bb80114ad8de96b5ddebdc432ce",
-    "cloudflare/workers/src/auth.ts": "66aca8c92e4cda6df014800c567adaeb2bfb25ee54979bce1e80af76821fb2e8",
+    "cloudflare/workers/src/account-admin.ts": "a548329b872cdb45d8a620d9aec1e6754f2c078eadcf0b1cc62e3d36107b84ee",
+    "cloudflare/workers/src/account-policy.json": "36a6f57074e8497378de91dd17d4c4c078694509c95ae248864b4d60343a868b",
+    "cloudflare/workers/src/auth.ts": "a70bfb99cafec495e4ea5f7d936e4c6e818aa2f285234687a6cd889203de3009",
     "cloudflare/workers/src/client-booking-lifecycle.ts": "2eeaf8a0f563a6de1dc3b9add19e37bc32107856a9138b5cacc1714cc0be443c",
     "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5",
     "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5",
@@ -91720,7 +91720,7 @@
     "cloudflare/workers/src/provider-records-registry.json": "98473c2cd57e5a0aeceda75954ce4bd8fb745059b9c6f0e9c00497759abce371",
     "cloudflare/workers/src/self-records-registry.json": "7f5a7a841fb6567c953e0e07a661a38763e500c85e31379ce1404e0b934ffd9e",
     "cloudflare/workers/src/service.ts": "bd52f6638c2a95ccf8d8188fd86811424f7978aa31c494632536c8c1e6f60473",
-    "cloudflare/workers/src/workspace-registry.json": "a680e4a8cf5e7aa80e2b68db055d821830aa01a12449d42a13eea172e6c4ca2c",
+    "cloudflare/workers/src/workspace-registry.json": "01c6961f21b9fbffadb35c53d8e0baf28e55dd4518e5ca92398ca58648e80b27",
     "cloudflare/workers/src/workspace.ts": "80ab946112baba4a624d773d7a7fb2cecc570f69e914e993058c9c6cda88f067",
     "docs/api/api-delivery-checklist.json": "654f5e898ed10281b931c5d4817a99dcad56ae8b0a91951fbf01ded48672934d",
     "generated_screen_backup_before_template_reset/screens/allied/treatment_notes_screen.dart": "48a09303f86b618a3102820db2d9fbe368ddd2c0db87ed9882d367ff99ebc416",
@@ -91988,12 +91988,13 @@
     "scripts/register-client-booking-lifecycle-api.py": "fb7e1f8673295ae7cc6792d0e4027b11ae2cc27cd15b9e4525df06430bcc61e7",
     "scripts/register-client-invoices-api.py": "44c3e7692f1936292e9afdb7b6601a59e4b16da89908e969c3ea1927d9ab8eb3",
     "scripts/register-legacy-domain-security.py": "35c3c57d4f15679dd65105473c22e12c0760636f4ecdaa18f7f35bd04265692d",
-    "scripts/register-method-capture-blockers.py": "5284e90a91ed7849a83b86f925c81ebf77d23972c1550db097c01cc557406201",
+    "scripts/register-method-capture-blockers.py": "8e66074bf5860449529ffb9c4a28b31ef1d11b85c720d93f7d7de85e0868da87",
     "scripts/scaffold_30_empty_screens.py": "3113e002d4d450717f7c0447e7796ef6362fb2039c2e984650e83944a8f3ebdf",
     "scripts/test-method-capture-blockers.mjs": "9cb7d70e0b2a5ee5bf64cd140184b878b4be5a12798f7128088a8558af1b9187",
     "scripts/test-method-capture-blockers.py": "c75297e97668734b8f5ce9eaa830488ee60e34ff7a30a93065a7431f381e62da",
-    "cloudflare/workers/src/core/base-worker.ts": "58c2df259e14e6078a6476407de0946f8efa159c1685931b5f8bba30c055803c",
-    "cloudflare/workers/src/business-modules.ts": "2daf85a91e2e9a57379ea1dd7ab51a87a998a18bb93e18e26396e71f37d652ef"
+    "cloudflare/workers/src/core/base-worker.ts": "7c7d612386546bf86db4b217391e84cf8982331530a86020c9eb35010548a25a",
+    "cloudflare/workers/src/business-modules.ts": "10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa",
+    "scripts/audit-api-reachability.mjs": "2b4fb6a9de4ed95fd3a21aa4ccbf1757e53cf7fab2b00c586dd0151fa642a022"
   },
   "implementationCredits": 0,
   "retirementCredits": 0

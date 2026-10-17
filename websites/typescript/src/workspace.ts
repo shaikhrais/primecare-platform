@@ -1,4 +1,6 @@
+import careRegistry from '../../../packages/shared/src/care/registry.json';
 import {openAdminTraining,trainingText} from './admin-training';
+import {DashboardMediaLook} from './media-look';
 import {liveScreenText} from './screen-text';
 import {accountMarkup,bindAccount} from './account';
 import {renderShell,bindShell} from './shell';
@@ -41,10 +43,12 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   }
   const reportPanels=new Map<string,HTMLElement>();
   if(data.identity.role==='platform_admin'&&location.pathname!=='/success'){location.assign('/platform/administration');return;}
+  if(['/','/dashboard'].includes(location.pathname)&&data.landing===careRegistry.route&&data.screens.some(s=>s.route===careRegistry.route)){location.assign(routeUrl(careRegistry.route));return;}
   const live=liveScreenText(gateway);let dirtyForm=false;root.addEventListener('input',()=>dirtyForm=true);
   let search='';let pendingOnly=false;let pageNumber=0;
   const t=(key:string)=>escapeHtml(live.text('workspace','en',key,data.resources['workspace.'+key]??key));
-  const link=(page:Page)=>`<a href="${escapeHtml(routeUrl(page.route))}" data-route="${escapeHtml(page.route)}" data-cy="sidebar-item-${escapeHtml(page.code)}">${escapeHtml(page.name)}</a>`;
+  const media=new DashboardMediaLook();
+  const link=(page:Page)=>`<a href="${escapeHtml(routeUrl(page.route))}" data-route="${escapeHtml(page.route)}" data-cy="sidebar-item-${escapeHtml(page.code)}">${media.sectionIcon(page.renderer==='dashboard'?'chart':'header')}${escapeHtml(page.name)}</a>`;
   const metric=(label:string,value:unknown)=>`<article class="metric"><span>${label}</span><strong>${escapeHtml(value)}</strong></article>`;
   const details=(p:Page)=>`<details data-cy="delivery-${escapeHtml(p.code)}"><summary>${t('details')}</summary>
     <h3>${t('requirements')}</h3><p>${escapeHtml(p.requirements?.business_purpose||data.resources['workspace.no_requirements'])}</p>
@@ -53,8 +57,9 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     <h3>${t('pending_actions')}</h3>${p.pendingActions?.length?`<ul>${p.pendingActions.map(a=>`<li>${escapeHtml(a.label||a.key)} · ${escapeHtml(a.status)}</li>`).join('')}</ul>`:`<p>${t('no_pending_actions')}</p>`}
     <ul>${p.blockers.map(b=>`<li>${escapeHtml(b)}</li>`).join('')}</ul></details>`;
   const activities=()=>data.overview.activity.length?`<ul class="activity-list">${data.overview.activity.map(a=>`<li><strong>${escapeHtml(a.action.replaceAll('_',' '))}</strong><time datetime="${escapeHtml(a.created_at)}">${escapeHtml(new Date(a.created_at).toLocaleString())}</time></li>`).join('')}</ul>`:`<p class="empty">${t('empty')}</p>`;
-  const chart=()=>`<div class="role-bars">${data.overview.accountRoles.map(r=>`<div><div><span>${escapeHtml(r.role)}</span><strong>${r.count}</strong></div><meter min="0" max="${Math.max(1,data.overview.activeAccounts)}" value="${r.count}" aria-label="${escapeHtml(r.role)}">${r.count}</meter></div>`).join('')}</div>`;
+  const chart=()=>`<div class="role-bars">${data.overview.accountRoles.map(r=>`<div><div><span>${escapeHtml(media.roleLabel(r.role))}</span><strong>${r.count}</strong></div><meter min="0" max="${Math.max(1,data.overview.activeAccounts)}" value="${r.count}" aria-label="${escapeHtml(media.roleLabel(r.role))}">${r.count}</meter></div>`).join('')}</div>`;
   const draw=()=>{
+    const inventoryOpen=root.querySelector<HTMLDetailsElement>('[data-cy="workspace-inventory"]')?.open??false;
     let page=data.screens.find(s=>s.route===location.pathname);
     if(location.pathname==='/' || location.pathname==='/dashboard') {
       page=data.screens.find(s=>s.route===data.landing)??data.screens[0];
@@ -77,23 +82,23 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       else if(section.type==='action_bar')body+=`<div class="quick-links">${data.screens.map(link).join('')}</div>`;
       else body+=`<p class="notice">${t('no_data')}</p>`;
       body+=section.elements.map(e=>`<div data-cy="${escapeHtml(e.testId)}">${escapeHtml(e.key.endsWith('-role-badge')?data.identity.role:e.label||e.key)}${e.actionRequired?`<p class="notice">${t('no_action')}</p>`:''}</div>`).join('');
-      return `<section class="section" data-cy="${escapeHtml(section.testId||section.code)}"><h2>${escapeHtml(section.name)}</h2>${body}</section>`;
+      return `<section class="section" data-cy="${escapeHtml(section.testId||section.code)}"><h2 class="media-section-heading">${media.sectionIcon(section.type)}${escapeHtml(section.name)}</h2>${body}</section>`;
     }).join('')??'';
     const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${t('created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
-    renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(data.identity.role),navigation:nav,menuLabel:t('pages'),controls:`<button data-cy="workspace-training">${escapeHtml(trainingText(gateway,'en','nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header"><div><p class="eyebrow">${escapeHtml(data.identity.role)}</p><h1 tabindex="-1" data-cy="workspace-title">${account?t('account'):escapeHtml(page?.name)}</h1></div><span class="badge">${t('created')}</span></div>
+    renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(media.roleLabel(data.identity.role)),navigation:nav,menuLabel:t('pages'),controls:`<button data-cy="workspace-training">${escapeHtml(trainingText(gateway,'en','nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header">${media.heading(account?data.resources['workspace.account']:page!.name,media.roleLabel(data.identity.role),page?.renderer==='dashboard'?'chart':'home','workspace-title')}<span class="badge">${t('created')}</span></div>
       ${account?accountMarkup(t):
-      `<section class="section" data-cy="workspace-overview"><h2>${t('title')}</h2><div class="metric-grid">${cards}</div></section>
+      `${page?.renderer!=='dashboard'?sections:''}<section class="section" data-cy="workspace-overview"><h2>${t('title')}</h2><div class="metric-grid">${cards}</div></section>
       <section class="section" data-cy="workspace-organization"><h2>${t('roles')}</h2>${chart()}<div class="metric-grid">${data.overview.metrics.map(m=>metric(t(m.code),m.available?m.count:data.resources['workspace.unconnected'])).join('')}</div></section>
-      <section class="section" data-cy="workspace-activity"><h2>${t('activity')}</h2>${activities()}</section><section class="section" data-cy="workspace-delivery">${details(page!)}</section>${sections}
-      <section class="section" data-cy="workspace-inventory"><h2>${t('inventory')}</h2><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
-      <div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></section>`}`});
-    root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();history.pushState({},'',a.href);draw();root.querySelector<HTMLElement>('h1')?.focus();});
+      <section class="section" data-cy="workspace-activity"><h2>${t('activity')}</h2>${activities()}</section><section class="section" data-cy="workspace-delivery">${details(page!)}</section>${page?.renderer==='dashboard'?sections:''}
+      <details class="section workspace-inventory-disclosure" data-cy="workspace-inventory" ${inventoryOpen?'open':''}><summary>${t('inventory')}</summary><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
+      <div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></details>`}`});
+    root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();if(a.dataset.route===careRegistry.route){location.assign(a.href);return;}history.pushState({},'',a.href);draw();root.querySelector<HTMLElement>('h1')?.focus();});
     if(page && data.reporting?.screens.includes(page.code)) {
       let panel=reportPanels.get(page.code);
       if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId);reportPanels.set(page.code,panel);}
       root.querySelector('main')!.insertBefore(panel,root.querySelector('[data-cy="workspace-inventory"]'));
     }
-    bindShell(root,account?data.resources['workspace.account']:page?.name??'PrimeCare','en','Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>{history.pushState({},'',routeUrl(s.route));draw();root.querySelector<HTMLElement>('h1')?.focus();}})),data.identity.role+':'+data.identity.userId);
+    bindShell(root,account?data.resources['workspace.account']:page?.name??'PrimeCare','en','Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>{if(s.route===careRegistry.route){location.assign(routeUrl(s.route));return;}history.pushState({},'',routeUrl(s.route));draw();root.querySelector<HTMLElement>('h1')?.focus();}})),data.identity.role+':'+data.identity.userId);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-training"]')!.onclick=()=>openAdminTraining(gateway,data.identity.userId);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-refresh"]')!.onclick=()=>void renderWorkspace(root,gateway);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-logout"]')!.onclick=async()=>{await fetch(`${gateway}/v1/auth/logout`,{method:'POST',headers:{authorization:'Bearer '+token}}).catch(()=>undefined);sessionStorage.removeItem('primecare_session');location.assign(routeUrl('/login'));};

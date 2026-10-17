@@ -1,0 +1,452 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Private Look Vision Provider",
+    "version": "vision-provider-v1",
+    "description": "Private Cloudflare service binding only. No public routes. The governance API authorizes administrator, tenant and page before invoking this contract. No human approval is returned."
+  },
+  "servers": [
+    {
+      "url": "https://look-ai",
+      "description": "Symbolic service-binding origin; not a public hostname"
+    }
+  ],
+  "paths": {
+    "/review": {
+      "post": {
+        "operationId": "privateVisualAssessment",
+        "x-service-binding": "LOOK_AI",
+        "x-upstream-permission": "look.active_admin_scope",
+        "security": [],
+        "description": "Private service only. Exact screenshot digest and registered rubric required. Durable claim precedes provider I/O. Replays return the recorded report or terminal failure; pending/unknown outcomes never start a second provider call.",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "description": "reviewId-imageDigest; enforced by this service, not a provider guarantee",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F-]{36}-[0-9a-f]{64}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "reviewId",
+                  "imageDigest",
+                  "image",
+                  "context",
+                  "rubric"
+                ],
+                "properties": {
+                  "reviewId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "imageDigest": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "image": {
+                    "type": "string",
+                    "contentEncoding": "base64",
+                    "maxLength": 1398104
+                  },
+                  "context": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "screen",
+                      "platform",
+                      "width",
+                      "height",
+                      "locale",
+                      "build",
+                      "theme",
+                      "layout"
+                    ],
+                    "properties": {
+                      "screen": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 160
+                      },
+                      "platform": {
+                        "enum": [
+                          "web",
+                          "android",
+                          "ios",
+                          "windows",
+                          "macos",
+                          "linux"
+                        ]
+                      },
+                      "width": {
+                        "type": "integer",
+                        "minimum": 280,
+                        "maximum": 7680
+                      },
+                      "height": {
+                        "type": "integer",
+                        "minimum": 240,
+                        "maximum": 4320
+                      },
+                      "locale": {
+                        "enum": [
+                          "en",
+                          "fr",
+                          "es"
+                        ]
+                      },
+                      "build": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "theme": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "layout": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      }
+                    }
+                  },
+                  "rubric": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "criteria",
+                      "minimumAverage",
+                      "minimumCriterion",
+                      "instruction"
+                    ],
+                    "properties": {
+                      "criteria": {
+                        "const": [
+                          "layout",
+                          "spacing",
+                          "typography",
+                          "contrast",
+                          "consistency",
+                          "imagery",
+                          "responsiveness",
+                          "clarity"
+                        ]
+                      },
+                      "minimumAverage": {
+                        "const": 80
+                      },
+                      "minimumCriterion": {
+                        "const": 70
+                      },
+                      "instruction": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1500,
+                        "description": "Caller metadata; never replaces fixed server instructions"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Validated visual report; no final approval",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "imageDigest",
+                    "model",
+                    "scores",
+                    "summary",
+                    "findings"
+                  ],
+                  "properties": {
+                    "imageDigest": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "model": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "scores": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "layout",
+                        "spacing",
+                        "typography",
+                        "contrast",
+                        "consistency",
+                        "imagery",
+                        "responsiveness",
+                        "clarity"
+                      ],
+                      "properties": {
+                        "layout": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "spacing": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "typography": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "contrast": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "consistency": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "imagery": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "responsiveness": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "clarity": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100
+                        }
+                      }
+                    },
+                    "summary": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 2000
+                    },
+                    "findings": {
+                      "type": "array",
+                      "maxItems": 30,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "criterion",
+                          "severity",
+                          "fix"
+                        ],
+                        "properties": {
+                          "criterion": {
+                            "enum": [
+                              "layout",
+                              "spacing",
+                              "typography",
+                              "contrast",
+                              "consistency",
+                              "imagery",
+                              "responsiveness",
+                              "clarity"
+                            ]
+                          },
+                          "severity": {
+                            "enum": [
+                              "minor",
+                              "major",
+                              "critical"
+                            ]
+                          },
+                          "fix": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 500
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid key, digest, context or rubric",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown route or query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Same job key with changed context, model or policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload exceeds bound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "JSON required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Terminal provider failure or invalid/refused/incomplete report",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Configuration/storage missing or job outcome unknown",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4063 @@
+{
+  "version": 1,
+  "endpoint": "/v1/governance/care",
+  "route": "/care",
+  "roles": {
+    "rn": "nurse",
+    "rpn": "nurse",
+    "rn_field_supervisor": "clinical_supervisor",
+    "clinical_director": "clinical_director",
+    "psw": "support",
+    "hsw": "support",
+    "scheduler": "operations",
+    "tenant_admin": "operations"
+  },
+  "nurseRoles": [
+    "rn",
+    "rpn",
+    "rn_field_supervisor",
+    "clinical_director"
+  ],
+  "supervisorRoles": [
+    "rn_field_supervisor",
+    "clinical_director"
+  ],
+  "supportRoles": [
+    "psw",
+    "hsw"
+  ],
+  "operationsRoles": [
+    "scheduler",
+    "tenant_admin",
+    "clinical_director",
+    "rn_field_supervisor"
+  ],
+  "clearanceReviewerRoles": [
+    "clinical_director",
+    "rn_field_supervisor"
+  ],
+  "taskKinds": [
+    "personal_support",
+    "mobility_support",
+    "meal_support",
+    "household_support",
+    "companionship",
+    "observation_report"
+  ],
+  "outcomes": [
+    "done",
+    "refused",
+    "not_done",
+    "concern"
+  ],
+  "states": [
+    "awaiting_plan",
+    "draft",
+    "pending_review",
+    "ready",
+    "accepted",
+    "in_progress",
+    "submitted",
+    "completed",
+    "cancelled",
+    "coverage_needed",
+    "correction_requested"
+  ],
+  "actions": [
+    "save_plan",
+    "submit_plan",
+    "approve_plan",
+    "return_plan",
+    "accept",
+    "start",
+    "task",
+    "concern",
+    "follow_up",
+    "submit_visit",
+    "complete_review",
+    "reassign",
+    "cancel",
+    "amendment",
+    "report_unavailable",
+    "return_visit",
+    "reschedule",
+    "cancel_visit"
+  ],
+  "maxTasks": 20,
+  "maxPlanDays": 30,
+  "maxClearanceDays": 365,
+  "earlyStartMinutes": 15,
+  "pageSize": 25,
+  "maxOffset": 1000000,
+  "assignmentRequiresClearance": true,
+  "controlledActsEnabled": false,
+  "autoPayEnabled": false,
+  "humanClinicalAcceptance": "pending",
+  "requirement": "User 2026-10-16: create RN and other supervisor and PSW to perform care. Reuse existing roles, approved providers and visits; API-only database access; tenant/assignment scope; qualified human-authored care instructions, consent, independent clinical review and documented outcomes. No fabricated credentials, staff or patient records. User continuation: complete daily task accountability, coverage exceptions and independently requested visit-documentation corrections. User continuation: staff availability, leave requests and independent approval, overlapping-visit prevention and staffing coverage warnings. User continuation: recurring visit preview and creation from existing records, audited pre-start rescheduling, independently reviewed reported work time; no automatic payroll. User continuation: secure same-client shift handover with independent clinical review and receiving-team receipts; assigned operational follow-ups with evidence, deadlines, blocking and independent source-backed verification. Owners can request later operational deadlines with evidence; independent operations approves or declines, preserving task progress and original deadline history. Operations can review paginated employee workload totals, search by literal account identifier/email, and filter follow-up records by owner or blocked state without gaining clinical chart access. Operational follow-up tasks may have bounded same-visit prerequisites. Starting, submitting or verifying a task requires independently completed prerequisites or a signed independent operations release. Waiting work and responsible predecessor owners remain visible without clinical-note disclosure. Operations must find active staff for staffing and eligible follow-up ownership beyond the initial roster, and search/page all eligible unassigned appointments without increasing chart access.",
+  "sources": [
+    "https://www.cno.org/standards-learning/practice-support/practice-support-faqs/working-with-unregulated-care-providers",
+    "https://www.cno.org/standards-learning/practice-support/practice-support-faqs/assigning-supervising-or-teaching-an-activity",
+    "https://www.cno.org/standards-learning/standards-guidelines"
+  ],
+  "dataModel": {
+    "care_staff_clearances": [
+      "tenant_id",
+      "staff_id",
+      "version",
+      "status",
+      "registration",
+      "expires_on",
+      "reviewer_id",
+      "evidence",
+      "staff_role"
+    ],
+    "care_cases": [
+      "tenant_id",
+      "visit_id",
+      "nurse_id",
+      "supervisor_id",
+      "worker_id",
+      "state",
+      "version",
+      "plan",
+      "plan_author",
+      "plan_reviewer",
+      "started_at",
+      "submitted_at",
+      "completed_at"
+    ],
+    "care_events": [
+      "case_id",
+      "tenant_id",
+      "actor_id",
+      "action",
+      "payload",
+      "created_at",
+      "record_version"
+    ],
+    "care_requests": [
+      "actor_id",
+      "key",
+      "fingerprint",
+      "response"
+    ],
+    "care_rate": [
+      "actor_id",
+      "attempts",
+      "window_start"
+    ],
+    "care_access_log": [
+      "tenant_id",
+      "actor_id",
+      "case_id",
+      "operation",
+      "created_at"
+    ],
+    "care_staff_windows": [
+      "tenant_id",
+      "staff_id",
+      "kind",
+      "starts_at",
+      "ends_at",
+      "status",
+      "version",
+      "created_by",
+      "updated_at"
+    ],
+    "care_staffing_events": [
+      "tenant_id",
+      "window_id",
+      "actor_id",
+      "action",
+      "version",
+      "note",
+      "created_at"
+    ],
+    "care_visit_series": [
+      "tenant_id",
+      "source_visit_id",
+      "request_hash",
+      "definition",
+      "created_by",
+      "created_at"
+    ],
+    "care_series_visits": [
+      "tenant_id",
+      "series_id",
+      "visit_id",
+      "ordinal"
+    ],
+    "care_schedule_events": [
+      "tenant_id",
+      "visit_id",
+      "actor_id",
+      "action",
+      "payload",
+      "created_at"
+    ],
+    "care_time_records": [
+      "tenant_id",
+      "case_id",
+      "worker_id",
+      "status",
+      "version",
+      "actual_start",
+      "actual_end",
+      "break_minutes",
+      "net_minutes",
+      "reviewer_id"
+    ],
+    "care_time_events": [
+      "tenant_id",
+      "case_id",
+      "actor_id",
+      "action",
+      "version",
+      "payload",
+      "created_at"
+    ],
+    "care_schedule_previews": [
+      "tenant_id",
+      "actor_id",
+      "request_hash",
+      "source_updated_at",
+      "created_at"
+    ],
+    "care_handovers": [
+      "tenant_id",
+      "source_case_id",
+      "target_case_id",
+      "author_id",
+      "status",
+      "version",
+      "summary",
+      "outstanding",
+      "precautions",
+      "reviewer_id"
+    ],
+    "care_handover_events": [
+      "tenant_id",
+      "handover_id",
+      "actor_id",
+      "action",
+      "version",
+      "payload",
+      "created_at"
+    ],
+    "care_handover_receipts": [
+      "tenant_id",
+      "handover_id",
+      "approved_version",
+      "target_signature",
+      "actor_id",
+      "note",
+      "created_at"
+    ],
+    "care_followups": [
+      "tenant_id",
+      "case_id",
+      "category",
+      "owner_id",
+      "created_by",
+      "status",
+      "version",
+      "due_at"
+    ],
+    "care_followup_events": [
+      "tenant_id",
+      "followup_id",
+      "actor_id",
+      "action",
+      "version",
+      "payload",
+      "created_at"
+    ]
+  },
+  "contracts": [
+    {
+      "method": "GET",
+      "suffix": "",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "case": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "view": {
+            "enum": [
+              "all",
+              "mine",
+              "late",
+              "concerns",
+              "coverage"
+            ]
+          },
+          "staffingOffset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "staff": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "seriesOffset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "timeOffset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "handoverOffset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "followupOffset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "followupView": {
+            "enum": [
+              "all",
+              "mine",
+              "late",
+              "review",
+              "extensions",
+              "blocked",
+              "waiting"
+            ]
+          },
+          "followupOwner": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "workloadOffset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "workloadQuery": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "rosterQuery": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "visitQuery": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "visitOffset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "sourceQuery": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "sourceOffset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "required": [
+          "identity",
+          "capabilities",
+          "cases",
+          "total",
+          "offset",
+          "limit",
+          "people",
+          "visits",
+          "detail",
+          "concerns",
+          "assignmentTotal",
+          "view",
+          "staffing",
+          "schedules",
+          "timesheets",
+          "handovers",
+          "followups",
+          "workload",
+          "visitPicker"
+        ],
+        "properties": {
+          "detail": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "id",
+                  "clinical",
+                  "plan",
+                  "events",
+                  "actions"
+                ],
+                "properties": {
+                  "clinical": {
+                    "type": "boolean"
+                  },
+                  "events": {
+                    "type": "array",
+                    "maxItems": 1000
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "clinical": {
+                          "const": false
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "plan": {
+                          "type": "null"
+                        },
+                        "events": {
+                          "maxItems": 0
+                        }
+                      },
+                      "not": {
+                        "required": [
+                          "client"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "cases": {
+            "type": "array",
+            "maxItems": 25,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "state",
+                "work"
+              ],
+              "properties": {
+                "work": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "object",
+                      "required": [
+                        "step",
+                        "ownerId",
+                        "ownerKind",
+                        "dueAt",
+                        "late",
+                        "lateMinutes"
+                      ],
+                      "properties": {
+                        "step": {
+                          "type": "string"
+                        },
+                        "ownerId": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "ownerKind": {
+                          "enum": [
+                            "nurse",
+                            "supervisor",
+                            "worker",
+                            "operations"
+                          ]
+                        },
+                        "dueAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "late": {
+                          "type": "boolean"
+                        },
+                        "lateMinutes": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "people": {
+            "type": "array",
+            "maxItems": 200
+          },
+          "visits": {
+            "type": "array",
+            "maxItems": 100
+          },
+          "staffing": {
+            "type": "object",
+            "required": [
+              "records",
+              "total",
+              "offset",
+              "limit",
+              "canManage",
+              "canCreate",
+              "createActions",
+              "staffOptions"
+            ],
+            "properties": {
+              "records": {
+                "type": "array",
+                "maxItems": 25
+              },
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "visitPicker": {
+            "type": "object",
+            "required": [
+              "total",
+              "offset",
+              "limit",
+              "query"
+            ],
+            "properties": {
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "offset": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "limit": {
+                "const": 25
+              },
+              "query": {
+                "type": "string",
+                "maxLength": 100
+              }
+            }
+          },
+          "schedules": {
+            "type": "object",
+            "required": [
+              "canManage",
+              "templates",
+              "sourcePicker",
+              "series",
+              "total",
+              "offset",
+              "limit"
+            ],
+            "properties": {
+              "templates": {
+                "type": "array",
+                "maxItems": 25
+              },
+              "sourcePicker": {
+                "type": "object",
+                "required": [
+                  "query",
+                  "total",
+                  "offset",
+                  "limit"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/clearances",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "staffId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483646
+          },
+          "status": {
+            "enum": [
+              "active",
+              "revoked"
+            ]
+          },
+          "expiresOn": {
+            "type": "string",
+            "format": "date"
+          },
+          "registration": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "checked": {
+            "const": true
+          },
+          "profile": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "fullName",
+              "languages",
+              "serviceAreas",
+              "skills",
+              "approved"
+            ],
+            "properties": {
+              "fullName": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "languages": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "serviceAreas": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "skills": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "approved": {
+                "const": true
+              }
+            }
+          }
+        },
+        "required": [
+          "staffId",
+          "version",
+          "status",
+          "expiresOn",
+          "registration",
+          "evidence",
+          "checked"
+        ]
+      },
+      "response": {
+        "type": "object"
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/cases",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "visitId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "nurseId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "supervisorId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "workerId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          }
+        },
+        "required": [
+          "visitId",
+          "nurseId",
+          "supervisorId",
+          "workerId",
+          "evidence"
+        ]
+      },
+      "response": {
+        "type": "object"
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/cases/{id}/actions",
+      "request": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "save_plan"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "assessment": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "risks": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "escalation": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "consentEvidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "consentChecked": {
+                "const": true
+              },
+              "validUntil": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "tasks": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 20,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "kind",
+                    "instructions"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "enum": [
+                        "personal_support",
+                        "mobility_support",
+                        "meal_support",
+                        "household_support",
+                        "companionship",
+                        "observation_report"
+                      ]
+                    },
+                    "instructions": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 1000,
+                      "pattern": "\\S"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note",
+              "assessment",
+              "risks",
+              "escalation",
+              "consentEvidence",
+              "consentChecked",
+              "validUntil",
+              "tasks"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "submit_plan"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "approve_plan"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "return_plan"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "accept"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "start"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "consentChecked": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note",
+              "consentChecked"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "task"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "taskId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "outcome": {
+                "enum": [
+                  "done",
+                  "refused",
+                  "not_done",
+                  "concern"
+                ]
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note",
+              "taskId",
+              "outcome"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "concern"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "follow_up"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "eventId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note",
+              "eventId"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "submit_visit"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "complete_review"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "reassign"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "nurseId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+              },
+              "supervisorId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+              },
+              "workerId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note",
+              "nurseId",
+              "supervisorId",
+              "workerId"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "cancel"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "amendment"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "report_unavailable"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "reason": {
+                "enum": [
+                  "cannot_attend",
+                  "client_unavailable",
+                  "no_access",
+                  "consent_unavailable",
+                  "other"
+                ]
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note",
+              "reason"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "return_visit"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "reschedule"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "startsAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "durationMinutes": {
+                "type": "integer",
+                "minimum": 15,
+                "maximum": 720
+              },
+              "confirmed": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note",
+              "startsAt",
+              "durationMinutes",
+              "confirmed"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "cancel_visit"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483646
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "confirmed": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "version",
+              "note",
+              "confirmed"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "type": "object"
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/staffing",
+      "request": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "availability"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "staffId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "startsAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "endsAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "staffId",
+              "startsAt",
+              "endsAt"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "request_leave"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "staffId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "startsAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "endsAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "staffId",
+              "startsAt",
+              "endsAt"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "approve_leave"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 3
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "reject_leave"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 3
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "withdraw"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 3
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "revoke_leave"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 3
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "required": [
+          "id",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/schedules",
+      "request": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "preview"
+              },
+              "sourceVisitId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "localStart": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d$"
+              },
+              "timeZone": {
+                "enum": [
+                  "America/Toronto",
+                  "UTC"
+                ]
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 12
+              },
+              "intervalWeeks": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4
+              },
+              "durationMinutes": {
+                "type": "integer",
+                "minimum": 15,
+                "maximum": 720
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "sourceVisitId",
+              "localStart",
+              "timeZone",
+              "count",
+              "intervalWeeks",
+              "durationMinutes",
+              "note"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "create"
+              },
+              "sourceVisitId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "localStart": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d$"
+              },
+              "timeZone": {
+                "enum": [
+                  "America/Toronto",
+                  "UTC"
+                ]
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 12
+              },
+              "intervalWeeks": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4
+              },
+              "durationMinutes": {
+                "type": "integer",
+                "minimum": 15,
+                "maximum": 720
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "confirmed": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "sourceVisitId",
+              "localStart",
+              "timeZone",
+              "count",
+              "intervalWeeks",
+              "durationMinutes",
+              "note",
+              "confirmed"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "cancel_occurrence"
+              },
+              "visitId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "visitId",
+              "updatedAt",
+              "note"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "type": "object"
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/time-records",
+      "request": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "submit"
+              },
+              "caseId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 49
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "actualStart": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "actualEnd": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "breakMinutes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1440
+              },
+              "attested": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "caseId",
+              "version",
+              "note",
+              "actualStart",
+              "actualEnd",
+              "breakMinutes",
+              "attested"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "approve"
+              },
+              "caseId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 49
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "checked": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "caseId",
+              "version",
+              "note",
+              "checked"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "return"
+              },
+              "caseId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 49
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "caseId",
+              "version",
+              "note"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "required": [
+          "caseId",
+          "version"
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/handovers",
+      "request": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "create"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "sourceCaseId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "targetCaseId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "summary": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "outstanding": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "precautions": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "sourceCaseId",
+              "targetCaseId",
+              "summary",
+              "outstanding",
+              "precautions"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "revise"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 20
+              },
+              "summary": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "outstanding": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "precautions": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version",
+              "summary",
+              "outstanding",
+              "precautions"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "approve"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 20
+              },
+              "checked": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version",
+              "checked"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "return"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 20
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "withdraw"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 20
+              },
+              "checked": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version",
+              "checked"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "acknowledge"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 20
+              },
+              "checked": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version",
+              "checked"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "required": [
+          "id",
+          "version"
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "suffix": "/followups",
+      "request": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "create"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "caseId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "category": {
+                "enum": [
+                  "coverage",
+                  "plan_review",
+                  "visit_review",
+                  "documentation",
+                  "staff_clearance",
+                  "time_review",
+                  "handover_review",
+                  "other_operations"
+                ]
+              },
+              "ownerId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "dueAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "prerequisiteIds": {
+                "type": "array",
+                "maxItems": 5,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "caseId",
+              "category",
+              "ownerId",
+              "dueAt"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "start"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "block"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "submit"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "verify"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              },
+              "checked": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version",
+              "checked"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "return"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "reassign"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              },
+              "ownerId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "dueAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version",
+              "ownerId",
+              "dueAt"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "cancel"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "request_extension"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              },
+              "dueAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version",
+              "dueAt"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "withdraw_extension"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "approve_extension"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              },
+              "checked": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version",
+              "checked"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "decline_extension"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "release_dependency"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 49
+              },
+              "prerequisiteId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "checked": {
+                "const": true
+              }
+            },
+            "required": [
+              "action",
+              "note",
+              "id",
+              "version",
+              "prerequisiteId",
+              "checked"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "required": [
+          "id",
+          "version"
+        ]
+      }
+    }
+  ],
+  "locales": {
+    "en": {
+      "title": "Care delivery",
+      "intro": "Coordinate visits, nurse-authored support plans, assigned care and clinical follow-up.",
+      "boundary": "This workflow records routine non-controlled support care. It does not authorize medication administration or controlled acts. Follow your organization’s clinical policies.",
+      "role_rn": "Registered nurse",
+      "role_rpn": "Registered practical nurse",
+      "role_rn_field_supervisor": "RN field supervisor",
+      "role_clinical_director": "Clinical director",
+      "role_psw": "Personal support worker",
+      "role_hsw": "Home support worker",
+      "role_scheduler": "Scheduling supervisor",
+      "role_tenant_admin": "Tenant administrator",
+      "language": "Language",
+      "refresh": "Refresh",
+      "back": "Workspace",
+      "empty": "No records",
+      "loading": "Loading care workspace…",
+      "saved": "Recorded",
+      "error": "Unable to complete the request. Refresh and check your permissions and record version.",
+      "staff_clearance": "Staff clearance",
+      "clearance_note": "Independent human verification of employment, training and current registration where applicable. Account roles alone do not establish clinical authority.",
+      "staff": "Staff member",
+      "status": "Status",
+      "active": "Active",
+      "revoked": "Revoked",
+      "expiry": "Expiry date",
+      "registration": "Registration or training verification reference",
+      "evidence": "Review evidence",
+      "checked": "I checked the relevant registration, competence, employment and training evidence.",
+      "record_clearance": "Record clearance",
+      "create_case": "Assign a visit",
+      "visit": "Existing visit",
+      "nurse": "Assigned nurse",
+      "supervisor": "Clinical supervisor",
+      "worker": "Assigned support worker",
+      "assign": "Create assignment",
+      "case_list": "Visit assignments",
+      "open": "Open",
+      "previous": "Previous",
+      "next": "Next",
+      "version": "Version",
+      "scheduled": "Scheduled start",
+      "state": "Workflow status",
+      "case_detail": "Care record",
+      "plan": "Support care plan",
+      "assessment": "Nurse assessment and support needs",
+      "risks": "Risks and precautions",
+      "escalation": "When and whom to contact for help",
+      "valid_until": "Plan valid until (UTC)",
+      "tasks": "Care activities",
+      "task_instructions": "Client-specific support instructions",
+      "add_task": "Add activity",
+      "remove_task": "Remove activity",
+      "consent_evidence": "Consent discussion and applicable consent directions",
+      "consent_checked": "I recorded the applicable consent and assessed the assigned worker’s competence for these activities.",
+      "save_plan": "Save draft plan",
+      "submit_plan": "Submit for review",
+      "approve_plan": "Approve plan",
+      "return_plan": "Return for correction",
+      "accept": "Acknowledge assignment",
+      "start": "Record visit start",
+      "start_consent": "I confirmed current consent and reviewed the current plan and precautions.",
+      "task": "Record activity outcome",
+      "outcome": "Outcome",
+      "notes": "Observation / factual note",
+      "done": "Completed",
+      "refused": "Client declined",
+      "not_done": "Not completed",
+      "concern": "Concern / escalation",
+      "follow_up": "Record clinical follow-up",
+      "submit_visit": "Submit visit record",
+      "complete_review": "Accept visit review",
+      "reassign": "Change assignment",
+      "cancel": "Cancel care assignment",
+      "amendment": "Add signed correction / addendum",
+      "urgent_note": "This screen sends no emergency notification. Use your organization’s urgent escalation procedure when needed.",
+      "event_history": "Signed record history",
+      "open_concerns": "Concerns awaiting follow-up",
+      "follow_up_reference": "Concern record",
+      "action": "Action",
+      "record": "Record action",
+      "scope_note": "Only assigned clinicians and support workers receive the clinical record. Operations views show scheduling information.",
+      "clearance_missing": "Current clearance or approved provider setup is missing.",
+      "awaiting_plan": "Awaiting nurse plan",
+      "draft": "Draft plan",
+      "pending_review": "Awaiting independent clinical review",
+      "ready": "Approved for assignment acknowledgement",
+      "accepted": "Assignment acknowledged",
+      "in_progress": "Visit in progress",
+      "submitted": "Awaiting visit review",
+      "completed": "Visit reviewed",
+      "cancelled": "Care assignment cancelled",
+      "personal_support": "Personal support",
+      "mobility_support": "Mobility support",
+      "meal_support": "Meal support",
+      "household_support": "Household support",
+      "companionship": "Companionship",
+      "observation_report": "Observation and reporting",
+      "summary": "Work overview",
+      "overdue": "Scheduled visits awaiting start",
+      "review_backlog": "Reviews waiting",
+      "read_only": "No permitted action for this record",
+      "privacy": "Use only necessary care information. Do not copy it to personal email or marketing systems.",
+      "roster_note": "Only the first 200 staff and 100 unassigned visits are shown. Contact your coordinator if a record is not listed.",
+      "assigned": "Visit assigned",
+      "choose": "Select an option",
+      "clearance_current": "Current clearance evidence",
+      "profile_onboarding": "Provider profile and induction approval",
+      "full_name": "Staff member’s full name",
+      "languages": "Working languages",
+      "service_areas": "Approved service areas",
+      "skills": "Verified support / nursing skills",
+      "profile_approved": "I reviewed the provider profile and confirm employment approval and completed induction.",
+      "task_queue": "My work and team follow-up",
+      "queue_filter": "Show assignments",
+      "filter_all": "All authorized assignments",
+      "filter_mine": "My next tasks and follow-up",
+      "filter_late": "Past operational target",
+      "filter_concerns": "Open concerns",
+      "filter_coverage": "Coverage needed",
+      "task_owner": "Responsible person / team",
+      "operations_team": "Scheduling team",
+      "due_at": "Operational target (UTC)",
+      "late_minutes": "Minutes past target",
+      "on_time": "Within operational target",
+      "task_timing_note": "Timing flags identify follow-up needs. They do not prove employee fault, clinical urgency or payroll eligibility. Documentation: scheduled visit end + 2 hours; review: submission + 24 hours; correction: return + 24 hours.",
+      "task_prepare_plan": "Prepare / submit support plan",
+      "task_review_plan": "Independently review plan",
+      "task_acknowledge": "Acknowledge assignment",
+      "task_start": "Confirm consent and record start",
+      "task_document": "Record outcomes and submit visit",
+      "task_review_visit": "Review submitted visit",
+      "task_correct_visit": "Add signed correction and resubmit",
+      "task_restore_coverage": "Resolve exception and arrange coverage",
+      "coverage_needed": "Visit cannot proceed — coverage review",
+      "correction_requested": "Visit documentation correction requested",
+      "report_unavailable": "Report visit cannot proceed",
+      "return_visit": "Return visit notes for signed correction",
+      "unavailable_reason": "Operational reason",
+      "cannot_attend": "Worker cannot attend",
+      "client_unavailable": "Client unavailable",
+      "no_access": "Unable to access visit location",
+      "consent_unavailable": "Current consent unavailable",
+      "other": "Other — coordinator follow-up",
+      "correction_note": "Add a signed addendum responding to the latest return request, then resubmit. Original outcomes stay unchanged; do not perform care again to correct documentation.",
+      "coverage_note": "Care has not started. Contact the coordinator using your organization’s escalation process. A new assignment requires a fresh approved plan.",
+      "unrecorded": "Outcome not yet recorded",
+      "staffing": "Availability and leave",
+      "staffing_note": "Enter explicit UTC times and scheduling facts only. Do not include diagnoses or medical details. Support workers need an active availability window covering the whole visit. Approved leave blocks affected team assignments.",
+      "availability": "Record available time",
+      "request_leave": "Request time off",
+      "approve_leave": "Approve time off",
+      "reject_leave": "Decline time-off request",
+      "withdraw": "Withdraw window or pending request",
+      "revoke_leave": "Revoke approved time off with evidence",
+      "window_start": "Start (UTC)",
+      "window_end": "End (UTC)",
+      "staffing_filter": "Staff records",
+      "all_staff": "All authorized staff",
+      "pending": "Awaiting independent decision",
+      "approved": "Time off approved",
+      "rejected": "Request declined",
+      "withdrawn": "Withdrawn",
+      "leave": "Time-off request",
+      "staffing_blocked": "Staffing check needs attention before care starts",
+      "availability_missing": "No active worker availability covers the visit",
+      "leave_conflict": "An assigned team member has approved time off",
+      "visit_overlap": "The support worker has an overlapping visit",
+      "schedule_invalid": "Visit timing requires coordinator correction",
+      "staffing_history": "Scheduling decision history",
+      "staffing_count": "Staffing records",
+      "schedules": "Recurring visits",
+      "schedule_note": "Preview all dates before creating visits. Client, service, skills and address come from the source visit; clinical plans and staff assignments are not copied.",
+      "source_visit": "Source visit",
+      "local_start": "First local start",
+      "time_zone": "Time zone",
+      "occurrences": "Number of visits",
+      "every_weeks": "Repeat every (weeks)",
+      "duration_minutes": "Duration in minutes",
+      "preview": "Preview dates",
+      "create": "Create previewed visits",
+      "schedule_confirmed": "I confirmed these dates, service and address with the client or appropriate representative.",
+      "cancel_occurrence": "Cancel unassigned occurrence",
+      "schedule_conflict": "A client visit already overlaps this schedule",
+      "ambiguous_local_time": "This local time occurs twice. Select UTC and specify the intended instant.",
+      "invalid_local_time": "This local time does not exist in the selected time zone",
+      "reschedule": "Reschedule before care starts",
+      "reschedule_note": "Changing the schedule clears the care plan, approval and worker acknowledgement. A fresh approved plan is required.",
+      "time_records": "Reported work time",
+      "time_note": "Record actual work and breaks, including corrections. These records prepare evidence for independent review; they do not calculate wages or release payment. Do not add clinical details.",
+      "actual_start": "Actual start (UTC)",
+      "actual_end": "Actual end (UTC)",
+      "break_minutes": "Break minutes",
+      "net_minutes": "Reported work minutes",
+      "time_attested": "I confirm these are my actual work times and breaks.",
+      "submit_time": "Submit time record",
+      "approve": "Verify reported time",
+      "return": "Return for time correction",
+      "returned": "Time correction requested",
+      "time_pending": "Time review pending",
+      "time_approved": "Reported time independently verified",
+      "time_checked": "I reviewed the reported work, breaks, discrepancies and supporting evidence.",
+      "start_discrepancy": "Reported start differs from the electronic care-start record",
+      "electronic_start": "Electronic care-start record",
+      "clinical_status": "Clinical review status",
+      "task_submit_time": "Submit / correct reported work time",
+      "task_review_time": "Independently review reported work time",
+      "preview_required": "Preview these exact dates again before creating visits.",
+      "requested": "Visit requested",
+      "time_returned": "Time correction requested",
+      "preview_service": "Service",
+      "preview_address": "Visit address",
+      "preview_skills": "Required skills",
+      "cancel_visit": "Cancel client appointment",
+      "cancel_visit_note": "This cancels the source appointment and care assignment. Record the client agreement or other appropriate cancellation evidence. A cancelled appointment cannot be restarted by reassigning staff.",
+      "handovers": "Shift handovers",
+      "handover_note": "Send factual continuity information for the same client. Independent clinical review is required. Follow the receiving visit’s current approved plan; this handover does not authorize new treatment. No emergency notification is sent.",
+      "handover_target": "Receiving visit",
+      "handover_summary": "Factual care summary",
+      "handover_outstanding": "Outstanding follow-up and observations",
+      "handover_precautions": "Existing precautions to communicate",
+      "handover_create": "Submit handover for review",
+      "handover_revise": "Revise / add reviewed update",
+      "handover_approve": "Approve clinical handover",
+      "handover_return": "Return handover for correction",
+      "handover_withdraw": "Withdraw invalid handover with evidence",
+      "handover_acknowledge": "Acknowledge receiving-team handover",
+      "handover_checked": "I reviewed this handover and understand my current responsibility.",
+      "handover_pending": "Handover needs independent review before the receiving visit can proceed",
+      "handover_receipts_needed": "The current receiving nurse or supervisor and support worker must acknowledge approved handovers before care starts",
+      "handover_receipts": "Current receiving-team receipts",
+      "handover_inbox": "Handover work queue",
+      "target_visit": "Receiving care record",
+      "task_review_handover": "Independently review shift handover",
+      "task_acknowledge_handover": "Read and acknowledge approved handover",
+      "followups": "Assigned operational follow-ups",
+      "followup_note": "Use scheduling and task evidence only. Clinical concerns stay in the clinical record. Completing this task does not replace care review, credential verification or payroll decisions.",
+      "followup_create": "Assign follow-up",
+      "followup_category": "Required workflow",
+      "followup_owner": "Responsible employee",
+      "followup_due": "Follow-up target (UTC)",
+      "followup_start": "Start follow-up",
+      "followup_block": "Report blocked work",
+      "followup_submit": "Submit completion evidence",
+      "followup_verify": "Independently verify completion",
+      "followup_return": "Return evidence for correction",
+      "followup_reassign": "Change responsible employee / target",
+      "followup_cancel": "Cancel follow-up with evidence",
+      "followup_checked": "I independently reviewed the evidence and the required workflow outcome.",
+      "followup_open": "Open follow-up",
+      "followup_in_progress": "Follow-up in progress",
+      "followup_blocked": "Employee reported a blocker",
+      "followup_submitted": "Awaiting independent verification",
+      "followup_completed": "Follow-up independently verified",
+      "followup_cancelled": "Follow-up cancelled",
+      "source_satisfied": "Required system outcome is recorded",
+      "source_not_satisfied": "Required system outcome is still missing",
+      "followup_source_missing": "Complete the required source workflow before verifying this follow-up",
+      "category_coverage": "Resolve staffing coverage",
+      "category_plan_review": "Approve current care plan",
+      "category_visit_review": "Complete independent visit review",
+      "category_documentation": "Submit care documentation",
+      "category_staff_clearance": "Resolve employee clearance",
+      "category_time_review": "Verify reported work time",
+      "category_handover_review": "Review clinical handovers",
+      "category_other_operations": "Other operational follow-up",
+      "handover_received": "Reviewed handover requires a fresh review of the current care plan",
+      "handover_approved": "Clinical handover approved",
+      "handover_returned": "Handover correction requested",
+      "handover_withdrawn": "Handover withdrawn after clinical review",
+      "followup_receipt_limit": "Further updates require a new follow-up record; history is preserved",
+      "followup_limited": "Your task history remains available. Current care-chart access follows the current assignment.",
+      "followup_filter_all": "All authorized follow-ups",
+      "followup_filter_mine": "My open follow-ups",
+      "followup_filter_late": "Past target",
+      "followup_filter_review": "Awaiting verification",
+      "followup_request_extension": "Request more time",
+      "followup_withdraw_extension": "Withdraw deadline request",
+      "followup_approve_extension": "Approve later deadline",
+      "followup_decline_extension": "Decline deadline request",
+      "followup_extension_due": "Requested deadline (UTC)",
+      "followup_extension_pending": "Deadline request awaiting independent decision",
+      "followup_extension_note": "Explain the operational blocker and proposed deadline. The current deadline applies until another operations person approves; requesting time does not complete the task. Do not include medical details.",
+      "followup_filter_extensions": "Deadline requests",
+      "followup_extensions": "Pending deadline decisions",
+      "followup_deadline_history": "Deadline and ownership evidence",
+      "followup_previous_due": "Previous deadline",
+      "followup_effective_due": "Recorded deadline",
+      "followup_request_closed": "Pending deadline request closed with this action",
+      "followup_extension_expired": "The proposed deadline has passed. Decline or withdraw this request, then request a future deadline.",
+      "followup_decision_checked": "I independently reviewed the evidence for this decision.",
+      "manual_review_required": "Independent operational evidence review is required; there is no automatic source-outcome check for this category.",
+      "manual_review_recorded": "Independent operational evidence review was recorded.",
+      "workload_title": "Employee task workload",
+      "workload_note": "Operational tasks only. Counts show unfinished work and blockers, not employee fault, hours worked or pay entitlement. Clinical chart access remains separate.",
+      "workload_search": "Search employee email or account ID",
+      "workload_search_help": "Search is literal and case-insensitive. Client names, clinical notes and task evidence are not searched.",
+      "workload_owners": "Employees with unfinished tasks",
+      "workload_blocked": "Blocked tasks",
+      "workload_oldest_due": "Earliest unfinished deadline (UTC)",
+      "workload_open_tasks": "View employee tasks",
+      "workload_owner_inactive": "Account inactive: review ownership and arrange reassignment.",
+      "followup_owner_scope": "Tasks filtered to this employee",
+      "followup_owner_clear": "Show all authorized employees",
+      "followup_filter_blocked": "Blocked work",
+      "workload_search_submit": "Search employees",
+      "workload_owner_unavailable": "Account or role unavailable for care tasks: review ownership and arrange reassignment.",
+      "followup_prerequisites": "Task prerequisites",
+      "followup_prerequisites_note": "Optionally select up to five existing tasks for this visit. Each must be independently verified as completed, or released by another operations person, before this task starts or is submitted. Cancelling a prerequisite does not fulfil it.",
+      "followup_dependency_pending": "Prerequisites are still outstanding. Review the waiting tasks or ask operations to review an exception.",
+      "followup_dependency_invalid": "The prerequisite must be an existing, non-cancelled task for this same visit.",
+      "followup_dependency_fulfilled": "Prerequisite fulfilled",
+      "followup_dependency_waiting": "Prerequisite not fulfilled",
+      "followup_dependency_released": "Operational prerequisite released",
+      "followup_release_dependency": "Release a task prerequisite",
+      "followup_dependency_release_note": "Record why this operational prerequisite may be released. This does not complete its task or approve clinical care, qualifications or payroll. You cannot release a prerequisite for your own task.",
+      "followup_dependency_checked": "I independently reviewed and justified this operational exception.",
+      "followup_prerequisites_truncated": "Only the latest 100 eligible prerequisite tasks are listed. Older task records remain in their queues; this picker does not search the full history.",
+      "followup_filter_waiting": "Waiting on prerequisites",
+      "workload_waiting": "Waiting on other tasks",
+      "followup_reference": "Task reference",
+      "followup_dependency_independent_note": "Record why this operational prerequisite may be released. You must be independent of both task owners. This does not complete the prerequisite or approve clinical care, qualifications or payroll.",
+      "roster_title": "Find staff for assignment and clearance",
+      "roster_search": "Search email or account ID",
+      "roster_submit": "Search staff",
+      "roster_search_help": "Up to 200 matching active staff are shown. Narrow the search if needed. Unassigned visits remain limited to 100.",
+      "roster_operations_title": "Find staff for care operations",
+      "roster_operations_help": "Search updates assignment, clearance, availability/leave and eligible follow-up owner selectors. Up to 200 matches are shown; narrow the search when needed.",
+      "visit_picker_title": "Find unassigned appointments",
+      "visit_picker_search": "Client name or appointment ID",
+      "visit_picker_submit": "Search appointments",
+      "visit_picker_help": "Search and paging include eligible unassigned appointments only. Selecting an appointment does not assign staff or approve care.",
+      "visit_picker_total": "Matching appointments",
+      "source_picker_title": "Find recurring-visit source",
+      "source_picker_search": "Client name or source appointment ID",
+      "source_picker_submit": "Search sources",
+      "source_picker_total": "Matching source appointments",
+      "source_picker_help": "Browse eligible source appointments. A source supplies scheduling details; every new visit still needs its own care assignment and approval."
+    },
+    "fr": {
+      "title": "Prestation des soins",
+      "intro": "Coordonner les visites, les plans infirmiers, les soins attribués et le suivi clinique.",
+      "boundary": "Ce circuit consigne des activités de soutien non contrôlées. Il n’autorise ni médicaments ni actes contrôlés. Suivre les politiques cliniques de l’organisation.",
+      "role_rn": "Infirmière autorisée",
+      "role_rpn": "Infirmière auxiliaire autorisée",
+      "role_rn_field_supervisor": "Superviseur infirmier de terrain",
+      "role_clinical_director": "Direction clinique",
+      "role_psw": "Préposé aux services de soutien personnel",
+      "role_hsw": "Aide à domicile",
+      "role_scheduler": "Superviseur des horaires",
+      "role_tenant_admin": "Administration du locataire",
+      "language": "Langue",
+      "refresh": "Actualiser",
+      "back": "Espace de travail",
+      "empty": "Aucun dossier",
+      "loading": "Chargement des soins…",
+      "saved": "Enregistré",
+      "error": "Action impossible. Actualiser et vérifier les droits et la version du dossier.",
+      "staff_clearance": "Vérification du personnel",
+      "clearance_note": "Vérification humaine indépendante de l’emploi, de la formation et de l’inscription applicable. Un rôle de compte ne prouve pas l’autorité clinique.",
+      "staff": "Membre du personnel",
+      "status": "Statut",
+      "active": "Actif",
+      "revoked": "Révoqué",
+      "expiry": "Date d’expiration",
+      "registration": "Référence de vérification de l’inscription ou de la formation",
+      "evidence": "Justification de révision",
+      "checked": "J’ai vérifié les preuves applicables d’inscription, de compétence, d’emploi et de formation.",
+      "record_clearance": "Enregistrer la vérification",
+      "create_case": "Attribuer une visite",
+      "visit": "Visite existante",
+      "nurse": "Infirmière attribuée",
+      "supervisor": "Superviseur clinique",
+      "worker": "Intervenant de soutien",
+      "assign": "Créer l’attribution",
+      "case_list": "Visites attribuées",
+      "open": "Ouvrir",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "version": "Version",
+      "scheduled": "Début prévu",
+      "state": "Statut du circuit",
+      "case_detail": "Dossier de soins",
+      "plan": "Plan de soutien",
+      "assessment": "Évaluation infirmière et besoins de soutien",
+      "risks": "Risques et précautions",
+      "escalation": "Quand et qui contacter pour obtenir de l’aide",
+      "valid_until": "Plan valide jusqu’au (UTC)",
+      "tasks": "Activités de soins",
+      "task_instructions": "Consignes de soutien propres au client",
+      "add_task": "Ajouter une activité",
+      "remove_task": "Retirer l’activité",
+      "consent_evidence": "Discussion et directives de consentement",
+      "consent_checked": "J’ai consigné le consentement applicable et évalué la compétence de l’intervenant pour ces activités.",
+      "save_plan": "Enregistrer le brouillon",
+      "submit_plan": "Soumettre à révision",
+      "approve_plan": "Approuver le plan",
+      "return_plan": "Retourner pour correction",
+      "accept": "Reconnaître l’attribution",
+      "start": "Consigner le début",
+      "start_consent": "J’ai confirmé le consentement actuel et relu le plan et les précautions.",
+      "task": "Consigner le résultat",
+      "outcome": "Résultat",
+      "notes": "Observation / note factuelle",
+      "done": "Effectué",
+      "refused": "Refus du client",
+      "not_done": "Non effectué",
+      "concern": "Préoccupation / signalement",
+      "follow_up": "Consigner le suivi clinique",
+      "submit_visit": "Soumettre le dossier de visite",
+      "complete_review": "Accepter la révision de visite",
+      "reassign": "Modifier l’attribution",
+      "cancel": "Annuler l’attribution de soins",
+      "amendment": "Ajouter un rectificatif signé",
+      "urgent_note": "Cet écran n’envoie aucune alerte d’urgence. Suivre la procédure urgente de l’organisation si nécessaire.",
+      "event_history": "Historique signé",
+      "open_concerns": "Préoccupations en attente de suivi",
+      "follow_up_reference": "Signalement",
+      "action": "Action",
+      "record": "Enregistrer l’action",
+      "scope_note": "Seuls les soignants attribués reçoivent le dossier clinique. Les opérations voient les renseignements de planification.",
+      "clearance_missing": "Vérification actuelle ou profil de prestataire approuvé manquant.",
+      "awaiting_plan": "Plan infirmier attendu",
+      "draft": "Brouillon du plan",
+      "pending_review": "Révision clinique indépendante attendue",
+      "ready": "Plan approuvé, reconnaissance attendue",
+      "accepted": "Attribution reconnue",
+      "in_progress": "Visite en cours",
+      "submitted": "Révision de visite attendue",
+      "completed": "Visite révisée",
+      "cancelled": "Attribution annulée",
+      "personal_support": "Soutien personnel",
+      "mobility_support": "Soutien à la mobilité",
+      "meal_support": "Soutien aux repas",
+      "household_support": "Aide ménagère",
+      "companionship": "Compagnie",
+      "observation_report": "Observation et signalement",
+      "summary": "Aperçu du travail",
+      "overdue": "Visites prévues non commencées",
+      "review_backlog": "Révisions en attente",
+      "read_only": "Aucune action permise",
+      "privacy": "Utiliser uniquement les renseignements nécessaires. Ne pas copier vers une messagerie personnelle ou le marketing.",
+      "roster_note": "Seuls les 200 premiers membres du personnel et 100 visites non attribuées sont affichés. Contacter le coordonnateur si un dossier manque.",
+      "assigned": "Visite attribuée",
+      "choose": "Choisir une option",
+      "clearance_current": "Preuves de vérification actuelles",
+      "profile_onboarding": "Profil du prestataire et approbation de l’intégration",
+      "full_name": "Nom complet du membre du personnel",
+      "languages": "Langues de travail",
+      "service_areas": "Secteurs de service approuvés",
+      "skills": "Compétences infirmières ou de soutien vérifiées",
+      "profile_approved": "J’ai révisé le profil et confirme l’approbation d’emploi et l’intégration terminée.",
+      "task_queue": "Mon travail et suivi d’équipe",
+      "queue_filter": "Afficher les affectations",
+      "filter_all": "Toutes les affectations autorisées",
+      "filter_mine": "Mes prochaines tâches et suivis",
+      "filter_late": "Échéance opérationnelle dépassée",
+      "filter_concerns": "Préoccupations ouvertes",
+      "filter_coverage": "Remplacement nécessaire",
+      "task_owner": "Personne ou équipe responsable",
+      "operations_team": "Équipe de planification",
+      "due_at": "Échéance opérationnelle (UTC)",
+      "late_minutes": "Minutes après l’échéance",
+      "on_time": "Dans le délai opérationnel",
+      "task_timing_note": "Les indicateurs de délai signalent un besoin de suivi. Ils ne prouvent ni faute, ni urgence clinique, ni droit à rémunération. Documentation : fin prévue + 2 heures ; révision : soumission + 24 heures ; correction : retour + 24 heures.",
+      "task_prepare_plan": "Préparer et soumettre le plan de soutien",
+      "task_review_plan": "Réviser le plan de façon indépendante",
+      "task_acknowledge": "Confirmer l’affectation",
+      "task_start": "Confirmer le consentement et noter le début",
+      "task_document": "Noter les résultats et soumettre la visite",
+      "task_review_visit": "Réviser la visite soumise",
+      "task_correct_visit": "Ajouter une correction signée et resoumettre",
+      "task_restore_coverage": "Résoudre l’exception et organiser le remplacement",
+      "coverage_needed": "Visite impossible — révision du remplacement",
+      "correction_requested": "Correction de la documentation demandée",
+      "report_unavailable": "Signaler que la visite ne peut pas avoir lieu",
+      "return_visit": "Retourner les notes pour correction signée",
+      "unavailable_reason": "Motif opérationnel",
+      "cannot_attend": "Intervenant indisponible",
+      "client_unavailable": "Client indisponible",
+      "no_access": "Accès au lieu impossible",
+      "consent_unavailable": "Consentement actuel indisponible",
+      "other": "Autre — suivi du coordonnateur",
+      "correction_note": "Ajoutez un addenda signé répondant à la dernière demande, puis resoumettez. Les résultats originaux restent inchangés ; ne refaites pas les soins pour corriger la documentation.",
+      "coverage_note": "Les soins n’ont pas commencé. Contactez le coordonnateur selon la procédure de votre organisme. Une nouvelle affectation exige un nouveau plan approuvé.",
+      "unrecorded": "Résultat pas encore consigné",
+      "staffing": "Disponibilités et congés",
+      "staffing_note": "Indiquez les heures UTC et uniquement les faits de planification. N’incluez ni diagnostic ni détails médicaux. Une disponibilité active doit couvrir toute la visite de l’intervenant. Un congé approuvé bloque les affectations de l’équipe concernée.",
+      "availability": "Consigner une disponibilité",
+      "request_leave": "Demander un congé",
+      "approve_leave": "Approuver le congé",
+      "reject_leave": "Refuser la demande de congé",
+      "withdraw": "Retirer la plage ou la demande en attente",
+      "revoke_leave": "Révoquer le congé approuvé avec justification",
+      "window_start": "Début (UTC)",
+      "window_end": "Fin (UTC)",
+      "staffing_filter": "Dossiers du personnel",
+      "all_staff": "Tout le personnel autorisé",
+      "pending": "En attente d’une décision indépendante",
+      "approved": "Congé approuvé",
+      "rejected": "Demande refusée",
+      "withdrawn": "Retiré",
+      "leave": "Demande de congé",
+      "staffing_blocked": "Vérification du personnel nécessaire avant les soins",
+      "availability_missing": "Aucune disponibilité active ne couvre la visite",
+      "leave_conflict": "Un membre affecté de l’équipe est en congé approuvé",
+      "visit_overlap": "L’intervenant a une visite qui se chevauche",
+      "schedule_invalid": "L’horaire nécessite une correction du coordonnateur",
+      "staffing_history": "Historique des décisions de planification",
+      "staffing_count": "Dossiers de planification",
+      "schedules": "Visites récurrentes",
+      "schedule_note": "Prévisualisez les dates avant de créer les visites. Le client, le service, les compétences et l’adresse proviennent de la visite source ; les plans cliniques et affectations ne sont pas copiés.",
+      "source_visit": "Visite source",
+      "local_start": "Premier début local",
+      "time_zone": "Fuseau horaire",
+      "occurrences": "Nombre de visites",
+      "every_weeks": "Répéter toutes les (semaines)",
+      "duration_minutes": "Durée en minutes",
+      "preview": "Prévisualiser les dates",
+      "create": "Créer les visites prévisualisées",
+      "schedule_confirmed": "J’ai confirmé ces dates, le service et l’adresse avec le client ou son représentant approprié.",
+      "cancel_occurrence": "Annuler une occurrence non affectée",
+      "schedule_conflict": "Une visite du client chevauche cet horaire",
+      "ambiguous_local_time": "Cette heure locale se produit deux fois. Sélectionnez UTC et précisez l’instant voulu.",
+      "invalid_local_time": "Cette heure locale n’existe pas dans ce fuseau horaire",
+      "reschedule": "Replanifier avant le début des soins",
+      "reschedule_note": "La modification efface le plan, l’approbation et la confirmation de l’intervenant. Un nouveau plan approuvé est nécessaire.",
+      "time_records": "Temps de travail déclaré",
+      "time_note": "Consignez le travail réel, les pauses et corrections. Ces données préparent une révision indépendante ; elles ne calculent ni salaire ni paiement. N’ajoutez aucun détail clinique.",
+      "actual_start": "Début réel (UTC)",
+      "actual_end": "Fin réelle (UTC)",
+      "break_minutes": "Minutes de pause",
+      "net_minutes": "Minutes de travail déclarées",
+      "time_attested": "Je confirme qu’il s’agit de mes heures et pauses réelles.",
+      "submit_time": "Soumettre les heures",
+      "approve": "Vérifier les heures déclarées",
+      "return": "Retourner pour correction des heures",
+      "returned": "Correction des heures demandée",
+      "time_pending": "Révision des heures en attente",
+      "time_approved": "Heures vérifiées indépendamment",
+      "time_checked": "J’ai vérifié le travail déclaré, les pauses, les écarts et les justificatifs.",
+      "start_discrepancy": "Le début déclaré diffère du début électronique des soins",
+      "electronic_start": "Début électronique des soins",
+      "clinical_status": "État de la révision clinique",
+      "task_submit_time": "Soumettre ou corriger les heures déclarées",
+      "task_review_time": "Réviser les heures de façon indépendante",
+      "preview_required": "Prévisualisez de nouveau ces dates exactes avant de créer les visites.",
+      "requested": "Visite demandée",
+      "time_returned": "Correction des heures demandée",
+      "preview_service": "Service",
+      "preview_address": "Adresse de visite",
+      "preview_skills": "Compétences requises",
+      "cancel_visit": "Annuler le rendez-vous client",
+      "cancel_visit_note": "Cette action annule le rendez-vous source et l’affectation. Consignez l’accord du client ou les justificatifs appropriés. Une réaffectation ne peut pas réactiver ce rendez-vous.",
+      "handovers": "Transmissions entre équipes",
+      "handover_note": "Transmettez des informations factuelles pour le même client. Une révision clinique indépendante est nécessaire. Suivez le plan approuvé de la visite suivante ; cette transmission n’autorise aucun nouveau traitement. Aucune notification d’urgence n’est envoyée.",
+      "handover_target": "Visite suivante",
+      "handover_summary": "Résumé factuel des soins",
+      "handover_outstanding": "Suivis et observations en attente",
+      "handover_precautions": "Précautions existantes à transmettre",
+      "handover_create": "Soumettre la transmission pour révision",
+      "handover_revise": "Réviser ou ajouter une mise à jour",
+      "handover_approve": "Approuver la transmission clinique",
+      "handover_return": "Retourner la transmission pour correction",
+      "handover_withdraw": "Retirer une transmission invalide avec justification",
+      "handover_acknowledge": "Confirmer la réception de la transmission",
+      "handover_checked": "J’ai examiné cette transmission et compris ma responsabilité actuelle.",
+      "handover_pending": "La transmission nécessite une révision indépendante avant la visite suivante",
+      "handover_receipts_needed": "L’infirmière ou le superviseur et l’intervenant de l’équipe actuelle doivent confirmer les transmissions approuvées avant les soins",
+      "handover_receipts": "Confirmations de l’équipe actuelle",
+      "handover_inbox": "File de transmissions",
+      "target_visit": "Dossier de soins suivant",
+      "task_review_handover": "Réviser la transmission indépendamment",
+      "task_acknowledge_handover": "Lire et confirmer la transmission approuvée",
+      "followups": "Suivis opérationnels affectés",
+      "followup_note": "Utilisez uniquement les faits de planification et les justificatifs de tâche. Les préoccupations cliniques restent dans le dossier clinique. Cette tâche ne remplace ni la révision des soins, ni la vérification des qualifications, ni les décisions de paie.",
+      "followup_create": "Affecter un suivi",
+      "followup_category": "Processus requis",
+      "followup_owner": "Employé responsable",
+      "followup_due": "Échéance de suivi (UTC)",
+      "followup_start": "Commencer le suivi",
+      "followup_block": "Signaler un blocage",
+      "followup_submit": "Soumettre les justificatifs",
+      "followup_verify": "Vérifier la réalisation indépendamment",
+      "followup_return": "Retourner les justificatifs pour correction",
+      "followup_reassign": "Modifier le responsable ou l’échéance",
+      "followup_cancel": "Annuler le suivi avec justification",
+      "followup_checked": "J’ai vérifié indépendamment les justificatifs et le résultat requis.",
+      "followup_open": "Suivi ouvert",
+      "followup_in_progress": "Suivi en cours",
+      "followup_blocked": "Blocage signalé par l’employé",
+      "followup_submitted": "En attente de vérification indépendante",
+      "followup_completed": "Suivi vérifié indépendamment",
+      "followup_cancelled": "Suivi annulé",
+      "source_satisfied": "Le résultat système requis est consigné",
+      "source_not_satisfied": "Le résultat système requis manque encore",
+      "followup_source_missing": "Terminez le processus source requis avant de vérifier ce suivi",
+      "category_coverage": "Résoudre le remplacement",
+      "category_plan_review": "Approuver le plan actuel",
+      "category_visit_review": "Terminer la révision de visite",
+      "category_documentation": "Soumettre la documentation de soins",
+      "category_staff_clearance": "Résoudre les qualifications de l’employé",
+      "category_time_review": "Vérifier les heures déclarées",
+      "category_handover_review": "Réviser les transmissions cliniques",
+      "category_other_operations": "Autre suivi opérationnel",
+      "handover_received": "La transmission approuvée exige une nouvelle révision du plan actuel",
+      "handover_approved": "Transmission clinique approuvée",
+      "handover_returned": "Correction de transmission demandée",
+      "handover_withdrawn": "Transmission retirée après révision clinique",
+      "followup_receipt_limit": "Les autres mises à jour nécessitent un nouveau suivi ; l’historique est conservé",
+      "followup_limited": "L’historique de votre tâche reste accessible. L’accès au dossier de soins dépend de l’affectation actuelle.",
+      "followup_filter_all": "Tous les suivis autorisés",
+      "followup_filter_mine": "Mes suivis ouverts",
+      "followup_filter_late": "Échéance dépassée",
+      "followup_filter_review": "En attente de vérification",
+      "followup_request_extension": "Demander plus de temps",
+      "followup_withdraw_extension": "Retirer la demande de délai",
+      "followup_approve_extension": "Approuver le nouveau délai",
+      "followup_decline_extension": "Refuser la demande de délai",
+      "followup_extension_due": "Échéance demandée (UTC)",
+      "followup_extension_pending": "Demande de délai en attente de décision indépendante",
+      "followup_extension_note": "Expliquez le blocage opérationnel et le délai proposé. Le délai actuel reste applicable tant qu’une autre personne des opérations ne l’approuve pas ; la demande ne termine pas la tâche. Ne fournissez aucun détail médical.",
+      "followup_filter_extensions": "Demandes de délai",
+      "followup_extensions": "Décisions de délai en attente",
+      "followup_deadline_history": "Historique des délais et des responsables",
+      "followup_previous_due": "Échéance précédente",
+      "followup_effective_due": "Échéance enregistrée",
+      "followup_request_closed": "Demande de délai clôturée par cette action",
+      "followup_extension_expired": "Le délai proposé est dépassé. Refusez ou retirez cette demande, puis demandez un délai futur.",
+      "followup_decision_checked": "J’ai examiné de façon indépendante les éléments justifiant cette décision.",
+      "manual_review_required": "Un examen indépendant des éléments opérationnels est requis ; aucun résultat source n’est vérifié automatiquement pour cette catégorie.",
+      "manual_review_recorded": "L’examen indépendant des éléments opérationnels a été enregistré.",
+      "workload_title": "Charge de tâches par employé",
+      "workload_note": "Tâches opérationnelles uniquement. Les nombres indiquent le travail inachevé et les blocages, pas une faute, les heures travaillées ni le droit à la rémunération. L’accès au dossier clinique reste distinct.",
+      "workload_search": "Rechercher le courriel ou l’identifiant du compte",
+      "workload_search_help": "La recherche est littérale et ignore la casse. Les noms des clients, les notes cliniques et les éléments des tâches ne sont pas recherchés.",
+      "workload_owners": "Employés ayant des tâches inachevées",
+      "workload_blocked": "Tâches bloquées",
+      "workload_oldest_due": "Première échéance inachevée (UTC)",
+      "workload_open_tasks": "Voir les tâches de l’employé",
+      "workload_owner_inactive": "Compte inactif : examinez les responsabilités et organisez une réaffectation.",
+      "followup_owner_scope": "Tâches filtrées pour cet employé",
+      "followup_owner_clear": "Afficher tous les employés autorisés",
+      "followup_filter_blocked": "Travail bloqué",
+      "workload_search_submit": "Rechercher des employés",
+      "workload_owner_unavailable": "Compte ou rôle indisponible pour les tâches de soins : examinez les responsabilités et organisez une réaffectation.",
+      "followup_prerequisites": "Prérequis de la tâche",
+      "followup_prerequisites_note": "Sélectionnez éventuellement jusqu’à cinq tâches existantes pour cette visite. Chaque tâche doit être vérifiée comme terminée ou faire l’objet d’une levée par une autre personne des opérations avant le début ou la soumission de cette tâche. Annuler un prérequis ne le satisfait pas.",
+      "followup_dependency_pending": "Des prérequis restent en attente. Consultez les tâches concernées ou demandez aux opérations d’examiner une exception.",
+      "followup_dependency_invalid": "Le prérequis doit être une tâche existante non annulée pour cette même visite.",
+      "followup_dependency_fulfilled": "Prérequis satisfait",
+      "followup_dependency_waiting": "Prérequis non satisfait",
+      "followup_dependency_released": "Prérequis opérationnel levé",
+      "followup_release_dependency": "Lever un prérequis de tâche",
+      "followup_dependency_release_note": "Indiquez pourquoi ce prérequis opérationnel peut être levé. Cela ne termine pas sa tâche et ne valide ni les soins, ni les qualifications, ni la paie. Vous ne pouvez pas lever un prérequis de votre propre tâche.",
+      "followup_dependency_checked": "J’ai examiné et justifié cette exception opérationnelle de façon indépendante.",
+      "followup_prerequisites_truncated": "Seules les 100 dernières tâches de prérequis admissibles sont affichées. Les tâches plus anciennes restent dans leurs files ; ce sélecteur ne recherche pas tout l’historique.",
+      "followup_filter_waiting": "En attente de prérequis",
+      "workload_waiting": "En attente d’autres tâches",
+      "followup_reference": "Référence de tâche",
+      "followup_dependency_independent_note": "Indiquez pourquoi ce prérequis opérationnel peut être levé. Vous devez être indépendant des deux responsables de tâches. Cela ne termine pas le prérequis et ne valide ni les soins, ni les qualifications, ni la paie.",
+      "roster_title": "Trouver du personnel pour affectation et vérification",
+      "roster_search": "Rechercher par courriel ou identifiant",
+      "roster_submit": "Rechercher le personnel",
+      "roster_search_help": "Un maximum de 200 employés actifs correspondants est affiché. Affinez la recherche au besoin. La liste des visites non affectées reste limitée à 100.",
+      "roster_operations_title": "Trouver du personnel pour les opérations de soins",
+      "roster_operations_help": "La recherche actualise les sélecteurs d’affectation, de vérification, de disponibilité/congé et de responsable admissible des suivis. Jusqu’à 200 résultats sont affichés; affinez la recherche au besoin.",
+      "visit_picker_title": "Trouver les rendez-vous non affectés",
+      "visit_picker_search": "Nom du client ou identifiant du rendez-vous",
+      "visit_picker_submit": "Rechercher les rendez-vous",
+      "visit_picker_help": "La recherche et la pagination incluent uniquement les rendez-vous non affectés admissibles. La sélection d’un rendez-vous n’affecte pas de personnel et n’autorise pas les soins.",
+      "visit_picker_total": "Rendez-vous correspondants",
+      "source_picker_title": "Trouver une source de visites récurrentes",
+      "source_picker_search": "Nom du client ou identifiant du rendez-vous source",
+      "source_picker_submit": "Rechercher les sources",
+      "source_picker_total": "Rendez-vous sources correspondants",
+      "source_picker_help": "Parcourez les rendez-vous sources admissibles. Une source fournit les détails de planification; chaque nouvelle visite exige sa propre affectation et approbation."
+    },
+    "es": {
+      "title": "Prestación de cuidados",
+      "intro": "Coordine visitas, planes de enfermería, cuidados asignados y seguimiento clínico.",
+      "boundary": "Este flujo registra cuidados de apoyo no controlados. No autoriza medicamentos ni actos controlados. Siga las políticas clínicas de su organización.",
+      "role_rn": "Enfermero registrado",
+      "role_rpn": "Enfermero práctico registrado",
+      "role_rn_field_supervisor": "Supervisor de enfermería de campo",
+      "role_clinical_director": "Dirección clínica",
+      "role_psw": "Trabajador de apoyo personal",
+      "role_hsw": "Asistente domiciliario",
+      "role_scheduler": "Supervisor de horarios",
+      "role_tenant_admin": "Administrador del inquilino",
+      "language": "Idioma",
+      "refresh": "Actualizar",
+      "back": "Espacio de trabajo",
+      "empty": "Sin registros",
+      "loading": "Cargando cuidados…",
+      "saved": "Registrado",
+      "error": "No se pudo completar. Actualice y compruebe permisos y versión.",
+      "staff_clearance": "Verificación del personal",
+      "clearance_note": "Verificación humana independiente de empleo, formación y registro aplicable. El rol de cuenta no demuestra autoridad clínica.",
+      "staff": "Personal",
+      "status": "Estado",
+      "active": "Activo",
+      "revoked": "Revocado",
+      "expiry": "Fecha de vencimiento",
+      "registration": "Referencia de verificación del registro o formación",
+      "evidence": "Evidencia de revisión",
+      "checked": "Comprobé las pruebas aplicables de registro, competencia, empleo y formación.",
+      "record_clearance": "Registrar verificación",
+      "create_case": "Asignar visita",
+      "visit": "Visita existente",
+      "nurse": "Enfermero asignado",
+      "supervisor": "Supervisor clínico",
+      "worker": "Trabajador de apoyo asignado",
+      "assign": "Crear asignación",
+      "case_list": "Visitas asignadas",
+      "open": "Abrir",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "version": "Versión",
+      "scheduled": "Inicio previsto",
+      "state": "Estado del flujo",
+      "case_detail": "Registro de cuidados",
+      "plan": "Plan de cuidados de apoyo",
+      "assessment": "Evaluación de enfermería y necesidades de apoyo",
+      "risks": "Riesgos y precauciones",
+      "escalation": "Cuándo y a quién solicitar ayuda",
+      "valid_until": "Plan válido hasta (UTC)",
+      "tasks": "Actividades de cuidado",
+      "task_instructions": "Instrucciones de apoyo específicas del cliente",
+      "add_task": "Añadir actividad",
+      "remove_task": "Quitar actividad",
+      "consent_evidence": "Conversación y directivas de consentimiento",
+      "consent_checked": "Registré el consentimiento aplicable y evalué la competencia del trabajador para estas actividades.",
+      "save_plan": "Guardar borrador",
+      "submit_plan": "Enviar a revisión",
+      "approve_plan": "Aprobar plan",
+      "return_plan": "Devolver para corrección",
+      "accept": "Confirmar asignación",
+      "start": "Registrar inicio de visita",
+      "start_consent": "Confirmé el consentimiento actual y revisé el plan y precauciones.",
+      "task": "Registrar resultado",
+      "outcome": "Resultado",
+      "notes": "Observación / nota objetiva",
+      "done": "Realizado",
+      "refused": "Cliente rechazó",
+      "not_done": "No realizado",
+      "concern": "Preocupación / aviso",
+      "follow_up": "Registrar seguimiento clínico",
+      "submit_visit": "Enviar registro de visita",
+      "complete_review": "Aceptar revisión de visita",
+      "reassign": "Cambiar asignación",
+      "cancel": "Cancelar asignación",
+      "amendment": "Añadir corrección firmada",
+      "urgent_note": "Esta pantalla no envía alertas de emergencia. Utilice el procedimiento urgente de su organización cuando corresponda.",
+      "event_history": "Historial firmado",
+      "open_concerns": "Preocupaciones pendientes",
+      "follow_up_reference": "Registro de preocupación",
+      "action": "Acción",
+      "record": "Registrar acción",
+      "scope_note": "Solo los cuidadores asignados reciben el registro clínico. Operaciones ve información de programación.",
+      "clearance_missing": "Falta verificación vigente o perfil de proveedor aprobado.",
+      "awaiting_plan": "Pendiente de plan de enfermería",
+      "draft": "Borrador de plan",
+      "pending_review": "Pendiente de revisión clínica independiente",
+      "ready": "Plan aprobado, pendiente de confirmación",
+      "accepted": "Asignación confirmada",
+      "in_progress": "Visita en curso",
+      "submitted": "Pendiente de revisión de visita",
+      "completed": "Visita revisada",
+      "cancelled": "Asignación cancelada",
+      "personal_support": "Apoyo personal",
+      "mobility_support": "Apoyo a la movilidad",
+      "meal_support": "Apoyo con comidas",
+      "household_support": "Apoyo doméstico",
+      "companionship": "Compañía",
+      "observation_report": "Observación e informe",
+      "summary": "Resumen del trabajo",
+      "overdue": "Visitas previstas sin iniciar",
+      "review_backlog": "Revisiones pendientes",
+      "read_only": "Sin acción permitida",
+      "privacy": "Use solo información necesaria. No la copie al correo personal ni a sistemas de marketing.",
+      "roster_note": "Se muestran los primeros 200 empleados y 100 visitas sin asignar. Contacte con su coordinador si falta un registro.",
+      "assigned": "Visita asignada",
+      "choose": "Seleccione una opción",
+      "clearance_current": "Evidencia de verificación vigente",
+      "profile_onboarding": "Perfil del proveedor y aprobación de inducción",
+      "full_name": "Nombre completo del empleado",
+      "languages": "Idiomas de trabajo",
+      "service_areas": "Zonas de servicio aprobadas",
+      "skills": "Competencias de enfermería o apoyo verificadas",
+      "profile_approved": "Revisé el perfil y confirmo la aprobación de empleo y la inducción completada.",
+      "task_queue": "Mi trabajo y seguimiento del equipo",
+      "queue_filter": "Mostrar asignaciones",
+      "filter_all": "Todas las asignaciones autorizadas",
+      "filter_mine": "Mis próximas tareas y seguimientos",
+      "filter_late": "Objetivo operativo vencido",
+      "filter_concerns": "Inquietudes abiertas",
+      "filter_coverage": "Se necesita cobertura",
+      "task_owner": "Persona o equipo responsable",
+      "operations_team": "Equipo de programación",
+      "due_at": "Objetivo operativo (UTC)",
+      "late_minutes": "Minutos después del objetivo",
+      "on_time": "Dentro del objetivo operativo",
+      "task_timing_note": "Los indicadores de tiempo señalan necesidades de seguimiento. No prueban culpa, urgencia clínica ni derecho al pago. Documentación: fin programado + 2 horas; revisión: envío + 24 horas; corrección: devolución + 24 horas.",
+      "task_prepare_plan": "Preparar y enviar el plan de apoyo",
+      "task_review_plan": "Revisar el plan de forma independiente",
+      "task_acknowledge": "Confirmar la asignación",
+      "task_start": "Confirmar consentimiento y registrar inicio",
+      "task_document": "Registrar resultados y enviar visita",
+      "task_review_visit": "Revisar la visita enviada",
+      "task_correct_visit": "Añadir corrección firmada y reenviar",
+      "task_restore_coverage": "Resolver la excepción y organizar cobertura",
+      "coverage_needed": "La visita no puede continuar — revisar cobertura",
+      "correction_requested": "Se solicitó corregir la documentación",
+      "report_unavailable": "Informar que la visita no puede continuar",
+      "return_visit": "Devolver notas para corrección firmada",
+      "unavailable_reason": "Motivo operativo",
+      "cannot_attend": "El trabajador no puede asistir",
+      "client_unavailable": "Cliente no disponible",
+      "no_access": "No se puede acceder al lugar",
+      "consent_unavailable": "Consentimiento actual no disponible",
+      "other": "Otro — seguimiento del coordinador",
+      "correction_note": "Añada una adenda firmada que responda a la última solicitud y reenvíe. Los resultados originales permanecen; no repita cuidados para corregir documentación.",
+      "coverage_note": "Los cuidados no han comenzado. Contacte al coordinador según el procedimiento de su organización. Una nueva asignación requiere un nuevo plan aprobado.",
+      "unrecorded": "Resultado aún no registrado",
+      "staffing": "Disponibilidad y permisos",
+      "staffing_note": "Introduzca horas UTC y solo datos de programación. No incluya diagnósticos ni detalles médicos. La disponibilidad activa debe cubrir toda la visita del trabajador de apoyo. Los permisos aprobados bloquean las asignaciones afectadas.",
+      "availability": "Registrar disponibilidad",
+      "request_leave": "Solicitar permiso",
+      "approve_leave": "Aprobar permiso",
+      "reject_leave": "Rechazar solicitud de permiso",
+      "withdraw": "Retirar período o solicitud pendiente",
+      "revoke_leave": "Revocar permiso aprobado con justificación",
+      "window_start": "Inicio (UTC)",
+      "window_end": "Fin (UTC)",
+      "staffing_filter": "Registros del personal",
+      "all_staff": "Todo el personal autorizado",
+      "pending": "Pendiente de decisión independiente",
+      "approved": "Permiso aprobado",
+      "rejected": "Solicitud rechazada",
+      "withdrawn": "Retirado",
+      "leave": "Solicitud de permiso",
+      "staffing_blocked": "La dotación requiere atención antes de iniciar cuidados",
+      "availability_missing": "Ninguna disponibilidad activa cubre la visita",
+      "leave_conflict": "Un miembro asignado del equipo tiene permiso aprobado",
+      "visit_overlap": "El trabajador de apoyo tiene una visita superpuesta",
+      "schedule_invalid": "El horario requiere corrección del coordinador",
+      "staffing_history": "Historial de decisiones de programación",
+      "staffing_count": "Registros de dotación",
+      "schedules": "Visitas recurrentes",
+      "schedule_note": "Revise todas las fechas antes de crear visitas. Cliente, servicio, competencias y dirección provienen de la visita original; no se copian planes clínicos ni asignaciones.",
+      "source_visit": "Visita original",
+      "local_start": "Primer inicio local",
+      "time_zone": "Zona horaria",
+      "occurrences": "Número de visitas",
+      "every_weeks": "Repetir cada (semanas)",
+      "duration_minutes": "Duración en minutos",
+      "preview": "Vista previa de fechas",
+      "create": "Crear visitas revisadas",
+      "schedule_confirmed": "Confirmé estas fechas, servicio y dirección con el cliente o representante apropiado.",
+      "cancel_occurrence": "Cancelar visita sin asignar",
+      "schedule_conflict": "Una visita del cliente ya coincide con este horario",
+      "ambiguous_local_time": "Esta hora local ocurre dos veces. Seleccione UTC y especifique el instante deseado.",
+      "invalid_local_time": "Esta hora local no existe en la zona seleccionada",
+      "reschedule": "Reprogramar antes de iniciar cuidados",
+      "reschedule_note": "El cambio elimina el plan, la aprobación y la confirmación del trabajador. Se requiere un nuevo plan aprobado.",
+      "time_records": "Tiempo de trabajo declarado",
+      "time_note": "Registre trabajo real, pausas y correcciones. Estos registros preparan evidencia para revisión independiente; no calculan salarios ni liberan pagos. No añada datos clínicos.",
+      "actual_start": "Inicio real (UTC)",
+      "actual_end": "Fin real (UTC)",
+      "break_minutes": "Minutos de descanso",
+      "net_minutes": "Minutos de trabajo declarados",
+      "time_attested": "Confirmo que estos son mis horarios y descansos reales.",
+      "submit_time": "Enviar registro de tiempo",
+      "approve": "Verificar tiempo declarado",
+      "return": "Devolver para corregir tiempo",
+      "returned": "Se solicitó corregir tiempo",
+      "time_pending": "Revisión de tiempo pendiente",
+      "time_approved": "Tiempo verificado independientemente",
+      "time_checked": "Revisé trabajo declarado, descansos, discrepancias y evidencia.",
+      "start_discrepancy": "El inicio declarado difiere del registro electrónico",
+      "electronic_start": "Registro electrónico de inicio",
+      "clinical_status": "Estado de revisión clínica",
+      "task_submit_time": "Enviar o corregir tiempo declarado",
+      "task_review_time": "Revisar tiempo de forma independiente",
+      "preview_required": "Revise de nuevo estas fechas exactas antes de crear las visitas.",
+      "requested": "Visita solicitada",
+      "time_returned": "Se solicitó corregir tiempo",
+      "preview_service": "Servicio",
+      "preview_address": "Dirección de visita",
+      "preview_skills": "Competencias requeridas",
+      "cancel_visit": "Cancelar cita del cliente",
+      "cancel_visit_note": "Esto cancela la cita original y la asignación. Registre el acuerdo del cliente u otra evidencia apropiada. Una reasignación no puede reactivar la cita.",
+      "handovers": "Traspasos entre turnos",
+      "handover_note": "Envíe información factual para el mismo cliente. Se requiere revisión clínica independiente. Siga el plan aprobado de la visita receptora; este traspaso no autoriza nuevos tratamientos. No se envía ninguna alerta de emergencia.",
+      "handover_target": "Visita receptora",
+      "handover_summary": "Resumen factual de cuidados",
+      "handover_outstanding": "Seguimientos y observaciones pendientes",
+      "handover_precautions": "Precauciones existentes que comunicar",
+      "handover_create": "Enviar traspaso para revisión",
+      "handover_revise": "Revisar o añadir actualización",
+      "handover_approve": "Aprobar traspaso clínico",
+      "handover_return": "Devolver traspaso para corrección",
+      "handover_withdraw": "Retirar traspaso inválido con evidencia",
+      "handover_acknowledge": "Confirmar lectura del equipo receptor",
+      "handover_checked": "Revisé este traspaso y comprendo mi responsabilidad actual.",
+      "handover_pending": "El traspaso requiere revisión independiente antes de continuar la visita receptora",
+      "handover_receipts_needed": "La enfermera o supervisor y el trabajador del equipo actual deben confirmar los traspasos aprobados antes de iniciar cuidados",
+      "handover_receipts": "Confirmaciones del equipo receptor actual",
+      "handover_inbox": "Cola de traspasos",
+      "target_visit": "Registro de cuidados receptor",
+      "task_review_handover": "Revisar traspaso de forma independiente",
+      "task_acknowledge_handover": "Leer y confirmar traspaso aprobado",
+      "followups": "Seguimientos operativos asignados",
+      "followup_note": "Use solo datos de programación y evidencia de tareas. Las inquietudes clínicas permanecen en el registro clínico. Completar esta tarea no sustituye la revisión de cuidados, credenciales o decisiones de nómina.",
+      "followup_create": "Asignar seguimiento",
+      "followup_category": "Flujo requerido",
+      "followup_owner": "Empleado responsable",
+      "followup_due": "Objetivo de seguimiento (UTC)",
+      "followup_start": "Iniciar seguimiento",
+      "followup_block": "Informar bloqueo",
+      "followup_submit": "Enviar evidencia de finalización",
+      "followup_verify": "Verificar finalización independientemente",
+      "followup_return": "Devolver evidencia para corregir",
+      "followup_reassign": "Cambiar responsable u objetivo",
+      "followup_cancel": "Cancelar seguimiento con evidencia",
+      "followup_checked": "Revisé independientemente la evidencia y el resultado del flujo requerido.",
+      "followup_open": "Seguimiento abierto",
+      "followup_in_progress": "Seguimiento en curso",
+      "followup_blocked": "El empleado informó un bloqueo",
+      "followup_submitted": "Pendiente de verificación independiente",
+      "followup_completed": "Seguimiento verificado independientemente",
+      "followup_cancelled": "Seguimiento cancelado",
+      "source_satisfied": "El resultado requerido está registrado",
+      "source_not_satisfied": "Aún falta el resultado requerido",
+      "followup_source_missing": "Complete el flujo original requerido antes de verificar el seguimiento",
+      "category_coverage": "Resolver cobertura",
+      "category_plan_review": "Aprobar plan actual",
+      "category_visit_review": "Completar revisión de visita",
+      "category_documentation": "Enviar documentación de cuidados",
+      "category_staff_clearance": "Resolver credenciales del empleado",
+      "category_time_review": "Verificar tiempo declarado",
+      "category_handover_review": "Revisar traspasos clínicos",
+      "category_other_operations": "Otro seguimiento operativo",
+      "handover_received": "El traspaso aprobado requiere revisar de nuevo el plan actual",
+      "handover_approved": "Traspaso clínico aprobado",
+      "handover_returned": "Se solicitó corregir el traspaso",
+      "handover_withdrawn": "Traspaso retirado tras revisión clínica",
+      "followup_receipt_limit": "Las actualizaciones adicionales requieren un nuevo seguimiento; se conserva el historial",
+      "followup_limited": "Su historial de tarea sigue disponible. El acceso al registro clínico depende de la asignación actual.",
+      "followup_filter_all": "Todos los seguimientos autorizados",
+      "followup_filter_mine": "Mis seguimientos abiertos",
+      "followup_filter_late": "Objetivo vencido",
+      "followup_filter_review": "Pendiente de verificación",
+      "followup_request_extension": "Solicitar más tiempo",
+      "followup_withdraw_extension": "Retirar solicitud de plazo",
+      "followup_approve_extension": "Aprobar nuevo plazo",
+      "followup_decline_extension": "Rechazar solicitud de plazo",
+      "followup_extension_due": "Plazo solicitado (UTC)",
+      "followup_extension_pending": "Solicitud de plazo pendiente de decisión independiente",
+      "followup_extension_note": "Explique el bloqueo operativo y el plazo propuesto. El plazo actual sigue vigente hasta que otra persona de operaciones lo apruebe; la solicitud no completa la tarea. No incluya detalles médicos.",
+      "followup_filter_extensions": "Solicitudes de plazo",
+      "followup_extensions": "Decisiones de plazo pendientes",
+      "followup_deadline_history": "Historial de plazos y responsables",
+      "followup_previous_due": "Plazo anterior",
+      "followup_effective_due": "Plazo registrado",
+      "followup_request_closed": "Solicitud de plazo cerrada con esta acción",
+      "followup_extension_expired": "El plazo propuesto ya pasó. Rechace o retire la solicitud y solicite un plazo futuro.",
+      "followup_decision_checked": "Revisé de forma independiente las pruebas para esta decisión.",
+      "manual_review_required": "Se requiere una revisión independiente de pruebas operativas; esta categoría no comprueba automáticamente un resultado de origen.",
+      "manual_review_recorded": "Se registró la revisión independiente de las pruebas operativas.",
+      "workload_title": "Carga de tareas por empleado",
+      "workload_note": "Solo tareas operativas. Los recuentos muestran trabajo pendiente y bloqueos, no culpa, horas trabajadas ni derecho a pago. El acceso a la historia clínica es independiente.",
+      "workload_search": "Buscar correo o identificador de cuenta",
+      "workload_search_help": "La búsqueda es literal y no distingue mayúsculas. No busca nombres de clientes, notas clínicas ni pruebas de tareas.",
+      "workload_owners": "Empleados con tareas pendientes",
+      "workload_blocked": "Tareas bloqueadas",
+      "workload_oldest_due": "Primer plazo pendiente (UTC)",
+      "workload_open_tasks": "Ver tareas del empleado",
+      "workload_owner_inactive": "Cuenta inactiva: revise la responsabilidad y organice la reasignación.",
+      "followup_owner_scope": "Tareas filtradas por este empleado",
+      "followup_owner_clear": "Mostrar todos los empleados autorizados",
+      "followup_filter_blocked": "Trabajo bloqueado",
+      "workload_search_submit": "Buscar empleados",
+      "workload_owner_unavailable": "Cuenta o rol no disponible para tareas de atención: revise la responsabilidad y organice la reasignación.",
+      "followup_prerequisites": "Requisitos previos de la tarea",
+      "followup_prerequisites_note": "Seleccione opcionalmente hasta cinco tareas existentes para esta visita. Cada una debe verificarse como completada o ser liberada por otra persona de operaciones antes de iniciar o entregar esta tarea. Cancelar un requisito no lo cumple.",
+      "followup_dependency_pending": "Aún hay requisitos pendientes. Revise las tareas en espera o solicite a operaciones que revise una excepción.",
+      "followup_dependency_invalid": "El requisito debe ser una tarea existente y no cancelada de esta misma visita.",
+      "followup_dependency_fulfilled": "Requisito cumplido",
+      "followup_dependency_waiting": "Requisito no cumplido",
+      "followup_dependency_released": "Requisito operativo liberado",
+      "followup_release_dependency": "Liberar un requisito de tarea",
+      "followup_dependency_release_note": "Registre por qué puede liberarse este requisito operativo. Esto no completa su tarea ni aprueba atención clínica, cualificaciones o nómina. No puede liberar requisitos de su propia tarea.",
+      "followup_dependency_checked": "Revisé y justifiqué de forma independiente esta excepción operativa.",
+      "followup_prerequisites_truncated": "Solo se muestran las últimas 100 tareas elegibles como requisito. Las anteriores siguen en sus colas; este selector no busca todo el historial.",
+      "followup_filter_waiting": "En espera de requisitos",
+      "workload_waiting": "En espera de otras tareas",
+      "followup_reference": "Referencia de tarea",
+      "followup_dependency_independent_note": "Registre por qué puede liberarse este requisito operativo. Debe ser independiente de ambos responsables de tareas. Esto no completa el requisito ni aprueba atención clínica, cualificaciones o nómina.",
+      "roster_title": "Buscar personal para asignación y verificación",
+      "roster_search": "Buscar correo o identificador de cuenta",
+      "roster_submit": "Buscar personal",
+      "roster_search_help": "Se muestran hasta 200 empleados activos coincidentes. Afine la búsqueda si es necesario. Las visitas sin asignar siguen limitadas a 100.",
+      "roster_operations_title": "Buscar personal para operaciones de atención",
+      "roster_operations_help": "La búsqueda actualiza los selectores de asignación, verificación, disponibilidad/licencias y responsables elegibles de seguimiento. Se muestran hasta 200 coincidencias; afine la búsqueda si es necesario.",
+      "visit_picker_title": "Buscar citas sin asignar",
+      "visit_picker_search": "Nombre del cliente o identificador de cita",
+      "visit_picker_submit": "Buscar citas",
+      "visit_picker_help": "La búsqueda y la paginación incluyen solo citas elegibles sin asignar. Seleccionar una cita no asigna personal ni autoriza atención.",
+      "visit_picker_total": "Citas coincidentes",
+      "source_picker_title": "Buscar origen de visitas recurrentes",
+      "source_picker_search": "Nombre del cliente o identificador de cita de origen",
+      "source_picker_submit": "Buscar orígenes",
+      "source_picker_total": "Citas de origen coincidentes",
+      "source_picker_help": "Explore citas de origen elegibles. El origen aporta detalles de programación; cada nueva visita necesita su propia asignación y aprobación."
+    }
+  },
+  "controls": {
+    "screen-care-delivery": "card",
+    "care-summary": "card",
+    "care-clearances": "card",
+    "care-assignments": "card",
+    "care-cases": "card",
+    "care-detail": "card",
+    "care-notice": "card",
+    "care-history": "card",
+    "care-case-{id}": "card",
+    "care-clearance-form": "form",
+    "care-assignment-form": "form",
+    "care-plan-form": "form",
+    "care-action-form": "form",
+    "care-task-form": "form",
+    "care-reassign-form": "form",
+    "care-language": "select",
+    "care-clearance-staff": "select",
+    "care-clearance-status": "select",
+    "care-assignment-visit": "select",
+    "care-assignment-nurse": "select",
+    "care-assignment-supervisor": "select",
+    "care-assignment-worker": "select",
+    "care-action": "select",
+    "care-task-id": "select",
+    "care-task-outcome": "select",
+    "care-follow-up-id": "select",
+    "care-plan-kind-{n}": "select",
+    "care-reassign-nurse": "select",
+    "care-reassign-supervisor": "select",
+    "care-reassign-worker": "select",
+    "care-clearance-expiry": "input",
+    "care-clearance-registration": "input",
+    "care-clearance-evidence": "input",
+    "care-assignment-evidence": "input",
+    "care-plan-until": "input",
+    "care-action-note": "input",
+    "care-task-note": "input",
+    "care-reassign-note": "input",
+    "care-clearance-checked": "checkbox",
+    "care-plan-consent": "checkbox",
+    "care-start-consent": "checkbox",
+    "care-plan-assessment": "textarea",
+    "care-plan-risks": "textarea",
+    "care-plan-escalation": "textarea",
+    "care-plan-consent-evidence": "textarea",
+    "care-plan-instructions-{n}": "textarea",
+    "care-refresh": "button",
+    "care-prev": "button",
+    "care-next": "button",
+    "care-open-{id}": "button",
+    "care-clearance-save": "button",
+    "care-assignment-save": "button",
+    "care-plan-add": "button",
+    "care-plan-remove-{n}": "button",
+    "care-plan-save": "button",
+    "care-action-save": "button",
+    "care-task-save": "button",
+    "care-reassign-save": "button",
+    "care-workspace-link": "link",
+    "care-hero-image": "image",
+    "care-nav-icon": "icon",
+    "care-current-task-instructions": "card",
+    "care-roster-note": "card",
+    "care-clearance-current": "card",
+    "care-profile-name": "input",
+    "care-profile-languages": "input",
+    "care-profile-areas": "input",
+    "care-profile-skills": "input",
+    "care-profile-approved": "checkbox",
+    "care-profile-fields": "card",
+    "care-task-queue": "card",
+    "care-queue-filter": "select",
+    "care-work-{id}": "card",
+    "care-unavailable-reason": "select",
+    "care-exception-summary": "card",
+    "care-correction-request": "card",
+    "care-staffing": "card",
+    "care-staffing-form": "form",
+    "care-staffing-staff": "select",
+    "care-staffing-action": "select",
+    "care-staffing-start": "input",
+    "care-staffing-end": "input",
+    "care-staffing-note": "textarea",
+    "care-staffing-save": "button",
+    "care-staffing-filter": "select",
+    "care-staffing-prev": "button",
+    "care-staffing-next": "button",
+    "care-staffing-record-{id}": "card",
+    "care-staffing-decision-form-{id}": "form",
+    "care-staffing-decision-{id}": "select",
+    "care-staffing-decision-note-{id}": "textarea",
+    "care-staffing-decision-save-{id}": "button",
+    "care-staffing-warning": "card",
+    "care-schedules": "card",
+    "care-schedule-form": "form",
+    "care-schedule-source": "select",
+    "care-schedule-action": "select",
+    "care-schedule-zone": "select",
+    "care-schedule-local": "input",
+    "care-schedule-duration": "input",
+    "care-schedule-count": "input",
+    "care-schedule-interval": "input",
+    "care-schedule-note": "textarea",
+    "care-schedule-confirmed": "checkbox",
+    "care-schedule-save": "button",
+    "care-schedule-preview": "card",
+    "care-schedule-series-{id}": "card",
+    "care-occurrence-cancel-form-{id}": "form",
+    "care-occurrence-cancel-note-{id}": "textarea",
+    "care-occurrence-cancel-save-{id}": "button",
+    "care-series-prev": "button",
+    "care-series-next": "button",
+    "care-reschedule-form": "form",
+    "care-reschedule-start": "input",
+    "care-reschedule-duration": "input",
+    "care-reschedule-confirmed": "checkbox",
+    "care-reschedule-note": "textarea",
+    "care-reschedule-save": "button",
+    "care-time-form": "form",
+    "care-time-start": "input",
+    "care-time-end": "input",
+    "care-time-break": "input",
+    "care-time-attested": "checkbox",
+    "care-time-note": "textarea",
+    "care-time-save": "button",
+    "care-time-review-form": "form",
+    "care-time-action": "select",
+    "care-time-checked": "checkbox",
+    "care-time-review-note": "textarea",
+    "care-time-review-save": "button",
+    "care-time-record": "card",
+    "care-timesheets": "card",
+    "care-time-open-{id}": "button",
+    "care-time-prev": "button",
+    "care-time-next": "button",
+    "care-time-work-{id}": "card",
+    "care-cancel-visit-form": "form",
+    "care-cancel-visit-note": "textarea",
+    "care-cancel-visit-confirmed": "checkbox",
+    "care-cancel-visit-save": "button",
+    "care-handovers": "card",
+    "care-handover-form": "form",
+    "care-handover-target": "select",
+    "care-handover-summary": "textarea",
+    "care-handover-outstanding": "textarea",
+    "care-handover-precautions": "textarea",
+    "care-handover-note": "textarea",
+    "care-handover-save": "button",
+    "care-handover-record-{id}": "card",
+    "care-handover-action-form-{id}": "form",
+    "care-handover-action-{id}": "select",
+    "care-handover-action-note-{id}": "textarea",
+    "care-handover-checked-{id}": "checkbox",
+    "care-handover-action-save-{id}": "button",
+    "care-handover-revise-form-{id}": "form",
+    "care-handover-summary-{id}": "textarea",
+    "care-handover-outstanding-{id}": "textarea",
+    "care-handover-precautions-{id}": "textarea",
+    "care-handover-revise-note-{id}": "textarea",
+    "care-handover-revise-save-{id}": "button",
+    "care-handover-inbox": "card",
+    "care-handover-open-{id}": "button",
+    "care-handover-prev": "button",
+    "care-handover-next": "button",
+    "care-followup-form": "form",
+    "care-followup-category": "select",
+    "care-followup-owner": "select",
+    "care-followup-due": "input",
+    "care-followup-note": "textarea",
+    "care-followup-save": "button",
+    "care-followups": "card",
+    "care-followup-filter": "select",
+    "care-followup-record-{id}": "card",
+    "care-followup-action-form-{id}": "form",
+    "care-followup-action-{id}": "select",
+    "care-followup-action-note-{id}": "textarea",
+    "care-followup-checked-{id}": "checkbox",
+    "care-followup-action-save-{id}": "button",
+    "care-followup-reassign-form-{id}": "form",
+    "care-followup-owner-{id}": "select",
+    "care-followup-due-{id}": "input",
+    "care-followup-reassign-note-{id}": "textarea",
+    "care-followup-reassign-save-{id}": "button",
+    "care-followup-prev": "button",
+    "care-followup-next": "button",
+    "care-followup-extension-form-{id}": "form",
+    "care-followup-extension-due-{id}": "input",
+    "care-followup-extension-note-{id}": "textarea",
+    "care-followup-extension-save-{id}": "button",
+    "care-followup-extension-pending-{id}": "card",
+    "care-followup-deadline-history-{id}": "card",
+    "care-workload": "card",
+    "care-workload-search-form": "form",
+    "care-workload-search": "input",
+    "care-workload-search-save": "button",
+    "care-workload-owner-{id}": "card",
+    "care-workload-open-{id}": "button",
+    "care-workload-prev": "button",
+    "care-workload-next": "button",
+    "care-followup-owner-scope": "card",
+    "care-followup-owner-clear": "button",
+    "care-followup-prerequisites": "select",
+    "care-followup-prerequisites-truncated": "card",
+    "care-followup-dependencies-{id}": "card",
+    "care-followup-dependency-{id}-{parent}": "card",
+    "care-followup-release-form-{id}": "form",
+    "care-followup-release-parent-{id}": "select",
+    "care-followup-release-note-{id}": "textarea",
+    "care-followup-release-checked-{id}": "checkbox",
+    "care-followup-release-save-{id}": "button",
+    "care-followup-reference-{id}": "card",
+    "care-roster-search-form": "form",
+    "care-roster-search": "input",
+    "care-roster-search-save": "button",
+    "care-visit-search-form": "form",
+    "care-visit-search": "input",
+    "care-visit-search-save": "button",
+    "care-visit-prev": "button",
+    "care-visit-next": "button",
+    "care-source-search-form": "form",
+    "care-source-search": "input",
+    "care-source-search-save": "button",
+    "care-source-prev": "button",
+    "care-source-next": "button"
+  },
+  "expiredClearanceDocumentationOnly": true,
+  "inAppConcernQueue": true,
+  "reviewHistoricalWorkAfterClearanceRevocation": true,
+  "screenId": 2517,
+  "providerOnboarding": {
+    "reviewerRoles": [
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "fields": [
+      "fullName",
+      "languages",
+      "serviceAreas",
+      "skills",
+      "approved"
+    ],
+    "retrainingLockBypass": false
+  },
+  "taskPolicy": {
+    "documentationGraceMinutes": 120,
+    "reviewDueHours": 24,
+    "correctionDueHours": 24,
+    "timingPurpose": "Operational follow-up targets, not clinical triage or payroll decisions",
+    "filters": [
+      "all",
+      "mine",
+      "late",
+      "concerns",
+      "coverage"
+    ],
+    "unavailableReasons": [
+      "cannot_attend",
+      "client_unavailable",
+      "no_access",
+      "consent_unavailable",
+      "other"
+    ],
+    "signedCorrectionRequiredBeforeResubmit": true,
+    "stages": {
+      "awaiting_plan": {
+        "step": "task_prepare_plan",
+        "owner": "nurse"
+      },
+      "draft": {
+        "step": "task_prepare_plan",
+        "owner": "nurse"
+      },
+      "pending_review": {
+        "step": "task_review_plan",
+        "owner": "supervisor"
+      },
+      "ready": {
+        "step": "task_acknowledge",
+        "owner": "worker"
+      },
+      "accepted": {
+        "step": "task_start",
+        "owner": "worker"
+      },
+      "in_progress": {
+        "step": "task_document",
+        "owner": "worker"
+      },
+      "submitted": {
+        "step": "task_review_visit",
+        "owner": "supervisor"
+      },
+      "correction_requested": {
+        "step": "task_correct_visit",
+        "owner": "worker"
+      },
+      "coverage_needed": {
+        "step": "task_restore_coverage",
+        "owner": "operations"
+      }
+    }
+  },
+  "staffingPolicy": {
+    "actions": [
+      "availability",
+      "request_leave",
+      "approve_leave",
+      "reject_leave",
+      "withdraw",
+      "revoke_leave"
+    ],
+    "maxWindowDays": 31,
+    "maxFutureDays": 365,
+    "maxPastDays": 31,
+    "pageSize": 25,
+    "supportRequiresDeclaredAvailability": true,
+    "leaveNeedsIndependentDecision": true,
+    "overlapBoundary": "half_open",
+    "onsiteRoles": [
+      "psw",
+      "hsw"
+    ],
+    "supervisionIsConcurrent": true,
+    "travelTimeOptimization": false,
+    "retention": "append-only staffing events; no employee medical narrative required"
+  },
+  "schedulePolicy": {
+    "timeZones": [
+      "America/Toronto",
+      "UTC"
+    ],
+    "maxOccurrences": 12,
+    "maxWeeksInterval": 4,
+    "maxDaysAhead": 90,
+    "minDurationMinutes": 15,
+    "maxDurationMinutes": 720,
+    "ambiguousLocalTime": "reject; use an explicit UTC schedule",
+    "copyClinicalPlan": false,
+    "assignAutomatically": false,
+    "actions": [
+      "preview",
+      "create",
+      "cancel_occurrence"
+    ],
+    "pageSize": 25,
+    "previewMinutes": 15
+  },
+  "timePolicy": {
+    "actions": [
+      "submit",
+      "approve",
+      "return"
+    ],
+    "maxMinutes": 1440,
+    "maxVersions": 50,
+    "pageSize": 25,
+    "discrepancyMinutes": 15,
+    "automaticPayroll": false,
+    "requiresWorkerAttestation": true,
+    "independentReview": true
+  },
+  "handoverPolicy": {
+    "actions": [
+      "create",
+      "revise",
+      "approve",
+      "return",
+      "withdraw",
+      "acknowledge"
+    ],
+    "maxPerCase": 10,
+    "maxVersions": 20,
+    "pageSize": 25,
+    "clinicalTextMax": 1000,
+    "requiresCurrentReceivingTeamAcknowledgement": true,
+    "unreviewedClinicalTextVisibleToRecipients": false,
+    "emergencyNotification": false,
+    "invalidateTargetApprovalOnApproval": true
+  },
+  "followupPolicy": {
+    "actions": [
+      "create",
+      "start",
+      "block",
+      "submit",
+      "verify",
+      "return",
+      "reassign",
+      "cancel",
+      "request_extension",
+      "withdraw_extension",
+      "approve_extension",
+      "decline_extension",
+      "release_dependency"
+    ],
+    "categories": [
+      "coverage",
+      "plan_review",
+      "visit_review",
+      "documentation",
+      "staff_clearance",
+      "time_review",
+      "handover_review",
+      "other_operations"
+    ],
+    "maxDaysAhead": 30,
+    "maxVersions": 50,
+    "pageSize": 25,
+    "filters": [
+      "all",
+      "mine",
+      "late",
+      "review",
+      "extensions",
+      "blocked",
+      "waiting"
+    ],
+    "medicalNotesPermitted": false,
+    "automaticPayrollOrDiscipline": false,
+    "deadlineExtension": {
+      "requiresIndependentDecision": true,
+      "pendingRequestChangesDeadline": false,
+      "preserveWorkStatus": true,
+      "maxPendingPerTask": 1,
+      "requestRequiresLaterDue": true,
+      "terminalOrReassignmentClosesRequest": true
+    }
+  },
+  "workloadPolicy": {
+    "operationsOnly": true,
+    "pageSize": 25,
+    "queryMaxLength": 100,
+    "includeInactiveOwners": true,
+    "onlyUnfinishedTasks": true,
+    "medicalNotesIncluded": false,
+    "performanceOrPayDecision": false,
+    "sort": "email_then_owner_id",
+    "counts": [
+      "open",
+      "blocked",
+      "late",
+      "review",
+      "extensions",
+      "waiting"
+    ]
+  },
+  "dependencyPolicy": {
+    "maxParents": 5,
+    "pickerLimit": 100,
+    "sameCaseOnly": true,
+    "createOnly": true,
+    "requiresExistingParents": true,
+    "completedParentRequired": true,
+    "cancellationSatisfiesParent": false,
+    "releaseRequiresIndependentOperations": true,
+    "clinicalWorkflowOverride": false,
+    "releaseIndependentOfBothOwners": true
+  },
+  "visitPickerPolicy": {
+    "pageSize": 25,
+    "queryMaxLength": 100,
+    "searchFields": [
+      "client_name",
+      "visit_id"
+    ],
+    "authorization": "current_operations_only",
+    "excludedVisitStates": [
+      "cancelled",
+      "rejected",
+      "completed"
+    ]
+  },
+  "scheduleSourcePolicy": {
+    "pageSize": 25,
+    "queryMaxLength": 100,
+    "searchFields": [
+      "client_name",
+      "visit_id"
+    ],
+    "authorization": "current_operations_only",
+    "requiresActiveService": true,
+    "requiresSkills": true
+  },
+  "draftPolicy": {
+    "multipleSelections": "preserve all selected eligible option IDs across redraws",
+    "uncheckedCheckboxes": "preserve explicit false",
+    "removedOptions": "never recreate removed choices",
+    "staleReloads": "never restore drafts over a newer API response",
+    "clinicalAuthority": "display only; all mutations revalidate server-side"
+  }
+}

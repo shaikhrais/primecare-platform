@@ -92,7 +92,8 @@ export class PdfReportRenderer extends ReportRenderer {
   const objects:string[]=['','', '<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>'];
   const kids:number[]=[];
   pages.forEach((page,i)=>{const pageId=objects.length+1,streamId=pageId+1;kids.push(pageId);objects.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 3 0 R >> >> /Contents ${streamId} 0 R >>`);
-   const header=[`PrimeCare - ${result.title}`,`${labels(result.locale).generated}: ${result.generatedAt} | ${labels(result.locale).scope}: ${result.scope} | ${result.classification}`,result.columns.map(c=>c.label.padEnd(width,' ')).join(' | '),''];
+   const headings=result.columns.map(c=>wrap(c.label)),headingLines=Array.from({length:Math.max(...headings.map(h=>h.length))},(_,n)=>headings.map(h=>(h[n]??'').padEnd(width,' ')).join(' | '));
+   const header=[`PrimeCare - ${result.title}`,`${labels(result.locale).generated}: ${result.generatedAt} | ${labels(result.locale).scope}: ${result.scope} | ${result.classification}`,...headingLines,''];
    const stream=`BT /F1 8 Tf 30 563 Td 10 TL\n${[...header,...page,`${i+1} / ${pages.length}`].map(s=>`(${literal(s)}) Tj T*`).join('\n')}\nET`;
    objects.push(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
   });

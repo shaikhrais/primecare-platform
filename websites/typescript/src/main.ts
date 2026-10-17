@@ -1,3 +1,8 @@
+import {renderCare} from './care/dashboard';
+import {renderLookReview} from './look-review';
+import {renderAuthRecovery} from './auth-recovery';
+import {renderEnquiry} from './growth/enquiry';
+import {renderGrowth} from './growth/dashboard';
 import {renderPlatformAdmin} from './platform-admin';
 import {renderAuth} from './auth-screen';
 import {renderMaintenance} from './maintenance';
@@ -35,5 +40,5 @@ function applyTheme(theme: Record<string, string>): void {
 }
 
 
-loadManifest().then((manifest) => { applyTheme(manifest.theme); location.pathname==='/platform/administration'?void renderPlatformAdmin(root,manifest.apiGateway):location.pathname==='/maintenance/configuration'?void renderMaintenance(root,manifest.apiGateway):location.pathname==='/login' || manifest.appCode === 'au' ? renderAuth(root,manifest.apiGateway,manifest.name) : void renderWorkspace(root,manifest.apiGateway); })
+loadManifest().then((manifest) => { applyTheme(manifest.theme); ['/forgot-password','/generated/forgot-password'].includes(location.pathname)?renderAuthRecovery(root,manifest.apiGateway,manifest.name,'forgot'):['/reset-password','/generated/reset-password'].includes(location.pathname)?renderAuthRecovery(root,manifest.apiGateway,manifest.name,'reset'):location.pathname.startsWith('/enquire/')?void renderEnquiry(root,manifest.apiGateway):location.pathname==='/appearance-review'?void renderLookReview(root,manifest.apiGateway):location.pathname==='/care'?void renderCare(root,manifest.apiGateway):location.pathname==='/growth'?void renderGrowth(root,manifest.apiGateway):location.pathname==='/platform/administration'?void renderPlatformAdmin(root,manifest.apiGateway):location.pathname==='/maintenance/configuration'?void renderMaintenance(root,manifest.apiGateway):location.pathname==='/login' || manifest.appCode === 'au' ? renderAuth(root,manifest.apiGateway,manifest.name) : void renderWorkspace(root,manifest.apiGateway); })
   .catch((error) => { root.innerHTML = `<main class="fatal" data-cy="error-state"><h1>Unable to start PrimeCare</h1><p>${escapeHtml(error)}</p></main>`; });
