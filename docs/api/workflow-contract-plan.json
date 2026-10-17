@@ -91988,12 +91988,13 @@
     "scripts/register-client-booking-lifecycle-api.py": "fb7e1f8673295ae7cc6792d0e4027b11ae2cc27cd15b9e4525df06430bcc61e7",
     "scripts/register-client-invoices-api.py": "44c3e7692f1936292e9afdb7b6601a59e4b16da89908e969c3ea1927d9ab8eb3",
     "scripts/register-legacy-domain-security.py": "35c3c57d4f15679dd65105473c22e12c0760636f4ecdaa18f7f35bd04265692d",
-    "scripts/register-method-capture-blockers.py": "7d8dfcd32fb85ec805fe5dbdecceac22d3b8bd29cc7500ee8da5dfc9f1359db6",
+    "scripts/register-method-capture-blockers.py": "8e66074bf5860449529ffb9c4a28b31ef1d11b85c720d93f7d7de85e0868da87",
     "scripts/scaffold_30_empty_screens.py": "3113e002d4d450717f7c0447e7796ef6362fb2039c2e984650e83944a8f3ebdf",
     "scripts/test-method-capture-blockers.mjs": "9cb7d70e0b2a5ee5bf64cd140184b878b4be5a12798f7128088a8558af1b9187",
     "scripts/test-method-capture-blockers.py": "c75297e97668734b8f5ce9eaa830488ee60e34ff7a30a93065a7431f381e62da",
-    "cloudflare/workers/src/core/base-worker.ts": "58c2df259e14e6078a6476407de0946f8efa159c1685931b5f8bba30c055803c",
-    "cloudflare/workers/src/business-modules.ts": "10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa"
+    "cloudflare/workers/src/core/base-worker.ts": "7c7d612386546bf86db4b217391e84cf8982331530a86020c9eb35010548a25a",
+    "cloudflare/workers/src/business-modules.ts": "10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa",
+    "scripts/audit-api-reachability.mjs": "2b4fb6a9de4ed95fd3a21aa4ccbf1757e53cf7fab2b00c586dd0151fa642a022"
   },
   "implementationCredits": 0,
   "retirementCredits": 0

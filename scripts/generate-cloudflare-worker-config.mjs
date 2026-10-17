@@ -41,6 +41,7 @@ for (const service of services) {
 
 writeFileSync(`${output}/gateway.jsonc`, `${JSON.stringify({
   name: 'primecare-api-gateway',
+  compatibility_flags: ['nodejs_compat'],
   main: '../cloudflare/workers/src/gateway.ts',
   compatibility_date: '2026-09-27',
   workers_dev: true,
