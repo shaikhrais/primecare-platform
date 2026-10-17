@@ -5,7 +5,7 @@ export class CareClient extends BaseSessionClient {
  protected readonly endpoint=registry.endpoint;
  protected accountChangedError(){return new CareHttpError(401,'account_changed');}
  protected retryFingerprint(path:string,_method:string,serialized:string|undefined){return path+serialized;}
- protected rejectResponse(response:Response,value:any):never{throw new CareHttpError(response.status,typeof value.error==='string'?value.error:'unavailable');}
+ protected rejectResponse(response:Response,value:unknown):never{const data=this.errorData(value);throw new CareHttpError(response.status,typeof data.error==='string'?data.error:'unavailable');}
  async request(path='',body?:unknown){
   return this.requestJson(path,body?'POST':'GET',body);
  }

@@ -16,6 +16,13 @@ function setup(t){
 }
 const domains=[['care',CareClient,(c,path,body)=>c.request(path,body)],['growth',GrowthClient,(c,path,body)=>c.request(path,body===undefined?'GET':'POST',body)]];
 for(const [name,Client,request] of domains){
+ test(`${name} preserves domain failures for non-object JSON error responses`,async t=>{
+  setup(t);const c=new Client(gateway,token);
+  for(const payload of [null,false,42,'unavailable',[]]){
+   fetch.mock.mockImplementation(async()=>Response.json(payload,{status:502}));
+   await assert.rejects(request(c,'/action',{note:'synthetic'}),e=>name==='care'?e instanceof CareHttpError&&e.status===502&&e.message==='unavailable':e.message==='error');
+  }
+ });
  test(`${name} inherits the common transport and preserves GET/POST payloads`,async t=>{
   setup(t);const c=new Client(gateway,token);assert.ok(c instanceof BaseSessionClient);
   await request(c,'?offset=20');await request(c,'/action',{note:'synthetic evidence'});

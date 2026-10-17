@@ -42,7 +42,9 @@ separate runtime adapters.
 JSON transport and per-instance idempotency retry lifecycle. Concrete clients
 retain their governed endpoints, public request signatures and error policies.
 Care keeps typed HTTP errors; growth keeps its unauthorized redirect and uncertain
-delivery errors. Growth PDF validation remains in its adapter and uses the inherited
+delivery errors. The base normalizes non-object JSON error bodies so a null or
+primitive response cannot replace the domain failure with a property-access error.
+Growth PDF validation remains in its adapter and uses the inherited
 session check. No account or tenant is stored globally by the base class.
 
 `scripts/test-session-client-inheritance.mjs` verifies both inheritance links,

@@ -4,7 +4,10 @@ export abstract class BaseSessionClient {
  constructor(readonly gateway:string,readonly token:string){}
  protected abstract readonly endpoint:string;
  protected abstract accountChangedError():Error;
- protected abstract rejectResponse(response:Response,value:any):never;
+ protected abstract rejectResponse(response:Response,value:unknown):never;
+ protected errorData(value:unknown):Record<string,unknown>{
+  return value!==null&&typeof value==='object'&&!Array.isArray(value)?value as Record<string,unknown>:{};
+ }
 
  protected assertSession(){
   if(sessionStorage.getItem('primecare_session')!==this.token)throw this.accountChangedError();

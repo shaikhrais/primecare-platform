@@ -3,9 +3,10 @@ import {BaseSessionClient} from '../infrastructure/http/base-session-client';
 export class GrowthClient extends BaseSessionClient {
  protected readonly endpoint=registry.endpoint;
  protected accountChangedError(){return Error('account_changed');}
- protected rejectResponse(response:Response,data:any):never{
+ protected rejectResponse(response:Response,value:unknown):never{
+  const data=this.errorData(value);
   if(response.status===401){sessionStorage.removeItem('primecare_session');location.assign('/login?enable-semantics=true');}
-  if(['unknown','sending'].includes(data.state))throw Error('delivery_uncertain');throw Error(typeof data.error==='string'?data.error:'error');
+  if(data.state==='unknown'||data.state==='sending')throw Error('delivery_uncertain');throw Error(typeof data.error==='string'?data.error:'error');
  }
  async list(offset:number,filters:Record<string,string>){const query=new URLSearchParams({offset:String(offset)});for(const [key,value] of Object.entries(filters))if(value)query.set(key,value);return this.request('?'+query);}
  async request(path='',method='GET',body?:unknown){
