@@ -140,6 +140,14 @@
       ],
       "next": "Follow the registered business_workflow_specs definition care.psw.submit-availability; run real credential login, UI, API, database and reload plus acceptance/security/failure checks and video. This queue item is not a whole-platform count.",
       "workflow_spec_id": "care.psw.submit-availability"
+    },
+    {
+      "id": "planning.virtual-catalog",
+      "title": "Registered virtual process catalogue",
+      "kind": "engineering",
+      "implementation": "implemented",
+      "scope": "virtual process plans and source coverage only; no workflow execution",
+      "next": "Review process gaps and execute real login/UI/API/database/reload acceptance per process; catalogue counts are not verified outcomes."
     }
   ]
 }

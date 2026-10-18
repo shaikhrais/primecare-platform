@@ -1,9 +1,10 @@
 {
   "summary": {
-    "tracked_items": 6,
+    "tracked_items": 7,
     "status_counts": {
       "scoped_tested": 5,
-      "pending": 1
+      "pending": 1,
+      "implemented_unverified": 1
     },
     "fully_verified_workflows": 0,
     "counts_are_engineering_items_not_platform_backlog": true,
@@ -72,6 +73,18 @@
       "whole_workflow_verified": false,
       "test_status": "unverified",
       "status": "pending",
+      "reason": "No current evidence registered."
+    },
+    {
+      "id": "planning.virtual-catalog",
+      "title": "Registered virtual process catalogue",
+      "kind": "engineering",
+      "implementation": "implemented",
+      "scope": "virtual process plans and source coverage only; no workflow execution",
+      "next": "Review process gaps and execute real login/UI/API/database/reload acceptance per process; catalogue counts are not verified outcomes.",
+      "whole_workflow_verified": false,
+      "test_status": "unverified",
+      "status": "implemented_unverified",
       "reason": "No current evidence registered."
     },
     {

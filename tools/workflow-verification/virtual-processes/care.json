@@ -1,0 +1,3655 @@
+[
+  {
+    "id": "care.staff.onboard-and-clear",
+    "title": "Independently onboard and clear an existing care employee",
+    "actor_roles": [
+      "rn_field_supervisor",
+      "clinical_director"
+    ],
+    "trigger": "An existing clinical employee needs an approved provider profile and valid clearance.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Target is a distinct active same-tenant clinical account; reviewer is clinical director or currently eligible RN field supervisor.",
+      "Real qualification/induction evidence is supplied by an authorized human; do not fabricate registration."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Find the existing target account by literal email/account search",
+        "expected": "Only active supported same-tenant employees are offered.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "order": 2,
+        "db_effect": "Read current permitted source records only; no business-state mutation."
+      },
+      {
+        "action": "Submit active clearance with checked evidence, expiry and missing provider-profile fields",
+        "expected": "The target profile is approved/inducted when needed; an active role-bound clearance version is appended.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/clearances",
+        "db_effect": "Insert/update provider_profiles without bypassing retraining lock; append care_staff_clearances and care_access_log.",
+        "actor_roles": [
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 4
+      }
+    ],
+    "outcome": "An existing employee has an approved profile and new active clearance; original clearance versions remain. Not a grant of unregistered clinical authority.",
+    "alternative_paths": [
+      "Self-verification is forbidden. A retraining-locked profile cannot be unlocked by this workflow. Missing/expired/role-mismatched clearance continues to block assignment.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts",
+      "cloudflare/workers/src/care/qualification.ts",
+      "websites/typescript/src/care/views.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16479
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16480
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "clearances:active+profile"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.staff.renew-clearance",
+    "title": "Independently renew an existing staff clearance",
+    "actor_roles": [
+      "rn_field_supervisor",
+      "clinical_director"
+    ],
+    "trigger": "Previously verified staff need a new validity/evidence version.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Existing same-tenant clinical profile; independent eligible verifier; latest version known."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Review current evidence and submit a new active version",
+        "expected": "Current version must match; append newer active evidence and expiry.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/clearances",
+        "db_effect": "Append care_staff_clearances; preserve prior signed versions.",
+        "actor_roles": [
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "Latest eligible clearance is active; original evidence is retained.",
+    "alternative_paths": [
+      "Role change requires matching current-role clearance; old-role evidence cannot authorize the new role.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts",
+      "cloudflare/workers/src/care/qualification.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16480
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "clearances:active"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.staff.revoke-clearance",
+    "title": "Independently revoke a care employee clearance",
+    "actor_roles": [
+      "rn_field_supervisor",
+      "clinical_director"
+    ],
+    "trigger": "Authorized reviewer determines a clearance must be revoked.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Distinct same-tenant clinical target and current clearance version."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Submit revoked status with checked evidence and expiry fields required by the existing contract",
+        "expected": "A new revoked clearance is stored and new eligibility-gated clinical actions stop.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/clearances",
+        "db_effect": "Append revoked care_staff_clearances version and access log.",
+        "actor_roles": [
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "Revocation is visible without deleting historic care evidence; permitted historical documentation remains possible.",
+    "alternative_paths": [
+      "Revocation does not rewrite historical start evidence or automatically complete/cancel a visit.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts",
+      "cloudflare/workers/src/care/qualification.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16480
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "clearances:revoked"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.assignment.create",
+    "title": "Assign a complete care team to an eligible appointment",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "An existing unassigned appointment needs routine support care.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Existing active client/visit, a valid positive schedule, and no existing care case.",
+      "Three distinct eligible nurse, supervisor and support-worker accounts; worker declared availability covers the whole visit; no team leave or worker overlap."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Search/page eligible unassigned appointments and find staff",
+        "expected": "Terminal, assigned, inactive-client and foreign-tenant visits are excluded; staff search grants no extra authority.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "order": 2,
+        "db_effect": "Read current permitted source records only; no business-state mutation."
+      },
+      {
+        "action": "Select nurse, independent supervisor and support worker; save assignment evidence",
+        "expected": "API locks schedules and validates eligibility and conflicts atomically.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases",
+        "db_effect": "Update visits.assigned_provider_id; insert care_cases(awaiting_plan,version=1) and assigned care_event.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 4
+      }
+    ],
+    "outcome": "One awaiting-plan case exists for the appointment with the selected team.",
+    "alternative_paths": [
+      "Missing availability, approved leave or an overlapping support visit rejects the entire assignment.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts",
+      "cloudflare/workers/src/care/staffing.ts",
+      "cloudflare/workers/src/care/visit-picker.ts",
+      "websites/typescript/src/care/views.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16479
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16481
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "cases:create"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.plan.author-submit-review",
+    "title": "Author, submit and independently approve a care plan",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director"
+    ],
+    "trigger": "Assigned nurse prepares client-specific instructions before routine support care.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Assigned current eligible nurse and separate current eligible assigned supervisor.",
+      "Active source visit/team; recorded consent, competence assessment and instructions; plan valid through visit end and within 30-day bound."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Nurse records assessment, risks, escalation, consent evidence and 1–20 governed tasks; save_plan",
+        "expected": "Case becomes draft with task IDs, plan author and no reviewer. ",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Update care_cases.plan/state/author/version; append signed save_plan event.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Nurse submits plan for independent review using submit_plan",
+        "expected": "Case becomes pending_review.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Update state/version and append submit_plan event.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Assigned independent supervisor checks the plan and approve_plan",
+        "expected": "Author cannot approve their own plan; incoming-handover clinical receipts must be satisfied. Case becomes ready.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Set plan_reviewer and ready state; append approval event.",
+        "actor_roles": [
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 4
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 5
+      }
+    ],
+    "outcome": "A current independently approved plan is ready for the assigned support worker.",
+    "alternative_paths": [
+      "Supervisor may return_plan to draft with a reason; nurse revises, resubmits and obtains independent approval. Expired plan/team changes prevent approval.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts",
+      "cloudflare/workers/src/care/handovers.ts",
+      "websites/typescript/src/care/views.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16482
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "save_plan",
+      "submit_plan",
+      "approve_plan",
+      "return_plan"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.visit.execute-review",
+    "title": "Acknowledge, deliver, document and independently review a support visit",
+    "actor_roles": [
+      "psw",
+      "hsw",
+      "rn_field_supervisor",
+      "clinical_director"
+    ],
+    "trigger": "An assigned support worker is ready to perform an approved routine visit.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Current ready plan and eligible distinct team; active visit and worker availability; all incoming handover receipts current.",
+      "Timing gate allows start no earlier than 15 minutes before scheduled start; current consent must be checked."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Worker reads the plan and accept",
+        "expected": "Case becomes accepted.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Append acceptance; update case state/version.",
+        "actor_roles": [
+          "psw",
+          "hsw"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Worker confirms current consent and start",
+        "expected": "Recheck schedule, team, clearance and handover; state becomes in_progress.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Persist started_at and start event containing worker provider and clearance versions.",
+        "actor_roles": [
+          "psw",
+          "hsw"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Worker records each planned task result with factual note using task",
+        "expected": "Every task has done, refused, not_done or concern; refusals need not become done.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Append task events while preserving previous factual outcomes.",
+        "actor_roles": [
+          "psw",
+          "hsw"
+        ],
+        "order": 4
+      },
+      {
+        "action": "Worker submit_visit after every planned task has an outcome",
+        "expected": "Case becomes submitted; all original outcomes remain.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Set submitted_at/state/version; append submit_visit event.",
+        "actor_roles": [
+          "psw",
+          "hsw"
+        ],
+        "order": 5
+      },
+      {
+        "action": "Independent assigned supervisor complete_review",
+        "expected": "Unresolved concerns prevent completion; reviewer cannot be plan author or worker.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Set completed_at/state/version, append review event and safely complete matching active source visit.",
+        "actor_roles": [
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 6
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 7
+      }
+    ],
+    "outcome": "The care case is completed with signed actions, outcomes and independent review preserved.",
+    "alternative_paths": [
+      "Team/qualification/consent/timing failure prevents start. Missing outcomes prevent submission. Concern outcomes require qualified linked follow-up before final review.",
+      "If clearance expires during documentation, worker may record factual non-done results and submit historical documentation but cannot claim newly authorized done care.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts",
+      "cloudflare/workers/src/care/qualification.ts",
+      "cloudflare/workers/src/care/staffing.ts",
+      "cloudflare/workers/src/care/handovers.ts",
+      "websites/typescript/src/care/views.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16482
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "accept",
+      "start",
+      "task",
+      "submit_visit",
+      "complete_review"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.concern.report-resolve",
+    "title": "Report a care concern and record qualified follow-up",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw"
+    ],
+    "trigger": "Assigned care staff observe a concern or a task outcome is concern.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Actor is a current assigned care-team member; concern note relates to a real case.",
+      "Follow-up actor is assigned nurse/supervisor and currently eligible."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Assigned care staff submit concern or worker selects task outcome concern",
+        "expected": "Immutable concern becomes visible in the permitted concern queue.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Append concern/task event with actor and case version.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Assigned qualified nurse/supervisor records follow_up referencing the actual concern event",
+        "expected": "Only actual not-already-followed-up concern event may be referenced.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Append follow_up event with eventId and signed note.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 4
+      }
+    ],
+    "outcome": "A factual concern and its accountable qualified response are linked; final-review gate can evaluate unresolved concerns.",
+    "alternative_paths": [
+      "No automatic emergency dispatch or notification exists. Organization emergency procedure is external and must not be represented as tested here.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts",
+      "cloudflare/workers/src/care/task-queue.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16482
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "concern",
+      "task:concern",
+      "follow_up"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.visit.correct-returned-documentation",
+    "title": "Return, correct and resubmit visit documentation",
+    "actor_roles": [
+      "psw",
+      "hsw",
+      "rn_field_supervisor",
+      "clinical_director"
+    ],
+    "trigger": "Supervisor identifies a specific correction needed in submitted notes.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Submitted case; assigned supervisor independent of plan author/worker."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Supervisor returns submitted record using return_visit with signed reason",
+        "expected": "Case becomes correction_requested; care is not restarted.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Append return_visit and update state/version.",
+        "actor_roles": [
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Worker adds a signed amendment addressing the latest return request",
+        "expected": "New worker addendum follows the latest request and original notes remain.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Append amendment care_event.",
+        "actor_roles": [
+          "psw",
+          "hsw"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Worker resubmits using submit_visit; independent supervisor completes review when requirements pass",
+        "expected": "Unsigned/older amendment cannot satisfy request; unresolved concerns still block completion.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Append submission and review events; update case/source as permitted.",
+        "actor_roles": [
+          "psw",
+          "hsw",
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 4
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 5
+      }
+    ],
+    "outcome": "Returned notes are corrected by append-only evidence and independently reviewed.",
+    "alternative_paths": [
+      "Expired worker clearance does not block historical addendum/resubmission; it does not authorize repeat care.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16482
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "return_visit",
+      "amendment",
+      "submit_visit",
+      "complete_review"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.visit.append-amendment",
+    "title": "Append a signed factual correction to existing care history",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw"
+    ],
+    "trigger": "Assigned care staff need to clarify a recorded fact, including after review.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Actor remains assigned to a noncancelled/noncoverage case; current policy permits concern/amendment independent of qualification."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Submit amendment with factual note and current version",
+        "expected": "A new signed event is appended; prior notes and completed status remain unchanged.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Append amendment and increment case version; do not mutate old events.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "The factual history includes a traceable signed addendum without overwriting records.",
+    "alternative_paths": [
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16482
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "amendment"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.coverage.report-and-restore",
+    "title": "Report inability to attend and restore safe coverage",
+    "actor_roles": [
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Assigned worker cannot attend, client is unavailable, no access or consent is unavailable.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Assigned support worker and pre-start case.",
+      "Operations has eligible replacement team or a documented cancellation decision."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Worker reports report_unavailable with governed reason and factual note",
+        "expected": "Case becomes coverage_needed; support-worker chart access is restricted.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Append structured report_unavailable event and state/version.",
+        "actor_roles": [
+          "psw",
+          "hsw"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Operations reviews metadata-only coverage queue and chooses replacement team",
+        "expected": "Coverage reason/time visible without clinical narrative; new team is revalidated.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "order": 3,
+        "db_effect": "Read current permitted source records only; no business-state mutation."
+      },
+      {
+        "action": "Operations reassigns with signed reason",
+        "expected": "Only active source visit can restart; case resets awaiting_plan requiring fresh instructions and approval.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Update team/source provider; clear plan/reviewer; append reassignment.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 4
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 5
+      }
+    ],
+    "outcome": "Coverage exception is resolved by a new safe assignment; previous history and former-worker access restrictions remain.",
+    "alternative_paths": [
+      "If no replacement exists, operations may cancel the assignment or confirmed source appointment instead; no automatic external contact is claimed.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts",
+      "cloudflare/workers/src/care/task-queue.ts",
+      "cloudflare/workers/src/care/repository.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16479
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16482
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "report_unavailable",
+      "reassign",
+      "cancel",
+      "cancel_visit"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.assignment.change",
+    "title": "Change a pre-start care team with a fresh plan",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Scheduling/clinical operations must replace team members before care starts.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Pre-start or assignment-cancelled case; source appointment remains active, never cancelled/rejected/completed.",
+      "Replacement nurse/supervisor/worker are distinct, current eligible and scheduling-safe."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Select replacement team and submit reassign with evidence",
+        "expected": "Source provider changes and old plan is invalidated.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Update care_cases team, reset awaiting_plan/plan/author/reviewer; update visits provider; append reassign event.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "New team must complete fresh plan, approval and worker acknowledgement before care; former worker loses chart access.",
+    "alternative_paths": [
+      "Reassignment cannot restart a terminal source appointment; a started case cannot be reassigned.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts",
+      "cloudflare/workers/src/care/repository.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16482
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "reassign"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.assignment.cancel",
+    "title": "Cancel only a pre-start care assignment",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Operations stops the current care assignment while preserving appointment identity.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Pre-start/coverage-needed case and signed cancellation reason."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Submit cancel action with reason",
+        "expected": "Case becomes cancelled; source appointment is not cancelled by this action.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Update care_cases state/version and append cancel event; no visits.status cancellation.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "The assignment is cancelled with retained history; an active appointment can later be safely reassigned through its existing case.",
+    "alternative_paths": [
+      "Use cancel_visit, not cancel, when client appointment itself must be cancelled.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16482
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "cancel"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.psw.submit-availability",
+    "title": "Declare and confirm a care employee availability window",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin"
+    ],
+    "trigger": "A care employee or authorized operations records a working time window.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Target is active clinical staff in tenant; nonoperations actor can target only own staff ID.",
+      "UTC start/end positive window within 31 days, bounded past/future range."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Choose availability, target staff and UTC start/end; save signed note",
+        "expected": "A new active availability window is stored immediately, without approval step.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/staffing",
+        "db_effect": "Insert care_staff_windows(kind=availability,status=active), care_staffing_events and idempotency receipt.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw",
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "The active availability persists and can cover future assignment checks; it grants no care authority.",
+    "alternative_paths": [
+      "The pre-existing detailed PSW spec is the same process for own-PSW scope; reuse that identity/evidence rather than count a second workflow.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/staffing.ts",
+      "websites/typescript/src/care/staffing-view.ts",
+      "tools/workflow-verification/specs/care.psw.submit-availability.json"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16483
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "aliases": [
+      "care.staff.submit-availability"
+    ],
+    "covered_actions": [
+      "staffing:availability"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.staffing.withdraw-window",
+    "title": "Withdraw an active availability or pending leave request",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin"
+    ],
+    "trigger": "Employee/operations removes an availability commitment or no-longer-needed pending leave request.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Window is own record or accessible to operations; status active availability or pending leave; latest version."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Select withdraw and provide signed reason",
+        "expected": "Window becomes withdrawn; original dates and creation evidence remain.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/staffing",
+        "db_effect": "Versioned care_staff_windows.status update and appended staffing event.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw",
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "Withdrawn window no longer counts as active availability/pending leave; pre-start cases show resulting coverage warnings.",
+    "alternative_paths": [
+      "Approved leave cannot be withdrawn using this path; independent operations must use revoke_leave.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/staffing.ts",
+      "cloudflare/workers/src/care/task-queue.ts",
+      "websites/typescript/src/care/staffing-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16483
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "staffing:withdraw"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.leave.request-decide",
+    "title": "Request time off and obtain an independent leave decision",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin"
+    ],
+    "trigger": "Employee requests an absence window.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Target clinical staff; request actor is self or operations; bounded UTC dates.",
+      "Leave decision actor is operations and distinct from employee."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Create request_leave with dates and operational note",
+        "expected": "Leave window is pending; requesting alone does not approve absence.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/staffing",
+        "db_effect": "Insert pending leave window and request event.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw",
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Independent operations approves or rejects with reason",
+        "expected": "Latest pending version becomes approved or rejected; self-decision prohibited.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/staffing",
+        "db_effect": "Update leave status/version; append approve_leave/reject_leave event.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 4
+      }
+    ],
+    "outcome": "Leave has a recorded independent decision; approved leave contributes to conflict/coverage checks, with no payroll entitlement implied.",
+    "alternative_paths": [
+      "Approved leave may surface staffing gaps but does not silently reassign visits. Requester can withdraw pending request instead.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/staffing.ts",
+      "websites/typescript/src/care/staffing-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16483
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "staffing:request_leave",
+      "staffing:approve_leave",
+      "staffing:reject_leave"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.leave.revoke-approved",
+    "title": "Independently revoke an approved leave record with evidence",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "An agreed change is needed to a previously approved leave window.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Approved leave for a distinct employee; independent operations actor and latest version."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Review existing approval and submit revoke_leave with reason",
+        "expected": "Status becomes revoked and original approval remains in history.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/staffing",
+        "db_effect": "Update status/version; append revoke_leave staffing event.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "The revoked leave no longer blocks schedules; historical approval and evidence remain traceable.",
+    "alternative_paths": [
+      "No wage, entitlement or discipline decision is automated.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/staffing.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16483
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "staffing:revoke_leave"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.schedule.create-recurring-series",
+    "title": "Preview and create a bounded recurring appointment series",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Client/operations need future routine visits based on an existing source appointment.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Source has active client/service and nonblank skills; not cancelled/rejected.",
+      "Toronto or UTC schedule, 1–12 occurrences, 1–4 week interval, 15–720 minute duration, <=90 days ahead."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Search/page source appointments and enter recurrence definition",
+        "expected": "Source scheduling details are available without copying chart text.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "order": 2,
+        "db_effect": "Read current permitted source records only; no business-state mutation."
+      },
+      {
+        "action": "Submit preview and inspect client, service, address, skills and every UTC occurrence",
+        "expected": "Conflict-free fresh operator-specific preview is stored.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/schedules",
+        "db_effect": "Upsert care_schedule_previews bound to actor/request/source updated_at.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Record client agreement/confirmation and create using identical definition",
+        "expected": "Fresh preview and all client conflicts rechecked; whole series commits atomically.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/schedules",
+        "db_effect": "Insert care_visit_series, requested visits, care_series_visits and care_schedule_events; no staff, plan or billing copy.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 4
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 5
+      }
+    ],
+    "outcome": "A bounded series of unassigned requested visits exists; each needs its own care assignment/approval.",
+    "alternative_paths": [
+      "Stale/other-operator preview requires a fresh preview; duplicate definition rejects; ambiguous local time rejects and explicit UTC must be used. One conflicting occurrence rejects the whole series.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/schedules.ts",
+      "packages/shared/src/care/scheduling.ts",
+      "cloudflare/workers/src/care/visit-picker.ts",
+      "websites/typescript/src/care/schedule-time-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16479
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16484
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "schedules:preview",
+      "schedules:create"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.schedule.cancel-unassigned-occurrence",
+    "title": "Cancel one future unassigned recurring occurrence",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "One future occurrence in a saved recurring series is no longer needed.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Occurrence belongs to tenant series, is future/active, has no care_case; latest source updatedAt."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Open series occurrence and submit cancel_occurrence with evidence",
+        "expected": "Only that occurrence is cancelled; other series visits unchanged.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/schedules",
+        "db_effect": "Update visits.status=cancelled; append care_schedule_events.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "One unassigned occurrence is cancelled with audit evidence.",
+    "alternative_paths": [
+      "Assigned/started/terminal/past or stale occurrence rejects; assigned client cancellation uses cancel_visit.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/schedules.ts",
+      "websites/typescript/src/care/schedule-time-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16484
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "schedules:cancel_occurrence"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.schedule.reschedule-assigned-visit",
+    "title": "Reschedule assigned pre-start care and renew the plan",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Client/operations agrees on a changed visit time before care.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Active pre-start or coverage-needed source/case; valid future UTC start/duration and explicit confirmation."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Record agreed time/duration and submit reschedule with note",
+        "expected": "Client and staff conflicts rechecked atomically; plan approval is invalidated.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Update visits start/duration, clear case plan/author/reviewer, reset awaiting_plan; append previous/new schedule evidence.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "Visit has new time; existing history preserved and fresh planning, approval and acknowledgment are required.",
+    "alternative_paths": [
+      "Schedule conflict fails transaction without partial time change; started/terminal visit cannot use this path. Handover target signature changes invalidate old receipts.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts",
+      "cloudflare/workers/src/care/schedules.ts",
+      "cloudflare/workers/src/care/staffing.ts",
+      "websites/typescript/src/care/schedule-time-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16482
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "reschedule"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.schedule.cancel-assigned-appointment",
+    "title": "Cancel an assigned client appointment before care starts",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Operations confirms client appointment cancellation.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Active pre-start/coverage-needed case; explicit confirmation and signed reason."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Submit cancel_visit with confirmation and note",
+        "expected": "Both source appointment and case become cancelled.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/cases/{id}/actions",
+        "db_effect": "Update visits.status/cancellation_reason and case state; append confirmed cancel_visit evidence.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "Appointment cancellation persists and cannot be restarted by case reassignment.",
+    "alternative_paths": [
+      "No care already started may be cancelled through this pre-start path. Assignment-only cancellation is a separate outcome.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/commands.ts",
+      "websites/typescript/src/care/schedule-time-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16482
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "cancel_visit"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.time.submit-review",
+    "title": "Attest actual visit time and obtain independent review",
+    "actor_roles": [
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Worker submits actual work time after visit documentation is submitted.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Case was started and is submitted/completed/correction_requested; worker is assigned PSW/HSW.",
+      "Reported positive interval, valid break/net minutes <=1440; worker attestation; separate operations reviewer."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Worker submits actual start/end, break minutes and attested evidence",
+        "expected": "Time record becomes pending, net minutes calculated; discrepancy from electronic start is visible.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/time-records",
+        "db_effect": "Insert care_time_records and care_time_events version 1.",
+        "actor_roles": [
+          "psw",
+          "hsw"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Independent operations checks evidence and approves",
+        "expected": "Self-approval denied; clinical status context retained.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/time-records",
+        "db_effect": "Update approved status/reviewer/version; append approve event.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 4
+      }
+    ],
+    "outcome": "A signed actual-time report has independent approval, without determining wage/payment.",
+    "alternative_paths": [
+      "Reviewer can return for correction; electronic-start discrepancy is a flag, not automatic refusal or pay calculation.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/time-records.ts",
+      "packages/shared/src/care/scheduling.ts",
+      "websites/typescript/src/care/schedule-time-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16485
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "time-records:submit",
+      "time-records:approve"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.time.correct-reopen",
+    "title": "Return or reopen reported time, correct it and re-review",
+    "actor_roles": [
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Reviewer finds correction needed in pending or already approved time.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Time record pending or approved; independent operations reviewer, assigned worker and latest version."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Reviewer return with signed reason",
+        "expected": "Record becomes returned; old values/approval retained in immutable events.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/time-records",
+        "db_effect": "Update returned status/version and append signed return event.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Worker corrects reported times/breaks and resubmits with attestation",
+        "expected": "New version becomes pending; prior evidence remains.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/time-records",
+        "db_effect": "Update time values/version, clear reviewer and append submit event.",
+        "actor_roles": [
+          "psw",
+          "hsw"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Independent reviewer approves corrected submission",
+        "expected": "Updated evidence receives a separate decision.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/time-records",
+        "db_effect": "Append approve event and update approved status/reviewer/version.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 4
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 5
+      }
+    ],
+    "outcome": "Corrected time is independently reviewed and all original signed values/decisions remain traceable.",
+    "alternative_paths": [
+      "Approved time can be reopened only by independent operations. No automated payroll reversal follows.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/time-records.ts",
+      "websites/typescript/src/care/schedule-time-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16485
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "time-records:return",
+      "time-records:submit",
+      "time-records:approve"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.handover.prepare-review",
+    "title": "Prepare a same-client shift handover and independently approve it",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw"
+    ],
+    "trigger": "Started source care needs to transfer relevant information to a later receiving visit.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Author is assigned source care staff with permitted clinical access; source started.",
+      "Same-client later active pre-start receiving case, within case/version bounds; independent assigned eligible source nurse/supervisor reviewer."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Source author creates summary, outstanding work and precautions for selected later case",
+        "expected": "Pending clinical draft is visible only to permitted source team.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/handovers",
+        "db_effect": "Insert care_handovers pending v1 and create event.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Independent source nurse/supervisor reviews and approves checked evidence",
+        "expected": "Author cannot self-review; approved version may be shown to receiving team.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/handovers",
+        "db_effect": "Update handover approved/version/reviewer; append approval; invalidate existing ready/accepted receiving plan approval.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 4
+      }
+    ],
+    "outcome": "An independently approved same-client handover awaits current receiving-team acknowledgements.",
+    "alternative_paths": [
+      "Reviewer may return for author correction or withdraw pending/returned handover. Operations metadata inbox never grants private narrative access.",
+      "No handover change allowed once receiving care starts; no emergency notification is claimed.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/handovers.ts",
+      "packages/shared/src/care/workflows.ts",
+      "websites/typescript/src/care/handover-followup-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16486
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "handovers:create",
+      "handovers:approve",
+      "handovers:return"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.handover.correct-re-review",
+    "title": "Revise a returned or approved handover and obtain fresh review",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw"
+    ],
+    "trigger": "Original author must correct a returned/approved handover before receiving care starts.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Original source author still has source access; receiving case pre-start/active; current handover version."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Original author revises summary/outstanding/precautions with reason",
+        "expected": "New version becomes pending; old clinical text/evidence retained.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/handovers",
+        "db_effect": "Update handover fields/version, clear reviewer, append revise event.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Independent source reviewer approves corrected version",
+        "expected": "Fresh approval required; stale receiving receipts do not satisfy new version.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/handovers",
+        "db_effect": "Update approved status/reviewer; append approval and invalidate target approval if necessary.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 4
+      }
+    ],
+    "outcome": "A corrected approved handover requires fresh current receiving receipts.",
+    "alternative_paths": [
+      "Only returned/approved handovers may be revised; pending must be reviewed/returned first; author cannot approve.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/handovers.ts",
+      "websites/typescript/src/care/handover-followup-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16486
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "handovers:revise",
+      "handovers:approve"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.handover.withdraw",
+    "title": "Independently withdraw a pending or returned handover",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director"
+    ],
+    "trigger": "Source clinical reviewer determines a handover should not proceed.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Independent eligible source assigned nurse/supervisor distinct from author; pending/returned handover; receiving case remains pre-start."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Review source evidence and submit withdraw with checked note",
+        "expected": "Handover becomes withdrawn; old versions remain.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/handovers",
+        "db_effect": "Update handover status/version/reviewer; append withdrawal evidence.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "Withdrawn handover no longer blocks receiving plan/start gates and remains auditable.",
+    "alternative_paths": [
+      "Approved handover is not directly withdrawable under the current contract/state machine.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/handovers.ts",
+      "websites/typescript/src/care/handover-followup-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16486
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "handovers:withdraw"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.handover.receive-acknowledge",
+    "title": "Receive and acknowledge approved handover before plan approval and start",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw"
+    ],
+    "trigger": "Receiving care team sees an approved incoming handover.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Approved same-client handover and current eligible receiving nurse/supervisor and support worker; receiving visit remains active pre-start."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Receiving nurse/supervisor opens approved text and acknowledges current version",
+        "expected": "Clinical receipt exists for current receiving team/schedule signature.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/handovers",
+        "db_effect": "Insert care_handover_receipts bound to approved_version,target_signature,actor.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Receiving worker reviews and acknowledges current approved handover",
+        "expected": "Worker receipt is required before start; an independent clinical receipt remains required.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/handovers",
+        "db_effect": "Insert worker receipt for current version/signature.",
+        "actor_roles": [
+          "psw",
+          "hsw"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 4
+      }
+    ],
+    "outcome": "Receiving plan approval and worker start can evaluate valid clinical/worker receipts.",
+    "alternative_paths": [
+      "Pending/returned drafts are hidden from recipients. Revised version or changed receiving team/time invalidates stale receipts; duplicate receipt conflicts.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/handovers.ts",
+      "cloudflare/workers/src/care/commands.ts",
+      "websites/typescript/src/care/handover-followup-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16486
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "handovers:acknowledge"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.followup.assign-complete-verify",
+    "title": "Assign, perform and independently verify an operational follow-up",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin"
+    ],
+    "trigger": "Operations needs accountable completion of a care-linked operational duty.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Operations selects source case, category, active permitted owner, bounded due date and operational instructions without clinical narrative.",
+      "Optional prerequisites are at most five existing noncancelled same-case tasks selected only at creation."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Operations creates follow-up owner/deadline/category/evidence and optional prerequisites",
+        "expected": "Task is open; links are immutable and cannot form a newly rewired cycle.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Insert care_followups v1, dependencies and create event.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Owner starts work and submits completion evidence",
+        "expected": "Prerequisites must be completed or independently released before start/submit.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Append start/submit events; set in_progress then submitted.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw",
+          "scheduler",
+          "tenant_admin"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Independent operations verifies checked evidence and registered source outcome",
+        "expected": "No self-verification; governed category source checks must pass; generic work needs manual independent evidence review.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Set completed; append verify payload with contemporaneous source state; close pending extension atomically.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 4
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 5
+      }
+    ],
+    "outcome": "Operational follow-up is independently completed with source-backed evidence; history survives later source changes.",
+    "alternative_paths": [
+      "Submitted prerequisite is still unfinished; cancelled prerequisite does not satisfy dependency. Missing source result blocks verification.",
+      "Eligible owner is current care-team member or operations; staff_clearance category requires a clinical owner. Former assignee may retain own task access without chart access.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/followups.ts",
+      "cloudflare/workers/src/care/task-dependencies.ts",
+      "packages/shared/src/care/workflows.ts",
+      "websites/typescript/src/care/handover-followup-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16487
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "followups:create",
+      "followups:start",
+      "followups:submit",
+      "followups:verify"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.followup.block-return-recover",
+    "title": "Record a task blocker or return insufficient evidence and resume work",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin"
+    ],
+    "trigger": "Task owner cannot proceed, or independent verifier finds insufficient completion evidence.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Unfinished task and current owner; independent operations for returned submissions."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Owner reports block with operational evidence",
+        "expected": "Task becomes blocked; notes/history retained.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Update status/version; append block event.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw",
+          "scheduler",
+          "tenant_admin"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Owner resolves blocker and starts/submits new evidence, or reviewer returns submitted work",
+        "expected": "Start/submission enforce prerequisites. Return reopens task with signed reason.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Append start/submit/return events and current status/version.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw",
+          "scheduler",
+          "tenant_admin"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Independent operations verifies only after actual source result and prerequisites pass",
+        "expected": "No deadline change alone unblocks or completes task.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Append independent completion evidence when valid.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 4
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 5
+      }
+    ],
+    "outcome": "Blocked/returned work is visibly accountable until corrected and independently completed.",
+    "alternative_paths": [
+      "User-reported blocked status and dependency-waiting state are distinct; queues must not conflate them.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/followups.ts",
+      "cloudflare/workers/src/care/task-dependencies.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16487
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "followups:block",
+      "followups:return",
+      "followups:start",
+      "followups:submit",
+      "followups:verify"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.followup.reassign",
+    "title": "Reassign operational follow-up with a new deadline",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Task owner is unavailable or operations agrees on another eligible owner.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Unfinished task; operations actor is not current task owner; new active same-tenant eligible owner."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Select new owner, deadline and signed reason; submit reassign",
+        "expected": "Task becomes open with new owner/deadline; prior owner/evidence retained.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Update owner/due/status/version; append previous/new values; atomically close pending deadline request.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "New owner has accountable operational work without receiving additional clinical chart authority.",
+    "alternative_paths": [
+      "Operations employee cannot reassign own task; another operations person must act. Prerequisite links remain unchanged.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/followups.ts",
+      "websites/typescript/src/care/handover-followup-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16487
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "followups:reassign"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.followup.cancel",
+    "title": "Cancel an unnecessary operational follow-up",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Authorized operations determines operational task is no longer needed.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Unfinished task and signed reason."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Submit cancel and reason",
+        "expected": "Task becomes cancelled; history retained; cancellation does not satisfy dependents.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Update status/version, append cancel and close pending deadline request.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "Task is cancelled without false completed status or waived clinical requirements.",
+    "alternative_paths": [
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/followups.ts",
+      "cloudflare/workers/src/care/task-dependencies.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16487
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "followups:cancel"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.followup.request-decide-extension",
+    "title": "Request and independently decide a later operational deadline",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin"
+    ],
+    "trigger": "Task owner needs a later deadline with supporting reason.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Unfinished task, no pending extension, later future proposed due within policy bound.",
+      "Independent operations actor distinct from owner for decision."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Owner requests later due with evidence",
+        "expected": "One pending request is stored; original effective due and work status do not change.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Set requested_due_at/by/at; append request_extension with original deadline.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw",
+          "scheduler",
+          "tenant_admin"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Independent operations reviews and approves or declines",
+        "expected": "Approval requires explicit evidence check and still-future proposal; decline keeps original due.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Append previous/requested/effective deadline; update due only on approval; clear request, preserve status.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 3
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 4
+      }
+    ],
+    "outcome": "Deadline has a traceable independent decision without changing task progress or determining employee fault.",
+    "alternative_paths": [
+      "Self-decision forbidden. Expired proposal cannot be approved; decline/withdraw before requesting again. Reassign/verify/cancel closes pending request with evidence.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/followups.ts",
+      "packages/shared/src/care/workflows.ts",
+      "websites/typescript/src/care/handover-followup-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16487
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "followups:request_extension",
+      "followups:approve_extension",
+      "followups:decline_extension"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.followup.withdraw-extension",
+    "title": "Withdraw a pending task deadline request",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin"
+    ],
+    "trigger": "Owner no longer needs the requested extension.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Own unfinished task with one pending request and latest version."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Owner submits withdraw_extension with note",
+        "expected": "Request cleared; current deadline and work status preserved.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Append request/proposal/previous due evidence; clear requested_due fields.",
+        "actor_roles": [
+          "rn",
+          "rpn",
+          "rn_field_supervisor",
+          "clinical_director",
+          "psw",
+          "hsw",
+          "scheduler",
+          "tenant_admin"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "The pending request is withdrawn and remains visible in signed deadline history.",
+    "alternative_paths": [
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/followups.ts",
+      "websites/typescript/src/care/handover-followup-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16487
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "followups:withdraw_extension"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.followup.release-prerequisite",
+    "title": "Independently release an operational prerequisite",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Operations decides a specific unfinished/cancelled prerequisite may be waived for dependent operational work.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Dependent task active; prerequisite same-case link exists and not fulfilled/released.",
+      "Reviewer is operations independent of both dependent and prerequisite owners; explicit checked reason."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Review prerequisite metadata and submit release_dependency with checked evidence",
+        "expected": "Release is append-only; dependent status/deadline and prerequisite status remain unchanged.",
+        "api_method": "POST",
+        "api_path": "/v1/governance/care/followups",
+        "db_effect": "Insert care_followup_dependency_releases and append followup release event/version.",
+        "actor_roles": [
+          "scheduler",
+          "tenant_admin",
+          "clinical_director",
+          "rn_field_supervisor"
+        ],
+        "order": 2
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 3
+      }
+    ],
+    "outcome": "Specific operational dependency is satisfied by recorded independent exception; remaining dependencies still apply.",
+    "alternative_paths": [
+      "Release does not complete predecessor or approve clinical care, credentials, consent, payroll or source-workflow verification. Owner self-release and cross-case links denied.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/task-dependencies.ts",
+      "cloudflare/workers/src/care/followups.ts",
+      "websites/typescript/src/care/dependency-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16487
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "followups:release_dependency"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.operations.review-workload",
+    "title": "Review unfinished workload and locate employee task records",
+    "actor_roles": [
+      "scheduler",
+      "tenant_admin",
+      "clinical_director",
+      "rn_field_supervisor"
+    ],
+    "trigger": "Operations needs to identify open, blocked, late, review, extension or dependency-waiting work.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Current tenant operations access; database contains operational follow-up records."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Search by literal employee email/account ID and page workload owners",
+        "expected": "Counts include unfinished tasks; inactive/unsupported owners remain visible with warnings.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read care_followups/users/dependencies aggregates; do not return clinical narrative.",
+        "order": 2
+      },
+      {
+        "action": "Open one employee task list, filter blocked/waiting/review and inspect accountable next action",
+        "expected": "Owner scope and counts are enforced before pagination; clear filter restores authorized list.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read permitted tasks, status, deadline and dependency-owner metadata.",
+        "order": 3
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 4
+      }
+    ],
+    "outcome": "Operations sees accurate database-backed workload and can choose existing reassignment/extension/review actions without gaining chart access.",
+    "alternative_paths": [
+      "Not a fault score, worked-hour report, pay entitlement or disciplinary finding. Nonoperations workload request returns no operations report.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/workload.ts",
+      "cloudflare/workers/src/care/followups.ts",
+      "websites/typescript/src/care/workload-view.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16479
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "GET:workload",
+      "GET:followupOwner"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  },
+  {
+    "id": "care.queue.find-next-work",
+    "title": "Find permitted care work, late items, concerns and coverage exceptions",
+    "actor_roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin"
+    ],
+    "trigger": "Authorized care user needs to identify the next accountable action.",
+    "preconditions": [
+      "Active existing accounts and tenant, each actor using their currently supported single role; use isolated synthetic records for later testing.",
+      "Real credential login and shared /care screen are the entry point; no injected session qualifies as complete browser acceptance.",
+      "Current supported care role; existing scoped care cases and registered task timing policy."
+    ],
+    "steps": [
+      {
+        "action": "Sign in and open Care",
+        "expected": "A real credential session loads the current permitted identity and scope through the shared layout.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped records; care access/rate audit may be appended.",
+        "order": 1
+      },
+      {
+        "action": "Choose all/mine/late/concerns/coverage queue and page results",
+        "expected": "Server filters before pagination; next stage, responsible actor and operational due/late values match case source state.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read care_cases/visits/events/staffing; append permitted access records.",
+        "order": 2
+      },
+      {
+        "action": "Open permitted case or metadata card and inspect task instruction/history",
+        "expected": "Assigned clinical roles see permitted chart; operations sees scheduling/status metadata without private clinical narrative.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "Read scoped case/event/clearance details without direct UI database access.",
+        "order": 3
+      },
+      {
+        "action": "Reload and compare the outcome with the isolated database",
+        "expected": "The permitted UI/API result, current versions and immutable history match the persisted outcome.",
+        "api_method": "GET",
+        "api_path": "/v1/governance/care",
+        "db_effect": "No new business outcome is created by reload.",
+        "order": 4
+      }
+    ],
+    "outcome": "User can identify current responsibility and next allowed action from accurate scoped records.",
+    "alternative_paths": [
+      "Timing target alone does not establish clinical triage, employee fault, payroll or automatic escalation. Unassigned support worker never gains organization-wide chart access.",
+      "Missing/expired session returns 401; unsupported care role or forbidden actor returns 403. A foreign-tenant record is absent or denied without disclosure or mutation.",
+      "Malformed payloads return 400. Stale versions or changed source state return 409. Reusing an idempotency key with changed payload returns 409; a matching authorized retry returns its original receipt.",
+      "A failed transaction rolls back business writes, events and request receipt; transport/server failure must not be counted as success. Reload/retry confirms the stored result before another logical request."
+    ],
+    "source_paths": [
+      "packages/shared/src/care/registry.json",
+      "packages/shared/src/care/contract.ts",
+      "cloudflare/workers/src/care/service.ts",
+      "websites/typescript/src/care/dashboard.ts",
+      "docs/care/TASK_CHECKLIST.md",
+      "cloudflare/workers/src/care/task-queue.ts",
+      "cloudflare/workers/src/care/repository.ts",
+      "websites/typescript/src/care/views.ts"
+    ],
+    "governance_refs": [
+      {
+        "table": "care_delivery_policy",
+        "key": "care-v1"
+      },
+      {
+        "table": "screens",
+        "key": 2517
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16479
+      }
+    ],
+    "gaps": [
+      "Virtual source mapping only: no browser/API/database acceptance execution, video or independent approval is claimed by this definition."
+    ],
+    "definition_quality": "source_mapped",
+    "covered_actions": [
+      "GET:care-queues"
+    ],
+    "screen": {
+      "id": 2517,
+      "screen_code": "care_delivery",
+      "route": "/care"
+    }
+  }
+]

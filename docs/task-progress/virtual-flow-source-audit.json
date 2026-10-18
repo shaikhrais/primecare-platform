@@ -1,0 +1,2571 @@
+{
+  "audited_at": "2026-10-18T20:48:40.370024+00:00",
+  "database": "/workspace/scratch/70fcae9a5cf1/primecare-recovery/.agents/governance/governance.db",
+  "mode": "read-only metadata audit; no browser or business workflow execution",
+  "schemas": {
+    "screens": {
+      "sql": "CREATE TABLE screens (\n       id INTEGER PRIMARY KEY AUTOINCREMENT,\n       app_id INTEGER,\n       role_id INTEGER,\n       screen_code TEXT UNIQUE,\n       screen_name TEXT,\n       route_path TEXT,\n       actual_file_path TEXT,\n       stage TEXT,\n       active INTEGER DEFAULT 1, runtime_verified INTEGER DEFAULT 0, cypress_verified INTEGER DEFAULT 0, production_ready INTEGER DEFAULT 0, completeness_score INTEGER DEFAULT 0, implementation_tag TEXT DEFAULT 'placeholder', content_tag TEXT DEFAULT 'placeholder', api_tag TEXT DEFAULT 'api_missing', test_tag TEXT DEFAULT 'no_test', review_tag TEXT DEFAULT 'not_reviewed', component_summary TEXT, section_summary TEXT, screenshot_path TEXT,\n       FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE SET NULL,\n       FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "app_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "role_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "screen_code",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "screen_name",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "route_path",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "actual_file_path",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "stage",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "active",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "runtime_verified",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "cypress_verified",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 11,
+          "name": "production_ready",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 12,
+          "name": "completeness_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 13,
+          "name": "implementation_tag",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'placeholder'",
+          "pk": 0
+        },
+        {
+          "cid": 14,
+          "name": "content_tag",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'placeholder'",
+          "pk": 0
+        },
+        {
+          "cid": 15,
+          "name": "api_tag",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'api_missing'",
+          "pk": 0
+        },
+        {
+          "cid": 16,
+          "name": "test_tag",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'no_test'",
+          "pk": 0
+        },
+        {
+          "cid": 17,
+          "name": "review_tag",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'not_reviewed'",
+          "pk": 0
+        },
+        {
+          "cid": 18,
+          "name": "component_summary",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 19,
+          "name": "section_summary",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 20,
+          "name": "screenshot_path",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ]
+    },
+    "button_action_definitions": {
+      "sql": "CREATE TABLE button_action_definitions (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        screen_id INTEGER NOT NULL,\n        section_id INTEGER NOT NULL,\n        element_id INTEGER NOT NULL,\n        button_key TEXT NOT NULL,\n        button_label TEXT,\n        action_type TEXT NOT NULL,\n        api_id INTEGER,\n        endpoint_path TEXT,\n        method TEXT,\n        request_payload_description TEXT,\n        success_result TEXT,\n        failure_result TEXT,\n        confirmation_required INTEGER DEFAULT 0,\n        navigation_after_success TEXT,\n        toast_or_message TEXT,\n        test_id TEXT NOT NULL,\n        implementation_status TEXT DEFAULT 'planned',\n        created_at TEXT DEFAULT CURRENT_TIMESTAMP,\n        updated_at TEXT DEFAULT CURRENT_TIMESTAMP,\n        FOREIGN KEY (screen_id) REFERENCES screens(id),\n        FOREIGN KEY (section_id) REFERENCES screen_sections(id),\n        FOREIGN KEY (element_id) REFERENCES screen_section_elements(id)\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "screen_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "section_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "element_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "button_key",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "button_label",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "action_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "api_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "endpoint_path",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "method",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "request_payload_description",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 11,
+          "name": "success_result",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 12,
+          "name": "failure_result",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 13,
+          "name": "confirmation_required",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 14,
+          "name": "navigation_after_success",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 15,
+          "name": "toast_or_message",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 16,
+          "name": "test_id",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 17,
+          "name": "implementation_status",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'planned'",
+          "pk": 0
+        },
+        {
+          "cid": 18,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 19,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ]
+    },
+    "button_actions": {
+      "sql": "CREATE TABLE button_actions (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        button_action_definition_id INTEGER,\n        action_code TEXT,\n        action_name TEXT,\n        action_type TEXT,\n        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "button_action_definition_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "action_code",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "action_name",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "action_type",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ]
+    },
+    "screen_requirements": {
+      "sql": "CREATE TABLE screen_requirements (\n       id INTEGER PRIMARY KEY AUTOINCREMENT,\n       screen_id INTEGER,\n       business_purpose TEXT,\n       user_story TEXT,\n       sidebar_label TEXT,\n       acceptance_criteria TEXT,\n       FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "screen_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "business_purpose",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "user_story",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "sidebar_label",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "acceptance_criteria",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ]
+    },
+    "screen_implementation_blueprints": {
+      "sql": "CREATE TABLE screen_implementation_blueprints (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        screen_id INTEGER NOT NULL,\n        app_id INTEGER,\n        role_id INTEGER,\n        screen_purpose TEXT,\n        business_context TEXT,\n        user_goal TEXT,\n        primary_workflow TEXT,\n        secondary_workflows TEXT,\n        data_dependencies TEXT,\n        api_dependencies TEXT,\n        expected_user_journey TEXT,\n        implementation_notes TEXT,\n        integration_notes TEXT,\n        status TEXT DEFAULT 'planned',\n        created_at TEXT DEFAULT CURRENT_TIMESTAMP,\n        updated_at TEXT DEFAULT CURRENT_TIMESTAMP,\n        FOREIGN KEY (screen_id) REFERENCES screens(id)\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "screen_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "app_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "role_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "screen_purpose",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "business_context",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "user_goal",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "primary_workflow",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "secondary_workflows",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "data_dependencies",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "api_dependencies",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 11,
+          "name": "expected_user_journey",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 12,
+          "name": "implementation_notes",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 13,
+          "name": "integration_notes",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 14,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'planned'",
+          "pk": 0
+        },
+        {
+          "cid": 15,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 16,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ]
+    },
+    "screen_test_definitions": {
+      "sql": "CREATE TABLE screen_test_definitions (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        screen_id INTEGER NOT NULL,\n        test_code TEXT UNIQUE NOT NULL,\n        test_name TEXT NOT NULL,\n        test_type TEXT NOT NULL,\n        enabled INTEGER DEFAULT 1,\n        priority INTEGER DEFAULT 100,\n        requires_auth INTEGER DEFAULT 1,\n        role_id INTEGER,\n        route_path TEXT,\n        sidebar_label TEXT,\n        expected_title TEXT,\n        expected_layout TEXT,\n        required_elements_json TEXT,\n        forbidden_text_json TEXT,\n        acceptance_criteria_json TEXT,\n        created_at TEXT DEFAULT CURRENT_TIMESTAMP,\n        updated_at TEXT DEFAULT CURRENT_TIMESTAMP,\n        FOREIGN KEY (screen_id) REFERENCES screens(id)\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "screen_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "test_code",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "test_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "test_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "enabled",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "priority",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "100",
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "requires_auth",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "role_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "route_path",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "sidebar_label",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 11,
+          "name": "expected_title",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 12,
+          "name": "expected_layout",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 13,
+          "name": "required_elements_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 14,
+          "name": "forbidden_text_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 15,
+          "name": "acceptance_criteria_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 16,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 17,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ]
+    },
+    "screen_test_steps": {
+      "sql": "CREATE TABLE screen_test_steps (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        test_definition_id INTEGER NOT NULL,\n        step_order INTEGER NOT NULL,\n        action TEXT NOT NULL,\n        selector TEXT,\n        value TEXT,\n        expected TEXT,\n        timeout_ms INTEGER DEFAULT 10000,\n        required INTEGER DEFAULT 1,\n        FOREIGN KEY (test_definition_id) REFERENCES screen_test_definitions(id) ON DELETE CASCADE\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "test_definition_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "step_order",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "action",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "selector",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "value",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "expected",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "timeout_ms",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "10000",
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "required",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        }
+      ]
+    },
+    "screen_api_map": {
+      "sql": "CREATE TABLE screen_api_map (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      screen_id INTEGER NOT NULL,\n      api_id INTEGER NOT NULL,\n      api_usage TEXT NOT NULL,\n      required INTEGER DEFAULT 1,\n      fallback_behavior TEXT,\n      created_at TEXT DEFAULT CURRENT_TIMESTAMP,\n      FOREIGN KEY (screen_id) REFERENCES screens (id),\n      FOREIGN KEY (api_id) REFERENCES api_registry (id)\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "screen_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "api_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "api_usage",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "required",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "fallback_behavior",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ]
+    },
+    "screen_api_links": {
+      "sql": "CREATE TABLE screen_api_links (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      screen_id INTEGER NOT NULL,\n      api_id INTEGER NOT NULL,\n      purpose TEXT,\n      FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE,\n      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE CASCADE,\n      UNIQUE(screen_id, api_id)\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "screen_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "api_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "purpose",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ]
+    },
+    "api_registry": {
+      "sql": "CREATE TABLE api_registry (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      api_code TEXT UNIQUE NOT NULL,\n      api_name TEXT NOT NULL,\n      app_id INTEGER,\n      domain TEXT,\n      method TEXT NOT NULL,\n      endpoint_path TEXT NOT NULL,\n      full_url TEXT,\n      request_schema_json TEXT,\n      response_schema_json TEXT,\n      auth_required INTEGER DEFAULT 1,\n      role_required TEXT,\n      status TEXT DEFAULT 'planned',\n      owner TEXT,\n      notes TEXT,\n      created_at TEXT DEFAULT CURRENT_TIMESTAMP,\n      updated_at TEXT DEFAULT CURRENT_TIMESTAMP\n    , api_tag TEXT DEFAULT 'api_planned', test_tag TEXT DEFAULT 'no_test')",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "api_code",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "api_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "app_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "domain",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "method",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "endpoint_path",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "full_url",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "request_schema_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "response_schema_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "auth_required",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 11,
+          "name": "role_required",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 12,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'planned'",
+          "pk": 0
+        },
+        {
+          "cid": 13,
+          "name": "owner",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 14,
+          "name": "notes",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 15,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 16,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 17,
+          "name": "api_tag",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'api_planned'",
+          "pk": 0
+        },
+        {
+          "cid": 18,
+          "name": "test_tag",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'no_test'",
+          "pk": 0
+        }
+      ]
+    },
+    "api_endpoint_registry": {
+      "sql": "CREATE TABLE api_endpoint_registry (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        api_id INTEGER,\n        app_id INTEGER,\n        endpoint_code TEXT UNIQUE,\n        endpoint_name TEXT,\n        method TEXT,\n        endpoint_path TEXT,\n        full_url TEXT,\n        auth_required BOOLEAN,\n        role_required TEXT,\n        request_schema_json TEXT,\n        response_schema_json TEXT,\n        error_schema_json TEXT,\n        status TEXT,\n        service_file_path TEXT,\n        controller_file_path TEXT,\n        test_file_path TEXT,\n        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "api_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "app_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "endpoint_code",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "endpoint_name",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "method",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "endpoint_path",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "full_url",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "auth_required",
+          "type": "BOOLEAN",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "role_required",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "request_schema_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 11,
+          "name": "response_schema_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 12,
+          "name": "error_schema_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 13,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 14,
+          "name": "service_file_path",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 15,
+          "name": "controller_file_path",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 16,
+          "name": "test_file_path",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 17,
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 18,
+          "name": "updated_at",
+          "type": "TIMESTAMP",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ]
+    },
+    "api_endpoints": {
+      "sql": "CREATE TABLE api_endpoints (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      app_id INTEGER NOT NULL,\n      runtime_artifact_id INTEGER,\n      controller_id INTEGER,\n      service_id INTEGER,\n      request_schema_id INTEGER,\n      response_schema_id INTEGER,\n      endpoint_code TEXT,\n      route_path TEXT NOT NULL,\n      http_method TEXT NOT NULL,\n      controller_name TEXT,\n      service_name TEXT,\n      auth_required INTEGER DEFAULT 1,\n      implementation_status TEXT DEFAULT 'planned',\n      gateway_url TEXT,\n      icon_key TEXT,\n      request_schema TEXT,\n      response_schema TEXT,\n      permission_key TEXT,\n      rate_limit_key TEXT,\n      api_version TEXT DEFAULT 'v1',\n      deprecated_at TEXT,\n      is_backend_only INTEGER DEFAULT 0,\n      last_tested_at TEXT,\n      health_status TEXT DEFAULT 'healthy',\n      created_at TEXT DEFAULT CURRENT_TIMESTAMP, avg_latency_ms INTEGER, prisma_model_names TEXT, query_pattern TEXT, uses_pagination INTEGER DEFAULT 0, uses_select INTEGER DEFAULT 0, uses_include INTEGER DEFAULT 0, possible_n_plus_one INTEGER DEFAULT 0, recommended_indexes_json TEXT, db_query_time_ms INTEGER DEFAULT 0, optimization_status TEXT DEFAULT 'pending',\n      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,\n      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,\n      FOREIGN KEY (controller_id) REFERENCES api_controllers(id) ON DELETE SET NULL,\n      FOREIGN KEY (service_id) REFERENCES api_services(id) ON DELETE SET NULL,\n      FOREIGN KEY (request_schema_id) REFERENCES api_request_schemas(id) ON DELETE SET NULL,\n      FOREIGN KEY (response_schema_id) REFERENCES api_response_schemas(id) ON DELETE SET NULL,\n      UNIQUE(app_id, route_path, http_method)\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "app_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "runtime_artifact_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "controller_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "service_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "request_schema_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "response_schema_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "endpoint_code",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "route_path",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "http_method",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "controller_name",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 11,
+          "name": "service_name",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 12,
+          "name": "auth_required",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 13,
+          "name": "implementation_status",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'planned'",
+          "pk": 0
+        },
+        {
+          "cid": 14,
+          "name": "gateway_url",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 15,
+          "name": "icon_key",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 16,
+          "name": "request_schema",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 17,
+          "name": "response_schema",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 18,
+          "name": "permission_key",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 19,
+          "name": "rate_limit_key",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 20,
+          "name": "api_version",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'v1'",
+          "pk": 0
+        },
+        {
+          "cid": 21,
+          "name": "deprecated_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 22,
+          "name": "is_backend_only",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 23,
+          "name": "last_tested_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 24,
+          "name": "health_status",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'healthy'",
+          "pk": 0
+        },
+        {
+          "cid": 25,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 26,
+          "name": "avg_latency_ms",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 27,
+          "name": "prisma_model_names",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 28,
+          "name": "query_pattern",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 29,
+          "name": "uses_pagination",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 30,
+          "name": "uses_select",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 31,
+          "name": "uses_include",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 32,
+          "name": "possible_n_plus_one",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 33,
+          "name": "recommended_indexes_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 34,
+          "name": "db_query_time_ms",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 35,
+          "name": "optimization_status",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'pending'",
+          "pk": 0
+        }
+      ]
+    },
+    "api_usage_blueprints": {
+      "sql": "CREATE TABLE api_usage_blueprints (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        api_id INTEGER NOT NULL,\n        api_code TEXT NOT NULL,\n        api_name TEXT NOT NULL,\n        endpoint_path TEXT NOT NULL,\n        method TEXT NOT NULL,\n        used_by_screen_ids_json TEXT NOT NULL,\n        purpose TEXT,\n        request_model_description TEXT,\n        response_model_description TEXT,\n        loading_state_required INTEGER DEFAULT 1,\n        empty_state_required INTEGER DEFAULT 1,\n        error_state_required INTEGER DEFAULT 1,\n        retry_required INTEGER DEFAULT 1,\n        security_notes TEXT,\n        implementation_notes TEXT,\n        created_at TEXT DEFAULT CURRENT_TIMESTAMP,\n        updated_at TEXT DEFAULT CURRENT_TIMESTAMP,\n        FOREIGN KEY (api_id) REFERENCES api_registry(id)\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "api_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "api_code",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "api_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "endpoint_path",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "method",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "used_by_screen_ids_json",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "purpose",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "request_model_description",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "response_model_description",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "loading_state_required",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 11,
+          "name": "empty_state_required",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 12,
+          "name": "error_state_required",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 13,
+          "name": "retry_required",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 14,
+          "name": "security_notes",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 15,
+          "name": "implementation_notes",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 16,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 17,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ]
+    },
+    "api_test_definitions": {
+      "sql": "CREATE TABLE api_test_definitions (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      api_id INTEGER NOT NULL,\n      test_code TEXT UNIQUE NOT NULL,\n      test_name TEXT NOT NULL,\n      test_type TEXT DEFAULT 'smoke',\n      enabled INTEGER DEFAULT 1,\n      expected_status_code INTEGER DEFAULT 200,\n      request_body_json TEXT,\n      expected_response_keys_json TEXT,\n      forbidden_response_keys_json TEXT,\n      created_at TEXT DEFAULT CURRENT_TIMESTAMP,\n      FOREIGN KEY (api_id) REFERENCES api_registry (id)\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "api_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "test_code",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "test_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "test_type",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'smoke'",
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "enabled",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "expected_status_code",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "200",
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "request_body_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "expected_response_keys_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "forbidden_response_keys_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ]
+    },
+    "api_permissions": {
+      "sql": "CREATE TABLE api_permissions (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      api_id INTEGER NOT NULL,\n      role_id INTEGER NOT NULL,\n      runtime_artifact_id INTEGER,\n      permission_key TEXT NOT NULL,\n      can_access INTEGER DEFAULT 1,\n      created_at TEXT DEFAULT CURRENT_TIMESTAMP,\n      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE CASCADE,\n      FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,\n      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,\n      UNIQUE(api_id, role_id)\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "api_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "role_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "runtime_artifact_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "permission_key",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "can_access",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ]
+    },
+    "role_screen_permissions": {
+      "sql": "CREATE TABLE role_screen_permissions (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      role_id INTEGER NOT NULL,\n      screen_id INTEGER NOT NULL,\n      can_view INTEGER DEFAULT 0,\n      can_create INTEGER DEFAULT 0,\n      can_edit INTEGER DEFAULT 0,\n      can_delete INTEGER DEFAULT 0,\n      can_export INTEGER DEFAULT 0,\n      FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,\n      FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE,\n      UNIQUE(role_id, screen_id)\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "role_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "screen_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "can_view",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "can_create",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "can_edit",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "can_delete",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "can_export",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        }
+      ]
+    },
+    "role_feature_permissions": {
+      "sql": "CREATE TABLE role_feature_permissions (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        role_id INTEGER,\n        feature_id INTEGER,\n        can_view BOOLEAN,\n        can_create BOOLEAN,\n        can_edit BOOLEAN,\n        can_delete BOOLEAN,\n        can_export BOOLEAN,\n        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "role_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "feature_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "can_view",
+          "type": "BOOLEAN",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "can_create",
+          "type": "BOOLEAN",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "can_edit",
+          "type": "BOOLEAN",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "can_delete",
+          "type": "BOOLEAN",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "can_export",
+          "type": "BOOLEAN",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "updated_at",
+          "type": "TIMESTAMP",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ]
+    },
+    "role_function_permissions": {
+      "sql": "CREATE TABLE role_function_permissions (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      role_id INTEGER NOT NULL,\n      function_id INTEGER NOT NULL,\n      can_execute INTEGER DEFAULT 0,\n      FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,\n      FOREIGN KEY (function_id) REFERENCES screen_functions(id) ON DELETE CASCADE,\n      UNIQUE(role_id, function_id)\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "role_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "function_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "can_execute",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        }
+      ]
+    },
+    "roles": {
+      "sql": "CREATE TABLE roles (\n       id INTEGER PRIMARY KEY AUTOINCREMENT,\n       role_code TEXT UNIQUE,\n       role_name TEXT,\n       role_type TEXT,\n       active INTEGER DEFAULT 1\n    , test_email TEXT, test_password TEXT, primary_app_code TEXT, primary_app_url TEXT, auth_redirect_url TEXT, post_login_route TEXT)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "role_code",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "role_name",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "role_type",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "active",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "primary_app_code",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "primary_app_url",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "auth_redirect_url",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "post_login_route",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ]
+    }
+  },
+  "counts": {
+    "screens": 953,
+    "button_action_definitions": 1760,
+    "button_actions": 1760,
+    "screen_requirements": 951,
+    "screen_implementation_blueprints": 948,
+    "screen_test_definitions": 948,
+    "screen_test_steps": 6634,
+    "screen_api_map": 1266,
+    "screen_api_links": 1120,
+    "api_registry": 1249,
+    "api_endpoint_registry": 1249,
+    "api_endpoints": 1220,
+    "api_usage_blueprints": 1249,
+    "api_test_definitions": 1249,
+    "api_permissions": 79936,
+    "role_screen_permissions": 1017,
+    "role_feature_permissions": 832,
+    "role_function_permissions": 11,
+    "roles": 74,
+    "screen_active": 952,
+    "screen_inactive": 1,
+    "roles_active": 74
+  },
+  "source_completeness": {
+    "registered_action_definitions": {
+      "count": 1760,
+      "distinct_screen_count": 612,
+      "action_types": [
+        {
+          "action_type": "create",
+          "count": 6
+        },
+        {
+          "action_type": "export",
+          "count": 4
+        },
+        {
+          "action_type": "navigate",
+          "count": 1718
+        },
+        {
+          "action_type": "refresh",
+          "count": 7
+        },
+        {
+          "action_type": "save",
+          "count": 4
+        },
+        {
+          "action_type": "search",
+          "count": 10
+        },
+        {
+          "action_type": "submit",
+          "count": 2
+        },
+        {
+          "action_type": "update",
+          "count": 8
+        },
+        {
+          "action_type": "upload",
+          "count": 1
+        }
+      ],
+      "all_planned": 1760,
+      "missing_api_binding": 1386,
+      "bound_to_mocked_api_registry": 374,
+      "all_outcomes_generic": [
+        {
+          "success_result": "Action completed locally.",
+          "count": 1386
+        },
+        {
+          "success_result": "Operation success, response code 200/201.",
+          "count": 374
+        }
+      ],
+      "navigation_actions_without_target": 1718,
+      "navigation_actions_mapped_to_mutation_method": 327,
+      "dynamic_test_identifiers": 3,
+      "duplicate_screen_button_keys": 0,
+      "duplicate_screen_test_ids": 0,
+      "orphan_screen_ids": 0,
+      "orphan_element_ids": 0,
+      "orphan_section_ids": 0,
+      "orphan_legacy_api_ids": 0,
+      "mirror_button_actions": {
+        "one_to_one": true,
+        "additional_distinct_actions": 0
+      },
+      "meaning": "Registered legacy user interaction placeholders. One source action definition is not one unique business outcome."
+    },
+    "screen_requirements": {
+      "covered_screens": 951,
+      "missing_screens": 2,
+      "template_business_purpose_count": 946,
+      "non_template_count": 5,
+      "non_template_requirements": [
+        {
+          "screen_id": 705,
+          "business_purpose": "Provide the authenticated CEO with account access and honest business-dashboard availability.",
+          "user_story": "As the CEO, I can access my account and distinguish available capabilities from unfinished dashboard features.",
+          "acceptance_criteria": "CEO route requires authentication and CEO authorization; account access uses the existing protected account route; missing business data never displays fake success or production-ready claims."
+        },
+        {
+          "screen_id": 61,
+          "business_purpose": "Provide the Personal Support Worker (PSW) with a unified operational command center for viewing their schedule, tracking shifts, checking client details, and logging tasks.",
+          "user_story": "As a PSW, I want to see my upcoming shifts, check in/out of client homes, view assigned tasks, and quickly access vitals logging or incident reporting so I can deliver high-quality, compliant care.",
+          "acceptance_criteria": "1. Render upcoming shifts list dynamically.\n2. Allow interactive check-in/check-out button action to update shift state.\n3. Display active alerts and a shortcut to log vitals or report incidents."
+        },
+        {
+          "screen_id": 1270,
+          "business_purpose": "Track tenant/client acquisition and assign corrective actions",
+          "user_story": "Founder sees targets, gaps and owners; marketing records source-attributed prospects and campaigns",
+          "acceptance_criteria": "Persist tenant-scoped records; protect mutations; reconcile funnels; show unconnected care/import sources; verify EN/FR/ES and responsive browser flows"
+        },
+        {
+          "screen_id": 1271,
+          "business_purpose": "Receive consent-based website enquiries",
+          "user_story": "Visitor submits contact details to the configured client or partner inbox",
+          "acceptance_criteria": "No anonymous lead reads; active link chooses tenant and owner; preserve opt-outs; validate consent and EN/FR/ES forms"
+        },
+        {
+          "screen_id": 2517,
+          "business_purpose": "Assigned, qualified care delivery",
+          "user_story": "Supervisor assigns; nurse authors; independent clinician approves; support worker records care and concerns",
+          "acceptance_criteria": "Tenant/assignment isolation, credential expiry, consent, versioned plans, immutable notes, independent review and no controlled acts"
+        }
+      ],
+      "duplicates": 0,
+      "orphans": 0,
+      "meaning": "Template prose is not a measurable DB acceptance criterion."
+    },
+    "screen_blueprints": {
+      "covered_screens": 948,
+      "missing_screens": 5,
+      "template_purpose_count": 948,
+      "duplicates": 0,
+      "orphans": 0,
+      "meaning": "All purpose records use Renders the interactive template. Prose guides drafting but does not establish API implementation or expected DB changes."
+    },
+    "screen_tests": {
+      "definitions": 948,
+      "steps": 6634,
+      "steps_without_expected": 6634,
+      "actions": [
+        {
+          "action": "check_no_console_error",
+          "count": 948
+        },
+        {
+          "action": "login_as_role",
+          "count": 942
+        },
+        {
+          "action": "screenshot",
+          "count": 948
+        },
+        {
+          "action": "should_be_visible",
+          "count": 2848
+        },
+        {
+          "action": "visit",
+          "count": 948
+        }
+      ],
+      "definition_orphans": 0,
+      "meaning": "Login/visit/visibility/console/screenshot smoke sequences. No API/DB result oracle; not business workflow verification."
+    },
+    "permissions": {
+      "api_grants_total": 79936,
+      "all_api_grants_allowed": true,
+      "api_grants_missing_endpoint": 21952,
+      "api_grants_missing_role": 0,
+      "per_api_id_grant_count": {
+        "min": 64,
+        "max": 64
+      },
+      "screen_grants_total": 1017,
+      "screen_grants_missing_screen": 23,
+      "screen_grants_missing_role": 0,
+      "valid_screen_grants": 994,
+      "screen_multi_role_grant_count": 23,
+      "screen_grant_patterns": [
+        {
+          "can_view": 1,
+          "can_create": 0,
+          "can_edit": 0,
+          "can_delete": 0,
+          "can_export": 0,
+          "count": 68
+        },
+        {
+          "can_view": 1,
+          "can_create": 0,
+          "can_edit": 0,
+          "can_delete": 0,
+          "can_export": 1,
+          "count": 39
+        },
+        {
+          "can_view": 1,
+          "can_create": 1,
+          "can_edit": 1,
+          "can_delete": 0,
+          "can_export": 0,
+          "count": 25
+        },
+        {
+          "can_view": 1,
+          "can_create": 1,
+          "can_edit": 1,
+          "can_delete": 1,
+          "can_export": 1,
+          "count": 885
+        }
+      ],
+      "meaning": "Retain explicit source references. Broad/stale matrices do not prove server enforcement. Never synthesize new permissions or assume primary screen role is exclusive."
+    }
+  },
+  "reconciliation": {
+    "api_registry_count": 1249,
+    "api_registry_all_mocked": true,
+    "api_registry_all_app_id_null": true,
+    "api_endpoint_registry_count": 1249,
+    "api_endpoint_registry_is_mirror_of": "api_registry",
+    "mirror_orphan_ids": 0,
+    "mirror_duplicate_api_id": 0,
+    "mirror_method_path_mismatch": 0,
+    "api_endpoints_count": 1220,
+    "api_endpoints_statuses": [
+      {
+        "implementation_status": "active",
+        "count": 1142
+      },
+      {
+        "implementation_status": "implemented",
+        "count": 64
+      },
+      {
+        "implementation_status": "in_progress",
+        "count": 5
+      },
+      {
+        "implementation_status": "partial",
+        "count": 9
+      }
+    ],
+    "exact_method_path_overlap_registry_and_endpoints": 0,
+    "modern_screen_api_links": {
+      "count": 1120,
+      "valid_rows": 1075,
+      "valid_screen_count": 949,
+      "orphan_rows": 45,
+      "orphan_screen_ids": 30,
+      "missing_api_ids": 0,
+      "distinct_api_ids": 118,
+      "duplicate_pairs": 0,
+      "api_id_target": "api_endpoints.id"
+    },
+    "legacy_screen_api_map": {
+      "count": 1266,
+      "valid_rows": 1266,
+      "screen_count": 948,
+      "orphan_rows": 0,
+      "duplicate_triples": 0,
+      "api_id_target": "api_registry.id"
+    },
+    "screens_with_both_map_sources": 945,
+    "meaning": "Never join registries by numeric ID. Namespaces differ. api_endpoint_registry and button_actions mirror other records and add no distinct work units. Modern links with consume purpose are not action-specific contracts."
+  },
+  "recommendations": [
+    {
+      "unit": "registered_screen_journey",
+      "count": 953,
+      "definition": "One guide per registered screen. Preserve inactive status and public null role. Not a distinct outcome-based business workflow."
+    },
+    {
+      "unit": "registered_action_journey",
+      "count": 1760,
+      "definition": "One guide per button_action_definitions.id. Do not additionally count button_actions mirror. Generic output and uncertain API relevance are blockers."
+    },
+    {
+      "unit": "api_contract_guide",
+      "count": 1220,
+      "definition": "One guide per api_endpoints.id, not a business workflow. Use existing screen_api_links and source audit."
+    },
+    {
+      "unit": "legacy_api_contract_guide",
+      "count": 1249,
+      "definition": "Optional separate legacy coverage units, all mocked. Do not count api_endpoint_registry again."
+    },
+    {
+      "unit": "business_workflow",
+      "definition": "Require a source/requirement-backed outcome with trigger, actor/scope, ordered actions, API and DB oracle. May span screens/roles. Cannot derive unique outcome count from screen/button/API records or 98 role outlines."
+    },
+    {
+      "instruction": "Copy registered facts with source IDs. Keep missing or uncertain meaning unresolved; never fabricate DB effects, navigation destinations, payload schemas or permissions."
+    },
+    {
+      "instruction": "Record modern endpoint facts separately from legacy API facts. Do not assume one screen-level endpoint applies to every action."
+    },
+    {
+      "instruction": "Model multi-role users via role assignments and role required per step, without granting new authorization."
+    },
+    {
+      "instruction": "Definition-only flows remain virtual/unverified. No runtime, implementation, production-ready or test claims arise from writing these DB records."
+    },
+    {
+      "instruction": "Keep generation deterministic/idempotent and preserve existing user-created specs and business data."
+    }
+  ],
+  "examples": {
+    "suspicious_navigation_api_binding": [
+      {
+        "id": 1761,
+        "screen_id": 1,
+        "button_key": "rmtdashboard_btn_3",
+        "action_type": "navigate",
+        "api_id": 4250,
+        "endpoint_path": "/v1/rmt/:id",
+        "method": "PATCH",
+        "request_payload_description": "Payload parsed from controllers.",
+        "success_result": "Operation success, response code 200/201.",
+        "navigation_after_success": null,
+        "test_id": "rmtdashboard-btn-3"
+      }
+    ],
+    "legacy_screen_1_api_map": [
+      {
+        "id": 4248,
+        "method": "GET",
+        "endpoint_path": "/v1/rmt",
+        "status": "mocked",
+        "api_usage": "load_list"
+      },
+      {
+        "id": 4249,
+        "method": "POST",
+        "endpoint_path": "/v1/rmt",
+        "status": "mocked",
+        "api_usage": "create_record"
+      },
+      {
+        "id": 4250,
+        "method": "PATCH",
+        "endpoint_path": "/v1/rmt/:id",
+        "status": "mocked",
+        "api_usage": "update_record"
+      }
+    ],
+    "modern_screen_1_api_links": [
+      {
+        "id": 1186,
+        "http_method": "POST",
+        "route_path": "/v1/rmt/appointments/fetch",
+        "implementation_status": "active",
+        "purpose": "consume"
+      },
+      {
+        "id": 1187,
+        "http_method": "POST",
+        "route_path": "/v1/rmt/soap-notes/submit",
+        "implementation_status": "active",
+        "purpose": "consume"
+      },
+      {
+        "id": 1188,
+        "http_method": "POST",
+        "route_path": "/v1/rmt/claims/submit",
+        "implementation_status": "active",
+        "purpose": "consume"
+      },
+      {
+        "id": 1189,
+        "http_method": "POST",
+        "route_path": "/v1/rmt/treatment-plans/update",
+        "implementation_status": "active",
+        "purpose": "consume"
+      },
+      {
+        "id": 16411,
+        "http_method": "GET",
+        "route_path": "/v1/governance/workspace",
+        "implementation_status": "implemented",
+        "purpose": "authenticated_workspace_read"
+      }
+    ],
+    "current_care_links": [
+      {
+        "id": 16479,
+        "http_method": "GET",
+        "route_path": "/v1/governance/care"
+      },
+      {
+        "id": 16480,
+        "http_method": "POST",
+        "route_path": "/v1/governance/care/clearances"
+      },
+      {
+        "id": 16481,
+        "http_method": "POST",
+        "route_path": "/v1/governance/care/cases"
+      },
+      {
+        "id": 16482,
+        "http_method": "POST",
+        "route_path": "/v1/governance/care/cases/{id}/actions"
+      },
+      {
+        "id": 16483,
+        "http_method": "POST",
+        "route_path": "/v1/governance/care/staffing"
+      },
+      {
+        "id": 16484,
+        "http_method": "POST",
+        "route_path": "/v1/governance/care/schedules"
+      },
+      {
+        "id": 16485,
+        "http_method": "POST",
+        "route_path": "/v1/governance/care/time-records"
+      },
+      {
+        "id": 16486,
+        "http_method": "POST",
+        "route_path": "/v1/governance/care/handovers"
+      },
+      {
+        "id": 16487,
+        "http_method": "POST",
+        "route_path": "/v1/governance/care/followups"
+      }
+    ],
+    "missing_requirement_blueprint_test_screens": [
+      {
+        "id": 1264,
+        "screen_code": "MAINTENANCE_CONFIGURATION",
+        "missing_requirements": 1,
+        "missing_blueprint": 1,
+        "missing_smoketest": 1
+      },
+      {
+        "id": 1269,
+        "screen_code": "PLATFORM_ADMINISTRATION",
+        "missing_requirements": 1,
+        "missing_blueprint": 1,
+        "missing_smoketest": 1
+      },
+      {
+        "id": 2517,
+        "screen_code": "care_delivery",
+        "missing_requirements": 0,
+        "missing_blueprint": 1,
+        "missing_smoketest": 1
+      },
+      {
+        "id": 1270,
+        "screen_code": "founder_growth_dashboard",
+        "missing_requirements": 0,
+        "missing_blueprint": 1,
+        "missing_smoketest": 1
+      },
+      {
+        "id": 1271,
+        "screen_code": "growth_public_enquiry",
+        "missing_requirements": 0,
+        "missing_blueprint": 1,
+        "missing_smoketest": 1
+      }
+    ]
+  },
+  "foreign_key_check_limitation": "foreign key mismatch - \"translations\" referencing \"languages\""
+}

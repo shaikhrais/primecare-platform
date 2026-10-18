@@ -1,13 +1,17 @@
 {
   "database": ".agents/governance/governance.db",
   "snapshot": ".agents/governance/governance-recovery-snapshot.db.gz",
-  "database_sha256": "ce974623a018de155aecfd70f04dd22ea001f4124316c23f9934913770aae9f8",
-  "snapshot_sha256": "a81d49961947ff73637ff02bf35810b8f732eae87510ac5022528850699fcec0",
-  "database_bytes": 84926464,
-  "snapshot_bytes": 10452354,
-  "tracking_task_records": 6,
+  "database_sha256": "4267425f9b83febb254b12c8c45074d1ce6c1a002d4be015cadd6faa4e371a0f",
+  "snapshot_sha256": "40ee64ba8826af73fbb968ee01f30e4d489dc6645520c779cf1bd86bb4d7939c",
+  "database_bytes": 118493184,
+  "snapshot_bytes": 12373116,
+  "tracking_task_records": 7,
   "snapshot_name": "current-recovery",
   "note": "Full saved governance database checkpoint; restore to a separate file before reconciling with an existing database.",
   "business_workflow_specs": 1,
-  "legacy_role_outlines": 98
+  "legacy_role_outlines": 98,
+  "virtual_business_processes": 147,
+  "virtual_definitions_and_guides": 5332,
+  "virtual_steps": 18731,
+  "virtual_role_guides": 98
 }
