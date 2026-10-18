@@ -51,7 +51,7 @@ export function actionBody(v:Record<string,unknown>){
 export function allowedActions(actor:Actor,c:any,eligible:boolean){
  const assigned=[c.nurse_id,c.supervisor_id,c.worker_id].map(String).includes(actor.id),out:string[]=[];
  if(assigned&&!['cancelled','coverage_needed'].includes(c.state))out.push('concern','amendment');
- if(operational(actor)&&['awaiting_plan','draft','pending_review','ready','accepted','cancelled','coverage_needed'].includes(c.state))out.push('reassign');
+ if(operational(actor)&&!['cancelled','rejected','completed'].includes(String(c.visit_status))&&['awaiting_plan','draft','pending_review','ready','accepted','cancelled','coverage_needed'].includes(c.state))out.push('reassign');
  if(operational(actor)&&['awaiting_plan','draft','pending_review','ready','accepted','coverage_needed'].includes(c.state))out.push('cancel','reschedule','cancel_visit');
  if(String(c.worker_id)===actor.id&&registry.supportRoles.includes(actor.roles)){
   if(['awaiting_plan','draft','pending_review','ready','accepted'].includes(c.state))out.push('report_unavailable');

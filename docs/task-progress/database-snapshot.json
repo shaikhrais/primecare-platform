@@ -1,0 +1,11 @@
+{
+  "database": ".agents/governance/governance.db",
+  "snapshot": ".agents/governance/governance-recovery-snapshot.db.gz",
+  "database_sha256": "dfcec9713e1fe20c2c3e29ce6a379cf633fabf416ab468ac614979abd74c4f30",
+  "snapshot_sha256": "cdac52ee47d01ddcbac4770d1129b92402f78d776a33ae4a919dbbd575539583",
+  "database_bytes": 84873216,
+  "snapshot_bytes": 10445942,
+  "tracking_task_records": 6,
+  "snapshot_name": "current-recovery",
+  "note": "Full saved governance database checkpoint; restore to a separate file before reconciling with an existing database."
+}

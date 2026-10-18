@@ -18,11 +18,15 @@ export async function renderCare(root:HTMLElement,gateway:string){
  function readPlan(){const f=form('care-plan-form');if(!f)return null;const v=formValues(f);return {assessment:v.assessment,risks:v.risks,escalation:v.escalation,consentEvidence:v.consentEvidence,validUntil:v.validUntil+'Z',tasks:[...f.querySelectorAll('[data-task-row]')].map((_,n)=>({kind:v['kind'+n],instructions:v['instructions'+n]}))};}
  const capture=()=>captureDrafts(root);
  const restore=(saved:FormDrafts)=>{restoreDrafts(root,saved);const staff=root.querySelector<HTMLSelectElement>('[data-cy=care-clearance-staff]');if(staff?.value)staff.dispatchEvent(new Event('change'));restoreDrafts(root,saved);};
+ function initialState(error=false){
+  renderShell(root,{home:'/care?enable-semantics=true',role:'',navigation:'',controls:'',hideChrome:true,mainAttributes:`data-cy="screen-care-delivery" aria-busy="${!error}"`,content:`<h1>${t('title')}</h1><p role="${error?'alert':'status'}">${t(error?'error':'loading')}</p>${error?`<button data-cy="care-refresh">${t('refresh')}</button><a data-cy="care-workspace-link" href="/success?enable-semantics=true">${t('back')}</a>`:''}`});
+  const retry=root.querySelector<HTMLButtonElement>('[data-cy=care-refresh]');if(retry)retry.onclick=()=>{initialState();void load();};
+ }
  async function load(){
   const epoch=++loadEpoch,before=current()?.id+':'+current()?.version;
-  try{const query=new URLSearchParams({offset:String(offset),view,staffingOffset:String(staffingOffset),seriesOffset:String(seriesOffset),timeOffset:String(timeOffset),handoverOffset:String(handoverOffset),followupOffset:String(followupOffset),followupView,workloadOffset:String(workloadOffset),workloadQuery,rosterQuery,visitQuery,visitOffset:String(visitOffset),sourceQuery,sourceOffset:String(sourceOffset),...(followupOwner?{followupOwner}:{}),...(staffFilter?{staff:staffFilter}:{}),...(selected?{case:selected}:{})}),next=await client.request('?'+query);if(epoch!==loadEpoch)return;if(!next.identity||!Array.isArray(next.cases)||!next.capabilities)throw Error('Invalid care response');data=next;if(data.capabilities.operations){data.people=[...data.people,...rosterPins.filter(p=>!data.people.some((r:any)=>r.id===p.id))];}else rosterPins=[];if(before!==current()?.id+':'+current()?.version)planDraft=null;draw();}
+  try{const query=new URLSearchParams({offset:String(offset),view,staffingOffset:String(staffingOffset),seriesOffset:String(seriesOffset),timeOffset:String(timeOffset),handoverOffset:String(handoverOffset),followupOffset:String(followupOffset),followupView,workloadOffset:String(workloadOffset),workloadQuery,rosterQuery,visitQuery,visitOffset:String(visitOffset),sourceQuery,sourceOffset:String(sourceOffset),...(followupOwner?{followupOwner}:{}),...(staffFilter?{staff:staffFilter}:{}),...(selected?{case:selected}:{})}),next=await client.request('?'+query);if(epoch!==loadEpoch)return;if(!next.identity||!Array.isArray(next.cases)||!next.capabilities)throw Error('Invalid care response');data=next;if(data.capabilities.operations){data.people=[...data.people,...rosterPins.filter(p=>!data.people.some((r:any)=>r.id===p.id))];}else rosterPins=[];if(before!==current()?.id+':'+current()?.version)planDraft=null;if(notice==='error')notice='';draw();}
   catch(e){if(epoch!==loadEpoch)return;if(e instanceof CareHttpError&&e.message==='account_changed'){data=null;planDraft=null;root.replaceChildren();location.assign('/care?enable-semantics=true');return;}if(e instanceof CareHttpError&&(e.status===401||e.status===403)){data=null;planDraft=null;root.replaceChildren();if(e.status===401){sessionStorage.removeItem('primecare_session');location.assign('/login?enable-semantics=true');return;}}
-   if(!data)root.innerHTML=`<main data-cy="screen-care-delivery"><h1>${t('title')}</h1><p role="alert">${t('error')}</p><a data-cy="care-workspace-link" href="/success?enable-semantics=true">${t('back')}</a></main>`;else{notice='error';draw();}}
+   if(!data)initialState(true);else{notice='error';draw();}}
  }
  async function mutate(work:()=>Promise<any>){
   if(busy)return;const drafts=capture();planDraft=readPlan()??planDraft;busy=true;const buttons=[...root.querySelectorAll<HTMLButtonElement>('button')].map(button=>({button,disabled:button.disabled}));buttons.forEach(({button})=>button.disabled=true);
@@ -93,5 +97,5 @@ export async function renderCare(root:HTMLElement,gateway:string){
   bind('care-task-form',v=>action({...v,action:'task'}));bind('care-reassign-form',v=>action({...v,action:'reassign'}));
   const taskSelect=root.querySelector<HTMLSelectElement>('[data-cy=care-task-id]');if(taskSelect)taskSelect.onchange=()=>{root.querySelector('[data-cy=care-current-task-instructions]')!.textContent=current().taskOutcomes.find((task:any)=>task.id===taskSelect.value)?.instructions??'';};
  }
- root.innerHTML=`<main aria-busy="true"><p>${t('loading')}</p></main>`;await load();
+ initialState();await load();
 }

@@ -1,0 +1,147 @@
+{
+  "summary": {
+    "tracked_items": 6,
+    "status_counts": {
+      "pending": 1,
+      "blocked": 1,
+      "scoped_tested": 4
+    },
+    "fully_verified_workflows": 0,
+    "counts_are_engineering_items_not_platform_backlog": true,
+    "historical_workflow_counts": "not_revalidated_after_workspace_recovery"
+  },
+  "tasks": [
+    {
+      "id": "next.isolated-care-fixture",
+      "title": "Restore one isolated care availability API fixture",
+      "kind": "engineering",
+      "implementation": "pending",
+      "scope": "planned API/database test fixture",
+      "next": "Use real care migrations and handlers with synthetic prerequisites; do not seed successful workflow states.",
+      "whole_workflow_verified": false,
+      "test_status": "unverified",
+      "status": "pending",
+      "reason": "No current evidence registered."
+    },
+    {
+      "id": "next.psw-availability-workflow",
+      "title": "Verify registered PSW availability workflow",
+      "kind": "registered_workflow",
+      "implementation": "unverified",
+      "scope": "role login to UI, API, database result and reload",
+      "depends_on": [
+        "next.isolated-care-fixture"
+      ],
+      "next": "Check allowed and denied access, tenant isolation, lost-response retry, reload and video evidence before verification.",
+      "whole_workflow_verified": false,
+      "test_status": "unverified",
+      "status": "blocked",
+      "reason": "Prerequisite work required: next.isolated-care-fixture"
+    },
+    {
+      "id": "recovery.closed-appointments",
+      "title": "Closed-appointment action policy",
+      "kind": "engineering",
+      "implementation": "implemented",
+      "commit": "ed9f76af",
+      "evidence": "docs/task-progress/evidence/recovery-closed-appointments.json",
+      "scope": "unit policy only",
+      "expected_cases": 3,
+      "required_sources": [
+        "packages/shared/src/care/contract.ts",
+        "scripts/test-care-closed-appointments.mjs"
+      ],
+      "next": "Run the existing database integration assertions and a real role workflow; unit checks do not close the workflow.",
+      "whole_workflow_verified": false,
+      "test_status": "current_scoped_evidence",
+      "status": "scoped_tested",
+      "reason": "Current source-bound evidence passes for the stated scope only.",
+      "evidence_sha256": "11ea5bb0c04a768d55e45554d67bdbd28d699ba22f226bfe0a9ed6041f6622bd"
+    },
+    {
+      "id": "recovery.loading-retry",
+      "title": "Care loading and retry in shared layout",
+      "kind": "engineering",
+      "implementation": "implemented",
+      "commit": "578a80b1",
+      "evidence": "docs/task-progress/evidence/recovery-loading-retry.json",
+      "scope": "care renderer loading and retry with synthetic HTTP responses",
+      "expected_cases": 6,
+      "required_sources": [
+        "websites/typescript/src/care/dashboard.ts",
+        "websites/typescript/src/shell.ts",
+        "websites/typescript/src/styles.css",
+        "scripts/test-care-loading-browser.mjs"
+      ],
+      "required_flags": [
+        "loadingShell",
+        "hiddenChrome",
+        "initialErrorRetry",
+        "emptyState",
+        "transportFailureKeepsContent",
+        "successfulRetryClearsNotice",
+        "deniedAccessClearsCachedContent"
+      ],
+      "next": "Repeat recovery checks with real role login, APIs and an isolated database.",
+      "run_evidence": "test-results/care/loading/results.json",
+      "run_video": "test-results/care/loading/care-loading-retry.webm",
+      "diagnostic_video": "docs/task-progress/evidence/recovery-loading-retry.webm",
+      "whole_workflow_verified": false,
+      "test_status": "current_scoped_evidence",
+      "status": "scoped_tested",
+      "reason": "Current source-bound evidence passes for the stated scope only.",
+      "evidence_sha256": "bcd6fe7038a4169a7f5516aafb5af97dac0ccfcfc6b9d360f21f4788583ad14e"
+    },
+    {
+      "id": "recovery.sidebar-content",
+      "title": "Care notices and shared sidebar",
+      "kind": "engineering",
+      "implementation": "implemented",
+      "commit": "1681fa45",
+      "evidence": "docs/task-progress/evidence/recovery-sidebar-content.json",
+      "scope": "shared shell and care alert components only",
+      "expected_cases": 15,
+      "required_sources": [
+        "websites/typescript/src/styles.css",
+        "websites/typescript/src/shell.ts",
+        "websites/typescript/src/care/views.ts",
+        "scripts/test-sidebar-content-browser.mjs"
+      ],
+      "required_flags": [
+        "threeAlertKindsVisible",
+        "chromeHideRestore",
+        "sidebarResponsive",
+        "noOverflow"
+      ],
+      "next": "Verify the notices in a real authenticated database-backed care workflow.",
+      "run_evidence": "test-results/care/sidebar-content/results.json",
+      "run_video": "test-results/care/sidebar-content/mobile-alerts.webm",
+      "diagnostic_video": "docs/task-progress/evidence/recovery-sidebar-content.webm",
+      "whole_workflow_verified": false,
+      "test_status": "current_scoped_evidence",
+      "status": "scoped_tested",
+      "reason": "Current source-bound evidence passes for the stated scope only.",
+      "evidence_sha256": "be9515308b76300b9689763583d709b4d37aa695970361bc36b310d3e15e9dd1"
+    },
+    {
+      "id": "verification.gate-evaluator",
+      "title": "Fail-closed evidence gate evaluator",
+      "kind": "engineering",
+      "implementation": "implemented",
+      "commit": "61959a14",
+      "evidence": "docs/task-progress/evidence/verification-gate-evaluator.json",
+      "scope": "gate evaluator unit checks only",
+      "expected_cases": 4,
+      "required_sources": [
+        "tools/workflow-verification/gates.py",
+        "tools/workflow-verification/test_gates.py"
+      ],
+      "next": "Connect an executable registered workflow specification and real evidence producers.",
+      "whole_workflow_verified": false,
+      "test_status": "current_scoped_evidence",
+      "status": "scoped_tested",
+      "reason": "Current source-bound evidence passes for the stated scope only.",
+      "evidence_sha256": "ef85aa6aca896abdaf9343d0f6266149b61af7d024e47ffbdb3bae401bcb3a3b"
+    }
+  ]
+}

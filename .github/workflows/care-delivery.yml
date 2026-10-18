@@ -22,7 +22,10 @@ on:
       - 'packages/database/migrations/20261023_care_task_workload.sql'
       - 'packages/database/migrations/20261024_care_task_dependencies.sql'
       - 'docs/care/**'
+      - 'docs/task-progress/**'
+      - 'tools/workflow-verification/**'
       - 'scripts/*care*'
+      - 'scripts/test-sidebar-content-browser.mjs'
       - '.github/workflows/care-delivery.yml'
   workflow_dispatch:
 permissions:
@@ -64,6 +67,14 @@ jobs:
         run: |
           node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --types @cloudflare/workers-types cloudflare/workers/src/service.ts
           node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --lib ES2022,DOM,DOM.Iterable websites/typescript/src/main.ts
+      - name: Check care alerts and shared sidebar at responsive breakpoints
+        run: node scripts/test-sidebar-content-browser.mjs
+      - name: Check care initial loading and retry states
+        run: node scripts/test-care-loading-browser.mjs
+      - name: Check progress status rules
+        run: python3 tools/workflow-verification/test_progress_ledger.py
+      - name: Record closed-appointment and evidence-gate unit checks
+        run: python3 tools/workflow-verification/progress.py --run-small-checks --refresh-browser-evidence
       - name: Check read-only migration identity preflight
         run: node --test scripts/test-care-migration-target.mjs
       - name: Check care scope, state, concurrency, rollback and browser workflows
@@ -74,4 +85,6 @@ jobs:
           name: synthetic-care-browser-evidence
           path: |
             test-results/care/
+            test-results/progress/
+            docs/task-progress/recovery-progress.json
             test-results/accessibility/care-*.json
