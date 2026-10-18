@@ -55,7 +55,7 @@ jobs:
           python-version: '3.12'
       - name: Install isolated test tools
         run: |
-          npm install --prefix "$RUNNER_TEMP/care-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 @cloudflare/workers-types@4.20260403.1 pg@8.11.3 bcryptjs@3 axe-core@4.10.3
+          npm install --prefix "$RUNNER_TEMP/care-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 @cloudflare/workers-types@4.20260403.1 pg@8.11.3 @electric-sql/pglite@0.3.14 bcryptjs@3 axe-core@4.10.3
           ln -s "$RUNNER_TEMP/care-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - name: Reproduce care governance
@@ -72,7 +72,10 @@ jobs:
       - name: Check care initial loading and retry states
         run: node scripts/test-care-loading-browser.mjs
       - name: Check progress status rules
-        run: python3 tools/workflow-verification/test_progress_ledger.py
+        run: |
+          python3 tools/workflow-verification/test_progress_ledger.py
+          python3 tools/workflow-verification/test_registered_workflow_status.py
+          python3 tools/workflow-verification/test_business_workflow_specs.py
       - name: Record closed-appointment and evidence-gate unit checks
         run: python3 tools/workflow-verification/progress.py --run-small-checks --refresh-browser-evidence
       - name: Check read-only migration identity preflight

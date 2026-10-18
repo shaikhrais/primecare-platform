@@ -2,9 +2,8 @@
   "summary": {
     "tracked_items": 6,
     "status_counts": {
-      "pending": 1,
-      "blocked": 1,
-      "scoped_tested": 4
+      "scoped_tested": 5,
+      "pending": 1
     },
     "fully_verified_workflows": 0,
     "counts_are_engineering_items_not_platform_backlog": true,
@@ -15,13 +14,49 @@
       "id": "next.isolated-care-fixture",
       "title": "Restore one isolated care availability API fixture",
       "kind": "engineering",
-      "implementation": "pending",
-      "scope": "planned API/database test fixture",
-      "next": "Use real care migrations and handlers with synthetic prerequisites; do not seed successful workflow states.",
+      "implementation": "implemented",
+      "scope": "sequential embedded PostgreSQL authenticated availability API/database checks; no login UI or concurrency",
+      "next": "Run native PostgreSQL and real login/browser workflow; embedded sequential API checks do not close the registered workflow.",
+      "expected_cases": 5,
+      "evidence": "docs/task-progress/evidence/recovery-availability-api.json",
+      "required_sources": [
+        "cloudflare/workers/src/auth-projection.ts",
+        "cloudflare/workers/src/auth-rate-limit.ts",
+        "cloudflare/workers/src/auth-source-limit.ts",
+        "cloudflare/workers/src/auth.ts",
+        "cloudflare/workers/src/care/commands.ts",
+        "cloudflare/workers/src/care/followups.ts",
+        "cloudflare/workers/src/care/handovers.ts",
+        "cloudflare/workers/src/care/qualification.ts",
+        "cloudflare/workers/src/care/repository.ts",
+        "cloudflare/workers/src/care/schedules.ts",
+        "cloudflare/workers/src/care/service.ts",
+        "cloudflare/workers/src/care/staffing.ts",
+        "cloudflare/workers/src/care/task-dependencies.ts",
+        "cloudflare/workers/src/care/task-queue.ts",
+        "cloudflare/workers/src/care/time-records.ts",
+        "cloudflare/workers/src/care/visit-picker.ts",
+        "cloudflare/workers/src/care/workload.ts",
+        "cloudflare/workers/src/database-results.ts",
+        "packages/database/migrations/20261017_care_delivery.sql",
+        "packages/database/migrations/20261018_care_task_workflows.sql",
+        "packages/database/migrations/20261019_care_staffing.sql",
+        "packages/database/migrations/20261020_care_schedules_time.sql",
+        "packages/database/migrations/20261021_care_handover_followups.sql",
+        "packages/database/migrations/20261022_care_task_deadline_requests.sql",
+        "packages/database/migrations/20261023_care_task_workload.sql",
+        "packages/database/migrations/20261024_care_task_dependencies.sql",
+        "packages/shared/src/care/contract.ts",
+        "packages/shared/src/care/registry.json",
+        "packages/shared/src/care/scheduling.ts",
+        "packages/shared/src/care/workflows.ts",
+        "scripts/test-care-availability-api.mjs"
+      ],
       "whole_workflow_verified": false,
-      "test_status": "unverified",
-      "status": "pending",
-      "reason": "No current evidence registered."
+      "test_status": "current_scoped_evidence",
+      "status": "scoped_tested",
+      "reason": "Current source-bound evidence passes for the stated scope only.",
+      "evidence_sha256": "e974cab47e3e02394dce9914c7d0a359e42a7bb8975e32f20f88257cff38c642"
     },
     {
       "id": "next.psw-availability-workflow",
@@ -32,11 +67,12 @@
       "depends_on": [
         "next.isolated-care-fixture"
       ],
-      "next": "Check allowed and denied access, tenant isolation, lost-response retry, reload and video evidence before verification.",
+      "next": "Follow the registered business_workflow_specs definition care.psw.submit-availability; run real credential login, UI, API, database and reload plus acceptance/security/failure checks and video. This queue item is not a whole-platform count.",
+      "workflow_spec_id": "care.psw.submit-availability",
       "whole_workflow_verified": false,
       "test_status": "unverified",
-      "status": "blocked",
-      "reason": "Prerequisite work required: next.isolated-care-fixture"
+      "status": "pending",
+      "reason": "No current evidence registered."
     },
     {
       "id": "recovery.closed-appointments",

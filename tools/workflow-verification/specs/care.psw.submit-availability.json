@@ -1,0 +1,196 @@
+{
+  "id": "care.psw.submit-availability",
+  "name": "PSW submits and confirms their own availability",
+  "version": 1,
+  "origin": "Derived from existing care-v1 governance policy and implementation; acceptance specification awaits required review",
+  "actor": {
+    "role_code": "psw",
+    "scope": "active user in active tenant; own staff ID only",
+    "role_outlines": [
+      "wf_psw_process"
+    ]
+  },
+  "trigger": "The PSW wants to declare a working time window.",
+  "start": "No authenticated browser session; synthetic active PSW account and tenant exist in an isolated database.",
+  "end": "After successful credential login, save and browser reload, the same active availability appears; its tenant, staff, times, audit and receipt match the request.",
+  "boundaries": [
+    "This workflow ends at confirmed active availability. Withdrawal is a separate workflow.",
+    "Availability has no approval step. Leave request and independent leave approval are separate workflows.",
+    "One PSW actor is sufficient here. No new role grants or routes are introduced.",
+    "Current care authorization uses one exact role string; simultaneous multi-role accounts are not supported by this module."
+  ],
+  "preconditions": [
+    "Use a fresh isolated database and synthetic credentials; never production data.",
+    "Use the real credential login handler; do not inject a pre-created browser session for full acceptance.",
+    "The PSW and tenant must be active; no existing successful availability is seeded.",
+    "Browser URLs include enable-semantics=true; API queries follow the registered API schema."
+  ],
+  "bindings": {
+    "policy": "care-v1",
+    "screen_code": "care_delivery",
+    "role_code": "psw",
+    "api_codes": [
+      "API__V1_AUTH_LOGIN",
+      "CARE_GET_",
+      "CARE_POST__staffing"
+    ]
+  },
+  "steps": [
+    {
+      "order": 1,
+      "name": "Sign in",
+      "route": "/login?enable-semantics=true",
+      "api_code": "API__V1_AUTH_LOGIN",
+      "selectors": [
+        "login-email",
+        "login-password",
+        "login-submit"
+      ],
+      "expected": "Valid synthetic credentials obtain a session through POST /v1/auth/login. Invalid credentials obtain no session; record the actual supported rejection response."
+    },
+    {
+      "order": 2,
+      "name": "Open Care",
+      "route": "/care?enable-semantics=true",
+      "api_code": "CARE_GET_",
+      "selectors": [
+        "screen-care-delivery",
+        "care-staffing"
+      ],
+      "expected": "GET /v1/governance/care returns this PSW identity and only permitted tenant/self staffing data. Shared layout renders the staffing section."
+    },
+    {
+      "order": 3,
+      "name": "Enter own availability",
+      "route": "/care?enable-semantics=true",
+      "selectors": [
+        "care-staffing-form",
+        "care-staffing-staff",
+        "care-staffing-action",
+        "care-staffing-start",
+        "care-staffing-end",
+        "care-staffing-note"
+      ],
+      "expected": "Choose own staff ID, availability action, valid UTC window and nonempty synthetic note. Self-service staff options do not expose other staff."
+    },
+    {
+      "order": 4,
+      "name": "Save availability",
+      "route": "/care?enable-semantics=true",
+      "api_code": "CARE_POST__staffing",
+      "selectors": [
+        "care-staffing-save"
+      ],
+      "expected": "UI sends action=availability through POST /v1/governance/care/staffing with an idempotency key. Response is 200 with new id and version=1. Transaction creates exactly one active window, one availability event and one matching request receipt."
+    },
+    {
+      "order": 5,
+      "name": "Reload and confirm",
+      "route": "/care?enable-semantics=true",
+      "api_code": "CARE_GET_",
+      "selectors": [
+        "care-staffing-record-{returned-id}"
+      ],
+      "expected": "A full browser reload obtains the persisted row again. Staff, tenant, timestamps, active status and version=1 match the isolated database; exactly one event/receipt exists for that submission."
+    }
+  ],
+  "database_assertions": [
+    {
+      "table": "care_staff_windows",
+      "expectation": "Returned UUID exists once, tenant_id=session tenant, staff_id=session user, kind=availability, status=active, version=1, created_by=session user; starts_at and ends_at equal transmitted instants."
+    },
+    {
+      "table": "care_staffing_events",
+      "expectation": "One event for the returned window and version=1: same tenant, actor=session user, action=availability and exact synthetic note."
+    },
+    {
+      "table": "care_requests",
+      "expectation": "One receipt for actor and idempotency key; identical retry returns stored response without additional business rows."
+    },
+    {
+      "table": "care_access_log",
+      "expectation": "A staffing_availability access entry is committed for the same tenant and actor with case_id null; a rolled-back mutation must not commit this access entry."
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "credential-login",
+      "requirement": "Actual login form and handler establish the PSW session; invalid credentials establish none.",
+      "test_layer": "browser+API+database",
+      "current_evidence": "not run"
+    },
+    {
+      "id": "save-and-reload",
+      "requirement": "Perform all five steps with DB assertions and browser reload.",
+      "test_layer": "browser+API+database",
+      "current_evidence": "only authenticated API persistence/read tested; browser and credential login missing"
+    },
+    {
+      "id": "authorization",
+      "requirement": "Reject owner role, own PSW writing another staff member, foreign staff selection, forged tenant header and foreign withdrawal; no unauthorized business writes.",
+      "test_layer": "API+database",
+      "current_evidence": "scoped embedded PostgreSQL fixture; rerun before credit"
+    },
+    {
+      "id": "retry",
+      "requirement": "After a committed save with response lost, retry the same payload/key and verify one window/event/receipt. Changed payload with same key is rejected.",
+      "test_layer": "browser+API+database",
+      "current_evidence": "same-key API replay tested; browser lost-response recovery missing"
+    },
+    {
+      "id": "invalid-session-and-input",
+      "requirement": "Invalid dates reject without business writes; expired session rejects and UI clears protected content/returns to login.",
+      "test_layer": "browser+API+database",
+      "current_evidence": "API rejection covered; full workflow UI checks missing"
+    },
+    {
+      "id": "rollback",
+      "requirement": "Injected audit-write failure yields 503 with no window/event/receipt committed; retry after recovery succeeds exactly once.",
+      "test_layer": "API+database",
+      "current_evidence": "scoped embedded PostgreSQL fixture; native PostgreSQL rerun needed"
+    },
+    {
+      "id": "ui-states-and-locales",
+      "requirement": "Verify shared layout, loading, empty, error, offline and retry states, EN/FR/ES and responsive controls using the isolated workflow.",
+      "test_layer": "browser",
+      "current_evidence": "separate synthetic component checks exist; authenticated workflow missing"
+    },
+    {
+      "id": "timezone",
+      "requirement": "Inputs and displayed values represent the intended instant. Existing datetime-local handling appends Z; verify UTC explicitly and resolve local-time expectations before broader acceptance.",
+      "test_layer": "browser+API+database",
+      "current_evidence": "local-time semantics need review"
+    },
+    {
+      "id": "evidence-and-review",
+      "requirement": "Save source/spec-bound results and successful video URL using the governed UI/API evidence mechanism; pass all seven gates including required review.",
+      "test_layer": "evidence+review",
+      "current_evidence": "not complete"
+    }
+  ],
+  "existing_scoped_test": {
+    "command": "node --test scripts/test-care-availability-api.mjs",
+    "receipt": "docs/task-progress/evidence/recovery-availability-api.json",
+    "scope": "Five sequential embedded PostgreSQL API test groups with pre-created sessions; no credential login, browser run or concurrency proof."
+  },
+  "open_gaps": [
+    "Real credential login and browser test harness not completed.",
+    "Native PostgreSQL run and relevant concurrency checks not completed.",
+    "Local datetime input semantics need review.",
+    "Governed video publication and full evidence review remain incomplete."
+  ],
+  "sources": [
+    "websites/typescript/src/auth-screen.ts",
+    "websites/typescript/src/auth-client.ts",
+    "websites/typescript/src/main.ts",
+    "websites/typescript/src/care/dashboard.ts",
+    "websites/typescript/src/care/staffing-view.ts",
+    "websites/typescript/src/care/client.ts",
+    "cloudflare/workers/src/auth.ts",
+    "cloudflare/workers/src/care/service.ts",
+    "cloudflare/workers/src/care/staffing.ts",
+    "packages/shared/src/care/contract.ts",
+    "packages/shared/src/care/registry.json",
+    "packages/database/migrations/20261019_care_staffing.sql"
+  ]
+}
