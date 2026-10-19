@@ -34,6 +34,8 @@ jobs:
       - run: node --test scripts/test-growth-postgres.mjs scripts/test-growth-intake.mjs scripts/test-growth-reporting.mjs scripts/test-growth-business.mjs
       - run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/look/vision-provider.ts cloudflare/workers/src/growth/service.ts websites/typescript/src/main.ts
       - run: node_modules/.bin/playwright install --with-deps chromium
+      - name: Check shared growth loading and retry states
+        run: node scripts/test-growth-loading-browser.mjs
       - run: node --test scripts/test-growth-browser.mjs scripts/test-growth-admin-browser.mjs scripts/test-look-manager.mjs
       - run: node scripts/build-typescript-websites.mjs
       - run: python3 scripts/register-media-look.py --check && node scripts/test-media-look-browser.mjs
