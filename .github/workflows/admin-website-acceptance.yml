@@ -19,7 +19,7 @@ jobs:
           node_modules/.bin/playwright install --with-deps chromium
       - name: Build real website and PDF renderer
         run: |
-          python3 scripts/export-typescript-websites.py --output artifacts/admin-website/manifests --gateway http://127.0.0.1:4173/test-api
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 python3 scripts/export-typescript-websites.py --output artifacts/admin-website/manifests --gateway http://127.0.0.1:4173/test-api
           mkdir -p artifacts/admin-website/site/assets
           node_modules/.bin/esbuild websites/typescript/src/main.ts --bundle --outfile=artifacts/admin-website/site/assets/app.js
           node_modules/.bin/esbuild cloudflare/workers/src/reporting.ts --bundle --platform=node --format=cjs --external:pg --external:bcryptjs --outfile=artifacts/admin-website/reporting.cjs

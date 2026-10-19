@@ -129,7 +129,7 @@ jobs:
       - name: Real Chromium navigation and accessibility checks
         if: matrix.identity == 'uuid'
         run: |
-          node scripts/build-typescript-websites.mjs
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 node scripts/build-typescript-websites.mjs
           node_modules/.bin/playwright install --with-deps chromium
           node scripts/test-workspace-playwright.mjs
       - uses: actions/upload-artifact@v4

@@ -37,7 +37,7 @@ jobs:
       - name: Check shared growth loading and retry states
         run: node scripts/test-growth-loading-browser.mjs
       - run: node --test scripts/test-growth-browser.mjs scripts/test-growth-admin-browser.mjs scripts/test-look-manager.mjs
-      - run: node scripts/build-typescript-websites.mjs
+      - run: GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 node scripts/build-typescript-websites.mjs
       - run: python3 scripts/register-media-look.py --check && node scripts/test-media-look-browser.mjs
       - run: python3 scripts/test-auth-recovery-governance.py && python3 scripts/register-auth-recovery-web.py --check && python3 scripts/register-workspace-visual-review.py
       - run: node --test scripts/test-workspace-browser.mjs scripts/test-auth-recovery-web.mjs

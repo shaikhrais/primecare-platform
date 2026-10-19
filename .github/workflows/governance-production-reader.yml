@@ -24,6 +24,7 @@ jobs:
           ln -s /tmp/govt-reader/node_modules node_modules
           pip install -r tools/governance-production/requirements.txt
       - run: python tools/governance-production/test-production-reader.py
+      - run: python tools/governance-production/test-export-parity.py
   production:
     if: github.event_name != 'pull_request'
     needs: test
@@ -53,6 +54,7 @@ jobs:
           python scripts/db_table_counts.py > /dev/null
           python scripts/inspect_architecture_counts.py > /dev/null
           python scripts/inspect_tables_content.py > /dev/null
+          python scripts/export-typescript-websites.py --output /tmp/govt-portals --gateway https://primecare-api-gateway.itpro-mohammed.workers.dev > /tmp/govt-portal-summary.json
       - uses: actions/upload-artifact@v4
         with:
           name: govt-reader-production-receipt
