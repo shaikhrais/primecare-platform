@@ -17,6 +17,10 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: actions/setup-node@v5
         with:
           node-version: '24'

@@ -196,6 +196,9 @@ def main():
     parser.add_argument('--root', type=Path, default=ROOT)
     parser.add_argument('--manifest', type=Path)
     args = parser.parse_args()
+    if os.environ.get('GOVERNANCE_ALLOW_SQLITE_FIXTURES') != '1' or any(os.environ.get(k) for k in ('GOVERNANCE_DATABASE_URL','PRODUCTION_DATABASE_URL')):
+        print(json.dumps({'status':'error','reason':'Historical checkpoint restore requires explicit isolated fixture mode without production credentials; live governance is PostgreSQL.'}))
+        return 1
     try:
         result = restore_checkpoint(args.root, args.manifest)
     except (CheckpointError, OSError) as error:

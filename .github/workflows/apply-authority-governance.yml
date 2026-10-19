@@ -50,7 +50,7 @@ jobs:
       - name: Commit governance database and generated assets
         run: |
           set -euo pipefail
-          git add .agents/governance/governance.db cloudflare/workers/src/account-policy.json cloudflare/workers/src/auth-security-policy.json cloudflare/workers/src/auth-source-policy.json
+          git add cloudflare/workers/src/account-policy.json cloudflare/workers/src/auth-security-policy.json cloudflare/workers/src/auth-source-policy.json
           git add docs/audits/role-dashboards/REPORT.md docs/audits/role-dashboards/inventory.json
           git add packages/primecare_ui/lib/src/features/auth/auth_design_tokens.dart apps/*/assets/translations/*.json
           if git diff --cached --quiet; then exit 0; fi

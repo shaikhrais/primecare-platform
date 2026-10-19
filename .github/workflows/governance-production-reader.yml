@@ -23,6 +23,7 @@ jobs:
           npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3 @electric-sql/pglite@0.3.14
           ln -s /tmp/govt-reader/node_modules node_modules
           pip install -r tools/governance-production/requirements.txt
+      - run: python tools/governance-production/test-ci-fixture.py
       - run: python tools/governance-production/test-production-reader.py
       - run: python tools/governance-production/test-export-parity.py
   production:

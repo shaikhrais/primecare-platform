@@ -2,11 +2,11 @@
 
 The user-authorized production governance authority is pinned by `tools/governance-production/production-pin.json`: PostgreSQL schema `governance_68b0b02dd1215f58630d2c1a`, tables prefixed `govt_`, source metadata `govt_source_manifest`. Use the shared production connection for migrated consumers. Missing credentials or a manifest mismatch must fail; never silently fall back to SQLite.
 
-The SQLite database and compressed recovery checkpoint are historical import/isolated test fixtures. They are not a second live authority. Preserve them and historical evidence. `GOVERNANCE_ALLOW_SQLITE_FIXTURES=1` is permitted only for isolated tests without production credentials.
+The operational SQLite database and duplicate copies have been removed. The compressed recovery checkpoint and Git history remain historical import/isolated test evidence, never a second live authority. Do not recreate an operational governance.db. `GOVERNANCE_ALLOW_SQLITE_FIXTURES=1` is permitted only for isolated tests without production credentials.
 
 Consumer cutover remains incomplete; see `docs/task-progress/governance-production-cutover-20261019.md`. Legacy writers are not production-compatible. Do not run SQLite reset, registration or migration SQL against production by changing a URL. Migrate and verify transactions, types, keys, defaults, views and permission semantics first. Keep each unresolved consumer documented; do not claim the entire cutover is complete from this instruction change.
 
-For an isolated fixture that needs the complete historical checkpoint, use `python3 tools/workflow-verification/restore_checkpoint.py`; the ordinary tracked SQLite file is an earlier baseline. The restore tool preserves unknown modified databases.
+For an isolated fixture that needs the complete historical checkpoint, use `python3 tools/workflow-verification/restore_checkpoint.py`; there is no tracked operational SQLite database. CI that still needs historical data must explicitly run tools/governance-production/prepare-ci-fixture.py with fixture mode; it reconstructs an allowlisted historical baseline without production credentials. The restore tool preserves unknown modified databases.
 
 Live business-process tracking uses `govt_virtual_workflow_definitions` filtered to `flow_kind='business_process'`, plus the prefixed steps, source links, guides, snapshots, attempts, issues, resolutions, evidence and checkpoints tables. Supporting screen/action/API guides are not additional business processes. Recalculate live counts. The shared adapter accepts logical source names and maps them to prefixed physical relations.
 
