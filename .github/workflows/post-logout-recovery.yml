@@ -1,0 +1,323 @@
+name: Post-merge logout and auth recovery evidence
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/post-logout-recovery.yml]
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+jobs:
+  requirements:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/govt-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Load live specifications and theme after merge
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY'
+          import sys,json,pathlib,sqlite3
+          sys.path.insert(0,'tools/governance-production')
+          from production_reader import connect
+          cases=[('auth.credential-login','credential-login-browser','47871a7c0750f03de65847537bfadd5cbe02895eb7e04fce920907ed062c3791','/v1/auth/login'),('auth.change-password','password-workflow-browser','9a459ca1184488951c65fb9e083d4ad881f3bda6647f2e0fa3c8347c7f61e876','/v1/user/change-password'),('auth.logout','logout-workflow','ccebd7a6915d38bbcd01cacba08c80249e81abda5b0b551f4e23b39babcb7ed0','/v1/auth/logout')]
+          with connect() as db:
+              db.row_factory=sqlite3.Row
+              theme=dict(db.execute('SELECT css_variable_name,token_value FROM theme_design_tokens WHERE theme_id=1 AND active=1'))
+              for flow,directory,sha,route in cases:
+                  definition=dict(db.execute('SELECT * FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone());assert definition['definition_sha256']==sha
+                  result=dict(definition=definition,theme=theme,steps=[dict(r) for r in db.execute('SELECT * FROM virtual_workflow_steps WHERE flow_id=?',(flow,))],links=[dict(r) for r in db.execute('SELECT * FROM virtual_workflow_source_links WHERE flow_id=?',(flow,))],api=[dict(r) for r in db.execute('SELECT * FROM api_endpoints WHERE route_path=?',(route,))])
+                  path=pathlib.Path('test-results')/directory;path.mkdir(parents=True,exist_ok=True);(path/'governance.json').write_text(json.dumps(result,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: post-logout-live-requirements
+          path: test-results/
+  browser:
+    needs: requirements
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      evidence_url: ${{ steps.evidence.outputs.artifact-url }}
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: primecare
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: login_browser
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U primecare -d login_browser"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/download-artifact@v4
+        with:
+          name: post-logout-live-requirements
+          path: test-results
+      - run: |
+          npm install --prefix /tmp/auth-recovery --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@3 esbuild@0.27.2 playwright@1.60.0
+          ln -s /tmp/auth-recovery/node_modules node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Refresh credential login on current merged main
+        env:
+          LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
+        run: |
+          cat > test-results/credential-login-browser/run.mjs <<'BROWSER'
+          import assert from 'node:assert/strict';
+          import pg from 'pg';import bcrypt from 'bcryptjs';import {build} from 'esbuild';import {chromium} from 'playwright';
+          import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';import {createRequire} from 'node:module';import {createServer} from 'node:http';import {createHash,randomUUID} from 'node:crypto';import {tmpdir} from 'node:os';import {join} from 'node:path';
+          const out='test-results/credential-login-browser';await mkdir(out,{recursive:true});
+          if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL)throw Error('Production credentials forbidden in browser fixture');
+          const connection=process.env.LOGIN_BROWSER_DATABASE_URL,url=new URL(connection);if(!['localhost','127.0.0.1'].includes(url.hostname)||url.pathname!='/login_browser')throw Error('Loopback login_browser database required');
+          const db=new pg.Client({connectionString:connection});await db.connect();const schema='login_'+randomUUID().replaceAll('-','');await db.query('CREATE SCHEMA '+schema);await db.query('SET search_path TO '+schema);url.searchParams.set('options','-c search_path='+schema);
+          const dir=await mkdtemp(join(tmpdir(),'primecare-login-main-')),require=createRequire(import.meta.url),digest=v=>createHash('sha256').update(v).digest('hex');
+          const receipt={workflow_id:'auth.credential-login',passed:false,wholeTaskVerified:false,commit:process.env.GITHUB_SHA,cases:[],apiChecks:[],trace:[],navigation:[],source_bindings:{},limitations:['Loopback hosting with production source; not a deployed Cloudflare execution.','Cloudflare source limiter is a controlled synthetic binding; trusted source/origin headers are supplied by the harness.','Portal manifest only transports production theme plus fixture origin/name; no production business records.','Platform-admin landing only; all registered role destinations, full accessibility/PWA and independent review gates remain pending.']};
+          let server,browser,bridgeFailure;const password='Synthetic-only!Login-2026',actor=randomUUID(),tenant=randomUUID(),foreign=randomUUID(),admin=randomUUID(),denied=randomUUID();
+          const policy=JSON.parse(await readFile(out+'/governance.json','utf8'));assert.equal(policy.definition.definition_sha256,'47871a7c0750f03de65847537bfadd5cbe02895eb7e04fce920907ed062c3791');receipt.definition_sha256=policy.definition.definition_sha256;
+          try{
+           await db.query('CREATE TABLE tenants(id uuid PRIMARY KEY,name text,slug text UNIQUE,status text,created_at timestamptz DEFAULT NOW(),updated_at timestamptz DEFAULT NOW());CREATE TABLE users(id uuid PRIMARY KEY,tenant_id uuid REFERENCES tenants(id),email text UNIQUE,roles text,password_hash text,status text,updated_at timestamptz DEFAULT NOW());CREATE TABLE auth_sessions(user_id uuid REFERENCES users(id),token_hash text,expires_at timestamptz)');
+           for(const file of ['20260928_auth_rate_limits.sql','20261011_platform_administration.sql','20261013_screen_text.sql'])await db.query(await readFile('packages/database/migrations/'+file,'utf8'));
+           await db.query("INSERT INTO tenants(id,name,slug,status) VALUES($1,'Synthetic Primary','synthetic-primary','active'),($2,'Synthetic Foreign','synthetic-foreign','active')",[tenant,foreign]);const hash=await bcrypt.hash(password,12);
+           for(const [id,t,email,role]of [[actor,tenant,'platform@example.invalid','platform_admin'],[admin,foreign,'admin@example.invalid','tenant_admin'],[denied,tenant,'psw@example.invalid','psw']])await db.query("INSERT INTO users(id,tenant_id,email,roles,password_hash,status) VALUES($1,$2,$3,$4,$5,'active')",[id,t,email,role,hash]);
+           const front=await build({entryPoints:['websites/typescript/src/main.ts'],bundle:true,write:false,metafile:true,platform:'browser',format:'iife'});
+           const back=await build({stdin:{contents:"export {default as gateway} from './cloudflare/workers/src/gateway';export {default as service} from './cloudflare/workers/src/service';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'cjs',write:false,metafile:true,external:['pg']});
+           const backend=join(dir,'backend.cjs');await writeFile(backend,back.outputFiles[0].text.replaceAll('require("pg")',`require(${JSON.stringify(join(process.cwd(),'node_modules/pg'))})`));const {gateway,service}=require(backend);
+           const paths=[...Object.keys(front.metafile.inputs),...Object.keys(back.metafile.inputs),'websites/typescript/src/styles.css',...['20260928_auth_rate_limits.sql','20261011_platform_administration.sql','20261013_screen_text.sql'].map(f=>'packages/database/migrations/'+f)];for(const path of paths)if(path!=='<stdin>'&&!path.includes('node_modules/'))receipt.source_bindings[path]=digest(await readFile(path));
+           const env={DB_URL:url.toString(),AUTH_SOURCE_LIMIT:{limit:async()=>({success:true})}},css=await readFile('websites/typescript/src/styles.css','utf8');
+           server=createServer(async(req,res)=>{try{const requestUrl=new URL(req.url,'http://fixture');
+            if(requestUrl.pathname==='/app.js'){res.setHeader('content-type','text/javascript');res.end(front.outputFiles[0].text);return;}
+            if(requestUrl.pathname==='/portal.json'){res.setHeader('content-type','application/json');res.end(JSON.stringify({project:'PrimeCare',appCode:'pc',name:'PrimeCare',apiGateway:origin,theme:policy.theme}));return;}
+            if(['/login','/platform/administration','/'].includes(requestUrl.pathname)){const locale=requestUrl.searchParams.get('locale')||'en';res.setHeader('content-type','text/html');res.end(`<!doctype html><html lang="${['en','fr','es'].includes(locale)?locale:'en'}"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrimeCare synthetic login</title><style>${css}</style></head><body><div id="app"></div><script src="/app.js"></script></body></html>`);return;}
+            if(requestUrl.pathname.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);headers.delete('accept-encoding');headers.set('origin','https://primecare-clinic.pages.dev');headers.set('cf-connecting-ip','192.0.2.1');
+             const request=new Request(origin+req.url,{method:req.method,headers,...(body?{body}:{})});const bindings={AUTH:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'auth'})},GOVERNANCE:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'governance'})}};
+             const response=await gateway.fetch(request,bindings);receipt.trace.push({path:requestUrl.pathname,method:req.method,status:response.status});res.writeHead(response.status,Object.fromEntries(response.headers));res.end(await response.text());return;}
+            res.writeHead(404);res.end();
+           }catch(error){bridgeFailure=error;res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
+           browser=await chromium.launch({headless:true});const cy=(page,id)=>page.locator('[data-cy="'+id+'"]');const waitLogin=async(page)=>{await cy(page,'login-submit').waitFor();};
+           const submit=async(page,value=password)=>{await cy(page,'login-email').fill('platform@example.invalid');await cy(page,'login-password').fill(value);await cy(page,'login-submit').click();};
+           const token=page=>page.evaluate(()=>sessionStorage.getItem('primecare_session'));
+           const sessions=async()=>Number((await db.query('SELECT count(*) n FROM auth_sessions WHERE user_id=$1',[actor])).rows[0].n);
+           for(const [locale,width]of [['en',320],['fr',1440],['es',768]]){
+            await db.query('DELETE FROM auth_sessions');await db.query('DELETE FROM auth_rate_limits');const context=await browser.newContext({viewport:{width,height:1000},recordVideo:{dir:out+'/video',size:{width,height:1000}}}),page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('framenavigated',f=>{if(f===page.mainFrame())receipt.navigation.push(new URL(f.url()).pathname+new URL(f.url()).search);});
+            try{await page.goto(origin+'/login?locale='+locale+'&enable-semantics=true');await waitLogin(page);const text=await cy(page,'login-submit').innerText();assert.ok(text.trim());
+             const failed=page.waitForResponse(r=>r.url().endsWith('/v1/auth/login'));await submit(page,'Wrong-Synthetic-Password');assert.equal((await failed).status(),401);await cy(page,'api-status').filter({hasText:/./}).waitFor();assert.equal(await token(page),null);assert.equal(await sessions(),0);
+             if(locale==='en'){
+              await context.setOffline(true);await submit(page);await page.waitForTimeout(300);assert.equal(await token(page),null);assert.equal(await sessions(),0);await context.setOffline(false);receipt.apiChecks.push('offline credential submission creates no session; online retry available');
+              await page.route('**/v1/auth/me',route=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:'Synthetic confirmation outage'})}));const revoked=page.waitForResponse(r=>r.url().endsWith('/v1/auth/logout'));await submit(page);assert.equal((await revoked).status(),200);assert.equal(await token(page),null);assert.equal(await sessions(),0);await page.unroute('**/v1/auth/me');receipt.apiChecks.push('confirmation outage revokes provisional database session and leaves browser unauthenticated');
+             }
+             await submit(page);await cy(page,'platform-topbar-tenant').waitFor();assert.equal(new URL(page.url()).pathname,'/platform/administration');const bearer=await token(page);assert.ok(bearer);assert.equal(await sessions(),1);
+             const persisted=(await db.query('SELECT token_hash,expires_at FROM auth_sessions WHERE user_id=$1',[actor])).rows[0];assert.equal(persisted.token_hash,digest(bearer));assert.ok(new Date(persisted.expires_at)>new Date());
+             const displayed=await cy(page,'platform-topbar-tenant').evaluate(e=>Array.from(e.options).filter(o=>o.value).map(o=>({id:o.value,name:o.textContent})));const actual=(await db.query('SELECT id,name FROM tenants ORDER BY slug')).rows;assert.deepEqual(displayed,actual);
+             await page.reload();await cy(page,'platform-topbar-tenant').waitFor();assert.equal(await token(page),bearer);assert.equal(await sessions(),1);await cy(page,'platform-language').selectOption(locale);assert.deepEqual(errors,[]);
+             await page.screenshot({path:out+'/login-workspace-'+locale+'.png',fullPage:true});
+             if(locale==='es'){await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 minute' WHERE user_id=$1",[actor]);await cy(page,'platform-refresh').click();await waitLogin(page);assert.equal(await token(page),null);receipt.apiChecks.push('expired session fails protected workspace read and clears browser token');}
+             else{await cy(page,'platform-logout').click();await waitLogin(page);assert.equal(await token(page),null);assert.equal(await sessions(),0);}
+             receipt.cases.push({locale,width,wrongCredentials:true,credentialLogin:true,actualMainEntry:true,actualGateway:true,actualServiceDispatch:true,nativePostgres:true,oneHashedSession:true,workspaceMatchesDatabase:true,reload:true,sessionRevocation:true});
+            }finally{const video=page.video();await context.close();if(video)await video.saveAs(out+'/login-workspace-'+locale+'.webm');}
+           }
+           const login=async email=>{const r=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,password})});assert.equal(r.status,200);return(await r.json()).token;};
+           const adminToken=await login('admin@example.invalid'),deniedToken=await login('psw@example.invalid');const call=(path,t)=>fetch(origin+'/v1/governance/platform'+path,{headers:{authorization:'Bearer '+t}});
+           assert.equal((await call('',deniedToken)).status,403);const scoped=await call('',adminToken);assert.equal(scoped.status,200);assert.deepEqual((await scoped.json()).tenants.map(t=>t.id),[foreign]);assert.equal((await call('/tenants/'+tenant,adminToken)).status,403);receipt.apiChecks.push('valid PSW denied platform permission; tenant admin sees only own tenant and cannot read foreign tenant');
+           await db.query("UPDATE users SET status='inactive' WHERE id=$1",[actor]);const r=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:'platform@example.invalid',password})});assert.equal(r.status,401);receipt.apiChecks.push('inactive credentials denied');if(bridgeFailure)throw bridgeFailure;
+           for(const[path,sha]of Object.entries(receipt.source_bindings))assert.equal(digest(await readFile(path)),sha);receipt.passed=true;
+          }catch(error){receipt.error=error.message;console.error(error);process.exitCode=1;}
+          finally{if(browser)await browser.close();if(server)await new Promise(r=>server.close(r));await db.query('DROP SCHEMA '+schema+' CASCADE');await db.end();receipt.cleanup='Isolated synthetic schema dropped; production business data untouched';await writeFile(out+'/results.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify({passed:receipt.passed,browserCases:receipt.cases.length,apiChecks:receipt.apiChecks.length,wholeTaskVerified:false,error:receipt.error}));}
+          
+          BROWSER
+          node test-results/credential-login-browser/run.mjs
+      - name: Refresh password-change regression on current merged main
+        env:
+          LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
+        run: |
+          cat > test-results/password-workflow-browser/run.mjs <<'BROWSER'
+          import assert from 'node:assert/strict';
+          import pg from 'pg';import bcrypt from 'bcryptjs';import {build} from 'esbuild';import {chromium} from 'playwright';
+          import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';import {createRequire} from 'node:module';import {createServer} from 'node:http';import {createHash,randomUUID} from 'node:crypto';import {tmpdir} from 'node:os';import {join} from 'node:path';
+          const out='test-results/password-workflow-browser';await mkdir(out,{recursive:true});
+          if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL)throw Error('Production credentials forbidden in browser fixture');
+          const connection=process.env.LOGIN_BROWSER_DATABASE_URL,url=new URL(connection);if(!['localhost','127.0.0.1'].includes(url.hostname)||url.pathname!='/login_browser')throw Error('Loopback login_browser database required');
+          const db=new pg.Client({connectionString:connection});await db.connect();const schema='login_'+randomUUID().replaceAll('-','');await db.query('CREATE SCHEMA '+schema);await db.query('SET search_path TO '+schema);url.searchParams.set('options','-c search_path='+schema);
+          const dir=await mkdtemp(join(tmpdir(),'primecare-login-main-')),require=createRequire(import.meta.url),digest=v=>createHash('sha256').update(v).digest('hex');
+          const receipt={workflow_id:'auth.change-password',passed:false,wholeTaskVerified:false,commit:process.env.GITHUB_SHA,cases:[],apiChecks:[],trace:[],navigation:[],source_bindings:{},limitations:['Loopback hosting with production source; not a deployed Cloudflare execution.','Cloudflare source limiter is a controlled synthetic binding; trusted source/origin headers are supplied by the harness.','Portal manifest only transports production theme plus fixture origin/name; no production business records.','Platform-admin landing only; all registered role destinations, full accessibility/PWA and independent review gates remain pending.']};
+          let server,browser,bridgeFailure;const password='Synthetic-only!Login-2026',actor=randomUUID(),tenant=randomUUID(),foreign=randomUUID(),admin=randomUUID(),denied=randomUUID();
+          const policy=JSON.parse(await readFile(out+'/governance.json','utf8'));assert.equal(policy.definition.definition_sha256,'9a459ca1184488951c65fb9e083d4ad881f3bda6647f2e0fa3c8347c7f61e876');receipt.definition_sha256=policy.definition.definition_sha256;
+          try{
+           await db.query('CREATE TABLE tenants(id uuid PRIMARY KEY,name text,slug text UNIQUE,status text,created_at timestamptz DEFAULT NOW(),updated_at timestamptz DEFAULT NOW());CREATE TABLE users(id uuid PRIMARY KEY,tenant_id uuid REFERENCES tenants(id),email text UNIQUE,roles text,password_hash text,status text,updated_at timestamptz DEFAULT NOW());CREATE TABLE auth_sessions(user_id uuid REFERENCES users(id),token_hash text,expires_at timestamptz)');
+           for(const file of ['20260928_auth_rate_limits.sql','20261011_platform_administration.sql','20261013_screen_text.sql','20260928_auth_password_audit.sql','20261003_auth_password_resets.sql'])await db.query(await readFile('packages/database/migrations/'+file,'utf8'));
+           await db.query("INSERT INTO tenants(id,name,slug,status) VALUES($1,'Synthetic Primary','synthetic-primary','active'),($2,'Synthetic Foreign','synthetic-foreign','active')",[tenant,foreign]);const hash=await bcrypt.hash(password,12);
+           for(const [id,t,email,role]of [[actor,tenant,'platform@example.invalid','platform_admin'],[admin,foreign,'tenant-admin@example.invalid','tenant_admin'],[denied,tenant,'psw@example.invalid','psw']])await db.query("INSERT INTO users(id,tenant_id,email,roles,password_hash,status) VALUES($1,$2,$3,$4,$5,'active')",[id,t,email,role,hash]);
+           const front=await build({entryPoints:['websites/typescript/src/main.ts'],bundle:true,write:false,metafile:true,platform:'browser',format:'iife'});
+           const back=await build({stdin:{contents:"export {default as gateway} from './cloudflare/workers/src/gateway';export {default as service} from './cloudflare/workers/src/service';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'cjs',write:false,metafile:true,external:['pg']});
+           const backend=join(dir,'backend.cjs');await writeFile(backend,back.outputFiles[0].text.replaceAll('require("pg")',`require(${JSON.stringify(join(process.cwd(),'node_modules/pg'))})`));const {gateway,service}=require(backend);
+           const paths=[...Object.keys(front.metafile.inputs),...Object.keys(back.metafile.inputs),'websites/typescript/src/styles.css',...['20260928_auth_rate_limits.sql','20261011_platform_administration.sql','20261013_screen_text.sql','20260928_auth_password_audit.sql','20261003_auth_password_resets.sql'].map(f=>'packages/database/migrations/'+f)];for(const path of paths)if(path!=='<stdin>'&&!path.includes('node_modules/'))receipt.source_bindings[path]=digest(await readFile(path));
+           const env={DB_URL:url.toString(),AUTH_SOURCE_LIMIT:{limit:async()=>({success:true})}},css=await readFile('websites/typescript/src/styles.css','utf8');
+           server=createServer(async(req,res)=>{try{const requestUrl=new URL(req.url,'http://fixture');
+            if(requestUrl.pathname==='/app.js'){res.setHeader('content-type','text/javascript');res.end(front.outputFiles[0].text);return;}
+            if(requestUrl.pathname==='/portal.json'){res.setHeader('content-type','application/json');res.end(JSON.stringify({project:'PrimeCare',appCode:'pc',name:'PrimeCare',apiGateway:origin,theme:policy.theme}));return;}
+            if(['/login','/platform/administration','/'].includes(requestUrl.pathname)){const locale=requestUrl.searchParams.get('locale')||'en';res.setHeader('content-type','text/html');res.end(`<!doctype html><html lang="${['en','fr','es'].includes(locale)?locale:'en'}"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrimeCare synthetic login</title><style>${css}</style></head><body><div id="app"></div><script src="/app.js"></script></body></html>`);return;}
+            if(requestUrl.pathname.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);headers.delete('accept-encoding');headers.set('origin','https://primecare-clinic.pages.dev');headers.set('cf-connecting-ip','192.0.2.1');
+             const request=new Request(origin+req.url,{method:req.method,headers,...(body?{body}:{})});const bindings={AUTH:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'auth'})},GOVERNANCE:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'governance'})}};
+             const response=await gateway.fetch(request,bindings);receipt.trace.push({path:requestUrl.pathname,method:req.method,status:response.status});res.writeHead(response.status,Object.fromEntries(response.headers));res.end(await response.text());return;}
+            res.writeHead(404);res.end();
+           }catch(error){bridgeFailure=error;res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
+           browser=await chromium.launch({headless:true});const cy=(page,id)=>page.locator('[data-cy="'+id+'"]');const waitLogin=async(page)=>{await cy(page,'login-submit').waitFor();};
+           const submit=async(page,value=password)=>{await cy(page,'login-email').fill('platform@example.invalid');await cy(page,'login-password').fill(value);await cy(page,'login-submit').click();};
+           const token=page=>page.evaluate(()=>sessionStorage.getItem('primecare_session'));
+           const sessions=async()=>Number((await db.query('SELECT count(*) n FROM auth_sessions WHERE user_id=$1',[actor])).rows[0].n);
+           for(const [locale,width]of [['en',320],['fr',1440],['es',768]]){
+            const nextPassword='Synthetic-New-Password-'+locale+'-2026!';
+            await db.query('DELETE FROM auth_sessions;DELETE FROM auth_rate_limits;DELETE FROM auth_password_audit;DELETE FROM auth_password_resets');await db.query("UPDATE users SET password_hash=$1,status='active' WHERE id=$2",[hash,actor]);
+            const context=await browser.newContext({viewport:{width,height:1000},recordVideo:{dir:out+'/video',size:{width,height:1000}}}),page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+            try{
+             await page.goto(origin+'/login?locale='+locale+'&enable-semantics=true');await waitLogin(page);await submit(page);await cy(page,'platform-topbar-tenant').waitFor();const bearer=await token(page);assert.ok(bearer);
+             const login=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:'platform@example.invalid',password})});assert.equal(login.status,200);const extra=(await login.json()).token;assert.equal(await sessions(),2);
+             await db.query("INSERT INTO auth_password_resets(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[digest('synthetic-reset-'+locale),actor]);
+             const snapshot=async()=>({password:(await db.query('SELECT password_hash FROM users WHERE id=$1',[actor])).rows[0].password_hash,sessions:Number((await db.query('SELECT count(*) n FROM auth_sessions WHERE user_id=$1',[actor])).rows[0].n),resets:Number((await db.query('SELECT count(*) n FROM auth_password_resets WHERE user_id=$1',[actor])).rows[0].n),audit:Number((await db.query('SELECT count(*) n FROM auth_password_audit WHERE user_id=$1',[actor])).rows[0].n)});
+             const before=await snapshot();await cy(page,'platform-language').selectOption(locale);await cy(page,'platform-account-link').click();await cy(page,'change-password-form').waitFor();
+             const change=async current=>{await cy(page,'current-password').fill(current);await cy(page,'new-password').fill(nextPassword);await cy(page,'change-password-submit').click();};
+             let response=page.waitForResponse(r=>r.url().endsWith('/v1/user/change-password'));await change('Wrong-Synthetic-Password');assert.equal((await response).status(),401);assert.deepEqual(await snapshot(),before);
+             await page.waitForFunction(()=>!document.querySelector('[data-cy=change-password-submit]').disabled);
+             await context.setOffline(true);await change(password);await page.waitForFunction(()=>!document.querySelector('[data-cy=change-password-submit]').disabled);assert.deepEqual(await snapshot(),before);await context.setOffline(false);
+             const foreignHash=(await db.query('SELECT password_hash FROM users WHERE id=$1',[admin])).rows[0].password_hash;
+             const invalid=await fetch(origin+'/v1/user/change-password',{method:'POST',headers:{authorization:'Bearer '+bearer,'content-type':'application/json'},body:JSON.stringify({currentPassword:password,newPassword:nextPassword,userId:admin,tenantId:foreign})});assert.equal(invalid.status,400);assert.deepEqual(await snapshot(),before);assert.equal((await db.query('SELECT password_hash FROM users WHERE id=$1',[admin])).rows[0].password_hash,foreignHash);
+             await db.query("CREATE FUNCTION fixture_password_audit_failure() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'Synthetic audit failure'; END $$;CREATE TRIGGER fixture_password_audit_failure BEFORE INSERT ON auth_password_audit FOR EACH ROW EXECUTE FUNCTION fixture_password_audit_failure()");
+             try{response=page.waitForResponse(r=>r.url().endsWith('/v1/user/change-password'));await change(password);assert.equal((await response).status(),503);assert.deepEqual(await snapshot(),before);await page.waitForFunction(()=>!document.querySelector('[data-cy=change-password-submit]').disabled);}
+             finally{await db.query('DROP TRIGGER fixture_password_audit_failure ON auth_password_audit;DROP FUNCTION fixture_password_audit_failure()');}
+             response=page.waitForResponse(r=>r.url().endsWith('/v1/user/change-password'));await change(password);assert.equal((await response).status(),200);await waitLogin(page);assert.equal(await token(page),null);
+             const after=await snapshot();assert.equal(after.sessions,0);assert.equal(after.resets,0);assert.equal(after.audit,1);assert.notEqual(after.password,before.password);assert.equal(await bcrypt.compare(nextPassword,after.password),true);assert.equal(await bcrypt.compare(password,after.password),false);
+             for(const old of [bearer,extra])assert.equal((await fetch(origin+'/v1/auth/me',{headers:{authorization:'Bearer '+old}})).status,401);
+             response=page.waitForResponse(r=>r.url().endsWith('/v1/auth/login'));await submit(page);assert.equal((await response).status(),401);assert.equal(await token(page),null);
+             await page.waitForFunction(()=>!document.querySelector('[data-cy=login-submit]').disabled);
+             await submit(page,nextPassword);await cy(page,'platform-topbar-tenant').waitFor();assert.equal(await sessions(),1);await page.reload();await cy(page,'platform-topbar-tenant').waitFor();assert.equal(await sessions(),1);assert.deepEqual(errors,[]);await page.screenshot({path:out+'/password-reauth-'+locale+'.png',fullPage:true});
+             receipt.cases.push({locale,width,actorRole:'platform_admin',actualMainEntry:true,credentialLogin:true,accountUI:true,wrongPasswordDenied:true,offlineRetry:true,forgedIdentityRejected:true,auditRollback:true,successfulRetry:true,passwordHashVerified:true,allSessionsRevoked:true,resetsDeleted:true,singleAudit:true,oldPasswordDenied:true,newPasswordReauthentication:true,reload:true});
+            }finally{const video=page.video();await context.close();if(video)await video.saveAs(out+'/password-reauth-'+locale+'.webm');}
+           }
+           const unauthorized=await fetch(origin+'/v1/user/change-password',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({currentPassword:password,newPassword:'Synthetic-Unauthorized-2026!'})});assert.equal(unauthorized.status,401);receipt.apiChecks.push('Missing session denied');
+           const session=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:'psw@example.invalid',password})});assert.equal(session.status,200);const expired=(await session.json()).token;await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 minute' WHERE user_id=$1",[denied]);const rejected=await fetch(origin+'/v1/user/change-password',{method:'POST',headers:{authorization:'Bearer '+expired,'content-type':'application/json'},body:JSON.stringify({currentPassword:password,newPassword:'Synthetic-Expired-2026!'})});assert.equal(rejected.status,401);receipt.apiChecks.push('Expired session denied');
+           const active=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:'psw@example.invalid',password})});assert.equal(active.status,200);const inactive=(await active.json()).token;await db.query("UPDATE users SET status='inactive' WHERE id=$1",[denied]);const inactiveResult=await fetch(origin+'/v1/user/change-password',{method:'POST',headers:{authorization:'Bearer '+inactive,'content-type':'application/json'},body:JSON.stringify({currentPassword:password,newPassword:'Synthetic-Inactive-2026!'})});assert.equal(inactiveResult.status,401);receipt.apiChecks.push('Inactive account session denied');if(bridgeFailure)throw bridgeFailure;
+           for(const[path,sha]of Object.entries(receipt.source_bindings))assert.equal(digest(await readFile(path)),sha);receipt.passed=true;
+          }catch(error){receipt.error=error.message;console.error(error);process.exitCode=1;}
+          finally{if(browser)await browser.close();if(server)await new Promise(r=>server.close(r));await db.query('DROP SCHEMA '+schema+' CASCADE');await db.end();receipt.cleanup='Isolated synthetic schema dropped; production business data untouched';await writeFile(out+'/results.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify({passed:receipt.passed,browserCases:receipt.cases.length,apiChecks:receipt.apiChecks.length,wholeTaskVerified:false,error:receipt.error}));}
+          
+          BROWSER
+          node test-results/password-workflow-browser/run.mjs
+      - name: Verify repaired logout with live production-governed theme
+        env:
+          LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
+        run: |
+          cp scripts/test-session-signout-workflow.mjs test-results/logout-workflow/run.mjs
+          node scripts/test-session-signout-workflow.mjs
+      - uses: actions/upload-artifact@v4
+        id: evidence
+        if: always()
+        with:
+          name: post-logout-main-browser-evidence
+          path: test-results
+  record:
+    needs: browser
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: post-logout-main-browser-evidence
+          path: test-results
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39322958457
+          github-token: ${{ github.token }}
+          name: synthetic-care-browser-evidence
+          path: care-regression-artifact
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Record current proofs, focused issue resolution and source staleness
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GH_TOKEN: ${{ github.token }}
+          AUTH_EVIDENCE_URL: ${{ needs.browser.outputs.evidence_url }}
+        run: |
+          python - <<'PY'
+          import sys,os,json,pathlib,hashlib,urllib.request
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,summary,_bindings_current
+          root=pathlib.Path.cwd();url=os.environ['AUTH_EVIDENCE_URL'];assert '/artifacts/' in url
+          request=urllib.request.Request('https://api.github.com/repos/shaikhrais/primecare-platform/pulls/213',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+          pr=json.load(urllib.request.urlopen(request));assert pr['merged'] and pr['state']=='closed' and pr['head']['sha']=='67d47d59b001b3ab1939a8891b036ed624aada5e'
+          cases=[('auth.credential-login','credential-login-browser','login-workspace',5),('auth.change-password','password-workflow-browser','password-reauth',3),('auth.logout','logout-workflow','logout',4)]
+          outputs=[]
+          for flow,directory,video_prefix,groups in cases:
+              base='test-results/'+directory;receipt=json.loads((root/base/'results.json').read_text())
+              assert receipt['workflow_id']==flow and receipt['passed'] is True and receipt['wholeTaskVerified'] is False and len(receipt['cases'])==3 and len(receipt['apiChecks'])==groups
+              assert receipt['commit']==os.environ['GITHUB_SHA']
+              sources=receipt['source_bindings']
+              assert _bindings_current(sources,root)
+              files=[('results.json','browser'),('governance.json','specification'),('run.mjs','test')]+[(video_prefix+'-'+locale+'.webm','video') for locale in ['en','fr','es']]
+              evidence=[dict(path=base+'/'+name,sha256=hashlib.sha256((root/base/name).read_bytes()).hexdigest(),kind=kind,url=url) for name,kind in files]
+              blockers=['Platform Admin EN/FR/ES path is demonstrated on current merged main; other registered role UI surfaces and deployed Cloudflare/cookie acceptance remain unproven.','Full accessibility/PWA, governed recording playback delivery, current specification/source rebinding and independent review gates remain pending.']
+              if flow=='auth.credential-login':blockers.append('Registered login API row 2 auth_required/service/schema metadata remains unreconciled with shared credential entry.')
+              if flow=='auth.logout':blockers.append('Registered logout API row 5 has no formal response/permission schema; reconcile generic missing/expired-session denial alternatives with the existing idempotent logout contract. Workspace/maintenance logout surfaces require separate registered-role review.')
+              handoff=dict(workflow_id=flow,main_sha=os.environ['GITHUB_SHA'],merge_sha=pr['merge_commit_sha'],work_branch='work/logout-session-confirmation',work_branch_sha=pr['head']['sha'],pr=213,merge_state='Merged and closed; exact work-branch cleanup pending',verification_status='implemented-unverified',test_status='scoped_pass',actor_role='platform_admin',evidence_url=url,synthetic_data_cleanup=receipt['cleanup'],blockers=blockers,next_action='Finish post-merge CI and exact branch cleanup, invalidate stale scoped proofs, then select the next unblocked live business process. Own-session workflow remains missing with the exact registration dependency recorded in attempt 318.')
+              result=dict(status='implemented-unverified',test_status='scoped_pass',scope='scoped',source_bindings=sources,evidence=evidence,blockers=blockers,next_action=json.dumps(handoff,sort_keys=True))
+              if flow=='auth.logout':
+                  assert receipt['criterion_results']['step:2']=='passed'
+                  result.update(resolves_issue_ids=[16],resolution_note='Replayed the original native PostgreSQL DELETE failure in EN/FR/ES. Platform Admin now retains the browser token and shows the existing localized retry error on 503. Additional cases cover offline/malformed acknowledgements, lost-response retry, replacement-session race, foreign-session preservation and denied reload.',issue_resolution_results={'16':dict(criterion_id='step:2',result='passed',reproduction_verified=True,evidence_path=base+'/results.json')})
+              with ProductionWorkflowStore() as db:
+                  assert db.execute('SELECT definition_sha256 FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()[0]==receipt['definition_sha256']
+                  output=record_attempt(db,flow,result,root)
+              outputs.append(output);print('AUTH_RECOVERY_ATTEMPT_COMMITTED '+json.dumps(output))
+          # Existing PR care proof may refresh its scoped status only when every
+          # producer-bound application source still matches merged main.
+          candidates=list((root/'care-regression-artifact').rglob('availability-workflow/results.json'))
+          care_result={'refreshed':False}
+          if len(candidates)==1:
+              receipt_path=candidates[0];care=json.loads(receipt_path.read_text())
+              matched=care.get('passed') is True and care.get('wholeTaskVerified') is False and len(care.get('cases',[]))==6 and len(care.get('apiChecks',[]))>=8
+              matched=matched and _bindings_current(care.get('sources',{}),root)
+              if matched:
+                  with ProductionWorkflowStore() as db:
+                      binding=db.execute("SELECT d.definition_sha256,a.definition_sha256 FROM virtual_workflow_definitions d JOIN virtual_workflow_checkpoints c ON c.flow_id=d.flow_id JOIN virtual_workflow_attempts a ON a.attempt_id=c.attempt_id WHERE d.flow_id=?",('care.psw.submit-availability',)).fetchone()
+                      matched=bool(binding and binding[0]==binding[1])
+              if matched:
+                  path=str(receipt_path.relative_to(root));care_url='https://github.com/shaikhrais/primecare-platform/actions/runs/39322958457/artifacts/12220818758'
+                  limitations=care.get('limitations',[])+['This PR regression uses an explicitly isolated historical CI theme fixture; live production governance was separately checked. Full production-theme/deployment acceptance remains pending.']
+                  with ProductionWorkflowStore() as db:
+                      care_result=record_attempt(db,'care.psw.submit-availability',dict(status='implemented-unverified',test_status='scoped_pass',scope='scoped',source_bindings=care['sources'],evidence=[dict(path=path,sha256=hashlib.sha256(receipt_path.read_bytes()).hexdigest(),kind='browser',url=care_url)],blockers=limitations,next_action='Current source-bound six-case/eight-group PR care regression passed. Continue native multi-connection/deployed-route/accessibility/PWA/video delivery and independent review acceptance; evidence used an isolated CI theme fixture.'),root)
+          stale=[]
+          with ProductionWorkflowStore() as db:
+              rows=db.execute("SELECT d.flow_id,d.verification_status,d.blocker_json,a.source_bindings_json FROM virtual_workflow_definitions d JOIN virtual_workflow_checkpoints c ON c.flow_id=d.flow_id JOIN virtual_workflow_attempts a ON a.attempt_id=c.attempt_id WHERE d.flow_kind='business_process' AND d.test_status IN ('scoped_pass','passed')").fetchall()
+              for flow,status,old_blockers,encoded in rows:
+                  bindings=json.loads(encoded)
+                  changed=[name for name,sha in bindings.items() if not (root/name).resolve().is_relative_to(root) or not (root/name).is_file() or hashlib.sha256((root/name).read_bytes()).hexdigest()!=sha]
+                  if not changed:continue
+                  assert status!='verified','Full verified-proof invalidation required'
+                  reasons=['Source binding changed; scoped acceptance evidence requires refresh: '+', '.join(changed)]
+                  blockers=json.loads(old_blockers or '[]')+reasons
+                  db.execute("UPDATE virtual_workflow_definitions SET verification_status=?, test_status='stale',blocker_json=?,updated_at=CURRENT_TIMESTAMP WHERE flow_id=?",(status,json.dumps(blockers),flow))
+                  db.execute("UPDATE virtual_workflow_checkpoints SET invalidation_json=?, updated_at=CURRENT_TIMESTAMP WHERE flow_id=?",(json.dumps(reasons),flow))
+                  stale.append(dict(workflow_id=flow,changed_sources=changed))
+              totals=summary(db)
+          print('AUTH_RECOVERY_SUMMARY '+json.dumps(dict(attempts=outputs,care_regression=care_result,stale=stale,summary=totals)))
+          PY
