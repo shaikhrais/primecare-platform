@@ -1,0 +1,59 @@
+name: Save credential login browser attempt
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/save-login-browser-attempt.yml]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39319634146
+          github-token: ${{ github.token }}
+          name: credential-login-current-main-browser
+          path: test-results/credential-login-browser
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Save current source-bound browser evidence and next specification
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+        run: |
+          python - <<'PY'
+          import sys,os,json,pathlib,hashlib
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,summary
+          root=pathlib.Path.cwd();base='test-results/credential-login-browser'
+          receipt=json.loads((root/base/'results.json').read_text())
+          assert receipt['passed'] is True and receipt['wholeTaskVerified'] is False and receipt['commit']=='b262a70ddd79ba7bd1871375bb5a172c02a16058'
+          assert len(receipt['cases'])==3 and {c['locale'] for c in receipt['cases']}=={'en','fr','es'} and len(receipt['apiChecks'])==5
+          for case in receipt['cases']:
+              for flag in ['wrongCredentials','credentialLogin','actualMainEntry','actualGateway','actualServiceDispatch','nativePostgres','oneHashedSession','workspaceMatchesDatabase','reload','sessionRevocation']:assert case[flag] is True
+          sources=receipt['source_bindings']
+          for path,sha in sources.items():assert hashlib.sha256((root/path).read_bytes()).hexdigest()==sha
+          evidence_url='https://github.com/shaikhrais/primecare-platform/actions/runs/39319634146/artifacts/12219786401'
+          names=[('results.json','browser'),('governance.json','specification'),('run.mjs','test')]
+          names += [('login-workspace-'+locale+'.webm','video') for locale in ['en','fr','es']]
+          names += [('login-workspace-'+locale+'.png','screenshot') for locale in ['en','fr','es']]
+          evidence=[dict(path=base+'/'+name,sha256=hashlib.sha256((root/base/name).read_bytes()).hexdigest(),kind=kind,url=evidence_url) for name,kind in names]
+          blockers=['Registered login API row 2 declares auth_required=1, service_name=PRISMA and lacks request/response schemas and permission key; reconcile with registered shared credential entry without inventing grants.','Current-main platform-admin browser journey passed in EN/FR/ES, but all other registered role destinations and deployed Cloudflare environment are unproven.','Loopback harness uses a controlled Cloudflare source limiter and trusted origin/source headers; hosted source-policy acceptance, full accessibility/PWA, governed recording playback delivery and independent reviews remain pending.']
+          handoff=dict(workflow_id='auth.credential-login',main_sha=os.environ['GITHUB_SHA'],tested_main_sha=receipt['commit'],active_branch='main',work_branch=None,pr=None,verification_status='implemented-unverified',test_status='scoped_pass',blockers=blockers,evidence_url=evidence_url,native_attempt=315,browser_cases=3,api_check_groups=5,synthetic_data_cleanup=receipt['cleanup'],cleanup_required=['Remove temporary browser verification and record workflows after saving final handoff'],next_workflow='auth.change-password',next_action='Inspect auth.change-password live definition, source links, steps, registered APIs/permissions and previous checkpoint; then real credential login to account UI, password action, API, native PostgreSQL and reload. Login remains unverified pending exact recorded metadata and full-role/deployment/review gates; do not repeat passing native/browser cases unless bindings become stale.')
+          with ProductionWorkflowStore() as db:
+              assert db.execute('SELECT definition_sha256 FROM virtual_workflow_definitions WHERE flow_id=?',('auth.credential-login',)).fetchone()[0]==receipt['definition_sha256']
+              output=record_attempt(db,'auth.credential-login',dict(status='implemented-unverified',test_status='scoped_pass',scope='scoped',source_bindings=sources,evidence=evidence,blockers=blockers,next_action=json.dumps(handoff,sort_keys=True)),root)
+              counts=summary(db)
+              next_def=db.execute('SELECT definition_json,definition_sha256,verification_status,test_status,blocker_json FROM virtual_workflow_definitions WHERE flow_id=?',('auth.change-password',)).fetchone()
+              next_checkpoint=db.execute('SELECT attempt_id,next_action FROM virtual_workflow_checkpoints WHERE flow_id=?',('auth.change-password',)).fetchone()
+          print('LOGIN_BROWSER_COMMITTED '+json.dumps(dict(attempt=output,summary=counts)))
+          print('NEXT_AUTH_CHANGE_PASSWORD '+json.dumps(dict(definition=json.loads(next_def[0]),definition_sha256=next_def[1],verification_status=next_def[2],test_status=next_def[3],blockers=next_def[4],checkpoint=list(next_checkpoint) if next_checkpoint else None)))
+          PY
