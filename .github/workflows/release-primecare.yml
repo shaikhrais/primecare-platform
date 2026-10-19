@@ -1,5 +1,5 @@
 name: PrimeCare production release
-# Governed dashboard release with verified accessible metric labels.
+# Governed release uses production governance validation and committed catalogs.
 on:
   push:
     branches: [main]
