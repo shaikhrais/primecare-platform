@@ -38,11 +38,17 @@ jobs:
               result={}
               for name in ['virtual_workflow_definitions','virtual_workflow_steps','virtual_workflow_source_links','virtual_workflow_checkpoints']:
                   result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE flow_id=?',(flow,))]
-              result['apis']=[dict(r) for r in db.execute("SELECT * FROM api_endpoints WHERE route_path LIKE '%auth/admin/users%'")]
+              result['apis']=[dict(r) for r in db.execute("SELECT * FROM api_endpoints WHERE route_path LIKE '%admin/users%'")]
               ids=[r['id'] for r in result['apis']]
               for name,key in [('api_permissions','api_id'),('screen_api_links','api_id')]:
                   result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE '+key+' IN ('+','.join('?' for _ in ids)+')',ids)] if ids else []
               result['schema']={name:[dict(r) for r in db.execute('PRAGMA table_info('+name+')')] for name in ['roles','screens','screen_sections','screen_required_elements','screen_section_elements','screen_components','screen_component_map','auth_role_permissions','virtual_role_flow_guides','virtual_flow_catalog_snapshots']}
+              result['management_policy']=[dict(r) for r in db.execute("SELECT * FROM auth_account_management_policy WHERE actor_role_code='ceo'")]
+              screen_ids=sorted(set(r['screen_id'] for r in result['screen_api_links']))
+              result['linked_screens']=[dict(r) for r in db.execute('SELECT * FROM screens WHERE id IN ('+','.join('?' for _ in screen_ids)+')',screen_ids)] if screen_ids else []
+              for name in ['screen_required_elements','screen_section_elements','screen_sections','screen_components']:
+                  result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE screen_id IN ('+','.join('?' for _ in screen_ids)+')',screen_ids)] if screen_ids else []
+              result['role_screen_permissions_schema']=[dict(r) for r in db.execute('PRAGMA table_info(role_screen_permissions)')]
               result['permission_tables']=[dict(r) for r in db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE '%permission%'")]
               result['guides']=[dict(r) for r in db.execute("SELECT * FROM virtual_role_flow_guides WHERE guide_json LIKE '%auth.inspect-account%'")]
               result['totals']=[dict(r) for r in db.execute("SELECT verification_status,COUNT(*) n FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY verification_status")]
@@ -56,3 +62,93 @@ jobs:
         with:
           name: create-account-live-requirements
           path: test-results/
+  native:
+    needs: requirements
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: primecare
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: login_browser
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U primecare -d login_browser"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/download-artifact@v4
+        with:
+          name: create-account-live-requirements
+          path: test-results
+      - run: |
+          npm install --prefix /tmp/inspect-account --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@3 esbuild@0.27.2
+          ln -s /tmp/inspect-account/node_modules node_modules
+      - name: Test actual credential and native account detail API without claiming missing UI
+        env:
+          LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
+        run: |
+          cat > test-results/inspect-account/run.mjs <<'NATIVE'
+          import assert from 'node:assert/strict';
+          import pg from 'pg';import bcrypt from 'bcryptjs';import {build} from 'esbuild';
+          import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';import {createRequire} from 'node:module';import {createServer} from 'node:http';import {createHash,randomUUID} from 'node:crypto';import {tmpdir} from 'node:os';import {join} from 'node:path';
+          const out='test-results/inspect-account';await mkdir(out,{recursive:true});
+          if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL)throw Error('Production credentials forbidden in browser fixture');
+          const connection=process.env.LOGIN_BROWSER_DATABASE_URL,url=new URL(connection);if(!['localhost','127.0.0.1'].includes(url.hostname)||url.pathname!='/login_browser')throw Error('Loopback login_browser database required');
+          const db=new pg.Client({connectionString:connection});await db.connect();const schema='login_'+randomUUID().replaceAll('-','');await db.query('CREATE SCHEMA '+schema);await db.query('SET search_path TO '+schema);url.searchParams.set('options','-c search_path='+schema);
+          const dir=await mkdtemp(join(tmpdir(),'primecare-login-main-')),require=createRequire(import.meta.url),digest=v=>createHash('sha256').update(v).digest('hex');
+          const receipt={workflow_id:'auth.inspect-account',passed:false,wholeTaskVerified:false,commit:process.env.GITHUB_SHA,cases:[],apiChecks:[],trace:[],navigation:[],source_bindings:{},limitations:['Loopback hosting with production source; not a deployed Cloudflare execution.','Cloudflare source limiter is a controlled synthetic binding; trusted source/origin headers are supplied by the harness.','Portal manifest only transports production theme plus fixture origin/name; no production business records.','Platform-admin landing only; all registered role destinations, full accessibility/PWA and independent review gates remain pending.']};
+          let server,browser,bridgeFailure;const password='Synthetic-only!Login-2026',actor=randomUUID(),tenant=randomUUID(),foreign=randomUUID(),admin=randomUUID(),denied=randomUUID();
+          const policy=JSON.parse(await readFile(out+'/governance.json','utf8'));const definition=policy.virtual_workflow_definitions[0];assert.equal(definition.definition_sha256,'155841b12b1068e0334da4e90c2be2d2889498073dd497dfacb641b59ba3feb9');receipt.definition_sha256=definition.definition_sha256;receipt.limitations=['API-only native execution; required account-detail UI is absent, so browser/UI acceptance is blocked.','Loopback actual gateway/service; deployed edge/cookie policy, accessibility/PWA, localized UI, evidence playback and independent reviews remain unproven.','Read-only workflow; no mutation rollback or offline browser acceptance claimed when the UI is absent.'];
+          try{
+           await db.query('CREATE TABLE tenants(id uuid PRIMARY KEY,name text,slug text UNIQUE,status text,created_at timestamptz DEFAULT NOW(),updated_at timestamptz DEFAULT NOW());CREATE TABLE users(id uuid PRIMARY KEY,tenant_id uuid REFERENCES tenants(id),email text UNIQUE,roles text,password_hash text,status text,updated_at timestamptz DEFAULT NOW());CREATE TABLE auth_sessions(user_id uuid REFERENCES users(id),token_hash text,expires_at timestamptz)');
+           for(const file of ['20260928_auth_rate_limits.sql','20260928_auth_account_audit.sql','20261011_platform_administration.sql','20261013_screen_text.sql'])await db.query(await readFile('packages/database/migrations/'+file,'utf8'));
+           await db.query("INSERT INTO tenants(id,name,slug,status) VALUES($1,'Synthetic Primary','synthetic-primary','active'),($2,'Synthetic Foreign','synthetic-foreign','active')",[tenant,foreign]);const hash=await bcrypt.hash(password,12);
+           for(const [id,t,email,role]of [[actor,tenant,'platform@example.invalid','platform_admin'],[admin,foreign,'tenant-admin@example.invalid','tenant_admin'],[denied,tenant,'psw@example.invalid','psw']])await db.query("INSERT INTO users(id,tenant_id,email,roles,password_hash,status) VALUES($1,$2,$3,$4,$5,'active')",[id,t,email,role,hash]);
+           const front=await build({entryPoints:['websites/typescript/src/main.ts'],bundle:true,write:false,metafile:true,platform:'browser',format:'iife'});
+           const back=await build({stdin:{contents:"export {default as gateway} from './cloudflare/workers/src/gateway';export {default as service} from './cloudflare/workers/src/service';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'cjs',write:false,metafile:true,external:['pg']});
+           const backend=join(dir,'backend.cjs');await writeFile(backend,back.outputFiles[0].text.replaceAll('require("pg")',`require(${JSON.stringify(join(process.cwd(),'node_modules/pg'))})`));const {gateway,service}=require(backend);
+           const paths=[...Object.keys(front.metafile.inputs),...Object.keys(back.metafile.inputs),'websites/typescript/src/styles.css',...['20260928_auth_rate_limits.sql','20260928_auth_account_audit.sql','20261011_platform_administration.sql','20261013_screen_text.sql'].map(f=>'packages/database/migrations/'+f)];for(const path of paths)if(path!=='<stdin>'&&!path.includes('node_modules/'))receipt.source_bindings[path]=digest(await readFile(path));
+           let sourceAllowed=true;const env={DB_URL:url.toString(),AUTH_SOURCE_LIMIT:{limit:async()=>({success:true})},WORKSPACE_SOURCE_LIMIT:{limit:async()=>({success:sourceAllowed})}},css=await readFile('websites/typescript/src/styles.css','utf8');
+           server=createServer(async(req,res)=>{try{const requestUrl=new URL(req.url,'http://fixture');
+            if(requestUrl.pathname==='/app.js'){res.setHeader('content-type','text/javascript');res.end(front.outputFiles[0].text);return;}
+            if(requestUrl.pathname==='/portal.json'){res.setHeader('content-type','application/json');res.end(JSON.stringify({project:'PrimeCare',appCode:'pc',name:'PrimeCare',apiGateway:origin,theme:policy.theme}));return;}
+            if(['/login','/platform/administration','/'].includes(requestUrl.pathname)){const locale=requestUrl.searchParams.get('locale')||'en';res.setHeader('content-type','text/html');res.end(`<!doctype html><html lang="${['en','fr','es'].includes(locale)?locale:'en'}"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrimeCare synthetic login</title><style>${css}</style></head><body><div id="app"></div><script src="/app.js"></script></body></html>`);return;}
+            if(requestUrl.pathname.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);headers.delete('accept-encoding');headers.set('origin','https://primecare-clinic.pages.dev');headers.set('cf-connecting-ip','192.0.2.1');
+             const request=new Request(origin+req.url,{method:req.method,headers,...(body?{body}:{})});const bindings={AUTH:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'auth'})},GOVERNANCE:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'governance'})}};
+             const response=await gateway.fetch(request,bindings);receipt.trace.push({path:requestUrl.pathname,method:req.method,status:response.status});res.writeHead(response.status,Object.fromEntries(response.headers));res.end(await response.text());return;}
+            res.writeHead(404);res.end();
+           }catch(error){bridgeFailure=error;res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
+          
+           const ceo=randomUUID(),hr=randomUUID();
+           for(const [id,email,role]of [[ceo,'ceo@example.invalid','ceo'],[hr,'hr@example.invalid','hr_director']])await db.query("INSERT INTO users(id,tenant_id,email,roles,password_hash,status) VALUES($1,$2,$3,$4,$5,'active')",[id,tenant,email,role,hash]);
+           const login=async email=>{const r=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,password})});assert.equal(r.status,200);return(await r.json()).token;};
+           const ceoToken=await login('ceo@example.invalid'),platformToken=await login('platform@example.invalid'),hrToken=await login('hr@example.invalid'),pswToken=await login('psw@example.invalid');
+           const snapshot=async()=>({users:(await db.query('SELECT * FROM users ORDER BY id')).rows,sessions:(await db.query('SELECT * FROM auth_sessions ORDER BY token_hash')).rows,creation:(await db.query('SELECT * FROM auth_account_audit ORDER BY id')).rows,management:(await db.query('SELECT * FROM auth_management_audit ORDER BY id')).rows});
+           const detail=(id,token=ceoToken,suffix='',headers={},method='GET')=>fetch(origin+'/v1/admin/users/'+id+suffix,{method,headers:{...(token?{authorization:'Bearer '+token}:{}),...headers}});
+           const expectedRoles=JSON.parse(await readFile('cloudflare/workers/src/account-policy.json','utf8')).ceo;
+           const check=async(id,canModify)=>{const before=await snapshot(),r=await detail(id);assert.equal(r.status,200);assert.equal(r.headers.get('cache-control'),'no-store');const value=await r.json(),row=(await db.query('SELECT id,email,roles,status,updated_at FROM users WHERE id=$1',[id])).rows[0];assert.deepEqual(Object.keys(value).sort(),['assignableRoles','user']);assert.deepEqual(Object.keys(value.user).sort(),['id','email','roles','status','updated_at','canModify'].sort());assert.deepEqual(value.user,{id:row.id,email:row.email,roles:row.roles,status:row.status,updated_at:row.updated_at.toISOString(),canModify});assert.deepEqual(value.assignableRoles,expectedRoles);assert.deepEqual(await snapshot(),before);return value;};
+           await check(denied,true);await check(ceo,false);await check(actor,false);receipt.cases.push({actorRole:'ceo',realCredentialLogin:true,nativeDatabaseComparison:true,safeProjection:true,selfReadOnly:true,protectedAccountReadOnly:true,browserExecuted:false});receipt.apiChecks.push('CEO detail exactly matches native same-tenant records and approved assignable roles; self and platform accounts cannot be modified');
+           for(const token of [platformToken,hrToken,pswToken]){const before=await snapshot();assert.equal((await detail(denied,token)).status,403);assert.deepEqual(await snapshot(),before);}receipt.apiChecks.push('Platform Admin, HR Director and PSW denied without read-operation domain mutations');
+           for(const [id,suffix,headers,status]of [[admin,'',{},404],[randomUUID(),'',{},404],[denied,'',{'x-tenant-id':foreign},403],[denied,'?tenantId='+foreign,{},400],[denied,'?userId='+admin,{},400],[denied,'?offset=0',{},400],[denied,'?x=1&x=2',{},400],['bad%20id','',{},400]]){const before=await snapshot();assert.equal((await detail(id,ceoToken,suffix,headers)).status,status);assert.deepEqual(await snapshot(),before);}receipt.apiChecks.push('Foreign/missing target hidden; tenant/header/query/identifier injections rejected without mutations');
+           const beforeMethods=await snapshot();for(const method of ['POST','DELETE','PUT'])assert.equal((await detail(denied,ceoToken,'',{},method)).status,405);assert.deepEqual(await snapshot(),beforeMethods);receipt.apiChecks.push('Unsupported methods rejected and state preserved');
+           assert.equal((await detail(denied,null)).status,401);assert.equal((await detail(denied,'invalid-token')).status,401);const expired=await login('ceo@example.invalid');await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 minute' WHERE token_hash=$1",[digest(expired)]);const beforeExpired=await snapshot();assert.equal((await detail(denied,expired)).status,401);assert.deepEqual(await snapshot(),beforeExpired);receipt.apiChecks.push('Missing, invalid and expired credentials denied without account/audit changes');
+           sourceAllowed=false;const beforeRate=await snapshot();try{const r=await detail(denied);assert.equal(r.status,429);assert.equal(r.headers.get('retry-after'),'60');assert.deepEqual(await snapshot(),beforeRate);}finally{sourceAllowed=true;}await check(denied,true);receipt.apiChecks.push('Controlled source limiter denies with 429 and clean retry reads authoritative state');
+           const original=(await db.query('SELECT updated_at FROM users WHERE id=$1',[denied])).rows[0].updated_at;await db.query("UPDATE users SET updated_at='infinity' WHERE id=$1",[denied]);try{const before=await snapshot(),r=await detail(denied);assert.equal(r.status,503);assert.equal(r.headers.get('cache-control'),'no-store');assert.deepEqual(await snapshot(),before);}finally{await db.query('UPDATE users SET updated_at=$2 WHERE id=$1',[denied,original]);}await check(denied,true);receipt.apiChecks.push('Invalid persisted timestamp fails closed, read transaction leaves data intact, and valid retry succeeds');
+           const beforeConcurrent=await snapshot(),parallel=await Promise.all(Array.from({length:8},()=>detail(denied)));const values=await Promise.all(parallel.map(async r=>{assert.equal(r.status,200);return r.json();}));for(const value of values)assert.deepEqual(value,values[0]);assert.deepEqual(await snapshot(),beforeConcurrent);await db.query("UPDATE users SET roles='rmt',status='inactive',updated_at=NOW() WHERE id=$1",[denied]);const fresh=await check(denied,true);assert.equal(fresh.user.roles,'rmt');assert.equal(fresh.user.status,'inactive');receipt.apiChecks.push('Eight concurrent reads are consistent and mutation-free; subsequent authoritative reread reflects external fixture update');
+           if(bridgeFailure)throw bridgeFailure;for(const[path,sha]of Object.entries(receipt.source_bindings))assert.equal(digest(await readFile(path)),sha);receipt.passed=true;
+          }catch(error){receipt.error=error.message;console.error(error);process.exitCode=1;}
+          finally{if(server)await new Promise(r=>server.close(r));await db.query('DROP SCHEMA '+schema+' CASCADE');await db.end();receipt.cleanup='Isolated synthetic schema dropped; production business accounts untouched';await writeFile(out+'/results.json',JSON.stringify(receipt,null,2));console.log('INSPECT_ACCOUNT_RESULT '+JSON.stringify(receipt));}
+          
+          NATIVE
+          node test-results/inspect-account/run.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: create-account-native-evidence
+          path: test-results
