@@ -22,6 +22,10 @@ jobs:
       REPORT_TEST_DATABASE_URL: postgresql://reports:integration-only@localhost:5432/reports
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: actions/setup-node@v5
         with:
           node-version: '24'
@@ -40,6 +44,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.41.5'

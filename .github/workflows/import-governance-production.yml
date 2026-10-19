@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: '24'
       - name: Restore and validate source checkpoint
-        run: python3 tools/workflow-verification/restore_checkpoint.py
+        run: GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 python3 tools/workflow-verification/restore_checkpoint.py
       - name: Install isolated import dependencies
         run: |
           mkdir -p /tmp/governance-import-runtime

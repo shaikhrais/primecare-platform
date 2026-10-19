@@ -15,6 +15,10 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
       - name: Verify generation safety
         run: python scripts/test_dashboard_generator.py
       - name: Reconcile CEO ownership and translations
