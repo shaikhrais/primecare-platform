@@ -20,9 +20,11 @@ class ReaderTests(unittest.TestCase):
  def test_catalog_and_readonly(self):
   self.assertEqual(self.db.execute('PRAGMA table_info(roles)').fetchone()[1],'id')
   self.assertEqual(self.db.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchone()[0],'roles')
-  for q in ["UPDATE roles SET role_code='bad'",'SELECT * FROM public.users','SELECT * FROM unregistered']:
+  for q in ["UPDATE roles SET role_code='bad'",'SELECT * FROM public.users','SELECT * FROM unregistered', 'SELECT * FROM unregistered WHERE EXISTS (WITH unregistered AS (SELECT id FROM roles) SELECT id FROM unregistered)']:
    with self.assertRaises(module.GovernanceReadError):self.db.execute(q)
   self.assertEqual(self.db.execute('SELECT count(*) FROM roles').fetchone()[0],2)
+ def test_scoped_ctes(self):
+  self.assertEqual(self.db.execute('WITH allowed AS (SELECT id FROM roles) SELECT COUNT(*) FROM allowed').fetchone()[0],2)
  def test_no_sqlite_substring_routing(self):
   self.assertEqual(self.db.execute("SELECT count(*) FROM roles WHERE 'sqlite_master'='sqlite_master'").fetchone()[0],2)
 if __name__=='__main__':unittest.main()

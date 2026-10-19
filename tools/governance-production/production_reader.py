@@ -3,6 +3,7 @@ import json, os, pathlib, sqlite3, subprocess
 import sqlglot
 from sqlglot import exp
 from sqlglot.tokens import TokenType
+from sqlglot.optimizer.scope import traverse_scope
 
 ROOT=pathlib.Path(__file__).resolve().parent
 class GovernanceReadError(RuntimeError): pass
@@ -86,9 +87,13 @@ class Connection:
             if not name or not name.startswith('govt_p'):raise GovernanceReadError('Only positional query parameters are supported')
             index=int(name[6:]);p.replace(exp.Parameter(this=exp.Literal.number(index+1)))
         if len(positions)!=len(parameters):raise GovernanceReadError('Query parameter count mismatch')
-        ctes={c.alias_or_name.lower() for c in tree.find_all(exp.CTE)}
-        for table in list(tree.find_all(exp.Table)):
-            if table.name.lower() in ctes:continue
+        # Resolve CTEs in their own scope. A nested CTE must never exempt an
+        # unrelated outer relation from the production manifest allowlist.
+        physical=[]
+        for scope in traverse_scope(tree):
+            for _,(_,source) in scope.selected_sources.items():
+                if isinstance(source,exp.Table):physical.append(source)
+        for table in physical:
             if table.db or table.catalog:raise GovernanceReadError('Cross-schema governance query refused')
             table.replace(self._relation(table.name,table.alias_or_name))
         for a in tree.find_all(exp.Alias):
