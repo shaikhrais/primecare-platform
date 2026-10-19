@@ -46,6 +46,13 @@ jobs:
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         run: python tools/governance-production/verify-production-reader.py > /tmp/govt-reader-receipt.json
+      - name: Exercise migrated diagnostics against production
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python scripts/db_table_counts.py > /dev/null
+          python scripts/inspect_architecture_counts.py > /dev/null
+          python scripts/inspect_tables_content.py > /dev/null
       - uses: actions/upload-artifact@v4
         with:
           name: govt-reader-production-receipt
