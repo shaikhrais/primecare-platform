@@ -1,0 +1,60 @@
+name: Inspect own-session workflow requirements
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/inspect-own-sessions.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/govt-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Read pinned production definition and linked records
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY'
+          import sys,json,sqlite3,pathlib
+          sys.path.insert(0,'tools/governance-production')
+          from production_reader import connect
+          flow='auth.inspect-own-sessions'
+          with connect() as db:
+              db.row_factory=sqlite3.Row
+              queries={
+                'definition':('SELECT * FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)),
+                'steps':('SELECT * FROM virtual_workflow_steps WHERE flow_id=?',(flow,)),
+                'links':('SELECT * FROM virtual_workflow_source_links WHERE flow_id=?',(flow,)),
+                'checkpoint':('SELECT * FROM virtual_workflow_checkpoints WHERE flow_id=?',(flow,)),
+                'apis':("SELECT id,endpoint_code,http_method,route_path,auth_required,permission_key,service_name,request_schema,response_schema FROM api_endpoints WHERE route_path LIKE ?",('%session%',)),
+                'guides':('SELECT outline_id,title,role_id,app_id,definition_status FROM virtual_role_flow_guides WHERE guide_json LIKE ?',('%auth.inspect-own-sessions%',)),
+                'snapshots':('SELECT name,updated_at FROM virtual_flow_catalog_snapshots',()),
+                'counts':("SELECT verification_status,COUNT(*) AS count FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY verification_status",())
+              }
+              result={}
+              for label,(sql,params) in queries.items():
+                  result[label]=[dict(r) for r in db.execute(sql,params)]
+                  print('OWN_SESSION_GOVERNANCE '+json.dumps({'section':label,'rows':result[label]},default=str))
+              schema={}
+              for name, in db.metadata.execute("SELECT name FROM sqlite_master WHERE type='table' AND (name LIKE '%screen%' OR name LIKE '%permission%') ORDER BY name"):
+                  schema[name]=[r[1] for r in db.metadata.execute('PRAGMA table_info('+name+')')]
+              result['related_schema']=schema
+              print('OWN_SESSION_SCHEMA '+json.dumps(schema))
+          path=pathlib.Path('test-results/own-sessions');path.mkdir(parents=True,exist_ok=True);(path/'governance.json').write_text(json.dumps(result,indent=2,default=str))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: own-session-live-requirements
+          path: test-results/own-sessions
