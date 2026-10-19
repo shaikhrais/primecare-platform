@@ -1,0 +1,85 @@
+name: Record CEO bootstrap baseline
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/record-ceo-baseline.yml]
+permissions:
+  contents: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    outputs:
+      evidence_url: ${{ steps.evidence.outputs.artifact-url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix /tmp/ceo-tools --ignore-scripts --no-audit --no-fund pg@8.11.3 bcryptjs@3 @electric-sql/pglite@0.3.14
+          ln -s /tmp/ceo-tools/node_modules node_modules
+      - run: |
+          mkdir -p test-results/ceo-bootstrap
+          node --input-type=module <<'JS'
+          import {PGlite} from '@electric-sql/pglite';
+          import {readFile,writeFile} from 'node:fs/promises';
+          import {createHash} from 'node:crypto';
+          import assert from 'node:assert/strict';
+          import {pathToFileURL} from 'node:url';
+          const source='scripts/bootstrap-first-ceo.mjs',original=await readFile(source,'utf8');
+          let loaderError;try{await import('./'+source);}catch(e){loaderError=e.message;}
+          assert.match(loaderError,/does not provide an export named 'Client'/);
+          const copy='test-results/ceo-bootstrap/compatible-copy.mjs';await writeFile(copy,original.replace("import { Client } from 'pg';","import pg from 'pg';const {Client}=pg;"));
+          const {bootstrap}=await import(pathToFileURL(process.cwd()+'/'+copy));
+          const d=new PGlite(),db={query:async(s,p)=>p?.length?d.query(s,p):(await d.exec(s)).at(-1)};let actual;
+          try{
+            await db.query("CREATE TABLE tenants(id uuid PRIMARY KEY,status text);CREATE TABLE users(id uuid PRIMARY KEY,email text,tenant_id uuid,roles text,password_hash text,status text,updated_at timestamptz);CREATE TABLE auth_bootstrap_audit(user_id uuid,tenant_id uuid,source text);CREATE FUNCTION suppress_audit() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN NULL; END $$;CREATE TRIGGER suppress_audit BEFORE INSERT ON auth_bootstrap_audit FOR EACH ROW EXECUTE FUNCTION suppress_audit()");
+            const tenant=crypto.randomUUID();await db.query("INSERT INTO tenants VALUES($1,'active')",[tenant]);const result=await bootstrap(db,{email:'synthetic@example.invalid',tenant,password:'Synthetic-Only-CEO-2026!'});
+            actual={result,users:(await db.query('SELECT COUNT(*)::int AS n FROM users')).rows[0].n,audits:(await db.query('SELECT COUNT(*)::int AS n FROM auth_bootstrap_audit')).rows[0].n};assert.deepEqual(actual,{result:{created:true},users:1,audits:0});
+          }finally{await d.close();}
+          const bindings={};for(const p of [source,'scripts/bootstrap-validation.mjs'])bindings[p]=createHash('sha256').update(await readFile(p)).digest('hex');
+          await writeFile('test-results/ceo-bootstrap/baseline.json',JSON.stringify({workflow_id:'auth.bootstrap-first-ceo',source_bindings:bindings,loaderError,actual,adaptation:'Audit reproduction substitutes only default pg import to reach original provisioning logic.',scope:'isolated embedded PostgreSQL; no browser/native concurrency claim',cleanup:'Embedded fixture closed; no production business data.'},null,2));
+          JS
+      - uses: actions/upload-artifact@v4
+        id: evidence
+        with:
+          name: ceo-bootstrap-baseline
+          path: test-results/ceo-bootstrap/
+          if-no-files-found: error
+  record:
+    needs: reproduce
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: ceo-bootstrap-baseline
+          path: test-results/ceo-bootstrap
+      - run: pip install -r tools/governance-production/requirements.txt
+      - env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          EVIDENCE_URL: ${{ needs.reproduce.outputs.evidence_url }}
+        run: |
+          python - <<'PY'
+          import sys,json,hashlib,pathlib,os
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,export_progress
+          root=pathlib.Path.cwd();path='test-results/ceo-bootstrap/baseline.json';receipt=json.loads((root/path).read_text())
+          issues=[
+            dict(criterion_id='step:1',reproduction='Run the CEO bootstrap on Node 24 with pg@8.11.3 as an ES module.',expected='Protected setup module loads with the repository test dependency.',actual=receipt['loaderError'],affected_sources=['scripts/bootstrap-first-ceo.mjs']),
+            dict(criterion_id='step:1',reproduction='In isolated embedded PostgreSQL, add a BEFORE INSERT audit trigger returning NULL and run first-CEO bootstrap; only the pg import is adapted to reach original logic.',expected='Missing audit persistence fails and rolls back CEO creation.',actual=json.dumps(receipt['actual']),affected_sources=['scripts/bootstrap-first-ceo.mjs'])
+          ]
+          result=dict(status='blocked',test_status='failed',scope='scoped',source_bindings=receipt['source_bindings'],evidence=[dict(path=path,sha256=hashlib.sha256((root/path).read_bytes()).hexdigest(),kind='database',url=os.environ['EVIDENCE_URL'])],issues=issues,blockers=['Live specification leaves deployment operator identity and approved protected inputs/review unresolved.'],next_action='Repair compatible pg import and require matching persisted user/audit rows; rerun isolated native regression checks and resolve recorded failures. No production bootstrap is authorized by this test. Main '+os.environ['GITHUB_SHA']+'; no work branch yet; evidence '+os.environ['EVIDENCE_URL']+'; synthetic fixture closed.')
+          with ProductionWorkflowStore() as db:
+              expected='b7ef9afc1a5599f2887e4d42fc2cdf2727b461e9e091e872aafc972dab4e2c90'
+              if db.execute('SELECT definition_sha256 FROM virtual_workflow_definitions WHERE flow_id=?',('auth.bootstrap-first-ceo',)).fetchone()[0]!=expected:raise ValueError('Definition changed')
+              output=record_attempt(db,'auth.bootstrap-first-ceo',result,root);export_progress(db,root)
+              output['issue_ids']=[r[0] for r in db.execute('SELECT issue_id FROM virtual_workflow_issues WHERE attempt_id=? ORDER BY issue_id',(output['attempt_id'],))]
+          print('CEO_BASELINE_COMMITTED '+json.dumps(output))
+          PY
