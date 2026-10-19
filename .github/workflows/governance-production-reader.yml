@@ -1,0 +1,52 @@
+name: Verify pinned production governance reader
+on:
+  workflow_dispatch:
+  push:
+    branches: [work/governance-production-cutover-20261019]
+    paths: [tools/governance-production/**, .github/workflows/governance-production-reader.yml]
+  pull_request:
+    paths: [tools/governance-production/**, .github/workflows/governance-production-reader.yml]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3 @electric-sql/pglite@0.3.14
+          ln -s /tmp/govt-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - run: python tools/governance-production/test-production-reader.py
+  production:
+    if: github.event_name != 'pull_request'
+    needs: test
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/govt-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Read pinned govt tables
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/governance-production/verify-production-reader.py > /tmp/govt-reader-receipt.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: govt-reader-production-receipt
+          path: /tmp/govt-reader-receipt.json
