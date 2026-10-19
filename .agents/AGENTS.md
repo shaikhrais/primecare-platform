@@ -1,3 +1,16 @@
+# Mandatory branch lifecycle policy
+
+This user-directed policy applies to every agent and every task in this repository.
+
+- Allow at most one active work branch in addition to `main`. Before creating a branch, inspect existing remote branches and open pull requests. Finish the existing work branch first.
+- Do not create multiple branches, parallel task branches, stacked pull requests, or extra checkpoint, deployment, or recovery branches.
+- The agent that opens a branch owns its entire lifecycle: implement the task, run the appropriate validation and required CI, merge into `main`, verify the changes are included, close the associated pull request, and delete the merged remote and local work branch.
+- Do not open another branch until that lifecycle is complete. Reuse the existing branch while resolving fixes, review feedback, or CI failures.
+- A task is not complete while its work branch or pull request remains open. Report the merge commit, validation results, and verified final branch and pull request counts.
+- If blocked, preserve the work on the same branch and document the exact blocker. Do not abandon it, create another branch, delete unmerged work, bypass required checks, or use archive tags to hide unfinished work.
+- The normal idle state is `main` only, with no open work pull requests. Existing historical recovery tags remain preserved.
+- Change this policy only when the user explicitly instructs it.
+
 # Production governance authority and cutover
 
 The user-authorized production governance authority is pinned by `tools/governance-production/production-pin.json`: PostgreSQL schema `governance_68b0b02dd1215f58630d2c1a`, tables prefixed `govt_`, source metadata `govt_source_manifest`. Use the shared production connection for migrated consumers. Missing credentials or a manifest mismatch must fail; never silently fall back to SQLite.
