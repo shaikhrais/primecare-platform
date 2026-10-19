@@ -44,7 +44,7 @@ export async function renderGrowth(root:HTMLElement,gateway:string){
   bindOperations(root,data,client,mutate);
   bindShell(root,registry.locales[locale].title,locale,t(data.scopeKey??'scope'),()=>[],data.identity.role+':'+data.identity.userId,registry.visual.theme);
   root.querySelector<HTMLSelectElement>('[data-cy="growth-language"]')!.onchange=e=>{const values=drafts();locale=(e.target as HTMLSelectElement).value as 'en'|'fr'|'es';draw();restore(values);};
-  root.querySelector('[data-cy="growth-refresh"]')!.addEventListener('click',()=>void load());
+  root.querySelector<HTMLButtonElement>('[data-cy="growth-refresh"]')!.onclick=()=>void load();
   root.querySelector('[data-cy="growth-prev"]')?.addEventListener('click',()=>{offset=Math.max(0,offset-100);void load();});root.querySelector('[data-cy="growth-next"]')?.addEventListener('click',()=>{offset+=100;void load();});
   if(!data.capabilities.edit)root.querySelectorAll<HTMLButtonElement>('[data-lead],[data-task],[data-campaign]').forEach(b=>b.disabled=true);
   const submit=(id:string,action:(v:Record<string,string>)=>Promise<any>)=>{const f=root.querySelector<HTMLFormElement>(`[data-cy="growth-${id}-form"]`);if(f)f.onsubmit=e=>{e.preventDefault();void mutate(()=>action(formValues(f)));};};
