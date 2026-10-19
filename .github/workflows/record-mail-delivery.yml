@@ -1,0 +1,83 @@
+name: Record real mail delivery and clean handoff
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/record-mail-delivery.yml]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39341316749
+          github-token: ${{ github.token }}
+          name: owned-email-roundtrip-evidence
+          path: test-results
+      - name: Save production evidence after main cleanup and checks
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python -u - <<'PY'
+          import sys,os,json,pathlib,hashlib,urllib.request,subprocess,time
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import summary
+          root=pathlib.Path.cwd()
+          def request(path):return json.load(urllib.request.urlopen(urllib.request.Request('https://api.github.com/repos/shaikhrais/primecare-platform/'+path,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})))
+          paths=['.github/workflows/inspect-existing-mail-worker.yml','.github/workflows/verify-existing-mail-roundtrip.yml','.github/workflows/record-mail-delivery.yml','.github/workflows/create-account-inspection.yml','.github/workflows/record-account-creation.yml','.github/workflows/forgot-password-recovery.yml','.github/workflows/record-auth-recovery.yml']
+          clean=None
+          for _ in range(30):
+              branches=request('branches?per_page=100');prs=request('pulls?state=open&per_page=100');main=next(b['commit']['sha'] for b in branches if b['name']=='main')
+              subprocess.run(['git','fetch','--no-tags','origin','main'],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              absent=all(subprocess.run(['git','cat-file','-e',main+':'+path],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode!=0 for path in paths)
+              checks=request('commits/'+main+'/check-runs?per_page=100')['check_runs']
+              if absent and len(branches)==1 and not prs and checks and all(c['status']=='completed' and c['conclusion'] in ['success','skipped','neutral'] for c in checks):
+                  clean=dict(main_sha=main,work_branch=None,work_branch_sha=None,pr=None,branch_count=1,open_prs=0,ci_state=[dict(name=c['name'],conclusion=c['conclusion']) for c in checks],merge_cleanup_state='No application change or work branch; all temporary mail and recovery operational workflows removed; main checks passed');break
+              time.sleep(15)
+          assert clean,'Completed attempts are saved; final main cleanup/checks still require handoff follow-up'
+          receipt_path=pathlib.Path('test-results/mail-roundtrip/results.json')
+          receipt=json.loads(receipt_path.read_text())
+          assert receipt['roundtrip_passed'] and receipt['received'] and receipt['whole_workflow_verified'] is False
+          assert receipt['cleanup']=='Only the exact nonce/hash-matched synthetic message removed; pre-existing inbox entries preserved'
+          evidence_url='https://github.com/shaikhrais/primecare-platform/actions/runs/39341316749/artifacts/12229480792'
+          mail_followup=dict(receipt=receipt,evidence_url=evidence_url,configuration_evidence='https://github.com/shaikhrais/primecare-platform/actions/runs/39341060600/artifacts/12229250869',scope='Real provider delivery to owned synthetic inbox; not deployed account-recovery acceptance',remaining_dependency='Governed recovery UI policy and formal API metadata remain unresolved; test deployed recovery only in an approved isolated tenant')
+          with ProductionWorkflowStore() as db:
+              current=db.execute('SELECT attempt_id FROM virtual_workflow_checkpoints WHERE flow_id=?',('auth.forgot-password',)).fetchone()
+              assert current and current[0]==329,'Newer recovery attempt exists; do not overwrite its checkpoint'
+              prior=db.execute('SELECT blocker_json FROM virtual_workflow_definitions WHERE flow_id=?',('auth.forgot-password',)).fetchone()
+              blockers=json.loads(prior[0])
+              blockers=[b for b in blockers if not b.startswith('Actual Cloudflare EMAIL binding,')]
+              blockers.append('Follow-up confirms deployed auth EMAIL binding and sender, existing receiving Worker and real synthetic mailbox roundtrip with exact cleanup. This standalone provider send did not invoke deployed account recovery or prove approved tenant sender configuration; governed policy/API registration and full acceptance/reviews remain pending.')
+              db.execute("UPDATE virtual_workflow_definitions SET verification_status=?, test_status=?,blocker_json=?,updated_at=CURRENT_TIMESTAMP WHERE flow_id=?",('blocked','scoped_pass',json.dumps(blockers),'auth.forgot-password'))
+              db.execute('INSERT INTO virtual_workflow_evidence(attempt_id,kind,path,sha256,url) VALUES(?,?,?,?,?)',(329,'mail_delivery_followup','mail-roundtrip/results.json',hashlib.sha256(receipt_path.read_bytes()).hexdigest(),evidence_url))
+          
+              attempted=[]
+              for flow in ['auth.create-tenant-account','auth.forgot-password']:
+                  row=db.execute('SELECT c.attempt_id,a.source_bindings_json,a.result_json,d.verification_status,d.test_status FROM virtual_workflow_checkpoints c JOIN virtual_workflow_attempts a ON a.attempt_id=c.attempt_id JOIN virtual_workflow_definitions d ON d.flow_id=c.flow_id WHERE c.flow_id=?',(flow,)).fetchone()
+                  assert row
+                  attempt,encoded,result,status,test=row;result=json.loads(result)
+                  for path,sha in json.loads(encoded).items():assert hashlib.sha256(subprocess.check_output(['git','show',main+':'+path])).hexdigest()==sha,'Source changed after acceptance: '+path
+                  attempted.append(dict(workflow_id=flow,attempt_id=attempt,verification_status=status,test_status=test,blockers=blockers if flow=='auth.forgot-password' else result['blockers'],evidence=result['evidence']))
+              counts=summary(db);test_counts=dict(db.execute("SELECT test_status,COUNT(*) FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY test_status"))
+              next_row=db.execute("SELECT flow_id,title FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND test_status='not_run' AND verification_status!='blocked' ORDER BY flow_id LIMIT 1").fetchone()
+              next_action='Inspect '+next_row[0]+': '+next_row[1]+' from live production definition, UI bindings, permissions and APIs before isolated credential/UI/API/database/reload acceptance.'
+              handoff=dict(clean,attempted=attempted,totals=counts,test_status_counts=test_counts,mail_followup=mail_followup,synthetic_data_cleanup='Both random native schemas dropped; no production business data/grants changed. One standalone real synthetic mail received and only its nonce/hash-matched KV record deleted; other messages preserved. Account recovery native cases used isolated mail fixtures',remaining_review_state='Full business acceptance and independent review gates outstanding; no verified promotion',next_action=next_action)
+              for item in attempted:
+                  current=dict(handoff,workflow_id=item['workflow_id'],attempt_id=item['attempt_id'])
+                  db.execute("INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action) VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,next_action=excluded.next_action,invalidation_json='[]',updated_at=CURRENT_TIMESTAMP",(item['workflow_id'],item['attempt_id'],json.dumps(current,sort_keys=True)))
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('recovery-handoff-current',json.dumps(handoff,sort_keys=True)))
+          print('MAIL_DELIVERY_HANDOFF_COMMITTED '+json.dumps(handoff))
+          
+          PY
