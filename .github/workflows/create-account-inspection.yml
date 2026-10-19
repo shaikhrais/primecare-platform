@@ -44,8 +44,11 @@ jobs:
               result['screen_links']=[dict(r) for r in db.execute('SELECT * FROM screen_api_links WHERE api_id IN ('+','.join('?' for _ in ids)+')',ids)] if ids else []
               result['policy_schema']=[dict(r) for r in db.execute('PRAGMA table_info(auth_account_creation_policy)')]
               result['creation_policy']=[dict(r) for r in db.execute('SELECT * FROM auth_account_creation_policy')]
-              result['roles']=[dict(r) for r in db.execute("SELECT * FROM roles WHERE role_code IN ('ceo','hr_director','platform_admin')")]
+              result['roles']=[dict(r) for r in db.execute("SELECT id,role_code,role_name,active,post_login_route FROM roles WHERE role_code IN ('ceo','hr_director','platform_admin')")]
               result['related_screens']=[dict(r) for r in db.execute("SELECT s.* FROM screens s JOIN roles r ON r.id=s.role_id WHERE r.role_code IN ('ceo','hr_director')")]
+              result['policy_roles']=[dict(r) for r in db.execute('SELECT p.*,a.role_code actor_role,t.role_code target_role FROM auth_account_creation_policy p JOIN roles a ON a.id=p.actor_role_id JOIN roles t ON t.id=p.target_role_id')]
+              result['ui_schema']={name:[dict(r) for r in db.execute('PRAGMA table_info('+name+')')] for name in ['screen_required_elements','screen_section_elements','screen_components','screen_component_map']}
+              result['creation_sections']=[dict(r) for r in db.execute("SELECT * FROM screen_sections WHERE lower(section_code) LIKE '%account%' OR lower(section_code) LIKE '%user%' OR lower(section_name) LIKE '%account%' OR lower(section_name) LIKE '%creation%'")]
               result['metadata_tables']=[dict(r) for r in db.execute("SELECT name FROM sqlite_master WHERE type='table' AND (name LIKE '%element%' OR name LIKE '%component%' OR name LIKE '%resource%')")]
               result['guides']=[dict(r) for r in db.execute("SELECT * FROM virtual_role_flow_guides WHERE guide_json LIKE '%/v1/auth/admin/users%' OR guide_json LIKE '%auth.create-tenant-account%'")]
               result['snapshot']=[dict(r) for r in db.execute("SELECT * FROM virtual_flow_catalog_snapshots WHERE name='recovery-handoff-current'")]
