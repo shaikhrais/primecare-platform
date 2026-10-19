@@ -1,0 +1,185 @@
+{
+  "passed": true,
+  "scope": "shared shell and care alert components only",
+  "wholeTaskVerified": false,
+  "cases": [
+    {
+      "locale": "en",
+      "width": 320,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": true,
+      "closeButton": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 768,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": true,
+      "closeButton": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 1024,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": true,
+      "closeButton": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 1025,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": null,
+      "closeButton": null,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 1440,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": null,
+      "closeButton": null,
+      "noOverflow": true
+    },
+    {
+      "locale": "fr",
+      "width": 320,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": true,
+      "closeButton": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "fr",
+      "width": 768,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": true,
+      "closeButton": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "fr",
+      "width": 1024,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": true,
+      "closeButton": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "fr",
+      "width": 1025,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": null,
+      "closeButton": null,
+      "noOverflow": true
+    },
+    {
+      "locale": "fr",
+      "width": 1440,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": null,
+      "closeButton": null,
+      "noOverflow": true
+    },
+    {
+      "locale": "es",
+      "width": 320,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": true,
+      "closeButton": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "es",
+      "width": 768,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": true,
+      "closeButton": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "es",
+      "width": 1024,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": true,
+      "closeButton": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "es",
+      "width": 1025,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": null,
+      "closeButton": null,
+      "noOverflow": true
+    },
+    {
+      "locale": "es",
+      "width": 1440,
+      "threeAlertKindsVisible": true,
+      "chromeHideRestore": true,
+      "sidebarResponsive": true,
+      "keyboardEscape": null,
+      "closeButton": null,
+      "noOverflow": true
+    }
+  ],
+  "sources": {
+    "packages/shared/src/media/registry.json": "38f4121951c37a696b8805dbcf524d7cdc7a50f5ec2b4d8fb823762b4d2d092c",
+    "scripts/fuse_presets.json": "3e42e90cefa8fd0371b67939b4cd20d1d24bd7293cf2df286968eebf7614a4dc",
+    "packages/domain/src/theme_center.ts": "f1f98cba34e35de3a762598609f2277919e88ee6972701af9d440e7760d1953a",
+    "websites/typescript/src/theme-library.ts": "08f124738bd65adb79caf53ff06e3307f68ce466693626c6c4cc9fe1ab032a01",
+    "websites/typescript/src/theme-center.ts": "f980c8c35eab0e5fa77f0b0e3a412800075bf0a992bdfe0662258129dff6a309",
+    "packages/domain/src/layout_profile.ts": "7cb22e43797f0687d1d371649bfe9aa7e57de61f4134efb7541becb39c69f3ad",
+    "websites/typescript/src/theme-manager.ts": "185bf28a83be43171485afb7d2aee833e01a80986f3a74ab61ea862e17e4228e",
+    "websites/typescript/src/layout-manager.ts": "da62f32bfa860c7d44f32b3b8f48816b49a810b5424013a44aa8379638cd51cb",
+    "websites/typescript/src/layout-customizer.ts": "040609e2da5aab61ceb29ee48d98971b312d0593962d390f73506059f1fe6222",
+    "websites/typescript/src/media-look.ts": "268b2ff9c29d1d6aaa52b02f59bce587beae883885809005460340ed8b9ccf32",
+    "websites/typescript/src/sidebar.ts": "8622ea72589f35e9c59e0978035011373cb4595a431b8ab650db4a81c283804f",
+    "websites/typescript/src/navigation.ts": "c6188f448eba5b0d9a1aa666c0d194791912c28a14007c3a92c4b9b72433eddd",
+    "websites/typescript/src/shell.ts": "759c6f2a2e7237b619a3847641157c8376b96812b03b540f591fbeb72ac67317",
+    "packages/shared/src/care/registry.json": "78eeeb04ecab8f45a534a0ba51715d2860bbe18017c9f24f697d6f02478c9bb8",
+    "packages/shared/src/growth/registry.json": "2d6801ccb409aff610d2fc1c640309bc387e996b0ca1cc3033a39fb9343cb201",
+    "packages/shared/src/growth/contract.ts": "38b3ce5094ddf87d3c62b936470e0b5231c75ecaadb7b549c47805384ada39ca",
+    "packages/shared/src/care/contract.ts": "01947c5b887ccd41b16fb322b549f288ce6f8434ee196fa5d78466eedd4ee177",
+    "websites/typescript/src/growth/forms.ts": "1ae4859b54bb88dd6e5bdabc04fa7f97dbf21e26c084bd3b78201497f3548808",
+    "websites/typescript/src/care/views.ts": "954a878d793ecf19f1d64d82c331f560970e7b967692665db2ec574c701891b3",
+    "scripts/test-sidebar-content-browser.mjs": "43dd80e28b0064df278aa15059730faa477befc7755260d26d8ef72b2e3e3a9f",
+    "scripts/care-browser-launch.mjs": "b80c2574343bf040f1540cb1be0c408b07d4ac8053eed3cf4762393bc6610c4c",
+    "websites/typescript/src/styles.css": "f56b97a5e34d77ed3b373997a0cdb410c6095821721936c4ac042b64b69b1c2e"
+  },
+  "limitations": [
+    "Synthetic component data; no role login or API/database workflow verification",
+    "No full accessibility or PWA acceptance claimed"
+  ]
+}

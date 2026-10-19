@@ -86,7 +86,7 @@ a { color: inherit; }
 button, input, select { font: inherit; }
 button { border: 0; border-radius: var(--radius-md); background: var(--color-primary); color: var(--color-on-primary,var(--color-surface)); padding: var(--spacing-sm) var(--spacing-md); cursor: pointer; }
 .app-shell { min-height: 100vh; display: grid; grid-template-columns: 18rem 1fr; }
-aside { background: var(--color-sidebar,var(--color-primary)); color: var(--color-sidebar-text,var(--color-on-primary,var(--color-surface))); padding: var(--spacing-lg); box-shadow: var(--shadow-sidebar); overflow-y:auto; }
+.app-shell > aside { background: var(--color-sidebar,var(--color-primary)); color: var(--color-sidebar-text,var(--color-on-primary,var(--color-surface))); padding: var(--spacing-lg); box-shadow: var(--shadow-sidebar); overflow-y:auto; }
 @media (min-width:1025px) { .app-shell > aside { position:sticky; top:0; height:100dvh; align-self:start; } }
 .brand { display: block; font-size: var(--font-size-heading); font-weight: var(--font-weight-bold); text-decoration: none; }
 .role-label { display: grid; gap: var(--spacing-xs); margin: var(--spacing-lg) 0; }
@@ -122,7 +122,7 @@ h1 { font-size: var(--font-size-heading); }
 .auth-recovery-shell{padding:var(--spacing-lg)}.auth-recovery-shell .auth-card{width:100%;max-width:var(--media-form-width)}.auth-recovery-shell p{line-height:1.6;margin-bottom:0}.auth-recovery-shell output{overflow-wrap:anywhere}
 .status { min-height: var(--spacing-lg); color: var(--color-secondary); }
 .fatal { max-width: 50rem; margin: var(--spacing-xl) auto; }
-@media (max-width: 1024px) { .app-shell { grid-template-columns: 1fr; } aside { display: none; position: fixed; inset: 0 auto 0 0; width: min(18rem,100vw); z-index: max(20,var(--z-sidebar,20)); } aside.open { display: block; } .menu, .sidebar-close { display: block; } .sidebar-close { margin-bottom:var(--spacing-md); } main { padding: var(--spacing-lg); } }
+@media (max-width: 1024px) { .app-shell { grid-template-columns: 1fr; } .app-shell > aside { display: none; position: fixed; inset: 0 auto 0 0; width: min(18rem,100vw); z-index: max(20,var(--z-sidebar,20)); } .app-shell > aside.open { display: block; } .menu, .sidebar-close { display: block; } .sidebar-close { margin-bottom:var(--spacing-md); } main { padding: var(--spacing-lg); } }
 
 .maintenance{max-width:960px;margin:24px auto;padding:16px}.maintenance label{display:block;margin:16px 0}.maintenance input,.maintenance textarea{display:block;width:100%;box-sizing:border-box;padding:12px;margin-top:var(--spacing-xs)}.maintenance details{margin:16px 0}.maintenance button{margin:8px;padding:12px}.maintenance output{display:block;position:sticky;top:0;background:#fff;padding:12px;color:#173548}
 
@@ -278,3 +278,7 @@ aside nav a[aria-current="page"], aside nav a:hover, aside nav a:focus-visible {
 .growth-shell .table-scroll [data-cy=growth-marketing-statement-table]{min-width:0;table-layout:fixed;overflow-wrap:anywhere}
 .growth-shell .table-scroll [data-cy=growth-marketing-statement-table] th,.growth-shell .table-scroll [data-cy=growth-marketing-statement-table] td{min-width:0;overflow-wrap:anywhere;vertical-align:top;padding:var(--spacing-xs)}
 .growth-shell .table-scroll [data-cy=growth-marketing-statement-table] th:first-child{width:60%}
+
+/* Content-only states retain the shared layout while suppressing its chrome. */
+.app-shell.shell-content-only { grid-template-columns:minmax(0,1fr); }
+.app-shell > aside[hidden], .workspace > header[hidden] { display:none !important; }

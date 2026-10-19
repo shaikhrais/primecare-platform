@@ -1,0 +1,19 @@
+{
+  "scope": "Newly mapped business processes only; discovery across role outlines is incomplete",
+  "summary": {
+    "total": 1,
+    "missing": 0,
+    "implemented_unverified": 1,
+    "verified": 0,
+    "blocked": 0
+  },
+  "processes": [
+    {
+      "workflow_id": "care.psw.submit-availability",
+      "name": "PSW submits and confirms their own availability",
+      "verification_status": "implemented-unverified",
+      "verification_reason": "Existing implementation mapped; real credential login, browser/database correlation, video and required reviews remain unverified.",
+      "specification_sha256": "1aaf9a68b81d9253c5a78ba4cade703fd16266166c037d1846f21789b56c1cb1"
+    }
+  ]
+}

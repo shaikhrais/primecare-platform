@@ -34,7 +34,7 @@ const server=createServer(async(req,res)=>{
    if(path.endsWith('/email')){assert.equal(body.confirmed,true);assert.equal(body.to,'recipient@example.test');assert.ok(/^[A-Za-z0-9_-]{16,100}$/.test(req.headers['idempotency-key']));emailKeys.push(req.headers['idempotency-key']);return send(emailOutcome==='accepted'?202:503,{state:emailOutcome});}
    return send(200,report);
   }
-  if(path.endsWith('/auth/me'))return send(200,{roles:'admin',email:'admin@example.test'});
+  if(path.endsWith('/auth/me'))return send(200,{userId:'synthetic-admin',roles:'admin',status:'authenticated'});
   if(path.endsWith('/governance/workspace'))return send(200,fixture);
   if(path.endsWith('/user/change-password')){if(body.currentPassword!==password)return send(400,{error:'Current password is incorrect'});assert.ok(body.newPassword.length>=12);password=body.newPassword;logged=false;return send(200,{message:'Changed test password'});}
   if(path.endsWith('/auth/logout')){logged=false;return send(200,{message:'Signed out'});}

@@ -44,7 +44,7 @@ export async function renderGrowth(root:HTMLElement,gateway:string){
   bindOperations(root,data,client,mutate);
   bindShell(root,registry.locales[locale].title,locale,t(data.scopeKey??'scope'),()=>[],data.identity.role+':'+data.identity.userId,registry.visual.theme);
   root.querySelector<HTMLSelectElement>('[data-cy="growth-language"]')!.onchange=e=>{const values=drafts();locale=(e.target as HTMLSelectElement).value as 'en'|'fr'|'es';draw();restore(values);};
-  root.querySelector('[data-cy="growth-refresh"]')!.addEventListener('click',()=>void load());
+  root.querySelector<HTMLButtonElement>('[data-cy="growth-refresh"]')!.onclick=()=>void load();
   root.querySelector('[data-cy="growth-prev"]')?.addEventListener('click',()=>{offset=Math.max(0,offset-100);void load();});root.querySelector('[data-cy="growth-next"]')?.addEventListener('click',()=>{offset+=100;void load();});
   if(!data.capabilities.edit)root.querySelectorAll<HTMLButtonElement>('[data-lead],[data-task],[data-campaign]').forEach(b=>b.disabled=true);
   const submit=(id:string,action:(v:Record<string,string>)=>Promise<any>)=>{const f=root.querySelector<HTMLFormElement>(`[data-cy="growth-${id}-form"]`);if(f)f.onsubmit=e=>{e.preventDefault();void mutate(()=>action(formValues(f)));};};
@@ -64,6 +64,9 @@ export async function renderGrowth(root:HTMLElement,gateway:string){
  const errorKey=(e:unknown)=>'error_'+(e as Error).message in registry.locales.en?'error_'+(e as Error).message:'error';
  const error=(e:unknown)=>t(errorKey(e));
  async function mutate(action:()=>Promise<any>){if(busy)return;const values=drafts();busy=true;const buttons=[...root.querySelectorAll<HTMLButtonElement>('button')].map(b=>({button:b,disabled:b.disabled}));buttons.forEach(({button})=>button.disabled=true);try{await action();notice='saved';await load();}catch(e){if((e as Error).message==='account_changed'){root.replaceChildren();location.assign('/growth?enable-semantics=true');return;}notice=errorKey(e);draw();restore(values);}finally{busy=false;buttons.forEach(({button,disabled})=>{if(button.isConnected)button.disabled=disabled;});}}
- async function load(){try{const next=await client.list(offset,filters);if(!next.identity||!next.funnels||!Array.isArray(next.leads)||!next.plan)throw Error('unavailable');data=next;draw();}catch(e){if(data&&(e as Error).message==='invalid_request'){notice=errorKey(e);filters=data.filters??{};draw();return;}root.innerHTML=`<main role="alert" data-cy="growth-error"><h1>${t('title')}</h1><p>${error(e)}</p><button data-cy="growth-retry">${t('refresh')}</button><a href="/dashboard?enable-semantics=true">${t('back')}</a></main>`;root.querySelector('button')!.onclick=()=>void load();}}
- root.innerHTML=`<main aria-busy="true" data-cy="growth-loading">${t('loading')}</main>`;await load();
+ async function load(){try{const next=await client.list(offset,filters);if(!next.identity||!next.funnels||!Array.isArray(next.leads)||!next.plan)throw Error('unavailable');data=next;draw();}catch(e){if(data&&(e as Error).message==='invalid_request'){notice=errorKey(e);filters=data.filters??{};draw();return;}renderState(false,`<section role="alert" data-cy="growth-error"><h1>${t('title')}</h1><p>${error(e)}</p><button data-cy="growth-retry">${t('refresh')}</button><a data-cy="growth-back" href="/dashboard?enable-semantics=true">${t('back')}</a></section>`);root.querySelector<HTMLButtonElement>('[data-cy="growth-retry"]')!.onclick=()=>void load();}}
+ function renderState(loading:boolean,content:string){
+  renderShell(root,{home:'/dashboard?enable-semantics=true',role:'',navigation:'',controls:'',hideChrome:true,mainAttributes:`data-cy="screen-founder-growth-dashboard" aria-busy="${loading}"`,content});
+ }
+ renderState(true,`<div role="status" data-cy="growth-loading">${t('loading')}</div>`);await load();
 }

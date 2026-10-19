@@ -7,6 +7,9 @@ on:
       - 'cloudflare/workers/src/workspace-registry.json'
       - 'websites/typescript/src/care/**'
       - 'websites/typescript/src/main.ts'
+      - 'websites/typescript/src/auth-screen.ts'
+      - 'websites/typescript/src/auth-client.ts'
+      - 'cloudflare/workers/src/auth*.ts'
       - 'websites/typescript/src/workspace.ts'
       - 'websites/typescript/src/shell.ts'
       - 'websites/typescript/src/styles.css'
@@ -22,7 +25,10 @@ on:
       - 'packages/database/migrations/20261023_care_task_workload.sql'
       - 'packages/database/migrations/20261024_care_task_dependencies.sql'
       - 'docs/care/**'
+      - 'docs/task-progress/**'
+      - 'tools/workflow-verification/**'
       - 'scripts/*care*'
+      - 'scripts/test-sidebar-content-browser.mjs'
       - '.github/workflows/care-delivery.yml'
   workflow_dispatch:
 permissions:
@@ -52,9 +58,11 @@ jobs:
           python-version: '3.12'
       - name: Install isolated test tools
         run: |
-          npm install --prefix "$RUNNER_TEMP/care-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 @cloudflare/workers-types@4.20260403.1 pg@8.11.3 bcryptjs@3 axe-core@4.10.3
+          npm install --prefix "$RUNNER_TEMP/care-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 @cloudflare/workers-types@4.20260403.1 pg@8.11.3 @electric-sql/pglite@0.3.14 bcryptjs@3 axe-core@4.10.3
           ln -s "$RUNNER_TEMP/care-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
+      - name: Restore the verified governance checkpoint
+        run: python3 tools/workflow-verification/restore_checkpoint.py
       - name: Reproduce care governance
         run: |
           python3 scripts/register-care-governance.py
@@ -64,6 +72,24 @@ jobs:
         run: |
           node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --types @cloudflare/workers-types cloudflare/workers/src/service.ts
           node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --lib ES2022,DOM,DOM.Iterable websites/typescript/src/main.ts
+      - name: Check care alerts and shared sidebar at responsive breakpoints
+        run: node scripts/test-sidebar-content-browser.mjs
+      - name: Check care initial loading and retry states
+        run: node scripts/test-care-loading-browser.mjs
+      - name: Check real credential login and availability roundtrip
+        run: |
+          python3 scripts/register-auth-login-layout.py --check
+          node scripts/test-care-availability-workflow.mjs
+      - name: Check progress status rules
+        run: |
+          python3 tools/workflow-verification/test_progress_ledger.py
+          python3 tools/workflow-verification/test_registered_workflow_status.py
+          python3 tools/workflow-verification/test_business_workflow_specs.py
+          python3 tools/workflow-verification/test_execution.py
+          python3 tools/workflow-verification/test_restore_checkpoint.py
+          python3 scripts/test-reconcile-registered-workflow-bindings.py
+      - name: Record closed-appointment and evidence-gate unit checks
+        run: python3 tools/workflow-verification/progress.py --run-small-checks --refresh-browser-evidence
       - name: Check read-only migration identity preflight
         run: node --test scripts/test-care-migration-target.mjs
       - name: Check care scope, state, concurrency, rollback and browser workflows
@@ -74,4 +100,6 @@ jobs:
           name: synthetic-care-browser-evidence
           path: |
             test-results/care/
+            test-results/progress/
+            docs/task-progress/recovery-progress.json
             test-results/accessibility/care-*.json

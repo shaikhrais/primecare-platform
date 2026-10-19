@@ -1,0 +1,101 @@
+[
+  {
+    "issue_id": "growth-shared-loading-error-layout",
+    "title": "Growth loading and failed-load views bypass the shared layout",
+    "kind": "implementation_defect",
+    "description": "Successful Growth page uses renderShell, but initial loading and catch/error replace root with an independent main. Retry exists on catch, but current loading/error layout is not the required shared sidebar/topbar/content shell and no explicit offline state is rendered. This is a static code finding, not a tested reproduction.",
+    "affected_workflow_ids": [
+      "growth.review-work-queue",
+      "growth.save-plan",
+      "growth.create-tenant-lead",
+      "growth.progress-tenant-lead",
+      "growth.create-client-lead",
+      "growth.progress-client-lead",
+      "growth.assign-lead-followup",
+      "growth.close-lead",
+      "growth.correct-contact",
+      "growth.duplicate-distinct_person",
+      "growth.duplicate-duplicate_confirmed",
+      "growth.create-campaign",
+      "growth.change-campaign-money",
+      "growth.save-campaign-brief",
+      "growth.review-submit",
+      "growth.review-withdraw",
+      "growth.review-approve",
+      "growth.review-request_changes",
+      "growth.review-reject",
+      "growth.attest-campaign-capacity",
+      "growth.assign-team-specialty",
+      "growth.record-call-no_answer",
+      "growth.record-call-contacted",
+      "growth.record-call-qualified",
+      "growth.record-call-callback_requested",
+      "growth.record-call-wrong_number",
+      "growth.record-call-do_not_contact",
+      "growth.schedule-sales-appointment",
+      "growth.appointment-completed",
+      "growth.appointment-cancelled",
+      "growth.appointment-no_show",
+      "growth.create-corrective-task",
+      "growth.complete-corrective-task",
+      "growth.task-reassign",
+      "growth.task-reschedule",
+      "growth.task-priority",
+      "growth.task-resolve_escalation",
+      "growth.task-escalate",
+      "growth.create-intake-direct",
+      "growth.create-intake-territory",
+      "growth.toggle-intake-link",
+      "growth.record-invoice",
+      "growth.record-payment",
+      "growth.record-refund",
+      "growth.record-expense",
+      "growth.verify-partner",
+      "growth.revoke-partner-verification",
+      "growth.link-client-care-visit",
+      "growth.performance",
+      "growth.performance-pdf",
+      "growth.email-performance",
+      "growth.reconcile-performance-email-accepted",
+      "growth.reconcile-performance-email-not_sent",
+      "growth.marketing-statement",
+      "growth.marketing-statement-pdf"
+    ],
+    "anchors": [
+      {
+        "path": "websites/typescript/src/growth/dashboard.ts",
+        "text": "root.innerHTML=`<main aria-busy=\"true\" data-cy=\"growth-loading\">${t('loading')}</main>`;await load();"
+      },
+      {
+        "path": "websites/typescript/src/growth/dashboard.ts",
+        "text": "root.innerHTML=`<main role=\"alert\" data-cy=\"growth-error\">"
+      },
+      {
+        "path": "websites/typescript/src/growth/dashboard.ts",
+        "text": "renderShell(root,{home:'/dashboard?enable-semantics=true'"
+      }
+    ],
+    "next_action": "Render initial loading and error/offline/retry states through the shared shell, retaining current governed labels and retry behavior. Then verify an isolated connection outage/recovery and source-bind evidence."
+  },
+  {
+    "issue_id": "growth.public-enquiry.shared-shell-recovery",
+    "title": "Public enquiry bypasses shared layout and initial recovery states",
+    "kind": "implementation_defect",
+    "description": "Both public enquiry core submission outcomes have UI/API/database implementation. Their renderer directly writes auth-shell markup to the root, and the initial configuration failure displays unavailable then returns without retry. Shared-layout/loading/offline/retry acceptance remains incomplete.",
+    "affected_workflow_ids": [
+      "growth.submit-enquiry-direct",
+      "growth.submit-enquiry-territory"
+    ],
+    "anchors": [
+      {
+        "path": "websites/typescript/src/growth/enquiry.ts",
+        "text": "root.innerHTML=`<main class=\"auth-shell\""
+      },
+      {
+        "path": "websites/typescript/src/growth/enquiry.ts",
+        "text": "config=await client.request()"
+      }
+    ],
+    "next_action": "Render public enquiry through the existing shared shell with hidden chrome; implement initial loading/configuration failure/offline/retry while preserving anonymous consent and submission behavior. Verify both direct and territory variants in isolated browser/API/database tests."
+  }
+]
