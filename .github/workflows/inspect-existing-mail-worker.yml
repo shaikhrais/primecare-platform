@@ -65,7 +65,7 @@ jobs:
               try:
                   with urllib.request.urlopen(req,timeout=25) as response:source=response.read(1024*1024).decode('utf8','replace')
                   import hashlib,re
-                  report['inbox_source_review']={'sha256':hashlib.sha256(source.encode()).hexdigest(),'kv_put_key_expressions':re.findall(r'\\.INBOX\\.put\\(([^,]+)',source),'key_assignments':re.findall(r'(?:const|let) key\\s*=\\s*([^;\\n]+)',source),'email_handler_present':bool(re.search(r'email\\s*\\(',source))}
+                  report['inbox_source_review']={'sha256':hashlib.sha256(source.encode()).hexdigest(),'kv_put_key_expressions':[part.split(',',1)[0] for part in source.split('.INBOX.put(')[1:]],'key_assignments':[part.split(';',1)[0].splitlines()[0] for part in source.split('const key')[1:]],'email_handler_present':('email(' in source or 'email (' in source)}
               except urllib.error.HTTPError as error:report['inbox_source_review']={'http':error.code}
           path=pathlib.Path('test-results/existing-mail');path.mkdir(parents=True,exist_ok=True);(path/'configuration.json').write_text(json.dumps(report,indent=2))
           print('EXISTING_MAIL_CONFIGURATION '+json.dumps(report))
