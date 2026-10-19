@@ -115,6 +115,17 @@ class NativeStoreTests(unittest.TestCase):
 
 
 class ConfigurationTests(unittest.TestCase):
+    def test_pooler_flags_do_not_weaken_tls_or_become_libpq_options(self):
+        environment={'GOVERNANCE_WORKFLOW_WRITES':'1','PRODUCTION_DATABASE_URL':'postgresql://synthetic%40user:synthetic%2Bpassword@pooled.db.prisma.io:5432/postgres?sslmode=disable&pgbouncer=true'}
+        with patch.dict(os.environ,environment,clear=True), patch('psycopg.connect',side_effect=RuntimeError('synthetic connection stopped')) as connect:
+            with self.assertRaisesRegex(RuntimeError,'synthetic connection stopped'):ProductionWorkflowStore()
+            self.assertEqual(connect.call_args.kwargs['sslmode'],'verify-full')
+            self.assertEqual(connect.call_args.kwargs['sslrootcert'],'system')
+            self.assertEqual(connect.call_args.kwargs['user'],'synthetic@user')
+            self.assertEqual(connect.call_args.kwargs['password'],'synthetic+password')
+            self.assertIsNone(connect.call_args.kwargs['prepare_threshold'])
+            self.assertNotIn('pgbouncer',connect.call_args.kwargs)
+
     def test_no_implicit_production_write_or_fixture_fallback(self):
         with patch.dict(os.environ,{},clear=True):
             with self.assertRaisesRegex(Exception,'GOVERNANCE_WORKFLOW_WRITES'):

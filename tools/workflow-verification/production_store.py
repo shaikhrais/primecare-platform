@@ -10,7 +10,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, unquote
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'governance-production'))
 from production_reader import Connection as Reader, GovernanceReadError
@@ -86,7 +86,11 @@ class ProductionWorkflowStore:
             if url.scheme not in ('postgres', 'postgresql') or url.hostname != 'pooled.db.prisma.io' or url.path != '/postgres':
                 raise GovernanceReadError('Missing or unexpected production governance target')
             import psycopg
-            self.db = psycopg.connect(primary or existing, sslmode='verify-full', sslrootcert='system', connect_timeout=10)
+            # Prisma pooler URLs may contain client-only query flags (e.g. pgbouncer).
+            # Bind parsed credentials/target explicitly and keep TLS verification mandatory.
+            self.db = psycopg.connect(host=url.hostname, port=url.port or 5432,
+                dbname='postgres', user=unquote(url.username or ''), password=unquote(url.password or ''),
+                sslmode='verify-full', sslrootcert='system', connect_timeout=10, prepare_threshold=None)
         try:
             self.db.execute("SET LOCAL lock_timeout='10s'")
             self.db.execute("SET LOCAL statement_timeout='120s'")
