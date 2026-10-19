@@ -1,0 +1,44 @@
+name: Inspect live workflow recovery prerequisites
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/inspect-workflow-recovery.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/govt-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Inspect pinned business process metadata without writes
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY'
+          import sys,json
+          sys.path.insert(0,'tools/governance-production')
+          from production_reader import connect
+          with connect() as db:
+              print('LIVE_STATUSES',json.dumps(db.execute("SELECT verification_status,COUNT(*) FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY verification_status").fetchall()))
+              names=['virtual_workflow_definitions','virtual_workflow_steps','virtual_workflow_source_links','virtual_role_flow_guides','virtual_flow_catalog_snapshots']
+              for name in names:
+                  print('SCHEMA',name,json.dumps(db.execute('PRAGMA table_info('+name+')').fetchall()))
+                  print('COUNT',name,db.execute('SELECT COUNT(*) FROM '+name).fetchone()[0])
+              for name in ['virtual_workflow_definitions','virtual_workflow_steps','virtual_workflow_source_links']:
+                  suffix=" WHERE flow_kind='business_process'" if name=='virtual_workflow_definitions' else ''
+                  c=db.execute('SELECT * FROM '+name+suffix+' LIMIT 3')
+                  print('REGISTERED_SAMPLE',name,json.dumps({'columns':[d[0] for d in c.description],'rows':c.fetchall()}))
+              print('TRACKING_TABLES',json.dumps(db.execute("SELECT name FROM sqlite_master WHERE type='table' AND (name LIKE '%attempt%' OR name LIKE '%checkpoint%' OR name LIKE '%evidence%' OR name LIKE '%resolution%' OR name LIKE '%issue%')").fetchall()))
+          PY
