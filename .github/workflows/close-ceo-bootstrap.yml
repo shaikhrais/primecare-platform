@@ -7,12 +7,30 @@ permissions:
   contents: write
   pull-requests: read
   checks: read
+  actions: write
 jobs:
   close:
     runs-on: ubuntu-latest
     environment: production
     timeout-minutes: 12
     steps:
+      - name: Cancel superseded cleanup attempts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os,json,urllib.request,urllib.error
+          base='https://api.github.com/repos/shaikhrais/primecare-platform/actions/'
+          headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'}
+          data=json.load(urllib.request.urlopen(urllib.request.Request(base+'workflows/close-ceo-bootstrap.yml/runs?per_page=100',headers=headers)))
+          for run in data['workflow_runs']:
+              if run['id']==int(os.environ['GITHUB_RUN_ID']) or run['status']=='completed':continue
+              try:
+                  urllib.request.urlopen(urllib.request.Request(base+'runs/'+str(run['id'])+'/cancel',headers=headers,method='POST')).close()
+                  print('Canceled superseded cleanup run '+str(run['id']))
+              except urllib.error.HTTPError as error:
+                  if error.code not in (409,422):raise
+          PY
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
