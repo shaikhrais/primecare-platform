@@ -1,3 +1,4 @@
+import {govtTableName,GOVERNANCE_MANIFEST_TABLE} from './naming.mjs';
 /** Dedicated governance snapshot schema. Never changes public/application tables. */
 import {readFile} from 'node:fs/promises';
 import {createReadStream} from 'node:fs';
@@ -16,8 +17,8 @@ export async function importGovernance(db,folder,{expectedManifestHash}={}){
  const raw=await readFile(join(folder,'manifest.json')),manifestHash=hash(raw),m=JSON.parse(raw);
  if(expectedManifestHash!==manifestHash)throw Error('Exact reviewed manifest hash required');
  if(m.format!=='primecare-governance-snapshot-v1'||!Array.isArray(m.tables))throw Error('Unsupported manifest');
- const schema='governance_'+manifestHash.slice(0,24),names=new Set();
- for(const t of m.tables){if(names.has(t.name)||Buffer.byteLength(t.name)>63||t.name==='_source_manifest')throw Error('Invalid or colliding table name');names.add(t.name);if(!/^\d{4}\.ndjson$/.test(t.file)||!Number.isSafeInteger(t.rows)||t.rows<0)throw Error('Invalid table manifest');const cols=new Set();for(const c of t.columns){if(cols.has(c.name)||c.name==='_primecare_import_row'||Buffer.byteLength(c.name)>63)throw Error('Invalid column');cols.add(c.name);if(c.storage_types.some(x=>!['integer','real','text','blob'].includes(x)))throw Error('Invalid storage type');}}
+ const schema='governance_'+manifestHash.slice(0,24),names=new Set(),targets=new Set([GOVERNANCE_MANIFEST_TABLE]);
+ for(const t of m.tables){if(names.has(t.name)||Buffer.byteLength(t.name)>63||t.name==='_source_manifest')throw Error('Invalid or colliding table name');names.add(t.name);const target=govtTableName(t.name);if(targets.has(target))throw Error('Prefixed governance table collision');targets.add(target);if(!/^\d{4}\.ndjson$/.test(t.file)||!Number.isSafeInteger(t.rows)||t.rows<0)throw Error('Invalid table manifest');const cols=new Set();for(const c of t.columns){if(cols.has(c.name)||c.name==='_primecare_import_row'||Buffer.byteLength(c.name)>63)throw Error('Invalid column');cols.add(c.name);if(c.storage_types.some(x=>!['integer','real','text','blob'].includes(x)))throw Error('Invalid storage type');}}
  let operation='begin';
  await db.query('BEGIN');
  try{
@@ -27,10 +28,10 @@ export async function importGovernance(db,folder,{expectedManifestHash}={}){
   // Never replace an existing import, even one with the same manifest: reverify below.
   if(exists.rows.length)throw Error('Snapshot schema already exists; refusing overwrite');
   operation='create-schema';await db.query('CREATE SCHEMA '+q(schema));operation='verify-private-schema';const publicGrants=await db.query("SELECT count(*)::int AS count FROM pg_namespace n CROSS JOIN LATERAL aclexplode(COALESCE(n.nspacl,acldefault('n',n.nspowner))) a WHERE n.nspname=$1 AND a.grantee=0",[schema]);if(publicGrants.rows[0].count!==0)throw Error('New governance schema has PUBLIC grants; import refused');
-  operation='create-source-manifest';await db.query('CREATE TABLE '+q(schema)+'._source_manifest (manifest_sha256 text PRIMARY KEY, manifest jsonb NOT NULL, imported_at timestamptz NOT NULL DEFAULT now())');
-  await db.query('INSERT INTO '+q(schema)+'._source_manifest VALUES($1,$2,now())',[manifestHash,JSON.stringify(m)]);
+  operation='create-source-manifest';await db.query('CREATE TABLE '+q(schema)+'.'+q(GOVERNANCE_MANIFEST_TABLE)+' (manifest_sha256 text PRIMARY KEY, manifest jsonb NOT NULL, imported_at timestamptz NOT NULL DEFAULT now())');
+  await db.query('INSERT INTO '+q(schema)+'.'+q(GOVERNANCE_MANIFEST_TABLE)+' VALUES($1,$2,now())',[manifestHash,JSON.stringify(m)]);
   for(const t of m.tables){
-   const types=t.columns.map(storage),table=q(schema)+'.'+q(t.name);
+   const types=t.columns.map(storage),table=q(schema)+'.'+q(govtTableName(t.name));
    operation='create-governance-table';await db.query('CREATE TABLE '+table+' ('+q('_primecare_import_row')+' bigint PRIMARY KEY,'+t.columns.map((c,i)=>q(c.name)+' '+types[i]).join(',')+')');
    const digest=createHash('sha256');let count=0,batch=[];
    const flush=async()=>{if(!batch.length)return;const values=[],rows=batch.map(row=>'('+row.map(v=>{values.push(v);return '$'+values.length;}).join(',')+')');await db.query('INSERT INTO '+table+' VALUES '+rows.join(','),values);batch=[];};
