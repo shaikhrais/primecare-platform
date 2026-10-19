@@ -46,11 +46,11 @@ export async function importGovernance(db,folder,{expectedManifestHash}={}){
  }catch(e){await db.query('ROLLBACK');throw e;}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){
- let db;try{
+ let db,phase='configuration';try{
   if(process.env.CONFIRM_GOVERNANCE_IMPORT!=='IMPORT_GOVERNANCE_SNAPSHOT')throw Error('Import confirmation required');
   const url=new URL(process.env.PRODUCTION_DATABASE_URL||'');if(url.protocol!=='postgresql:'&&url.protocol!=='postgres:')throw Error('Invalid database URL');
   if(url.hostname!=='pooled.db.prisma.io'||url.pathname!=='/postgres')throw Error('Unexpected production target');
-  db=new Client({connectionString:url.href,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});await db.connect();
+  phase='connect';db=new Client({connectionString:url.href,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});await db.connect();phase='transaction-import';
   console.log(JSON.stringify(await importGovernance(db,resolve(process.argv[2]),{expectedManifestHash:process.env.GOVERNANCE_MANIFEST_SHA256})));
- }catch{console.error('Governance import failed; no credentials logged. Transaction rolls back on failure.');process.exitCode=1;}finally{if(db)await db.end();}
+ }catch(error){console.error(JSON.stringify({error:'Governance import failed; credentials and row data withheld',phase,code:error.code||error.name,validation:phase==='configuration'&&['Import confirmation required','Invalid database URL','Unexpected production target'].includes(error.message)?error.message:undefined}));process.exitCode=1;}finally{if(db)await db.end();}
 }
