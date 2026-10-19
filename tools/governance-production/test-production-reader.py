@@ -25,6 +25,16 @@ class ReaderTests(unittest.TestCase):
   self.assertEqual(self.db.execute('SELECT count(*) FROM roles').fetchone()[0],2)
  def test_scoped_ctes(self):
   self.assertEqual(self.db.execute('WITH allowed AS (SELECT id FROM roles) SELECT COUNT(*) FROM allowed').fetchone()[0],2)
+ def test_tagged_tracking_values_preserve_text_without_silent_coercion(self):
+  self.db.close()
+  data=json.loads(self.file.read_text())
+  data['setup'].append("UPDATE "+schema+".govt_roles SET note='{\"t\":\"text\",\"v\":\"https://example.test/evidence\"}'::jsonb WHERE id=1")
+  self.file.write_text(json.dumps(data));self.db=module.connect(_test_fixture=self.file)
+  self.assertEqual(self.db.execute('SELECT note FROM roles WHERE id=1').fetchone()[0],'https://example.test/evidence')
+  self.db.close()
+  data['setup'].append("UPDATE "+schema+".govt_roles SET note='{\"t\":\"integer\",\"v\":\"12\"}'::jsonb WHERE id=1")
+  self.file.write_text(json.dumps(data));self.db=module.connect(_test_fixture=self.file)
+  with self.assertRaises(module.GovernanceReadError):self.db.execute('SELECT note FROM roles WHERE id=1')
  def test_no_sqlite_substring_routing(self):
   self.assertEqual(self.db.execute("SELECT count(*) FROM roles WHERE 'sqlite_master'='sqlite_master'").fetchone()[0],2)
 if __name__=='__main__':unittest.main()

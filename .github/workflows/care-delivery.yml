@@ -81,6 +81,8 @@ jobs:
       - name: Check care initial loading and retry states
         run: node scripts/test-care-loading-browser.mjs
       - name: Check real credential login and availability roundtrip
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
         run: |
           python3 scripts/register-auth-login-layout.py --check
           node scripts/test-care-availability-workflow.mjs

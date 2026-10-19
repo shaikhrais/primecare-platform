@@ -4,7 +4,24 @@
   "tablePrefix": "govt_",
   "manifestTable": "govt_source_manifest",
   "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
-  "connectionVariables": ["GOVERNANCE_DATABASE_URL", "PRODUCTION_DATABASE_URL"],
+  "connectionVariables": [
+    "GOVERNANCE_DATABASE_URL",
+    "PRODUCTION_DATABASE_URL"
+  ],
   "readOnly": true,
-  "sqliteFallback": false
+  "sqliteFallback": false,
+  "workflowTrackingWriter": {
+    "optInVariable": "GOVERNANCE_WORKFLOW_WRITES",
+    "tables": [
+      "virtual_workflow_definitions",
+      "virtual_workflow_attempts",
+      "virtual_workflow_issues",
+      "virtual_workflow_evidence",
+      "virtual_workflow_issue_resolutions",
+      "virtual_workflow_checkpoints",
+      "virtual_flow_catalog_snapshots"
+    ],
+    "schemaChanges": false,
+    "businessDataWrites": false
+  }
 }

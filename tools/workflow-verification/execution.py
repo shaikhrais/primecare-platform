@@ -26,6 +26,8 @@ def encoded(value):
 
 def prepare(db):
     """Add execution records without rewriting definitions or business data."""
+    if getattr(db, 'is_production_workflow_store', False):
+        return  # Constructor verifies pinned schema and keys; never run SQLite DDL.
     schema = '''
     CREATE TABLE IF NOT EXISTS virtual_workflow_attempts(
       attempt_id INTEGER PRIMARY KEY, flow_id TEXT NOT NULL
@@ -478,15 +480,25 @@ def export_progress(db, root):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--db', type=Path, required=True)
+    parser.add_argument('--db', type=Path, help='Explicit isolated SQLite fixture only; default is pinned production PostgreSQL')
     parser.add_argument('--root', type=Path, default=ROOT)
     parser.add_argument('--attempt', type=Path, help='JSON with workflow_id and result fields described by record_attempt.')
     parser.add_argument('--refresh', action='store_true')
     parser.add_argument('--export', action='store_true', help='Save current business workflow status and resumable next actions')
     args = parser.parse_args()
-    if not args.db.is_file():
-        parser.error('Database does not exist; refusing to create an empty governance database.')
-    with sqlite3.connect(args.db) as db:
+    if args.db is not None:
+        import os
+        if (os.environ.get('GOVERNANCE_ALLOW_SQLITE_FIXTURES') != '1'
+                or os.environ.get('GOVERNANCE_DATABASE_URL')
+                or os.environ.get('PRODUCTION_DATABASE_URL')):
+            parser.error('--db requires isolated fixture mode without production credentials')
+        if not args.db.is_file():
+            parser.error('Database does not exist; refusing to create an empty governance database.')
+        store = sqlite3.connect(args.db)
+    else:
+        from production_store import ProductionWorkflowStore
+        store = ProductionWorkflowStore()
+    with store as db:
         prepare(db)
         output = {}
         if args.refresh:
