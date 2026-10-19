@@ -8,6 +8,7 @@ import datetime
 import json
 import os
 import re
+import ssl
 import sys
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
@@ -88,9 +89,12 @@ class ProductionWorkflowStore:
             import psycopg
             # Prisma pooler URLs may contain client-only query flags (e.g. pgbouncer).
             # Bind parsed credentials/target explicitly and keep TLS verification mandatory.
+            ca_bundle = ssl.get_default_verify_paths().cafile
+            if not ca_bundle or not Path(ca_bundle).is_file():
+                raise GovernanceReadError('System CA bundle unavailable; configure SSL_CERT_FILE')
             self.db = psycopg.connect(host=url.hostname, port=url.port or 5432,
                 dbname='postgres', user=unquote(url.username or ''), password=unquote(url.password or ''),
-                sslmode='verify-full', sslrootcert='system', connect_timeout=10, prepare_threshold=None)
+                sslmode='verify-full', sslrootcert=ca_bundle, connect_timeout=10, prepare_threshold=None)
         try:
             self.db.execute("SET LOCAL lock_timeout='10s'")
             self.db.execute("SET LOCAL statement_timeout='120s'")

@@ -5,6 +5,9 @@ import hashlib
 import json
 import os
 import sqlite3
+import ssl
+import tempfile
+from types import SimpleNamespace
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -117,14 +120,23 @@ class NativeStoreTests(unittest.TestCase):
 class ConfigurationTests(unittest.TestCase):
     def test_pooler_flags_do_not_weaken_tls_or_become_libpq_options(self):
         environment={'GOVERNANCE_WORKFLOW_WRITES':'1','PRODUCTION_DATABASE_URL':'postgresql://synthetic%40user:synthetic%2Bpassword@pooled.db.prisma.io:5432/postgres?sslmode=disable&pgbouncer=true'}
-        with patch.dict(os.environ,environment,clear=True), patch('psycopg.connect',side_effect=RuntimeError('synthetic connection stopped')) as connect:
+        # No TLS handshake occurs in this configuration-only driver mock.
+        with tempfile.NamedTemporaryFile() as bundle, patch.dict(os.environ,environment,clear=True), patch('ssl.get_default_verify_paths',return_value=SimpleNamespace(cafile=bundle.name)), patch('psycopg.connect',side_effect=RuntimeError('synthetic connection stopped')) as connect:
             with self.assertRaisesRegex(RuntimeError,'synthetic connection stopped'):ProductionWorkflowStore()
             self.assertEqual(connect.call_args.kwargs['sslmode'],'verify-full')
-            self.assertEqual(connect.call_args.kwargs['sslrootcert'],'system')
+            self.assertEqual(connect.call_args.kwargs['sslrootcert'],ssl.get_default_verify_paths().cafile)
+            self.assertTrue(Path(connect.call_args.kwargs['sslrootcert']).is_file())
             self.assertEqual(connect.call_args.kwargs['user'],'synthetic@user')
             self.assertEqual(connect.call_args.kwargs['password'],'synthetic+password')
             self.assertIsNone(connect.call_args.kwargs['prepare_threshold'])
             self.assertNotIn('pgbouncer',connect.call_args.kwargs)
+
+    def test_missing_ca_bundle_fails_before_connecting(self):
+        from types import SimpleNamespace
+        environment={'GOVERNANCE_WORKFLOW_WRITES':'1','PRODUCTION_DATABASE_URL':'postgresql://synthetic:synthetic@pooled.db.prisma.io/postgres'}
+        with patch.dict(os.environ,environment,clear=True), patch('ssl.get_default_verify_paths',return_value=SimpleNamespace(cafile=None)), patch('psycopg.connect') as connect:
+            with self.assertRaisesRegex(Exception,'System CA bundle unavailable'):ProductionWorkflowStore()
+            connect.assert_not_called()
 
     def test_no_implicit_production_write_or_fixture_fallback(self):
         with patch.dict(os.environ,{},clear=True):
