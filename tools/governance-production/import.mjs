@@ -26,7 +26,7 @@ export async function importGovernance(db,folder,{expectedManifestHash}={}){
   const exists=await db.query('SELECT 1 FROM information_schema.schemata WHERE schema_name=$1',[schema]);
   // Never replace an existing import, even one with the same manifest: reverify below.
   if(exists.rows.length)throw Error('Snapshot schema already exists; refusing overwrite');
-  operation='create-schema';await db.query('CREATE SCHEMA '+q(schema));operation='revoke-public-schema-access';await db.query('REVOKE ALL ON SCHEMA '+q(schema)+' FROM PUBLIC');
+  operation='create-schema';await db.query('CREATE SCHEMA '+q(schema));operation='verify-private-schema';const publicGrants=await db.query("SELECT count(*)::int AS count FROM pg_namespace n CROSS JOIN LATERAL aclexplode(COALESCE(n.nspacl,acldefault('n',n.nspowner))) a WHERE n.nspname=$1 AND a.grantee=0",[schema]);if(publicGrants.rows[0].count!==0)throw Error('New governance schema has PUBLIC grants; import refused');
   operation='create-source-manifest';await db.query('CREATE TABLE '+q(schema)+'._source_manifest (manifest_sha256 text PRIMARY KEY, manifest jsonb NOT NULL, imported_at timestamptz NOT NULL DEFAULT now())');
   await db.query('INSERT INTO '+q(schema)+'._source_manifest VALUES($1,$2,now())',[manifestHash,JSON.stringify(m)]);
   for(const t of m.tables){
@@ -51,7 +51,7 @@ if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).hr
   if(process.env.CONFIRM_GOVERNANCE_IMPORT!=='IMPORT_GOVERNANCE_SNAPSHOT')throw Error('Import confirmation required');
   const url=new URL(process.env.PRODUCTION_DATABASE_URL||'');if(url.protocol!=='postgresql:'&&url.protocol!=='postgres:')throw Error('Invalid database URL');
   if(url.hostname!=='pooled.db.prisma.io'||url.pathname!=='/postgres')throw Error('Unexpected production target');
-  phase='connect';db=new Client({connectionString:url.href,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});await db.connect();console.log(JSON.stringify({databasePrivileges:(await db.query("SELECT has_database_privilege(current_database(),'CREATE') AS create_schema,has_schema_privilege('public','CREATE') AS create_public_tables")).rows[0]}));phase='transaction-import';
+  phase='connect';db=new Client({connectionString:url.href,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});await db.connect();console.error(JSON.stringify({databasePrivileges:(await db.query("SELECT has_database_privilege(current_database(),'CREATE') AS create_schema,has_schema_privilege('public','CREATE') AS create_public_tables")).rows[0]}));phase='transaction-import';
   console.log(JSON.stringify(await importGovernance(db,resolve(process.argv[2]),{expectedManifestHash:process.env.GOVERNANCE_MANIFEST_SHA256})));
  }catch(error){console.error(JSON.stringify({error:'Governance import failed; credentials and row data withheld',phase,operation:error.importOperation,code:error.code||error.name,validation:phase==='configuration'&&['Import confirmation required','Invalid database URL','Unexpected production target'].includes(error.message)?error.message:undefined}));process.exitCode=1;}finally{if(db)await db.end();}
 }

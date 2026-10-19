@@ -4,7 +4,7 @@ Exports every SQLite table (including internal sequence state), every row and or
 
 Normal homogeneous columns become PostgreSQL bigint, double precision, text or bytea. Heterogeneous/empty columns use tagged JSONB to retain SQLite storage types. Each imported table has an additional `_primecare_import_row` ordinal for deterministic readback. Original SQLite DDL, foreign keys, indexes, views, declared types, defaults and primary-key declarations are retained in `_source_manifest`; they are not executed as PostgreSQL SQL. The import is a faithful governance data snapshot, not an application schema replacement or a runtime cutover. Existing APIs still use their current repositories until a separately reviewed integration changes them.
 
-A single transaction and advisory lock cover all table creation, data loading and readback. Source-file hashes, table counts and complete ordered readback hashes must match before commit. A second import refuses to overwrite an existing schema. PostgreSQL PUBLIC receives no schema access. No completion or verification flags are promoted.
+A single transaction and advisory lock cover all table creation, data loading and readback. Source-file hashes, table counts and complete ordered readback hashes must match before commit. A second import refuses to overwrite an existing schema. The new schema must have no PUBLIC ACL entries before data loading; the importer refuses a schema with public access. No grants are changed. No completion or verification flags are promoted.
 
 ```sh
 python3 tools/governance-production/export.py .agents/governance/governance.db /tmp/governance-export

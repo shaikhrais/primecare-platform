@@ -23,6 +23,13 @@ assert.deepEqual((await db.query('SELECT * FROM public.business_data')).rows,[{i
 assert.equal((await db.query(`SELECT title FROM "${result.schema}".sample WHERE id=1`)).rows[0].title,'Français / Español ☃');
 await assert.rejects(importGovernance(adapter,out,{expectedManifestHash:receipt.manifest_sha256}),/already exists/);
 await assert.rejects(importGovernance(adapter,out,{expectedManifestHash:'0'.repeat(64)}),/manifest hash/);
+const original=await readFile(join(out,'manifest.json'),'utf8');
+const publicManifest=JSON.parse(original);publicManifest.test_variant='public-access-refusal';const publicBytes=JSON.stringify(publicManifest);await writeFile(join(out,'manifest.json'),publicBytes);
+const publicHash=createHash('sha256').update(publicBytes).digest('hex');
+await db.query('ALTER DEFAULT PRIVILEGES GRANT USAGE ON SCHEMAS TO PUBLIC');
+await assert.rejects(importGovernance(adapter,out,{expectedManifestHash:publicHash}),/PUBLIC grants/);
+assert.equal((await db.query('SELECT 1 FROM information_schema.schemata WHERE schema_name=$1',['governance_'+publicHash.slice(0,24)])).rows.length,0);
+await db.query('ALTER DEFAULT PRIVILEGES REVOKE USAGE ON SCHEMAS FROM PUBLIC');await writeFile(join(out,'manifest.json'),original);
 const manifest=JSON.parse(await readFile(join(out,'manifest.json'),'utf8'));manifest.tables.find(t=>t.name==='sample').sha256='0'.repeat(64);const changed=JSON.stringify(manifest);await writeFile(join(out,'manifest.json'),changed);
 const changedHash=createHash('sha256').update(changed).digest('hex');
 await assert.rejects(importGovernance(adapter,out,{expectedManifestHash:changedHash}),/hash mismatch/);
