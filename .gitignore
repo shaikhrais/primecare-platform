@@ -154,8 +154,7 @@ docs/refactoring/screen-json-references/*.json
 !docs/refactoring/screen-json-references/summary.json
 
 # Removed operational governance SQLite files; CI fixtures are untracked.
-/.agents/governance/governance.db
-/.agents/governance/governance.db-*
+/.agents/governance/governance.db*
 /.agents/governance/governance_backup_before_screen_sections.db
 /governance.db
 /testingFramework1.0/governance.db
