@@ -54,10 +54,14 @@ jobs:
               maps['runtime_views']=[dict(r) for r in db.execute("SELECT * FROM screen_runtime_views WHERE endpoint IN (?,?)",('/v1/user/sessions','/v1/auth/user/sessions'))]
               maps['permissions']=[dict(r) for r in db.execute('SELECT * FROM api_permissions WHERE api_id=?',(canonical,))]
               maps['session_elements']=[dict(r) for r in db.execute("SELECT * FROM screen_required_elements WHERE LOWER(element_key) LIKE ? LIMIT 25",('%session%',))]
+              for name in ['screens','screen_requirements','screen_sections','screen_required_elements','screen_section_elements','screen_components','screen_functions','screen_language_map','screen_translation_map','screen_test_definitions','screen_integration_map','screen_runtime_views','screen_layout_assignment']:
+                  column='id' if name=='screens' else 'screen_id'
+                  maps[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE '+column+'=?',(948,))]
+              result['theme']=dict(db.execute('SELECT css_variable_name,token_value FROM theme_design_tokens WHERE theme_id=1 AND active=1'))
               result['ui_bindings']=maps
               print('OWN_SESSION_UI_BINDINGS '+json.dumps(maps,default=str))
               schema={}
-              for name, in db.metadata.execute("SELECT name FROM sqlite_master WHERE type='table' AND (name LIKE '%screen%' OR name LIKE '%permission%') ORDER BY name"):
+              for name, in db.metadata.execute("SELECT name FROM sqlite_master WHERE type='table' AND (name LIKE '%screen%' OR name LIKE '%permission%' OR name LIKE '%resource%' OR name LIKE '%language%') ORDER BY name"):
                   schema[name]=[r[1] for r in db.metadata.execute('PRAGMA table_info('+name+')')]
               result['related_schema']=schema
               print('OWN_SESSION_SCHEMA '+json.dumps(schema))
