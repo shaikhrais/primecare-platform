@@ -61,7 +61,7 @@ jobs:
               report['inbox_address_configuration']={'configured':bool(addresses),'owned_test_addresses':[v.strip() for v in addresses.replace(';',',').split(',') if v.strip().lower().endswith('@'+domain) and any(k in v.lower().split('@')[0] for k in ['qa','test'])]}
               status,namespaces=get('/accounts/'+account+'/storage/kv/namespaces?per_page=100')
               report['inbox_storage_metadata']={'http':status,'matching_namespace_found':bool(kv and any(n.get('id')==kv.get('namespace_id') for n in namespaces.get('result',[])))}
-              req=urllib.request.Request('https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-email-inbox/content',headers={'Authorization':'Bearer '+token})
+              req=urllib.request.Request('https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-email-inbox/content/v2',headers={'Authorization':'Bearer '+token})
               try:
                   with urllib.request.urlopen(req,timeout=25) as response:source=response.read(1024*1024).decode('utf8','replace')
                   import hashlib,re
