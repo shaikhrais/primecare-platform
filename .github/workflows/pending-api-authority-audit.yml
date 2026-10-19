@@ -28,7 +28,7 @@ jobs:
           python-version: '3.12'
       - name: Test read-only authority audit
         run: python3 scripts/test-audit-pending-api-authority.py
-      - name: Read tracked governance authority evidence
+      - name: Read explicit historical fixture authority evidence
         run: python3 scripts/audit-pending-api-authority.py --database .agents/governance/governance.db --include-blocked --output "$RUNNER_TEMP/pending-api-authority.json"
       - name: Summarize source-bound authority evidence
         env:
@@ -38,6 +38,8 @@ jobs:
           import json, os
           from pathlib import Path
           report = json.loads((Path(os.environ['RUNNER_TEMP']) / 'pending-api-authority.json').read_text())
+          report['authoritySource'] = {'kind':'historical-ci-fixture','sourceCommit':'64324c5915945afa97426c30157ce0080496ba83','liveAuthority':False}
+          (Path(os.environ['RUNNER_TEMP']) / 'pending-api-authority.json').write_text(json.dumps(report))
           candidates = [row for row in report['operations'] if row['disposition'] == 'explicit_grant_observed']
           print(json.dumps({'reviewedHead': os.environ['REVIEWED_HEAD'], 'databaseSha256': report['databaseSha256'], 'summary': report['summary'], 'candidateCount': len(candidates)}, sort_keys=True))
           for row in candidates[:100]:
