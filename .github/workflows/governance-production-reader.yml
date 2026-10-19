@@ -54,6 +54,9 @@ jobs:
           python scripts/db_table_counts.py > /dev/null
           python scripts/inspect_architecture_counts.py > /dev/null
           python scripts/inspect_tables_content.py > /dev/null
+          python scripts/check-api-catalog-identity.py
+          python scripts/audit-api-grant-integrity.py
+          python scripts/export_governed_openapi.py --output /tmp/govt-openapi.json --report /tmp/govt-api-readiness.json --handbook /tmp/govt-api-reference.md
           python scripts/export-typescript-websites.py --output /tmp/govt-portals --gateway https://primecare-api-gateway.itpro-mohammed.workers.dev > /tmp/govt-portal-summary.json
       - uses: actions/upload-artifact@v4
         with:

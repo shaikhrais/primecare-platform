@@ -25,4 +25,4 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/test-api-catalog-identity.py
-      - run: python scripts/check-api-catalog-identity.py
+      - run: GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 python scripts/check-api-catalog-identity.py
