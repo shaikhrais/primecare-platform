@@ -1,35 +1,10 @@
+import 'package:primecare_models/src/models/assessment_screen_state.dart';
+export 'package:primecare_models/src/models/assessment_screen_state.dart' show AssessmentState;
 import 'package:flutter_riverpod/legacy.dart';
 // Governance - Category: view | Purpose: UI Screen component rendering the AssessmentScreen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class AssessmentState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-
-  const AssessmentState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-  });
-
-  AssessmentState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-  }) {
-    return AssessmentState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-    );
-  }
-}
 
 // --- Controller (Notifier) ---
 class AssessmentController extends StateNotifier<AssessmentState> {

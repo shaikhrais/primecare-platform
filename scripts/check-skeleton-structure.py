@@ -18,7 +18,7 @@ def manifest(path):
 
 
 def inherits(source, name, parent, path):
-    assert re.search(r"\bclass\s+" + re.escape(name) + r"\s+extends\s+"
+    assert re.search(r"\bclass\s+" + re.escape(name) + r"(?:<[^{};]+>)?\s+extends\s+"
                      + re.escape(parent) + r"\b", source), path + ': missing ' + parent
 
 

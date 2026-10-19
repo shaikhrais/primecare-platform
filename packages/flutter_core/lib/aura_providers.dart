@@ -1,15 +1,15 @@
 // Governance - Category: controller | Purpose: Layer: 01_INFRASTRUCTURE Track the current institutional context (e.g., active office or feature). This allows Aura t...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/flutter_core.dart';
+import 'src/controllers/base_value_notifier.dart';
 
-/// Track the current institutional context (e.g., active office or feature).
-/// This allows Aura to surface screen-specific insights and commands.
-class AuraContextNotifier extends Notifier<String?> {
-  @override
-  String? build() => null;
+part 'src/controllers/aura_context_notifier.dart';
+part 'src/controllers/aura_active_visualization_notifier.dart';
+part 'src/controllers/aura_snooze_notifier.dart';
+part 'src/controllers/aura_query_notifier.dart';
+part 'src/controllers/aura_pulse_event_notifier.dart';
 
-  void update(String? context) => state = context;
-}
+
 
 final auraContextProvider = NotifierProvider<AuraContextNotifier, String?>(() {
   return AuraContextNotifier();
@@ -45,24 +45,14 @@ final auraActiveAnomalyProvider = Provider<AuraEvent?>((ref) {
   return null;
 });
 
-/// Global toggle state to engage Aura predictive visualizations deeply within charts/dashboards.
-class AuraActiveVisualizationNotifier extends Notifier<bool> {
-  @override
-  bool build() => false;
-  void update(bool value) => state = value;
-}
+
 
 final auraActiveVisualizationProvider =
     NotifierProvider<AuraActiveVisualizationNotifier, bool>(() {
       return AuraActiveVisualizationNotifier();
     });
 
-/// Global toggle state to snooze Aura HUD alerts.
-class AuraSnoozeNotifier extends Notifier<bool> {
-  @override
-  bool build() => false;
-  void update(bool value) => state = value;
-}
+
 
 final auraSnoozeProvider = NotifierProvider<AuraSnoozeNotifier, bool>(() {
   return AuraSnoozeNotifier();
@@ -73,13 +63,7 @@ final auraCommandServiceProvider = Provider<AuraCommandService>((ref) {
   return AuraCommandService();
 });
 
-/// State notifier for the current Aura query session.
-class AuraQueryNotifier extends Notifier<String> {
-  @override
-  String build() => '';
 
-  void update(String query) => state = query;
-}
 
 /// Provider for the Aura query string.
 final auraQueryProvider = NotifierProvider<AuraQueryNotifier, String>(() {
@@ -138,12 +122,7 @@ final auraContextualSuggestionsProvider = Provider<List<String>>((ref) {
   return service.getSuggestions(context: context);
 });
 
-/// A notifier that tracks the most recent Aura heartbeat event.
-class AuraPulseEventNotifier extends Notifier<AuraEvent?> {
-  @override
-  AuraEvent? build() => null;
-  void update(AuraEvent event) => state = event;
-}
+
 
 final auraPulseEventProvider =
     NotifierProvider<AuraPulseEventNotifier, AuraEvent?>(() {

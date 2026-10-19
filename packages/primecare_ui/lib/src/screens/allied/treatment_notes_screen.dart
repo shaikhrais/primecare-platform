@@ -1,35 +1,10 @@
+import 'package:primecare_models/src/models/treatment_notes_screen_state.dart';
+export 'package:primecare_models/src/models/treatment_notes_screen_state.dart' show TreatmentNotesState;
 import 'package:flutter_riverpod/legacy.dart';
 // Governance - Category: view | Purpose: UI Screen component rendering the TreatmentNotesScreen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class TreatmentNotesState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-
-  const TreatmentNotesState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-  });
-
-  TreatmentNotesState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-  }) {
-    return TreatmentNotesState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-    );
-  }
-}
 
 // --- Controller (Notifier) ---
 class TreatmentNotesController extends StateNotifier<TreatmentNotesState> {

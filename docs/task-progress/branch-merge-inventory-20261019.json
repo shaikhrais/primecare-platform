@@ -1,0 +1,1706 @@
+{
+  "mainAtInspection": "cdd23f5777e98a162de81dc407b5c64379f4c582",
+  "combinedCandidate": "365622d1d49f028cc2bf8216c1d4c8ff16cf22b0",
+  "counts": {
+    "previously_merged_pr_history": 152,
+    "already_in_main_history": 51,
+    "closed_pr_with_later_replacement_evidence": 2,
+    "combined_locally_pending_publication": 3,
+    "requires_review": 2,
+    "historical_alias_requires_reset_history_review": 3
+  },
+  "branches": [
+    {
+      "branch": "chore/remove-retired-auth-tooling",
+      "head": "f508e713dbd917fa3da8edc6481d1c450d1360fa",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        20
+      ]
+    },
+    {
+      "branch": "cleanup/file-retirement-review-20261011",
+      "head": "5245963ebbf20ab439762dfa741dad6346d6de49",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        172
+      ]
+    },
+    {
+      "branch": "cleanup/retire-historical-utilities-exports-20261011",
+      "head": "0d006a51f5c0081026e0b9ae983a586c9e8ba505",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        174
+      ]
+    },
+    {
+      "branch": "cleanup/retire-screen-context-outputs-20261011",
+      "head": "e37c0b68b8b68c84b9e3ea13fc8cece895a3ca2b",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        175
+      ]
+    },
+    {
+      "branch": "cleanup/retire-unused-backup-snapshots-20261011",
+      "head": "f529d8ed30690707bc0647d371197b709ce244e5",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        173
+      ]
+    },
+    {
+      "branch": "codex/account-read-validation-249-253",
+      "head": "71e317df27a14c8045859518c4b0b478eb00f468",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        105
+      ]
+    },
+    {
+      "branch": "codex/api-audit-handover-158-163",
+      "head": "94c74e1161a8c81e882bc06235ebdcdabc307699",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        73
+      ]
+    },
+    {
+      "branch": "codex/api-backlog-route-triage",
+      "head": "b8dcc1efa26b7f3231bf75a13900287321ef418e",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        136
+      ]
+    },
+    {
+      "branch": "codex/api-batch-10-provider-visits",
+      "head": "b5f790d0ccdb41118bc50d6e1df035a3891a3b80",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        41
+      ]
+    },
+    {
+      "branch": "codex/api-batch-11-client-visits",
+      "head": "934fed1a3ae2a8b210e99ca992820ee5f0ed34d8",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        42
+      ]
+    },
+    {
+      "branch": "codex/api-batch-12-client-invoices",
+      "head": "80f76fe03009f42a0513ff962135d4601e34bac4",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        43
+      ]
+    },
+    {
+      "branch": "codex/api-batch-13-provider-documents",
+      "head": "a6b0e187bd796cef43e1ab69d715b703ad14e227",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        45,
+        44
+      ]
+    },
+    {
+      "branch": "codex/api-batch-14-owner-summaries",
+      "head": "792dcabdafc86865f999e9962ce56819ac1dc318",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        46
+      ]
+    },
+    {
+      "branch": "codex/api-batch-15-visit-document-summaries",
+      "head": "2896f20513dce9780ad2f3c3c8162a46774aab86",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        47
+      ]
+    },
+    {
+      "branch": "codex/api-batch-16-provider-availability",
+      "head": "7f781ebf36d58e0f64c68490fc8a40eaefe4d580",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        48
+      ]
+    },
+    {
+      "branch": "codex/api-batch-17-legacy-domain-security",
+      "head": "e5b206428d8b2c9e73bae11951ffae1d919f1c2c",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        49
+      ]
+    },
+    {
+      "branch": "codex/api-batch-18-client-booking-requests",
+      "head": "5f742e43a8f5a7c157174ef35c7d3c1596888b72",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        50
+      ]
+    },
+    {
+      "branch": "codex/api-batch-195",
+      "head": "031b786048dfdc3b75899779a6a0eeff316a9291",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        82
+      ]
+    },
+    {
+      "branch": "codex/api-batch-3-account-sessions",
+      "head": "06531913c2b5420766e476e811110c8210d1b2a6",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        34
+      ]
+    },
+    {
+      "branch": "codex/api-batch-4-account-details",
+      "head": "3fa9df68de9f76e487ccd5dbb53cfdf5fbfa03c4",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        35
+      ]
+    },
+    {
+      "branch": "codex/api-batch-6-self-sessions",
+      "head": "8e1f20c5a86f0171e7e8a1a0d13fd1a833e5d6ce",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        37
+      ]
+    },
+    {
+      "branch": "codex/api-batch-7-client-self",
+      "head": "7449eb13df61b8133185a76debebc2358a7eb4d7",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        38
+      ]
+    },
+    {
+      "branch": "codex/api-batch-8-provider-self",
+      "head": "07642b31001b84b5e346c71098caaab04a93d0b4",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        39
+      ]
+    },
+    {
+      "branch": "codex/api-batch-9-client-bookings",
+      "head": "b2d4fbb133a86158028f0cd182caf95b968c7db8",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        40
+      ]
+    },
+    {
+      "branch": "codex/api-batches-1-2",
+      "head": "7e5082c50470bb9de3bb581697df297d0068d0b7",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        33
+      ]
+    },
+    {
+      "branch": "codex/api-batches-1001-1050",
+      "head": "f8a5c733370166291d0dd1b24c95fd58323e8ca5",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        131
+      ]
+    },
+    {
+      "branch": "codex/api-batches-1051-1100",
+      "head": "6db2d2803b81d5d0d177fe4f8c9b56d9c4719a14",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        132
+      ]
+    },
+    {
+      "branch": "codex/api-batches-1101-1150",
+      "head": "75e49fc621ba1308cfecd417d0067639b33ea264",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        133
+      ]
+    },
+    {
+      "branch": "codex/api-batches-191-194",
+      "head": "a5bc598f77b01f3bb42ad074e69dfd1d5f831722",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        80
+      ]
+    },
+    {
+      "branch": "codex/api-batches-196-198",
+      "head": "9c77c966cde459263d2b9cb9ebd6611919c6b31d",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        84
+      ]
+    },
+    {
+      "branch": "codex/api-batches-199-200",
+      "head": "ae1763216229af12ddc038900f12150bfa4c1b3e",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        86
+      ]
+    },
+    {
+      "branch": "codex/api-batches-201-202",
+      "head": "47bc865eafb8e45f358fa44ccd7c2a7f38025d0d",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        88
+      ]
+    },
+    {
+      "branch": "codex/api-batches-203-204",
+      "head": "845b0218bb255dbf5b1a238d8953f927bbd585f7",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        90
+      ]
+    },
+    {
+      "branch": "codex/api-batches-264-268-rate-results",
+      "head": "e207571810670445bdd98b4692d9d58309ffe988",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        108
+      ]
+    },
+    {
+      "branch": "codex/api-batches-269-273-source-results",
+      "head": "5826243ebbb7b1b527273f0651943ba455245e4b",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        109
+      ]
+    },
+    {
+      "branch": "codex/api-batches-284-298-date-email-results",
+      "head": "06ae62d8b1089421fcd688eec5565abd6cda0f91",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        110
+      ]
+    },
+    {
+      "branch": "codex/api-batches-299-303",
+      "head": "03b0f4f230df14948afe3979dd433974a0f570b0",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        111
+      ]
+    },
+    {
+      "branch": "codex/api-batches-304-318",
+      "head": "9aa0a4c6680bbcf9c25472b700d1e94a85e0d9e4",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        112
+      ]
+    },
+    {
+      "branch": "codex/api-batches-319-333",
+      "head": "cfd5650b48a370e0dce098ec7ef0c8276d7a08ef",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        113
+      ]
+    },
+    {
+      "branch": "codex/api-batches-334-348",
+      "head": "ca4cae0a1afd33a27d067aa0a9c0e88c8a7d2522",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        114
+      ]
+    },
+    {
+      "branch": "codex/api-batches-349-363",
+      "head": "6eccd2944fcb728856e2865ec0c266caeaaa57d5",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        115
+      ]
+    },
+    {
+      "branch": "codex/api-batches-364-388",
+      "head": "23f89529845451c85c1908a8d43838af82c3987d",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        116
+      ]
+    },
+    {
+      "branch": "codex/api-batches-389-438",
+      "head": "32107db6e638f1c9969711579f2401d0bab4e218",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        117
+      ]
+    },
+    {
+      "branch": "codex/api-batches-439-488",
+      "head": "a4cc05418437b99b4e390b78d992ae85109f7957",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        118
+      ]
+    },
+    {
+      "branch": "codex/api-batches-489-538",
+      "head": "3feb0664d1ce964a421328a1ac54285d9fa7ce5f",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        119
+      ]
+    },
+    {
+      "branch": "codex/api-batches-539-588",
+      "head": "49b41663e837b901cd46955f03f6b7ef93dfc88d",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        120
+      ]
+    },
+    {
+      "branch": "codex/api-batches-589-638",
+      "head": "e8038c658507ca21ead43eb8944473535fef3935",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        121
+      ]
+    },
+    {
+      "branch": "codex/api-batches-639-688",
+      "head": "cc138ff6220ad7d7381b9ec2bab936c425a838fa",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        122
+      ]
+    },
+    {
+      "branch": "codex/api-batches-689-738",
+      "head": "7cb5be583ffe8e9623b966d7472bb0c59e29afe7",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        123
+      ]
+    },
+    {
+      "branch": "codex/api-batches-739-788",
+      "head": "b09abac9a5e7961e876d10cf80a910ebcf43b582",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        124
+      ]
+    },
+    {
+      "branch": "codex/api-batches-789-838",
+      "head": "135ccc9c8268c797a9cdd431b0f80485b97f684e",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        125
+      ]
+    },
+    {
+      "branch": "codex/api-batches-839-850",
+      "head": "2f2fcd779ee7a4a49b6473261cbef14a2b7dfa2f",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        127
+      ]
+    },
+    {
+      "branch": "codex/api-batches-851-900",
+      "head": "33ff5f007e15a2c5eb6bdf8bf9cbd0acc273de16",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        128
+      ]
+    },
+    {
+      "branch": "codex/api-batches-901-950",
+      "head": "5ac8e93380182bd08e3a2258120658c27fe1e702",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        129
+      ]
+    },
+    {
+      "branch": "codex/api-batches-951-1000",
+      "head": "4d6969b55ef3a18350d80cabbc8bd6c57aa3efd1",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        130
+      ]
+    },
+    {
+      "branch": "codex/api-booking-payment-reads",
+      "head": "23e81ebc975c47cfaa905fb01d2efecdbebc5b5f",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        55
+      ]
+    },
+    {
+      "branch": "codex/api-checkpoint-194",
+      "head": "852c0ca87c628aad93536ffef8205f6c9200abeb",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        81
+      ]
+    },
+    {
+      "branch": "codex/api-checkpoint-195",
+      "head": "f3d71003ee8f1c7906cfb63e98699902639ca80f",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        83
+      ]
+    },
+    {
+      "branch": "codex/api-checkpoint-198",
+      "head": "5ad7cf50a5c2f0fe4ca47798c5ea0512a6abe612",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        85
+      ]
+    },
+    {
+      "branch": "codex/api-checkpoint-204",
+      "head": "96308894c92283edb5ad879413c5db5daf006ab3",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        91
+      ]
+    },
+    {
+      "branch": "codex/api-client-care-events-179-188",
+      "head": "8dca69952b660e2f7f6a30ccd71fabb22ddb94e9",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        77
+      ]
+    },
+    {
+      "branch": "codex/api-client-care-metadata-172-178",
+      "head": "8f60db841605651e7ee968fc7f6254e01fe06331",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        76
+      ]
+    },
+    {
+      "branch": "codex/api-client-record-summaries",
+      "head": "0020e2d4db612e7f9ab41407134a839421154fb8",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        54
+      ]
+    },
+    {
+      "branch": "codex/api-completion-205-208",
+      "head": "4a37bc03e9a4b2b5799a2f8a60911b9d019799c3",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        92
+      ]
+    },
+    {
+      "branch": "codex/api-completion-booking-lifecycle",
+      "head": "f6fa7a82178b193c7e54b87107a4c7eea6c710d2",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        51
+      ]
+    },
+    {
+      "branch": "codex/api-completion-client-records",
+      "head": "f1b9d508bdc70218b9851f886bafcf59ca289127",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        52
+      ]
+    },
+    {
+      "branch": "codex/api-contract-gap-inventory",
+      "head": "adda64440bf9a7db15f3f253bf98a50e7caf6aa8",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        67
+      ]
+    },
+    {
+      "branch": "codex/api-feedback-reputation",
+      "head": "5f686f02eafa93061581bcfabd0f9cf626f89c02",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        58
+      ]
+    },
+    {
+      "branch": "codex/api-governed-contract-reads",
+      "head": "3d19bb63cb55da7dcaaab6a37db6e10424ead5c4",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        68
+      ]
+    },
+    {
+      "branch": "codex/api-invoice-nullability-164-165",
+      "head": "f3d6daa93261b1fd5696a2f1a05389f775877674",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        74
+      ]
+    },
+    {
+      "branch": "codex/api-invoice-projection-189-190",
+      "head": "8404d4f5fd9057faa9408a45608dc8b2540b5b09",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        78
+      ]
+    },
+    {
+      "branch": "codex/api-operational-summaries-bootstrap",
+      "head": "557cb8801cad140c302c29fc6dc0a6d01fb080e6",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        66
+      ]
+    },
+    {
+      "branch": "codex/api-overnight-checkpoint-190",
+      "head": "0d6bbca4712e9b1825145a07bd9bbb37c4eb93d2",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        79
+      ]
+    },
+    {
+      "branch": "codex/api-owned-reads-overnight",
+      "head": "d7a0275817aebd83fe11c3211e2c8235b0602a3d",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        71
+      ]
+    },
+    {
+      "branch": "codex/api-owned-singletons-153-157",
+      "head": "aac1a9c23f2d02910001f6b73daa805d4b9725ac",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        72
+      ]
+    },
+    {
+      "branch": "codex/api-owner-thread-metadata",
+      "head": "274dbbeb7b55d2aa55d8170c7f952bb2e3321da3",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        60
+      ]
+    },
+    {
+      "branch": "codex/api-page-build-blueprints",
+      "head": "f25ab470f58d5a0ce0556a18b5135c769d440a6e",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        36
+      ]
+    },
+    {
+      "branch": "codex/api-patient-owned-metadata-166-171",
+      "head": "7c3043492d8cdd11eb2cfee1c60c550cb129301a",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        75
+      ]
+    },
+    {
+      "branch": "codex/api-personal-device-wellness",
+      "head": "59b840bbcbf200434c3a184a1fbdcb5766904fe8",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        57
+      ]
+    },
+    {
+      "branch": "codex/api-personal-metadata",
+      "head": "37d991d4ba96636ccdca8cb7a951717d4afbf312",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        59
+      ]
+    },
+    {
+      "branch": "codex/api-personal-records",
+      "head": "bf6f97199316477de105f14ad7c1c8c2f4ff3807",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        56
+      ]
+    },
+    {
+      "branch": "codex/api-personal-report-audit-metadata",
+      "head": "b5e2cb073dba5aec2c29a81a72abbd417b70f71f",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        64
+      ]
+    },
+    {
+      "branch": "codex/api-progress-batch-200",
+      "head": "1b63545de19b55ae94c1ae4ef96bcb7146ca2822",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        87
+      ]
+    },
+    {
+      "branch": "codex/api-progress-batch-202",
+      "head": "2ee4e2847d9a21c35b816da2116b54fe18b0117e",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        89
+      ]
+    },
+    {
+      "branch": "codex/api-provider-event-match-metadata",
+      "head": "e1a7fa449d59657af3a7a6c7e40a5be09bd85b81",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        63
+      ]
+    },
+    {
+      "branch": "codex/api-provider-mileage-payout-metadata",
+      "head": "fe40fd0983e6e16b82ea6bccde8b490c281f4417",
+      "status": "closed_pr_with_later_replacement_evidence",
+      "pullRequests": [
+        62
+      ]
+    },
+    {
+      "branch": "codex/api-provider-owned-metadata",
+      "head": "0b3fa77842536fcea9dce4c0664b81c29bacf0ef",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        61
+      ]
+    },
+    {
+      "branch": "codex/api-read-aliases-111-115",
+      "head": "99fda9a66c44cf523c21309d1da957ddeafe384c",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        69
+      ]
+    },
+    {
+      "branch": "codex/api-read-aliases-116-120",
+      "head": "4e464507877c6521feb1c9214897c3f149af2084",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        70
+      ]
+    },
+    {
+      "branch": "codex/api-review-telehealth-metadata",
+      "head": "cf5c2c47bebc12fbe3da4256722ae5faa8f9de59",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        65
+      ]
+    },
+    {
+      "branch": "codex/auth-body-bounds-254-258",
+      "head": "de30fded7c3875a60c2ecf08092d0f2ca698ca08",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        106
+      ]
+    },
+    {
+      "branch": "codex/auth-counter-cleanup",
+      "head": "3e3977b91f19a1e52eaa819ae654f2e5348383c8",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        6
+      ]
+    },
+    {
+      "branch": "codex/auth-delivery-work-package",
+      "head": "72aada99f6a87fdcea0b968980c4b620888392d8",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        135
+      ]
+    },
+    {
+      "branch": "codex/auth-maintenance-build-filter",
+      "head": "cdfb44d99f6771c85db4aa74a46f7e3b86f217e3",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        7
+      ]
+    },
+    {
+      "branch": "codex/auth-mutation-throttling",
+      "head": "f9640384d401e989692047de3fd050e6b64a90d9",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        8
+      ]
+    },
+    {
+      "branch": "codex/auth-result-validation-259-263",
+      "head": "b6baa0f67de79696bfc99042cd9b28c2b6ae88eb",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        107
+      ]
+    },
+    {
+      "branch": "codex/auth-root-routing-reconciliation-20261007",
+      "head": "bb4e554811605fae723f85cf5b273ee7183a7bfb",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        142
+      ]
+    },
+    {
+      "branch": "codex/auth-session-race-fix",
+      "head": "8384c172f409921553a03723281362e0689ffcbf",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        5
+      ]
+    },
+    {
+      "branch": "codex/batch-248-maintenance-byte-limit",
+      "head": "11f1bcdfd49f6587301cde4e24480609a3607c93",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        104
+      ]
+    },
+    {
+      "branch": "codex/booking-request-actions-delivery",
+      "head": "7257765848999718cd88e7a955ceeae038c04d8b",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        138
+      ]
+    },
+    {
+      "branch": "codex/booking-response-integrity",
+      "head": "93cb19194d9216dae68c8e84a329a9237e11ab17",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        94
+      ]
+    },
+    {
+      "branch": "codex/booking-submission-delivery",
+      "head": "5994bcb7b1fc5704e4e7180200525f9e08915a89",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        137
+      ]
+    },
+    {
+      "branch": "codex/central-worker-classes",
+      "head": "bd0f4902ac35f4402b0afeda28be95db885ce6c5",
+      "status": "combined_locally_pending_publication",
+      "pullRequests": [
+        154
+      ]
+    },
+    {
+      "branch": "codex/ci-api-change-routing",
+      "head": "2afc2a6593c250241bfa5f77db0b55eb7836ca73",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        53
+      ]
+    },
+    {
+      "branch": "codex/client-family-notifications-222-224",
+      "head": "976ce41044c534457d3e6773f80368ca18a14ed4",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        98
+      ]
+    },
+    {
+      "branch": "codex/client-payment-history-209-211",
+      "head": "77b56360965215b48521739129eb971a194e3018",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        95
+      ]
+    },
+    {
+      "branch": "codex/compatibility-canonical-authority",
+      "head": "7ecb166405b1463907180ea44787e90992fd0c81",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        102
+      ]
+    },
+    {
+      "branch": "codex/dashboard-delivery-audit",
+      "head": "88cec3467b6cc4af27c8fcaa38a1856f4c664062",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        32
+      ]
+    },
+    {
+      "branch": "codex/existing-auth-contracts-242-247",
+      "head": "70ca949e92e7ebb43bbbc15b1daa929dc4133079",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        103
+      ]
+    },
+    {
+      "branch": "codex/finite-api-delivery-checklist",
+      "head": "089656de23814437d7dc6f492f3a9a5a570948a2",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        134
+      ]
+    },
+    {
+      "branch": "codex/gateway-auth-routing",
+      "head": "fcca6ec759dd089bc3850152f4d4da3999cad2ee",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        1
+      ]
+    },
+    {
+      "branch": "codex/governance-progress-scope",
+      "head": "6400c15b637e963157611b755de71186bb9f43d5",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        93
+      ]
+    },
+    {
+      "branch": "codex/owned-commerce-authoring-225-235",
+      "head": "722d6020475c3566fcf2544e27ab1c0dbfd99fe3",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        100
+      ]
+    },
+    {
+      "branch": "codex/owned-payment-timesheet-212-216",
+      "head": "c4ca6036566c03d4e1483f3b1e178880a218493d",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        96
+      ]
+    },
+    {
+      "branch": "codex/owner-read-authority-preflight",
+      "head": "250a3c7dd6b9acca3cb4395dfc24b9907d7da618",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        99
+      ]
+    },
+    {
+      "branch": "codex/parallel-foundation-quarantine-20261007",
+      "head": "8c608bbbb487c3e8edfd80d7a50099b4d85a1b4a",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        141
+      ]
+    },
+    {
+      "branch": "codex/patient-observation-metadata-236-241",
+      "head": "d1670bdd3f82dd00dd797486e62e62c1e43570ea",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        101
+      ]
+    },
+    {
+      "branch": "codex/production-deployment",
+      "head": "dc978473eea09b283b9279f0afc022d20d680aab",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        3,
+        2
+      ]
+    },
+    {
+      "branch": "codex/resume-839-checkpoint",
+      "head": "af0aacba77b0b24a5a28a4c2cfda952f0d7a1483",
+      "status": "closed_pr_with_later_replacement_evidence",
+      "pullRequests": [
+        126
+      ]
+    },
+    {
+      "branch": "codex/reuse-utc-timestamp-validation",
+      "head": "61eef60b2232b735698f8c90cc3103fa3c2ccc5b",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        153
+      ]
+    },
+    {
+      "branch": "codex/training-message-217-221",
+      "head": "6ec3a852f07a4050b67b96f89743f5279fdbda14",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        97
+      ]
+    },
+    {
+      "branch": "deploy/client-auth-20261010",
+      "head": "a0934a2e2dc98d7b270c29bfeb1f4d9cf082e47c",
+      "status": "requires_review",
+      "pullRequests": []
+    },
+    {
+      "branch": "deploy/email-inbox-20261010",
+      "head": "bcd0f3450e9c8e09adbbdd3c5c0d435717c93693",
+      "status": "requires_review",
+      "pullRequests": []
+    },
+    {
+      "branch": "deploy/v4-security-hardened",
+      "head": "6aa5c2ff099fb4ec5abbf04fb8a608e744b62ccd",
+      "status": "historical_alias_requires_reset_history_review",
+      "pullRequests": []
+    },
+    {
+      "branch": "design/shared-auth-experience",
+      "head": "90a41c7fc3525f73ed3a61cf28e437a728577dc9",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        16
+      ]
+    },
+    {
+      "branch": "docs/embedded-auth-retirement-verification",
+      "head": "bf8798a94982e036f0bfc4e411c0ff81938f027f",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        25
+      ]
+    },
+    {
+      "branch": "docs/technical-specification-and-plan",
+      "head": "66ac9ed15842eec4fabc7493d80bee77b4df2cf8",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        152
+      ]
+    },
+    {
+      "branch": "evidence/admin-website-tasks-20261011",
+      "head": "0f5eedf55ec0afc38f3735683432d92cd8bd5e18",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        183
+      ]
+    },
+    {
+      "branch": "evidence/report-screenshots-20261011",
+      "head": "d1ae3af09f77d1ecbb98376cdbde79dc75b7067f",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        182
+      ]
+    },
+    {
+      "branch": "feat/admin-training",
+      "head": "0eb6d9ad3134234b285fe60db341e80f8bf8bbc4",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        199
+      ]
+    },
+    {
+      "branch": "feat/architecture-visuals",
+      "head": "801fb82b4cd85792123d57e8f87fc47fb7a8c0d3",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        31
+      ]
+    },
+    {
+      "branch": "feat/auth-live-screen-text",
+      "head": "0219ea331e0d4d7d7c2d1c759677f9bd94c65edf",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        195
+      ]
+    },
+    {
+      "branch": "feat/bulk-contract-code-placement",
+      "head": "36f8a7b44f04ad9996c99f394b87b80be357e12a",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        149
+      ]
+    },
+    {
+      "branch": "feat/bulk-contract-factory",
+      "head": "645ff2710c056a7b0147f5bc2d293651de774561",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        148
+      ]
+    },
+    {
+      "branch": "feat/it-maintenance",
+      "head": "519ec4abb7505e2e0760a8a19829725b66803d7d",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        29
+      ]
+    },
+    {
+      "branch": "feat/live-screen-text",
+      "head": "7bb8c899e2446fc8d2a2182e651da44b97d2ffd2",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        194
+      ]
+    },
+    {
+      "branch": "feat/native-admin-training",
+      "head": "aa20a289ed2d36df1a0c7226cdd8c4bdbccda270",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        200
+      ]
+    },
+    {
+      "branch": "feat/pending-api-authority-audit",
+      "head": "a198451f365a7d88d0bbc8fdb54dc12799c398de",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        150
+      ]
+    },
+    {
+      "branch": "feat/recover-api-grant-evidence",
+      "head": "208806f588f6688a9faa36c582c850c0178ab8f0",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        151
+      ]
+    },
+    {
+      "branch": "feat/runtime-theme-xml-layout-20261012",
+      "head": "9449d4ac319cf3ccd06b89204aef7a00034e5c19",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        185
+      ]
+    },
+    {
+      "branch": "feat/screen-text-release",
+      "head": "15348bc9fd6b33d37faf09662e8272f011a7010d",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        196
+      ]
+    },
+    {
+      "branch": "feat/shared-personal-theme-center-20261012",
+      "head": "81575125bed92f01211e75656d13c4031ec513e4",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        186
+      ]
+    },
+    {
+      "branch": "feat/web-auth-local-text",
+      "head": "d4f3b0a2166d8af6fabee31a952d3a9a9b92a5ed",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        198
+      ]
+    },
+    {
+      "branch": "feature/admin-report-deployment-20261011",
+      "head": "4dc879f5aef4fa1c5a46fb766b5f2efe31b60c5a",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        177
+      ]
+    },
+    {
+      "branch": "feature/admin-reports-20261011",
+      "head": "ca655ac94c4c3a23a0b7e3ae5c227d78ca8dd209",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        176
+      ]
+    },
+    {
+      "branch": "feature/governance-hardening",
+      "head": "6aa5c2ff099fb4ec5abbf04fb8a608e744b62ccd",
+      "status": "historical_alias_requires_reset_history_review",
+      "pullRequests": []
+    },
+    {
+      "branch": "feature/reports-all-platforms-20261011",
+      "head": "5c53d6dab9cef5d09f415fc00e9244a454321fb2",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        181
+      ]
+    },
+    {
+      "branch": "fix-api-gateway-typescript",
+      "head": "6aa5c2ff099fb4ec5abbf04fb8a608e744b62ccd",
+      "status": "historical_alias_requires_reset_history_review",
+      "pullRequests": []
+    },
+    {
+      "branch": "fix/admin-carousel-en-es-fr",
+      "head": "2fdd9c69257585e4039f175aa860206dcbc0ce10",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        190
+      ]
+    },
+    {
+      "branch": "fix/admin-carousel-theme-text",
+      "head": "1df6f26d0e78f3a3e5daf039e0621b1bbd6a64e4",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        189
+      ]
+    },
+    {
+      "branch": "fix/admin-reality-check-theme-text",
+      "head": "bcce31244f0f5624bea3b99151480c148e8356f0",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        188
+      ]
+    },
+    {
+      "branch": "fix/admin-reality-filter-localization",
+      "head": "d0ab8b16561ae5fea0778116914655bffeeedc8d",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        193
+      ]
+    },
+    {
+      "branch": "fix/admin-website-workflows-20261011",
+      "head": "07ee75a5a6968f2bcb25b9e525362d8272f683db",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        184
+      ]
+    },
+    {
+      "branch": "fix/android-password-recovery",
+      "head": "31863fdc1a0899c47b039b6850960f1e39462ab2",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        28
+      ]
+    },
+    {
+      "branch": "fix/auth-flutter-preflight",
+      "head": "926a5e2e59a265811ef9fdfcd19fd1c19c6824a6",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        14
+      ]
+    },
+    {
+      "branch": "fix/auth-gateway-route-coverage",
+      "head": "8c3be320606dd457934963ddae08e4942687b69f",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        11
+      ]
+    },
+    {
+      "branch": "fix/auth-language-switching",
+      "head": "73112326f8f5206baaf2b8fcb0169d0b373ece00",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        17
+      ]
+    },
+    {
+      "branch": "fix/auth-session-ordering",
+      "head": "16421db8703b2a9dcbd23315a9ab02fd3c5a715b",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        26
+      ]
+    },
+    {
+      "branch": "fix/auth-source-login-limit",
+      "head": "eaa0633475b2f811827d866dc74e8f52d0d7cd85",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        12
+      ]
+    },
+    {
+      "branch": "fix/auth-unavailable-en-es-fr",
+      "head": "e828cdc2b95e9fe88c4a96ce279aafad9bbbc340",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        191
+      ]
+    },
+    {
+      "branch": "fix/auth-web-riverpod-build",
+      "head": "32452bc14815fcb6118fc137b348f900043fa09a",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        13
+      ]
+    },
+    {
+      "branch": "fix/client-booking-collection-submission",
+      "head": "f75da3037a722efe546de834354871a22d5c23db",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        139
+      ]
+    },
+    {
+      "branch": "fix/clinic-embedded-auth",
+      "head": "73413a280093956016d6546ead687b5b70dbb0dd",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        15
+      ]
+    },
+    {
+      "branch": "fix/consolidated-api-results",
+      "head": "81c1fb19f9f5b27ef99ef879d24b277ba633fddb",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        146
+      ]
+    },
+    {
+      "branch": "fix/flutter-auth-real-errors",
+      "head": "063c8876c27d551888e6d6e21c2e173220ce27c6",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        9
+      ]
+    },
+    {
+      "branch": "fix/flutter-auth-session-ownership",
+      "head": "2124867acd7c69607dee0810bc267648fb654cff",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        10
+      ]
+    },
+    {
+      "branch": "fix/governance-auth-deep-links",
+      "head": "714fa04bac738909c048c41e6d6c9cb2eb4e1ee5",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        21
+      ]
+    },
+    {
+      "branch": "fix/governance-static-dashboard-shadow",
+      "head": "a9edfefcb822775d1464361ae1de7be6f3279a92",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        23
+      ]
+    },
+    {
+      "branch": "fix/governance-test-harness-20261011",
+      "head": "b593db10ea1f43fe4543922e9e690fff7dfd6665",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        178
+      ]
+    },
+    {
+      "branch": "fix/legacy-shared-theme-consumers-20261012",
+      "head": "621895c32e758a7f8cb82d181d7dafd1eccd1eff",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        187
+      ]
+    },
+    {
+      "branch": "fix/macos-release-network-20261011",
+      "head": "68add79727cf8cc2f6a0cccf82f79084f44736da",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        180
+      ]
+    },
+    {
+      "branch": "fix/pages-retirement-pagination",
+      "head": "57f79034d0d0e56fd172bcd1f5333188816e2d29",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        24
+      ]
+    },
+    {
+      "branch": "fix/parallel-api-reconciliation",
+      "head": "089dfca6f37c9953a8b65c18c4bcb2df08bfe184",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        140
+      ]
+    },
+    {
+      "branch": "fix/parallel-routing-reconciliation",
+      "head": "70d46b8a116c6c7cc9cae4339993f302f913360b",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        144
+      ]
+    },
+    {
+      "branch": "fix/postman-batch-routing-diagnostics",
+      "head": "94d868c4868899baa75a23ba914f7cc35ca8f80a",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        145
+      ]
+    },
+    {
+      "branch": "fix/retire-auth-deployment-history",
+      "head": "b432eaf443ff6edf5d3e2d919d2ba51ea9c4344d",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        22
+      ]
+    },
+    {
+      "branch": "fix/role-dashboard-readiness",
+      "head": "5452ccc0c066f3c088bbd46c9d83b1f7bca68161",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        27
+      ]
+    },
+    {
+      "branch": "fix/screen-text-release-order",
+      "head": "bd0baa560dd6a135090d49c441edd84051303f5f",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        197
+      ]
+    },
+    {
+      "branch": "fix/static-screen-audit-evidence",
+      "head": "7a2b8282429540241b2e2abb48bcf47b73c1ae7d",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        143
+      ]
+    },
+    {
+      "branch": "fix/testng-website-isolation",
+      "head": "9078c07ecad5d255f7637dfb8abc0d56e7fa9a7c",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        30
+      ]
+    },
+    {
+      "branch": "fix/theme-center-option-localization",
+      "head": "0430f59034b2a1cf67c20fbecfc7d7731578c40f",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        192
+      ]
+    },
+    {
+      "branch": "fix/typescript-login-api-docs-20260928",
+      "head": "a023e97bb70b652f58e7a3c6dc27dd4d63b125ef",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        4
+      ]
+    },
+    {
+      "branch": "fix/workflow-contract-consolidation",
+      "head": "b69bf0aaca4faf2a01d62ec299b23bfe3c15f9b1",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        147
+      ]
+    },
+    {
+      "branch": "main",
+      "head": "cdd23f5777e98a162de81dc407b5c64379f4c582",
+      "status": "already_in_main_history",
+      "pullRequests": []
+    },
+    {
+      "branch": "refactor/api-feature-skeleton-20261009",
+      "head": "072179eb99056cd5b26b3b3f4cc1fdf330d1cb43",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        164
+      ]
+    },
+    {
+      "branch": "refactor/central-dart-ui-inheritance",
+      "head": "494db190cf274ec5baba77e25b986cd1e3f22d4c",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        156
+      ]
+    },
+    {
+      "branch": "refactor/central-worker-inheritance",
+      "head": "0915036fd0d3469c3fa35599f7e229ceca58b688",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        155
+      ]
+    },
+    {
+      "branch": "refactor/custom-shared-state-skeleton-20261009",
+      "head": "35b62e67948b4dc963950b47eab15c83135b4b15",
+      "status": "combined_locally_pending_publication",
+      "pullRequests": [
+        163
+      ]
+    },
+    {
+      "branch": "refactor/gateway-skeleton-20261009",
+      "head": "98f6d5f232cb76d63b5f7eac1e2beb6233fc382c",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        167
+      ]
+    },
+    {
+      "branch": "refactor/governance-business-skeleton-20261009",
+      "head": "078cdf89b9f5ecaf89023b892cae20d5919791de",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        165
+      ]
+    },
+    {
+      "branch": "refactor/package-owned-auth",
+      "head": "3cec3ed1e5595c871012352c73d9d66edb9eb0f6",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        18
+      ]
+    },
+    {
+      "branch": "refactor/platform-governance-skeleton-20261009",
+      "head": "3f742cc639769d3ecbd3876df057f7e1c50e6f6c",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        169
+      ]
+    },
+    {
+      "branch": "refactor/remaining-shared-models-20261009",
+      "head": "e5e3e4cfcc053c7784cf310510286af106cce3d8",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        161
+      ]
+    },
+    {
+      "branch": "refactor/remove-auth-app",
+      "head": "99d985874e1067f8a8b0a4c78b0c6c29f1504a7b",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        19
+      ]
+    },
+    {
+      "branch": "refactor/service-business-skeleton-20261009",
+      "head": "efe9efb9d8b1f7dc2e51e637580a52e7dcc33409",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        166
+      ]
+    },
+    {
+      "branch": "refactor/shared-api-routes-20261009",
+      "head": "acab150cd240854fcb76ff365e67281f4ae1da7c",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        162
+      ]
+    },
+    {
+      "branch": "refactor/shared-api-ui-models-20261009",
+      "head": "0d651b1bd2e8c33813f29fa2a790c8555fa2a4f7",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        160
+      ]
+    },
+    {
+      "branch": "refactor/shared-core-layers",
+      "head": "ab1432f383d400ee693d57b2578462be59b611b3",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        159
+      ]
+    },
+    {
+      "branch": "refactor/shared-dart-api-controller",
+      "head": "63f936caf2a453190898ac8fdcfb15a711177caa",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        157
+      ]
+    },
+    {
+      "branch": "refactor/shared-data-models-20261009",
+      "head": "45f13c1bb2d0b6bb1c168fdd2b8e47d6180a762f",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        168
+      ]
+    },
+    {
+      "branch": "refactor/shared-flutter-app-shell",
+      "head": "f0e942896608baa1993e7bb1111f6942fa15ddd6",
+      "status": "previously_merged_pr_history",
+      "pullRequests": [
+        158
+      ]
+    },
+    {
+      "branch": "refactor/shared-runtime-contracts-20261009",
+      "head": "44643bf176194f42ffdbf245a7572187638a94e2",
+      "status": "combined_locally_pending_publication",
+      "pullRequests": [
+        171
+      ]
+    },
+    {
+      "branch": "refactor/shared-screen-metadata-20261009",
+      "head": "99fee619661625f62ddc27da1e7e0861fe7a1444",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        170
+      ]
+    },
+    {
+      "branch": "test/all-platform-layouts-20261011",
+      "head": "4513d21d387a53ae6b7cd093a1fc34df76b49cc0",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        179
+      ]
+    },
+    {
+      "branch": "work/care-recovered-20261017",
+      "head": "dd6e76a538c5a2a4266b99469f39f32caf1a173f",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        201
+      ]
+    },
+    {
+      "branch": "work/care-recovery-20261018-closed-visits",
+      "head": "8d3dd5b1a6ef8a866d85cab6b79f4d6588833d5e",
+      "status": "already_in_main_history",
+      "pullRequests": []
+    },
+    {
+      "branch": "work/governance-govt-prefix-20261019",
+      "head": "032c22585199516d0f15fbef408603eaee8ae1d9",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        203
+      ]
+    },
+    {
+      "branch": "work/governance-production-cutover-20261019",
+      "head": "789ff616198b2d49b937e4eecdae44a9ee940fc3",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        204
+      ]
+    },
+    {
+      "branch": "work/governance-production-seed-20261019",
+      "head": "8d3dd5b1a6ef8a866d85cab6b79f4d6588833d5e",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        202
+      ]
+    },
+    {
+      "branch": "work/governance-reference-inventory-20261019",
+      "head": "517b98d7108d409fa5d58efa552469d0c8acedb6",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        205
+      ]
+    },
+    {
+      "branch": "work/governance-table-audit-20261019",
+      "head": "f8dcc8b1c8596ccaf6ada441c0371ccb59434f62",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        208
+      ]
+    },
+    {
+      "branch": "work/ignore-retired-governance-backups-20261019",
+      "head": "fcb429f16c817bfc743bf999a1a6de50f3a1ef45",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        207
+      ]
+    },
+    {
+      "branch": "work/remove-old-governance-db-20261019",
+      "head": "68f71e2400e86ebd4d08d8fc470e5ca4501b4a57",
+      "status": "already_in_main_history",
+      "pullRequests": [
+        206
+      ]
+    }
+  ]
+}
