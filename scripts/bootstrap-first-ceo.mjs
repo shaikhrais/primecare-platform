@@ -1,4 +1,5 @@
-import { Client } from 'pg';
+import pg from 'pg';
+const {Client}=pg;
 import bcrypt from 'bcryptjs';
 import { pathToFileURL } from 'node:url';
 import {randomUUID} from 'node:crypto';
@@ -19,9 +20,13 @@ export async function bootstrap(db, input) {
     await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',[email]);
     const duplicate=await db.query('SELECT id FROM users WHERE LOWER(email)=$1 LIMIT 1',[email]);
     if(duplicate.rows.length) throw new Error('Existing account cannot be promoted or overwritten by bootstrap');
-    const result=await db.query("INSERT INTO users(email,tenant_id,roles,password_hash,status,id,updated_at) VALUES($1,$2,'ceo',$3,'active',$4,NOW()) RETURNING id",[email,tenant,hash,randomUUID()]);
-    const id=result.rows[0].id;
-    await db.query("INSERT INTO auth_bootstrap_audit(user_id,tenant_id,source) VALUES($1,$2,'protected_workflow')",[id,tenant]);
+    const id=randomUUID();
+    const result=await db.query("INSERT INTO users(email,tenant_id,roles,password_hash,status,id,updated_at) VALUES($1,$2,'ceo',$3,'active',$4,NOW()) RETURNING id,email,tenant_id,roles,status",[email,tenant,hash,id]);
+    const user=result.rows[0];
+    if(result.rows.length!==1||user.id!==id||user.email!==email||user.tenant_id!==tenant||user.roles!=='ceo'||user.status!=='active')throw Error('Bootstrap identity not persisted');
+    const audit=await db.query("INSERT INTO auth_bootstrap_audit(user_id,tenant_id,source) VALUES($1,$2,'protected_workflow') RETURNING user_id,tenant_id,source",[id,tenant]);
+    const event=audit.rows[0];
+    if(audit.rows.length!==1||event.user_id!==id||event.tenant_id!==tenant||event.source!=='protected_workflow')throw Error('Bootstrap audit not persisted');
     await db.query('COMMIT');
     return {created:true};
   } catch(error) {
