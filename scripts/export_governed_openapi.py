@@ -5,6 +5,9 @@ import sqlite3
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+sys.path.insert(0,str(ROOT/'tools/governance-production'))
+from connection import connect as governance_connect
 METHODS = {'get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace'}
 
 
@@ -100,13 +103,13 @@ def build(records):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--database', type=Path, default=ROOT / '.agents/governance/governance.db')
+    parser.add_argument('--database', type=Path, default=None)
     parser.add_argument('--output', type=Path, default=ROOT / 'packages/contracts/openapi.json')
     parser.add_argument('--report', type=Path, default=ROOT / 'packages/contracts/api-readiness.json')
     parser.add_argument('--handbook', type=Path, default=ROOT / 'packages/contracts/ENDPOINT_REFERENCE.md')
     parser.add_argument('--check', action='store_true', help='Read only; exit 1 if deployment is blocked.')
     args = parser.parse_args()
-    with sqlite3.connect(args.database.resolve().as_uri() + '?mode=ro', uri=True) as db:
+    with governance_connect(args.database.resolve().as_uri() + '?mode=ro' if args.database else None, uri=True) as db:
         db.row_factory = sqlite3.Row
         # Explicit allowlist: never export passwords, emails, DB URLs, or unrelated tables.
         records = list(db.execute('SELECT id, endpoint_code, route_path, http_method, '

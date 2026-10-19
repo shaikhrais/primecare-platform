@@ -1,10 +1,12 @@
 import sqlite3
+import pathlib,sys
+ROOT=pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/"tools/governance-production"))
+from connection import connect as governance_connect
 import os
 
-DB_PATH = r"c:\Users\Admin2\Documents\GitHub\primecare-platform\.agents\governance\governance.db"
-PROJECT_ROOT = r"c:\Users\Admin2\Documents\GitHub\primecare-platform"
 
-conn = sqlite3.connect(DB_PATH)
+conn = governance_connect()
 cur = conn.cursor()
 
 print("=== Architecture Tables Count ===")
@@ -17,7 +19,7 @@ print("project_file_dependencies count:", cur.fetchone()[0])
 cur.execute("SELECT COUNT(*) FROM implementation_execution_plan;")
 print("implementation_execution_plan count:", cur.fetchone()[0])
 
-map_path = os.path.join(PROJECT_ROOT, "PROJECT_ARCHITECTURE_MAP.md")
+map_path = os.path.join(ROOT, "PROJECT_ARCHITECTURE_MAP.md")
 if os.path.exists(map_path):
     print("PROJECT_ARCHITECTURE_MAP.md size (bytes):", os.path.getsize(map_path))
 else:

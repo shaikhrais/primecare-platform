@@ -1,3 +1,6 @@
+// Registration scripts operate only on explicit isolated SQLite fixtures.
+if (process.env.GOVERNANCE_ALLOW_SQLITE_FIXTURES === "1") {
+if (process.env.GOVERNANCE_DATABASE_URL || process.env.PRODUCTION_DATABASE_URL) throw new Error("SQLite fixtures cannot be enabled with production credentials");
 execFileSync('python3',['scripts/register-platform-admin-role.py']);
 execFileSync('python3',['scripts/register-admin-hierarchy.py']);
 execFileSync('python3',['scripts/register-admin-form-drafts.py']);
@@ -15,6 +18,7 @@ execFileSync('python3',['scripts/register-platform-bundle.py']);
 execFileSync('python3',['scripts/register-territory-intake.py']);
 execFileSync('python3',['scripts/register-care-governance.py']);
 execFileSync('python3',['scripts/register-response-compression.py']);
+}
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';

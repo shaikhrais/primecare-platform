@@ -3,6 +3,9 @@ import argparse,hashlib,json,sqlite3
 from collections import Counter
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+import sys
+sys.path.insert(0,str(ROOT/'tools/governance-production'))
+from connection import connect as governance_connect
 
 def classify(endpoint,registry,grant_key):
     if not endpoint: return 'missing_endpoint'
@@ -11,7 +14,7 @@ def classify(endpoint,registry,grant_key):
     return 'identity_matches_requires_authority_review'
 
 def build():
-    db=sqlite3.connect(f"file:{ROOT/'.agents/governance/governance.db'}?mode=ro",uri=True);db.row_factory=sqlite3.Row
+    db=governance_connect();db.row_factory=sqlite3.Row
     endpoints={r['id']:dict(r) for r in db.execute('select id,endpoint_code,http_method,route_path,permission_key from api_endpoints')}
     registry={r['id']:dict(r) for r in db.execute('select id,api_id,endpoint_code,method,endpoint_path from api_endpoint_registry')}
     pending={o['api'] for o in json.loads((ROOT/'docs/api/api-delivery-checklist.json').read_text())['operations'] if o['stage'] in ['needs_contract_and_verification','needs_reconciliation']}

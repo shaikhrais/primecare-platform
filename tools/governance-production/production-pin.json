@@ -1,0 +1,10 @@
+{
+  "authority": "production-postgresql",
+  "schema": "governance_68b0b02dd1215f58630d2c1a",
+  "tablePrefix": "govt_",
+  "manifestTable": "govt_source_manifest",
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "connectionVariables": ["GOVERNANCE_DATABASE_URL", "PRODUCTION_DATABASE_URL"],
+  "readOnly": true,
+  "sqliteFallback": false
+}

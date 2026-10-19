@@ -1,21 +1,21 @@
-# Current governance checkpoint on a fresh checkout
+# Production governance authority and cutover
 
-Before querying governance.db on a fresh checkout, run:
+The user-authorized production governance authority is pinned by `tools/governance-production/production-pin.json`: PostgreSQL schema `governance_68b0b02dd1215f58630d2c1a`, tables prefixed `govt_`, source metadata `govt_source_manifest`. Use the shared production connection for migrated consumers. Missing credentials or a manifest mismatch must fail; never silently fall back to SQLite.
 
-```sh
-python3 tools/workflow-verification/restore_checkpoint.py
-```
+The SQLite database and compressed recovery checkpoint are historical import/isolated test fixtures. They are not a second live authority. Preserve them and historical evidence. `GOVERNANCE_ALLOW_SQLITE_FIXTURES=1` is permitted only for isolated tests without production credentials.
 
-The current complete database is preserved in governance-recovery-snapshot.db.gz, verified against docs/task-progress/database-snapshot.json. The ordinary remote tracked database remains the earlier baseline because the complete database exceeds GitHub’s ordinary file limit. The restore tool replaces only an exact manifest-allowlisted baseline and preserves a byte-exact backup. An unknown modified database is never overwritten; the tool writes a separate verified checkpoint and reports that reconciliation is needed. Do not mistake the old baseline for the current workflow inventory.
+Consumer cutover remains incomplete; see `docs/task-progress/governance-production-cutover-20261019.md`. Legacy writers are not production-compatible. Do not run SQLite reset, registration or migration SQL against production by changing a URL. Migrate and verify transactions, types, keys, defaults, views and permission semantics first. Keep each unresolved consumer documented; do not claim the entire cutover is complete from this instruction change.
 
-Live business-process tracking uses virtual_workflow_definitions (flow_kind=business_process), virtual_workflow_steps, virtual_workflow_attempts, virtual_workflow_issues, virtual_workflow_issue_resolutions, virtual_workflow_evidence and virtual_workflow_checkpoints. The 98 workflow_definitions entries are role/app outlines, not individual business workflows.
+For an isolated fixture that needs the complete historical checkpoint, use `python3 tools/workflow-verification/restore_checkpoint.py`; the ordinary tracked SQLite file is an earlier baseline. The restore tool preserves unknown modified databases.
+
+Live business-process tracking uses `govt_virtual_workflow_definitions` filtered to `flow_kind='business_process'`, plus the prefixed steps, source links, guides, snapshots, attempts, issues, resolutions, evidence and checkpoints tables. Supporting screen/action/API guides are not additional business processes. Recalculate live counts. The shared adapter accepts logical source names and maps them to prefixed physical relations.
 
 # 1. Architecture Principles
 
 ```text
 Single Source of Truth
 
-governance.db is the ONLY source of truth.
+The pinned production governance database is the ONLY live source of truth.
 
 AI must never invent
 
@@ -28,7 +28,7 @@ AI must never invent
 • sidebar items
 • dashboard widgets
 
-Everything must exist in governance.db before implementation.
+Everything must exist in the pinned production governance database before implementation.
 ```
 
 ---
@@ -656,7 +656,7 @@ Missing permissions
 
 Preserve backward compatibility unless an approved migration exists.
 
-All generated artifacts must be reproducible from governance.db.
+All generated artifacts must be reproducible from the pinned production governance database.
 ```
 
 ---
@@ -705,7 +705,7 @@ Naming rules:
 - Use kebab-case.
 - Never use spaces.
 - Never generate random IDs.
-- Always derive from governance.db.
+- Always derive from the pinned production governance database.
 ```
 
 ## Naming Examples
