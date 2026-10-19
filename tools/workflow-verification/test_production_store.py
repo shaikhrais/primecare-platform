@@ -61,6 +61,28 @@ class NativeStoreTests(unittest.TestCase):
     def open_store(self):
         return ProductionWorkflowStore(_test_connection=psycopg.connect(URL))
 
+    def test_resolution_rejects_foreign_missing_duplicate_unsuccessful_and_unproved_references(self):
+        issue_id=self.failed_issue()
+        resolution=self.resolution_result(issue_id)
+        columns=[c['name'] for c in self.db.tables['virtual_workflow_definitions']['columns']]
+        self.db.db.execute('INSERT INTO '+self.table('virtual_workflow_definitions')+' SELECT 1,'+','.join("'synthetic.other'" if c=='flow_id' else quote(c) for c in columns)+' FROM '+self.table('virtual_workflow_definitions')+' WHERE flow_id=%s',(self.plan['id'],))
+        for flow_id, changed in [('synthetic.other', resolution),
+            (self.plan['id'],{**resolution,'resolves_issue_ids':[999]}),
+            (self.plan['id'],{**resolution,'resolves_issue_ids':[issue_id,issue_id]}),
+            (self.plan['id'],{**resolution,'resolution_note':''}),
+            (self.plan['id'],{**resolution,'test_status':'not_run'}),
+            (self.plan['id'],{**resolution,'evidence':[]})]:
+            with self.assertRaises(ValueError):record_attempt(self.db,flow_id,changed,self.root)
+        record_attempt(self.db,self.plan['id'],resolution,self.root)
+        self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_issue_resolutions').fetchone()[0],1)
+
+    def test_partial_insert_failure_rolls_back_attempt_and_evidence(self):
+        self.db.db.execute('CREATE FUNCTION '+quote(self.schema)+".reject_fixture_evidence() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'Synthetic evidence insert failure'; END $$")
+        self.db.db.execute('CREATE TRIGGER reject_fixture_evidence BEFORE INSERT ON '+self.table('virtual_workflow_evidence')+' FOR EACH ROW EXECUTE FUNCTION '+quote(self.schema)+'.reject_fixture_evidence()')
+        with self.assertRaises(Exception):record_attempt(self.db,self.plan['id'],self.scoped,self.root)
+        self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_attempts').fetchone()[0],0)
+        self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_evidence').fetchone()[0],0)
+
     def test_statement_and_schema_guard(self):
         for query in ['DELETE FROM virtual_workflow_attempts', 'UPDATE users SET roles=?', 'DROP TABLE virtual_workflow_attempts', 'SELECT * FROM public.users']:
             with self.assertRaises(Exception):
@@ -114,7 +136,6 @@ for name in ('evidence', 'full_proof', 'failed_issue', 'resolution_result',
              'test_source_change_invalidates_completion_and_preserves_history',
              'test_missing_stale_unsafe_evidence_rejected_without_partial_attempt',
              'test_successful_rerun_links_resolution_and_retains_original_failure',
-             'test_resolution_rejects_foreign_missing_duplicate_unsuccessful_and_unproved_references',
              'test_unrelated_pass_unbound_receipt_and_conflicting_failure_cannot_close_issue',
              'test_recheck_reuses_original_open_issue_without_duplicate_rows_or_closure',
              'test_evidence_links_allow_web_and_application_urls_and_reject_executable_schemes'):
