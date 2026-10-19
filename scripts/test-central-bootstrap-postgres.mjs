@@ -8,6 +8,8 @@ import {randomUUID,createHash} from 'node:crypto';
 import {bootstrapCentral} from './bootstrap-first-central-admin.mjs';
 const url=process.env.CENTRAL_BOOTSTRAP_TEST_DATABASE_URL;
 if(!url)throw Error('CENTRAL_BOOTSTRAP_TEST_DATABASE_URL required');
+const target=new URL(url);
+if(!['localhost','127.0.0.1'].includes(target.hostname)||target.pathname!=='/bootstrap')throw Error('Only loopback PostgreSQL database bootstrap is permitted');
 if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL)throw Error('Production credentials forbidden in bootstrap tests');
 const results=[];
 async function fixture(run){
@@ -42,7 +44,9 @@ await check('existing mixed-case account in a foreign tenant is never promoted o
  await assert.rejects(bootstrapCentral(db,input),/cannot be overwritten/);assert.deepEqual((await db.query('SELECT * FROM users')).rows,before);assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM auth_bootstrap_audit')).rows[0].n,0);
 });
 await check('invalid email, tenant and UTF-8 password limits fail before opening a transaction',async({db,input})=>{
- for(const change of [{email:'bad'},{tenant:'../foreign'},{password:'short'},{password:'é'.repeat(37)}])await assert.rejects(bootstrapCentral(db,{...input,...change}));
+ let queries=0;const guarded={query(...args){queries++;return db.query(...args);}};
+ for(const change of [{email:'bad'},{tenant:'../foreign'},{password:'short'},{password:'é'.repeat(37)}])await assert.rejects(bootstrapCentral(guarded,{...input,...change}));
+ assert.equal(queries,0);
  assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM users')).rows[0].n,0);
 });
 await check('audit failure rolls back account and retry succeeds after dependency recovery',async({db,input})=>{
