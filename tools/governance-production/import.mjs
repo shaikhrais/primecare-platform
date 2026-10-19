@@ -18,19 +18,20 @@ export async function importGovernance(db,folder,{expectedManifestHash}={}){
  if(m.format!=='primecare-governance-snapshot-v1'||!Array.isArray(m.tables))throw Error('Unsupported manifest');
  const schema='governance_'+manifestHash.slice(0,24),names=new Set();
  for(const t of m.tables){if(names.has(t.name)||Buffer.byteLength(t.name)>63||t.name==='_source_manifest')throw Error('Invalid or colliding table name');names.add(t.name);if(!/^\d{4}\.ndjson$/.test(t.file)||!Number.isSafeInteger(t.rows)||t.rows<0)throw Error('Invalid table manifest');const cols=new Set();for(const c of t.columns){if(cols.has(c.name)||c.name==='_primecare_import_row'||Buffer.byteLength(c.name)>63)throw Error('Invalid column');cols.add(c.name);if(c.storage_types.some(x=>!['integer','real','text','blob'].includes(x)))throw Error('Invalid storage type');}}
+ let operation='begin';
  await db.query('BEGIN');
  try{
   await db.query("SET LOCAL lock_timeout='10s'");await db.query("SET LOCAL statement_timeout='120s'");
-  await db.query("SELECT pg_advisory_xact_lock(hashtext('primecare-governance-import'))");
+  operation='advisory-lock';await db.query("SELECT pg_advisory_xact_lock(hashtext('primecare-governance-import'))");
   const exists=await db.query('SELECT 1 FROM information_schema.schemata WHERE schema_name=$1',[schema]);
   // Never replace an existing import, even one with the same manifest: reverify below.
   if(exists.rows.length)throw Error('Snapshot schema already exists; refusing overwrite');
-  await db.query('CREATE SCHEMA '+q(schema));await db.query('REVOKE ALL ON SCHEMA '+q(schema)+' FROM PUBLIC');
-  await db.query('CREATE TABLE '+q(schema)+'._source_manifest (manifest_sha256 text PRIMARY KEY, manifest jsonb NOT NULL, imported_at timestamptz NOT NULL DEFAULT now())');
+  operation='create-schema';await db.query('CREATE SCHEMA '+q(schema));operation='revoke-public-schema-access';await db.query('REVOKE ALL ON SCHEMA '+q(schema)+' FROM PUBLIC');
+  operation='create-source-manifest';await db.query('CREATE TABLE '+q(schema)+'._source_manifest (manifest_sha256 text PRIMARY KEY, manifest jsonb NOT NULL, imported_at timestamptz NOT NULL DEFAULT now())');
   await db.query('INSERT INTO '+q(schema)+'._source_manifest VALUES($1,$2,now())',[manifestHash,JSON.stringify(m)]);
   for(const t of m.tables){
    const types=t.columns.map(storage),table=q(schema)+'.'+q(t.name);
-   await db.query('CREATE TABLE '+table+' ('+q('_primecare_import_row')+' bigint PRIMARY KEY,'+t.columns.map((c,i)=>q(c.name)+' '+types[i]).join(',')+')');
+   operation='create-governance-table';await db.query('CREATE TABLE '+table+' ('+q('_primecare_import_row')+' bigint PRIMARY KEY,'+t.columns.map((c,i)=>q(c.name)+' '+types[i]).join(',')+')');
    const digest=createHash('sha256');let count=0,batch=[];
    const flush=async()=>{if(!batch.length)return;const values=[],rows=batch.map(row=>'('+row.map(v=>{values.push(v);return '$'+values.length;}).join(',')+')');await db.query('INSERT INTO '+table+' VALUES '+rows.join(','),values);batch=[];};
    for await(const line of createInterface({input:createReadStream(join(folder,t.file)),crlfDelay:Infinity})){
@@ -43,14 +44,14 @@ export async function importGovernance(db,folder,{expectedManifestHash}={}){
    if(seen!==count||verify.digest('hex')!==t.sha256)throw Error('Database readback hash mismatch: '+t.name);
   }
   await db.query('COMMIT');return {schema,manifestHash,tables:m.tables.length,rows:m.tables.reduce((n,t)=>n+t.rows,0),verified:true};
- }catch(e){await db.query('ROLLBACK');throw e;}
+ }catch(e){e.importOperation=operation;await db.query('ROLLBACK');throw e;}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){
  let db,phase='configuration';try{
   if(process.env.CONFIRM_GOVERNANCE_IMPORT!=='IMPORT_GOVERNANCE_SNAPSHOT')throw Error('Import confirmation required');
   const url=new URL(process.env.PRODUCTION_DATABASE_URL||'');if(url.protocol!=='postgresql:'&&url.protocol!=='postgres:')throw Error('Invalid database URL');
   if(url.hostname!=='pooled.db.prisma.io'||url.pathname!=='/postgres')throw Error('Unexpected production target');
-  phase='connect';db=new Client({connectionString:url.href,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});await db.connect();phase='transaction-import';
+  phase='connect';db=new Client({connectionString:url.href,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});await db.connect();console.log(JSON.stringify({databasePrivileges:(await db.query("SELECT has_database_privilege(current_database(),'CREATE') AS create_schema,has_schema_privilege('public','CREATE') AS create_public_tables")).rows[0]}));phase='transaction-import';
   console.log(JSON.stringify(await importGovernance(db,resolve(process.argv[2]),{expectedManifestHash:process.env.GOVERNANCE_MANIFEST_SHA256})));
- }catch(error){console.error(JSON.stringify({error:'Governance import failed; credentials and row data withheld',phase,code:error.code||error.name,validation:phase==='configuration'&&['Import confirmation required','Invalid database URL','Unexpected production target'].includes(error.message)?error.message:undefined}));process.exitCode=1;}finally{if(db)await db.end();}
+ }catch(error){console.error(JSON.stringify({error:'Governance import failed; credentials and row data withheld',phase,operation:error.importOperation,code:error.code||error.name,validation:phase==='configuration'&&['Import confirmation required','Invalid database URL','Unexpected production target'].includes(error.message)?error.message:undefined}));process.exitCode=1;}finally{if(db)await db.end();}
 }
