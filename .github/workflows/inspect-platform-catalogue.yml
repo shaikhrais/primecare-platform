@@ -1,0 +1,59 @@
+name: Inspect live workflow catalogue and platform bootstrap
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/inspect-platform-catalogue.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/govt-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY'
+          import sys,json,sqlite3,pathlib,collections
+          sys.path.insert(0,'tools/governance-production')
+          from production_reader import connect
+          output={}
+          with connect() as db:
+              db.row_factory=sqlite3.Row
+              flow='auth.bootstrap-first-platform-admin'
+              queries={
+                'inventory':("SELECT flow_id,title,verification_status,test_status FROM virtual_workflow_definitions WHERE flow_kind='business_process' ORDER BY flow_id",()),
+                'kinds':("SELECT flow_kind,COUNT(*) AS count FROM virtual_workflow_definitions GROUP BY flow_kind",()),
+                'attempts':("SELECT COUNT(*) AS record_count,MAX(attempt_id) AS latest_attempt_id FROM virtual_workflow_attempts",()),
+                'definition':("SELECT * FROM virtual_workflow_definitions WHERE flow_id=?",(flow,)),
+                'steps':("SELECT * FROM virtual_workflow_steps WHERE flow_id=? ORDER BY step_order",(flow,)),
+                'links':("SELECT * FROM virtual_workflow_source_links WHERE flow_id=?",(flow,)),
+                'guides':("SELECT * FROM virtual_role_flow_guides WHERE LOWER(title) LIKE '%platform%' OR LOWER(title) LIKE '%bootstrap%'",()),
+                'snapshots':("SELECT name,updated_at FROM virtual_flow_catalog_snapshots",()),
+                'checkpoint':("SELECT * FROM virtual_workflow_checkpoints WHERE flow_id=?",(flow,)),
+                'policy':("SELECT * FROM platform_hierarchy_policy WHERE id=?",('founder-v1',))
+              }
+              for label,(sql,args) in queries.items():output[label]=[dict(r) for r in db.execute(sql,args)]
+              output['domain_counts']=dict(collections.Counter(r['flow_id'].split('.')[0] for r in output['inventory']))
+              output['verification_counts']=dict(collections.Counter(r['verification_status'] for r in output['inventory']))
+          path=pathlib.Path('test-results/workflow-catalogue');path.mkdir(parents=True,exist_ok=True)
+          (path/'live-catalogue.json').write_text(json.dumps(output,indent=2))
+          for name in ['domain_counts','verification_counts','kinds','attempts','definition','steps','links','checkpoint']:print('CATALOGUE_'+name.upper()+' '+json.dumps(output[name]))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: live-business-workflow-catalogue
+          path: test-results/workflow-catalogue/
+          if-no-files-found: error
