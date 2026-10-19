@@ -42,6 +42,11 @@ jobs:
               status,catch=get('/zones/'+zid+'/email/routing/rules/catch_all');report['catch_all']={'http':status,'success':catch.get('success'),'rule':summarize(catch.get('result') or {})}
               status,dns=get('/zones/'+zid+'/dns_records?type=MX&per_page=100');report['mx']={'http':status,'records':[{'name':r.get('name'),'target':r.get('content'),'priority':r.get('priority')} for r in dns.get('result',[])]}
               status,sending=get('/zones/'+zid+'/email/sending/subdomains');report['sending']={'http':status,'success':sending.get('success'),'domains':[{'name':d.get('name'),'enabled':d.get('enabled')} for d in sending.get('result',[]) if isinstance(d,dict)]}
+          status,scripts=get('/accounts/'+account+'/workers/scripts')
+          candidates=[s for s in scripts.get('result',[]) if isinstance(s,dict) and ('email' in s.get('handlers',[]) or any(term in s.get('id','').lower() for term in ['email','inbox','mail']))]
+          report['email_worker_candidates_http']=status
+          report['email_worker_candidates']=[{'name':s.get('id'),'handlers':s.get('handlers',[]),'modified_on':s.get('modified_on')} for s in candidates]
+          workers.update(s['id'] for s in candidates if isinstance(s.get('id'),str))
           report['workers']={}
           for name in sorted(workers|{'primecare-auth-api'}):
               status,settings=get('/accounts/'+account+'/workers/scripts/'+urllib.parse.quote(name,safe='')+'/settings')
