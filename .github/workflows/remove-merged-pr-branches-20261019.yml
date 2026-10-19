@@ -1,0 +1,40 @@
+name: Remove three fully merged PR branches
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/remove-merged-pr-branches-20261019.yml']
+permissions:
+  contents: write
+jobs:
+  cleanup:
+    if: github.repository == 'shaikhrais/primecare-platform' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Verify ancestry and remove only the three unchanged incorporated branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY_CLEANUP'
+          import json,os,subprocess,urllib.request,pathlib
+          rows=json.loads('[{"branch": "codex/central-worker-classes", "sha": "1f9d98d4d2b05b8e28d06ebd9ae5c28944f286e2"}, {"branch": "refactor/custom-shared-state-skeleton-20261009", "sha": "35b62e67948b4dc963950b47eab15c83135b4b15"}, {"branch": "refactor/shared-runtime-contracts-20261009", "sha": "44643bf176194f42ffdbf245a7572187638a94e2"}]')
+          assert len(rows)==3 and all(r['branch']!='main' for r in rows)
+          def refs():return {ref:sha for sha,ref in (line.split() for line in subprocess.check_output(['git','ls-remote','origin'],text=True).splitlines())}
+          before=refs();main=before['refs/heads/main']
+          for row in rows:
+           assert before.get('refs/heads/'+row['branch'])==row['sha'], 'Branch changed'
+           url='https://api.github.com/repos/shaikhrais/primecare-platform/compare/'+row['sha']+'...'+main
+           req=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+           with urllib.request.urlopen(req,timeout=90) as response:comparison=json.load(response)
+           assert comparison['status'] in ('ahead','identical') and comparison['behind_by']==0, 'Source is not completely in main'
+          command=['git','push','--atomic','--porcelain']+['--force-with-lease=refs/heads/'+r['branch']+':'+r['sha'] for r in rows]+['origin']+[':refs/heads/'+r['branch'] for r in rows]
+          subprocess.run(command,check=True)
+          after=refs()
+          assert after['refs/heads/main']==main
+          assert sum(ref.startswith('refs/heads/') for ref in after)==1
+          assert {ref:sha for ref,sha in before.items() if ref.startswith('refs/tags/')}=={ref:sha for ref,sha in after.items() if ref.startswith('refs/tags/')}
+          pathlib.Path(os.environ['GITHUB_STEP_SUMMARY']).write_text('Verified all three source commits are ancestors of main and deleted only their unchanged branch names. Main is the only remaining branch. Archive tags preserved.\n')
+          PY_CLEANUP
