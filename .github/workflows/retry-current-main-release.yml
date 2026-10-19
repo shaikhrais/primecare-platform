@@ -1,0 +1,33 @@
+name: Retry ordered release for current main
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/retry-current-main-release.yml]
+permissions:
+  contents: read
+  actions: write
+  pull-requests: read
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Validate merged repair and dispatch its exact current-main release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os,json,urllib.request
+          base='https://api.github.com/repos/shaikhrais/primecare-platform/'
+          headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json'}
+          def api(path):return json.load(urllib.request.urlopen(urllib.request.Request(base+path,headers=headers)))
+          pr=api('pulls/214')
+          assert pr['merged'] and pr['state']=='closed' and pr['head']['sha']=='f4b9b7521cd79fd1725223ffb3a9fea368b92aa3'
+          source=api('branches/main')['commit']['sha']
+          assert source==os.environ['GITHUB_SHA'] and os.environ['GITHUB_REF']=='refs/heads/main'
+          body=json.dumps(dict(ref='main',inputs={'confirm':'RELEASE_CURRENT_MAIN','expected_sha':source})).encode()
+          request=urllib.request.Request(base+'actions/workflows/release-screen-text.yml/dispatches',headers=headers,data=body,method='POST')
+          with urllib.request.urlopen(request) as response:
+              assert response.status==204
+          print('CURRENT_MAIN_RELEASE_DISPATCHED '+json.dumps(dict(source_sha=source,repair_merge_sha=pr['merge_commit_sha'],confirmation='RELEASE_CURRENT_MAIN')))
+          PY
