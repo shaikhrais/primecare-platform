@@ -1,0 +1,38 @@
+name: Verify explicit operating system CA bundle
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/inspect-workflow-tls.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Verify TLS and pinned manifest without mutations
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY'
+          import os,ssl,pathlib,json
+          from urllib.parse import urlsplit,unquote
+          import psycopg
+          ca=ssl.get_default_verify_paths().cafile
+          assert ca and pathlib.Path(ca).is_file(),'Python system CA bundle missing'
+          print('SYSTEM_CA_BUNDLE',ca)
+          u=urlsplit(os.environ['PRODUCTION_DATABASE_URL'])
+          assert u.hostname=='pooled.db.prisma.io' and u.path=='/postgres'
+          pin=json.loads(pathlib.Path('tools/governance-production/production-pin.json').read_text())
+          with psycopg.connect(host=u.hostname,port=u.port or 5432,dbname='postgres',user=unquote(u.username),password=unquote(u.password),sslmode='verify-full',sslrootcert=ca,connect_timeout=10,prepare_threshold=None) as db:
+              db.execute('SET TRANSACTION READ ONLY')
+              manifest=db.execute('SELECT manifest_sha256 FROM "'+pin['schema']+'"."'+pin['manifestTable']+'"').fetchall()
+              assert manifest==[(pin['manifestSha256'],)]
+              print('VERIFIED_TLS_AND_PINNED_MANIFEST',True)
+          PY
