@@ -1,0 +1,77 @@
+name: Close merged workflow recorder branch and save handoff
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/close-workflow-recorder-20261019.yml]
+permissions:
+  contents: write
+  pull-requests: read
+  actions: read
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Verify merged ancestry and exact branch head before deletion
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json,os,subprocess,urllib.request,pathlib
+          repo='shaikhrais/primecare-platform'
+          def get(path):
+              req=urllib.request.Request('https://api.github.com/repos/'+repo+'/'+path,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+              with urllib.request.urlopen(req,timeout=60) as response:return json.load(response)
+          run=get('actions/runs/39305700696')
+          assert run['status']=='completed' and run['conclusion']=='success' and run['head_sha']=='1fc355190ea21a12b6326db2f639e58f405e22fd','Production execution has not passed for the merged fix'
+          pr=get('pulls/210')
+          assert pr['merged'] and pr['head']['sha']=='ba0ba425cc9eeff8744e06bdb00477783bcaef9b'
+          def refs():return {ref:sha for sha,ref in (line.split() for line in subprocess.check_output(['git','ls-remote','origin'],text=True).splitlines())}
+          before=refs()
+          branch='work/workflow-production-recorder'
+          observed=before.get('refs/heads/'+branch)
+          assert observed in (None,'ba0ba425cc9eeff8744e06bdb00477783bcaef9b'),'Branch changed; preserve it'
+          main=before['refs/heads/main']
+          comparison=get('compare/ba0ba425cc9eeff8744e06bdb00477783bcaef9b...'+main)
+          assert comparison['status'] in ('ahead','identical') and comparison['behind_by']==0
+          if observed:subprocess.run(['git','push','--porcelain','--force-with-lease=refs/heads/'+branch+':ba0ba425cc9eeff8744e06bdb00477783bcaef9b','origin',':refs/heads/'+branch],check=True)
+          after=refs()
+          assert after['refs/heads/main']==main
+          assert [r for r in after if r.startswith('refs/heads/')]==['refs/heads/main']
+          assert {r:s for r,s in before.items() if r.startswith('refs/tags/')}=={r:s for r,s in after.items() if r.startswith('refs/tags/')}
+          assert get('pulls?state=open&per_page=100')==[]
+          pathlib.Path('/tmp/workflow-repository-handoff.json').write_text(json.dumps({'main_sha':main,'work_branch':None,'open_prs':0,'remote_branches':['main'],'merged_pr':210,'production_run':run['html_url'],'ci_status':'PR checks and protected production execution passed; cleanup job saving handoff','synthetic_data_cleanup':'embedded business database closed; no synthetic production business data'}))
+          PY
+      - name: Save current production checkpoint and live counts
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+        run: |
+          python - <<'PY'
+          import sys,json,pathlib,hashlib
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import summary
+          handoff=json.loads(pathlib.Path('/tmp/workflow-repository-handoff.json').read_text())
+          flow='care.psw.submit-availability'
+          with ProductionWorkflowStore() as db:
+              row=db.execute('SELECT attempt_id,invalidation_json FROM virtual_workflow_checkpoints WHERE flow_id=?',(flow,)).fetchone()
+              assert row and json.loads(row[1])==[]
+              result=json.loads(db.execute('SELECT result_json FROM virtual_workflow_attempts WHERE attempt_id=?',(row[0],)).fetchone()[0])
+              for path,expected in result['source_bindings'].items():
+                  assert hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()==expected,'Source changed; preserve checkpoint'
+              next_flow=db.execute("SELECT flow_id,title FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND verification_status='implemented-unverified' AND flow_id<>? ORDER BY flow_id LIMIT 1",(flow,)).fetchone()
+              handoff['unresolved_requirement_notes']=['Live api_endpoints row 2 (API__V1_AUTH_LOGIN) has auth_required=1, while the registered availability specification starts without a session. Clarify canonical credential-login metadata during authority review; no grant or API metadata was changed. Binding inspection: https://github.com/shaikhrais/primecare-platform/actions/runs/39303742131.']
+              handoff['repaired_infrastructure_failure']={'run':'https://github.com/shaikhrais/primecare-platform/actions/runs/39303882904','failure':'Implicit CA store could not verify TLS; failed before any production tracking write','fix_commit':'ba0ba425cc9eeff8744e06bdb00477783bcaef9b','strict_tls_diagnostic':'https://github.com/shaikhrais/primecare-platform/actions/runs/39304473101'}
+              handoff.update(workflow_id=flow,attempt_id=row[0],verification_status='implemented-unverified',test_status=result['test_status'],evidence=result['evidence'],blockers=result['blockers'],next_workflow=list(next_flow) if next_flow else None,next_action='Inspect the next registered workflow definition, source links, permissions and API bindings from production before isolated acceptance. Continue deployed-route, native business concurrency, accessibility/PWA and independent review gates for availability; do not mark it verified from scoped evidence.',live_counts=summary(db))
+              text=json.dumps(handoff,sort_keys=True)
+              db.execute("INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action) VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,next_action=excluded.next_action,invalidation_json='[]',updated_at=CURRENT_TIMESTAMP",(flow,row[0],text))
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('recovery-handoff-current',text))
+          print('COMMITTED_HANDOFF',text)
+          PY
