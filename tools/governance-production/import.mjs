@@ -5,7 +5,8 @@ import {createInterface} from 'node:readline';
 import {createHash} from 'node:crypto';
 import {join,resolve,dirname} from 'node:path';
 import {pathToFileURL} from 'node:url';
-import {Client} from 'pg';
+import pg from 'pg';
+const {Client}=pg;
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const q=s=>'"'+s.replaceAll('"','""')+'"';
 function storage(c){const k=c.storage_types;return k.length===1?({integer:'bigint',real:'double precision',text:'text',blob:'bytea'}[k[0]]):'jsonb';}
