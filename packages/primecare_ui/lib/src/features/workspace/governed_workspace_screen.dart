@@ -1,5 +1,8 @@
+import '../training/admin_training_launcher.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
+import '../reports/admin_reports_panel.dart';
 
 /// Shared presentation of server-authorized governance pages and live telemetry.
 /// The server supplies navigation, labels, grants and organization scope.
@@ -17,9 +20,9 @@ class _WorkspaceState extends ConsumerState<GovernedWorkspaceScreen> {
   String _search = '';
   final _searchController = TextEditingController();
 
-  String label(String key) => (_workspace?['resources'] as Map?)?['workspace.$key']?.toString() ?? 'workspace.$key'.tr();
+  String label(String key) => liveScreenText(context,'workspace',Localizations.localeOf(context).languageCode,key,Localizations.localeOf(context).languageCode=='en' ? ((_workspace?['resources'] as Map?)?['workspace.$key']?.toString() ?? 'workspace.$key'.tr()) : 'workspace.$key'.tr());
   List<Map<String, dynamic>> list(dynamic value) => value is List
-      ? value.whereType<Map>().map((v) => Map<String, dynamic>.from(v)).toList() : [];
+      ? value.whereType<Map<dynamic, dynamic>>().map((v) => Map<String, dynamic>.from(v)).toList() : [];
   List<Map<String, dynamic>> get _pages => list(_workspace?['screens']);
   @override
   void initState() { super.initState(); Future.microtask(_load); }
@@ -66,6 +69,7 @@ class _WorkspaceState extends ConsumerState<GovernedWorkspaceScreen> {
     return Scaffold(
       backgroundColor: theme.colors.background,
       appBar: AppBar(title: Text(page?['name']?.toString() ?? label('title')), actions: [
+        if(_workspace!=null && page!=null)const AdminTrainingLauncher(compact:true),
         IconButton(tooltip: label('refresh'), onPressed: _loading ? null : _load, icon: const Icon(Icons.refresh)),
         IconButton(tooltip: label('account'), onPressed: () => context.go('/success'), icon: const Icon(Icons.account_circle_outlined)),
         IconButton(tooltip: label('sign_out'), onPressed: () async {
@@ -101,6 +105,9 @@ class _WorkspaceState extends ConsumerState<GovernedWorkspaceScreen> {
         _card(label('activity'), list(overview['activity']).isEmpty ? Text(label('empty')) : Column(children: [
           for (final item in list(overview['activity'])) ListTile(title: Text(item['action'].toString()), subtitle: Text(item['created_at'].toString())),
         ]), 'workspace-recent-activity'),
+        if ((_workspace?['reporting'] as Map?)?['screens'] is List &&
+            ((_workspace!['reporting'] as Map)['screens'] as List).contains(page['code']))
+          AdminReportsPanel(key: ValueKey('reports-${page['code']}'), endpoint: (_workspace!['reporting'] as Map)['endpoint'] as String),
         for (final section in list(page['sections'])) _section(page, section, overview, pages),
         _card(label('inventory'), Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Semantics(label: 'workspace-search', child: TextField(controller: _searchController,

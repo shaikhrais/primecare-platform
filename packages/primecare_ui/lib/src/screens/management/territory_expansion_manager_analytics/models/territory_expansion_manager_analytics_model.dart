@@ -1,23 +1,20 @@
-class TerritoryExpansionManagerAnalyticsModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class TerritoryExpansionManagerAnalyticsModel extends BaseScreenState<TerritoryExpansionManagerAnalyticsModel> {
   const TerritoryExpansionManagerAnalyticsModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  TerritoryExpansionManagerAnalyticsModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return TerritoryExpansionManagerAnalyticsModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TerritoryExpansionManagerAnalyticsModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => TerritoryExpansionManagerAnalyticsModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

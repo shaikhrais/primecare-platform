@@ -1,3 +1,8 @@
+import {careDelivery} from './care/service';
+import {lookReview} from './look/service';
+import {growth} from './growth/service';
+import {platformAdministration} from './platform-administration';
+import {reporting} from './reporting';
 import {providerTimesheetItems} from './provider-timesheet-items';
 import {clientBookingLifecycle} from './client-booking-lifecycle';
 import {providerSelf} from './provider-self';
@@ -19,5 +24,10 @@ export const businessModules: readonly Readonly<{name: string; handle: BusinessH
     {name: 'provider-self', handle: providerSelf},
     {name: 'client-self', handle: clientSelf},
     {name: 'governance', handle: governanceApi},
+    {name: 'care-delivery', handle: careDelivery},
+    {name: 'growth', handle: growth},
+    {name: 'look-review', handle: lookReview},
     {name: 'workspace', handle: workspace},
+    {name: 'reporting', handle: reporting},
+    {name: 'platform-administration', handle: platformAdministration},
   ].map(module => Object.freeze(module)));

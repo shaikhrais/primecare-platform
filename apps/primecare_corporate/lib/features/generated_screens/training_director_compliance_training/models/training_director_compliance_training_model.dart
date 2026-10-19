@@ -1,23 +1,20 @@
-class TrainingDirectorComplianceTrainingModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class TrainingDirectorComplianceTrainingModel extends BaseScreenState<TrainingDirectorComplianceTrainingModel> {
   const TrainingDirectorComplianceTrainingModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  TrainingDirectorComplianceTrainingModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return TrainingDirectorComplianceTrainingModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TrainingDirectorComplianceTrainingModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => TrainingDirectorComplianceTrainingModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

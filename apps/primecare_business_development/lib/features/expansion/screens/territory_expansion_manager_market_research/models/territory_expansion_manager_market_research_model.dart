@@ -1,23 +1,20 @@
-class TerritoryExpansionManagerMarketResearchModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class TerritoryExpansionManagerMarketResearchModel extends BaseScreenState<TerritoryExpansionManagerMarketResearchModel> {
   const TerritoryExpansionManagerMarketResearchModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  TerritoryExpansionManagerMarketResearchModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return TerritoryExpansionManagerMarketResearchModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TerritoryExpansionManagerMarketResearchModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => TerritoryExpansionManagerMarketResearchModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

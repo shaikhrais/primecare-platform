@@ -4,28 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-
-class _SlateColors {
-  const _SlateColors();
-  Color operator [](int index) {
-    switch (index) {
-      case 50: return const Color(0xFFF8FAFC);
-      case 100: return const Color(0xFFF1F5F9);
-      case 200: return const Color(0xFFE2E8F0);
-      case 300: return const Color(0xFFCBD5E1);
-      case 400: return const Color(0xFF94A3B8);
-      case 500: return const Color(0xFF64748B);
-      case 600: return const Color(0xFF475569);
-      case 700: return const Color(0xFF334155);
-      case 800: return const Color(0xFF1E293B);
-      case 900: return const Color(0xFF0F172A);
-      case 950: return const Color(0xFF020617);
-      default: return Colors.grey;
-    }
-  }
-}
-const _slate = _SlateColors();
-
+import 'package:flutter_core/theme/theme_contrast.dart';
 
 class AdminScreenshotGalleryScreen extends ConsumerStatefulWidget {
   const AdminScreenshotGalleryScreen({super.key});
@@ -129,13 +108,13 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
     }).toList();
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF0F111A) : const Color(0xFFF8FAFC),
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         title: Row(
           children: [
             ShaderMask(
-              shaderCallback: (bounds) => const LinearGradient(
-                colors: [Color(0xFF00F2FE), Color(0xFF4FACFE)],
+              shaderCallback: (bounds) => LinearGradient(
+                colors: [readableThemeForeground(theme.colorScheme.surface, theme.colorScheme.primary), readableThemeForeground(theme.colorScheme.surface, theme.colorScheme.primary)],
               ).createShader(bounds),
               child: const Icon(LucideIcons.image, size: 28, color: Colors.white),
             ),
@@ -144,13 +123,13 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
               'Visual Verification Gallery',
               style: TextStyle(
                 fontWeight: FontWeight.w900,
-                color: isDark ? Colors.white : _slate[800],
+                color: theme.colorScheme.onSurface,
                 letterSpacing: 0.5,
               ),
             ),
           ],
         ),
-        backgroundColor: isDark ? const Color(0xFF161925) : Colors.white,
+        backgroundColor: theme.colorScheme.surface,
         elevation: 0,
         actions: [
           IconButton(
@@ -168,10 +147,10 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
           Container(
             width: 280,
             decoration: BoxDecoration(
-              color: isDark ? const Color(0xFF161925) : Colors.white,
+              color: theme.colorScheme.surface,
               border: Border(
                 right: BorderSide(
-                  color: isDark ? Colors.white.withValues(alpha: 0.05) : _slate[200]!,
+                  color: theme.colorScheme.outline,
                 ),
               ),
             ),
@@ -183,9 +162,9 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                   'FILTERS',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: isDark ? _slate[400] : _slate[500],
+                    color: theme.colorScheme.onSurfaceVariant,
                     letterSpacing: 1.5,
-                    fontSize: 12,
+                    fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 12 / 14,
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -194,21 +173,21 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                   'Role Category',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    color: isDark ? Colors.white : _slate[700],
+                    color: theme.colorScheme.onSurface,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   decoration: BoxDecoration(
-                    color: isDark ? const Color(0xFF1E2235) : _slate[100],
-                    borderRadius: BorderRadius.circular(8),
+                    color: theme.colorScheme.surfaceContainer,
+                    borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
                       value: _selectedRole,
                       isExpanded: true,
-                      dropdownColor: isDark ? const Color(0xFF161925) : Colors.white,
+                      dropdownColor: theme.colorScheme.surface,
                       items: roles.map((role) {
                         return DropdownMenuItem<String>(
                           value: role,
@@ -259,10 +238,10 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: isDark ? const Color(0xFF1E2235) : _slate[100],
-                    borderRadius: BorderRadius.circular(12),
+                    color: theme.colorScheme.surfaceContainer,
+                    borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                     border: Border.all(
-                      color: isDark ? Colors.white.withValues(alpha: 0.05) : _slate[200]!,
+                      color: theme.colorScheme.outline,
                     ),
                   ),
                   child: Column(
@@ -271,9 +250,9 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                       Text(
                         'STATISTICS',
                         style: TextStyle(
-                          fontSize: 11,
+                          fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 11 / 14,
                           fontWeight: FontWeight.bold,
-                          color: isDark ? Colors.tealAccent : Colors.teal[700],
+                          color: theme.colorScheme.primary,
                           letterSpacing: 1.0,
                         ),
                       ),
@@ -297,13 +276,13 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(LucideIcons.searchX, size: 64, color: isDark ? _slate[600] : _slate[300]),
+                            Icon(LucideIcons.searchX, size: 64, color: theme.colorScheme.onSurfaceVariant),
                             const SizedBox(height: 16),
                             Text(
                               'No matching screenshots found.',
                               style: TextStyle(
-                                fontSize: 16,
-                                color: isDark ? _slate[400] : _slate[500],
+                                fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 16 / 14,
+                                color: theme.colorScheme.onSurfaceVariant,
                               ),
                             ),
                           ],
@@ -330,7 +309,7 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
   }
 
   Widget _buildFilterSwitch({required String label, required bool value, required ValueChanged<bool> onChanged}) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -340,15 +319,15 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
             child: Text(
               label,
               style: TextStyle(
-                color: isDark ? _slate[300] : _slate[700],
-                fontSize: 14,
+                color: theme.colorScheme.onSurface,
+                fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 14 / 14,
               ),
             ),
           ),
           Switch(
             value: value,
             onChanged: onChanged,
-            activeColor: const Color(0xFF00F2FE),
+            activeThumbColor: theme.colorScheme.primary,
           ),
         ],
       ),
@@ -356,20 +335,21 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
   }
 
   Widget _buildStatRow(String label, String val) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(color: isDark ? _slate[400] : _slate[600], fontSize: 12)),
-          Text(val, style: TextStyle(color: isDark ? Colors.white : _slate[800], fontWeight: FontWeight.bold, fontSize: 12)),
+          Text(label, style: TextStyle(color: theme.colorScheme.onSurfaceVariant, fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 12 / 14)),
+          Text(val, style: TextStyle(color: theme.colorScheme.onSurface, fontWeight: FontWeight.bold, fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 12 / 14)),
         ],
       ),
     );
   }
 
   Widget _buildScreenshotCard(BuildContext context, ScreenHealthStatus screen, bool isDark) {
+    final theme = Theme.of(context);
     final hasImage = screen.screenshotPath != null && screen.screenshotPath!.isNotEmpty;
     final absoluteImgPath = hasImage ? osPath(screen.screenshotPath!) : '';
     final imageFile = File(absoluteImgPath);
@@ -377,28 +357,28 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E2235) : Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         boxShadow: [
           BoxShadow(
-            color: isDark ? Colors.black.withValues(alpha: 0.4) : _slate[200]!,
+            color: theme.shadowColor.withValues(alpha: .15),
             blurRadius: 16,
             offset: const Offset(0, 4),
           ),
         ],
         border: Border.all(
-          color: isDark ? Colors.white.withValues(alpha: 0.05) : _slate[200]!,
+          color: theme.colorScheme.outline,
         ),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Image Preview Header
             Expanded(
               child: Container(
-                color: isDark ? const Color(0xFF0F111A) : _slate[100],
+                color: theme.colorScheme.surfaceContainer,
                 child: fileExists
                     ? Image.file(
                         imageFile,
@@ -412,13 +392,13 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                             Icon(
                               screen.renderSuccess ? LucideIcons.image : LucideIcons.alertTriangle,
                               size: 48,
-                              color: screen.renderSuccess ? _slate[500] : Colors.red[400],
+                              color: screen.renderSuccess ? theme.colorScheme.onSurfaceVariant : Colors.red[400],
                             ),
                             const SizedBox(height: 8),
                             Text(
                               screen.renderSuccess ? 'Preview Image Loading' : 'Rendering Failed',
                               style: TextStyle(
-                                color: screen.renderSuccess ? _slate[400] : Colors.red[400],
+                                color: screen.renderSuccess ? theme.colorScheme.onSurfaceVariant : Colors.red[400],
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -429,7 +409,7 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                                   screen.renderError!,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(fontSize: 10, color: Colors.grey),
+                                  style: TextStyle(fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 10 / 14, color: theme.colorScheme.onSurfaceVariant),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -454,8 +434,8 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: isDark ? Colors.white : _slate[800],
+                            fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 16 / 14,
+                            color: theme.colorScheme.onSurface,
                           ),
                         ),
                       ),
@@ -464,13 +444,13 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.teal.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                         ),
                         child: Text(
                           'VISUAL_${screen.visualQualityScore}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.tealAccent,
-                            fontSize: 10,
+                            fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 10 / 14,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -481,8 +461,8 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                   Text(
                     screen.routePath,
                     style: TextStyle(
-                      fontSize: 11,
-                      color: isDark ? _slate[400] : _slate[500],
+                      fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 11 / 14,
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -491,8 +471,8 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 10,
-                      color: isDark ? _slate[400] : _slate[600],
+                      fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 10 / 14,
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -517,12 +497,12 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                     height: 36,
                     child: ElevatedButton.icon(
                       icon: const Icon(LucideIcons.externalLink, size: 14),
-                      label: const Text('Open Source File'),
+                      label: Text('Open Source File'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: isDark ? const Color(0xFF2A2E45) : _slate[200],
-                        foregroundColor: isDark ? Colors.white : _slate[800],
+                        backgroundColor: theme.colorScheme.primary,
+                        foregroundColor: theme.colorScheme.onPrimary,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                         ),
                         elevation: 0,
                       ),
@@ -539,11 +519,12 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
   }
 
   Widget _buildStatusChip({required String label, required Color color}) {
+    final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(
           color: color.withValues(alpha: 0.3),
         ),
@@ -551,8 +532,8 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
       child: Text(
         label,
         style: TextStyle(
-          color: color,
-          fontSize: 9,
+          color: readableThemeForeground(Color.alphaBlend(color.withValues(alpha: .1), theme.colorScheme.surface), color),
+          fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 9 / 14,
           fontWeight: FontWeight.bold,
         ),
       ),

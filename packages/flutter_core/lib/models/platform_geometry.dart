@@ -1,12 +1,2 @@
-// Governance - Category: model | Purpose: A pure-Dart replacement for [ui.Size] to enable shared models between UI (Flutter) and Backend (Shelf/Workers) subsys...
-/// A pure-Dart replacement for [ui.Size] to enable shared models 
-/// between UI (Flutter) and Backend (Shelf/Workers) subsystems.
-class PlatformSize {
-  final double width;
-  final double height;
-
-  const PlatformSize(this.width, this.height);
-
-  @override
-  String toString() => 'PlatformSize(${width.toInt()}x${height.toInt()})';
-}
+// Compatibility export: canonical implementation is shared with APIs.
+export 'package:primecare_models/src/models/platform_geometry.dart';

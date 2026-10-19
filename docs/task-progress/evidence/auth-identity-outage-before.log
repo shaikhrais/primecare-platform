@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: failed identity validation must not leave a browser session
+
+true !== false
+
+    at file:///workspace/scratch/70fcae9a5cf1/primecare-recovery/scripts/test-care-availability-workflow.mjs:74:12 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: false,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

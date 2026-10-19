@@ -1,0 +1,16 @@
+{
+  "baseline": "f787038bc0b134d94c157e4849585d1d33754528",
+  "removed_files": 2378,
+  "groups": {
+    "agent_context": 2096,
+    "dom_logs": 3,
+    "scratch": 279
+  },
+  "removed_bytes": 21602649,
+  "retained_preview_files": 1058,
+  "source_preserved": true,
+  "purpose_review": "Source definitions/imports/SQL operations or export keys; not a complete semantic specification",
+  "basename_collision_resolved": "Cypress calls tools/governance/query_db.py, not scratch/query_db.py",
+  "temporary_workspace_retained": true,
+  "cumulative_removed": 19667
+}

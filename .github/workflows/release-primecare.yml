@@ -1,5 +1,5 @@
 name: PrimeCare production release
-# Governed dashboard release with verified accessible metric labels.
+# Governed release uses production governance validation and committed catalogs.
 on:
   push:
     branches: [main]
@@ -63,22 +63,26 @@ jobs:
   governance:
     needs: verify
     runs-on: ubuntu-latest
+    environment: production
     permissions:
-      contents: write
+      contents: read
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Persist verified governance database changes
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate live pinned governance without SQLite writeback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         run: |
-          python3 scripts/register-maintenance-governance.py
-          python3 scripts/register-workspace-governance.py
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .agents/governance/governance.db
-          if ! git diff --cached --quiet; then
-            git commit -m "Register created workspace pages and correct role governance [skip ci]"
-            git push origin HEAD:main
-          fi
+          npm install --prefix "$RUNNER_TEMP/govt-reader" --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s "$RUNNER_TEMP/govt-reader/node_modules" node_modules
+          pip install -r tools/governance-production/requirements.txt
+          python3 tools/governance-production/verify-production-reader.py
   verify:
     needs: prepare
     runs-on: ubuntu-latest
@@ -99,6 +103,10 @@ jobs:
           --health-interval 5s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -129,7 +137,7 @@ jobs:
       - name: Real Chromium navigation and accessibility checks
         if: matrix.identity == 'uuid'
         run: |
-          node scripts/build-typescript-websites.mjs
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 node scripts/build-typescript-websites.mjs
           node_modules/.bin/playwright install --with-deps chromium
           node scripts/test-workspace-playwright.mjs
       - uses: actions/upload-artifact@v4

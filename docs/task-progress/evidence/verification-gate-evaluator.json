@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "wholeTaskVerified": false,
+  "scope": "gate evaluator unit checks only",
+  "tests": 4,
+  "sources": {
+    "tools/workflow-verification/gates.py": "c85f9f638c305494b44ad3af608c825de3971c1ca9dff45b8cf4e5afc256ad40",
+    "tools/workflow-verification/test_gates.py": "a7db3880c4346a85aaf7a3a4345b5d999715ed5f3180c6963cbe68fa8f4734a2"
+  }
+}

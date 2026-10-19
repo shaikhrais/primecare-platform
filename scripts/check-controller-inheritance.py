@@ -3,6 +3,7 @@ import hashlib
 import json
 import re
 import subprocess
+from refactor_service_entrypoints import current_host_source
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -39,7 +40,7 @@ def check():
         proc.stdin.close();proc.wait()
     hosts=json.loads((ROOT/'docs/architecture/dart-host-migration.json').read_text())
     for record in hosts['hosts']:
-        path=record['path'];current=(ROOT/path).read_text()
+        path=record['path'];current=current_host_source(path)
         original=subprocess.check_output(['git','show',hosts['sourceCommit']+':'+path],cwd=ROOT,text=True)
         assert hashlib.sha256(original.encode()).hexdigest()==record['beforeSha256'], 'Host original drift '+path
         assert re.search(r'extends Base(?:ServiceHost|HttpServiceHost|CorsServiceHost)\b', current), 'Missing host parent '+path

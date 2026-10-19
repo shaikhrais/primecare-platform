@@ -13,6 +13,18 @@ on:
       - 'melos.yaml'
       - 'analysis_options.yaml'
       - '.github/workflows/build_macos.yml'
+      - 'scripts/prepare-macos-entitlements.py'
+      - 'scripts/test-macos-entitlements.py'
+  pull_request:
+    paths:
+      - 'packages/primecare_ui/lib/**'
+      - 'packages/primecare_ui/test/admin_reports_test.dart'
+      - 'packages/flutter_core/lib/**'
+      - 'packages/primecare_models/lib/**'
+      - 'apps/**'
+      - '.github/workflows/build_macos.yml'
+      - 'scripts/prepare-macos-entitlements.py'
+      - 'scripts/test-macos-entitlements.py'
   workflow_dispatch:
 
 concurrency:
@@ -25,7 +37,7 @@ jobs:
     
     timeout-minutes: 45
     strategy:
-      max-parallel: 2
+      max-parallel: 4
       fail-fast: false
       matrix:
         app: 
@@ -43,9 +55,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Verify shared macOS entitlement preparation
+        run: python3 scripts/test-macos-entitlements.py
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.41.5'
           channel: 'stable'
           cache: true
 
@@ -59,7 +75,9 @@ jobs:
           if [ ! -d macos/Runner.xcodeproj ]; then
             flutter create --platforms=macos .
           fi
+          python3 ../../scripts/prepare-macos-entitlements.py .
           flutter build macos --release
+          python3 ../../scripts/prepare-macos-entitlements.py . --verify-built
 
       - name: Upload macOS Artifact
         uses: actions/upload-artifact@v4

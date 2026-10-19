@@ -1,23 +1,20 @@
-class IntakeCoordinatorIntakeFormsModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class IntakeCoordinatorIntakeFormsModel extends BaseScreenState<IntakeCoordinatorIntakeFormsModel> {
   const IntakeCoordinatorIntakeFormsModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  IntakeCoordinatorIntakeFormsModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return IntakeCoordinatorIntakeFormsModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  IntakeCoordinatorIntakeFormsModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => IntakeCoordinatorIntakeFormsModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

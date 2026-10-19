@@ -1,0 +1,37 @@
+export 'src/models/base_entity.dart';
+export 'src/models/base_response_envelope.dart';
+export 'src/models/domain_response.dart';
+export 'src/models/provider_profile.dart';
+export 'src/models/psw_models.dart';
+export 'src/models/scheduler_models.dart';
+export 'src/models/report_models.dart';
+export 'src/models/aura_intent.dart';
+export 'src/models/base_screen_state.dart';
+export 'src/models/base_empty_model.dart';
+export 'src/models/insight_impact.dart';
+export 'src/models/dashboard_models.dart';
+export 'src/models/platform_geometry.dart';
+export 'src/models/governance_types.dart';
+export 'src/models/api_metadata.dart';
+// Legacy endpoint API remains available through its individual library.
+export 'src/models/api_endpoint.dart' hide PrimeCareApi;
+export 'src/models/primecare_view_model.dart';
+export 'src/models/correction_ticket_model.dart';
+export 'src/models/deployment_readiness_model.dart';
+export 'src/models/main_project_selection_view_model.dart';
+export 'src/models/schedule_facility_maintenance_form_view_model.dart';
+export 'src/models/review_fleet_maintenance_form_view_model.dart';
+export 'src/models/base_workspace_state.dart';
+export 'src/models/base_logged_screen_state.dart';
+export 'src/models/user_model.dart';
+export 'src/models/clinical_article.dart';
+export 'src/models/platform_types.dart';
+export 'src/models/platform_role.dart';
+export 'src/models/base_platform_tenant.dart';
+export 'src/models/base_platform_module.dart';
+export 'src/models/base_platform_role_definition.dart';
+export 'src/models/base_platform_application.dart';
+export 'src/models/base_screen_metadata.dart';
+export 'src/models/base_navigation_item.dart';
+
+export 'src/models/admin_report_models.dart';

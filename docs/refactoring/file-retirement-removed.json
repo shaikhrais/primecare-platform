@@ -1,0 +1,24 @@
+[
+  {
+    "path": "tools/governance/__pycache__/generate_interactive_dashboard.cpython-314.pyc",
+    "source": "tools/governance/generate_interactive_dashboard.py",
+    "sha256": "bcd1b504d33e98866af2474b38282584b98a22080d8216344c0376f4512b17d8",
+    "purpose": "Python 3.14 compiled cache of retained governance generator",
+    "importance": "No unique source behavior; Python recreates cache",
+    "references": [],
+    "reconstruction": "Run/import retained .py source with compatible Python",
+    "decision": "delete",
+    "source_parses": true
+  },
+  {
+    "path": "tools/governance/__pycache__/generate_screen_descriptions.cpython-314.pyc",
+    "source": "tools/governance/generate_screen_descriptions.py",
+    "sha256": "47e7433e7f34d4fd6c0b822a6c1d8a10b25b1433531b140cf6d3d271f98605b0",
+    "purpose": "Python 3.14 compiled cache of retained governance generator",
+    "importance": "No unique source behavior; Python recreates cache",
+    "references": [],
+    "reconstruction": "Run/import retained .py source with compatible Python",
+    "decision": "delete",
+    "source_parses": true
+  }
+]

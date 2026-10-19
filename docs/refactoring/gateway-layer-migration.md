@@ -1,0 +1,7 @@
+# Gateway skeleton conversion
+
+The gateway now separates route composition, its HTTP controller, database health repository, and upstream proxy configuration. `GatewayApiRoutes` and `ServiceMesh` extend `BaseApiRoutes`, `GatewayController` extends `BaseController`, and `GatewayRepository` extends `BasePlatformRepository`. The existing `gateway_core.dart` import remains a compatibility export for both public classes. Application startup retains database initialization, service-mesh creation, middleware ordering, CORS settings, and startup logging.
+
+All twelve service environment URLs and both proxy prefixes remain unchanged. Proxy methods, request bodies, query strings, authorization and cookie forwarding, hop header filtering, upstream status and response streams, 30-second timeout, 502/504 responses, and health SQL retain their original implementation. The development mock remains conditional on `ENABLE_MOCK_UI`; its existing implementation is unchanged. This conversion adds no API workflow or authorization policy.
+
+`refactor_gateway_layers.py --check` compares every extracted file with the pinned merged source. `verify_gateway_layer_parity.py` compares 362 forwarding and health cases in each of two environments, with mocks disabled and enabled. It compares status, headers, bodies, upstream calls, SQL, and parameters. It also compares the deterministic mock metrics response and verifies that mock routing is disabled in production. The real PostgreSQL auth and gateway CI smoke test remains enabled.

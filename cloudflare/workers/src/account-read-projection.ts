@@ -29,7 +29,7 @@ export function accountUser(row: Record<string, unknown>, actorId: string, nulla
     !(typeof row.roles === 'string' || nullableState && row.roles === null) ||
     !(typeof row.status === 'string' || nullableState && row.status === null)) throw Error('Invalid account row');
   return {id, email: row.email, roles: row.roles, status: row.status,
-    updated_at: accountTimestamp(row.updated_at, true), canModify: id.toLowerCase() !== actorId.toLowerCase()};
+    updated_at: accountTimestamp(row.updated_at, true), canModify: id.toLowerCase() !== actorId.toLowerCase() && !['platform_admin','central_admin','tenant_admin'].includes(String(row.roles))};
 }
 export function accountAuditIdentity(row: Record<string, unknown>) {
   return {id: accountId(row.id), actorUserId: accountId(row.actorUserId), targetUserId: accountId(row.targetUserId),

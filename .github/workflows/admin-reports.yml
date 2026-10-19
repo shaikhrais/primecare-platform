@@ -1,0 +1,63 @@
+name: Shared admin reporting
+on:
+  pull_request:
+    paths: ['cloudflare/workers/**', 'websites/typescript/**', 'packages/primecare_models/**', 'packages/primecare_ui/**', 'packages/flutter_core/lib/src/network/api_client.dart', 'scripts/*admin-reports*', 'scripts/register-workspace-governance.py', 'scripts/register-care-governance.py', 'scripts/generate-cloudflare-worker-config.mjs', 'packages/database/migrations/*admin_reports.sql', '.github/workflows/admin-reports.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: reports
+          POSTGRES_PASSWORD: integration-only
+          POSTGRES_DB: reports
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U reports" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      REPORT_TEST_DATABASE_URL: postgresql://reports:integration-only@localhost:5432/reports
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - run: npm install --prefix "$RUNNER_TEMP/reports-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.8.3 @types/node@22 @types/pg@8 pg@8.11.3 bcryptjs@3
+      - run: ln -s "$RUNNER_TEMP/reports-tools/node_modules" node_modules
+      - name: Register governed roles before deriving reporting grants
+        run: |
+          python3 scripts/register-workspace-governance.py
+          python3 scripts/register-care-governance.py
+      - run: python3 scripts/register-admin-reports.py && python3 scripts/register-admin-reports.py --check
+      - run: node --test scripts/test-admin-reports.mjs scripts/test-workspace.mjs scripts/test-auth-maintenance.mjs
+      - run: node --test scripts/test-admin-reports-postgres.mjs
+      - run: "$RUNNER_TEMP/reports-tools/node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/reporting.ts"
+  flutter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter analyze lib/src/features/reports lib/src/features/workspace/governed_workspace_screen.dart test/admin_reports_test.dart test/report_pdf_exporter_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter test test/admin_reports_test.dart test/report_pdf_exporter_test.dart
+        working-directory: packages/primecare_ui
+      - run: dart test test/admin_report_models_test.dart
+        working-directory: packages/primecare_models

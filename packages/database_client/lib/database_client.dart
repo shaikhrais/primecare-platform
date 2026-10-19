@@ -1,6 +1,11 @@
 // Governance - Category: adapter | Purpose: Unified Database Client for PrimeCare Dart Services. Initializes the connection pool using environment variables.
 import 'dart:io';
 import 'package:postgres/postgres.dart';
+export 'src/base_repository.dart';
+export 'src/base_platform_repository.dart';
+
+/// Query result shared by repositories using PlatformDatabase.
+typedef DatabaseResult = Result;
 
 /// Unified Database Client for PrimeCare Dart Services.
 class PlatformDatabase {

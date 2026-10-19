@@ -1,0 +1,1472 @@
+{
+  "version": 1,
+  "scope_roles": [
+    "central_admin",
+    "platform_admin",
+    "tenant_admin",
+    "marketing",
+    "local_marketing",
+    "growth_caller",
+    "growth_google",
+    "growth_meta",
+    "growth_seo",
+    "growth_offline",
+    "growth_coordinator"
+  ],
+  "tasks": [
+    {
+      "task_code": "EMP-01",
+      "title": "Review today's assignments",
+      "owner_roles": [
+        "central_admin",
+        "platform_admin",
+        "tenant_admin",
+        "marketing",
+        "local_marketing",
+        "growth_caller",
+        "growth_google",
+        "growth_meta",
+        "growth_seo",
+        "growth_offline",
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "central_admin",
+        "ceo"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Before scheduled shift work begins",
+      "evidence_required": "Work plan acknowledgement",
+      "acceptance_rule": "Priority order and capacity conflicts recorded",
+      "estimated_minutes": 10,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "EMP-02",
+      "title": "Acknowledge new assignment",
+      "owner_roles": [
+        "central_admin",
+        "platform_admin",
+        "tenant_admin",
+        "marketing",
+        "local_marketing",
+        "growth_caller",
+        "growth_google",
+        "growth_meta",
+        "growth_seo",
+        "growth_offline",
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "central_admin",
+        "ceo"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Within assigned working-time SLA",
+      "evidence_required": "Acknowledgement event",
+      "acceptance_rule": "Scope, due date and acceptance rules understood; concerns raised",
+      "estimated_minutes": 5,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "EMP-03",
+      "title": "Record work progress",
+      "owner_roles": [
+        "central_admin",
+        "platform_admin",
+        "tenant_admin",
+        "marketing",
+        "local_marketing",
+        "growth_caller",
+        "growth_google",
+        "growth_meta",
+        "growth_seo",
+        "growth_offline",
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "central_admin",
+        "ceo"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "By scheduled shift end",
+      "evidence_required": "Progress note linked to work item",
+      "acceptance_rule": "Actual output and next step; no fabricated activity",
+      "estimated_minutes": 10,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "EMP-04",
+      "title": "Report a blocker",
+      "owner_roles": [
+        "central_admin",
+        "platform_admin",
+        "tenant_admin",
+        "marketing",
+        "local_marketing",
+        "growth_caller",
+        "growth_google",
+        "growth_meta",
+        "growth_seo",
+        "growth_offline",
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "central_admin",
+        "ceo"
+      ],
+      "cadence": "event",
+      "deadline_rule": "As soon as a deadline risk is known",
+      "evidence_required": "Blocker reason and support request",
+      "acceptance_rule": "Dependency owner, impact and proposed recovery documented",
+      "estimated_minutes": 10,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "EMP-05",
+      "title": "Submit completion evidence",
+      "owner_roles": [
+        "central_admin",
+        "platform_admin",
+        "tenant_admin",
+        "marketing",
+        "local_marketing",
+        "growth_caller",
+        "growth_google",
+        "growth_meta",
+        "growth_seo",
+        "growth_offline",
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "central_admin",
+        "ceo"
+      ],
+      "cadence": "event",
+      "deadline_rule": "By task-specific agreed deadline",
+      "evidence_required": "Result link, record IDs or approved attachment",
+      "acceptance_rule": "Evidence meets template criteria; submission is not manager acceptance",
+      "estimated_minutes": 10,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "EMP-06",
+      "title": "Submit accurate time record",
+      "owner_roles": [
+        "central_admin",
+        "platform_admin",
+        "tenant_admin",
+        "marketing",
+        "local_marketing",
+        "growth_caller",
+        "growth_google",
+        "growth_meta",
+        "growth_seo",
+        "growth_offline",
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "central_admin",
+        "ceo"
+      ],
+      "cadence": "pay_period",
+      "deadline_rule": "By published payroll cutoff",
+      "evidence_required": "Hours and approved exception record",
+      "acceptance_rule": "Actual hours, breaks and approved leave; payroll dispute can be raised",
+      "estimated_minutes": 15,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "CENT-01",
+      "title": "Approve organization structure",
+      "owner_roles": [
+        "central_admin"
+      ],
+      "reviewer_roles": [
+        "ceo"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Before department activation",
+      "evidence_required": "Approved reporting and scope map",
+      "acceptance_rule": "Manager, tenant and escalation owner defined",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "CENT-02",
+      "title": "Review verified tenant onboarding",
+      "owner_roles": [
+        "central_admin"
+      ],
+      "reviewer_roles": [
+        "ceo"
+      ],
+      "cadence": "event",
+      "deadline_rule": "By onboarding agreement deadline",
+      "evidence_required": "Verification and decision record",
+      "acceptance_rule": "Business evidence checked; activation authority separately enforced",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "CENT-03",
+      "title": "Publish approved company policies",
+      "owner_roles": [
+        "central_admin"
+      ],
+      "reviewer_roles": [
+        "ceo"
+      ],
+      "cadence": "monthly",
+      "deadline_rule": "Before policy effective date",
+      "evidence_required": "Version and employee acknowledgement distribution",
+      "acceptance_rule": "Changes reviewed, visible and not applied retroactively",
+      "estimated_minutes": 60,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "CENT-04",
+      "title": "Review global privilege requests",
+      "owner_roles": [
+        "central_admin"
+      ],
+      "reviewer_roles": [
+        "ceo"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Before privileged access is granted",
+      "evidence_required": "Reason, approvals and expiration",
+      "acceptance_rule": "Least privilege; no self-approval for protected access",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "CENT-05",
+      "title": "Resolve escalated organization risk",
+      "owner_roles": [
+        "central_admin"
+      ],
+      "reviewer_roles": [
+        "ceo"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Priority-specific working-time target",
+      "evidence_required": "Decision, support owner and next checkpoint",
+      "acceptance_rule": "Risk triaged; actions assigned without concealed deadline changes",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "CENT-06",
+      "title": "Review leadership accountability report",
+      "owner_roles": [
+        "central_admin"
+      ],
+      "reviewer_roles": [
+        "ceo"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Agreed weekly leadership review",
+      "evidence_required": "Exception decisions and action owners",
+      "acceptance_rule": "Employee, manager and system delays reviewed separately",
+      "estimated_minutes": 45,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "PLAT-01",
+      "title": "Provision an approved tenant",
+      "owner_roles": [
+        "platform_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Approved onboarding due date",
+      "evidence_required": "Tenant creation audit ID",
+      "acceptance_rule": "Approved identity, slug and active scope verified",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "PLAT-02",
+      "title": "Create or amend authorized accounts",
+      "owner_roles": [
+        "platform_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Approved request due date",
+      "evidence_required": "Account and role-change audit IDs",
+      "acceptance_rule": "Assignable role only; sensitive credentials handled securely",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "PLAT-03",
+      "title": "Maintain approved master records",
+      "owner_roles": [
+        "platform_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Before dependent workflow needs the record",
+      "evidence_required": "Master record version and audit",
+      "acceptance_rule": "Duplicate and invalid values rejected; scope verified",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "PLAT-04",
+      "title": "Review administrator access",
+      "owner_roles": [
+        "platform_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "monthly",
+      "deadline_rule": "Published access review date",
+      "evidence_required": "Reviewed access list and approved removals",
+      "acceptance_rule": "Inactive or excess access escalated and changes audited",
+      "estimated_minutes": 60,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "PLAT-05",
+      "title": "Check service incidents",
+      "owner_roles": [
+        "platform_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Start of scheduled support shift",
+      "evidence_required": "Health review and incident references",
+      "acceptance_rule": "Failures recorded as system blockers, not employee inactivity",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "PLAT-06",
+      "title": "Produce platform administration report",
+      "owner_roles": [
+        "platform_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Agreed reporting cutoff",
+      "evidence_required": "Server-generated report reference",
+      "acceptance_rule": "Correct scope, period and classification; totals not invented",
+      "estimated_minutes": 25,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "PLAT-07",
+      "title": "Investigate audit exceptions",
+      "owner_roles": [
+        "platform_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Priority-specific review window",
+      "evidence_required": "Finding and follow-up task",
+      "acceptance_rule": "Risk, actor, tenant and remediation recorded",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "TEN-01",
+      "title": "Onboard tenant employees",
+      "owner_roles": [
+        "tenant_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Before authorized first shift",
+      "evidence_required": "Job profile, training and access checklist",
+      "acceptance_rule": "Manager, role, department, location and working calendar assigned",
+      "estimated_minutes": 45,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "TEN-02",
+      "title": "Assign approved duty templates",
+      "owner_roles": [
+        "tenant_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Before assignment effective date",
+      "evidence_required": "Employee-to-template assignment version",
+      "acceptance_rule": "Capacity, access, training and acceptance requirements checked",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "TEN-03",
+      "title": "Balance today's workload",
+      "owner_roles": [
+        "tenant_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Before scheduled team work begins",
+      "evidence_required": "Capacity review and priority plan",
+      "acceptance_rule": "Leave, hours and dependencies considered; overload escalated",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "TEN-04",
+      "title": "Review submitted work",
+      "owner_roles": [
+        "tenant_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Within agreed reviewer working-time SLA",
+      "evidence_required": "Accept or return decision with reasons",
+      "acceptance_rule": "Manager cannot silently age employee work as employee lateness",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "TEN-05",
+      "title": "Resolve blocked work",
+      "owner_roles": [
+        "tenant_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "At agreed blocker checkpoint",
+      "evidence_required": "Support action and dependency decision",
+      "acceptance_rule": "Approved extension or reassignment recorded; original deadline retained",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "TEN-06",
+      "title": "Publish tenant accountability report",
+      "owner_roles": [
+        "tenant_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Weekly tenant reporting cutoff",
+      "evidence_required": "Report and exception actions",
+      "acceptance_rule": "Risk, verified output, blocked work and reviewer backlog separated",
+      "estimated_minutes": 45,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "TEN-07",
+      "title": "Revoke access during offboarding",
+      "owner_roles": [
+        "tenant_admin"
+      ],
+      "reviewer_roles": [
+        "central_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "At approved separation/access cutoff",
+      "evidence_required": "Revocation and handover audit",
+      "acceptance_rule": "No hidden payroll retaliation; unfinished work reassigned",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "MKT-01",
+      "title": "Set period lead and conversion plan",
+      "owner_roles": [
+        "marketing",
+        "local_marketing"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "ceo"
+      ],
+      "cadence": "monthly",
+      "deadline_rule": "Before campaign period starts",
+      "evidence_required": "Approved plan version",
+      "acceptance_rule": "Targets have budget, source, owner and assumptions",
+      "estimated_minutes": 60,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "MKT-02",
+      "title": "Triage new leads",
+      "owner_roles": [
+        "marketing",
+        "local_marketing"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "ceo"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Agreed lead-response working-time target",
+      "evidence_required": "Owner and follow-up due date",
+      "acceptance_rule": "Contact basis checked; duplicates and restricted contacts handled",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "MKT-03",
+      "title": "Prepare campaign brief for approval",
+      "owner_roles": [
+        "marketing",
+        "local_marketing"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "ceo"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Before planned campaign activity",
+      "evidence_required": "Audience, offer, creative, attribution and budget brief",
+      "acceptance_rule": "No campaign launched before required approval",
+      "estimated_minutes": 60,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "MKT-04",
+      "title": "Review campaign performance",
+      "owner_roles": [
+        "marketing",
+        "local_marketing"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "ceo"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Weekly marketing review cutoff",
+      "evidence_required": "Source-to-stage performance report",
+      "acceptance_rule": "Spend, qualified leads and conversions have evidence",
+      "estimated_minutes": 45,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "MKT-05",
+      "title": "Review marketing team workload",
+      "owner_roles": [
+        "marketing",
+        "local_marketing"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "ceo"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Start of scheduled marketing work",
+      "evidence_required": "Assignment and capacity review",
+      "acceptance_rule": "Callers and experts have specific owners and next actions",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "MKT-06",
+      "title": "Review campaign spend exceptions",
+      "owner_roles": [
+        "marketing",
+        "local_marketing"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "ceo"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Agreed spend-review checkpoint",
+      "evidence_required": "Actual spend reference and escalation",
+      "acceptance_rule": "Actual external spend is not fabricated or automatically assumed synced",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "MKT-07",
+      "title": "Review verified partner handoff",
+      "owner_roles": [
+        "marketing",
+        "local_marketing"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "ceo"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Partner handoff due date",
+      "evidence_required": "Verification, contact and activation handoff",
+      "acceptance_rule": "Required central/platform authorization preserved",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "MKT-08",
+      "title": "Submit weekly marketing report",
+      "owner_roles": [
+        "marketing",
+        "local_marketing"
+      ],
+      "reviewer_roles": [
+        "tenant_admin",
+        "ceo"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Leadership reporting cutoff",
+      "evidence_required": "Performance PDF and recommended corrective actions",
+      "acceptance_rule": "Period, scope, conversions and blockers explained",
+      "estimated_minutes": 45,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "CALL-01",
+      "title": "Review assigned contact queue",
+      "owner_roles": [
+        "growth_caller"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Before scheduled calls",
+      "evidence_required": "Approved assigned queue",
+      "acceptance_rule": "Contact restrictions and next-step priority checked",
+      "estimated_minutes": 15,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "CALL-02",
+      "title": "Record each call outcome",
+      "owner_roles": [
+        "growth_caller"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "During work or promptly after each call",
+      "evidence_required": "Call outcome and factual notes",
+      "acceptance_rule": "No answered call claimed without evidence; sensitive detail minimized",
+      "estimated_minutes": 5,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "CALL-03",
+      "title": "Set next follow-up",
+      "owner_roles": [
+        "growth_caller"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "After contact disposition is known",
+      "evidence_required": "Follow-up owner and due date",
+      "acceptance_rule": "Date agreed with contact; stopped contacts excluded",
+      "estimated_minutes": 5,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "CALL-04",
+      "title": "Book or hand off appointment",
+      "owner_roles": [
+        "growth_caller"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Agreed booking response window",
+      "evidence_required": "Appointment and handoff reference",
+      "acceptance_rule": "Consent and owner confirmed; no care-delivery claim from booking",
+      "estimated_minutes": 10,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "CALL-05",
+      "title": "Report unanswered or blocked cases",
+      "owner_roles": [
+        "growth_caller"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Shift-end review",
+      "evidence_required": "Exception queue and requested support",
+      "acceptance_rule": "No answer, unavailable contact and system outage distinguished",
+      "estimated_minutes": 15,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "GOOG-01",
+      "title": "Capture authorized Google-source enquiries",
+      "owner_roles": [
+        "growth_google"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Agreed enquiry response window",
+      "evidence_required": "Lead source and campaign references",
+      "acceptance_rule": "Permission/contact basis verified; no invented prospects",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "GOOG-02",
+      "title": "Prepare Google campaign work",
+      "owner_roles": [
+        "growth_google"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Brief-specific deadline",
+      "evidence_required": "Research, keywords, creative or landing review",
+      "acceptance_rule": "Work matches approved brief; publication requires authorization",
+      "estimated_minutes": 60,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "GOOG-03",
+      "title": "Check campaign attribution",
+      "owner_roles": [
+        "growth_google"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Before weekly report cutoff",
+      "evidence_required": "Source/UTM test and attribution note",
+      "acceptance_rule": "Observed sources accurately mapped to CRM leads",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "GOOG-04",
+      "title": "Record verified spend and outcomes",
+      "owner_roles": [
+        "growth_google"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Published campaign update checkpoint",
+      "evidence_required": "External reference and actual metrics",
+      "acceptance_rule": "Manual status clear when no live integration exists",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "GOOG-05",
+      "title": "Recommend campaign corrections",
+      "owner_roles": [
+        "growth_google"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Weekly marketing review",
+      "evidence_required": "Evidence-based next action",
+      "acceptance_rule": "Manager approves changes and revised spend before execution",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "META-01",
+      "title": "Capture authorized Meta-source enquiries",
+      "owner_roles": [
+        "growth_meta"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Agreed enquiry response window",
+      "evidence_required": "Lead and source references",
+      "acceptance_rule": "Contact permissions and duplicate checks applied",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "META-02",
+      "title": "Prepare approved social creative",
+      "owner_roles": [
+        "growth_meta"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Campaign brief due date",
+      "evidence_required": "Creative and review reference",
+      "acceptance_rule": "Copy, audience and offer match approved campaign",
+      "estimated_minutes": 60,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "META-03",
+      "title": "Check landing and response flow",
+      "owner_roles": [
+        "growth_meta"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Before campaign review",
+      "evidence_required": "Form/link test evidence",
+      "acceptance_rule": "Broken links and unavailable services reported as blockers",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "META-04",
+      "title": "Record verified Meta campaign results",
+      "owner_roles": [
+        "growth_meta"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Published update checkpoint",
+      "evidence_required": "Observed spend and lead evidence",
+      "acceptance_rule": "No unsupported automatic platform synchronization claim",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "META-05",
+      "title": "Request social campaign adjustments",
+      "owner_roles": [
+        "growth_meta"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Weekly marketing review",
+      "evidence_required": "Recommendation with quality/conversion evidence",
+      "acceptance_rule": "No unauthorized publication or spend change",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "SEO-01",
+      "title": "Review authorized organic enquiries",
+      "owner_roles": [
+        "growth_seo"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Agreed enquiry response window",
+      "evidence_required": "Organic source lead reference",
+      "acceptance_rule": "Source evidence and contact basis recorded",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "SEO-02",
+      "title": "Prepare search content work",
+      "owner_roles": [
+        "growth_seo"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Approved content brief due date",
+      "evidence_required": "Draft, keywords and source checks",
+      "acceptance_rule": "Accurate content; required review before publication",
+      "estimated_minutes": 60,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "SEO-03",
+      "title": "Check search landing accessibility",
+      "owner_roles": [
+        "growth_seo"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Weekly website review",
+      "evidence_required": "Link, form and page findings",
+      "acceptance_rule": "Failures classified as site dependencies with repair owners",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "SEO-04",
+      "title": "Record organic performance evidence",
+      "owner_roles": [
+        "growth_seo"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Marketing reporting cutoff",
+      "evidence_required": "Observed traffic/lead attribution reference",
+      "acceptance_rule": "Vanity traffic separated from qualified leads",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "SEO-05",
+      "title": "Recommend organic improvements",
+      "owner_roles": [
+        "growth_seo"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Weekly review",
+      "evidence_required": "Prioritized proposal",
+      "acceptance_rule": "Expected effort and measurable acceptance checks included",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "OFF-01",
+      "title": "Prepare approved offline campaign",
+      "owner_roles": [
+        "growth_offline"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Before event or distribution date",
+      "evidence_required": "Event plan, materials and approval reference",
+      "acceptance_rule": "Location, budget, owner and consent flow defined",
+      "estimated_minutes": 60,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "OFF-02",
+      "title": "Validate campaign QR and enquiry link",
+      "owner_roles": [
+        "growth_offline"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Before distribution",
+      "evidence_required": "Scannable test and intake reference",
+      "acceptance_rule": "Correct campaign attribution and functional intake",
+      "estimated_minutes": 15,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "OFF-03",
+      "title": "Record event leads with permission",
+      "owner_roles": [
+        "growth_offline"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Agreed event processing deadline",
+      "evidence_required": "Enquiry and consent/source evidence",
+      "acceptance_rule": "No unsolicited roster conversion into clients",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "OFF-04",
+      "title": "Record offline costs and receipts",
+      "owner_roles": [
+        "growth_offline"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Published reconciliation cutoff",
+      "evidence_required": "Receipt and actual spend references",
+      "acceptance_rule": "No unsupported spend entry or duplicate receipt",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "OFF-05",
+      "title": "Submit offline campaign outcome report",
+      "owner_roles": [
+        "growth_offline"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "weekly",
+      "deadline_rule": "Weekly marketing reporting cutoff",
+      "evidence_required": "Event-to-stage outcomes",
+      "acceptance_rule": "Contacts, qualified leads and conversions separated",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "COORD-01",
+      "title": "Triage assigned coordination queue",
+      "owner_roles": [
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Start of scheduled shift",
+      "evidence_required": "Priority queue acknowledgement",
+      "acceptance_rule": "Assigned scope only; missing owners escalated",
+      "estimated_minutes": 15,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "COORD-02",
+      "title": "Coordinate appointment follow-ups",
+      "owner_roles": [
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Agreed booking and reminder target",
+      "evidence_required": "Follow-up and handoff references",
+      "acceptance_rule": "Owners and promised times match records",
+      "estimated_minutes": 30,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "COORD-03",
+      "title": "Review daily overdue exceptions",
+      "owner_roles": [
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Team review checkpoint",
+      "evidence_required": "Risk list with factual reasons",
+      "acceptance_rule": "Employee, dependency and reviewer delay separated",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "COORD-04",
+      "title": "Coordinate blocker recovery",
+      "owner_roles": [
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "event",
+      "deadline_rule": "Agreed recovery checkpoint",
+      "evidence_required": "Support owner and next step",
+      "acceptance_rule": "Coordinator cannot grant extra privilege or silently change targets",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "COORD-05",
+      "title": "Check record completeness",
+      "owner_roles": [
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Shift-end data review",
+      "evidence_required": "Missing evidence/owner/deadline findings",
+      "acceptance_rule": "Correct through authorized actions; no invented completion",
+      "estimated_minutes": 20,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    },
+    {
+      "task_code": "COORD-06",
+      "title": "Submit coordination handover",
+      "owner_roles": [
+        "growth_coordinator"
+      ],
+      "reviewer_roles": [
+        "marketing",
+        "tenant_admin"
+      ],
+      "cadence": "daily",
+      "deadline_rule": "Scheduled shift handover",
+      "evidence_required": "Open/blocked/review-needed list",
+      "acceptance_rule": "Next owner explicitly acknowledges handover",
+      "estimated_minutes": 15,
+      "priority": "normal",
+      "scope": "employee_organization_assignment",
+      "implementation_status": "foundation_only",
+      "auto_assignment_enabled": false
+    }
+  ],
+  "runtime_status": "foundation_catalog_not_deployed",
+  "states": [
+    "assigned",
+    "in_progress",
+    "blocked",
+    "submitted",
+    "accepted",
+    "rework",
+    "cancelled"
+  ],
+  "timeliness": [
+    "not_due",
+    "due_today",
+    "overdue_open",
+    "submitted_on_time",
+    "submitted_late",
+    "awaiting_manager_review",
+    "accepted_on_time",
+    "accepted_late",
+    "cancelled"
+  ],
+  "rules": {
+    "one_accountable_owner": true,
+    "reviewer_distinct_from_owner_for_controlled_work": true,
+    "original_due_date_immutable": true,
+    "extensions_require_reason_approval_and_version": true,
+    "earned_pay_withheld_for_missed_task": false,
+    "hidden_activity_monitoring": false,
+    "automatic_disciplinary_decisions": false,
+    "actual_employee_assignments_created": false
+  },
+  "scale": {
+    "tenant_scope_server_enforced": true,
+    "hierarchy": [
+      "company",
+      "tenant",
+      "department",
+      "team",
+      "employee"
+    ],
+    "event_log_append_only": true,
+    "recurrence_unique_key": [
+      "employee_id",
+      "template_id",
+      "schedule_version",
+      "period_start"
+    ],
+    "delegations_expire": true,
+    "payroll_and_performance_separate": true
+  },
+  "planned_entities": [
+    "workforce_memberships",
+    "job_profiles",
+    "job_duty_assignments",
+    "work_calendars",
+    "task_instances",
+    "task_attempts",
+    "task_events",
+    "blocker_cases",
+    "time_entries",
+    "timesheet_reviews",
+    "performance_reviews",
+    "employee_appeals",
+    "policy_versions",
+    "payroll_exports"
+  ],
+  "planned_surfaces": [
+    {
+      "name": "Employee task inbox",
+      "status": "foundation_only",
+      "route": null
+    },
+    {
+      "name": "Manager exceptions and review queue",
+      "status": "foundation_only",
+      "route": null
+    },
+    {
+      "name": "Organization accountability summary",
+      "status": "foundation_only",
+      "route": null
+    },
+    {
+      "name": "Payroll verification",
+      "status": "foundation_only",
+      "route": null
+    },
+    {
+      "name": "Employee appeal review",
+      "status": "foundation_only",
+      "route": null
+    }
+  ],
+  "policy_status": "draft_for_company_adoption",
+  "relationships": [
+    "employee",
+    "contractor",
+    "owner_partner",
+    "volunteer"
+  ]
+}

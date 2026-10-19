@@ -21,8 +21,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: python scripts/test-api-catalog-identity.py
-      - run: python scripts/check-api-catalog-identity.py
+      - run: GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 python scripts/check-api-catalog-identity.py

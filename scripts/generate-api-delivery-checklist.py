@@ -81,6 +81,25 @@ def build(rows, work_package=None, retirement_ledger=None, blocker_ledger=None):
             'resolved':len(resolved),'operations':package['operations'],'resolvedOperations':resolved,
             'reviewed':sum(bool(r.get('finding') and r.get('evidence')) for api,r in package.get('reviews',{}).items() if api in package['operations'])},'areas':areas,'operations':operations}
 
+def legacy_scope(rows, report_contract, platform_contract=None):
+    """New reporting work remains visible in the catalog, outside the fixed legacy migration."""
+    expected = {
+        'GET /v1/governance/reports',
+        'GET /v1/governance/reports/{reportId}',
+        'GET /v1/governance/reports/{reportId}/pdf',
+        'POST /v1/governance/reports/{reportId}/email',
+    }
+    registered = {method.upper()+' '+route for route, methods in report_contract['paths'].items()
+                  for method in methods if method.upper() in {'GET','POST','PUT','PATCH','DELETE'}}
+    if registered != expected:
+        raise ValueError('Reporting feature scope changed; review legacy migration boundary')
+    if platform_contract is not None:
+        expected_platform={method+' /v1/governance/platform'+suffix for method,suffix in [('GET',''),('GET','/tenants'),('POST','/tenants'),('GET','/tenants/{tenantId}'),('GET','/tenants/{tenantId}/accounts'),('POST','/tenants/{tenantId}/accounts'),('PATCH','/tenants/{tenantId}/accounts/{userId}'),('GET','/tenants/{tenantId}/masters'),('POST','/tenants/{tenantId}/masters'),('PATCH','/tenants/{tenantId}/masters/{recordId}'),('GET','/tenants/{tenantId}/audit')]}
+        platform={method.upper()+' '+route for route,methods in platform_contract['paths'].items() for method in methods if method.upper() in {'GET','POST','PUT','PATCH','DELETE'}}
+        if platform!=expected_platform: raise ValueError('Platform feature scope changed; review legacy migration boundary')
+        registered |= platform
+    return [row for row in rows if row['method']+' '+row['route'] not in registered]
+
 def main():
     source = ROOT/'docs/api/api-execution-inventory.json'
     package = json.loads((ROOT/'docs/api/api-delivery-work-package.json').read_text())
@@ -94,8 +113,9 @@ def main():
             if review.get('verificationState') == 'blocked':
                 if api in blockers and blockers[api] != review: raise ValueError('Conflicting blocker '+api)
                 blockers[api] = review
-    data = build(json.loads(source.read_text())['data'],package,retirements,blockers)
-    data['additionalWorkPackages'] = [build(json.loads(source.read_text())['data'],p,retirements,blockers)['firstWorkPackage'] for p in package.get('additionalWorkPackages',[])]
+    rows = legacy_scope(json.loads(source.read_text())['data'], json.loads((ROOT/'docs/api/admin-reports.openapi.json').read_text()),json.loads((ROOT/'docs/api/platform-admin.openapi.json').read_text()))
+    data = build(rows,package,retirements,blockers)
+    data['additionalWorkPackages'] = [build(rows,p,retirements,blockers)['firstWorkPackage'] for p in package.get('additionalWorkPackages',[])]
     data['source'] = {'path':'docs/api/api-execution-inventory.json','sha256':hashlib.sha256(source.read_bytes()).hexdigest()}
     (ROOT/'docs/api/api-delivery-checklist.json').write_text(json.dumps(data,indent=2)+'\n')
     s=data['summary']; states=s['stages']; package=data['firstWorkPackage']
@@ -114,7 +134,7 @@ def main():
         lines += [('- [x] ' if api in extra['resolvedOperations'] else '- [ ] ')+api for api in extra['operations']]
     lines += ['', '## Work by route area','', '| Area | Baseline | Unit evidence | Needs work | Blocked | Retired |','| --- | ---: | ---: | ---: | ---: | ---: |']
     lines += [f"| {a['area']} | {a['total']} | {a['unitEvidenceRecorded']} | {a['needsWork']} | {a['blocked']} | {a['retired']} |" for a in data['areas']]
-    lines += ['', 'Route areas are catalog prefixes, not independently deployed services. The JSON checklist contains every unique operation, source declaration IDs, missing fields and next action. Regenerate through generate-api-execution-inventory.py; never advance this counter for repeated field repairs.','']
+    lines += ['', 'The eleven new platform-admin operations and four reporting operations are tracked separately in their OpenAPI contracts and acceptance CI. Reporting operations are tracked in admin-reports.openapi.json and reporting CI, outside this fixed legacy migration denominator. They remain visible in the full execution inventory.','', 'Route areas are catalog prefixes, not independently deployed services. The JSON checklist contains every unique operation, source declaration IDs, missing fields and next action. Regenerate through generate-api-execution-inventory.py; never advance this counter for repeated field repairs.','']
     (ROOT/'docs/api/API_DELIVERY_CHECKLIST.md').write_text('\n'.join(lines))
     print(json.dumps(s))
 

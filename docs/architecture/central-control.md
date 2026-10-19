@@ -38,6 +38,32 @@ separate runtime adapters.
 
 ## Migration sequence for the rest of the repository
 
+### Web session transport
+
+`websites/typescript/src/infrastructure/http/base-session-client.ts` contains
+`BaseSessionClient`. `CareClient` and `GrowthClient` inherit its session checks,
+JSON transport and per-instance idempotency retry lifecycle. Concrete clients
+retain their governed endpoints, public request signatures and error policies.
+Care keeps typed HTTP errors; growth keeps its unauthorized redirect and uncertain
+delivery errors. The base normalizes non-object JSON error bodies so a null or
+primitive response cannot replace the domain failure with a property-access error.
+Growth PDF validation remains in its adapter and uses the inherited
+session check. No account or tenant is stored globally by the base class.
+
+`scripts/test-session-client-inheritance.mjs` verifies both inheritance links,
+request payloads, retry reuse and reset, instance isolation, account changes before
+and after requests, domain error differences and PDF validation. Care acceptance
+CI includes this suite. This extraction creates no screens, APIs or permissions.
+
+This is a partial architecture migration. CareRepository remains a concrete class;
+care domain workflow handlers and web presentation functions have not all been
+converted to class hierarchies. Territory, tenant operations and other clients
+still have different transport contracts and need separate compatibility review.
+The existing Dart parents and Worker BaseWorker hierarchy remain authoritative
+for their runtimes; Dart base classes cannot be inherited by TypeScript code.
+
+### Remaining migration sequence
+
 This PR migrates the thirteen Worker entry points through two concrete classes.
 It does not migrate every Dart service, Flutter screen or domain handler into a
 new class hierarchy. The shared governed UI parent already exists and should be
@@ -58,6 +84,16 @@ cannot turn them into complete workflows.
 7. Test the proposed head and CI before merging; deployment remains a release step.
 
 ## Verification and evidence
+
+`python3 scripts/check-skeleton-structure.py` checks the current registered
+skeleton without Git history: 1,161 controller inheritance links, eight app
+roots, 13 organized service hosts, two Worker subclasses and two web session
+clients. It rejects controllers that override the shared lifecycle, app roots
+that rebuild MaterialApp locally and service entrypoints that retain host classes.
+Central inheritance CI runs this in addition to the historical parity checks.
+The structural check does not replace compilation, workflow tests or historical
+behavior comparisons, and does not claim that every repository feature uses a
+base class.
 
 The base lifecycle tests cover preflight termination, asynchronous hook ordering,
 error delegation, parallel request isolation and detached fetch calls. Twelve

@@ -1,5 +1,2 @@
-/// Shared identity storage. Parsing, equality and validation remain domain-specific.
-abstract class BaseEntity<T> {
-  final T id;
-  const BaseEntity({required this.id});
-}
+// Compatibility export: canonical implementation is shared with APIs.
+export 'package:primecare_models/src/models/base_entity.dart';

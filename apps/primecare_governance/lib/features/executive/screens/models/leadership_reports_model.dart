@@ -1,12 +1,12 @@
+import 'package:primecare_models/primecare_models.dart';
+
 // Governance - Category: model | Purpose: Data entity definition for Leadership Reports
 // TODO: Implement DTO, serialization mapping, and state values.
 
-class LeadershipReportsModel {
+class LeadershipReportsModel extends BaseEmptyModel {
   const LeadershipReportsModel();
-  
+
   factory LeadershipReportsModel.fromJson(Map<String, dynamic> json) {
     return const LeadershipReportsModel();
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

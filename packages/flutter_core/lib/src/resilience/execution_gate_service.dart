@@ -4,7 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Level of impact for an institutional insight or anomaly.
-enum InsightImpact { positive, info, caution, alert, critical }
+export 'package:primecare_models/src/models/insight_impact.dart';
+import 'package:primecare_models/src/models/insight_impact.dart';
 
 /// Types of events that the Aura Pulse service can emit.
 enum AuraEventType {

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Verify the middleware extraction against pinned source and route bodies."""
 import hashlib,json,re,subprocess
+from refactor_service_entrypoints import current_host_source
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
 man=json.loads((root/'docs/architecture/http-host-migration.json').read_text())
@@ -17,7 +18,7 @@ def route_body(s,method):
 for host in man['hosts']:
     path=host['path'];original=subprocess.check_output(['git','show',man['sourceCommit']+':'+path],cwd=root,text=True)
     assert hashlib.sha256(original.encode()).hexdigest()==host['beforeSha256'],path
-    current=(root/path).read_text()
+    current=current_host_source(path)
     assert 'extends '+host['parent'] in current,path
     assert 'createHandler(' not in current and '.addMiddleware(' not in current,path
     assert route_body(original,'createHandler')==route_body(current,'createRoutes'),path+' route body changed'

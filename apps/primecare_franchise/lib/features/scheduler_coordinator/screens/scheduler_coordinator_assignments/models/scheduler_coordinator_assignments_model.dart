@@ -1,23 +1,20 @@
-class SchedulerCoordinatorAssignmentsModel {
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+import 'package:primecare_models/primecare_models.dart';
 
+class SchedulerCoordinatorAssignmentsModel extends BaseScreenState<SchedulerCoordinatorAssignmentsModel> {
   const SchedulerCoordinatorAssignmentsModel({
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {},
   });
 
-  SchedulerCoordinatorAssignmentsModel copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }) {
-    return SchedulerCoordinatorAssignmentsModel(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  SchedulerCoordinatorAssignmentsModel rebuild({
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }) => SchedulerCoordinatorAssignmentsModel(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }

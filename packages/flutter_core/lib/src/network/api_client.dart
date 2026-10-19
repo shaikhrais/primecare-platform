@@ -373,7 +373,8 @@ class ApiClient {
   static bool _isUncachedWorkflowPath(String path) {
     final route = (Uri.tryParse(path)?.normalizePath().path ?? path)
         .replaceFirst(RegExp(r'/+$'), '');
-    return route == '/v1/clinical/dashboard' ||
+    return route == '/v1/governance/reports' || route.startsWith('/v1/governance/reports/') ||
+        route == '/v1/clinical/dashboard' ||
         route == '/v1/business-development' ||
         route.startsWith('/v1/business-development-') ||
         route.startsWith('/v1/business-development/') ||
@@ -388,6 +389,15 @@ class ApiClient {
       statusCode: response?.statusCode ?? 503,
       error: 'Workflow request failed.',
     );
+  }
+
+  /// Binary downloads never use the cache or synthetic offline responses.
+  Future<ApiResponse> downloadBytes(String path) async {
+    try {
+      final response = await _dio.get<List<int>>(path,
+        options: Options(responseType: ResponseType.bytes));
+      return ApiResponse(data: response.data, statusCode: response.statusCode ?? 503);
+    } catch (error) { return _workflowFailure(error); }
   }
 
   /// Performs a GET request.
@@ -477,9 +487,9 @@ class ApiClient {
     }
   }
 
-  Future<ApiResponse> post(String path, {dynamic body}) async {
+  Future<ApiResponse> post(String path, {dynamic body, Map<String, String>? headers}) async {
     try {
-      final response = await _dio.post<Map<String, dynamic>>(path, data: body);
+      final response = await _dio.post<Map<String, dynamic>>(path, data: body, options: Options(headers: headers));
       return ApiResponse(
         data: response.data,
         statusCode: response.statusCode ?? 200,

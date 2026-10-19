@@ -2,14 +2,20 @@ name: Scheduling unsupported-route regression tests
 on:
   pull_request:
     paths:
+      - 'packages/server_core/**'
+      - 'packages/primecare_models/**'
       - 'services/scheduling_api/lib/routes.dart'
+      - 'services/scheduling_api/lib/src/features/**'
       - 'services/scheduling_api/test/routes_test.dart'
       - 'scripts/test-scheduling-screen-routes.sh'
       - '.github/workflows/scheduling-route-tests.yml'
   push:
     branches: [main]
     paths:
+      - 'packages/server_core/**'
+      - 'packages/primecare_models/**'
       - 'services/scheduling_api/lib/routes.dart'
+      - 'services/scheduling_api/lib/src/features/**'
       - 'services/scheduling_api/test/routes_test.dart'
       - 'scripts/test-scheduling-screen-routes.sh'
       - '.github/workflows/scheduling-route-tests.yml'

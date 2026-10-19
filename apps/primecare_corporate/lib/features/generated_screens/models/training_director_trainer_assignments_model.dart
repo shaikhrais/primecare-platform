@@ -1,12 +1,12 @@
+import 'package:primecare_models/primecare_models.dart';
+
 // Governance - Category: model | Purpose: Data entity definition for Training Director Trainer Assignments
 // TODO: Implement DTO, serialization mapping, and state values.
 
-class TrainingDirectorTrainerAssignmentsModel {
+class TrainingDirectorTrainerAssignmentsModel extends BaseEmptyModel {
   const TrainingDirectorTrainerAssignmentsModel();
-  
+
   factory TrainingDirectorTrainerAssignmentsModel.fromJson(Map<String, dynamic> json) {
     return const TrainingDirectorTrainerAssignmentsModel();
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

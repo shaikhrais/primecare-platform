@@ -3865,5 +3865,6 @@
         "summary_title": "Detalles del resumen de métricas",
         "btn_action": "Enviar Cambios",
         "btn_refresh": "Sincronizar Panel de Datos"
-    }
+    },
+    "auth_flow_unavailable": "Esta función de autenticación aún no está disponible. Comuníquese con su administrador."
 }

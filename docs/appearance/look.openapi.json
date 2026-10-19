@@ -1,0 +1,481 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Base Look Manager",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "paths": {
+    "/v1/governance/look": {
+      "get": {
+        "operationId": "look_get_",
+        "summary": "Read scoped visual review queue",
+        "description": "Active explicit bearer session and governed administrator grants. Global central/platform scope; CEO/tenant administrator own-tenant scope. Scores come only from the trusted server binding. AI never performs final human approval. No production-readiness credits.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Scoped result or recorded human decision"
+          },
+          "201": {
+            "description": "New screenshot revision"
+          },
+          "202": {
+            "description": "AI claim accepted; read current state for outcome"
+          },
+          "400": {
+            "description": "Invalid fields, PNG, context or inspection confirmation"
+          },
+          "401": {
+            "description": "Active bearer session required"
+          },
+          "403": {
+            "description": "Administrator/page grant denied"
+          },
+          "404": {
+            "description": "Record absent in current scope"
+          },
+          "409": {
+            "description": "Stale version/digest/rubric or approval ordering conflict"
+          },
+          "413": {
+            "description": "Body/image too large"
+          },
+          "415": {
+            "description": "JSON required"
+          },
+          "429": {
+            "description": "Actor/model limit"
+          },
+          "503": {
+            "description": "Provider/configuration/database/audit unavailable"
+          }
+        }
+      }
+    },
+    "/v1/governance/look/reviews": {
+      "post": {
+        "operationId": "look_post_reviews",
+        "summary": "/reviews",
+        "description": "Active explicit bearer session and governed administrator grants. Global central/platform scope; CEO/tenant administrator own-tenant scope. Scores come only from the trusted server binding. AI never performs final human approval. No production-readiness credits.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped result or recorded human decision"
+          },
+          "201": {
+            "description": "New screenshot revision"
+          },
+          "202": {
+            "description": "AI claim accepted; read current state for outcome"
+          },
+          "400": {
+            "description": "Invalid fields, PNG, context or inspection confirmation"
+          },
+          "401": {
+            "description": "Active bearer session required"
+          },
+          "403": {
+            "description": "Administrator/page grant denied"
+          },
+          "404": {
+            "description": "Record absent in current scope"
+          },
+          "409": {
+            "description": "Stale version/digest/rubric or approval ordering conflict"
+          },
+          "413": {
+            "description": "Body/image too large"
+          },
+          "415": {
+            "description": "JSON required"
+          },
+          "429": {
+            "description": "Actor/model limit"
+          },
+          "503": {
+            "description": "Provider/configuration/database/audit unavailable"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "screen": {
+                    "type": "string"
+                  },
+                  "platform": {
+                    "enum": [
+                      "web",
+                      "android",
+                      "ios",
+                      "windows",
+                      "macos",
+                      "linux"
+                    ]
+                  },
+                  "width": {
+                    "type": "integer",
+                    "minimum": 280,
+                    "maximum": 7680
+                  },
+                  "height": {
+                    "type": "integer",
+                    "minimum": 240,
+                    "maximum": 4320
+                  },
+                  "scale": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 4
+                  },
+                  "locale": {
+                    "enum": [
+                      "en",
+                      "fr",
+                      "es"
+                    ]
+                  },
+                  "build": {
+                    "type": "string"
+                  },
+                  "theme": {
+                    "type": "string"
+                  },
+                  "layout": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "string",
+                    "contentEncoding": "base64"
+                  },
+                  "redacted": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "screen",
+                  "platform",
+                  "width",
+                  "height",
+                  "scale",
+                  "locale",
+                  "build",
+                  "theme",
+                  "layout",
+                  "image",
+                  "redacted"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/look/reviews/{id}/image": {
+      "get": {
+        "operationId": "look_get_reviews_id_image",
+        "summary": "/reviews/{id}/image",
+        "description": "Active explicit bearer session and governed administrator grants. Global central/platform scope; CEO/tenant administrator own-tenant scope. Scores come only from the trusted server binding. AI never performs final human approval. No production-readiness credits.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authenticated PNG evidence",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "New screenshot revision"
+          },
+          "202": {
+            "description": "AI claim accepted; read current state for outcome"
+          },
+          "400": {
+            "description": "Invalid fields, PNG, context or inspection confirmation"
+          },
+          "401": {
+            "description": "Active bearer session required"
+          },
+          "403": {
+            "description": "Administrator/page grant denied"
+          },
+          "404": {
+            "description": "Record absent in current scope"
+          },
+          "409": {
+            "description": "Stale version/digest/rubric or approval ordering conflict"
+          },
+          "413": {
+            "description": "Body/image too large"
+          },
+          "415": {
+            "description": "JSON required"
+          },
+          "429": {
+            "description": "Actor/model limit"
+          },
+          "503": {
+            "description": "Provider/configuration/database/audit unavailable"
+          }
+        }
+      }
+    },
+    "/v1/governance/look/reviews/{id}/ai": {
+      "post": {
+        "operationId": "look_post_reviews_id_ai",
+        "summary": "/reviews/{id}/ai",
+        "description": "Active explicit bearer session and governed administrator grants. Global central/platform scope; CEO/tenant administrator own-tenant scope. Scores come only from the trusted server binding. AI never performs final human approval. No production-readiness credits.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped result or recorded human decision"
+          },
+          "201": {
+            "description": "New screenshot revision"
+          },
+          "202": {
+            "description": "AI claim accepted; read current state for outcome"
+          },
+          "400": {
+            "description": "Invalid fields, PNG, context or inspection confirmation"
+          },
+          "401": {
+            "description": "Active bearer session required"
+          },
+          "403": {
+            "description": "Administrator/page grant denied"
+          },
+          "404": {
+            "description": "Record absent in current scope"
+          },
+          "409": {
+            "description": "Stale version/digest/rubric or approval ordering conflict"
+          },
+          "413": {
+            "description": "Body/image too large"
+          },
+          "415": {
+            "description": "JSON required"
+          },
+          "429": {
+            "description": "Actor/model limit"
+          },
+          "503": {
+            "description": "Provider/configuration/database/audit unavailable"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "version"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/look/reviews/{id}/human": {
+      "post": {
+        "operationId": "look_post_reviews_id_human",
+        "summary": "/reviews/{id}/human",
+        "description": "Active explicit bearer session and governed administrator grants. Global central/platform scope; CEO/tenant administrator own-tenant scope. Scores come only from the trusted server binding. AI never performs final human approval. No production-readiness credits.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped result or recorded human decision"
+          },
+          "201": {
+            "description": "New screenshot revision"
+          },
+          "202": {
+            "description": "AI claim accepted; read current state for outcome"
+          },
+          "400": {
+            "description": "Invalid fields, PNG, context or inspection confirmation"
+          },
+          "401": {
+            "description": "Active bearer session required"
+          },
+          "403": {
+            "description": "Administrator/page grant denied"
+          },
+          "404": {
+            "description": "Record absent in current scope"
+          },
+          "409": {
+            "description": "Stale version/digest/rubric or approval ordering conflict"
+          },
+          "413": {
+            "description": "Body/image too large"
+          },
+          "415": {
+            "description": "JSON required"
+          },
+          "429": {
+            "description": "Actor/model limit"
+          },
+          "503": {
+            "description": "Provider/configuration/database/audit unavailable"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "decision": {
+                    "enum": [
+                      "approve",
+                      "request_changes",
+                      "reject"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1500
+                  },
+                  "imageDigest": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "reviewed": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "version",
+                  "decision",
+                  "evidence",
+                  "imageDigest",
+                  "reviewed"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

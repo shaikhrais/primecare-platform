@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import '../../config/screen_breakpoints.dart';
 import 'responsive_grid.dart';
+import '../../theme/theme_contrast.dart';
 
 /// A premium, high-density dashboard split layout designed for large displays.
 /// On desktop and wide viewports (width >= 1024px), it divides screen space into:
@@ -133,11 +134,15 @@ class QuickActionsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Colors.grey.shade100, width: 1.5),
+        borderRadius: theme.cardTheme.shape is RoundedRectangleBorder
+            ? (theme.cardTheme.shape! as RoundedRectangleBorder).borderRadius
+            : BorderRadius.circular(16),
+        side: BorderSide(color: scheme.outline, width: 1.5),
       ),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -146,8 +151,7 @@ class QuickActionsPanel extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 18,
+              style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 letterSpacing: -0.5,
               ),
@@ -156,11 +160,11 @@ class QuickActionsPanel extends StatelessWidget {
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
-                childAspectRatio: 1.6,
+                mainAxisExtent: 80 + (theme.textTheme.bodyMedium?.fontSize ?? 14) * 1.5,
               ),
               itemCount: actions.length,
               itemBuilder: (context, index) {
@@ -190,10 +194,9 @@ class QuickActionsPanel extends StatelessWidget {
                         const SizedBox(height: 8),
                         Text(
                           action.label,
-                          style: TextStyle(
-                            fontSize: 13,
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.w600,
-                            color: Colors.blueGrey.shade800,
+                            color: scheme.onSurface,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -241,11 +244,15 @@ class RecentActivityFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Colors.grey.shade100, width: 1.5),
+        borderRadius: theme.cardTheme.shape is RoundedRectangleBorder
+            ? (theme.cardTheme.shape! as RoundedRectangleBorder).borderRadius
+            : BorderRadius.circular(16),
+        side: BorderSide(color: scheme.outline, width: 1.5),
       ),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -254,8 +261,7 @@ class RecentActivityFeed extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 18,
+              style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 letterSpacing: -0.5,
               ),
@@ -294,7 +300,7 @@ class RecentActivityFeed extends StatelessWidget {
                           Container(
                             width: 2,
                             height: 36,
-                            color: Colors.grey.shade200,
+                            color: scheme.outline,
                           ),
                       ],
                     ),
@@ -310,8 +316,7 @@ class RecentActivityFeed extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   activity.title,
-                                  style: const TextStyle(
-                                    fontSize: 14,
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     fontWeight: FontWeight.w600,
                                   ),
                                   maxLines: 1,
@@ -320,9 +325,8 @@ class RecentActivityFeed extends StatelessWidget {
                               ),
                               Text(
                                 activity.time,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade500,
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  color: scheme.onSurfaceVariant,
                                 ),
                               ),
                             ],
@@ -330,9 +334,8 @@ class RecentActivityFeed extends StatelessWidget {
                           const SizedBox(height: 4),
                           Text(
                             activity.description,
-                            style: TextStyle(
-                              fontSize: 12.5,
-                              color: Colors.grey.shade600,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: scheme.onSurfaceVariant,
                               height: 1.3,
                             ),
                           ),
@@ -366,17 +369,21 @@ class AiInsightsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final foreground = readableThemeForeground(theme.colorScheme.primary, theme.colorScheme.onPrimary);
     return Container(
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF6366F1), Color(0xFF4F46E5), Color(0xFF4338CA)],
+        gradient: LinearGradient(
+          colors: readableThemeGradient(theme.colorScheme.primary, foreground),
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: theme.cardTheme.shape is RoundedRectangleBorder
+            ? (theme.cardTheme.shape! as RoundedRectangleBorder).borderRadius
+            : BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF6366F1).withOpacity(0.3),
+            color: theme.colorScheme.primary.withValues(alpha: .3),
             blurRadius: 16,
             offset: const Offset(0, 8),
           ),
@@ -391,10 +398,10 @@ class AiInsightsCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.18),
+                  color: foreground.withValues(alpha: .18),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(aiIcon, color: Colors.white, size: 18),
+                child: Icon(aiIcon, color: foreground, size: 18),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -403,19 +410,17 @@ class AiInsightsCard extends StatelessWidget {
                   children: [
                     Text(
                       'AI ASSISTANT',
-                      style: TextStyle(
-                        fontSize: 10,
+                      style: theme.textTheme.labelSmall?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Colors.white.withOpacity(0.7),
+                        color: foreground,
                         letterSpacing: 1.2,
                       ),
                     ),
                     Text(
                       heading,
-                      style: const TextStyle(
-                        fontSize: 15,
+                      style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: foreground,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -436,7 +441,7 @@ class AiInsightsCard extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 3.0),
                     child: Icon(
                       Icons.check_circle_outline,
-                      color: Colors.green.shade100,
+                      color: foreground,
                       size: 14,
                     ),
                   ),
@@ -444,9 +449,8 @@ class AiInsightsCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       suggestion,
-                      style: TextStyle(
-                        fontSize: 12.5,
-                        color: Colors.white.withOpacity(0.92),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: foreground,
                         height: 1.35,
                       ),
                     ),

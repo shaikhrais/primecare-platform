@@ -1,0 +1,3185 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare First Platform Bundle",
+    "version": "1.0.0"
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "paths": {
+    "/v1/governance/platform/bundle": {
+      "get": {
+        "summary": "GET /v1/governance/platform/bundle",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          },
+          {
+            "name": "list",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "tickets",
+                "routes"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "global": {
+                      "type": "boolean"
+                    },
+                    "tenantId": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "checkedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "launch": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "state": {
+                              "type": "string"
+                            },
+                            "trainingEvidence": {
+                              "type": "string"
+                            },
+                            "version": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "checks": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "key": {
+                                    "type": "string"
+                                  },
+                                  "present": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "key",
+                                  "present"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "ready": {
+                              "type": "boolean"
+                            },
+                            "canApprove": {
+                              "type": "boolean"
+                            },
+                            "canSubmit": {
+                              "type": "boolean"
+                            },
+                            "canRequestChanges": {
+                              "type": "boolean"
+                            },
+                            "feedback": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "evidence": {
+                                      "type": "string",
+                                      "maxLength": 1000
+                                    },
+                                    "createdAt": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    }
+                                  },
+                                  "required": [
+                                    "evidence",
+                                    "createdAt"
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "state",
+                            "trainingEvidence",
+                            "version",
+                            "checks",
+                            "ready",
+                            "canApprove",
+                            "canSubmit",
+                            "canRequestChanges",
+                            "feedback"
+                          ],
+                          "additionalProperties": false
+                        }
+                      ]
+                    },
+                    "documents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "kind": {
+                            "type": "string"
+                          },
+                          "filename": {
+                            "type": "string"
+                          },
+                          "media_type": {
+                            "type": "string"
+                          },
+                          "expires_on": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "renewal": {
+                            "type": "string"
+                          },
+                          "review_evidence": {
+                            "type": "string"
+                          },
+                          "revision": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "version": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "canReview": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "kind",
+                          "filename",
+                          "media_type",
+                          "expires_on",
+                          "status",
+                          "renewal",
+                          "review_evidence",
+                          "revision",
+                          "version",
+                          "canReview"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "tickets": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "tenant_id": {
+                            "type": "string"
+                          },
+                          "subject": {
+                            "type": "string"
+                          },
+                          "priority": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "response_due": {
+                            "type": "string"
+                          },
+                          "resolution_due": {
+                            "type": "string"
+                          },
+                          "owner_id": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "version": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "first_response_at": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "resolved_at": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "overdue": {
+                            "type": "boolean"
+                          },
+                          "responseLate": {
+                            "type": "boolean"
+                          },
+                          "resolutionLate": {
+                            "type": "boolean"
+                          },
+                          "messages": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "author": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "message",
+                                "created_at",
+                                "author"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "timeline": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "action": {
+                                  "type": "string"
+                                },
+                                "createdAt": {
+                                  "type": "string"
+                                },
+                                "status": {
+                                  "type": "string"
+                                },
+                                "priority": {
+                                  "type": "string"
+                                },
+                                "responseDue": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "resolutionDue": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "firstResponseAt": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "resolvedAt": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "action",
+                                "createdAt",
+                                "status",
+                                "priority",
+                                "responseDue",
+                                "resolutionDue",
+                                "firstResponseAt",
+                                "resolvedAt"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "canTriage": {
+                            "type": "boolean"
+                          },
+                          "canReopen": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "tenant_id",
+                          "subject",
+                          "priority",
+                          "status",
+                          "response_due",
+                          "resolution_due",
+                          "owner_id",
+                          "version",
+                          "first_response_at",
+                          "resolved_at",
+                          "overdue",
+                          "responseLate",
+                          "resolutionLate",
+                          "messages",
+                          "timeline",
+                          "canTriage",
+                          "canReopen"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "routes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "fsa": {
+                            "type": "string"
+                          },
+                          "service": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "reason": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "offer_due": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "tenant_name": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "lead_id": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "contact": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "email": {
+                                    "type": "string"
+                                  },
+                                  "phone": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "email",
+                                  "phone"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "actions": {
+                            "type": "array",
+                            "items": {
+                              "enum": [
+                                "accept",
+                                "decline",
+                                "reroute",
+                                "withdraw"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "fsa",
+                          "service",
+                          "status",
+                          "reason",
+                          "version",
+                          "offer_due",
+                          "tenant_name",
+                          "lead_id",
+                          "contact",
+                          "actions"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "owners": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "label": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "label"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "audit": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "action": {
+                            "type": "string"
+                          },
+                          "evidence": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "action",
+                          "evidence",
+                          "created_at"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "summary": {
+                      "type": "object",
+                      "properties": {
+                        "tickets": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "routes": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "overdue": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "unmatched": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "renewals": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      },
+                      "required": [
+                        "tickets",
+                        "routes",
+                        "overdue",
+                        "unmatched",
+                        "renewals"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "list": {
+                          "enum": [
+                            "tickets",
+                            "routes"
+                          ]
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "list",
+                        "offset",
+                        "limit",
+                        "total",
+                        "hasMore"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "global",
+                    "tenantId",
+                    "checkedAt",
+                    "launch",
+                    "documents",
+                    "tickets",
+                    "routes",
+                    "owners",
+                    "audit",
+                    "summary",
+                    "pagination"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/bundle/tenants/{tenantId}": {
+      "get": {
+        "summary": "GET /v1/governance/platform/bundle/tenants/{tenantId}",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          },
+          {
+            "name": "list",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "tickets",
+                "routes"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "global": {
+                      "type": "boolean"
+                    },
+                    "tenantId": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "checkedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "launch": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "state": {
+                              "type": "string"
+                            },
+                            "trainingEvidence": {
+                              "type": "string"
+                            },
+                            "version": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "checks": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "key": {
+                                    "type": "string"
+                                  },
+                                  "present": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "key",
+                                  "present"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "ready": {
+                              "type": "boolean"
+                            },
+                            "canApprove": {
+                              "type": "boolean"
+                            },
+                            "canSubmit": {
+                              "type": "boolean"
+                            },
+                            "canRequestChanges": {
+                              "type": "boolean"
+                            },
+                            "feedback": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "evidence": {
+                                      "type": "string",
+                                      "maxLength": 1000
+                                    },
+                                    "createdAt": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    }
+                                  },
+                                  "required": [
+                                    "evidence",
+                                    "createdAt"
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "state",
+                            "trainingEvidence",
+                            "version",
+                            "checks",
+                            "ready",
+                            "canApprove",
+                            "canSubmit",
+                            "canRequestChanges",
+                            "feedback"
+                          ],
+                          "additionalProperties": false
+                        }
+                      ]
+                    },
+                    "documents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "kind": {
+                            "type": "string"
+                          },
+                          "filename": {
+                            "type": "string"
+                          },
+                          "media_type": {
+                            "type": "string"
+                          },
+                          "expires_on": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "renewal": {
+                            "type": "string"
+                          },
+                          "review_evidence": {
+                            "type": "string"
+                          },
+                          "revision": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "version": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "canReview": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "kind",
+                          "filename",
+                          "media_type",
+                          "expires_on",
+                          "status",
+                          "renewal",
+                          "review_evidence",
+                          "revision",
+                          "version",
+                          "canReview"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "tickets": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "tenant_id": {
+                            "type": "string"
+                          },
+                          "subject": {
+                            "type": "string"
+                          },
+                          "priority": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "response_due": {
+                            "type": "string"
+                          },
+                          "resolution_due": {
+                            "type": "string"
+                          },
+                          "owner_id": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "version": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "first_response_at": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "resolved_at": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "overdue": {
+                            "type": "boolean"
+                          },
+                          "responseLate": {
+                            "type": "boolean"
+                          },
+                          "resolutionLate": {
+                            "type": "boolean"
+                          },
+                          "messages": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "author": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "message",
+                                "created_at",
+                                "author"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "timeline": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "action": {
+                                  "type": "string"
+                                },
+                                "createdAt": {
+                                  "type": "string"
+                                },
+                                "status": {
+                                  "type": "string"
+                                },
+                                "priority": {
+                                  "type": "string"
+                                },
+                                "responseDue": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "resolutionDue": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "firstResponseAt": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "resolvedAt": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "action",
+                                "createdAt",
+                                "status",
+                                "priority",
+                                "responseDue",
+                                "resolutionDue",
+                                "firstResponseAt",
+                                "resolvedAt"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "canTriage": {
+                            "type": "boolean"
+                          },
+                          "canReopen": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "tenant_id",
+                          "subject",
+                          "priority",
+                          "status",
+                          "response_due",
+                          "resolution_due",
+                          "owner_id",
+                          "version",
+                          "first_response_at",
+                          "resolved_at",
+                          "overdue",
+                          "responseLate",
+                          "resolutionLate",
+                          "messages",
+                          "timeline",
+                          "canTriage",
+                          "canReopen"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "routes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "fsa": {
+                            "type": "string"
+                          },
+                          "service": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "reason": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "offer_due": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "tenant_name": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "lead_id": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "contact": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "email": {
+                                    "type": "string"
+                                  },
+                                  "phone": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "email",
+                                  "phone"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "actions": {
+                            "type": "array",
+                            "items": {
+                              "enum": [
+                                "accept",
+                                "decline",
+                                "reroute",
+                                "withdraw"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "fsa",
+                          "service",
+                          "status",
+                          "reason",
+                          "version",
+                          "offer_due",
+                          "tenant_name",
+                          "lead_id",
+                          "contact",
+                          "actions"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "owners": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "label": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "label"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "audit": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "action": {
+                            "type": "string"
+                          },
+                          "evidence": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "action",
+                          "evidence",
+                          "created_at"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "summary": {
+                      "type": "object",
+                      "properties": {
+                        "tickets": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "routes": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "overdue": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "unmatched": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "renewals": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      },
+                      "required": [
+                        "tickets",
+                        "routes",
+                        "overdue",
+                        "unmatched",
+                        "renewals"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "list": {
+                          "enum": [
+                            "tickets",
+                            "routes"
+                          ]
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "list",
+                        "offset",
+                        "limit",
+                        "total",
+                        "hasMore"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "global",
+                    "tenantId",
+                    "checkedAt",
+                    "launch",
+                    "documents",
+                    "tickets",
+                    "routes",
+                    "owners",
+                    "audit",
+                    "summary",
+                    "pagination"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/bundle/tenants/{tenantId}/launch": {
+      "post": {
+        "summary": "POST /v1/governance/platform/bundle/tenants/{tenantId}/launch",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tenantId": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "tenantId",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tenantId": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "tenantId",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "action": {
+                    "enum": [
+                      "training",
+                      "submit",
+                      "approve",
+                      "request_changes"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  },
+                  "confirmed": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "version",
+                  "action",
+                  "evidence",
+                  "confirmed"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/bundle/tenants/{tenantId}/documents": {
+      "post": {
+        "summary": "POST /v1/governance/platform/bundle/tenants/{tenantId}/documents",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "revision": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version",
+                    "revision"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "revision": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version",
+                    "revision"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "agreement",
+                      "insurance"
+                    ]
+                  },
+                  "expiresOn": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "filename": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_. -]{0,149}$"
+                  },
+                  "mediaType": {
+                    "enum": [
+                      "application/pdf",
+                      "image/png",
+                      "image/jpeg"
+                    ]
+                  },
+                  "contentBase64": {
+                    "type": "string",
+                    "minLength": 4,
+                    "maxLength": 2796204,
+                    "contentEncoding": "base64"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "expiresOn",
+                  "filename",
+                  "mediaType",
+                  "contentBase64"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/bundle/tenants/{tenantId}/documents/{id}/download": {
+      "get": {
+        "summary": "GET /v1/governance/platform/bundle/tenants/{tenantId}/documents/{id}/download",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/bundle/tenants/{tenantId}/documents/{id}/review": {
+      "post": {
+        "summary": "POST /v1/governance/platform/bundle/tenants/{tenantId}/documents/{id}/review",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "decision": {
+                    "enum": [
+                      "approved",
+                      "rejected"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "version",
+                  "decision",
+                  "evidence"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/bundle/tenants/{tenantId}/tickets": {
+      "post": {
+        "summary": "POST /v1/governance/platform/bundle/tenants/{tenantId}/tickets",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "subject": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 150
+                  },
+                  "message": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2000
+                  },
+                  "priority": {
+                    "enum": [
+                      "normal",
+                      "urgent"
+                    ]
+                  }
+                },
+                "required": [
+                  "subject",
+                  "message",
+                  "priority"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/bundle/tenants/{tenantId}/tickets/{id}": {
+      "post": {
+        "summary": "POST /v1/governance/platform/bundle/tenants/{tenantId}/tickets/{id}",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "action": {
+                    "enum": [
+                      "reply",
+                      "triage",
+                      "reopen"
+                    ]
+                  },
+                  "message": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2000
+                  },
+                  "ownerId": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "open",
+                      "in_progress",
+                      "resolved"
+                    ]
+                  },
+                  "priority": {
+                    "enum": [
+                      "normal",
+                      "urgent"
+                    ]
+                  }
+                },
+                "required": [
+                  "version",
+                  "action",
+                  "message"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/bundle/enquiries": {
+      "post": {
+        "summary": "POST /v1/governance/platform/bundle/enquiries",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 150
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "postalCode": {
+                    "type": "string"
+                  },
+                  "service": {
+                    "enum": [
+                      "psw",
+                      "home_care"
+                    ]
+                  },
+                  "consent": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  },
+                  "confirmed": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "phone",
+                  "postalCode",
+                  "service",
+                  "consent",
+                  "confirmed"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/bundle/enquiries/{id}": {
+      "post": {
+        "summary": "POST /v1/governance/platform/bundle/enquiries/{id}",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "action": {
+                    "enum": [
+                      "accept",
+                      "decline",
+                      "reroute",
+                      "withdraw"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "version",
+                  "action",
+                  "evidence"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/bundle/attention": {
+      "get": {
+        "summary": "GET /v1/governance/platform/bundle/attention",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "all",
+                "support",
+                "documents",
+                "offers",
+                "launch"
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "scope": {
+                      "enum": [
+                        "global",
+                        "own"
+                      ]
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "key": {
+                            "type": "string"
+                          },
+                          "kind": {
+                            "enum": [
+                              "support",
+                              "documents",
+                              "offers",
+                              "launch"
+                            ]
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "reason": {
+                            "type": "string"
+                          },
+                          "dueAt": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "overdue": {
+                            "type": "boolean"
+                          },
+                          "assigned": {
+                            "type": "boolean"
+                          },
+                          "tenant": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "slug": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "name",
+                                  "slug"
+                                ]
+                              }
+                            ]
+                          },
+                          "destination": {
+                            "enum": [
+                              "support",
+                              "documents",
+                              "routing",
+                              "launch"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "kind",
+                          "id",
+                          "reason",
+                          "dueAt",
+                          "overdue",
+                          "assigned",
+                          "tenant",
+                          "destination"
+                        ]
+                      }
+                    },
+                    "summary": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "overdue": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "support": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "documents": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "offers": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "launch": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      },
+                      "required": [
+                        "total",
+                        "overdue",
+                        "support",
+                        "documents",
+                        "offers",
+                        "launch"
+                      ]
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "offset",
+                        "limit",
+                        "total",
+                        "hasMore"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "scope",
+                    "items",
+                    "summary",
+                    "pagination"
+                  ]
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/bundle/tenants/{tenantId}/history": {
+      "get": {
+        "summary": "GET /v1/governance/platform/bundle/tenants/{tenantId}/history",
+        "x-authorization": {
+          "central_admin": "global",
+          "platform_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "documents",
+                "messages",
+                "deadlines",
+                "launch"
+              ]
+            }
+          },
+          {
+            "name": "ticketId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped current state or authenticated attachment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "kind": {
+                          "const": "documents"
+                        },
+                        "tenantId": {
+                          "type": "string"
+                        },
+                        "ticketId": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "items": {
+                          "type": "array",
+                          "maxItems": 20,
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "kind": {
+                                "type": "string"
+                              },
+                              "filename": {
+                                "type": "string"
+                              },
+                              "media_type": {
+                                "type": "string"
+                              },
+                              "expires_on": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "renewal": {
+                                "type": "string"
+                              },
+                              "review_evidence": {
+                                "type": "string"
+                              },
+                              "revision": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "version": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "canReview": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "kind",
+                              "filename",
+                              "media_type",
+                              "expires_on",
+                              "status",
+                              "renewal",
+                              "review_evidence",
+                              "revision",
+                              "version",
+                              "canReview"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "pagination": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "offset": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "limit": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "total": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "hasMore": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "offset",
+                            "limit",
+                            "total",
+                            "hasMore"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "kind",
+                        "tenantId",
+                        "ticketId",
+                        "items",
+                        "pagination"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "kind": {
+                          "const": "messages"
+                        },
+                        "tenantId": {
+                          "type": "string"
+                        },
+                        "ticketId": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "items": {
+                          "type": "array",
+                          "maxItems": 20,
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "message": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              },
+                              "author": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "message",
+                              "created_at",
+                              "author"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "pagination": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "offset": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "limit": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "total": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "hasMore": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "offset",
+                            "limit",
+                            "total",
+                            "hasMore"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "kind",
+                        "tenantId",
+                        "ticketId",
+                        "items",
+                        "pagination"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "kind": {
+                          "const": "deadlines"
+                        },
+                        "tenantId": {
+                          "type": "string"
+                        },
+                        "ticketId": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "items": {
+                          "type": "array",
+                          "maxItems": 20,
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "action": {
+                                "type": "string"
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "priority": {
+                                "type": "string"
+                              },
+                              "responseDue": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "resolutionDue": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "firstResponseAt": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "resolvedAt": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "action",
+                              "createdAt",
+                              "status",
+                              "priority",
+                              "responseDue",
+                              "resolutionDue",
+                              "firstResponseAt",
+                              "resolvedAt"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "pagination": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "offset": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "limit": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "total": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "hasMore": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "offset",
+                            "limit",
+                            "total",
+                            "hasMore"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "kind",
+                        "tenantId",
+                        "ticketId",
+                        "items",
+                        "pagination"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "kind": {
+                          "const": "launch"
+                        },
+                        "tenantId": {
+                          "type": "string"
+                        },
+                        "ticketId": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "items": {
+                          "type": "array",
+                          "maxItems": 20,
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "action": {
+                                "type": "string"
+                              },
+                              "evidence": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "action",
+                              "evidence",
+                              "created_at"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "pagination": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "offset": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "limit": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "total": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "hasMore": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "offset",
+                            "limit",
+                            "total",
+                            "hasMore"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "kind",
+                        "tenantId",
+                        "ticketId",
+                        "items",
+                        "pagination"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Version, readiness or workflow conflict"
+          },
+          "413": {
+            "description": "Body too large"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Unavailable; no partial transaction"
+          }
+        }
+      }
+    }
+  }
+}

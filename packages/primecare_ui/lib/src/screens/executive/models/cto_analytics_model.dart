@@ -1,12 +1,12 @@
+import 'package:primecare_models/primecare_models.dart';
+
 // Governance - Category: model | Purpose: Data entity definition for CtoAnalyticsScreen
 // TODO: Implement DTO, serialization mapping, and state values.
 
-class CtoAnalyticsModel {
+class CtoAnalyticsModel extends BaseEmptyModel {
   const CtoAnalyticsModel();
-  
+
   factory CtoAnalyticsModel.fromJson(Map<String, dynamic> json) {
     return const CtoAnalyticsModel();
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -1,0 +1,2779 @@
+{
+  "endpoint": "/v1/governance/platform/bundle",
+  "roles": {
+    "central_admin": "global",
+    "platform_admin": "global",
+    "tenant_admin": "own",
+    "owner": "own"
+  },
+  "documentKinds": [
+    "agreement",
+    "insurance"
+  ],
+  "services": [
+    "psw",
+    "home_care"
+  ],
+  "pageSize": 20,
+  "maxFileBytes": 2097152,
+  "renewalDays": 30,
+  "offerHours": 24,
+  "ticketHours": {
+    "normal": {
+      "response": 24,
+      "resolution": 72
+    },
+    "urgent": {
+      "response": 4,
+      "resolution": 24
+    }
+  },
+  "checks": [
+    "admin",
+    "masters",
+    "territory",
+    "valid_documents",
+    "training_done"
+  ],
+  "contracts": [
+    {
+      "path": "/v1/governance/platform/bundle",
+      "method": "GET",
+      "request": null,
+      "response": {
+        "type": "object",
+        "properties": {
+          "global": {
+            "type": "boolean"
+          },
+          "tenantId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "checkedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "launch": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "string"
+                  },
+                  "trainingEvidence": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "checks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string"
+                        },
+                        "present": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "present"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "ready": {
+                    "type": "boolean"
+                  },
+                  "canApprove": {
+                    "type": "boolean"
+                  },
+                  "canSubmit": {
+                    "type": "boolean"
+                  },
+                  "canRequestChanges": {
+                    "type": "boolean"
+                  },
+                  "feedback": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "evidence": {
+                            "type": "string",
+                            "maxLength": 1000
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        },
+                        "required": [
+                          "evidence",
+                          "createdAt"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "state",
+                  "trainingEvidence",
+                  "version",
+                  "checks",
+                  "ready",
+                  "canApprove",
+                  "canSubmit",
+                  "canRequestChanges",
+                  "feedback"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                },
+                "media_type": {
+                  "type": "string"
+                },
+                "expires_on": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "renewal": {
+                  "type": "string"
+                },
+                "review_evidence": {
+                  "type": "string"
+                },
+                "revision": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "canReview": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "filename",
+                "media_type",
+                "expires_on",
+                "status",
+                "renewal",
+                "review_evidence",
+                "revision",
+                "version",
+                "canReview"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "tickets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "tenant_id": {
+                  "type": "string"
+                },
+                "subject": {
+                  "type": "string"
+                },
+                "priority": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "response_due": {
+                  "type": "string"
+                },
+                "resolution_due": {
+                  "type": "string"
+                },
+                "owner_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "first_response_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "resolved_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "overdue": {
+                  "type": "boolean"
+                },
+                "responseLate": {
+                  "type": "boolean"
+                },
+                "resolutionLate": {
+                  "type": "boolean"
+                },
+                "messages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "author": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "message",
+                      "created_at",
+                      "author"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "timeline": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "action": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "priority": {
+                        "type": "string"
+                      },
+                      "responseDue": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "resolutionDue": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "firstResponseAt": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "resolvedAt": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "action",
+                      "createdAt",
+                      "status",
+                      "priority",
+                      "responseDue",
+                      "resolutionDue",
+                      "firstResponseAt",
+                      "resolvedAt"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "canTriage": {
+                  "type": "boolean"
+                },
+                "canReopen": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "tenant_id",
+                "subject",
+                "priority",
+                "status",
+                "response_due",
+                "resolution_due",
+                "owner_id",
+                "version",
+                "first_response_at",
+                "resolved_at",
+                "overdue",
+                "responseLate",
+                "resolutionLate",
+                "messages",
+                "timeline",
+                "canTriage",
+                "canReopen"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "fsa": {
+                  "type": "string"
+                },
+                "service": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "reason": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "offer_due": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "tenant_name": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "lead_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "contact": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "email",
+                        "phone"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "actions": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "accept",
+                      "decline",
+                      "reroute",
+                      "withdraw"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "fsa",
+                "service",
+                "status",
+                "reason",
+                "version",
+                "offer_due",
+                "tenant_name",
+                "lead_id",
+                "contact",
+                "actions"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "label"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "audit": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string"
+                },
+                "evidence": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "action",
+                "evidence",
+                "created_at"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "tickets": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "routes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "overdue": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "unmatched": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "renewals": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "tickets",
+              "routes",
+              "overdue",
+              "unmatched",
+              "renewals"
+            ],
+            "additionalProperties": false
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "list": {
+                "enum": [
+                  "tickets",
+                  "routes"
+                ]
+              },
+              "offset": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "limit": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "hasMore": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "list",
+              "offset",
+              "limit",
+              "total",
+              "hasMore"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "global",
+          "tenantId",
+          "checkedAt",
+          "launch",
+          "documents",
+          "tickets",
+          "routes",
+          "owners",
+          "audit",
+          "summary",
+          "pagination"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "path": "/v1/governance/platform/bundle/tenants/{tenantId}",
+      "method": "GET",
+      "request": null,
+      "response": {
+        "type": "object",
+        "properties": {
+          "global": {
+            "type": "boolean"
+          },
+          "tenantId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "checkedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "launch": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "string"
+                  },
+                  "trainingEvidence": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "checks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string"
+                        },
+                        "present": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "present"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "ready": {
+                    "type": "boolean"
+                  },
+                  "canApprove": {
+                    "type": "boolean"
+                  },
+                  "canSubmit": {
+                    "type": "boolean"
+                  },
+                  "canRequestChanges": {
+                    "type": "boolean"
+                  },
+                  "feedback": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "evidence": {
+                            "type": "string",
+                            "maxLength": 1000
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        },
+                        "required": [
+                          "evidence",
+                          "createdAt"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "state",
+                  "trainingEvidence",
+                  "version",
+                  "checks",
+                  "ready",
+                  "canApprove",
+                  "canSubmit",
+                  "canRequestChanges",
+                  "feedback"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                },
+                "media_type": {
+                  "type": "string"
+                },
+                "expires_on": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "renewal": {
+                  "type": "string"
+                },
+                "review_evidence": {
+                  "type": "string"
+                },
+                "revision": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "canReview": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "filename",
+                "media_type",
+                "expires_on",
+                "status",
+                "renewal",
+                "review_evidence",
+                "revision",
+                "version",
+                "canReview"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "tickets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "tenant_id": {
+                  "type": "string"
+                },
+                "subject": {
+                  "type": "string"
+                },
+                "priority": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "response_due": {
+                  "type": "string"
+                },
+                "resolution_due": {
+                  "type": "string"
+                },
+                "owner_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "first_response_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "resolved_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "overdue": {
+                  "type": "boolean"
+                },
+                "responseLate": {
+                  "type": "boolean"
+                },
+                "resolutionLate": {
+                  "type": "boolean"
+                },
+                "messages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "author": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "message",
+                      "created_at",
+                      "author"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "timeline": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "action": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "priority": {
+                        "type": "string"
+                      },
+                      "responseDue": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "resolutionDue": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "firstResponseAt": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "resolvedAt": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "action",
+                      "createdAt",
+                      "status",
+                      "priority",
+                      "responseDue",
+                      "resolutionDue",
+                      "firstResponseAt",
+                      "resolvedAt"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "canTriage": {
+                  "type": "boolean"
+                },
+                "canReopen": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "tenant_id",
+                "subject",
+                "priority",
+                "status",
+                "response_due",
+                "resolution_due",
+                "owner_id",
+                "version",
+                "first_response_at",
+                "resolved_at",
+                "overdue",
+                "responseLate",
+                "resolutionLate",
+                "messages",
+                "timeline",
+                "canTriage",
+                "canReopen"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "fsa": {
+                  "type": "string"
+                },
+                "service": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "reason": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "offer_due": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "tenant_name": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "lead_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "contact": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "email",
+                        "phone"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "actions": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "accept",
+                      "decline",
+                      "reroute",
+                      "withdraw"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "fsa",
+                "service",
+                "status",
+                "reason",
+                "version",
+                "offer_due",
+                "tenant_name",
+                "lead_id",
+                "contact",
+                "actions"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "label"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "audit": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string"
+                },
+                "evidence": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "action",
+                "evidence",
+                "created_at"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "tickets": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "routes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "overdue": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "unmatched": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "renewals": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "tickets",
+              "routes",
+              "overdue",
+              "unmatched",
+              "renewals"
+            ],
+            "additionalProperties": false
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "list": {
+                "enum": [
+                  "tickets",
+                  "routes"
+                ]
+              },
+              "offset": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "limit": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "hasMore": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "list",
+              "offset",
+              "limit",
+              "total",
+              "hasMore"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "global",
+          "tenantId",
+          "checkedAt",
+          "launch",
+          "documents",
+          "tickets",
+          "routes",
+          "owners",
+          "audit",
+          "summary",
+          "pagination"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "path": "/v1/governance/platform/bundle/tenants/{tenantId}/launch",
+      "method": "POST",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "action": {
+            "enum": [
+              "training",
+              "submit",
+              "approve",
+              "request_changes"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "confirmed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "version",
+          "action",
+          "evidence",
+          "confirmed"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "tenantId": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "tenantId",
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "path": "/v1/governance/platform/bundle/tenants/{tenantId}/documents",
+      "method": "POST",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "agreement",
+              "insurance"
+            ]
+          },
+          "expiresOn": {
+            "type": "string",
+            "format": "date"
+          },
+          "filename": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_. -]{0,149}$"
+          },
+          "mediaType": {
+            "enum": [
+              "application/pdf",
+              "image/png",
+              "image/jpeg"
+            ]
+          },
+          "contentBase64": {
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 2796204,
+            "contentEncoding": "base64"
+          }
+        },
+        "required": [
+          "kind",
+          "expiresOn",
+          "filename",
+          "mediaType",
+          "contentBase64"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "revision"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "path": "/v1/governance/platform/bundle/tenants/{tenantId}/documents/{id}/download",
+      "method": "GET",
+      "request": null,
+      "response": {
+        "type": "string",
+        "format": "binary"
+      }
+    },
+    {
+      "path": "/v1/governance/platform/bundle/tenants/{tenantId}/documents/{id}/review",
+      "method": "POST",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "decision": {
+            "enum": [
+              "approved",
+              "rejected"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "version",
+          "decision",
+          "evidence"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "path": "/v1/governance/platform/bundle/tenants/{tenantId}/tickets",
+      "method": "POST",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "subject": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "priority": {
+            "enum": [
+              "normal",
+              "urgent"
+            ]
+          }
+        },
+        "required": [
+          "subject",
+          "message",
+          "priority"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "path": "/v1/governance/platform/bundle/tenants/{tenantId}/tickets/{id}",
+      "method": "POST",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "action": {
+            "enum": [
+              "reply",
+              "triage",
+              "reopen"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "ownerId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "open",
+              "in_progress",
+              "resolved"
+            ]
+          },
+          "priority": {
+            "enum": [
+              "normal",
+              "urgent"
+            ]
+          }
+        },
+        "required": [
+          "version",
+          "action",
+          "message"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "path": "/v1/governance/platform/bundle/enquiries",
+      "method": "POST",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "postalCode": {
+            "type": "string"
+          },
+          "service": {
+            "enum": [
+              "psw",
+              "home_care"
+            ]
+          },
+          "consent": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "confirmed": {
+            "const": true
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "phone",
+          "postalCode",
+          "service",
+          "consent",
+          "confirmed"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "path": "/v1/governance/platform/bundle/enquiries/{id}",
+      "method": "POST",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "action": {
+            "enum": [
+              "accept",
+              "decline",
+              "reroute",
+              "withdraw"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "version",
+          "action",
+          "evidence"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "path": "/v1/governance/platform/bundle/attention",
+      "method": "GET",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "search": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "kind": {
+            "enum": [
+              "all",
+              "support",
+              "documents",
+              "offers",
+              "launch"
+            ]
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          }
+        },
+        "required": [
+          "search",
+          "kind",
+          "offset"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "scope": {
+            "enum": [
+              "global",
+              "own"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "kind": {
+                  "enum": [
+                    "support",
+                    "documents",
+                    "offers",
+                    "launch"
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "reason": {
+                  "type": "string"
+                },
+                "dueAt": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "overdue": {
+                  "type": "boolean"
+                },
+                "assigned": {
+                  "type": "boolean"
+                },
+                "tenant": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "slug"
+                      ]
+                    }
+                  ]
+                },
+                "destination": {
+                  "enum": [
+                    "support",
+                    "documents",
+                    "routing",
+                    "launch"
+                  ]
+                }
+              },
+              "required": [
+                "key",
+                "kind",
+                "id",
+                "reason",
+                "dueAt",
+                "overdue",
+                "assigned",
+                "tenant",
+                "destination"
+              ]
+            }
+          },
+          "summary": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "overdue": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "support": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "documents": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "offers": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "launch": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "total",
+              "overdue",
+              "support",
+              "documents",
+              "offers",
+              "launch"
+            ]
+          },
+          "pagination": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "offset": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "limit": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "hasMore": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "offset",
+              "limit",
+              "total",
+              "hasMore"
+            ]
+          }
+        },
+        "required": [
+          "scope",
+          "items",
+          "summary",
+          "pagination"
+        ]
+      }
+    },
+    {
+      "path": "/v1/governance/platform/bundle/tenants/{tenantId}/history",
+      "method": "GET",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "documents",
+              "messages",
+              "deadlines",
+              "launch"
+            ]
+          },
+          "ticketId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "response": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "const": "documents"
+              },
+              "tenantId": {
+                "type": "string"
+              },
+              "ticketId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "items": {
+                "type": "array",
+                "maxItems": 20,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    },
+                    "media_type": {
+                      "type": "string"
+                    },
+                    "expires_on": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "renewal": {
+                      "type": "string"
+                    },
+                    "review_evidence": {
+                      "type": "string"
+                    },
+                    "revision": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "canReview": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "kind",
+                    "filename",
+                    "media_type",
+                    "expires_on",
+                    "status",
+                    "renewal",
+                    "review_evidence",
+                    "revision",
+                    "version",
+                    "canReview"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "pagination": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "total": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "hasMore": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "offset",
+                  "limit",
+                  "total",
+                  "hasMore"
+                ]
+              }
+            },
+            "required": [
+              "kind",
+              "tenantId",
+              "ticketId",
+              "items",
+              "pagination"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "const": "messages"
+              },
+              "tenantId": {
+                "type": "string"
+              },
+              "ticketId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "items": {
+                "type": "array",
+                "maxItems": 20,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "author": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "message",
+                    "created_at",
+                    "author"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "pagination": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "total": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "hasMore": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "offset",
+                  "limit",
+                  "total",
+                  "hasMore"
+                ]
+              }
+            },
+            "required": [
+              "kind",
+              "tenantId",
+              "ticketId",
+              "items",
+              "pagination"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "const": "deadlines"
+              },
+              "tenantId": {
+                "type": "string"
+              },
+              "ticketId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "items": {
+                "type": "array",
+                "maxItems": 20,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "action": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "priority": {
+                      "type": "string"
+                    },
+                    "responseDue": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "resolutionDue": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "firstResponseAt": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "resolvedAt": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "action",
+                    "createdAt",
+                    "status",
+                    "priority",
+                    "responseDue",
+                    "resolutionDue",
+                    "firstResponseAt",
+                    "resolvedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "pagination": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "total": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "hasMore": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "offset",
+                  "limit",
+                  "total",
+                  "hasMore"
+                ]
+              }
+            },
+            "required": [
+              "kind",
+              "tenantId",
+              "ticketId",
+              "items",
+              "pagination"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "const": "launch"
+              },
+              "tenantId": {
+                "type": "string"
+              },
+              "ticketId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "items": {
+                "type": "array",
+                "maxItems": 20,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "action": {
+                      "type": "string"
+                    },
+                    "evidence": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "action",
+                    "evidence",
+                    "created_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "pagination": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "total": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "hasMore": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "offset",
+                  "limit",
+                  "total",
+                  "hasMore"
+                ]
+              }
+            },
+            "required": [
+              "kind",
+              "tenantId",
+              "ticketId",
+              "items",
+              "pagination"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "locales": {
+    "en": {
+      "nav": "Tenant launch & support",
+      "title": "Tenant launch and growth operations",
+      "intro": "Prepare tenants, review renewals, resolve support requests and route consented enquiries.",
+      "choose": "Select a tenant using the top bar.",
+      "launch": "Launch checklist",
+      "documents": "Documents and renewals",
+      "support": "Support tickets",
+      "routing": "Territory lead routing",
+      "refresh": "Refresh",
+      "working": "Working…",
+      "saved": "Saved.",
+      "failed": "Unable to complete the request. Your draft is retained. Refresh and check the record before retrying.",
+      "conflict": "This record changed or the workflow is not eligible. Refresh before retrying.",
+      "forbidden": "You do not have access to this operation.",
+      "invalid_request": "Check the required fields and file format.",
+      "rate_limited": "Too many requests. Please wait one minute.",
+      "not_found": "Record not found.",
+      "unavailable": "The service is unavailable. Please retry.",
+      "empty": "No records.",
+      "save": "Save",
+      "submit": "Submit for launch review",
+      "approve": "Approve",
+      "reject": "Reject",
+      "training": "Training and operating handover evidence",
+      "evidence": "Evidence / reason",
+      "confirmed": "I have reviewed the evidence and approve this administrative launch.",
+      "admin": "Active tenant administrator",
+      "masters": "Active location and service category",
+      "territory": "Assigned service territory",
+      "valid_documents": "Approved, unexpired agreement and insurance",
+      "training_done": "Training handover recorded",
+      "present": "Ready",
+      "missing": "Needs attention",
+      "draft": "Draft",
+      "submitted": "Awaiting human review",
+      "approved": "Approved",
+      "approval_stale": "Approval needs renewal",
+      "launch_note": "Administrative launch only. Clinical credentials, staffing and care delivery need separate verification.",
+      "kind": "Document type",
+      "agreement": "Tenant agreement",
+      "insurance": "Business insurance",
+      "expires": "Expires on (Toronto date)",
+      "file": "PDF, PNG or JPEG — maximum 2 MB",
+      "upload": "Upload document",
+      "download": "Download",
+      "review": "Document review",
+      "pending": "Pending",
+      "rejected": "Rejected",
+      "expired": "Expired",
+      "due_soon": "Due within 30 days",
+      "valid": "Current",
+      "filename": "File name",
+      "status": "Status",
+      "version": "Version",
+      "renewal_note": "Upload a renewal as a new revision. Previous files and decisions remain in the history. Downloads require an authenticated session.",
+      "subject": "Subject",
+      "message": "Message / resolution evidence",
+      "priority": "Priority",
+      "normal": "Normal",
+      "urgent": "Urgent",
+      "owner": "Platform support owner",
+      "unassigned": "Unassigned",
+      "open": "Open",
+      "in_progress": "In progress",
+      "resolved": "Resolved",
+      "reopened": "Reopened",
+      "create_ticket": "Create ticket",
+      "reply": "Add reply",
+      "update_ticket": "Update ticket",
+      "reopen": "Reopen",
+      "response_due": "First response due",
+      "resolution_due": "Resolution due",
+      "overdue": "Overdue",
+      "on_time": "Within deadline",
+      "support_note": "Deadlines use elapsed hours: normal 24h response / 72h resolution; urgent 4h / 24h. Reopening starts a new cycle. Messages must not include clinical records.",
+      "name": "Client name",
+      "email": "Email",
+      "phone": "Phone",
+      "postal": "Canadian postal code",
+      "service": "Requested service",
+      "psw": "PSW",
+      "home_care": "Home care",
+      "consent": "Evidence of consent to share contact details with the assigned tenant",
+      "capture": "Capture and route enquiry",
+      "unmatched": "Unmatched",
+      "accepted": "Accepted",
+      "declined": "Declined",
+      "expired_offer": "Offer expired",
+      "reroute": "Recheck and route",
+      "accept": "Accept enquiry",
+      "decline": "Decline enquiry",
+      "withdraw": "Withdraw consent / close enquiry",
+      "withdrawn": "Withdrawn",
+      "offer_due": "Accept by",
+      "fsa": "Postal area",
+      "recipient": "Receiving tenant",
+      "route_note": "New enquiries in this centre route automatically to the active, launch-approved owner of the matching territory and service. Contact details appear only after acceptance. Accepted enquiries become growth leads; accepted assignments cannot be reassigned. Existing marketing enquiry forms retain their current routing.",
+      "routing_conflict": "Cannot route or accept this enquiry. Check territory, launch approval, deadline and possible existing contacts.",
+      "lead": "Growth lead",
+      "previous": "Previous",
+      "next": "Next",
+      "showing": "Showing",
+      "of": "of",
+      "all": "All",
+      "search": "Search subject / enquiry ID",
+      "apply": "Apply",
+      "checked_at": "Checked at",
+      "document_note": "Files are stored through the API with restricted downloads. Reviewers must inspect the file before approval.",
+      "ticket_note": "Ticket history",
+      "notes": "Decision history",
+      "route_reason": "Routing result",
+      "no_territory": "No matching sold territory",
+      "tenant_not_ready": "Territory owner not ready for launch",
+      "service_unavailable": "Service not sold in this territory",
+      "offered": "Offered to territory owner",
+      "restricted": "Contact details withheld until acceptance",
+      "withdraw_note": "Withdrawal blocks contact on the delivered growth lead; it does not erase the audit history.",
+      "count": "Records",
+      "first_response": "First response recorded",
+      "close_note": "Resolution requires an assigned owner and evidence.",
+      "attachment": "Attachment",
+      "consent_confirm": "The person requested contact and agreed to share their details with the matching tenant.",
+      "date_note": "Expiry is evaluated in America/Toronto.",
+      "reply_note": "Add a message to this ticket.",
+      "deadline": "Deadline",
+      "routing_scope": "Platform enquiry desk",
+      "launch_action": "Launch action",
+      "review_reason": "Review reason",
+      "revision": "Revision",
+      "cannot_upload": "Select a supported file of at most 2 MB.",
+      "uploads_unreviewed": "New uploads require review.",
+      "approved_launch": "Administrative launch approved",
+      "requested_launch": "Launch review requested",
+      "deadline_history": "Recent deadline history (20 events)",
+      "attention": "Attention queue",
+      "attention_note": "Across all tenants permitted by your role. The top-bar tenant selection does not filter this queue. Counts are work items, not unique tenants.",
+      "attention_search": "Search tenant name, code or record ID",
+      "attention_kind": "Workflow",
+      "attention_open": "Open workflow",
+      "attention_empty": "No matching work needs attention.",
+      "attention_support": "Overdue support",
+      "attention_documents": "Document actions",
+      "attention_offers": "Lead offers",
+      "attention_launch": "Launch reviews",
+      "response_late": "First response overdue",
+      "resolution_late": "Resolution overdue",
+      "document_review": "Document awaiting review",
+      "document_rejected": "Replacement document needed",
+      "document_renewal": "Document renewal due",
+      "offer_expired": "Lead offer expired",
+      "offer_unmatched": "Enquiry needs territory matching",
+      "launch_review": "Launch awaiting human review",
+      "attention_unassigned": "Unassigned support owner",
+      "attention_assigned": "Support owner assigned",
+      "attention_due": "Due",
+      "attention_no_deadline": "No deadline set",
+      "attention_platform": "Platform enquiry desk",
+      "attention_total": "Work items",
+      "attention_overdue": "Overdue items",
+      "attention_scope_own": "Only your tenant’s records are shown.",
+      "attention_opened": "Workflow opened for this record.",
+      "attention_no_owner": "No active eligible support owner",
+      "request_changes": "Request changes",
+      "launch_changes_requested": "Launch changes requested",
+      "launch_feedback_note": "Address the review feedback and submit again. A new human approval is required.",
+      "history_title": "History",
+      "history_documents": "All document revisions",
+      "history_messages": "Full message history",
+      "history_deadlines": "Full deadline history",
+      "history_launch": "Full launch decision history",
+      "history_close": "Close history",
+      "history_retry": "Retry history",
+      "history_note": "Pages show current records, newest first. Refresh after new activity; this is not a frozen export.",
+      "history_preview_note": "Previews show up to 20 entries. Open full history for older records.",
+      "history_platform": "Platform",
+      "history_tenant": "Tenant"
+    },
+    "fr": {
+      "nav": "Lancement et soutien des locataires",
+      "title": "Lancement des locataires et croissance",
+      "intro": "Préparer les locataires, examiner les renouvellements, traiter le soutien et acheminer les demandes consenties.",
+      "choose": "Sélectionnez un locataire dans la barre supérieure.",
+      "launch": "Liste de lancement",
+      "documents": "Documents et renouvellements",
+      "support": "Demandes de soutien",
+      "routing": "Acheminement territorial",
+      "refresh": "Actualiser",
+      "working": "Traitement…",
+      "saved": "Enregistré.",
+      "failed": "Impossible de terminer. Votre brouillon est conservé. Actualisez et vérifiez avant de réessayer.",
+      "conflict": "Le dossier a changé ou cette étape est impossible. Actualisez avant de réessayer.",
+      "forbidden": "Vous ne pouvez pas effectuer cette opération.",
+      "invalid_request": "Vérifiez les champs obligatoires et le format du fichier.",
+      "rate_limited": "Trop de demandes. Attendez une minute.",
+      "not_found": "Dossier introuvable.",
+      "unavailable": "Service indisponible. Réessayez.",
+      "empty": "Aucun dossier.",
+      "save": "Enregistrer",
+      "submit": "Soumettre le lancement",
+      "approve": "Approuver",
+      "reject": "Refuser",
+      "training": "Preuve de formation et de transfert opérationnel",
+      "evidence": "Preuve / motif",
+      "confirmed": "J’ai examiné les preuves et j’approuve ce lancement administratif.",
+      "admin": "Administrateur du locataire actif",
+      "masters": "Lieu et catégorie de service actifs",
+      "territory": "Territoire de service attribué",
+      "valid_documents": "Contrat et assurance approuvés et valides",
+      "training_done": "Formation consignée",
+      "present": "Prêt",
+      "missing": "À vérifier",
+      "draft": "Brouillon",
+      "submitted": "En attente de révision humaine",
+      "approved": "Approuvé",
+      "approval_stale": "Approbation à renouveler",
+      "launch_note": "Lancement administratif seulement. Les qualifications cliniques, les effectifs et les soins nécessitent une vérification distincte.",
+      "kind": "Type de document",
+      "agreement": "Contrat du locataire",
+      "insurance": "Assurance commerciale",
+      "expires": "Expiration (date de Toronto)",
+      "file": "PDF, PNG ou JPEG — maximum 2 Mo",
+      "upload": "Téléverser le document",
+      "download": "Télécharger",
+      "review": "Révision du document",
+      "pending": "En attente",
+      "rejected": "Refusé",
+      "expired": "Expiré",
+      "due_soon": "Échéance dans 30 jours",
+      "valid": "Valide",
+      "filename": "Nom du fichier",
+      "status": "État",
+      "version": "Version",
+      "renewal_note": "Téléversez le renouvellement comme nouvelle révision. Les fichiers et décisions précédents sont conservés. Les téléchargements exigent une session authentifiée.",
+      "subject": "Objet",
+      "message": "Message / preuve de résolution",
+      "priority": "Priorité",
+      "normal": "Normale",
+      "urgent": "Urgente",
+      "owner": "Responsable du soutien",
+      "unassigned": "Non attribué",
+      "open": "Ouvert",
+      "in_progress": "En cours",
+      "resolved": "Résolu",
+      "reopened": "Rouvert",
+      "create_ticket": "Créer une demande",
+      "reply": "Ajouter une réponse",
+      "update_ticket": "Mettre à jour",
+      "reopen": "Rouvrir",
+      "response_due": "Réponse initiale avant",
+      "resolution_due": "Résolution avant",
+      "overdue": "En retard",
+      "on_time": "Dans les délais",
+      "support_note": "Délais en heures écoulées : normale 24 h / 72 h; urgente 4 h / 24 h. La réouverture crée un nouveau cycle. Ne joignez pas de dossiers cliniques.",
+      "name": "Nom du client",
+      "email": "Courriel",
+      "phone": "Téléphone",
+      "postal": "Code postal canadien",
+      "service": "Service demandé",
+      "psw": "Préposé aux soins",
+      "home_care": "Soins à domicile",
+      "consent": "Preuve du consentement au partage des coordonnées avec le locataire attribué",
+      "capture": "Saisir et acheminer",
+      "unmatched": "Sans correspondance",
+      "accepted": "Accepté",
+      "declined": "Refusé",
+      "expired_offer": "Offre expirée",
+      "reroute": "Vérifier et acheminer",
+      "accept": "Accepter la demande",
+      "decline": "Refuser la demande",
+      "withdraw": "Retirer le consentement / fermer",
+      "withdrawn": "Retiré",
+      "offer_due": "Accepter avant",
+      "fsa": "Zone postale",
+      "recipient": "Locataire destinataire",
+      "route_note": "Les nouvelles demandes de ce centre sont acheminées au propriétaire actif et approuvé du territoire correspondant au service. Les coordonnées sont révélées après acceptation. Une demande acceptée devient un prospect et ne peut être réattribuée. Les formulaires marketing existants conservent leur acheminement.",
+      "routing_conflict": "Impossible d’acheminer ou d’accepter. Vérifiez le territoire, le lancement, le délai et les contacts existants.",
+      "lead": "Prospect commercial",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "showing": "Affichage",
+      "of": "sur",
+      "all": "Tous",
+      "search": "Rechercher un objet / identifiant",
+      "apply": "Appliquer",
+      "checked_at": "Vérifié le",
+      "document_note": "Les fichiers sont stockés par API avec accès restreint. Examinez le fichier avant de l’approuver.",
+      "ticket_note": "Historique du soutien",
+      "notes": "Historique des décisions",
+      "route_reason": "Résultat de l’acheminement",
+      "no_territory": "Aucun territoire vendu correspondant",
+      "tenant_not_ready": "Propriétaire du territoire non prêt",
+      "service_unavailable": "Service non vendu dans ce territoire",
+      "offered": "Offert au propriétaire du territoire",
+      "restricted": "Coordonnées masquées avant acceptation",
+      "withdraw_note": "Le retrait bloque le contact sur le prospect transmis; il conserve la trace d’audit.",
+      "count": "Dossiers",
+      "first_response": "Première réponse enregistrée",
+      "close_note": "La résolution exige un responsable et une preuve.",
+      "attachment": "Pièce jointe",
+      "consent_confirm": "La personne a demandé un contact et accepté le partage avec le locataire correspondant.",
+      "date_note": "Expiration évaluée selon America/Toronto.",
+      "reply_note": "Ajoutez un message à cette demande.",
+      "deadline": "Échéance",
+      "routing_scope": "Centre des demandes de la plateforme",
+      "launch_action": "Action de lancement",
+      "review_reason": "Motif de révision",
+      "revision": "Révision",
+      "cannot_upload": "Sélectionnez un fichier pris en charge de 2 Mo maximum.",
+      "uploads_unreviewed": "Tout nouveau fichier doit être examiné.",
+      "approved_launch": "Lancement administratif approuvé",
+      "requested_launch": "Révision de lancement demandée",
+      "deadline_history": "Historique récent des délais (20 événements)",
+      "attention": "File des actions",
+      "attention_note": "Tous les locataires autorisés par votre rôle. La sélection de la barre supérieure ne filtre pas cette file. Les totaux comptent les actions, pas les locataires uniques.",
+      "attention_search": "Rechercher un locataire, code ou identifiant",
+      "attention_kind": "Processus",
+      "attention_open": "Ouvrir le processus",
+      "attention_empty": "Aucune action correspondante.",
+      "attention_support": "Soutien en retard",
+      "attention_documents": "Actions sur les documents",
+      "attention_offers": "Offres de prospects",
+      "attention_launch": "Révisions de lancement",
+      "response_late": "Réponse initiale en retard",
+      "resolution_late": "Résolution en retard",
+      "document_review": "Document à examiner",
+      "document_rejected": "Document de remplacement requis",
+      "document_renewal": "Renouvellement à prévoir",
+      "offer_expired": "Offre de prospect expirée",
+      "offer_unmatched": "Demande sans territoire attribué",
+      "launch_review": "Lancement en attente de révision humaine",
+      "attention_unassigned": "Soutien non attribué",
+      "attention_assigned": "Responsable du soutien attribué",
+      "attention_due": "Échéance",
+      "attention_no_deadline": "Aucune échéance fixée",
+      "attention_platform": "Centre des demandes de la plateforme",
+      "attention_total": "Actions",
+      "attention_overdue": "Actions en retard",
+      "attention_scope_own": "Seuls les dossiers de votre locataire sont affichés.",
+      "attention_opened": "Processus ouvert pour ce dossier.",
+      "attention_no_owner": "Aucun responsable du soutien actif et admissible",
+      "request_changes": "Demander des modifications",
+      "launch_changes_requested": "Modifications du lancement demandées",
+      "launch_feedback_note": "Traitez les commentaires et soumettez à nouveau. Une nouvelle approbation humaine est requise.",
+      "history_title": "Historique",
+      "history_documents": "Toutes les versions des documents",
+      "history_messages": "Historique complet des messages",
+      "history_deadlines": "Historique complet des échéances",
+      "history_launch": "Historique complet des décisions de lancement",
+      "history_close": "Fermer l’historique",
+      "history_retry": "Réessayer l’historique",
+      "history_note": "Les pages affichent les dossiers actuels, du plus récent au plus ancien. Actualisez après une nouvelle activité ; il ne s’agit pas d’un export figé.",
+      "history_preview_note": "Les aperçus affichent au plus 20 entrées. Ouvrez l’historique complet pour les entrées antérieures.",
+      "history_platform": "Plateforme",
+      "history_tenant": "Locataire"
+    },
+    "es": {
+      "nav": "Lanzamiento y soporte de inquilinos",
+      "title": "Lanzamiento de inquilinos y crecimiento",
+      "intro": "Prepare inquilinos, revise renovaciones, resuelva soporte y derive consultas con consentimiento.",
+      "choose": "Seleccione un inquilino en la barra superior.",
+      "launch": "Lista de lanzamiento",
+      "documents": "Documentos y renovaciones",
+      "support": "Solicitudes de soporte",
+      "routing": "Derivación territorial",
+      "refresh": "Actualizar",
+      "working": "Procesando…",
+      "saved": "Guardado.",
+      "failed": "No se pudo completar. Se conserva el borrador. Actualice y revise antes de reintentar.",
+      "conflict": "El registro cambió o la operación no es válida. Actualice antes de reintentar.",
+      "forbidden": "No tiene acceso a esta operación.",
+      "invalid_request": "Revise los campos obligatorios y el formato del archivo.",
+      "rate_limited": "Demasiadas solicitudes. Espere un minuto.",
+      "not_found": "Registro no encontrado.",
+      "unavailable": "Servicio no disponible. Reintente.",
+      "empty": "Sin registros.",
+      "save": "Guardar",
+      "submit": "Enviar para revisión de lanzamiento",
+      "approve": "Aprobar",
+      "reject": "Rechazar",
+      "training": "Evidencia de formación y entrega operativa",
+      "evidence": "Evidencia / motivo",
+      "confirmed": "He revisado la evidencia y apruebo este lanzamiento administrativo.",
+      "admin": "Administrador del inquilino activo",
+      "masters": "Ubicación y categoría de servicio activas",
+      "territory": "Territorio de servicio asignado",
+      "valid_documents": "Contrato y seguro aprobados y vigentes",
+      "training_done": "Formación registrada",
+      "present": "Listo",
+      "missing": "Requiere atención",
+      "draft": "Borrador",
+      "submitted": "Pendiente de revisión humana",
+      "approved": "Aprobado",
+      "approval_stale": "Renovar aprobación",
+      "launch_note": "Solo lanzamiento administrativo. Las credenciales clínicas, el personal y la atención requieren verificación adicional.",
+      "kind": "Tipo de documento",
+      "agreement": "Contrato del inquilino",
+      "insurance": "Seguro comercial",
+      "expires": "Vence el (fecha de Toronto)",
+      "file": "PDF, PNG o JPEG — máximo 2 MB",
+      "upload": "Subir documento",
+      "download": "Descargar",
+      "review": "Revisión del documento",
+      "pending": "Pendiente",
+      "rejected": "Rechazado",
+      "expired": "Vencido",
+      "due_soon": "Vence en 30 días",
+      "valid": "Vigente",
+      "filename": "Nombre del archivo",
+      "status": "Estado",
+      "version": "Versión",
+      "renewal_note": "Suba la renovación como nueva revisión. Se conservan archivos y decisiones anteriores. La descarga requiere sesión autenticada.",
+      "subject": "Asunto",
+      "message": "Mensaje / evidencia de resolución",
+      "priority": "Prioridad",
+      "normal": "Normal",
+      "urgent": "Urgente",
+      "owner": "Responsable del soporte",
+      "unassigned": "Sin asignar",
+      "open": "Abierto",
+      "in_progress": "En curso",
+      "resolved": "Resuelto",
+      "reopened": "Reabierto",
+      "create_ticket": "Crear solicitud",
+      "reply": "Añadir respuesta",
+      "update_ticket": "Actualizar solicitud",
+      "reopen": "Reabrir",
+      "response_due": "Primera respuesta antes de",
+      "resolution_due": "Resolución antes de",
+      "overdue": "Atrasado",
+      "on_time": "Dentro del plazo",
+      "support_note": "Plazos en horas transcurridas: normal 24 h / 72 h; urgente 4 h / 24 h. Reabrir inicia un nuevo ciclo. No incluya registros clínicos.",
+      "name": "Nombre del cliente",
+      "email": "Correo",
+      "phone": "Teléfono",
+      "postal": "Código postal canadiense",
+      "service": "Servicio solicitado",
+      "psw": "Asistente personal",
+      "home_care": "Atención domiciliaria",
+      "consent": "Evidencia del consentimiento para compartir contactos con el inquilino asignado",
+      "capture": "Registrar y derivar consulta",
+      "unmatched": "Sin coincidencia",
+      "accepted": "Aceptado",
+      "declined": "Rechazado",
+      "expired_offer": "Oferta vencida",
+      "reroute": "Revisar y derivar",
+      "accept": "Aceptar consulta",
+      "decline": "Rechazar consulta",
+      "withdraw": "Retirar consentimiento / cerrar",
+      "withdrawn": "Retirado",
+      "offer_due": "Aceptar antes de",
+      "fsa": "Área postal",
+      "recipient": "Inquilino receptor",
+      "route_note": "Las nuevas consultas de este centro se derivan al propietario activo y aprobado del territorio y servicio. Los contactos se revelan tras aceptar. Se crea un prospecto y no se permite reasignarlo. Los formularios de marketing existentes mantienen su derivación.",
+      "routing_conflict": "No se puede derivar o aceptar. Revise territorio, aprobación, plazo y contactos existentes.",
+      "lead": "Prospecto comercial",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "showing": "Mostrando",
+      "of": "de",
+      "all": "Todos",
+      "search": "Buscar asunto / ID de consulta",
+      "apply": "Aplicar",
+      "checked_at": "Verificado el",
+      "document_note": "Archivos guardados mediante API y descargas restringidas. Examine el archivo antes de aprobarlo.",
+      "ticket_note": "Historial del soporte",
+      "notes": "Historial de decisiones",
+      "route_reason": "Resultado de derivación",
+      "no_territory": "Sin territorio vendido coincidente",
+      "tenant_not_ready": "Propietario aún no listo",
+      "service_unavailable": "Servicio no vendido en el territorio",
+      "offered": "Ofrecido al propietario del territorio",
+      "restricted": "Contactos ocultos hasta aceptar",
+      "withdraw_note": "Retirar bloquea el contacto en el prospecto entregado; conserva la auditoría.",
+      "count": "Registros",
+      "first_response": "Primera respuesta registrada",
+      "close_note": "Resolver requiere responsable y evidencia.",
+      "attachment": "Adjunto",
+      "consent_confirm": "La persona solicitó contacto y aceptó compartir datos con el inquilino correspondiente.",
+      "date_note": "El vencimiento se evalúa en America/Toronto.",
+      "reply_note": "Añada un mensaje a esta solicitud.",
+      "deadline": "Plazo",
+      "routing_scope": "Centro de consultas de la plataforma",
+      "launch_action": "Acción de lanzamiento",
+      "review_reason": "Motivo de revisión",
+      "revision": "Revisión",
+      "cannot_upload": "Seleccione un archivo compatible de hasta 2 MB.",
+      "uploads_unreviewed": "Los nuevos archivos requieren revisión.",
+      "approved_launch": "Lanzamiento administrativo aprobado",
+      "requested_launch": "Revisión de lanzamiento solicitada",
+      "deadline_history": "Historial reciente de plazos (20 eventos)",
+      "attention": "Cola de atención",
+      "attention_note": "Todos los inquilinos permitidos por su rol. La selección de la barra superior no filtra esta cola. Los totales cuentan acciones, no inquilinos únicos.",
+      "attention_search": "Buscar inquilino, código o ID de registro",
+      "attention_kind": "Proceso",
+      "attention_open": "Abrir proceso",
+      "attention_empty": "No hay acciones coincidentes.",
+      "attention_support": "Soporte atrasado",
+      "attention_documents": "Acciones de documentos",
+      "attention_offers": "Ofertas de prospectos",
+      "attention_launch": "Revisiones de lanzamiento",
+      "response_late": "Primera respuesta atrasada",
+      "resolution_late": "Resolución atrasada",
+      "document_review": "Documento pendiente de revisión",
+      "document_rejected": "Se requiere documento de reemplazo",
+      "document_renewal": "Renovación próxima",
+      "offer_expired": "Oferta vencida",
+      "offer_unmatched": "Consulta sin territorio asignado",
+      "launch_review": "Lanzamiento pendiente de revisión humana",
+      "attention_unassigned": "Soporte sin responsable",
+      "attention_assigned": "Responsable de soporte asignado",
+      "attention_due": "Plazo",
+      "attention_no_deadline": "Sin plazo definido",
+      "attention_platform": "Centro de consultas de la plataforma",
+      "attention_total": "Acciones",
+      "attention_overdue": "Acciones atrasadas",
+      "attention_scope_own": "Solo se muestran los registros de su inquilino.",
+      "attention_opened": "Proceso abierto para este registro.",
+      "attention_no_owner": "Sin responsable de soporte activo y autorizado",
+      "request_changes": "Solicitar cambios",
+      "launch_changes_requested": "Cambios de lanzamiento solicitados",
+      "launch_feedback_note": "Atienda los comentarios y envíe de nuevo. Se requiere una nueva aprobación humana.",
+      "history_title": "Historial",
+      "history_documents": "Todas las versiones de documentos",
+      "history_messages": "Historial completo de mensajes",
+      "history_deadlines": "Historial completo de plazos",
+      "history_launch": "Historial completo de decisiones de lanzamiento",
+      "history_close": "Cerrar historial",
+      "history_retry": "Reintentar historial",
+      "history_note": "Las páginas muestran los registros actuales, del más reciente al más antiguo. Actualice tras nueva actividad; no es una exportación fija.",
+      "history_preview_note": "Las vistas previas muestran hasta 20 entradas. Abra el historial completo para ver las anteriores.",
+      "history_platform": "Plataforma",
+      "history_tenant": "Organización"
+    }
+  },
+  "attentionKinds": [
+    "all",
+    "support",
+    "documents",
+    "offers",
+    "launch"
+  ],
+  "listNavigation": {
+    "requirement": "Support and territory-routing filters must display the selected workflow and matching API page, reset offset on apply, and preserve unapplied search through language changes. Switching tabs must not restore the previous workflow selector.",
+    "workflowByList": {
+      "tickets": "support",
+      "routes": "routing"
+    },
+    "implementation": "partial",
+    "humanReview": "pending"
+  },
+  "launchReview": {
+    "requirement": "Global human reviewers can return submitted administrative launches with required evidence; tenants see the latest return reason, correct prerequisites and resubmit for a new explicit human approval.",
+    "returnAction": "request_changes",
+    "returnedState": "draft",
+    "reviewerScope": "global",
+    "eligibleState": "submitted",
+    "approvalGranted": false,
+    "feedbackUntil": "next submission or approval",
+    "implementation": "partial",
+    "humanReview": "pending"
+  },
+  "historyKinds": [
+    "documents",
+    "messages",
+    "deadlines",
+    "launch"
+  ],
+  "historyPolicy": {
+    "requirement": "Administrators can read all tenant document revisions, ticket messages/deadline events and launch decisions through bounded, scoped API pages; initial previews must not grow without limit.",
+    "pageSize": 20,
+    "previewSize": 20,
+    "scope": "existing authenticated bundle roles; own-tenant boundaries; ticket must belong to requested tenant",
+    "ordering": "latest revisions first for documents; newest timestamp/ID first for messages; highest committed workflow version first for decisions/deadlines",
+    "pagination": "live offset pages in a repeatable-read transaction; refresh or mutations reset the viewer; not a frozen export across requests",
+    "storage": "metadata only; document bytes use authenticated attachment download",
+    "implementation": "partial",
+    "humanReview": "pending",
+    "accessibility": {
+      "requirement": "Keyboard history open/page/close must retain meaningful focus; failed reads focus the error status; unrelated drafts persist. Shared shell document language follows EN/FR/ES and bundle navigation restores its initiating control after asynchronous reads.",
+      "automatedScanner": "axe-core 4.10.3; WCAG 2/2.1/2.2 A/AA tags",
+      "manualAcceptance": "pending",
+      "focusVisibility": "Focused history/status/navigation targets must remain below the measured sticky top bar; mobile section navigation must preserve content focus when closing the sidebar."
+    }
+  }
+}

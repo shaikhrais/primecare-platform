@@ -1,0 +1,7 @@
+# Auth controller and repository conversion
+
+The existing authentication implementation is separated into an application host, `AuthSessionRoutes` extending `BaseApiRoutes`, `AuthHttpController` extending `BaseController`, and `AuthRepository` extending `BasePlatformRepository`. The platform repository parent retains the existing shared database lifecycle. The older connection-based `BaseRepository` remains available for governance.
+
+Four authentication routes and four SQL operations retain their existing logic. Credential validation, bcrypt verification, active-user checks, secure random tokens, SHA-256 storage, 12-hour expiry, cookie attributes, token precedence, responses, and error propagation are preserved. Existing generated feature routes remain mounted after the authentication routes. No authorization policy or new completed workflow is introduced.
+
+`refactor_auth_layers.py --check` compares the extraction with the pinned merged source. Older host checks first verify all extracted files against this transformation before checking their original logical host body. `verify_auth_layer_parity.py` executes 120 cases against the original and extracted handlers, comparing responses, headers, bodies, SQL, parameters, and exceptions. Only the temporary parity copies replace random token generation with an identical deterministic token; production randomness is checked against the original source. Real PostgreSQL login/logout verification remains in the auth CI workflow.

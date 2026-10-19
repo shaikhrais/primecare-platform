@@ -161,30 +161,27 @@ class {class_name}Element extends StatelessWidget {{
 }}
 """, "Custom elements template"),
 
-        ("model", """class {class_name}Model {{
-  final bool isLoading;
-  final String? errorMessage;
-  final Map<String, dynamic> data;
+        ("model", """import 'package:primecare_models/primecare_models.dart';
 
+class {class_name}Model extends BaseScreenState<{class_name}Model> {{
   const {class_name}Model({{
-    this.isLoading = false,
-    this.errorMessage,
-    this.data = const {{}},
+    super.isLoading = false,
+    super.errorMessage,
+    super.data = const {{}},
   }});
 
-  {class_name}Model copyWith({{
-    bool? isLoading,
-    String? errorMessage,
-    Map<String, dynamic>? data,
-  }}) {{
-    return {class_name}Model(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      data: data ?? this.data,
-    );
-  }}
+  @override
+  {class_name}Model rebuild({{
+    required bool isLoading,
+    required String? errorMessage,
+    required Map<String, dynamic> data,
+  }}) => {class_name}Model(
+    isLoading: isLoading,
+    errorMessage: errorMessage,
+    data: data,
+  );
 }}
-""", "Data transfer object model template"),
+""", "Shared inherited screen state template"),
 
         ("state", """import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/{screen_code}_model.dart';

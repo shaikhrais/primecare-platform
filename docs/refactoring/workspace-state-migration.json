@@ -1,0 +1,4045 @@
+{
+  "sourceCommit": "56822886ee8649c78ec05ff770251319603c6a1d",
+  "files": [
+    {
+      "path": "apps/primecare_business_development/lib/features/business_development/presentation/widgets/regional_bdm_competitor_notes_screen.dart",
+      "beforeSha256": "8b9a151ba36a6f957f34ff98f3d16564a9b249817e13aa6bf34b4bdd21f2b8e1",
+      "classes": [
+        {
+          "class": "RegionalBdmCompetitorNotesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/business_development/presentation/widgets/regional_bdm_deal_tracker_screen.dart",
+      "beforeSha256": "8bf9d3cfa066b6e9f05b1de50f766187de469685a06630d40b767aa00cfc4501",
+      "classes": [
+        {
+          "class": "RegionalBdmDealTrackerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/business_development/presentation/widgets/regional_bdm_leads_screen.dart",
+      "beforeSha256": "da6dfbf9d8979f3da6641d4d2de882077a9d151f74c27299fca1b14e62fb9e0a",
+      "classes": [
+        {
+          "class": "RegionalBdmLeadsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/business_development/presentation/widgets/regional_bdm_meetings_screen.dart",
+      "beforeSha256": "5b5164ba69709cbf7bcc9e1a830a8c3a59d851755b1c98bc389fc182398e7348",
+      "classes": [
+        {
+          "class": "RegionalBdmMeetingsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/business_development/presentation/widgets/regional_bdm_partners_screen.dart",
+      "beforeSha256": "c167b884fa241637117c3ef539c218ae1d8815513c16f00ba5cb1dd7df268629",
+      "classes": [
+        {
+          "class": "RegionalBdmPartnersScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/business_development/presentation/widgets/regional_bdm_reports_screen.dart",
+      "beforeSha256": "452a9518380e37c00da429efb01e5e1e68d299936bbcac407472c9ee3d485217",
+      "classes": [
+        {
+          "class": "RegionalBdmReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/business_development/presentation/widgets/regional_bdm_tasks_screen.dart",
+      "beforeSha256": "95ab327da9640623f6b15774cdf56f8456d1ddb94bc62a0fdda899df1b963f25",
+      "classes": [
+        {
+          "class": "RegionalBdmTasksScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/business_development/presentation/widgets/regional_bdm_territory_growth_screen.dart",
+      "beforeSha256": "4f3b0a357a589c86646f76e23eb5c35431163f1718aa2ad6902422e6258c6169",
+      "classes": [
+        {
+          "class": "RegionalBdmTerritoryGrowthScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/expansion/screens/territory_expansion_manager_demographics_screen.dart",
+      "beforeSha256": "886833387513313ba572d1e6f3f7ecfaa480f00b2b82a2f497babeac283dd67d",
+      "classes": [
+        {
+          "class": "TerritoryExpansionManagerDemographicsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/expansion/screens/territory_expansion_manager_expansion_plans_screen.dart",
+      "beforeSha256": "f1c4b56deb386e7ddc7fa1691228d5b3e9d40a0c782bbc657f0421a726aced24",
+      "classes": [
+        {
+          "class": "TerritoryExpansionManagerExpansionPlansScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/expansion/screens/territory_expansion_manager_forecast_screen.dart",
+      "beforeSha256": "946328d6ecb201d1ed97ee754f9c8f4d06f1e9f9b760fece3666b54e7ff5f61e",
+      "classes": [
+        {
+          "class": "TerritoryExpansionManagerForecastScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/expansion/screens/territory_expansion_manager_market_research_screen.dart",
+      "beforeSha256": "ea84fc99959ee7fd9067216686b92f63d2cae15b5cf72a9eb48a982d8b3fdede",
+      "classes": [
+        {
+          "class": "TerritoryExpansionManagerMarketResearchScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/expansion/screens/territory_expansion_manager_open_territories_screen.dart",
+      "beforeSha256": "099b51c656f6cdf9b594e5162c8ae6deeb3b2b6419284abbaff1970907d08ff3",
+      "classes": [
+        {
+          "class": "TerritoryExpansionManagerOpenTerritoriesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/expansion/screens/territory_expansion_manager_reports_screen.dart",
+      "beforeSha256": "6516e75705686cc983fa1d0d3a9eb26a6bf98b13723ea7a7ea8371587f04eb8d",
+      "classes": [
+        {
+          "class": "TerritoryExpansionManagerReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/expansion/screens/territory_expansion_manager_site_selection_screen.dart",
+      "beforeSha256": "02b9fcbdb6342330819b6230f2d5837aa717949743f93cb23c94594afa834cf8",
+      "classes": [
+        {
+          "class": "TerritoryExpansionManagerSiteSelectionScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/expansion/screens/territory_expansion_manager_territory_map_screen.dart",
+      "beforeSha256": "1637e7bc7adad1e01108af0979cf329a6931e8bd8091dff264c199466269cdb4",
+      "classes": [
+        {
+          "class": "TerritoryExpansionManagerTerritoryMapScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/partnership/screens/partnership_manager_active_deals_screen.dart",
+      "beforeSha256": "0ba4a4d9c92caa3c487353b59d82cfbe7ea617ab8c0f2f5f97ae7826420303e3",
+      "classes": [
+        {
+          "class": "PartnershipManagerActiveDealsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/partnership/screens/partnership_manager_outreach_screen.dart",
+      "beforeSha256": "a25aca15574012e3b210fde6a8c5baf6b4874f6afa8fe82b7bebeac064cc6988",
+      "classes": [
+        {
+          "class": "PartnershipManagerOutreachScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/partnership/screens/partnership_manager_partners_screen.dart",
+      "beforeSha256": "d57e7cba842677f5daf2b76e8d98b260150f397bb0568cae5f09e22a722a5087",
+      "classes": [
+        {
+          "class": "PartnershipManagerPartnersScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/partnership/screens/partnership_manager_proposals_screen.dart",
+      "beforeSha256": "52475a80267dd431342363315f75bbd20c6fac1a55675ec730e16aa8b0f178b2",
+      "classes": [
+        {
+          "class": "PartnershipManagerProposalsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/partnership/screens/partnership_manager_renewals_screen.dart",
+      "beforeSha256": "a121702e1e4414de53efc5b290876dfcd6d5474d28e4f8a104f1f04640765c84",
+      "classes": [
+        {
+          "class": "PartnershipManagerRenewalsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/partnership/screens/partnership_manager_reports_screen.dart",
+      "beforeSha256": "3686b0746a9a6f33ce99e33cf74a46b555c31ad2fa4f20907c3ecaea41ea6e9e",
+      "classes": [
+        {
+          "class": "PartnershipManagerReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_business_development/lib/features/regional/screens/regional_manager_ontario_dashboard_screen.dart",
+      "beforeSha256": "9cc9fc23e5086173d003d0a48af0d792fd109b9ced69523cc0b46ef1599e7737",
+      "classes": [
+        {
+          "class": "RegionalManagerOntarioDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/ai_chatbot_screen.dart",
+      "beforeSha256": "c7c7426df1cebd0b536119da2ae87c6497417dc4f091264f38ee4bb33cfd94a3",
+      "classes": [
+        {
+          "class": "AiChatbotScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/family/screens/family_billing_screen.dart",
+      "beforeSha256": "2da9b81d5aaae22752727de25e9491c2516c8d98984180708d414e5ce0a578f3",
+      "classes": [
+        {
+          "class": "FamilyBillingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/family/screens/family_care_updates_screen.dart",
+      "beforeSha256": "5a9306b4b2fd8cb301f4df1b5543cc17304cde36678e1f452e7daca5d7aa7a1f",
+      "classes": [
+        {
+          "class": "FamilyCareUpdatesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/family/screens/family_dashboard_screen.dart",
+      "beforeSha256": "6192885d73bd205fb31909e5fee831bd816a112c89a2ff7e2ba070752333a8a5",
+      "classes": [
+        {
+          "class": "FamilyDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/family/screens/family_emergency_contacts_screen.dart",
+      "beforeSha256": "0cac0e72e2ea38f5ba22af576f270ccedfea33e08169a21cac07402ea3a9c9f6",
+      "classes": [
+        {
+          "class": "FamilyEmergencyContactsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/family/screens/family_loved_one_schedule_screen.dart",
+      "beforeSha256": "b09a053843994590a429b51f6b38098e24a2cdc339e6504aa7de0d28375b0aab",
+      "classes": [
+        {
+          "class": "FamilyLovedOneScheduleScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/family/screens/family_profile_screen.dart",
+      "beforeSha256": "873d854f7fac2c6553df15389a90ee14bc7c13a10d55760ab22533dc5eccaa86",
+      "classes": [
+        {
+          "class": "FamilyProfileScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/client_book_appointment_screen.dart",
+      "beforeSha256": "707b29c3040dbbfae39a752c0dcb4a2b7800d622cba89d8223fdf19405ea05cb",
+      "classes": [
+        {
+          "class": "ClientBookAppointmentScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/client_care_team_screen.dart",
+      "beforeSha256": "6bfb725940f01806c06368c1b2f1bc3aee25f736a022ded4a7507f59d9f2c86f",
+      "classes": [
+        {
+          "class": "ClientCareTeamScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/client_dashboard_screen.dart",
+      "beforeSha256": "126b618713f9d0d906de95f930a424d1b71adb950c2ebdcc8d7869e97fb3d250",
+      "classes": [
+        {
+          "class": "ClientDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/client_my_appointments_screen.dart",
+      "beforeSha256": "3b295cb46cee72e10138571d6b24b57648ff3dec5e84ed7473fb48c0a1e97998",
+      "classes": [
+        {
+          "class": "ClientMyAppointmentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/client_payments_screen.dart",
+      "beforeSha256": "754f38cff7626b54e33126e2c95f80a745dd5011abbf7743a7162250544a4e68",
+      "classes": [
+        {
+          "class": "ClientPaymentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/client_profile_screen.dart",
+      "beforeSha256": "2daec47b2820eb1ec959ad4142b4819bcaf6bf4c7159727fc94aab5d979dd159",
+      "classes": [
+        {
+          "class": "ClientProfileScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/client_treatment_history_screen.dart",
+      "beforeSha256": "33ce4e0d4f1efd163f1cce12b1c07e16f038c8dde74aef6b90021206a9f52fbd",
+      "classes": [
+        {
+          "class": "ClientTreatmentHistoryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/family_member_billing_screen.dart",
+      "beforeSha256": "f48d8161962679ddedd49be76730118cf58dc497947527a6ef52bda5c1aa968b",
+      "classes": [
+        {
+          "class": "FamilyMemberBillingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/family_member_care_updates_screen.dart",
+      "beforeSha256": "a2ce259a8280f23e82f06cbbfd6eef1dcc67338f3eba8602d572f6332b565fe5",
+      "classes": [
+        {
+          "class": "FamilyMemberCareUpdatesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/family_member_emergency_contacts_screen.dart",
+      "beforeSha256": "da089ddc29c69193b2b5fc5d8f5fc7fa8e6d77070b623e2a4aa0dc5e074a2045",
+      "classes": [
+        {
+          "class": "FamilyMemberEmergencyContactsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/family_member_loved_one_schedule_screen.dart",
+      "beforeSha256": "e1767288f66135ebe558d05c776f55e70cc44b344054179d5f308a8f8a69dcfe",
+      "classes": [
+        {
+          "class": "FamilyMemberLovedOneScheduleScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/generated_screens/family_member_profile_screen.dart",
+      "beforeSha256": "f3fe47d31b0bb89c8960857d4655286e7960036dd73c6989dcfecab691a7f88c",
+      "classes": [
+        {
+          "class": "FamilyMemberProfileScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/patient/screens/patient_book_appointment_screen.dart",
+      "beforeSha256": "8755d99af56786669f029e2575487957c06e05db9dabcbdfb2dc613af00373fd",
+      "classes": [
+        {
+          "class": "PatientBookAppointmentScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/patient/screens/patient_care_team_screen.dart",
+      "beforeSha256": "f917b85c3f2bcf573e40075a7851e7b8f4a57b2c713a05169b6ef88de90d511e",
+      "classes": [
+        {
+          "class": "PatientCareTeamScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/patient/screens/patient_my_appointments_screen.dart",
+      "beforeSha256": "57a9334bd0a4c8664c21a1f213068450927d3aaeeae36fa5e31fed951e7a1a46",
+      "classes": [
+        {
+          "class": "PatientMyAppointmentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/patient/screens/patient_payments_screen.dart",
+      "beforeSha256": "b2b78b50b8ac87a32adb082c4c8f22dbbd20fe1752af98b7de5408e17e15a51c",
+      "classes": [
+        {
+          "class": "PatientPaymentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_client/lib/features/patient/screens/patient_treatment_history_screen.dart",
+      "beforeSha256": "3bee00a4219d048dafb97d6f02f50f13f227f9db11974d2ce051a79ab5f90802",
+      "classes": [
+        {
+          "class": "PatientTreatmentHistoryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/generated_screens/clinical_director_quality_metrics_screen.dart",
+      "beforeSha256": "c00c8a88c10e598fbb275052cb16cafe006ff6a7c39bbe72f8424e928efa9d57",
+      "classes": [
+        {
+          "class": "ClinicalDirectorQualityMetricsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/generated_screens/clinical_director_staffing_screen.dart",
+      "beforeSha256": "fd46abe6fc128638edc0b8cd42c7ec70df830505f99ad7ca1b7867e3ea61895b",
+      "classes": [
+        {
+          "class": "ClinicalDirectorStaffingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/generated_screens/infection_control_dashboard_screen.dart",
+      "beforeSha256": "b9cf94c4c7ba677fa479e4d12841f1091ee0a169e156336b63ba569333d858a5",
+      "classes": [
+        {
+          "class": "InfectionControlDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/generated_screens/intake_coordinator_assessments_screen.dart",
+      "beforeSha256": "ef0636a3a263db287477a7b9124fd4e6a911d2dd0aca48b64023b65ce21be3b8",
+      "classes": [
+        {
+          "class": "IntakeCoordinatorAssessmentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/generated_screens/nurse_dashboard_screen.dart",
+      "beforeSha256": "fac769d993e2c50f51c0c68305d687c10c118a6c8d595f2b4f76bff91e0cf32f",
+      "classes": [
+        {
+          "class": "NurseDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/generated_screens/psw_observation_vitals_log_screen.dart",
+      "beforeSha256": "eae6d9c831d69cfa59f61f450056fbfb1eed837575b06c8f64706896ff3f1cad",
+      "classes": [
+        {
+          "class": "PswObservationVitalsLogScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/generated_screens/psw_patient_profile_screen.dart",
+      "beforeSha256": "3aa5ad90961ee55a81d2124e153d8f4aacdde481ca706a64e5d2670b297b0f07",
+      "classes": [
+        {
+          "class": "PswPatientProfileScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/generated_screens/psw_schedule_screen.dart",
+      "beforeSha256": "b077acd72e2df354ae7b632b1462df8dce9fd74cf862b0d1f658e5e244510544",
+      "classes": [
+        {
+          "class": "PswScheduleScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/generated_screens/psw_visit_checklist_screen.dart",
+      "beforeSha256": "ef93cef550a462bf651d3a04505869b1c20f35a7cc28f24fabce01709ab74ed7",
+      "classes": [
+        {
+          "class": "PswVisitChecklistScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/psw/screens/psw_care_dashboard_screen.dart",
+      "beforeSha256": "ab4953c5845693ff22e2caa840f510feb4d41822620355a5a0dd2bc2615d1a6c",
+      "classes": [
+        {
+          "class": "PswCareDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/psw/screens/psw_check_in_screen.dart",
+      "beforeSha256": "4a8fadc3571be12f48da1895cabee17bb8985e2e0224c6e331c023e32af17378",
+      "classes": [
+        {
+          "class": "PswCheckInScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/psw/screens/psw_daily_notes_screen.dart",
+      "beforeSha256": "e9e527b159a3369c9539f81f3aed6ba3bc5cba57ad0d28d1bc78781cd81cb92b",
+      "classes": [
+        {
+          "class": "PswDailyNotesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/psw/screens/psw_help_support_screen.dart",
+      "beforeSha256": "71e2a8b1d5976377c31734e5ee7f2a69ff181c0d8926d0e1cb687f582d478b84",
+      "classes": [
+        {
+          "class": "PswHelpSupportScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/psw/screens/psw_messaging_screen.dart",
+      "beforeSha256": "fcb64bccaf6a13213aad4eff1f550846f69817baf1772c29d88667abb8779519",
+      "classes": [
+        {
+          "class": "PswMessagingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/psw/screens/psw_my_clients_screen.dart",
+      "beforeSha256": "694ae75c155b5dfd2b5cc4c64734c066a7af10da454273052277e53e7058a570",
+      "classes": [
+        {
+          "class": "PswMyClientsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/psw/screens/psw_notifications_screen.dart",
+      "beforeSha256": "50ea8c9e546ad44445f3b9fb2ce534e1f6e1694a5fc216829aa0a5f7029fb190",
+      "classes": [
+        {
+          "class": "PswNotificationsScreenState",
+          "customCopyWith": true
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/psw/screens/psw_profile_screen.dart",
+      "beforeSha256": "3c991971828f0f96aafab3b9b2a62aa61e2da7d11850f08c83b71983b154875d",
+      "classes": [
+        {
+          "class": "PswProfileScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/psw/screens/psw_reports_screen.dart",
+      "beforeSha256": "cf565a40ffc12ee363aa8f5eac53828365e8b165850d2dc097f2151fffe215c2",
+      "classes": [
+        {
+          "class": "PswReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/psw/screens/psw_system_logs_screen.dart",
+      "beforeSha256": "7f5374e78b64c225cc0fd62705b2ced3caeb5467774b44eed65f89647849e466",
+      "classes": [
+        {
+          "class": "PswSystemLogsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/psw/screens/psw_task_list_screen.dart",
+      "beforeSha256": "5f62fdab364e05453beb17f2d4eb6c82a2540aed3e80f387a8894998d41e9f6c",
+      "classes": [
+        {
+          "class": "PswTaskListScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/rn/screens/rn_charting_screen.dart",
+      "beforeSha256": "28a806ed623d33c61461ea437b2b6b66a78ba7877b62ef8ec0509bbcaf77c76e",
+      "classes": [
+        {
+          "class": "RnChartingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/rn/screens/rn_messaging_screen.dart",
+      "beforeSha256": "b232b88d12465ac0aa1c041f469c4008e9875e15a6998273e5861aa75924d86a",
+      "classes": [
+        {
+          "class": "RnMessagingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/shared/screens/clinic_history_logs_screen.dart",
+      "beforeSha256": "9030001da19ac81fe599ad0213dacf404d348094780970d3b53715e372c7dc98",
+      "classes": [
+        {
+          "class": "ClinicHistoryLogsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_clinic/lib/features/shared/screens/clinic_incident_report_screen.dart",
+      "beforeSha256": "d143e9829252fe1ec28432b1d9fd0a9ca6f39f128ce2eaefd30e903751461a71",
+      "classes": [
+        {
+          "class": "ClinicIncidentReportScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/compliance/screens/audits_screen.dart",
+      "beforeSha256": "9150f095d2ee80e9eb87cbbb726ee12bf99a1b1274a62c183b47dc35207c848a",
+      "classes": [
+        {
+          "class": "AuditsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/compliance/screens/compliance_cases_screen.dart",
+      "beforeSha256": "58997f73e725686721cc20230b722df1866337979e66d2414699da001906bea9",
+      "classes": [
+        {
+          "class": "ComplianceCasesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/compliance/screens/compliance_reports_screen.dart",
+      "beforeSha256": "f1c52628b551fa1c7256660e0dda87148c0a8c04cc7d8cc6635ef7a083a6c963",
+      "classes": [
+        {
+          "class": "ComplianceReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/compliance/screens/corrective_actions_screen.dart",
+      "beforeSha256": "5caf8c6fb547aea924edf0570a132087be8315e7bde3bb1e80c357a066ff43ad",
+      "classes": [
+        {
+          "class": "CorrectiveActionsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/compliance/screens/credential_tracking_screen.dart",
+      "beforeSha256": "62690c603ce930563bb0afbb1a6e786725b7d8ad00d99fa8d85abab8fdf7a8f6",
+      "classes": [
+        {
+          "class": "CredentialTrackingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/compliance/screens/document_expiry_screen.dart",
+      "beforeSha256": "39c9d88d6b05f5f4c2791bcdca23b7cd9aad6dc8b3d52227471796613f49e917",
+      "classes": [
+        {
+          "class": "DocumentExpiryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/compliance/screens/policies_screen.dart",
+      "beforeSha256": "98b88e0c8a1f6b0d6ce5d8cf43b7dae9d2a7dc7c1e2bd2975a72630085525a50",
+      "classes": [
+        {
+          "class": "PoliciesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/compliance/screens/risk_register_screen.dart",
+      "beforeSha256": "2579573c744e3202140103db3330c32fea0eae6207ed70f5163b803e533f3b64",
+      "classes": [
+        {
+          "class": "RiskRegisterScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/compliance/screens/training_compliance_screen.dart",
+      "beforeSha256": "b667f81fa58cffef3c16fe7c746d11c2ab0b68f5056e0dcb29cce976764dd1e3",
+      "classes": [
+        {
+          "class": "TrainingComplianceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_alerts_and_risks_screen.dart",
+      "beforeSha256": "5309dd59ae3eb1ddeb20295a22fbcc2c223b3cf85419be43527483043d355a2b",
+      "classes": [
+        {
+          "class": "CeoAlertsAndRisksScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_approvals_screen.dart",
+      "beforeSha256": "08374774b7d4ebc3a2260dd2b29c828cba9bcdcf88ef2b13bd223dcf3e9b4784",
+      "classes": [
+        {
+          "class": "CeoApprovalsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_dashboard_screen.dart",
+      "beforeSha256": "4789b76c9720f87d1f9172d17f572a875a6b678ed4d1247a5d4f1a8a860b9c86",
+      "classes": [
+        {
+          "class": "CeoDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_enterprise_overview_screen.dart",
+      "beforeSha256": "a27d93b704f973856fe406681bff52f1e7622c5bcaa745c71c595935e862ff37",
+      "classes": [
+        {
+          "class": "CeoEnterpriseOverviewScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_franchise_overview_screen.dart",
+      "beforeSha256": "6b0b10815831bd0c2b57297300af05d50b8429b0fe16915fb5232253849a7065",
+      "classes": [
+        {
+          "class": "CeoFranchiseOverviewScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_growth_pipeline_screen.dart",
+      "beforeSha256": "f160903ccf4c4c001f2344369a2f5bb62ac65ae7b635fcecb50a9267c8b9c67d",
+      "classes": [
+        {
+          "class": "CeoGrowthPipelineScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_leadership_reports_screen.dart",
+      "beforeSha256": "03f59bb65176d66904ecedee5a5e9572855a7b1834adb5d15b517ccb0bcdf418",
+      "classes": [
+        {
+          "class": "CeoLeadershipReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_organization_map_screen.dart",
+      "beforeSha256": "5449c319ae088f374da9feb6dfcc7713d89a28b923d4ce6906251bd7705bf010",
+      "classes": [
+        {
+          "class": "CeoOrganizationMapScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_region_performance_screen.dart",
+      "beforeSha256": "7d6c478c2771be11b7f71dbe122f04e6485b700cbfb276aba8aa6407a91bfaea",
+      "classes": [
+        {
+          "class": "CeoRegionPerformanceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_reports_screen.dart",
+      "beforeSha256": "d31439c51d2a49e0c6904f7f4e2775d03de7f8fc12eb7c669e4100c743cbc6ed",
+      "classes": [
+        {
+          "class": "CeoReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_revenue_summary_screen.dart",
+      "beforeSha256": "76a0b8fc2a00e74a107d996c952641a59500b385aa87361151505a10cd783ef5",
+      "classes": [
+        {
+          "class": "CeoRevenueSummaryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/ceo_strategic_kpis_screen.dart",
+      "beforeSha256": "795a74350cc0737592329b66276db915b3a6e90be3506c9dc26ca877e2f85f0c",
+      "classes": [
+        {
+          "class": "CeoStrategicKpisScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cfo_accounts_payable_screen.dart",
+      "beforeSha256": "5ec61c21dbfc1e0c2952cebd0005d8d69155e508bbba2a229c6010b176a35768",
+      "classes": [
+        {
+          "class": "CfoAccountsPayableScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cfo_accounts_receivable_screen.dart",
+      "beforeSha256": "848213d3ab9e6e9728e6234362c2f1a2485c95d81f386dd2f9aed73538c15e0d",
+      "classes": [
+        {
+          "class": "CfoAccountsReceivableScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cfo_financial_overview_screen.dart",
+      "beforeSha256": "bec059c9bc95d9d15b8b19563c5cdb6ec2ea9bac918c59b8bea5022da100a937",
+      "classes": [
+        {
+          "class": "CfoFinancialOverviewScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cfo_franchise_financials_screen.dart",
+      "beforeSha256": "ccddae0c277e2779cd12b863bac9587895b508965b011cf5aceb74f6bdad25bf",
+      "classes": [
+        {
+          "class": "CfoFranchiseFinancialsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cfo_reports_screen.dart",
+      "beforeSha256": "90380841b8bb81aad7c9071d1dffadb3ae3127d265e55949867af98ee0858363",
+      "classes": [
+        {
+          "class": "CfoReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cfo_tax_and_remittance_screen.dart",
+      "beforeSha256": "88886b56c2cfec10de1495566303ef62b2e748586c1195d14a8bf0648824023a",
+      "classes": [
+        {
+          "class": "CfoTaxAndRemittanceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/compliance_manager_audits_screen.dart",
+      "beforeSha256": "b13d230d0565bd0966c858ca1d8bfc4e76451878b372a0f563fa9c2636b69df3",
+      "classes": [
+        {
+          "class": "ComplianceManagerAuditsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/compliance_manager_compliance_cases_screen.dart",
+      "beforeSha256": "bacea0ad4ee4f053a1be8edfe14de0335e6afb7fe409d43cb40fd40fdfd84b05",
+      "classes": [
+        {
+          "class": "ComplianceManagerComplianceCasesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/compliance_manager_corrective_actions_screen.dart",
+      "beforeSha256": "87aaa74641d16da82e7a9ec0a655aca31f4ba016df73b4156de08295712aa499",
+      "classes": [
+        {
+          "class": "ComplianceManagerCorrectiveActionsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/compliance_manager_credential_tracking_screen.dart",
+      "beforeSha256": "46670a5056eaf7e76e8d83e4d46ae6e72b2698e5aadcf20c857abef3d1b48946",
+      "classes": [
+        {
+          "class": "ComplianceManagerCredentialTrackingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/compliance_manager_document_expiry_screen.dart",
+      "beforeSha256": "3d631b2258b2e397725a17b6e5d0b3a1a29daba05ebcf8b9c5ce40c3ad2e9506",
+      "classes": [
+        {
+          "class": "ComplianceManagerDocumentExpiryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/compliance_manager_incident_review_screen.dart",
+      "beforeSha256": "eb7069120b24b603fc7ca6987847a09e4c7da4e6b2dbe05f43cfa34e8ac365ed",
+      "classes": [
+        {
+          "class": "ComplianceManagerIncidentReviewScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/compliance_manager_policies_screen.dart",
+      "beforeSha256": "dc93e9ef9a5b9fe6d75b72c809cc03d4630165c0ee1ca67d58167230e5e68cf1",
+      "classes": [
+        {
+          "class": "ComplianceManagerPoliciesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/compliance_manager_reports_screen.dart",
+      "beforeSha256": "269f1df592f107f68f62e359047497a65f8a9beaf107f377478c4eca2f6c831c",
+      "classes": [
+        {
+          "class": "ComplianceManagerReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/compliance_manager_risk_register_screen.dart",
+      "beforeSha256": "0b5d9b1e33bf930fe9c05f795d7cfa65150ab484ec14094609cfe2d0219b1c1a",
+      "classes": [
+        {
+          "class": "ComplianceManagerRiskRegisterScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/compliance_manager_training_compliance_screen.dart",
+      "beforeSha256": "f247a7542651e04b3209e54e51fedc469154747276d0c84b559c3d0c68616bdc",
+      "classes": [
+        {
+          "class": "ComplianceManagerTrainingComplianceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/coo_branch_operations_screen.dart",
+      "beforeSha256": "9ee9aec3fb8fdbd137224406de546f5b312fbd1bb89a6ef2af87632c8dbc1797",
+      "classes": [
+        {
+          "class": "CooBranchOperationsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/coo_issue_escalations_screen.dart",
+      "beforeSha256": "ce110308693529be95a82475cf5816e749e33539eb80f09b5fcf8074656a4ca7",
+      "classes": [
+        {
+          "class": "CooIssueEscalationsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/coo_reports_screen.dart",
+      "beforeSha256": "014213e2abe8a31a0abc95e277857e038e6d4a661da39bb525d172308aa20638",
+      "classes": [
+        {
+          "class": "CooReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/coo_service_delivery_screen.dart",
+      "beforeSha256": "4c2d4638d9baf9f709991e741cea832a5c3de7856963f50d4057b0a5e6e068d6",
+      "classes": [
+        {
+          "class": "CooServiceDeliveryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/coo_staffing_efficiency_screen.dart",
+      "beforeSha256": "8eea626b859249ead964a768ae3643697e3f84b1ce925886a577de23336284e4",
+      "classes": [
+        {
+          "class": "CooStaffingEfficiencyScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/coo_workflow_performance_screen.dart",
+      "beforeSha256": "5280b17dd3646e69bf9fa18d7aeb55e246683af2f257b9d884e8cc57d58b26be",
+      "classes": [
+        {
+          "class": "CooWorkflowPerformanceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_access_control_screen.dart",
+      "beforeSha256": "8a3fe6d4e2117c3ebcb970654e12582169a66f8805a06decbfbb369c7146d81d",
+      "classes": [
+        {
+          "class": "CtoAccessControlScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_api_monitoring_screen.dart",
+      "beforeSha256": "56e90f7c4764ee6b4b24099baedd5557192a7c106f6d5a58ca256f717f2f1b8e",
+      "classes": [
+        {
+          "class": "CtoApiMonitoringScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_audit_logs_screen.dart",
+      "beforeSha256": "bad280bd97a8f1c6f31a6043513faf3a722bc9fa75aeef0086efe8ba6e4d4a12",
+      "classes": [
+        {
+          "class": "CtoAuditLogsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_feature_adoption_screen.dart",
+      "beforeSha256": "ef71a1c5ba2ea5e6fe98766a6cbcb895e83128c06ee4ef1cede1d559efda003d",
+      "classes": [
+        {
+          "class": "CtoFeatureAdoptionScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_infrastructure_screen.dart",
+      "beforeSha256": "9f74541684613a13957f58f83b673ac3b377ce9ca5268e33e7d2316bca94f8d3",
+      "classes": [
+        {
+          "class": "CtoInfrastructureScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_integrations_screen.dart",
+      "beforeSha256": "f6e673e5c9ac16112587088b20206fe67bd007f947ab2fa2ae4b006d3ebfe757",
+      "classes": [
+        {
+          "class": "CtoIntegrationsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_issue_tracking_screen.dart",
+      "beforeSha256": "8bd9bf41a096bdb64ac69d3205c5e76c016da315ad49364bebd68e87fe6b5ec1",
+      "classes": [
+        {
+          "class": "CtoIssueTrackingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_platform_usage_screen.dart",
+      "beforeSha256": "ee010ca84a808b3228eda67e7e981c959514809ddebadbf89443aa9eb6f4d697",
+      "classes": [
+        {
+          "class": "CtoPlatformUsageScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_release_management_screen.dart",
+      "beforeSha256": "084e71860bf4e97cff9fcbab69481e8733091437e555260bb34751621446c9c7",
+      "classes": [
+        {
+          "class": "CtoReleaseManagementScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_reports_screen.dart",
+      "beforeSha256": "bef634baa33f4e046cdfa2b2bbd92a88f6cd1baf291ae3217d95623e0470d0f9",
+      "classes": [
+        {
+          "class": "CtoReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_system_health_screen.dart",
+      "beforeSha256": "fc88889ebb1fdc41a458417e439496ad81cb9267e80640ad2cbb2d5264eba70b",
+      "classes": [
+        {
+          "class": "CtoSystemHealthScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_system_verification_screen.dart",
+      "beforeSha256": "029734e3aec8a46b1630c622ef9d2ce4447694b1f1a4da3b3f76ea3ba99d83ee",
+      "classes": [
+        {
+          "class": "CtoSystemVerificationScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/cto_verification_hub_screen.dart",
+      "beforeSha256": "ec85baf51b71b87c0e193ddc9b42e23da3b44ecc6ed3fcdb87ba7b8cd167c754",
+      "classes": [
+        {
+          "class": "CtoVerificationHubScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/finance_director_cashflow_screen.dart",
+      "beforeSha256": "da1a5dfe64df7d7b8cfc1c94d6ec0281b3e0966d7e372f55502aebbd572cd591",
+      "classes": [
+        {
+          "class": "FinanceDirectorCashflowScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/training_director_assessments_screen.dart",
+      "beforeSha256": "9228eb095b8eb961806b0052d6da3dc54be89104fae96bb9ad5dc8ae0c2a96ef",
+      "classes": [
+        {
+          "class": "TrainingDirectorAssessmentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/training_director_certificates_screen.dart",
+      "beforeSha256": "fcf1958a1e74a3d0b7071d23687621054e444014ec85c5bd78a3506223e1b727",
+      "classes": [
+        {
+          "class": "TrainingDirectorCertificatesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/training_director_certifications_screen.dart",
+      "beforeSha256": "ec733d8cd4ceb7da0f366f86b2c54aff68e9490e177285376c1ed5c0e2a64da1",
+      "classes": [
+        {
+          "class": "TrainingDirectorCertificationsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/training_director_compliance_training_screen.dart",
+      "beforeSha256": "d9b492c4efaf921a804f8fef945af20c1138fc8583523fdd4f79c2f22fdc8ce5",
+      "classes": [
+        {
+          "class": "TrainingDirectorComplianceTrainingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/training_director_course_architect_screen.dart",
+      "beforeSha256": "a3205f666830e98998afe0332f3971b78621664263816fd1b1f6dba4ed094e77",
+      "classes": [
+        {
+          "class": "TrainingDirectorCourseArchitectScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/training_director_course_library_screen.dart",
+      "beforeSha256": "cb256b02d8848b38e203095d5e910ad71921b19a8d57ab176b193b4ac9f2546c",
+      "classes": [
+        {
+          "class": "TrainingDirectorCourseLibraryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/training_director_hub_screen.dart",
+      "beforeSha256": "ba6fc4df1a67b4bbf24925a1fab6904c2c4e241005ee823a8d0b71a4436971e8",
+      "classes": [
+        {
+          "class": "TrainingDirectorHubScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/training_director_reports_screen.dart",
+      "beforeSha256": "8c16397f343a17c7089b816dc3d20c2d9cd0b223639edc2e616868b2cf278bfb",
+      "classes": [
+        {
+          "class": "TrainingDirectorReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/training_director_staff_training_matrix_screen.dart",
+      "beforeSha256": "859f490fb3ee70318528333af5481a8587eb8ac0fde34bb6a2545eafbe070a24",
+      "classes": [
+        {
+          "class": "TrainingDirectorStaffTrainingMatrixScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/training_director_trainer_assignments_screen.dart",
+      "beforeSha256": "3fe79a2fd7afdc02a7d7d86b60d22fcf1ef4240bb6d64bb64cd5dcb24c282e3b",
+      "classes": [
+        {
+          "class": "TrainingDirectorTrainerAssignmentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/generated_screens/training_director_training_programs_screen.dart",
+      "beforeSha256": "fe651e5f4190a9923a78c4b7b9a15a7312ff3329c51beda8c94fd2a7bc8e451f",
+      "classes": [
+        {
+          "class": "TrainingDirectorTrainingProgramsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/itadmin/screens/it_admin_dashboard_screen.dart",
+      "beforeSha256": "079fb826881423981a1fec5596934f4ff0e347835499af8c791baac2beb59311",
+      "classes": [
+        {
+          "class": "ItAdminDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/assessments_screen.dart",
+      "beforeSha256": "20a9d9cdea84074f9d32ebbd2782e79d0267298db3000d548085a99ce97df936",
+      "classes": [
+        {
+          "class": "AssessmentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/certificates_screen.dart",
+      "beforeSha256": "d9b50e564b2e81e74dd05c81b595737f85813a3da31eb924ad0892ad433edc85",
+      "classes": [
+        {
+          "class": "CertificatesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/certifications_screen.dart",
+      "beforeSha256": "7d7dd8124d07f52dcaf39a8b9008ee349f4621a504df6d990026b4a87e7868cd",
+      "classes": [
+        {
+          "class": "CertificationsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/compliance_training_screen.dart",
+      "beforeSha256": "f07c9fad5d292cf461d2233698bf1ec62dacf3e8e15933c0a36e4a6c590bf834",
+      "classes": [
+        {
+          "class": "ComplianceTrainingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/course_architect_screen.dart",
+      "beforeSha256": "0f260d035a705d688c310fae449a5ed714f46d91cce2dcc7f761b04ed32e4e58",
+      "classes": [
+        {
+          "class": "CourseArchitectScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/course_library_screen.dart",
+      "beforeSha256": "19897b37d30d61f4ab1ed7a213979e08dd0712f330f44bccf15132ebc024516c",
+      "classes": [
+        {
+          "class": "CourseLibraryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/staff_training_matrix_screen.dart",
+      "beforeSha256": "a80657df41304a8ce3542dc7b50a7567fddc685f303fb705c23c21dff231bb54",
+      "classes": [
+        {
+          "class": "StaffTrainingMatrixScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/trainer_assignments_screen.dart",
+      "beforeSha256": "f8fd0cbe7ec409ba426d9ab6cda1a57ac73b9ae574e37b51a0605e6413f6ac17",
+      "classes": [
+        {
+          "class": "TrainerAssignmentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/training_analytics_screen.dart",
+      "beforeSha256": "069786648b13e2de45ce69fa1f5c6b51f822d9250edcf8f7c0bc0c4759ad0da4",
+      "classes": [
+        {
+          "class": "TrainingAnalyticsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/training_hub_screen.dart",
+      "beforeSha256": "edf684b8868b4d35efcccd6e92f5829638eb30a8650b107dfdf96493b472a0a3",
+      "classes": [
+        {
+          "class": "TrainingHubScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/training_programs_screen.dart",
+      "beforeSha256": "206a3d91a08e111e0838ed74c3db079408f75b69cd5f4d458799808b7e368395",
+      "classes": [
+        {
+          "class": "TrainingProgramsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_corporate/lib/features/training/screens/training_reports_screen.dart",
+      "beforeSha256": "fa36d6d6b9f9f40ad9a5fc5b3798025db3314b05b26462b12ae74ac2a895b0d9",
+      "classes": [
+        {
+          "class": "TrainingReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/admin_claims_screen.dart",
+      "beforeSha256": "15d126eb3668b2a4abadcc805be410c1dc9533a5b4d5f488903d07ae5d698f13",
+      "classes": [
+        {
+          "class": "AdminClaimsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/admin_dashboard_screen.dart",
+      "beforeSha256": "28bec83f5a74361cc2adfb7617a51319589326236d75ac0f92d5aff6b85cf8ff",
+      "classes": [
+        {
+          "class": "AdminDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/admin_invoices_screen.dart",
+      "beforeSha256": "fd11f839c15d82f563d00f61fcc32a7730c6b1447e0a1d77e20aa8c1b75245a2",
+      "classes": [
+        {
+          "class": "AdminInvoicesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/admin_outstanding_balances_screen.dart",
+      "beforeSha256": "07e211a439b1b1fe78cd4e431fe515ba1c3f6037e099b77fa63bf640383e6ba3",
+      "classes": [
+        {
+          "class": "AdminOutstandingBalancesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/admin_payments_screen.dart",
+      "beforeSha256": "7a6ac3fa2ba082f5de7314dd2b85d9683cbfc8978c13c54ae750c003fa5f9fd7",
+      "classes": [
+        {
+          "class": "AdminPaymentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/admin_reconciliation_screen.dart",
+      "beforeSha256": "a746e49aef2d388d1ea5270966ad25f5ce595e9f2faf99d1cb1fe110f3f4ec50",
+      "classes": [
+        {
+          "class": "AdminReconciliationScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/admin_refunds_screen.dart",
+      "beforeSha256": "042801ab751557105f16ed5a0c3bf0fed51ab6a938dc1fc901061ec5d8b237de",
+      "classes": [
+        {
+          "class": "AdminRefundsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/admin_reports_screen.dart",
+      "beforeSha256": "fdfae0de04349ce744c654d7832bc4fd8db2da649aabe09b127cb66e25a4e1c2",
+      "classes": [
+        {
+          "class": "AdminReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/billing_admin_invoices_screen.dart",
+      "beforeSha256": "1f81d21ec0b0f060441633e3d2bac60cf2d393a3d87254a5c42103d87407bea8",
+      "classes": [
+        {
+          "class": "BillingAdminInvoicesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/franchise_sales_manager_contracts_screen.dart",
+      "beforeSha256": "7d8aa889e041fe2c4fa6d9016f4e8ffa04860f2d37624abf290ac0a8fd4611a3",
+      "classes": [
+        {
+          "class": "FranchiseSalesManagerContractsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/franchise_sales_manager_discovery_calls_screen.dart",
+      "beforeSha256": "f800a2bba011ef504c6bdaeabe03a864d9e373226d16554d39a56db39cdbfdf0",
+      "classes": [
+        {
+          "class": "FranchiseSalesManagerDiscoveryCallsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/franchise_sales_manager_follow_ups_screen.dart",
+      "beforeSha256": "7a1eebe9b85abea4d6824847ff4b45ecf2f9e792ec8b7eafce272ff5c21ecf6a",
+      "classes": [
+        {
+          "class": "FranchiseSalesManagerFollowUpsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/franchise_sales_manager_leads_screen.dart",
+      "beforeSha256": "bcb212d2facae41cf8c6d592bb460b10ca0d47bff84f187608e384c266e33de5",
+      "classes": [
+        {
+          "class": "FranchiseSalesManagerLeadsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/franchise_sales_manager_proposals_screen.dart",
+      "beforeSha256": "d94f598c37371b42c78cb609ce477c19ab55d05686f96d536248e6520c7f1c84",
+      "classes": [
+        {
+          "class": "FranchiseSalesManagerProposalsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/franchise_sales_manager_prospects_screen.dart",
+      "beforeSha256": "2c3a8508f1dcbdd04a4f5728647069003a2d1b7aa2517f2598259f0317e451ed",
+      "classes": [
+        {
+          "class": "FranchiseSalesManagerProspectsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/franchise_sales_manager_reports_screen.dart",
+      "beforeSha256": "07b71c1cfe1dda433a85b5c71dbf3f6cbeda685d923f0babdce19b54a1dff883",
+      "classes": [
+        {
+          "class": "FranchiseSalesManagerReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/franchise_sales_manager_sales_pipeline_screen.dart",
+      "beforeSha256": "f634a9e091a690dbbc7333e149a9b83cf995077a077cc2cb02ab0fd41450365e",
+      "classes": [
+        {
+          "class": "FranchiseSalesManagerSalesPipelineScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/generated_screens/regional_bdm_franchise_pipeline_screen.dart",
+      "beforeSha256": "655185d0567720bd27f8711f0f838b4c9f057daf71c8cac5886745c1796beb1b",
+      "classes": [
+        {
+          "class": "RegionalBdmFranchisePipelineScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/hr_hiring/screens/hr_hiring_reports_screen.dart",
+      "beforeSha256": "9a4d5c59e7b0c7154841787a707eb07e6c6d0d6aa8de069ffedea31aa6568a1b",
+      "classes": [
+        {
+          "class": "HrHiringReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/hr_hiring/screens/hr_hiring_staff_documents_screen.dart",
+      "beforeSha256": "2da072728df571897b937e9624baf3ba857461ae1b5388a92cde7a63257f943f",
+      "classes": [
+        {
+          "class": "HrHiringStaffDocumentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/hr_hiring/screens/hr_hiring_training_status_screen.dart",
+      "beforeSha256": "347441e10106279985d7df0bce7378ca15bf52365b7cb1a7ac6995068f9628b2",
+      "classes": [
+        {
+          "class": "HrHiringTrainingStatusScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/marketing_manager/screens/marketing_manager_campaigns_screen.dart",
+      "beforeSha256": "0a22b9cf8ca739fd75b194cbca42a38b5a8da03a15bb0f34af9e36df0e7ec73d",
+      "classes": [
+        {
+          "class": "MarketingManagerCampaignsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/marketing_manager/screens/marketing_manager_dashboard_screen.dart",
+      "beforeSha256": "8f25922669e1ff02793a046c7195c8e5454da5b853df44044709ef910a66eacb",
+      "classes": [
+        {
+          "class": "MarketingManagerDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/ops/screens/operations_manager_attendance_screen.dart",
+      "beforeSha256": "309468da9d4d37d7e65e065424020238362857e55d7e3d4a454bf88fa8aa5373",
+      "classes": [
+        {
+          "class": "OperationsManagerAttendanceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/ops/screens/operations_manager_daily_operations_screen.dart",
+      "beforeSha256": "b374cd9343a98f313ce5beb127444189857466eebb37194a5182d55916fb2dfd",
+      "classes": [
+        {
+          "class": "OperationsManagerDailyOperationsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/ops/screens/operations_manager_issues_screen.dart",
+      "beforeSha256": "e784cf9421c9772b2deef24619241fc1a3363f6a693227128c07ebb18ac420c4",
+      "classes": [
+        {
+          "class": "OperationsManagerIssuesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/ops/screens/operations_manager_reports_screen.dart",
+      "beforeSha256": "fb164b0d600aa49a39da80fd964f69338ec40c13a17623f67f4bc9b46d240d06",
+      "classes": [
+        {
+          "class": "OperationsManagerReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/ops/screens/operations_manager_schedule_screen.dart",
+      "beforeSha256": "f76a0dd97852b811a256d0239e1f28394c5c471097d216677bf6b991ac6a94a2",
+      "classes": [
+        {
+          "class": "OperationsManagerScheduleScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/ops/screens/operations_manager_service_quality_screen.dart",
+      "beforeSha256": "32505300b88a69b9c93484c120fce1d514053ad544b2f7b5f540ae50823b731d",
+      "classes": [
+        {
+          "class": "OperationsManagerServiceQualityScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/ops/screens/operations_manager_shifts_screen.dart",
+      "beforeSha256": "1090b349f0a0112a33fa9716cd02f53948ab95949953a5b38de9f5143b048d2f",
+      "classes": [
+        {
+          "class": "OperationsManagerShiftsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/ops/screens/operations_manager_staff_coordination_screen.dart",
+      "beforeSha256": "ba1c9ebd15430105163d96a470ab3fb60154b3e52eee3028b245e9f45bf62387",
+      "classes": [
+        {
+          "class": "OperationsManagerStaffCoordinationScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/owner/screens/franchise_owner_dashboard_screen.dart",
+      "beforeSha256": "eeb9d4f89327b2f5a83c217a4fb9acf57753ef2b620a0015d3c6e62b3e4448e3",
+      "classes": [
+        {
+          "class": "FranchiseOwnerDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/owner/screens/franchise_owner_financial_snapshot_screen.dart",
+      "beforeSha256": "7da5126de67c1a44fb66da4187e3a9a7fcae070dda61033f3de410aecce940b6",
+      "classes": [
+        {
+          "class": "FranchiseOwnerFinancialSnapshotScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/owner/screens/franchise_owner_hiring_screen.dart",
+      "beforeSha256": "7e44ec70ae67dfc0af0f0c72baecff994cc4e5bcc414982e1207477333a887b5",
+      "classes": [
+        {
+          "class": "FranchiseOwnerHiringScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/regional_manager/screens/regional_manager_branch_comparison_screen.dart",
+      "beforeSha256": "e065c6d44219961064566f2e10b6d14c4f0491a844a9442478c00bb4e49d8859",
+      "classes": [
+        {
+          "class": "RegionalManagerBranchComparisonScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/regional_manager/screens/regional_manager_dashboard_screen.dart",
+      "beforeSha256": "83843371ba1fa6fc8cfa83df7e744eee71326143418082d3aca56fc13d40c216",
+      "classes": [
+        {
+          "class": "RegionalManagerDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/scheduler_coordinator/screens/scheduler_coordinator_appointment_calendar_screen.dart",
+      "beforeSha256": "c3d628926b7af3b104f8eb51c60b117d6fd79b72667c82b43caa725e170af6a5",
+      "classes": [
+        {
+          "class": "SchedulerCoordinatorAppointmentCalendarScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/scheduler_coordinator/screens/scheduler_coordinator_assignments_screen.dart",
+      "beforeSha256": "1e6962143a11ba9ec3efb73013f5724046cc3c99682a0504846de8e249001fc8",
+      "classes": [
+        {
+          "class": "SchedulerCoordinatorAssignmentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/scheduler_coordinator/screens/scheduler_coordinator_booking_requests_screen.dart",
+      "beforeSha256": "2aa11988f2b94df0def32c50a86e54866ae6ec936037a5eddb672b717b5551b1",
+      "classes": [
+        {
+          "class": "SchedulerCoordinatorBookingRequestsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/scheduler_coordinator/screens/scheduler_coordinator_conflicts_screen.dart",
+      "beforeSha256": "78c35ac8f888c62d5b00fd9fc2f816e971f26e4796f3f06be409e0969f80c003",
+      "classes": [
+        {
+          "class": "SchedulerCoordinatorConflictsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/scheduler_coordinator/screens/scheduler_coordinator_open_shifts_screen.dart",
+      "beforeSha256": "23902bc6a6cdf17e1b1c0907b96c7cd5d065b0acd9f210696c024b2c2abf3f41",
+      "classes": [
+        {
+          "class": "SchedulerCoordinatorOpenShiftsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/scheduler_coordinator/screens/scheduler_coordinator_provider_availability_screen.dart",
+      "beforeSha256": "dbed9a56feb48c377c4f0061acf71cf4e182e6b7fdd5da9bbdd2453c5f4a3688",
+      "classes": [
+        {
+          "class": "SchedulerCoordinatorProviderAvailabilityScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/scheduler_coordinator/screens/scheduler_coordinator_reports_screen.dart",
+      "beforeSha256": "d8a4e04fd4036a7673e4b8f7644846f3066f342ca2abe40a623df01233f7abf8",
+      "classes": [
+        {
+          "class": "SchedulerCoordinatorReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_franchise/lib/features/scheduler_coordinator/screens/scheduler_coordinator_shift_calendar_screen.dart",
+      "beforeSha256": "eadcf5267bbec62ff4a8f00933407acd42ddb9b4d73ac2fd15038840dc05da87",
+      "classes": [
+        {
+          "class": "SchedulerCoordinatorShiftCalendarScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/core/ui/dynamic_screen_view.dart",
+      "beforeSha256": "2acfca6c825ae9ea1fad4c755789faf2183ea38920de7c102f3854e20b5a9a07",
+      "classes": [
+        {
+          "class": "AuditSandboxScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/core/ui/state_widgets.dart",
+      "beforeSha256": "8dfff5a251743415fd4d7ba0cb97bf24888d451a2ad710c01e1752ce9cbb3d55",
+      "classes": [
+        {
+          "class": "NoAccessScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/audit/screens/audit_log_screen.dart",
+      "beforeSha256": "836a8b155042e0e79d02492d80983433c3d97de804c151e41224b17ffa0ec019",
+      "classes": [
+        {
+          "class": "AuditLogScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/audit/screens/monitoring_screen.dart",
+      "beforeSha256": "d5cbe1a6785c549c1d218c485546faf3cc9952b1e31968b7bf59e7112d1a912c",
+      "classes": [
+        {
+          "class": "MonitoringScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/audit/screens/screen_status_screen.dart",
+      "beforeSha256": "76da98086d84059db367b574fb7ca73e66981f422022b2696127af85e0afd264",
+      "classes": [
+        {
+          "class": "ScreenStatusScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/audit/screens/ticket_center_screen.dart",
+      "beforeSha256": "04d4ac7eb890db6b52b20176c776024ae5fbc5ceb3eab283adf52bba9f570c6f",
+      "classes": [
+        {
+          "class": "TicketCenterScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/executive/screens/control_center_screen.dart",
+      "beforeSha256": "09005e621d802d09625275b454cf42bc755aa55e15625bc243d8bf322f939d2d",
+      "classes": [
+        {
+          "class": "ControlCenterScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/executive/screens/governance_hud_screen.dart",
+      "beforeSha256": "ba1b28a6e0db10cd11dae300a931f88f5687738578e4761c686b04caf4370c3f",
+      "classes": [
+        {
+          "class": "GovernanceHudScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/executive/screens/growth_pipeline_screen.dart",
+      "beforeSha256": "d9070348793ec0c2d0d2c17b7c5dc11c4299e9709fe881665d07c6f5cb1f9a3b",
+      "classes": [
+        {
+          "class": "GrowthPipelineScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/executive/screens/leadership_reports_screen.dart",
+      "beforeSha256": "c5f0cf61d69750e1036780575468904a9d9cd3d2ad8673b540b87bea45b3b26a",
+      "classes": [
+        {
+          "class": "LeadershipReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/executive/screens/proposals_screen.dart",
+      "beforeSha256": "03057d30a87dc59f2996b5bf9987d7cacb19e852ee8d0a4ca89d0f01b8acbfa0",
+      "classes": [
+        {
+          "class": "ProposalsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/executive/screens/regional_performance_screen.dart",
+      "beforeSha256": "43aa42fbb0b7685113917ff23d6d84994117802aa56450f5888296123d61478f",
+      "classes": [
+        {
+          "class": "RegionalPerformanceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/qa/screens/audit_dashboard_screen.dart",
+      "beforeSha256": "80c399d3cdbdee1f644e780db453a4c31c4a087bcb095dc8368b6823bd8041d5",
+      "classes": [
+        {
+          "class": "AuditDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/qa/screens/compliance_reviews_screen.dart",
+      "beforeSha256": "36146d3ed96a84c8ce09d5c1c5a6e46adbec8f934737fee3b23acbfdcbbc6998",
+      "classes": [
+        {
+          "class": "ComplianceReviewsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/qa/screens/incident_reports_screen.dart",
+      "beforeSha256": "eeb766371e3a075512ce9b3f9d74a0659fa2eb7ec70bc3555b2e14cc216097fd",
+      "classes": [
+        {
+          "class": "IncidentReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/qa/screens/quality_metrics_screen.dart",
+      "beforeSha256": "c73be1a1a00e2e4f43edd4c504a06e4262881005ae797fe368138cacda2501e4",
+      "classes": [
+        {
+          "class": "QualityMetricsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/reference/screens/clinical_reference_screen.dart",
+      "beforeSha256": "3180a4fc6a7bf8a5f6ae3b50ef67fe356c7d64c6c08a93474b16951e2bd06e8c",
+      "classes": [
+        {
+          "class": "ClinicalReferenceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/security/screens/security_hub_screen.dart",
+      "beforeSha256": "93ee55affc4c5d1695d30f99c421fb8de1c5ad693609d270e5d50ab40e11f10a",
+      "classes": [
+        {
+          "class": "SecurityHubScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/security/screens/security_sentinel_screen.dart",
+      "beforeSha256": "0fc256f8607d3cc228c2071736b1435168121759d7e26642a009f7c768f7a765",
+      "classes": [
+        {
+          "class": "SecuritySentinelScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_governance/lib/features/security/screens/verification_center_screen.dart",
+      "beforeSha256": "31b168e43a4e983c8637787c7170dea8f808f3d21c0abb96fcc65e584e66288f",
+      "classes": [
+        {
+          "class": "VerificationCenterScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/community_outreach_contacts_screen.dart",
+      "beforeSha256": "f7d2af911f8f48fd20182b2786d7f0e7b0d3552b7f543b0fc1bb7afc26ae0091",
+      "classes": [
+        {
+          "class": "CommunityOutreachContactsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/community_outreach_events_screen.dart",
+      "beforeSha256": "f821749050611955a413e37e4e7389614a3e4f0c16b320cedb755fe7a765f768",
+      "classes": [
+        {
+          "class": "CommunityOutreachEventsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/community_outreach_follow_ups_screen.dart",
+      "beforeSha256": "760f3e76e8eb6a1ff00b5f6e0751743c23ebdb8ac6832b25672e165bf7bfd5cc",
+      "classes": [
+        {
+          "class": "CommunityOutreachFollowUpsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/community_outreach_partnerships_screen.dart",
+      "beforeSha256": "dcd87372cefbfaf92d7f8063f72ad9a7b3da30e4ffd28f3a4ee22503f5133a97",
+      "classes": [
+        {
+          "class": "CommunityOutreachPartnershipsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/community_outreach_programs_screen.dart",
+      "beforeSha256": "ef96093693e2b30f49897d56ba2305647c13bb30a54c0f166e56a7976b50fbea",
+      "classes": [
+        {
+          "class": "CommunityOutreachProgramsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/community_outreach_reports_screen.dart",
+      "beforeSha256": "6a07f93aadd30cff18921dca4cfdcb80c261f490f3d258b1020c9392be683467",
+      "classes": [
+        {
+          "class": "CommunityOutreachReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/community_outreach_volunteers_screen.dart",
+      "beforeSha256": "a8b0155d32bdda728cb3884ae1b30ee4956901fe8a7ab8ca0fc92c666c048c92",
+      "classes": [
+        {
+          "class": "CommunityOutreachVolunteersScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/head_of_marketing_brand_assets_screen.dart",
+      "beforeSha256": "86083191a4de8ec99d16b9ffcc8c45943b6d72b0290573583c62f731f296f189",
+      "classes": [
+        {
+          "class": "HeadOfMarketingBrandAssetsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/head_of_marketing_campaigns_screen.dart",
+      "beforeSha256": "6d3b5156b9255ad51a1bf4ce9f33aa9c020ee86d19b9f07c3fd124c9a277f3f1",
+      "classes": [
+        {
+          "class": "HeadOfMarketingCampaignsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/head_of_marketing_content_approval_screen.dart",
+      "beforeSha256": "7e2d372d6107a11b097df93e8635e9873380779f939ab7a318ec5d41510c1ab1",
+      "classes": [
+        {
+          "class": "HeadOfMarketingContentApprovalScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/head_of_marketing_funnel_analytics_screen.dart",
+      "beforeSha256": "639705a980cd8382f083270449233575c04cde518e03e863705b3c624599755d",
+      "classes": [
+        {
+          "class": "HeadOfMarketingFunnelAnalyticsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/head_of_marketing_leads_screen.dart",
+      "beforeSha256": "dc8728998e76a6975dde3e5a004f3474f3f041abd07eff899e8fec51e778ab6a",
+      "classes": [
+        {
+          "class": "HeadOfMarketingLeadsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/head_of_marketing_performance_reports_screen.dart",
+      "beforeSha256": "635e1d6e5fc3c3c9eba9f1dd7b72cb8341ed00f8be958b06a44735c0e0d469eb",
+      "classes": [
+        {
+          "class": "HeadOfMarketingPerformanceReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/head_of_marketing_regional_campaigns_screen.dart",
+      "beforeSha256": "e0a05ceed06cd8e7f06853441389e9b66ae949f4fb50fd717d55934e9784e841",
+      "classes": [
+        {
+          "class": "HeadOfMarketingRegionalCampaignsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/local_marketing_manager_assets_screen.dart",
+      "beforeSha256": "4b0c23b40d8068a4c7e3f225964aab6e67f8a1ea09fae64287c3a6d95e1c65b6",
+      "classes": [
+        {
+          "class": "LocalMarketingManagerAssetsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/local_marketing_manager_budget_screen.dart",
+      "beforeSha256": "21501f4d400d09276895bbea28dfbeca85dac78560aecf20879246fecdf27654",
+      "classes": [
+        {
+          "class": "LocalMarketingManagerBudgetScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/local_marketing_manager_campaigns_screen.dart",
+      "beforeSha256": "2d1cd5d20963505593592033d871721e41e27d7a4111be5310698bd9280cb88d",
+      "classes": [
+        {
+          "class": "LocalMarketingManagerCampaignsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/local_marketing_manager_content_calendar_screen.dart",
+      "beforeSha256": "49e85d593d1de9fe02e0b20eee5d868a81c241100779b1cc316ec3228041194d",
+      "classes": [
+        {
+          "class": "LocalMarketingManagerContentCalendarScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/local_marketing_manager_events_screen.dart",
+      "beforeSha256": "84b054dd539b79b493e58d98d1c76d67c84ab5e356b0c4edd6e48a32f7d4ca2d",
+      "classes": [
+        {
+          "class": "LocalMarketingManagerEventsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/local_marketing_manager_leads_screen.dart",
+      "beforeSha256": "7cf9141c62c3b55e2b71c732e3bab26d8aa18a019da49cc57c968c6875f52f17",
+      "classes": [
+        {
+          "class": "LocalMarketingManagerLeadsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/local_marketing_manager_reports_screen.dart",
+      "beforeSha256": "51a4f92282fcdd932c36a76940dc9ed98387212ac8614837f4c352ac84af2122",
+      "classes": [
+        {
+          "class": "LocalMarketingManagerReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/territory_sales_manager_area_performance_screen.dart",
+      "beforeSha256": "f86ceb49d4cd828436b5e5f107fd2cf62cfb5477a906998e92655eb9a8955ef3",
+      "classes": [
+        {
+          "class": "TerritorySalesManagerAreaPerformanceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/territory_sales_manager_competitors_screen.dart",
+      "beforeSha256": "c9df2194fc3bca5672afb2a30e42b47e3a0301077dad702a0c6c44c6669b78cb",
+      "classes": [
+        {
+          "class": "TerritorySalesManagerCompetitorsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/territory_sales_manager_conversions_screen.dart",
+      "beforeSha256": "ed30f8ffeb57fd11d0ae3ee208156c558842e68da98b482f2e0696da162e29dc",
+      "classes": [
+        {
+          "class": "TerritorySalesManagerConversionsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/territory_sales_manager_field_activity_screen.dart",
+      "beforeSha256": "849095285aa23062bfd59a73c9629853265262c9002a674af2ba09c2fd1e73ee",
+      "classes": [
+        {
+          "class": "TerritorySalesManagerFieldActivityScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/territory_sales_manager_leads_screen.dart",
+      "beforeSha256": "f3d1d639bc368ad0db5f5dd3d15080c43aea632fea913dab7b632d6e1242bdd8",
+      "classes": [
+        {
+          "class": "TerritorySalesManagerLeadsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/territory_sales_manager_pipeline_screen.dart",
+      "beforeSha256": "578b1dbe6b4c7abc244fff6ad10a5a9694509b7289aff2a295e8b3cc4b18f577",
+      "classes": [
+        {
+          "class": "TerritorySalesManagerPipelineScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_marketing/lib/features/generated_screens/territory_sales_manager_reports_screen.dart",
+      "beforeSha256": "05ef62e1e6269b8c8a8158fb0b860fd9b3bf9281e07d1689cbfc01b87a79880f",
+      "classes": [
+        {
+          "class": "TerritorySalesManagerReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/customer_support_escalations_screen.dart",
+      "beforeSha256": "8981ce480652cfee10d42bda8f43e7634fb6a89afbe9b3e1e76fe0033144f4f3",
+      "classes": [
+        {
+          "class": "CustomerSupportEscalationsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/customer_support_issue_categories_screen.dart",
+      "beforeSha256": "2b9d2eaf2f1e0aa56c1e7f075f8be9dfa9d191994df0eb1377069c0d24205b0a",
+      "classes": [
+        {
+          "class": "CustomerSupportIssueCategoriesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/customer_support_reports_screen.dart",
+      "beforeSha256": "c6240a811b46963fb7b5d80acf802953a77f3a9e50c343d7fa9ab58b030cdce4",
+      "classes": [
+        {
+          "class": "CustomerSupportReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/customer_support_templates_screen.dart",
+      "beforeSha256": "f970d7d25277e72755a60d721f2eb8f991f4b518579141a8b9f3648ea3e14df5",
+      "classes": [
+        {
+          "class": "CustomerSupportTemplatesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/customer_support_tickets_screen.dart",
+      "beforeSha256": "5829d9ac7691c8c4ff6586c7737a958bbbc6be3e4a800d64ed1f078c059248bb",
+      "classes": [
+        {
+          "class": "CustomerSupportTicketsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/intake_coordinator_client_assignment_screen.dart",
+      "beforeSha256": "6ed9a701403ad82bc18fbdae0ac82543c05b24f1c92ab16dfd1201027f802c6f",
+      "classes": [
+        {
+          "class": "IntakeCoordinatorClientAssignmentScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/intake_coordinator_eligibility_screen.dart",
+      "beforeSha256": "af1a8ab9b810c3c24d46d5ba543f12df5b996e7e8d81223857acae63832d27fa",
+      "classes": [
+        {
+          "class": "IntakeCoordinatorEligibilityScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/intake_coordinator_intake_forms_screen.dart",
+      "beforeSha256": "7da1e74a7651d0c62808064541f1f46a1e2f89e53c96f011535991ed4c8446ad",
+      "classes": [
+        {
+          "class": "IntakeCoordinatorIntakeFormsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/intake_coordinator_new_intakes_screen.dart",
+      "beforeSha256": "b907b9aeaae0d1daad5b852a2b55b0e102fb43aa6fc6cf9dcd66bbea5cae3965",
+      "classes": [
+        {
+          "class": "IntakeCoordinatorNewIntakesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/intake_coordinator_reports_screen.dart",
+      "beforeSha256": "d1e1b1d7bd904bf93cd912060811f675a9aa07d9f1cb435806264e6a9142b481",
+      "classes": [
+        {
+          "class": "IntakeCoordinatorReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/intake_coordinator_scheduling_screen.dart",
+      "beforeSha256": "bc3b2d005eca123985f1688ebdbfac5f5a6afbfe4232f39a8602a21cfe57f52f",
+      "classes": [
+        {
+          "class": "IntakeCoordinatorSchedulingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/quality_assurance_audits_screen.dart",
+      "beforeSha256": "a747270dae13e468cd90c18a6d1e60f25cb205b2b6b2cd68fad2952728c427f0",
+      "classes": [
+        {
+          "class": "QualityAssuranceAuditsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/quality_assurance_complaints_screen.dart",
+      "beforeSha256": "ea5a6ba38c6abe38ddd9f1c8232b5e89ff7ae8a4c6ad48dd4e01fadf4e64ec33",
+      "classes": [
+        {
+          "class": "QualityAssuranceComplaintsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/quality_assurance_compliance_checks_screen.dart",
+      "beforeSha256": "717bb34bec64a4eeac9e8bf481ed2833e87f9f851425305b6f7b5bf48f1313c4",
+      "classes": [
+        {
+          "class": "QualityAssuranceComplianceChecksScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/quality_assurance_corrective_actions_screen.dart",
+      "beforeSha256": "79cac8e07b1b17fa36dd4355075b56dc96854abb62ef6e417904d5f2ab8c5f37",
+      "classes": [
+        {
+          "class": "QualityAssuranceCorrectiveActionsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/quality_assurance_reports_screen.dart",
+      "beforeSha256": "cda66464ab7b273b3633594ce5ea02c23fc56cee5a4417c7e0c105aebeeed008",
+      "classes": [
+        {
+          "class": "QualityAssuranceReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/quality_assurance_reviews_screen.dart",
+      "beforeSha256": "bea8640a6c28987aaeb3d671042a10936b4be24834c138aba5397a0b3406b820",
+      "classes": [
+        {
+          "class": "QualityAssuranceReviewsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/quality_assurance_scorecards_screen.dart",
+      "beforeSha256": "09755eb6a3f3c274f54894bfa0904cbada2ef9d7bbd5a385977ecd69cb3ff280",
+      "classes": [
+        {
+          "class": "QualityAssuranceScorecardsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/training_coordinator_attendance_screen.dart",
+      "beforeSha256": "b1b07a2f08e1371b76b4a414e2d361f89555a75c9f41a214a0eb7ca7e5f742cb",
+      "classes": [
+        {
+          "class": "TrainingCoordinatorAttendanceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/training_coordinator_certifications_screen.dart",
+      "beforeSha256": "b72b3e112f5d0f56edaebc838b79c65e2a73c68e68748ffca4446739a024e21f",
+      "classes": [
+        {
+          "class": "TrainingCoordinatorCertificationsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/training_coordinator_courses_screen.dart",
+      "beforeSha256": "e199de4048f9ff6a13488b5a6b921f3fc0d847f173fa9e0b6ea01185aad2e932",
+      "classes": [
+        {
+          "class": "TrainingCoordinatorCoursesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/training_coordinator_materials_screen.dart",
+      "beforeSha256": "98f9ac71eeb4813532409407086a91f0f03a26d781bc80f84e2c9fbfb773c6ee",
+      "classes": [
+        {
+          "class": "TrainingCoordinatorMaterialsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/training_coordinator_progress_screen.dart",
+      "beforeSha256": "f3a40a137052bd1136c72ee6eb58b7d6983bcd473fc8fdf4b1dd12d46d68388d",
+      "classes": [
+        {
+          "class": "TrainingCoordinatorProgressScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/training_coordinator_reports_screen.dart",
+      "beforeSha256": "8fa65917c73bde33d0b64f77d1f6d8214e75816e85eefc9e817b921ffd368688",
+      "classes": [
+        {
+          "class": "TrainingCoordinatorReportsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/training_coordinator_training_schedule_screen.dart",
+      "beforeSha256": "e66d726c137e562597e3e77fbf681eacc5b6c90337dc3f3b570029cece9f41ca",
+      "classes": [
+        {
+          "class": "TrainingCoordinatorTrainingScheduleScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/generated_screens/training_coordinator_workshops_screen.dart",
+      "beforeSha256": "eb3dcbc889e610738aaafd6e59f5f71b8d8e3e697ebbe5bd74550535448f2663",
+      "classes": [
+        {
+          "class": "TrainingCoordinatorWorkshopsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/support/screens/escalation_dashboard_screen.dart",
+      "beforeSha256": "b8da13db14f4e4bf16b7de5a6b2575f64d822143700bec90b036d5f13deced69",
+      "classes": [
+        {
+          "class": "EscalationDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/support/screens/help_desk_dashboard_screen.dart",
+      "beforeSha256": "78ab72d677eb95ffdda9c8cd16cf9c722ed8a6799f956113bb6f4cc0f5c7f14d",
+      "classes": [
+        {
+          "class": "HelpDeskDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "apps/primecare_support/lib/features/support/screens/it_administrator_dashboard_screen.dart",
+      "beforeSha256": "57303610544efe868a0b41ae796b0eb48af7cab06312f18c16c4ebbc0611b4bd",
+      "classes": [
+        {
+          "class": "ItAdministratorDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/access_review_certifier.dart",
+      "beforeSha256": "c3206559c927dc75a0f8996f5dd5cbb6cd56d743664bd5a92d50554ef5776303",
+      "classes": [
+        {
+          "class": "AccessReviewCertifierScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/admin_user_management.dart",
+      "beforeSha256": "114b86c7254c00c12b9b0b3a97838686d68164eed4c671191e813c0cbb4fe553",
+      "classes": [
+        {
+          "class": "AdminUserManagementScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/api_key_manager_screen.dart",
+      "beforeSha256": "4fd53d9fc7e854d32aacbee3a600ae1210b85422da297e7e2bfcfeb91d5d95a3",
+      "classes": [
+        {
+          "class": "ApiKeyManagerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/compliance_training_tracker.dart",
+      "beforeSha256": "d56c40fab55e2fa471d7381f4adbcf68af346f76c7c4efeb150ff8bda85bf587",
+      "classes": [
+        {
+          "class": "ComplianceTrainingTrackerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/configuration_version_control.dart",
+      "beforeSha256": "64d83fda30b9b34f568692a3a030bf47e3650a7b36297d680d44e3cad15d98ed",
+      "classes": [
+        {
+          "class": "ConfigurationVersionControlScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/consent_management_console.dart",
+      "beforeSha256": "fb3ceeaaad667f67933b00504940a0823c8d1671625f4ba14e2f16c82d6ab7a6",
+      "classes": [
+        {
+          "class": "ConsentManagementConsoleScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/crisis_protocol_trigger_screen.dart",
+      "beforeSha256": "c5b8c55b066438e27e660aefe5285970211c37c4cc3279c8818cc0cfbf6cd953",
+      "classes": [
+        {
+          "class": "CrisisProtocolTriggerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/data_privacy_monitor.dart",
+      "beforeSha256": "c421e7f36a08ddd1968803b2d4476727db1f0d80921a1ae52a5846f13aa2546b",
+      "classes": [
+        {
+          "class": "DataPrivacyMonitorScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/ecosystem_state_board.dart",
+      "beforeSha256": "e296195dd826cdaf27403356c1e3c522411bf3863f568f1f51f2422e5c26a820",
+      "classes": [
+        {
+          "class": "EcosystemStateBoardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/faq_manager_screen.dart",
+      "beforeSha256": "18455c7381986a5837f363c16dbd534b41811ce39dcbad6bac0bf6d158f2bbd7",
+      "classes": [
+        {
+          "class": "FAQManagerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/feature_flag_controller.dart",
+      "beforeSha256": "b851de85346286605806cdd8faef378a8d183fd5c13b21a769261ffcd917c91b",
+      "classes": [
+        {
+          "class": "FeatureFlagControllerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/hipaa_audit_dashboard.dart",
+      "beforeSha256": "119922669368f7c5bbf8bc63723194c56a8c2ac3344d60c92b001793e8b337bb",
+      "classes": [
+        {
+          "class": "HipaaAuditDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/incident_response_hub.dart",
+      "beforeSha256": "7386c7e02693d5183b0c0757f77fd871e17a077fe02d438f7684618b8965e1b8",
+      "classes": [
+        {
+          "class": "IncidentResponseHubScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/integration_health_monitor.dart",
+      "beforeSha256": "5f55b07826b34160dae5745782db2242f6cf6e8bbba3cb03e4895d5b4b274ff9",
+      "classes": [
+        {
+          "class": "IntegrationHealthMonitorScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/lead_pipeline_screen.dart",
+      "beforeSha256": "ea2dd9348d8ad9d14de60998b67fe80dd77de0e01823d9a949fe517cc840bbc3",
+      "classes": [
+        {
+          "class": "LeadPipelineScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/message_archive_viewer.dart",
+      "beforeSha256": "f3a7d436f0e74edea2d9c13e918178e5e48da8d55ed98e2c53d3c53b1f25b6a8",
+      "classes": [
+        {
+          "class": "MessageArchiveerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/osha_incident_reporter.dart",
+      "beforeSha256": "75c2ff4369bc5f1e81f815d6d9f37c5b85e5cf2c88ff6c23332283a425e8f5f0",
+      "classes": [
+        {
+          "class": "OshaIncidentReporterScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/policy_exception_tracker.dart",
+      "beforeSha256": "9244f2e91568eb1ec5571ee38cc5fa20f23123842b8135b98edce772b23a8492",
+      "classes": [
+        {
+          "class": "PolicyExceptionTrackerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/protocol_resolution_log_screen.dart",
+      "beforeSha256": "489e890ffade8f3469620ed5364b953aebf67847a91d424a2723933d6a4a75e0",
+      "classes": [
+        {
+          "class": "ProtocolResolutionLogScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/provider_performance_dashboard.dart",
+      "beforeSha256": "2c4ce6ec82e1d79adb54107e2692b08577e0d35c3db387a9a007728ec828f228",
+      "classes": [
+        {
+          "class": "ProviderPerformanceDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/quality_assurance_metrics.dart",
+      "beforeSha256": "ffe3d5a8eb528d4d164938ed4c5f1103cde5e500904484f1f78a4f7e2e47c00b",
+      "classes": [
+        {
+          "class": "QualityAssuranceMetricsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/registry_entry_editor.dart",
+      "beforeSha256": "de5b588ddd110cf05ca4e975ada55d44b2241e9d3042820fd108c0eebc8de807",
+      "classes": [
+        {
+          "class": "RegistryEntryEditorScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/regulatory_change_radar.dart",
+      "beforeSha256": "e4bc637d32297afd6a1af426082d0b74ca89d5a5a57a85484c2f24aa861e5d86",
+      "classes": [
+        {
+          "class": "RegulatoryChangeRadarScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/resource_allocation_map.dart",
+      "beforeSha256": "515733bd8f70aa55df09dd3920554ad53645e0a657dbd4967680148faf3a31b1",
+      "classes": [
+        {
+          "class": "ResourceAllocationMapScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/response_bot_audit_screen.dart",
+      "beforeSha256": "1374353f9d93453d5ff1176dde7c9e516d6f742be68987ee909f3ab358cbda58",
+      "classes": [
+        {
+          "class": "ResponseBotAuditScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/role_access_matrix_screen.dart",
+      "beforeSha256": "c31ca81367689587418c06c267c848c4cadb44e02e3db5e7e435711cc5637122",
+      "classes": [
+        {
+          "class": "RoleAccessMatrixScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/role_screen_access_screen.dart",
+      "beforeSha256": "9e9ad6f55e72e48fedaed737a3ad258cb8d72010ef5fe629fc5a91559ae2d9e2",
+      "classes": [
+        {
+          "class": "RoleAccessScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/secure_message_center.dart",
+      "beforeSha256": "59b6662bec1b8936a7eb55fff258fa39b3ada37795f69e8d60ef60e97280d21c",
+      "classes": [
+        {
+          "class": "SecureMessageCenterScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/security_incident_logger.dart",
+      "beforeSha256": "3e04e9589c80f52b32f95ddfdb1642e860c3fa727fb112ff35d70ad58532fc34",
+      "classes": [
+        {
+          "class": "SecurityIncidentLoggerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/service_mesh_topology.dart",
+      "beforeSha256": "4d2b2696266962167bb32a49796152db74f892e8d556949327d4807a5f050060",
+      "classes": [
+        {
+          "class": "ServiceMeshTopologyScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/system_capacity_planner.dart",
+      "beforeSha256": "3437ddbe1aff3e114e2764b3a779df0b3feba2a154d20dbde077e2e2a48ff6b9",
+      "classes": [
+        {
+          "class": "SystemCapacityPlannerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/tenant_configuration_screen.dart",
+      "beforeSha256": "3feccc903d94d619d05135fdc4ad2bce4d1e1759a43902a6f8c676091e61b92f",
+      "classes": [
+        {
+          "class": "TenantConfigurationScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/touchpoint_analyzer_screen.dart",
+      "beforeSha256": "baef333f20b3bb63f1232cb820b0b66a224a4bd2a464de45acdceafdb89061e4",
+      "classes": [
+        {
+          "class": "TouchpointAnalyzerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/user_management_screen.dart",
+      "beforeSha256": "11ca75a2345d243206be55460272aad897176066099c36c9f60d1e8c7bf46c5f",
+      "classes": [
+        {
+          "class": "UserManagementScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/admin/vendor_risk_assessor.dart",
+      "beforeSha256": "c564841fca48245d3251245b35b6936373faa1acf34d7fb2bdec75e610d32f57",
+      "classes": [
+        {
+          "class": "VendorRiskAssessorScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/analytics/board_of_directors_summary.dart",
+      "beforeSha256": "638a6041043342c1eeb71b628d8e4209880dbde8ce49494f1c0e6b68149067de",
+      "classes": [
+        {
+          "class": "BoardOfDirectorsSummaryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/analytics/clinical_outcomes_report.dart",
+      "beforeSha256": "6884dd14a025f5f1d788b7e998d52a1c62507b7fdb7126d8b62bfc38e3f9c571",
+      "classes": [
+        {
+          "class": "ClinicalOutcomesReportScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/analytics/financial_forecasting_model.dart",
+      "beforeSha256": "8a903730c9f7f9fd4d5331b1e15b48964a4eb3232a40ebef9398b4ce06f53865",
+      "classes": [
+        {
+          "class": "FinancialForecastingModelScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/analytics/marketing_roi_report.dart",
+      "beforeSha256": "70d05bb50f902766bf0974304a3854105f657b8442a0e8d844decd42ee545ee7",
+      "classes": [
+        {
+          "class": "MarketingROIReportScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/analytics/operational_efficiency_metrics.dart",
+      "beforeSha256": "e68fb3e084d714fb9c53152cd09eee68680d2444280ddb280aac059089ced97d",
+      "classes": [
+        {
+          "class": "OperationalEfficiencyMetricsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/analytics/patient_retention_analytics.dart",
+      "beforeSha256": "632706365b8064ad42fad464d25ee6f0931f686061c5ecafc628a0dfdaf5a87c",
+      "classes": [
+        {
+          "class": "PatientRetentionAnalyticsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/analytics/population_health_analyzer.dart",
+      "beforeSha256": "f46b2a7215761cfecd542ed6e99228a709dfaefd5fd988bf9c8abfc946c2b0ca",
+      "classes": [
+        {
+          "class": "PopulationHealthAnalyzerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/analytics/predictive_analytics_dashboard.dart",
+      "beforeSha256": "7298c59972a1f6c5d4489de2e4f6c4139b7d8ad44089c6cf1d4e856c5b61ec9c",
+      "classes": [
+        {
+          "class": "PredictiveAnalyticsDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/analytics/staff_utilization_heatmap.dart",
+      "beforeSha256": "ea5d9b77f4eb8776584ac505dc2c225326240e067c143e400b69033aa809fea8",
+      "classes": [
+        {
+          "class": "StaffUtilizationHeatmapScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/analytics/supply_chain_cost_analyzer.dart",
+      "beforeSha256": "0533cc0fcf54660e6e789d46a9946e83135d58442159774f2a56709d77eaed37",
+      "classes": [
+        {
+          "class": "SupplyChainCostAnalyzerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/auth/consent_view.dart",
+      "beforeSha256": "5c89cb6abe9654d712c97eb197b372b3b03effc80b4cf10b30676bdb64d02440",
+      "classes": [
+        {
+          "class": "ConsentScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/auth/success_profile_view.dart",
+      "beforeSha256": "eb4711095918aa6adc4844d666bea81d0b88bf313084e072f4085f53b03f8e5d",
+      "classes": [
+        {
+          "class": "SuccessProfileScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/education/certification_renewal_alerts.dart",
+      "beforeSha256": "80f84077c7aabdbfb4374a00570b3fb4059bdffd679f3517a91afa85926d0ceb",
+      "classes": [
+        {
+          "class": "CertificationRenewalAlertsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/education/clinical_guideline_library.dart",
+      "beforeSha256": "9b8425e42063a2f6f6f4a077f2c0dc521725faf51d4ce4b4541ab562221336e0",
+      "classes": [
+        {
+          "class": "ClinicalGuidelineLibraryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/education/cme_tracking_dashboard.dart",
+      "beforeSha256": "aeeceb4754abd778d5c0ce0c6fa904975c1a406894820b8a7a5a11ffd1ec4c0c",
+      "classes": [
+        {
+          "class": "CMETrackingDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/education/journal_club_discussion_board.dart",
+      "beforeSha256": "2704c01e90d781190e1cbbf8660f173db403945bd41f85d7e370f431243a7646",
+      "classes": [
+        {
+          "class": "JournalClubDiscussionBoardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/education/medical_library_access_portal.dart",
+      "beforeSha256": "7871b99e4ff9188a52ef82002df67a0ca7a33f7dc4dd644165c709f9ce0a4a80",
+      "classes": [
+        {
+          "class": "MedicalLibraryAccessPortalScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/education/patient_case_study_repository.dart",
+      "beforeSha256": "a3d873e0459ec913987b474b5e5e3b932d801271a52f7a9206fa9aec293c6572",
+      "classes": [
+        {
+          "class": "PatientCaseStudyRepositoryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/education/peer_review_conference_room.dart",
+      "beforeSha256": "80ccdc1359e1fdb0a32599024bc49181998885d23e55507477fa7a04ac42c4e5",
+      "classes": [
+        {
+          "class": "PeerReviewConferenceRoomScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/education/residency_program_tracker.dart",
+      "beforeSha256": "8723e91b9a8745126264352e89bdf1b268a0089de4250b6fb4f7e1e728ae98cc",
+      "classes": [
+        {
+          "class": "ResidencyProgramTrackerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/education/simulation_lab_scheduler.dart",
+      "beforeSha256": "dbcf3cc9b446ca0b85a0b0f374d946f84249c7e0266df0e7a3e64dcc8fa6b3fa",
+      "classes": [
+        {
+          "class": "SimulationLabSchedulerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/education/surgical_video_archive.dart",
+      "beforeSha256": "555a671b7e07dc012f524159f54d005b85d32e70ddacdfb6ce2f7c0a0da319c7",
+      "classes": [
+        {
+          "class": "SurgicalVideoArchiveScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/billing_claims_screen.dart",
+      "beforeSha256": "6334b5be1ec3cdd310f5f509fef891cf4e3953304ea2f1d97609b7b5d52a1e9b",
+      "classes": [
+        {
+          "class": "BillingClaimsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/billing_invoices_screen.dart",
+      "beforeSha256": "2d955714ed052e54954f9219fe540d336dfdb356ce044c6df2dba24dc40a8b78",
+      "classes": [
+        {
+          "class": "BillingInvoicesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/billing_payments_screen.dart",
+      "beforeSha256": "6fbfe44b27b739f5cf48861cbca6ea86da00854129e7c9a03147c5af5f1cbbf1",
+      "classes": [
+        {
+          "class": "BillingPaymentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/hr_applicants_screen.dart",
+      "beforeSha256": "750b852d45c43492053797e41625c6729f95191b4160886e3481001e818158ec",
+      "classes": [
+        {
+          "class": "HrApplicantsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/hr_onboarding_screen.dart",
+      "beforeSha256": "7c766051229e45bc66b28bb99d714238f83b07be9de8129f330baaab69eb4944",
+      "classes": [
+        {
+          "class": "HrOnboardingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/hr_staff_files_screen.dart",
+      "beforeSha256": "5dbbcaeb2e17196bc9c4f447289882acc5afe1d211c4222bbeed15468d3b9a98",
+      "classes": [
+        {
+          "class": "HrStaffFilesScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/receptionist_appointments_screen.dart",
+      "beforeSha256": "d7ea9036f4b68116d3ea020b480eb69e167e434cf5219d0cc32144dacc80cfb0",
+      "classes": [
+        {
+          "class": "ReceptionistAppointmentsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/receptionist_calls_screen.dart",
+      "beforeSha256": "05d1bb266249d97f8d2d64b00e5f780ece2ce50219cc3852f3fd7e2b714d9ae5",
+      "classes": [
+        {
+          "class": "ReceptionistCallsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/receptionist_visitors_screen.dart",
+      "beforeSha256": "bfce185bf1df7407dc7d35fd6c3c82813873101cb80661eb9dc45544be211acf",
+      "classes": [
+        {
+          "class": "ReceptionistVisitorsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/scheduler_availability_screen.dart",
+      "beforeSha256": "b9d03b7f448d4a0092814b8071932821ff8765cab0f3724db0844a179be65ade",
+      "classes": [
+        {
+          "class": "SchedulerAvailabilityScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/scheduler_shifts_screen.dart",
+      "beforeSha256": "6f80c5179c990b4a6d5c6833c710d8ae41142d9f3eb79382c92d240b02f1077c",
+      "classes": [
+        {
+          "class": "SchedulerShiftsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/generated_screens/unknown_dashboard_screen.dart",
+      "beforeSha256": "dca37905df630ab0f2a0be7562b53c2cca87406ce778a8d9c83ddc8c326bad28",
+      "classes": [
+        {
+          "class": "UnknownDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/marketing/brand_asset_library.dart",
+      "beforeSha256": "afbcf6ad0c109d952b65306ef4dee3ce380a35ae258a8d260951669f5c54e542",
+      "classes": [
+        {
+          "class": "BrandAssetLibraryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/marketing/campaign_performance_dashboard.dart",
+      "beforeSha256": "3ac60fa24d107aa7e41a970637c43a948a95a9725c010d9a4fd1b5ac14134a38",
+      "classes": [
+        {
+          "class": "CampaignPerformanceDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/marketing/competitor_analysis_board.dart",
+      "beforeSha256": "738278c94d86dad7f2ed8a1ed669e1d4be033d0e695d082e84b4b1fec8d3a70a",
+      "classes": [
+        {
+          "class": "CompetitorAnalysisBoardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/marketing/email_marketing_automator.dart",
+      "beforeSha256": "7622e9ac52ed25fd86753090aa30a3ef2fd869e394c6ac31666cdad2077f6c3d",
+      "classes": [
+        {
+          "class": "EmailMarketingAutomatorScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/marketing/event_and_webinar_manager.dart",
+      "beforeSha256": "5e94fabde337cbb722102ce0b387aa60408c313d4575a20e2016bb6ad030da0f",
+      "classes": [
+        {
+          "class": "EventAndWebinarManagerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/marketing/lead_conversion_funnel.dart",
+      "beforeSha256": "5cb1e550e913daaf9e54c4c6aa3c875e989cae43e1865421b2758ec4abd70c14",
+      "classes": [
+        {
+          "class": "LeadConversionFunnelScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/marketing/patient_acquisition_cost_tracker.dart",
+      "beforeSha256": "35bb68c2f4ce0722882442ddb39d40a8b2171784795e413f128e5870892e35c3",
+      "classes": [
+        {
+          "class": "PatientAcquisitionCostTrackerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/marketing/referral_network_manager.dart",
+      "beforeSha256": "91202b71995f62fd7653369c020942e1279cf3c703047d23bef55ed0e1ede7da",
+      "classes": [
+        {
+          "class": "ReferralNetworkManagerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/marketing/social_media_sentiment_analyzer.dart",
+      "beforeSha256": "af502acc35885331642e9906766090307a5797f2799bcea4ff0f830ed8b6548b",
+      "classes": [
+        {
+          "class": "SocialMediaSentimentAnalyzerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/marketing/territory_sales_mapping.dart",
+      "beforeSha256": "a1d7785505ee355f346e13aeb7ceb772226b4fb2bfcec43431644dd859523bcd",
+      "classes": [
+        {
+          "class": "TerritorySalesMappingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/operations/app_notification_screen.dart",
+      "beforeSha256": "7b0eb889d79f0b3a3aeb42eec1c27b3c33f022c36b78a38be8fbcecf186652a1",
+      "classes": [
+        {
+          "class": "AppNotificationScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/operations/gamification_profile_screen.dart",
+      "beforeSha256": "9a5b0d19d2fc5ef2eae196aa1fd6cf0634f2627f28220ec304074b03f6548c8d",
+      "classes": [
+        {
+          "class": "GamificationProfileScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/operations/security_incident_screen.dart",
+      "beforeSha256": "f3f57143c68e2f04577ee4ab3c824a5e8ff2d39a5c234c9de130eb43c6edda31",
+      "classes": [
+        {
+          "class": "SecurityIncidentScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/operations/service_procurement_screen.dart",
+      "beforeSha256": "1c58677f895990b9ef07434fa4fdabce78d11066e30df30fed820fa50b3f9ee4",
+      "classes": [
+        {
+          "class": "ServiceProcurementScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/operations/site_readiness_screen.dart",
+      "beforeSha256": "e632fe3ce14ff373f6ec08186a346012fb41cd797eb374355fcf1462382e0866",
+      "classes": [
+        {
+          "class": "SiteReadinessScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/operations/virtual_consult_screen.dart",
+      "beforeSha256": "bd0bcce8c9574863b6cfd8b3a429dc5df2bb08a1984ec9f7fb5390a8a1f1010b",
+      "classes": [
+        {
+          "class": "VirtualConsultScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/pharmacy/chemotherapy_protocol_builder.dart",
+      "beforeSha256": "fb8911565f0667deaf0af4ec272ef362bbd43789d6fd3f9917c4e779abf58dc2",
+      "classes": [
+        {
+          "class": "ChemotherapyProtocolBuilderScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/pharmacy/controlled_substance_log.dart",
+      "beforeSha256": "7761c54eb86cc1a3920d94ce8aff9cde3e3a017a592c4bac4ac46bb15901c932",
+      "classes": [
+        {
+          "class": "ControlledSubstanceLogScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/pharmacy/drug_interaction_alert_center.dart",
+      "beforeSha256": "ce6e7aa8dafd5ae3ddc09ad32d6d5f0cb895215546facf5726e2bd9f03b3c4b7",
+      "classes": [
+        {
+          "class": "DrugInteractionAlertCenterScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/pharmacy/formulary_compliance_manager.dart",
+      "beforeSha256": "04d5607e47f24a83bd594866cec0d50a4d2e2dfbdfe4e6c05bf6adfd32bf4c14",
+      "classes": [
+        {
+          "class": "FormularyComplianceManagerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/pharmacy/inpatient_pharmacy_queue.dart",
+      "beforeSha256": "dff83ef444a9ec18bbc5251fc83dd5edc887caa09af2df293c62763e3e0553e5",
+      "classes": [
+        {
+          "class": "InpatientPharmacyQueueScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/pharmacy/medication_reconciliation_tool.dart",
+      "beforeSha256": "e6930d5be1839aca0ace1fba7b2f9271d25294325266ef32bf7db3abe40c71a2",
+      "classes": [
+        {
+          "class": "MedicationReconciliationToolScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/pharmacy/outpatient_prescription_tracker.dart",
+      "beforeSha256": "e2905d463a0a15a6f0fa18274aa9c8b32beb646c0125cdb8948457fb224a9bed",
+      "classes": [
+        {
+          "class": "OutpatientPrescriptionTrackerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/pharmacy/patient_medication_adherence.dart",
+      "beforeSha256": "cea094b78a508a3154b2b5297f62d4871ed2f2956599efcb376574148e63532b",
+      "classes": [
+        {
+          "class": "PatientMedicationAdherenceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/pharmacy/pharmacy_dispensing_dashboard.dart",
+      "beforeSha256": "d28a567c5dae9ba98b5d0198ad5a91c138d4f350d7e40462e728aa2d4458c022",
+      "classes": [
+        {
+          "class": "PharmacyDispensingDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/pharmacy/pharmacy_inventory_management.dart",
+      "beforeSha256": "ec095ce87630568c80a246fcbe2db8fe4ae175c64fa9bc1c6436b13c4061f557",
+      "classes": [
+        {
+          "class": "PharmacyInventoryManagementScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/public_health/community_health_needs_assessment.dart",
+      "beforeSha256": "c8fb5374b1257d55b66e34ee068d92bab7275d7159662f2bb603c069874af488",
+      "classes": [
+        {
+          "class": "CommunityHealthNeedsAssessmentScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/public_health/environmental_health_hazards.dart",
+      "beforeSha256": "fecabd594022d61fe77cf5136aeccec8ae0ae1e880499643754e7db798429a8e",
+      "classes": [
+        {
+          "class": "EnvironmentalHealthHazardsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/public_health/epidemiological_surveillance_dashboard.dart",
+      "beforeSha256": "c46ace651ac90701995778bf0ff44bea4733f8fe772b02ff9ce673a6aafde6b5",
+      "classes": [
+        {
+          "class": "EpidemiologicalSurveillanceDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/public_health/mobile_clinic_dispatch.dart",
+      "beforeSha256": "f1dcc25ace220e9bcef46594c6f42a30456d01e3437eb61f8ab1ade3e74df8e1",
+      "classes": [
+        {
+          "class": "MobileClinicDispatchScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/public_health/public_health_alert_broadcaster.dart",
+      "beforeSha256": "7bcbd173e5665b6eeb54c1adc949df7c522b74ca60f2b633ce2cd35c744247f4",
+      "classes": [
+        {
+          "class": "PublicHealthAlertBroadcasterScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/public_health/school_health_program_dashboard.dart",
+      "beforeSha256": "b30abd1931d2fe93ea3e635ca79e413261b24aeb649119877c53d3b7daeeb754",
+      "classes": [
+        {
+          "class": "SchoolHealthProgramDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/public_health/social_determinants_of_health_tracker.dart",
+      "beforeSha256": "d5b6f11f7b7fa5e020e87bafda60fb61f7dc3822efaa035859ebbdd40151ed2f",
+      "classes": [
+        {
+          "class": "SocialDeterminantsOfHealthTrackerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/public_health/substance_abuse_prevention_tracker.dart",
+      "beforeSha256": "19c253b5d74782d723f9907ef128525882adc921b280d7734da0eeef42341fc7",
+      "classes": [
+        {
+          "class": "SubstanceAbusePreventionTrackerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/public_health/vaccination_campaign_manager.dart",
+      "beforeSha256": "2b5d17525e397589676d7cc5a095138ef11076f0cb78f5a60d9949cfbd50ba26",
+      "classes": [
+        {
+          "class": "VaccinationCampaignManagerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/public_health/vulnerable_population_registry.dart",
+      "beforeSha256": "7d205593fedb72017d0b3bb27df8f0769876dd84666dbaff42dee8aebd5f02be",
+      "classes": [
+        {
+          "class": "VulnerablePopulationRegistryScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/research/adverse_event_reporting_portal.dart",
+      "beforeSha256": "20064fdfaefaa88f19b1ef967be41629cdd7e663fefb22363f4d817d3281bfba",
+      "classes": [
+        {
+          "class": "AdverseEventReportingPortalScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/research/biospecimen_inventory_tracker.dart",
+      "beforeSha256": "f504b728c11e258ff4afdfbcc418cc812f74d666157272c3bb81ccb880e4dea9",
+      "classes": [
+        {
+          "class": "BiospecimenInventoryTrackerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/research/clinical_trial_recruitment_dashboard.dart",
+      "beforeSha256": "e7848faf967e836bf93f6b855c5cdfebc2620cd4bfa78a810bfed35791da13c7",
+      "classes": [
+        {
+          "class": "ClinicalTrialRecruitmentDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/research/grant_funding_allocation.dart",
+      "beforeSha256": "6553bed5eae922e82eb44dad365820392da4339acbe38d08b1e2e24b96b69869",
+      "classes": [
+        {
+          "class": "GrantFundingAllocationScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/research/informed_consent_tracker.dart",
+      "beforeSha256": "aaf03420816a1c590ffb75eef59684fd93d9ffe88e0095ae7d92b0524efb2e4d",
+      "classes": [
+        {
+          "class": "InformedConsentTrackerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/research/multi_center_trial_collaboration.dart",
+      "beforeSha256": "5a7fd8e516dbf37b3f14834f77f59e1edc2d1fa0f52973172a1507a6e481ad97",
+      "classes": [
+        {
+          "class": "MultiCenterTrialCollaborationScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/research/patient_trial_outcomes_viewer.dart",
+      "beforeSha256": "4c29c8c5fa3cedf03596c1f14787e1c8d631b02d077feb843a78920a22af51e5",
+      "classes": [
+        {
+          "class": "PatientTrialOutcomeserScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/research/research_protocol_manager.dart",
+      "beforeSha256": "3b9b950ed735ba226c9cd5599af0f0263533e44cba6a13cab6bdbedb28d6c150",
+      "classes": [
+        {
+          "class": "ResearchProtocolManagerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/research/research_publication_drafting.dart",
+      "beforeSha256": "e16d80d88ec854a5adec287f5593ae782d27f90eb8f37eb7fdb0cdc50d266cbd",
+      "classes": [
+        {
+          "class": "ResearchPublicationDraftingScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/research/trial_data_collection_crf.dart",
+      "beforeSha256": "0808db00f6e3e80b4d2ae74f7bd108ca4a326e2a9aa2c3d2585333aa51b51bac",
+      "classes": [
+        {
+          "class": "TrialDataCollectionCRFScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/telehealth/asynchronous_consultation_inbox.dart",
+      "beforeSha256": "d5d9d6ac316d5ed21891634fe403f0d027ac2b703adf5983e8f0e03b49d7ca31",
+      "classes": [
+        {
+          "class": "AsynchronousConsultationInboxScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/telehealth/chronic_care_management_tracker.dart",
+      "beforeSha256": "98e712fdc8377484dd50c58c9b8aff65084e3f8ecea43f1d392a8224db962ec5",
+      "classes": [
+        {
+          "class": "ChronicCareManagementTrackerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/telehealth/device_integration_hub.dart",
+      "beforeSha256": "eec320f09f85b6055f8f585e1e29880e6fd5e2f77d46163a0455881a1261871d",
+      "classes": [
+        {
+          "class": "DeviceIntegrationHubScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/telehealth/digital_symptom_checker.dart",
+      "beforeSha256": "aa1659bda07089bf38aadec69b0a45b3ce77bca356a0a2fad84cfe4b9092a42c",
+      "classes": [
+        {
+          "class": "DigitalSymptomCheckerScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/telehealth/remote_diagnostics_viewer.dart",
+      "beforeSha256": "bea0cdb9bce4ed8c91efd70de44056be051cac1f45baea10fdafa7d2d6d9a5d2",
+      "classes": [
+        {
+          "class": "RemoteDiagnosticserScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/telehealth/remote_patient_monitoring_dashboard.dart",
+      "beforeSha256": "a57fc6c6704215521b0142379ab776cd0becbdd2474531257f4f0109603efe89",
+      "classes": [
+        {
+          "class": "RemotePatientMonitoringDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/telehealth/telehealth_consultation_room.dart",
+      "beforeSha256": "1cc54f5179bc4d503b0f4a8e0e0b1ce9d291691ad53ec67a4fe234314b37e2f1",
+      "classes": [
+        {
+          "class": "TelehealthConsultationRoomScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/telehealth/telehealth_quality_metrics.dart",
+      "beforeSha256": "da6a0b8ac8c83e10f93cb1c28e81bda464ac50088c075ae380da7553b19cd70d",
+      "classes": [
+        {
+          "class": "TelehealthQualityMetricsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/telehealth/telemedicine_prescription_pad.dart",
+      "beforeSha256": "b1e6f6b02e8192b35e651c8a62bfdbf3d1de1bee6f85ae726bd5350390ae890a",
+      "classes": [
+        {
+          "class": "TelemedicinePrescriptionPadScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/features/telehealth/virtual_waiting_room.dart",
+      "beforeSha256": "df1d5fc292e0bc71a15ea9e687366566eb5782b5d0f72b59fc61cae7ca649b11",
+      "classes": [
+        {
+          "class": "VirtualWaitingRoomScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/common/dynamic_screen_analytics_screen.dart",
+      "beforeSha256": "9e4f349d77e63f1568ff516f65c6471daaa60bd97f2c095aad53e6b6bbd7e6a8",
+      "classes": [
+        {
+          "class": "DynamicScreenAnalyticsScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/common/dynamic_screen_compliance_screen.dart",
+      "beforeSha256": "200191fe5ff854ae228199e9adb7fe40706dd0bd8c9cf413f1fdf758a80f7f39",
+      "classes": [
+        {
+          "class": "DynamicScreenComplianceScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/common/shared_screen_stubs.dart",
+      "beforeSha256": "4be8cf5537653a24e109a44b569877e20de9a94011c324d0f530942114e1d30c",
+      "classes": [
+        {
+          "class": "ScreenNotImplementedScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/management/screen_progress_dashboard.dart",
+      "beforeSha256": "2df8c8ba4da4cc4a7521f790a984152a28efc1ac35d38f3eb55397de5a10aedc",
+      "classes": [
+        {
+          "class": "ScreenProgressDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_controller.dart",
+      "beforeSha256": "ca345b42efc6d2e7a924cced4431e1432965a49ec2f7524247f11d1ad34b8cd7",
+      "classes": [
+        {
+          "class": "PswDashboardScreenState",
+          "customCopyWith": true
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_screen.dart",
+      "beforeSha256": "93813b38d83efe5b8ef0cf6faba9f2d7c17797e6e7e36de361db77f7ef4695f9",
+      "classes": [
+        {
+          "class": "CareDashboardScreenState",
+          "customCopyWith": false
+        }
+      ]
+    }
+  ]
+}

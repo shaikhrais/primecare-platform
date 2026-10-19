@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "73ed61dcf5f5b047cf97a0f5e705212ed6f9359d",
+  "files": [
+    "packages/flutter_core/lib/models/platform_types.dart",
+    "packages/flutter_core/lib/registry/platform_role.dart",
+    "packages/primecare_models/lib/src/models/platform_types.dart",
+    "packages/primecare_models/lib/src/models/platform_role.dart",
+    "packages/flutter_core/lib/src/application/services/data_logistics_hub.dart",
+    "packages/primecare_models/lib/src/models/base_platform_tenant.dart",
+    "packages/primecare_models/lib/src/models/base_platform_module.dart",
+    "packages/primecare_models/lib/src/models/base_platform_application.dart",
+    "packages/primecare_models/lib/src/models/base_platform_role_definition.dart",
+    "packages/flutter_core/lib/src/domain/governance/platform_tenant.dart",
+    "packages/flutter_core/lib/src/domain/governance/platform_module.dart",
+    "packages/flutter_core/lib/src/domain/governance/platform_role_definition.dart",
+    "packages/flutter_core/lib/src/domain/governance/platform_application.dart",
+    "packages/flutter_core/lib/src/domain/governance/prime_care_tenant.dart",
+    "packages/flutter_core/lib/src/domain/governance/dynamic_platform_module.dart",
+    "packages/flutter_core/lib/models/domain_governance.dart"
+  ],
+  "sharedEnums": 5,
+  "sharedParents": 4,
+  "governanceClassFiles": 6,
+  "completedWorkflows": 0
+}

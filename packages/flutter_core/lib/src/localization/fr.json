@@ -3865,5 +3865,6 @@
         "verifying": "Verifying Integrity...",
         "trust_upgrade_required": "Security Upgrade Required",
         "trust_upgrade_desc": "Your device is not fully trusted. Please perform MFA to enable bank-grade access."
-    }
+    },
+    "auth_flow_unavailable": "Cette fonctionnalité d’authentification n’est pas encore disponible. Veuillez contacter votre administrateur."
 }

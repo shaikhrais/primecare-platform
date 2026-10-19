@@ -1,0 +1,12 @@
+{
+  "sourceCommit": "b41d21be2ac6de9ae8b32e4adadf24c66081c440",
+  "existingHandlers": 20,
+  "completedWorkflows": 0,
+  "originalHashes": {
+    "services/governance_api/lib/src/controllers/governance_controller.dart": "7e93f766e08b14d1a8ababd758673c1cee1f64150c848933a434638cce647a5d",
+    "services/governance_api/lib/src/repositories/governance_repository.dart": "08de5ec41e57f065cfb8dfb1fffd0ea25b3093fa9d8ddd6fce0972e6ccbab06a",
+    "services/governance_api/lib/src/core/base_controller.dart": "d1db87767ad980819e929101a4a1c982a4f6a869e8a197db02daf2b505e04b62",
+    "services/governance_api/lib/src/core/base_repository.dart": "e4aed9ccc359b79d674af574b85ca7278dad1501822fa694e9a02ad9b44945b1",
+    "services/governance_api/lib/src/routes/governance_routes.dart": "e921fa7c6f50d65fed1ec0aed8fb4856ef681503f8611522327373377a0b96ae"
+  }
+}

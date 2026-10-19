@@ -1,0 +1,13 @@
+import {PGlite} from '@electric-sql/pglite';
+import assert from 'node:assert/strict';
+import {auditDatabase} from './audit-tables.mjs';
+const db=new PGlite();await db.exec(`CREATE SCHEMA audit; CREATE TABLE audit.govt_parents(_primecare_import_row bigint,id bigint,code text,status text); INSERT INTO audit.govt_parents VALUES(1,1,'private-marker','active'),(2,1,'private-marker','active'),(3,2,'b','retired'),(4,3,'private-marker','active'); CREATE TABLE audit.govt_children(_primecare_import_row bigint,id bigint,parent_id bigint); INSERT INTO audit.govt_children VALUES(1,1,1),(2,2,999),(3,3,2),(4,4,NULL); CREATE TABLE audit.govt_source_manifest(manifest text); INSERT INTO audit.govt_source_manifest VALUES('fixture');`);
+const cols=names=>names.map(([name,type])=>({name,storage_types:[type]}));
+const manifest={tables:[{name:'parents',rows:4,columns:cols([['id','integer'],['code','text'],['status','text']])},{name:'children',rows:4,columns:cols([['id','integer'],['parent_id','integer']])}]};
+const key={name:'pk',columns:['id'],collations:['BINARY'],partial:false,expression:false};
+const plan={parents:{primaryKey:['id'],uniqueKeys:[key],foreignKeys:[]},children:{primaryKey:['id'],uniqueKeys:[key],foreignKeys:[{id:0,target:'parents',parts:[{seq:0,from:'parent_id',to:'id'}]}]}};
+await db.query('BEGIN READ ONLY');
+const report=await auditDatabase(db,{schema:'audit',manifestTable:'govt_source_manifest',tablePrefix:'govt_'},manifest,plan,{tables:{},scannedFiles:0,skippedFiles:[],limits:'fixture'});
+const parent=report.tables.find(t=>t.sourceName==='parents'),child=report.tables.find(t=>t.sourceName==='children');
+assert.equal(parent.exactDuplicates.extraRows,1);assert.equal(parent.nonKeyPayloadDuplicates.extraRows,2);assert.equal(parent.uniqueKeys[0].extraRows,1);assert.equal(child.foreignKeys[0].orphanRows,1);assert.equal(parent.retiredIncomingReferences[0].rows,1);assert.equal(parent.explicitRetiredRows,1);assert.equal(report.cleanupAuthorized,false);assert(!JSON.stringify(report).includes('private-marker'));assert(report.complete);assert.equal(report.tables.length,3);
+await db.query('ROLLBACK');await db.close();console.log('Duplicate, key, orphan, retired-reference and aggregate-only privacy checks pass.');

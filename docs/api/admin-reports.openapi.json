@@ -1,0 +1,405 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare shared admin reporting",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/governance/reports": {
+      "get": {
+        "operationId": "shared_report_catalog",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "enum": [
+                "en",
+                "fr",
+                "es"
+              ]
+            }
+          }
+        ],
+        "description": "Active bearer session; tenant derives from identity; shared_report_grants authorize each action. Runs and downloads require the report audit migration. Email is limited to 10 new requests per actor per hour; ambiguous sends are never retried automatically.",
+        "responses": {
+          "200": {
+            "description": "Report, catalog, PDF or accepted replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Email provider accepted; not inbox delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Missing or expired session"
+          },
+          "403": {
+            "description": "Permission or tenant mismatch"
+          },
+          "404": {
+            "description": "Unknown report"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "409": {
+            "description": "Conflicting key or delivery still sending/unknown"
+          },
+          "413": {
+            "description": "Body, rows, pages or attachment too large"
+          },
+          "429": {
+            "description": "Email quota"
+          },
+          "503": {
+            "description": "Data, audit or mail unavailable; delivery may be unknown"
+          }
+        }
+      }
+    },
+    "/v1/governance/reports/{reportId}": {
+      "get": {
+        "operationId": "shared_report_run",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "reportId",
+            "required": true,
+            "schema": {
+              "enum": [
+                "page_readiness",
+                "organization_summary",
+                "platform_administration"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "enum": [
+                "en",
+                "fr",
+                "es"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "readiness",
+            "schema": {
+              "enum": [
+                "all",
+                "created",
+                "ready"
+              ]
+            }
+          }
+        ],
+        "description": "Active bearer session; tenant derives from identity; shared_report_grants authorize each action. Runs and downloads require the report audit migration. Email is limited to 10 new requests per actor per hour; ambiguous sends are never retried automatically.",
+        "responses": {
+          "200": {
+            "description": "Report, catalog, PDF or accepted replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Email provider accepted; not inbox delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Missing or expired session"
+          },
+          "403": {
+            "description": "Permission or tenant mismatch"
+          },
+          "404": {
+            "description": "Unknown report"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "409": {
+            "description": "Conflicting key or delivery still sending/unknown"
+          },
+          "413": {
+            "description": "Body, rows, pages or attachment too large"
+          },
+          "429": {
+            "description": "Email quota"
+          },
+          "503": {
+            "description": "Data, audit or mail unavailable; delivery may be unknown"
+          }
+        }
+      }
+    },
+    "/v1/governance/reports/{reportId}/pdf": {
+      "get": {
+        "operationId": "shared_report_pdf",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "reportId",
+            "required": true,
+            "schema": {
+              "enum": [
+                "page_readiness",
+                "organization_summary",
+                "platform_administration"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "enum": [
+                "en",
+                "fr",
+                "es"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "readiness",
+            "schema": {
+              "enum": [
+                "all",
+                "created",
+                "ready"
+              ]
+            }
+          }
+        ],
+        "description": "Active bearer session; tenant derives from identity; shared_report_grants authorize each action. Runs and downloads require the report audit migration. Email is limited to 10 new requests per actor per hour; ambiguous sends are never retried automatically.",
+        "responses": {
+          "200": {
+            "description": "Report, catalog, PDF or accepted replay",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Email provider accepted; not inbox delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Missing or expired session"
+          },
+          "403": {
+            "description": "Permission or tenant mismatch"
+          },
+          "404": {
+            "description": "Unknown report"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "409": {
+            "description": "Conflicting key or delivery still sending/unknown"
+          },
+          "413": {
+            "description": "Body, rows, pages or attachment too large"
+          },
+          "429": {
+            "description": "Email quota"
+          },
+          "503": {
+            "description": "Data, audit or mail unavailable; delivery may be unknown"
+          }
+        }
+      }
+    },
+    "/v1/governance/reports/{reportId}/email": {
+      "post": {
+        "operationId": "shared_report_email",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "reportId",
+            "required": true,
+            "schema": {
+              "enum": [
+                "page_readiness",
+                "organization_summary",
+                "platform_administration"
+              ]
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "description": "Active bearer session; tenant derives from identity; shared_report_grants authorize each action. Runs and downloads require the report audit migration. Email is limited to 10 new requests per actor per hour; ambiguous sends are never retried automatically.",
+        "responses": {
+          "200": {
+            "description": "Report, catalog, PDF or accepted replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Email provider accepted; not inbox delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Missing or expired session"
+          },
+          "403": {
+            "description": "Permission or tenant mismatch"
+          },
+          "404": {
+            "description": "Unknown report"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "409": {
+            "description": "Conflicting key or delivery still sending/unknown"
+          },
+          "413": {
+            "description": "Body, rows, pages or attachment too large"
+          },
+          "429": {
+            "description": "Email quota"
+          },
+          "503": {
+            "description": "Data, audit or mail unavailable; delivery may be unknown"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "to",
+                  "confirmed"
+                ],
+                "properties": {
+                  "locale": {
+                    "enum": [
+                      "en",
+                      "fr",
+                      "es"
+                    ]
+                  },
+                  "search": {
+                    "type": "string",
+                    "maxLength": 100
+                  },
+                  "readiness": {
+                    "enum": [
+                      "all",
+                      "created",
+                      "ready"
+                    ]
+                  },
+                  "to": {
+                    "type": "string",
+                    "format": "email",
+                    "maxLength": 254
+                  },
+                  "confirmed": {
+                    "const": true
+                  },
+                  "subject": {
+                    "type": "string",
+                    "maxLength": 150
+                  },
+                  "message": {
+                    "type": "string",
+                    "maxLength": 1000
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

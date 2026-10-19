@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {build} from 'esbuild';
-import {reviewedMethodBlocker,reviewedBlockedGroups,auditReachability,METHOD_BLOCKER_SOURCE_HASHES} from './audit-api-reachability.mjs';
+import {reviewedMethodBlocker,reviewedBlockedGroups,auditReachability,legacyAuditInventory,METHOD_BLOCKER_SOURCE_HASHES} from './audit-api-reachability.mjs';
 
 const sources=Object.fromEntries(Object.keys(METHOD_BLOCKER_SOURCE_HASHES).map(p=>[p,readFileSync(p,'utf8')]));
 const cases=[
@@ -82,3 +82,9 @@ for(const c of cases){
   fixture();assert.equal((await call(c,'GET',false)).status,401);assert.equal(connections,0);assert.deepEqual(queries,[]);
  });
 }
+
+test('legacy route audit retains only exact migration identities without changing the full catalog',()=>{
+ const rows=[{api:'GET /v1/auth/legacy'},{api:'GET /v1/governance/reports'},{api:'POST /v1/auth/legacy'}];
+ assert.deepEqual(legacyAuditInventory(rows,{operations:[{api:rows[0].api}]}),[rows[0]]);
+ assert.equal(rows.length,3);
+});

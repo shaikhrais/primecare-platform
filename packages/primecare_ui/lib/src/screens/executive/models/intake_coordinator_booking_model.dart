@@ -1,12 +1,12 @@
+import 'package:primecare_models/primecare_models.dart';
+
 // Governance - Category: model | Purpose: Data entity definition for IntakeCoordinatorBookingScreen
 // TODO: Implement DTO, serialization mapping, and state values.
 
-class IntakeCoordinatorBookingModel {
+class IntakeCoordinatorBookingModel extends BaseEmptyModel {
   const IntakeCoordinatorBookingModel();
-  
+
   factory IntakeCoordinatorBookingModel.fromJson(Map<String, dynamic> json) {
     return const IntakeCoordinatorBookingModel();
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

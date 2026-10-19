@@ -4,6 +4,16 @@ import 'package:flutter_core/flutter_core.dart';
 
 class MockApiClient implements ApiClient {
   @override
+  Future<ApiResponse> downloadBytes(String path) async {
+    throw UnsupportedError('Downloads are outside this registry test');
+  }
+
+  @override
+  Future<ApiResponse> revokeSession(String token) async {
+    throw UnsupportedError('Session revocation is outside this registry test');
+  }
+
+  @override
   Future<ApiResponse> get(
     String path, {
     Map<String, dynamic>? queryParameters,
@@ -12,7 +22,7 @@ class MockApiClient implements ApiClient {
   }
 
   @override
-  Future<ApiResponse> post(String path, {dynamic body}) async {
+  Future<ApiResponse> post(String path, {dynamic body, Map<String, String>? headers}) async {
     return ApiResponse(data: <String, dynamic>{}, statusCode: 200);
   }
 

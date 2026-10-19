@@ -5,8 +5,27 @@ on:
       - 'packages/primecare_ui/lib/src/application/**'
       - 'packages/primecare_ui/lib/primecare_ui.dart'
       - 'packages/primecare_ui/test/base_primecare_app_test.dart'
+      - 'packages/primecare_ui/test/base_workspace_controller_test.dart'
       - 'apps/*/lib/main.dart'
       - 'scripts/check-app-shell-inheritance.py'
+      - 'packages/flutter_core/lib/models/clinical_article*'
+      - 'packages/flutter_core/lib/providers/user_management_provider.dart'
+      - 'packages/flutter_core/test/shared_data_model_imports_test.dart'
+      - 'packages/primecare_models/**'
+      - 'scripts/refactor_screen_metadata.py'
+      - 'scripts/verify_screen_metadata_parity.py'
+      - 'docs/refactoring/screen-metadata-migration.*'
+      - 'packages/flutter_core/lib/models/screen_metadata.dart'
+      - 'packages/flutter_core/lib/models/navigation_item.dart'
+      - 'scripts/refactor_platform_governance.py'
+      - 'scripts/verify_platform_governance_parity.py'
+      - 'docs/refactoring/platform-governance-migration.*'
+      - 'packages/flutter_core/lib/models/domain_governance.dart'
+      - 'packages/flutter_core/lib/models/platform_types.dart'
+      - 'packages/flutter_core/lib/registry/platform_role.dart'
+      - 'packages/flutter_core/lib/src/domain/governance/**'
+      - 'scripts/refactor_shared_data_models.py'
+      - 'docs/refactoring/shared-data-model-migration.*'
       - 'packages/flutter_core/lib/business_core.dart'
       - 'packages/flutter_core/lib/*_service.dart'
       - 'packages/flutter_core/lib/models/domain_response.dart'
@@ -26,11 +45,42 @@ on:
       - 'apps/**/lib/**/*_screen_controller.dart'
       - 'packages/server_core/**'
       - 'services/**/bin/server.dart'
+      - 'services/**/lib/src/application/**'
+      - 'scripts/refactor_service_entrypoints.py'
+      - 'scripts/refactor_gateway_layers.py'
+      - 'docs/refactoring/gateway-layer-migration.*'
+      - 'services/api_gateway/lib/src/infrastructure/**'
+      - 'services/api_gateway/lib/src/gateway_core.dart'
+      - 'scripts/refactor_auth_layers.py'
+      - 'scripts/refactor_domain_hosts.py'
+      - 'scripts/verify_domain_host_parity.py'
+      - 'docs/refactoring/domain-host-migration.*'
+      - 'services/**/lib/src/controllers/**'
+      - 'services/**/lib/src/repositories/**'
+      - 'services/**/lib/src/routes/**'
+      - 'docs/refactoring/auth-layer-migration.*'
+      - 'packages/database_client/lib/src/base_platform_repository.dart'
+      - 'docs/refactoring/service-entrypoint-migration.*'
+      - 'services/**/lib/routes.dart'
+      - 'services/**/lib/src/features/**'
+      - 'scripts/refactor_api_features.py'
+      - 'scripts/verify_api_feature_parity.py'
+      - 'docs/refactoring/api-feature-migration.*'
+      - 'services/governance_api/lib/src/**'
+      - 'services/governance_api/test/governance_shared_parents_test.dart'
+      - 'packages/database_client/lib/src/base_repository.dart'
+      - 'packages/database_client/lib/database_client.dart'
+      - 'scripts/refactor_governance_layers.py'
+      - 'scripts/verify_governance_layer_parity.py'
+      - 'docs/refactoring/governance-layer-migration.*'
+      - 'scripts/check-api-route-inheritance.py'
+      - 'docs/refactoring/api-route-migration.*'
       - 'services/**/pubspec.yaml'
       - 'services/**/Dockerfile'
       - 'docker-compose.yml'
       - 'docs/architecture/**'
       - 'scripts/check-controller-inheritance.py'
+      - 'scripts/check-skeleton-structure.py'
       - 'scripts/check-http-host-inheritance.py'
       - 'scripts/generate-controller-compile-test.py'
       - 'scripts/nuke_and_restore_controllers.js'
@@ -56,18 +106,45 @@ jobs:
           cache: true
       - name: Check pinned controller identity and Dart route compatibility
         run: |
+          python3 scripts/check-skeleton-structure.py
           python3 scripts/check-controller-inheritance.py
           python3 scripts/check-http-host-inheritance.py
+          python3 scripts/check-api-route-inheritance.py
+          python3 scripts/refactor_api_features.py --check
+          python3 scripts/refactor_governance_layers.py --check
+          python3 scripts/refactor_service_entrypoints.py --check
+          python3 scripts/refactor_auth_layers.py --check
+          python3 scripts/refactor_shared_data_models.py --check
+          python3 scripts/refactor_platform_governance.py --check
+          python3 scripts/refactor_screen_metadata.py --check
+          python3 scripts/refactor_gateway_layers.py --check
+          python3 scripts/refactor_domain_hosts.py --check
           python3 scripts/check-app-shell-inheritance.py
           python3 scripts/check-core-layer-migration.py
+      - name: Verify shared Dart data models
+        working-directory: packages/primecare_models
+        run: |
+          dart pub get
+          dart analyze lib test
+          dart test
       - name: Resolve shared Flutter dependencies
         working-directory: packages/flutter_core
         run: flutter pub get
+      - name: Verify platform roles and governance extraction
+        run: |
+          python3 scripts/verify_platform_governance_parity.py --flutter flutter
+          cd packages/flutter_core
+          flutter analyze lib/models/platform_types.dart lib/registry/platform_role.dart lib/models/domain_governance.dart lib/src/domain/governance lib/src/application/services/data_logistics_hub.dart
+      - name: Verify screen metadata and navigation inheritance
+        run: |
+          python3 scripts/verify_screen_metadata_parity.py --flutter flutter
+          cd packages/flutter_core
+          flutter analyze lib/models/screen_metadata.dart lib/models/navigation_item.dart
       - name: Compile every migrated controller and test shared lifecycle
         run: |
           python3 scripts/generate-controller-compile-test.py
           cd packages/flutter_core
-          flutter test test/base_controllers_test.dart test/controller_migration_compile_test.dart
+          flutter test test/base_controllers_test.dart test/controller_migration_compile_test.dart test/shared_data_model_imports_test.dart
           flutter analyze lib/controllers.dart lib/src/controllers test/base_controllers_test.dart
       - name: Verify shared Dart host
         working-directory: packages/server_core
@@ -82,12 +159,30 @@ jobs:
               (cd "$service" && dart pub get && dart analyze bin/server.dart)
             fi
           done
+      - name: Analyze separated service layers and verify handler parity
+        run: |
+          for service in auth_api billing_api client_api compliance_api franchise_reporting_api notes_api notification_api provider_api scheduling_api verification_api visit_api; do
+            paths=(lib/src/application)
+            for layer in controllers repositories routes; do
+              if [ -d "services/$service/lib/src/$layer" ]; then paths+=("lib/src/$layer"); fi
+            done
+            (cd "services/$service" && dart analyze "${paths[@]}")
+          done
+          python3 scripts/verify_domain_host_parity.py
+      - name: Compare every extracted route against its original response
+        run: python3 scripts/verify_api_feature_parity.py
+      - name: Verify governance controller and repository extraction
+        run: |
+          python3 scripts/verify_governance_layer_parity.py
+          cd services/governance_api
+          dart analyze lib/src/controllers lib/src/core/base_controller.dart lib/src/core/base_repository.dart lib/src/repositories/governance_repository.dart lib/src/routes test/governance_shared_parents_test.dart
+          dart test test/governance_shared_parents_test.dart
       - name: Verify shared Flutter application shell
         working-directory: packages/primecare_ui
         run: |
           flutter pub get
-          flutter analyze lib/src/application test/base_primecare_app_test.dart
-          flutter test test/base_primecare_app_test.dart
+          flutter analyze lib/src/application test/base_primecare_app_test.dart test/base_workspace_controller_test.dart
+          flutter test test/base_primecare_app_test.dart test/base_workspace_controller_test.dart
       - name: Verify business, repository, model and permission parents
         working-directory: packages/flutter_core
         run: |
