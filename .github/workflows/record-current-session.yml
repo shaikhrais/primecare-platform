@@ -1,0 +1,97 @@
+name: Record current-session acceptance and clean handoff
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/record-current-session.yml]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Wait for successful isolated acceptance run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os,json,time,urllib.request
+          url='https://api.github.com/repos/shaikhrais/primecare-platform/actions/runs/39333651444'
+          for _ in range(60):
+              run=json.load(urllib.request.urlopen(urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})))
+              if run['status']=='completed':
+                  assert run['conclusion']=='success', 'Isolated acceptance must succeed before recording scoped pass'
+                  break
+              time.sleep(10)
+          else:raise RuntimeError('Acceptance run incomplete; no pass recorded')
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39333651444
+          github-token: ${{ github.token }}
+          name: current-session-native-browser-evidence
+          path: test-results
+      - name: Record attempt and final cleaned main checkpoint
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GH_TOKEN: ${{ github.token }}
+          EVIDENCE_RUN: '39333651444'
+        run: |
+          python -u - <<'PY'
+          import sys,os,json,pathlib,hashlib,urllib.request,subprocess
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,summary,_bindings_current
+          root=pathlib.Path.cwd();base='test-results/current-session';receipt=json.loads((root/base/'results.json').read_text());policy=json.loads((root/base/'governance.json').read_text());flow='auth.read-current-session'
+          assert receipt['workflow_id']==flow and receipt['passed'] is True and receipt['wholeTaskVerified'] is False
+          assert len(receipt['cases'])==3 and len(receipt['apiChecks'])==4
+          assert set(receipt['roleChecks'])==set(json.loads(policy['virtual_workflow_definitions'][0]['actor_roles_json']))
+          assert _bindings_current(receipt['source_bindings'],root)
+          def request(path):
+              return json.load(urllib.request.urlopen(urllib.request.Request('https://api.github.com/repos/shaikhrais/primecare-platform/'+path,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})))
+          run=request('actions/runs/'+os.environ['EVIDENCE_RUN']);assert run['conclusion']=='success' and run['head_sha']==receipt['commit']
+          artifacts=request('actions/runs/'+os.environ['EVIDENCE_RUN']+'/artifacts')['artifacts'];art=next(a for a in artifacts if a['name']=='current-session-native-browser-evidence' and not a['expired']);url=run['html_url']+'/artifacts/'+str(art['id'])
+          files=[('results.json','browser'),('governance.json','specification'),('run.mjs','test')]+[('identity-'+locale+'.webm','video') for locale in ['en','fr','es']]
+          evidence=[dict(path=base+'/'+name,sha256=hashlib.sha256((root/base/name).read_bytes()).hexdigest(),kind=kind,url=url) for name,kind in files]
+          blockers=receipt['limitations']+['Registered POST /v1/auth/me row 779 permission_key is authenticated_self_session, but api_permissions rows 49793..49856 carry api_permission_api_v1_client_treatment_history_list_get. Reconcile through an approved production metadata writer; no permission/grant mutation inferred.','Live GET row 16402 service_name is null while POST row 779 says PRISMA; actual gateway routes to auth. Metadata service ownership remains unreconciled.','Definition source hashes remain historical. Full registered-role UI, deployed cookie/session/edge policy, accessibility/PWA, database-outage UI, governed video playback and independent review gates remain unproven.']
+          next_action='Inspect the next live not_run business process and its registered UI/API/permission contract. Current-session scoped source proof is refreshed; resolve recorded metadata discrepancy and full deployment/review gates before any verified promotion.'
+          with ProductionWorkflowStore() as db:
+              assert db.execute('SELECT definition_sha256 FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()[0]==receipt['definition_sha256']
+              output=record_attempt(db,flow,dict(status='implemented-unverified',test_status='scoped_pass',scope='scoped',source_bindings=receipt['source_bindings'],evidence=evidence,blockers=blockers,next_action=next_action),root)
+              candidates=db.execute("SELECT flow_id,title,verification_status,test_status FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND test_status='not_run' AND verification_status!='blocked' ORDER BY flow_id LIMIT 8").fetchall()
+              totals=summary(db)
+              if candidates: next_action='Inspect '+candidates[0][0]+': '+candidates[0][1]+' from live production requirements and current main; prepare isolated credentials and validate the registered UI/API/database/reload path.'
+          print('CURRENT_SESSION_ATTEMPT_COMMITTED '+json.dumps(dict(attempt=output,evidence_url=url,role_checks=len(receipt['roleChecks']),candidates=candidates,summary=totals)))
+          # Wait for the read/test operational workflows to be removed from main. This
+          # makes the final production handoff describe the cleaned, published source.
+          import time
+          clean=None
+          for _ in range(24):
+              branches=request('branches?per_page=100');prs=request('pulls?state=open&per_page=100')
+              main=next(b['commit']['sha'] for b in branches if b['name']=='main')
+              subprocess.run(['git','fetch','--no-tags','origin','main'],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              absent=all(subprocess.run(['git','cat-file','-e',main+':'+path],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode!=0 for path in ['.github/workflows/current-session-recovery.yml','.github/workflows/record-current-session.yml'])
+              if absent and len(branches)==1 and not prs:
+                  for path,sha in receipt['source_bindings'].items():assert hashlib.sha256(subprocess.check_output(['git','show',main+':'+path])).hexdigest()==sha
+                  checks=request('commits/'+main+'/check-runs?per_page=100')['check_runs']
+                  if checks and all(c['status']=='completed' and c['conclusion'] in ['success','skipped','neutral'] for c in checks):
+                      clean=dict(main_sha=main,branch_count=1,open_prs=0,active_branch=None,work_branch_sha=None,pr=None,merge_cleanup_state='No application change or work branch created; temporary operational workflows removed; main checks passed',checks=[dict(name=c['name'],conclusion=c['conclusion']) for c in checks]);break
+              time.sleep(15)
+          assert clean,'Final clean main/checkpoint conditions not yet met; attempt is committed, handoff must be resumed'
+          with ProductionWorkflowStore() as db:
+              checkpoint=db.execute('SELECT attempt_id FROM virtual_workflow_checkpoints WHERE flow_id=?',(flow,)).fetchone()[0]
+              assert checkpoint==output['attempt_id']
+              handoff=dict(clean,workflow_id=flow,attempt_id=checkpoint,verification_status='implemented-unverified',test_status='scoped_pass',test_result=dict(browser_cases=3,registered_role_api_checks=len(receipt['roleChecks']),api_groups=4),evidence_url=url,source_commit=receipt['commit'],blockers=blockers,synthetic_data_cleanup=receipt['cleanup'],next_action=next_action,next_candidates=candidates,totals=summary(db))
+              db.execute('INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action) VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,next_action=excluded.next_action,invalidation_json=\'[]\',updated_at=CURRENT_TIMESTAMP',(flow,checkpoint,json.dumps(handoff,sort_keys=True)))
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('recovery-handoff-current',json.dumps(handoff,sort_keys=True)))
+          print('CURRENT_SESSION_HANDOFF_COMMITTED '+json.dumps(handoff))
+          
+          PY
