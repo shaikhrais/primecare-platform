@@ -20,7 +20,7 @@ const adapter={query:(sql,values)=>sql.includes('pg_advisory_xact_lock')?Promise
 const result=await importGovernance(adapter,out,{expectedManifestHash:receipt.manifest_sha256});
 assert.equal(result.rows,2);assert.equal(result.tables,2);assert.equal(result.verified,true);
 assert.deepEqual((await db.query('SELECT * FROM public.business_data')).rows,[{id:7}]);
-assert.equal((await db.query(`SELECT title FROM "${result.schema}".sample WHERE id=1`)).rows[0].title,'Français / Español ☃');
+assert.equal((await db.query(`SELECT title FROM "${result.schema}".govt_sample WHERE id=1`)).rows[0].title,'Français / Español ☃');
 await assert.rejects(importGovernance(adapter,out,{expectedManifestHash:receipt.manifest_sha256}),/already exists/);
 await assert.rejects(importGovernance(adapter,out,{expectedManifestHash:'0'.repeat(64)}),/manifest hash/);
 const original=await readFile(join(out,'manifest.json'),'utf8');
