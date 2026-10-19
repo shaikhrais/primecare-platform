@@ -38,7 +38,7 @@ try{
 
  await db.query('ALTER TABLE users ADD COLUMN password_hash text');await db.query('UPDATE users SET password_hash=$1',[await bcrypt.hash(password,12)]);await db.query('DELETE FROM auth_sessions');
  await db.query(await readFile('packages/database/migrations/20260928_auth_rate_limits.sql','utf8'));
- const css=await readFile('websites/typescript/src/styles.css','utf8'),theme=JSON.parse(execFileSync('python3',['-c',"import sqlite3,json;d=sqlite3.connect('.agents/governance/governance.db');print(json.dumps(dict(d.execute('SELECT css_variable_name,token_value FROM theme_design_tokens WHERE theme_id=1 AND active=1'))))"],{encoding:'utf8'}));
+ const css=await readFile('websites/typescript/src/styles.css','utf8'),theme=JSON.parse(execFileSync('python3',['-c',"import sys,json;sys.path.insert(0,'tools/governance-production');from connection import connect;d=connect();print(json.dumps(dict(d.execute('SELECT css_variable_name,token_value FROM theme_design_tokens WHERE theme_id=1 AND active=1'))));d.close()"],{encoding:'utf8'}));
  const html=`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Isolated PrimeCare workflow</title><style>:root{${Object.entries(theme).map(([k,v])=>k+':'+v+';').join('')}}${css}</style></head><body><div id="app"></div><script src="/app.js"></script></body></html>`;
  server=createServer(async(req,res)=>{
   try{

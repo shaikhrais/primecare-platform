@@ -65,9 +65,12 @@ class Connection:
             ident=exp.column(c['name'],quoted=True)
             if not c['storage_types']:
                 declared=c['declared_type'].upper();typ='BIGINT' if 'INT' in declared else 'DOUBLE PRECISION' if any(k in declared for k in ('REAL','FLOA','DOUB')) else 'TEXT'
-                # The import encoded these columns as all-NULL JSONB. Never discard an unexpected payload.
+                # Preserve tagged values added by the explicit workflow tracking writer.
+                # Unknown tags still fail rather than hiding unexpected payloads.
                 col=ident.sql(dialect='postgres')
-                expression=sqlglot.parse_one("CASE WHEN "+col+" IS NULL OR "+col+" ->> 't' = 'null' THEN CAST(NULL AS "+typ+") ELSE CAST(1 / (LENGTH("+col+"::text) - LENGTH("+col+"::text)) AS "+typ+") END",read='postgres')
+                tag="integer" if typ=="BIGINT" else "text" if typ=="TEXT" else None
+                accepted=(" WHEN "+col+" ->> 't' = '"+tag+"' AND jsonb_typeof("+col+" -> 'v') = 'string' THEN CAST("+col+" ->> 'v' AS "+typ+")") if tag else ""
+                expression=sqlglot.parse_one("CASE WHEN "+col+" IS NULL OR "+col+" ->> 't' = 'null' THEN CAST(NULL AS "+typ+")"+accepted+" ELSE CAST(1 / (LENGTH("+col+"::text) - LENGTH("+col+"::text)) AS "+typ+") END",read='postgres')
                 ident=expression
             elif len(c['storage_types'])!=1:raise GovernanceReadError('Mixed storage requires an explicit column migration')
             columns.append(exp.alias_(ident,c['name'],quoted=True))
