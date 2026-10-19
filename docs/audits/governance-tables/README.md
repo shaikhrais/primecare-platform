@@ -29,6 +29,19 @@ The 72 dependency/metadata tables comprise 11 required-metadata, two provenance,
 
 The remaining review queue includes 690 repeated test-case payloads, six code-verification payloads, two screen-governance payloads and two issue-resolution payloads. The audit has not established whether they are repeated seeds, distinct executions, distinct issues or intentional registrations. Resolve source ownership, record identity, execution/issue binding and replacement before proposing record-level changes. Preserve the 335 workflow evidence records and 309 workflow attempt records.
 
+### Overlapping registries need an authority decision
+
+Within-table equality does not establish whether two different tables are redundant. These families require an explicit source-of-truth and replacement contract before consolidation:
+
+| Family | Tables to reconcile | Exact unresolved decision |
+|---|---|---|
+| API identity | `govt_api_endpoints`, `govt_api_endpoint_registry`, `govt_api_registry`, `govt_api_request_schemas`, `govt_api_response_schemas`, `govt_api_permissions` | Establish canonical endpoint identity and reconcile method/path plus source IDs. Existing numeric-key mismatches prohibit a simple ID join or grant remap. |
+| Localization | `govt_translations`, `govt_translation_values`, `govt_translation_keys`, `govt_language_resources`, `govt_language_resource_values`, `govt_screen_translation_map` | Resolve which tables author keys, hold locale values or bind screens, and which generators/readers own each representation. Table names and differing counts do not prove redundant translations. Preserve EN/FR/ES requirements. |
+| Component/test registration | `govt_component_selector_registry`, `govt_component_test_registry`, `govt_component_test_cases`, `govt_qa_test_id_registry`, `govt_screen_component_map` | Resolve selector identity, test-case/execution identity and stable test-ID consumers before combining registrations. Similar row counts do not prove one-to-one equivalence. |
+| Workflow catalogues | `govt_virtual_workflow_definitions`, `govt_virtual_workflow_steps`, `govt_virtual_workflow_source_links`, `govt_virtual_role_flow_guides`, `govt_virtual_flow_catalog_snapshots` | Preserve the 147 `business_process` definitions and their source/acceptance/evidence bindings. Supporting guide overlap is intentional catalogue context and does not create additional business processes. |
+
+Cross-table semantic equivalence, replacement compatibility and undeclared JSON/external references have **not** been established. No cross-table merge or obsolete-table removal is approved. The source references and declared relationship findings in the full report are the starting evidence for these decisions.
+
 ### Integrity problems are not cleanup approval
 
 All 465 supported declared unique/primary-key checks completed without a duplicate-key violation. Of 324 declared foreign-key checks, 204 were checked and 120 remain explicitly unresolved because the source affinity/type/collation or target relationship needs review. Checked relationships reported 23,110 orphan occurrences across 12 tables; occurrences can overlap and are not distinct deletable rows.
