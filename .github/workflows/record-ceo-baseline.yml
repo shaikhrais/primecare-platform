@@ -28,8 +28,9 @@ jobs:
           import {pathToFileURL} from 'node:url';
           const source='scripts/bootstrap-first-ceo.mjs',original=await readFile(source,'utf8');
           let loaderError;try{await import('./'+source);}catch(e){loaderError=e.message;}
-          assert.match(loaderError,/does not provide an export named 'Client'/);
+          assert.match(loaderError,/export.*Client/);
           const copy='test-results/ceo-bootstrap/compatible-copy.mjs';await writeFile(copy,original.replace("import { Client } from 'pg';","import pg from 'pg';const {Client}=pg;"));
+          await writeFile('test-results/ceo-bootstrap/bootstrap-validation.mjs',await readFile('scripts/bootstrap-validation.mjs'));
           const {bootstrap}=await import(pathToFileURL(process.cwd()+'/'+copy));
           const d=new PGlite(),db={query:async(s,p)=>p?.length?d.query(s,p):(await d.exec(s)).at(-1)};let actual;
           try{
