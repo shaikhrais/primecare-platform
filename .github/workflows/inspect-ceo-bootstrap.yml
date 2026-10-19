@@ -33,6 +33,7 @@ jobs:
               db.row_factory=sqlite3.Row
               flow='auth.bootstrap-first-ceo'
               queries={
+                'policy':("SELECT * FROM auth_setup_policy WHERE policy_code=?",('first_ceo',)),
                 'definition':("SELECT * FROM virtual_workflow_definitions WHERE flow_id=?",(flow,)),
                 'steps':("SELECT * FROM virtual_workflow_steps WHERE flow_id=? ORDER BY step_order",(flow,)),
                 'links':("SELECT * FROM virtual_workflow_source_links WHERE flow_id=?",(flow,)),
