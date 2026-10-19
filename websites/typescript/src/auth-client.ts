@@ -18,6 +18,18 @@ export async function login(gateway: string, email: string, password: string,
 
 export type ConfirmedIdentity = {userId:string;roles:string;status:'authenticated'};
 
+/** Confirm server revocation before a caller commits its browser sign-out. */
+export async function signOut(gateway:string,token:string,send:typeof fetch=fetch):Promise<void> {
+  const response=await send(`${gateway.replace(/\/+$/, '')}/v1/auth/logout`,{
+    method:'POST',headers:{authorization:'Bearer '+token},cache:'no-store',
+  });
+  if(!response.ok)throw new Error('Session sign-out failed');
+  let value:unknown;
+  try{value=await response.json();}catch{throw new Error('Invalid sign-out response');}
+  if(!value||typeof value!=='object'||Array.isArray(value)||
+     (value as Record<string,unknown>).status!=='signed_out')throw new Error('Invalid sign-out response');
+}
+
 /** Clean up a newly issued session that cannot be safely committed by the UI. */
 export async function revokeProvisionalSession(gateway:string,token:string,send:typeof fetch=fetch):Promise<void> {
   try {await send(`${gateway.replace(/\/+$/, '')}/v1/auth/logout`, {method:'POST',

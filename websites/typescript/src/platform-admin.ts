@@ -1,4 +1,5 @@
 import {BundleController} from './platform-bundle/controller';
+import {signOut} from './auth-client';
 import {bundleText} from './platform-bundle/panel';
 import {OperationsController} from './tenant-operations/controller';
 import {operationsText} from './tenant-operations/panel';
@@ -67,7 +68,7 @@ ${view==='audit'&&selected?`<section id="audit" class="section"><h2 tabindex="-1
  ...Array.from(reports?.querySelectorAll<HTMLOptionElement>('[data-cy=report-select] option')??[]).map(o=>({title:o.textContent!,detail:text('reports'),open:()=>{const select=reports!.querySelector<HTMLSelectElement>('[data-cy=report-select]')!;select.value=o.value;select.dispatchEvent(new Event('change'));jump('reports');}}))], adminRole+':'+actor,daylight.visual.theme);
  root.querySelectorAll<HTMLInputElement|HTMLButtonElement|HTMLSelectElement>('input,button,select').forEach(e=>{if(!reports?.contains(e))e.disabled=busy||e.hasAttribute('data-protected');});
  root.querySelector<HTMLButtonElement>('[data-cy=platform-refresh]')!.onclick=()=>void action(async()=>{await load(true);discardRows=true;});
- root.querySelector<HTMLButtonElement>('[data-cy=platform-logout]')!.onclick=()=>void action(async()=>{await fetch(gateway.replace(/\/+$/,'')+'/v1/auth/logout',{method:'POST',headers:{authorization:'Bearer '+token}});sessionStorage.removeItem('primecare_session');location.assign('/login');});
+ root.querySelector<HTMLButtonElement>('[data-cy=platform-logout]')!.onclick=()=>void action(async()=>{try{await signOut(gateway,token);}catch{throw new Error(text('unavailable'));}if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}sessionStorage.removeItem('primecare_session');location.assign('/login?enable-semantics=true');});
  root.querySelectorAll<HTMLFormElement>('[data-partner]').forEach(form=>form.onsubmit=e=>{e.preventDefault();const p=partners.find(p=>p.id===form.dataset.partner),values=Object.fromEntries(new FormData(form));void action(async()=>{await request('/onboarding/'+p.id+'/activate','POST',{...values,version:p.version});form.reset();notice=text('tenant_created');await load(true);});});
  root.querySelectorAll<HTMLSelectElement>('[data-cy=platform-tenant-select],[data-cy=platform-topbar-tenant]').forEach(select=>select.onchange=e=>{selected=(e.currentTarget as HTMLSelectElement).value;users=[];records=[];events=[];void action(async()=>load());});
  form('platform-tenant-form',async(values,clear)=>{const data=await request('/tenants','POST',values);clear();selected=data.tenant.id;view='accounts';notice=text('tenant_created');await load(true);});

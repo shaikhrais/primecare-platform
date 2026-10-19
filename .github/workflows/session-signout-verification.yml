@@ -1,0 +1,59 @@
+name: Session sign-out confirmation
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'websites/typescript/src/auth-client.ts'
+      - 'websites/typescript/src/platform-admin.ts'
+      - 'scripts/test-session-signout*.mjs'
+      - 'cloudflare/workers/src/auth.ts'
+      - 'cloudflare/workers/src/gateway.ts'
+      - 'cloudflare/workers/src/service-application.ts'
+      - '.github/workflows/session-signout-verification.yml'
+  pull_request:
+    paths:
+      - 'websites/typescript/src/auth-client.ts'
+      - 'websites/typescript/src/platform-admin.ts'
+      - 'scripts/test-session-signout*.mjs'
+      - 'cloudflare/workers/src/auth.ts'
+      - 'cloudflare/workers/src/gateway.ts'
+      - 'cloudflare/workers/src/service-application.ts'
+      - '.github/workflows/session-signout-verification.yml'
+permissions:
+  contents: read
+jobs:
+  native-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: primecare
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: login_browser
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U primecare -d login_browser"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: |
+          npm install --prefix /tmp/signout-tools --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@3 esbuild@0.27.2 playwright@1.60.0
+          ln -s /tmp/signout-tools/node_modules node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Confirm session transport and preserve credential-login regressions
+        run: node --test scripts/test-session-signout-client.mjs scripts/test-auth-client.mjs
+      - name: Native browser failure, retry, revocation and session replacement
+        env:
+          LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
+          LOGOUT_TEST_FIXTURE: '1'
+        run: node scripts/test-session-signout-workflow.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: session-signout-native-browser
+          path: test-results/logout-workflow
