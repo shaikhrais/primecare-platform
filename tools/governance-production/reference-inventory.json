@@ -1,0 +1,1562 @@
+{
+  "boundCommit": "789ff616198b2d49b937e4eecdae44a9ee940fc3",
+  "scan": "full committed tree; tracked .py .yml .mjs .ts files matching governance.db or sqlite3.connect; excludes other file types and transitive callers",
+  "matchedFiles": 386,
+  "counts": {
+    "reader-or-archival-review": 67,
+    "writer-or-migration-review": 240,
+    "workflow-caller-review": 12,
+    "runtime-or-generated-provenance-review": 4,
+    "test-or-fixture-review": 60,
+    "production-connector-or-explicit-source-fixture": 3
+  },
+  "meaning": "Triage candidates, not active-process counts, completed migrations or confirmed failures. Review SQLite fixtures, archival tools and distinct DB connections before edits.",
+  "items": [
+    {
+      "path": ".agents/governance/generate_excel_governance.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": ".agents/governance/generate_html_report.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": ".agents/governance/governance_db.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": ".agents/governance/inspect_backup.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": ".agents/governance/manifest_generator.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": ".agents/governance/seed_compliance_data.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": ".agents/governance/verify_registry.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": ".github/workflows/api-catalog-identity.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": ".github/workflows/apply-authority-governance.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": ".github/workflows/architecture-visuals.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": ".github/workflows/import-governance-production.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": ".github/workflows/maven-test.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": ".github/workflows/pending-api-authority-audit.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": ".github/workflows/rebuild-production-database.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": ".github/workflows/reconcile-screen-governance.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": ".github/workflows/release-primecare.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": ".github/workflows/validate-clean-rebuild.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": ".github/workflows/verify-ceo-workspace.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": ".github/workflows/verify-role-provisioning.yml",
+      "reviewCategory": "workflow-caller-review"
+    },
+    {
+      "path": "brain/49bad9f4-8b12-4648-bbc6-bd80e7c25ea1/scratch/inspect_chiro.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "brain/efdd405c-23fd-4f8d-837d-6cb05c3358d0/scratch/inspect_db.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "cloudflare/workers/src/reporting.ts",
+      "reviewCategory": "runtime-or-generated-provenance-review"
+    },
+    {
+      "path": "cloudflare/workers/src/workspace.ts",
+      "reviewCategory": "runtime-or-generated-provenance-review"
+    },
+    {
+      "path": "cypress/support/commands.ts",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/add_code_content_column.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/align_psw_sidebar_labels.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/apply-auth-account-policy.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/apply-auth-design.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/apply-auth-security-policy.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/apply-shared-auth-routes.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/audit-admin-read-authority.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/audit-pending-api-authority.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/audit-provider-family.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/audit-role-dashboards.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/audit-workspace-role-browser.mjs",
+      "reviewCategory": "runtime-or-generated-provenance-review"
+    },
+    {
+      "path": "scripts/audit_screen_interactions_parser.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/complete_seeded_tasks.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/compress_governance_db.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/create_blueprint_tables.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/create_template_tables.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/db_discovery.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/db_governance_integrity_audit.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/deploy_and_selenium_screenshot.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/detect_orphans.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/execute_100_step_remediation.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/execute_agent_task_loop.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/execute_full_workflow_remodel.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/execute_governance_functions.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/execute_problem_screens_sweep.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/execute_runtime_verification_sim.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/execute_workflow_verification_sim.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/export-auth-openapi.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/export-rebuild-baseline.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/export_governance_to_xlsx.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/fix_screens_compliance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/generate-api-execution-inventory.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/generate-api-family-reconciliation.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/generate_all_screen_screenshots.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/generate_and_verify_planned_screens.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/generate_audit_reports.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/impact_analyzer.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/implement_screen_gaps.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/implement_screens_from_db.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/inject_role_coverage_backlog.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/inject_screen_interaction_audit_tasks.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/inspect_code_content.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/inspect_db_definition.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/inspect_psw_results.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/inspect_psw_screens.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/inspect_psw_stages.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/inspect_screens_schema.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/inspect_table_sizes.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/kpi_db_updater.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/migrate_architecture_tables.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/migrate_governance_db.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/migrate_sections.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/optimize_and_verify_performance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/optimize_db_size.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/patch_governance_db_cypress.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/perform_test_and_update_gallery.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/populate_blueprints_data.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/populate_missing_translations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/populate_sections_data.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/propose-authority-governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/quarantine-api-grants.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/quarantine-api-schemas.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/query_dependency_impact.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/reconcile-auth-root-declarations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reconcile-client-billing-declarations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reconcile-client-read-declarations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reconcile-prefix-declarations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reconcile-provider-profile-declaration.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reconcile-rebuild-governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reconcile-registered-workflow-bindings.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reconcile_drift.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reconcile_governance_screens.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reconcile_planned_screens_conflict.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reconcile_screen_api_references.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/record-api-batch-evidence.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/record_verification_to_sqlite.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/recreate_files_from_db.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/recreate_section_tables.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-account-admin-batch.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-account-count-validation-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-account-detail-batch.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-account-list-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-account-read-validation-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-admin-form-drafts.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-admin-hierarchy.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-admin-reality-filters.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-admin-reports.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-admin-training.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-api-execution-status.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-api-service-status.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-auth-delivery-work-package.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-auth-login-layout.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-auth-recovery-web.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-booking-collection-delivery.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-booking-payment-reads-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-booking-requests-delivery.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-booking-submission-delivery.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-care-governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-client-booking-lifecycle-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-client-booking-requests-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-client-bookings-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-client-count-validation-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-client-invoices-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-client-operational-projections-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-client-payment-history-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-client-record-summaries-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-client-records-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-client-self-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-client-visits-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-contract-gap-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-existing-auth-contracts.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-generated-record-count-validation-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-governance-api-batch.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-governed-read-aliases.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-growth-governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-identifier-contracts-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-integer-contracts-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-legacy-domain-security.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-list-page-contracts-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-live-screen-text.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-look-manager.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-look-provider.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-maintenance-governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-media-look.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-method-capture-blockers.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-owned-commerce-authoring-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-owner-session-count-validation-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-owner-summaries-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-platform-admin-role.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-platform-bundle.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-provider-availability-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-provider-documents-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-provider-operational-projections-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-provider-records-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-provider-self-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-provider-timesheet-items-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-provider-visits-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-read-envelope-page-contracts-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-report-navigation.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-response-compression.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-response-envelope-contracts-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-self-records-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-self-sessions-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-summary-contracts-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-tenant-operations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-territory-governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-territory-intake.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-theme-center-options.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-timestamp-contracts-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-visit-document-summaries-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-workforce-foundation.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-workspace-count-validation-api.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-workspace-governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/register-workspace-visual-review.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/remodel_file_verification.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/remodel_governance_db.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/remodel_governance_db_to_12_tables.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/remodel_governance_db_to_16_tables.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/remodel_governance_functions_db.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/remodel_seed_backlog.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/remodel_stage12_seed.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/repair-ceo-workspace.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/repair-local-api-metadata.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/repair-role-landing-routes.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/report_handler.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/reseed_caregiver_schedule_test.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reset_database_gaps.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/retire-auth-app.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reverify_34_problem_screens.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reverify_all_screens_quality.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/reverify_kpis_real.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/review-admin-marketing-ui.mjs",
+      "reviewCategory": "runtime-or-generated-provenance-review"
+    },
+    {
+      "path": "scripts/run_ddl_migrations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/run_governance_guardian.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/scaffold_30_empty_screens.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/scan_codebase_gaps.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/scan_empty_codebase_screens.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/screenshot_handler.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/seed_backlog_to_screens.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/seed_codebase_tasks.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/seed_domain_screens_backlog.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/seed_screen_functionality.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/simplify_governance_db.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/sync_db_to_screen_implementations.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/test-account-read-authority-guard.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-admin-growth-accessibility.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-api-authority-integrity.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-api-catalog-identity.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-api-grant-mapping.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-audit-pending-api-authority.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-auth-delivery-authority-guard.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-auth-recovery-governance.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-auth-recovery-web.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-auth-root-retirements.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-booking-collection-authority-guard.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-booking-requests-authority-guard.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-booking-submission-authority-guard.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-care-availability-workflow.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-care-delivery.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-client-billing-retirements.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-client-care-events-api.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-client-read-retirements.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-existing-auth-authority-guard.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-governance-schema-integrity.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-growth-admin-browser.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-growth-browser.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-look-manager.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-method-capture-blockers.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-platform-attention.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-platform-bundle.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-platform-history.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-prefix-retirements.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-provider-profile-retirement.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-public-territory-intake.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-quarantine-api-grants.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-read-alias-authority-guard.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-reconcile-governance-screens.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-reconcile-registered-workflow-bindings.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-record-authority-guard.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-sidebar-content-browser.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-tenant-operations.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-territory-allocation.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test-theme-center-browser.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test_backend_only_apis.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test_crud_persistence.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test_kpi_performance.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test_release_readiness.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/test_screen_endpoint_mapping.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "scripts/transition_screens_to_verified.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/update_planned_paths.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/update_screen_kpis.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/upgrade_depth_metrics.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/upgrade_governance_navigation.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/upgrade_workflow_governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "scripts/validate_architecture_db.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/validate_component_selectors.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/validate_platform_features.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/verify_screen_components.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "scripts/verify_screens.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tests/gallery_screenshot_test.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/architecture/generate.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/audit_governance_tags.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/generate_html_previews.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance-production/connection.py",
+      "reviewCategory": "production-connector-or-explicit-source-fixture"
+    },
+    {
+      "path": "tools/governance-production/export.py",
+      "reviewCategory": "production-connector-or-explicit-source-fixture"
+    },
+    {
+      "path": "tools/governance-production/legacy-export-fixture.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/governance-production/production_reader.py",
+      "reviewCategory": "production-connector-or-explicit-source-fixture"
+    },
+    {
+      "path": "tools/governance-production/test-import.mjs",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/governance/add_data_cy_to_flutter.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/add_remarks_columns.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/add_screenshot_validation_columns.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/audit_db_performance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/audit_language_data.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/audit_role_navigation.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/audit_roles_screens.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/audit_screen_completeness.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/auto_implement_governance.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/clean_visual_proofs.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/compress_db.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/configure_app_shells.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/dashboard_server.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/deploy_and_test_cloudflare.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/document_screen_data_load.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/export_master_agent_context.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/export_screen_agent_context.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/export_to_sql.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/extract_screen_requirements.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/extract_translation_keys.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/feedback.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/generate_all_code_and_tests.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/generate_all_governed_screens.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/generate_all_screen_code.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/generate_all_screen_tests.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/generate_api_clients.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/generate_api_reports.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/generate_cypress_fixtures.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/generate_cypress_visual_dashboard.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/generate_dynamic_requirements.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/generate_flat_cypress_specs.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/generate_gate1_report.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/generate_governance_html_report.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/generate_html_layouts.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/generate_interactive_dashboard.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/generate_project_architecture.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/generate_screen_descriptions.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/governance_kpi_manager.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/import_review_patch.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/import_screen_requirements.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/init_testing_tables.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/inspect_all_roles.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/inspect_clinical_screens.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/list_missing_screens.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/manage_remarks.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/migrate_database_schema.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/migrate_roles_app_fields.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/optimize_prisma_queries.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/orchestrate_deployment_first_sweep.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/orchestrate_overnight.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/process_screen_elements.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/query_db.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/reconcile_database_routes.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/reconcile_screen_layouts.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/recreate_clean_templates.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/rename_and_generate_needs.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/reset_visual_governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_component_tests.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_enterprise_cypress.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_enterprise_migrations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_governance_functions.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_redirect_flows_verification.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_stage15_migrations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_stage16_migrations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_stage17_migrations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_stage18_migrations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_stage19_migrations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_stage20_migrations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/run_stage21_migrations.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/save_cypress_kpi_result.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/scan_and_align_governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/scan_screen_components.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/scratch_query_db.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/scratch_reset.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/seed_component_governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/seed_required_components.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/seed_role_test_users.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/seed_screen_specific_apis.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/seed_test_credentials_schema.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/static_verify_screen_governance.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/governance/sync_d1.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/test_all_api_endpoints.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/governance/test_all_roles_all_screens.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/governance/test_api_endpoints.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/governance/test_flow_runner.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/governance/test_language_en_fr_es.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/governance/test_language_governance.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/governance/test_one_role_all_screens.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/governance/update_screen_kpis.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/validate_screen_api_coverage.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/validate_screenshots.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/verify_layout_reuse.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/verify_role_test_logins.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/governance/verify_screen_governance.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/testing/export_screen_tests_to_cypress.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/testing/generate_api_tests_from_db.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/testing/generate_governance_reports.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/testing/import_cypress_results_to_db.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/testing/populate_screen_tests.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/testing/run_all_tests_sequentially.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/testing/run_bulk_screenshots.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/testing/run_gate_tests.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/testing/seed_screen_smoke_tests.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/workflow-verification/execution.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/workflow-verification/progress.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/workflow-verification/register_business_workflows.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/workflow-verification/register_virtual_flows.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/workflow-verification/register_workflow_status.py",
+      "reviewCategory": "writer-or-migration-review"
+    },
+    {
+      "path": "tools/workflow-verification/restore_checkpoint.py",
+      "reviewCategory": "reader-or-archival-review"
+    },
+    {
+      "path": "tools/workflow-verification/test_business_workflow_specs.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/workflow-verification/test_execution.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/workflow-verification/test_progress_ledger.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/workflow-verification/test_registered_workflow_status.py",
+      "reviewCategory": "test-or-fixture-review"
+    },
+    {
+      "path": "tools/workflow-verification/test_restore_checkpoint.py",
+      "reviewCategory": "test-or-fixture-review"
+    }
+  ],
+  "mergedImplementationCommit": "cb2c468ccf6dff2d247a311437e62ef7f0c202f2",
+  "nextAction": "Review each candidate and its callers; preserve isolated fixtures and archival evidence. Do not rewrite remaining SQLite writers until PostgreSQL transaction/type/key/default/constraint/view semantics and authority are migrated. Continue the remaining read-only entrypoints first. This inventory does not establish an exhaustive all-file-types or transitive-consumer cutover."
+}

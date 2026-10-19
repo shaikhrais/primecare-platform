@@ -1,0 +1,49 @@
+name: Read-only production governance table audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [work/governance-table-audit-20261019]
+    paths: [tools/governance-production/audit-*, tools/governance-production/test-audit*, .github/workflows/governance-table-audit.yml]
+  pull_request:
+    paths: [tools/governance-production/audit-*, tools/governance-production/test-audit*, .github/workflows/governance-table-audit.yml]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix /tmp/govt-audit --ignore-scripts --no-audit --no-fund pg@8.11.3 @electric-sql/pglite@0.3.14
+          ln -s /tmp/govt-audit/node_modules node_modules
+      - run: node tools/governance-production/test-audit-tables.mjs
+  production:
+    if: github.event_name != 'pull_request'
+    needs: test
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/govt-audit --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/govt-audit/node_modules node_modules
+      - name: Audit every pinned production table in a read-only snapshot
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node tools/governance-production/audit-tables.mjs /tmp/governance-table-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: governance-table-audit
+          path: /tmp/governance-table-audit.json
+          if-no-files-found: error

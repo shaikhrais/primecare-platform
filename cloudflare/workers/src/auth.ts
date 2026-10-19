@@ -60,7 +60,7 @@ export async function withDb<T>(env: Env, operation: (client: Client) => Promise
 }
 
 class RequestTooLarge extends Error {}
-function bodyFailure(error: unknown, message: string, headers: HeadersInit): Response {
+export function bodyFailure(error: unknown, message: string, headers: HeadersInit): Response {
   return error instanceof RequestTooLarge ? json({error:'Request too large'},413,headers) : json({error:message},400,headers);
 }
 
@@ -89,8 +89,7 @@ async function mutationLimit(db:Client,token:string,operation:AuthOperation,head
 }
 
 /** Bound parsed authentication JSON by wire bytes, including chunked requests. */
-export async function parseBody(request: Request): Promise<Json> {
-  const limit = 50_000;
+export async function parseBody(request: Request, limit = 50_000): Promise<Json> {
   const declared = request.headers.get('content-length');
   if (declared !== null && /^\d+$/.test(declared) && Number(declared) > limit) throw new RequestTooLarge();
   const reader = request.body?.getReader();

@@ -1,0 +1,23 @@
+import {icon} from './visuals';
+import {registry} from '../../../../packages/shared/src/growth/contract';
+import {esc,formValues,type T} from './forms';
+import type {GrowthClient} from './client';
+export function searchView(t:T,data:any){
+ const f=data.filters??{};const select=(key:string,values:string[],extra='')=>`<label>${t(key)}<select name="${key}" data-cy="growth-filter-${key}"><option value="">${t('all')}</option>${values.map(v=>`<option value="${esc(v)}" ${f[key]===v?'selected':''}>${t(v)}</option>`).join('')}${extra}</select></label>`;
+ const ownerOptions=data.owners.map((o:any)=>`<option value="${esc(o.id)}" ${f.owner===o.id?'selected':''}>${esc(o.email)}</option>`).join('');
+ return `<form class="growth-form" data-cy="growth-search-form"><h3>${t('search')}</h3><label>${t('query')}<input name="q" data-cy="growth-query" maxlength="100" value="${esc(f.q)}"></label>${select('pipeline',['tenant','client'])}${select('stage',[...new Set([...registry.pipelines.tenant,...registry.pipelines.client,'lost'])])}${select('source',registry.sources)}${select('owner',['mine','unassigned'],ownerOptions)}<button data-cy="growth-filter-save">${t('filter')}</button><button type="button" data-cy="growth-filter-clear">${t('clear_filters')}</button></form>`;
+}
+export function contactView(t:T,l:any,data:any){
+ if(!l.canEditContact)return l.duplicate_of?`<p>${t('duplicate_closed')} · ${esc(l.duplicate_of)}</p>`:'';
+ const field=(key:string,type='text',max=150)=>`<label>${t(key)}<input name="${key}" type="${type}" data-cy="growth-contact-${key}-${esc(l.id)}" maxlength="${max}" value="${esc(l[key]??'')}" ${['name','evidence'].includes(key)?'required':''}></label>`;
+ return `<details><summary data-cy="growth-contact-open-${esc(l.id)}">${t('edit_contact')}</summary><p>${t('contact_note')}</p><form class="growth-form" data-cy="growth-contact-form-${esc(l.id)}" data-contact="${esc(l.id)}">${field('name')}${field('email','email',254)}${field('phone','tel',40)}${field('evidence','text',500)}<button data-cy="growth-contact-save-${esc(l.id)}">${t('contact_save')}</button></form></details>`;
+}
+export function duplicatesView(t:T,data:any){
+ if(!data.capabilities.manageDuplicates)return '';
+ return `<section class="section" data-cy="growth-duplicates"><h2>${icon('people','duplicates')}${t('duplicates')}</h2><p>${t('duplicate_note')}</p><ul>${data.duplicates.map((d:any)=>{const id=d.lead_a+'-'+d.lead_b;return `<li data-cy="growth-duplicate-${esc(id)}"><p>${esc(d.name_a)} · ${esc(d.email_a)} · ${esc(d.phone_a)}</p><p>${esc(d.name_b)} · ${esc(d.email_b)} · ${esc(d.phone_b)}</p><label>${t('canonical')}<select data-cy="growth-duplicate-canonical-${esc(id)}"><option value="${esc(d.lead_a)}">${esc(d.name_a)}</option><option value="${esc(d.lead_b)}">${esc(d.name_b)}</option></select></label><label>${t('outcome')}<select data-cy="growth-duplicate-decision-${esc(id)}">${['distinct_person','duplicate_confirmed'].map(v=>`<option value="${v}">${t(v)}</option>`).join('')}</select></label><label>${t('evidence')}<input data-cy="growth-duplicate-evidence-${esc(id)}" maxlength="500"></label><button data-cy="growth-duplicate-save-${esc(id)}" data-duplicate="${esc(id)}">${t('review')}</button></li>`;}).join('')||`<li>${t('empty')}</li>`}</ul></section>`;
+}
+export function bindContacts(root:HTMLElement,data:any,client:GrowthClient,mutate:(a:()=>Promise<any>)=>Promise<void>,filter:(values:Record<string,string>)=>void){
+ const search=root.querySelector<HTMLFormElement>('[data-cy=growth-search-form]');if(search)search.onsubmit=e=>{e.preventDefault();filter(formValues(search));};root.querySelector('[data-cy=growth-filter-clear]')?.addEventListener('click',()=>filter({}));
+ root.querySelectorAll<HTMLFormElement>('[data-contact]').forEach(form=>form.onsubmit=e=>{e.preventDefault();const l=data.leads.find((l:any)=>l.id===form.dataset.contact);void mutate(()=>client.request('/contacts/'+l.id,'PATCH',{...formValues(form),version:l.version}));});
+ root.querySelectorAll<HTMLButtonElement>('[data-duplicate]').forEach(b=>b.onclick=()=>{const d=data.duplicates.find((d:any)=>d.lead_a+'-'+d.lead_b===b.dataset.duplicate),id=b.dataset.duplicate!;const canonicalId=root.querySelector<HTMLSelectElement>(`[data-cy="growth-duplicate-canonical-${id}"]`)!.value,isA=canonicalId===d.lead_a;void mutate(()=>client.request('/duplicates','POST',{canonicalId,duplicateId:isA?d.lead_b:d.lead_a,canonicalVersion:isA?d.a_version:d.b_version,duplicateVersion:isA?d.b_version:d.a_version,reviewVersion:d.review_version,decision:root.querySelector<HTMLSelectElement>(`[data-cy="growth-duplicate-decision-${id}"]`)!.value,evidence:root.querySelector<HTMLInputElement>(`[data-cy="growth-duplicate-evidence-${id}"]`)!.value}));});
+}

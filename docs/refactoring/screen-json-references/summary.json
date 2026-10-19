@@ -1,0 +1,11 @@
+{
+  "sharedChromeTemplates": 64,
+  "screens": 965,
+  "roleFiles": 64,
+  "screensWithFilenameScreenshotCandidates": 964,
+  "images": 1617,
+  "uniqueImageHashes": 293,
+  "duplicateImageHashes": 96,
+  "notRuntimeCatalogs": true,
+  "note": "Text/control/layout evidence comes from matching legacy HTML previews. Screenshot filename matches are candidates; images may show galleries, login walls or placeholders. Translation, visual identity, workflows and new-inheritance compatibility require verification."
+}

@@ -2,10 +2,12 @@ import {test} from 'node:test';import assert from 'node:assert/strict';import fs
 import {buildCollection,buildEnvironment,remoteGuard,aggregateTests} from './generate-primecare-postman.mjs';
 const checklist=JSON.parse(fs.readFileSync('docs/api/api-delivery-checklist.json'));const c=buildCollection(checklist);
 test('finite exact methods/stages and retirement denominator preserved',()=>{
- assert.equal(c.item.length,1406);assert.equal(new Set(c.item.map(i=>i.name)).size,1406);
+ const expectedActive=checklist.summary.uniqueOperations-checklist.summary.stages.retired_with_evidence;
+ assert.equal(checklist.operations.length,checklist.summary.uniqueOperations);
+ assert.equal(c.item.length,expectedActive);assert.equal(new Set(c.item.map(i=>i.name)).size,expectedActive);
  const stages={};for(const i of c.item){const o=checklist.operations.find(o=>o.api===i.name);assert.equal(i.request.method,o.method);assert.equal(i.request.header[1].value,o.stage);stages[o.stage]=(stages[o.stage]??0)+1;}
  const expectedStages={};for(const operation of checklist.operations.filter(o=>o.stage!=='retired_with_evidence'))expectedStages[operation.stage]=(expectedStages[operation.stage]??0)+1;
- assert.deepEqual(stages,expectedStages);assert.equal(stages.blocked,14);assert.equal(Object.values(stages).reduce((a,b)=>a+b,0),1406);for(const [stage,count] of Object.entries(expectedStages))assert.equal(checklist.summary.stages[stage],count);assert.equal(checklist.operations.filter(o=>o.stage==='retired_with_evidence').length,9);
+ assert.deepEqual(stages,expectedStages);assert.equal(stages.blocked,14);assert.equal(Object.values(stages).reduce((a,b)=>a+b,0),expectedActive);for(const [stage,count] of Object.entries(expectedStages))assert.equal(checklist.summary.stages[stage],count);assert.equal(checklist.operations.filter(o=>o.stage==='retired_with_evidence').length,9);
  assert.deepEqual(new Set(c.item.map(i=>i.name)),new Set(checklist.operations.filter(o=>o.stage!=='retired_with_evidence').map(o=>o.api))); 
 });
 test('synthetic URL parameters and local environment contain no credentials',()=>{for(const i of c.item){assert.ok(!i.request.url.raw.includes('{id}'));for(const v of i.request.url.variable??[])assert.equal(v.value,'audit-record');assert.equal(i.request.auth.type,'noauth');assert.ok(!i.request.header.some(h=>h.key.toLowerCase()==='authorization'));if(i.request.body)assert.doesNotThrow(()=>JSON.parse(i.request.body.raw));}assert.equal(buildEnvironment().values[0].value,'http://127.0.0.1:8787');assert.ok(!JSON.stringify(c).includes('Bearer '));});

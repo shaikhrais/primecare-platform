@@ -1,3 +1,5 @@
+import '../training/admin_training_launcher.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import '../reports/admin_reports_panel.dart';
@@ -18,7 +20,7 @@ class _WorkspaceState extends ConsumerState<GovernedWorkspaceScreen> {
   String _search = '';
   final _searchController = TextEditingController();
 
-  String label(String key) => (_workspace?['resources'] as Map?)?['workspace.$key']?.toString() ?? 'workspace.$key'.tr();
+  String label(String key) => liveScreenText(context,'workspace',Localizations.localeOf(context).languageCode,key,Localizations.localeOf(context).languageCode=='en' ? ((_workspace?['resources'] as Map?)?['workspace.$key']?.toString() ?? 'workspace.$key'.tr()) : 'workspace.$key'.tr());
   List<Map<String, dynamic>> list(dynamic value) => value is List
       ? value.whereType<Map<dynamic, dynamic>>().map((v) => Map<String, dynamic>.from(v)).toList() : [];
   List<Map<String, dynamic>> get _pages => list(_workspace?['screens']);
@@ -67,6 +69,7 @@ class _WorkspaceState extends ConsumerState<GovernedWorkspaceScreen> {
     return Scaffold(
       backgroundColor: theme.colors.background,
       appBar: AppBar(title: Text(page?['name']?.toString() ?? label('title')), actions: [
+        if(_workspace!=null && page!=null)const AdminTrainingLauncher(compact:true),
         IconButton(tooltip: label('refresh'), onPressed: _loading ? null : _load, icon: const Icon(Icons.refresh)),
         IconButton(tooltip: label('account'), onPressed: () => context.go('/success'), icon: const Icon(Icons.account_circle_outlined)),
         IconButton(tooltip: label('sign_out'), onPressed: () async {

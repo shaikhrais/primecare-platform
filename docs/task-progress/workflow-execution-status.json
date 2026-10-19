@@ -1,0 +1,1342 @@
+{
+  "scope": "business_process only; supporting guides excluded",
+  "summary": {
+    "total": 147,
+    "missing": 11,
+    "implemented-unverified": 134,
+    "verified": 0,
+    "blocked": 2,
+    "done": 0,
+    "pending": 147
+  },
+  "workflows": [
+    {
+      "workflow_id": "auth.bootstrap-first-central-admin",
+      "title": "Bootstrap first protected central_admin",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Use an approved isolated operator fixture to exercise eligible creation, duplicate/overwrite refusal, rollback, resulting credential login and scoped reload; do not execute against production during definition.",
+      "attempt_id": 303
+    },
+    {
+      "workflow_id": "auth.bootstrap-first-ceo",
+      "title": "Bootstrap the first CEO through protected setup",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Use an approved isolated operator fixture to exercise eligible creation, duplicate/overwrite refusal, rollback, resulting credential login and scoped reload; do not execute against production during definition.",
+      "attempt_id": 283
+    },
+    {
+      "workflow_id": "auth.bootstrap-first-platform-admin",
+      "title": "Bootstrap first protected platform_admin",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Use an approved isolated operator fixture to exercise eligible creation, duplicate/overwrite refusal, rollback, resulting credential login and scoped reload; do not execute against production during definition.",
+      "attempt_id": 304
+    },
+    {
+      "workflow_id": "auth.change-password",
+      "title": "Change own password and require reauthentication",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run full acceptance against the corrected existing contract; no new API, permission or tenant disclosure introduced.",
+      "attempt_id": 267
+    },
+    {
+      "workflow_id": "auth.create-tenant-account",
+      "title": "Create a governed same-tenant account",
+      "status": "missing",
+      "test_status": "not_run",
+      "blockers": "[\"General role-selection/account-provisioning UI is absent; maintenance-only form does not satisfy the defined multi-target creation flow.\"]",
+      "next_action": "Implement the registered actor-specific account creation controls using the existing creation policy and /v1/auth/register; preserve the narrower existing maintenance flow.",
+      "attempt_id": 270
+    },
+    {
+      "workflow_id": "auth.credential-login",
+      "title": "Sign in with credentials",
+      "status": "implemented-unverified",
+      "test_status": "scoped_pass",
+      "blockers": "[\"Native PostgreSQL multi-connection concurrency is not proven by the sequential embedded engine.\", \"Production workspace/router and full accessibility/PWA acceptance are outside this loopback renderer run.\", \"No governed workflow-recording playback UI/API is currently registered/implemented; repository recording URL is evidence only.\", \"Required CI and independent review gates remain pending.\"]",
+      "next_action": "Verify remaining rate-limit, lockout, session/browser and deployed-navigation acceptance plus required independent reviews; six real credential cases and identity-confirmation outage regression pass.",
+      "attempt_id": 306
+    },
+    {
+      "workflow_id": "auth.forgot-password",
+      "title": "Request password recovery",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the defined complete journey using isolated synthetic accounts/data; verify negative cases, persistence/reload and video evidence. Source inspection is not runtime verification.",
+      "attempt_id": 268
+    },
+    {
+      "workflow_id": "auth.inspect-account",
+      "title": "Inspect same-tenant account detail",
+      "status": "missing",
+      "test_status": "not_run",
+      "blockers": "[\"Required UI interaction is absent in current TypeScript/native presentation source.\", \"Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract.\"]",
+      "next_action": "Register/wire the existing governed account controls to the canonical registered endpoint, then verify the complete role login/UI/API/database/reload journey.",
+      "attempt_id": 272
+    },
+    {
+      "workflow_id": "auth.inspect-account-sessions",
+      "title": "Inspect a same-tenant account session list",
+      "status": "missing",
+      "test_status": "not_run",
+      "blockers": "[\"Required UI interaction is absent in current TypeScript/native presentation source.\", \"Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract.\"]",
+      "next_action": "Register/wire the existing governed account controls to the canonical registered endpoint, then verify the complete role login/UI/API/database/reload journey.",
+      "attempt_id": 274
+    },
+    {
+      "workflow_id": "auth.inspect-email-config",
+      "title": "Review tenant email configuration",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the defined complete journey using isolated synthetic accounts/data; verify negative cases, persistence/reload and video evidence. Source inspection is not runtime verification.",
+      "attempt_id": 280
+    },
+    {
+      "workflow_id": "auth.inspect-own-sessions",
+      "title": "Review own active sessions",
+      "status": "missing",
+      "test_status": "not_run",
+      "blockers": "[\"Required UI interaction is absent in current TypeScript/native presentation source.\", \"Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract.\"]",
+      "next_action": "Register/wire the existing governed account controls to the canonical registered endpoint, then verify the complete role login/UI/API/database/reload journey.",
+      "attempt_id": 278
+    },
+    {
+      "workflow_id": "auth.list-tenant-accounts",
+      "title": "Review same-tenant account directory",
+      "status": "missing",
+      "test_status": "not_run",
+      "blockers": "[\"Required UI interaction is absent in current TypeScript/native presentation source.\", \"Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract.\"]",
+      "next_action": "Register/wire the existing governed account controls to the canonical registered endpoint, then verify the complete role login/UI/API/database/reload journey.",
+      "attempt_id": 271
+    },
+    {
+      "workflow_id": "auth.logout",
+      "title": "Sign out this session",
+      "status": "implemented-unverified",
+      "test_status": "scoped_pass",
+      "blockers": "[\"Native PostgreSQL multi-connection concurrency is not proven by the sequential embedded engine.\", \"Production workspace/router and full accessibility/PWA acceptance are outside this loopback renderer run.\", \"No governed workflow-recording playback UI/API is currently registered/implemented; repository recording URL is evidence only.\", \"Required CI and independent review gates remain pending.\"]",
+      "next_action": "Verify the governed logout UI action and remaining session/cookie failure cases; scoped API revocation and denial checks passed.",
+      "attempt_id": 308
+    },
+    {
+      "workflow_id": "auth.manage-account",
+      "title": "Change same-tenant account role or status",
+      "status": "missing",
+      "test_status": "not_run",
+      "blockers": "[\"Required UI interaction is absent in current TypeScript/native presentation source.\", \"Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract.\"]",
+      "next_action": "Register/wire the existing governed account controls to the canonical registered endpoint, then verify the complete role login/UI/API/database/reload journey.",
+      "attempt_id": 273
+    },
+    {
+      "workflow_id": "auth.read-creation-audit",
+      "title": "Review account-creation audit",
+      "status": "missing",
+      "test_status": "not_run",
+      "blockers": "[\"Required UI interaction is absent in current TypeScript/native presentation source.\", \"Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract.\"]",
+      "next_action": "Register/wire the existing governed account controls to the canonical registered endpoint, then verify the complete role login/UI/API/database/reload journey.",
+      "attempt_id": 277
+    },
+    {
+      "workflow_id": "auth.read-current-session",
+      "title": "Inspect authenticated identity and restore session",
+      "status": "implemented-unverified",
+      "test_status": "scoped_pass",
+      "blockers": "[\"Native PostgreSQL multi-connection concurrency is not proven by the sequential embedded engine.\", \"Production workspace/router and full accessibility/PWA acceptance are outside this loopback renderer run.\", \"No governed workflow-recording playback UI/API is currently registered/implemented; repository recording URL is evidence only.\", \"Required CI and independent review gates remain pending.\"]",
+      "next_action": "Verify all defined session expiry/revocation/navigation and safe projection acceptance in deployed router; scoped actual session read agrees with persisted user and token hash.",
+      "attempt_id": 307
+    },
+    {
+      "workflow_id": "auth.read-management-audit",
+      "title": "Review account-management audit",
+      "status": "missing",
+      "test_status": "not_run",
+      "blockers": "[\"Required UI interaction is absent in current TypeScript/native presentation source.\", \"Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract.\"]",
+      "next_action": "Register/wire the existing governed account controls to the canonical registered endpoint, then verify the complete role login/UI/API/database/reload journey.",
+      "attempt_id": 276
+    },
+    {
+      "workflow_id": "auth.reset-password",
+      "title": "Reset password using recovery code",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the defined complete journey using isolated synthetic accounts/data; verify negative cases, persistence/reload and video evidence. Source inspection is not runtime verification.",
+      "attempt_id": 269
+    },
+    {
+      "workflow_id": "auth.revoke-account-sessions",
+      "title": "Revoke a same-tenant account sessions",
+      "status": "missing",
+      "test_status": "not_run",
+      "blockers": "[\"Required UI interaction is absent in current TypeScript/native presentation source.\", \"Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract.\"]",
+      "next_action": "Register/wire the existing governed account controls to the canonical registered endpoint, then verify the complete role login/UI/API/database/reload journey.",
+      "attempt_id": 275
+    },
+    {
+      "workflow_id": "auth.revoke-own-sessions",
+      "title": "Sign out all own devices",
+      "status": "missing",
+      "test_status": "not_run",
+      "blockers": "[\"Required UI interaction is absent in current TypeScript/native presentation source.\", \"Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract.\"]",
+      "next_action": "Register/wire the existing governed account controls to the canonical registered endpoint, then verify the complete role login/UI/API/database/reload journey.",
+      "attempt_id": 279
+    },
+    {
+      "workflow_id": "auth.save-email-config",
+      "title": "Save tenant sender and email templates",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the defined complete journey using isolated synthetic accounts/data; verify negative cases, persistence/reload and video evidence. Source inspection is not runtime verification.",
+      "attempt_id": 281
+    },
+    {
+      "workflow_id": "auth.switch-role",
+      "title": "Select another assigned authorized role",
+      "status": "blocked",
+      "test_status": "not_run",
+      "blockers": "[\"Approved multi-role assignments, tenant-bound switch/session semantics, allowed grants and audit acceptance are missing.\"]",
+      "next_action": "Specify and approve the role-assignment/switch contract using registered requirements before implementing; never infer grants or permit self-promotion.",
+      "attempt_id": 284
+    },
+    {
+      "workflow_id": "auth.test-maintenance-email",
+      "title": "Request a maintenance email test",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the defined complete journey using isolated synthetic accounts/data; verify negative cases, persistence/reload and video evidence. Source inspection is not runtime verification.",
+      "attempt_id": 282
+    },
+    {
+      "workflow_id": "care.assignment.cancel",
+      "title": "Cancel only a pre-start care assignment",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 169
+    },
+    {
+      "workflow_id": "care.assignment.change",
+      "title": "Change a pre-start care team with a fresh plan",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 168
+    },
+    {
+      "workflow_id": "care.assignment.create",
+      "title": "Assign a complete care team to an eligible appointment",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 161
+    },
+    {
+      "workflow_id": "care.concern.report-resolve",
+      "title": "Report a care concern and record qualified follow-up",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 164
+    },
+    {
+      "workflow_id": "care.coverage.report-and-restore",
+      "title": "Report inability to attend and restore safe coverage",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 167
+    },
+    {
+      "workflow_id": "care.followup.assign-complete-verify",
+      "title": "Assign, perform and independently verify an operational follow-up",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 184
+    },
+    {
+      "workflow_id": "care.followup.block-return-recover",
+      "title": "Record a task blocker or return insufficient evidence and resume work",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 185
+    },
+    {
+      "workflow_id": "care.followup.cancel",
+      "title": "Cancel an unnecessary operational follow-up",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 187
+    },
+    {
+      "workflow_id": "care.followup.reassign",
+      "title": "Reassign operational follow-up with a new deadline",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 186
+    },
+    {
+      "workflow_id": "care.followup.release-prerequisite",
+      "title": "Independently release an operational prerequisite",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 190
+    },
+    {
+      "workflow_id": "care.followup.request-decide-extension",
+      "title": "Request and independently decide a later operational deadline",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 188
+    },
+    {
+      "workflow_id": "care.followup.withdraw-extension",
+      "title": "Withdraw a pending task deadline request",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 189
+    },
+    {
+      "workflow_id": "care.handover.correct-re-review",
+      "title": "Revise a returned or approved handover and obtain fresh review",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 181
+    },
+    {
+      "workflow_id": "care.handover.prepare-review",
+      "title": "Prepare a same-client shift handover and independently approve it",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 180
+    },
+    {
+      "workflow_id": "care.handover.receive-acknowledge",
+      "title": "Receive and acknowledge approved handover before plan approval and start",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 183
+    },
+    {
+      "workflow_id": "care.handover.withdraw",
+      "title": "Independently withdraw a pending or returned handover",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 182
+    },
+    {
+      "workflow_id": "care.leave.request-decide",
+      "title": "Request time off and obtain an independent leave decision",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 172
+    },
+    {
+      "workflow_id": "care.leave.revoke-approved",
+      "title": "Independently revoke an approved leave record with evidence",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 173
+    },
+    {
+      "workflow_id": "care.operations.review-workload",
+      "title": "Review unfinished workload and locate employee task records",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 191
+    },
+    {
+      "workflow_id": "care.plan.author-submit-review",
+      "title": "Author, submit and independently approve a care plan",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 162
+    },
+    {
+      "workflow_id": "care.psw.submit-availability",
+      "title": "Declare and confirm a care employee availability window",
+      "status": "implemented-unverified",
+      "test_status": "scoped_pass",
+      "blockers": "[\"Native PostgreSQL multi-connection concurrency is not proven by the sequential embedded engine.\", \"Production workspace/router and full accessibility/PWA acceptance are outside this loopback renderer run.\", \"No governed workflow-recording playback UI/API is currently registered/implemented; repository recording URL is evidence only.\", \"Required CI and independent review gates remain pending.\"]",
+      "next_action": "Continue deployed-route and native multi-connection concurrency acceptance, full accessibility/PWA review and governed recording playback; six credential/browser loops and eight recovery/security groups pass in the sequential fixture.",
+      "attempt_id": 305
+    },
+    {
+      "workflow_id": "care.queue.find-next-work",
+      "title": "Find permitted care work, late items, concerns and coverage exceptions",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 192
+    },
+    {
+      "workflow_id": "care.schedule.cancel-assigned-appointment",
+      "title": "Cancel an assigned client appointment before care starts",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 177
+    },
+    {
+      "workflow_id": "care.schedule.cancel-unassigned-occurrence",
+      "title": "Cancel one future unassigned recurring occurrence",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 175
+    },
+    {
+      "workflow_id": "care.schedule.create-recurring-series",
+      "title": "Preview and create a bounded recurring appointment series",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 174
+    },
+    {
+      "workflow_id": "care.schedule.reschedule-assigned-visit",
+      "title": "Reschedule assigned pre-start care and renew the plan",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 176
+    },
+    {
+      "workflow_id": "care.staff.onboard-and-clear",
+      "title": "Independently onboard and clear an existing care employee",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 158
+    },
+    {
+      "workflow_id": "care.staff.renew-clearance",
+      "title": "Independently renew an existing staff clearance",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 159
+    },
+    {
+      "workflow_id": "care.staff.revoke-clearance",
+      "title": "Independently revoke a care employee clearance",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 160
+    },
+    {
+      "workflow_id": "care.staffing.withdraw-window",
+      "title": "Withdraw an active availability or pending leave request",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 171
+    },
+    {
+      "workflow_id": "care.time.correct-reopen",
+      "title": "Return or reopen reported time, correct it and re-review",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 179
+    },
+    {
+      "workflow_id": "care.time.submit-review",
+      "title": "Attest actual visit time and obtain independent review",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 178
+    },
+    {
+      "workflow_id": "care.visit.append-amendment",
+      "title": "Append a signed factual correction to existing care history",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 166
+    },
+    {
+      "workflow_id": "care.visit.correct-returned-documentation",
+      "title": "Return, correct and resubmit visit documentation",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 165
+    },
+    {
+      "workflow_id": "care.visit.execute-review",
+      "title": "Acknowledge, deliver, document and independently review a support visit",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Run isolated credential login \u2192 permitted UI actions \u2192 real care API \u2192 database outcome/history \u2192 browser reload; exercise specific denial, tenant, version/retry and failure branches in the virtual definition; save process-scoped evidence without treating source presence as a test pass.",
+      "attempt_id": 163
+    },
+    {
+      "workflow_id": "growth.appointment-cancelled",
+      "title": "Record prospect appointment cancelled",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 222
+    },
+    {
+      "workflow_id": "growth.appointment-completed",
+      "title": "Record prospect appointment completed",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 221
+    },
+    {
+      "workflow_id": "growth.appointment-no_show",
+      "title": "Record prospect appointment no_show",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 223
+    },
+    {
+      "workflow_id": "growth.assign-lead-followup",
+      "title": "Assign lead ownership and follow-up",
+      "status": "implemented-unverified",
+      "test_status": "stale",
+      "blockers": "[\"Source binding is missing, unsafe or stale.\"]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 199
+    },
+    {
+      "workflow_id": "growth.assign-team-specialty",
+      "title": "Assign growth team specialty",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 213
+    },
+    {
+      "workflow_id": "growth.attest-campaign-capacity",
+      "title": "Attest or revoke client campaign capacity",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 212
+    },
+    {
+      "workflow_id": "growth.change-campaign-money",
+      "title": "Record campaign budget and spend",
+      "status": "implemented-unverified",
+      "test_status": "stale",
+      "blockers": "[\"Source binding is missing, unsafe or stale.\"]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 205
+    },
+    {
+      "workflow_id": "growth.close-lead",
+      "title": "Close a lead as lost",
+      "status": "implemented-unverified",
+      "test_status": "stale",
+      "blockers": "[\"Source binding is missing, unsafe or stale.\"]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 200
+    },
+    {
+      "workflow_id": "growth.complete-corrective-task",
+      "title": "Complete a growth corrective action",
+      "status": "implemented-unverified",
+      "test_status": "stale",
+      "blockers": "[\"Source binding is missing, unsafe or stale.\"]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 225
+    },
+    {
+      "workflow_id": "growth.correct-contact",
+      "title": "Correct a lead contact",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 201
+    },
+    {
+      "workflow_id": "growth.create-campaign",
+      "title": "Create a source-tracked campaign",
+      "status": "implemented-unverified",
+      "test_status": "stale",
+      "blockers": "[\"Source binding is missing, unsafe or stale.\"]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 204
+    },
+    {
+      "workflow_id": "growth.create-client-lead",
+      "title": "Register family enquiry",
+      "status": "implemented-unverified",
+      "test_status": "stale",
+      "blockers": "[\"Source binding is missing, unsafe or stale.\"]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 197
+    },
+    {
+      "workflow_id": "growth.create-corrective-task",
+      "title": "Assign a growth corrective action",
+      "status": "implemented-unverified",
+      "test_status": "stale",
+      "blockers": "[\"Source binding is missing, unsafe or stale.\"]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 224
+    },
+    {
+      "workflow_id": "growth.create-intake-direct",
+      "title": "Create a direct enquiry intake link",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 231
+    },
+    {
+      "workflow_id": "growth.create-intake-territory",
+      "title": "Create a territory enquiry intake link",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 232
+    },
+    {
+      "workflow_id": "growth.create-tenant-lead",
+      "title": "Register partner recruitment",
+      "status": "implemented-unverified",
+      "test_status": "stale",
+      "blockers": "[\"Source binding is missing, unsafe or stale.\"]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 195
+    },
+    {
+      "workflow_id": "growth.duplicate-distinct_person",
+      "title": "Keep suspected duplicates as distinct people",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 202
+    },
+    {
+      "workflow_id": "growth.duplicate-duplicate_confirmed",
+      "title": "Confirm a duplicate contact",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 203
+    },
+    {
+      "workflow_id": "growth.email-performance",
+      "title": "Request confirmed growth performance email",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Use isolated synthetic accounts and a controlled test mail provider/capture; verify claim-before-send, accepted/unknown, quota and idempotency without sending to real recipients, then record UI/database/reload and review evidence.",
+      "attempt_id": 245
+    },
+    {
+      "workflow_id": "growth.link-client-care-visit",
+      "title": "Link agreed client enquiry to an existing care visit",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 242
+    },
+    {
+      "workflow_id": "growth.marketing-statement",
+      "title": "Review proposed monthly marketing contribution",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 248
+    },
+    {
+      "workflow_id": "growth.marketing-statement-pdf",
+      "title": "Download proposed monthly marketing statement",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 249
+    },
+    {
+      "workflow_id": "growth.performance",
+      "title": "Review growth team performance",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 243
+    },
+    {
+      "workflow_id": "growth.performance-pdf",
+      "title": "Download growth performance PDF",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 244
+    },
+    {
+      "workflow_id": "growth.progress-client-lead",
+      "title": "Progress family enquiry to its reported outcome",
+      "status": "implemented-unverified",
+      "test_status": "stale",
+      "blockers": "[\"Source binding is missing, unsafe or stale.\"]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 198
+    },
+    {
+      "workflow_id": "growth.progress-tenant-lead",
+      "title": "Progress partner recruitment to its reported outcome",
+      "status": "implemented-unverified",
+      "test_status": "stale",
+      "blockers": "[\"Source binding is missing, unsafe or stale.\"]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 196
+    },
+    {
+      "workflow_id": "growth.reconcile-performance-email-accepted",
+      "title": "Resolve uncertain performance email as accepted",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 246
+    },
+    {
+      "workflow_id": "growth.reconcile-performance-email-not_sent",
+      "title": "Resolve uncertain performance email as not_sent",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 247
+    },
+    {
+      "workflow_id": "growth.record-call-callback_requested",
+      "title": "Record lead call: callback_requested",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 217
+    },
+    {
+      "workflow_id": "growth.record-call-contacted",
+      "title": "Record lead call: contacted",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 215
+    },
+    {
+      "workflow_id": "growth.record-call-do_not_contact",
+      "title": "Record lead call: do_not_contact",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 219
+    },
+    {
+      "workflow_id": "growth.record-call-no_answer",
+      "title": "Record lead call: no_answer",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 214
+    },
+    {
+      "workflow_id": "growth.record-call-qualified",
+      "title": "Record lead call: qualified",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 216
+    },
+    {
+      "workflow_id": "growth.record-call-wrong_number",
+      "title": "Record lead call: wrong_number",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 218
+    },
+    {
+      "workflow_id": "growth.record-expense",
+      "title": "Record business expense",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 239
+    },
+    {
+      "workflow_id": "growth.record-invoice",
+      "title": "Record business invoice",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 236
+    },
+    {
+      "workflow_id": "growth.record-payment",
+      "title": "Record business payment",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 237
+    },
+    {
+      "workflow_id": "growth.record-refund",
+      "title": "Record business refund",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 238
+    },
+    {
+      "workflow_id": "growth.review-approve",
+      "title": "Approve campaign brief and budget",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 209
+    },
+    {
+      "workflow_id": "growth.review-reject",
+      "title": "Reject campaign brief",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 211
+    },
+    {
+      "workflow_id": "growth.review-request_changes",
+      "title": "Request changes to campaign brief",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 210
+    },
+    {
+      "workflow_id": "growth.review-submit",
+      "title": "Submit campaign brief for approval",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 207
+    },
+    {
+      "workflow_id": "growth.review-withdraw",
+      "title": "Withdraw pending campaign review",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 208
+    },
+    {
+      "workflow_id": "growth.review-work-queue",
+      "title": "Review growth work queue and due alerts",
+      "status": "blocked",
+      "test_status": "blocked",
+      "blockers": "[\"Playwright executable absent; /tmp/chromium is a zero-byte file; browser installation returned invalid ZIP on every retry.\", \"Failed governance registration: Canonical identity or owner authority changed: /v1/client/invoices/{invoiceId}. Partial generated changes reverted.\"]",
+      "next_action": "Provision a working Chromium in the execution environment; replay scripts/test-growth-loading-browser.mjs before resolving growth-shared-loading-error-layout. Then run real credential/API/database/reload work-queue acceptance with isolated data. Investigate invoice canonical-owner build conflict without changing grants.",
+      "attempt_id": 309
+    },
+    {
+      "workflow_id": "growth.revoke-partner-verification",
+      "title": "Revoke a partner verification",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 241
+    },
+    {
+      "workflow_id": "growth.save-campaign-brief",
+      "title": "Prepare or revise a campaign brief",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 206
+    },
+    {
+      "workflow_id": "growth.save-plan",
+      "title": "Set growth period and funnel targets",
+      "status": "implemented-unverified",
+      "test_status": "stale",
+      "blockers": "[\"Source binding is missing, unsafe or stale.\"]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 194
+    },
+    {
+      "workflow_id": "growth.schedule-sales-appointment",
+      "title": "Schedule a prospect appointment",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 220
+    },
+    {
+      "workflow_id": "growth.submit-enquiry-direct",
+      "title": "Submit a public direct enquiry",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Render public enquiry and its loading/config-error/offline/retry states through shared shell with hidden chrome; then test anonymous submission, consent, idempotency, disabled link, isolation, rollback and database-backed acceptance without inventing a public login requirement.",
+      "attempt_id": 234
+    },
+    {
+      "workflow_id": "growth.submit-enquiry-territory",
+      "title": "Submit a public territory enquiry",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Render public enquiry and its loading/config-error/offline/retry states through shared shell with hidden chrome; then test anonymous submission, consent, idempotency, disabled link, isolation, rollback and database-backed acceptance without inventing a public login requirement.",
+      "attempt_id": 235
+    },
+    {
+      "workflow_id": "growth.task-escalate",
+      "title": "Escalate assigned growth work",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 230
+    },
+    {
+      "workflow_id": "growth.task-priority",
+      "title": "Change growth task priority",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 228
+    },
+    {
+      "workflow_id": "growth.task-reassign",
+      "title": "Reassign growth corrective work",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 226
+    },
+    {
+      "workflow_id": "growth.task-reschedule",
+      "title": "Reschedule growth corrective work",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 227
+    },
+    {
+      "workflow_id": "growth.task-resolve_escalation",
+      "title": "Resolve growth task escalation",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute this registered process in an isolated seeded tenant through real role login, the existing UI, API and persisted DB result; compare exact values after reload and run denied access, cross-tenant, conflict and failure cases. Record evidence without promoting scoped checks.",
+      "attempt_id": 229
+    },
+    {
+      "workflow_id": "growth.toggle-intake-link",
+      "title": "Activate or disable an enquiry intake link",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 233
+    },
+    {
+      "workflow_id": "growth.verify-partner",
+      "title": "Verify a recruitment prospect for onboarding",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered acceptance journey against isolated synthetic data with credential login, UI/API/database/reload assertions, permission and cross-tenant negatives; save video and reviewed source-bound receipts.",
+      "attempt_id": 240
+    },
+    {
+      "workflow_id": "platform.activate-partner",
+      "title": "Activate verified partner tenant and tenant administrator",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 263
+    },
+    {
+      "workflow_id": "platform.change-account",
+      "title": "Change tenant account role or status",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 254
+    },
+    {
+      "workflow_id": "platform.change-reference-record",
+      "title": "Rename or activate/deactivate a tenant reference",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 259
+    },
+    {
+      "workflow_id": "platform.create-account",
+      "title": "Provision an authorized tenant account",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 253
+    },
+    {
+      "workflow_id": "platform.create-department",
+      "title": "Create tenant department reference",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 256
+    },
+    {
+      "workflow_id": "platform.create-location",
+      "title": "Create tenant location reference",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 255
+    },
+    {
+      "workflow_id": "platform.create-service_category",
+      "title": "Create tenant service_category reference",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 257
+    },
+    {
+      "workflow_id": "platform.create-tenant",
+      "title": "Provision a new active tenant",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 251
+    },
+    {
+      "workflow_id": "platform.monitor-tenant-setup",
+      "title": "Monitor administrative tenant setup gaps",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 261
+    },
+    {
+      "workflow_id": "platform.report-organization_summary-email",
+      "title": "Request email delivery of organization_summary",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 287
+    },
+    {
+      "workflow_id": "platform.report-organization_summary-export",
+      "title": "Download PDF for organization_summary",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 286
+    },
+    {
+      "workflow_id": "platform.report-organization_summary-view",
+      "title": "Review organization_summary",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 285
+    },
+    {
+      "workflow_id": "platform.report-page_readiness-email",
+      "title": "Request email delivery of page_readiness",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 290
+    },
+    {
+      "workflow_id": "platform.report-page_readiness-export",
+      "title": "Download PDF for page_readiness",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 289
+    },
+    {
+      "workflow_id": "platform.report-page_readiness-view",
+      "title": "Review page_readiness",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 288
+    },
+    {
+      "workflow_id": "platform.report-platform_administration-email",
+      "title": "Request email delivery of platform_administration",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 293
+    },
+    {
+      "workflow_id": "platform.report-platform_administration-export",
+      "title": "Download PDF for platform_administration",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 292
+    },
+    {
+      "workflow_id": "platform.report-platform_administration-view",
+      "title": "Review platform_administration",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 291
+    },
+    {
+      "workflow_id": "platform.review-accounts",
+      "title": "Review tenant accounts and assignable roles",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 252
+    },
+    {
+      "workflow_id": "platform.review-administration-audit",
+      "title": "Review tenant administrative change history",
+      "status": "missing",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Implement safe actor/target and before/after audit projections and their governed UI rendering, then verify scoped history through credential login, API/database comparison and reload.",
+      "attempt_id": 260
+    },
+    {
+      "workflow_id": "platform.review-onboarding-queue",
+      "title": "Review verified partner activation queue",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 262
+    },
+    {
+      "workflow_id": "platform.review-reference-records",
+      "title": "Review tenant reference records",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 258
+    },
+    {
+      "workflow_id": "platform.review-tenants",
+      "title": "Review permitted tenant directory",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the registered complete credential login, UI action, API, isolated database and reload journey, including denied roles, foreign tenants, failures and required evidence/review.",
+      "attempt_id": 250
+    },
+    {
+      "workflow_id": "platform.theme-manage",
+      "title": "Update, rename, duplicate or delete a personal theme",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the defined complete journey using isolated synthetic accounts/data; verify negative cases, persistence/reload and video evidence. Source inspection is not runtime verification.",
+      "attempt_id": 300
+    },
+    {
+      "workflow_id": "platform.theme-preview",
+      "title": "Preview a personal appearance",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the defined complete journey using isolated synthetic accounts/data; verify negative cases, persistence/reload and video evidence. Source inspection is not runtime verification.",
+      "attempt_id": 298
+    },
+    {
+      "workflow_id": "platform.theme-reset",
+      "title": "Reset current appearance to application default",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the defined complete journey using isolated synthetic accounts/data; verify negative cases, persistence/reload and video evidence. Source inspection is not runtime verification.",
+      "attempt_id": 302
+    },
+    {
+      "workflow_id": "platform.theme-save",
+      "title": "Save and restore a named personal theme",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the defined complete journey using isolated synthetic accounts/data; verify negative cases, persistence/reload and video evidence. Source inspection is not runtime verification.",
+      "attempt_id": 299
+    },
+    {
+      "workflow_id": "platform.theme-transfer",
+      "title": "Export or import a personal theme",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute the defined complete journey using isolated synthetic accounts/data; verify negative cases, persistence/reload and video evidence. Source inspection is not runtime verification.",
+      "attempt_id": 301
+    },
+    {
+      "workflow_id": "platform.training-check",
+      "title": "Complete an administrator knowledge check",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 295
+    },
+    {
+      "workflow_id": "platform.training-export",
+      "title": "Export administrator training self-assessment",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 296
+    },
+    {
+      "workflow_id": "platform.training-read",
+      "title": "Read administrator duty training",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 294
+    },
+    {
+      "workflow_id": "platform.training-reset",
+      "title": "Reset own local course progress",
+      "status": "implemented-unverified",
+      "test_status": "not_run",
+      "blockers": "[]",
+      "next_action": "Execute isolated real credential/UI/API/database/reload acceptance and security/failure branches for this definition; inspect governed registrations and save current evidence. Required CI/reviews remain pending.",
+      "attempt_id": 297
+    }
+  ],
+  "issues": {
+    "recorded": 13,
+    "resolved_current": 2,
+    "open": 11
+  }
+}

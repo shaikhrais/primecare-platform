@@ -80,6 +80,7 @@ on:
       - 'docker-compose.yml'
       - 'docs/architecture/**'
       - 'scripts/check-controller-inheritance.py'
+      - 'scripts/check-skeleton-structure.py'
       - 'scripts/check-http-host-inheritance.py'
       - 'scripts/generate-controller-compile-test.py'
       - 'scripts/nuke_and_restore_controllers.js'
@@ -105,6 +106,7 @@ jobs:
           cache: true
       - name: Check pinned controller identity and Dart route compatibility
         run: |
+          python3 scripts/check-skeleton-structure.py
           python3 scripts/check-controller-inheritance.py
           python3 scripts/check-http-host-inheritance.py
           python3 scripts/check-api-route-inheritance.py

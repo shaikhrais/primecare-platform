@@ -7,6 +7,9 @@ from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+sys.path.insert(0,str(ROOT/'tools/governance-production'))
+from connection import connect as governance_connect
 BASELINE = ROOT / 'docs/api/api-catalog-identity-quarantine.json'
 
 
@@ -61,11 +64,11 @@ def unexpected(current, baseline):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--database', type=Path, default=ROOT / '.agents/governance/governance.db')
+    parser.add_argument('--database', type=Path, default=None)
     parser.add_argument('--baseline', type=Path, default=BASELINE)
     parser.add_argument('--record-quarantine', action='store_true', help='Review-only baseline creation; never run in CI')
     args = parser.parse_args()
-    with sqlite3.connect(args.database.resolve().as_uri() + '?mode=ro', uri=True) as db:
+    with governance_connect(args.database.resolve().as_uri() + '?mode=ro' if args.database else None, uri=True) as db:
         current = violations(db)
     if args.record_quarantine:
         args.baseline.write_text(json.dumps({'policy': 'Legacy identity violations only. No grants accepted, reassigned, enabled or repaired by this baseline. New or changed violations fail CI. Remediation must validate business authority separately.', 'violations': current}, indent=2) + '\n')

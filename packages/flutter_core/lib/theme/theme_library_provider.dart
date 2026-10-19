@@ -1,0 +1,17 @@
+import 'dart:convert';import 'dart:math';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../auth_service.dart';import '../providers/persistence_providers.dart';
+import 'personal_theme.dart';import 'theme_settings_provider.dart';
+class SavedPersonalTheme {final String id;final PersonalTheme theme;SavedPersonalTheme(this.id,this.theme);Map<String,Object> toJson()=>{'id':id,'theme':theme.toJson()};}
+class ThemeLibraryNotifier extends Notifier<List<SavedPersonalTheme>> {
+ String _scope='';bool _authenticated=false;
+ @override List<SavedPersonalTheme> build() {final auth=ref.watch(authProvider);_scope=themeAccountScope(auth);_authenticated=auth.isAuthenticated && (auth.userId?.isNotEmpty ?? false);final prefs=ref.watch(sharedPreferencesProvider);try{final raw=prefs?.getString('theme_center_library_v1:$_scope');if(raw!=null && utf8.encode(raw).length<=65536)return _decode(jsonDecode(raw));}catch(_){}return const [];}
+ List<SavedPersonalTheme> _decode(Object? value) {if(value is! List || value.length>20)throw const FormatException('Invalid library');final names=<String>{},ids=<String>{};return List.unmodifiable(value.map((item){if(item is! Map || item.length!=2 || !item.containsKey('id') || !item.containsKey('theme') || item['id'] is! String || !RegExp(r'^[0-9a-f-]{36}$').hasMatch(item['id'] as String) || !ids.add(item['id'] as String))throw const FormatException('Invalid saved theme');final theme=PersonalTheme.fromJson(item['theme']);if(!names.add(theme.name.toLowerCase()))throw const FormatException('Duplicate theme name');return SavedPersonalTheme(item['id'] as String,theme);}));}
+ Future<void> _commit(List<SavedPersonalTheme> next) async {if(!_authenticated)throw StateError('Sign in to save personal themes');final validated=_decode(next.map((i)=>i.toJson()).toList()),scope=_scope,prefs=ref.read(sharedPreferencesProvider);if(prefs==null || !await prefs.setString('theme_center_library_v1:$scope',jsonEncode(validated.map((i)=>i.toJson()).toList())))throw StateError('Unable to save theme');if(_scope!=scope)throw StateError('Account changed');state=validated;}
+ String _id(){final bytes=List.generate(16,(_)=>Random.secure().nextInt(256));bytes[6]=(bytes[6]&15)|64;bytes[8]=(bytes[8]&63)|128;final hex=bytes.map((b)=>b.toRadixString(16).padLeft(2,'0')).join();return '${hex.substring(0,8)}-${hex.substring(8,12)}-${hex.substring(12,16)}-${hex.substring(16,20)}-${hex.substring(20)}';}
+ Future<String> save(PersonalTheme value,{String? id}) async {final theme=value.validated();if(id!=null && !state.any((i)=>i.id==id))throw StateError('Theme no longer exists');if(state.any((i)=>i.id!=id && i.theme.name.toLowerCase()==theme.name.toLowerCase()))throw StateError('Choose a unique theme name');final key=id ?? _id();final next=[...state.where((i)=>i.id!=key),SavedPersonalTheme(key,theme)];await _commit(next);return key;}
+ Future<void> rename(String id,String name) async {final item=state.firstWhere((i)=>i.id==id);await save(item.theme.named(name),id:id);}
+ Future<void> duplicate(String id,String name) async {final item=state.firstWhere((i)=>i.id==id);await save(item.theme.named(name));}
+ Future<void> remove(String id) async {if(!state.any((i)=>i.id==id))throw StateError('Theme no longer exists');await _commit(state.where((i)=>i.id!=id).toList());}
+}
+final themeLibraryProvider=NotifierProvider<ThemeLibraryNotifier,List<SavedPersonalTheme>>(ThemeLibraryNotifier.new);

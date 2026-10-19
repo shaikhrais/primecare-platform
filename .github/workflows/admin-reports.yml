@@ -1,7 +1,7 @@
 name: Shared admin reporting
 on:
   pull_request:
-    paths: ['cloudflare/workers/**', 'packages/primecare_models/**', 'packages/primecare_ui/**', 'packages/flutter_core/lib/src/network/api_client.dart', 'scripts/*admin-reports*', 'scripts/generate-cloudflare-worker-config.mjs', 'packages/database/migrations/*admin_reports.sql', '.github/workflows/admin-reports.yml']
+    paths: ['cloudflare/workers/**', 'websites/typescript/**', 'packages/primecare_models/**', 'packages/primecare_ui/**', 'packages/flutter_core/lib/src/network/api_client.dart', 'scripts/*admin-reports*', 'scripts/register-workspace-governance.py', 'scripts/register-care-governance.py', 'scripts/generate-cloudflare-worker-config.mjs', 'packages/database/migrations/*admin_reports.sql', '.github/workflows/admin-reports.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,11 +22,19 @@ jobs:
       REPORT_TEST_DATABASE_URL: postgresql://reports:integration-only@localhost:5432/reports
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: actions/setup-node@v5
         with:
           node-version: '24'
       - run: npm install --prefix "$RUNNER_TEMP/reports-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.8.3 @types/node@22 @types/pg@8 pg@8.11.3 bcryptjs@3
       - run: ln -s "$RUNNER_TEMP/reports-tools/node_modules" node_modules
+      - name: Register governed roles before deriving reporting grants
+        run: |
+          python3 scripts/register-workspace-governance.py
+          python3 scripts/register-care-governance.py
       - run: python3 scripts/register-admin-reports.py && python3 scripts/register-admin-reports.py --check
       - run: node --test scripts/test-admin-reports.mjs scripts/test-workspace.mjs scripts/test-auth-maintenance.mjs
       - run: node --test scripts/test-admin-reports-postgres.mjs
@@ -36,6 +44,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.41.5'

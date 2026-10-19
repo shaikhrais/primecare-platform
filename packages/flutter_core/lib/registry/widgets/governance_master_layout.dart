@@ -1,8 +1,8 @@
+import '../../theme/theme_center_theme_data.dart';
 // Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE The central Governance Layout for all PrimeCare portals. It automatically pulls sidebar and ...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
-import '../../theme/theme_config_generated.dart';
 import '../../theme/theme_settings_provider.dart';
 import 'theme_settings_drawer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +19,6 @@ import '../../config/screen_breakpoints.dart';
 import '../../config/adaptive_scaling_config.dart';
 
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'dart:ui';
 import '../role_registry.dart';
 import '../../src/localization/language_provider.dart';
 
@@ -54,66 +53,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
 
     final settings = ref.watch(themeSettingsProvider);
 
-    // Helper to parse hex colors safely
-    Color? parseHexColor(String? hex) {
-      if (hex == null) return null;
-      final clean = hex.replaceAll('#', '').trim();
-      if (clean.length == 6) {
-        return Color(int.parse('0xFF$clean'));
-      } else if (clean.length == 8) {
-        return Color(int.parse('0x$clean'));
-      }
-      return null;
-    }
-
-    // Dynamic color preset overrides
-    final palette = ThemeConfig.getAppPalette(settings.presetName);
-    
-    final customPrimaryColor = parseHexColor(settings.customPrimary);
-    final customPrimaryContainerColor = parseHexColor(settings.customPrimaryContainer);
-    final customSidebarBgColor = parseHexColor(settings.customSidebarBg);
-    final customTopbarBgColor = parseHexColor(settings.customTopbarBg);
-
-    final resolvedPrimary = customPrimaryColor ?? palette.primary;
-    final resolvedPrimaryContainer = customPrimaryContainerColor ?? palette.primaryContainer;
-    final resolvedSidebarBg = customSidebarBgColor ?? palette.sidebarBackground;
-    final resolvedTopbarBg = customTopbarBgColor ?? palette.topbarBackground;
-
-    final baseTheme = tenant.branding;
-    final theme = baseTheme.copyWith(
-      primaryColor: resolvedPrimary,
-      scaffoldBackgroundColor: palette.background,
-      dividerColor: palette.divider,
-      colorScheme: baseTheme.colorScheme.copyWith(
-        brightness: palette.brightness,
-        primary: resolvedPrimary,
-        onPrimary: palette.onPrimary,
-        primaryContainer: resolvedPrimaryContainer,
-        secondary: palette.secondary,
-        surface: palette.surface,
-      ),
-      extensions: [
-        () {
-          final isSidebarDark = ThemeData.estimateBrightnessForColor(resolvedSidebarBg) == Brightness.dark;
-          final isTopbarDark = ThemeData.estimateBrightnessForColor(resolvedTopbarBg) == Brightness.dark;
-          return GovernanceThemeColors(
-            sidebarBackground: resolvedSidebarBg,
-            topbarBackground: resolvedTopbarBg,
-            sidebarTextColor: isSidebarDark ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-            sidebarSelectedTextColor: isSidebarDark ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-            sidebarIconColor: isSidebarDark ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-            sidebarSelectedIconColor: isSidebarDark ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-            sidebarSelectedTileColor: isSidebarDark ? const Color(0x26FFFFFF) : const Color(0x0D000000),
-            sidebarDividerColor: isSidebarDark ? const Color(0x1FFFFFFF) : const Color(0x0D000000),
-            topbarTextColor: isTopbarDark ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-            topbarSelectedTextColor: isTopbarDark ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-            topbarIconColor: isTopbarDark ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-            topbarSelectedIconColor: isTopbarDark ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-            topbarDividerColor: isTopbarDark ? const Color(0x1FFFFFFF) : const Color(0x0D000000),
-          );
-        }(),
-      ],
-    );
+    final theme=applyPersonalThemeData(tenant.branding,settings.theme);
 
     final themeColors = theme.extension<GovernanceThemeColors>();
     
@@ -507,7 +447,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                   child: CircleAvatar(
                                     radius: 16,
-                                    backgroundColor: resolvedPrimary.withValues(alpha: 0.1),
+                                    backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
                                     backgroundImage: NetworkImage(
                                       'https://api.dicebear.com/7.x/avataaars/png?seed=${ref.watch(authProvider).userName ?? 'User'}',
                                     ),
@@ -786,7 +726,7 @@ class _RoleSwitcherDialog extends StatefulWidget {
 
 class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
   final TextEditingController _searchController = TextEditingController();
-  String _searchQuery = "";
+  String _searchQuery = '';
 
   @override
   void dispose() {
@@ -920,7 +860,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
                             onTap: () {
                               _searchController.clear();
                               setState(() {
-                                _searchQuery = "";
+                                _searchQuery = '';
                               });
                             },
                             child: Icon(

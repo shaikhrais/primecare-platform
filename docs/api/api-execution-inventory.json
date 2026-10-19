@@ -1,11 +1,11 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1407,
+    "totalDeclared": 1418,
     "verificationStates": {
       "blocked": 14,
       "unit_fixtures_recorded": 344,
-      "verification_pending": 1049
+      "verification_pending": 1060
     },
     "contractGaps": {
       "permission": 1053,
@@ -15604,6 +15604,259 @@
       ],
       "roles": [
         "governance"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16684,
+      "api": "GET /v1/governance/platform",
+      "method": "GET",
+      "route": "/v1/governance/platform",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "verification_pending",
+      "batch": null,
+      "recordedUnitStatus": "unrecorded",
+      "missingContractFields": [],
+      "screens": [
+        "PLATFORM_ADMINISTRATION"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "platform_admin"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16685,
+      "api": "GET /v1/governance/platform/tenants",
+      "method": "GET",
+      "route": "/v1/governance/platform/tenants",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "verification_pending",
+      "batch": null,
+      "recordedUnitStatus": "unrecorded",
+      "missingContractFields": [],
+      "screens": [
+        "PLATFORM_ADMINISTRATION"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "platform_admin"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16686,
+      "api": "POST /v1/governance/platform/tenants",
+      "method": "POST",
+      "route": "/v1/governance/platform/tenants",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "verification_pending",
+      "batch": null,
+      "recordedUnitStatus": "unrecorded",
+      "missingContractFields": [],
+      "screens": [
+        "PLATFORM_ADMINISTRATION"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "platform_admin"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16687,
+      "api": "GET /v1/governance/platform/tenants/{tenantId}",
+      "method": "GET",
+      "route": "/v1/governance/platform/tenants/{tenantId}",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "verification_pending",
+      "batch": null,
+      "recordedUnitStatus": "unrecorded",
+      "missingContractFields": [],
+      "screens": [
+        "PLATFORM_ADMINISTRATION"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "platform_admin"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16688,
+      "api": "GET /v1/governance/platform/tenants/{tenantId}/accounts",
+      "method": "GET",
+      "route": "/v1/governance/platform/tenants/{tenantId}/accounts",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "verification_pending",
+      "batch": null,
+      "recordedUnitStatus": "unrecorded",
+      "missingContractFields": [],
+      "screens": [
+        "PLATFORM_ADMINISTRATION"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "platform_admin"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16689,
+      "api": "POST /v1/governance/platform/tenants/{tenantId}/accounts",
+      "method": "POST",
+      "route": "/v1/governance/platform/tenants/{tenantId}/accounts",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "verification_pending",
+      "batch": null,
+      "recordedUnitStatus": "unrecorded",
+      "missingContractFields": [],
+      "screens": [
+        "PLATFORM_ADMINISTRATION"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "platform_admin"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16690,
+      "api": "PATCH /v1/governance/platform/tenants/{tenantId}/accounts/{userId}",
+      "method": "PATCH",
+      "route": "/v1/governance/platform/tenants/{tenantId}/accounts/{userId}",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "verification_pending",
+      "batch": null,
+      "recordedUnitStatus": "unrecorded",
+      "missingContractFields": [],
+      "screens": [
+        "PLATFORM_ADMINISTRATION"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "platform_admin"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16694,
+      "api": "GET /v1/governance/platform/tenants/{tenantId}/audit",
+      "method": "GET",
+      "route": "/v1/governance/platform/tenants/{tenantId}/audit",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "verification_pending",
+      "batch": null,
+      "recordedUnitStatus": "unrecorded",
+      "missingContractFields": [],
+      "screens": [
+        "PLATFORM_ADMINISTRATION"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "platform_admin"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16691,
+      "api": "GET /v1/governance/platform/tenants/{tenantId}/masters",
+      "method": "GET",
+      "route": "/v1/governance/platform/tenants/{tenantId}/masters",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "verification_pending",
+      "batch": null,
+      "recordedUnitStatus": "unrecorded",
+      "missingContractFields": [],
+      "screens": [
+        "PLATFORM_ADMINISTRATION"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "platform_admin"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16692,
+      "api": "POST /v1/governance/platform/tenants/{tenantId}/masters",
+      "method": "POST",
+      "route": "/v1/governance/platform/tenants/{tenantId}/masters",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "verification_pending",
+      "batch": null,
+      "recordedUnitStatus": "unrecorded",
+      "missingContractFields": [],
+      "screens": [
+        "PLATFORM_ADMINISTRATION"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "platform_admin"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16693,
+      "api": "PATCH /v1/governance/platform/tenants/{tenantId}/masters/{recordId}",
+      "method": "PATCH",
+      "route": "/v1/governance/platform/tenants/{tenantId}/masters/{recordId}",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "verification_pending",
+      "batch": null,
+      "recordedUnitStatus": "unrecorded",
+      "missingContractFields": [],
+      "screens": [
+        "PLATFORM_ADMINISTRATION"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "platform_admin"
       ],
       "postgresVerified": false,
       "productionVerified": false

@@ -1,0 +1,160 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare verified partner activation and administrator hierarchy",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "paths": {
+    "/v1/governance/platform/onboarding": {
+      "get": {
+        "operationId": "platform_partner_get",
+        "summary": "List reviewed partners",
+        "description": "Central/platform global scope and governed screen grants required. CEO/tenant administrators denied. Only active source tenants and reviewed unchanged contacts are eligible. No clinical credentials granted. Existing platform administration operations retain their URLs and now enforce the distinct scopes.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped reviewed records"
+          },
+          "201": {
+            "description": "Tenant/admin created and audited"
+          },
+          "400": {
+            "description": "Strict schema or tenant override rejected"
+          },
+          "401": {
+            "description": "Active explicit session required"
+          },
+          "403": {
+            "description": "Global administrator authority required"
+          },
+          "404": {
+            "description": "No eligible reviewed record"
+          },
+          "409": {
+            "description": "Version/contact/uniqueness/replay conflict"
+          },
+          "429": {
+            "description": "30 mutations per actor per minute"
+          },
+          "503": {
+            "description": "Dependency/audit failure; no partial tenant created"
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/onboarding/{id}/activate": {
+      "post": {
+        "operationId": "platform_partner_post",
+        "summary": "Atomically provision reviewed partner tenant and tenant administrator",
+        "description": "Central/platform global scope and governed screen grants required. CEO/tenant administrators denied. Only active source tenants and reviewed unchanged contacts are eligible. No clinical credentials granted. Existing platform administration operations retain their URLs and now enforce the distinct scopes.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoped reviewed records"
+          },
+          "201": {
+            "description": "Tenant/admin created and audited"
+          },
+          "400": {
+            "description": "Strict schema or tenant override rejected"
+          },
+          "401": {
+            "description": "Active explicit session required"
+          },
+          "403": {
+            "description": "Global administrator authority required"
+          },
+          "404": {
+            "description": "No eligible reviewed record"
+          },
+          "409": {
+            "description": "Version/contact/uniqueness/replay conflict"
+          },
+          "429": {
+            "description": "30 mutations per actor per minute"
+          },
+          "503": {
+            "description": "Dependency/audit failure; no partial tenant created"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 2147483646
+                  },
+                  "slug": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9-]{2,62}$"
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 150
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 12,
+                    "maxLength": 72,
+                    "writeOnly": true,
+                    "description": "UTF-8 encoded password must be at most 72 bytes."
+                  }
+                },
+                "required": [
+                  "version",
+                  "slug",
+                  "name",
+                  "password"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

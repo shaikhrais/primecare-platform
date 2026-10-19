@@ -1,0 +1,32 @@
+{
+  "formTestIds": [
+    "platform-tenant-form",
+    "platform-account-form",
+    "platform-master-form"
+  ],
+  "formPrefixes": [
+    "platform-onboarding-form-"
+  ],
+  "scope": "actor_tenant_view",
+  "storage": "memory",
+  "excludeInputTypes": [
+    "password",
+    "hidden"
+  ],
+  "clearOn": "successful_submission_or_scope_change",
+  "rowTables": [
+    "platform-users",
+    "platform-masters"
+  ],
+  "rowFields": [
+    "data-role",
+    "data-status",
+    "data-label"
+  ],
+  "rowClearOn": [
+    "successful_row_save",
+    "scope_change",
+    "explicit_refresh",
+    "server_baseline_change"
+  ]
+}

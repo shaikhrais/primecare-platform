@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "wholeTaskVerified": false,
+  "scope": "unit policy only",
+  "tests": 3,
+  "sources": {
+    "packages/shared/src/care/contract.ts": "01947c5b887ccd41b16fb322b549f288ce6f8434ee196fa5d78466eedd4ee177",
+    "scripts/test-care-closed-appointments.mjs": "d8c80d706f86b1526cd3e4aa9bfaf76a83d53723e49aa11c7c4e3153048fd3eb"
+  }
+}

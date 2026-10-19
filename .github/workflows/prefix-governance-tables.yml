@@ -1,0 +1,55 @@
+name: Prefix production governance tables with govt
+on:
+  workflow_dispatch:
+  push:
+    branches: [work/governance-govt-prefix-20261019]
+    paths:
+      - tools/governance-production/**
+      - .github/workflows/prefix-governance-tables.yml
+  pull_request:
+    paths:
+      - tools/governance-production/**
+      - .github/workflows/prefix-governance-tables.yml
+permissions:
+  contents: read
+concurrency:
+  group: primecare-governance-production-import
+  cancel-in-progress: false
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install isolated tools
+        run: |
+          npm install --prefix /tmp/govt-prefix-tools --ignore-scripts --no-audit --no-fund pg@8.11.3 @electric-sql/pglite@0.3.14
+          ln -s /tmp/govt-prefix-tools/node_modules node_modules
+      - run: node tools/governance-production/test-import.mjs
+      - run: node tools/governance-production/test-prefix.mjs
+  production:
+    if: github.event_name != 'pull_request'
+    needs: test
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install isolated PostgreSQL driver
+        run: |
+          npm install --prefix /tmp/govt-prefix-tools --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/govt-prefix-tools/node_modules node_modules
+      - name: Rename and verify complete governance snapshot
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CONFIRM_GOVERNANCE_PREFIX: PREFIX_GOVERNANCE_TABLES_GOVT
+        run: node tools/governance-production/prefix-tables.mjs > /tmp/govt-prefix-receipt.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: govt-prefix-production-receipt
+          path: /tmp/govt-prefix-receipt.json

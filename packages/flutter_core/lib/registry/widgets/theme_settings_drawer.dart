@@ -1,3 +1,6 @@
+import 'theme_center_panel.dart';
+import '../../theme/theme_contrast.dart';
+import '../../theme/theme_center_catalog_generated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -20,25 +23,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
     final settings = ref.watch(themeSettingsProvider);
     final notifier = ref.read(themeSettingsProvider.notifier);
 
-    // List of premium presets to showcase
-    final presetsList = [
-      'default',
-      'defaultDark',
-      'navyTealPalette',
-      'emeraldGold',
-      'charcoalTeal',
-      'slateCrimson',
-      'indigoCoral',
-      'skyBlueOrange',
-      'softGreenMaroon',
-      'coolGreyPink',
-      'light1',
-      'light2',
-      'light3',
-      'dark1',
-      'dark2',
-      'dark3',
-    ];
+    final presetsList = themeCenterPresetNames;
 
     return Drawer(
       child: SafeArea(
@@ -52,13 +37,12 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                 children: [
                   const Icon(LucideIcons.settings, size: 24),
                   const SizedBox(width: 12),
-                  Text(
-                    'Theme Settings',
+                  Expanded(child: Text(
+                    themeCenterText(context,'theme_center'),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
-                  ),
-                  const Spacer(),
+                  )),
                   IconButton(
                     icon: const Icon(LucideIcons.x, size: 20),
                     onPressed: () => Navigator.of(context).pop(),
@@ -73,13 +57,14 @@ class ThemeSettingsDrawer extends ConsumerWidget {
               child: ListView(
                 padding: const EdgeInsets.all(16.0),
                 children: [
+                  const ThemeCenterPanel(),
                   // Section: Layout Styles
                   Text(
                     'LAYOUT STYLE',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.2,
-                          color: Colors.grey.shade600,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                   ),
                   const SizedBox(height: 12),
@@ -119,7 +104,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.2,
-                          color: Colors.grey.shade600,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                   ),
                   const SizedBox(height: 12),
@@ -183,7 +168,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.2,
-                          color: Colors.grey.shade600,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                   ),
                   const SizedBox(height: 12),
@@ -254,7 +239,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                                     title,
                                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                                          color: isSelected ? Theme.of(context).primaryColor : null,
+                                          color: isSelected ? readableThemeForeground(Theme.of(context).colorScheme.surface, Theme.of(context).primaryColor) : null,
                                         ),
                                   ),
                                 ),
@@ -278,7 +263,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.2,
-                          color: Colors.grey.shade600,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                   ),
                   const SizedBox(height: 12),
@@ -364,7 +349,7 @@ class _LayoutOptionCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(
-          color: isSelected ? theme.primaryColor : Colors.grey.shade200,
+          color: isSelected ? theme.primaryColor : theme.colorScheme.outline,
           width: isSelected ? 2 : 1,
         ),
       ),
@@ -380,12 +365,12 @@ class _LayoutOptionCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: isSelected
                       ? theme.primaryColor.withValues(alpha: 0.1)
-                      : Colors.grey.shade100,
+                      : theme.colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Icon(
                   icon,
-                  color: isSelected ? theme.primaryColor : Colors.grey.shade600,
+                  color: isSelected ? theme.primaryColor : theme.colorScheme.onSurfaceVariant,
                   size: 20,
                 ),
               ),
@@ -398,14 +383,14 @@ class _LayoutOptionCard extends StatelessWidget {
                       title,
                       style: theme.textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: isSelected ? theme.primaryColor : null,
+                            color: isSelected ? readableThemeForeground(theme.colorScheme.surface, theme.primaryColor) : null,
                           ),
                     ),
                     const SizedBox(height: 2),
                     Text(
                       subtitle,
                       style: theme.textTheme.labelSmall?.copyWith(
-                            color: Colors.grey.shade500,
+                            color: theme.colorScheme.onSurfaceVariant,
                           ),
                     ),
                   ],

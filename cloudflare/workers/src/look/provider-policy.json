@@ -1,0 +1,21 @@
+{
+  "version": "vision-provider-v1",
+  "requirement": "Complete the real screenshot AI reviewer behind the existing LOOK_AI service contract; human approval remains separate",
+  "serviceName": "primecare-look-ai",
+  "path": "/review",
+  "providerUrl": "https://api.openai.com/v1/responses",
+  "providerTimeoutMs": 20000,
+  "maxRequestBytes": 1500000,
+  "maxResponseBytes": 262144,
+  "maxOutputTokens": 3000,
+  "secrets": [
+    "OPENAI_API_KEY"
+  ],
+  "modelVariable": "LOOK_AI_MODEL",
+  "jobBinding": "VISION_JOBS",
+  "jobClass": "VisionReviewJob",
+  "publicRouting": false,
+  "replayPolicy": "Durable claim before provider I/O; persist success or terminal failure; pending/unknown outcomes never issue a second provider call. A new review ID is required for a fresh provider attempt.",
+  "storage": "Server-side Durable Object stores only fingerprint, claim time, terminal status and validated report; never image bytes or credentials. No automatic expiry or purge in this version.",
+  "compatibilityDate": "2026-08-06"
+}

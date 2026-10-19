@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/personal_theme.dart';
 // Governance - Category: service | Purpose: Static utility class for PrimeCare colors used across the platform. Brand Colors Surface & Background
 import 'package:flutter/material.dart';
 import 'package:flutter_core/theme/app_theme.dart';
@@ -477,7 +478,33 @@ class PrimeTypography {
 }
 
 /// A structured theme data object used across the PrimeCare platform.
+class RuntimePrimeTypography extends PrimeTypography {
+  final PrimeTypography base;
+  final PersonalTheme personal;
+  final Color color;
+  RuntimePrimeTypography(this.base,this.personal,this.color);
+  TextStyle styled(TextStyle value)=>value.copyWith(fontFamily:personal.fontFamily=='system'?value.fontFamily:personal.fontFamily,fontSize:(value.fontSize??14)*personal.fontScale,color:color);
+  @override TextStyle get h1=>styled(base.h1);
+  @override TextStyle get h2=>styled(base.h2);
+  @override TextStyle get h3=>styled(base.h3);
+  @override TextStyle get h4=>styled(base.h4);
+  @override TextStyle get h5=>styled(base.h5);
+  @override TextStyle get bodyLarge=>styled(base.bodyLarge);
+  @override TextStyle get bodyMedium=>styled(base.bodyMedium);
+  @override TextStyle get bodySmall=>styled(base.bodySmall);
+  @override TextStyle get labelBold=>styled(base.labelBold);
+  @override TextStyle get labelMedium=>styled(base.labelMedium);
+  @override TextStyle get labelSmall=>styled(base.labelSmall);
+  @override TextStyle get subtitle1=>styled(base.subtitle1);
+  @override TextStyle get subtitle2=>styled(base.subtitle2);
+  @override TextStyle get button=>styled(base.button);
+}
+
 class PrimeThemeData {
+  /// Explicit legacy sizes must still follow the user's saved text scale.
+  double scaleFont(double size) => typography is RuntimePrimeTypography
+      ? size * (typography as RuntimePrimeTypography).personal.fontScale
+      : size;
   final PrimeColors colors;
   final PrimeTypography typography;
   final PrimeSpacing spacing;
@@ -564,7 +591,7 @@ class PrimeThemeData {
         space: 1,
       ),
       cardTheme: CardThemeData(
-        color: Colors.white,
+        color: colors.surface,
         elevation: 0,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
@@ -574,7 +601,7 @@ class PrimeThemeData {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.white,
+        fillColor: colors.surface,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 12,

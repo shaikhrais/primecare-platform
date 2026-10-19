@@ -50,12 +50,17 @@ jobs:
         with:
           sparse-checkout: |
             testingFramework1.0
-            .agents/governance/governance.db
+            tools/governance-production/prepare-ci-fixture.py
             packages/primecare_ui/lib
             scripts/reconcile_governance_screens.py
             scripts/test-reconcile-governance-screens.py
             cloudflare/workers/src/workspace-registry.json
           sparse-checkout-cone-mode: false
+
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
 
       - name: Set up Java 21 JDK
         uses: actions/setup-java@v4

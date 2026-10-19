@@ -1,3 +1,5 @@
+import { compressResponse } from './response-compression';
+
 /** Shared request lifecycle. Instances must never retain per-request identity or state. */
 export abstract class BaseWorker<Environment> {
   async fetch(request: Request, env: Environment): Promise<Response> {
@@ -23,6 +25,6 @@ export abstract class BaseWorker<Environment> {
 /** Plain Worker export retains its callable fetch even when destructured by a host. */
 export function workerHandler<Environment>(worker: BaseWorker<Environment>) {
   return {
-    fetch: (request: Request, env: Environment): Promise<Response> => worker.fetch(request, env),
+    fetch: async (request: Request, env: Environment): Promise<Response> => compressResponse(request, await worker.fetch(request, env)),
   };
 }
