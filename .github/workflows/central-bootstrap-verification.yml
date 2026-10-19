@@ -1,0 +1,66 @@
+name: Central bootstrap isolated verification
+on:
+  pull_request:
+    paths: ['scripts/*central-bootstrap*', 'scripts/bootstrap-first-central-admin.mjs', 'scripts/bootstrap-validation.mjs', 'tools/workflow-verification/record_central_bootstrap.py', 'packages/database/migrations/20260928_auth_bootstrap_audit.sql', '.github/workflows/central-bootstrap-verification.yml']
+  push:
+    branches: [main]
+    paths: ['scripts/*central-bootstrap*', 'scripts/bootstrap-first-central-admin.mjs', 'scripts/bootstrap-validation.mjs', 'tools/workflow-verification/record_central_bootstrap.py', 'packages/database/migrations/20260928_auth_bootstrap_audit.sql', '.github/workflows/central-bootstrap-verification.yml']
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: bootstrap
+          POSTGRES_PASSWORD: synthetic-only
+          POSTGRES_DB: bootstrap
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U bootstrap" --health-interval 5s --health-timeout 5s --health-retries 10
+    outputs:
+      evidence_url: ${{ steps.evidence.outputs.artifact-url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/bootstrap-tools" --ignore-scripts --no-audit --no-fund pg@8.11.3 bcryptjs@3
+          ln -s "$RUNNER_TEMP/bootstrap-tools/node_modules" node_modules
+      - name: Check simulated contracts and actual native transactions
+        env:
+          CENTRAL_BOOTSTRAP_TEST_DATABASE_URL: postgresql://bootstrap:synthetic-only@localhost:5432/bootstrap
+        run: node --test scripts/test-central-bootstrap.mjs scripts/test-central-bootstrap-postgres.mjs
+      - uses: actions/upload-artifact@v4
+        id: evidence
+        if: always()
+        with:
+          name: central-bootstrap-native-receipt
+          path: test-results/central-bootstrap/
+          if-no-files-found: error
+          retention-days: 90
+  record:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: native
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: central-bootstrap-native-receipt
+          path: test-results/central-bootstrap
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Record blocked full acceptance and passed native scope
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          BOOTSTRAP_EVIDENCE_URL: ${{ needs.native.outputs.evidence_url }}
+        run: python tools/workflow-verification/record_central_bootstrap.py
