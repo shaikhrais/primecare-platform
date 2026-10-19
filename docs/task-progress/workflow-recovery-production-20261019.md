@@ -1,52 +1,53 @@
-# Workflow recovery checkpoint — 2026-10-19
+# PrimeCare production workflow recovery — 2026-10-19
 
-## Authority and repository state
+## Current outcome
 
-Started from current main 7930fc8505771b2957d7939fefaae502b90e21ee, not historical branch work/care-recovery-20261018-closed-visits or checkpoint 0dbb337. Read .agents/AGENTS.md and tools/governance-production/production-pin.json. Remote inspection found main only and zero open PRs. No new work branch or PR was created.
+Production attempt 310 for `care.psw.submit-availability` is committed. Verification remains `implemented-unverified`; test_status is `scoped_pass`. No completion tick is awarded.
 
-Production read used the protected production environment, the shared production_reader adapter, schema governance_68b0b02dd1215f58630d2c1a, govt_ relations and matching pinned manifest. No production mutations, synthetic production accounts, fixture restoration or SQLite fallback were performed.
+The work branch `work/workflow-production-recorder` was merged and deleted with an exact-head lease after CI and protected production execution passed. There is one remote branch, `main`, and zero open PRs. Historical archive tags were preserved. No local work branch was created for this repair; pre-existing local staged changes and recovery material were left intact.
 
-Read-only inspection commit: c62b937674cfa959151c9872180b5a6701a203ee.
-Inspection succeeded: https://github.com/shaikhrais/primecare-platform/actions/runs/39300420530/job/118223843988 .
-Temporary inspection workflow removed at 8597e939590505b94686cc07f5a2ed5058dd4789.
+Source implementation merges:
+- PR #209: a682083ae33094f525d48a430cfb930f6a82b601.
+- Same-branch TLS follow-up PR #210: 1fc355190ea21a12b6326db2f639e58f405e22fd.
 
-## Live production counts
+## Workflow report
+
+| Workflow ID | Issue found | Fix | Test result | Status | Evidence | Source commit |
+| --- | --- | --- | --- | --- | --- | --- |
+| care.psw.submit-availability | Recorder still used removed SQLite authority; browser theme reader bypassed the production adapter; binary PostgreSQL client did not locate its CA bundle | Pinned, explicitly opted-in PostgreSQL tracking store; shared governed theme reads; explicit operating-system CA bundle with verify-full retained | 23 store tests, unchanged recorder/gate/reader tests, full care CI, six credential/browser cases and eight security/recovery groups passed | implemented-unverified; scoped_pass | [Browser results and video](https://github.com/shaikhrais/primecare-platform/actions/runs/39305700696/artifacts/12214106372) | 1fc355190ea21a12b6326db2f639e58f405e22fd |
+
+The browser run exercises real credential login → UI availability action → production handlers → isolated embedded PostgreSQL result → browser reload, EN/FR/ES, responsive widths and time zones. Negative/recovery groups include invalid credentials, identity-validation outage, expired session, role/self/tenant denials, forged tenant headers, invalid input, idempotent replay, response-loss retry, rollback, offline recovery and logout.
+
+This is a loopback renderer/handler harness with synthetic business data. It does not establish full deployed workspace/router, workflow-specific native multi-connection concurrency, full accessibility/PWA acceptance or independent review. Recording-store concurrency tests are separate from business-workflow concurrency proof. Governed playback requirements in the existing acceptance specification still need authority review; no new route, grant or duty was invented.
+
+## Production governance
+
+The sole live authority remains tools/governance-production/production-pin.json, schema `governance_68b0b02dd1215f58630d2c1a`, `govt_` tables, manifest `68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42`.
+
+The general reader stays read-only. The separately pinned workflow writer requires `GOVERNANCE_WORKFLOW_WRITES=1` and permits only tracking changes to definitions' verification fields, attempts, issues, evidence, resolutions, checkpoints and catalogue snapshots. It rejects absent/conflicting credentials, wrong targets/manifests, schema mismatches, duplicate/null tracking keys and unsupported statements. Transactions, serialized table locks, explicit identities/row ordinals/timestamps and tagged JSONB values preserve imported data without DDL or grant changes. See tools/workflow-verification/PRODUCTION.md.
+
+The original failed production recording run stopped at strict TLS before any tracking mutation: https://github.com/shaikhrais/primecare-platform/actions/runs/39303882904.
+A protected read-only diagnostic proved the explicit system CA file and pinned manifest: https://github.com/shaikhrais/primecare-platform/actions/runs/39304473101.
+The corrected store also passed live schema/key/count preflight without mutation: https://github.com/shaikhrais/primecare-platform/actions/runs/39304792859.
+Successful browser execution and committed recording: https://github.com/shaikhrais/primecare-platform/actions/runs/39305700696.
+Branch cleanup and committed production handoff: https://github.com/shaikhrais/primecare-platform/actions/runs/39306191668.
+
+No operational governance.db was read or recreated. Explicit isolated CI fixtures remain test-only. No real production business accounts, records, permissions or tenant grants were changed. The disposable synthetic business database was closed.
+
+## Live totals after the committed attempt and handoff
 
 TOTAL = 147 = MISSING 11 + IMPLEMENTED-UNVERIFIED 134 + VERIFIED 0 + BLOCKED 2.
-DONE = 0. PENDING = 147.
+DONE = 0.
+PENDING = 147.
 
-These counts were recalculated from virtual_workflow_definitions filtered to flow_kind='business_process' through the pinned adapter on 2026-10-19 at 18:11 UTC. No status was promoted or changed.
+These are recalculated production business_process counts; supporting screen/action/API guides are excluded. No workflow was promoted to verified.
 
-Supporting inventory, not additional business processes: 5338 total definitions across all flow kinds; 18750 steps; 5976 source links; 98 role guides; 6 catalogue snapshots. Inspected source-schema metadata for all five requested relations. PRAGMA introspection in this adapter reads empty manifest-derived schema metadata, not a local governance database.
+## Resumption checkpoint
 
-## Scoped attempt and exact dependencies
+The production checkpoint for this workflow references attempt 310. Its next_action contains the complete structured handoff; `govt_virtual_flow_catalog_snapshots` also contains `recovery-handoff-current`. It records main SHA `302951c55183836aa8f64bc74f7743af82691b10` as of cleanup, no work branch, zero open PRs, CI/evidence URLs, live counts, synthetic data cleanup and next action. Subsequent report/temporary-workflow removal commits do not change the tested business sources.
 
-| Workflow | Issue found | Fix | Test result | Verification status | Evidence | Commit |
-| --- | --- | --- | --- | --- | --- | --- |
-| care.psw.submit-availability | Browser harness still reads removed operational SQLite theme tokens; production attempt recorder is not migrated | No unsupported writer substitution or fabricated workflow completion | Five isolated API checks pass; no browser execution in this attempt | implemented-unverified; acceptance and production recording remain unproven | scripts/test-care-availability-api.mjs, run against current main source | 7930fc8505771b2957d7939fefaae502b90e21ee, tested source; no implementation change |
+Next registered candidate: `auth.bootstrap-first-central-admin` — Bootstrap first protected central_admin. Read its current production definition, steps, source links, permissions, APIs and checkpoint before testing. Use an isolated fresh database for first-administrator bootstrap acceptance.
 
-Additional regression: three closed-appointment checks pass in scripts/test-care-closed-appointments.mjs.
+An authority-review note is preserved in the production handoff: live api_endpoints row 2 (API__V1_AUTH_LOGIN) is marked auth_required=1 while the registered availability specification starts without a session. Clarify the canonical meaning before full acceptance; no grant or API metadata change was inferred.
 
-Reproduction: node --test scripts/test-care-closed-appointments.mjs scripts/test-care-availability-api.mjs (Node 24, esbuild, bcryptjs and @electric-sql/pglite 0.3.14).
-Final result: tests 8, pass 8, fail 0.
-The first API launch lacked @electric-sql/pglite; installing the pinned isolated dependency resolved that setup failure. No implementation defect was inferred from the missing dependency.
-
-Covered by the five isolated API tests: authenticated token-based availability persistence/audit/replay, denied roles/foreign staff/forged tenant, fresh API reads and foreign withdrawal denial, audit failure rollback/safe retry, invalid dates/expired session/changed replay denial. These tests use synthetic disposable embedded PostgreSQL. They do not prove real credential browser login, production routing, PWA/accessibility, native multi-connection concurrency or independent acceptance review.
-
-### Exact blockers
-
-1. tools/workflow-verification/execution.py still imports sqlite3, creates SQLite tables, uses lastrowid and SQLite upsert/DDL semantics, and records attempts through that store. The shared production adapter explicitly rejects writes; production-pin.json is readOnly=true. Consequently this session could not persist a production attempt, issue, evidence or checkpoint through a supported mechanism. This repository checkpoint is a transparent handoff, NOT a production governance checkpoint.
-2. scripts/test-care-availability-workflow.mjs reads theme_design_tokens by directly opening .agents/governance/governance.db. That file is intentionally removed. Do not run the harness unchanged: sqlite3.connect can recreate an empty operational file. Theme reads must use the pinned production adapter; synthetic business data must remain isolated.
-3. Existing acceptance specification tools/workflow-verification/specs/care.psw.submit-availability.json says required acceptance review is pending. Prior repository tracking also identifies native multi-connection concurrency, deployed workspace/router, full accessibility/PWA and governed playback dependencies. These older findings were not revalidated by this scoped attempt; do not treat them as new executed evidence.
-
-No business-process statuses were bulk changed to blocked for the shared infrastructure dependency. No tests or review gates were bypassed. No browser recording or video was produced. No synthetic production data requires cleanup; disposable embedded test data was closed by the fixture.
-
-## Next concrete actions
-
-1. Migrate the attempt/checkpoint store as a narrowly scoped task, on the single permitted work branch, before resuming persisted workflow attempts. Inspect actual PostgreSQL physical types/constraints, imported identities/defaults and all-null JSONB columns; use parameterized transactions, pinned manifest checks and reviewed explicit write scope. Preserve all existing attempts, issues, evidence and checkpoint history. Never merely substitute a database URL into the SQLite writer.
-2. Verify rollback, concurrent attempt IDs, duplicate/retry handling, definition/source drift, parent-child integrity and conservative status gating against isolated native PostgreSQL. Do not enable writes or promote verified until required gates pass.
-3. Migrate browser theme-token loading to the production reader without reading or creating an operational SQLite file. Keep browser/API/business database fixtures synthetic and isolated. Run real credential browser/API/database/reload and required negative paths; preserve source-bound evidence.
-4. Read the current production workflow definition, steps, exact references, policies and latest attempt/checkpoint before recording the next attempt. Continue care.psw.submit-availability if its acceptance dependencies are resolved; otherwise record its exact dependency through the migrated store and select another supported business process.
-5. Finish CI/review, merge and delete that one work branch before opening another. Save current main/work-branch SHAs, PR state, evidence and next action through production checkpoint records.
-
-At this checkpoint: no active remote work branch, no open PR, no implementation merge pending. Workflow verification and production checkpoint persistence are incomplete.
+Other legacy writers and governance consumers remain outside this completed recorder repair. Do not point them at production by substituting a URL. Full platform workflow verification remains incomplete.
