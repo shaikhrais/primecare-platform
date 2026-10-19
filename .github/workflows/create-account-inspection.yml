@@ -1,0 +1,56 @@
+name: Inspect governed tenant account creation
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/create-account-inspection.yml]
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+jobs:
+  requirements:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/govt-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Load live specifications and theme after merge
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY'
+          import sys,json,pathlib,sqlite3
+          sys.path.insert(0,'tools/governance-production')
+          from production_reader import connect
+          flow='auth.create-tenant-account'
+          with connect() as db:
+              db.row_factory=sqlite3.Row
+              result={}
+              for name in ['virtual_workflow_definitions','virtual_workflow_steps','virtual_workflow_source_links','virtual_workflow_checkpoints']:
+                  result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE flow_id=?',(flow,))]
+              result['apis']=[dict(r) for r in db.execute("SELECT * FROM api_endpoints WHERE route_path LIKE '%admin/users%'")]
+              ids=[r['id'] for r in result['apis']]
+              result['permissions']=[dict(r) for r in db.execute('SELECT * FROM api_permissions WHERE api_id IN ('+','.join('?' for _ in ids)+')',ids)] if ids else []
+              result['screen_links']=[dict(r) for r in db.execute('SELECT * FROM screen_api_links WHERE api_id IN ('+','.join('?' for _ in ids)+')',ids)] if ids else []
+              result['guides']=[dict(r) for r in db.execute("SELECT * FROM virtual_role_flow_guides WHERE guide_json LIKE '%/v1/auth/admin/users%' OR guide_json LIKE '%auth.create-tenant-account%'")]
+              result['snapshot']=[dict(r) for r in db.execute("SELECT * FROM virtual_flow_catalog_snapshots WHERE name='recovery-handoff-current'")]
+              result['totals']=[dict(r) for r in db.execute("SELECT verification_status,COUNT(*) n FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY verification_status")]
+              result['schema']={name:[dict(r) for r in db.execute('PRAGMA table_info('+name+')')] for name in ['screens','screen_sections','screen_elements']}
+              path=pathlib.Path('test-results/create-tenant-account');path.mkdir(parents=True,exist_ok=True)
+              (path/'governance.json').write_text(json.dumps(result,indent=2))
+              print('CREATE_ACCOUNT_INSPECTION '+json.dumps(result))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: create-account-live-requirements
+          path: test-results/
