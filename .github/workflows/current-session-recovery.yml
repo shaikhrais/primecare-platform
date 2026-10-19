@@ -137,7 +137,7 @@ jobs:
             const context=await browser.newContext({viewport:{width,height:1000},recordVideo:{dir:out+'/video',size:{width,height:1000}}}),page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
             try{
              await page.goto(origin+'/login?locale='+locale+'&enable-semantics=true');await waitLogin(page);
-             const confirmation=page.waitForResponse(r=>new URL(r.url()).pathname==='/v1/auth/me');await submit(page);const confirmed=await confirmation;assert.equal(confirmed.status(),200);assert.deepEqual(await confirmed.json(),{userId:actor,roles:'platform_admin',status:'authenticated'});
+             let observed;await page.route('**/v1/auth/me',async route=>{const response=await route.fetch();observed={status:response.status(),body:await response.json()};await route.fulfill({response});});await submit(page);await cy(page,'platform-topbar-tenant').waitFor();await page.unroute('**/v1/auth/me');assert.equal(observed.status,200);assert.deepEqual(observed.body,{userId:actor,roles:'platform_admin',status:'authenticated'});
              await cy(page,'platform-topbar-tenant').waitFor();const bearer=await token(page);assert.ok(bearer);
              const stored=(await db.query('SELECT u.id,u.roles,s.token_hash FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1',[digest(bearer)])).rows;assert.equal(stored.length,1);assert.equal(stored[0].id,actor);assert.equal(stored[0].roles,'platform_admin');
              await safe(bearer,actor,'platform_admin');await safe(bearer,actor,'platform_admin','POST');
