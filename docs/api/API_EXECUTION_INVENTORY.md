@@ -22,3 +22,5 @@ The JSON inventory includes every registered API, linked screens, apps, roles an
 Remaining priority workflows: governed tenant-wide administration; booking approval/rejection and visit assignment; invoice/payment writes; provider document upload/verification; availability writes; compliance findings; clinical notes, consent and medication workflows. These require explicit registered business and authorization contracts; do not synthesize broad access or claim completed workflows from placeholder bindings.
 
 Release gates: apply additive migrations in the normal deployment workflow, verify PostgreSQL CI, deploy APIs separately, and run authenticated production checks. UI readiness is outside this API-only work.
+
+Platform administration adds eleven exact operations in platform-admin.openapi.json. Their database and browser evidence is tracked independently; legacy migration stages and denominator are unchanged.

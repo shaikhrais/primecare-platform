@@ -1,0 +1,36 @@
+{
+  "scopes": [
+    "training"
+  ],
+  "inserted": {
+    "admin_training_courses": 1,
+    "admin_training_learning_grants": 74,
+    "admin_training_native_surfaces": 2
+  },
+  "source_bindings": {
+    "docs/training/admin-course-seed.json": "87c5a9ee2d1099fa97f8e588a6bc80b079801a5320bce9f1a65884b663cbc296",
+    "websites/typescript/src/training/admin-course.json": "87c5a9ee2d1099fa97f8e588a6bc80b079801a5320bce9f1a65884b663cbc296",
+    "scripts/register-admin-training.py": "03f6b35906706d6a00f64fb1436619bacca609c83a4f087ec27ae3a1bcb28d97",
+    "websites/typescript/src/admin-training.ts": "ba9d9ac83467a11325518e8069c13c43fa80655ebe8eaebf9c13913de9aa39fc",
+    "packages/primecare_ui/lib/src/features/auth/auth_experience.dart": "bf1f14f626755603e732f836ee1fd25ea75e1c5de45538ed8ffef673f78fcbda",
+    "packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart": "45a3acd6d1e25f3ebd3860abcc71cddc958d03666b2a1bdffab0834cd1a42f9a"
+  },
+  "allowed_tables": [
+    "shared_report_definitions",
+    "shared_report_grants",
+    "shared_report_surfaces",
+    "admin_training_courses",
+    "admin_training_learning_grants",
+    "admin_training_native_surfaces",
+    "tenant_operations_policy",
+    "api_endpoints",
+    "screen_api_links"
+  ],
+  "preserved_existing_fk_issue_counts": {
+    "screen_api_links": 45
+  },
+  "workflow_tests_executed": 0,
+  "verification_status_changed": false,
+  "generated_sources_changed": false,
+  "check_only": false
+}

@@ -1,0 +1,64 @@
+name: Theme Center shared native and website suite
+on:
+  pull_request:
+    paths: ['websites/typescript/**', 'packages/domain/src/theme_center.ts', 'packages/flutter_core/lib/theme/**', 'packages/flutter_core/lib/registry/widgets/**', 'packages/flutter_core/test/theme*.dart', 'packages/primecare_ui/lib/src/theme/**', 'packages/primecare_ui/lib/src/localization/**', 'packages/primecare_ui/lib/src/components/governance_components.dart', 'packages/primecare_ui/lib/src/screens/admin/**', 'packages/primecare_ui/test/admin_role_carousel_localization_test.dart', 'packages/primecare_ui/test/auth_unavailable_localization_test.dart', 'apps/**/assets/translations/**', 'packages/flutter_core/assets/translations/**', 'packages/flutter_core/lib/src/localization/*.json', 'packages/primecare_ui/test/theme_consumers_test.dart', 'packages/primecare_ui/test/fixtures/generated_theme_fixture.dart', 'apps/primecare_enterprise_blueprint/**', 'scripts/check-admin-localization.py', 'scripts/register-admin-reality-filters.py', 'scripts/register-theme-center-options.py', 'packages/primecare_ui/test/admin_reality_filter_localization_test.dart', 'scripts/audit-ui-localization.py', 'scripts/implement_screens_from_db.py', 'scripts/test-theme-center-browser.mjs', 'scripts/generate-theme-center-catalog.mjs', 'scripts/fuse_presets.json', '.github/workflows/theme-center.yml']
+permissions:
+  contents: read
+concurrency:
+  group: theme-center-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  website:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/theme-center-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3
+          ln -s "$RUNNER_TEMP/theme-center-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - run: node scripts/generate-theme-center-catalog.mjs --check
+      - run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable websites/typescript/src/main.ts
+      - run: node scripts/test-layout-manager-browser.mjs
+      - run: node scripts/test-theme-center-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: theme-center-website, path: artifacts/theme-center}
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter analyze lib/theme/personal_theme.dart lib/theme/theme_library_provider.dart lib/theme/theme_settings_provider.dart lib/registry/widgets/theme_center_panel.dart lib/registry/widgets/theme_settings_drawer.dart lib/registry/widgets/governance_master_layout.dart
+        working-directory: packages/flutter_core
+      - run: flutter test test/theme_center_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter test test
+        working-directory: packages/flutter_core
+      - run: python3 scripts/test_dashboard_generator.py
+      - run: python3 scripts/register-theme-center-options.py --check
+      - run: python3 scripts/register-admin-reality-filters.py --check
+      - run: python3 scripts/check-admin-localization.py --check
+      - run: python3 scripts/audit-ui-localization.py
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter test test/theme_consumers_test.dart test/base_primecare_app_test.dart test/admin_role_carousel_localization_test.dart test/auth_unavailable_localization_test.dart test/admin_reality_filter_localization_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter pub get
+        working-directory: apps/primecare_enterprise_blueprint
+      - run: flutter test test/widget_test.dart
+        working-directory: apps/primecare_enterprise_blueprint

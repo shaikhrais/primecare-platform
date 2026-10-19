@@ -1,0 +1,4288 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Founder and Marketing Growth",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "paths": {
+    "/v1/governance/growth": {
+      "get": {
+        "operationId": "growth_get",
+        "summary": "Tenant-scoped founder dashboard",
+        "description": "Current active tenant-scoped session and governed role policy. Owner/CEO control plans, campaign money and review decisions. Eligible business roles receive a current UTC-month proposal estimate based on recorded payments less refunds; billable is always false. No fund, charge, provider launch or bank reconciliation is implied.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9999999,
+              "default": 0
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "description": "Server-validated lead-list filter; never expands staff assignment scope"
+          },
+          {
+            "name": "pipeline",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "tenant",
+                "client"
+              ]
+            },
+            "description": "Server-validated lead-list filter; never expands staff assignment scope"
+          },
+          {
+            "name": "stage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "description": "Server-validated lead-list filter; never expands staff assignment scope"
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "google_search",
+                "google_ads",
+                "facebook",
+                "instagram",
+                "offline",
+                "referral",
+                "website"
+              ]
+            },
+            "description": "Server-validated lead-list filter; never expands staff assignment scope"
+          },
+          {
+            "name": "owner",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "description": "Server-validated lead-list filter; never expands staff assignment scope"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted result or tenant dashboard",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "business": {
+                      "type": "object",
+                      "properties": {
+                        "canBusiness": {
+                          "type": "boolean"
+                        },
+                        "marketing": {
+                          "type": "object",
+                          "required": [
+                            "eligibleReceiptsCents",
+                            "contributionCents",
+                            "advertisingCents",
+                            "managementCents",
+                            "policyVersion",
+                            "status",
+                            "currency",
+                            "basis",
+                            "netReceiptsCents",
+                            "billable",
+                            "period"
+                          ],
+                          "properties": {
+                            "eligibleReceiptsCents": {
+                              "type": "string",
+                              "pattern": "^[0-9]+$",
+                              "description": "CAD cents, encoded as a decimal string"
+                            },
+                            "contributionCents": {
+                              "type": "string",
+                              "pattern": "^[0-9]+$",
+                              "description": "CAD cents, encoded as a decimal string"
+                            },
+                            "advertisingCents": {
+                              "type": "string",
+                              "pattern": "^[0-9]+$",
+                              "description": "CAD cents, encoded as a decimal string"
+                            },
+                            "managementCents": {
+                              "type": "string",
+                              "pattern": "^[0-9]+$",
+                              "description": "CAD cents, encoded as a decimal string"
+                            },
+                            "policyVersion": {
+                              "const": "proposal-v1"
+                            },
+                            "status": {
+                              "const": "proposal_not_billable"
+                            },
+                            "currency": {
+                              "const": "CAD"
+                            },
+                            "basis": {
+                              "const": "recorded_monthly_payments_less_refunds"
+                            },
+                            "netReceiptsCents": {
+                              "type": "string",
+                              "pattern": "^-?[0-9]+$"
+                            },
+                            "billable": {
+                              "const": false
+                            },
+                            "period": {
+                              "type": "object",
+                              "required": [
+                                "start",
+                                "endExclusive"
+                              ],
+                              "properties": {
+                                "start": {
+                                  "type": "string",
+                                  "format": "date"
+                                },
+                                "endExclusive": {
+                                  "type": "string",
+                                  "format": "date"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "business": {
+                    "canBusiness": true,
+                    "marketing": {
+                      "policyVersion": "proposal-v1",
+                      "status": "proposal_not_billable",
+                      "currency": "CAD",
+                      "basis": "recorded_monthly_payments_less_refunds",
+                      "netReceiptsCents": "5000000",
+                      "eligibleReceiptsCents": "5000000",
+                      "contributionCents": "250000",
+                      "advertisingCents": "200000",
+                      "managementCents": "50000",
+                      "billable": false,
+                      "period": {
+                        "start": "2026-10-01",
+                        "endExclusive": "2026-11-01"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record or route not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate, stale version or incompatible retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Schema, storage or connection unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/plan": {
+      "put": {
+        "operationId": "growth_put_plan",
+        "summary": "Tenant-scoped /plan",
+        "description": "Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted result or tenant dashboard",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record or route not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate, stale version or incompatible retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Schema, storage or connection unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "start": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "end": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "targets": {
+                    "type": "object",
+                    "properties": {
+                      "tenant": {
+                        "type": "array",
+                        "minItems": 5,
+                        "maxItems": 5,
+                        "items": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 1000000
+                        }
+                      },
+                      "client": {
+                        "type": "array",
+                        "minItems": 5,
+                        "maxItems": 5,
+                        "items": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 1000000
+                        }
+                      }
+                    },
+                    "required": [
+                      "tenant",
+                      "client"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "start",
+                  "end",
+                  "version",
+                  "targets"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/leads": {
+      "post": {
+        "operationId": "growth_post_leads",
+        "summary": "Tenant-scoped /leads",
+        "description": "Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Persisted result or tenant dashboard",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record or route not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate, stale version or incompatible retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Schema, storage or connection unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pipeline": {
+                    "enum": [
+                      "tenant",
+                      "client"
+                    ]
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 150
+                  },
+                  "email": {
+                    "type": "string",
+                    "maxLength": 254
+                  },
+                  "phone": {
+                    "type": "string",
+                    "maxLength": 40
+                  },
+                  "source": {
+                    "enum": [
+                      "google_search",
+                      "google_ads",
+                      "facebook",
+                      "instagram",
+                      "offline",
+                      "referral",
+                      "website"
+                    ]
+                  },
+                  "reference": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  },
+                  "contactBasis": {
+                    "enum": [
+                      "requested",
+                      "business_prospect",
+                      "not_requested"
+                    ]
+                  },
+                  "campaignId": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uuid"
+                  },
+                  "ownerId": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uuid"
+                  },
+                  "dueAt": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "date-time",
+                    "description": "UTC timestamp ending in Z; null clears follow-up."
+                  }
+                },
+                "required": [
+                  "pipeline",
+                  "name",
+                  "source",
+                  "reference",
+                  "contactBasis"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/leads/{id}": {
+      "patch": {
+        "operationId": "growth_patch_leads_id",
+        "summary": "Tenant-scoped /leads/{id}",
+        "description": "Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted result or tenant dashboard",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record or route not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate, stale version or incompatible retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Schema, storage or connection unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "stage": {
+                    "enum": [
+                      "started",
+                      "new",
+                      "discussion",
+                      "agreed",
+                      "demo",
+                      "pilot",
+                      "recurring",
+                      "active",
+                      "assessment",
+                      "lost"
+                    ]
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 2147483647
+                  },
+                  "ownerId": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uuid"
+                  },
+                  "dueAt": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "date-time",
+                    "description": "UTC timestamp ending in Z; null clears follow-up."
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "stage",
+                  "version",
+                  "ownerId",
+                  "dueAt",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/campaigns": {
+      "post": {
+        "operationId": "growth_post_campaigns",
+        "summary": "Tenant-scoped /campaigns",
+        "description": "Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Persisted result or tenant dashboard",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record or route not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate, stale version or incompatible retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Schema, storage or connection unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 150
+                  },
+                  "source": {
+                    "enum": [
+                      "google_search",
+                      "google_ads",
+                      "facebook",
+                      "instagram",
+                      "offline",
+                      "referral",
+                      "website"
+                    ]
+                  },
+                  "reference": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  },
+                  "budgetCents": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000000
+                  },
+                  "spendCents": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000000
+                  }
+                },
+                "required": [
+                  "name",
+                  "source",
+                  "reference",
+                  "budgetCents",
+                  "spendCents"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/campaigns/{id}": {
+      "patch": {
+        "operationId": "growth_patch_campaigns_id",
+        "summary": "Tenant-scoped /campaigns/{id}",
+        "description": "Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care. Owner/CEO only. Changing budget resets any brief to draft and increments its version; spend-only changes retain the review state.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted result or tenant dashboard",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record or route not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate, stale version or incompatible retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Schema, storage or connection unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "budgetCents": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000000
+                  },
+                  "spendCents": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000000
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 2147483647
+                  }
+                },
+                "required": [
+                  "budgetCents",
+                  "spendCents",
+                  "version"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/tasks": {
+      "post": {
+        "operationId": "growth_post_tasks",
+        "summary": "Tenant-scoped /tasks",
+        "description": "Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Persisted result or tenant dashboard",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record or route not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate, stale version or incompatible retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Schema, storage or connection unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "ownerId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "dueAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "name",
+                  "ownerId",
+                  "dueAt"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/tasks/{id}": {
+      "patch": {
+        "operationId": "growth_patch_tasks_id",
+        "summary": "Tenant-scoped /tasks/{id}",
+        "description": "Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted result or tenant dashboard",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record or route not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate, stale version or incompatible retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Schema, storage or connection unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 2147483647
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "version",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/team/{id}": {
+      "put": {
+        "summary": "Record team coordination workflow",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "specialty": {
+                    "type": "string",
+                    "enum": [
+                      "telephone_caller",
+                      "google_specialist",
+                      "meta_specialist",
+                      "seo_content",
+                      "offline_partnerships",
+                      "care_handoff"
+                    ]
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "specialty",
+                  "version"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Role denied"
+          },
+          "404": {
+            "description": "Not found in current tenant"
+          },
+          "409": {
+            "description": "Stale version, blocked contact or scheduling conflict"
+          },
+          "429": {
+            "description": "Actor rate limit"
+          },
+          "503": {
+            "description": "Unavailable; write rolled back"
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/calls": {
+      "post": {
+        "summary": "Record calls coordination workflow",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "leadId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "leadVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "outcome": {
+                    "type": "string",
+                    "enum": [
+                      "no_answer",
+                      "contacted",
+                      "qualified",
+                      "callback_requested",
+                      "wrong_number",
+                      "do_not_contact"
+                    ]
+                  },
+                  "notes": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  },
+                  "dueAt": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "leadId",
+                  "leadVersion",
+                  "outcome",
+                  "notes",
+                  "dueAt"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Saved"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Role denied"
+          },
+          "404": {
+            "description": "Not found in current tenant"
+          },
+          "409": {
+            "description": "Stale version, blocked contact or scheduling conflict"
+          },
+          "429": {
+            "description": "Actor rate limit"
+          },
+          "503": {
+            "description": "Unavailable; write rolled back"
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/appointments": {
+      "post": {
+        "summary": "Record appointments coordination workflow",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "leadId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "ownerId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "startsAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "minimum": 15,
+                    "maximum": 180
+                  },
+                  "notes": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "leadId",
+                  "ownerId",
+                  "startsAt",
+                  "duration",
+                  "notes"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Saved"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Role denied"
+          },
+          "404": {
+            "description": "Not found in current tenant"
+          },
+          "409": {
+            "description": "Stale version, blocked contact or scheduling conflict"
+          },
+          "429": {
+            "description": "Actor rate limit"
+          },
+          "503": {
+            "description": "Unavailable; write rolled back"
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/appointments/{id}": {
+      "patch": {
+        "summary": "Record appointments coordination workflow",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "completed",
+                      "cancelled",
+                      "no_show"
+                    ]
+                  },
+                  "notes": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "version",
+                  "status",
+                  "notes"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Role denied"
+          },
+          "404": {
+            "description": "Not found in current tenant"
+          },
+          "409": {
+            "description": "Stale version, blocked contact or scheduling conflict"
+          },
+          "429": {
+            "description": "Actor rate limit"
+          },
+          "503": {
+            "description": "Unavailable; write rolled back"
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/contacts/{id}": {
+      "patch": {
+        "summary": "Correct contact details",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 150
+                  },
+                  "email": {
+                    "type": "string",
+                    "maxLength": 254
+                  },
+                  "phone": {
+                    "type": "string",
+                    "maxLength": 40
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "version",
+                  "name",
+                  "email",
+                  "phone",
+                  "evidence"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields or nonmatching candidate"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Operation denied"
+          },
+          "404": {
+            "description": "Outside authorized assignment or tenant"
+          },
+          "409": {
+            "description": "Stale version, duplicate identity or existing duplicate link"
+          },
+          "429": {
+            "description": "Rate limited"
+          },
+          "503": {
+            "description": "Unavailable; mutation rolled back"
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/duplicates": {
+      "post": {
+        "summary": "Review a same-pipeline contact duplicate",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "canonicalId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "duplicateId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "canonicalVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "duplicateVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "reviewVersion": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "decision": {
+                    "type": "string",
+                    "enum": [
+                      "distinct_person",
+                      "duplicate_confirmed"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "canonicalId",
+                  "duplicateId",
+                  "canonicalVersion",
+                  "duplicateVersion",
+                  "reviewVersion",
+                  "decision",
+                  "evidence"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields or nonmatching candidate"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Operation denied"
+          },
+          "404": {
+            "description": "Outside authorized assignment or tenant"
+          },
+          "409": {
+            "description": "Stale version, duplicate identity or existing duplicate link"
+          },
+          "429": {
+            "description": "Rate limited"
+          },
+          "503": {
+            "description": "Unavailable; mutation rolled back"
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/briefs/{id}": {
+      "put": {
+        "summary": "Save a versioned draft campaign brief",
+        "description": "Tenant and source scoped. Managers assign active source-compatible owners. Specialists may create an own brief and edit only their own brief. Stores planning text and an optional HTTPS URL without fetching it; never approves or launches ads. Pending review briefs cannot be edited; withdraw first. Any later edit resets status to draft and invalidates approval.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Campaign UUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "ownerId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "audience": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  },
+                  "offer": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  },
+                  "creative": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 3000
+                  },
+                  "landingUrl": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "Empty or HTTPS URL without credentials; stored only, never fetched."
+                  },
+                  "pipeline": {
+                    "type": "string",
+                    "enum": [
+                      "tenant",
+                      "client"
+                    ]
+                  },
+                  "targetLeads": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000000
+                  },
+                  "start": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "end": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2147483647
+                  }
+                },
+                "required": [
+                  "ownerId",
+                  "audience",
+                  "offer",
+                  "creative",
+                  "landingUrl",
+                  "pipeline",
+                  "targetLeads",
+                  "start",
+                  "end",
+                  "version"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Draft saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid planning fields, date range, URL or owner"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Operation or brief ownership denied"
+          },
+          "404": {
+            "description": "Campaign outside tenant/source scope"
+          },
+          "409": {
+            "description": "Stale brief version"
+          },
+          "429": {
+            "description": "Rate limited"
+          },
+          "503": {
+            "description": "Unavailable; write rolled back"
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/reviews/{id}": {
+      "post": {
+        "summary": "Review a versioned campaign brief",
+        "description": "Tenant/source scoped and append-only history. Owners and CEO/marketing may submit or withdraw. Only CEO/marketing decide; self-review is allowed and recorded only for CEO. Pending briefs are frozen; later edits reset approval. Internal planning only, no ads or spend launched. Uses actor rate limit, audit and idempotency replay. Decisions include an immutable budget/version/currency snapshot. Only owner/CEO may approve, request changes or reject; this is not provider launch authorization.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Campaign UUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "enum": [
+                      "submit",
+                      "withdraw",
+                      "approve",
+                      "request_changes",
+                      "reject"
+                    ]
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 2147483647
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  }
+                },
+                "required": [
+                  "action",
+                  "version",
+                  "evidence"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid planning fields, date range, URL or owner"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Review role, ownership, source or self-review denied"
+          },
+          "404": {
+            "description": "Campaign outside tenant/source scope"
+          },
+          "409": {
+            "description": "Stale brief version or idempotency conflict"
+          },
+          "429": {
+            "description": "Rate limited"
+          },
+          "503": {
+            "description": "Unavailable; write rolled back"
+          },
+          "201": {
+            "description": "Draft saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/task-actions/{id}": {
+      "post": {
+        "summary": "Reassign, reprioritize, reschedule or escalate an open task",
+        "description": "Same-tenant current-session operation with version, idempotency, rate limit and transactional audit. Managers may reassign/reschedule/reprioritize/resolve escalation; assigned staff may only escalate their own task. Closed tasks reject changes. Escalation does not send notifications.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Task UUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "action",
+                  "version",
+                  "evidence"
+                ],
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "enum": [
+                      "reassign",
+                      "reschedule",
+                      "priority",
+                      "escalate",
+                      "resolve_escalation"
+                    ]
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 2147483646
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  },
+                  "ownerId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "dueAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "priority": {
+                    "type": "string",
+                    "enum": [
+                      "low",
+                      "normal",
+                      "high",
+                      "urgent"
+                    ]
+                  }
+                },
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "action": {
+                        "const": "reassign"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "evidence": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500
+                      },
+                      "ownerId": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "evidence",
+                      "ownerId"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "action": {
+                        "const": "reschedule"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "evidence": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500
+                      },
+                      "dueAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "evidence",
+                      "dueAt"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "action": {
+                        "const": "priority"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "evidence": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500
+                      },
+                      "priority": {
+                        "type": "string",
+                        "enum": [
+                          "low",
+                          "normal",
+                          "high",
+                          "urgent"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "evidence",
+                      "priority"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "action": {
+                        "const": "escalate"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "evidence": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "evidence"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "action": {
+                        "const": "resolve_escalation"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 2147483646
+                      },
+                      "evidence": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "version",
+                      "evidence"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid planning fields, date range, URL or owner"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Review role, ownership, source or self-review denied"
+          },
+          "404": {
+            "description": "Campaign outside tenant/source scope"
+          },
+          "409": {
+            "description": "Stale brief version or idempotency conflict"
+          },
+          "429": {
+            "description": "Rate limited"
+          },
+          "503": {
+            "description": "Unavailable; write rolled back"
+          },
+          "201": {
+            "description": "Draft saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "version": {
+                      "type": "integer"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/intake-links": {
+      "post": {
+        "summary": "Create a website enquiry link",
+        "description": "Delivery mode is immutable. Legacy links use direct tenant delivery. Territory client forms require explicit sharing consent and are delivered only after recipient acceptance. Source tenants receive total submission counts without contact or duplicate classifications.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "pipeline": {
+                    "enum": [
+                      "client",
+                      "tenant"
+                    ]
+                  },
+                  "ownerId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "campaignId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "source": {
+                    "enum": [
+                      "website",
+                      "offline",
+                      "referral"
+                    ],
+                    "default": "website"
+                  },
+                  "attribution": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "default": ""
+                  },
+                  "routingMode": {
+                    "enum": [
+                      "direct",
+                      "territory"
+                    ],
+                    "default": "direct"
+                  }
+                },
+                "required": [
+                  "name",
+                  "pipeline",
+                  "ownerId",
+                  "campaignId"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "required": [
+                        "source"
+                      ],
+                      "properties": {
+                        "source": {
+                          "enum": [
+                            "offline",
+                            "referral"
+                          ]
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "attribution"
+                      ],
+                      "properties": {
+                        "attribution": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "pattern": "\\S"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "required": [
+                        "routingMode"
+                      ],
+                      "properties": {
+                        "routingMode": {
+                          "const": "territory"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "pipeline": {
+                          "const": "client"
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid input or forbidden tenant/header fields"
+          },
+          "403": {
+            "description": "Manager role denied"
+          },
+          "404": {
+            "description": "Unknown or unavailable public link"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "409": {
+            "description": "Version or idempotency conflict"
+          },
+          "413": {
+            "description": "Request body exceeds shared 50,000-byte limit"
+          },
+          "429": {
+            "description": "Rate limited; retry-after 60 seconds"
+          },
+          "503": {
+            "description": "Unavailable; sanitized error"
+          },
+          "401": {
+            "description": "Missing, invalid or revoked session"
+          },
+          "201": {
+            "description": "Versioned link mutation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "version": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/intake-links/{id}": {
+      "patch": {
+        "summary": "Enable or disable a versioned enquiry link",
+        "description": "Delivery mode is immutable. Legacy links use direct tenant delivery. Territory client forms require explicit sharing consent and are delivered only after recipient acceptance. Source tenants receive total submission counts without contact or duplicate classifications.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "active": {
+                    "type": "boolean"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 2147483646
+                  }
+                },
+                "required": [
+                  "active",
+                  "version"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid input or forbidden tenant/header fields"
+          },
+          "403": {
+            "description": "Manager role denied"
+          },
+          "404": {
+            "description": "Unknown or unavailable public link"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "409": {
+            "description": "Version or idempotency conflict"
+          },
+          "413": {
+            "description": "Request body exceeds shared 50,000-byte limit"
+          },
+          "429": {
+            "description": "Rate limited; retry-after 60 seconds"
+          },
+          "503": {
+            "description": "Unavailable; sanitized error"
+          },
+          "401": {
+            "description": "Missing, invalid or revoked session"
+          },
+          "200": {
+            "description": "Versioned link mutation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "version"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "version": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/enquiries/{key}": {
+      "post": {
+        "summary": "Submit a consent-based website enquiry",
+        "description": "Delivery mode is immutable. Legacy links use direct tenant delivery. Territory client forms require explicit sharing consent and are delivered only after recipient acceptance. Source tenants receive total submission counts without contact or duplicate classifications.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "description": "Manager-created public shareable link key"
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 150
+                  },
+                  "email": {
+                    "type": "string",
+                    "maxLength": 254
+                  },
+                  "phone": {
+                    "type": "string",
+                    "maxLength": 40
+                  },
+                  "consent": {
+                    "const": true
+                  },
+                  "consentVersion": {
+                    "const": "contact-response-v1"
+                  },
+                  "website": {
+                    "const": ""
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "maxLength": 7
+                  },
+                  "service": {
+                    "enum": [
+                      "psw",
+                      "home_care"
+                    ]
+                  },
+                  "sharingConsent": {
+                    "const": true
+                  },
+                  "sharingConsentVersion": {
+                    "const": "territory-sharing-v1"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "phone",
+                  "consent",
+                  "consentVersion",
+                  "website"
+                ],
+                "additionalProperties": false,
+                "description": "Territory links require postalCode, service, sharingConsent and sharingConsentVersion. Direct links reject these fields. Link mode is authoritative and immutable."
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid input or forbidden tenant/header fields"
+          },
+          "404": {
+            "description": "Unknown or unavailable public link"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "409": {
+            "description": "Version or idempotency conflict"
+          },
+          "413": {
+            "description": "Request body exceeds shared 50,000-byte limit"
+          },
+          "429": {
+            "description": "Rate limited; retry-after 60 seconds"
+          },
+          "503": {
+            "description": "Unavailable; sanitized error"
+          },
+          "202": {
+            "description": "Generic receipt (including repeat enquiries)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accepted": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "accepted"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Read public enquiry form title and pipeline",
+        "description": "Delivery mode is immutable. Legacy links use direct tenant delivery. Territory client forms require explicit sharing consent and are delivered only after recipient acceptance. Source tenants receive total submission counts without contact or duplicate classifications.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "description": "Manager-created public shareable link key"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid input or forbidden tenant/header fields"
+          },
+          "404": {
+            "description": "Unknown or unavailable public link"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "409": {
+            "description": "Version or idempotency conflict"
+          },
+          "413": {
+            "description": "Request body exceeds shared 50,000-byte limit"
+          },
+          "429": {
+            "description": "Rate limited; retry-after 60 seconds"
+          },
+          "503": {
+            "description": "Unavailable; sanitized error"
+          },
+          "200": {
+            "description": "Public form configuration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "pipeline": {
+                      "enum": [
+                        "client",
+                        "tenant"
+                      ]
+                    },
+                    "consentVersion": {
+                      "type": "string"
+                    },
+                    "routingMode": {
+                      "enum": [
+                        "direct",
+                        "territory"
+                      ]
+                    },
+                    "sharingConsentVersion": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "pipeline",
+                    "consentVersion"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/performance": {
+      "get": {
+        "operationId": "growth_get_performance",
+        "summary": "/performance",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful read or update"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "202": {
+            "description": "Provider accepted; not proof of recipient delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Active explicit bearer session required"
+          },
+          "403": {
+            "description": "Role or tenant authority denied"
+          },
+          "404": {
+            "description": "Record unavailable in scope"
+          },
+          "409": {
+            "description": "Stale version, duplicate or unresolved delivery"
+          },
+          "413": {
+            "description": "Report owner bound exceeded"
+          },
+          "429": {
+            "description": "Actor limit exceeded"
+          },
+          "503": {
+            "description": "Required database or provider unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "start",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "required": false,
+            "schema": {
+              "enum": [
+                "en",
+                "fr",
+                "es"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/v1/governance/growth/performance/pdf": {
+      "get": {
+        "operationId": "growth_get_performance_pdf",
+        "summary": "/performance/pdf",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Localized landscape PDF",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "202": {
+            "description": "Provider accepted; not proof of recipient delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Active explicit bearer session required"
+          },
+          "403": {
+            "description": "Role or tenant authority denied"
+          },
+          "404": {
+            "description": "Record unavailable in scope"
+          },
+          "409": {
+            "description": "Stale version, duplicate or unresolved delivery"
+          },
+          "413": {
+            "description": "Report owner bound exceeded"
+          },
+          "429": {
+            "description": "Actor limit exceeded"
+          },
+          "503": {
+            "description": "Required database or provider unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "start",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "required": false,
+            "schema": {
+              "enum": [
+                "en",
+                "fr",
+                "es"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/v1/governance/growth/performance/email": {
+      "post": {
+        "operationId": "growth_post_performance_email",
+        "summary": "/performance/email",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful read or update"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "202": {
+            "description": "Provider accepted; not proof of recipient delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Active explicit bearer session required"
+          },
+          "403": {
+            "description": "Role or tenant authority denied"
+          },
+          "404": {
+            "description": "Record unavailable in scope"
+          },
+          "409": {
+            "description": "Stale version, duplicate or unresolved delivery"
+          },
+          "413": {
+            "description": "Report owner bound exceeded"
+          },
+          "429": {
+            "description": "Actor limit exceeded"
+          },
+          "503": {
+            "description": "Required database or provider unavailable"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "start": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "end": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "locale": {
+                    "enum": [
+                      "en",
+                      "fr",
+                      "es"
+                    ]
+                  },
+                  "to": {
+                    "type": "string",
+                    "format": "email",
+                    "maxLength": 254
+                  },
+                  "confirmed": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "start",
+                  "end",
+                  "locale",
+                  "to",
+                  "confirmed"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ]
+      }
+    },
+    "/v1/governance/growth/performance/deliveries/{id}": {
+      "post": {
+        "operationId": "growth_post_performance_deliveries_id",
+        "summary": "/performance/deliveries/{id}",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful read or update"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "202": {
+            "description": "Provider accepted; not proof of recipient delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Active explicit bearer session required"
+          },
+          "403": {
+            "description": "Role or tenant authority denied"
+          },
+          "404": {
+            "description": "Record unavailable in scope"
+          },
+          "409": {
+            "description": "Stale version, duplicate or unresolved delivery"
+          },
+          "413": {
+            "description": "Report owner bound exceeded"
+          },
+          "429": {
+            "description": "Actor limit exceeded"
+          },
+          "503": {
+            "description": "Required database or provider unavailable"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "version",
+                  "decision",
+                  "evidence"
+                ],
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 2147483646
+                  },
+                  "decision": {
+                    "enum": [
+                      "accepted",
+                      "not_sent"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/governance/growth/onboarding": {
+      "post": {
+        "operationId": "growth_post_onboarding",
+        "summary": "/onboarding",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful read or update"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "202": {
+            "description": "Provider accepted; not proof of recipient delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Active explicit bearer session required"
+          },
+          "403": {
+            "description": "Role or tenant authority denied"
+          },
+          "404": {
+            "description": "Record unavailable in scope"
+          },
+          "409": {
+            "description": "Stale version, duplicate or unresolved delivery"
+          },
+          "413": {
+            "description": "Report owner bound exceeded"
+          },
+          "429": {
+            "description": "Actor limit exceeded"
+          },
+          "503": {
+            "description": "Required database or provider unavailable"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leadId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "businessKind": {
+                    "enum": [
+                      "nurse",
+                      "retired_nurse",
+                      "care_entrepreneur"
+                    ]
+                  },
+                  "identityChecked": {
+                    "const": true
+                  },
+                  "agreementChecked": {
+                    "const": true
+                  },
+                  "insuranceChecked": {
+                    "const": true
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "leadId",
+                  "businessKind",
+                  "identityChecked",
+                  "agreementChecked",
+                  "insuranceChecked",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ]
+      }
+    },
+    "/v1/governance/growth/onboarding/{id}": {
+      "patch": {
+        "operationId": "growth_patch_onboarding_id",
+        "summary": "/onboarding/{id}",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful read or update"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "202": {
+            "description": "Provider accepted; not proof of recipient delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Active explicit bearer session required"
+          },
+          "403": {
+            "description": "Role or tenant authority denied"
+          },
+          "404": {
+            "description": "Record unavailable in scope"
+          },
+          "409": {
+            "description": "Stale version, duplicate or unresolved delivery"
+          },
+          "413": {
+            "description": "Report owner bound exceeded"
+          },
+          "429": {
+            "description": "Actor limit exceeded"
+          },
+          "503": {
+            "description": "Required database or provider unavailable"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "version",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/governance/growth/handoffs": {
+      "post": {
+        "operationId": "growth_post_handoffs",
+        "summary": "/handoffs",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful read or update"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "202": {
+            "description": "Provider accepted; not proof of recipient delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Active explicit bearer session required"
+          },
+          "403": {
+            "description": "Role or tenant authority denied"
+          },
+          "404": {
+            "description": "Record unavailable in scope"
+          },
+          "409": {
+            "description": "Stale version, duplicate or unresolved delivery"
+          },
+          "413": {
+            "description": "Report owner bound exceeded"
+          },
+          "429": {
+            "description": "Actor limit exceeded"
+          },
+          "503": {
+            "description": "Required database or provider unavailable"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leadId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "visitId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "leadId",
+                  "visitId",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ]
+      }
+    },
+    "/v1/governance/growth/finance": {
+      "post": {
+        "operationId": "growth_post_finance",
+        "summary": "/finance",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful read or update"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "202": {
+            "description": "Provider accepted; not proof of recipient delivery"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Active explicit bearer session required"
+          },
+          "403": {
+            "description": "Role or tenant authority denied"
+          },
+          "404": {
+            "description": "Record unavailable in scope"
+          },
+          "409": {
+            "description": "Stale version, duplicate or unresolved delivery"
+          },
+          "413": {
+            "description": "Report owner bound exceeded"
+          },
+          "429": {
+            "description": "Actor limit exceeded"
+          },
+          "503": {
+            "description": "Required database or provider unavailable"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "invoice",
+                      "payment",
+                      "refund",
+                      "expense"
+                    ]
+                  },
+                  "reference": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "amountCents": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000000000
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "leadId": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uuid"
+                  },
+                  "invoiceId": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uuid"
+                  },
+                  "category": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "kind",
+                  "reference",
+                  "amountCents",
+                  "date",
+                  "leadId",
+                  "invoiceId",
+                  "category",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ]
+      }
+    },
+    "/v1/governance/growth/marketing-statement": {
+      "get": {
+        "operationId": "growth_marketing_statement",
+        "summary": "Monthly marketing proposal statement",
+        "description": "Owner, CEO or tenant administrator in the current active tenant only. Recalculates the current proposal from recorded monthly payments less refunds. Not an invoice, historical rate guarantee, fund payment or bank reconciliation. Audited and rate limited.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+            },
+            "description": "UTC calendar month, 2000-01 through current month; defaults to current month"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "en",
+                "fr",
+                "es"
+              ],
+              "default": "en"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Nonbillable proposal statement",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "title",
+                    "locale",
+                    "columns",
+                    "rows",
+                    "generatedAt",
+                    "scope",
+                    "classification",
+                    "source"
+                  ],
+                  "properties": {
+                    "id": {
+                      "const": "growth_marketing_statement"
+                    },
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "item": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          },
+                          "kind": {
+                            "type": "string",
+                            "enum": [
+                              "amount",
+                              "note"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record or route not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate, stale version or incompatible retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Schema, storage or connection unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/marketing-statement/pdf": {
+      "get": {
+        "operationId": "growth_marketing_statement_pdf",
+        "summary": "Monthly marketing proposal PDF",
+        "description": "Owner, CEO or tenant administrator in the current active tenant only. Recalculates the current proposal from recorded monthly payments less refunds. Not an invoice, historical rate guarantee, fund payment or bank reconciliation. Audited and rate limited.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+            },
+            "description": "UTC calendar month, 2000-01 through current month; defaults to current month"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "en",
+                "fr",
+                "es"
+              ],
+              "default": "en"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Nonbillable proposal statement",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record or route not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate, stale version or incompatible retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Schema, storage or connection unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/governance/growth/capacity/{id}": {
+      "put": {
+        "operationId": "growth_owner_capacity",
+        "summary": "Record owner service-capacity confirmation",
+        "description": "Owner/CEO in current tenant only. Requires a client campaign on a governed paid source, a current approved brief with recorded owner budget review, a matching brief version and the latest capacity version. Appends immutable operational evidence. Zero slots blocks capacity readiness. Expiry must be in the next 30 days. No clinical scheduling, staffing guarantee or advertising provider launch. Present owner authority checked before idempotency replay.",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "version",
+                  "briefVersion",
+                  "clientSlots",
+                  "expiresAt",
+                  "evidence"
+                ],
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "briefVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "clientSlots": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1000
+                  },
+                  "expiresAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Appended confirmation version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "version": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record or route not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate, stale version or incompatible retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Schema, storage or connection unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

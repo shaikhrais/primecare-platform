@@ -1,0 +1,13 @@
+✔ authenticated PSW availability persists with audit and duplicate receipt (57.827219ms)
+✔ role denial, foreign staff and forged tenant leave no writes (24.482897ms)
+✔ fresh API read returns saved data and foreign tenant cannot withdraw it (44.133544ms)
+✔ audit insertion failure rolls back write and permits safe retry (34.227393ms)
+✔ invalid dates, expired session and changed replay cannot mutate records (27.050512ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1648.121807

@@ -1,11 +1,13 @@
+import '../training/admin_training_launcher.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'auth_design_tokens.dart';
 import 'password_recovery_form.dart';
+import '../../localization/auth_screen_text.dart';
 
 enum AuthPage { login, signup, forgot, reset, mfa, language, consent, success, error }
 
-String _copy(BuildContext context, String key) => 'auth_design_$key'.tr(context: context);
+String _copy(BuildContext context, String key) => authScreenText(context, key);
 
 /// Shared, responsive presentation. Controllers own authentication decisions.
 class PrimeAuthExperience extends ConsumerWidget {
@@ -133,6 +135,7 @@ class PrimeAuthExperience extends ConsumerWidget {
           Icon(Icons.check_circle_outline_rounded, size: AuthDesignTokens.markSize, color: theme.colors.primary), gap,
           Text(_copy(context, 'account'), style: theme.typography.labelBold),
           Text(auth.userName ?? '', style: theme.typography.bodyLarge), gap,
+          const AdminTrainingLauncher(), gap,
           Text(_copy(context, 'role'), style: theme.typography.labelBold),
           Text(auth.role ?? '', style: theme.typography.bodyLarge), gap,
           if (['ceo', 'maintenance'].contains(auth.role)) TextButton(onPressed: () => _go(context, '/maintenance/configuration'), child: const Text('IT maintenance configuration')),

@@ -15,23 +15,6 @@ def camel_to_snake(name):
 def snake_to_pascal(name):
     return ''.join(word.capitalize() for word in name.split('_'))
 
-def get_role_theme_colors(role_code, app_code):
-    role_code = (role_code or '').lower()
-    app_code = (app_code or '').lower()
-
-    if 'cfo' in role_code or 'finance' in role_code or 'billing' in role_code:
-        return {'primary': '0xFF059669', 'bg': '0xFFF0FDF4', 'card': '0xFFFFFFFF', 'accent': '0xFF10B981', 'text': '0xFF064E3B'}
-    elif 'ciso' in role_code or 'security' in role_code or 'governance' in role_code:
-        return {'primary': '0xFF7C3AED', 'bg': '0xFFF5F3FF', 'card': '0xFFFFFFFF', 'accent': '0xFF8B5CF6', 'text': '0xFF4C1D95'}
-    elif 'patient' in role_code or 'client' in role_code or 'family' in role_code:
-        return {'primary': '0xFF2563EB', 'bg': '0xFFEFF6FF', 'card': '0xFFFFFFFF', 'accent': '0xFF3B82F6', 'text': '0xFF1E3A8A'}
-    elif 'clinical' in role_code or 'doctor' in role_code or 'rn' in role_code or 'chiropractor' in role_code or 'rmt' in role_code:
-        return {'primary': '0xFFE11D48', 'bg': '0xFFFFF1F2', 'card': '0xFFFFFFFF', 'accent': '0xFFF43F5E', 'text': '0xFF881337'}
-    elif 'franchise' in role_code or 'sales' in role_code or 'marketing' in role_code:
-        return {'primary': '0xFFD97706', 'bg': '0xFFFFFBEB', 'card': '0xFFFFFFFF', 'accent': '0xFFF59E0B', 'text': '0xFF78350F'}
-    else:
-        return {'primary': '0xFF0284C7', 'bg': '0xFFF0F9FF', 'card': '0xFFFFFFFF', 'accent': '0xFF0EA5E9', 'text': '0xFF0C4A6E'}
-
 def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_name, app_code, role_code, route_path, purpose, user_story, criteria, sections, elements, apis):
     if not sections or not elements or not apis:
         raise ValueError(f'{screen_code}: governed sections, elements, and APIs are required')
@@ -41,7 +24,9 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
     if not class_name.endswith('Screen'):
         class_name += 'Screen'
 
-    theme = get_role_theme_colors(role_code, app_code)
+    theme = {'primary': 'theme.colors.primary', 'bg': 'theme.colors.background',
+             'card': 'theme.colors.surface', 'accent': 'theme.colors.secondary',
+             'text': 'theme.colors.onSurface'}
     kebab_code = screen_code.lower().replace('_', '-')
     provider_name = f"{camel_to_snake(screen_code)}DataProvider"
 
@@ -61,9 +46,9 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        color: theme.colors.surface,
+        borderRadius: BorderRadius.circular(theme.radiusDefault),
+        border: Border.all(color: theme.colors.border),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -80,23 +65,23 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
             children: [
               Row(
                 children: [
-                  const Icon(Icons.dashboard_customize_outlined, color: Color({theme['primary']}), size: 20),
+                  Icon(Icons.dashboard_customize_outlined, color: {theme['primary']}, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     '{sec_name}',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold, fontSize: theme.scaleFont(15), color: theme.colors.onSurface),
                   ),
                 ],
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color({theme['primary']}).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(6),
+                  color: {theme['primary']}.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(theme.radiusDefault),
                 ),
                 child: Text(
                   '{sec_type.upper()}',
-                  style: const TextStyle(color: Color({theme['primary']}), fontSize: 10, fontWeight: FontWeight.bold),
+                  style: theme.typography.bodyMedium.copyWith(color: {theme['primary']}, fontSize: theme.scaleFont(10), fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -104,7 +89,7 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
           const SizedBox(height: 6),
           Text(
             '{sec_purpose}',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12)),
           ),
           const SizedBox(height: 16),
           
@@ -116,7 +101,7 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style: theme.typography.bodyMedium.copyWith(fontSize: theme.scaleFont(13), color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -124,13 +109,13 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
                   child: ElevatedButton(
                     key: Key('btn_${{lbl.toLowerCase().replaceAll(' ', '_')}}'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color({theme['primary']}),
+                      backgroundColor: {theme['primary']},
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusDefault)),
                     ),
                     onPressed: null, // No governed action handler is implemented.
-                    child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child: Text('Execute Action', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onPrimary, fontSize: theme.scaleFont(11), fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -158,6 +143,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 
 final {provider_name} = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {{
   final api = ref.read(apiClientProvider);
@@ -182,24 +168,24 @@ class {class_name} extends GovernedConsumerWidget {{
     final dataState = ref.watch({provider_name});
 
     return Scaffold(
-      backgroundColor: const Color({theme['bg']}),
+      backgroundColor: {theme['bg']},
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: theme.colors.surface,
         elevation: 1,
         title: Row(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: const Color({theme['primary']}).withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color({theme['primary']}).withOpacity(0.3)),
+                color: {theme['primary']}.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(theme.radiusDefault),
+                border: Border.all(color: {theme['primary']}.withOpacity(0.3)),
               ),
               child: Text(
                 '{app_code.upper()}',
-                style: const TextStyle(
-                  color: Color({theme['primary']}),
-                  fontSize: 10,
+                style: theme.typography.bodyMedium.copyWith(
+                  color: {theme['primary']},
+                  fontSize: theme.scaleFont(10),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -207,10 +193,10 @@ class {class_name} extends GovernedConsumerWidget {{
             const SizedBox(width: 12),
             Text(
               '{screen_name}',
-              style: const TextStyle(
-                color: Color(0xFF0F172A),
+              style: theme.typography.bodyMedium.copyWith(
+                color: theme.colors.onSurface,
                 fontWeight: FontWeight.bold,
-                fontSize: 17,
+                fontSize: theme.scaleFont(17),
               ),
             ),
           ],
@@ -226,9 +212,9 @@ class {class_name} extends GovernedConsumerWidget {{
               width: double.infinity,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
+                color: theme.colors.surface,
+                borderRadius: BorderRadius.circular(theme.radiusDefault),
+                border: Border.all(color: theme.colors.border),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,19 +224,19 @@ class {class_name} extends GovernedConsumerWidget {{
                     children: [
                       Text(
                         'Target Role: {role_name}',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Color({theme['text']}), fontSize: 14),
+                        style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold, color: {theme['text']}, fontSize: theme.scaleFont(14)),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                        decoration: BoxDecoration(color: const Color(0xFF10B981).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
-                        child: const Text('NOT VERIFIED', style: TextStyle(color: Color(0xFF10B981), fontSize: 10, fontWeight: FontWeight.bold)),
+                        decoration: BoxDecoration(color: theme.colors.success.withValues(alpha: .1), borderRadius: BorderRadius.circular(theme.radiusDefault)),
+                        child: Text('NOT VERIFIED', style: theme.typography.bodyMedium.copyWith(color: readableThemeForeground(Color.alphaBlend(theme.colors.success.withValues(alpha: .1), theme.colors.surface), theme.colors.success), fontSize: theme.scaleFont(10), fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Text('{purpose}', style: const TextStyle(color: Color(0xFF475569), fontSize: 13, height: 1.5)),
+                  Text('{purpose}', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(13), height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: {user_story}', style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, italic: true)),
+                  Text('User Story: {user_story}', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12), fontStyle: FontStyle.italic)),
                 ],
               ),
             ),
@@ -265,22 +251,22 @@ class {class_name} extends GovernedConsumerWidget {{
               width: double.infinity,
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
-                color: const Color(0xFF0F172A),
+                color: theme.colors.surfaceContainer,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                  Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface, fontWeight: FontWeight.bold, fontSize: theme.scaleFont(13))),
                   const SizedBox(height: 8),
                   ...{json.dumps([f"• Mapped API: {a['method']} {a['endpoint_path']}" for a in (apis if apis else [{'method': 'GET', 'endpoint_path': '/api/v1/data'}])])}.map((apiStr) => Padding(
                     padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Text(apiStr, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontFamily: 'monospace')),
+                    child: Text(apiStr, style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(11), fontFamily: 'monospace')),
                   )),
                   const SizedBox(height: 4),
-                  const Text('• Cypress Selector: data-cy="screen-{kebab_code}"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
+                  Text('• Cypress Selector: data-cy="screen-{kebab_code}"', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface, fontSize: theme.scaleFont(12), fontFamily: 'monospace')),
                   const SizedBox(height: 4),
-                  const Text('• Accessibility: NOT VERIFIED', style: TextStyle(color: Color(0xFF60A5FA), fontSize: 12)),
+                  Text('• Accessibility: NOT VERIFIED', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12))),
                 ],
               ),
             ),

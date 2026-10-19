@@ -1,0 +1,1439 @@
+{
+  "phase": "after",
+  "evidence": [
+    {
+      "role": "platform_admin",
+      "view": "tenants",
+      "width": 320,
+      "file": "platform_admin-tenants-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "onboarding",
+      "width": 320,
+      "file": "platform_admin-onboarding-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "accounts",
+      "width": 320,
+      "file": "platform_admin-accounts-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "masters",
+      "width": 320,
+      "file": "platform_admin-masters-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "audit",
+      "width": 320,
+      "file": "platform_admin-audit-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "reports",
+      "width": 320,
+      "file": "platform_admin-reports-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "text",
+      "width": 320,
+      "file": "platform_admin-text-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "training",
+      "width": 320,
+      "file": "platform_admin-training-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "account",
+      "width": 320,
+      "file": "platform_admin-account-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "width": 320,
+      "reportsNavigation": true,
+      "scope": "actual visible navigation"
+    },
+    {
+      "role": "platform_admin",
+      "view": "tenants",
+      "width": 1440,
+      "file": "platform_admin-tenants-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "onboarding",
+      "width": 1440,
+      "file": "platform_admin-onboarding-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "accounts",
+      "width": 1440,
+      "file": "platform_admin-accounts-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "masters",
+      "width": 1440,
+      "file": "platform_admin-masters-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "audit",
+      "width": 1440,
+      "file": "platform_admin-audit-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "reports",
+      "width": 1440,
+      "file": "platform_admin-reports-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "text",
+      "width": 1440,
+      "file": "platform_admin-text-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "training",
+      "width": 1440,
+      "file": "platform_admin-training-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "view": "account",
+      "width": 1440,
+      "file": "platform_admin-account-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "platform_admin",
+      "width": 1440,
+      "reportsNavigation": true,
+      "scope": "actual visible navigation"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "tenants",
+      "width": 320,
+      "file": "tenant_admin-tenants-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "accounts",
+      "width": 320,
+      "file": "tenant_admin-accounts-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "masters",
+      "width": 320,
+      "file": "tenant_admin-masters-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "audit",
+      "width": 320,
+      "file": "tenant_admin-audit-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "reports",
+      "width": 320,
+      "file": "tenant_admin-reports-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "account",
+      "width": 320,
+      "file": "tenant_admin-account-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "width": 320,
+      "reportsNavigation": true,
+      "scope": "actual visible navigation"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "tenants",
+      "width": 1440,
+      "file": "tenant_admin-tenants-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "accounts",
+      "width": 1440,
+      "file": "tenant_admin-accounts-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "masters",
+      "width": 1440,
+      "file": "tenant_admin-masters-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "audit",
+      "width": 1440,
+      "file": "tenant_admin-audit-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "reports",
+      "width": 1440,
+      "file": "tenant_admin-reports-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "view": "account",
+      "width": 1440,
+      "file": "tenant_admin-account-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "tenant_admin",
+      "width": 1440,
+      "reportsNavigation": true,
+      "scope": "actual visible navigation"
+    },
+    {
+      "role": "marketing",
+      "view": "overview",
+      "width": 320,
+      "file": "marketing-overview-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-hero",
+      "width": 320,
+      "file": "marketing-growth-hero-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-summary",
+      "width": 320,
+      "file": "marketing-growth-summary-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-leads",
+      "width": 320,
+      "file": "marketing-growth-leads-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-campaigns",
+      "width": 320,
+      "file": "marketing-growth-campaigns-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-tasks",
+      "width": 320,
+      "file": "marketing-growth-tasks-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-alerts",
+      "width": 320,
+      "file": "marketing-growth-alerts-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-performance",
+      "width": 320,
+      "file": "marketing-growth-performance-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-intake",
+      "width": 320,
+      "file": "marketing-growth-intake-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-duplicates",
+      "width": 320,
+      "file": "marketing-growth-duplicates-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-team",
+      "width": 320,
+      "file": "marketing-growth-team-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-calls",
+      "width": 320,
+      "file": "marketing-growth-calls-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-appointments",
+      "width": 320,
+      "file": "marketing-growth-appointments-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-integrations",
+      "width": 320,
+      "file": "marketing-growth-integrations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-operations",
+      "width": 320,
+      "file": "marketing-growth-operations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "overview",
+      "width": 1440,
+      "file": "marketing-overview-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-hero",
+      "width": 1440,
+      "file": "marketing-growth-hero-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-summary",
+      "width": 1440,
+      "file": "marketing-growth-summary-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-leads",
+      "width": 1440,
+      "file": "marketing-growth-leads-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-campaigns",
+      "width": 1440,
+      "file": "marketing-growth-campaigns-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-tasks",
+      "width": 1440,
+      "file": "marketing-growth-tasks-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-alerts",
+      "width": 1440,
+      "file": "marketing-growth-alerts-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-performance",
+      "width": 1440,
+      "file": "marketing-growth-performance-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-intake",
+      "width": 1440,
+      "file": "marketing-growth-intake-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-duplicates",
+      "width": 1440,
+      "file": "marketing-growth-duplicates-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-team",
+      "width": 1440,
+      "file": "marketing-growth-team-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-calls",
+      "width": 1440,
+      "file": "marketing-growth-calls-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-appointments",
+      "width": 1440,
+      "file": "marketing-growth-appointments-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-integrations",
+      "width": 1440,
+      "file": "marketing-growth-integrations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "marketing",
+      "view": "growth-operations",
+      "width": 1440,
+      "file": "marketing-growth-operations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "overview",
+      "width": 320,
+      "file": "growth_caller-overview-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-hero",
+      "width": 320,
+      "file": "growth_caller-growth-hero-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-summary",
+      "width": 320,
+      "file": "growth_caller-growth-summary-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-leads",
+      "width": 320,
+      "file": "growth_caller-growth-leads-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-tasks",
+      "width": 320,
+      "file": "growth_caller-growth-tasks-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-alerts",
+      "width": 320,
+      "file": "growth_caller-growth-alerts-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-calls",
+      "width": 320,
+      "file": "growth_caller-growth-calls-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-appointments",
+      "width": 320,
+      "file": "growth_caller-growth-appointments-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-integrations",
+      "width": 320,
+      "file": "growth_caller-growth-integrations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-operations",
+      "width": 320,
+      "file": "growth_caller-growth-operations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "overview",
+      "width": 1440,
+      "file": "growth_caller-overview-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-hero",
+      "width": 1440,
+      "file": "growth_caller-growth-hero-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-summary",
+      "width": 1440,
+      "file": "growth_caller-growth-summary-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-leads",
+      "width": 1440,
+      "file": "growth_caller-growth-leads-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-tasks",
+      "width": 1440,
+      "file": "growth_caller-growth-tasks-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-alerts",
+      "width": 1440,
+      "file": "growth_caller-growth-alerts-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-calls",
+      "width": 1440,
+      "file": "growth_caller-growth-calls-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-appointments",
+      "width": 1440,
+      "file": "growth_caller-growth-appointments-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-integrations",
+      "width": 1440,
+      "file": "growth_caller-growth-integrations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_caller",
+      "view": "growth-operations",
+      "width": 1440,
+      "file": "growth_caller-growth-operations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "overview",
+      "width": 320,
+      "file": "growth_google-overview-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-hero",
+      "width": 320,
+      "file": "growth_google-growth-hero-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-campaigns",
+      "width": 320,
+      "file": "growth_google-growth-campaigns-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-tasks",
+      "width": 320,
+      "file": "growth_google-growth-tasks-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-alerts",
+      "width": 320,
+      "file": "growth_google-growth-alerts-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-integrations",
+      "width": 320,
+      "file": "growth_google-growth-integrations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-operations",
+      "width": 320,
+      "file": "growth_google-growth-operations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "overview",
+      "width": 1440,
+      "file": "growth_google-overview-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-hero",
+      "width": 1440,
+      "file": "growth_google-growth-hero-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-campaigns",
+      "width": 1440,
+      "file": "growth_google-growth-campaigns-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-tasks",
+      "width": 1440,
+      "file": "growth_google-growth-tasks-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-alerts",
+      "width": 1440,
+      "file": "growth_google-growth-alerts-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-integrations",
+      "width": 1440,
+      "file": "growth_google-growth-integrations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_google",
+      "view": "growth-operations",
+      "width": 1440,
+      "file": "growth_google-growth-operations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "overview",
+      "width": 320,
+      "file": "growth_meta-overview-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-hero",
+      "width": 320,
+      "file": "growth_meta-growth-hero-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-campaigns",
+      "width": 320,
+      "file": "growth_meta-growth-campaigns-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-tasks",
+      "width": 320,
+      "file": "growth_meta-growth-tasks-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-alerts",
+      "width": 320,
+      "file": "growth_meta-growth-alerts-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-integrations",
+      "width": 320,
+      "file": "growth_meta-growth-integrations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-operations",
+      "width": 320,
+      "file": "growth_meta-growth-operations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "overview",
+      "width": 1440,
+      "file": "growth_meta-overview-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-hero",
+      "width": 1440,
+      "file": "growth_meta-growth-hero-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-campaigns",
+      "width": 1440,
+      "file": "growth_meta-growth-campaigns-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-tasks",
+      "width": 1440,
+      "file": "growth_meta-growth-tasks-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-alerts",
+      "width": 1440,
+      "file": "growth_meta-growth-alerts-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-integrations",
+      "width": 1440,
+      "file": "growth_meta-growth-integrations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_meta",
+      "view": "growth-operations",
+      "width": 1440,
+      "file": "growth_meta-growth-operations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "overview",
+      "width": 320,
+      "file": "growth_seo-overview-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-hero",
+      "width": 320,
+      "file": "growth_seo-growth-hero-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-campaigns",
+      "width": 320,
+      "file": "growth_seo-growth-campaigns-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-tasks",
+      "width": 320,
+      "file": "growth_seo-growth-tasks-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-alerts",
+      "width": 320,
+      "file": "growth_seo-growth-alerts-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-integrations",
+      "width": 320,
+      "file": "growth_seo-growth-integrations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-operations",
+      "width": 320,
+      "file": "growth_seo-growth-operations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "overview",
+      "width": 1440,
+      "file": "growth_seo-overview-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-hero",
+      "width": 1440,
+      "file": "growth_seo-growth-hero-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-campaigns",
+      "width": 1440,
+      "file": "growth_seo-growth-campaigns-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-tasks",
+      "width": 1440,
+      "file": "growth_seo-growth-tasks-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-alerts",
+      "width": 1440,
+      "file": "growth_seo-growth-alerts-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-integrations",
+      "width": 1440,
+      "file": "growth_seo-growth-integrations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_seo",
+      "view": "growth-operations",
+      "width": 1440,
+      "file": "growth_seo-growth-operations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "overview",
+      "width": 320,
+      "file": "growth_offline-overview-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-hero",
+      "width": 320,
+      "file": "growth_offline-growth-hero-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-campaigns",
+      "width": 320,
+      "file": "growth_offline-growth-campaigns-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-tasks",
+      "width": 320,
+      "file": "growth_offline-growth-tasks-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-alerts",
+      "width": 320,
+      "file": "growth_offline-growth-alerts-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-integrations",
+      "width": 320,
+      "file": "growth_offline-growth-integrations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-operations",
+      "width": 320,
+      "file": "growth_offline-growth-operations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "overview",
+      "width": 1440,
+      "file": "growth_offline-overview-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-hero",
+      "width": 1440,
+      "file": "growth_offline-growth-hero-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-campaigns",
+      "width": 1440,
+      "file": "growth_offline-growth-campaigns-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-tasks",
+      "width": 1440,
+      "file": "growth_offline-growth-tasks-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-alerts",
+      "width": 1440,
+      "file": "growth_offline-growth-alerts-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-integrations",
+      "width": 1440,
+      "file": "growth_offline-growth-integrations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_offline",
+      "view": "growth-operations",
+      "width": 1440,
+      "file": "growth_offline-growth-operations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "overview",
+      "width": 320,
+      "file": "growth_coordinator-overview-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-hero",
+      "width": 320,
+      "file": "growth_coordinator-growth-hero-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-summary",
+      "width": 320,
+      "file": "growth_coordinator-growth-summary-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-leads",
+      "width": 320,
+      "file": "growth_coordinator-growth-leads-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-tasks",
+      "width": 320,
+      "file": "growth_coordinator-growth-tasks-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-alerts",
+      "width": 320,
+      "file": "growth_coordinator-growth-alerts-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-calls",
+      "width": 320,
+      "file": "growth_coordinator-growth-calls-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-appointments",
+      "width": 320,
+      "file": "growth_coordinator-growth-appointments-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-integrations",
+      "width": 320,
+      "file": "growth_coordinator-growth-integrations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-operations",
+      "width": 320,
+      "file": "growth_coordinator-growth-operations-320.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "overview",
+      "width": 1440,
+      "file": "growth_coordinator-overview-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-hero",
+      "width": 1440,
+      "file": "growth_coordinator-growth-hero-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-summary",
+      "width": 1440,
+      "file": "growth_coordinator-growth-summary-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-leads",
+      "width": 1440,
+      "file": "growth_coordinator-growth-leads-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-tasks",
+      "width": 1440,
+      "file": "growth_coordinator-growth-tasks-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-alerts",
+      "width": 1440,
+      "file": "growth_coordinator-growth-alerts-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-calls",
+      "width": 1440,
+      "file": "growth_coordinator-growth-calls-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-appointments",
+      "width": 1440,
+      "file": "growth_coordinator-growth-appointments-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-integrations",
+      "width": 1440,
+      "file": "growth_coordinator-growth-integrations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    },
+    {
+      "role": "growth_coordinator",
+      "view": "growth-operations",
+      "width": 1440,
+      "file": "growth_coordinator-growth-operations-1440.png",
+      "overflow": false,
+      "errors": [],
+      "scope": "isolated test; not deployed"
+    }
+  ],
+  "cleanupVerified": true,
+  "limitations": [
+    "Empty and initial states; detailed action tests run separately",
+    "Account and live-text APIs unavailable in fixture; captured as dependencies",
+    "No real emails sent; no production session"
+  ]
+}

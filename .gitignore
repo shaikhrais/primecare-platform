@@ -148,3 +148,14 @@ docs/architecture/generated/
 /dom_logs/
 /screen_agent_context/
 /SCREEN_DATA_CONTEXT_*.md
+
+# Reproducible historical screen JSON exports; deliverable ZIP is saved separately.
+docs/refactoring/screen-json-references/*.json
+!docs/refactoring/screen-json-references/summary.json
+
+# Removed operational governance SQLite files; CI fixtures are untracked.
+/.agents/governance/governance.db*
+/.agents/governance/governance_backup_before_screen_sections.db
+/governance.db
+/testingFramework1.0/governance.db
+/testingFramework1.0/src/test/java/testNG/PointClickCare/governance.db

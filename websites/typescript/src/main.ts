@@ -1,4 +1,10 @@
-import { login } from './auth-client';
+import {renderCare} from './care/dashboard';
+import {renderLookReview} from './look-review';
+import {renderAuthRecovery} from './auth-recovery';
+import {renderEnquiry} from './growth/enquiry';
+import {renderGrowth} from './growth/dashboard';
+import {renderPlatformAdmin} from './platform-admin';
+import {renderAuth} from './auth-screen';
 import {renderMaintenance} from './maintenance';
 import {renderWorkspace} from './workspace';
 
@@ -33,36 +39,6 @@ function applyTheme(theme: Record<string, string>): void {
   for (const [property, value] of Object.entries(theme)) document.documentElement.style.setProperty(property, value);
 }
 
-function renderAuth(manifest: PortalManifest): void {
-  const username = manifest.resources['login.username'] || 'Username';
-  const password = manifest.resources['login.password'] || 'Password';
-  const signIn = manifest.resources['login.sign_in'] || 'Sign in';
-  root.innerHTML = `<main class="auth-shell" data-cy="screen-auth-login">
-    <form class="auth-card" data-cy="login-form" aria-label="PrimeCare authentication">
-      <p class="eyebrow">PrimeCare</p><h1>${escapeHtml(manifest.name)}</h1>
-      <label>${escapeHtml(username)}<input name="email" type="email" required autocomplete="username" data-cy="login-email" aria-label="login-email"></label>
-      <label>${escapeHtml(password)}<input name="password" type="password" required autocomplete="current-password" data-cy="login-password" aria-label="login-password"></label>
-      <button type="submit" data-cy="login-submit" aria-label="login-submit">${escapeHtml(signIn)}</button>
-      <output class="status" aria-live="polite" data-cy="api-status"></output>
-    </form></main>`;
-  const form = root.querySelector<HTMLFormElement>('form');
-  const status = root.querySelector<HTMLOutputElement>('output');
-  form?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    if (!status || !form) return;
-    status.value = 'Signing in…';
-    const fields = new FormData(form);
-    try {
-      const token = await login(manifest.apiGateway, String(fields.get('email') || ''), String(fields.get('password') || ''));
-      sessionStorage.setItem('primecare_session', token);
-      status.value = 'Sign in successful';
-      const identityResponse=await fetch(`${manifest.apiGateway}/v1/auth/me`,{headers:{authorization:'Bearer '+token},cache:'no-store'});
-      const identity=await identityResponse.json() as {roles?:string};
-      const returnUrl=new URLSearchParams(location.search).get('returnUrl');
-      location.assign(identityResponse.ok && (identity.roles==='maintenance' || (identity.roles==='ceo' && returnUrl==='/maintenance/configuration'))?'/maintenance/configuration':'/');
-    } catch (error) { status.value = error instanceof Error ? error.message : 'Sign in failed'; }
-  });
-}
 
-loadManifest().then((manifest) => { applyTheme(manifest.theme); location.pathname==='/maintenance/configuration'?void renderMaintenance(root,manifest.apiGateway):location.pathname==='/login' || manifest.appCode === 'au' ? renderAuth(manifest) : void renderWorkspace(root,manifest.apiGateway); })
+loadManifest().then((manifest) => { applyTheme(manifest.theme); ['/forgot-password','/generated/forgot-password'].includes(location.pathname)?renderAuthRecovery(root,manifest.apiGateway,manifest.name,'forgot'):['/reset-password','/generated/reset-password'].includes(location.pathname)?renderAuthRecovery(root,manifest.apiGateway,manifest.name,'reset'):location.pathname.startsWith('/enquire/')?void renderEnquiry(root,manifest.apiGateway):location.pathname==='/appearance-review'?void renderLookReview(root,manifest.apiGateway):location.pathname==='/care'?void renderCare(root,manifest.apiGateway):location.pathname==='/growth'?void renderGrowth(root,manifest.apiGateway):location.pathname==='/platform/administration'?void renderPlatformAdmin(root,manifest.apiGateway):location.pathname==='/maintenance/configuration'?void renderMaintenance(root,manifest.apiGateway):location.pathname==='/login' || manifest.appCode === 'au' ? renderAuth(root,manifest.apiGateway,manifest.name) : void renderWorkspace(root,manifest.apiGateway); })
   .catch((error) => { root.innerHTML = `<main class="fatal" data-cy="error-state"><h1>Unable to start PrimeCare</h1><p>${escapeHtml(error)}</p></main>`; });

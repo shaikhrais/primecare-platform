@@ -3865,5 +3865,6 @@
         "summary_title": "Metrics summary details",
         "btn_action": "Submit Changes",
         "btn_refresh": "Sync Data Dashboard"
-    }
+    },
+    "auth_flow_unavailable": "This authentication feature is not available yet. Please contact your administrator."
 }

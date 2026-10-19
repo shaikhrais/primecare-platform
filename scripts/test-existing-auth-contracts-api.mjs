@@ -96,3 +96,13 @@ test('invalid own-password write results return sanitized 503 and roll back with
 
 for(const [path,body,table] of [['/v1/auth/register',creation,'auth_account_audit'],['/v1/admin/users',management,'auth_management_audit'],['/v1/user/change-password',{currentPassword:password,newPassword:'fixture-new-password'},'auth_password_audit']])for(const mode of ['missing','duplicate','identity','timestamp','payload'])test('batch 360–362 confirmed audit '+path+' '+mode,async()=>{const base=globalThis.__contractQuery;globalThis.__contractQuery=async(sql,v)=>{const r=await base(sql,v);if(sql.startsWith('INSERT INTO '+table)){if(mode==='missing')r.rows=[];else if(mode==='duplicate')r.rows.push({...r.rows[0]});else if(mode==='identity')r.rows[0][table==='auth_password_audit'?'user_id':'target_user_id']='foreign';else if(mode==='timestamp')r.rows[0].created_at='private-corrupt-date';else if(table==='auth_management_audit')r.rows[0].new_state.status='active';else r.rows[0].action='foreign';}return r;};const r=await call(path,'POST',body);assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.equal(r.headers.get('cache-control'),'no-store');assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'));assert.ok(!(await r.text()).includes('private'));});
 for(const rows of [null,[null],[{},{}]])test('batch 363 account duplicate probe validates shape '+JSON.stringify(rows),async()=>{const base=globalThis.__contractQuery;globalThis.__contractQuery=async(sql,v)=>sql.startsWith('SELECT id FROM users')?{rows}:base(sql,v);const r=await call('/v1/auth/register','POST',creation);assert.equal(r.status,503);assert.ok(!queries.some(q=>q.sql.startsWith('INSERT INTO users')));assert.equal(queries.at(-1).sql,'ROLLBACK');});
+
+test('CEO can create governed growth staff accounts; staff cannot create accounts',async()=>{
+ const roles=Object.keys(JSON.parse(readFileSync('docs/marketing/growth-seed.json')).roleDefinitions);
+ for(const role of roles){
+  const request=()=>new Request('https://api.example.test/register',{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({email:role+'@example.test',password:'fixture-strong-password',role})});
+  actor.roles='ceo';const created=await auth(request(),{SERVICE_NAME:'auth',DB_URL:'fixture'},'/register',{});assert.equal(created.status,201);assert.equal((await created.json()).user.roles,role);
+  actor.roles=role;assert.equal((await auth(request(),{SERVICE_NAME:'auth',DB_URL:'fixture'},'/register',{})).status,403);
+  actor.roles='hr_director';assert.equal((await auth(request(),{SERVICE_NAME:'auth',DB_URL:'fixture'},'/register',{})).status,403);
+ }
+});

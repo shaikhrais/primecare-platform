@@ -1,0 +1,396 @@
+{
+  "version": 1,
+  "endpoint": "/v1/governance/platform/operations",
+  "roles": {
+    "platform_admin": "global",
+    "central_admin": "global",
+    "tenant_admin": "own",
+    "owner": "own"
+  },
+  "managementRoles": [
+    "platform_admin",
+    "central_admin",
+    "tenant_admin"
+  ],
+  "pageSize": 25,
+  "maxOffset": 100000,
+  "filters": [
+    "all",
+    "attention",
+    "active",
+    "inactive"
+  ],
+  "checks": [
+    {
+      "key": "administrator",
+      "count": "administrators",
+      "minimum": 1,
+      "issue": "missing_admin",
+      "view": "accounts",
+      "labelKey": "setup_admin"
+    },
+    {
+      "key": "location",
+      "count": "locations",
+      "minimum": 1,
+      "issue": "missing_location",
+      "view": "masters",
+      "labelKey": "setup_location"
+    },
+    {
+      "key": "category",
+      "count": "categories",
+      "minimum": 1,
+      "issue": "missing_category",
+      "view": "masters",
+      "labelKey": "setup_category"
+    }
+  ],
+  "destinations": [
+    "accounts",
+    "masters",
+    "territories"
+  ],
+  "source": {
+    "kind": "administrative_setup",
+    "clinicalReadiness": false,
+    "censusYear": 2021
+  },
+  "locales": {
+    "en": {
+      "nav": "Tenant operations",
+      "title": "Tenant operations overview",
+      "intro": "Find administrative setup gaps and open the screen that can fix them.",
+      "note": "These are account and reference-record checks. They do not certify clinical readiness, staffing coverage or service quality. Senior counts use the territory plan’s 2021 Census data.",
+      "total": "Matching tenants",
+      "active": "Active",
+      "inactive": "Inactive",
+      "attention": "Needs attention",
+      "all": "All tenants",
+      "territories": "Sold territories",
+      "seniors": "Residents aged 65+",
+      "search": "Search tenant name or code",
+      "filter": "Show",
+      "apply": "Apply filters",
+      "refresh": "Refresh overview",
+      "tenant": "Tenant",
+      "accounts": "Active accounts",
+      "administrators": "Active administrators",
+      "locations": "Active locations",
+      "categories": "Active service categories",
+      "checks_pass": "Setup checks present",
+      "missing_admin": "No active administrator account",
+      "missing_location": "No active location record",
+      "missing_category": "No active service-category record",
+      "inactive_territory": "Inactive tenant still owns sold territory",
+      "unknown_status": "Tenant status needs review",
+      "issues": "Setup findings",
+      "actions": "Next actions",
+      "open_accounts": "Manage accounts",
+      "open_masters": "Manage reference records",
+      "open_territories": "Territory board",
+      "previous": "Previous",
+      "next": "Next",
+      "showing": "Showing",
+      "of": "of",
+      "empty": "No matching tenants.",
+      "working": "Loading overview…",
+      "failed": "Unable to load the overview. Retry after checking your connection.",
+      "forbidden": "Your account cannot view this overview.",
+      "status": "Tenant status",
+      "unknown": "Unknown",
+      "read_only": "Values are calculated by the API from saved records. Refresh after making corrections.",
+      "setup_admin": "Administrator",
+      "setup_location": "Location",
+      "setup_category": "Service category",
+      "present": "Present",
+      "missing": "Missing",
+      "references": "Reference records",
+      "note_short": "Administrative setup checks and senior totals from the 2021 Census territory plan.",
+      "about_checks": "About these checks",
+      "records_note": "Counts reflect saved records. Refresh after making corrections."
+    },
+    "fr": {
+      "nav": "Opérations des locataires",
+      "title": "Vue des opérations des locataires",
+      "intro": "Repérez les lacunes de configuration administrative et ouvrez l’écran permettant de les corriger.",
+      "note": "Ces contrôles concernent les comptes et les références. Ils ne certifient ni la préparation clinique, ni la couverture du personnel, ni la qualité des soins. Les nombres d’aînés proviennent du plan territorial du recensement de 2021.",
+      "total": "Locataires correspondants",
+      "active": "Actif",
+      "inactive": "Inactif",
+      "attention": "À examiner",
+      "all": "Tous les locataires",
+      "territories": "Territoires vendus",
+      "seniors": "Résidents de 65 ans et plus",
+      "search": "Rechercher le nom ou le code du locataire",
+      "filter": "Afficher",
+      "apply": "Appliquer les filtres",
+      "refresh": "Actualiser la vue",
+      "tenant": "Locataire",
+      "accounts": "Comptes actifs",
+      "administrators": "Administrateurs actifs",
+      "locations": "Lieux actifs",
+      "categories": "Catégories de services actives",
+      "checks_pass": "Contrôles de configuration présents",
+      "missing_admin": "Aucun compte administrateur actif",
+      "missing_location": "Aucun lieu actif",
+      "missing_category": "Aucune catégorie de services active",
+      "inactive_territory": "Le locataire inactif détient encore un territoire vendu",
+      "unknown_status": "L’état du locataire doit être examiné",
+      "issues": "Constats de configuration",
+      "actions": "Actions suivantes",
+      "open_accounts": "Gérer les comptes",
+      "open_masters": "Gérer les références",
+      "open_territories": "Carte des territoires",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "showing": "Affichage",
+      "of": "sur",
+      "empty": "Aucun locataire correspondant.",
+      "working": "Chargement de la vue…",
+      "failed": "Impossible de charger la vue. Vérifiez la connexion et réessayez.",
+      "forbidden": "Votre compte ne peut pas consulter cette vue.",
+      "status": "État du locataire",
+      "unknown": "Inconnu",
+      "read_only": "Les valeurs sont calculées par l’API à partir des données enregistrées. Actualisez après les corrections.",
+      "setup_admin": "Administrateur",
+      "setup_location": "Lieu",
+      "setup_category": "Catégorie de services",
+      "present": "Présent",
+      "missing": "Manquant",
+      "references": "Références",
+      "note_short": "Contrôles de configuration administrative et nombres d’aînés du plan territorial du recensement de 2021.",
+      "about_checks": "À propos des contrôles",
+      "records_note": "Les nombres reflètent les données enregistrées. Actualisez après les corrections."
+    },
+    "es": {
+      "nav": "Operaciones de inquilinos",
+      "title": "Resumen de operaciones de inquilinos",
+      "intro": "Encuentre fallos de configuración administrativa y abra la pantalla para corregirlos.",
+      "note": "Estas comprobaciones cubren cuentas y registros de referencia. No certifican preparación clínica, cobertura de personal ni calidad de servicio. Las cifras de mayores proceden del plan territorial del censo de 2021.",
+      "total": "Inquilinos coincidentes",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "attention": "Requiere atención",
+      "all": "Todos los inquilinos",
+      "territories": "Territorios vendidos",
+      "seniors": "Residentes de 65 años o más",
+      "search": "Buscar nombre o código del inquilino",
+      "filter": "Mostrar",
+      "apply": "Aplicar filtros",
+      "refresh": "Actualizar resumen",
+      "tenant": "Inquilino",
+      "accounts": "Cuentas activas",
+      "administrators": "Administradores activos",
+      "locations": "Ubicaciones activas",
+      "categories": "Categorías de servicios activas",
+      "checks_pass": "Comprobaciones de configuración presentes",
+      "missing_admin": "Sin cuenta de administrador activa",
+      "missing_location": "Sin ubicación activa",
+      "missing_category": "Sin categoría de servicios activa",
+      "inactive_territory": "El inquilino inactivo aún posee territorio vendido",
+      "unknown_status": "Se debe revisar el estado del inquilino",
+      "issues": "Hallazgos de configuración",
+      "actions": "Próximas acciones",
+      "open_accounts": "Gestionar cuentas",
+      "open_masters": "Gestionar registros de referencia",
+      "open_territories": "Mapa de territorios",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "showing": "Mostrando",
+      "of": "de",
+      "empty": "No hay inquilinos coincidentes.",
+      "working": "Cargando resumen…",
+      "failed": "No se pudo cargar el resumen. Compruebe la conexión y reintente.",
+      "forbidden": "Su cuenta no puede ver este resumen.",
+      "status": "Estado del inquilino",
+      "unknown": "Desconocido",
+      "read_only": "La API calcula los valores desde registros guardados. Actualice después de corregirlos.",
+      "setup_admin": "Administrador",
+      "setup_location": "Ubicación",
+      "setup_category": "Categoría de servicios",
+      "present": "Presente",
+      "missing": "Falta",
+      "references": "Registros de referencia",
+      "note_short": "Comprobaciones de configuración administrativa y cifras de mayores del plan territorial del censo de 2021.",
+      "about_checks": "Acerca de estas comprobaciones",
+      "records_note": "Los recuentos reflejan registros guardados. Actualice después de corregirlos."
+    }
+  },
+  "request": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "search": {
+        "type": "string",
+        "maxLength": 100
+      },
+      "filter": {
+        "enum": [
+          "all",
+          "attention",
+          "active",
+          "inactive"
+        ]
+      },
+      "offset": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 100000
+      }
+    }
+  },
+  "response": {
+    "type": "object",
+    "required": [
+      "scope",
+      "tenants",
+      "summary",
+      "pagination",
+      "source"
+    ],
+    "properties": {
+      "scope": {
+        "enum": [
+          "global",
+          "own"
+        ]
+      },
+      "source": {
+        "type": "object"
+      },
+      "tenants": {
+        "type": "array",
+        "maxItems": 25,
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "name",
+            "slug",
+            "status",
+            "counts",
+            "checks",
+            "issues",
+            "actions"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "slug": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "active",
+                "inactive",
+                "unknown"
+              ]
+            },
+            "counts": {
+              "type": "object",
+              "properties": {
+                "accounts": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "administrators": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "locations": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "categories": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "territories": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "seniors65": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            "checks": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "issues": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "actions": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "accounts",
+                  "masters",
+                  "territories"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "summary": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "active": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "inactive": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "attention": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "territories": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "seniors65": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "pagination": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer"
+          },
+          "limit": {
+            "const": 25
+          },
+          "total": {
+            "type": "integer"
+          },
+          "hasMore": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

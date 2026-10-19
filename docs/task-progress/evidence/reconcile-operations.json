@@ -1,0 +1,36 @@
+{
+  "scopes": [
+    "operations"
+  ],
+  "inserted": {
+    "tenant_operations_policy": 1,
+    "api_endpoints": 1,
+    "screen_api_links": 1
+  },
+  "source_bindings": {
+    "packages/shared/src/tenant-operations.json": "98bd7960c1bbe0c7739d060bc4a55cfe829956d00536bacc66f9cb4a894ec2eb",
+    "docs/platform-operations/seed.json": "98bd7960c1bbe0c7739d060bc4a55cfe829956d00536bacc66f9cb4a894ec2eb",
+    "cloudflare/workers/src/tenant-operations.ts": "7c9c46e899d0715f7a9696c331da38050dfb6da0ac67f6b03ec3d46e989bb0cd",
+    "websites/typescript/src/tenant-operations/controller.ts": "ed1bb71b6f23640a6378b9d9eeca362d2a9ea5081721c8b4f03c34031de130dd",
+    "websites/typescript/src/tenant-operations/client.ts": "dce0466bf232875a42b27736022047b2293409bb0835cad0ae746e3674460cf5",
+    "cloudflare/workers/src/admin-hierarchy.json": "be1c6f38457568e135d90fd329582ec17d9e68008fd1861da7ed1771fe3607a6"
+  },
+  "allowed_tables": [
+    "shared_report_definitions",
+    "shared_report_grants",
+    "shared_report_surfaces",
+    "admin_training_courses",
+    "admin_training_learning_grants",
+    "admin_training_native_surfaces",
+    "tenant_operations_policy",
+    "api_endpoints",
+    "screen_api_links"
+  ],
+  "preserved_existing_fk_issue_counts": {
+    "screen_api_links": 45
+  },
+  "workflow_tests_executed": 0,
+  "verification_status_changed": false,
+  "generated_sources_changed": false,
+  "check_only": false
+}

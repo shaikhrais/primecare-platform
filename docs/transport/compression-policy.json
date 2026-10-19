@@ -1,0 +1,17 @@
+{
+  "preference": [
+    "zstd",
+    "br",
+    "gzip",
+    "identity"
+  ],
+  "clientHeader": "Accept-Encoding",
+  "cloudflareOriginalHeader": "cf.clientAcceptEncoding",
+  "excluded": [
+    "internal service binding",
+    "range",
+    "no-transform",
+    "event stream",
+    "already encoded"
+  ]
+}

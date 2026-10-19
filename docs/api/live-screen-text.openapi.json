@@ -1,0 +1,211 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Live screen text",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/governance/screen-text": {
+      "get": {
+        "operationId": "screenTextManifest",
+        "description": "Public registered interface-text versions only; no actor history or business records.",
+        "responses": {
+          "200": {
+            "description": "Current catalog or history"
+          }
+        }
+      }
+    },
+    "/v1/governance/screen-text/{screen}": {
+      "get": {
+        "operationId": "screenTextRead",
+        "parameters": [
+          {
+            "name": "screen",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "admin_reality_check",
+                "admin_role_carousel",
+                "platform_administration",
+                "reports",
+                "screen_text_editor",
+                "workspace",
+                "theme_center"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current catalog or history"
+          },
+          "404": {
+            "description": "Unregistered screen"
+          }
+        }
+      },
+      "put": {
+        "operationId": "screenTextSave",
+        "parameters": [
+          {
+            "name": "screen",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "admin_reality_check",
+                "admin_role_carousel",
+                "platform_administration",
+                "reports",
+                "screen_text_editor",
+                "workspace",
+                "theme_center"
+              ]
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Active platform_admin only. Atomic versioned catalog and audit history. Matching current version required. Existing keys and named parameters cannot change.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "version",
+                  "locales"
+                ],
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "locales": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "en",
+                      "fr",
+                      "es"
+                    ],
+                    "properties": {
+                      "en": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 2000
+                        }
+                      },
+                      "fr": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 2000
+                        }
+                      },
+                      "es": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 2000
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Current catalog or history"
+          },
+          "400": {
+            "description": "Invalid text, keys, parameters or request"
+          },
+          "401": {
+            "description": "Missing or revoked session"
+          },
+          "403": {
+            "description": "Platform administrator required"
+          },
+          "404": {
+            "description": "Unregistered screen"
+          },
+          "409": {
+            "description": "Stale version; reload before saving"
+          },
+          "413": {
+            "description": "Body exceeds 50,000 wire bytes or 48,000 catalog bytes"
+          },
+          "429": {
+            "description": "30 edit attempts per actor/minute exceeded"
+          }
+        }
+      }
+    },
+    "/v1/governance/screen-text/{screen}/history": {
+      "get": {
+        "operationId": "screenTextHistory",
+        "parameters": [
+          {
+            "name": "screen",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "admin_reality_check",
+                "admin_role_carousel",
+                "platform_administration",
+                "reports",
+                "screen_text_editor",
+                "workspace",
+                "theme_center"
+              ]
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Active platform_admin only. Latest 50 versions, actor IDs, timestamps, old/new catalogs; rows remain retained. Restore by PUT with the current version and a previous locales map.",
+        "responses": {
+          "200": {
+            "description": "Current catalog or history"
+          },
+          "401": {
+            "description": "Missing or revoked session"
+          },
+          "403": {
+            "description": "Platform administrator required"
+          },
+          "404": {
+            "description": "Unregistered screen"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "database": ".agents/governance/governance.db",
+  "snapshot": ".agents/governance/governance-recovery-snapshot.db.gz",
+  "database_sha256": "6c90852ce60312a53439babadcd2d9fd67736e65ab01d4c2766e328c5cbf8adc",
+  "snapshot_sha256": "00f94ecdbe7ac1e81145c98251f0c6efee4fd3cfd73f935bcc83bfa4ce21e5bc",
+  "database_bytes": 120705024,
+  "snapshot_bytes": 12570877,
+  "tracking_task_records": 8,
+  "snapshot_name": "current-recovery",
+  "note": "Full saved governance checkpoint. restore_checkpoint.py preserves the exact allowlisted baseline and never overwrites unknown modified data.",
+  "business_workflow_specs": 1,
+  "legacy_role_outlines": 98,
+  "virtual_business_processes": 147,
+  "virtual_definitions_and_guides": 5338,
+  "virtual_steps": 18750,
+  "virtual_role_guides": 98,
+  "bootstrap_allowed_database_sha256": [
+    "42d350b6b3ab46540cbc58f2696d896f3afe6658b1f5153bec410dfce87d1262",
+    "635f2bfef876a61303308002eddafacaa3d607515e7664352a0719d4b6ab05e2"
+  ],
+  "business_status_counts": {
+    "missing": 11,
+    "implemented-unverified": 134,
+    "verified": 0,
+    "blocked": 2
+  }
+}

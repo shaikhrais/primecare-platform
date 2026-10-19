@@ -1,0 +1,36 @@
+{
+  "scopes": [
+    "reports"
+  ],
+  "inserted": {
+    "shared_report_definitions": 3,
+    "shared_report_grants": 76,
+    "shared_report_surfaces": 151,
+    "api_endpoints": 4,
+    "screen_api_links": 604
+  },
+  "source_bindings": {
+    "cloudflare/workers/src/reporting.ts": "935a03cdc9b726521e4d400b4439d4cbccc6dcc7825dbd409d31842c2382313b",
+    "websites/typescript/src/reports.ts": "54565a7e4ac9ec8ffa81ca8b02cd99c7f78025c493fd83a8c4b1f5bf4748af87",
+    "cloudflare/workers/src/report-registry.json": "bb1e77c3d5a3af6f8df889641e638df210d6785c523ed126afacff6fcb517536",
+    "docs/api/admin-reports.openapi.json": "5ef4cc5ea554c403462959dfe7f98fb13470a13993477b65a29b36ad4c367b7f"
+  },
+  "allowed_tables": [
+    "shared_report_definitions",
+    "shared_report_grants",
+    "shared_report_surfaces",
+    "admin_training_courses",
+    "admin_training_learning_grants",
+    "admin_training_native_surfaces",
+    "tenant_operations_policy",
+    "api_endpoints",
+    "screen_api_links"
+  ],
+  "preserved_existing_fk_issue_counts": {
+    "screen_api_links": 45
+  },
+  "workflow_tests_executed": 0,
+  "verification_status_changed": false,
+  "generated_sources_changed": false,
+  "check_only": false
+}

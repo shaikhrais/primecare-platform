@@ -11,13 +11,13 @@
   ],
   "sourceHashes": {
     "cloudflare/workers/src/gateway.ts": "c023259fa073c3efeca3de80a3cc684da8deecf22982d187f5623f56c8473e2b",
-    "cloudflare/workers/src/account-admin.ts": "b93b16c000f0c02e387fef5b3566b79f2c786f8b62fb23176471b506390d9b92",
+    "cloudflare/workers/src/account-admin.ts": "a548329b872cdb45d8a620d9aec1e6754f2c078eadcf0b1cc62e3d36107b84ee",
     "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5",
     "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5",
     "packages/domain/src/registries/FormRegistry/client-forms.ts": "f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516",
-    "cloudflare/workers/src/core/base-worker.ts": "58c2df259e14e6078a6476407de0946f8efa159c1685931b5f8bba30c055803c",
+    "cloudflare/workers/src/core/base-worker.ts": "7c7d612386546bf86db4b217391e84cf8982331530a86020c9eb35010548a25a",
     "cloudflare/workers/src/service.ts": "bd52f6638c2a95ccf8d8188fd86811424f7978aa31c494632536c8c1e6f60473",
-    "cloudflare/workers/src/business-modules.ts": "74bba6eb7682bc314fc2e9cf353e5aedfc04ce04b5deba00625e0db98466daea"
+    "cloudflare/workers/src/business-modules.ts": "10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa"
   },
   "reviews": {
     "POST /v1/admin/users/churn-heatmap": {
@@ -176,5 +176,17 @@
     "blockedArray": "reviewedBlockedOperations",
     "blockedSummary": "reviewedBlockedSummary",
     "rule": "Only four exact reviewed blocked IDs are additionally probed. Their probes never enter pending denominator or API-completion count. Inventory/source drift aborts reviewed blocker evidence instead of silently falling back."
+  },
+  "growthRegistryReview": "Added an isolated governance /growth handler; existing handlers and their relative order, captured routes and four blocked operations remain unchanged. Covered by registry and legacy route tests.",
+  "careRegistryReview": {
+    "source": "cloudflare/workers/src/business-modules.ts",
+    "previousReviewedHash": "342d8c98c3d1e08913169caf3d29ddcebefbd60f2b09537864c90ddc6ef2772e",
+    "reviewedHash": "10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa",
+    "change": "Only careDelivery import and ordered care-delivery module registration added; removing these two lines reproduces the previous reviewed file exactly.",
+    "authorityReview": "careDelivery returns null outside governance /care namespace before creating a database connection. Existing auth/client method-capture routes retain their original handler order, identities and blocked dispositions.",
+    "implementedOperations": 0,
+    "resolvedOperations": 0,
+    "newBlockedOperations": 4,
+    "validation": "Run actual gateway method-capture and fail-closed source-drift tests; no workflow or human clinical approval is asserted."
   }
 }

@@ -1,0 +1,377 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Territory Allocation",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "paths": {
+    "/v1/governance/platform/territories": {
+      "get": {
+        "summary": "Read scoped territory board",
+        "x-authorization": {
+          "platform_admin": "global",
+          "central_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 authenticated mutation attempts per actor per minute",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "canManage",
+                    "source",
+                    "summary",
+                    "territories",
+                    "tenants"
+                  ],
+                  "properties": {
+                    "canManage": {
+                      "type": "boolean"
+                    },
+                    "source": {
+                      "type": "object"
+                    },
+                    "territories": {
+                      "type": "array",
+                      "maxItems": 30,
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "number",
+                          "code",
+                          "name",
+                          "status",
+                          "seniors65",
+                          "population",
+                          "fsas",
+                          "canSell",
+                          "version",
+                          "allocation"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "number": {
+                            "type": "integer"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "enum": [
+                              "available",
+                              "sold",
+                              "reserve"
+                            ]
+                          },
+                          "seniors65": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "population": {
+                            "type": "integer"
+                          },
+                          "fsas": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "canSell": {
+                            "type": "boolean"
+                          },
+                          "version": {
+                            "enum": [
+                              0,
+                              1
+                            ]
+                          },
+                          "allocation": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "tenantId": {
+                                "type": "string"
+                              },
+                              "tenantName": {
+                                "type": "string"
+                              },
+                              "reference": {
+                                "type": "string"
+                              },
+                              "services": {
+                                "type": "array",
+                                "items": {
+                                  "enum": [
+                                    "psw",
+                                    "home_care"
+                                  ]
+                                }
+                              },
+                              "recordedAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "tenants": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "slug": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "summary": {
+                      "type": "object",
+                      "properties": {
+                        "available": {
+                          "type": "object",
+                          "properties": {
+                            "count": {
+                              "type": "integer"
+                            },
+                            "seniors65": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "sold": {
+                          "type": "object",
+                          "properties": {
+                            "count": {
+                              "type": "integer"
+                            },
+                            "seniors65": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "reserve": {
+                          "type": "object",
+                          "properties": {
+                            "count": {
+                              "type": "integer"
+                            },
+                            "seniors65": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or unknown fields / tenant override"
+          },
+          "401": {
+            "description": "Missing or inactive session"
+          },
+          "403": {
+            "description": "Role has no permission"
+          },
+          "404": {
+            "description": "Unknown territory or route"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "409": {
+            "description": "Sold, reserve, unavailable tenant or key conflict"
+          },
+          "429": {
+            "description": "Mutation rate limit"
+          },
+          "503": {
+            "description": "Database unavailable, incomplete catalog or rolled back audit"
+          }
+        }
+      }
+    },
+    "/v1/governance/platform/territories/{id}/sale": {
+      "post": {
+        "summary": "Record one confirmed tenant allocation and lock territory",
+        "x-authorization": {
+          "platform_admin": "global",
+          "central_admin": "global",
+          "tenant_admin": "own",
+          "owner": "own"
+        },
+        "x-rate-limit": "30 authenticated mutation attempts per actor per minute",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^PC-REG-[TR][0-9]{4}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,100}$"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "territoryId",
+                    "status",
+                    "version"
+                  ],
+                  "properties": {
+                    "territoryId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "const": "sold"
+                    },
+                    "version": {
+                      "const": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or unknown fields / tenant override"
+          },
+          "401": {
+            "description": "Missing or inactive session"
+          },
+          "403": {
+            "description": "Role has no permission"
+          },
+          "404": {
+            "description": "Unknown territory or route"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "409": {
+            "description": "Sold, reserve, unavailable tenant or key conflict"
+          },
+          "429": {
+            "description": "Mutation rate limit"
+          },
+          "503": {
+            "description": "Database unavailable, incomplete catalog or rolled back audit"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "version",
+                  "tenantId",
+                  "services",
+                  "reference",
+                  "confirmed"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "const": 0
+                  },
+                  "tenantId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "services": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 2,
+                    "uniqueItems": true,
+                    "items": {
+                      "enum": [
+                        "psw",
+                        "home_care"
+                      ]
+                    }
+                  },
+                  "reference": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 200
+                  },
+                  "confirmed": {
+                    "const": true
+                  }
+                }
+              },
+              "example": {
+                "version": 0,
+                "tenantId": "example-active-tenant",
+                "services": [
+                  "psw",
+                  "home_care"
+                ],
+                "reference": "Approved agreement reference",
+                "confirmed": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

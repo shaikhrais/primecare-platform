@@ -1,36 +1,27 @@
 // Governance - Category: service | Purpose: This widget is the root of your application. This is the theme of your application. TRY THIS: Try running your applic...
 import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/theme/theme_center_theme_data.dart';
+import 'package:flutter_core/registry/widgets/theme_settings_drawer.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 void main() {
   PrimeCareAppRunner.run(appWidget: const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final personal = ref.watch(themeSettingsProvider).personalTheme;
+    final branding = ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple));
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      theme: personal == null ? branding : applyPersonalThemeData(branding, personal),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -77,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      endDrawer: const ThemeSettingsDrawer(tenantDefaultPreset: 'default'),
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
@@ -85,6 +77,10 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        actions: [Builder(builder: (context) => IconButton(
+          tooltip: 'Theme Center', icon: const Icon(Icons.palette_outlined),
+          onPressed: () => Scaffold.of(context).openEndDrawer(),
+        ))],
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it

@@ -1,8 +1,11 @@
 import sqlite3
+import pathlib,sys
+ROOT=pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/"tools/governance-production"))
+from connection import connect as governance_connect
 
-DB_PATH = r"c:\Users\Admin2\Documents\GitHub\primecare-platform\.agents\governance\governance.db"
 
-conn = sqlite3.connect(DB_PATH)
+conn = governance_connect()
 conn.row_factory = sqlite3.Row
 cur = conn.cursor()
 

@@ -1,5 +1,5 @@
 """Register requested shared reports, then reproducibly export runtime policy/contracts."""
-import json, sqlite3, argparse
+import json, sqlite3, argparse, runpy
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 LOCALES={
@@ -7,14 +7,20 @@ LOCALES={
 'fr':{'title':'Rapports','pages':'État des pages autorisées','organization':'Résumé des comptes de l’organisation','report':'Rapport','generate':'Générer','pdf':'Télécharger le PDF','email':'Envoyer le PDF','recipient':'Adresse du destinataire','subject':'Objet','message':'Message','search':'Rechercher des pages','all':'Tous les états','created':'Créée','ready':'Prête pour la production','unavailable':'Données indisponibles','accepted':'Courriel accepté par le fournisseur ; réception non confirmée.','unknown':'Résultat de livraison inconnu. Ne pas renvoyer automatiquement.','error':'Échec de la demande de rapport.','scope':'Portée','generated':'Généré','page':'Page','role':'Rôle','status':'État','blockers':'Exigences en attente','metric':'Indicateur','value':'Valeur','activeAccounts':'Comptes actifs','activeSessions':'Sessions actives','count':'Nombre','language':'Langue','confirm':'J’ai vérifié le destinataire et je suis autorisé à partager ce rapport.','empty':'Aucun résultat','refresh':'Actualiser','readiness':'État de préparation','working':'En cours'},
 'es':{'title':'Informes','pages':'Estado de páginas autorizadas','organization':'Resumen de cuentas de la organización','report':'Informe','generate':'Generar','pdf':'Descargar PDF','email':'Enviar PDF','recipient':'Correo del destinatario','subject':'Asunto','message':'Mensaje','search':'Buscar páginas','all':'Todos los estados','created':'Creada','ready':'Lista para producción','unavailable':'Datos no disponibles','accepted':'Correo aceptado por el proveedor; entrega en bandeja no confirmada.','unknown':'Resultado de entrega desconocido. No reenviar automáticamente.','error':'La solicitud del informe falló.','scope':'Alcance','generated':'Generado','page':'Página','role':'Rol','status':'Estado','blockers':'Requisitos pendientes','metric':'Indicador','value':'Valor','activeAccounts':'Cuentas activas','activeSessions':'Sesiones activas','count':'Cantidad','language':'Idioma','confirm':'Verifiqué el destinatario y tengo autorización para compartir este informe.','empty':'Sin resultados','refresh':'Actualizar','readiness':'Preparación','working':'Procesando'}}
 
+for code,value in [('en','Previewing {shown} of {total} rows. The PDF contains the full report.'),('fr','Aperçu de {shown} lignes sur {total}. Le PDF contient le rapport complet.'),('es','Vista previa de {shown} de {total} filas. El PDF contiene el informe completo.')]:LOCALES[code]['preview_count']=value
+for code,value in [('en','Screen review document'),('fr','Document de revue des écrans'),('es','Documento de revisión de pantallas')]:LOCALES[code]['review_document']=value
+
 def register(db):
+ runpy.run_path(str(ROOT/'scripts/register-platform-admin-role.py'))['register'](db)
  db.executescript('''CREATE TABLE IF NOT EXISTS shared_report_definitions(report_id TEXT PRIMARY KEY,source TEXT NOT NULL,classification TEXT NOT NULL,requirement TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS shared_report_grants(report_id TEXT NOT NULL REFERENCES shared_report_definitions(report_id),role_id INTEGER NOT NULL REFERENCES roles(id),can_view INTEGER NOT NULL,can_export INTEGER NOT NULL,can_email INTEGER NOT NULL,PRIMARY KEY(report_id,role_id));''')
- for rid,source,classification,requirement in [('page_readiness','role_screen_permissions','internal','Report only pages already visible to the authenticated role; no business records.'),('organization_summary','runtime_catalog_permissions','confidential','Read tenant-scoped aggregate account/session counts with existing organization authority; never expose identifiers or clinical rows.')]:
+ for code,title in [('en','Platform administration'),('fr','Administration de la plateforme'),('es','Administración de la plataforma')]: LOCALES[code]['platform']=title
+ for rid,source,classification,requirement in [('platform_administration','platform_administration_policy','internal','Platform administrator only: managed tenant metadata and aggregate account/master counts.'),('page_readiness','role_screen_permissions','internal','Report only pages already visible to the authenticated role; no business records.'),('organization_summary','runtime_catalog_permissions','confidential','Read tenant-scoped aggregate account/session counts with existing organization authority; never expose identifiers or clinical rows.')]:
   db.execute('INSERT OR REPLACE INTO shared_report_definitions VALUES(?,?,?,?)',(rid,source,classification,requirement))
  db.execute('''CREATE TABLE IF NOT EXISTS shared_report_surfaces(screen_id INTEGER PRIMARY KEY REFERENCES screens(id),section_code TEXT NOT NULL,controls_json TEXT NOT NULL)''')
- db.execute("INSERT OR REPLACE INTO shared_report_surfaces SELECT id,'shared_reports',? FROM screens WHERE active=1 AND (screen_code LIKE '%reports%' OR screen_code LIKE '%dashboard%')",(json.dumps([{'key':key,'component':component,'resource':'reports.'+key,'testId':'report-'+key} for key,component in [('report','PrimeDropdown'),('language','PrimeDropdown'),('search','PrimeTextField'),('readiness','PrimeDropdown'),('generate','PrimeButton'),('pdf','PrimeButton'),('recipient','PrimeTextField'),('subject','PrimeTextField'),('message','PrimeTextField'),('confirm','PrimeCheckbox'),('email','PrimeButton')]]),))
+ db.execute("INSERT OR REPLACE INTO shared_report_surfaces SELECT id,'shared_reports',? FROM screens WHERE active=1 AND (screen_code LIKE '%reports%' OR screen_code LIKE '%dashboard%')",(json.dumps([{'key':key,'component':component,'resource':'reports.'+key,'testId':'report-'+key.replace('_','-')} for key,component in [('report','PrimeDropdown'),('language','PrimeDropdown'),('search','PrimeTextField'),('readiness','PrimeDropdown'),('generate','PrimeButton'),('pdf','PrimeButton'),('recipient','PrimeTextField'),('subject','PrimeTextField'),('message','PrimeTextField'),('confirm','PrimeCheckbox'),('email','PrimeButton'),('preview_count','PrimeText'),('review_document','PrimeButton')]]),))
  db.execute('DELETE FROM shared_report_grants')
+ db.execute("INSERT INTO shared_report_grants SELECT 'platform_administration',id,1,1,1 FROM roles WHERE role_code='platform_admin' AND active=1")
  db.execute("INSERT INTO shared_report_grants SELECT 'page_readiness',r.id,1,1,1 FROM roles r WHERE r.active=1 AND EXISTS(SELECT 1 FROM role_screen_permissions p WHERE p.role_id=r.id AND p.can_view=1)")
  db.execute("INSERT INTO shared_report_grants SELECT 'organization_summary',r.id,1,1,1 FROM roles r JOIN runtime_catalog_permissions p ON p.role_id=r.id WHERE r.active=1 AND p.can_view_organization=1")
  for locale,labels in LOCALES.items():
@@ -47,8 +53,10 @@ def export(db):
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');a=p.parse_args();target=ROOT/'cloudflare/workers/src/report-registry.json'
  with sqlite3.connect(('file:'+str(ROOT/'.agents/governance/governance.db')+'?mode=ro') if a.check else ROOT/'.agents/governance/governance.db',uri=a.check) as db:
-  if not a.check: register(db)
-  content=export(db)
+  if a.check:
+   memory=sqlite3.connect(':memory:');db.backup(memory);register(memory);content=export(memory);memory.close()
+  else:
+   register(db);content=export(db)
   if a.check:
    if target.read_text()!=content: raise SystemExit('Report registry differs from governance')
   else:
@@ -57,7 +65,7 @@ if __name__=='__main__':
    for row in db.execute("SELECT route_path,http_method,request_schema,endpoint_code FROM api_endpoints WHERE endpoint_code LIKE 'SHARED_REPORT_%' ORDER BY id"):
     path,method,schema,code=row;schema=json.loads(schema)
     parameters=[]
-    if '{reportId}' in path: parameters.append({'in':'path','name':'reportId','required':True,'schema':{'enum':['page_readiness','organization_summary']}})
+    if '{reportId}' in path: parameters.append({'in':'path','name':'reportId','required':True,'schema':{'enum':['page_readiness','organization_summary','platform_administration']}})
     if method=='GET': parameters += [{'in':'query','name':k,'schema':v} for k,v in schema['properties'].items()]
     else: parameters.append({'in':'header','name':'Idempotency-Key','required':True,'schema':{'type':'string','pattern':'^[A-Za-z0-9_-]{16,100}$'}})
     operation={'operationId':code.lower(),'security':[{'bearerAuth':[]}],'parameters':parameters,'description':'Active bearer session; tenant derives from identity; shared_report_grants authorize each action. Runs and downloads require the report audit migration. Email is limited to 10 new requests per actor per hour; ambiguous sends are never retried automatically.','responses':{str(n):{'description':label} for n,label in [(200,'Report, catalog, PDF or accepted replay'),(202,'Email provider accepted; not inbox delivery'),(400,'Invalid request'),(401,'Missing or expired session'),(403,'Permission or tenant mismatch'),(404,'Unknown report'),(405,'Unsupported method'),(409,'Conflicting key or delivery still sending/unknown'),(413,'Body, rows, pages or attachment too large'),(429,'Email quota'),(503,'Data, audit or mail unavailable; delivery may be unknown')]}}

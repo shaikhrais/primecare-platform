@@ -1,3 +1,4 @@
+import {screenText} from './screen-text';
 import {privilegedActor} from './auth-projection';
 import {sourceLimitAllowed} from './source-limit-result';
 import catalog from './governance-api-registry.json';
@@ -115,6 +116,7 @@ function paginate(rows:RecordRow[],query:Query,evidenceType:string) {
  * All reads use a read-only transaction and responses disable caching. */
 export async function governanceApi(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null> {
   if(env.SERVICE_NAME!=='governance')return null;
+  const liveText=await screenText(request,env,path,headers);if(liveText)return liveText;
   const binding=catalog.bindings.find(b=>b.path===path);if(!binding)return null;
   const safe=new Headers(headers);safe.set('cache-control','no-store');
   if(request.method!=='GET'){safe.set('allow','GET');return json({error:'Method not allowed'},405,safe);}

@@ -1,0 +1,58 @@
+name: Import complete governance snapshot
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [work/governance-production-seed-20261019]
+    paths:
+      - tools/governance-production/**
+      - .github/workflows/import-governance-production.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: primecare-governance-production-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Restore and validate source checkpoint
+        run: GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 python3 tools/workflow-verification/restore_checkpoint.py
+      - name: Install isolated import dependencies
+        run: |
+          mkdir -p /tmp/governance-import-runtime
+          npm install --prefix /tmp/governance-import-runtime --ignore-scripts pg@8.11.3 @electric-sql/pglite@0.3.14
+          ln -s /tmp/governance-import-runtime/node_modules node_modules
+      - name: Verify rollback and lossless types
+        run: node tools/governance-production/test-import.mjs
+      - name: Export all governance records
+        run: python3 tools/governance-production/export.py .agents/governance/governance.db /tmp/governance-export > /tmp/governance-export-receipt.json
+      - name: Require exact reviewed source manifest
+        run: |
+          python3 - <<'PY'
+          import json
+          receipt=json.load(open('/tmp/governance-export-receipt.json'))
+          assert receipt['manifest_sha256']=='68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42', 'Source snapshot changed; revalidate before production import'
+          print(json.dumps(receipt))
+          PY
+      - name: Import isolated production governance schema and verify every persisted row
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_MANIFEST_SHA256: 68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42
+          CONFIRM_GOVERNANCE_IMPORT: IMPORT_GOVERNANCE_SNAPSHOT
+        run: node tools/governance-production/import.mjs /tmp/governance-export > /tmp/governance-production-receipt.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: governance-production-import-receipt
+          path: |
+            /tmp/governance-export-receipt.json
+            /tmp/governance-production-receipt.json
