@@ -9,8 +9,9 @@ function fixture(mode){
    if(sql.startsWith('SELECT id FROM tenants')) return {rows:mode==='missing_tenant'?[]:[{id:input.tenant}]};
    if(sql.includes("roles='ceo'")) return {rows:mode==='existing_ceo'?[{id:'existing'}]:[]};
    if(sql.startsWith('SELECT id FROM users')) return {rows:mode==='duplicate'?[{id:'existing'}]:[]};
-   if(sql.startsWith('INSERT INTO users')) return {rows:[{id:'new'}]};
+   if(sql.startsWith('INSERT INTO users')) return {rows:mode==='missing_user'?[]:[{id:values[3],email:values[0],tenant_id:values[1],roles:'ceo',status:'active'}]};
    if(sql.startsWith('INSERT INTO auth_bootstrap_audit')&&mode==='audit_failure') throw new Error('audit failure');
+   if(sql.startsWith('INSERT INTO auth_bootstrap_audit')) return {rows:mode==='missing_audit'?[]:[{user_id:values[0],tenant_id:values[1],source:'protected_workflow'}]};
    return {rows:[]};
  }};
 }
@@ -26,7 +27,7 @@ test('creates first CEO and audit in same transaction without returning credenti
  const insert=db.calls.find(c=>c.sql.startsWith('INSERT INTO users'));
  assert.notEqual(insert.values[2],input.password);
 });
-for(const mode of ['missing_tenant','existing_ceo','duplicate','audit_failure'])
+for(const mode of ['missing_tenant','existing_ceo','duplicate','audit_failure','missing_user','missing_audit'])
  test(`bootstrap rolls back on ${mode}`,async()=>{
    const db=fixture(mode);await assert.rejects(bootstrap(db,input));
    assert.equal(db.calls.at(-1).sql,'ROLLBACK');assert.ok(!db.calls.some(c=>c.sql==='COMMIT'));

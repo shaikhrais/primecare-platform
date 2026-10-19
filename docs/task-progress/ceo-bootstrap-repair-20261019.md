@@ -1,0 +1,11 @@
+# First CEO workflow repair
+
+Workflow `auth.bootstrap-first-ceo`; live definition SHA256 `b7ef9afc1a5599f2887e4d42fc2cdf2727b461e9e091e872aafc972dab4e2c90`. Pinned production policy `auth_setup_policy.first_ceo` requires protected workflow entry, an existing active tenant without a CEO, and no account overwrite. Definition steps expose no bootstrap application API. Supporting role guides are not additional business processes.
+
+Production attempt 312 recorded failures as issues 14 and 15 before implementation changed. Baseline: https://github.com/shaikhrais/primecare-platform/actions/runs/39312127623/artifacts/12215519467 . An ES-module import failed on Node 24 with pg@8.11.3. In embedded PostgreSQL, an audit trigger returning NULL allowed the old bootstrap to commit one CEO account, zero audit rows, and return created=true. Only the pg import was substituted for that audit reproduction; no production business records were created.
+
+Repair uses compatible default pg import and requires exactly one matching persisted user and audit row before committing. Missing or mismatched persistence rejects through the existing rollback path. No new roles, routes, grants or UI were introduced. Eight local contract tests pass; nine native PostgreSQL 16 cases are added, including suppressed user/audit inserts, rollback/retry, existing-account preservation, same-tenant concurrency and one initial CEO per eligible tenant. Native CI and post-merge production issue-resolution recording are pending.
+
+Full verification is blocked: the pinned draft leaves deployment operator identity and approved protected workflow inputs/review unresolved. Generic session and cross-tenant alternatives also require reconciliation with a protected CLI operator entry point. Real credential login, tenant console/API/database/reload, browser recovery/security cases, video and required reviews remain unproven. Do not invent operator application grants or execute production bootstrap.
+
+After baseline, live total is 147 = 11 missing + 132 implemented-unverified + 0 verified + 4 blocked; DONE=0, PENDING=147. Recalculate after each committed attempt. Complete required CI, merge, production recording and exact merged-branch cleanup, then save a current handoff before proceeding.
