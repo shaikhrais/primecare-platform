@@ -40,7 +40,7 @@ jobs:
               checks=api('commits/'+pr['merge_commit_sha']+'/check-runs?per_page=100')['check_runs']
               failed=[c['name'] for c in checks if c['status']=='completed' and c['conclusion'] not in ('success','skipped')]
               if failed:raise RuntimeError('Merged main checks failed; preserve branch: '+str(failed))
-              if len(checks)>=8 and all(c['status']=='completed' and c['conclusion']=='success' for c in checks):break
+              if {'record','native','auth (text)','auth (uuid)','contract-plan','generated-code','compression'}.issubset({c['name'] for c in checks}) and all(c['status']=='completed' and c['conclusion']=='success' for c in checks):break
               print('Waiting for merged-main validation: '+','.join(c['name'] for c in checks if c['status']!='completed'),flush=True)
               time.sleep(10)
           else:raise RuntimeError('Merged-main validation still pending; preserve branch')
