@@ -1,0 +1,439 @@
+{
+  "status": "verified_combined_objects_ready",
+  "base": "bd0f4902ac35f4402b0afeda28be95db885ce6c5",
+  "main": "56a0adcd646846cab3baffff7b82967d593806b2",
+  "objects": [
+    {
+      "path": ".github/workflows/admin-website-recording.yml",
+      "sha": "da791e4687f16a6bc25f2f3254ed86bd552f7716",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": ".github/workflows/auth-gateway.yml",
+      "sha": "7cffc0da743d17e9a785bbde5511f60c47ddb474",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": ".github/workflows/central-inheritance.yml",
+      "sha": "297c9ecc734abe7ad7bce715d17f084c31922008",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": ".github/workflows/report-evidence.yml",
+      "sha": "86d42ce0141b22fa7eaa91cc8721687205fc761d",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": ".github/workflows/shared-model-migration.yml",
+      "sha": "d9c7d10ae1a9bc39f8a12d90b57384848d41de18",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/api/contract-factory/bundle.json",
+      "sha": "545356d33880fd68b5a76e6e1c221dbb9af1f8af",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/api/contract-factory/code-placement.json",
+      "sha": "d5692805cd616754158eb91f8def4260b424f68c",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/api/contract-factory/code-requests.json",
+      "sha": "7449bc4eefb80885c1c7ee20306d3cbfdee2cf90",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/api/contract-factory/decision-index.json",
+      "sha": "4a98db840404164395970587792d88a88e95525a",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/api/contract-factory/execution-summary.json",
+      "sha": "5da26988bfb50c6a3c831b31786996b58716e012",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/api/workflow-contract-plan.json",
+      "sha": "8cf0e719f8fae1687e5e16c10bcb5974ca5ef421",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/api/workflow-contract-reviews.json",
+      "sha": "b32ae43705ffc0ecd6a1892b60cf7cf43416b1bf",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/refactoring/custom-screen-state-migration.json",
+      "sha": "888d6b4f405727b3898a5e7e9e5b9aa4da8055b7",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/refactoring/custom-screen-state-migration.md",
+      "sha": "7a6ead9edcaf171f04270a740b2ce395b6b4352f",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/refactoring/runtime-contract-migration.json",
+      "sha": "1a84fd8d69d0fb41532dddf4d4b4446853beb8b4",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/refactoring/runtime-contract-migration.md",
+      "sha": "0227376ea305ef5b4d074a74e34a4e70db958cc0",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/task-progress/branch-merge-inventory-20261019.json",
+      "sha": "d0bb10a5dffa030f1e97c0c4c2c0881f587d932f",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/task-progress/branch-merge-status-20261019.md",
+      "sha": "2839d9d582b00b976a99a94c559bedb716185e41",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/technical/operation-register.json",
+      "sha": "1b9e4a94695de28467acad0125b8460ba7f248fc",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "evidence/report_capture_test.dart",
+      "sha": "9aab53113333e7508f76960fc931c86c3d52cc4a",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "evidence/test-admin-website.mjs",
+      "sha": "742eb8b5ac14afe7d0e05a8b668b2689470ab3b3",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/aura_behavioral_telemetry.dart",
+      "sha": "1108f6ad19eab3738f3d8f14f2295a389ca31732",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/aura_command_service.dart",
+      "sha": "50107014066bd20cc7ba6a66ff7f27ddb710ef4f",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/aura_providers.dart",
+      "sha": "adf73d516589ac562a67b1bac00683b2cc8259e2",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/aura_pulse_service.dart",
+      "sha": "6418e92150e7b0578fb8396732f5458e2537d146",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/auth_service.dart",
+      "sha": "b34adb1ef8cfb59265b56d189e2bf7ecd2414d93",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/intelligence_service.dart",
+      "sha": "deb66c83ca7313a16a2a56f13322c36632553024",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/application/controllers/auth_notifier.dart",
+      "sha": "82441e28664dc0d03f6bc3197ebc095a0ce45d88",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/application/services/aura_behavioral_telemetry.dart",
+      "sha": "bacf137dc53539a098a04047a9ce93d268cc144b",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/application/services/aura_command_service.dart",
+      "sha": "d091db17b95299ee8b39c51bd54f0db111cd11da",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/application/services/aura_pulse_service.dart",
+      "sha": "d5530b21ef516c11387468148c7a98cf0a363bf4",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/application/services/intelligence_service.dart",
+      "sha": "ff50b79c2ac1d9de317aa5b618cb36486b2469c5",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/controllers/aura_active_visualization_notifier.dart",
+      "sha": "52312ee6a6e18020a6ae27f042c2c6c57a36eb57",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/controllers/aura_context_notifier.dart",
+      "sha": "eb3da84347a228c465a7998aeb6808b7325eab2e",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/controllers/aura_pulse_event_notifier.dart",
+      "sha": "b6e2258b0934a794933825ff21dfa59ea707bc4b",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/controllers/aura_query_notifier.dart",
+      "sha": "80f54dc66242c429d7700fd24c46109f4bf63557",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/controllers/aura_snooze_notifier.dart",
+      "sha": "ee03c3e51203924454fd436539f3e55b3ba4bf6f",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/controllers/base_value_notifier.dart",
+      "sha": "1c8dae2764317027bdd5c00312357c641cc106e7",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/infrastructure/telemetry/execution_gate_service.dart",
+      "sha": "9e8427f4aec7a2ccabadfde541b58d02ae273367",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/resilience/execution_gate_service.dart",
+      "sha": "d8081ce654ab0df203d40a778c3369c890a3dfa4",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/lib/src/resilience/result.dart",
+      "sha": "22da983c496ec5e1ee50cbb1ed8335d4496756a7",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/flutter_core/test/runtime_contract_imports_test.dart",
+      "sha": "1a0571646a4b876438db364b74c45b9d59686f85",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/primecare_models.dart",
+      "sha": "51ef97863b8fd38324343b462cdf45e81ab3a3ab",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/assessment_screen_state.dart",
+      "sha": "056e776a93a234b18a6099d89f1d844ddae35683",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/aura_event.dart",
+      "sha": "47430d564328093948107a40da94a63054f61f24",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/aura_event_type.dart",
+      "sha": "18b14d42745ce0aff4579c26b04d09e1254076c2",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/auth_state.dart",
+      "sha": "4dbe8357b5c0cd19dab09183bc1f96d6f22a5990",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/base_authentication_state.dart",
+      "sha": "a8370db54bce428911f90aaa4fda8b88628bbd4d",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/clinical_director_dashboard_screen_state.dart",
+      "sha": "8421197960eace77db4b552a4d2ab57fe5064f8d",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/execution_gate_category.dart",
+      "sha": "75025fda2933bb908db8a11cf69fc76b9c5ec10a",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/incident_report_screen_state.dart",
+      "sha": "827fc61676bdc1f59402fefab467f77882711fda",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/patient_charting_screen_state.dart",
+      "sha": "9f10e2bed63bc4863d6ea194be1567849fad53ba",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/result.dart",
+      "sha": "6d736ac10b8c7f8c515d912b7878d5ead61f1020",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/result/failure.dart",
+      "sha": "b780459eb1a7435e9b8ca45084ea314e3e3abb81",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/result/result.dart",
+      "sha": "3f5f5462e275ec9c697a94dd9ec374a14db6da29",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/result/success.dart",
+      "sha": "4cc13fc49e3da93ffd52f3baf231819d60ddb857",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/lib/src/models/treatment_notes_screen_state.dart",
+      "sha": "6e97d26e0efcae3c309fdae50b0c441d55edb095",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_models/test/runtime_contracts_test.dart",
+      "sha": "cdc7faa112e42ae9755102a9e8ec451e0ae8d043",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/allied/treatment_notes_screen.dart",
+      "sha": "6be05649c2d3fea1796704e5b932accc8af2e520",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/clinical/assessment_screen.dart",
+      "sha": "b4f08d5adbd0959e1e49e508ed350c92426bd677",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/clinical/clinical_director_dashboard_screen.dart",
+      "sha": "2b18d92da7b53dce06741d4790684a78c711753e",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/psw/incident_report_screen.dart",
+      "sha": "eae1b28f196a37092f76ad05d475e4bd0b11da3d",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/screens/rn/patient_charting_screen.dart",
+      "sha": "dbd9586e40609a64f411f51d966d0eb60c802734",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/check-skeleton-structure.py",
+      "sha": "be5d7d552011d56d33876ecf4e3d855e62d970f5",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/generate_and_verify_planned_screens.py",
+      "sha": "7bf2e5c7b3ba34036797cff99d7098c6d4eb6835",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/refactor_custom_screen_states.py",
+      "sha": "059190c63831a6a189a8573ed765440f3af8f97f",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/refactor_runtime_contracts.py",
+      "sha": "06643e07e3d75b8b7e18ce637c45adc0f0197410",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/scaffold_30_empty_screens.py",
+      "sha": "b08190737c2d3e96e4e0f2dcdcffa723493d9d62",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/verify_custom_screen_states.py",
+      "sha": "f5f2474af3a86090203f7199c9f868a83202bf92",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/verify_runtime_contract_parity.py",
+      "sha": "25edd5c74e83bc031a99a5ffdef2854678ed6620",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/verify_runtime_flutter_parity.py",
+      "sha": "498c51d55e793608539b633940095021092d8d70",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "services/governance_api/test/governance_route_skeleton_test.dart",
+      "sha": "9f77129b536b781db1def1f881b847acbcf35be1",
+      "mode": "100644",
+      "type": "blob"
+    }
+  ]
+}
