@@ -15,3 +15,27 @@ export async function login(gateway: string, email: string, password: string,
   }
   return data.token;
 }
+
+export type ConfirmedIdentity = {userId:string;roles:string;status:'authenticated'};
+
+/** Clean up a newly issued session that cannot be safely committed by the UI. */
+export async function revokeProvisionalSession(gateway:string,token:string,send:typeof fetch=fetch):Promise<void> {
+  try {await send(`${gateway.replace(/\/+$/, '')}/v1/auth/logout`, {method:'POST',
+    headers:{authorization:'Bearer '+token},cache:'no-store',signal:AbortSignal.timeout(5000)});}
+  catch {/* Original confirmation/storage failure remains authoritative. */}
+}
+
+/** Credential exchange and identity confirmation complete before browser storage. */
+export async function authenticate(gateway:string,email:string,password:string,send:typeof fetch=fetch):Promise<{token:string;identity:ConfirmedIdentity}> {
+  const token=await login(gateway,email,password,send);
+  try {
+    const response=await send(`${gateway.replace(/\/+$/, '')}/v1/auth/me`,{headers:{authorization:'Bearer '+token},cache:'no-store'});
+    if(!response.ok)throw new Error('Session confirmation failed');
+    const value:unknown=await response.json();
+    if(!value||typeof value!=='object'||Array.isArray(value))throw new Error('Invalid session identity');
+    const identity=value as Record<string,unknown>;
+    if(typeof identity.userId!=='string'||! /^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(identity.userId)||
+       typeof identity.roles!=='string'||!identity.roles.trim()||identity.roles.length>200||identity.status!=='authenticated')throw new Error('Invalid session identity');
+    return {token,identity:identity as ConfirmedIdentity};
+  }catch(error){await revokeProvisionalSession(gateway,token,send);throw error;}
+}

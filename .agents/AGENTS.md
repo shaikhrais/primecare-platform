@@ -1,3 +1,15 @@
+# Current governance checkpoint on a fresh checkout
+
+Before querying governance.db on a fresh checkout, run:
+
+```sh
+python3 tools/workflow-verification/restore_checkpoint.py
+```
+
+The current complete database is preserved in governance-recovery-snapshot.db.gz, verified against docs/task-progress/database-snapshot.json. The ordinary remote tracked database remains the earlier baseline because the complete database exceeds GitHub’s ordinary file limit. The restore tool replaces only an exact manifest-allowlisted baseline and preserves a byte-exact backup. An unknown modified database is never overwritten; the tool writes a separate verified checkpoint and reports that reconciliation is needed. Do not mistake the old baseline for the current workflow inventory.
+
+Live business-process tracking uses virtual_workflow_definitions (flow_kind=business_process), virtual_workflow_steps, virtual_workflow_attempts, virtual_workflow_issues, virtual_workflow_issue_resolutions, virtual_workflow_evidence and virtual_workflow_checkpoints. The 98 workflow_definitions entries are role/app outlines, not individual business workflows.
+
 # 1. Architecture Principles
 
 ```text

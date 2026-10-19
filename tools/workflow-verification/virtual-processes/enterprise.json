@@ -203,7 +203,7 @@
       },
       {
         "action": "For each real completed milestone, submit the next registered tenant stage with owner, follow-up and evidence.",
-        "expected": "Stages progress in order new → discussion → demo → pilot → active; reports reflect recorded CRM milestones only.",
+        "expected": "Stages progress in order new \u2192 discussion \u2192 demo \u2192 pilot \u2192 active; reports reflect recorded CRM milestones only.",
         "api_method": "PATCH",
         "api_path": "/v1/governance/growth/leads/{id}",
         "db_effect": "Update growth_leads version; insert each growth_milestones record and lead_updated audit."
@@ -216,7 +216,7 @@
         "db_effect": "Read persisted state."
       }
     ],
-    "outcome": "Stages progress in order new → discussion → demo → pilot → active; reports reflect recorded CRM milestones only.",
+    "outcome": "Stages progress in order new \u2192 discussion \u2192 demo \u2192 pilot \u2192 active; reports reflect recorded CRM milestones only.",
     "alternative_paths": [
       "Missing or expired session is denied; unauthorized role cannot perform the operation.",
       "Tenant and record scope come from the authenticated session; another tenant cannot be selected.",
@@ -328,7 +328,7 @@
       },
       {
         "action": "For each real completed milestone, submit the next registered client stage with owner, follow-up and evidence.",
-        "expected": "Stages progress in order new → assessment → agreed → started → recurring; reports reflect recorded CRM milestones only.",
+        "expected": "Stages progress in order new \u2192 assessment \u2192 agreed \u2192 started \u2192 recurring; reports reflect recorded CRM milestones only.",
         "api_method": "PATCH",
         "api_path": "/v1/governance/growth/leads/{id}",
         "db_effect": "Update growth_leads version; insert each growth_milestones record and lead_updated audit."
@@ -341,7 +341,7 @@
         "db_effect": "Read persisted state."
       }
     ],
-    "outcome": "Stages progress in order new → assessment → agreed → started → recurring; reports reflect recorded CRM milestones only.",
+    "outcome": "Stages progress in order new \u2192 assessment \u2192 agreed \u2192 started \u2192 recurring; reports reflect recorded CRM milestones only.",
     "alternative_paths": [
       "Missing or expired session is denied; unauthorized role cannot perform the operation.",
       "Tenant and record scope come from the authenticated session; another tenant cannot be selected.",
@@ -1710,7 +1710,7 @@
         "db_effect": "Read tenant-scoped growth model."
       },
       {
-        "action": "Choose permitted lead/owner, future start, 15–180 minute duration and notes.",
+        "action": "Choose permitted lead/owner, future start, 15\u2013180 minute duration and notes.",
         "expected": "One scheduled sales appointment persists with calculated end time.",
         "api_method": "POST",
         "api_path": "/v1/governance/growth/appointments",
@@ -4205,6 +4205,14 @@
       {
         "table": "platform_hierarchy_policy",
         "key": "founder-v1"
+      },
+      {
+        "table": "tenant_operations_policy",
+        "key": "admin-v1"
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16492
       }
     ],
     "gaps": [
@@ -4427,11 +4435,13 @@
     "outcome": "Credential verification creates one valid session and opens the authorized workspace; safe user projection has no password/hash.",
     "alternative_paths": [
       "Wrong credentials/inactive account return generic failure without a session.",
-      "Rate limit and database failure do not expose account existence or secrets."
+      "Rate limit and database failure do not expose account existence or secrets.",
+      "If identity confirmation fails after credential exchange, do not store the new browser session; attempt revocation of the provisional server session and remain on localized login."
     ],
     "source_paths": [
       "cloudflare/workers/src/auth.ts",
-      "websites/typescript/src/auth-screen.ts"
+      "websites/typescript/src/auth-screen.ts",
+      "websites/typescript/src/auth-client.ts"
     ],
     "governance_refs": [
       {
@@ -4534,7 +4544,7 @@
       },
       {
         "action": "Open or reload an authenticated page using the existing bearer session.",
-        "expected": "Safe current identity/role/tenant projection matches the active session.",
+        "expected": "Safe userId, roles and authenticated status match the active session. This endpoint deliberately does not return a tenant field.",
         "api_method": "GET",
         "api_path": "/v1/auth/me",
         "db_effect": "Read auth_sessions joined to active users."
@@ -4544,7 +4554,7 @@
         "expected": "Authoritative session/account result persists and old invalidated sessions cannot regain access."
       }
     ],
-    "outcome": "Safe current identity/role/tenant projection matches the active session.",
+    "outcome": "Safe current user identity and role match the active session; tenant scope is enforced by tenant-scoped services rather than returned by this identity endpoint.",
     "alternative_paths": [
       "Missing or expired session is denied; unauthorized role cannot perform the operation.",
       "Tenant and record scope come from the authenticated session; another tenant cannot be selected.",
@@ -4553,7 +4563,8 @@
     ],
     "source_paths": [
       "cloudflare/workers/src/auth.ts",
-      "websites/typescript/src/auth-screen.ts"
+      "websites/typescript/src/auth-screen.ts",
+      "websites/typescript/src/auth-client.ts"
     ],
     "governance_refs": [
       {
@@ -4564,7 +4575,10 @@
     "gaps": [
       "Virtual definition only; end-to-end execution, video evidence and independent reviews remain pending."
     ],
-    "definition_quality": "source_mapped"
+    "definition_quality": "source_mapped",
+    "spec_corrections": [
+      "Removed unsupported tenant-projection claim after inspecting the registered identity contract."
+    ]
   },
   {
     "id": "auth.logout",
@@ -4780,7 +4794,7 @@
         "action": "Enter current password and valid new password.",
         "expected": "New password works after reauthentication; old password and all invalidated sessions fail.",
         "api_method": "POST",
-        "api_path": "/v1/auth/change-password",
+        "api_path": "/v1/user/change-password",
         "db_effect": "Update users password_hash; delete user sessions and password resets; append password audit."
       },
       {
@@ -4797,18 +4811,27 @@
     ],
     "source_paths": [
       "cloudflare/workers/src/auth.ts",
-      "websites/typescript/src/auth-screen.ts"
+      "websites/typescript/src/auth-screen.ts",
+      "websites/typescript/src/account.ts",
+      "cloudflare/workers/src/password-change.ts"
     ],
     "governance_refs": [
       {
         "table": "auth_security_policy",
         "key": "changePassword"
+      },
+      {
+        "table": "api_endpoints",
+        "key": 277
       }
     ],
     "gaps": [
       "Virtual definition only; end-to-end execution, video evidence and independent reviews remain pending."
     ],
-    "definition_quality": "source_mapped"
+    "definition_quality": "source_mapped",
+    "spec_corrections": [
+      "Corrected path to registered POST /v1/user/change-password and bound the real account UI/handler."
+    ]
   },
   {
     "id": "auth.forgot-password",
@@ -5904,10 +5927,29 @@
       {
         "table": "roles",
         "key": "ceo"
+      },
+      {
+        "table": "shared_report_definitions",
+        "key": "organization_summary"
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16488
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16489
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16490
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16491
       }
     ],
     "gaps": [
-      "Current DB lacks shared_report_definitions/shared_report_grants tables; reconcile source registry through the existing registrar before implementation/testing.",
       "Virtual definition only; no report generation or outbound send performed."
     ],
     "definition_quality": "draft"
@@ -5961,10 +6003,29 @@
       {
         "table": "roles",
         "key": "ceo"
+      },
+      {
+        "table": "shared_report_definitions",
+        "key": "organization_summary"
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16488
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16489
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16490
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16491
       }
     ],
     "gaps": [
-      "Current DB lacks shared_report_definitions/shared_report_grants tables; reconcile source registry through the existing registrar before implementation/testing.",
       "Virtual definition only; no report generation or outbound send performed."
     ],
     "definition_quality": "draft"
@@ -6018,10 +6079,29 @@
       {
         "table": "roles",
         "key": "ceo"
+      },
+      {
+        "table": "shared_report_definitions",
+        "key": "organization_summary"
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16488
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16489
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16490
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16491
       }
     ],
     "gaps": [
-      "Current DB lacks shared_report_definitions/shared_report_grants tables; reconcile source registry through the existing registrar before implementation/testing.",
       "Virtual definition only; no report generation or outbound send performed."
     ],
     "definition_quality": "draft"
@@ -6148,10 +6228,29 @@
       {
         "table": "roles",
         "key": "admin,bus_dev,caregiver,central_admin,ceo,cfo,chiropractor,ciso,clinical_director,cns,community_outreach,compliance,coo,cto,customer_support,cx_director,dynamic,employee,family,finance_director,franchise_sales,gm,governance,growth_caller,growth_coordinator,growth_google,growth_meta,growth_offline,growth_seo,guest,hr_director,hr_hiring,hsw,infrastructure,intake,legal,local_marketing,lpn,maintenance,marketing,np,ops_manager,owner,partnership,patient,pediatric,physician,physio,platform_admin,portal,premium_concierge,psw,qa_specialist,regional_bdm,regional_manager_usa,rmt,rn,rn_field_supervisor,rpn,scheduler,scrum_master,shareholder,social_worker,system_verification,tenant_admin,territory_expansion,territory_sales,therapist,training,training_coordinator,training_director,vip_manager,volunteer,volunteer_coordinator"
+      },
+      {
+        "table": "shared_report_definitions",
+        "key": "page_readiness"
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16488
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16489
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16490
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16491
       }
     ],
     "gaps": [
-      "Current DB lacks shared_report_definitions/shared_report_grants tables; reconcile source registry through the existing registrar before implementation/testing.",
       "Virtual definition only; no report generation or outbound send performed."
     ],
     "definition_quality": "draft"
@@ -6278,10 +6377,29 @@
       {
         "table": "roles",
         "key": "admin,bus_dev,caregiver,central_admin,ceo,cfo,chiropractor,ciso,clinical_director,cns,community_outreach,compliance,coo,cto,customer_support,cx_director,dynamic,employee,family,finance_director,franchise_sales,gm,governance,growth_caller,growth_coordinator,growth_google,growth_meta,growth_offline,growth_seo,guest,hr_director,hr_hiring,hsw,infrastructure,intake,legal,local_marketing,lpn,maintenance,marketing,np,ops_manager,owner,partnership,patient,pediatric,physician,physio,platform_admin,portal,premium_concierge,psw,qa_specialist,regional_bdm,regional_manager_usa,rmt,rn,rn_field_supervisor,rpn,scheduler,scrum_master,shareholder,social_worker,system_verification,tenant_admin,territory_expansion,territory_sales,therapist,training,training_coordinator,training_director,vip_manager,volunteer,volunteer_coordinator"
+      },
+      {
+        "table": "shared_report_definitions",
+        "key": "page_readiness"
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16488
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16489
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16490
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16491
       }
     ],
     "gaps": [
-      "Current DB lacks shared_report_definitions/shared_report_grants tables; reconcile source registry through the existing registrar before implementation/testing.",
       "Virtual definition only; no report generation or outbound send performed."
     ],
     "definition_quality": "draft"
@@ -6408,10 +6526,29 @@
       {
         "table": "roles",
         "key": "admin,bus_dev,caregiver,central_admin,ceo,cfo,chiropractor,ciso,clinical_director,cns,community_outreach,compliance,coo,cto,customer_support,cx_director,dynamic,employee,family,finance_director,franchise_sales,gm,governance,growth_caller,growth_coordinator,growth_google,growth_meta,growth_offline,growth_seo,guest,hr_director,hr_hiring,hsw,infrastructure,intake,legal,local_marketing,lpn,maintenance,marketing,np,ops_manager,owner,partnership,patient,pediatric,physician,physio,platform_admin,portal,premium_concierge,psw,qa_specialist,regional_bdm,regional_manager_usa,rmt,rn,rn_field_supervisor,rpn,scheduler,scrum_master,shareholder,social_worker,system_verification,tenant_admin,territory_expansion,territory_sales,therapist,training,training_coordinator,training_director,vip_manager,volunteer,volunteer_coordinator"
+      },
+      {
+        "table": "shared_report_definitions",
+        "key": "page_readiness"
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16488
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16489
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16490
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16491
       }
     ],
     "gaps": [
-      "Current DB lacks shared_report_definitions/shared_report_grants tables; reconcile source registry through the existing registrar before implementation/testing.",
       "Virtual definition only; no report generation or outbound send performed."
     ],
     "definition_quality": "draft"
@@ -6465,10 +6602,29 @@
       {
         "table": "roles",
         "key": "platform_admin"
+      },
+      {
+        "table": "shared_report_definitions",
+        "key": "platform_administration"
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16488
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16489
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16490
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16491
       }
     ],
     "gaps": [
-      "Current DB lacks shared_report_definitions/shared_report_grants tables; reconcile source registry through the existing registrar before implementation/testing.",
       "Virtual definition only; no report generation or outbound send performed."
     ],
     "definition_quality": "draft"
@@ -6522,10 +6678,29 @@
       {
         "table": "roles",
         "key": "platform_admin"
+      },
+      {
+        "table": "shared_report_definitions",
+        "key": "platform_administration"
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16488
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16489
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16490
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16491
       }
     ],
     "gaps": [
-      "Current DB lacks shared_report_definitions/shared_report_grants tables; reconcile source registry through the existing registrar before implementation/testing.",
       "Virtual definition only; no report generation or outbound send performed."
     ],
     "definition_quality": "draft"
@@ -6579,10 +6754,29 @@
       {
         "table": "roles",
         "key": "platform_admin"
+      },
+      {
+        "table": "shared_report_definitions",
+        "key": "platform_administration"
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16488
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16489
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16490
+      },
+      {
+        "table": "api_endpoints",
+        "key": 16491
       }
     ],
     "gaps": [
-      "Current DB lacks shared_report_definitions/shared_report_grants tables; reconcile source registry through the existing registrar before implementation/testing.",
       "Virtual definition only; no report generation or outbound send performed."
     ],
     "definition_quality": "draft"
@@ -6698,10 +6892,13 @@
       {
         "table": "roles",
         "key": "admin,bus_dev,caregiver,central_admin,ceo,cfo,chiropractor,ciso,clinical_director,cns,community_outreach,compliance,coo,cto,customer_support,cx_director,dynamic,employee,family,finance_director,franchise_sales,gm,governance,growth_caller,growth_coordinator,growth_google,growth_meta,growth_offline,growth_seo,guest,hr_director,hr_hiring,hsw,infrastructure,intake,legal,local_marketing,lpn,maintenance,marketing,np,ops_manager,owner,partnership,patient,pediatric,physician,physio,platform_admin,portal,premium_concierge,psw,qa_specialist,regional_bdm,regional_manager_usa,rmt,rn,rn_field_supervisor,rpn,scheduler,scrum_master,shareholder,social_worker,system_verification,tenant_admin,territory_expansion,territory_sales,therapist,training,training_coordinator,training_director,vip_manager,volunteer,volunteer_coordinator"
+      },
+      {
+        "table": "admin_training_courses",
+        "key": "admin-operations"
       }
     ],
     "gaps": [
-      "Current DB lacks admin_training_courses/admin_training_learning_grants; reconcile via existing registrar.",
       "Self-assessment progress is device-local and untrusted; central training assignment/certification/sync remain undefined.",
       "Virtual definition only; execution deferred."
     ],
@@ -6823,10 +7020,13 @@
       {
         "table": "roles",
         "key": "admin,bus_dev,caregiver,central_admin,ceo,cfo,chiropractor,ciso,clinical_director,cns,community_outreach,compliance,coo,cto,customer_support,cx_director,dynamic,employee,family,finance_director,franchise_sales,gm,governance,growth_caller,growth_coordinator,growth_google,growth_meta,growth_offline,growth_seo,guest,hr_director,hr_hiring,hsw,infrastructure,intake,legal,local_marketing,lpn,maintenance,marketing,np,ops_manager,owner,partnership,patient,pediatric,physician,physio,platform_admin,portal,premium_concierge,psw,qa_specialist,regional_bdm,regional_manager_usa,rmt,rn,rn_field_supervisor,rpn,scheduler,scrum_master,shareholder,social_worker,system_verification,tenant_admin,territory_expansion,territory_sales,therapist,training,training_coordinator,training_director,vip_manager,volunteer,volunteer_coordinator"
+      },
+      {
+        "table": "admin_training_courses",
+        "key": "admin-operations"
       }
     ],
     "gaps": [
-      "Current DB lacks admin_training_courses/admin_training_learning_grants; reconcile via existing registrar.",
       "Self-assessment progress is device-local and untrusted; central training assignment/certification/sync remain undefined.",
       "Virtual definition only; execution deferred."
     ],
@@ -6943,10 +7143,13 @@
       {
         "table": "roles",
         "key": "admin,bus_dev,caregiver,central_admin,ceo,cfo,chiropractor,ciso,clinical_director,cns,community_outreach,compliance,coo,cto,customer_support,cx_director,dynamic,employee,family,finance_director,franchise_sales,gm,governance,growth_caller,growth_coordinator,growth_google,growth_meta,growth_offline,growth_seo,guest,hr_director,hr_hiring,hsw,infrastructure,intake,legal,local_marketing,lpn,maintenance,marketing,np,ops_manager,owner,partnership,patient,pediatric,physician,physio,platform_admin,portal,premium_concierge,psw,qa_specialist,regional_bdm,regional_manager_usa,rmt,rn,rn_field_supervisor,rpn,scheduler,scrum_master,shareholder,social_worker,system_verification,tenant_admin,territory_expansion,territory_sales,therapist,training,training_coordinator,training_director,vip_manager,volunteer,volunteer_coordinator"
+      },
+      {
+        "table": "admin_training_courses",
+        "key": "admin-operations"
       }
     ],
     "gaps": [
-      "Current DB lacks admin_training_courses/admin_training_learning_grants; reconcile via existing registrar.",
       "Self-assessment progress is device-local and untrusted; central training assignment/certification/sync remain undefined.",
       "Virtual definition only; execution deferred."
     ],
@@ -7063,10 +7266,13 @@
       {
         "table": "roles",
         "key": "admin,bus_dev,caregiver,central_admin,ceo,cfo,chiropractor,ciso,clinical_director,cns,community_outreach,compliance,coo,cto,customer_support,cx_director,dynamic,employee,family,finance_director,franchise_sales,gm,governance,growth_caller,growth_coordinator,growth_google,growth_meta,growth_offline,growth_seo,guest,hr_director,hr_hiring,hsw,infrastructure,intake,legal,local_marketing,lpn,maintenance,marketing,np,ops_manager,owner,partnership,patient,pediatric,physician,physio,platform_admin,portal,premium_concierge,psw,qa_specialist,regional_bdm,regional_manager_usa,rmt,rn,rn_field_supervisor,rpn,scheduler,scrum_master,shareholder,social_worker,system_verification,tenant_admin,territory_expansion,territory_sales,therapist,training,training_coordinator,training_director,vip_manager,volunteer,volunteer_coordinator"
+      },
+      {
+        "table": "admin_training_courses",
+        "key": "admin-operations"
       }
     ],
     "gaps": [
-      "Current DB lacks admin_training_courses/admin_training_learning_grants; reconcile via existing registrar.",
       "Self-assessment progress is device-local and untrusted; central training assignment/certification/sync remain undefined.",
       "Virtual definition only; execution deferred."
     ],

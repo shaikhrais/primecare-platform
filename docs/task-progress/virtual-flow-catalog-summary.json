@@ -1,9 +1,9 @@
 {
   "scope": "All records in the named current governance sources plus explicitly source-mapped domain processes; virtual plans only, no workflow execution.",
   "source_counts": {
-    "screens": 953,
+    "screens": 954,
     "registered_actions": 1760,
-    "api_endpoints": 1220,
+    "api_endpoints": 1225,
     "legacy_api_registry": 1249,
     "generic_processes": 3,
     "role_outlines": 98,
@@ -20,19 +20,19 @@
     },
     {
       "flow_kind": "api_contract",
-      "total": 2469,
+      "total": 2474,
       "missing": 0,
       "implemented_unverified": 0,
       "verified": 0,
-      "blocked": 2469
+      "blocked": 2474
     },
     {
       "flow_kind": "business_process",
       "total": 147,
-      "missing": 0,
-      "implemented_unverified": 0,
+      "missing": 11,
+      "implemented_unverified": 135,
       "verified": 0,
-      "blocked": 147
+      "blocked": 1
     },
     {
       "flow_kind": "legacy_candidate",
@@ -44,19 +44,19 @@
     },
     {
       "flow_kind": "screen_journey",
-      "total": 953,
+      "total": 954,
       "missing": 0,
       "implemented_unverified": 0,
       "verified": 0,
-      "blocked": 953
+      "blocked": 954
     }
   ],
-  "total_virtual_flows": 5332,
-  "total_virtual_steps": 18731,
+  "total_virtual_flows": 5338,
+  "total_virtual_steps": 18750,
   "role_guides": 98,
   "business_definition_quality": {
-    "source_mapped": 115,
-    "virtual_draft": 32
+    "source_mapped": 117,
+    "virtual_draft": 30
   },
   "workflow_tests_executed": 0,
   "verified_by_catalogue_creation": 0,

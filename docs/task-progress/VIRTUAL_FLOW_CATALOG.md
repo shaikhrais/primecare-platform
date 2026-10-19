@@ -5,15 +5,15 @@ The current registered scope has been written to governance.db as virtual plans.
 | Kind | Count | Scope |
 | --- | ---: | --- |
 | Business process definitions | 147 | 35 care, 57 growth, 32 platform/report/training/theme, 23 authentication/account processes |
-| Registered screen journeys | 953 | All screen registrations, including one inactive entry retained as inactive |
+| Registered screen journeys | 954 | All screen registrations, including one inactive entry retained as inactive |
 | Registered action guides | 1,760 | All action definitions; 1,718 navigation, 42 other actions |
 | API contract guides | 2,469 | 1,220 current endpoints and 1,249 separate legacy mocked contracts |
 | Generic legacy process candidates | 3 | Intake, billing and scheduling registrations awaiting concrete specification |
-| **Virtual definitions and guides** | **5,332** | Supporting guide categories overlap; this is not 5,332 distinct business processes |
+| **Virtual definitions and guides** | **5,338** | Supporting guide categories overlap; this is not 5,332 distinct business processes |
 | Role/app guides | 98 | Separate outlines linked to screen journeys and business processes |
-| Ordered virtual steps | 18,731 | Start/actions/expected outcome stored for subsequent review and testing |
+| Ordered virtual steps | 18,750 | Start/actions/expected outcome stored for subsequent review and testing |
 
-Business-process definition quality: 115 source-mapped, 32 drafts requiring further binding/requirement reconciliation. Source-mapped means existing policy/code references support the virtual description. It does not mean reviewed, implemented completely, executable automatically or tested successfully. All 5,332 catalogue rows have test_status=not_run and verification_status=blocked while review and execution are outstanding. The earlier narrow PSW availability specification and its scoped evidence remain unchanged and cross-linked.
+Current definition-quality counts are in virtual-flow-catalog-summary.json. Source-mapped means existing policy/code references support the virtual description. It does not mean reviewed, implemented completely, executable automatically or tested successfully. The catalogue was originally unexecuted; current per-process runtime status is now in workflow-execution-status.json and the live database. The earlier narrow PSW availability specification and its scoped evidence remain unchanged and cross-linked.
 
 ## Database locations
 

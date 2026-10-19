@@ -133,12 +133,12 @@
       "id": "next.psw-availability-workflow",
       "title": "Verify registered PSW availability workflow",
       "kind": "registered_workflow",
-      "implementation": "unverified",
+      "implementation": "implemented",
       "scope": "role login to UI, API, database result and reload",
       "depends_on": [
         "next.isolated-care-fixture"
       ],
-      "next": "Follow the registered business_workflow_specs definition care.psw.submit-availability; run real credential login, UI, API, database and reload plus acceptance/security/failure checks and video. This queue item is not a whole-platform count.",
+      "next": "Six real-credential browser cases and eight API/recovery groups pass on embedded PostgreSQL. Continue native concurrency, governed recording playback, full acceptance and required review; see virtual_workflow_checkpoints.",
       "workflow_spec_id": "care.psw.submit-availability"
     },
     {
@@ -148,6 +148,37 @@
       "implementation": "implemented",
       "scope": "virtual process plans and source coverage only; no workflow execution",
       "next": "Review process gaps and execute real login/UI/API/database/reload acceptance per process; catalogue counts are not verified outcomes."
+    },
+    {
+      "id": "verification.auth-care-browser-loop",
+      "title": "Real credential login and care availability browser loop",
+      "kind": "engineering",
+      "implementation": "implemented",
+      "scope": "real credential login and availability UI/API/embedded PostgreSQL roundtrip; sequential harness",
+      "expected_cases": 6,
+      "evidence": "docs/task-progress/evidence/availability-workflow-current.json",
+      "required_sources": [
+        "scripts/test-care-availability-workflow.mjs",
+        "websites/typescript/src/auth-screen.ts",
+        "websites/typescript/src/shell.ts",
+        "websites/typescript/src/auth-client.ts"
+      ],
+      "required_flags": [
+        "credentialLogin",
+        "sharedLoginShell",
+        "ownStaffOnly",
+        "persistedWindow",
+        "utcRoundTrip",
+        "auditEvent",
+        "requestReceipt",
+        "reload",
+        "offlineRecovery",
+        "noOverflow"
+      ],
+      "run_evidence": "test-results/care/availability-workflow/results.json",
+      "run_video": "test-results/care/availability-workflow/availability-login-save-reload.webm",
+      "diagnostic_video": "docs/task-progress/evidence/availability-workflow-current.webm",
+      "next": "Do not promote this scoped harness receipt to whole workflow verification; resolve recorded native/runtime/evidence/review gaps."
     }
   ]
 }

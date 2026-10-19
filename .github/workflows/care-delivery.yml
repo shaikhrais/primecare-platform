@@ -7,6 +7,9 @@ on:
       - 'cloudflare/workers/src/workspace-registry.json'
       - 'websites/typescript/src/care/**'
       - 'websites/typescript/src/main.ts'
+      - 'websites/typescript/src/auth-screen.ts'
+      - 'websites/typescript/src/auth-client.ts'
+      - 'cloudflare/workers/src/auth*.ts'
       - 'websites/typescript/src/workspace.ts'
       - 'websites/typescript/src/shell.ts'
       - 'websites/typescript/src/styles.css'
@@ -58,6 +61,8 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/care-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 @cloudflare/workers-types@4.20260403.1 pg@8.11.3 @electric-sql/pglite@0.3.14 bcryptjs@3 axe-core@4.10.3
           ln -s "$RUNNER_TEMP/care-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
+      - name: Restore the verified governance checkpoint
+        run: python3 tools/workflow-verification/restore_checkpoint.py
       - name: Reproduce care governance
         run: |
           python3 scripts/register-care-governance.py
@@ -71,11 +76,18 @@ jobs:
         run: node scripts/test-sidebar-content-browser.mjs
       - name: Check care initial loading and retry states
         run: node scripts/test-care-loading-browser.mjs
+      - name: Check real credential login and availability roundtrip
+        run: |
+          python3 scripts/register-auth-login-layout.py --check
+          node scripts/test-care-availability-workflow.mjs
       - name: Check progress status rules
         run: |
           python3 tools/workflow-verification/test_progress_ledger.py
           python3 tools/workflow-verification/test_registered_workflow_status.py
           python3 tools/workflow-verification/test_business_workflow_specs.py
+          python3 tools/workflow-verification/test_execution.py
+          python3 tools/workflow-verification/test_restore_checkpoint.py
+          python3 scripts/test-reconcile-registered-workflow-bindings.py
       - name: Record closed-appointment and evidence-gate unit checks
         run: python3 tools/workflow-verification/progress.py --run-small-checks --refresh-browser-evidence
       - name: Check read-only migration identity preflight

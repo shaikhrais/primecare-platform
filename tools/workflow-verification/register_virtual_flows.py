@@ -154,6 +154,9 @@ def populate(db):
     legacy_apis = {r['id']: r for r in rows(db,'api_registry')}
     canonical=lambda path:re.sub(r'\{[^}]+\}|:[A-Za-z_][A-Za-z0-9_]*','{}',path.split('?')[0].rstrip('/'))
     modern_contracts={(a['http_method'],canonical(a['route_path'])) for a in apis.values() if a['route_path']}
+    def bound_api(method,path):
+        candidate=canonical(path)
+        return (method,candidate) in modern_contracts or any(method==verb and re.fullmatch(re.escape(pattern).replace(r'\{\}',r'[^/]+'),candidate) for verb,pattern in modern_contracts)
     legacy_endpoints = {r['id']: r for r in rows(db,'api_endpoint_registry')}
     requirements = {r['screen_id']: r for r in rows(db,'screen_requirements')}
     blueprints = {r['screen_id']: r for r in rows(db,'screen_implementation_blueprints')}
@@ -284,7 +287,7 @@ def populate(db):
                     plan['source_sha256'][name]=hashlib.sha256(source.read_bytes()).hexdigest()
             for step in plan['steps']:
                 method,path=step.get('api_method'),step.get('api_path')
-                if method and path and (method,canonical(path)) not in modern_contracts:
+                if method and path and not bound_api(method,path):
                     plan.setdefault('gaps',[]).append('Step API requires governance reconciliation: '+method+' '+path)
                     plan['definition_quality']='draft'
             unknown_roles=[r for r in plan.get('actor_roles',[]) if r not in set(roles.values())]

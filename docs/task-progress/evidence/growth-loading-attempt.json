@@ -1,0 +1,18 @@
+{
+  "workflow_id": "growth.review-work-queue",
+  "scope": "scoped",
+  "browser_executed": false,
+  "result": "blocked",
+  "repair": "Shared shell for initial loading and failed read; retry restores authoritative API rendering. Existing locale resources and data-cy selectors preserved.",
+  "checks": {
+    "growth_bundle": "passed",
+    "workflow_recorder_tests": "21 passed",
+    "browser": "Playwright executable absent; /tmp/chromium is a zero-byte file; browser installation returned invalid ZIP on every retry.",
+    "web_build": "Failed governance registration: Canonical identity or owner authority changed: /v1/client/invoices/{invoiceId}. Partial generated changes reverted."
+  },
+  "limitations": [
+    "No credential/UI/API/database/reload execution achieved",
+    "No successful browser video or review approval",
+    "Shared defect remains open pending focused browser replay"
+  ]
+}

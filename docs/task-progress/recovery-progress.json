@@ -1,10 +1,9 @@
 {
   "summary": {
-    "tracked_items": 7,
+    "tracked_items": 8,
     "status_counts": {
-      "scoped_tested": 5,
-      "pending": 1,
-      "implemented_unverified": 1
+      "scoped_tested": 6,
+      "implemented_unverified": 2
     },
     "fully_verified_workflows": 0,
     "counts_are_engineering_items_not_platform_backlog": true,
@@ -63,16 +62,16 @@
       "id": "next.psw-availability-workflow",
       "title": "Verify registered PSW availability workflow",
       "kind": "registered_workflow",
-      "implementation": "unverified",
+      "implementation": "implemented",
       "scope": "role login to UI, API, database result and reload",
       "depends_on": [
         "next.isolated-care-fixture"
       ],
-      "next": "Follow the registered business_workflow_specs definition care.psw.submit-availability; run real credential login, UI, API, database and reload plus acceptance/security/failure checks and video. This queue item is not a whole-platform count.",
+      "next": "Six real-credential browser cases and eight API/recovery groups pass on embedded PostgreSQL. Continue native concurrency, governed recording playback, full acceptance and required review; see virtual_workflow_checkpoints.",
       "workflow_spec_id": "care.psw.submit-availability",
       "whole_workflow_verified": false,
       "test_status": "unverified",
-      "status": "pending",
+      "status": "implemented_unverified",
       "reason": "No current evidence registered."
     },
     {
@@ -171,6 +170,42 @@
       "status": "scoped_tested",
       "reason": "Current source-bound evidence passes for the stated scope only.",
       "evidence_sha256": "be9515308b76300b9689763583d709b4d37aa695970361bc36b310d3e15e9dd1"
+    },
+    {
+      "id": "verification.auth-care-browser-loop",
+      "title": "Real credential login and care availability browser loop",
+      "kind": "engineering",
+      "implementation": "implemented",
+      "scope": "real credential login and availability UI/API/embedded PostgreSQL roundtrip; sequential harness",
+      "expected_cases": 6,
+      "evidence": "docs/task-progress/evidence/availability-workflow-current.json",
+      "required_sources": [
+        "scripts/test-care-availability-workflow.mjs",
+        "websites/typescript/src/auth-screen.ts",
+        "websites/typescript/src/shell.ts",
+        "websites/typescript/src/auth-client.ts"
+      ],
+      "required_flags": [
+        "credentialLogin",
+        "sharedLoginShell",
+        "ownStaffOnly",
+        "persistedWindow",
+        "utcRoundTrip",
+        "auditEvent",
+        "requestReceipt",
+        "reload",
+        "offlineRecovery",
+        "noOverflow"
+      ],
+      "run_evidence": "test-results/care/availability-workflow/results.json",
+      "run_video": "test-results/care/availability-workflow/availability-login-save-reload.webm",
+      "diagnostic_video": "docs/task-progress/evidence/availability-workflow-current.webm",
+      "next": "Do not promote this scoped harness receipt to whole workflow verification; resolve recorded native/runtime/evidence/review gaps.",
+      "whole_workflow_verified": false,
+      "test_status": "current_scoped_evidence",
+      "status": "scoped_tested",
+      "reason": "Current source-bound evidence passes for the stated scope only.",
+      "evidence_sha256": "0aecea1bdfd6443e95a6f62504b77eea448fb1b2c1e291135bcd0abd05d2c64a"
     },
     {
       "id": "verification.gate-evaluator",
