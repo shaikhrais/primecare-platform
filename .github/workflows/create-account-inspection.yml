@@ -38,7 +38,7 @@ jobs:
               result={}
               for name in ['virtual_workflow_definitions','virtual_workflow_steps','virtual_workflow_source_links','virtual_workflow_checkpoints']:
                   result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE flow_id=?',(flow,))]
-              result['apis']=[dict(r) for r in db.execute("SELECT * FROM api_endpoints WHERE route_path LIKE '%admin/users%'")]
+              result['apis']=[dict(r) for r in db.execute("SELECT * FROM api_endpoints WHERE route_path LIKE '%admin/users%' OR route_path='/v1/auth/register'")]
               ids=[r['id'] for r in result['apis']]
               result['permissions']=[dict(r) for r in db.execute('SELECT * FROM api_permissions WHERE api_id IN ('+','.join('?' for _ in ids)+')',ids)] if ids else []
               result['screen_links']=[dict(r) for r in db.execute('SELECT * FROM screen_api_links WHERE api_id IN ('+','.join('?' for _ in ids)+')',ids)] if ids else []
