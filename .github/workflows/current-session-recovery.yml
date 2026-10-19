@@ -1,0 +1,56 @@
+name: Inspect current-session live acceptance
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/current-session-recovery.yml]
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+jobs:
+  requirements:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/govt-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Load live specifications and theme after merge
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY'
+          import sys,json,pathlib,sqlite3
+          sys.path.insert(0,'tools/governance-production')
+          from production_reader import connect
+          flow='auth.read-current-session'
+          with connect() as db:
+              db.row_factory=sqlite3.Row
+              result={}
+              for name in ['virtual_workflow_definitions','virtual_workflow_steps','virtual_workflow_source_links','virtual_workflow_checkpoints']:
+                  result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE flow_id=?',(flow,))]
+              checkpoint=result['virtual_workflow_checkpoints']
+              if checkpoint:
+                  result['attempt']=[dict(r) for r in db.execute('SELECT * FROM virtual_workflow_attempts WHERE attempt_id=?',(checkpoint[0]['attempt_id'],))]
+              result['api']=[dict(r) for r in db.execute("SELECT * FROM api_endpoints WHERE route_path='/v1/auth/me'")]
+              result['totals']=[dict(r) for r in db.execute("SELECT verification_status,COUNT(*) n FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY verification_status")]
+              result['catalogue']=[dict(r) for r in db.execute("SELECT flow_kind,COUNT(*) n FROM virtual_workflow_definitions GROUP BY flow_kind")]
+              result['schema']={name:[dict(r) for r in db.execute('PRAGMA table_info('+name+')')] for name in ['virtual_role_flow_guides','virtual_flow_catalog_snapshots','api_permissions','screen_api_links']}
+              theme=dict(db.execute('SELECT css_variable_name,token_value FROM theme_design_tokens WHERE theme_id=1 AND active=1'))
+              path=pathlib.Path('test-results/current-session');path.mkdir(parents=True,exist_ok=True)
+              (path/'governance.json').write_text(json.dumps(dict(result,theme=theme),indent=2))
+              print('CURRENT_SESSION_INSPECTION '+json.dumps(result))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: current-session-live-requirements
+          path: test-results/
