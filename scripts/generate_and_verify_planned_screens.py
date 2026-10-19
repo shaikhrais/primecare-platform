@@ -1,6 +1,7 @@
 # Scripts - Category: remodel | Purpose: Automated physical screen generator and verification seeder for planned screens.
 import os
 import sqlite3
+from refactor_custom_screen_states import write_screen_model
 import json
 
 # Absolute path resolution relative to project root
@@ -316,8 +317,7 @@ def generate_planned_screens():
         dir_name = os.path.dirname(full_disk_path)
         os.makedirs(dir_name, exist_ok=True)
 
-        with open(full_disk_path, 'w', encoding='utf-8') as f:
-            f.write(content)
+        write_screen_model(PROJECT_ROOT, full_disk_path, content, state_class)
         
         generated_count += 1
         

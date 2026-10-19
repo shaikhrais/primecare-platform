@@ -18,7 +18,7 @@ def manifest(path):
 
 
 def inherits(source, name, parent, path):
-    assert re.search(r"\bclass\s+" + re.escape(name) + r"\s+extends\s+"
+    assert re.search(r"\bclass\s+" + re.escape(name) + r"(?:<[^{};]+>)?\s+extends\s+"
                      + re.escape(parent) + r"\b", source), path + ': missing ' + parent
 
 
@@ -58,7 +58,9 @@ for service in services:
     assert '/src/application/' in entry and "export 'package:" in entry, service['entrypoint']
 
 for path, name, parent in [
-    ('cloudflare/workers/src/service.ts', 'ServiceWorker', 'BaseWorker'),
+    ('cloudflare/workers/src/service.ts', 'ServiceWorker', 'ServiceApplication'),
+    ('cloudflare/workers/src/service-application.ts', 'ServiceApplication', 'WorkerApplication'),
+    ('cloudflare/workers/src/runtime/worker-application.ts', 'WorkerApplication', 'BaseWorker'),
     ('cloudflare/workers/src/gateway.ts', 'GatewayWorker', 'BaseWorker'),
     ('websites/typescript/src/care/client.ts', 'CareClient', 'BaseSessionClient'),
     ('websites/typescript/src/growth/client.ts', 'GrowthClient', 'BaseSessionClient'),
