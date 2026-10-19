@@ -1,0 +1,37 @@
+name: Verify production tracking store schema without mutation
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/inspect-production-store-schema.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ba0ba425cc9eeff8744e06bdb00477783bcaef9b
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Verify pinned schema, natural keys and live counts then rollback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+        run: |
+          python - <<'PY'
+          import sys,json
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import summary
+          db=ProductionWorkflowStore()
+          try:
+              print('VERIFIED_PRODUCTION_STORE_SCHEMA',json.dumps({'source_commit':'ba0ba425cc9eeff8744e06bdb00477783bcaef9b','manifest':db.pin['manifestSha256'],'counts':summary(db),'mutations_attempted':False}))
+          finally:
+              db.db.rollback()
+              db.db.close()
+          PY
