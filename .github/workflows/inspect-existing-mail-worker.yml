@@ -52,6 +52,21 @@ jobs:
               status,settings=get('/accounts/'+account+'/workers/scripts/'+urllib.parse.quote(name,safe='')+'/settings')
               result=settings.get('result') or {};bindings=result.get('bindings',[]) if isinstance(result,dict) else []
               report['workers'][name]={'http':status,'success':settings.get('success'),'binding_types':[{'name':b.get('name'),'type':b.get('type')} for b in bindings],'email_from':[b.get('text') for b in bindings if b.get('name')=='EMAIL_FROM' and b.get('type')=='plain_text']}
+          inbox=next((s for s in candidates if s.get('id')=='primecare-email-inbox'),None)
+          if inbox:
+              status,settings=get('/accounts/'+account+'/workers/scripts/primecare-email-inbox/settings')
+              bindings=(settings.get('result') or {}).get('bindings',[])
+              kv=next((b for b in bindings if b.get('name')=='INBOX' and b.get('type')=='kv_namespace'),None)
+              addresses=next((b.get('text','') for b in bindings if b.get('name')=='INBOX_ADDRESSES' and b.get('type')=='plain_text'),'')
+              report['inbox_address_configuration']={'configured':bool(addresses),'owned_test_addresses':[v.strip() for v in addresses.replace(';',',').split(',') if v.strip().lower().endswith('@'+domain) and any(k in v.lower().split('@')[0] for k in ['qa','test'])]}
+              status,namespaces=get('/accounts/'+account+'/storage/kv/namespaces?per_page=100')
+              report['inbox_storage_metadata']={'http':status,'matching_namespace_found':bool(kv and any(n.get('id')==kv.get('namespace_id') for n in namespaces.get('result',[])))}
+              req=urllib.request.Request('https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-email-inbox/content',headers={'Authorization':'Bearer '+token})
+              try:
+                  with urllib.request.urlopen(req,timeout=25) as response:source=response.read(1024*1024).decode('utf8','replace')
+                  import hashlib,re
+                  report['inbox_source_review']={'sha256':hashlib.sha256(source.encode()).hexdigest(),'kv_put_key_expressions':re.findall(r'\\.INBOX\\.put\\(([^,]+)',source),'key_assignments':re.findall(r'(?:const|let) key\\s*=\\s*([^;\\n]+)',source),'email_handler_present':bool(re.search(r'email\\s*\\(',source))}
+              except urllib.error.HTTPError as error:report['inbox_source_review']={'http':error.code}
           path=pathlib.Path('test-results/existing-mail');path.mkdir(parents=True,exist_ok=True);(path/'configuration.json').write_text(json.dumps(report,indent=2))
           print('EXISTING_MAIL_CONFIGURATION '+json.dumps(report))
       - uses: actions/upload-artifact@v4
