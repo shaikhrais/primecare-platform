@@ -1,4 +1,5 @@
 """Recovery views preserve native routes and never earn completion credit."""
+import os
 import hashlib
 import json
 import sqlite3
@@ -14,6 +15,10 @@ BASELINE = json.loads((ROOT / 'docs/auth-recovery/native-presentation-baseline.j
 
 class RecoveryGovernance(unittest.TestCase):
     def setUp(self):
+        if os.environ.get('PRODUCTION_DATABASE_URL') or os.environ.get('GOVERNANCE_DATABASE_URL'):
+            raise RuntimeError('Isolated recovery tests forbid production credentials')
+        if not (ROOT / '.agents/governance/governance.db').is_file():
+            raise RuntimeError('Explicit isolated checkpoint fixture required')
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.database = Path(self.temp.name) / 'governance.db'
@@ -25,7 +30,7 @@ class RecoveryGovernance(unittest.TestCase):
     def run_registrar(self, *extra, success=True):
         result = subprocess.run([sys.executable, str(ROOT / 'scripts/register-auth-recovery-web.py'),
                                  '--database', str(self.database), '--output', str(self.output), *extra],
-                                capture_output=True, text=True)
+                                capture_output=True, text=True, env={**os.environ, 'GOVERNANCE_ALLOW_SQLITE_FIXTURES':'1'})
         self.assertEqual(result.returncode == 0, success, result.stderr)
 
     def dump(self):
