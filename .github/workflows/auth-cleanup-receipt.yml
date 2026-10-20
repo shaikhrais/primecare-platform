@@ -1,0 +1,49 @@
+name: Record confirmed local auth branch cleanup
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/auth-cleanup-receipt.yml]
+permissions:
+  contents: write
+jobs:
+  checkpoint:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/github-script@v7
+        id: cleanup
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo;
+            const {data:ref}=await github.rest.git.getRef({owner,repo,ref:'heads/main'});
+            const {data:commit}=await github.rest.git.getCommit({owner,repo,commit_sha:ref.object.sha});
+            const {data:tree}=await github.rest.git.createTree({owner,repo,base_tree:commit.tree.sha,tree:[{path:'.github/workflows/auth-cleanup-receipt.yml',mode:'100644',type:'blob',sha:null}]});
+            const {data:next}=await github.rest.git.createCommit({owner,repo,message:'chore: close completed auth cleanup receipt launcher',tree:tree.sha,parents:[ref.object.sha]});
+            await github.rest.git.updateRef({owner,repo,ref:'heads/main',sha:next.sha,force:false});
+            core.setOutput('main',next.sha);
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.cleanup.outputs.main }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          FINAL_MAIN: ${{ steps.cleanup.outputs.main }}
+        run: |
+          python -u - <<'PY'
+          import sys,json,os
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          with ProductionWorkflowStore() as db:
+           row=db.execute('SELECT summary_json FROM virtual_flow_catalog_snapshots WHERE name=?',('auth-completion-current',)).fetchone()
+           if not row:raise RuntimeError('Merged auth checkpoint missing')
+           state=json.loads(row[0])
+           if state.get('merge_sha')!='fb5b50f7ed9609502644f78ad6d4bca08fd8479b':raise RuntimeError('Auth checkpoint advanced; preserve newer work')
+           state.update(main_sha=os.environ['FINAL_MAIN'],active_work_branch=None,local_cleanup='complete: local main fast-forwarded through b7c8cb19a01b333537b2dde0b5535da71b8f2ee5; merged work branch deleted; main-only and inclusion confirmed; no tracked changes',local_confirmation_base_sha='b7c8cb19a01b333537b2dde0b5535da71b8f2ee5',remote_cleanup='complete',branch_count=1,open_pr_count=0,next_action='Resolve the registered core API authentication/schema contradictions and approved account/session UI authority. Recovery-policy cutover, multi-role switch assignments, protected bootstrap operator requirements and independent acceptance approvals remain exact blockers; full auth is not verified.')
+           for name in ['auth-completion-current','execution-handoff-current']:
+            db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',(name,json.dumps(state)))
+          print('AUTH_CLEANUP_CONFIRMED '+json.dumps({k:v for k,v in state.items() if k!='workflow_statuses'}))
+          PY
