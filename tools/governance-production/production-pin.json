@@ -49,5 +49,18 @@
       "schemaChanges": false,
       "businessDataWrites": false
     }
+  },
+  "workspaceResourceWriter": {
+    "optInVariable": "GOVERNANCE_WORKSPACE_RESOURCE_WRITES",
+    "tables": [
+      "language_resources",
+      "language_resource_values"
+    ],
+    "namespace": "screenText.workspace.",
+    "catalogPath": "packages/primecare_ui/lib/src/localization/screens/workspace.json",
+    "catalogSha256": "0b1cc4b5da523e0345e2ea9527138bea8ee1d1775373c7cd0a56218a2f88b11f",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false
   }
 }

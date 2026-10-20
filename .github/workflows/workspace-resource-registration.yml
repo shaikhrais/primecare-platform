@@ -1,0 +1,33 @@
+name: Workspace production resource writer boundaries
+on:
+  pull_request:
+    paths:
+      - tools/governance-production/workspace_resource_registration.py
+      - tools/governance-production/test-workspace-resource-registration.py
+      - tools/governance-production/production-pin.json
+      - .github/workflows/workspace-resource-registration.yml
+permissions:
+  contents: read
+jobs:
+  native-workspace-resources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: workspace
+          POSTGRES_PASSWORD: isolated-only
+          POSTGRES_DB: workspace_resources_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U workspace -d workspace_resources_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Test exact scope, unreviewed labels, idempotency, preservation and rollback
+        env:
+          WORKFLOW_TEST_DATABASE_URL: postgres://workspace:isolated-only@127.0.0.1:5432/workspace_resources_test
+        run: python tools/governance-production/test-workspace-resource-registration.py
