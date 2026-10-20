@@ -2,9 +2,10 @@ name: Workspace production resource writer boundaries
 on:
   pull_request:
     paths:
-      - tools/governance-production/workspace_resource_registration.py
+      - tools/governance-production/workspace_resource*.py
       - tools/governance-production/test-workspace-resource-registration.py
       - tools/governance-production/production-pin.json
+      - packages/primecare_ui/lib/src/localization/screens/workspace.json
       - .github/workflows/workspace-resource-registration.yml
 permissions:
   contents: read
