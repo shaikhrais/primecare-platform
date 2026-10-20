@@ -48,7 +48,8 @@ def bind(db,flow=FLOW):
         fields=list(values)
         db.db.execute('INSERT INTO '+db.table('virtual_workflow_source_links')+' (_primecare_import_row,'+','.join(map(quote,fields))+') VALUES('+','.join(['%s']*(len(fields)+1))+')',[ordinal,*[db._value('virtual_workflow_source_links',k,values[k]) for k in fields]])
     invalidation=[{'reason':'Existing API, screen view authority and resource/control bindings reconciled through production cutover','old_definition_sha256':rows[0][1],'current_definition_sha256':fingerprint}]
-    db.execute('UPDATE virtual_workflow_checkpoints SET invalidation_json=?, updated_at=CURRENT_TIMESTAMP WHERE flow_id=?',(json.dumps(invalidation),flow))
+    if db.execute('SELECT flow_id FROM virtual_workflow_checkpoints WHERE flow_id=?',(flow,)).fetchone():
+        db.execute('UPDATE virtual_workflow_checkpoints SET invalidation_json=?, updated_at=CURRENT_TIMESTAMP WHERE flow_id=?',(json.dumps(invalidation),flow))
     return {'flow_id':flow,'old_definition_sha256':rows[0][1],'definition_sha256':fingerprint,'changed':True,'business_process_count':db.execute("SELECT COUNT(*) FROM virtual_workflow_definitions WHERE flow_kind='business_process'").fetchone()[0],'actors_unchanged':True,'source_links':len(refs)}
 
 if __name__=='__main__':
