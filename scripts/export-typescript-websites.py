@@ -3,6 +3,7 @@
 import argparse, datetime, json, pathlib, sqlite3, sys
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'tools/governance-production'))
 from connection import connect
+from theme_manifest import css_theme
 PORTALS = {
  'primecare-business-development':('bd',4,'PrimeCare Business Development'),
  'primecare-client':('cl',5,'PrimeCare Client'),'primecare-clinic':('ci',6,'PrimeCare Clinic'),
@@ -17,7 +18,7 @@ def export(db_path,output,gateway,auth):
   source=getattr(db,'pin',None)
  by=lambda table,key:{r[key]:r for r in data[table]}
  roles=by('roles','id');resources=by('language_resources','resource_id');features=by('features','id');screens=by('screens','id')
- theme={r['css_variable_name']:r['token_value'] for r in data['theme_design_tokens'] if r['theme_id']==1 and r['active']==1}
+ theme=css_theme(data['theme_design_tokens'])
  labels={resources[r['resource_id']]['resource_key']:r['translated_text'] for r in data['language_resource_values'] if r['resource_id'] in resources and resources[r['resource_id']]['active']==1 and r['approved']==1 and r['language_id']==1}
  output.mkdir(parents=True,exist_ok=True)
  for project,(app_code,app_id,name) in PORTALS.items():
