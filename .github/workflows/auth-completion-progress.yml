@@ -1,0 +1,90 @@
+name: Save current auth acceptance evidence and lifecycle checkpoint
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/auth-completion-progress.yml]
+permissions:
+  contents: write
+  actions: write
+jobs:
+  checkpoint:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 12
+    steps:
+      - id: cleanup
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo;
+            for(const status of ['queued','in_progress']){
+              const {data}=await github.rest.actions.listWorkflowRunsForRepo({owner,repo,event:'pull_request',status,per_page:100});
+              for(const run of data.workflow_runs)if(run.head_branch==='work/auth-completion-20261020'&&run.head_sha!=='0c948bf95fad58d251ad7468f54b661c5889de94'){
+                try{await github.rest.actions.cancelWorkflowRun({owner,repo,run_id:run.id});core.info('CANCELLED_SUPERSEDED '+run.id);}catch(error){if(![409,422].includes(error.status))throw error;}
+              }
+            }
+            const {data:ref}=await github.rest.git.getRef({owner,repo,ref:'heads/main'});
+            if(ref.object.sha!==context.sha)throw Error('Main changed');
+            const {data:commit}=await github.rest.git.getCommit({owner,repo,commit_sha:ref.object.sha});
+            const {data:tree}=await github.rest.git.createTree({owner,repo,base_tree:commit.tree.sha,tree:['.github/workflows/auth-completion-progress.yml','.github/workflows/verify-auth-password-repair.yml'].map(path=>({path,mode:'100644',type:'blob',sha:null}))});
+            const {data:clean}=await github.rest.git.createCommit({owner,repo,message:'ops: remove completed auth execution launchers',tree:tree.sha,parents:[ref.object.sha]});
+            await github.rest.git.updateRef({owner,repo,ref:'heads/main',sha:clean.sha,force:false});core.setOutput('main_sha',clean.sha);
+      - uses: actions/checkout@v4
+        with:
+          ref: 0c948bf95fad58d251ad7468f54b661c5889de94
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 39416719529
+          name: password-change-candidate-browser-native
+          path: test-results/auth-password
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Validate native proof, close exact issues and checkpoint all auth dependencies
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          CANDIDATE_SHA: 0c948bf95fad58d251ad7468f54b661c5889de94
+          FINAL_MAIN_SHA: ${{ steps.cleanup.outputs.main_sha }}
+          RUN_URL: https://github.com/shaikhrais/primecare-platform/actions/runs/${{ github.run_id }}
+        run: |
+          python -u - <<'PY'
+          import sys,json,pathlib,hashlib,os,datetime,collections
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,summary
+          root=pathlib.Path.cwd();out=root/'test-results/auth-completion';out.mkdir(parents=True,exist_ok=True)
+          receipt_path='test-results/auth-password/results.json';r=json.loads((root/receipt_path).read_text())
+          assert r['passed'] is True and r['wholeTaskVerified'] is False and len(r['cases'])==3
+          assert {v['locale'] for v in r['cases']}=={'en','fr','es'}
+          assert all(v['newCredentialLoginAndReload'] and v['replacementSessionPreserved'] and v['auditFailureRollsBack'] for v in r['cases'])
+          sources={**r['source_bindings'],'scripts/test-auth-password-workflow.mjs':hashlib.sha256((root/'scripts/test-auth-password-workflow.mjs').read_bytes()).hexdigest()}
+          for path,sha in sources.items():assert hashlib.sha256((root/path).read_bytes()).hexdigest()==sha,path
+          proof={'workflow_id':'auth.change-password','definition_sha256':r['definition_sha256'],'criterion_results':{**r['criterion_results'],'execution.password-browser':'passed'},'source_bindings':sources,'executed_receipt':receipt_path,'source_run':39416719529,'wholeTaskVerified':False,'basis':'The recorded native browser run passes all three locale cases, including the previously failed French reauthentication and session-replacement assertion.'}
+          proof_path='test-results/auth-completion/focused-resolution.json';(root/proof_path).write_text(json.dumps(proof,indent=2))
+          evidence=[{'kind':'browser','path':receipt_path,'sha256':hashlib.sha256((root/receipt_path).read_bytes()).hexdigest(),'url':'https://github.com/shaikhrais/primecare-platform/actions/runs/39416719529/artifacts/12261973152'},{'kind':'browser','path':proof_path,'sha256':hashlib.sha256((root/proof_path).read_bytes()).hexdigest(),'url':os.environ['RUN_URL']}]
+          for v in sorted((root/'test-results/auth-password').glob('*.webm')):evidence.append({'kind':'video','path':str(v.relative_to(root)),'sha256':hashlib.sha256(v.read_bytes()).hexdigest(),'url':evidence[0]['url']})
+          with ProductionWorkflowStore() as db:
+           issues=db.execute("SELECT i.issue_id,i.criterion_id FROM virtual_workflow_issues i JOIN virtual_workflow_attempts a ON a.attempt_id=i.attempt_id WHERE a.flow_id=? AND i.criterion_id IN (?,?)",('auth.change-password','ui.password-change-confirmation','execution.password-browser')).fetchall()
+           result={'status':'implemented-unverified','test_status':'scoped_pass','scope':'scoped','source_bindings':sources,'evidence':evidence,'issues':[],'blockers':r['limitations'],'resolves_issue_ids':[v[0] for v in issues],'resolution_note':'Current production-bound native browser execution passes all three locale cases; original malformed-success failure and the French reauthentication regression are replayed successfully.','issue_resolution_results':{str(i):{'criterion_id':criterion,'result':'passed','reproduction_verified':True,'evidence_path':proof_path} for i,criterion in issues},'next_action':'Complete remaining auth governance registration/source reconciliation and complete acceptance cases; obtain required independent reviews. Finish PR216 current-head CI, merge into main and delete merged branch before any new work branch.'}
+           saved=record_attempt(db,'auth.change-password',result,root)
+           keys=[c['name'] for c in db.tables['virtual_workflow_definitions']['columns']]
+           flows=[dict(zip(keys,v)) for v in db.execute("SELECT * FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE ? ORDER BY flow_id",('auth.%',))]
+           matrix=[]
+           for row in flows:
+            d=json.loads(row['definition_json']);drift=[path for path,sha in d.get('source_sha256',{}).items() if not (root/path).is_file() or hashlib.sha256((root/path).read_bytes()).hexdigest()!=sha]
+            matrix.append({'workflow_id':row['flow_id'],'verification_status':row['verification_status'],'test_status':row['test_status'],'blockers':json.loads(row['blocker_json'] or '[]'),'definition_sha256':row['definition_sha256'],'source_specification_drift':drift,'registered_steps':d.get('steps',[]),'declared_gaps':d.get('gaps',[]),'unresolved_requirements':d.get('unresolved_governance_refs',[])})
+           state={'created_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'main_sha':os.environ['FINAL_MAIN_SHA'],'work_branch_sha':os.environ['CANDIDATE_SHA'],'active_branch':'work/auth-completion-20261020','pr':216,'ci_review_state':'Current-head CI running; no manual review approvals recorded; merge/remote/local cleanup pending.','attempt':saved,'attempted_workflow_ids':['auth.change-password'],'auth_counts':dict(collections.Counter(v['verification_status'] for v in matrix)),'auth_total':len(matrix),'global_counts':summary(db),'manual_review_checks_count':db.execute('SELECT COUNT(*) FROM manual_review_checks').fetchone()[0],'auth_recovery_web_policy_in_manifest':'auth_recovery_web_policy' in db.tables,'evidence':evidence[0]['url'],'source_run':39416719529,'matrix':matrix,'synthetic_cleanup':r['cleanup'],'next_action':result['next_action'],'full_auth_verified':False}
+           (out/'handoff.json').write_text(json.dumps(state,indent=2))
+           for name in ['auth-completion-current','execution-handoff-current']:
+            db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',(name,json.dumps(state)))
+          print('AUTH_COMPLETION_CHECKPOINT_COMMITTED '+json.dumps({k:v for k,v in state.items() if k!='matrix'}))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: auth-completion-gates-and-current-proof
+          path: test-results/auth-completion
+          retention-days: 90
