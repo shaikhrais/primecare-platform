@@ -5,12 +5,15 @@ on:
     types: [completed]
     branches: [main]
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/record-own-sessions-evidence.yml']
 permissions:
   contents: read
   actions: read
 jobs:
   record:
-    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     environment: production
     timeout-minutes: 10
@@ -22,22 +25,39 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const run=context.payload.workflow_run;
-            if(run.status!=='completed'||run.conclusion!=='success')throw Error('Deployed session proof has not passed');
-            const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner:context.repo.owner,repo:context.repo.repo,run_id:run.id,per_page:100});
-            if(jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').length!==3)throw Error('Three successful live browser proof jobs required');
             const owner=context.repo.owner,repo=context.repo.repo;
-            const releases=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'release-account-sessions.yml',branch:'main',status:'success',per_page:1})).data.workflow_runs;
-            if(!releases.length)throw Error('Successful current portal release required');
-            const portal=releases[0];
-            if(Date.parse(run.run_started_at)<Date.parse(portal.updated_at))throw Error('Producer started before the current portal release completed');
+            const run=context.payload.workflow_run||(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'verify-live-own-sessions.yml',branch:'main',status:'success',per_page:1})).data.workflow_runs[0];
+            if(!run||run.status!=='completed'||run.conclusion!=='success'||run.path!=='.github/workflows/verify-live-own-sessions.yml'||run.head_branch!=='main')throw Error('Successful exact main own-session producer required');
+            core.setOutput('producer_run',run.id);core.setOutput('producer_sha',run.head_sha);
+            const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:run.id,per_page:100});
+            if(jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').length!==3)throw Error('Three successful live browser proof jobs required');
+            const candidates=[];
+            for(const workflow_id of ['release-account-sessions.yml','release-screen-text.yml','verify-account-mutations.yml']){
+              candidates.push(...(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id,branch:'main',status:'success',per_page:10})).data.workflow_runs);
+            }
+            candidates.sort((a,b)=>b.id-a.id);
+            const portals=['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'];
+            let portal;
+            for(const candidate of candidates){
+              if(Date.parse(run.run_started_at)<Date.parse(candidate.updated_at))continue;
+              const deployed=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:candidate.id,per_page:100});
+              if(!portals.every(p=>deployed.some(j=>j.name.endsWith(' / deploy ('+p+')')&&j.conclusion==='success')))continue;
+              if(![' / build',' / verify_gateway'].every(suffix=>deployed.some(j=>j.name.endsWith(suffix)&&j.conclusion==='success')))continue;
+              let matches=true;
+              for(const head of [context.sha,run.head_sha]){
+                const comparison=(await github.rest.repos.compareCommits({owner,repo,base:candidate.head_sha,head})).data;
+                if(comparison.files.some(f=>f.filename.startsWith('websites/typescript/')||f.filename.startsWith('packages/shared/')||['scripts/build-typescript-websites.mjs','scripts/export-typescript-websites.py','scripts/theme_manifest.py'].includes(f.filename)))matches=false;
+              }
+              if(matches){portal=candidate;break;}
+            }
+            if(!portal)throw Error('Successful all-nine deployment matching current and producer source required');
             core.setOutput('portal_run',portal.id);core.setOutput('portal_sha',portal.head_sha);
             const branches=await github.paginate(github.rest.repos.listBranches,{owner:context.repo.owner,repo:context.repo.repo,per_page:100});
             const prs=await github.paginate(github.rest.pulls.list,{owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
             if(branches.length!==1||branches[0].name!=='main'||prs.length)throw Error('Main-only state required');
       - uses: actions/download-artifact@v4
         with:
-          run-id: ${{ github.event.workflow_run.id }}
+          run-id: ${{ steps.authority.outputs.producer_run }}
           github-token: ${{ github.token }}
           pattern: deployed-own-sessions-*
           path: test-results/sessions-accepted
@@ -57,7 +77,7 @@ jobs:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           GOVERNANCE_WORKFLOW_WRITES: '1'
           PORTAL_SHA: ${{ steps.authority.outputs.portal_sha }}
-          PRODUCER_SHA: ${{ github.event.workflow_run.head_sha }}
+          PRODUCER_SHA: ${{ steps.authority.outputs.producer_sha }}
           RUN_URL: https://github.com/shaikhrais/primecare-platform/actions/runs/${{ github.run_id }}
         run: |
           python -u - <<'PY'
@@ -95,7 +115,14 @@ jobs:
               assert digest(original)==digest((root/path).read_bytes()),'Runtime source drift: '+path
               producer=subprocess.check_output(['git','show',os.environ['PRODUCER_SHA']+':'+path])
               assert digest(producer)==digest(original),'Producer used a different runtime source: '+path
-          with ProductionWorkflowStore() as db:
+          def open_tracking_store():
+              import psycopg,time
+              for attempt in range(15):
+                  try:return ProductionWorkflowStore()
+                  except psycopg.errors.LockNotAvailable:
+                      if attempt==14:raise
+                      time.sleep(2)
+          with open_tracking_store() as db:
               catalog=read_catalog(db,load_definition())
               assert catalog==json.loads((root/'packages/shared/src/account-sessions.json').read_text())
               packet={'scope':'Actual deployed Chromium account page / public gateway / native PostgreSQL own-session journey','receipts':receipts,'assets':assets,'registration_authority':catalog['authority'],'whole_auth_verified':False,'remaining':['Complete negative/failure-path evidence for the current definition','Full accessibility/PWA/native-platform acceptance','Independent current review approvals'],'source_main':os.environ['GITHUB_SHA']}
