@@ -99,7 +99,7 @@ class RegistrationTests(unittest.TestCase):
             plan=dict(self.plan,id='auth.inspect-email-config',actor_roles=['ceo','maintenance'])
             db.db.execute('UPDATE '+self.table('virtual_workflow_definitions')+' SET flow_id=%s,actor_roles_json=%s,definition_json=%s',('auth.inspect-email-config',json.dumps(plan['actor_roles']),json.dumps(plan)))
             db.execute("INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action) VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,next_action=excluded.next_action,invalidation_json='[]',updated_at=CURRENT_TIMESTAMP",('auth.inspect-email-config',0,'Isolated metadata binding fixture'))
-            for path in ['cloudflare/workers/src/maintenance.ts','cloudflare/workers/src/auth.ts','websites/typescript/src/maintenance.ts','websites/typescript/src/maintenance-client.ts','websites/typescript/src/auth-screen.ts','websites/typescript/src/main.ts']:
+            for path in ['cloudflare/workers/src/maintenance.ts','cloudflare/workers/src/auth.ts','websites/typescript/src/maintenance.ts','websites/typescript/src/maintenance-client.ts','websites/typescript/src/auth-screen.ts','websites/typescript/src/main.ts','websites/typescript/src/styles.css']:
                 target=self.root/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_text('Synthetic metadata fixture source, not an application acceptance receipt')
             target=self.root/'packages/shared/src/maintenance.json';target.parent.mkdir(parents=True,exist_ok=True);target.write_text(json.dumps(catalog))
             with patch.object(binding,'ROOT',self.root):
