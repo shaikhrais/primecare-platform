@@ -36,8 +36,8 @@ const server=createServer(async(req,res)=>{
   }
   if(path.endsWith('/auth/me'))return send(200,{userId:'synthetic-admin',roles:'admin',status:'authenticated'});
   if(path.endsWith('/governance/workspace'))return send(200,fixture);
-  if(path.endsWith('/user/change-password')){if(body.currentPassword!==password)return send(400,{error:'Current password is incorrect'});assert.ok(body.newPassword.length>=12);password=body.newPassword;logged=false;return send(200,{message:'Changed test password'});}
-  if(path.endsWith('/auth/logout')){logged=false;return send(200,{message:'Signed out'});}
+  if(path.endsWith('/user/change-password')){if(body.currentPassword!==password)return send(400,{error:'Current password is incorrect'});assert.ok(body.newPassword.length>=12);password=body.newPassword;logged=false;return send(200,{status:'password_changed',reauthenticationRequired:true});}
+  if(path.endsWith('/auth/logout')){logged=false;return send(200,{status:'signed_out'});}
   return send(404,{error:'No test business implementation exists'});
  }
  try{const file=path==='/portal.json'?'portal.json':path.startsWith('/assets/')?path.slice(1):'index.html';res.setHeader('content-type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.json')?'application/json':'text/html');res.end(await readFile(join(site,file)));}catch{res.writeHead(404);res.end();}
