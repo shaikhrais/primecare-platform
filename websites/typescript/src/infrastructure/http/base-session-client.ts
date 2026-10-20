@@ -15,7 +15,7 @@ export abstract class BaseSessionClient {
  protected retryFingerprint(path:string,method:string,serialized:string|undefined){return method+path+serialized;}
  protected clearRetryPrefix(prefix:string){for(const key of this.retries.keys())if(key.startsWith(prefix))this.retries.delete(key);}
 
- protected async requestJson(path:string,method:string,body?:unknown){
+ protected async requestJson(path:string,method:string,body?:unknown,expectedStatus?:number){
   this.assertSession();
   const serialized=body===undefined?undefined:JSON.stringify(body),key=this.retryFingerprint(path,method,serialized),mutation=method!=='GET';
   if(mutation&&!this.retries.has(key))this.retries.set(key,crypto.randomUUID());
@@ -23,6 +23,7 @@ export abstract class BaseSessionClient {
   const value=await response.json();
   this.assertSession();
   if(!response.ok)this.rejectResponse(response,value);
+  if(expectedStatus!==undefined&&response.status!==expectedStatus)this.rejectResponse(new Response(null,{status:502}),value);
   if(mutation)this.retries.delete(key);
   return value;
  }

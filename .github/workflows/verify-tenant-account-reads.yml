@@ -1,8 +1,5 @@
 name: Verify deployed CEO account read workflows
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/verify-tenant-account-reads.yml', 'websites/typescript/src/tenant-accounts-*.ts', 'tools/auth-verification/test-live-tenant-account-reads.py']
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,3 +1,4 @@
+import {accountMutationMarkup,bindAccountMutation} from './account-mutations-panel';
 import catalog from '../../../packages/shared/src/tenant-account-reads.json';
 import {TenantAccountsClient,type ReadMode} from './tenant-accounts-client';
 import {TenantAccountsController} from './tenant-accounts-controller';
@@ -5,12 +6,14 @@ const escape=(v:unknown)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':
 const id=(key:keyof typeof catalog.controls)=>catalog.controls[key].testId;
 export const tenantAccountsScreen=catalog.screenCode;
 export function tenantAccountsMarkup(){return '<section class="section operations-board" data-cy="'+id('root')+'"></section>';}
-export function bindTenantAccounts(root:HTMLElement,gateway:string,token:string):()=>void{
+export function bindTenantAccounts(root:HTMLElement,gateway:string,token:string,actorRole:string,roleLabel:(v:string)=>string):()=>void{
  const panel=root.querySelector<HTMLElement>('[data-cy="'+id('root')+'"]');if(!panel)return()=>{};
  const locale=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en';
  const t=(key:keyof typeof catalog.locales.en)=>escape(catalog.locales[locale][key]);
- const c=new TenantAccountsController(new TenantAccountsClient(gateway,token));let focus:string|null=null;
+ const c=new TenantAccountsController(new TenantAccountsClient(gateway,token));let focus:string|null=null;let disposeMutation=()=>{};
+ const created=(event:Event)=>{const email=(event as CustomEvent<{email:string}>).detail?.email;if(typeof email==='string')void c.load(email);};root.addEventListener('tenant-account-created',created);
  const stop=c.subscribe(s=>{
+  disposeMutation();disposeMutation=()=>{};
   const active=document.activeElement instanceof HTMLElement?document.activeElement:null;if(active&&panel.contains(active))focus=active.getAttribute('data-cy');
   const disabled=s.busy?'disabled':'';
   const button=(key:keyof typeof catalog.controls,label:keyof typeof catalog.locales.en,extra='',suffix='')=>'<button type="button" data-cy="'+id(key)+suffix+'" '+extra+' '+disabled+'>'+t(label)+'</button>';
@@ -22,7 +25,8 @@ export function bindTenantAccounts(root:HTMLElement,gateway:string,token:string)
   panel.querySelector('form')!.onsubmit=e=>{e.preventDefault();void c.load(panel.querySelector<HTMLInputElement>('[data-cy="'+id('search')+'"]')!.value);};
   on('refresh',()=>c.load());on('previous',()=>c.previous());on('next',()=>c.next());on('detailPrevious',()=>c.detailPage(-1));on('detailNext',()=>c.detailPage(1));
   for(const mode of ['details','sessions','managementAudit','creationAudit'] as ReadMode[])panel.querySelectorAll<HTMLButtonElement>('[data-cy^="'+id(mode)+'-"]').forEach(b=>b.onclick=()=>void c.open(mode,b.dataset.accountId!));
+  if(s.mode==='details'&&s.selected&&s.detail.rows.length===1&&!s.busy){panel.querySelector('[data-cy="'+id('detailPanel')+'"]')!.insertAdjacentHTML('beforeend',accountMutationMarkup());disposeMutation=bindAccountMutation(panel,gateway,token,actorRole,s.detail.rows[0] as unknown as import('./tenant-accounts-client').AccountRow,s.accounts.assignableRoles,roleLabel,()=>void c.load(String(s.detail.rows[0].email)));}
   if(!s.busy&&focus)panel.querySelector<HTMLElement>('[data-cy="'+focus+'"]')?.focus();
  });
- void c.load();return()=>{stop();c.dispose();};
+ void c.load();return()=>{disposeMutation();root.removeEventListener('tenant-account-created',created);stop();c.dispose();};
 }

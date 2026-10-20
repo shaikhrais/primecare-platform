@@ -1,0 +1,316 @@
+{
+  "namespace": "accountMutations",
+  "panelFile": "websites/typescript/src/account-mutations-panel.ts",
+  "clientFile": "websites/typescript/src/account-mutations-client.ts",
+  "actors": {
+    "ceo": {
+      "id": 20,
+      "screenId": 705,
+      "screenCode": "ceo_dashboard",
+      "route": "/offices/corporate/roles/ceo/dashboard",
+      "targets": [
+        "admin",
+        "bus_dev",
+        "caregiver",
+        "ceo",
+        "cfo",
+        "chiropractor",
+        "ciso",
+        "clinical_director",
+        "cns",
+        "community_outreach",
+        "compliance",
+        "coo",
+        "cto",
+        "customer_support",
+        "cx_director",
+        "dynamic",
+        "employee",
+        "family",
+        "finance_director",
+        "franchise_sales",
+        "gm",
+        "governance",
+        "growth_caller",
+        "growth_coordinator",
+        "growth_google",
+        "growth_meta",
+        "growth_offline",
+        "growth_seo",
+        "guest",
+        "hr_director",
+        "hr_hiring",
+        "hsw",
+        "infrastructure",
+        "intake",
+        "legal",
+        "local_marketing",
+        "lpn",
+        "maintenance",
+        "marketing",
+        "np",
+        "ops_manager",
+        "owner",
+        "partnership",
+        "patient",
+        "pediatric",
+        "physician",
+        "physio",
+        "portal",
+        "premium_concierge",
+        "psw",
+        "qa_specialist",
+        "regional_bdm",
+        "regional_manager_usa",
+        "rmt",
+        "rn",
+        "rn_field_supervisor",
+        "rpn",
+        "scheduler",
+        "scrum_master",
+        "shareholder",
+        "social_worker",
+        "system_verification",
+        "territory_expansion",
+        "territory_sales",
+        "therapist",
+        "training",
+        "training_coordinator",
+        "training_director",
+        "vip_manager",
+        "volunteer",
+        "volunteer_coordinator"
+      ]
+    },
+    "hr_director": {
+      "id": 27,
+      "screenId": 39,
+      "screenCode": "hr_director_dashboard",
+      "route": "/offices/corporate/roles/hr_director/dashboard",
+      "targets": [
+        "admin",
+        "caregiver",
+        "chiropractor",
+        "cns",
+        "community_outreach",
+        "customer_support",
+        "employee",
+        "franchise_sales",
+        "gm",
+        "hr_hiring",
+        "hsw",
+        "intake",
+        "local_marketing",
+        "lpn",
+        "np",
+        "ops_manager",
+        "partnership",
+        "pediatric",
+        "physician",
+        "physio",
+        "premium_concierge",
+        "psw",
+        "qa_specialist",
+        "regional_bdm",
+        "regional_manager_usa",
+        "rmt",
+        "rn",
+        "rn_field_supervisor",
+        "rpn",
+        "scheduler",
+        "scrum_master",
+        "social_worker",
+        "territory_expansion",
+        "territory_sales",
+        "therapist",
+        "vip_manager",
+        "volunteer",
+        "volunteer_coordinator"
+      ]
+    }
+  },
+  "controls": {
+    "createRoot": {
+      "testId": "account-mutations-create-root",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "createForm": {
+      "testId": "account-mutations-create-form",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "email": {
+      "testId": "account-mutations-email",
+      "component": "prime_text_field",
+      "componentId": 3
+    },
+    "password": {
+      "testId": "account-mutations-password",
+      "component": "prime_text_field",
+      "componentId": 3
+    },
+    "createRole": {
+      "testId": "account-mutations-create-role",
+      "component": "prime_dropdown_web",
+      "componentId": 12
+    },
+    "createSubmit": {
+      "testId": "account-mutations-create-submit",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "createStatus": {
+      "testId": "account-mutations-create-status",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "manageRoot": {
+      "testId": "account-mutations-manage-root",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "manageRole": {
+      "testId": "account-mutations-manage-role",
+      "component": "prime_dropdown_web",
+      "componentId": 12
+    },
+    "manageStatus": {
+      "testId": "account-mutations-manage-status",
+      "component": "prime_dropdown_web",
+      "componentId": 12
+    },
+    "save": {
+      "testId": "account-mutations-save",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "revoke": {
+      "testId": "account-mutations-revoke",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "confirmation": {
+      "testId": "account-mutations-confirmation",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "confirm": {
+      "testId": "account-mutations-confirm",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "cancel": {
+      "testId": "account-mutations-cancel",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "operationStatus": {
+      "testId": "account-mutations-operation-status",
+      "component": "prime_card",
+      "componentId": 2
+    }
+  },
+  "locales": {
+    "en": {
+      "create": "Create an account",
+      "email": "Email",
+      "password": "Temporary password",
+      "role": "Role",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "save": "Save account changes",
+      "revoke": "Sign this account out on all devices",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "confirmation": "This action revokes all sessions for the selected account.",
+      "created": "Account created",
+      "saved": "Account updated. Existing sessions were revoked.",
+      "revoked": "All sessions revoked",
+      "failed": "Unable to complete the action. Refresh authoritative records before retrying.",
+      "busy": "Working",
+      "protected": "This account cannot be modified here."
+    },
+    "fr": {
+      "create": "Créer un compte",
+      "email": "Courriel",
+      "password": "Mot de passe temporaire",
+      "role": "Rôle",
+      "status": "Statut",
+      "active": "Actif",
+      "inactive": "Inactif",
+      "save": "Enregistrer les modifications",
+      "revoke": "Déconnecter ce compte de tous les appareils",
+      "confirm": "Confirmer",
+      "cancel": "Annuler",
+      "confirmation": "Cette action révoque toutes les sessions du compte sélectionné.",
+      "created": "Compte créé",
+      "saved": "Compte modifié. Les sessions existantes ont été révoquées.",
+      "revoked": "Toutes les sessions ont été révoquées",
+      "failed": "Action impossible. Actualisez les données avant de réessayer.",
+      "busy": "En cours",
+      "protected": "Ce compte ne peut pas être modifié ici."
+    },
+    "es": {
+      "create": "Crear una cuenta",
+      "email": "Correo electrónico",
+      "password": "Contraseña temporal",
+      "role": "Rol",
+      "status": "Estado",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "save": "Guardar los cambios",
+      "revoke": "Cerrar las sesiones de esta cuenta en todos los dispositivos",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "confirmation": "Esta acción revoca todas las sesiones de la cuenta seleccionada.",
+      "created": "Cuenta creada",
+      "saved": "Cuenta actualizada. Se revocaron las sesiones existentes.",
+      "revoked": "Todas las sesiones revocadas",
+      "failed": "No se pudo completar la acción. Actualice los registros antes de reintentar.",
+      "busy": "En proceso",
+      "protected": "Esta cuenta no se puede modificar aquí."
+    }
+  },
+  "operations": {
+    "create": {
+      "apiId": 1,
+      "path": "/v1/auth/register",
+      "method": "POST",
+      "actors": [
+        "ceo",
+        "hr_director"
+      ],
+      "flow": "auth.create-tenant-account",
+      "permission": "auth_account_creation_policy"
+    },
+    "save": {
+      "apiId": 11,
+      "path": "/v1/admin/users",
+      "method": "POST",
+      "actors": [
+        "ceo"
+      ],
+      "flow": "auth.manage-account",
+      "permission": "auth_account_management_policy"
+    },
+    "revoke": {
+      "apiId": 16422,
+      "path": "/v1/admin/users/{userId}/sessions",
+      "method": "DELETE",
+      "actors": [
+        "ceo"
+      ],
+      "flow": "auth.revoke-account-sessions",
+      "permission": "auth_account_management_policy"
+    }
+  },
+  "authority": {
+    "source": "pinned-production-postgresql",
+    "schema": "governance_68b0b02dd1215f58630d2c1a",
+    "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+    "newGrants": 0,
+    "reviewStatus": "pending"
+  }
+}

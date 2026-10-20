@@ -29,6 +29,7 @@ execFileSync('python3', ['scripts/verify-maintenance-catalog.py'], { stdio: 'inh
 execFileSync('python3', ['scripts/verify-recovery-catalog.py'], { stdio: 'inherit' });
 execFileSync('python3', ['scripts/verify-account-sessions-catalog.py'], { stdio: 'inherit' });
 execFileSync('python3', ['scripts/verify-tenant-account-reads-catalog.py'], { stdio: 'inherit' });
+execFileSync('python3', ['scripts/verify-account-mutations-catalog.py'], { stdio: 'inherit' });
 execFileSync('python3', ['scripts/verify-workspace-resources.py'], { stdio: 'inherit' });
 execFileSync('python3', ['scripts/export-typescript-websites.py', '--output', generated, '--gateway', gateway], { stdio: 'inherit' });
 rmSync(dist, { recursive: true, force: true }); mkdirSync(join(dist, 'assets'), { recursive: true });

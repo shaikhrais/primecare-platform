@@ -74,7 +74,7 @@ def register(db,d):
  return catalog(db,d)
 def bind_implementation(db,result):
  if result!=catalog(db,definition()) or result!=json.loads((ROOT/'packages/shared/src/tenant-account-reads.json').read_text()):raise GovernanceReadError('Current production-generated read catalog required')
- d=definition();paths=['websites/typescript/src/workspace.ts',d['panelFile'],d['clientFile'],'websites/typescript/src/tenant-accounts-controller.ts','packages/shared/src/tenant-account-reads.json','cloudflare/workers/src/auth.ts','cloudflare/workers/src/account-admin.ts','cloudflare/workers/src/account-management.ts','cloudflare/workers/src/gateway.ts']
+ d=definition();paths=['websites/typescript/src/workspace.ts',d['panelFile'],d['clientFile'],'websites/typescript/src/tenant-accounts-controller.ts','packages/shared/src/tenant-account-reads.json','cloudflare/workers/src/auth.ts','cloudflare/workers/src/account-admin.ts','cloudflare/workers/src/account-management.ts','cloudflare/workers/src/gateway.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','websites/typescript/src/account-mutations-panel.ts','websites/typescript/src/account-mutations-client.ts','packages/shared/src/account-mutations.json']
  hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths};bindings=[]
  root_id=db.execute("SELECT id FROM screen_components WHERE screen_id=705 AND component_code='tenantAccounts.root'").fetchone()[0]
  for op in d['operations'].values():
@@ -99,9 +99,16 @@ def bind_implementation(db,result):
    db.db.execute('INSERT INTO '+db.table('virtual_workflow_source_links')+' (_primecare_import_row,'+','.join(map(quote,fields))+') VALUES('+','.join(['%s']*(len(fields)+1))+')',[ordinal,*[db._value('virtual_workflow_source_links',k,v[k]) for k in fields]])
   bindings.append(op['flow'])
  return bindings
+def open_store():
+ import psycopg,time
+ for attempt in range(5):
+  try:return TenantAccountsStore()
+  except psycopg.errors.LockNotAvailable:
+   if attempt==4:raise
+   time.sleep(2)
 def main():
  if not any(x in sys.argv for x in ['--apply','--dry-run']):raise SystemExit('Explicit --apply or --dry-run required')
- with TenantAccountsStore() as db:
+ with open_store() as db:
   result=register(db,definition());assert result==register(db,definition()),'Idempotence failure'
   bindings=bind_implementation(db,result) if '--bind' in sys.argv else []
   if '--dry-run' in sys.argv:db.db.rollback()
