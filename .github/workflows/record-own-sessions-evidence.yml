@@ -1,0 +1,107 @@
+name: Record deployed own-session evidence
+on:
+  workflow_run:
+    workflows: ['Verify deployed own-session controls']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  record:
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const run=context.payload.workflow_run;
+            if(run.status!=='completed'||run.conclusion!=='success')throw Error('Deployed session proof has not passed');
+            const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner:context.repo.owner,repo:context.repo.repo,run_id:run.id,per_page:100});
+            if(jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').length!==3)throw Error('Three successful live browser proof jobs required');
+            const branches=await github.paginate(github.rest.repos.listBranches,{owner:context.repo.owner,repo:context.repo.repo,per_page:100});
+            const prs=await github.paginate(github.rest.pulls.list,{owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
+            if(branches.length!==1||branches[0].name!=='main'||prs.length)throw Error('Main-only state required');
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          pattern: deployed-own-sessions-*
+          path: test-results/sessions-accepted
+          merge-multiple: false
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39445372653
+          github-token: ${{ github.token }}
+          name: primecare-typescript-websites
+          path: test-results/sessions-built-websites
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Verify deployed assets and record current scoped evidence
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          RUN_URL: https://github.com/shaikhrais/primecare-platform/actions/runs/${{ github.run_id }}
+        run: |
+          python -u - <<'PY'
+          import sys,json,pathlib,hashlib,os,subprocess,urllib.request
+          sys.path.insert(0,'tools/workflow-verification');sys.path.insert(0,'tools/governance-production')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,summary
+          from account_sessions_registration import read_catalog,definition as load_definition
+          root=pathlib.Path.cwd();out=root/'test-results/sessions-attestation';out.mkdir(parents=True,exist_ok=True)
+          digest=lambda b:hashlib.sha256(b).hexdigest()
+          evidence=[];receipts=[]
+          files=list((root/'test-results/sessions-accepted').rglob('receipt.json'))
+          assert len(files)==3,'Three canonical browser receipts required'
+          for path in files:
+              r=json.loads(path.read_text())
+              assert r.get('passed') is True and r.get('whole_workflow_verified') is False
+              assert r.get('cleanup')=='Exact synthetic users, tenants, sessions, audits and rate counters removed'
+              assert len(r.get('checks',[]))>=25
+              receipts.append(r)
+          assert {(r['locale'],r['viewport']) for r in receipts}=={('en',320),('fr',768),('es',1440)}
+          assets=[]
+          for project in ['primecare-clinic','primecare-client','primecare-business-development','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint']:
+              expected=(root/'test-results/sessions-built-websites'/project/'assets/app.js').read_bytes()
+              req=urllib.request.Request('https://'+project+'.pages.dev/assets/app.js?enable-semantics=true',headers={'User-Agent':'node','Accept-Encoding':'identity'})
+              with urllib.request.urlopen(req,timeout=30) as response:actual=response.read()
+              assert digest(actual)==digest(expected),'Deployed runtime asset drift: '+project
+              assets.append({'project':project,'asset_sha256':digest(actual),'source_commit':'75d4302712488e603eea795db1209d279b373b71'})
+          runtime_paths=['websites/typescript/src/main.ts','websites/typescript/src/account.ts','websites/typescript/src/sessions-panel.ts','websites/typescript/src/sessions-client.ts','websites/typescript/src/sessions-controller.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','packages/shared/src/account-sessions.json']
+          for path in runtime_paths:
+              original=subprocess.check_output(['git','show','75d4302712488e603eea795db1209d279b373b71:'+path])
+              assert digest(original)==digest((root/path).read_bytes()),'Runtime source drift: '+path
+          with ProductionWorkflowStore() as db:
+              catalog=read_catalog(db,load_definition())
+              assert catalog==json.loads((root/'packages/shared/src/account-sessions.json').read_text())
+              packet={'scope':'Actual deployed Chromium account page / public gateway / native PostgreSQL own-session journey','receipts':receipts,'assets':assets,'registration_authority':catalog['authority'],'whole_auth_verified':False,'remaining':['Complete negative/failure-path evidence for the current definition','Full accessibility/PWA/native-platform acceptance','Independent current review approvals'],'source_main':os.environ['GITHUB_SHA']}
+              p=out/'receipt.json';p.write_text(json.dumps(packet,indent=2))
+              for path in list((root/'test-results/sessions-accepted').rglob('*'))+[p]:
+                  if path.is_file():evidence.append({'kind':'browser','path':str(path.relative_to(root)),'sha256':digest(path.read_bytes()),'url':os.environ['RUN_URL']})
+              attempts=[]
+              for flow in ['auth.inspect-own-sessions','auth.revoke-own-sessions']:
+                  definition=json.loads(db.execute('SELECT definition_json FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()[0])
+                  sources=definition['source_sha256']
+                  for path,sha in sources.items():assert digest((root/path).read_bytes())==sha,'Definition/source drift: '+path
+                  blockers=['Actual deployed own-session browser/API/native-database journey passed in EN/FR/ES at 320/768/1440 widths, with cross-tenant denial, audit confirmation, revocation and reload. These scoped checks do not prove all roles or every registered failure alternative.','Own-session controls and canonical authenticated-self API metadata are reconciled in pinned production. Localization values remain reviewed=0/approved=0; registration does not grant review approval.','Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete.']
+                  attempts.append(record_attempt(db,flow,{'status':'implemented-unverified','test_status':'scoped_pass','scope':'scoped','source_bindings':sources,'evidence':evidence,'issues':[],'blockers':blockers,'next_action':'Complete current failure alternatives, accessibility/PWA/native acceptance and independent reviews; preserve these deployed proof receipts.'},root))
+              state={'attempt_ids':[a['attempt_id'] for a in attempts],'workflows':['auth.inspect-own-sessions','auth.revoke-own-sessions'],'browser_cases':3,'deployed_portal_assets':len(assets),'summary':summary(db),'source_main':os.environ['GITHUB_SHA'],'main_only':True,'open_prs':0,'whole_auth_verified':False,'evidence':os.environ['RUN_URL']}
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('auth-own-sessions-browser-current',json.dumps(state)))
+              (out/'summary.json').write_text(json.dumps(state,indent=2))
+          print('AUTH_OWN_SESSIONS_RECORDED '+json.dumps(state))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: current-deployed-sessions-attestation
+          path: test-results/sessions-attestation
+          retention-days: 90
