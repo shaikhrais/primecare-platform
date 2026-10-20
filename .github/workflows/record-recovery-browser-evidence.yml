@@ -1,0 +1,104 @@
+name: Record current deployed recovery evidence
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/record-recovery-browser-evidence.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const {data:run}=await github.rest.actions.getWorkflowRun({owner:context.repo.owner,repo:context.repo.repo,run_id:39440557443});
+            if(run.status!=='completed'||run.conclusion!=='success'||run.head_sha!=='32f90b4c11bee519511c26862401f61aace3c64b')throw Error('Canonical deployed browser producer has not passed');
+            const branches=await github.paginate(github.rest.repos.listBranches,{owner:context.repo.owner,repo:context.repo.repo,per_page:100});
+            const prs=await github.paginate(github.rest.pulls.list,{owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
+            if(branches.length!==1||branches[0].name!=='main'||prs.length)throw Error('Main-only state required');
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39440557443
+          github-token: ${{ github.token }}
+          pattern: deployed-browser-auth-recovery-*
+          path: test-results/recovery-accepted
+          merge-multiple: false
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39439179805
+          github-token: ${{ github.token }}
+          name: primecare-typescript-websites
+          path: test-results/recovery-built-websites
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Verify deployed assets and record current scoped evidence
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          RUN_URL: https://github.com/shaikhrais/primecare-platform/actions/runs/${{ github.run_id }}
+        run: |
+          python -u - <<'PY'
+          import sys,json,pathlib,hashlib,os,subprocess,urllib.request
+          sys.path.insert(0,'tools/workflow-verification');sys.path.insert(0,'tools/governance-production')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,summary
+          from recovery_registration import read_catalog,load_definition
+          root=pathlib.Path.cwd();out=root/'test-results/recovery-attestation';out.mkdir(parents=True,exist_ok=True)
+          digest=lambda b:hashlib.sha256(b).hexdigest()
+          evidence=[];receipts=[]
+          files=list((root/'test-results/recovery-accepted').rglob('results.json'))
+          assert len(files)==3,'Three canonical browser receipts required'
+          for path in files:
+              r=json.loads(path.read_text())
+              assert r.get('deployed_recovery_passed') is True and r.get('received') is True and r.get('roundtrip_passed') is True
+              assert r.get('account_cleanup')=='Exact synthetic user, tenant, sessions, codes, audit and counters removed'
+              assert 'Only the exact nonce/hash-matched synthetic message removed' in r.get('cleanup','')
+              assert len(r.get('auth_checks',[]))>=15
+              receipts.append(r)
+          assert {(r['locale'],r['viewport_width']) for r in receipts}=={('en',320),('fr',768),('es',1440)}
+          assets=[]
+          for project in ['primecare-clinic','primecare-client','primecare-business-development','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint']:
+              expected=(root/'test-results/recovery-built-websites'/project/'assets/app.js').read_bytes()
+              req=urllib.request.Request('https://'+project+'.pages.dev/assets/app.js?enable-semantics=true',headers={'User-Agent':'node','Accept-Encoding':'identity'})
+              with urllib.request.urlopen(req,timeout=30) as response:actual=response.read()
+              assert digest(actual)==digest(expected),'Deployed runtime asset drift: '+project
+              assets.append({'project':project,'asset_sha256':digest(actual),'source_commit':'a8470ea3eb093f5d76c68a76abaaf406c16c4d52'})
+          runtime_paths=['websites/typescript/src/main.ts','websites/typescript/src/auth-screen.ts','websites/typescript/src/auth-recovery.ts','packages/shared/src/auth-recovery.json']
+          for path in runtime_paths:
+              original=subprocess.check_output(['git','show','a8470ea3eb093f5d76c68a76abaaf406c16c4d52:'+path])
+              assert digest(original)==digest((root/path).read_bytes()),'Runtime source drift: '+path
+          with ProductionWorkflowStore() as db:
+              catalog=read_catalog(db,load_definition())
+              assert catalog==json.loads((root/'packages/shared/src/auth-recovery.json').read_text())
+              packet={'scope':'Actual deployed Chromium browser / owned inbox / public gateway / native PostgreSQL positive recovery journey','receipts':receipts,'assets':assets,'registration_authority':catalog['authority'],'whole_auth_verified':False,'remaining':['Complete negative/failure-path evidence for the current definition','Full accessibility/PWA/native-platform acceptance','Independent current review approvals'],'source_main':os.environ['GITHUB_SHA']}
+              p=out/'receipt.json';p.write_text(json.dumps(packet,indent=2))
+              for path in list((root/'test-results/recovery-accepted').rglob('*'))+[p]:
+                  if path.is_file():evidence.append({'kind':'browser','path':str(path.relative_to(root)),'sha256':digest(path.read_bytes()),'url':os.environ['RUN_URL']})
+              attempts=[]
+              for flow in ['auth.forgot-password','auth.reset-password']:
+                  definition=json.loads(db.execute('SELECT definition_json FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()[0])
+                  sources=definition['source_sha256']
+                  for path,sha in sources.items():assert digest((root/path).read_bytes())==sha,'Definition/source drift: '+path
+                  blockers=['Actual deployed browser/email/API/native-database recovery passed in EN/FR/ES at 320/768/1440 widths. Positive journey and code-replay denial do not prove every registered failure alternative.','Recovery registration and canonical public API metadata are reconciled in pinned production. Localization values remain reviewed=0/approved=0; registration does not grant review approval.','Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete.']
+                  attempts.append(record_attempt(db,flow,{'status':'implemented-unverified','test_status':'scoped_pass','scope':'scoped','source_bindings':sources,'evidence':evidence,'issues':[],'blockers':blockers,'next_action':'Complete current failure alternatives, accessibility/PWA/native acceptance and independent reviews; preserve these deployed proof receipts.'},root))
+              state={'attempt_ids':[a['attempt_id'] for a in attempts],'workflows':['auth.forgot-password','auth.reset-password'],'browser_cases':3,'deployed_portal_assets':len(assets),'summary':summary(db),'source_main':os.environ['GITHUB_SHA'],'main_only':True,'open_prs':0,'whole_auth_verified':False,'evidence':os.environ['RUN_URL']}
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('auth-recovery-browser-current',json.dumps(state)))
+              (out/'summary.json').write_text(json.dumps(state,indent=2))
+          print('AUTH_DEPLOYED_BROWSER_RECORDED '+json.dumps(state))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: current-deployed-recovery-attestation
+          path: test-results/recovery-attestation
+          retention-days: 90
