@@ -1,0 +1,155 @@
+name: Inspect governed same tenant account sessions
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/account-sessions.yml]
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+jobs:
+  requirements:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/govt-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Load live specifications and theme after merge
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY'
+          import sys,json,pathlib,sqlite3
+          sys.path.insert(0,'tools/governance-production')
+          from production_reader import connect
+          flow='auth.inspect-account-sessions'
+          with connect() as db:
+              db.row_factory=sqlite3.Row
+              result={}
+              for name in ['virtual_workflow_definitions','virtual_workflow_steps','virtual_workflow_source_links','virtual_workflow_checkpoints']:
+                  result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE flow_id=?',(flow,))]
+              result['apis']=[dict(r) for r in db.execute("SELECT * FROM api_endpoints WHERE route_path LIKE '%admin/users%'")]
+              ids=[r['id'] for r in result['apis']]
+              for name,key in [('api_permissions','api_id'),('screen_api_links','api_id')]:
+                  result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE '+key+' IN ('+','.join('?' for _ in ids)+')',ids)] if ids else []
+              result['schema']={name:[dict(r) for r in db.execute('PRAGMA table_info('+name+')')] for name in ['roles','screens','screen_sections','screen_required_elements','screen_section_elements','screen_components','screen_component_map','auth_role_permissions','virtual_role_flow_guides','virtual_flow_catalog_snapshots']}
+              result['management_policy']=[dict(r) for r in db.execute("SELECT * FROM auth_account_management_policy WHERE actor_role_code='ceo'")]
+              screen_ids=sorted(set(r['screen_id'] for r in result['screen_api_links']))
+              result['linked_screens']=[dict(r) for r in db.execute('SELECT * FROM screens WHERE id IN ('+','.join('?' for _ in screen_ids)+')',screen_ids)] if screen_ids else []
+              for name in ['screen_required_elements','screen_section_elements','screen_sections','screen_components']:
+                  result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE screen_id IN ('+','.join('?' for _ in screen_ids)+')',screen_ids)] if screen_ids else []
+              result['role_screen_permissions_schema']=[dict(r) for r in db.execute('PRAGMA table_info(role_screen_permissions)')]
+              result['permission_tables']=[dict(r) for r in db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE '%permission%'")]
+              result['guides']=[dict(r) for r in db.execute("SELECT * FROM virtual_role_flow_guides WHERE guide_json LIKE '%auth.inspect-account-sessions%'")]
+              result['totals']=[dict(r) for r in db.execute("SELECT verification_status,COUNT(*) n FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY verification_status")]
+              result['catalogue']=[dict(r) for r in db.execute("SELECT flow_kind,COUNT(*) n FROM virtual_workflow_definitions GROUP BY flow_kind")]
+              path=pathlib.Path('test-results/account-sessions');path.mkdir(parents=True,exist_ok=True)
+              (path/'governance.json').write_text(json.dumps(result,indent=2))
+              print('ACCOUNT_SESSIONS_LIVE '+json.dumps(result))
+          
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: account-sessions-live-requirements
+          path: test-results/
+  native:
+    needs: requirements
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: primecare
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: login_browser
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U primecare -d login_browser"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/download-artifact@v4
+        with:
+          name: account-sessions-live-requirements
+          path: test-results
+      - run: |
+          npm install --prefix /tmp/inspect-account --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@3 esbuild@0.27.2
+          ln -s /tmp/inspect-account/node_modules node_modules
+      - name: Test credential login and timestamp only account sessions API
+        env:
+          LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
+        run: |
+          cat > test-results/account-sessions/run.mjs <<'NATIVE'
+          import assert from 'node:assert/strict';
+          import pg from 'pg';import bcrypt from 'bcryptjs';import {build} from 'esbuild';
+          import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';import {createRequire} from 'node:module';import {createServer} from 'node:http';import {createHash,randomUUID} from 'node:crypto';import {tmpdir} from 'node:os';import {join} from 'node:path';
+          const out='test-results/account-sessions';await mkdir(out,{recursive:true});
+          if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL)throw Error('Production credentials forbidden in browser fixture');
+          const connection=process.env.LOGIN_BROWSER_DATABASE_URL,url=new URL(connection);if(!['localhost','127.0.0.1'].includes(url.hostname)||url.pathname!='/login_browser')throw Error('Loopback login_browser database required');
+          const db=new pg.Client({connectionString:connection});await db.connect();const schema='login_'+randomUUID().replaceAll('-','');await db.query('CREATE SCHEMA '+schema);await db.query('SET search_path TO '+schema);url.searchParams.set('options','-c search_path='+schema);
+          const dir=await mkdtemp(join(tmpdir(),'primecare-login-main-')),require=createRequire(import.meta.url),digest=v=>createHash('sha256').update(v).digest('hex');
+          const receipt={workflow_id:'auth.inspect-account-sessions-sessions',passed:false,wholeTaskVerified:false,commit:process.env.GITHUB_SHA,cases:[],apiChecks:[],trace:[],navigation:[],source_bindings:{},limitations:['Loopback hosting with production source; not a deployed Cloudflare execution.','Cloudflare source limiter is a controlled synthetic binding; trusted source/origin headers are supplied by the harness.','Portal manifest only transports production theme plus fixture origin/name; no production business records.','Platform-admin landing only; all registered role destinations, full accessibility/PWA and independent review gates remain pending.']};
+          let server,browser,bridgeFailure;const password='Synthetic-only!Login-2026',actor=randomUUID(),tenant=randomUUID(),foreign=randomUUID(),admin=randomUUID(),denied=randomUUID();
+          const policy=JSON.parse(await readFile(out+'/governance.json','utf8'));const definition=policy.virtual_workflow_definitions[0];assert.equal(definition.definition_sha256,'7e3f0d10b9878cbbc6e62eda9e0df68f650e3d39bda67fb0ce722012624e17d3');receipt.definition_sha256=definition.definition_sha256;receipt.limitations=['API-only native execution; required account-session UI is absent, so browser/UI acceptance is blocked.','Loopback actual gateway/service; deployed edge/cookie policy, accessibility/PWA, localized UI, evidence playback and independent reviews remain unproven.','Read-only workflow; no mutation rollback or offline browser acceptance claimed when the UI is absent.'];
+          try{
+           assert.equal(policy.apis.find(a=>a.id===16421)?.route_path,'/v1/admin/users/{userId}/sessions');
+           await db.query('CREATE TABLE tenants(id uuid PRIMARY KEY,name text,slug text UNIQUE,status text,created_at timestamptz DEFAULT NOW(),updated_at timestamptz DEFAULT NOW());CREATE TABLE users(id uuid PRIMARY KEY,tenant_id uuid REFERENCES tenants(id),email text UNIQUE,roles text,password_hash text,status text,updated_at timestamptz DEFAULT NOW());');
+           for(const file of ['20260926_auth_sessions.sql','20260928_auth_rate_limits.sql','20260928_auth_account_audit.sql','20260928_auth_management_audit.sql','20261011_platform_administration.sql','20261013_screen_text.sql'])await db.query(await readFile('packages/database/migrations/'+file,'utf8'));
+           await db.query("INSERT INTO tenants(id,name,slug,status) VALUES($1,'Synthetic Primary','synthetic-primary','active'),($2,'Synthetic Foreign','synthetic-foreign','active')",[tenant,foreign]);const hash=await bcrypt.hash(password,12);
+           for(const [id,t,email,role]of [[actor,tenant,'platform@example.invalid','platform_admin'],[admin,foreign,'tenant-admin@example.invalid','tenant_admin'],[denied,tenant,'psw@example.invalid','psw']])await db.query("INSERT INTO users(id,tenant_id,email,roles,password_hash,status) VALUES($1,$2,$3,$4,$5,'active')",[id,t,email,role,hash]);
+           const front=await build({entryPoints:['websites/typescript/src/main.ts'],bundle:true,write:false,metafile:true,platform:'browser',format:'iife'});
+           const back=await build({stdin:{contents:"export {default as gateway} from './cloudflare/workers/src/gateway';export {default as service} from './cloudflare/workers/src/service';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'cjs',write:false,metafile:true,external:['pg']});
+           const backend=join(dir,'backend.cjs');await writeFile(backend,back.outputFiles[0].text.replaceAll('require("pg")',`require(${JSON.stringify(join(process.cwd(),'node_modules/pg'))})`));const {gateway,service}=require(backend);
+           const paths=[...Object.keys(front.metafile.inputs),...Object.keys(back.metafile.inputs),'websites/typescript/src/styles.css',...['20260926_auth_sessions.sql','20260928_auth_rate_limits.sql','20260928_auth_account_audit.sql','20260928_auth_management_audit.sql','20261011_platform_administration.sql','20261013_screen_text.sql'].map(f=>'packages/database/migrations/'+f)];for(const path of paths)if(path!=='<stdin>'&&!path.includes('node_modules/'))receipt.source_bindings[path]=digest(await readFile(path));
+           let sourceAllowed=true;const env={DB_URL:url.toString(),AUTH_SOURCE_LIMIT:{limit:async()=>({success:true})},WORKSPACE_SOURCE_LIMIT:{limit:async()=>({success:sourceAllowed})}},css=await readFile('websites/typescript/src/styles.css','utf8');
+           server=createServer(async(req,res)=>{try{const requestUrl=new URL(req.url,'http://fixture');
+            if(requestUrl.pathname==='/app.js'){res.setHeader('content-type','text/javascript');res.end(front.outputFiles[0].text);return;}
+            if(requestUrl.pathname==='/portal.json'){res.setHeader('content-type','application/json');res.end(JSON.stringify({project:'PrimeCare',appCode:'pc',name:'PrimeCare',apiGateway:origin,theme:policy.theme}));return;}
+            if(['/login','/platform/administration','/'].includes(requestUrl.pathname)){const locale=requestUrl.searchParams.get('locale')||'en';res.setHeader('content-type','text/html');res.end(`<!doctype html><html lang="${['en','fr','es'].includes(locale)?locale:'en'}"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrimeCare synthetic login</title><style>${css}</style></head><body><div id="app"></div><script src="/app.js"></script></body></html>`);return;}
+            if(requestUrl.pathname.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);headers.delete('accept-encoding');headers.set('origin','https://primecare-clinic.pages.dev');headers.set('cf-connecting-ip','192.0.2.1');
+             const request=new Request(origin+req.url,{method:req.method,headers,...(body?{body}:{})});const bindings={AUTH:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'auth'})},GOVERNANCE:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'governance'})}};
+             const response=await gateway.fetch(request,bindings);receipt.trace.push({path:requestUrl.pathname,method:req.method,status:response.status});res.writeHead(response.status,Object.fromEntries(response.headers));res.end(await response.text());return;}
+            res.writeHead(404);res.end();
+           }catch(error){bridgeFailure=error;res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
+          
+           const ceo=randomUUID(),hr=randomUUID(),target=randomUUID();
+           for(const [id,email,role]of [[ceo,'ceo@example.invalid','ceo'],[hr,'hr@example.invalid','hr_director'],[target,'target@example.invalid','rmt']])await db.query("INSERT INTO users(id,tenant_id,email,roles,password_hash,status) VALUES($1,$2,$3,$4,$5,'active')",[id,tenant,email,role,hash]);
+           const login=async email=>{const r=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,password})});assert.equal(r.status,200);return(await r.json()).token;};
+           const ceoToken=await login('ceo@example.invalid'),platformToken=await login('platform@example.invalid'),hrToken=await login('hr@example.invalid'),pswToken=await login('psw@example.invalid');await login('target@example.invalid');
+           for(const [offset,expired]of [[1,false],[2,false],[3,true]])await db.query("INSERT INTO auth_sessions(token_hash,user_id,created_at,expires_at) VALUES($1,$2,NOW()-($3||' minutes')::interval,NOW()+(CASE WHEN $4 THEN INTERVAL '-1 hour' ELSE INTERVAL '1 hour' END))",[digest(randomUUID()),target,String(offset),expired]);
+           const snapshot=async()=>({users:(await db.query('SELECT * FROM users ORDER BY id')).rows,sessions:(await db.query('SELECT * FROM auth_sessions ORDER BY token_hash')).rows,creation:(await db.query('SELECT * FROM auth_account_audit ORDER BY id')).rows,management:(await db.query('SELECT * FROM auth_management_audit ORDER BY id')).rows});
+           const sessions=(id=target,token=ceoToken,suffix='',headers={},method='GET')=>fetch(origin+'/v1/admin/users/'+id+'/sessions'+suffix,{method,headers:{...(token?{authorization:'Bearer '+token}:{}),...headers}});
+           const check=async({id=target,expired=false,limit=25,offset=0,suffix=expired?'?includeExpired=true':''}={})=>{const before=await snapshot(),r=await sessions(id,ceoToken,suffix);assert.equal(r.status,200);assert.equal(r.headers.get('cache-control'),'no-store');const value=await r.json();const records=(await db.query('SELECT created_at,expires_at FROM auth_sessions WHERE user_id=$1'+(expired?'':' AND expires_at>NOW()')+' ORDER BY created_at DESC,expires_at DESC,token_hash',[id])).rows;assert.deepEqual(Object.keys(value).sort(),['pagination','sessions','userId']);assert.equal(value.userId,id);assert.deepEqual(value.sessions,records.slice(offset,offset+limit).map(row=>({created_at:row.created_at.toISOString(),expires_at:row.expires_at.toISOString()})));assert.deepEqual(value.pagination,{limit,offset,total:records.length,hasMore:offset+limit<records.length});assert.deepEqual(await snapshot(),before);return value;};
+           assert.equal((await check()).pagination.total,3);assert.equal((await check({expired:true})).pagination.total,4);await check({id:ceo});receipt.cases.push({actorRole:'ceo',realCredentialLogin:true,nativeDatabaseComparison:true,timestampsOnly:true,countsAccurate:true,selfSessionRead:true,browserExecuted:false});receipt.apiChecks.push('CEO timestamp-only session projection and active/all counts exactly match native records; self session read is safe');
+           for(const offset of [0,1,2,3,4,5])await check({expired:true,limit:1,offset,suffix:'?includeExpired=true&limit=1&offset='+offset});await check({limit:100,offset:100000,suffix:'?limit=100&offset=100000'});receipt.apiChecks.push('Ordered pagination boundaries, expired inclusion and empty offsets match database-backed records');
+           for(const token of [platformToken,hrToken,pswToken]){const before=await snapshot();assert.equal((await sessions(target,token)).status,403);assert.deepEqual(await snapshot(),before);}for(const [id,headers,status]of [[admin,{},404],[actor,{},404],[randomUUID(),{},404],[target,{'x-tenant-id':foreign},403]]){const before=await snapshot();assert.equal((await sessions(id,ceoToken,'',headers)).status,status);assert.deepEqual(await snapshot(),before);}receipt.apiChecks.push('Denied roles, foreign/missing targets, protected platform account and forged tenant header cannot disclose sessions');
+           assert.equal((await sessions(target,null)).status,401);assert.equal((await sessions(target,'invalid-token')).status,401);const expiredToken=await login('ceo@example.invalid');await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 minute' WHERE token_hash=$1",[digest(expiredToken)]);const beforeExpiry=await snapshot();assert.equal((await sessions(target,expiredToken)).status,401);assert.deepEqual(await snapshot(),beforeExpiry);receipt.apiChecks.push('Missing, invalid and expired caller sessions denied without account/session/audit mutation');
+           for(const suffix of ['?tenantId='+foreign,'?userId='+admin,'?limit=0','?limit=101','?offset=-1','?offset=100001','?includeExpired=maybe','?limit=1&limit=2']){const before=await snapshot();assert.equal((await sessions(target,ceoToken,suffix)).status,400);assert.deepEqual(await snapshot(),before);}assert.equal((await sessions('bad%20id')).status,400);const beforeMethods=await snapshot();for(const method of ['POST','PUT','PATCH'])assert.equal((await sessions(target,ceoToken,'',{},method)).status,405);assert.deepEqual(await snapshot(),beforeMethods);receipt.apiChecks.push('Invalid pagination/duplicate fields/tenant injection/identifier and unsupported read methods rejected without mutations; registered DELETE is not invoked');
+           sourceAllowed=false;const beforeRate=await snapshot();try{const r=await sessions();assert.equal(r.status,429);assert.equal(r.headers.get('retry-after'),'60');assert.deepEqual(await snapshot(),beforeRate);}finally{sourceAllowed=true;}await check();receipt.apiChecks.push('Controlled source limiter denies with 429 and clean retry preserves authoritative data');
+           const one=(await db.query('SELECT token_hash,created_at FROM auth_sessions WHERE user_id=$1 ORDER BY token_hash LIMIT 1',[target])).rows[0];await db.query("UPDATE auth_sessions SET created_at='infinity' WHERE token_hash=$1",[one.token_hash]);try{const before=await snapshot(),r=await sessions(target,ceoToken,'?includeExpired=true');assert.equal(r.status,503);assert.equal(r.headers.get('cache-control'),'no-store');assert.deepEqual(await snapshot(),before);}finally{await db.query('UPDATE auth_sessions SET created_at=$2 WHERE token_hash=$1',[one.token_hash,one.created_at]);}await check();receipt.apiChecks.push('Invalid persisted session timestamp fails closed; read transaction preserves data and restored retry succeeds');
+           const beforeParallel=await snapshot(),parallel=await Promise.all(Array.from({length:8},()=>sessions()));const values=await Promise.all(parallel.map(async r=>{assert.equal(r.status,200);return r.json();}));for(const value of values)assert.deepEqual(value,values[0]);assert.deepEqual(await snapshot(),beforeParallel);await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 minute' WHERE user_id=$1 AND expires_at>NOW()",[target]);assert.equal((await check()).pagination.total,0);assert.equal((await check({expired:true})).pagination.total,4);receipt.apiChecks.push('Eight concurrent reads agree without mutations; authoritative reread reflects external synthetic session expiration');
+           if(bridgeFailure)throw bridgeFailure;for(const[path,sha]of Object.entries(receipt.source_bindings))assert.equal(digest(await readFile(path)),sha);receipt.passed=true;
+          }catch(error){receipt.error=error.message;console.error(error);process.exitCode=1;}
+          finally{if(server)await new Promise(r=>server.close(r));await db.query('DROP SCHEMA '+schema+' CASCADE');await db.end();receipt.cleanup='Isolated synthetic schema dropped; production business accounts untouched';await writeFile(out+'/results.json',JSON.stringify(receipt,null,2));console.log('ACCOUNT_SESSIONS_RESULT '+JSON.stringify(receipt));}
+          
+          NATIVE
+          node test-results/account-sessions/run.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: account-sessions-native-evidence
+          path: test-results
