@@ -51,7 +51,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   }
   if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
   const reportPanels=new Map<string,HTMLElement>();
-  if(data.identity.role==='platform_admin'&&location.pathname!=='/success'){location.assign('/platform/administration');return;}
+  if(data.identity.role==='platform_admin'&&location.pathname!=='/success'){location.assign(routeUrl('/platform/administration'));return;}
   if(['/','/dashboard'].includes(location.pathname)&&data.landing===careRegistry.route&&data.screens.some(s=>s.route===careRegistry.route)){location.assign(routeUrl(careRegistry.route));return;}
   const live=liveScreenText(gateway);let dirtyForm=false;root.addEventListener('input',()=>dirtyForm=true);
   let search='';let pendingOnly=false;let pageNumber=0;let signingOut=false;

@@ -9,6 +9,7 @@ import {renderShell} from './shell';
 export function renderAuth(root: HTMLElement, gateway: string, portalName: string,
   language = (document.documentElement.lang || navigator.language).slice(0, 2)): () => void {
   const locale = language === 'fr' || language === 'es' ? language : 'en';
+  const recoveryQuery=new URLSearchParams();if(locale!=='en')recoveryQuery.set('locale',locale);recoveryQuery.set('enable-semantics','true');
   applyMediaTokens();
   const media = new EntryMediaLook(locale);
   const store = liveScreenText(gateway);
@@ -23,7 +24,7 @@ export function renderAuth(root: HTMLElement, gateway: string, portalName: strin
       <label><span data-auth-text="password"></span><span class="media-field">${media.icon('key','media-login-key')}<input name="password" type="password" required autocomplete="current-password" data-cy="login-password" aria-label="login-password"></span></label>
       <button class="media-signin" type="submit" data-cy="login-submit" aria-label="login-submit"><span data-auth-text="login"></span>${media.icon('arrow','media-login-arrow')}</button>
       <output class="status" aria-live="polite" data-cy="api-status"></output>
-      <a data-cy="login-forgot" href="${recovery.routes.forgot}?enable-semantics=true" data-auth-text="forgot"></a>
+      <a data-cy="login-forgot" href="${recovery.routes.forgot}?${recoveryQuery}" data-auth-text="forgot"></a>
     </form></div></div>`});
   root.querySelector('h1')!.textContent = portalName;
   const form = root.querySelector<HTMLFormElement>('form')!;

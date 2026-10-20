@@ -88,6 +88,7 @@ test('all active role landings resolve to their own authorized governed page',as
    await renderWorkspace(root,'https://gateway.test');
    assert.equal(navigations.length,1,role+' must navigate once');
    assert.equal(navigations[0].pathname,landing,role);
+   assert.equal(navigations[0].searchParams.get('enable-semantics'),'true',role+' redirect retains semantics');
    assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
   } else {
    await renderWorkspace(root,'https://gateway.test');
