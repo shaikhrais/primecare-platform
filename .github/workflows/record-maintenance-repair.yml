@@ -1,0 +1,104 @@
+name: Record current maintenance repair evidence
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/record-maintenance-repair.yml]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 322c9497fa07c30c5cc0c1e59804121609388259
+          fetch-depth: 3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39355950440
+          github-token: ${{ github.token }}
+          name: maintenance-complete-repair-evidence
+          path: test-results
+      - name: Bind successful focused reproductions and preserve remaining gates
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GH_TOKEN: ${{ github.token }}
+          EVIDENCE_RUN: '39355950440'
+          SOURCE_SHA: 322c9497fa07c30c5cc0c1e59804121609388259
+        run: |
+          python -u - <<'PY'
+          import sys,os,json,pathlib,hashlib,urllib.request
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,summary,_bindings_current
+          root=pathlib.Path.cwd();flow='auth.inspect-email-config';base=root/'test-results/email-config'
+          receipt=json.loads((base/'results.json').read_text());focused=json.loads((base/'focused-resolution.json').read_text())
+          assert receipt['passed'] is True and receipt['scoped_checks_passed'] is True and not receipt['wholeTaskVerified']
+          assert receipt['commit']==os.environ['SOURCE_SHA'] and len(receipt['cases'])==6 and len(receipt['redirectRegressions'])==2
+          assert all(receipt['criterion_results'].get(x)=='passed' for x in ['ui.semantics-navigation','ui.localization','ui.stable-test-ids'])
+          sources=dict(receipt['source_bindings'])
+          for path in ['packages/primecare_ui/lib/src/features/maintenance/maintenance_configuration_screen.dart','tools/governance-production/production-pin.json','scripts/test-maintenance-read-workflow.mjs','scripts/verify-maintenance-catalog.py']:
+              sources[path]=hashlib.sha256((root/path).read_bytes()).hexdigest()
+          assert _bindings_current(sources,root)
+          def request(path):
+              return json.load(urllib.request.urlopen(urllib.request.Request('https://api.github.com/repos/shaikhrais/primecare-platform/'+path,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})))
+          run=request('actions/runs/'+os.environ['EVIDENCE_RUN'])
+          assert run['conclusion']=='success' and run['head_sha']==receipt['workflow_run_sha']
+          artifact=next(a for a in request('actions/runs/'+os.environ['EVIDENCE_RUN']+'/artifacts')['artifacts'] if a['name']=='maintenance-complete-repair-evidence' and not a['expired'])
+          url=run['html_url']+'/artifacts/'+str(artifact['id'])
+          evidence=[dict(path=str(p.relative_to(root)),sha256=hashlib.sha256(p.read_bytes()).hexdigest(),kind='browser-video' if p.suffix=='.webm' else 'browser-screenshot' if p.suffix=='.png' else 'execution-receipt',url=url) for p in sorted(base.rglob('*')) if p.is_file() and p.suffix in ['.json','.webm','.png'] and '/raw/' not in str(p)]
+          import tempfile,shutil,subprocess
+          baseline=json.loads((root/'test-results/malformed-baseline/results.json').read_text())
+          assert baseline['passed'] is False and baseline['commit']=='100c63aea562eb8a998d6617ffb16273a966715f'
+          assert len(baseline['malformedResponses'])==1 and baseline['malformedResponses'][0]['actual']!=baseline['malformedResponses'][0]['expected']
+          assert len(receipt['malformedResponses'])==9 and all(x['actual']==x['expected'] for x in receipt['malformedResponses'])
+          oldroot=pathlib.Path(tempfile.mkdtemp(prefix='maintenance-baseline-proof-'))
+          baseline_sources=dict(baseline['source_bindings'])
+          baseline_sources['scripts/test-maintenance-read-workflow.mjs']=hashlib.sha256((root/'scripts/test-maintenance-read-workflow.mjs').read_bytes()).hexdigest()
+          for path,sha in baseline_sources.items():
+              target=oldroot/path;target.parent.mkdir(parents=True,exist_ok=True)
+              if path=='websites/typescript/src/maintenance-client.ts':
+                  target.write_bytes(subprocess.check_output(['git','show','100c63aea562eb8a998d6617ffb16273a966715f:'+path]))
+              else:shutil.copy2(root/path,target)
+          shutil.copytree(root/'test-results/malformed-baseline',oldroot/'test-results/malformed-baseline')
+          assert _bindings_current(baseline_sources,oldroot)
+          baseline_artifact='test-results/malformed-baseline/results.json'
+          baseline_evidence=[dict(path=baseline_artifact,sha256=hashlib.sha256((oldroot/baseline_artifact).read_bytes()).hexdigest(),kind='executed-prior-client-regression',url=url)]
+          with ProductionWorkflowStore() as db:
+              definition=db.execute('SELECT definition_sha256 FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()[0]
+              assert definition==receipt['definition_sha256']
+              baseline_result=dict(status='implemented-unverified',test_status='failed',scope='scoped',next_action='Validate and record the guarded current client against the same malformed-response reproduction.',source_bindings=baseline_sources,evidence=baseline_evidence,issues=[dict(criterion_id='ui.malformed-configuration',reproduction='Log in as isolated maintenance in ES, intercept one successful configuration response with JSON null, then click the registered Refresh control. Previous published client100c63a with the current diagnostic harness renders an English JavaScript exception.',expected=baseline['malformedResponses'][0]['expected'],actual=baseline['malformedResponses'][0]['actual'],affected_sources=['websites/typescript/src/maintenance-client.ts'])],blockers=[])
+              baseline_record=record_attempt(db,flow,baseline_result,oldroot)
+              issues=db.execute('SELECT i.issue_id,i.criterion_id FROM virtual_workflow_issues i JOIN virtual_workflow_attempts a ON a.attempt_id=i.attempt_id WHERE a.flow_id=? AND a.attempt_id IN (?,?)',(flow,334,baseline_record['attempt_id'])).fetchall()
+              assert len(issues)==4 and {r[1] for r in issues}==set(receipt['criterion_results'])
+              blockers=list(receipt['limitations'])
+              result=dict(status='implemented-unverified',test_status='scoped_pass',scope='scoped',next_action='Complete independent review and deployed/cross-platform/PWA acceptance gates; finish PR215 CI, merge inclusion and sole work-branch cleanup before claiming branch lifecycle complete.',source_bindings=sources,evidence=evidence,issues=[],blockers=blockers,resolves_issue_ids=[r[0] for r in issues],resolution_note='Current six-case real credential browser/API/native PostgreSQL/reload replay passes original locale, governed control, navigation and nine malformed-response/retry reproductions; no full workflow verification claimed.',issue_resolution_results={str(i):dict(criterion_id=c,result='passed',reproduction_verified=True,evidence_path='test-results/email-config/focused-resolution.json') for i,c in issues})
+              recorded=record_attempt(db,flow,result,root)
+              stale=[]
+              rows=db.execute("SELECT d.flow_id,d.verification_status,d.test_status,c.attempt_id,a.source_bindings_json,d.blocker_json FROM virtual_workflow_definitions d JOIN virtual_workflow_checkpoints c ON c.flow_id=d.flow_id JOIN virtual_workflow_attempts a ON a.attempt_id=c.attempt_id WHERE d.flow_kind='business_process'").fetchall()
+              for fid,status,test,aid,bindings,old_blockers in rows:
+                  if fid==flow or test not in ['scoped_pass','passed','failed']:continue
+                  changed=[]
+                  for path,old in json.loads(bindings).items():
+                      p=root/path
+                      if p.is_file():
+                          new=hashlib.sha256(p.read_bytes()).hexdigest()
+                          if old!=new:changed.append(dict(path=path,old_sha256=old,current_sha256=new))
+                  if not changed:continue
+                  reasons=[dict(reason='Bound source changed in maintenance repair; rerun needed',changed_sources=changed)]
+                  db.execute("UPDATE virtual_workflow_definitions SET verification_status=?, test_status='stale',blocker_json=?,updated_at=CURRENT_TIMESTAMP WHERE flow_id=?",('implemented-unverified' if status=='verified' else status,json.dumps(json.loads(old_blockers or '[]')+['Bound source changed; current test evidence requires rerun.']),fid))
+                  db.execute('UPDATE virtual_workflow_checkpoints SET invalidation_json=?, updated_at=CURRENT_TIMESTAMP WHERE flow_id=?',(json.dumps(reasons),fid))
+                  stale.append(dict(flow_id=fid,attempt_id=aid,changed_sources=changed))
+              checkpoint=dict(main_sha=request('branches/main')['commit']['sha'],work_branch_sha=os.environ['SOURCE_SHA'],active_branch='work/auth-maintenance-repair-20261019',pr=215,workflow=recorded,baseline_attempt=baseline_record,evidence=url,synthetic_cleanup=receipt['cleanup'],remaining_review_gates=blockers,invalidated_current_tests=stale,next_action=result['next_action'],summary=summary(db))
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('maintenance-repair-current',json.dumps(checkpoint,sort_keys=True)))
+          print('MAINTENANCE_REPAIR_ATTEMPT_COMMITTED '+json.dumps(checkpoint))
+          
+          PY
