@@ -67,7 +67,7 @@ jobs:
                   keys=[c['name'] for c in db.tables[name]['columns']]
                   return [dict(zip(keys,r)) for r in db.execute('SELECT * FROM '+name+(' WHERE '+where if where else ''),parameters)]
               result={name:rows(name,'flow_id=?',(flow,)) for name in ['virtual_workflow_definitions','virtual_workflow_steps','virtual_workflow_source_links','virtual_workflow_checkpoints']}
-              result['apis']=rows('api_endpoints',"route_path LIKE '%maintenance/configuration%'")
+              result['apis']=rows('api_endpoints',"route_path LIKE ?",('%maintenance/configuration%',))
               result['linked_screens']=rows('screens','id=1264')
               for name in ['screen_components','screen_required_elements','screen_sections','screen_section_elements','role_screen_permissions','screen_api_links']:
                   result[name]=rows(name,'screen_id=1264')
