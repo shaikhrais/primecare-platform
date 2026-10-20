@@ -137,7 +137,12 @@ jobs:
               req_css=urllib.request.Request('https://'+project+'.pages.dev/assets/app.css?enable-semantics=true',headers={'User-Agent':'node','Accept-Encoding':'identity'})
               with urllib.request.urlopen(req_css,timeout=30) as response:actual_css=response.read()
               assert digest(actual_css)==digest(expected_css),'Deployed stylesheet drift: '+project
-              assets.append({'project':project,'asset_sha256':digest(actual),'stylesheet_sha256':digest(actual_css),'source_commit':os.environ['PORTAL_SHA']})
+              expected_theme=json.loads((root/'test-results/account-lifecycle-built-websites'/project/'portal.json').read_text())['theme']
+              assert expected_theme and all(isinstance(k,str) and k.startswith('--') and isinstance(v,str) and v.strip() for k,v in expected_theme.items()),'Invalid built CSS theme: '+project
+              req_manifest=urllib.request.Request('https://'+project+'.pages.dev/portal.json?enable-semantics=true',headers={'User-Agent':'node','Accept-Encoding':'identity'})
+              with urllib.request.urlopen(req_manifest,timeout=30) as response:actual_manifest=json.load(response)
+              assert actual_manifest['theme']==expected_theme,'Deployed governed theme drift: '+project
+              assets.append({'project':project,'asset_sha256':digest(actual),'stylesheet_sha256':digest(actual_css),'theme_sha256':digest(json.dumps(expected_theme,sort_keys=True,separators=(',',':')).encode()),'source_commit':os.environ['PORTAL_SHA']})
           runtime_paths=['websites/typescript/src/styles.css','websites/typescript/src/main.ts','websites/typescript/src/workspace.ts','websites/typescript/src/tenant-accounts-panel.ts','websites/typescript/src/tenant-accounts-client.ts','websites/typescript/src/tenant-accounts-controller.ts','websites/typescript/src/account-mutations-panel.ts','websites/typescript/src/account-mutations-client.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','packages/shared/src/account-mutations.json','packages/shared/src/tenant-account-reads.json']
           for path in runtime_paths:
               original=subprocess.check_output(['git','show',os.environ['PORTAL_SHA']+':'+path])
