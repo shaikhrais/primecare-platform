@@ -83,9 +83,16 @@ def register(db,d):
     if len(existing)>1:raise GovernanceReadError('Duplicate mutation API link')
     if not existing:db.ensure('screen_api_links',{'screen_id':a['screenId'],'api_id':op['apiId']},{'purpose':'Existing '+op['permission']+' '+op['method']+' operation; no new actor grant'})
  return read_catalog(db,d)
+def open_store():
+ import psycopg,time
+ for attempt in range(5):
+  try:return MutationStore()
+  except psycopg.errors.LockNotAvailable:
+   if attempt==4:raise
+   time.sleep(2)
 def main():
  if not any(x in sys.argv for x in ['--apply','--dry-run']):raise SystemExit('Explicit mutation registration mode required')
- with MutationStore() as db:
+ with open_store() as db:
   result=register(db,definition());assert result==register(db,definition())
   if '--dry-run' in sys.argv:db.db.rollback()
  out=ROOT/'test-results/account-mutations-registration';out.mkdir(parents=True,exist_ok=True);(out/'catalog.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')

@@ -1,4 +1,7 @@
 import unittest,json
+from unittest.mock import patch
+import psycopg
+import account_mutations_registration as module
 from pathlib import Path
 from account_mutations_registration import MutationStore,definition,scope,control_keys,GovernanceReadError
 class Tests(unittest.TestCase):
@@ -14,4 +17,16 @@ class Tests(unittest.TestCase):
   db=MutationStore.__new__(MutationStore)
   for t,v in [('api_permissions',{}),('users',{}),('screen_components',{'screen_id':903}),('screen_components',{'screen_id':705,'file_path':'bad'}),('screen_required_elements',{'screen_id':39,'element_key':'bad'}),('screen_api_links',{'screen_id':39,'api_id':16422}),('language_resources',{'resource_key':'bad'})]:
    with self.subTest(t=t,v=v),self.assertRaises(GovernanceReadError):db.insert_metadata(t,v)
+class RetryTests(unittest.TestCase):
+ def test_lock_only_retry_is_bounded(self):
+  marker=object()
+  with patch.object(module,'MutationStore',side_effect=[psycopg.errors.LockNotAvailable(),marker]) as factory,patch('time.sleep') as wait:
+   self.assertIs(module.open_store(),marker);self.assertEqual(factory.call_count,2);wait.assert_called_once_with(2)
+  with patch.object(module,'MutationStore',side_effect=psycopg.errors.LockNotAvailable()) as factory,patch('time.sleep'):
+   with self.assertRaises(psycopg.errors.LockNotAvailable):module.open_store()
+   self.assertEqual(factory.call_count,5)
+ def test_other_failures_never_retry(self):
+  with patch.object(module,'MutationStore',side_effect=GovernanceReadError('Schema mismatch')) as factory,patch('time.sleep') as wait:
+   with self.assertRaises(GovernanceReadError):module.open_store()
+   self.assertEqual(factory.call_count,1);wait.assert_not_called()
 if __name__=='__main__':unittest.main()
