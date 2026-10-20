@@ -1,0 +1,52 @@
+name: Register existing account mutation controls
+on:
+  push:
+    branches: [main]
+    paths:
+      - tools/governance-production/account-mutations-registration.json
+      - tools/governance-production/account_mutations_registration.py
+      - tools/governance-production/test-account-mutations-registration.py
+      - .github/workflows/account-mutations-registration.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: account-mutations-registration
+  cancel-in-progress: false
+jobs:
+  register:
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/account-reader" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/account-reader/node_modules" node_modules
+          python3 tools/governance-production/test-account-mutations-registration.py
+      - name: Validate native schema and idempotence in a rolled-back transaction
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_ACCOUNT_MUTATIONS_REGISTRATION: '1'
+        run: python3 tools/governance-production/account_mutations_registration.py --dry-run
+      - name: Register existing mutation controls without changing actor grants
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_ACCOUNT_MUTATIONS_REGISTRATION: '1'
+        run: |
+          python3 tools/governance-production/account_mutations_registration.py --apply
+          python3 -c "import pathlib; print('ACCOUNT_MUTATION_CATALOG '+pathlib.Path('test-results/account-mutations-registration/catalog.json').read_text().replace(chr(10),''))"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: account-mutations-registration
+          path: test-results/account-mutations-registration

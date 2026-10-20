@@ -169,5 +169,36 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "permissionDisposition": "narrow-existing-to-approved-policy"
+  },
+  "accountMutationsWriter": {
+    "optInVariable": "GOVERNANCE_ACCOUNT_MUTATIONS_REGISTRATION",
+    "screenIds": [
+      39,
+      705
+    ],
+    "apiIds": [
+      1,
+      11,
+      16422
+    ],
+    "flowIds": [
+      "auth.create-tenant-account",
+      "auth.manage-account",
+      "auth.revoke-account-sessions"
+    ],
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "screen_api_links",
+      "language_resources",
+      "language_resource_values",
+      "virtual_workflow_definitions",
+      "virtual_workflow_steps",
+      "virtual_workflow_source_links"
+    ],
+    "definitionSha256": "b4303304a6714715913f1aecd82a510627949ddf52f80688fbecb9ef80a35290",
+    "schemaChanges": false,
+    "permissionChanges": false,
+    "businessDataWrites": false
   }
 }
