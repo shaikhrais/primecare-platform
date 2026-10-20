@@ -3,11 +3,8 @@ on:
   push:
     branches: [main]
     paths:
-      - tools/governance-production/recovery*
-      - tools/governance-production/test-recovery-registration.py
+      - tools/governance-production/recovery-registration.json
       - tools/governance-production/production-pin.json
-      - scripts/register-auth-recovery-web.py
-      - .github/workflows/recovery-production-registration.yml
   workflow_dispatch:
 permissions:
   contents: read

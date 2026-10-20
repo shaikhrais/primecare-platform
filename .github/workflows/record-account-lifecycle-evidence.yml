@@ -106,7 +106,14 @@ jobs:
               assert digest(original)==digest((root/path).read_bytes()),'Runtime source drift: '+path
               producer=subprocess.check_output(['git','show',os.environ['PRODUCER_SHA']+':'+path])
               assert digest(producer)==digest(original),'Producer used a different runtime source: '+path
-          with ProductionWorkflowStore() as db:
+          def open_tracking_store():
+              import psycopg,time
+              for attempt in range(15):
+                  try:return ProductionWorkflowStore()
+                  except psycopg.errors.LockNotAvailable:
+                      if attempt==14:raise
+                      time.sleep(2)
+          with open_tracking_store() as db:
               catalog=read_catalog(db,load_definition())
               assert catalog==json.loads((root/'packages/shared/src/account-mutations.json').read_text())
               assert read_accounts(db,account_definition())==json.loads((root/'packages/shared/src/tenant-account-reads.json').read_text())
