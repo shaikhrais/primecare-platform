@@ -24,8 +24,10 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const {data}=await github.rest.git.getBlob({owner:context.repo.owner,repo:context.repo.repo,file_sha:'3ce8d63489aa85b16ec6ba407a7652df3f2c7029'});
-            require('fs').writeFileSync('/tmp/primecare-local-history.bundle',Buffer.from(data.content,'base64'));
+            const {data}=await github.rest.git.getBlob({owner:context.repo.owner,repo:context.repo.repo,file_sha:'ea60c5461a7342622da94a49ec053f312a7a18cd'});
+            const bytes=Buffer.from(data.content,'base64');
+            if(require('crypto').createHash('sha256').update(bytes).digest('hex')!=='176aa78a47baf2b0af04377ed9b3de30048dd99cd07a63b87242830a18763e83')throw Error('Local history checksum mismatch; preserve branch');
+            require('fs').writeFileSync('/tmp/primecare-local-history.bundle',bytes);
       - id: history
         name: Preserve existing local merge commits without changing current source
         run: |
