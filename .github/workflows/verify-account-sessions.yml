@@ -21,3 +21,8 @@ jobs:
         with:
           node-version: '24'
       - run: node --disable-warning=ExperimentalWarning tools/auth-verification/test-sessions.mjs
+      - name: Compile shared account controls
+        run: |
+          npm install --prefix "$RUNNER_TEMP/session-check" --ignore-scripts esbuild@0.27.2 typescript@5.9.3
+          "$RUNNER_TEMP/session-check/node_modules/.bin/esbuild" websites/typescript/src/account.ts --bundle --outfile="$RUNNER_TEMP/account.js"
+          "$RUNNER_TEMP/session-check/node_modules/.bin/tsc" --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --allowSyntheticDefaultImports --lib ES2022,DOM,DOM.Iterable websites/typescript/src/account.ts
