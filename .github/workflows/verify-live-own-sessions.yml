@@ -31,7 +31,15 @@ jobs:
             const comparison=(await github.rest.repos.compareCommits({owner,repo,base:run.head_sha,head:context.sha})).data;
             if(comparison.files.some(f=>f.filename.startsWith('websites/typescript/')||f.filename.startsWith('packages/shared/')))throw Error('Runtime source changed after required deployment');
             core.info('Current runtime matches successful nine-portal deployment '+run_id);
-            const authRunId=context.payload.workflow_run?.id || 39449211546;
+            let authRunId=context.payload.workflow_run?.id;
+            if(!authRunId){
+              const recent=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'release-session-revocation-fix.yml',branch:'main',status:'success',per_page:10})).data.workflow_runs;
+              for(const candidate of recent){
+                const jobs=(await github.rest.actions.listJobsForWorkflowRun({owner,repo,run_id:candidate.id})).data.jobs;
+                if(jobs.some(j=>j.name==='deploy-auth'&&j.conclusion==='success')){authRunId=candidate.id;break;}
+              }
+            }
+            if(!authRunId)throw Error('No successful targeted auth deployment exists');
             let authRun;
             for(let i=0;i<48;i++){
               authRun=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:authRunId})).data;
