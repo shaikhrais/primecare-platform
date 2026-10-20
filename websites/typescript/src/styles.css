@@ -119,6 +119,7 @@ h1 { font-size: var(--font-size-heading); }
 .auth-shell { min-height: 100vh; display: grid; place-items: center; }
 .auth-card { width: min(28rem, calc(100vw - var(--spacing-xl))); display: grid; gap: var(--spacing-md); background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg); box-shadow: var(--shadow-modal); }
 .auth-card label { display: grid; gap: var(--spacing-xs); }
+.auth-card > a { display: flex; align-items: center; min-height: var(--media-control-height); }
 .auth-recovery-shell{padding:var(--spacing-lg)}.auth-recovery-shell .auth-card{width:100%;max-width:var(--media-form-width)}.auth-recovery-shell p{line-height:1.6;margin-bottom:0}.auth-recovery-shell output{overflow-wrap:anywhere}
 .status { min-height: var(--spacing-lg); color: var(--color-secondary); }
 .fatal { max-width: 50rem; margin: var(--spacing-xl) auto; }
