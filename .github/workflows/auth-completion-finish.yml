@@ -1,0 +1,111 @@
+name: Merge validated auth repair and save completion handoff
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/auth-completion-finish.yml]
+permissions:
+  contents: write
+  actions: write
+  pull-requests: write
+  checks: read
+jobs:
+  checkpoint:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 25
+    steps:
+      - id: cleanup
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo,head='0c948bf95fad58d251ad7468f54b661c5889de94';
+            let green=false;
+            for(let attempt=0;attempt<70;attempt++){
+              const {data:pr}=await github.rest.pulls.get({owner,repo,pull_number:216});
+              if(pr.head.sha!==head||pr.draft)throw Error('PR head changed or is draft');
+              const checks=await github.paginate(github.rest.checks.listForRef,{owner,repo,ref:head,per_page:100});
+              const bad=checks.filter(c=>c.status==='completed'&&!['success','skipped'].includes(c.conclusion));
+              if(bad.length)throw Error('Current-head CI failure: '+bad.map(c=>c.name+':'+c.conclusion).join(', '));
+              if(checks.length>=20&&checks.every(c=>c.status==='completed')&&checks.filter(c=>c.conclusion==='success').length>=20){green=true;core.info('ALL_CURRENT_HEAD_CHECKS_PASSED '+checks.filter(c=>c.conclusion==='success').length);break;}
+              core.info('WAITING_FOR_REQUIRED_CI '+JSON.stringify(checks.filter(c=>c.status!=='completed').map(c=>c.name)));
+              await new Promise(resolve=>setTimeout(resolve,15000));
+            }
+            if(!green)throw Error('Current-head validation remains pending; preserve the work branch');
+            const {data:merged}=await github.rest.pulls.merge({owner,repo,pull_number:216,sha:head,merge_method:'merge'});
+            if(!merged.merged)throw Error('GitHub did not merge PR216: '+merged.message);
+            const {data:pr}=await github.rest.pulls.get({owner,repo,pull_number:216});
+            if(!pr.merged||pr.state!=='closed')throw Error('PR merge/closure not confirmed');
+            const {data:ref}=await github.rest.git.getRef({owner,repo,ref:'heads/main'});
+            const {data:diff}=await github.rest.repos.compareCommitsWithBasehead({owner,repo,basehead:head+'...'+ref.object.sha});
+            if(diff.behind_by!==0)throw Error('Published work head is not included in main');
+            const {data:work}=await github.rest.git.getRef({owner,repo,ref:'heads/work/auth-completion-20261020'});
+            if(work.object.sha!==head)throw Error('Work branch changed; refuse deletion');
+            await github.rest.git.deleteRef({owner,repo,ref:'heads/work/auth-completion-20261020'});
+            const branches=await github.paginate(github.rest.repos.listBranches,{owner,repo,per_page:100});
+            const prs=await github.paginate(github.rest.pulls.list,{owner,repo,state:'open',per_page:100});
+            if(branches.length!==1||branches[0].name!=='main'||prs.length)throw Error('Remote cleanup incomplete');
+            const {data:commit}=await github.rest.git.getCommit({owner,repo,commit_sha:ref.object.sha});
+            const {data:tree}=await github.rest.git.createTree({owner,repo,base_tree:commit.tree.sha,tree:[{path:'.github/workflows/auth-completion-finish.yml',mode:'100644',type:'blob',sha:null}]});
+            const {data:clean}=await github.rest.git.createCommit({owner,repo,message:'ops: finish auth repair merge and remove lifecycle launcher',tree:tree.sha,parents:[ref.object.sha]});
+            await github.rest.git.updateRef({owner,repo,ref:'heads/main',sha:clean.sha,force:false});core.setOutput('main_sha',clean.sha);core.setOutput('merge_sha',merged.sha);core.info('AUTH_REPAIR_MERGED_AND_REMOTE_CLEAN '+JSON.stringify({main_sha:clean.sha,merge_sha:merged.sha,remote_branches:1,open_prs:0}));
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.cleanup.outputs.main_sha }}
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 39416719529
+          name: password-change-candidate-browser-native
+          path: test-results/auth-password
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Validate native proof, close exact issues and checkpoint all auth dependencies
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          CANDIDATE_SHA: 0c948bf95fad58d251ad7468f54b661c5889de94
+          FINAL_MAIN_SHA: ${{ steps.cleanup.outputs.main_sha }}
+          MERGE_SHA: ${{ steps.cleanup.outputs.merge_sha }}
+          RUN_URL: https://github.com/shaikhrais/primecare-platform/actions/runs/${{ github.run_id }}
+        run: |
+          python -u - <<'PY'
+          import sys,json,pathlib,hashlib,os,datetime,collections
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,summary,_resolution_current
+          root=pathlib.Path.cwd();out=root/'test-results/auth-completion';out.mkdir(parents=True,exist_ok=True)
+          receipt_path='test-results/auth-password/results.json';r=json.loads((root/receipt_path).read_text())
+          assert r['passed'] is True and r['wholeTaskVerified'] is False and len(r['cases'])==3
+          assert {v['locale'] for v in r['cases']}=={'en','fr','es'}
+          assert all(v['newCredentialLoginAndReload'] and v['replacementSessionPreserved'] and v['auditFailureRollsBack'] for v in r['cases'])
+          sources={**r['source_bindings'],'scripts/test-auth-password-workflow.mjs':hashlib.sha256((root/'scripts/test-auth-password-workflow.mjs').read_bytes()).hexdigest()}
+          for path,sha in sources.items():assert hashlib.sha256((root/path).read_bytes()).hexdigest()==sha,path
+          proof={'workflow_id':'auth.change-password','definition_sha256':r['definition_sha256'],'criterion_results':{**r['criterion_results'],'execution.password-browser':'passed'},'source_bindings':sources,'executed_receipt':receipt_path,'source_run':39416719529,'wholeTaskVerified':False,'basis':'The recorded native browser run passes all three locale cases, including the previously failed French reauthentication and session-replacement assertion.'}
+          proof_path='test-results/auth-completion/focused-resolution.json';(root/proof_path).write_text(json.dumps(proof,indent=2))
+          evidence=[{'kind':'browser','path':receipt_path,'sha256':hashlib.sha256((root/receipt_path).read_bytes()).hexdigest(),'url':'https://github.com/shaikhrais/primecare-platform/actions/runs/39416719529/artifacts/12261973152'},{'kind':'browser','path':proof_path,'sha256':hashlib.sha256((root/proof_path).read_bytes()).hexdigest(),'url':os.environ['RUN_URL']}]
+          for v in sorted((root/'test-results/auth-password').glob('*.webm')):evidence.append({'kind':'video','path':str(v.relative_to(root)),'sha256':hashlib.sha256(v.read_bytes()).hexdigest(),'url':evidence[0]['url']})
+          with ProductionWorkflowStore() as db:
+           issues=db.execute("SELECT i.issue_id,i.criterion_id FROM virtual_workflow_issues i JOIN virtual_workflow_attempts a ON a.attempt_id=i.attempt_id WHERE a.flow_id=? AND i.criterion_id IN (?,?)",('auth.change-password','ui.password-change-confirmation','execution.password-browser')).fetchall()
+           issues=[(i,c) for i,c in issues if not _resolution_current(db,'auth.change-password',i,root)]
+           result={'status':'implemented-unverified','test_status':'scoped_pass','scope':'scoped','source_bindings':sources,'evidence':evidence,'issues':[],'blockers':r['limitations'],'resolves_issue_ids':[v[0] for v in issues],'resolution_note':'Current production-bound native browser execution passes all three locale cases; original malformed-success failure and the French reauthentication regression are replayed successfully.','issue_resolution_results':{str(i):{'criterion_id':criterion,'result':'passed','reproduction_verified':True,'evidence_path':proof_path} for i,criterion in issues},'next_action':'Extend the bounded maintenance production binder for existing auth.save-email-config and auth.test-maintenance-email contracts and actor screen grants, with native transaction/idempotency tests; then execute their browser acceptance. Recovery policy/other missing controls and current independent reviews remain required. Local merged branch cleanup must be confirmed before opening another work branch.'}
+           saved=record_attempt(db,'auth.change-password',result,root)
+           keys=[c['name'] for c in db.tables['virtual_workflow_definitions']['columns']]
+           flows=[dict(zip(keys,v)) for v in db.execute("SELECT * FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE ? ORDER BY flow_id",('auth.%',))]
+           matrix=[]
+           for row in flows:
+            d=json.loads(row['definition_json']);drift=[path for path,sha in d.get('source_sha256',{}).items() if not (root/path).is_file() or hashlib.sha256((root/path).read_bytes()).hexdigest()!=sha]
+            matrix.append({'workflow_id':row['flow_id'],'verification_status':row['verification_status'],'test_status':row['test_status'],'blockers':json.loads(row['blocker_json'] or '[]'),'definition_sha256':row['definition_sha256'],'source_specification_drift':drift,'registered_steps':d.get('steps',[]),'declared_gaps':d.get('gaps',[]),'unresolved_requirements':d.get('unresolved_governance_refs',[])})
+           state={'created_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'main_sha':os.environ['FINAL_MAIN_SHA'],'work_branch_sha':os.environ['CANDIDATE_SHA'],'active_branch':None,'pr':216,'ci_review_state':'All current-head CI passed; PR216 merged/closed and remote branch deleted. Independent business-workflow reviews are absent. Local branch cleanup still requires confirmation.','remote_branch_count':1,'open_pr_count':0,'merge_sha':os.environ['MERGE_SHA'],'attempt':saved,'attempted_workflow_ids':['auth.change-password'],'auth_counts':dict(collections.Counter(v['verification_status'] for v in matrix)),'auth_total':len(matrix),'global_counts':summary(db),'manual_review_checks_count':db.execute('SELECT COUNT(*) FROM manual_review_checks').fetchone()[0],'auth_recovery_web_policy_in_manifest':'auth_recovery_web_policy' in db.tables,'evidence':evidence[0]['url'],'source_run':39416719529,'matrix':matrix,'synthetic_cleanup':r['cleanup'],'next_action':result['next_action'],'full_auth_verified':False}
+           (out/'handoff.json').write_text(json.dumps(state,indent=2))
+           for name in ['auth-completion-current','execution-handoff-current']:
+            db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',(name,json.dumps(state)))
+          print('AUTH_COMPLETION_CHECKPOINT_COMMITTED '+json.dumps({k:v for k,v in state.items() if k!='matrix'}))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: auth-completion-gates-and-current-proof
+          path: test-results/auth-completion
+          retention-days: 90
