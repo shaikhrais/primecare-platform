@@ -47,6 +47,14 @@ jobs:
               print('AUTH_API_CONTRACTS '+json.dumps(apis))
               print('RECOVERY_POLICY_REGISTERED '+str(packet['recovery_policy_registered']))
               for table,query in [
+                  ('ceo_account_screens',"SELECT * FROM screens WHERE id IN (705,903,935)"),
+                  ('ceo_account_roles',"SELECT * FROM role_screen_permissions WHERE screen_id IN (705,903,935)"),
+                  ('ceo_account_components',"SELECT * FROM screen_components WHERE screen_id IN (705,903,935)"),
+                  ('ceo_account_elements',"SELECT * FROM screen_required_elements WHERE screen_id IN (705,903,935)"),
+                  ('ceo_account_links',"SELECT * FROM screen_api_links WHERE screen_id IN (705,903,935)"),
+                  ('ceo_account_policy',"SELECT * FROM auth_account_management_policy"),
+                  ('ceo_creation_policy',"SELECT * FROM auth_account_creation_policy"),
+                  ('ceo_roles',"SELECT * FROM roles WHERE role_code IN ('ceo','hr_director')"),
                   ('own_session_steps',"SELECT * FROM virtual_workflow_steps WHERE flow_id IN ('auth.inspect-own-sessions','auth.revoke-own-sessions')"),
                   ('component_registry',"SELECT id,component_code,html_tag_equivalent,active FROM primecare_ui_component_registry WHERE active=1"),
                   ('app_bindings',"SELECT id,app_code FROM apps"),
@@ -59,7 +67,7 @@ jobs:
                   ('elements',"SELECT * FROM screen_required_elements WHERE screen_id IN (SELECT id FROM screens WHERE screen_code IN ('forgot_password','reset_password'))"),
                   ('links',"SELECT * FROM screen_api_links WHERE screen_id IN (SELECT id FROM screens WHERE screen_code IN ('forgot_password','reset_password'))")]:
                   print('RECOVERY_METADATA '+json.dumps({'table':table,'rows':rows(query)}))
-              for table in ['screens','auth_route_registry','primecare_ui_component_registry','screen_components','screen_required_elements','screen_api_links','api_endpoints','language_resources','language_resource_values']:
+              for table in ['screens','auth_route_registry','primecare_ui_component_registry','screen_components','screen_required_elements','screen_api_links','api_endpoints','language_resources','language_resource_values','role_screen_permissions','auth_account_management_policy','auth_account_creation_policy','virtual_workflow_definitions','virtual_workflow_steps','virtual_workflow_source_links']:
                   print('RECOVERY_SCHEMA '+json.dumps(db.tables[table.lower()]))
           PY
       - uses: actions/upload-artifact@v4
