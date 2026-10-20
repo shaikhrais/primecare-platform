@@ -1,0 +1,458 @@
+{
+  "date": "2026-10-20",
+  "runtimeCommit": "ac3c8b19128df4d7f5157d9dc60de1187b4063cf",
+  "browserRun": 39467479327,
+  "productionSmokeRun": 39467328370,
+  "productionSmokeChecks": 22,
+  "acceptanceReadRun": 39467328308,
+  "wholeAuthVerified": false,
+  "recoveryCases": [
+    {
+      "domain": "15minutes-email.com",
+      "recipient": "auth-test@15minutes-email.com",
+      "sender": "noreply@15minutes-email.com",
+      "synthetic": true,
+      "read_other_inboxes": false,
+      "application_accounts_changed": true,
+      "password_resets_requested": true,
+      "send_attempted": true,
+      "accepted": true,
+      "received": true,
+      "cleanup": "Only the exact nonce/hash-matched synthetic message removed; pre-existing inbox entries preserved",
+      "whole_workflow_verified": false,
+      "auth_checks": [
+        "Synthetic inbox has no existing account; preserve existing users",
+        "Deployed browser credential login en",
+        "Deployed browser recovery accepted with generic response",
+        "Recovery code absent from HTTP response",
+        "Recovery form fits registered viewport",
+        "Deployed recovery request accepted with generic response",
+        "Recovery code absent from HTTP response",
+        "Recovery email received and code hash matches database",
+        "Deployed browser password reset succeeds",
+        "Reset form fits registered viewport",
+        "Reset revokes existing session",
+        "Old password rejected",
+        "Deployed browser credential login en",
+        "Browser new-password session matches fixture account",
+        "Consumed reset code cannot be replayed",
+        "New authenticated identity survives reread",
+        "New session logout succeeds",
+        "Logged-out session rejected",
+        "All reset codes removed after success",
+        "Browser reload clears revoked session and returns to login"
+      ],
+      "send_http_status": 200,
+      "new_inbox_record_seen": true,
+      "inbox_record_fields": [
+        "from",
+        "messageId",
+        "rawBase64",
+        "receivedAt",
+        "size",
+        "subject",
+        "to"
+      ],
+      "candidate_code_count": 1,
+      "received_record_sha256": "d78d93657db7a6f24c8d40c5635289af8638448134a6858abe71f21cfd5f4a33",
+      "matched_correlation": true,
+      "http_failures": [
+        {
+          "path": "/v1/auth/me",
+          "status": 401,
+          "non_json": false
+        },
+        {
+          "path": "/v1/auth/login",
+          "status": 401,
+          "non_json": false
+        },
+        {
+          "path": "/v1/auth/reset-password",
+          "status": 400,
+          "non_json": false
+        },
+        {
+          "path": "/v1/auth/me",
+          "status": 401,
+          "non_json": false
+        }
+      ],
+      "locale": "en",
+      "viewport_width": 320,
+      "browser": "chromium",
+      "roundtrip_passed": true,
+      "deployed_recovery_passed": true,
+      "account_cleanup": "Exact synthetic user, tenant, sessions, codes, audit and counters removed"
+    },
+    {
+      "domain": "15minutes-email.com",
+      "recipient": "auth-test@15minutes-email.com",
+      "sender": "noreply@15minutes-email.com",
+      "synthetic": true,
+      "read_other_inboxes": false,
+      "application_accounts_changed": true,
+      "password_resets_requested": true,
+      "send_attempted": true,
+      "accepted": true,
+      "received": true,
+      "cleanup": "Only the exact nonce/hash-matched synthetic message removed; pre-existing inbox entries preserved",
+      "whole_workflow_verified": false,
+      "auth_checks": [
+        "Synthetic inbox has no existing account; preserve existing users",
+        "Deployed browser credential login fr",
+        "Deployed browser recovery accepted with generic response",
+        "Recovery code absent from HTTP response",
+        "Recovery form fits registered viewport",
+        "Deployed recovery request accepted with generic response",
+        "Recovery code absent from HTTP response",
+        "Recovery email received and code hash matches database",
+        "Deployed browser password reset succeeds",
+        "Reset form fits registered viewport",
+        "Reset revokes existing session",
+        "Old password rejected",
+        "Deployed browser credential login fr",
+        "Browser new-password session matches fixture account",
+        "Consumed reset code cannot be replayed",
+        "New authenticated identity survives reread",
+        "New session logout succeeds",
+        "Logged-out session rejected",
+        "All reset codes removed after success",
+        "Browser reload clears revoked session and returns to login"
+      ],
+      "send_http_status": 200,
+      "new_inbox_record_seen": true,
+      "inbox_record_fields": [
+        "from",
+        "messageId",
+        "rawBase64",
+        "receivedAt",
+        "size",
+        "subject",
+        "to"
+      ],
+      "candidate_code_count": 1,
+      "received_record_sha256": "c2ec50f7684b32e711dec1d59f5e2b784215693d16f281a4c90dcd8ab85c56a5",
+      "matched_correlation": true,
+      "http_failures": [
+        {
+          "path": "/v1/auth/me",
+          "status": 401,
+          "non_json": false
+        },
+        {
+          "path": "/v1/auth/login",
+          "status": 401,
+          "non_json": false
+        },
+        {
+          "path": "/v1/auth/reset-password",
+          "status": 400,
+          "non_json": false
+        },
+        {
+          "path": "/v1/auth/me",
+          "status": 401,
+          "non_json": false
+        }
+      ],
+      "locale": "fr",
+      "viewport_width": 768,
+      "browser": "chromium",
+      "roundtrip_passed": true,
+      "deployed_recovery_passed": true,
+      "account_cleanup": "Exact synthetic user, tenant, sessions, codes, audit and counters removed"
+    },
+    {
+      "domain": "15minutes-email.com",
+      "recipient": "auth-test@15minutes-email.com",
+      "sender": "noreply@15minutes-email.com",
+      "synthetic": true,
+      "read_other_inboxes": false,
+      "application_accounts_changed": true,
+      "password_resets_requested": true,
+      "send_attempted": true,
+      "accepted": true,
+      "received": true,
+      "cleanup": "Only the exact nonce/hash-matched synthetic message removed; pre-existing inbox entries preserved",
+      "whole_workflow_verified": false,
+      "auth_checks": [
+        "Synthetic inbox has no existing account; preserve existing users",
+        "Deployed browser credential login es",
+        "Deployed browser recovery accepted with generic response",
+        "Recovery code absent from HTTP response",
+        "Recovery form fits registered viewport",
+        "Deployed recovery request accepted with generic response",
+        "Recovery code absent from HTTP response",
+        "Recovery email received and code hash matches database",
+        "Deployed browser password reset succeeds",
+        "Reset form fits registered viewport",
+        "Reset revokes existing session",
+        "Old password rejected",
+        "Deployed browser credential login es",
+        "Browser new-password session matches fixture account",
+        "Consumed reset code cannot be replayed",
+        "New authenticated identity survives reread",
+        "New session logout succeeds",
+        "Logged-out session rejected",
+        "All reset codes removed after success",
+        "Browser reload clears revoked session and returns to login"
+      ],
+      "send_http_status": 200,
+      "new_inbox_record_seen": true,
+      "inbox_record_fields": [
+        "from",
+        "messageId",
+        "rawBase64",
+        "receivedAt",
+        "size",
+        "subject",
+        "to"
+      ],
+      "candidate_code_count": 1,
+      "received_record_sha256": "5ab93731c38f7ce430827738c9c1afb4e40d2c3c09a63efa1823d5e246e628de",
+      "matched_correlation": true,
+      "http_failures": [
+        {
+          "path": "/v1/auth/me",
+          "status": 401,
+          "non_json": false
+        },
+        {
+          "path": "/v1/auth/login",
+          "status": 401,
+          "non_json": false
+        },
+        {
+          "path": "/v1/auth/reset-password",
+          "status": 400,
+          "non_json": false
+        },
+        {
+          "path": "/v1/auth/me",
+          "status": 401,
+          "non_json": false
+        }
+      ],
+      "locale": "es",
+      "viewport_width": 1440,
+      "browser": "chromium",
+      "roundtrip_passed": true,
+      "deployed_recovery_passed": true,
+      "account_cleanup": "Exact synthetic user, tenant, sessions, codes, audit and counters removed"
+    }
+  ],
+  "authCatalogue": [
+    {
+      "id": "auth.bootstrap-first-central-admin",
+      "status": "blocked",
+      "blockers": [
+        "The pinned definition leaves approved deployment operator identity and approved execution environment unbound; no registered operator application role or bootstrap API may be invented."
+      ]
+    },
+    {
+      "id": "auth.bootstrap-first-ceo",
+      "status": "blocked",
+      "blockers": [
+        "Pinned draft leaves deployment operator identity and approved protected workflow inputs/review unresolved. Its generic authenticated-session and foreign-tenant alternatives are not reconciled with the protected operator CLI entry point."
+      ]
+    },
+    {
+      "id": "auth.bootstrap-first-platform-admin",
+      "status": "blocked",
+      "blockers": [
+        "Pinned draft explicitly leaves protected deployment operator identity and approved execution environment unbound; acceptance evidence and required reviews are not complete.",
+        "Bound source changed; current test evidence requires rerun."
+      ]
+    },
+    {
+      "id": "auth.change-password",
+      "status": "implemented-unverified",
+      "blockers": [
+        "Isolated native PostgreSQL and actual main/gateway/service; not deployed edge execution.",
+        "Current production definition is bound; source/specification reconciliation and independent reviews remain required.",
+        "Other auth workflows and cross-platform/PWA acceptance are not established by this receipt."
+      ]
+    },
+    {
+      "id": "auth.create-tenant-account",
+      "status": "missing",
+      "blockers": [
+        "Missing required CEO/HR general target-role account creation UI; POST API 1 has no screen_api_links. Existing screens 705/903/935/39/314 provide only generic/placeholder controls and no registered email/password/actor-specific role-selection creation component. Register exact sections/elements/test IDs/EN-FR-ES resources before implementation.",
+        "Definition is virtual_draft with no resolved composite policy-row source links, despite 109 existing same_tenant policy rows (CEO71/HR38). Rebind exact rows via a production-compatible metadata writer; do not execute legacy SQLite registration writers.",
+        "API request schema excludes seven approved policy targets: growth_caller, growth_coordinator, growth_google, growth_meta, growth_offline, growth_seo, maintenance. Response schema is null; legacy api_permissions for API1 carry an unrelated RMT-list key, while endpoint permission_key is auth_account_creation_policy. Reconcile registered contracts without changing actor grants.",
+        "API-only native execution; required general CEO/HR creation UI is absent, so browser/UI acceptance is blocked.",
+        "Loopback actual gateway/service; deployed edge/cookie policy, accessibility/PWA, localized UI, evidence playback and independent reviews remain unproven.",
+        "Explicit isolated actors and rate budgets; authentication rate-window acceptance is outside this scope.",
+        "Bound source changed; current test evidence requires rerun."
+      ]
+    },
+    {
+      "id": "auth.credential-login",
+      "status": "implemented-unverified",
+      "blockers": [
+        "Current 27 browser cases cover selected Platform Admin, RMT, CEO and maintenance surfaces; not every registered actor/destination.",
+        "Deployed API smoke passed22 checks with synthetic cleanup, but does not establish current candidate UI deployment, complete cookie/PWA/cross-platform acceptance or every failure alternative.",
+        "Registered core API service/authentication/schema/permission metadata conflicts and current specification/source rebinding remain unresolved.",
+        "No independent current full acceptance review/approval ID exists; all seven gates and every registered acceptance criterion must be proven before verification."
+      ]
+    },
+    {
+      "id": "auth.forgot-password",
+      "status": "implemented-unverified",
+      "blockers": [
+        "Actual deployed browser/email/API/native-database recovery passed in EN/FR/ES at 320/768/1440 widths. Positive journey and code-replay denial do not prove every registered failure alternative.",
+        "Recovery registration and canonical public API metadata are reconciled in pinned production. Localization values remain reviewed=0/approved=0; registration does not grant review approval.",
+        "Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete."
+      ]
+    },
+    {
+      "id": "auth.inspect-account",
+      "status": "missing",
+      "blockers": [
+        "Required CEO same-tenant account-detail UI is confirmed absent. API16427 is linked to screens705/903/935, but no screen_components or exact account-selection/detail API controls exist; generic workspace telemetry/placeholders do not implement the duty. Register exact controls, stable test IDs and EN/FR/ES resources through a supported production metadata writer before implementation.",
+        "Draft definition/step uses GET /v1/auth/admin/users/{id}; canonical registered API16427 is GET /v1/admin/users/{userId}. Reconcile the specification binding without adding routes or grants. Existing CEO same_tenant management policy remains the authority.",
+        "API-only native execution; required account-detail UI is absent, so browser/UI acceptance is blocked.",
+        "Loopback actual gateway/service; deployed edge/cookie policy, accessibility/PWA, localized UI, evidence playback and independent reviews remain unproven.",
+        "Read-only workflow; no mutation rollback or offline browser acceptance claimed when the UI is absent.",
+        "Bound source changed; current test evidence requires rerun."
+      ]
+    },
+    {
+      "id": "auth.inspect-account-sessions",
+      "status": "missing",
+      "blockers": [
+        "Required CEO same-tenant account-session UI is confirmed absent. API16421 is linked to screens705/903/935, but no screen_components or exact account-selection/session-list API controls exist; generic workspace telemetry/placeholders do not implement the duty. Register exact controls, stable test IDs and EN/FR/ES resources through a supported production metadata writer before implementation.",
+        "Draft definition/step uses GET /v1/auth/admin/users/{id}/sessions; canonical registered API16421 is GET /v1/admin/users/{userId}/sessions. Reconcile the specification binding without adding routes or grants. Existing CEO same_tenant management policy remains the authority.",
+        "API-only native execution; required account-session UI is absent, so browser/UI acceptance is blocked.",
+        "Loopback actual gateway/service; deployed edge/cookie policy, accessibility/PWA, localized UI, evidence playback and independent reviews remain unproven.",
+        "Read-only workflow; no mutation rollback or offline browser acceptance claimed when the UI is absent.",
+        "Bound source changed; current test evidence requires rerun."
+      ]
+    },
+    {
+      "id": "auth.inspect-email-config",
+      "status": "implemented-unverified",
+      "blockers": [
+        "Actual candidate browser/gateway/inherited service with isolated native PostgreSQL; not deployed Cloudflare execution.",
+        "Native email is an isolated fixture; no email is sent.",
+        "Full independent architecture/database/security/accessibility/performance/localization/API/testing/documentation approvals and cross-platform/PWA release gates remain pending."
+      ]
+    },
+    {
+      "id": "auth.inspect-own-sessions",
+      "status": "implemented-unverified",
+      "blockers": [
+        "Actual deployed own-session browser/API/native-database journey passed in EN/FR/ES at 320/768/1440 widths, with cross-tenant denial, audit confirmation, revocation and reload. These scoped checks do not prove all roles or every registered failure alternative.",
+        "Own-session controls and canonical authenticated-self API metadata are reconciled in pinned production. Localization values remain reviewed=0/approved=0; registration does not grant review approval.",
+        "Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete."
+      ]
+    },
+    {
+      "id": "auth.list-tenant-accounts",
+      "status": "missing",
+      "blockers": [
+        "Required UI interaction is absent in current TypeScript/native presentation source.",
+        "Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract."
+      ]
+    },
+    {
+      "id": "auth.logout",
+      "status": "implemented-unverified",
+      "blockers": [
+        "Isolated native PostgreSQL and actual main/gateway/service; not deployed edge execution.",
+        "Current production definition is bound; source/specification reconciliation and independent reviews remain required.",
+        "Other auth workflows and cross-platform/PWA acceptance are not established by this receipt.",
+        "Registered logout API5 lacks a reconciled formal response/permission contract. The generic missing/expired-session denial alternative is unresolved against the implemented idempotent signed_out retry contract.",
+        "The six credential cases cover RMT and CEO; remaining registered actor/workspace families, deployed edge/cookie execution and required independent reviews remain unproven.",
+        "Workspace labels are registered from existing source with reviewed=0 and approved=0; registration parity is not localization approval."
+      ]
+    },
+    {
+      "id": "auth.manage-account",
+      "status": "missing",
+      "blockers": [
+        "Required UI interaction is absent in current TypeScript/native presentation source.",
+        "Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract."
+      ]
+    },
+    {
+      "id": "auth.read-creation-audit",
+      "status": "missing",
+      "blockers": [
+        "Required UI interaction is absent in current TypeScript/native presentation source.",
+        "Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract."
+      ]
+    },
+    {
+      "id": "auth.read-current-session",
+      "status": "implemented-unverified",
+      "blockers": [
+        "Current 27 browser cases cover selected Platform Admin, RMT, CEO and maintenance surfaces; not every registered actor/destination.",
+        "Deployed API smoke passed22 checks with synthetic cleanup, but does not establish current candidate UI deployment, complete cookie/PWA/cross-platform acceptance or every failure alternative.",
+        "Registered core API service/authentication/schema/permission metadata conflicts and current specification/source rebinding remain unresolved.",
+        "No independent current full acceptance review/approval ID exists; all seven gates and every registered acceptance criterion must be proven before verification."
+      ]
+    },
+    {
+      "id": "auth.read-management-audit",
+      "status": "missing",
+      "blockers": [
+        "Required UI interaction is absent in current TypeScript/native presentation source.",
+        "Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract."
+      ]
+    },
+    {
+      "id": "auth.reset-password",
+      "status": "implemented-unverified",
+      "blockers": [
+        "Actual deployed browser/email/API/native-database recovery passed in EN/FR/ES at 320/768/1440 widths. Positive journey and code-replay denial do not prove every registered failure alternative.",
+        "Recovery registration and canonical public API metadata are reconciled in pinned production. Localization values remain reviewed=0/approved=0; registration does not grant review approval.",
+        "Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete."
+      ]
+    },
+    {
+      "id": "auth.revoke-account-sessions",
+      "status": "missing",
+      "blockers": [
+        "Required UI interaction is absent in current TypeScript/native presentation source.",
+        "Draft auth-prefixed endpoint differs from canonical registered /v1/user/sessions or /v1/admin/users path; bind existing canonical contract."
+      ]
+    },
+    {
+      "id": "auth.revoke-own-sessions",
+      "status": "implemented-unverified",
+      "blockers": [
+        "Actual deployed own-session browser/API/native-database journey passed in EN/FR/ES at 320/768/1440 widths, with cross-tenant denial, audit confirmation, revocation and reload. These scoped checks do not prove all roles or every registered failure alternative.",
+        "Own-session controls and canonical authenticated-self API metadata are reconciled in pinned production. Localization values remain reviewed=0/approved=0; registration does not grant review approval.",
+        "Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete."
+      ]
+    },
+    {
+      "id": "auth.save-email-config",
+      "status": "implemented-unverified",
+      "blockers": [
+        "Actual main/gateway/service and isolated native PostgreSQL, not deployed Cloudflare execution.",
+        "Email binding is a capture-only synthetic provider; acceptance is not inbox delivery.",
+        "Production specification is bound; independent reviews, full PWA/cross-platform acceptance and governed video playback remain required."
+      ]
+    },
+    {
+      "id": "auth.switch-role",
+      "status": "blocked",
+      "blockers": [
+        "Approved multi-role assignments, tenant-bound switch/session semantics, allowed grants and audit acceptance are missing."
+      ]
+    },
+    {
+      "id": "auth.test-maintenance-email",
+      "status": "implemented-unverified",
+      "blockers": [
+        "Actual main/gateway/service and isolated native PostgreSQL, not deployed Cloudflare execution.",
+        "Email binding is a capture-only synthetic provider; acceptance is not inbox delivery.",
+        "Production specification is bound; independent reviews, full PWA/cross-platform acceptance and governed video playback remain required.",
+        "Provider acceptance cannot be rolled back if a later audit commit fails; ambiguous provider retry/idempotency and delivery requirements need an explicit registered decision. No inbox delivery or exactly-once send claim."
+      ]
+    }
+  ]
+}
