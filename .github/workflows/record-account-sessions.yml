@@ -1,0 +1,135 @@
+name: Record account session list proof and checkpoint
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/record-account-sessions.yml]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Require exact corrected producer evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import urllib.request,json,os,time
+          for _ in range(60):
+              rows=[json.load(urllib.request.urlopen(urllib.request.Request('https://api.github.com/repos/shaikhrais/primecare-platform/actions/runs/'+str(i),headers={'Authorization':'Bearer '+os.environ['GH_TOKEN']}))) for i in [39345441636,39345413323]]
+              if all(r['status']=='completed' for r in rows):
+                  assert rows[0]['conclusion']=='success','Corrected producer failed; do not record passing acceptance'
+                  break
+              time.sleep(5)
+          else: raise RuntimeError('Producer incomplete; tracking unchanged')
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39345441636
+          github-token: ${{ github.token }}
+          name: account-sessions-native-evidence
+          path: test-results
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39345413323
+          github-token: ${{ github.token }}
+          name: account-sessions-native-evidence
+          path: diagnostics
+      - name: Save supported attempt and cleaned main checkpoint
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GH_TOKEN: ${{ github.token }}
+          EVIDENCE_RUN: '39345441636'
+        run: |
+          python -u - <<'PY'
+          import sys,os,json,pathlib,hashlib,urllib.request,subprocess,time
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,summary,_bindings_current,_open_issues
+          root=pathlib.Path.cwd();base='test-results/account-sessions';flow='auth.inspect-account-sessions'
+          receipt=json.loads((root/base/'results.json').read_text());policy=json.loads((root/base/'governance.json').read_text())
+          assert receipt['workflow_id']==flow
+          assert receipt['passed'] and not receipt['wholeTaskVerified'] and len(receipt['cases'])==1 and len(receipt['apiChecks'])==8
+          assert _bindings_current(receipt['source_bindings'],root)
+          api=next(a for a in policy['apis'] if a['id']==16421)
+          assert api['route_path']=='/v1/admin/users/{userId}/sessions' and api['permission_key']=='auth_account_management_policy'
+          assert policy['management_policy']==[dict(actor_role_code='ceo',scope='same_tenant',permitted_fields='roles,status',self_modification=0)]
+          assert not policy['screen_components'] and {s['id'] for s in policy['linked_screens']}=={705,903,935}
+          assert not [e for e in policy['screen_section_elements'] if e['api_usage'] and 'sessions' in e['api_usage'].lower()]
+          def request(path):return json.load(urllib.request.urlopen(urllib.request.Request('https://api.github.com/repos/shaikhrais/primecare-platform/'+path,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})))
+          run=request('actions/runs/'+os.environ['EVIDENCE_RUN']);assert run['conclusion']=='success' and run['head_sha']==receipt['commit']
+          artifact=next(a for a in request('actions/runs/'+os.environ['EVIDENCE_RUN']+'/artifacts')['artifacts'] if a['name']=='account-sessions-native-evidence' and not a['expired']);url=run['html_url']+'/artifacts/'+str(artifact['id'])
+          reviewed=['websites/typescript/src/auth-screen.ts','websites/typescript/src/account.ts','websites/typescript/src/workspace.ts','websites/typescript/src/main.ts','packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart','tools/governance-production/production-pin.json']
+          sources=dict(receipt['source_bindings'])
+          for path in reviewed:sources[path]=hashlib.sha256((root/path).read_bytes()).hexdigest()
+          audit=dict(workflow_id=flow,browser_executed=False,missing_acceptance=['step:1','step:2','step:3'],api_id=16421,canonical_route=api['route_path'],draft_route='/v1/auth/admin/users/{id}/sessions',linked_screens=[705,903,935],registered_session_components=[],reviewed_source_bindings={p:sources[p] for p in reviewed},conclusion='Existing linked screens use generic workspace telemetry/placeholders; no account-target selection, timestamp-only paginated session display or canonical API interaction exists. Authentication source renders login, while account source implements change password. No browser/reload/offline UI proof exists.')
+          (root/base/'source-audit.json').write_text(json.dumps(audit,indent=2))
+          files=[('results.json','api-database'),('governance.json','specification'),('run.mjs','test'),('source-audit.json','source-review')]
+          evidence=[dict(path=base+'/'+name,sha256=hashlib.sha256((root/base/name).read_bytes()).hexdigest(),kind=kind,url=('https://github.com/shaikhrais/primecare-platform/actions/runs/'+os.environ['GITHUB_RUN_ID'] if name=='source-audit.json' else url)) for name,kind in files]
+          blockers=['Required CEO same-tenant account-session UI is confirmed absent. API16421 is linked to screens705/903/935, but no screen_components or exact account-selection/session-list API controls exist; generic workspace telemetry/placeholders do not implement the duty. Register exact controls, stable test IDs and EN/FR/ES resources through a supported production metadata writer before implementation.','Draft definition/step uses GET /v1/auth/admin/users/{id}/sessions; canonical registered API16421 is GET /v1/admin/users/{userId}/sessions. Reconcile the specification binding without adding routes or grants. Existing CEO same_tenant management policy remains the authority.']+receipt['limitations']
+          with ProductionWorkflowStore() as db:
+              assert db.execute('SELECT definition_sha256 FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()[0]==receipt['definition_sha256']
+              existing=_open_issues(db,flow,root)
+              if existing:
+                  for issue in existing:
+                      for path in json.loads(db.execute('SELECT affected_sources_json FROM virtual_workflow_issues WHERE issue_id=?',(issue,)).fetchone()[0]):sources[path]=hashlib.sha256((root/path).read_bytes()).hexdigest()
+              result=dict(status='missing',test_status='scoped_pass',scope='scoped',source_bindings=sources,evidence=evidence,blockers=blockers,next_action='Register approved account sessions controls/resources and reconcile canonical specification using a production-compatible metadata writer. Continue auth.inspect-email-config from its live requirements; no new grants.')
+              if existing:result['existing_issue_ids']=existing
+              else:result['issues']=[dict(criterion_id='step:1',reproduction='Use CEO linked screens705/903/935 to open a same-tenant account sessions; inspect registered controls and generic workspace source.',expected='Registered controls call canonical API16421, display timestamp-only paginated sessions and accurate counts and reread authoritative state on reload.',actual=audit['conclusion'],affected_sources=reviewed[:5])]
+              diagnostic_path=root/'diagnostics/account-sessions/results.json'
+              diagnostic=json.loads(diagnostic_path.read_text())
+              assert diagnostic['workflow_id']=='auth.inspect-account-sessions-sessions'
+              assert diagnostic['cleanup']=='Isolated synthetic schema dropped; production business accounts untouched'
+              assert _bindings_current(diagnostic['source_bindings'],root)
+              diagnostic_evidence=[dict(path='diagnostics/account-sessions/'+name,kind=kind,sha256=hashlib.sha256((root/'diagnostics/account-sessions'/name).read_bytes()).hexdigest(),url='https://github.com/shaikhrais/primecare-platform/actions/runs/39345413323') for name,kind in [('results.json','fixture-diagnostic'),('run.mjs','test'),('governance.json','specification')]]
+              diagnosis=dict(status='missing',test_status='blocked',scope='scoped',source_bindings=sources,evidence=diagnostic_evidence,blockers=['Producer receipt had a duplicated workflow-ID suffix. Excluded from canonical passing evidence; corrected producer rerun supplies the bound workflow identity. Synthetic schema cleanup completed. No application defect inferred.']+blockers[:2],next_action='Use corrected receipt with the exact workflow ID; do not promote from mislabeled evidence.')
+              if existing:diagnosis['existing_issue_ids']=existing
+              else:diagnosis['issues']=result['issues']
+              diagnostic_output=record_attempt(db,flow,diagnosis,root)
+              output=record_attempt(db,flow,result,root)
+          print('ACCOUNT_SESSIONS_ATTEMPT_COMMITTED '+json.dumps(dict(attempt=output,diagnostic_attempt=diagnostic_output,evidence_url=url,blockers=blockers)))
+          # Save the next exact definition without claiming its execution.
+          with ProductionWorkflowStore() as db:
+              next_flow='auth.inspect-email-config'
+              cols=['flow_id','title','definition_json','definition_sha256','verification_status','test_status','blocker_json']
+              row=db.execute('SELECT '+','.join(cols)+' FROM virtual_workflow_definitions WHERE flow_id=?',(next_flow,)).fetchone()
+              next_definition=dict(zip(cols,row));print('NEXT_SESSIONS_WORKFLOW '+json.dumps(next_definition))
+              catalog=dict(db.execute('SELECT flow_kind,COUNT(*) FROM virtual_workflow_definitions GROUP BY flow_kind'))
+              print('LIVE_SESSIONS_CATALOG '+json.dumps(dict(totals=summary(db),catalogue=catalog,test_status_counts=dict(db.execute("SELECT test_status,COUNT(*) FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY test_status")))))
+          # Wait for the documentation/temporary-workflow cleanup commit and required main checks.
+          clean=None
+          for _ in range(36):
+              branches=request('branches?per_page=100');prs=request('pulls?state=open&per_page=100');main=next(b['commit']['sha'] for b in branches if b['name']=='main')
+              subprocess.run(['git','fetch','--no-tags','origin','main'],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              absent=all(subprocess.run(['git','cat-file','-e',main+':'+p],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode!=0 for p in ['.github/workflows/account-sessions.yml','.github/workflows/record-account-sessions.yml'])
+              checks=request('commits/'+main+'/check-runs?per_page=100')['check_runs']
+              if absent and len(branches)==1 and not prs and checks and all(c['status']=='completed' and c['conclusion'] in ['success','skipped','neutral'] for c in checks):
+                  for path,sha in sources.items():assert hashlib.sha256(subprocess.check_output(['git','show',main+':'+path])).hexdigest()==sha,'Source changed: '+path
+                  clean=dict(main_sha=main,work_branch=None,work_branch_sha=None,pr=None,branch_count=1,open_prs=0,ci_state=[dict(name=c['name'],conclusion=c['conclusion']) for c in checks],merge_cleanup_state='No implementation change/work branch; temporary operational workflows removed; final main checks passed');break
+              time.sleep(15)
+          assert clean,'Attempt saved; final cleanup/checkpoint still outstanding'
+          with ProductionWorkflowStore() as db:
+              assert db.execute('SELECT attempt_id FROM virtual_workflow_checkpoints WHERE flow_id=?',(flow,)).fetchone()[0]==output['attempt_id']
+              prior=db.execute('SELECT summary_json FROM virtual_flow_catalog_snapshots WHERE name=?',('recovery-handoff-current',)).fetchone()
+              handoff=json.loads(prior[0]) if prior else {}
+              handoff.update(clean)
+              handoff.update(attempted=[dict(workflow_id=flow,attempt_id=output['attempt_id'],verification_status='missing',test_status='scoped_pass',blockers=blockers,evidence=evidence)],totals=summary(db),test_status_counts=dict(db.execute("SELECT test_status,COUNT(*) FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY test_status")),catalogue=catalog,synthetic_data_cleanup=receipt['cleanup'],remaining_review_state='Account sessions UI absent; full browser acceptance/reviews pending; no verified promotion',next_action='Inspect auth.inspect-email-config from the live saved definition; reconcile canonical API and registered UI before isolated login/UI/API/database/reload testing.')
+              db.execute("INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action) VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,next_action=excluded.next_action,invalidation_json='[]',updated_at=CURRENT_TIMESTAMP",(flow,output['attempt_id'],json.dumps(handoff,sort_keys=True)))
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('recovery-handoff-current',json.dumps(handoff,sort_keys=True)))
+          print('ACCOUNT_SESSIONS_HANDOFF_COMMITTED '+json.dumps(handoff))
+          
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: account-sessions-recorded-review
+          path: test-results/account-sessions/source-audit.json
