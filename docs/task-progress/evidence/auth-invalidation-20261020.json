@@ -1,0 +1,1128 @@
+{
+  "date": "2026-10-20",
+  "scope": "Auth invalidation safety and current full-story verification",
+  "runtimeSourceCommit": "190ac653e166490fc4bfde5003d12ab6a7a38e76",
+  "nativeFaultRun": 39485060261,
+  "nativeFaultProofs": [
+    {
+      "scope": "password-change/reset/account-management partial invalidation",
+      "identity": "uuid",
+      "baselineReproductions": [
+        "change:auth_sessions",
+        "change:auth_password_resets",
+        "reset:auth_sessions",
+        "reset:auth_password_resets",
+        "manage:auth_sessions",
+        "logout:auth_sessions"
+      ],
+      "repairedRollbacks": [
+        "change:auth_sessions",
+        "change:auth_password_resets",
+        "reset:auth_sessions",
+        "reset:auth_password_resets",
+        "manage:auth_sessions",
+        "logout:auth_sessions"
+      ],
+      "successfulRetries": [
+        "change:auth_sessions",
+        "change:auth_password_resets",
+        "reset:auth_sessions",
+        "reset:auth_password_resets",
+        "manage:auth_sessions",
+        "logout:auth_sessions"
+      ],
+      "wholeAuthVerified": false,
+      "passed": true
+    },
+    {
+      "scope": "password-change/reset/account-management partial invalidation",
+      "identity": "text",
+      "baselineReproductions": [
+        "change:auth_sessions",
+        "change:auth_password_resets",
+        "reset:auth_sessions",
+        "reset:auth_password_resets",
+        "manage:auth_sessions",
+        "logout:auth_sessions"
+      ],
+      "repairedRollbacks": [
+        "change:auth_sessions",
+        "change:auth_password_resets",
+        "reset:auth_sessions",
+        "reset:auth_password_resets",
+        "manage:auth_sessions",
+        "logout:auth_sessions"
+      ],
+      "successfulRetries": [
+        "change:auth_sessions",
+        "change:auth_password_resets",
+        "reset:auth_sessions",
+        "reset:auth_password_resets",
+        "manage:auth_sessions",
+        "logout:auth_sessions"
+      ],
+      "wholeAuthVerified": false,
+      "passed": true
+    }
+  ],
+  "passwordBrowserRun": 39485060276,
+  "passwordBrowser": {
+    "passed": true,
+    "baseline": false,
+    "probeCompleted": false,
+    "cases": [
+      {
+        "locale": "en",
+        "width": 320,
+        "credentialLogin": true,
+        "actualMainUI": true,
+        "malformedSuccessRejected": true,
+        "offlineRetry": true,
+        "invalidCredentialsLocalized": true,
+        "auditFailureRollsBack": true,
+        "passwordHashConfirmed": true,
+        "oldCredentialsDenied": true,
+        "allPriorSessionsRevoked": true,
+        "resetTokensRevoked": true,
+        "foreignTenantPreserved": true,
+        "newCredentialLoginAndReload": true,
+        "replacementSessionPreserved": true
+      },
+      {
+        "locale": "fr",
+        "width": 768,
+        "credentialLogin": true,
+        "actualMainUI": true,
+        "malformedSuccessRejected": true,
+        "offlineRetry": true,
+        "invalidCredentialsLocalized": true,
+        "auditFailureRollsBack": true,
+        "passwordHashConfirmed": true,
+        "oldCredentialsDenied": true,
+        "allPriorSessionsRevoked": true,
+        "resetTokensRevoked": true,
+        "foreignTenantPreserved": true,
+        "newCredentialLoginAndReload": true,
+        "replacementSessionPreserved": true
+      },
+      {
+        "locale": "es",
+        "width": 1440,
+        "credentialLogin": true,
+        "actualMainUI": true,
+        "malformedSuccessRejected": true,
+        "offlineRetry": true,
+        "invalidCredentialsLocalized": true,
+        "auditFailureRollsBack": true,
+        "passwordHashConfirmed": true,
+        "oldCredentialsDenied": true,
+        "allPriorSessionsRevoked": true,
+        "resetTokensRevoked": true,
+        "foreignTenantPreserved": true,
+        "newCredentialLoginAndReload": true,
+        "replacementSessionPreserved": true
+      }
+    ],
+    "failures": [],
+    "wholeTaskVerified": false
+  },
+  "backendMatrixRun": 39485935695,
+  "authDeployment": {
+    "run": 39486884622,
+    "sourceCommit": "441515dd3c975d8d1c5c3db27e360470a08cce48",
+    "workerVersion": "6517e1a0-3acc-454f-befe-10e78fda8143"
+  },
+  "targetedLocalTests": 263,
+  "technicalTraceabilityRun": 39485329505,
+  "liveLifecycleRun": 39487569654,
+  "liveProducerCommit": "e4f52a97b393570e3759b4ece9e92484ea87abc6",
+  "liveCases": [
+    {
+      "locale": "en",
+      "width": 320,
+      "read": {
+        "synthetic": true,
+        "scope": "deployed-ceo-account-reads",
+        "locale": "en",
+        "width": 320,
+        "checks": [
+          "Real CEO browser credential login",
+          "Real staff session prepared for denied-role checks",
+          "UI account total matches native fixture tenant",
+          "First account page has exact registered page size",
+          "Foreign tenant email never rendered",
+          "Next page renders remaining two records",
+          "Literal search renders exactly one native account",
+          "Browser details reaches canonical API",
+          "Account details match native record",
+          "Account fields rendered exactly",
+          "details denies foreign tenant header",
+          "details denies staff role",
+          "Browser sessions reaches canonical API",
+          "Session timestamps match native records",
+          "Session timestamps rendered without token hashes",
+          "sessions denies foreign tenant header",
+          "sessions denies staff role",
+          "Browser managementAudit reaches canonical API",
+          "managementAudit matches native target/tenant records",
+          "managementAudit rendered from persisted records",
+          "managementAudit denies foreign tenant header",
+          "managementAudit denies staff role",
+          "Browser creationAudit reaches canonical API",
+          "creationAudit matches native target/tenant records",
+          "creationAudit rendered from persisted records",
+          "creationAudit denies foreign tenant header",
+          "creationAudit denies staff role",
+          "Account list denies missing session",
+          "Account list denies staff role",
+          "Foreign account detail concealed",
+          "Foreign account sessions concealed",
+          "All read workflows preserve account/session/audit records",
+          "Reload rereads authoritative account list",
+          "Offline failure clears stale account data",
+          "Refresh recovers after offline failure",
+          "Registered viewport has no page overflow"
+        ],
+        "wholeAuthVerified": false,
+        "fixtureIdentifiers": {
+          "tenants": [
+            "07aa87ff-1785-4380-ab85-a96ec57b33af",
+            "69ea0b2e-c61e-482f-a3fc-ee3e5b66ace4"
+          ],
+          "users": [
+            "ca32058a-a16d-48dd-8ed6-4f196ee7a146",
+            "cf20494e-f490-4419-a4d8-6da22fbb056e",
+            "441e94ea-9b76-4974-878b-b8747b4de030",
+            "7c043b87-970e-4b0e-94e4-852e92e9135d",
+            "68ff7a15-dcc2-4a13-92f5-09a70774d560",
+            "55666e21-423e-4862-a0e0-ecf8f7b95c15",
+            "4d942161-28e9-4e39-aaed-5b5066daf680",
+            "3865eaa2-0327-4895-9b44-6ed445f38c89",
+            "0eb51616-8c29-445a-9420-d30e31edc9aa",
+            "9a7cd0d8-9191-4334-9ed9-b009290f37f2",
+            "fee3564c-9feb-45aa-849b-5f5eee5904f4",
+            "507dabe1-6a81-4956-81ac-f0c227789910",
+            "b78121df-c186-4177-bcc1-85afdd411474",
+            "8c66ebb7-e9be-490d-81d0-5ebf432927dc",
+            "a5f2e46f-ece1-404f-89dc-5586b96f5bb6",
+            "d40f88e0-e992-4dfb-8e0f-3cfe3240a9ec",
+            "786e5b70-0a44-4154-9e91-990e4aebb182",
+            "6560492b-8034-4a1b-863a-8532a522ac75",
+            "60b6f9f3-14f0-46d1-89bf-bc226f3ef3c3",
+            "b9d67cf1-e769-4b9a-b59e-e5f5f4529410",
+            "4d07ee96-bc81-4436-b588-2f169e78087f",
+            "ec775aaa-694d-480d-a43c-be62ffac4a0e",
+            "a1941d58-81bc-4f8a-82d7-ad14f9331c00",
+            "be174fe6-5a47-4446-b3e6-32b2d14af323",
+            "4e43f3e6-7903-468e-82ea-878413278be6",
+            "676355b4-5928-4734-b25a-87ba27b40589",
+            "30cde01d-27ef-4f08-b373-043dcbb834dc",
+            "d44b7d54-b8f6-47d2-a11a-bb6f1d0de8e0"
+          ],
+          "nonce": "5eaf3e9b42784cf0b83b7718853902ba"
+        },
+        "passed": true,
+        "cleanup": "Exact synthetic account-read tenants, users, sessions, audits and login counters removed"
+      },
+      "lifecycle": {
+        "synthetic": true,
+        "scope": "deployed-account-mutations-owned-inbox",
+        "locale": "en",
+        "width": 320,
+        "checks": [
+          "Owned inbox has no existing account; preserve existing users",
+          "Real browser credential login mutation",
+          "Malformed success acknowledgement does not claim creation",
+          "Malformed intercepted response made no native account",
+          "CEO creates account through registered browser form",
+          "Creation acknowledgement bound to owned tenant and requested role",
+          "Created account and credential hash match native records",
+          "Exactly one attributed native creation audit",
+          "Real browser credential login auth",
+          "Newly created account authenticates with a real session",
+          "Revoke cancellation preserves target session",
+          "Confirmed browser revocation acknowledges exact target session count",
+          "Revocation removes database session and rejects old bearer",
+          "Target reauthenticates before management check",
+          "Browser deactivation acknowledged",
+          "Deactivation persisted and revoked target session",
+          "Inactive account cannot log in",
+          "Browser reactivation and allowed role change acknowledged",
+          "Role and status change persisted in native account",
+          "Reload rereads changed account role",
+          "Native audit records exact chronological revocation, deactivation and role transition",
+          "Self modification denied",
+          "Self administrator revocation denied",
+          "Cross-tenant mutation header denied",
+          "Foreign target session revocation concealed",
+          "Real browser credential login mutation",
+          "HR target choices exclude CEO escalation",
+          "HR does not receive CEO account read or management controls",
+          "HR creates its approved PSW role through browser",
+          "HR-created account persists in same tenant",
+          "Forged HR CEO creation denied by server",
+          "HR management bypass denied",
+          "Real browser credential login auth",
+          "Created-account recovery has generic response without code disclosure",
+          "Real recovery email received and hash matched to newly created account",
+          "Created-account browser password reset succeeds",
+          "Reset invalidates created-account old session",
+          "Reset rejects old created-account password",
+          "Consumed recovery code cannot be reused",
+          "Real browser credential login auth",
+          "Reset preserves assigned role and new credential session",
+          "Created-account browser password change succeeds with mandatory reauthentication",
+          "Browser password change persists hash and removes every prior session",
+          "Browser password change rejects its old bearer and old password",
+          "Reset and current-password change both persist audit with no usable reset records",
+          "Real browser credential login auth",
+          "Created-account browser logout removes its database session and remains denied",
+          "Created-account reload clears logged-out session",
+          "CEO and HR forms fit registered viewport"
+        ],
+        "wholeAuthVerified": false,
+        "fixtureIdentifiers": {
+          "tenants": [
+            "7afa6a09-3cb3-43e6-a532-61db8367f2c4",
+            "7ca67e3f-b056-4914-a8a1-d4cfe96e7eb3"
+          ],
+          "actors": [
+            "b27338a9-e570-4ae0-a52f-98e452792d44",
+            "e1dcd18c-4289-44b4-8634-c6afed573a87",
+            "ef8cb163-1adb-4ef7-8ef9-2f4e20f60356"
+          ],
+          "nonce": "31a3ef53173248558f9b15d8973c2899",
+          "createdAccount": "859d0459-fa89-4366-aedf-7d355f217dbc"
+        },
+        "denials": [
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/login",
+            "method": "POST",
+            "status": 401
+          },
+          {
+            "path": "/v1/admin/users",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users/b27338a9-e570-4ae0-a52f-98e452792d44/sessions",
+            "method": "DELETE",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users/ef8cb163-1adb-4ef7-8ef9-2f4e20f60356/sessions",
+            "method": "DELETE",
+            "status": 404
+          },
+          {
+            "path": "/v1/auth/register",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/login",
+            "method": "POST",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/reset-password",
+            "method": "POST",
+            "status": 400
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/login",
+            "method": "POST",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          }
+        ],
+        "managementAuditStates": [
+          {
+            "previous": {
+              "sessionCount": 1
+            },
+            "current": {
+              "action": "sessions_revoked",
+              "sessionCount": 0
+            }
+          },
+          {
+            "previous": {
+              "role": "rmt",
+              "status": "active"
+            },
+            "current": {
+              "role": "rmt",
+              "status": "inactive"
+            }
+          },
+          {
+            "previous": {
+              "role": "rmt",
+              "status": "inactive"
+            },
+            "current": {
+              "role": "physio",
+              "status": "active"
+            }
+          }
+        ],
+        "received": true,
+        "received_record_sha256": "6b3082eaed1bea95e08afc3189f37b24e6f4a94b1cdd06a5e471a8246582d10b",
+        "passed": true,
+        "inboxCleanup": "Only the database-correlated, hash-matched synthetic message removed",
+        "cleanup": "Exact owned synthetic mutation tenants, accounts, sessions, reset codes, audits and counters removed"
+      }
+    },
+    {
+      "locale": "fr",
+      "width": 768,
+      "read": {
+        "synthetic": true,
+        "scope": "deployed-ceo-account-reads",
+        "locale": "fr",
+        "width": 768,
+        "checks": [
+          "Real CEO browser credential login",
+          "Real staff session prepared for denied-role checks",
+          "UI account total matches native fixture tenant",
+          "First account page has exact registered page size",
+          "Foreign tenant email never rendered",
+          "Next page renders remaining two records",
+          "Literal search renders exactly one native account",
+          "Browser details reaches canonical API",
+          "Account details match native record",
+          "Account fields rendered exactly",
+          "details denies foreign tenant header",
+          "details denies staff role",
+          "Browser sessions reaches canonical API",
+          "Session timestamps match native records",
+          "Session timestamps rendered without token hashes",
+          "sessions denies foreign tenant header",
+          "sessions denies staff role",
+          "Browser managementAudit reaches canonical API",
+          "managementAudit matches native target/tenant records",
+          "managementAudit rendered from persisted records",
+          "managementAudit denies foreign tenant header",
+          "managementAudit denies staff role",
+          "Browser creationAudit reaches canonical API",
+          "creationAudit matches native target/tenant records",
+          "creationAudit rendered from persisted records",
+          "creationAudit denies foreign tenant header",
+          "creationAudit denies staff role",
+          "Account list denies missing session",
+          "Account list denies staff role",
+          "Foreign account detail concealed",
+          "Foreign account sessions concealed",
+          "All read workflows preserve account/session/audit records",
+          "Reload rereads authoritative account list",
+          "Offline failure clears stale account data",
+          "Refresh recovers after offline failure",
+          "Registered viewport has no page overflow"
+        ],
+        "wholeAuthVerified": false,
+        "fixtureIdentifiers": {
+          "tenants": [
+            "2c642279-c8f6-4e98-b002-06242428e337",
+            "c117615b-c056-4ce7-a82b-ec7f5e6f803f"
+          ],
+          "users": [
+            "38a560bb-6759-409f-8d96-0c8de9281071",
+            "45f6b1f2-aa2c-4b2f-9c2c-e7c79a5440a4",
+            "a473b5c2-cfcf-4d7c-ae8a-d3a7ff9c029e",
+            "4466d094-d050-4d21-97d9-47849971d24a",
+            "564efce4-c71b-4247-af42-906bca24b4e5",
+            "ab56104c-143b-4b07-b11a-b8c8eb600693",
+            "21a66d5d-47af-4483-8542-070436ad9608",
+            "b1fa847a-6923-4612-b35c-2aedfddc76cb",
+            "627e8695-d9e6-4320-982c-5581f3e385be",
+            "c7c5d0e0-b555-4ba1-9ffa-bfc41a53fcfb",
+            "070b1a3f-b23d-46c4-bd64-0f8e306e1763",
+            "99e3abf5-3e23-4552-9342-c23b1e093545",
+            "8bf27c7a-ef5d-4a19-818a-17510007a146",
+            "25ebebdf-a524-429d-bee6-92b44fbb11aa",
+            "d3fc4f89-a687-4d9f-b1c2-e48ce387b7ff",
+            "91353578-819d-484b-b535-2a15a517faf2",
+            "10c026ea-12fe-4569-91ce-103202bd17cd",
+            "4ba4eb2e-896a-405c-a5cb-404e5dcd1ca0",
+            "8f390017-4084-4e69-8a67-036fdd23e1ad",
+            "2686c59e-3246-4f89-b74c-6137a8d6cc88",
+            "05506c0b-1275-4355-a808-9e00baff369d",
+            "e6d9bd8d-661d-48c6-b10f-ac0a047e5e68",
+            "ad6d54a7-b2d3-4f1b-b019-0507101075ee",
+            "11803e7c-6478-4dc9-b817-b2005aed65e0",
+            "5c365703-91c7-4743-9a20-47edddebb1ac",
+            "3f29d349-0c76-4077-8aea-bfda6a6690a7",
+            "aedeb2f0-959c-45ae-9e20-91c64b2f0718",
+            "a189b370-7ce9-4d8b-a7b4-de711273f565"
+          ],
+          "nonce": "dca0b360258c4ac1ab39902334304ccd"
+        },
+        "passed": true,
+        "cleanup": "Exact synthetic account-read tenants, users, sessions, audits and login counters removed"
+      },
+      "lifecycle": {
+        "synthetic": true,
+        "scope": "deployed-account-mutations-owned-inbox",
+        "locale": "fr",
+        "width": 768,
+        "checks": [
+          "Owned inbox has no existing account; preserve existing users",
+          "Real browser credential login mutation",
+          "Malformed success acknowledgement does not claim creation",
+          "Malformed intercepted response made no native account",
+          "CEO creates account through registered browser form",
+          "Creation acknowledgement bound to owned tenant and requested role",
+          "Created account and credential hash match native records",
+          "Exactly one attributed native creation audit",
+          "Real browser credential login auth",
+          "Newly created account authenticates with a real session",
+          "Revoke cancellation preserves target session",
+          "Confirmed browser revocation acknowledges exact target session count",
+          "Revocation removes database session and rejects old bearer",
+          "Target reauthenticates before management check",
+          "Browser deactivation acknowledged",
+          "Deactivation persisted and revoked target session",
+          "Inactive account cannot log in",
+          "Browser reactivation and allowed role change acknowledged",
+          "Role and status change persisted in native account",
+          "Reload rereads changed account role",
+          "Native audit records exact chronological revocation, deactivation and role transition",
+          "Self modification denied",
+          "Self administrator revocation denied",
+          "Cross-tenant mutation header denied",
+          "Foreign target session revocation concealed",
+          "Real browser credential login mutation",
+          "HR target choices exclude CEO escalation",
+          "HR does not receive CEO account read or management controls",
+          "HR creates its approved PSW role through browser",
+          "HR-created account persists in same tenant",
+          "Forged HR CEO creation denied by server",
+          "HR management bypass denied",
+          "Real browser credential login auth",
+          "Created-account recovery has generic response without code disclosure",
+          "Real recovery email received and hash matched to newly created account",
+          "Created-account browser password reset succeeds",
+          "Reset invalidates created-account old session",
+          "Reset rejects old created-account password",
+          "Consumed recovery code cannot be reused",
+          "Real browser credential login auth",
+          "Reset preserves assigned role and new credential session",
+          "Created-account browser password change succeeds with mandatory reauthentication",
+          "Browser password change persists hash and removes every prior session",
+          "Browser password change rejects its old bearer and old password",
+          "Reset and current-password change both persist audit with no usable reset records",
+          "Real browser credential login auth",
+          "Created-account browser logout removes its database session and remains denied",
+          "Created-account reload clears logged-out session",
+          "CEO and HR forms fit registered viewport"
+        ],
+        "wholeAuthVerified": false,
+        "fixtureIdentifiers": {
+          "tenants": [
+            "4805b313-59d8-4c05-81e7-537f09fd93af",
+            "047ef57d-49df-4046-85b0-21c32d1a5c38"
+          ],
+          "actors": [
+            "f2cfce97-dc29-4906-a217-e8852d6a831f",
+            "6f5a61d6-5b04-4eff-a270-b6b63af74fb9",
+            "2b8c1097-6d0d-4b66-806a-c00b18ca6ec2"
+          ],
+          "nonce": "8a88eb216f4c4b2f9fe1979e06754976",
+          "createdAccount": "4abfc86e-af63-4d5c-b88f-8d8f8cbef731"
+        },
+        "denials": [
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/login",
+            "method": "POST",
+            "status": 401
+          },
+          {
+            "path": "/v1/admin/users",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users/f2cfce97-dc29-4906-a217-e8852d6a831f/sessions",
+            "method": "DELETE",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users/2b8c1097-6d0d-4b66-806a-c00b18ca6ec2/sessions",
+            "method": "DELETE",
+            "status": 404
+          },
+          {
+            "path": "/v1/auth/register",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/login",
+            "method": "POST",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/reset-password",
+            "method": "POST",
+            "status": 400
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/login",
+            "method": "POST",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          }
+        ],
+        "managementAuditStates": [
+          {
+            "previous": {
+              "sessionCount": 1
+            },
+            "current": {
+              "action": "sessions_revoked",
+              "sessionCount": 0
+            }
+          },
+          {
+            "previous": {
+              "role": "rmt",
+              "status": "active"
+            },
+            "current": {
+              "role": "rmt",
+              "status": "inactive"
+            }
+          },
+          {
+            "previous": {
+              "role": "rmt",
+              "status": "inactive"
+            },
+            "current": {
+              "role": "physio",
+              "status": "active"
+            }
+          }
+        ],
+        "received": true,
+        "received_record_sha256": "efc331d13d5fd082e2a17bc246287098893b683184fabd24f3756c6f8fd03ce7",
+        "passed": true,
+        "inboxCleanup": "Only the database-correlated, hash-matched synthetic message removed",
+        "cleanup": "Exact owned synthetic mutation tenants, accounts, sessions, reset codes, audits and counters removed"
+      }
+    },
+    {
+      "locale": "es",
+      "width": 1440,
+      "read": {
+        "synthetic": true,
+        "scope": "deployed-ceo-account-reads",
+        "locale": "es",
+        "width": 1440,
+        "checks": [
+          "Real CEO browser credential login",
+          "Real staff session prepared for denied-role checks",
+          "UI account total matches native fixture tenant",
+          "First account page has exact registered page size",
+          "Foreign tenant email never rendered",
+          "Next page renders remaining two records",
+          "Literal search renders exactly one native account",
+          "Browser details reaches canonical API",
+          "Account details match native record",
+          "Account fields rendered exactly",
+          "details denies foreign tenant header",
+          "details denies staff role",
+          "Browser sessions reaches canonical API",
+          "Session timestamps match native records",
+          "Session timestamps rendered without token hashes",
+          "sessions denies foreign tenant header",
+          "sessions denies staff role",
+          "Browser managementAudit reaches canonical API",
+          "managementAudit matches native target/tenant records",
+          "managementAudit rendered from persisted records",
+          "managementAudit denies foreign tenant header",
+          "managementAudit denies staff role",
+          "Browser creationAudit reaches canonical API",
+          "creationAudit matches native target/tenant records",
+          "creationAudit rendered from persisted records",
+          "creationAudit denies foreign tenant header",
+          "creationAudit denies staff role",
+          "Account list denies missing session",
+          "Account list denies staff role",
+          "Foreign account detail concealed",
+          "Foreign account sessions concealed",
+          "All read workflows preserve account/session/audit records",
+          "Reload rereads authoritative account list",
+          "Offline failure clears stale account data",
+          "Refresh recovers after offline failure",
+          "Registered viewport has no page overflow"
+        ],
+        "wholeAuthVerified": false,
+        "fixtureIdentifiers": {
+          "tenants": [
+            "c479b96a-a150-41d4-92ba-f4a161e48f80",
+            "e4caded4-c01f-4924-a632-f55bf663ca19"
+          ],
+          "users": [
+            "0de234df-0c3d-4cc1-99ee-288e927a0d78",
+            "9fe56505-54d5-4916-988f-ab85a8d3678b",
+            "c51eb043-42d5-4bcd-b909-ee81de8cbd29",
+            "eb9088f3-75cc-4e5e-94d4-02685f16b3d2",
+            "106cc749-107f-4fc9-bd98-c6989ea62a03",
+            "e22d0966-bf39-4e6c-a35c-e88e8a6d43ca",
+            "ace584e8-6f08-4585-a06d-c3eba95f6f89",
+            "772bc4b9-d7d1-44c6-a788-694bd6036897",
+            "809c41bb-576e-463a-8788-726d6b433212",
+            "eb21a3fa-1624-48b3-84d1-016f1bb9508f",
+            "42ac1bcc-8c63-4038-8e5e-c868f9b854f6",
+            "126506db-2cd4-4d4e-8f70-a8c06a6a2751",
+            "876606a2-8d4b-49a9-9c71-85b4505ad3f0",
+            "a2c3eac3-7cea-4216-b4e6-7ec20489426e",
+            "eeba920b-cb98-4174-abc4-5eaa9fb023ac",
+            "d4886c3c-dc00-47ab-bcd6-b1542cd6bfcb",
+            "d357895d-5a65-4c34-a22b-fa4b30ae9131",
+            "b96a88fd-c530-4c7f-bc60-c85d1cf34f04",
+            "44eba59c-9c7d-4b8b-aee2-a052327b701c",
+            "f7e961e5-3b34-4f42-a29f-ba93171273b3",
+            "23410e25-d52d-4d02-859e-44fd1d67ad12",
+            "8412955d-8039-4f9d-86fe-011eebbaba10",
+            "a4e9f34f-99df-49a5-b191-f3990dec1f6d",
+            "a7b37cb1-8d4b-43aa-9ec9-bd1223bd7951",
+            "01f670f5-0bc7-412f-8007-58f6708eba46",
+            "ea7b88c1-9ac0-4998-bab4-978cb5dd6814",
+            "942bf99e-c286-45f7-bcf0-c1d6841b40d4",
+            "87549293-7e46-42a9-8e8b-a1d1b94f7a9c"
+          ],
+          "nonce": "5ab75f265e324641b85f21a0e6c775d6"
+        },
+        "passed": true,
+        "cleanup": "Exact synthetic account-read tenants, users, sessions, audits and login counters removed"
+      },
+      "lifecycle": {
+        "synthetic": true,
+        "scope": "deployed-account-mutations-owned-inbox",
+        "locale": "es",
+        "width": 1440,
+        "checks": [
+          "Owned inbox has no existing account; preserve existing users",
+          "Real browser credential login mutation",
+          "Malformed success acknowledgement does not claim creation",
+          "Malformed intercepted response made no native account",
+          "CEO creates account through registered browser form",
+          "Creation acknowledgement bound to owned tenant and requested role",
+          "Created account and credential hash match native records",
+          "Exactly one attributed native creation audit",
+          "Real browser credential login auth",
+          "Newly created account authenticates with a real session",
+          "Revoke cancellation preserves target session",
+          "Confirmed browser revocation acknowledges exact target session count",
+          "Revocation removes database session and rejects old bearer",
+          "Target reauthenticates before management check",
+          "Browser deactivation acknowledged",
+          "Deactivation persisted and revoked target session",
+          "Inactive account cannot log in",
+          "Browser reactivation and allowed role change acknowledged",
+          "Role and status change persisted in native account",
+          "Reload rereads changed account role",
+          "Native audit records exact chronological revocation, deactivation and role transition",
+          "Self modification denied",
+          "Self administrator revocation denied",
+          "Cross-tenant mutation header denied",
+          "Foreign target session revocation concealed",
+          "Real browser credential login mutation",
+          "HR target choices exclude CEO escalation",
+          "HR does not receive CEO account read or management controls",
+          "HR creates its approved PSW role through browser",
+          "HR-created account persists in same tenant",
+          "Forged HR CEO creation denied by server",
+          "HR management bypass denied",
+          "Real browser credential login auth",
+          "Created-account recovery has generic response without code disclosure",
+          "Real recovery email received and hash matched to newly created account",
+          "Created-account browser password reset succeeds",
+          "Reset invalidates created-account old session",
+          "Reset rejects old created-account password",
+          "Consumed recovery code cannot be reused",
+          "Real browser credential login auth",
+          "Reset preserves assigned role and new credential session",
+          "Created-account browser password change succeeds with mandatory reauthentication",
+          "Browser password change persists hash and removes every prior session",
+          "Browser password change rejects its old bearer and old password",
+          "Reset and current-password change both persist audit with no usable reset records",
+          "Real browser credential login auth",
+          "Created-account browser logout removes its database session and remains denied",
+          "Created-account reload clears logged-out session",
+          "CEO and HR forms fit registered viewport"
+        ],
+        "wholeAuthVerified": false,
+        "fixtureIdentifiers": {
+          "tenants": [
+            "89c17ed6-1274-41d0-bea8-f44f8ede71cf",
+            "565997ad-a18f-4a99-9da1-2117a0f07a67"
+          ],
+          "actors": [
+            "4853948e-ec93-4ef3-8aec-07ad431b251e",
+            "c3c4a3ca-f62a-4cd5-83fe-f04e8b77ba60",
+            "9039fb0a-7997-4639-abb6-492dba3dd2ad"
+          ],
+          "nonce": "9e8fd84e1b414d6885a06640b1850e25",
+          "createdAccount": "26561dd7-c947-4dad-bd2b-603c6c76c171"
+        },
+        "denials": [
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/login",
+            "method": "POST",
+            "status": 401
+          },
+          {
+            "path": "/v1/admin/users",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users/4853948e-ec93-4ef3-8aec-07ad431b251e/sessions",
+            "method": "DELETE",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users/9039fb0a-7997-4639-abb6-492dba3dd2ad/sessions",
+            "method": "DELETE",
+            "status": 404
+          },
+          {
+            "path": "/v1/auth/register",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/admin/users",
+            "method": "POST",
+            "status": 403
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/login",
+            "method": "POST",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/reset-password",
+            "method": "POST",
+            "status": 400
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/login",
+            "method": "POST",
+            "status": 401
+          },
+          {
+            "path": "/v1/auth/me",
+            "method": "GET",
+            "status": 401
+          }
+        ],
+        "managementAuditStates": [
+          {
+            "previous": {
+              "sessionCount": 1
+            },
+            "current": {
+              "action": "sessions_revoked",
+              "sessionCount": 0
+            }
+          },
+          {
+            "previous": {
+              "role": "rmt",
+              "status": "active"
+            },
+            "current": {
+              "role": "rmt",
+              "status": "inactive"
+            }
+          },
+          {
+            "previous": {
+              "role": "rmt",
+              "status": "inactive"
+            },
+            "current": {
+              "role": "physio",
+              "status": "active"
+            }
+          }
+        ],
+        "received": true,
+        "received_record_sha256": "85dbd4a980d8450bf26112eacf37a912f7d5458153c6049b2834c2a430f228c6",
+        "passed": true,
+        "inboxCleanup": "Only the database-correlated, hash-matched synthetic message removed",
+        "cleanup": "Exact owned synthetic mutation tenants, accounts, sessions, reset codes, audits and counters removed"
+      }
+    }
+  ],
+  "wholeAuthVerified": false,
+  "totalLiveChecks": 255,
+  "productionRecording": {
+    "auth_acceptance": [
+      {
+        "id": "auth.bootstrap-first-central-admin",
+        "status": "blocked",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.bootstrap-first-ceo",
+        "status": "blocked",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.bootstrap-first-platform-admin",
+        "status": "blocked",
+        "test_status": "stale"
+      },
+      {
+        "id": "auth.change-password",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.create-tenant-account",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.credential-login",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.forgot-password",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.inspect-account",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.inspect-account-sessions",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.inspect-email-config",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.inspect-own-sessions",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.list-tenant-accounts",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.logout",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.manage-account",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.read-creation-audit",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.read-current-session",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.read-management-audit",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.reset-password",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.revoke-account-sessions",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.revoke-own-sessions",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.save-email-config",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      },
+      {
+        "id": "auth.switch-role",
+        "status": "blocked",
+        "test_status": "not_run"
+      },
+      {
+        "id": "auth.test-maintenance-email",
+        "status": "implemented-unverified",
+        "test_status": "scoped_pass"
+      }
+    ],
+    "attempt_ids": [
+      408,
+      409,
+      410,
+      411,
+      412,
+      413,
+      414,
+      415,
+      416,
+      417,
+      418,
+      419,
+      420,
+      421
+    ],
+    "workflows": [
+      "auth.create-tenant-account",
+      "auth.manage-account",
+      "auth.revoke-account-sessions",
+      "auth.list-tenant-accounts",
+      "auth.inspect-account",
+      "auth.inspect-account-sessions",
+      "auth.read-management-audit",
+      "auth.read-creation-audit",
+      "auth.forgot-password",
+      "auth.reset-password",
+      "auth.change-password",
+      "auth.credential-login",
+      "auth.logout",
+      "auth.read-current-session"
+    ],
+    "browser_cases": 3,
+    "native_password_cases": 3,
+    "receipt_count": 6,
+    "deployed_portal_assets": 9,
+    "summary": {
+      "total": 147,
+      "missing": 1,
+      "implemented-unverified": 141,
+      "verified": 0,
+      "blocked": 5,
+      "done": 0,
+      "pending": 147
+    },
+    "source_main": "e4f52a97b393570e3759b4ece9e92484ea87abc6",
+    "main_only": true,
+    "open_prs": 0,
+    "whole_auth_verified": false,
+    "evidence": "https://github.com/shaikhrais/primecare-platform/actions/runs/39489625991"
+  }
+}
