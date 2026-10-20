@@ -1,0 +1,23 @@
+name: Verify shared account sessions
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'websites/typescript/src/sessions-*.ts'
+      - 'websites/typescript/src/account.ts'
+      - 'websites/typescript/src/infrastructure/http/base-session-client.ts'
+      - 'packages/shared/src/account-sessions.json'
+      - 'tools/auth-verification/test-sessions.mjs'
+      - '.github/workflows/verify-account-sessions.yml'
+permissions:
+  contents: read
+jobs:
+  contract-and-controller:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node --disable-warning=ExperimentalWarning tools/auth-verification/test-sessions.mjs

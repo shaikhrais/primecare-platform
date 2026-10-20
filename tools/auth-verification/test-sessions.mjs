@@ -1,0 +1,37 @@
+import {registerHooks,stripTypeScriptTypes} from 'node:module';
+import {readFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+registerHooks({resolve(specifier,context,next){if(specifier.endsWith('.json'))return {url:new URL(specifier,context.parentURL).href,shortCircuit:true};if(specifier.startsWith('.')&&!/\.[a-z]+$/.test(specifier))specifier+='.ts';return next(specifier,context);},load(url,context,next){if(url.endsWith('.json'))return {format:'module',source:'export default '+readFileSync(new URL(url),'utf8'),shortCircuit:true};if(url.endsWith('.ts'))return {format:'module',source:stripTypeScriptTypes(readFileSync(new URL(url),'utf8'),{mode:'transform'}),shortCircuit:true};return next(url,context);}});
+const {SessionsClient,SessionRequestError}=await import('../../websites/typescript/src/sessions-client.ts');
+const {SessionsController}=await import('../../websites/typescript/src/sessions-controller.ts');
+let current='original',calls=[],response;
+globalThis.sessionStorage={getItem:()=>current};
+globalThis.fetch=async(url,options)=>{calls.push({url,options});return response;};
+const reply=(value,status=200)=>response=new Response(JSON.stringify(value),{status});
+const row={created_at:'2026-10-20T10:00:00.000Z',expires_at:'2026-10-21T10:00:00.000Z',current:true};
+const page={sessions:[row],pagination:{limit:25,offset:0,total:1,hasMore:false}};
+const client=new SessionsClient('https://example.invalid/','original');
+reply(page);assert.deepEqual(await client.list(),page);
+assert.equal(calls[0].url,'https://example.invalid/v1/user/sessions?limit=25&offset=0');
+assert.equal(calls[0].options.headers.authorization,'Bearer original');
+for(const invalid of [{...page,token:'secret'},{...page,sessions:[{...row,token_hash:'secret'}]},{...page,pagination:{...page.pagination,hasMore:true}},{...page,sessions:[{...row,expires_at:'invalid'}]}]){
+reply(invalid);await assert.rejects(()=>client.list(),e=>e.status===502);
+}
+const before=calls.length;await assert.rejects(()=>client.list(101),e=>e.status===400);assert.equal(calls.length,before);
+current='replacement';await assert.rejects(()=>client.list(),e=>e.status===409);assert.equal(calls.length,before);current='original';
+reply({status:'signed_out_all_devices',revokedSessions:2});assert.equal(await client.revokeAll(),2);assert.equal(calls.at(-1).options.method,'DELETE');assert.equal(calls.at(-1).options.body,undefined);
+reply({status:'ok',revokedSessions:2});await assert.rejects(()=>client.revokeAll(),e=>e.status===502);
+let cleared=0,redirects=[],revokeCalls=0,resolveRevoke;
+const env={current:()=>current,clear:()=>{cleared++;current=null;},locale:()=>'fr',redirect:url=>redirects.push(url)};
+const fake={token:'original',list:async()=>page,revokeAll:()=>{revokeCalls++;return new Promise(resolve=>resolveRevoke=resolve);}};
+const ctrl=new SessionsController(fake,env);
+await ctrl.load();assert.equal(ctrl.snapshot.page.pagination.total,1);
+await ctrl.confirmRevoke();assert.equal(revokeCalls,0);
+ctrl.requestRevoke();ctrl.cancelRevoke();await ctrl.confirmRevoke();assert.equal(revokeCalls,0);
+ctrl.requestRevoke();const pending=ctrl.confirmRevoke();await ctrl.confirmRevoke();assert.equal(revokeCalls,1);resolveRevoke(2);await pending;
+assert.equal(cleared,1);assert.deepEqual(redirects,['/login?locale=fr&enable-semantics=true']);
+current='original';const failing=new SessionsController({token:'original',list:async()=>{throw new SessionRequestError(503)},revokeAll:async()=>{throw new SessionRequestError(503)}},env);
+await failing.load();assert.equal(failing.snapshot.message,'load_failed');failing.requestRevoke();await failing.confirmRevoke();assert.equal(failing.snapshot.message,'revoke_failed');assert.equal(current,'original');
+const stale=new SessionsController({token:'original',list:async()=>{current='replacement';throw new SessionRequestError(401)}},env);
+await stale.load();assert.equal(current,'replacement');assert.equal(cleared,1);assert.equal(stale.snapshot.message,'changed');
+console.log('PASS session contract validation, secret rejection, pagination, stale session, confirmation, double-submit, failure preservation and replacement-session isolation');
