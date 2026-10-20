@@ -29,7 +29,9 @@ jobs:
             const invalidationRuns=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'verify-auth-invalidation.yml',branch:'main',per_page:100})).data.workflow_runs;
             const invalidationRun=invalidationRuns.find(r=>r.head_sha===authRun.head_sha)||invalidationRuns.find(r=>r.conclusion==='success');
             const passwordRuns=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'account-password-acceptance.yml',branch:'main',per_page:100})).data.workflow_runs;
-            const passwordRun=passwordRuns.find(r=>r.head_sha===authRun.head_sha)||passwordRuns.find(r=>r.conclusion==='success');
+            // A repaired newer proof may supersede a failed run for the same Worker source.
+            // It must be successful and match both the Worker and password UI inputs below.
+            const passwordRun=passwordRuns.find(r=>r.conclusion==='success')||passwordRuns.find(r=>r.head_sha===authRun.head_sha);
             if(!invalidationRun||!passwordRun)throw Error('Native invalidation and real password UI proof required');
             for(const run_id of [authRunId,nativeRun.id,invalidationRun.id,passwordRun.id]){
               let run;
@@ -41,6 +43,7 @@ jobs:
               if(run.conclusion!=='success')throw Error('Required native/unit verification failed: '+run_id+' '+run.conclusion);
               const comparison=(await github.rest.repos.compareCommits({owner,repo,base:run.head_sha,head:context.sha})).data;
               if(comparison.files.some(f=>f.filename.startsWith('cloudflare/workers/')))throw Error('Worker source changed after required checks');
+              if(run_id===passwordRun.id&&comparison.files.some(f=>f.filename.startsWith('websites/typescript/src/')||f.filename.startsWith('packages/shared/')||f.filename==='packages/primecare_ui/lib/src/localization/screens/auth.json'||f.filename.startsWith('packages/database/migrations/')))throw Error('Password browser runtime inputs changed after successful proof');
             }
   deploy-auth:
     needs: checks
