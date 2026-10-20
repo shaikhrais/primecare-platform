@@ -24,6 +24,7 @@ function fixture(change=()=>undefined){
   else if(sql.startsWith('UPDATE users SET roles'))rows=[{...user,roles:values[0],status:values[1],tenant_id:values[3]}];
   else if(sql.startsWith('SELECT id,email,roles,status,updated_at'))rows=[user];
   else if(sql.startsWith('SELECT id FROM users'))rows=[{id:'target'}];
+  else if(sql==='SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1')rows=[{count:0}];
   else if(sql.startsWith('SELECT COUNT')||sql.startsWith('WITH revoked'))rows=[{count:1}];
   else if(sql.startsWith('SELECT id,actor_user_id'))rows=[event];
   else if(sql.startsWith('SELECT created_at'))rows=[session];
@@ -115,3 +116,5 @@ test('all fifteen families retain valid reads, authorized mutations and missing-
  }
  const missing=fixture(sql=>sql.startsWith('SELECT id FROM users')||sql.startsWith('SELECT id,email,roles,status,updated_at')?[]:undefined);assert.equal((await missing.call('/admin/users/target')).status,404);
 });
+
+test('own-session revocation confirms one exact zero remaining-count row before audit',async()=>{for(const rows of [[],[{count:0},{count:0}],null,[null],[{count:1}],[{count:'0'}]]){const f=fixture(sql=>sql==='SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1'?rows:undefined);await unavailable(f,'/user/sessions','DELETE');assert.equal(f.calls.at(-1).sql,'ROLLBACK');assert.ok(!f.calls.some(c=>c.sql.startsWith('INSERT INTO auth_management_audit')));}});
