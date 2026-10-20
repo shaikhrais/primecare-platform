@@ -53,7 +53,11 @@ export function renderAuth(root: HTMLElement, gateway: string, portalName: strin
       sessionStorage.setItem('primecare_session', provisionalToken);
       statusKey = 'success_title'; drawText();
       const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      location.assign(claims.roles === 'platform_admin' ? '/platform/administration' : claims.roles === 'maintenance' || (claims.roles === 'ceo' && returnUrl === '/maintenance/configuration') ? '/maintenance/configuration' : '/');
+      const destination = claims.roles === 'platform_admin' ? '/platform/administration' : claims.roles === 'maintenance' || (claims.roles === 'ceo' && returnUrl === '/maintenance/configuration') ? '/maintenance/configuration' : '/';
+      const query = new URLSearchParams();
+      if (locale !== 'en') query.set('locale', locale);
+      query.set('enable-semantics', 'true');
+      location.assign(destination + '?' + query);
     } catch {
       if (provisionalToken) {
         try {

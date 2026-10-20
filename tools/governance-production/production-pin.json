@@ -23,5 +23,31 @@
     ],
     "schemaChanges": false,
     "businessDataWrites": false
+  },
+  "maintenanceRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_MAINTENANCE_REGISTRATION_WRITES",
+    "screenId": 1264,
+    "tables": [
+      "api_endpoints",
+      "api_permissions",
+      "screen_api_links",
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values"
+    ],
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "workflowBinding": {
+      "flowIds": [
+        "auth.inspect-email-config"
+      ],
+      "tables": [
+        "virtual_workflow_definitions",
+        "virtual_workflow_source_links"
+      ],
+      "schemaChanges": false,
+      "businessDataWrites": false
+    }
   }
 }
