@@ -47,6 +47,7 @@ jobs:
               print('AUTH_API_CONTRACTS '+json.dumps(apis))
               print('RECOVERY_POLICY_REGISTERED '+str(packet['recovery_policy_registered']))
               for table,query in [
+                  ('app_bindings',"SELECT id,app_code FROM apps"),
                   ('route_registry',"SELECT * FROM auth_route_registry"),
                   ('account_screens',"SELECT id,screen_code,route_path,actual_file_path,active FROM screens WHERE LOWER(screen_code) LIKE '%success%' OR LOWER(screen_code) LIKE '%account%' OR LOWER(screen_code) LIKE '%profile%' OR route_path IN ('/success','/account','/user/sessions')"),
                   ('self_session_apis',"SELECT * FROM api_endpoints WHERE route_path='/v1/user/sessions'"),
