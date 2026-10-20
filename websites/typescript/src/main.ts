@@ -24,6 +24,8 @@ type PortalManifest = {
 const selectedRoot = document.querySelector<HTMLElement>('#app');
 if (!selectedRoot) throw new Error('Missing application root');
 const root: HTMLElement = selectedRoot;
+const requestedLocale = new URLSearchParams(location.search).get('locale');
+if (requestedLocale === 'en' || requestedLocale === 'fr' || requestedLocale === 'es') document.documentElement.lang = requestedLocale;
 
 const escapeHtml = (value: unknown) => String(value ?? '').replace(/[&<>'"]/g, (character) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;',

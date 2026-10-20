@@ -5,7 +5,8 @@ import type {Client} from 'pg';
 import templates from './email-templates.json';
 import {sendEmail,mailReady,emailSender,type MailEnv} from './email';
 export interface MaintenanceEnv extends MailEnv {CONFIG_ENCRYPTION_KEY?:string}
-export const maintenanceRoles=['ceo','maintenance'];
+import governed from '../../../packages/shared/src/maintenance.json';
+export const maintenanceRoles=governed.actorRoles;
 type Template=typeof templates.password_reset;
 export function validateSettings(v:Record<string,unknown>) {
  if(Object.keys(v).some(k=>!['sender','templates','revision'].includes(k)) || !Number.isSafeInteger(v.revision) || Number(v.revision)<0 || Number(v.revision)>2147483646)return null;

@@ -54,7 +54,10 @@ export function renderAuth(root: HTMLElement, gateway: string, portalName: strin
       statusKey = 'success_title'; drawText();
       const returnUrl = new URLSearchParams(location.search).get('returnUrl');
       const destination = claims.roles === 'platform_admin' ? '/platform/administration' : claims.roles === 'maintenance' || (claims.roles === 'ceo' && returnUrl === '/maintenance/configuration') ? '/maintenance/configuration' : '/';
-      location.assign(destination + '?enable-semantics=true');
+      const query = new URLSearchParams();
+      if (locale !== 'en') query.set('locale', locale);
+      query.set('enable-semantics', 'true');
+      location.assign(destination + '?' + query);
     } catch {
       if (provisionalToken) {
         try {
