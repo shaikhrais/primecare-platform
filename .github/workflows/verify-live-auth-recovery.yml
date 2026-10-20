@@ -56,7 +56,9 @@ jobs:
                   if not cursor:return found
               raise RuntimeError('Owned test inbox metadata exceeds bounded pagination')
           def value_path(key):return api+'/values/'+urllib.parse.quote(key,safe='')
-          import psycopg,bcrypt,re,secrets
+          import psycopg,bcrypt,re,secrets,base64,email
+          from email import policy
+          from email.parser import BytesParser
           db=psycopg.connect(os.environ['PRODUCTION_DATABASE_URL'],connect_timeout=15)
           tenant_id=str(uuid.uuid4());user_id=str(uuid.uuid4());password=secrets.token_urlsafe(24);new_password=secrets.token_urlsafe(24);fixture_created=False
           gateway='https://primecare-api-gateway.itpro-mohammed.workers.dev'
@@ -87,7 +89,7 @@ jobs:
                   must(db.execute('SELECT COUNT(*) FROM users WHERE LOWER(email)=%s',(recipient,)).fetchone()[0]==0,'Synthetic inbox has no existing account; preserve existing users')
                   db.execute("INSERT INTO tenants(id,name,slug,status,updated_at,allowed_vpn_ranges,cors_allowed_origins,cors_allowed_methods,cors_allowed_headers) VALUES(%s,'Temporary recovery QA',%s,'active',NOW(),'','[]'::jsonb,'[]'::jsonb,'[]'::jsonb)",(tenant_id,'recovery-'+nonce))
                   db.execute("INSERT INTO users(id,email,tenant_id,roles,password_hash,status,updated_at) VALUES(%s,%s,%s,'rmt',%s,'active',NOW())",(user_id,recipient,tenant_id,bcrypt.hashpw(password.encode(),bcrypt.gensalt(12)).decode()))
-              fixture_created=True
+              fixture_created=True;report['application_accounts_changed']=True;report['password_resets_requested']=True
               status,login=auth_call('/v1/auth/login',{'email':recipient,'password':password})
               must(status==200 and login.get('userId')==user_id,'Real deployed credential login')
               old_token=login['token']
@@ -101,7 +103,30 @@ jobs:
                       status,data,_=call(value_path(key))
                       if status==404:continue
                       assert status==200
-                      candidates=re.findall(r'(?<![A-F0-9])[A-F0-9]{12}(?![A-F0-9])',data.decode('utf8','replace'))
+                      report['new_inbox_record_seen']=True
+                      texts=[data.decode('utf8','replace')]
+                      def collect(value):
+                          if isinstance(value,dict):
+                              for v in value.values():collect(v)
+                          elif isinstance(value,list):
+                              for v in value:collect(v)
+                          elif isinstance(value,str):
+                              texts.append(value)
+                              try:texts.append(base64.b64decode(value,validate=True).decode('utf8','replace'))
+                              except Exception:pass
+                      try:
+                          envelope=json.loads(data);report['inbox_record_fields']=sorted(envelope) if isinstance(envelope,dict) else []
+                          collect(envelope)
+                      except ValueError:pass
+                      for text in list(texts):
+                          try:
+                              message=BytesParser(policy=policy.default).parsebytes(text.encode())
+                              for part in message.walk():
+                                  payload=part.get_payload(decode=True)
+                                  if isinstance(payload,bytes):texts.append(payload.decode('utf8','replace'))
+                          except Exception:pass
+                      candidates=set(re.findall(r'(?<![A-F0-9])[A-F0-9]{12}(?![A-F0-9])',' '.join(texts).upper()))
+                      report['candidate_code_count']=len(candidates)
                       for candidate in candidates:
                           hashed=hashlib.sha256((recipient+':'+candidate).encode()).hexdigest()
                           row=db.execute('SELECT user_id FROM auth_password_resets WHERE token_hash=%s AND user_id=%s AND expires_at>NOW()',(hashed,user_id)).fetchone()
