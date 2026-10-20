@@ -1,0 +1,70 @@
+name: First workflow completion gate audit
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/first-verification-audit.yml]
+permissions:
+  contents: write
+  pull-requests: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - id: cleanup
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo;
+            const branches=await github.paginate(github.rest.repos.listBranches,{owner,repo,per_page:100});
+            const prs=await github.paginate(github.rest.pulls.list,{owner,repo,state:'open',per_page:100});
+            if(branches.length!==1||branches[0].name!=='main'||prs.length)throw Error('Unexpected active branch or PR');
+            const {data:ref}=await github.rest.git.getRef({owner,repo,ref:'heads/main'});
+            if(ref.object.sha!==context.sha)throw Error('Main changed during audit');
+            const {data:commit}=await github.rest.git.getCommit({owner,repo,commit_sha:ref.object.sha});
+            const {data:tree}=await github.rest.git.createTree({owner,repo,base_tree:commit.tree.sha,tree:[{path:'.github/workflows/first-verification-audit.yml',mode:'100644',type:'blob',sha:null}]});
+            const {data:clean}=await github.rest.git.createCommit({owner,repo,message:'ops: remove completed first-verification audit launcher',tree:tree.sha,parents:[ref.object.sha]});
+            await github.rest.git.updateRef({owner,repo,ref:'heads/main',sha:clean.sha,force:false});
+            core.setOutput('main_sha',clean.sha);
+      - name: Read current definition and save exact completion gates
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          FINAL_MAIN_SHA: ${{ steps.cleanup.outputs.main_sha }}
+        run: |
+          python -u - <<'PY'
+          import sys,json,os,hashlib,pathlib,datetime
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import acceptance_ids,summary
+          out=pathlib.Path('test-results/first-verification');out.mkdir(parents=True,exist_ok=True)
+          with ProductionWorkflowStore() as db:
+           row=db.execute("SELECT definition_json,definition_sha256,verification_status,test_status FROM virtual_workflow_definitions WHERE flow_id=?",('auth.inspect-email-config',)).fetchone()
+           definition=json.loads(row[0]);assert hashlib.sha256(row[0].encode()).hexdigest()==row[1]
+           latest=db.execute("SELECT attempt_id,result_json FROM virtual_workflow_attempts WHERE flow_id=? ORDER BY attempt_id DESC LIMIT 1",('auth.inspect-email-config',)).fetchone()
+           result=json.loads(latest[1])
+           criteria=[{'id':'outcome','requirement':definition.get('expected_outcome',definition.get('outcome'))}]
+           for key,prefix in [('steps','step'),('preconditions','precondition'),('alternative_paths','alternative')]:
+            criteria += [{'id':prefix+':'+str(n),'requirement':v} for n,v in enumerate(definition.get(key,[]),1)]
+           assert [v['id'] for v in criteria]==acceptance_ids(definition)
+           report={'workflow_id':'auth.inspect-email-config','definition_sha256':row[1],'definition':definition,'verification_status':row[2],'test_status':row[3],'latest_attempt_id':latest[0],'latest_attempt':result,'criteria':criteria,'review_relations':[k for k in db.tables if 'review' in k.lower() or 'approval' in k.lower()],'main_sha':os.environ['FINAL_MAIN_SHA'],'created_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'next_action':'Map each current registered acceptance ID to the actual native browser receipt; execute missing workflow-scoped browser/API/database/reload cases and PWA checks; obtain current external acceptance approval through registered review mechanism. Do not promote from scoped evidence.','remaining_gates':['Current full-workflow receipt with every registered acceptance ID, rather than four repair criteria','PWA/release checks applicable to the registered workflow','External current acceptance review with reviewer identity and approval reference'],'counts':summary(db),'branch_state':{'active_work_branch':None,'remote_branches':['main'],'open_prs':0},'synthetic_cleanup':'No synthetic business data created by this audit.'}
+           (out/'completion-plan.json').write_text(json.dumps(report,indent=2))
+           snapshot=json.dumps({**report,'definition':None,'latest_attempt':None})
+           for name in ['first-verification-current','execution-handoff-current']:
+            db.execute("INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP",(name,snapshot))
+           print('FIRST_VERIFICATION_PLAN '+json.dumps(report))
+          print('FIRST_VERIFICATION_CHECKPOINT_COMMITTED')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: first-workflow-completion-plan
+          path: test-results/first-verification
+          if-no-files-found: error
+          retention-days: 90
