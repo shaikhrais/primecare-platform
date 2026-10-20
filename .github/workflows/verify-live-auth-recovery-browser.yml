@@ -1,0 +1,236 @@
+name: Verify deployed browser auth recovery through owned inbox
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/verify-live-auth-recovery-browser.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: auth-owned-inbox-browser
+  cancel-in-progress: false
+jobs:
+  deploy:
+    uses: ./.github/workflows/deploy-typescript-websites.yml
+    with:
+      confirm: DEPLOY
+    secrets: inherit
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 12
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        include:
+          - {locale: en, width: 320}
+          - {locale: fr, width: 768}
+          - {locale: es, width: 1440}
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          pip install psycopg[binary]==3.2.13 bcrypt==4.3.0 playwright==1.58.0
+          python -m playwright install --with-deps chromium
+      - name: Send one correlated synthetic email and remove only its inbox record
+        env:
+          TEST_LOCALE: ${{ matrix.locale }}
+          TEST_WIDTH: ${{ matrix.width }}
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        shell: python
+        run: |
+          import os,json,pathlib,urllib.request,urllib.error,urllib.parse,time,uuid,hashlib
+          token=os.environ.get('CLOUDFLARE_API_TOKEN');account=os.environ.get('CLOUDFLARE_ACCOUNT_ID');assert token and account
+          domain='15minutes-email.com';recipient='auth-test@'+domain;sender='noreply@'+domain;nonce=str(uuid.uuid4())
+          report={'domain':domain,'recipient':recipient,'sender':sender,'synthetic':True,'read_other_inboxes':False,'application_accounts_changed':False,'password_resets_requested':False,'send_attempted':False,'accepted':False,'received':False,'cleanup':'No message sent','whole_workflow_verified':False}
+          base='https://api.cloudflare.com/client/v4/accounts/'+account
+          def call(path,method='GET',body=None):
+              req=urllib.request.Request(base+path,method=method,headers={'Authorization':'Bearer '+token,'Content-Type':'application/json'},data=None if body is None else json.dumps(body).encode())
+              try:
+                  with urllib.request.urlopen(req,timeout=25) as response:return response.status,response.read(),dict(response.headers)
+              except urllib.error.HTTPError as error:return error.code,error.read(),{}
+          def read_json(path):
+              status,data,_=call(path);assert status==200,'Cloudflare read unavailable: '+str(status)
+              result=json.loads(data);assert result.get('success');return result['result']
+          settings=read_json('/workers/scripts/primecare-email-inbox/settings');bindings=settings.get('bindings',[])
+          kv=next(b for b in bindings if b.get('name')=='INBOX' and b.get('type')=='kv_namespace');namespace=kv['namespace_id']
+          addresses=next(b.get('text','') for b in bindings if b.get('name')=='INBOX_ADDRESSES' and b.get('type')=='plain_text')
+          assert recipient in [v.strip().lower() for v in addresses.split(',')],'Owned synthetic recipient not configured'
+          status,source,_=call('/workers/scripts/primecare-email-inbox/content/v2');assert status==200
+          source=source.decode('utf8','replace');compact=''.join(source.split())
+          assert 'inbox/${recipient}/${receivedAt}/${crypto.randomUUID()}' in source,'Append-only inbox key schema changed'
+          assert '.forward(' not in compact and '.reply(' not in compact and 'fetch(' not in compact,'Receiving Worker needs a new side-effect review'
+          api='/storage/kv/namespaces/'+namespace;prefix='inbox/'+recipient+'/'
+          def keys():
+              found=set();cursor=None
+              for _ in range(10):
+                  query={'prefix':prefix,'limit':1000}
+                  if cursor:query['cursor']=cursor
+                  status,data,_=call(api+'/keys?'+urllib.parse.urlencode(query));assert status==200,'Inbox key read unavailable: '+str(status)
+                  result=json.loads(data);assert result.get('success')
+                  found.update(row['name'] for row in result['result'])
+                  cursor=(result.get('result_info') or {}).get('cursor')
+                  if not cursor:return found
+              raise RuntimeError('Owned test inbox metadata exceeds bounded pagination')
+          def value_path(key):return api+'/values/'+urllib.parse.quote(key,safe='')
+          import psycopg,bcrypt,re,secrets,base64,email
+          from email import policy
+          from email.parser import BytesParser
+          from playwright.sync_api import sync_playwright
+          db=psycopg.connect(os.environ['PRODUCTION_DATABASE_URL'],connect_timeout=15)
+          tenant_id=str(uuid.uuid4());user_id=str(uuid.uuid4());password=secrets.token_urlsafe(24);new_password=secrets.token_urlsafe(24);fixture_created=False
+          gateway='https://primecare-api-gateway.itpro-mohammed.workers.dev'
+          def auth_call(path,body=None,bearer=None):
+              headers={'Content-Type':'application/json','User-Agent':'node','Origin':'https://primecare-clinic.pages.dev'}
+              if bearer:headers['Authorization']='Bearer '+bearer
+              request=urllib.request.Request(gateway+path,headers=headers,data=None if body is None else json.dumps(body).encode(),method='GET' if body is None else 'POST')
+              try:
+                  with urllib.request.urlopen(request,timeout=30) as response:return response.status,json.loads(response.read())
+              except urllib.error.HTTPError as error:
+                  raw=error.read()
+                  try:body=json.loads(raw)
+                  except ValueError:body={'non_json':True}
+                  report.setdefault('http_failures',[]).append({'path':path,'status':error.code,'non_json':bool(body.get('non_json'))})
+                  return error.code,body
+          def must(value,label):
+              assert value,label
+              report.setdefault('auth_checks',[]).append(label)
+          browser=None;context=None;playwright=None
+          locale=os.environ['TEST_LOCALE'];width=int(os.environ['TEST_WIDTH']);portal='https://primecare-clinic.pages.dev'
+          owned_key=None;owned_hash=None;received_code=None
+          try:
+              baseline=keys();probe=prefix+'__synthetic_probe_'+nonce
+              status,_,_=call(value_path(probe));assert status==404,'Expected absent owned probe key'
+              status,data,_=call(value_path(probe),'DELETE');assert status in [200,204],'Owned fixture cleanup permission unavailable'
+              auth=read_json('/workers/scripts/primecare-auth-api/settings');auth_bindings=auth.get('bindings',[])
+              assert any(b.get('name')=='EMAIL' and b.get('type')=='send_email' for b in auth_bindings)
+              assert next(b.get('text') for b in auth_bindings if b.get('name')=='EMAIL_FROM')==sender
+              with db.transaction():
+                  must(db.execute('SELECT COUNT(*) FROM users WHERE LOWER(email)=%s',(recipient,)).fetchone()[0]==0,'Synthetic inbox has no existing account; preserve existing users')
+                  db.execute("INSERT INTO tenants(id,name,slug,status,updated_at,allowed_vpn_ranges,cors_allowed_origins,cors_allowed_methods,cors_allowed_headers) VALUES(%s,'Temporary recovery QA',%s,'active',NOW(),'','[]'::jsonb,'[]'::jsonb,'[]'::jsonb)",(tenant_id,'recovery-'+nonce))
+                  db.execute("INSERT INTO users(id,email,tenant_id,roles,password_hash,status,updated_at) VALUES(%s,%s,%s,'rmt',%s,'active',NOW())",(user_id,recipient,tenant_id,bcrypt.hashpw(password.encode(),bcrypt.gensalt(12)).decode()))
+              fixture_created=True;report['application_accounts_changed']=True;report['password_resets_requested']=True
+              playwright=sync_playwright().start();browser=playwright.chromium.launch()
+              context=browser.new_context(viewport={'width':width,'height':1000},locale=locale)
+              page=context.new_page()
+              def el(name):return page.locator('[data-cy="'+name+'"]')
+              def visit(path):page.goto(portal+path+'?locale='+locale+'&enable-semantics=true',wait_until='domcontentloaded',timeout=60000)
+              def ui_login(secret):
+                  visit('/login');el('login-email').fill(recipient);el('login-password').fill(secret)
+                  with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/login') and r.request.method=='POST',timeout=30000) as response:
+                      el('login-submit').click()
+                  must(response.value.status==200,'Deployed browser credential login '+locale)
+                  page.wait_for_function("sessionStorage.getItem('primecare_session')!==null",timeout=30000)
+                  return page.evaluate("sessionStorage.getItem('primecare_session')")
+              old_token=ui_login(password)
+              visit('/forgot-password');el('recovery-email').fill(recipient)
+              with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/forgot-password') and r.request.method=='POST',timeout=30000) as pending:
+                  el('recovery-submit').click()
+              status=pending.value.status;response=pending.value.json()
+              must(status==200 and response.get('message')=='If an active account matches, recovery instructions will be emailed. Check your inbox and spam folder.','Deployed browser recovery accepted with generic response')
+              must('code' not in response and 'token' not in response,'Recovery code absent from HTTP response')
+              must(page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Recovery form fits registered viewport')
+              report['send_attempted']=True;report['send_http_status']=status
+              must(status==200 and response.get('message')=='If an active account matches, recovery instructions will be emailed. Check your inbox and spam folder.','Deployed recovery request accepted with generic response')
+              must('code' not in response and 'token' not in response,'Recovery code absent from HTTP response')
+              report['accepted']=True;report['cleanup']='Awaiting hash-matched recovery email'
+              for _ in range(24):
+                  for key in sorted(keys()-baseline):
+                      status,data,_=call(value_path(key))
+                      if status==404:continue
+                      assert status==200
+                      report['new_inbox_record_seen']=True
+                      texts=[data.decode('utf8','replace')]
+                      def collect(value):
+                          if isinstance(value,dict):
+                              for v in value.values():collect(v)
+                          elif isinstance(value,list):
+                              for v in value:collect(v)
+                          elif isinstance(value,str):
+                              texts.append(value)
+                              try:texts.append(base64.b64decode(value,validate=True).decode('utf8','replace'))
+                              except Exception:pass
+                      try:
+                          envelope=json.loads(data);report['inbox_record_fields']=sorted(envelope) if isinstance(envelope,dict) else []
+                          collect(envelope)
+                      except ValueError:pass
+                      for text in list(texts):
+                          try:
+                              message=BytesParser(policy=policy.default).parsebytes(text.encode())
+                              for part in message.walk():
+                                  payload=part.get_payload(decode=True)
+                                  if isinstance(payload,bytes):texts.append(payload.decode('utf8','replace'))
+                          except Exception:pass
+                      candidates=set(re.findall(r'(?<![A-F0-9])[A-F0-9]{12}(?![A-F0-9])',' '.join(texts).upper()))
+                      report['candidate_code_count']=len(candidates)
+                      for candidate in candidates:
+                          hashed=hashlib.sha256((recipient+':'+candidate).encode()).hexdigest()
+                          row=db.execute('SELECT user_id FROM auth_password_resets WHERE token_hash=%s AND user_id=%s AND expires_at>NOW()',(hashed,user_id)).fetchone()
+                          db.commit()
+                          if row:received_code=candidate;break
+                      if not received_code:continue
+                      owned_key=key;owned_hash=hashlib.sha256(data).hexdigest();report['received']=True;report['received_record_sha256']=owned_hash;report['matched_correlation']=True;break
+                  if owned_key:break
+                  time.sleep(5)
+              assert owned_key,'Owned receiving Worker did not record the correlated email within 120 seconds'
+              must(bool(received_code),'Recovery email received and code hash matches database')
+              el('recovery-reset-link').click();el('recovery-email').fill(recipient)
+              el('recovery-code').fill(received_code);el('recovery-password').fill(new_password);el('recovery-confirm').fill(new_password)
+              with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/reset-password') and r.request.method=='POST',timeout=30000) as pending:
+                  el('recovery-submit').click()
+              reset=pending.value.json()
+              must(pending.value.status==200 and reset.get('status')=='password_reset' and reset.get('reauthenticationRequired') is True,'Deployed browser password reset succeeds')
+              page.wait_for_function("document.querySelector('[data-cy=recovery-code]').value==='' && document.querySelector('[data-cy=recovery-password]').value===''",timeout=10000)
+              must(page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Reset form fits registered viewport')
+              must(auth_call('/v1/auth/me',bearer=old_token)[0]==401,'Reset revokes existing session')
+              must(auth_call('/v1/auth/login',{'email':recipient,'password':password})[0]==401,'Old password rejected')
+              new_login={'token':ui_login(new_password)}
+              must(auth_call('/v1/auth/me',bearer=new_login['token'])[1].get('userId')==user_id,'Browser new-password session matches fixture account')
+              must(auth_call('/v1/auth/reset-password',{'email':recipient,'code':received_code,'newPassword':secrets.token_urlsafe(24)})[0]==400,'Consumed reset code cannot be replayed')
+              must(auth_call('/v1/auth/me',bearer=new_login['token'])[0]==200,'New authenticated identity survives reread')
+              must(auth_call('/v1/auth/logout',{},new_login['token'])[0]==200,'New session logout succeeds')
+              must(auth_call('/v1/auth/me',bearer=new_login['token'])[0]==401,'Logged-out session rejected')
+              must(db.execute('SELECT COUNT(*) FROM auth_password_resets WHERE user_id=%s',(user_id,)).fetchone()[0]==0,'All reset codes removed after success')
+              db.commit()
+              page.reload(wait_until='domcontentloaded');el('login-form').wait_for(timeout=30000)
+              must(page.evaluate("sessionStorage.getItem('primecare_session')") is None,'Browser reload clears revoked session and returns to login')
+              path=pathlib.Path('test-results/browser-recovery');path.mkdir(parents=True,exist_ok=True)
+              page.screenshot(path=str(path/('complete-'+locale+'-'+str(width)+'.png')))
+              report['locale']=locale;report['viewport_width']=width;report['browser']='chromium';report['roundtrip_passed']=True;report['deployed_recovery_passed']=True
+          except Exception as error:
+              report['error']=str(error);raise
+          finally:
+              if owned_key:
+                  status,data,_=call(value_path(owned_key))
+                  assert status==200 and hashlib.sha256(data).hexdigest()==owned_hash  ,'Correlated fixture changed; preserve instead of deleting'
+                  status,_,_=call(value_path(owned_key),'DELETE');assert status in [200,204],'Owned test-message cleanup failed'
+                  report['cleanup']='Only the exact nonce/hash-matched synthetic message removed; pre-existing inbox entries preserved'
+              if context:context.close()
+              if browser:browser.close()
+              if playwright:playwright.stop()
+              try:
+                  db.rollback()
+                  if fixture_created:
+                      with db.transaction():
+                          for table in ['auth_password_resets','auth_sessions','auth_password_audit']:
+                              db.execute('DELETE FROM '+table+' WHERE user_id=%s',(user_id,))
+                          for table in ['auth_account_audit','auth_management_audit']:
+                              db.execute('DELETE FROM '+table+' WHERE tenant_id=%s',(tenant_id,))
+                          for operation,subject in [('login',recipient),('forgot',recipient),('reset',recipient),('changePassword',user_id)]:
+                              db.execute('DELETE FROM auth_rate_limits WHERE subject_hash=%s',(hashlib.sha256((operation+':'+subject).encode()).hexdigest(),))
+                          db.execute('DELETE FROM users WHERE id=%s AND tenant_id=%s',(user_id,tenant_id))
+                          db.execute('DELETE FROM tenants WHERE id=%s',(tenant_id,))
+                      report['account_cleanup']='Exact synthetic user, tenant, sessions, codes, audit and counters removed'
+              finally:db.close()
+              path=pathlib.Path('test-results/mail-roundtrip');path.mkdir(parents=True,exist_ok=True);(path/'results.json').write_text(json.dumps(report,indent=2))
+              print('OWNED_EMAIL_ROUNDTRIP '+json.dumps(report))
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deployed-browser-auth-recovery-${{ matrix.locale }}-${{ matrix.width }}
+          path: test-results
