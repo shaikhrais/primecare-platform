@@ -1,4 +1,4 @@
-name: Validate and register existing maintenance metadata
+name: Validate and bind existing maintenance workflow
 on:
   push:
     branches: [main]
@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 6727af5767292db6b96c28ccee088e06bb394cd7
+          ref: e632f7f8890f3610ff5032653cba0d62a891eea7
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 6727af5767292db6b96c28ccee088e06bb394cd7
+          ref: e632f7f8890f3610ff5032653cba0d62a891eea7
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -50,7 +50,7 @@ jobs:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           GOVERNANCE_WORKFLOW_WRITES: '1'
           GOVERNANCE_MAINTENANCE_REGISTRATION_WRITES: '1'
-        run: python -u tools/governance-production/maintenance_registration.py --apply
+        run: python -u tools/governance-production/maintenance_flow_binding.py --apply
       - uses: actions/upload-artifact@v4
         if: always()
         with:
