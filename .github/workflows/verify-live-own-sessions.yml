@@ -1,0 +1,63 @@
+name: Verify deployed own-session controls
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-live-own-sessions.yml', 'tools/auth-verification/test-live-sessions.py']
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: auth-owned-live-sessions
+  cancel-in-progress: false
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo,run_id=39445372653;
+            let run;
+            for(let i=0;i<48;i++){
+              run=(await github.rest.actions.getWorkflowRun({owner,repo,run_id})).data;
+              if(run.status==='completed')break;
+              await new Promise(resolve=>setTimeout(resolve,15000));
+            }
+            if(run.conclusion!=='success')throw Error('Required account deployment not successful: '+run.status+'/'+run.conclusion);
+            const comparison=(await github.rest.repos.compareCommits({owner,repo,base:run.head_sha,head:context.sha})).data;
+            if(comparison.files.some(f=>f.filename.startsWith('websites/typescript/')||f.filename.startsWith('packages/shared/')))throw Error('Runtime source changed after required deployment');
+            core.info('Current runtime matches successful nine-portal deployment '+run_id);
+  proof:
+    needs: deployment
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        include:
+          - {locale: en, width: 320}
+          - {locale: fr, width: 768}
+          - {locale: es, width: 1440}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          pip install psycopg[binary]==3.2.13 bcrypt==4.3.0 playwright==1.58.0
+          python -m playwright install --with-deps chromium
+      - name: Compare deployed account session behavior with native database records
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          TEST_LOCALE: ${{ matrix.locale }}
+          TEST_WIDTH: ${{ matrix.width }}
+        run: python tools/auth-verification/test-live-sessions.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deployed-own-sessions-${{ matrix.locale }}-${{ matrix.width }}
+          path: test-results/live-sessions
