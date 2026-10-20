@@ -6,12 +6,13 @@ import assert from 'node:assert/strict';
 const plugin={name:'fixture',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export class Client {async connect(){} async end(){} async query(s,v){return globalThis.__selfQuery(s,v)}}',loader:'js'}));}};
 const bundle=async(path,plugins=[])=>{const r=await build({entryPoints:[path],bundle:true,write:false,platform:'node',format:'esm',plugins});return import('data:text/javascript;base64,'+Buffer.from(r.outputFiles[0].text).toString('base64'));};
 const {auth}=await bundle('cloudflare/workers/src/auth.ts',[plugin]);const {default:gateway}=await bundle('cloudflare/workers/src/gateway.ts');
-let queries,actor,attempts,failAudit,recheck,count,rowOverride;
-function fixture(){queries=[];actor={id:'own-user',tenant_id:'tenant-a'};attempts=0;failAudit=false;recheck=true;count=2;rowOverride={};globalThis.__selfQuery=async(sql,values)=>{
+let queries,actor,attempts,failAudit,recheck,count,rowOverride,remaining;
+function fixture(){queries=[];actor={id:'own-user',tenant_id:'tenant-a'};attempts=0;failAudit=false;recheck=true;count=2;remaining=0;rowOverride={};globalThis.__selfQuery=async(sql,values)=>{
  queries.push({sql,values});
  if(sql.startsWith('SELECT u.id,u.tenant_id'))return {rows:actor?[actor]:[]};
  if(sql.startsWith('INSERT INTO auth_rate_limits'))return {rows:[{attempts:++attempts,retry_after:60}]};
  if(sql.startsWith('SELECT 1 FROM auth_sessions'))return {rows:recheck?[{}]:[]};
+ if(sql==='SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1')return {rows:[{count:remaining}]};
  if(sql.startsWith('SELECT COUNT')||sql.startsWith('WITH revoked'))return {rows:[{count}]};
  if(sql.startsWith('SELECT created_at'))return {rows:[{created_at:'2026-01-01T00:00:00Z',expires_at:'2026-01-02T00:00:00Z',current:true,token_hash:createHash('sha256').update('a'.repeat(43)).digest('hex'),...rowOverride}]};
  if(sql.startsWith('INSERT INTO auth_management_audit')){if(failAudit)throw Error('private-audit');return auditFixture(sql,values);}
@@ -33,3 +34,5 @@ test('personal session PostgreSQL dates serialize without exposing adapter field
 for(const mode of ['missing','duplicate','identity','tenant','previous','current','timestamp'])test('batch 358–359 revocation audit '+mode,async()=>{fixture();const base=globalThis.__selfQuery;globalThis.__selfQuery=async(sql,v)=>{const r=await base(sql,v);if(sql.startsWith('INSERT INTO auth_management_audit')){if(mode==='missing')r.rows=[];else if(mode==='duplicate')r.rows.push({...r.rows[0]});else if(mode==='identity')r.rows[0].target_user_id='foreign';else if(mode==='tenant')r.rows[0].tenant_id='foreign';else if(mode==='previous')r.rows[0].previous_state.sessionCount=99;else if(mode==='current')r.rows[0].new_state.sessionCount=1;else r.rows[0].created_at='private-invalid-date';}return r;};const r=await call('DELETE');assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'));});
 
 for(const method of ['GET','DELETE'])test('batch 357 session actor tenant is never coerced '+method,async()=>{fixture();actor.tenant_id=1;const r=await call(method);assert.equal(r.status,503);assert.ok(!queries.some(q=>q.sql.startsWith('WITH revoked')||q.sql==='COMMIT'));});
+
+test('partial own-session deletion cannot acknowledge sign-out or commit audit',async()=>{for(const value of [1,2,'0',null,-1]){fixture();remaining=value;const r=await call('DELETE');assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.deepEqual(await r.json(),{error:'Session service unavailable'});assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'||q.sql.startsWith('INSERT INTO auth_management_audit')));}});

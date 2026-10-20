@@ -42,6 +42,8 @@ export async function selfSessions(request:Request,env:Env,path:string,headers:H
       if(mutating){
         if(!optionalRow((await db.query('SELECT 1 FROM auth_sessions WHERE token_hash=$1 AND user_id=$2 AND expires_at>NOW()',[hash,actor.id])).rows))return json({error:'Invalid session'},401,safe);
         const count=exactCount(requiredRow((await db.query('WITH revoked AS (DELETE FROM auth_sessions WHERE user_id=$1 RETURNING 1) SELECT COUNT(*)::int AS count FROM revoked',[actor.id])).rows).count);
+        const remaining=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[actor.id])).rows).count);
+        if(remaining!==0)throw Error('Session revocation incomplete');
         const previous={sessionCount:count},current={sessionCount:0,action:'sessions_revoked',initiatedBy:'self'};
         confirmedAudit((await db.query('INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$1,$2,$3,$4) RETURNING id,actor_user_id,target_user_id,tenant_id,previous_state,new_state,created_at',
           [actor.id,actor.tenant_id,JSON.stringify(previous),JSON.stringify(current)])).rows,{actor_user_id:actor.id,target_user_id:actor.id,tenant_id:actor.tenant_id,previous_state:previous,new_state:current});
