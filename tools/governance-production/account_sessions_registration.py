@@ -121,9 +121,11 @@ def register(db,d):
                 db.db.execute('INSERT INTO '+db.table('virtual_workflow_source_links')+' (_primecare_import_row,'+','.join(map(quote,fields))+') VALUES('+','.join(['%s']*(len(fields)+1))+')',[ordinal,*[db._value('virtual_workflow_source_links',k,values[k]) for k in fields]])
     return read_catalog(db,d)
 
+def committed_catalog():
+    return json.loads((ROOT/'packages/shared/src/account-sessions.json').read_text())
 def bind_implementation(db,catalog):
     d=definition()
-    if catalog!=read_catalog(db,d) or catalog!=json.loads((ROOT/'packages/shared/src/account-sessions.json').read_text()):
+    if catalog!=read_catalog(db,d) or catalog!=committed_catalog():
         raise GovernanceReadError('Current production account catalog required')
     paths=[d['file'],d['panelFile'],'websites/typescript/src/sessions-client.ts','websites/typescript/src/sessions-controller.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','cloudflare/workers/src/self-sessions.ts','cloudflare/workers/src/auth.ts','cloudflare/workers/src/gateway.ts','packages/shared/src/account-sessions.json','tools/governance-production/account_sessions_registration.py']
     hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths}
