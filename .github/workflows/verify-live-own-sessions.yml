@@ -13,7 +13,7 @@ concurrency:
 jobs:
   deployment:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/github-script@v7
         with:
@@ -29,6 +29,17 @@ jobs:
             const comparison=(await github.rest.repos.compareCommits({owner,repo,base:run.head_sha,head:context.sha})).data;
             if(comparison.files.some(f=>f.filename.startsWith('websites/typescript/')||f.filename.startsWith('packages/shared/')))throw Error('Runtime source changed after required deployment');
             core.info('Current runtime matches successful nine-portal deployment '+run_id);
+            const authRunId=39446449112;
+            let authRun;
+            for(let i=0;i<48;i++){
+              authRun=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:authRunId})).data;
+              if(authRun.status==='completed')break;
+              await new Promise(resolve=>setTimeout(resolve,15000));
+            }
+            if(authRun.conclusion!=='success')throw Error('Required auth revocation fix deployment not successful: '+authRun.conclusion);
+            const authComparison=(await github.rest.repos.compareCommits({owner,repo,base:authRun.head_sha,head:context.sha})).data;
+            if(authComparison.files.some(f=>f.filename.startsWith('cloudflare/workers/')))throw Error('Auth runtime changed after required fix deployment');
+            core.info('Auth runtime matches successful targeted revocation fix '+authRunId);
   proof:
     needs: deployment
     environment: production
@@ -36,7 +47,7 @@ jobs:
     timeout-minutes: 12
     strategy:
       max-parallel: 1
-      fail-fast: false
+      fail-fast: true
       matrix:
         include:
           - {locale: en, width: 320}
