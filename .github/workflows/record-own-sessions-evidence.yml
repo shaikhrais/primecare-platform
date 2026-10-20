@@ -18,13 +18,20 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/github-script@v7
+      - id: authority
+        uses: actions/github-script@v7
         with:
           script: |
             const run=context.payload.workflow_run;
             if(run.status!=='completed'||run.conclusion!=='success')throw Error('Deployed session proof has not passed');
             const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner:context.repo.owner,repo:context.repo.repo,run_id:run.id,per_page:100});
             if(jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').length!==3)throw Error('Three successful live browser proof jobs required');
+            const owner=context.repo.owner,repo=context.repo.repo;
+            const releases=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'release-account-sessions.yml',branch:'main',status:'success',per_page:1})).data.workflow_runs;
+            if(!releases.length)throw Error('Successful current portal release required');
+            const portal=releases[0];
+            if(Date.parse(run.run_started_at)<Date.parse(portal.updated_at))throw Error('Producer started before the current portal release completed');
+            core.setOutput('portal_run',portal.id);core.setOutput('portal_sha',portal.head_sha);
             const branches=await github.paginate(github.rest.repos.listBranches,{owner:context.repo.owner,repo:context.repo.repo,per_page:100});
             const prs=await github.paginate(github.rest.pulls.list,{owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
             if(branches.length!==1||branches[0].name!=='main'||prs.length)throw Error('Main-only state required');
@@ -37,7 +44,7 @@ jobs:
           merge-multiple: false
       - uses: actions/download-artifact@v4
         with:
-          run-id: 39454083130
+          run-id: ${{ steps.authority.outputs.portal_run }}
           github-token: ${{ github.token }}
           name: primecare-typescript-websites
           path: test-results/sessions-built-websites
@@ -49,6 +56,7 @@ jobs:
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           GOVERNANCE_WORKFLOW_WRITES: '1'
+          PORTAL_SHA: ${{ steps.authority.outputs.portal_sha }}
           PRODUCER_SHA: ${{ github.event.workflow_run.head_sha }}
           RUN_URL: https://github.com/shaikhrais/primecare-platform/actions/runs/${{ github.run_id }}
         run: |
@@ -76,10 +84,10 @@ jobs:
               req=urllib.request.Request('https://'+project+'.pages.dev/assets/app.js?enable-semantics=true',headers={'User-Agent':'node','Accept-Encoding':'identity'})
               with urllib.request.urlopen(req,timeout=30) as response:actual=response.read()
               assert digest(actual)==digest(expected),'Deployed runtime asset drift: '+project
-              assets.append({'project':project,'asset_sha256':digest(actual),'source_commit':'f8fb0591b8687f0b503c8665b5c95a3fda75612d'})
+              assets.append({'project':project,'asset_sha256':digest(actual),'source_commit':os.environ['PORTAL_SHA']})
           runtime_paths=['websites/typescript/src/main.ts','websites/typescript/src/account.ts','websites/typescript/src/sessions-panel.ts','websites/typescript/src/sessions-client.ts','websites/typescript/src/sessions-controller.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','packages/shared/src/account-sessions.json']
           for path in runtime_paths:
-              original=subprocess.check_output(['git','show','f8fb0591b8687f0b503c8665b5c95a3fda75612d:'+path])
+              original=subprocess.check_output(['git','show',os.environ['PORTAL_SHA']+':'+path])
               assert digest(original)==digest((root/path).read_bytes()),'Runtime source drift: '+path
               producer=subprocess.check_output(['git','show',os.environ['PRODUCER_SHA']+':'+path])
               assert digest(producer)==digest(original),'Producer used a different runtime source: '+path
