@@ -29,6 +29,22 @@ def count_sessions(uid):
 def read_user(uid):
  row=db.execute('SELECT email,roles,status,password_hash,tenant_id::text FROM users WHERE id::text=%s',(uid,)).fetchone();db.commit();return row
 def el(page,key):return page.locator('[data-cy="'+key+'"]')
+def observed_submit(page,path,button):
+ # Preserve the actual upstream acknowledgement before the UI navigates away.
+ acknowledgement={};pattern=GATEWAY+path
+ def forward(route):
+  if route.request.method!='POST':route.continue_();return
+  actual=route.fetch()
+  try:body=actual.json()
+  except Exception:body={'invalidResponse':True}
+  acknowledgement.update(status=actual.status,body=body)
+  route.fulfill(response=actual)
+ page.route(pattern,forward)
+ try:
+  with page.expect_response(lambda r:r.url.split('?')[0]==pattern and r.request.method=='POST',timeout=30000) as response:el(page,button).click()
+  acknowledgement['browserStatus']=response.value.status
+  return acknowledgement
+ finally:page.unroute(pattern,forward)
 def login(context,portal,email,password):
  page=context.new_page();page.goto(portal+'/login?locale='+locale+'&enable-semantics=true',wait_until='domcontentloaded',timeout=60000);el(page,'login-email').fill(email);el(page,'login-password').fill(password)
  with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/login') and r.request.method=='POST',timeout=30000) as response:el(page,'login-submit').click()
@@ -79,15 +95,15 @@ try:
  new_page,new_token=login(client,CLINIC,RECIPIENT,new_password);must(call('/v1/auth/me',token=new_token)[1].get('roles')=='physio','Reset preserves assigned role and new credential session');
  # The same created account now changes its own password through the real shared account form.
  final_password=secrets.token_urlsafe(24);el(new_page,'workspace-account').click();el(new_page,'change-password-form').wait_for(timeout=30000);el(new_page,'current-password').fill(new_password);el(new_page,'new-password').fill(final_password)
- with new_page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/user/change-password') and r.request.method=='POST',timeout=30000) as changed_response:el(new_page,'change-password-submit').click()
- must(changed_response.value.status==200 and changed_response.value.json()=={'status':'password_changed','reauthenticationRequired':True},'Created-account browser password change succeeds with mandatory reauthentication')
+ changed_response=observed_submit(new_page,'/v1/user/change-password','change-password-submit')
+ must(changed_response['status']==changed_response['browserStatus']==200 and changed_response['body']=={'status':'password_changed','reauthenticationRequired':True},'Created-account browser password change succeeds with mandatory reauthentication')
  must(bcrypt.checkpw(final_password.encode(),read_user(target_id)[3].encode()) and count_sessions(target_id)==0,'Browser password change persists hash and removes every prior session')
  must(call('/v1/auth/me',token=new_token)[0]==401 and call('/v1/auth/login','POST',{'email':RECIPIENT,'password':new_password})[0]==401,'Browser password change rejects its old bearer and old password')
  n=db.execute('SELECT COUNT(*) FROM auth_password_audit WHERE user_id::text=%s',(target_id,)).fetchone()[0];remaining=db.execute('SELECT COUNT(*) FROM auth_password_resets WHERE user_id::text=%s',(target_id,)).fetchone()[0];db.commit();must(n==2 and remaining==0,'Reset and current-password change both persist audit with no usable reset records');el(new_page,'login-form').wait_for(timeout=30000)
  new_page,new_token=login(client,CLINIC,RECIPIENT,final_password)
 
- with new_page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/logout') and r.request.method=='POST',timeout=30000) as logout_response:el(new_page,'workspace-logout').click()
- must(logout_response.value.status==200 and logout_response.value.json().get('status')=='signed_out' and count_sessions(target_id)==0 and call('/v1/auth/me',token=new_token)[0]==401,'Created-account browser logout removes its database session and remains denied');el(new_page,'login-form').wait_for(timeout=30000);new_page.reload(wait_until='domcontentloaded');el(new_page,'login-form').wait_for(timeout=30000);must(new_page.evaluate("sessionStorage.getItem('primecare_session')") is None,'Created-account reload clears logged-out session')
+ logout_response=observed_submit(new_page,'/v1/auth/logout','workspace-logout')
+ must(logout_response['status']==logout_response['browserStatus']==200 and logout_response['body'].get('status')=='signed_out' and count_sessions(target_id)==0 and call('/v1/auth/me',token=new_token)[0]==401,'Created-account browser logout removes its database session and remains denied');el(new_page,'login-form').wait_for(timeout=30000);new_page.reload(wait_until='domcontentloaded');el(new_page,'login-form').wait_for(timeout=30000);must(new_page.evaluate("sessionStorage.getItem('primecare_session')") is None,'Created-account reload clears logged-out session')
  must(page.evaluate('document.documentElement.scrollWidth<=innerWidth') and hr_page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'CEO and HR forms fit registered viewport')
  out=pathlib.Path('test-results/account-mutations');out.mkdir(parents=True,exist_ok=True);page.screenshot(path=str(out/('ceo-'+locale+'-'+str(width)+'.png')),full_page=True);hr_page.screenshot(path=str(out/('hr-'+locale+'-'+str(width)+'.png')),full_page=True);report['received']=inbox.received;report['received_record_sha256']=inbox.digest;report['passed']=True
 except Exception as e:report['error']=str(e);raise
