@@ -1,0 +1,55 @@
+name: Inspect current production auth acceptance
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/auth-acceptance-current.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/auth-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/auth-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Read exact pinned auth definitions and contracts
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python -u - <<'PY'
+          import sys,json,pathlib
+          sys.path.insert(0,'tools/governance-production')
+          from production_reader import connect
+          out=pathlib.Path('test-results/auth-current');out.mkdir(parents=True,exist_ok=True)
+          with connect() as db:
+              def rows(sql,args=()):
+                  names,values=db.query(sql,args)
+                  return [dict(zip(names,row)) for row in values]
+              flows=rows("SELECT * FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE 'auth.%' ORDER BY flow_id")
+              snapshots=rows("SELECT * FROM virtual_flow_catalog_snapshots WHERE name IN ('auth-completion-current','execution-handoff-current')")
+              apis=rows("SELECT * FROM api_endpoints WHERE route_path LIKE '/v1/auth/%' OR route_path LIKE '/v1/user/%' OR route_path LIKE '/v1/admin/users%'")
+              packet={'flows':flows,'snapshots':snapshots,'apis':apis,'recovery_policy_registered':'auth_recovery_web_policy' in db.tables}
+              (out/'packet.json').write_text(json.dumps(packet,indent=2))
+              for f in flows:
+                  definition=json.loads(f['definition_json'])
+                  print('AUTH_ACCEPTANCE '+json.dumps({'id':f['flow_id'],'status':f['verification_status'],'test_status':f['test_status'],'blockers':json.loads(f['blocker_json'] or '[]'),'definition':definition}))
+              print('AUTH_API_CONTRACTS '+json.dumps(apis))
+              print('RECOVERY_POLICY_REGISTERED '+str(packet['recovery_policy_registered']))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: current-auth-acceptance
+          path: test-results/auth-current
+          retention-days: 90
