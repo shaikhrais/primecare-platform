@@ -1,9 +1,10 @@
 name: Verify deployed own-session controls
 on:
   workflow_dispatch:
-  push:
+  workflow_run:
+    workflows: ['Release confirmed self-session revocation']
+    types: [completed]
     branches: [main]
-    paths: ['.github/workflows/verify-live-own-sessions.yml', 'tools/auth-verification/test-live-sessions.py']
 permissions:
   contents: read
   actions: read
@@ -12,6 +13,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   deployment:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -29,7 +31,7 @@ jobs:
             const comparison=(await github.rest.repos.compareCommits({owner,repo,base:run.head_sha,head:context.sha})).data;
             if(comparison.files.some(f=>f.filename.startsWith('websites/typescript/')||f.filename.startsWith('packages/shared/')))throw Error('Runtime source changed after required deployment');
             core.info('Current runtime matches successful nine-portal deployment '+run_id);
-            const authRunId=39449211546;
+            const authRunId=context.payload.workflow_run?.id || 39449211546;
             let authRun;
             for(let i=0;i<48;i++){
               authRun=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:authRunId})).data;

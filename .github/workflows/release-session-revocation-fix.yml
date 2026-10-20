@@ -1,9 +1,10 @@
 name: Release confirmed self-session revocation
 on:
   workflow_dispatch:
-  push:
+  workflow_run:
+    workflows: ['Auth Worker unit and PostgreSQL tests']
+    types: [completed]
     branches: [main]
-    paths: ['.github/workflows/release-session-revocation-fix.yml']
 permissions:
   contents: read
   actions: read
@@ -12,6 +13,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   checks:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -19,7 +21,7 @@ jobs:
         with:
           script: |
             const owner=context.repo.owner,repo=context.repo.repo;
-            for(const run_id of [39449137443,39446063832]){
+            for(const run_id of [context.payload.workflow_run?.id || 39450084516,39446063832]){
               let run;
               for(let i=0;i<48;i++){
                 run=(await github.rest.actions.getWorkflowRun({owner,repo,run_id})).data;
