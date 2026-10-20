@@ -10,9 +10,9 @@ const guard="        const remaining=exactCount(requiredRow((await db.query('SEL
 const fixed=source.replace(anchor,guard+anchor);
 const handlers={};
 for(const [mode,contents] of [['baseline',source],['candidate',fixed]]){
- const out=join(dir,mode+'.cjs');await build({entryPoints:['cloudflare/workers/src/auth.ts'],outfile:out,bundle:true,platform:'node',format:'cjs',plugins:[{name:'revocation-candidate',setup(b){b.onLoad({filter:/self-sessions\.ts$/},()=>({contents,loader:'ts'}));}}]});handlers[mode]=createRequire(import.meta.url)(out).auth;
+ const out=join(dir,mode+'.cjs');await build({entryPoints:['cloudflare/workers/src/auth.ts'],outfile:out,bundle:true,platform:'node',format:'cjs',plugins:[{name:'revocation-candidate',setup(b){b.onLoad({filter:/self-sessions\.ts$/},()=>({contents,loader:'ts',resolveDir:join(process.cwd(),'cloudflare/workers/src')}));}}]});handlers[mode]=createRequire(import.meta.url)(out).auth;
 }
-const ids=[randomUUID(),randomUUID()],tenant=randomUUID(),tokens=[randomUUID()+randomUUID(),randomUUID()+randomUUID(),randomUUID()+randomUUID()],hash=v=>createHash('sha256').update(v).digest('hex');
+const ids=[randomUUID(),randomUUID()],tenant=randomUUID(),tokens=['a'.repeat(43),'b'.repeat(43),'c'.repeat(43)],hash=v=>createHash('sha256').update(v).digest('hex');
 try{
  await db.query(await readFile('services/auth_api/dev_schema.sql','utf8'));
  await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS tenant_id UUID');
