@@ -1,0 +1,52 @@
+name: Register existing CEO account read controls
+on:
+  push:
+    branches: [main]
+    paths:
+      - tools/governance-production/tenant-accounts-registration.json
+      - tools/governance-production/tenant_accounts_registration.py
+      - tools/governance-production/test-tenant-accounts-registration.py
+      - .github/workflows/tenant-account-reads-registration.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tenant-account-reads-registration
+  cancel-in-progress: false
+jobs:
+  register:
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/account-reader" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/account-reader/node_modules" node_modules
+          python3 tools/governance-production/test-tenant-accounts-registration.py
+      - name: Validate native schema and idempotence in a rolled-back transaction
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_TENANT_ACCOUNTS_READ_WRITES: '1'
+        run: python3 tools/governance-production/tenant_accounts_registration.py --dry-run
+      - name: Register exact read controls without changing grants or APIs
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_TENANT_ACCOUNTS_READ_WRITES: '1'
+        run: |
+          python3 tools/governance-production/tenant_accounts_registration.py --apply
+          python3 -c "import pathlib; print('TENANT_ACCOUNT_READ_CATALOG '+pathlib.Path('test-results/tenant-accounts-registration/catalog.json').read_text().replace(chr(10),''))"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tenant-account-reads-registration
+          path: test-results/tenant-accounts-registration

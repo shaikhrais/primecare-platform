@@ -123,5 +123,36 @@
     "schemaChanges": false,
     "permissionChanges": false,
     "businessDataWrites": false
+  },
+  "tenantAccountsReadWriter": {
+    "optInVariable": "GOVERNANCE_TENANT_ACCOUNTS_READ_WRITES",
+    "screenId": 705,
+    "apiIds": [
+      16412,
+      16421,
+      16423,
+      16427,
+      16428
+    ],
+    "flowIds": [
+      "auth.inspect-account",
+      "auth.inspect-account-sessions",
+      "auth.list-tenant-accounts",
+      "auth.read-creation-audit",
+      "auth.read-management-audit"
+    ],
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values",
+      "virtual_workflow_definitions",
+      "virtual_workflow_steps",
+      "virtual_workflow_source_links"
+    ],
+    "definitionSha256": "7998b0100234dfe6b20d5a36d9fc6820fd8cfa9553fec875639395fb9b09445f",
+    "schemaChanges": false,
+    "permissionChanges": false,
+    "businessDataWrites": false
   }
 }
