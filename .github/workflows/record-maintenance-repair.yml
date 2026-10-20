@@ -14,14 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: fa5d31942f3a4b0ca387b6dc5eb5d078be2daa13
+          ref: 100c63aea562eb8a998d6617ffb16273a966715f
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install -r tools/governance-production/requirements.txt
       - uses: actions/download-artifact@v4
         with:
-          run-id: 39350497155
+          run-id: 39351030576
           github-token: ${{ github.token }}
           name: maintenance-complete-repair-evidence
           path: test-results
@@ -30,8 +30,8 @@ jobs:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           GOVERNANCE_WORKFLOW_WRITES: '1'
           GH_TOKEN: ${{ github.token }}
-          EVIDENCE_RUN: '39350497155'
-          SOURCE_SHA: fa5d31942f3a4b0ca387b6dc5eb5d078be2daa13
+          EVIDENCE_RUN: '39351030576'
+          SOURCE_SHA: 100c63aea562eb8a998d6617ffb16273a966715f
         run: |
           python -u - <<'PY'
           import sys,os,json,pathlib,hashlib,urllib.request
@@ -44,7 +44,7 @@ jobs:
           assert receipt['commit']==os.environ['SOURCE_SHA'] and len(receipt['cases'])==6 and len(receipt['redirectRegressions'])==2
           assert all(receipt['criterion_results'].get(x)=='passed' for x in ['ui.semantics-navigation','ui.localization','ui.stable-test-ids'])
           sources=dict(receipt['source_bindings'])
-          for path in ['packages/primecare_ui/lib/src/features/maintenance/maintenance_configuration_screen.dart','tools/governance-production/production-pin.json','scripts/test-maintenance-read-workflow.mjs']:
+          for path in ['packages/primecare_ui/lib/src/features/maintenance/maintenance_configuration_screen.dart','tools/governance-production/production-pin.json','scripts/test-maintenance-read-workflow.mjs','scripts/verify-maintenance-catalog.py']:
               sources[path]=hashlib.sha256((root/path).read_bytes()).hexdigest()
           assert _bindings_current(sources,root)
           def request(path):
