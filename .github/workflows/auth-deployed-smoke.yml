@@ -1,0 +1,65 @@
+name: Verify deployed auth in isolated synthetic tenant
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/auth-deployed-smoke.yml]
+permissions:
+  contents: read
+jobs:
+  deployed:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: eb82878ddf480d36db0273a019e6681d89e670ee
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/deployed-auth-tools --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@3
+          ln -s /tmp/deployed-auth-tools/node_modules node_modules
+      - name: Existing bounded production auth smoke with exact fixture cleanup
+        id: smoke
+        env:
+          CONFIRM_AUTH_SMOKE: VERIFY_AUTH
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
+        run: |
+          set -o pipefail
+          mkdir -p test-results/auth-deployed
+          node scripts/verify-production-auth.mjs 2>&1 | tee test-results/auth-deployed/smoke.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        id: evidence
+        with:
+          name: auth-deployed-smoke-evidence
+          path: test-results/auth-deployed
+          retention-days: 90
+      - name: Record deployed result without declaring full workflow acceptance
+        if: always() && steps.evidence.outputs.artifact-url != ''
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          EVIDENCE_URL: ${{ steps.evidence.outputs.artifact-url }}
+          SMOKE_OUTCOME: ${{ steps.smoke.outcome }}
+        run: |
+          python -u - <<'PY'
+          import json,sys,os,pathlib,hashlib
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import summary
+          log=pathlib.Path('test-results/auth-deployed/smoke.log').read_text()
+          passed=os.environ['SMOKE_OUTCOME']=='success' and 'Temporary QA tenant and accounts removed.' in log and 'Production auth smoke passed ' in log
+          state={'passed':passed,'scope':'deployed API smoke only','full_auth_verified':False,'candidate_source':'eb82878ddf480d36db0273a019e6681d89e670ee','source_note':'The public gateway runs its actual deployed source; this does not assert that the work-branch candidate was deployed.','producer_sha256':hashlib.sha256(pathlib.Path('scripts/verify-production-auth.mjs').read_bytes()).hexdigest(),'checks':[line for line in log.splitlines() if line.startswith('PASS ')],'cleanup_confirmed':'Temporary QA tenant and accounts removed.' in log,'evidence':os.environ['EVIDENCE_URL'],'next_action':'Resolve any actual deployed failure; combine this scoped evidence with current native/browser checks and required acceptance/review gates before full verification.'}
+          with ProductionWorkflowStore() as db:
+           state['summary']=summary(db)
+           db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('auth-deployed-smoke-current',json.dumps(state)))
+          print('AUTH_DEPLOYED_SMOKE_RECORDED '+json.dumps(state))
+          if not passed:raise SystemExit('Deployed auth smoke or cleanup failed; exact evidence saved')
+          PY
