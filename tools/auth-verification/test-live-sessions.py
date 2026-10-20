@@ -34,7 +34,7 @@ try:
         created.append(f)
     own,other=fixtures
     status,value=call('/v1/auth/login','POST',{'email':other['email'],'password':other['password']});must(status==200 and bool(value.get('token')),'Other-tenant synthetic control session created');other_token=value['token']
-    pw=sync_playwright().start();browser=pw.chromium.launch();context=browser.new_context(viewport={'width':width,'height':1000},locale=locale);page=context.new_page()
+    pw=sync_playwright().start();browser=pw.chromium.launch();context=browser.new_context(viewport={'width':width,'height':1000},locale=locale,record_video_dir='test-results/live-sessions/videos',record_video_size={'width':width,'height':1000});page=context.new_page()
     def el(name):return page.locator('[data-cy="'+name+'"]')
     def visit(path):page.goto(portal+path+'?locale='+locale+'&enable-semantics=true',wait_until='domcontentloaded',timeout=60000)
     visit('/login');el('login-email').fill(own['email']);el('login-password').fill(own['password'])
