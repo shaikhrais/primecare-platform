@@ -49,6 +49,7 @@ jobs:
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           GOVERNANCE_WORKFLOW_WRITES: '1'
+          PRODUCER_SHA: ${{ github.event.workflow_run.head_sha }}
           RUN_URL: https://github.com/shaikhrais/primecare-platform/actions/runs/${{ github.run_id }}
         run: |
           python -u - <<'PY'
@@ -80,6 +81,8 @@ jobs:
           for path in runtime_paths:
               original=subprocess.check_output(['git','show','f8fb0591b8687f0b503c8665b5c95a3fda75612d:'+path])
               assert digest(original)==digest((root/path).read_bytes()),'Runtime source drift: '+path
+              producer=subprocess.check_output(['git','show',os.environ['PRODUCER_SHA']+':'+path])
+              assert digest(producer)==digest(original),'Producer used a different runtime source: '+path
           with ProductionWorkflowStore() as db:
               catalog=read_catalog(db,load_definition())
               assert catalog==json.loads((root/'packages/shared/src/account-sessions.json').read_text())
