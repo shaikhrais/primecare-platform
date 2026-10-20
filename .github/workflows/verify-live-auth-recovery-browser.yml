@@ -135,8 +135,11 @@ jobs:
                   with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/login') and r.request.method=='POST',timeout=30000) as response:
                       el('login-submit').click()
                   must(response.value.status==200,'Deployed browser credential login '+locale)
-                  page.wait_for_function("sessionStorage.getItem('primecare_session')!==null",timeout=30000)
-                  return page.evaluate("sessionStorage.getItem('primecare_session')")
+                  issued=response.value.json().get('token')
+                  assert isinstance(issued,str) and issued,'Login token missing'
+                  page.wait_for_url(lambda u:urllib.parse.urlsplit(u).path!='/login',wait_until='domcontentloaded',timeout=30000)
+                  page.wait_for_function("(value)=>sessionStorage.getItem('primecare_session')===value",arg=issued,timeout=30000)
+                  return issued
               old_token=ui_login(password)
               visit('/forgot-password');el('recovery-email').fill(recipient);report['password_resets_requested']=True
               with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/forgot-password') and r.request.method=='POST',timeout=30000) as pending:
