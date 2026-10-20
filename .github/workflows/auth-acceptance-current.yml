@@ -47,6 +47,7 @@ jobs:
               print('AUTH_API_CONTRACTS '+json.dumps(apis))
               print('RECOVERY_POLICY_REGISTERED '+str(packet['recovery_policy_registered']))
               for table,query in [
+                  ('component_registry',"SELECT id,component_code,html_tag_equivalent,active FROM primecare_ui_component_registry WHERE active=1"),
                   ('app_bindings',"SELECT id,app_code FROM apps"),
                   ('route_registry',"SELECT * FROM auth_route_registry"),
                   ('account_screens',"SELECT id,screen_code,route_path,actual_file_path,active FROM screens WHERE LOWER(screen_code) LIKE '%success%' OR LOWER(screen_code) LIKE '%account%' OR LOWER(screen_code) LIKE '%profile%' OR route_path IN ('/success','/account','/user/sessions')"),
