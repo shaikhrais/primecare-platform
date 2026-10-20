@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['cloudflare/workers/src/self-sessions.ts', 'tools/auth-verification/test-revocation-fault.mjs', '.github/workflows/verify-session-revocation-fault.yml']
+    paths: ['cloudflare/workers/**', 'tools/auth-verification/test-revocation-fault.mjs', '.github/workflows/verify-session-revocation-fault.yml']
 permissions:
   contents: read
 jobs:

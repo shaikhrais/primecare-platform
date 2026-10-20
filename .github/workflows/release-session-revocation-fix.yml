@@ -21,7 +21,12 @@ jobs:
         with:
           script: |
             const owner=context.repo.owner,repo=context.repo.repo;
-            for(const run_id of [context.payload.workflow_run?.id || 39450084516,39446063832]){
+            const authRunId=context.payload.workflow_run?.id || 39450084516;
+            const authRun=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:authRunId})).data;
+            const nativeRuns=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'verify-session-revocation-fault.yml',branch:'main',per_page:100})).data.workflow_runs;
+            const nativeRun=nativeRuns.find(r=>r.head_sha===authRun.head_sha)||nativeRuns.find(r=>r.conclusion==='success');
+            if(!nativeRun)throw Error('Current native revocation proof required');
+            for(const run_id of [authRunId,nativeRun.id]){
               let run;
               for(let i=0;i<48;i++){
                 run=(await github.rest.actions.getWorkflowRun({owner,repo,run_id})).data;

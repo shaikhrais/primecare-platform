@@ -3,6 +3,12 @@ on:
   push:
     branches: [main]
     paths:
+      - cloudflare/workers/src/self-sessions.ts
+      - cloudflare/workers/src/auth.ts
+      - cloudflare/workers/src/gateway.ts
+      - websites/typescript/src/account.ts
+      - websites/typescript/src/sessions-*.ts
+      - websites/typescript/src/infrastructure/http/base-session-client.ts
       - tools/governance-production/account-sessions-registration.json
       - tools/governance-production/account_sessions_registration.py
       - tools/governance-production/test-account-sessions-registration.py
