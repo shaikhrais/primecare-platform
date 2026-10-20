@@ -29,7 +29,7 @@ jobs:
             const comparison=(await github.rest.repos.compareCommits({owner,repo,base:run.head_sha,head:context.sha})).data;
             if(comparison.files.some(f=>f.filename.startsWith('websites/typescript/')||f.filename.startsWith('packages/shared/')))throw Error('Runtime source changed after required deployment');
             core.info('Current runtime matches successful nine-portal deployment '+run_id);
-            const authRunId=39446449112;
+            const authRunId=39449211546;
             let authRun;
             for(let i=0;i<48;i++){
               authRun=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:authRunId})).data;
