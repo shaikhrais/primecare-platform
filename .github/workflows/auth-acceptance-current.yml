@@ -47,6 +47,10 @@ jobs:
               print('AUTH_API_CONTRACTS '+json.dumps(apis))
               print('RECOVERY_POLICY_REGISTERED '+str(packet['recovery_policy_registered']))
               for table,query in [
+                  ('mutation_api_metadata',"SELECT * FROM api_endpoints WHERE (route_path='/v1/auth/register' AND http_method='POST') OR (route_path='/v1/admin/users' AND http_method='POST') OR (route_path='/v1/admin/users/{userId}/sessions' AND http_method='DELETE')"),
+                  ('mutation_api_permissions',"SELECT p.* FROM api_permissions p JOIN api_endpoints a ON a.id=p.api_id WHERE (a.route_path='/v1/auth/register' AND a.http_method='POST') OR (a.route_path='/v1/admin/users' AND a.http_method='POST') OR (a.route_path='/v1/admin/users/{userId}/sessions' AND a.http_method='DELETE')"),
+                  ('hr_dashboard',"SELECT id,app_id,role_id,screen_code,route_path,active FROM screens WHERE role_id=27 AND screen_code LIKE '%dashboard%'"),
+                  ('role_directory',"SELECT id,role_code,role_name,active FROM roles WHERE active=1"),
                   ('ceo_account_screens',"SELECT * FROM screens WHERE id IN (705,903,935)"),
                   ('ceo_account_roles',"SELECT * FROM role_screen_permissions WHERE screen_id IN (705,903,935)"),
                   ('ceo_account_components',"SELECT * FROM screen_components WHERE screen_id IN (705,903,935)"),
