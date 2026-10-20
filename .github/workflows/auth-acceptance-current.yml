@@ -48,7 +48,7 @@ jobs:
               print('RECOVERY_POLICY_REGISTERED '+str(packet['recovery_policy_registered']))
               for table,query in [
                   ('route_registry',"SELECT * FROM auth_route_registry"),
-                  ('account_screens',"SELECT id,screen_code,route_path,actual_file_path,active FROM screens WHERE screen_code IN ('success','account','user_profile','profile','session_management') OR route_path IN ('/success','/account','/user/sessions')"),
+                  ('account_screens',"SELECT id,screen_code,route_path,actual_file_path,active FROM screens WHERE LOWER(screen_code) LIKE '%success%' OR LOWER(screen_code) LIKE '%account%' OR LOWER(screen_code) LIKE '%profile%' OR route_path IN ('/success','/account','/user/sessions')"),
                   ('self_session_apis',"SELECT * FROM api_endpoints WHERE route_path='/v1/user/sessions'"),
                   ('screens',"SELECT id,screen_code,route_path,actual_file_path,active FROM screens WHERE screen_code IN ('forgot_password','reset_password','login')"),
                   ('resources',"SELECT * FROM language_resources WHERE resource_key LIKE 'authRecovery.%'"),
@@ -56,7 +56,7 @@ jobs:
                   ('elements',"SELECT * FROM screen_required_elements WHERE screen_id IN (SELECT id FROM screens WHERE screen_code IN ('forgot_password','reset_password'))"),
                   ('links',"SELECT * FROM screen_api_links WHERE screen_id IN (SELECT id FROM screens WHERE screen_code IN ('forgot_password','reset_password'))")]:
                   print('RECOVERY_METADATA '+json.dumps({'table':table,'rows':rows(query)}))
-              for table in ['screen_components','screen_required_elements','screen_api_links','api_endpoints','language_resources','language_resource_values']:
+              for table in ['screens','auth_route_registry','primecare_ui_component_registry','screen_components','screen_required_elements','screen_api_links','api_endpoints','language_resources','language_resource_values']:
                   print('RECOVERY_SCHEMA '+json.dumps(db.tables[table.lower()]))
           PY
       - uses: actions/upload-artifact@v4
