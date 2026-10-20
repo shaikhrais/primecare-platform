@@ -1,0 +1,55 @@
+name: Refresh final account detail live counts
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/inspect-account-checkpoint.yml]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  checkpoint:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python -u - <<'PY'
+          import sys,os,json,urllib.request,subprocess,time,hashlib
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import summary
+          def request(path):return json.load(urllib.request.urlopen(urllib.request.Request('https://api.github.com/repos/shaikhrais/primecare-platform/'+path,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN']})))
+          ready=None
+          for _ in range(48):
+              prior=request('actions/runs/39344812613')
+              if prior['status']=='completed':assert prior['conclusion']=='success','Prior attempt recorder failed; preserve and inspect'
+              main=request('git/ref/heads/main')['object']['sha']
+              branches=request('branches?per_page=100');prs=request('pulls?state=open&per_page=100')
+              subprocess.run(['git','fetch','--no-tags','origin','main'],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              absent=all(subprocess.run(['git','cat-file','-e',main+':'+p],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode!=0 for p in ['.github/workflows/inspect-account.yml','.github/workflows/record-inspect-account.yml','.github/workflows/inspect-account-checkpoint.yml'])
+              checks=request('commits/'+main+'/check-runs?per_page=100')['check_runs']
+              if prior['conclusion']=='success' and absent and len(branches)==1 and not prs and checks and all(c['status']=='completed' and c['conclusion'] in ['success','neutral','skipped'] for c in checks):ready=main;break
+              time.sleep(10)
+          assert ready,'Final checkpoint blocked by CI/cleanup; previous attempt remains saved'
+          with ProductionWorkflowStore() as db:
+              row=db.execute('SELECT summary_json FROM virtual_flow_catalog_snapshots WHERE name=?',('recovery-handoff-current',)).fetchone()
+              handoff=json.loads(row[0])
+              assert handoff['attempted'][0]['workflow_id']=='auth.inspect-account'
+              attempt=db.execute('SELECT a.attempt_id,a.source_bindings_json FROM virtual_workflow_checkpoints c JOIN virtual_workflow_attempts a ON a.attempt_id=c.attempt_id WHERE c.flow_id=?',('auth.inspect-account',)).fetchone()
+              assert attempt[0]==handoff['attempted'][0]['attempt_id']
+              for path,sha in json.loads(attempt[1]).items():assert hashlib.sha256(subprocess.check_output(['git','show',ready+':'+path])).hexdigest()==sha,'Source stale: '+path
+              handoff.update(main_sha=ready,totals=summary(db),test_status_counts=dict(db.execute("SELECT test_status,COUNT(*) FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY test_status")),ci_state=[dict(name=c['name'],conclusion=c['conclusion']) for c in checks],checkpoint_note='Refreshed separate live test-status counts after scoped account-detail attempt; no new attempts or status promotion')
+              db.execute("INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action) VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,next_action=excluded.next_action,invalidation_json='[]',updated_at=CURRENT_TIMESTAMP",('auth.inspect-account',attempt[0],json.dumps(handoff,sort_keys=True)))
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('recovery-handoff-current',json.dumps(handoff,sort_keys=True)))
+          print('ACCOUNT_DETAIL_FINAL_CHECKPOINT '+json.dumps(dict(main_sha=ready,attempt_id=attempt[0],totals=handoff['totals'],test_status_counts=handoff['test_status_counts'],branches=1,open_prs=0,next_action=handoff['next_action'])))
+          
+          PY
