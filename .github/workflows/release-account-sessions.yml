@@ -19,7 +19,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          gh api repos/shaikhrais/primecare-platform/actions/runs/39445151306 > "$RUNNER_TEMP/session-run.json"
+          for attempt in {1..48}; do
+            gh api repos/shaikhrais/primecare-platform/actions/runs/39453921811 > "$RUNNER_TEMP/session-run.json"
+            test "$(jq -r '.status' "$RUNNER_TEMP/session-run.json")" = completed && break
+            sleep 15
+          done
           test "$(jq -r '.conclusion' "$RUNNER_TEMP/session-run.json")" = success
           tested="$(jq -r '.head_sha' "$RUNNER_TEMP/session-run.json")"
           git diff --exit-code "$tested" HEAD -- websites/typescript/src/account.ts websites/typescript/src/sessions-client.ts websites/typescript/src/sessions-controller.ts websites/typescript/src/sessions-panel.ts websites/typescript/src/infrastructure/http/base-session-client.ts packages/shared/src/account-sessions.json
