@@ -15,3 +15,7 @@ Native revocation fault evidence: Actions run [39445829796](https://github.com/s
 Browser presentation evidence: [39445151306](https://github.com/shaikhrais/primecare-platform/actions/runs/39445151306) passed EN/320, FR/768 and ES/1440 pagination, focus, cancel, failure preservation, retry and sign-out navigation with isolated API responses.
 
 The nine portal deployments passed in [39445372653](https://github.com/shaikhrais/primecare-platform/actions/runs/39445372653). Deployed own-session verification is tracked separately from isolated presentation evidence. The targeted auth Worker fix release requires current native and Worker checks; publication is not inferred from a committed source file.
+
+Production source binding: [39450337865](https://github.com/shaikhrais/primecare-platform/actions/runs/39450337865) passed eleven native registration/binding tests and applied both own-session process bindings. Each process retains its registered actor list and now has 34 governance links and current source hashes. Both are `implemented-unverified`; prior whole-process evidence remains stale. Screen/component review and readiness flags remain pending.
+
+The release pipeline now runs from successful Auth Worker checks, verifies unchanged Worker source, publishes only the auth Worker, and triggers the deployed own-session proof. Manual live verification resolves a successful auth deployment rather than assuming a queued release succeeded. A failed prerequisite cannot publish the fix or produce a passing live receipt.
