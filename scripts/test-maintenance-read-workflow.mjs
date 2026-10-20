@@ -69,7 +69,7 @@ try{
 
      if(role==='maintenance'&&locale==='es'){
        receipt.malformedResponses=[];
-       const broken=[null,{}, {...api,sender:{}},{...api,templates:[]},{...api,templates:{password_reset:{subject:'Synthetic',title:'Synthetic',body:'Synthetic',required:'invalid'}}},{...api,pending:[null]},{...api,externalConfiguration:[{name:'Synthetic',value:{},instructions:'Synthetic'}]},{...api,audit:[{action:'Synthetic',created_at:null}]}];
+       const broken=[null,{}, {...api,sender:{}},{...api,templates:[]},{...api,templates:{}},{...api,templates:{password_reset:{subject:'Synthetic',title:'Synthetic',body:'Synthetic',required:'invalid'}}},{...api,pending:[null]},{...api,externalConfiguration:[{name:'Synthetic',value:{},instructions:'Synthetic'}]},{...api,audit:[{action:'Synthetic',created_at:null}]}];
        for(const [index,payload]of broken.entries()){
          await page.route('**/v1/auth/maintenance/configuration',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(payload)}),{times:1});
          await cy(page,ui.controls.refresh).click();await page.getByRole('heading',{name:ui.locales[locale].unavailable,exact:true}).waitFor();

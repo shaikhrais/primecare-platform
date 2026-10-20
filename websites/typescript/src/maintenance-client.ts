@@ -24,8 +24,9 @@ export class MaintenanceClient extends BaseSessionClient {
   const value=await this.requestJson(catalog.endpoints.configuration,'GET');
   const record=(item:unknown):item is Record<string,unknown>=>!!item&&typeof item==='object'&&!Array.isArray(item);
   const strings=(item:unknown):item is string[]=>Array.isArray(item)&&item.every(value=>typeof value==='string');
+  const templateIds=Object.keys(this.controls).filter(key=>key.startsWith('template_')&&key.endsWith('_subject')).map(key=>key.slice('template_'.length,-'_subject'.length));
   if(!record(value)||typeof value.sender!=='string'||!['settingsReady','emailReady'].every(key=>typeof value[key]==='boolean')||!Number.isSafeInteger(value.revision)||Number(value.revision)<0||
-   !record(value.templates)||!Object.values(value.templates).every(item=>record(item)&&['subject','title','body'].every(key=>typeof item[key]==='string')&&strings(item.required))||
+   !record(value.templates)||Object.keys(value.templates).length!==templateIds.length||!templateIds.every(id=>Object.hasOwn(value.templates as object,id))||!Object.values(value.templates).every(item=>record(item)&&['subject','title','body'].every(key=>typeof item[key]==='string')&&strings(item.required))||
    !strings(value.pending)||!Array.isArray(value.externalConfiguration)||!value.externalConfiguration.every(item=>record(item)&&['name','value','instructions'].every(key=>typeof item[key]==='string'))||
    !Array.isArray(value.audit)||!value.audit.every(item=>record(item)&&typeof item.action==='string'&&typeof item.created_at==='string'))throw Error(this.text('failed'));
   return value as MaintenanceConfiguration;
