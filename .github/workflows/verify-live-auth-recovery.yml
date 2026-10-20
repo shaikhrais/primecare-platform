@@ -61,12 +61,17 @@ jobs:
           tenant_id=str(uuid.uuid4());user_id=str(uuid.uuid4());password=secrets.token_urlsafe(24);new_password=secrets.token_urlsafe(24);fixture_created=False
           gateway='https://primecare-api-gateway.itpro-mohammed.workers.dev'
           def auth_call(path,body=None,bearer=None):
-              headers={'Content-Type':'application/json'}
+              headers={'Content-Type':'application/json','User-Agent':'node','Origin':'https://primecare-clinic.pages.dev'}
               if bearer:headers['Authorization']='Bearer '+bearer
               request=urllib.request.Request(gateway+path,headers=headers,data=None if body is None else json.dumps(body).encode(),method='GET' if body is None else 'POST')
               try:
                   with urllib.request.urlopen(request,timeout=30) as response:return response.status,json.loads(response.read())
-              except urllib.error.HTTPError as error:return error.code,json.loads(error.read())
+              except urllib.error.HTTPError as error:
+                  raw=error.read()
+                  try:body=json.loads(raw)
+                  except ValueError:body={'non_json':True}
+                  report.setdefault('http_failures',[]).append({'path':path,'status':error.code,'non_json':bool(body.get('non_json'))})
+                  return error.code,body
           def must(value,label):
               assert value,label
               report.setdefault('auth_checks',[]).append(label)
