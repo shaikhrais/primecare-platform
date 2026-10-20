@@ -30,11 +30,11 @@ jobs:
             const owner=context.repo.owner,repo=context.repo.repo;
             if(run.path!=='.github/workflows/verify-account-mutations.yml'||run.head_branch!=='main')throw Error('Exact main account producer required');
             let portal=run;
-            if(!jobs.some(j=>j.name==='deploy / build'&&j.conclusion==='success'))portal=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:39475799697})).data;
+            if(!jobs.some(j=>j.name==='deploy / build'&&j.conclusion==='success'))portal=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:39485060375})).data;
             const deployed=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:portal.id,per_page:100});
             const required=['deploy / verify_gateway','deploy / build',...['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'].map(p=>'deploy / deploy ('+p+')')];
             if(required.some(name=>!deployed.some(j=>j.name===name&&j.conclusion==='success')))throw Error('Exact nine successful deployment jobs required');
-            if(portal.id!==run.id&&portal.head_sha!=='7801d8205965460bfa9441a98a66b708911e35c0')throw Error('Pinned reused runtime required');
+            if(portal.id!==run.id&&portal.head_sha!=='190ac653e166490fc4bfde5003d12ab6a7a38e76')throw Error('Pinned reused runtime required');
             core.setOutput('portal_run',portal.id);core.setOutput('portal_sha',portal.head_sha);
             const passwordRuns=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'account-password-acceptance.yml',branch:'main',status:'success',per_page:10})).data.workflow_runs;
             if(!passwordRuns.length)throw Error('Successful password browser native proof required');
@@ -90,7 +90,9 @@ jobs:
               assert r.get('passed') is True and r.get('wholeAuthVerified') is False
               assert not r.get('cleanupError') and not r.get('cleanup_error') and not r.get('inboxCleanupError')
               if r['scope']=='deployed-account-mutations-owned-inbox':
-                  assert len(r.get('checks',[]))>=44 and r.get('received') is True
+                  assert len(r.get('checks',[]))>=48 and r.get('received') is True
+                  assert 'Created-account browser password change succeeds with mandatory reauthentication' in r['checks']
+                  assert 'Created-account browser logout removes its database session and remains denied' in r['checks']
                   assert r.get('cleanup')=='Exact owned synthetic mutation tenants, accounts, sessions, reset codes, audits and counters removed'
                   assert r.get('inboxCleanup')=='Only the database-correlated, hash-matched synthetic message removed'
               else:
@@ -151,7 +153,7 @@ jobs:
                       assert digest((root/path).read_bytes())==sha,'Definition/source drift: '+path
                       producer_source=subprocess.check_output(['git','show',os.environ['PRODUCER_SHA']+':'+path])
                       assert digest(producer_source)==sha,'Producer/definition source drift: '+path
-                  blockers=['Deployed account reads and creation/edit/revocation/real-email recovery journey passed in EN/FR/ES at320/768/1440 widths. Each locale passed36 read checks and44 lifecycle checks. These scoped checks do not establish every registered failure alternative or all actor/platform coverage.','Existing authority is unchanged; CEO/HR creation and CEO management/revocation only. Registered localization values and required independent reviews remain unapproved.','Password-change proof uses actual UI/gateway/native PostgreSQL with an explicitly isolated metadata fixture. Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete.']
+                  blockers=['Deployed account reads and creation/edit/revocation/real-email recovery journey passed in EN/FR/ES at320/768/1440 widths. Each locale passed the registered read, creation, editing, recovery, current-password change, logout and reload assertions in its bound receipt. These scoped checks do not establish every registered failure alternative or all actor/platform coverage.','Existing authority is unchanged; CEO/HR creation and CEO management/revocation only. Registered localization values and required independent reviews remain unapproved.','Password-change proof uses actual UI/gateway/native PostgreSQL with an explicitly isolated metadata fixture. Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete.']
                   attempts.append(record_attempt(db,flow,{'status':'implemented-unverified','test_status':'scoped_pass','scope':'scoped','source_bindings':sources,'evidence':evidence,'issues':[],'blockers':blockers,'next_action':'Complete current failure alternatives, accessibility/PWA/native acceptance and independent reviews; preserve these deployed proof receipts.'},root))
               auth=[dict(zip(['id','status','test_status'],row)) for row in db.execute("SELECT flow_id,verification_status,test_status FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE ? ORDER BY flow_id",('auth.%',))]
               assert len(auth)==23

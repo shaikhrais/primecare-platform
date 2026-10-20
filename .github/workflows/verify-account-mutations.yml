@@ -55,16 +55,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          runtime=7801d8205965460bfa9441a98a66b708911e35c0
+          runtime=190ac653e166490fc4bfde5003d12ab6a7a38e76
           if git diff --quiet "$runtime" HEAD -- websites/typescript packages/shared cloudflare/workers scripts/build-typescript-websites.mjs 'scripts/verify-*-catalog.py'; then
-            gh api repos/${{ github.repository }}/actions/runs/39475799697/jobs --paginate > /tmp/deployed-account-jobs.json
+            gh api repos/${{ github.repository }}/actions/runs/39485060375/jobs --paginate > /tmp/deployed-account-jobs.json
             python3 - <<'PY'
           import json
           jobs=json.load(open('/tmp/deployed-account-jobs.json'))['jobs']
           expected={'deploy / verify_gateway','deploy / build',*('deploy / deploy ('+p+')' for p in ['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'])}
           actual={j['name'] for j in jobs if j['conclusion']=='success'}
           assert expected.issubset(actual),'All nine pinned runtime deployments must have succeeded'
-          print('Reusing successful all-nine deployment39475799697; complete runtime/catalog source identical to7801d820')
+          print('Reusing successful all-nine deployment39485060375; complete runtime/catalog source identical to190ac653')
           PY
             echo reuse=true >> "$GITHUB_OUTPUT"
           else
