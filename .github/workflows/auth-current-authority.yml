@@ -33,7 +33,7 @@ jobs:
            ids=[r['flow_id'] for r in flows]
            sources=rows(db,"SELECT * FROM virtual_workflow_source_links WHERE flow_id LIKE ?",('auth.%',))
            steps=rows(db,"SELECT * FROM virtual_workflow_steps WHERE flow_id LIKE ?",('auth.%',))
-           guides=rows(db,"SELECT * FROM virtual_role_flow_guides WHERE flow_id LIKE ?",('auth.%',))
+           guides=rows(db,"SELECT * FROM virtual_role_flow_guides")
            snapshots=rows(db,"SELECT * FROM virtual_flow_catalog_snapshots WHERE name IN ('auth-completion-current','execution-handoff-current')")
            apis=rows(db,"SELECT * FROM api_endpoints WHERE id IN (1,2,5,395,779,16402,16493,16494,16495)")
            screen=rows(db,"SELECT * FROM role_screen_permissions WHERE screen_id=1264")
