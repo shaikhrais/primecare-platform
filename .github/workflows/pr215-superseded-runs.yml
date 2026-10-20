@@ -28,3 +28,5 @@ jobs:
               if(data.workflow_runs.length<100)break;
             }
             core.info('Current head preserved: '+keep+'; superseded runs cancelled: '+cancelled);
+
+# Recheck obsolete runs after the final repair candidate update.
