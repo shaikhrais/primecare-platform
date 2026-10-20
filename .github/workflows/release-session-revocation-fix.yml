@@ -19,7 +19,7 @@ jobs:
         with:
           script: |
             const owner=context.repo.owner,repo=context.repo.repo;
-            for(const run_id of [39446414692,39446063832]){
+            for(const run_id of [39449137443,39446063832]){
               let run;
               for(let i=0;i<48;i++){
                 run=(await github.rest.actions.getWorkflowRun({owner,repo,run_id})).data;
