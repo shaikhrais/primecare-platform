@@ -20,7 +20,16 @@ export class MaintenanceClient extends BaseSessionClient {
  protected rejectResponse(response:Response,value:unknown):never {if(response.status===401&&sessionStorage.getItem('primecare_session')===this.token)sessionStorage.removeItem('primecare_session');const error=this.errorData(value).error,key=catalog.serverMessages[String(error)] as keyof typeof catalog.locales.en|undefined;throw Error(key?this.text(key):this.text('failed'));}
  async identify(){const value=await this.requestJson(catalog.endpoints.identity,'GET') as MaintenanceIdentity;if(!value||!catalog.actorRoles.includes(value.roles)||typeof value.userId!=='string')throw Error(this.text('access'));this.identity=value;return value;}
  get canCreateMaintenance(){return !!this.identity&&catalog.creationActorRoles.includes(this.identity.roles);}
- async read(){return await this.requestJson(catalog.endpoints.configuration,'GET') as MaintenanceConfiguration;}
+ async read(){
+  const value=await this.requestJson(catalog.endpoints.configuration,'GET');
+  const record=(item:unknown):item is Record<string,unknown>=>!!item&&typeof item==='object'&&!Array.isArray(item);
+  const strings=(item:unknown):item is string[]=>Array.isArray(item)&&item.every(value=>typeof value==='string');
+  if(!record(value)||typeof value.sender!=='string'||!['settingsReady','emailReady'].every(key=>typeof value[key]==='boolean')||!Number.isSafeInteger(value.revision)||Number(value.revision)<0||
+   !record(value.templates)||!Object.values(value.templates).every(item=>record(item)&&['subject','title','body'].every(key=>typeof item[key]==='string')&&strings(item.required))||
+   !strings(value.pending)||!Array.isArray(value.externalConfiguration)||!value.externalConfiguration.every(item=>record(item)&&['name','value','instructions'].every(key=>typeof item[key]==='string'))||
+   !Array.isArray(value.audit)||!value.audit.every(item=>record(item)&&typeof item.action==='string'&&typeof item.created_at==='string'))throw Error(this.text('failed'));
+  return value as MaintenanceConfiguration;
+ }
  async save(value:unknown){return await this.requestJson(catalog.endpoints.configuration,'POST',value) as Record<string,unknown>;}
  async testEmail(){return await this.requestJson(catalog.endpoints.testEmail,'POST',{}) as Record<string,unknown>;}
  async createAccount(email:unknown,password:unknown){return await this.requestJson(catalog.endpoints.createAccount,'POST',{email,password,role:catalog.creationRole}) as Record<string,unknown>;}

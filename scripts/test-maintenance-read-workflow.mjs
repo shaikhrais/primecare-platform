@@ -66,6 +66,21 @@ try{
      if(role==='maintenance'){await context.setOffline(true);await cy(page,ui.controls.refresh).click();await page.getByRole('heading',{name:ui.locales[locale].unavailable,exact:true}).waitFor();assert.ok((await page.getByRole('alert').innerText()).includes(ui.locales[locale].cannotConnect));assert.equal(await cy(page,ui.controls.sender).count(),0);await context.setOffline(false);await cy(page,ui.controls.refresh).click();await cy(page,ui.controls.sender).waitFor();assert.equal(await cy(page,ui.controls.sender).inputValue(),primarySender);assert.deepEqual(await snapshot(),baseline);}
      if(role==='maintenance'&&locale==='fr'){await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 minute' WHERE token_hash=$1",[digest(token)]);const beforeExpiredUI=await snapshot();await cy(page,ui.controls.refresh).click();await page.getByRole('heading',{name:ui.locales[locale].unavailable,exact:true}).waitFor();assert.equal(await cy(page,ui.controls.sender).count(),0);assert.equal(await page.evaluate(()=>sessionStorage.getItem('primecare_session')),null);assert.deepEqual(await snapshot(),beforeExpiredUI);}
      if(role==='maintenance'&&locale==='en'){const beforeLogout=await snapshot();rejectLogout=true;await cy(page,ui.controls.signout).click();await page.waitForFunction(({id,text})=>document.querySelector('[data-cy="'+id+'"]').textContent===text,{id:ui.controls.status,text:ui.locales[locale].failed});assert.equal(await page.evaluate(()=>sessionStorage.getItem('primecare_session')),token);assert.deepEqual(await snapshot(),beforeLogout);rejectLogout=false;await cy(page,ui.controls.signout).click();await cy(page,'login-submit').waitFor();assert.equal(await page.evaluate(()=>sessionStorage.getItem('primecare_session')),null);assert.equal((await fetch(origin+'/v1/auth/me',{headers:{authorization:'Bearer '+token}})).status,401);}
+
+     if(role==='maintenance'&&locale==='es'){
+       receipt.malformedResponses=[];
+       const broken=[null,{}, {...api,sender:{}},{...api,templates:[]},{...api,templates:{password_reset:{subject:'Synthetic',title:'Synthetic',body:'Synthetic',required:'invalid'}}},{...api,pending:[null]},{...api,externalConfiguration:[{name:'Synthetic',value:{},instructions:'Synthetic'}]},{...api,audit:[{action:'Synthetic',created_at:null}]}];
+       for(const [index,payload]of broken.entries()){
+         await page.route('**/v1/auth/maintenance/configuration',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(payload)}),{times:1});
+         await cy(page,ui.controls.refresh).click();await page.getByRole('heading',{name:ui.locales[locale].unavailable,exact:true}).waitFor();
+         const actual=await page.getByRole('alert').innerText(),expected=ui.locales[locale].failed;
+         receipt.malformedResponses.push({index,expected,actual,readOnlyStatePreserved:true});
+         assert.deepEqual(await snapshot(),baseline);assert.equal(actual,expected,'Malformed configuration must show the governed localized error');
+         assert.equal(await cy(page,ui.controls.sender).count(),0);
+         await cy(page,ui.controls.refresh).click();await cy(page,ui.controls.sender).waitFor();
+         assert.equal(await cy(page,ui.controls.sender).inputValue(),primarySender);assert.deepEqual(await snapshot(),baseline);
+       }
+     }
      receipt.cases.push({role,locale,width,realCredentialLogin:true,actualMainUI:true,maskedConfigurationDatabaseComparison:true,reloadAuthoritative:true,readOnlyStatePreserved:true,localized:true,stableTestIds:true});
    }finally{const video=page.video();await context.close();if(video)await video.saveAs(out+'/config-'+role+'-'+locale+'.webm');}
  }
@@ -76,7 +91,7 @@ try{
    try{await page.goto(origin+'/login?enable-semantics=true');await cy(page,'login-email').fill(email);await cy(page,'login-password').fill(password);await cy(page,'login-submit').click();await page.waitForURL(url=>url.pathname===path&&url.searchParams.get('enable-semantics')==='true');const t=await page.evaluate(()=>sessionStorage.getItem('primecare_session'));const me=await fetch(origin+'/v1/auth/me',{headers:{authorization:'Bearer '+t}});assert.equal(me.status,200);assert.equal((await me.json()).roles,role);receipt.redirectRegressions.push({role,path,semanticsPreserved:true,realCredentialLogin:true,identityConfirmed:true});}finally{const video=page.video();await context.close();if(video)await video.saveAs(out+'/redirect-'+role+'.webm');}
  }
  assert.deepEqual(receipt.navigation.filter(n=>n.url.startsWith(origin)&&!new URL(n.url).searchParams.has('enable-semantics')),[]);
- receipt.criterion_results={'ui.semantics-navigation':'passed','ui.localization':'passed','ui.stable-test-ids':'passed'};
+ receipt.criterion_results={'ui.semantics-navigation':'passed','ui.localization':'passed','ui.stable-test-ids':'passed','ui.malformed-configuration':'passed'};
 
  for(const token of [platformToken,pswToken]){const before=await snapshot();assert.equal((await read(token)).status,403);assert.deepEqual(await snapshot(),before);}const beforeTenant=await snapshot();assert.equal((await read(maintToken,{'x-tenant-id':foreign})).status,403);const injected=await read(maintToken,{},'?tenantId='+foreign);assert.equal(injected.status,200);assert.equal((await injected.json()).sender,primarySender);assert.deepEqual(await snapshot(),beforeTenant);receipt.apiChecks.push('Denied roles and mismatched tenant header are forbidden; unregistered query override cannot select foreign configuration');
  assert.equal((await read(null)).status,401);assert.equal((await read('invalid-token')).status,401);const expired=await login('maintenance@example.invalid');await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 minute' WHERE token_hash=$1",[digest(expired)]);const beforeExpired=await snapshot();assert.equal((await read(expired)).status,401);assert.deepEqual(await snapshot(),beforeExpired);receipt.apiChecks.push('Missing, invalid and expired sessions denied without configuration/account/audit mutation');
