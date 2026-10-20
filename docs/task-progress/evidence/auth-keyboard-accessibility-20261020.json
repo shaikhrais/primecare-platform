@@ -584,7 +584,8 @@
       39507678530,
       39507958241
     ],
-    "staleRecordingRejectedBeforeTrackingWrites": 39508167917
+    "staleRecordingRejectedBeforeTrackingWrites": 39508167917,
+    "staleSessionRecordingRejectedBeforeTrackingWrites": 39511078128
   },
   "latestBrowserRun": 39508854499,
   "authVersion": "60f731de-3d2d-474e-b265-1d6b46023165",
@@ -1649,7 +1650,30 @@
   ],
   "totalLiveChecks": 345,
   "productionSessionRecording": {
-    "run": 39511078128,
-    "status": "in_progress"
-  }
+    "attempt_ids": [
+      438,
+      439
+    ],
+    "workflows": [
+      "auth.inspect-own-sessions",
+      "auth.revoke-own-sessions"
+    ],
+    "browser_cases": 3,
+    "deployed_portal_assets": 9,
+    "summary": {
+      "total": 147,
+      "missing": 1,
+      "implemented-unverified": 141,
+      "verified": 0,
+      "blocked": 5,
+      "done": 0,
+      "pending": 147
+    },
+    "source_main": "f902f3c961307d87c64d31b8f55bd9a7a645753c",
+    "main_only": true,
+    "open_prs": 0,
+    "whole_auth_verified": false,
+    "evidence": "https://github.com/shaikhrais/primecare-platform/actions/runs/39511288468"
+  },
+  "finalRecordingRun": 39511288468
 }
