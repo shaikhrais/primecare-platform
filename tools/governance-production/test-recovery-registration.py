@@ -104,5 +104,37 @@ class RecoveryTests(unittest.TestCase):
         with psycopg.connect(URL,autocommit=True) as db:db.execute('ALTER TABLE '+self.table('screen_components')+' ADD COLUMN unexpected text')
         with self.assertRaises(GovernanceReadError):self.store()
 
+    def seed_recovery_flows(self,db):
+        import hashlib
+        table=self.table('virtual_workflow_definitions')
+        cursor=db.db.execute('SELECT * FROM '+table)
+        names=[c.name for c in cursor.description];base=dict(zip(names,cursor.fetchone()))
+        db.db.execute('DELETE FROM '+table)
+        for n,(mode,flow) in enumerate([('forgot','auth.forgot-password'),('reset','auth.reset-password')]):
+            plan={'id':flow,'kind':'business_process','actor_roles':[],'steps':[{'api_method':'POST','api_path':self.definition['endpoints'][mode]}],'gaps':[]}
+            encoded=json.dumps(plan,sort_keys=True)
+            values=dict(base)
+            for field,value in {'flow_id':flow,'definition_json':encoded,'definition_sha256':hashlib.sha256(encoded.encode()).hexdigest(),'actor_roles_json':'[]'}.items():values[field]=db._value('virtual_workflow_definitions',field,value)
+            values['_primecare_import_row']=n
+            db.db.execute('INSERT INTO '+table+'('+','.join(map(quote,names))+') VALUES('+','.join(['%s']*len(names))+')',[Jsonb(values[k]) if isinstance(values[k],dict) else values[k] for k in names])
+    def test_recovery_process_binding_is_exact_idempotent_and_never_verified(self):
+        from recovery_flow_binding import bind
+        with self.store() as db:
+            catalog=register(db,self.definition);self.seed_recovery_flows(db)
+            first=bind(db,catalog);second=bind(db,catalog)
+            self.assertTrue(all(r['changed'] for r in first));self.assertTrue(all(not r['changed'] for r in second))
+            self.assertEqual(db.execute("SELECT COUNT(*) FROM virtual_workflow_definitions WHERE verification_status='verified'").fetchone()[0],0)
+            self.assertEqual(db.execute("SELECT COUNT(*) FROM virtual_workflow_definitions WHERE test_status='stale'").fetchone()[0],2)
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM virtual_workflow_source_links').fetchone()[0],40)
+    def test_binding_preserves_changed_public_actor_specification(self):
+        from recovery_flow_binding import bind
+        with self.store() as db:
+            catalog=register(db,self.definition);self.seed_recovery_flows(db)
+            db.db.execute('UPDATE '+self.table('virtual_workflow_definitions')+" SET actor_roles_json='[\"ceo\"]' WHERE flow_id='auth.reset-password'")
+        with self.assertRaises(GovernanceReadError):
+            with self.store() as db:bind(db,catalog)
+        with self.store() as db:self.assertEqual(db.execute('SELECT COUNT(*) FROM virtual_workflow_source_links').fetchone()[0],0)
+
+
 if __name__=='__main__':
     unittest.main(defaultTest='RecoveryTests')

@@ -85,6 +85,18 @@
     "definitionSha256": "04fb4dbdc80d862f80438664253ba14248ab19e2c62f813cb71b4fe41b83f9d3",
     "schemaChanges": false,
     "businessDataWrites": false,
-    "permissionChanges": false
+    "permissionChanges": false,
+    "workflowBinding": {
+      "flowIds": [
+        "auth.forgot-password",
+        "auth.reset-password"
+      ],
+      "tables": [
+        "virtual_workflow_definitions",
+        "virtual_workflow_source_links"
+      ],
+      "schemaChanges": false,
+      "businessDataWrites": false
+    }
   }
 }

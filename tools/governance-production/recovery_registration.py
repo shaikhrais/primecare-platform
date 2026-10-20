@@ -19,7 +19,7 @@ class RecoveryRegistrationStore(ProductionWorkflowStore):
         super().__init__(**kwargs)
         try:
             scope=self.pin.get('recoveryRegistrationWriter',{})
-            expected={'optInVariable':'GOVERNANCE_RECOVERY_REGISTRATION_WRITES','screenIds':[947,950],'apiIds':[395,396],'tables':list(TABLES),'definitionSha256':hashlib.sha256((Path(__file__).with_name('recovery-registration.json')).read_bytes()).hexdigest(),'schemaChanges':False,'businessDataWrites':False,'permissionChanges':False}
+            expected={'optInVariable':'GOVERNANCE_RECOVERY_REGISTRATION_WRITES','screenIds':[947,950],'apiIds':[395,396],'tables':list(TABLES),'definitionSha256':hashlib.sha256((Path(__file__).with_name('recovery-registration.json')).read_bytes()).hexdigest(),'schemaChanges':False,'businessDataWrites':False,'permissionChanges':False,'workflowBinding':{'flowIds':FLOWS,'tables':['virtual_workflow_definitions','virtual_workflow_source_links'],'schemaChanges':False,'businessDataWrites':False}}
             if scope!=expected or os.environ.get('GOVERNANCE_RECOVERY_REGISTRATION_WRITES')!='1':
                 raise GovernanceReadError('Exact pinned recovery cutover scope required')
             self.db.execute('LOCK TABLE '+','.join(self.table(t) for t in sorted([*TABLES,'virtual_workflow_source_links']))+' IN SHARE ROW EXCLUSIVE MODE')
@@ -140,7 +140,9 @@ def main():
     if '--apply' not in sys.argv:raise SystemExit('Explicit --apply required')
     with RecoveryRegistrationStore() as db:
         catalog=register(db,load_definition())
-        receipt={'screens':[947,950],'apis':[395,396],'controls':18,'schemaChanged':False,'permissionGrantsChanged':False,'nativeMetadataChanged':False,'reviews':'pending','catalogSha256':hashlib.sha256(json.dumps(catalog,sort_keys=True).encode()).hexdigest()}
+        from recovery_flow_binding import bind
+        bindings=bind(db,catalog)
+        receipt={'screens':[947,950],'apis':[395,396],'controls':18,'schemaChanged':False,'permissionGrantsChanged':False,'nativeMetadataChanged':False,'reviews':'pending','workflowBindings':bindings,'catalogSha256':hashlib.sha256(json.dumps(catalog,sort_keys=True).encode()).hexdigest()}
         db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('recovery-registration-current',json.dumps(receipt)))
     out=ROOT/'test-results/recovery-registration';out.mkdir(parents=True,exist_ok=True)
     (out/'catalog.json').write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+'\n')
