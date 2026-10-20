@@ -14,12 +14,14 @@ def must(value,label):
     report['checks'].append(label)
 def call(path,method='GET',body=None,bearer=None,tenant=None):
     headers={'Content-Type':'application/json','User-Agent':'node','Origin':portal}
+    if method!='GET':headers['Idempotency-Key']=str(uuid.uuid4())
     if bearer:headers['Authorization']='Bearer '+bearer
     if tenant:headers['x-tenant-id']=tenant
     request=urllib.request.Request(gateway+path,headers=headers,data=None if body is None else json.dumps(body).encode(),method=method)
     try:
         with urllib.request.urlopen(request,timeout=30) as response:return response.status,json.loads(response.read())
-    except urllib.error.HTTPError as error:return error.code,json.loads(error.read())
+    except urllib.error.HTTPError as error:
+        value=json.loads(error.read());report.setdefault('http_denials',[]).append({'method':method,'path':path.split('?')[0],'status':error.code,'response_keys':list(value) if isinstance(value,dict) else []});return error.code,value
 def count(user):
     value=db.execute('SELECT COUNT(*) FROM auth_sessions WHERE user_id=%s AND expires_at>NOW()',(user,)).fetchone()[0];db.commit();return value
 browser=context=pw=None
