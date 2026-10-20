@@ -1,0 +1,485 @@
+{
+  "screenId": 1264,
+  "screenCode": "MAINTENANCE_CONFIGURATION",
+  "route": "/maintenance/configuration",
+  "endpoints": {
+    "configuration": "/v1/auth/maintenance/configuration",
+    "testEmail": "/v1/auth/maintenance/configuration/test-email",
+    "identity": "/v1/auth/me",
+    "createAccount": "/v1/auth/register",
+    "logout": "/v1/auth/logout"
+  },
+  "controls": {
+    "screen": "screen-maintenance-configuration",
+    "status": "maintenance-status",
+    "settings": "maintenance-settings-form",
+    "sender": "maintenance-sender",
+    "save": "maintenance-save",
+    "testEmail": "maintenance-test-email",
+    "createAccount": "maintenance-create-account-form",
+    "accountEmail": "maintenance-account-email",
+    "accountPassword": "maintenance-account-password",
+    "createSubmit": "maintenance-create-account-submit",
+    "refresh": "maintenance-refresh",
+    "signout": "maintenance-signout",
+    "audit": "maintenance-audit",
+    "pending": "maintenance-pending",
+    "deployment": "maintenance-deployment",
+    "template_password_reset_subject": "maintenance-template-password-reset-subject",
+    "template_password_reset_title": "maintenance-template-password-reset-title",
+    "template_password_reset_body": "maintenance-template-password-reset-body",
+    "template_welcome_subject": "maintenance-template-welcome-subject",
+    "template_welcome_title": "maintenance-template-welcome-title",
+    "template_welcome_body": "maintenance-template-welcome-body",
+    "template_account_invitation_subject": "maintenance-template-account-invitation-subject",
+    "template_account_invitation_title": "maintenance-template-account-invitation-title",
+    "template_account_invitation_body": "maintenance-template-account-invitation-body",
+    "template_appointment_confirmation_subject": "maintenance-template-appointment-confirmation-subject",
+    "template_appointment_confirmation_title": "maintenance-template-appointment-confirmation-title",
+    "template_appointment_confirmation_body": "maintenance-template-appointment-confirmation-body",
+    "template_appointment_reminder_subject": "maintenance-template-appointment-reminder-subject",
+    "template_appointment_reminder_title": "maintenance-template-appointment-reminder-title",
+    "template_appointment_reminder_body": "maintenance-template-appointment-reminder-body",
+    "template_appointment_cancellation_subject": "maintenance-template-appointment-cancellation-subject",
+    "template_appointment_cancellation_title": "maintenance-template-appointment-cancellation-title",
+    "template_appointment_cancellation_body": "maintenance-template-appointment-cancellation-body",
+    "template_payment_receipt_subject": "maintenance-template-payment-receipt-subject",
+    "template_payment_receipt_title": "maintenance-template-payment-receipt-title",
+    "template_payment_receipt_body": "maintenance-template-payment-receipt-body",
+    "template_security_notice_subject": "maintenance-template-security-notice-subject",
+    "template_security_notice_title": "maintenance-template-security-notice-title",
+    "template_security_notice_body": "maintenance-template-security-notice-body"
+  },
+  "resources": {
+    "title": [
+      "Organization configuration",
+      "Configuration de l’organisation",
+      "Configuración de la organización"
+    ],
+    "account": [
+      "Account",
+      "Compte",
+      "Cuenta"
+    ],
+    "portal": [
+      "Portal",
+      "Portail",
+      "Portal"
+    ],
+    "signout": [
+      "Sign out",
+      "Se déconnecter",
+      "Cerrar sesión"
+    ],
+    "loading": [
+      "Loading maintenance configuration…",
+      "Chargement de la configuration de maintenance…",
+      "Cargando la configuración de mantenimiento…"
+    ],
+    "intro": [
+      "Manage settings for your organization. This account does not grant access to patient records or other organizations.",
+      "Gérez les paramètres de votre organisation. Ce compte ne donne pas accès aux dossiers des patients ni aux autres organisations.",
+      "Administre la configuración de su organización. Esta cuenta no da acceso a los expedientes de pacientes ni a otras organizaciones."
+    ],
+    "pendingTitle": [
+      "Status and pending work",
+      "État et tâches en attente",
+      "Estado y trabajo pendiente"
+    ],
+    "ready": [
+      "Email configuration is present. Inbox delivery still needs verification.",
+      "La configuration des courriels est présente. La réception doit encore être vérifiée.",
+      "La configuración de correo está disponible. La recepción aún debe verificarse."
+    ],
+    "notReady": [
+      "Email setup is incomplete. Password recovery cannot send email yet.",
+      "La configuration des courriels est incomplète. La récupération du mot de passe ne peut pas encore envoyer de courriel.",
+      "La configuración de correo está incompleta. La recuperación de contraseña aún no puede enviar correo."
+    ],
+    "delivery": [
+      "Email delivery",
+      "Envoi de courriels",
+      "Envío de correo"
+    ],
+    "provider": [
+      "Provider: Cloudflare Email Service. No provider API key is required.",
+      "Fournisseur : Cloudflare Email Service. Aucune clé API du fournisseur n’est requise.",
+      "Proveedor: Cloudflare Email Service. No se necesita una clave API del proveedor."
+    ],
+    "sender": [
+      "Verified sender email",
+      "Adresse courriel vérifiée de l’expéditeur",
+      "Correo verificado del remitente"
+    ],
+    "templates": [
+      "Shared email templates",
+      "Modèles de courriel partagés",
+      "Plantillas de correo compartidas"
+    ],
+    "templateHelp": [
+      "Edit plain text and keep every required {{placeholder}}. Only password recovery is currently connected to an event.",
+      "Modifiez le texte brut et conservez chaque {{placeholder}} obligatoire. Seule la récupération du mot de passe est actuellement reliée à un événement.",
+      "Edite el texto sin formato y conserve cada {{placeholder}} obligatorio. Actualmente solo la recuperación de contraseña está conectada a un evento."
+    ],
+    "required": [
+      "required",
+      "obligatoire",
+      "obligatorio"
+    ],
+    "subject": [
+      "Subject",
+      "Objet",
+      "Asunto"
+    ],
+    "templateTitle": [
+      "Title",
+      "Titre",
+      "Título"
+    ],
+    "body": [
+      "Body",
+      "Corps du message",
+      "Cuerpo"
+    ],
+    "save": [
+      "Save settings and templates",
+      "Enregistrer les paramètres et les modèles",
+      "Guardar configuración y plantillas"
+    ],
+    "testEmail": [
+      "Send test email to my signed-in account",
+      "Envoyer un courriel de test à mon compte connecté",
+      "Enviar correo de prueba a mi cuenta conectada"
+    ],
+    "deployment": [
+      "Deployment configuration",
+      "Configuration du déploiement",
+      "Configuración de implementación"
+    ],
+    "createTitle": [
+      "Create IT maintenance account",
+      "Créer un compte de maintenance informatique",
+      "Crear una cuenta de mantenimiento informático"
+    ],
+    "createHelp": [
+      "Create one named account per IT member. Share access through your approved IT process.",
+      "Créez un compte nominatif par membre informatique. Transmettez l’accès selon votre procédure informatique approuvée.",
+      "Cree una cuenta individual por miembro de TI. Comparta el acceso mediante su proceso de TI aprobado."
+    ],
+    "accountEmail": [
+      "IT member email",
+      "Courriel du membre informatique",
+      "Correo del miembro de TI"
+    ],
+    "accountPassword": [
+      "Initial password",
+      "Mot de passe initial",
+      "Contraseña inicial"
+    ],
+    "createSubmit": [
+      "Create maintenance account",
+      "Créer un compte de maintenance",
+      "Crear cuenta de mantenimiento"
+    ],
+    "audit": [
+      "Recent activity",
+      "Activité récente",
+      "Actividad reciente"
+    ],
+    "emptyAudit": [
+      "No maintenance changes recorded.",
+      "Aucune modification de maintenance enregistrée.",
+      "No hay cambios de mantenimiento registrados."
+    ],
+    "unavailable": [
+      "Maintenance unavailable",
+      "Maintenance indisponible",
+      "Mantenimiento no disponible"
+    ],
+    "cannotConnect": [
+      "Cannot connect",
+      "Connexion impossible",
+      "No se puede conectar"
+    ],
+    "signin": [
+      "Sign in",
+      "Se connecter",
+      "Iniciar sesión"
+    ],
+    "refresh": [
+      "Reload configuration",
+      "Recharger la configuration",
+      "Recargar configuración"
+    ],
+    "created": [
+      "Maintenance account created. Share access through your approved IT process.",
+      "Compte de maintenance créé. Transmettez l’accès selon votre procédure informatique approuvée.",
+      "Cuenta de mantenimiento creada. Comparta el acceso mediante su proceso de TI aprobado."
+    ],
+    "failed": [
+      "Request failed",
+      "Échec de la demande",
+      "La solicitud falló"
+    ],
+    "changed": [
+      "Signed-in account changed. Sign in again.",
+      "Le compte connecté a changé. Reconnectez-vous.",
+      "La cuenta conectada cambió. Inicie sesión de nuevo."
+    ],
+    "access": [
+      "CEO or maintenance access required.",
+      "Un accès de direction générale ou de maintenance est requis.",
+      "Se requiere acceso de dirección general o mantenimiento."
+    ],
+    "tasks": [
+      "Authorized maintenance tasks",
+      "Tâches de maintenance autorisées",
+      "Tareas de mantenimiento autorizadas"
+    ],
+    "settingsDetail": [
+      "Email settings and templates",
+      "Paramètres et modèles de courriel",
+      "Configuración y plantillas de correo"
+    ],
+    "template_password_reset": [
+      "Password reset",
+      "Réinitialisation du mot de passe",
+      "Restablecimiento de contraseña"
+    ],
+    "template_welcome": [
+      "Welcome",
+      "Bienvenue",
+      "Bienvenida"
+    ],
+    "template_account_invitation": [
+      "Account invitation",
+      "Invitation au compte",
+      "Invitación de cuenta"
+    ],
+    "template_appointment_confirmation": [
+      "Appointment confirmation",
+      "Confirmation du rendez-vous",
+      "Confirmación de cita"
+    ],
+    "template_appointment_reminder": [
+      "Appointment reminder",
+      "Rappel de rendez-vous",
+      "Recordatorio de cita"
+    ],
+    "template_appointment_cancellation": [
+      "Appointment cancellation",
+      "Annulation du rendez-vous",
+      "Cancelación de cita"
+    ],
+    "template_payment_receipt": [
+      "Payment receipt",
+      "Reçu de paiement",
+      "Recibo de pago"
+    ],
+    "template_security_notice": [
+      "Security notice",
+      "Avis de sécurité",
+      "Aviso de seguridad"
+    ],
+    "server_1": [
+      "Deployment administrator: deploy the native Cloudflare EMAIL binding.",
+      "Administrateur du déploiement : déployez la liaison EMAIL native de Cloudflare.",
+      "Administrador de implementación: implemente el enlace EMAIL nativo de Cloudflare."
+    ],
+    "server_2": [
+      "IT: onboard the sender domain under Cloudflare Email Service > Email Sending. General recipient delivery requires Workers Paid; free sending is limited to verified destination addresses.",
+      "TI : configurez le domaine expéditeur dans Cloudflare Email Service > Email Sending. L’envoi général nécessite Workers Paid; l’envoi gratuit est limité aux adresses de destination vérifiées.",
+      "TI: configure el dominio remitente en Cloudflare Email Service > Email Sending. El envío general requiere Workers Paid; el envío gratuito se limita a direcciones de destino verificadas."
+    ],
+    "server_3": [
+      "IT: save the configured Cloudflare sender email.",
+      "TI : enregistrez l’adresse courriel de l’expéditeur Cloudflare configuré.",
+      "TI: guarde el correo del remitente configurado de Cloudflare."
+    ],
+    "server_4": [
+      "IT: send a test email to your own account and check inbox/spam; a provider acceptance is not proof of delivery.",
+      "TI : envoyez un courriel de test à votre compte et vérifiez la réception et les indésirables; l’acceptation du fournisseur ne prouve pas la réception.",
+      "TI: envíe un correo de prueba a su cuenta y revise la bandeja de entrada y el correo no deseado; la aceptación del proveedor no demuestra la recepción."
+    ],
+    "server_5": [
+      "IT: test Forgot Password on Android, including a complete reset and sign-in.",
+      "TI : testez Mot de passe oublié sur Android, y compris la réinitialisation complète et la connexion.",
+      "TI: pruebe Olvidé mi contraseña en Android, incluido el restablecimiento completo y el inicio de sesión."
+    ],
+    "server_6": [
+      "Developers: connect the remaining email templates to their appointment, invitation and payment events.",
+      "Développeurs : reliez les autres modèles de courriel aux événements de rendez-vous, d’invitation et de paiement.",
+      "Desarrolladores: conecten las demás plantillas de correo con sus eventos de citas, invitaciones y pagos."
+    ],
+    "server_7": [
+      "API gateway URL",
+      "URL de la passerelle API",
+      "URL de la puerta de enlace API"
+    ],
+    "server_8": [
+      "Build-time setting. Update Android workflow and rebuild the APK to change it.",
+      "Paramètre de compilation. Modifiez le workflow Android et reconstruisez l’APK pour le changer.",
+      "Configuración de compilación. Actualice el flujo de Android y vuelva a compilar el APK para cambiarla."
+    ],
+    "server_9": [
+      "Database connection",
+      "Connexion à la base de données",
+      "Conexión a la base de datos"
+    ],
+    "server_10": [
+      "Configured on the server",
+      "Configurée sur le serveur",
+      "Configurada en el servidor"
+    ],
+    "server_11": [
+      "Deployment administrator manages PRODUCTION_DATABASE_URL / DB_URL. Never copy it into an app.",
+      "L’administrateur du déploiement gère PRODUCTION_DATABASE_URL / DB_URL. Ne les copiez jamais dans une application.",
+      "El administrador de implementación gestiona PRODUCTION_DATABASE_URL / DB_URL. Nunca los copie en una aplicación."
+    ],
+    "server_12": [
+      "Cloudflare credentials",
+      "Identifiants Cloudflare",
+      "Credenciales de Cloudflare"
+    ],
+    "server_13": [
+      "Deployment only",
+      "Déploiement uniquement",
+      "Solo implementación"
+    ],
+    "server_14": [
+      "Deployment administrator manages CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID in GitHub secrets.",
+      "L’administrateur du déploiement gère CLOUDFLARE_API_TOKEN et CLOUDFLARE_ACCOUNT_ID dans les secrets GitHub.",
+      "El administrador de implementación gestiona CLOUDFLARE_API_TOKEN y CLOUDFLARE_ACCOUNT_ID en los secretos de GitHub."
+    ],
+    "server_15": [
+      "Encryption key",
+      "Clé de chiffrement",
+      "Clave de cifrado"
+    ],
+    "server_16": [
+      "Configured",
+      "Configurée",
+      "Configurada"
+    ],
+    "server_17": [
+      "Pending",
+      "En attente",
+      "Pendiente"
+    ],
+    "server_18": [
+      "Server-only CONFIG_ENCRYPTION_KEY. Back up securely. Do not rotate without re-encrypting stored keys.",
+      "CONFIG_ENCRYPTION_KEY est réservée au serveur. Sauvegardez-la de manière sécurisée. Ne la remplacez pas sans rechiffrer les clés stockées.",
+      "CONFIG_ENCRYPTION_KEY es solo del servidor. Haga una copia de seguridad segura. No la cambie sin volver a cifrar las claves almacenadas."
+    ],
+    "server_19": [
+      "email_configuration_changed",
+      "Configuration des courriels modifiée",
+      "Configuración de correo modificada"
+    ],
+    "server_20": [
+      "test_email_accepted",
+      "Courriel de test accepté",
+      "Correo de prueba aceptado"
+    ],
+    "server_21": [
+      "Invalid session",
+      "Session non valide",
+      "Sesión no válida"
+    ],
+    "server_22": [
+      "No session",
+      "Aucune session",
+      "Sin sesión"
+    ],
+    "server_23": [
+      "Forbidden",
+      "Accès interdit",
+      "Acceso prohibido"
+    ],
+    "server_24": [
+      "Maintenance access required",
+      "Accès de maintenance requis",
+      "Se requiere acceso de mantenimiento"
+    ],
+    "server_25": [
+      "Settings saved. Send a test email to check delivery.",
+      "Paramètres enregistrés. Envoyez un courriel de test pour vérifier la réception.",
+      "Configuración guardada. Envíe un correo de prueba para comprobar la recepción."
+    ],
+    "server_26": [
+      "Provider accepted the test. Check your inbox/spam to confirm delivery.",
+      "Le fournisseur a accepté le test. Vérifiez la réception et les indésirables pour confirmer la réception.",
+      "El proveedor aceptó la prueba. Revise la bandeja de entrada y el correo no deseado para confirmar la recepción."
+    ],
+    "server_27": [
+      "Settings changed. Reload before saving.",
+      "Les paramètres ont changé. Rechargez-les avant d’enregistrer.",
+      "La configuración cambió. Recárguela antes de guardar."
+    ],
+    "server_28": [
+      "Invalid settings. Use a sender email and retain all required template placeholders.",
+      "Paramètres non valides. Utilisez une adresse d’expéditeur et conservez tous les paramètres de remplacement obligatoires des modèles.",
+      "Configuración no válida. Use un correo remitente y conserve todos los marcadores obligatorios de las plantillas."
+    ],
+    "server_29": [
+      "Use the sender address configured for the Cloudflare Worker.",
+      "Utilisez l’adresse d’expéditeur configurée pour le Worker Cloudflare.",
+      "Use la dirección remitente configurada para el Worker de Cloudflare."
+    ],
+    "server_30": [
+      "Email provider did not accept the test. Check Cloudflare sender verification, recipient eligibility and EMAIL binding.",
+      "Le fournisseur n’a pas accepté le test. Vérifiez l’expéditeur Cloudflare, l’admissibilité du destinataire et la liaison EMAIL.",
+      "El proveedor no aceptó la prueba. Revise la verificación del remitente Cloudflare, la elegibilidad del destinatario y el enlace EMAIL."
+    ],
+    "server_31": [
+      "Test email always goes to your signed-in account",
+      "Le courriel de test est toujours envoyé à votre compte connecté",
+      "El correo de prueba siempre se envía a su cuenta conectada"
+    ],
+    "server_32": [
+      "Too many configuration requests",
+      "Trop de demandes de configuration",
+      "Demasiadas solicitudes de configuración"
+    ]
+  },
+  "serverMessages": {
+    "Deployment administrator: deploy the native Cloudflare EMAIL binding.": "server_1",
+    "IT: onboard the sender domain under Cloudflare Email Service > Email Sending. General recipient delivery requires Workers Paid; free sending is limited to verified destination addresses.": "server_2",
+    "IT: save the configured Cloudflare sender email.": "server_3",
+    "IT: send a test email to your own account and check inbox/spam; a provider acceptance is not proof of delivery.": "server_4",
+    "IT: test Forgot Password on Android, including a complete reset and sign-in.": "server_5",
+    "Developers: connect the remaining email templates to their appointment, invitation and payment events.": "server_6",
+    "API gateway URL": "server_7",
+    "Build-time setting. Update Android workflow and rebuild the APK to change it.": "server_8",
+    "Database connection": "server_9",
+    "Configured on the server": "server_10",
+    "Deployment administrator manages PRODUCTION_DATABASE_URL / DB_URL. Never copy it into an app.": "server_11",
+    "Cloudflare credentials": "server_12",
+    "Deployment only": "server_13",
+    "Deployment administrator manages CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID in GitHub secrets.": "server_14",
+    "Encryption key": "server_15",
+    "Configured": "server_16",
+    "Pending": "server_17",
+    "Server-only CONFIG_ENCRYPTION_KEY. Back up securely. Do not rotate without re-encrypting stored keys.": "server_18",
+    "email_configuration_changed": "server_19",
+    "test_email_accepted": "server_20",
+    "Invalid session": "server_21",
+    "No session": "server_22",
+    "Forbidden": "server_23",
+    "Maintenance access required": "server_24",
+    "Settings saved. Send a test email to check delivery.": "server_25",
+    "Provider accepted the test. Check your inbox/spam to confirm delivery.": "server_26",
+    "Settings changed. Reload before saving.": "server_27",
+    "Invalid settings. Use a sender email and retain all required template placeholders.": "server_28",
+    "Use the sender address configured for the Cloudflare Worker.": "server_29",
+    "Email provider did not accept the test. Check Cloudflare sender verification, recipient eligibility and EMAIL binding.": "server_30",
+    "Test email always goes to your signed-in account": "server_31",
+    "Too many configuration requests": "server_32"
+  },
+  "routes": {
+    "configuration": "/maintenance/configuration",
+    "login": "/login",
+    "account": "/success",
+    "portal": "/"
+  }
+}
