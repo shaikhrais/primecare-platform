@@ -3,6 +3,8 @@ import {openAdminTraining,trainingText} from './admin-training';
 import {DashboardMediaLook} from './media-look';
 import {liveScreenText} from './screen-text';
 import {accountMarkup,bindAccount} from './account';
+import {signOut} from './auth-client';
+import workspaceCatalog from '../../../packages/primecare_ui/lib/src/localization/screens/workspace.json';
 import {renderShell,bindShell} from './shell';
 import {reportPanel} from './reports';
 type Page = {code:string;name:string;route:string;role:string;appCode:string;renderer:string;lifecycle:string;
@@ -16,7 +18,12 @@ type Workspace = {identity:{userId:string;role:string};landing:string;screens:Pa
   reporting?:{endpoint:string;screens:string[]}|null;resources:Record<string,string>;overview:{activeAccounts:number;activeSessions:number;accountRoles:{role:string;count:number}[];
   activity:{action:string;created_at:string}[];metrics:{code:string;available:boolean;count?:number}[];scope:string}};
 export const escapeHtml = (value:unknown) => String(value??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]!));
-const routeUrl = (route:string) => `${route}${route.includes('?')?'&':'?'}enable-semantics=true`;
+const routeUrl = (route:string) => {
+  const url=new URL(route,document.baseURI),locale=document.documentElement.lang;
+  if(locale==='fr'||locale==='es')url.searchParams.set('locale',locale);
+  url.searchParams.delete('enable-semantics');url.searchParams.set('enable-semantics','true');
+  return url.pathname+'?'+url.searchParams;
+};
 export async function loadWorkspace(gateway:string,token:string,send:typeof fetch=fetch):Promise<Workspace> {
   const response=await send(`${gateway}/v1/governance/workspace`,{headers:{authorization:'Bearer '+token},cache:'no-store'});
   const data=await response.json();
@@ -37,17 +44,21 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   let data:Workspace;
   try {data=await loadWorkspace(gateway,token);}
   catch(error) {
+    if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
     if((error as {status?:number}).status===401){sessionStorage.removeItem('primecare_session');location.assign(routeUrl('/login'));return;}
     root.innerHTML=`<main data-cy="error-state" role="alert"><p>${escapeHtml((error as Error).message)}</p><button data-cy="workspace-retry">Retry</button></main>`;
     root.querySelector('button')?.addEventListener('click',()=>void renderWorkspace(root,gateway));return;
   }
+  if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
   const reportPanels=new Map<string,HTMLElement>();
   if(data.identity.role==='platform_admin'&&location.pathname!=='/success'){location.assign('/platform/administration');return;}
   if(['/','/dashboard'].includes(location.pathname)&&data.landing===careRegistry.route&&data.screens.some(s=>s.route===careRegistry.route)){location.assign(routeUrl(careRegistry.route));return;}
   const live=liveScreenText(gateway);let dirtyForm=false;root.addEventListener('input',()=>dirtyForm=true);
-  let search='';let pendingOnly=false;let pageNumber=0;
-  const t=(key:string)=>escapeHtml(live.text('workspace','en',key,data.resources['workspace.'+key]??key));
-  const media=new DashboardMediaLook();
+  let search='';let pendingOnly=false;let pageNumber=0;let signingOut=false;
+  const locale=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en';
+  const text=(key:string)=>live.text('workspace',locale,key,(workspaceCatalog.locales[locale] as Record<string,string>)[key]??data.resources['workspace.'+key]??key);
+  const t=(key:string)=>escapeHtml(text(key));
+  const media=new DashboardMediaLook(locale);
   const link=(page:Page)=>`<a href="${escapeHtml(routeUrl(page.route))}" data-route="${escapeHtml(page.route)}" data-cy="sidebar-item-${escapeHtml(page.code)}">${media.sectionIcon(page.renderer==='dashboard'?'chart':'header')}${escapeHtml(page.name)}</a>`;
   const metric=(label:string,value:unknown)=>`<article class="metric"><span>${label}</span><strong>${escapeHtml(value)}</strong></article>`;
   const details=(p:Page)=>`<details data-cy="delivery-${escapeHtml(p.code)}"><summary>${t('details')}</summary>
@@ -85,7 +96,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       return `<section class="section" data-cy="${escapeHtml(section.testId||section.code)}"><h2 class="media-section-heading">${media.sectionIcon(section.type)}${escapeHtml(section.name)}</h2>${body}</section>`;
     }).join('')??'';
     const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${t('created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
-    renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(media.roleLabel(data.identity.role)),navigation:nav,menuLabel:t('pages'),controls:`<button data-cy="workspace-training">${escapeHtml(trainingText(gateway,'en','nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header">${media.heading(account?data.resources['workspace.account']:page!.name,media.roleLabel(data.identity.role),page?.renderer==='dashboard'?'chart':'home','workspace-title')}<span class="badge">${t('created')}</span></div>
+    renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(media.roleLabel(data.identity.role)),navigation:nav,menuLabel:t('pages'),controls:`<button data-cy="workspace-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header">${media.heading(account?text('account'):page!.name,media.roleLabel(data.identity.role),page?.renderer==='dashboard'?'chart':'home','workspace-title')}<span class="badge">${t('created')}</span></div>
       ${account?accountMarkup(t):
       `${page?.renderer!=='dashboard'?sections:''}<section class="section" data-cy="workspace-overview"><h2>${t('title')}</h2><div class="metric-grid">${cards}</div></section>
       <section class="section" data-cy="workspace-organization"><h2>${t('roles')}</h2>${chart()}<div class="metric-grid">${data.overview.metrics.map(m=>metric(t(m.code),m.available?m.count:data.resources['workspace.unconnected'])).join('')}</div></section>
@@ -98,16 +109,26 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId);reportPanels.set(page.code,panel);}
       root.querySelector('main')!.insertBefore(panel,root.querySelector('[data-cy="workspace-inventory"]'));
     }
-    bindShell(root,account?data.resources['workspace.account']:page?.name??'PrimeCare','en','Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>{if(s.route===careRegistry.route){location.assign(routeUrl(s.route));return;}history.pushState({},'',routeUrl(s.route));draw();root.querySelector<HTMLElement>('h1')?.focus();}})),data.identity.role+':'+data.identity.userId);
+    bindShell(root,account?text('account'):page?.name??'PrimeCare',locale,'Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>{if(s.route===careRegistry.route){location.assign(routeUrl(s.route));return;}history.pushState({},'',routeUrl(s.route));draw();root.querySelector<HTMLElement>('h1')?.focus();}})),data.identity.role+':'+data.identity.userId);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-training"]')!.onclick=()=>openAdminTraining(gateway,data.identity.userId);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-refresh"]')!.onclick=()=>void renderWorkspace(root,gateway);
-    root.querySelector<HTMLButtonElement>('[data-cy="workspace-logout"]')!.onclick=async()=>{await fetch(`${gateway}/v1/auth/logout`,{method:'POST',headers:{authorization:'Bearer '+token}}).catch(()=>undefined);sessionStorage.removeItem('primecare_session');location.assign(routeUrl('/login'));};
+    root.querySelector<HTMLButtonElement>('[data-cy="workspace-logout"]')!.onclick=async event=>{
+      if(signingOut)return;
+      if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
+      signingOut=true;const button=event.currentTarget as HTMLButtonElement;button.disabled=true;
+      try{await signOut(gateway,token);
+        if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
+        sessionStorage.removeItem('primecare_session');location.assign(routeUrl('/login'));
+      }catch{if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
+        button.textContent=text('request_failed');button.setAttribute('aria-live','polite');
+      }finally{signingOut=false;button.disabled=false;}
+    };
     root.querySelector<HTMLInputElement>('[data-cy="workspace-search"]')?.addEventListener('input',e=>{const input=e.currentTarget as HTMLInputElement;const cursor=input.selectionStart;search=input.value;pageNumber=0;draw();const next=root.querySelector<HTMLInputElement>('[data-cy="workspace-search"]');next?.focus();next?.setSelectionRange(cursor,cursor);});
     root.querySelector<HTMLInputElement>('[data-cy="workspace-pending"]')?.addEventListener('change',e=>{pendingOnly=(e.currentTarget as HTMLInputElement).checked;pageNumber=0;draw();});
     root.querySelector('[data-cy="inventory-prev"]')?.addEventListener('click',()=>{pageNumber--;draw();});
     root.querySelector('[data-cy="inventory-next"]')?.addEventListener('click',()=>{pageNumber++;draw();});
     root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([inventoryCsv(rows)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
-    bindAccount(root,gateway,token,data.resources['workspace.request_failed'],data.resources['workspace.unavailable']);
+    bindAccount(root,gateway,token,text('request_failed'),text('unavailable'));
   };
   const unsubscribe=live.subscribe(()=>{if(!root.querySelector('[data-cy=workspace-organization]')){unsubscribe();return;}if(!dirtyForm)draw();});
   window.onpopstate=draw;draw();
