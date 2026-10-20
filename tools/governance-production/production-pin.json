@@ -98,5 +98,30 @@
       "schemaChanges": false,
       "businessDataWrites": false
     }
+  },
+  "accountSessionsRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_ACCOUNT_REGISTRATION_WRITES",
+    "screenCode": "AUTHENTICATED_ACCOUNT",
+    "routeRegistryId": 7,
+    "appId": 1,
+    "apiIds": [
+      16425,
+      16426
+    ],
+    "tables": [
+      "screens",
+      "screen_components",
+      "screen_required_elements",
+      "screen_api_links",
+      "language_resources",
+      "language_resource_values",
+      "virtual_workflow_definitions",
+      "virtual_workflow_steps",
+      "virtual_workflow_source_links"
+    ],
+    "definitionSha256": "2fbc2870eefb62a55bada3607b2e24bb5f2d6b952a2e2ff58c44f56e425fac29",
+    "schemaChanges": false,
+    "permissionChanges": false,
+    "businessDataWrites": false
   }
 }
