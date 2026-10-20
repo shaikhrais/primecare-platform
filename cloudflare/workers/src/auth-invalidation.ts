@@ -13,3 +13,7 @@ export const invalidateSessions=(db:Client,id:string)=>invalidate(db,id,
 export const invalidatePasswordResets=(db:Client,id:string)=>invalidate(db,id,
  'DELETE FROM auth_password_resets WHERE user_id=$1',
  'SELECT EXISTS(SELECT 1 FROM auth_password_resets WHERE user_id=$1) AS remaining');
+
+export const invalidateSessionToken=(db:Client,hash:string)=>invalidate(db,hash,
+ 'DELETE FROM auth_sessions WHERE token_hash = $1',
+ 'SELECT EXISTS(SELECT 1 FROM auth_sessions WHERE token_hash=$1) AS remaining');

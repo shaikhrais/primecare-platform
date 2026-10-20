@@ -7,18 +7,18 @@ if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL)thro
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');
 if(!['localhost','127.0.0.1'].includes(url.hostname)||url.pathname!='/auth_test')throw Error('Disposable loopback auth_test required');
 const dir=await mkdtemp(join(tmpdir(),'auth-invalidation-')),handlers={},base='7a875f6511838ecfdfbe6763798a676b3e138aa8';
-const old=Object.fromEntries(['password-change.ts','password-recovery.ts','account-management.ts'].map(p=>[p,execFileSync('git',['show',base+':cloudflare/workers/src/'+p],{encoding:'utf8'})]));
+const old=Object.fromEntries(['auth.ts','password-change.ts','password-recovery.ts','account-management.ts'].map(p=>[p,execFileSync('git',['show',base+':cloudflare/workers/src/'+p],{encoding:'utf8'})]));
 for(const mode of ['baseline','candidate']){
  const file=join(dir,mode+'.cjs');
- await build({entryPoints:['cloudflare/workers/src/auth.ts'],outfile:file,bundle:true,platform:'node',format:'cjs',plugins:mode==='candidate'?[]:[{name:'baseline',setup(b){b.onLoad({filter:/(?:password-change|password-recovery|account-management)\.ts$/},a=>({contents:old[a.path.split('/').at(-1)],loader:'ts',resolveDir:dirname(a.path)}));}}]});
+ await build({entryPoints:['cloudflare/workers/src/auth.ts'],outfile:file,bundle:true,platform:'node',format:'cjs',plugins:mode==='candidate'?[]:[{name:'baseline',setup(b){b.onLoad({filter:/(?:auth|password-change|password-recovery|account-management)\.ts$/},a=>({contents:old[a.path.split('/').at(-1)],loader:'ts',resolveDir:dirname(a.path)}));}}]});
  handlers[mode]=createRequire(import.meta.url)(file).auth;
 }
 const db=new Client({connectionString:url.href});await db.connect();
 const ids=[randomUUID(),randomUUID(),randomUUID()],tenant=randomUUID(),foreign=randomUUID(),tokens=['s'.repeat(43),'t'.repeat(43),'u'.repeat(43),'v'.repeat(43)];
 const hash=s=>createHash('sha256').update(s).digest('hex'),email=ids[1]+'@example.invalid',password='Owned-old-password-2026',next='Owned-new-password-2026',original=await bcrypt.hash(password,4),code='ABC123ABC123';
-const cases=[['change','auth_sessions'],['change','auth_password_resets'],['reset','auth_sessions'],['reset','auth_password_resets'],['manage','auth_sessions']];
+const cases=[['change','auth_sessions'],['change','auth_password_resets'],['reset','auth_sessions'],['reset','auth_password_resets'],['manage','auth_sessions'],['logout','auth_sessions']];
 const receipt={scope:'password-change/reset/account-management partial invalidation',identity:process.env.AUTH_TEST_ID_TYPE||'uuid',baselineReproductions:[],repairedRollbacks:[],successfulRetries:[],wholeAuthVerified:false};
-const call=(mode,operation)=>{const path=operation==='change'?'/change-password':operation==='reset'?'/reset-password':'/admin/users';const body=operation==='change'?{currentPassword:password,newPassword:next}:operation==='reset'?{email,code,newPassword:next}:{id:ids[1],role:'physio',status:'inactive'};return handlers[mode](new Request('https://fixture'+path,{method:'POST',headers:{'content-type':'application/json',...(operation==='reset'?{}:{authorization:'Bearer '+tokens[operation==='change'?1:0]})},body:JSON.stringify(body)}),{SERVICE_NAME:'auth',DB_URL:url.href},path,{});};
+const call=(mode,operation)=>{const path=operation==='logout'?'/logout':operation==='change'?'/change-password':operation==='reset'?'/reset-password':'/admin/users';const body=operation==='change'?{currentPassword:password,newPassword:next}:operation==='reset'?{email,code,newPassword:next}:{id:ids[1],role:'physio',status:'inactive'};return handlers[mode](new Request('https://fixture'+path,{method:'POST',headers:{'content-type':'application/json',...(operation==='reset'?{}:{authorization:'Bearer '+tokens[operation==='change'||operation==='logout'?1:0]})},body:JSON.stringify(body)}),{SERVICE_NAME:'auth',DB_URL:url.href},path,{});};
 const snapshot=async()=>Object.fromEntries(await Promise.all(['users','auth_sessions','auth_password_resets','auth_password_audit','auth_management_audit'].map(async t=>[t,(await db.query('SELECT * FROM '+t+' ORDER BY '+(t==='users'?'id':t==='auth_sessions'||t==='auth_password_resets'?'token_hash':'id'))).rows])));
 const seed=async()=>{
  for(const t of ['auth_sessions','auth_password_resets','auth_password_audit','auth_management_audit','auth_rate_limits'])await db.query('DELETE FROM '+t);
@@ -41,20 +41,26 @@ try{
    try{
     const before=await snapshot(),r=await call(mode,operation),label=operation+':'+table;
     if(mode==='baseline'){
-     assert.equal(r.status,200);assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM '+table+' WHERE user_id=$1',[ids[1]])).rows[0].count,1);receipt.baselineReproductions.push(label);
+     assert.equal(r.status,200);assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM '+table+' WHERE user_id=$1',[ids[1]])).rows[0].count,operation==='logout'?2:1);receipt.baselineReproductions.push(label);
     }else{
-     assert.equal(r.status,503);assert.equal(r.headers.get('cache-control'),'no-store');assert.deepEqual(await snapshot(),before);receipt.repairedRollbacks.push(label);
+     assert.equal(r.status,503);if(operation==='logout')assert.equal(r.headers.get('set-cookie'),null);assert.equal(r.headers.get('cache-control'),'no-store');assert.deepEqual(await snapshot(),before);receipt.repairedRollbacks.push(label);
      const error=await r.text();assert(!error.includes(retained)&&!error.includes(password)&&!error.includes('invalidation'));
     }
    }finally{await db.query('DROP TRIGGER fixture_invalidation_fault ON '+table);}
   }
   await seed();const foreignBefore=(await snapshot());const result=await call('candidate',operation);assert.equal(result.status,200);
-  assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[ids[1]])).rows[0].count,0);
-  if(operation!=='manage'){
+  assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[ids[1]])).rows[0].count,operation==='logout'?1:0);
+  if(operation!=='manage'&&operation!=='logout'){
    assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM auth_password_resets WHERE user_id=$1',[ids[1]])).rows[0].count,0);
    assert(await bcrypt.compare(next,(await db.query('SELECT password_hash FROM users WHERE id=$1',[ids[1]])).rows[0].password_hash));
    assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM auth_password_audit WHERE user_id=$1',[ids[1]])).rows[0].count,1);
-  }else{assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM auth_management_audit WHERE target_user_id=$1',[ids[1]])).rows[0].count,1);}
+  }else if(operation==='manage'){assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM auth_management_audit WHERE target_user_id=$1',[ids[1]])).rows[0].count,1);}
+  if(operation==='logout'){
+   assert(result.headers.get('set-cookie').includes('Max-Age=0'));
+   const me=token=>handlers.candidate(new Request('https://fixture/me',{headers:{authorization:'Bearer '+token}}),{SERVICE_NAME:'auth',DB_URL:url.href},'/me',{});
+   assert.equal((await me(tokens[1])).status,401);assert.equal((await me(tokens[2])).status,200);assert.equal((await call('candidate','logout')).status,200);
+   assert.deepEqual((await snapshot()).users,foreignBefore.users);assert.deepEqual((await snapshot()).auth_password_resets,foreignBefore.auth_password_resets);
+  }
   const after=await snapshot();for(const key of ['users','auth_sessions','auth_password_resets']){const own=key==='users'?'id':'user_id';assert.deepEqual(after[key].filter(x=>String(x[own])!==ids[1]),foreignBefore[key].filter(x=>String(x[own])!==ids[1]));}
   receipt.successfulRetries.push(operation+':'+table);
  }

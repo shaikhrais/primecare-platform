@@ -15,7 +15,7 @@
   "inputHashes": {
     "checklist": "0b3504e403c081c94a5b8f2d16bd54a4516448f6d852b2a9943853273ed91823",
     "explicitContracts": null,
-    "reviews": "cee61168a5d8e62d95f613ccdc7aa17a2d3bb6529e9e9f01a49cac2efb223674"
+    "reviews": "d35ec3bbf924a83337e0db97d6632b9099801dd17d8817127d1ddbfebdd2fbfe"
   },
   "meaning": "Structure compilation never establishes governance approval, implementation, authorization enforcement, or deployment readiness.",
   "noActivation": true,

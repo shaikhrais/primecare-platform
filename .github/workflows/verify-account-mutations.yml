@@ -150,7 +150,7 @@ jobs:
         run: |
           set -euo pipefail
           for attempt in {1..60}; do
-            gh api 'repos/${{ github.repository }}/actions/workflows/release-session-revocation-fix.yml/runs?branch=main&status=success&per_page=10' > /tmp/auth-releases.json
+            gh api 'repos/${{ github.repository }}/actions/workflows/release-session-revocation-fix.yml/runs?branch=main&status=success&per_page=1' > /tmp/auth-releases.json
             ready=false
             while read -r release_id release_sha; do
               git fetch --no-tags --depth=1 origin "$release_sha"

@@ -1,3 +1,4 @@
+import {invalidateSessionToken} from './auth-invalidation';
 import {confirmedAudit} from './audit-confirmation';
 import {optionalRow,requiredRow,resultRows} from './database-results';
 import {accountId} from './account-read-projection';
@@ -366,7 +367,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     const token = tokenFrom(request);
     if (token) {
       const hash = await sha256(token);
-      await withDb(env, (db) => db.query('DELETE FROM auth_sessions WHERE token_hash = $1', [hash]).then(() => undefined));
+      await withDb(env, (db) => invalidateSessionToken(db,hash));
     }
     return json({ status: 'signed_out' }, 200, {
       ...headers,
