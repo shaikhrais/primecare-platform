@@ -27,6 +27,7 @@ const gateway = process.env.API_GATEWAY_URL || 'https://primecare-api-gateway.it
 const source = 'websites/typescript'; const generated = join(source, 'generated'); const dist = join(source, 'dist');
 execFileSync('python3', ['scripts/verify-maintenance-catalog.py'], { stdio: 'inherit' });
 execFileSync('python3', ['scripts/verify-recovery-catalog.py'], { stdio: 'inherit' });
+execFileSync('python3', ['scripts/verify-account-sessions-catalog.py'], { stdio: 'inherit' });
 execFileSync('python3', ['scripts/verify-workspace-resources.py'], { stdio: 'inherit' });
 execFileSync('python3', ['scripts/export-typescript-websites.py', '--output', generated, '--gateway', gateway], { stdio: 'inherit' });
 rmSync(dist, { recursive: true, force: true }); mkdirSync(join(dist, 'assets'), { recursive: true });
