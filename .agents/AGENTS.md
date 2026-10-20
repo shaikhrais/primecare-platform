@@ -1,15 +1,12 @@
-# Mandatory branch lifecycle policy
+# Mandatory main-only policy
 
 This user-directed policy applies to every agent and every task in this repository.
 
-- Allow at most one active work branch in addition to `main`. Before creating a branch, inspect existing remote branches and open pull requests. Finish the existing work branch first.
-- Do not create multiple branches, parallel task branches, stacked pull requests, or extra checkpoint, deployment, or recovery branches.
-- The agent that opens a branch owns its entire lifecycle: implement the task, run the appropriate validation and required CI, merge into `main`, verify the changes are included, close the associated pull request, and delete the merged remote and local work branch.
-- Do not open another branch until that lifecycle is complete. Reuse the existing branch while resolving fixes, review feedback, or CI failures.
-- A task is not complete while its work branch or pull request remains open. Report the merge commit, validation results, and verified final branch and pull request counts.
-- If blocked, preserve the work on the same branch and document the exact blocker. Do not abandon it, create another branch, delete unmerged work, bypass required checks, or use archive tags to hide unfinished work.
-- The normal idle state is `main` only, with no open work pull requests. Existing historical recovery tags remain preserved.
-- Change this policy only when the user explicitly instructs it.
+- Work directly on current `main`. Do not create work branches or pull requests unless the user explicitly requests one.
+- Inspect current remote main before changes and use expected-head checks for updates. Never force-push main or overwrite concurrent work.
+- Run appropriate validation and required CI, preserve evidence, and report failures honestly.
+- The existing auth proof branch/PR219 must be merged after its checks pass and then deleted. Do not discard unmerged work.
+- Normal state: main only, zero open work pull requests.
 
 # Production governance authority and cutover
 
