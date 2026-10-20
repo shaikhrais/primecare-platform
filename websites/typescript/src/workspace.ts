@@ -130,6 +130,6 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([inventoryCsv(rows)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
     bindAccount(root,gateway,token,text('request_failed'),text('unavailable'));
   };
-  const unsubscribe=live.subscribe(()=>{if(!root.querySelector('[data-cy=workspace-organization]')){unsubscribe();return;}if(!dirtyForm)draw();});
+  const unsubscribe=live.subscribe(()=>{if(!root.querySelector('[data-cy=workspace-organization]')){unsubscribe();return;}if(!dirtyForm&&!signingOut)draw();});
   window.onpopstate=draw;draw();
 }

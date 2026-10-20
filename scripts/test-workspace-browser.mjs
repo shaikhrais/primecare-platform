@@ -98,3 +98,16 @@ test('all active role landings resolve to their own authorized governed page',as
   dom.window.close();
  }
 });
+
+test('delayed workspace responses cannot render or clear a replacement account session',async()=>{
+ for(const status of [200,401]){
+  const {dom,root,data}=browser('rmt');let release,reached,reloads=0;const redirects=[];
+  const held=new Promise(resolve=>release=resolve),started=new Promise(resolve=>reached=resolve);
+  globalThis.location={pathname:'/',search:'?enable-semantics=true',reload:()=>reloads++,assign:href=>redirects.push(href)};
+  globalThis.fetch=async()=>{reached();await held;return Response.json(status===200?data:{error:'Expired session'},{status});};
+  const pending=renderWorkspace(root,'https://delayed-workspace.test');await started;
+  sessionStorage.setItem('primecare_session','replacement-account-session');release();await pending;
+  assert.equal(sessionStorage.getItem('primecare_session'),'replacement-account-session');assert.equal(reloads,1);assert.deepEqual(redirects,[]);assert.equal(root.querySelector('[data-cy=workspace-organization]'),null);
+  dom.window.close();
+ }
+});
