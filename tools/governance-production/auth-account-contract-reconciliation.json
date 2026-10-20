@@ -1,0 +1,1522 @@
+{
+  "policyHash": "36a6f57074e8497378de91dd17d4c4c078694509c95ae248864b4d60343a868b",
+  "apis": [
+    {
+      "id": 1,
+      "reviewed": {
+        "id": 1,
+        "http_method": "POST",
+        "route_path": "/v1/auth/register",
+        "service_name": "PRISMA",
+        "permission_key": "auth_account_creation_policy",
+        "request_schema": "{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"email\", \"password\", \"role\"], \"properties\": {\"email\": {\"type\": \"string\", \"format\": \"email\", \"maxLength\": 254}, \"password\": {\"type\": \"string\", \"minLength\": 12, \"description\": \"Maximum 72 UTF-8 bytes; never returned.\"}, \"role\": {\"type\": \"string\", \"enum\": [\"admin\", \"bus_dev\", \"caregiver\", \"ceo\", \"cfo\", \"chiropractor\", \"ciso\", \"clinical_director\", \"cns\", \"community_outreach\", \"compliance\", \"coo\", \"cto\", \"customer_support\", \"cx_director\", \"dynamic\", \"employee\", \"family\", \"finance_director\", \"franchise_sales\", \"gm\", \"governance\", \"guest\", \"hr_director\", \"hr_hiring\", \"hsw\", \"infrastructure\", \"intake\", \"legal\", \"local_marketing\", \"lpn\", \"marketing\", \"np\", \"ops_manager\", \"owner\", \"partnership\", \"patient\", \"pediatric\", \"physician\", \"physio\", \"portal\", \"premium_concierge\", \"psw\", \"qa_specialist\", \"regional_bdm\", \"regional_manager_usa\", \"rmt\", \"rn\", \"rn_field_supervisor\", \"rpn\", \"scheduler\", \"scrum_master\", \"shareholder\", \"social_worker\", \"system_verification\", \"territory_expansion\", \"territory_sales\", \"therapist\", \"training\", \"training_coordinator\", \"training_director\", \"vip_manager\", \"volunteer\", \"volunteer_coordinator\"]}}}",
+        "response_schema": null
+      },
+      "target": {
+        "service_name": "auth",
+        "permission_key": "auth_account_creation_policy",
+        "request_schema": "{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"email\",\"password\",\"role\"],\"properties\":{\"email\":{\"type\":\"string\",\"format\":\"email\",\"maxLength\":254},\"password\":{\"type\":\"string\",\"minLength\":12,\"description\":\"Maximum 72 UTF-8 bytes; never returned.\"},\"role\":{\"type\":\"string\",\"enum\":[\"admin\",\"bus_dev\",\"caregiver\",\"ceo\",\"cfo\",\"chiropractor\",\"ciso\",\"clinical_director\",\"cns\",\"community_outreach\",\"compliance\",\"coo\",\"cto\",\"customer_support\",\"cx_director\",\"dynamic\",\"employee\",\"family\",\"finance_director\",\"franchise_sales\",\"gm\",\"governance\",\"growth_caller\",\"growth_coordinator\",\"growth_google\",\"growth_meta\",\"growth_offline\",\"growth_seo\",\"guest\",\"hr_director\",\"hr_hiring\",\"hsw\",\"infrastructure\",\"intake\",\"legal\",\"local_marketing\",\"lpn\",\"maintenance\",\"marketing\",\"np\",\"ops_manager\",\"owner\",\"partnership\",\"patient\",\"pediatric\",\"physician\",\"physio\",\"portal\",\"premium_concierge\",\"psw\",\"qa_specialist\",\"regional_bdm\",\"regional_manager_usa\",\"rmt\",\"rn\",\"rn_field_supervisor\",\"rpn\",\"scheduler\",\"scrum_master\",\"shareholder\",\"social_worker\",\"system_verification\",\"territory_expansion\",\"territory_sales\",\"therapist\",\"training\",\"training_coordinator\",\"training_director\",\"vip_manager\",\"volunteer\",\"volunteer_coordinator\"]}}}",
+        "response_schema": "{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"user\"],\"properties\":{\"user\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"id\",\"email\",\"tenant_id\",\"roles\",\"status\"],\"properties\":{\"id\":{\"type\":\"string\"},\"email\":{\"type\":\"string\",\"format\":\"email\"},\"tenant_id\":{\"type\":\"string\"},\"roles\":{\"type\":\"string\"},\"status\":{\"enum\":[\"active\",\"inactive\"]}}}}}"
+      },
+      "allowedActorIds": [
+        20,
+        27
+      ]
+    },
+    {
+      "id": 11,
+      "reviewed": {
+        "id": 11,
+        "http_method": "POST",
+        "route_path": "/v1/admin/users",
+        "service_name": "PRISMA",
+        "permission_key": "auth_account_management_policy",
+        "request_schema": "{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"id\", \"role\", \"status\"], \"properties\": {\"id\": {\"type\": \"string\", \"pattern\": \"^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$\"}, \"role\": {\"type\": \"string\", \"enum\": [\"admin\", \"bus_dev\", \"caregiver\", \"ceo\", \"cfo\", \"chiropractor\", \"ciso\", \"clinical_director\", \"cns\", \"community_outreach\", \"compliance\", \"coo\", \"cto\", \"customer_support\", \"cx_director\", \"dynamic\", \"employee\", \"family\", \"finance_director\", \"franchise_sales\", \"gm\", \"governance\", \"guest\", \"hr_director\", \"hr_hiring\", \"hsw\", \"infrastructure\", \"intake\", \"legal\", \"local_marketing\", \"lpn\", \"marketing\", \"np\", \"ops_manager\", \"owner\", \"partnership\", \"patient\", \"pediatric\", \"physician\", \"physio\", \"portal\", \"premium_concierge\", \"psw\", \"qa_specialist\", \"regional_bdm\", \"regional_manager_usa\", \"rmt\", \"rn\", \"rn_field_supervisor\", \"rpn\", \"scheduler\", \"scrum_master\", \"shareholder\", \"social_worker\", \"system_verification\", \"territory_expansion\", \"territory_sales\", \"therapist\", \"training\", \"training_coordinator\", \"training_director\", \"vip_manager\", \"volunteer\", \"volunteer_coordinator\"]}, \"status\": {\"enum\": [\"active\", \"inactive\"]}}}",
+        "response_schema": null
+      },
+      "target": {
+        "service_name": "auth",
+        "permission_key": "auth_account_management_policy",
+        "request_schema": "{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"id\",\"role\",\"status\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$\"},\"role\":{\"type\":\"string\",\"enum\":[\"admin\",\"bus_dev\",\"caregiver\",\"ceo\",\"cfo\",\"chiropractor\",\"ciso\",\"clinical_director\",\"cns\",\"community_outreach\",\"compliance\",\"coo\",\"cto\",\"customer_support\",\"cx_director\",\"dynamic\",\"employee\",\"family\",\"finance_director\",\"franchise_sales\",\"gm\",\"governance\",\"growth_caller\",\"growth_coordinator\",\"growth_google\",\"growth_meta\",\"growth_offline\",\"growth_seo\",\"guest\",\"hr_director\",\"hr_hiring\",\"hsw\",\"infrastructure\",\"intake\",\"legal\",\"local_marketing\",\"lpn\",\"maintenance\",\"marketing\",\"np\",\"ops_manager\",\"owner\",\"partnership\",\"patient\",\"pediatric\",\"physician\",\"physio\",\"portal\",\"premium_concierge\",\"psw\",\"qa_specialist\",\"regional_bdm\",\"regional_manager_usa\",\"rmt\",\"rn\",\"rn_field_supervisor\",\"rpn\",\"scheduler\",\"scrum_master\",\"shareholder\",\"social_worker\",\"system_verification\",\"territory_expansion\",\"territory_sales\",\"therapist\",\"training\",\"training_coordinator\",\"training_director\",\"vip_manager\",\"volunteer\",\"volunteer_coordinator\"]},\"status\":{\"enum\":[\"active\",\"inactive\"]}}}",
+        "response_schema": "{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"user\"],\"properties\":{\"user\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"id\",\"email\",\"tenant_id\",\"roles\",\"status\"],\"properties\":{\"id\":{\"type\":\"string\"},\"email\":{\"type\":\"string\",\"format\":\"email\"},\"tenant_id\":{\"type\":\"string\"},\"roles\":{\"type\":\"string\"},\"status\":{\"enum\":[\"active\",\"inactive\"]}}}}}"
+      },
+      "allowedActorIds": [
+        20
+      ]
+    }
+  ],
+  "reviewedPermissions": [
+    {
+      "id": 1,
+      "api_id": 1,
+      "role_id": 1,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 2,
+      "api_id": 1,
+      "role_id": 2,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 3,
+      "api_id": 1,
+      "role_id": 3,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 4,
+      "api_id": 1,
+      "role_id": 4,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 5,
+      "api_id": 1,
+      "role_id": 5,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 6,
+      "api_id": 1,
+      "role_id": 6,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 7,
+      "api_id": 1,
+      "role_id": 7,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 8,
+      "api_id": 1,
+      "role_id": 8,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 9,
+      "api_id": 1,
+      "role_id": 9,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 10,
+      "api_id": 1,
+      "role_id": 10,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 11,
+      "api_id": 1,
+      "role_id": 11,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 12,
+      "api_id": 1,
+      "role_id": 12,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 13,
+      "api_id": 1,
+      "role_id": 13,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 14,
+      "api_id": 1,
+      "role_id": 14,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 15,
+      "api_id": 1,
+      "role_id": 15,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 16,
+      "api_id": 1,
+      "role_id": 16,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 17,
+      "api_id": 1,
+      "role_id": 17,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 18,
+      "api_id": 1,
+      "role_id": 18,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 19,
+      "api_id": 1,
+      "role_id": 19,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 20,
+      "api_id": 1,
+      "role_id": 20,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 21,
+      "api_id": 1,
+      "role_id": 21,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 22,
+      "api_id": 1,
+      "role_id": 22,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 23,
+      "api_id": 1,
+      "role_id": 23,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 24,
+      "api_id": 1,
+      "role_id": 24,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 25,
+      "api_id": 1,
+      "role_id": 25,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 26,
+      "api_id": 1,
+      "role_id": 26,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 27,
+      "api_id": 1,
+      "role_id": 27,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 28,
+      "api_id": 1,
+      "role_id": 28,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 29,
+      "api_id": 1,
+      "role_id": 29,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 30,
+      "api_id": 1,
+      "role_id": 30,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 31,
+      "api_id": 1,
+      "role_id": 31,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 32,
+      "api_id": 1,
+      "role_id": 32,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 33,
+      "api_id": 1,
+      "role_id": 33,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 34,
+      "api_id": 1,
+      "role_id": 34,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 35,
+      "api_id": 1,
+      "role_id": 35,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 36,
+      "api_id": 1,
+      "role_id": 36,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 37,
+      "api_id": 1,
+      "role_id": 37,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 38,
+      "api_id": 1,
+      "role_id": 38,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 39,
+      "api_id": 1,
+      "role_id": 39,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 40,
+      "api_id": 1,
+      "role_id": 40,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 41,
+      "api_id": 1,
+      "role_id": 41,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 42,
+      "api_id": 1,
+      "role_id": 42,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 43,
+      "api_id": 1,
+      "role_id": 43,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 44,
+      "api_id": 1,
+      "role_id": 44,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 45,
+      "api_id": 1,
+      "role_id": 45,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 46,
+      "api_id": 1,
+      "role_id": 46,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 47,
+      "api_id": 1,
+      "role_id": 47,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 48,
+      "api_id": 1,
+      "role_id": 48,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 49,
+      "api_id": 1,
+      "role_id": 49,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 50,
+      "api_id": 1,
+      "role_id": 50,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 51,
+      "api_id": 1,
+      "role_id": 51,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 52,
+      "api_id": 1,
+      "role_id": 52,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 53,
+      "api_id": 1,
+      "role_id": 53,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 54,
+      "api_id": 1,
+      "role_id": 54,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 55,
+      "api_id": 1,
+      "role_id": 55,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 56,
+      "api_id": 1,
+      "role_id": 56,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 57,
+      "api_id": 1,
+      "role_id": 57,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 58,
+      "api_id": 1,
+      "role_id": 58,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 59,
+      "api_id": 1,
+      "role_id": 59,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 60,
+      "api_id": 1,
+      "role_id": 60,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 61,
+      "api_id": 1,
+      "role_id": 61,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 62,
+      "api_id": 1,
+      "role_id": 62,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 63,
+      "api_id": 1,
+      "role_id": 63,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 64,
+      "api_id": 1,
+      "role_id": 64,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_rmt_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 641,
+      "api_id": 11,
+      "role_id": 1,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 642,
+      "api_id": 11,
+      "role_id": 2,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 643,
+      "api_id": 11,
+      "role_id": 3,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 644,
+      "api_id": 11,
+      "role_id": 4,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 645,
+      "api_id": 11,
+      "role_id": 5,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 646,
+      "api_id": 11,
+      "role_id": 6,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 647,
+      "api_id": 11,
+      "role_id": 7,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 648,
+      "api_id": 11,
+      "role_id": 8,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 649,
+      "api_id": 11,
+      "role_id": 9,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 650,
+      "api_id": 11,
+      "role_id": 10,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 651,
+      "api_id": 11,
+      "role_id": 11,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 652,
+      "api_id": 11,
+      "role_id": 12,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 653,
+      "api_id": 11,
+      "role_id": 13,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 654,
+      "api_id": 11,
+      "role_id": 14,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 655,
+      "api_id": 11,
+      "role_id": 15,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 656,
+      "api_id": 11,
+      "role_id": 16,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 657,
+      "api_id": 11,
+      "role_id": 17,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 658,
+      "api_id": 11,
+      "role_id": 18,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 659,
+      "api_id": 11,
+      "role_id": 19,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 660,
+      "api_id": 11,
+      "role_id": 20,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 661,
+      "api_id": 11,
+      "role_id": 21,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 662,
+      "api_id": 11,
+      "role_id": 22,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 663,
+      "api_id": 11,
+      "role_id": 23,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 664,
+      "api_id": 11,
+      "role_id": 24,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 665,
+      "api_id": 11,
+      "role_id": 25,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 666,
+      "api_id": 11,
+      "role_id": 26,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 667,
+      "api_id": 11,
+      "role_id": 27,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 668,
+      "api_id": 11,
+      "role_id": 28,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 669,
+      "api_id": 11,
+      "role_id": 29,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 670,
+      "api_id": 11,
+      "role_id": 30,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 671,
+      "api_id": 11,
+      "role_id": 31,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 672,
+      "api_id": 11,
+      "role_id": 32,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 673,
+      "api_id": 11,
+      "role_id": 33,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 674,
+      "api_id": 11,
+      "role_id": 34,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 675,
+      "api_id": 11,
+      "role_id": 35,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 676,
+      "api_id": 11,
+      "role_id": 36,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 677,
+      "api_id": 11,
+      "role_id": 37,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 678,
+      "api_id": 11,
+      "role_id": 38,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 679,
+      "api_id": 11,
+      "role_id": 39,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 680,
+      "api_id": 11,
+      "role_id": 40,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 681,
+      "api_id": 11,
+      "role_id": 41,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 682,
+      "api_id": 11,
+      "role_id": 42,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 683,
+      "api_id": 11,
+      "role_id": 43,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 684,
+      "api_id": 11,
+      "role_id": 44,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 685,
+      "api_id": 11,
+      "role_id": 45,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 686,
+      "api_id": 11,
+      "role_id": 46,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 687,
+      "api_id": 11,
+      "role_id": 47,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 688,
+      "api_id": 11,
+      "role_id": 48,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 689,
+      "api_id": 11,
+      "role_id": 49,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 690,
+      "api_id": 11,
+      "role_id": 50,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 691,
+      "api_id": 11,
+      "role_id": 51,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 692,
+      "api_id": 11,
+      "role_id": 52,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 693,
+      "api_id": 11,
+      "role_id": 53,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 694,
+      "api_id": 11,
+      "role_id": 54,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 695,
+      "api_id": 11,
+      "role_id": 55,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 696,
+      "api_id": 11,
+      "role_id": 56,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 697,
+      "api_id": 11,
+      "role_id": 57,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 698,
+      "api_id": 11,
+      "role_id": 58,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 699,
+      "api_id": 11,
+      "role_id": 59,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 700,
+      "api_id": 11,
+      "role_id": 60,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 701,
+      "api_id": 11,
+      "role_id": 61,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 702,
+      "api_id": 11,
+      "role_id": 62,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 703,
+      "api_id": 11,
+      "role_id": 63,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    },
+    {
+      "id": 704,
+      "api_id": 11,
+      "role_id": 64,
+      "runtime_artifact_id": 1,
+      "permission_key": "api_permission_api_v1_physician_list_get",
+      "can_access": 1
+    }
+  ],
+  "actors": {
+    "ceo": {
+      "id": 20,
+      "targets": [
+        {
+          "id": 59,
+          "code": "admin"
+        },
+        {
+          "id": 37,
+          "code": "bus_dev"
+        },
+        {
+          "id": 12,
+          "code": "caregiver"
+        },
+        {
+          "id": 20,
+          "code": "ceo"
+        },
+        {
+          "id": 21,
+          "code": "cfo"
+        },
+        {
+          "id": 1,
+          "code": "chiropractor"
+        },
+        {
+          "id": 22,
+          "code": "ciso"
+        },
+        {
+          "id": 6,
+          "code": "clinical_director"
+        },
+        {
+          "id": 10,
+          "code": "cns"
+        },
+        {
+          "id": 32,
+          "code": "community_outreach"
+        },
+        {
+          "id": 33,
+          "code": "compliance"
+        },
+        {
+          "id": 23,
+          "code": "coo"
+        },
+        {
+          "id": 24,
+          "code": "cto"
+        },
+        {
+          "id": 61,
+          "code": "customer_support"
+        },
+        {
+          "id": 25,
+          "code": "cx_director"
+        },
+        {
+          "id": 16,
+          "code": "dynamic"
+        },
+        {
+          "id": 57,
+          "code": "employee"
+        },
+        {
+          "id": 64,
+          "code": "family"
+        },
+        {
+          "id": 26,
+          "code": "finance_director"
+        },
+        {
+          "id": 34,
+          "code": "franchise_sales"
+        },
+        {
+          "id": 35,
+          "code": "gm"
+        },
+        {
+          "id": 36,
+          "code": "governance"
+        },
+        {
+          "id": 74,
+          "code": "growth_caller"
+        },
+        {
+          "id": 79,
+          "code": "growth_coordinator"
+        },
+        {
+          "id": 75,
+          "code": "growth_google"
+        },
+        {
+          "id": 76,
+          "code": "growth_meta"
+        },
+        {
+          "id": 78,
+          "code": "growth_offline"
+        },
+        {
+          "id": 77,
+          "code": "growth_seo"
+        },
+        {
+          "id": 13,
+          "code": "guest"
+        },
+        {
+          "id": 27,
+          "code": "hr_director"
+        },
+        {
+          "id": 45,
+          "code": "hr_hiring"
+        },
+        {
+          "id": 52,
+          "code": "hsw"
+        },
+        {
+          "id": 17,
+          "code": "infrastructure"
+        },
+        {
+          "id": 7,
+          "code": "intake"
+        },
+        {
+          "id": 28,
+          "code": "legal"
+        },
+        {
+          "id": 39,
+          "code": "local_marketing"
+        },
+        {
+          "id": 56,
+          "code": "lpn"
+        },
+        {
+          "id": 65,
+          "code": "maintenance"
+        },
+        {
+          "id": 38,
+          "code": "marketing"
+        },
+        {
+          "id": 54,
+          "code": "np"
+        },
+        {
+          "id": 40,
+          "code": "ops_manager"
+        },
+        {
+          "id": 29,
+          "code": "owner"
+        },
+        {
+          "id": 41,
+          "code": "partnership"
+        },
+        {
+          "id": 15,
+          "code": "patient"
+        },
+        {
+          "id": 11,
+          "code": "pediatric"
+        },
+        {
+          "id": 9,
+          "code": "physician"
+        },
+        {
+          "id": 2,
+          "code": "physio"
+        },
+        {
+          "id": 14,
+          "code": "portal"
+        },
+        {
+          "id": 49,
+          "code": "premium_concierge"
+        },
+        {
+          "id": 51,
+          "code": "psw"
+        },
+        {
+          "id": 63,
+          "code": "qa_specialist"
+        },
+        {
+          "id": 42,
+          "code": "regional_bdm"
+        },
+        {
+          "id": 43,
+          "code": "regional_manager_usa"
+        },
+        {
+          "id": 3,
+          "code": "rmt"
+        },
+        {
+          "id": 8,
+          "code": "rn"
+        },
+        {
+          "id": 53,
+          "code": "rn_field_supervisor"
+        },
+        {
+          "id": 55,
+          "code": "rpn"
+        },
+        {
+          "id": 60,
+          "code": "scheduler"
+        },
+        {
+          "id": 44,
+          "code": "scrum_master"
+        },
+        {
+          "id": 30,
+          "code": "shareholder"
+        },
+        {
+          "id": 4,
+          "code": "social_worker"
+        },
+        {
+          "id": 18,
+          "code": "system_verification"
+        },
+        {
+          "id": 46,
+          "code": "territory_expansion"
+        },
+        {
+          "id": 47,
+          "code": "territory_sales"
+        },
+        {
+          "id": 5,
+          "code": "therapist"
+        },
+        {
+          "id": 19,
+          "code": "training"
+        },
+        {
+          "id": 62,
+          "code": "training_coordinator"
+        },
+        {
+          "id": 31,
+          "code": "training_director"
+        },
+        {
+          "id": 50,
+          "code": "vip_manager"
+        },
+        {
+          "id": 58,
+          "code": "volunteer"
+        },
+        {
+          "id": 48,
+          "code": "volunteer_coordinator"
+        }
+      ]
+    },
+    "hr_director": {
+      "id": 27,
+      "targets": [
+        {
+          "id": 59,
+          "code": "admin"
+        },
+        {
+          "id": 12,
+          "code": "caregiver"
+        },
+        {
+          "id": 1,
+          "code": "chiropractor"
+        },
+        {
+          "id": 10,
+          "code": "cns"
+        },
+        {
+          "id": 32,
+          "code": "community_outreach"
+        },
+        {
+          "id": 61,
+          "code": "customer_support"
+        },
+        {
+          "id": 57,
+          "code": "employee"
+        },
+        {
+          "id": 34,
+          "code": "franchise_sales"
+        },
+        {
+          "id": 35,
+          "code": "gm"
+        },
+        {
+          "id": 45,
+          "code": "hr_hiring"
+        },
+        {
+          "id": 52,
+          "code": "hsw"
+        },
+        {
+          "id": 7,
+          "code": "intake"
+        },
+        {
+          "id": 39,
+          "code": "local_marketing"
+        },
+        {
+          "id": 56,
+          "code": "lpn"
+        },
+        {
+          "id": 54,
+          "code": "np"
+        },
+        {
+          "id": 40,
+          "code": "ops_manager"
+        },
+        {
+          "id": 41,
+          "code": "partnership"
+        },
+        {
+          "id": 11,
+          "code": "pediatric"
+        },
+        {
+          "id": 9,
+          "code": "physician"
+        },
+        {
+          "id": 2,
+          "code": "physio"
+        },
+        {
+          "id": 49,
+          "code": "premium_concierge"
+        },
+        {
+          "id": 51,
+          "code": "psw"
+        },
+        {
+          "id": 63,
+          "code": "qa_specialist"
+        },
+        {
+          "id": 42,
+          "code": "regional_bdm"
+        },
+        {
+          "id": 43,
+          "code": "regional_manager_usa"
+        },
+        {
+          "id": 3,
+          "code": "rmt"
+        },
+        {
+          "id": 8,
+          "code": "rn"
+        },
+        {
+          "id": 53,
+          "code": "rn_field_supervisor"
+        },
+        {
+          "id": 55,
+          "code": "rpn"
+        },
+        {
+          "id": 60,
+          "code": "scheduler"
+        },
+        {
+          "id": 44,
+          "code": "scrum_master"
+        },
+        {
+          "id": 4,
+          "code": "social_worker"
+        },
+        {
+          "id": 46,
+          "code": "territory_expansion"
+        },
+        {
+          "id": 47,
+          "code": "territory_sales"
+        },
+        {
+          "id": 5,
+          "code": "therapist"
+        },
+        {
+          "id": 50,
+          "code": "vip_manager"
+        },
+        {
+          "id": 58,
+          "code": "volunteer"
+        },
+        {
+          "id": 48,
+          "code": "volunteer_coordinator"
+        }
+      ]
+    }
+  }
+}

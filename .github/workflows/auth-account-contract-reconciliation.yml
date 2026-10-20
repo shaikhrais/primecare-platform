@@ -1,0 +1,41 @@
+name: Reconcile existing auth account contracts
+on:
+  push:
+    branches: [main]
+    paths: ['tools/governance-production/auth-account-contract-reconciliation.json', 'tools/governance-production/auth_account_contracts.py', 'tools/governance-production/test-auth-account-contracts.py', '.github/workflows/auth-account-contract-reconciliation.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: auth-account-contract-reconciliation
+  cancel-in-progress: false
+jobs:
+  reconcile:
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/contract-tools" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/contract-tools/node_modules" node_modules
+          python3 tools/governance-production/test-auth-account-contracts.py
+      - name: Check exact policy, permissions and idempotence in a rolled-back native transaction
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_AUTH_CONTRACT_RECONCILIATION: '1'
+        run: python3 tools/governance-production/auth_account_contracts.py --dry-run
+      - name: Correct contract metadata and narrow legacy rows to existing actor policy
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_AUTH_CONTRACT_RECONCILIATION: '1'
+        run: python3 tools/governance-production/auth_account_contracts.py --apply

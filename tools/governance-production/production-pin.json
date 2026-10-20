@@ -154,5 +154,20 @@
     "schemaChanges": false,
     "permissionChanges": false,
     "businessDataWrites": false
+  },
+  "authAccountContractWriter": {
+    "optInVariable": "GOVERNANCE_AUTH_CONTRACT_RECONCILIATION",
+    "apiIds": [
+      1,
+      11
+    ],
+    "tables": [
+      "api_endpoints",
+      "api_permissions"
+    ],
+    "definitionSha256": "b1cd9060813e14077628239d2c5f396ec519a4860b0dcfc75f53af8fbd17703f",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionDisposition": "narrow-existing-to-approved-policy"
   }
 }
