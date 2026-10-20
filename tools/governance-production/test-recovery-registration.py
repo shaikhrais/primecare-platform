@@ -16,6 +16,7 @@ if os.environ.get('PRODUCTION_DATABASE_URL') or os.environ.get('GOVERNANCE_DATAB
 
 @unittest.skipUnless(URL,'Disposable PostgreSQL required')
 class RecoveryTests(unittest.TestCase):
+    evidence=NativeStoreTests.evidence
     table=NativeStoreTests.table
     open_store=NativeStoreTests.open_store
     def setUp(self):
