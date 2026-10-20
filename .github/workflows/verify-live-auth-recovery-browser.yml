@@ -12,19 +12,10 @@ concurrency:
   cancel-in-progress: false
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/github-script@v7
-        with:
-          script: |
-            const owner=context.repo.owner,repo=context.repo.repo;
-            const {data:comparison}=await github.rest.repos.compareCommits({owner,repo,base:'a8470ea3eb093f5d76c68a76abaaf406c16c4d52',head:context.sha});
-            if(comparison.files.some(f=>f.filename.startsWith('websites/typescript/')||f.filename.startsWith('packages/shared/')||f.filename.startsWith('packages/primecare_ui/lib/src/localization/')))throw Error('Runtime source changed; a new deployment is required');
-            const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:39439179805,per_page:100});
-            for(const project of ['primecare-clinic','primecare-client','primecare-business-development','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint']){
-              if(!jobs.some(j=>j.name==='deploy / deploy ('+project+')'&&j.conclusion==='success'))throw Error('Deployment proof missing: '+project);
-            }
-            core.info('Reusing nine successful source-current portal deployments; rerunning the corrected browser producer');
+    uses: ./.github/workflows/deploy-typescript-websites.yml
+    with:
+      confirm: DEPLOY
+    secrets: inherit
   verify:
     needs: deploy
     runs-on: ubuntu-latest
