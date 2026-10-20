@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 0321f7ca85e3016dee58cc087d48384bbb96b417
+          ref: eb82878ddf480d36db0273a019e6681d89e670ee
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 0321f7ca85e3016dee58cc087d48384bbb96b417
+          ref: eb82878ddf480d36db0273a019e6681d89e670ee
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
@@ -61,7 +61,7 @@ jobs:
            names=[c['name'] for c in db.tables['virtual_workflow_definitions']['columns']]
            flows=[dict(zip(names,r)) for r in db.execute("SELECT * FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE ?",('auth.%',))]
            theme=dict(db.execute('SELECT css_variable_name,token_value FROM theme_design_tokens WHERE theme_id=1 AND active=1'))
-           state={'binding_results':result,'summary':summary(db),'candidate_sha':'0321f7ca85e3016dee58cc087d48384bbb96b417','active_branch':'work/auth-mail-contract-20261020','pr':218,'full_auth_verified':False,'next_action':'Complete native browser baseline/candidate attempts, CI, merge and cleanup. Remaining auth requirements/reviews remain unresolved.'}
+           state={'binding_results':result,'summary':summary(db),'candidate_sha':'eb82878ddf480d36db0273a019e6681d89e670ee','active_branch':'work/auth-mail-contract-20261020','pr':218,'full_auth_verified':False,'next_action':'Complete native browser baseline/candidate attempts, CI, merge and cleanup. Remaining auth requirements/reviews remain unresolved.'}
            for name in ['auth-completion-current','execution-handoff-current']:
             db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',(name,json.dumps(state)))
            (out/'governance.json').write_text(json.dumps({'flows':flows,'theme':theme,'binding_results':result},indent=2))
@@ -90,7 +90,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 0321f7ca85e3016dee58cc087d48384bbb96b417
+          ref: eb82878ddf480d36db0273a019e6681d89e670ee
           fetch-depth: 0
       - uses: actions/download-artifact@v4
         with:
@@ -106,7 +106,7 @@ jobs:
       - name: Reproduce original false-success failures then execute candidate and read regressions
         env:
           LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
-          VERIFICATION_SOURCE_SHA: 0321f7ca85e3016dee58cc087d48384bbb96b417
+          VERIFICATION_SOURCE_SHA: eb82878ddf480d36db0273a019e6681d89e670ee
         run: |
           for flow in auth.save-email-config auth.test-maintenance-email; do
             mkdir -p "test-results/$flow" "test-results/$flow-baseline"
@@ -140,7 +140,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 0321f7ca85e3016dee58cc087d48384bbb96b417
+          ref: eb82878ddf480d36db0273a019e6681d89e670ee
           fetch-depth: 0
       - uses: actions/download-artifact@v4
         with:
@@ -194,7 +194,7 @@ jobs:
           for v in (root/'test-results/email-config').glob('*.webm'):evidence.append({'kind':'video','path':str(v.relative_to(root)),'sha256':hashlib.sha256(v.read_bytes()).hexdigest(),'url':os.environ['EVIDENCE_URL']})
           with ProductionWorkflowStore() as db:
            saved=record_attempt(db,'auth.inspect-email-config',{'status':'implemented-unverified','test_status':'scoped_pass','scope':'scoped','source_bindings':r['source_bindings'],'evidence':evidence,'issues':[],'blockers':r['limitations'],'next_action':'Current read regression passed; full acceptance and independent review gates remain required.'},root);attempts.append(saved)
-           state={'summary':summary(db),'auth_summary':{status:db.execute("SELECT COUNT(*) FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE ? AND verification_status=?",('auth.%',status)).fetchone()[0] for status in ['missing','implemented-unverified','verified','blocked']},'candidate_sha':'0321f7ca85e3016dee58cc087d48384bbb96b417','active_branch':'work/auth-mail-contract-20261020','pr':218,'attempts':attempts,'evidence':os.environ['EVIDENCE_URL'],'full_auth_verified':False,'synthetic_cleanup':'All native browser schemas dropped; capture-only provider; no production business data or real mail changed','next_action':'Complete PR218 required CI/review/merge and local/remote branch cleanup. Next address unblocked auth contract discrepancies; full auth requirements and independent reviews remain open.'}
+           state={'summary':summary(db),'auth_summary':{status:db.execute("SELECT COUNT(*) FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE ? AND verification_status=?",('auth.%',status)).fetchone()[0] for status in ['missing','implemented-unverified','verified','blocked']},'candidate_sha':'eb82878ddf480d36db0273a019e6681d89e670ee','active_branch':'work/auth-mail-contract-20261020','pr':218,'attempts':attempts,'evidence':os.environ['EVIDENCE_URL'],'full_auth_verified':False,'synthetic_cleanup':'All native browser schemas dropped; capture-only provider; no production business data or real mail changed','next_action':'Complete PR218 required CI/review/merge and local/remote branch cleanup. Next address unblocked auth contract discrepancies; full auth requirements and independent reviews remain open.'}
            for name in ['auth-completion-current','execution-handoff-current']:
             db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',(name,json.dumps(state)))
            pathlib.Path('test-results/auth-mail-handoff.json').write_text(json.dumps(state,indent=2));print('AUTH_MAIL_HANDOFF '+json.dumps(state))
