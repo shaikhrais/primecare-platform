@@ -1,9 +1,6 @@
 name: Release confirmed self-session revocation
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/release-session-revocation-fix.yml']
   workflow_run:
     workflows: ['Auth Worker unit and PostgreSQL tests']
     types: [completed]
