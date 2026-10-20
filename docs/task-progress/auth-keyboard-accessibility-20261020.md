@@ -12,6 +12,18 @@ The UUID/text backend matrix passed [39507958555](https://github.com/shaikhrais/
 
 Release gating previously chose an older failed browser run even after corrected proof passed. It now selects successful repaired proof and compares Worker, website source, shared data, auth localization and database migration inputs. Manual/retry releases use the latest successful backend run rather than an obsolete hardcoded run. Browser triggers cover those runtime inputs. The recorder requires all three engines, all nine journey cases, keyboard flags and18 passing form scans before tracking writes.
 
-The earlier live producer39507071862 passed its deployed journey, but its older password receipts were rejected by the stricter recorder39508167917 before tracking writes. Fresh deployed proof and recording for current source are still required before claiming new production tracking.
+The earlier live producer39507071862 passed its deployed journey, but its older password receipts were rejected by the stricter recorder39508167917 before tracking writes. That rejection is superseded by the successful current-source producer and recorder below.
 
 These checks cover two forms and desktop browser engines. They do not approve full-page accessibility, manual screen-reader behavior, native/mobile devices, PWA installation, remaining workflow alternatives, or independent reviews. The three protected bootstrap policies and role-switch policy remain blocked. Whole auth acceptance remains false.
+
+## Fresh deployed acceptance result
+
+The current source rebuilt and deployed all nine portals in [39509036427](https://github.com/shaikhrais/primecare-platform/actions/runs/39509036427), then passed255 live account/read/lifecycle checks across EN320/FR768/ES1440. Every locale received a real Cloudflare recovery email, completed reset/current-password change/logout, checked native password/session/reset/audit state, rejected denied access and replay, and confirmed exact synthetic cleanup and removal of only the correlated email.
+
+The current-source session gate passed and [39510747332](https://github.com/shaikhrais/primecare-platform/actions/runs/39510747332) passed90 additional live checks,30 per locale: current-session projection, authoritative counts/timestamps, bearer and tenant denial, caller-selected user denial, reload, cancellation, confirmed revocation, old-token denial, foreign-tenant preservation, committed audit and signed-out reload. All three cases removed their exact synthetic users, tenants, sessions, audits and counters.
+
+The production recorder passed [39510747399](https://github.com/shaikhrais/primecare-platform/actions/runs/39510747399), verified deployed JS/CSS and governed theme values against each of the nine actual build artifacts, validated all nine native browser cases and18 automated form scans, and recorded scoped attempts424–437 for14 existing auth processes. The latest complete browser proof [39508854499](https://github.com/shaikhrais/primecare-platform/actions/runs/39508854499) also passed all three engines. The auth release version is `60f731de-3d2d-474e-b265-1d6b46023165`.
+
+The session verifier now recognizes newer all-nine deployments only when every deploy/build/gateway job succeeds and the website/shared/builder inputs match. This replaced its obsolete single-workflow deployment lookup. Production session evidence recording is running as39511078128; successful browser execution is already established by the producer above.
+
+The live auth register has23 processes:19 implemented-unverified with scoped passing evidence, four policy-blocked, none missing and zero fully verified. These workflow counts overlap the platform catalogue and must not be added to147. No approval status was fabricated.
