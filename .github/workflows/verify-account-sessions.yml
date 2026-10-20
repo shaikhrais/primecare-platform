@@ -8,7 +8,7 @@ on:
       - 'websites/typescript/src/account.ts'
       - 'websites/typescript/src/infrastructure/http/base-session-client.ts'
       - 'packages/shared/src/account-sessions.json'
-      - 'tools/auth-verification/test-sessions.mjs'
+      - 'tools/auth-verification/test-sessions*.mjs'
       - '.github/workflows/verify-account-sessions.yml'
 permissions:
   contents: read
@@ -23,6 +23,19 @@ jobs:
       - run: node --disable-warning=ExperimentalWarning tools/auth-verification/test-sessions.mjs
       - name: Compile shared account controls
         run: |
-          npm install --prefix "$RUNNER_TEMP/session-check" --ignore-scripts esbuild@0.27.2 typescript@5.9.3
+          npm install --prefix "$RUNNER_TEMP/session-check" --ignore-scripts esbuild@0.27.2 typescript@5.9.3 playwright@1.58.0
           "$RUNNER_TEMP/session-check/node_modules/.bin/esbuild" websites/typescript/src/account.ts --bundle --outfile="$RUNNER_TEMP/account.js"
           "$RUNNER_TEMP/session-check/node_modules/.bin/tsc" --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --allowSyntheticDefaultImports --lib ES2022,DOM,DOM.Iterable websites/typescript/src/account.ts
+      - name: Exercise isolated browser presentation
+        env:
+          SESSION_BUNDLE: ${{ runner.temp }}/sessions.js
+        run: |
+          ln -s "$RUNNER_TEMP/session-check/node_modules" node_modules
+          "$RUNNER_TEMP/session-check/node_modules/.bin/esbuild" websites/typescript/src/sessions-panel.ts --bundle --format=iife --global-name=Sessions --outfile="$SESSION_BUNDLE"
+          "$RUNNER_TEMP/session-check/node_modules/.bin/playwright" install --with-deps chromium
+          node tools/auth-verification/test-sessions-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: isolated-account-sessions-browser
+          path: test-results/account-sessions
