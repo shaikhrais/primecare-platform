@@ -1,13 +1,12 @@
 {
   "policy": "Legacy identity violations only. No grants accepted, reassigned, enabled or repaired by this baseline. New or changed violations fail CI. Remediation must validate business authority separately.",
   "violations": {
-    "grant:[1,\"api_permission_api_v1_rmt_list_get\"]": {
+    "grant:[1,\"auth_account_creation_policy\"]": {
       "reasons": [
-        "permission_key_targets_different_operation",
         "missing_runtime_artifact_foreign_key"
       ],
       "rowCount": 64,
-      "fingerprint": "a33825675eafbbcee567a1ca169ab657e7bae999506b2070f9a55bfabc311c21"
+      "fingerprint": "b43efeba6e97df2af6f30e2a0b5420d7a64c158aa310dcbf1e4351a053e46090"
     },
     "grant:[10,\"api_permission_api_v1_pediatric_list_get\"]": {
       "reasons": [
@@ -897,13 +896,12 @@
       "rowCount": 64,
       "fingerprint": "eb23bf865c8ea909b957b38cb788027f4bec40a4f30d61128ff473207e33d735"
     },
-    "grant:[11,\"api_permission_api_v1_physician_list_get\"]": {
+    "grant:[11,\"auth_account_management_policy\"]": {
       "reasons": [
-        "permission_key_targets_different_operation",
         "missing_runtime_artifact_foreign_key"
       ],
       "rowCount": 64,
-      "fingerprint": "9b88006b13f9d429836602170c1fb7b0b08c48c347220e8622391a3d99cd436a"
+      "fingerprint": "db1faf3358f5d387e2aaa3dde0d088cd25ea84ed29431286b5603c4071562671"
     },
     "grant:[110,\"api_permission_api_v1_hsw_incident_reports_list_get\"]": {
       "reasons": [
@@ -18736,5 +18734,18 @@
       "rowCount": 1,
       "fingerprint": "18e59a0853cab8b15dc3a91dd4c77c00e8673c3d35583b77d80b073d5c6320fe"
     }
-  }
+  },
+  "reconciliations": [
+    {
+      "date": "2026-10-20",
+      "apis": [
+        1,
+        11
+      ],
+      "productionReconciliationRun": 39472506674,
+      "observedGuardRun": 39475799373,
+      "disposition": "Carry forward the same 128 historical grant rows and dangling artifact references after canonical permission identity correction and disabling 125 legacy grants. No artifact identity is invented, no dangling reference is repaired, no new grant or acceptance approval is inferred. The guard remains exact for every group.",
+      "remainingDebt": "Historical runtime_artifact_id=1 is absent; reconcile only against independently established runtime artifact identity."
+    }
+  ]
 }

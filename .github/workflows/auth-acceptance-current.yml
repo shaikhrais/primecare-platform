@@ -23,7 +23,7 @@ jobs:
           npm install --prefix /tmp/auth-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
           ln -s /tmp/auth-reader/node_modules node_modules
           pip install -r tools/governance-production/requirements.txt
-      - name: Read current pinned auth acceptance after administrator revocation release
+      - name: Read current pinned auth acceptance after account UI source binding
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         run: |
