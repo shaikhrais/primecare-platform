@@ -1,14 +1,16 @@
 name: Release registered account session controls
 on:
   workflow_dispatch:
-  push:
+  workflow_run:
+    workflows: ['Verify shared account sessions']
+    types: [completed]
     branches: [main]
-    paths: ['.github/workflows/release-account-sessions.yml']
 permissions:
   contents: read
   actions: read
 jobs:
   verify-tested-source:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,10 +19,14 @@ jobs:
       - name: Require successful browser checks and unchanged tested controls
         env:
           GH_TOKEN: ${{ github.token }}
+          TEST_RUN: ${{ github.event.workflow_run.id }}
         run: |
           set -euo pipefail
+          if test -z "$TEST_RUN"; then
+            TEST_RUN="$(gh api 'repos/shaikhrais/primecare-platform/actions/workflows/verify-account-sessions.yml/runs?branch=main&status=success&per_page=1' --jq '.workflow_runs[0].id')"
+          fi
           for attempt in {1..48}; do
-            gh api repos/shaikhrais/primecare-platform/actions/runs/39453921811 > "$RUNNER_TEMP/session-run.json"
+            gh api repos/shaikhrais/primecare-platform/actions/runs/$TEST_RUN > "$RUNNER_TEMP/session-run.json"
             test "$(jq -r '.status' "$RUNNER_TEMP/session-run.json")" = completed && break
             sleep 15
           done
