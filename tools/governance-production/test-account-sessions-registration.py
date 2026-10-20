@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools/workflow-verification'))
 from test_production_store import NativeStoreTests
 from production_store import quote
-from account_sessions_registration import AccountRegistrationStore,register,definition,read_catalog,GovernanceReadError
+from account_sessions_registration import AccountRegistrationStore,register,definition,read_catalog,bind_implementation,GovernanceReadError
 spec=importlib.util.spec_from_file_location('recovery_fixture_module',Path(__file__).with_name('test-recovery-registration.py'));fixture=importlib.util.module_from_spec(spec);spec.loader.exec_module(fixture)
 URL=os.environ.get('WORKFLOW_TEST_DATABASE_URL','')
 if URL and (urlsplit(URL).hostname not in ['localhost','127.0.0.1'] or urlsplit(URL).path!='/recovery_metadata_test'):raise RuntimeError('Disposable loopback metadata database required')
@@ -116,4 +116,29 @@ class AccountTests(unittest.TestCase):
     def test_missing_optin_rejected(self):
         with patch.dict(os.environ,{'GOVERNANCE_ACCOUNT_REGISTRATION_WRITES':'0'}):
             with self.assertRaises(GovernanceReadError):self.store()
+
+    def test_implementation_binding_is_idempotent_and_never_verifies(self):
+        with self.store() as db:
+            catalog=register(db,self.definition)
+            actors=db.execute('SELECT flow_id,actor_roles_json FROM virtual_workflow_definitions ORDER BY flow_id').fetchall()
+            first=bind_implementation(db,catalog)
+            self.assertTrue(all(r['changed'] and r['verification_status']=='implemented-unverified' for r in first))
+            self.assertTrue(all(not r['changed'] for r in bind_implementation(db,catalog)))
+            self.assertEqual(register(db,self.definition),catalog)
+            self.assertTrue(all(not r['changed'] for r in bind_implementation(db,catalog)))
+            self.assertEqual(actors,db.execute('SELECT flow_id,actor_roles_json FROM virtual_workflow_definitions ORDER BY flow_id').fetchall())
+            for row in db.execute('SELECT verification_status,test_status,definition_json FROM virtual_workflow_definitions'):
+                self.assertEqual(row[:2],('implemented-unverified','stale'))
+                self.assertTrue(json.loads(row[2])['source_sha256'])
+
+    def test_implementation_binding_rejects_changed_actor_specification(self):
+        with self.store() as db:
+            catalog=register(db,self.definition)
+            flow=self.definition['flows'][0]
+            row=db.execute('SELECT definition_json FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()
+            plan=json.loads(row[0]);plan['actor_roles']=['unregistered']
+            encoded=json.dumps(plan)
+            db._update('virtual_workflow_definitions',{'definition_json':encoded,'definition_sha256':hashlib.sha256(encoded.encode()).hexdigest()},flow)
+            with self.assertRaises(GovernanceReadError):bind_implementation(db,catalog)
+
 if __name__=='__main__':unittest.main(defaultTest='AccountTests')

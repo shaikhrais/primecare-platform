@@ -102,6 +102,9 @@ def register(db,d):
         if len(selected)!=1 or selected[0].get('api_path') not in ['/v1/auth/user/sessions',d['endpoints'][op]]:raise GovernanceReadError('Existing own-session step changed')
         normalized=db.execute('SELECT step_order,api_path FROM virtual_workflow_steps WHERE flow_id=? AND api_method=?',(flow,method)).fetchall()
         if len(normalized)!=1 or normalized[0][1] not in ['/v1/auth/user/sessions',d['endpoints'][op]]:raise GovernanceReadError('Normalized own-session step changed')
+        if plan.get('own_sessions_implementation_binding') is True:
+            if selected[0]['api_path']!=d['endpoints'][op]:raise GovernanceReadError('Mapped own-session operation changed')
+            continue
         selected[0]['api_path']=d['endpoints'][op]
         refs=[{'table':t,'key':key,'key_columns':['id'],'reference_status':'row'} for t,key in [('auth_route_registry',7),('screens',sid),('api_endpoints',d['apiIds'][op])]]
         plan.update(governance_refs=refs,declared_governance_refs=refs,registered_source={'screen_id':sid,'route_registry_id':7,'api_id':d['apiIds'][op],'controls':d['controls'],'presentation':'shared current-account surface; authenticated_self_session'},gaps=['Controls and canonical APIs registered; own-session panel implementation and current execution/review evidence remain pending.'])
@@ -117,6 +120,40 @@ def register(db,d):
                 fields=list(values)
                 db.db.execute('INSERT INTO '+db.table('virtual_workflow_source_links')+' (_primecare_import_row,'+','.join(map(quote,fields))+') VALUES('+','.join(['%s']*(len(fields)+1))+')',[ordinal,*[db._value('virtual_workflow_source_links',k,values[k]) for k in fields]])
     return read_catalog(db,d)
+
+def bind_implementation(db,catalog):
+    d=definition()
+    if catalog!=read_catalog(db,d) or catalog!=json.loads((ROOT/'packages/shared/src/account-sessions.json').read_text()):
+        raise GovernanceReadError('Current production account catalog required')
+    paths=[d['file'],d['panelFile'],'websites/typescript/src/sessions-client.ts','websites/typescript/src/sessions-controller.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','cloudflare/workers/src/self-sessions.ts','cloudflare/workers/src/auth.ts','cloudflare/workers/src/gateway.ts','packages/shared/src/account-sessions.json','tools/governance-production/account_sessions_registration.py']
+    hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths}
+    results=[]
+    for flow,op,method in zip(d['flows'],['list','revoke'],['GET','DELETE']):
+        rows=db.execute('SELECT definition_json,definition_sha256,flow_kind,actor_roles_json FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchall()
+        if len(rows)!=1 or rows[0][2]!='business_process' or hashlib.sha256(rows[0][0].encode()).hexdigest()!=rows[0][1]:
+            raise GovernanceReadError('Exact own-session process required')
+        plan=json.loads(rows[0][0]);actors=json.loads(rows[0][3])
+        if not actors or plan['id']!=flow or plan['actor_roles']!=actors or not any(s.get('api_method')==method and s.get('api_path')==d['endpoints'][op] for s in plan['steps']):
+            raise GovernanceReadError('Registered own-session actors or operation changed')
+        refs=[dict(table=t,key=k,key_columns=['id'],reference_status='row') for t,k in [('auth_route_registry',7),('screens',catalog['screenId']),('api_endpoints',d['apiIds'][op])]]
+        for key, in db.execute('SELECT id FROM screen_components WHERE screen_id=? AND file_path=? ORDER BY id',(catalog['screenId'],d['panelFile'])):
+            refs.append(dict(table='screen_components',key=key,key_columns=['id'],reference_status='row'))
+        for key, in db.execute("SELECT resource_id FROM language_resources WHERE context='accountSessions' AND active=1 ORDER BY resource_id"):
+            refs.append(dict(table='language_resources',key=key,key_columns=['resource_id'],reference_status='row'))
+        plan.update(own_sessions_implementation_binding=True,governance_refs=refs,declared_governance_refs=refs,definition_quality='source_mapped',source_paths=paths,source_sha256=hashes,gaps=['Own-session source implemented. Current deployed browser/API/database evidence, complete failure alternatives, required reviews and independent acceptance remain separate gates.'])
+        encoded=json.dumps(plan,ensure_ascii=False,sort_keys=True);fingerprint=hashlib.sha256(encoded.encode()).hexdigest()
+        if fingerprint==rows[0][1]:
+            results.append({'flow_id':flow,'changed':False});continue
+        db._update('virtual_workflow_definitions',{'definition_json':encoded,'definition_sha256':fingerprint,'definition_status':'source_mapped','verification_status':'implemented-unverified','test_status':'stale','blocker_json':json.dumps(plan['gaps']),'updated_at':datetime.datetime.now(datetime.timezone.utc).isoformat()},flow)
+        db.db.execute('DELETE FROM '+db.table('virtual_workflow_source_links')+' WHERE flow_id=%s',(flow,))
+        for ref in refs:
+            values={'flow_id':flow,'source_table':ref['table'],'source_key':str(ref['key']),'source_key_columns':json.dumps(ref['key_columns']),'reference_status':'row'}
+            ordinal=db.db.execute('SELECT COALESCE(MAX(_primecare_import_row),-1)+1 FROM '+db.table('virtual_workflow_source_links')).fetchone()[0]
+            fields=list(values)
+            db.db.execute('INSERT INTO '+db.table('virtual_workflow_source_links')+' (_primecare_import_row,'+','.join(map(quote,fields))+') VALUES('+','.join(['%s']*(len(fields)+1))+')',[ordinal,*[db._value('virtual_workflow_source_links',k,values[k]) for k in fields]])
+        results.append({'flow_id':flow,'changed':True,'definition_sha256':fingerprint,'source_links':len(refs),'verification_status':'implemented-unverified','test_status':'stale'})
+    return results
+
 def open_production_store():
     import psycopg,time
     for attempt in range(3):
@@ -128,7 +165,8 @@ def main():
     if '--apply' not in sys.argv:raise SystemExit('Explicit --apply required')
     with open_production_store() as db:
         catalog=register(db,definition())
-        state={'screenId':catalog['screenId'],'apiIds':catalog['apiIds'],'controls':len(catalog['controls']),'nativeScreensChanged':False,'roleGrantsChanged':False,'schemaChanged':False,'implementation':'pending','reviewApprovals':'pending'}
+        bindings=bind_implementation(db,catalog)
+        state={'flows':bindings,'screenId':catalog['screenId'],'apiIds':catalog['apiIds'],'controls':len(catalog['controls']),'nativeScreensChanged':False,'roleGrantsChanged':False,'schemaChanged':False,'implementation':'pending','reviewApprovals':'pending'}
         db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('account-sessions-registration-current',json.dumps(state)))
     out=ROOT/'test-results/account-sessions-registration';out.mkdir(parents=True,exist_ok=True)
     (out/'catalog.json').write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+'\n');(out/'receipt.json').write_text(json.dumps(state,indent=2))
