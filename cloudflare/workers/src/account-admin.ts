@@ -75,6 +75,8 @@ export async function accountAdministration(db:Client,actor:Actor,input:AdminInp
   if(input.operation==='sessions_revoke') {
     if(accountId(target.id).toLowerCase()===String(actor.id).toLowerCase())return {status:403,body:{error:'Self revocation is not allowed'}};
     const deleted=exactCount(requiredRow((await db.query('WITH revoked AS (DELETE FROM auth_sessions WHERE user_id=$1 RETURNING 1) SELECT COUNT(*)::int AS count FROM revoked',[target.id])).rows).count);
+    const remaining=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[target.id])).rows).count);
+    if(remaining!==0)throw Error('Session revocation incomplete');
     const previous={sessionCount:deleted},current={sessionCount:0,action:'sessions_revoked'};
     confirmedAudit((await db.query('INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$2,$3,$4,$5) RETURNING id,actor_user_id,target_user_id,tenant_id,previous_state,new_state,created_at',
       [actor.id,target.id,actor.tenant_id,JSON.stringify(previous),JSON.stringify(current)])).rows,{actor_user_id:actor.id,target_user_id:target.id,tenant_id:actor.tenant_id,previous_state:previous,new_state:current});

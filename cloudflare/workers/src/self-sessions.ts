@@ -8,7 +8,7 @@ import {authRateLimit} from './auth-rate-limit';
 const exactCount=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid session count');return value;};
 
 /** Workers may expose a zero-byte DELETE as a stream. Inspect bytes without buffering a body. */
-async function requestHasContent(request:Request):Promise<boolean>{
+export async function requestHasContent(request:Request):Promise<boolean>{
   if(request.body===null)return false;
   const reader=request.body.getReader();
   try{for(;;){const {done,value}=await reader.read();if(done)return false;if(value.byteLength>0)return true;}}

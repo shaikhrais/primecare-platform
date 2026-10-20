@@ -4,7 +4,7 @@ import {accountId} from './account-read-projection';
 import {sourceLimitAllowed} from './source-limit-result';
 import {authIdentity,mutatedAccount,privilegedActor} from './auth-projection';
 import {selfRecords} from './self-records';
-import {selfSessions} from './self-sessions';
+import {selfSessions,requestHasContent} from './self-sessions';
 import {recoverPassword,resetPassword,validateRecovery} from './password-recovery';
 import {maintenance,maintenanceRoles,configuredMail,type MaintenanceEnv} from './maintenance';
 import type {SourceLimitEnv} from './auth-source-limit';
@@ -123,7 +123,10 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
   if(records)return records;
   const personal=await selfSessions(request,env,path,headers);
   if(personal)return personal;
-  const adminRequest=parseAccountAdminRequest(request,path);
+  let adminRequest=parseAccountAdminRequest(request,path);
+  if(adminRequest&&'error' in adminRequest&&adminRequest.status===400&&request.body!==null&&!(await requestHasContent(request))){
+    adminRequest=parseAccountAdminRequest(new Request(request.url,{method:request.method,headers:request.headers}),path);
+  }
   if(adminRequest) {
     if('error' in adminRequest)return json({error:adminRequest.error},adminRequest.status,{...headers,...(adminRequest.allow?{allow:adminRequest.allow}:{})});
     const token=request.headers.has('authorization')?tokenFrom(request):null;
