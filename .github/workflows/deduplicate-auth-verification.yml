@@ -1,0 +1,50 @@
+name: Deduplicate pending auth verification
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/deduplicate-auth-verification.yml']
+  workflow_run:
+    workflows: ['Release confirmed self-session revocation']
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+  actions: write
+jobs:
+  pending-only:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo,cancelled=[];
+            for(let round=0;round<3;round++){
+              for(const workflow_id of ['verify-account-mutations.yml','verify-live-own-sessions.yml']){
+                const runs=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id,branch:'main',per_page:50})).data.workflow_runs.sort((a,b)=>a.id-b.id);
+                for(let i=0;i<runs.length;i++){
+                  const target=runs[i];
+                  if(target.event!=='workflow_run'||target.run_attempt!==1||!['queued','pending','waiting','requested'].includes(target.status)||cancelled.includes(target.id))continue;
+                  const targetJobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:target.id,per_page:100});
+                  if(targetJobs.length)continue;
+                  let duplicate=false;
+                  for(const prior of runs.slice(0,i).filter(r=>r.head_sha===target.head_sha)){
+                    if(prior.status==='completed'&&prior.conclusion!=='success')continue;
+                    const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:prior.id,per_page:100});
+                    if(jobs.some(j=>['failure','cancelled','timed_out'].includes(j.conclusion)))continue;
+                    const completed=prior.conclusion==='success'&&jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').length===3;
+                    const active=prior.status!=='completed'&&jobs.some(j=>j.status==='in_progress');
+                    if(completed||active){duplicate=true;break;}
+                  }
+                  if(!duplicate)continue;
+                  const current=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:target.id})).data;
+                  const freshJobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:target.id,per_page:100});
+                  if(current.event!=='workflow_run'||current.run_attempt!==1||!['queued','pending','waiting','requested'].includes(current.status)||freshJobs.length)continue;
+                  try{await github.rest.actions.cancelWorkflowRun({owner,repo,run_id:target.id});cancelled.push(target.id);}
+                  catch(error){if(![404,409].includes(error.status))throw error;}
+                }
+              }
+              if(round<2)await new Promise(resolve=>setTimeout(resolve,10000));
+            }
+            core.info('DEDUPLICATED_AUTH_PENDING '+JSON.stringify({cancelled,scope:'Only automatic same-commit duplicates with zero jobs; active jobs and manual retries preserved'}));
