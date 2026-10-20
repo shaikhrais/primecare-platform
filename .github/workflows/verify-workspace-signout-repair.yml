@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 239a68d4210b713b9565bd0fb9ae05e24f6b592f
+          ref: 1edc56771993d563b674e81a746cd3550ef84028
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
@@ -77,7 +77,7 @@ jobs:
           GOVERNANCE_WORKFLOW_WRITES: '1'
           EVIDENCE_URL: ${{ steps.baseline.outputs.artifact-url }}
           ATTEMPT_MODE: baseline
-          CANDIDATE_SHA: 239a68d4210b713b9565bd0fb9ae05e24f6b592f
+          CANDIDATE_SHA: 1edc56771993d563b674e81a746cd3550ef84028
         run: |
           python -u - <<'PY'
           import sys,json,pathlib,hashlib,os
@@ -110,10 +110,10 @@ jobs:
       - name: Restore candidate and run browser/native workspace sign-out acceptance
         if: always()
         env:
-          VERIFICATION_SOURCE_SHA: 239a68d4210b713b9565bd0fb9ae05e24f6b592f
+          VERIFICATION_SOURCE_SHA: 1edc56771993d563b674e81a746cd3550ef84028
           LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
         run: |
-          git checkout 239a68d4210b713b9565bd0fb9ae05e24f6b592f -- websites/typescript/src/workspace.ts
+          git checkout 1edc56771993d563b674e81a746cd3550ef84028 -- websites/typescript/src/workspace.ts
           node --test scripts/test-workspace-browser.mjs scripts/test-account-client.mjs scripts/test-auth-client.mjs scripts/test-session-signout-client.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/main.ts
           node scripts/test-workspace-signout-workflow.mjs
@@ -131,7 +131,7 @@ jobs:
           GOVERNANCE_WORKFLOW_WRITES: '1'
           EVIDENCE_URL: ${{ steps.candidate.outputs.artifact-url }}
           ATTEMPT_MODE: candidate
-          CANDIDATE_SHA: 239a68d4210b713b9565bd0fb9ae05e24f6b592f
+          CANDIDATE_SHA: 1edc56771993d563b674e81a746cd3550ef84028
         run: |
           python -u - <<'PY'
           import sys,json,pathlib,hashlib,os
