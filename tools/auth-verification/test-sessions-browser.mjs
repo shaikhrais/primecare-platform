@@ -31,6 +31,7 @@ try{
   },{locale,origin});
   const by=id=>page.locator('[data-cy="'+id+'"]');
   await by('own-sessions-table-row-24').waitFor();
+  assert.equal(await by('own-sessions-table').getAttribute('aria-label'),({'en':'Active sessions','fr':'Sessions actives','es':'Sesiones activas'})[locale]);
   assert.equal(await by('own-sessions-previous').isDisabled(),true);
   await by('own-sessions-next').click();await by('own-sessions-table-row-1').waitFor({state:'detached'});
   assert.equal(await by('own-sessions-next').isDisabled(),true);
