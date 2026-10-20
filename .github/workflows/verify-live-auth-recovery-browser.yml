@@ -39,12 +39,24 @@ jobs:
           - {locale: fr, width: 768}
           - {locale: es, width: 1440}
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: |
           pip install psycopg[binary]==3.2.13 bcrypt==4.3.0 playwright==1.58.0
           python -m playwright install --with-deps chromium
+      - name: Verify pinned production authority before synthetic account changes
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          npm install --prefix "$RUNNER_TEMP/recovery-reader" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/recovery-reader/node_modules" node_modules
+          pip install -r tools/governance-production/requirements.txt
+          python3 tools/governance-production/verify-production-reader.py
       - name: Send one correlated synthetic email and remove only its inbox record
         env:
           TEST_LOCALE: ${{ matrix.locale }}

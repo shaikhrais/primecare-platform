@@ -1,5 +1,8 @@
 name: Verify production auth with isolated QA tenant
 on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/verify-production-auth.yml]
   workflow_dispatch:
     inputs:
       confirm:
@@ -26,9 +29,18 @@ jobs:
           mkdir -p "$RUNNER_TEMP/auth-smoke-dependencies"
           npm install --prefix "$RUNNER_TEMP/auth-smoke-dependencies" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2
           ln -s "$RUNNER_TEMP/auth-smoke-dependencies/node_modules" node_modules
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify pinned production authority before synthetic account changes
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          pip install -r tools/governance-production/requirements.txt
+          python3 tools/governance-production/verify-production-reader.py
       - name: Verify public auth and remove QA fixtures
         env:
-          CONFIRM_AUTH_SMOKE: ${{ inputs.confirm }}
+          CONFIRM_AUTH_SMOKE: ${{ github.event_name == 'push' && 'VERIFY_AUTH' || inputs.confirm }}
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
         run: node scripts/verify-production-auth.mjs
