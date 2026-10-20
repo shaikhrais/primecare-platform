@@ -26,6 +26,7 @@ import { join } from 'node:path';
 const gateway = process.env.API_GATEWAY_URL || 'https://primecare-api-gateway.itpro-mohammed.workers.dev';
 const source = 'websites/typescript'; const generated = join(source, 'generated'); const dist = join(source, 'dist');
 execFileSync('python3', ['scripts/verify-maintenance-catalog.py'], { stdio: 'inherit' });
+execFileSync('python3', ['scripts/verify-workspace-resources.py'], { stdio: 'inherit' });
 execFileSync('python3', ['scripts/export-typescript-websites.py', '--output', generated, '--gateway', gateway], { stdio: 'inherit' });
 rmSync(dist, { recursive: true, force: true }); mkdirSync(join(dist, 'assets'), { recursive: true });
 execFileSync('npx', ['esbuild', join(source, 'src/main.ts'), '--bundle', '--minify', `--outfile=${join(dist, 'assets/app.js')}`], { stdio: 'inherit' });

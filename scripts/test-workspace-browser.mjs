@@ -88,6 +88,7 @@ test('all active role landings resolve to their own authorized governed page',as
    await renderWorkspace(root,'https://gateway.test');
    assert.equal(navigations.length,1,role+' must navigate once');
    assert.equal(navigations[0].pathname,landing,role);
+   assert.equal(navigations[0].searchParams.get('enable-semantics'),'true',role+' redirect retains semantics');
    assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
   } else {
    await renderWorkspace(root,'https://gateway.test');
@@ -95,6 +96,19 @@ test('all active role landings resolve to their own authorized governed page',as
    assert.ok(root.querySelector('[data-cy="workspace-title"]'),role);
    assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
   }
+  dom.window.close();
+ }
+});
+
+test('delayed workspace responses cannot render or clear a replacement account session',async()=>{
+ for(const status of [200,401]){
+  const {dom,root,data}=browser('rmt');let release,reached,reloads=0;const redirects=[];
+  const held=new Promise(resolve=>release=resolve),started=new Promise(resolve=>reached=resolve);
+  globalThis.location={pathname:'/',search:'?enable-semantics=true',reload:()=>reloads++,assign:href=>redirects.push(href)};
+  globalThis.fetch=async()=>{reached();await held;return Response.json(status===200?data:{error:'Expired session'},{status});};
+  const pending=renderWorkspace(root,'https://delayed-workspace.test');await started;
+  sessionStorage.setItem('primecare_session','replacement-account-session');release();await pending;
+  assert.equal(sessionStorage.getItem('primecare_session'),'replacement-account-session');assert.equal(reloads,1);assert.deepEqual(redirects,[]);assert.equal(root.querySelector('[data-cy=workspace-organization]'),null);
   dom.window.close();
  }
 });

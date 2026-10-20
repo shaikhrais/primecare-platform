@@ -1,0 +1,50 @@
+name: General workspace sign-out browser acceptance
+on:
+  pull_request:
+    paths:
+      - websites/typescript/src/workspace.ts
+      - scripts/test-workspace-signout-workflow.mjs
+      - tools/workflow-verification/specs/auth.logout.fixture.json
+      - .github/workflows/workspace-signout-acceptance.yml
+permissions:
+  contents: read
+jobs:
+  workspace-signout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: primecare
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: login_browser
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U primecare -d login_browser" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix /tmp/workspace-signout-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 pg@8.16.3 bcryptjs@3 typescript@5.9.3 jsdom@26
+          ln -s /tmp/workspace-signout-tools/node_modules node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - run: |
+          node --test scripts/test-workspace-browser.mjs scripts/test-session-signout-client.mjs scripts/test-account-client.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/main.ts
+      - name: Use explicit isolated metadata fixture
+        run: |
+          mkdir -p test-results/workspace-logout
+          cp tools/workflow-verification/specs/auth.logout.fixture.json test-results/workspace-logout/governance.json
+      - name: Real credential login to UI to API to PostgreSQL and reload
+        env:
+          LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
+          AUTH_WORKSPACE_TEST_FIXTURE: '1'
+        run: node scripts/test-workspace-signout-workflow.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: workspace-signout-native-browser
+          path: test-results/workspace-logout
+          retention-days: 90
