@@ -55,6 +55,10 @@ try:
     must([(x['created_at'],x['expires_at']) for x in payload['sessions']]==[(stamp(a),stamp(b)) for a,b in rows],'API timestamps match native database records')
     el('own-sessions-table-row-1').wait_for(timeout=30000)
     must(el('own-sessions-table-row-0').count()==1 and el('own-sessions-table-row-2').count()==0,'Browser renders exactly the two own sessions')
+    for n,(created_at,expires_at) in enumerate(rows):
+        expected=page.evaluate("([values,locale])=>values.map(value=>new Date(value).toLocaleString(locale))",[[stamp(created_at),stamp(expires_at)],locale])
+        rendered=el('own-sessions-table-row-'+str(n)).inner_text()
+        must(all(value in rendered for value in expected),'Rendered row '+str(n)+' dates match native database records in '+locale)
     must(call('/v1/user/sessions')[0]==401,'Missing bearer denied')
     must(call('/v1/user/sessions',bearer=first,tenant=other['tenant'])[0]==403,'Forged cross-tenant list denied')
     must(call('/v1/user/sessions?userId='+other['user'],bearer=first)[0]==400,'Caller-selected user rejected')
