@@ -1,0 +1,525 @@
+name: Verify implemented workflow families on merged main
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/verify-implemented-regressions.yml]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  care:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: care
+          POSTGRES_PASSWORD: integration-only
+          POSTGRES_DB: care
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U care" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      CARE_TEST_DATABASE_URL: postgresql://care:integration-only@localhost:5432/care
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install isolated test tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/care-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 @cloudflare/workers-types@4.20260403.1 pg@8.11.3 @electric-sql/pglite@0.3.14 bcryptjs@3 axe-core@4.10.3
+          ln -s "$RUNNER_TEMP/care-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Restore the verified governance checkpoint
+        run: GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 python3 tools/workflow-verification/restore_checkpoint.py
+      - name: Reproduce care governance
+        run: |
+          python3 scripts/register-care-governance.py
+          python3 scripts/register-care-governance.py --check
+          git diff --exit-code packages/shared/src/care/registry.json cloudflare/workers/src/workspace-registry.json docs/care/openapi.json
+      - name: Check care API and website types
+        run: |
+          node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --types @cloudflare/workers-types cloudflare/workers/src/service.ts
+          node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --lib ES2022,DOM,DOM.Iterable websites/typescript/src/main.ts
+      - name: Check care alerts and shared sidebar at responsive breakpoints
+        run: node scripts/test-sidebar-content-browser.mjs
+      - name: Check care initial loading and retry states
+        run: node scripts/test-care-loading-browser.mjs
+      - name: Check real credential login and availability roundtrip
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: |
+          python3 scripts/register-auth-login-layout.py --check
+          node scripts/test-care-availability-workflow.mjs
+      - name: Check progress status rules
+        run: |
+          python3 tools/workflow-verification/test_progress_ledger.py
+          python3 tools/workflow-verification/test_registered_workflow_status.py
+          python3 tools/workflow-verification/test_business_workflow_specs.py
+          python3 tools/workflow-verification/test_execution.py
+          python3 tools/workflow-verification/test_restore_checkpoint.py
+          python3 scripts/test-reconcile-registered-workflow-bindings.py
+      - name: Record closed-appointment and evidence-gate unit checks
+        run: python3 tools/workflow-verification/progress.py --run-small-checks --refresh-browser-evidence
+      - name: Check read-only migration identity preflight
+        run: node --test scripts/test-care-migration-target.mjs
+      - name: Check care scope, state, concurrency, rollback and browser workflows
+        run: node --test scripts/test-care-delivery.mjs scripts/test-care-roster-search.mjs scripts/test-care-visit-picker.mjs scripts/test-care-form-drafts.mjs scripts/test-workspace.mjs scripts/test-auth-client.mjs scripts/test-session-client-inheritance.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: synthetic-care-browser-evidence
+          path: |
+            test-results/care/
+            test-results/progress/
+            docs/task-progress/recovery-progress.json
+            test-results/accessibility/care-*.json
+
+  growth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: growth_test
+          POSTGRES_PASSWORD: integration-only
+          POSTGRES_DB: growth_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U growth_test -d growth_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      GROWTH_TEST_DATABASE_URL: postgresql://growth_test:integration-only@localhost:5432/growth_test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --prefix "$RUNNER_TEMP/growth-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.16.3 bcryptjs@3 playwright@1.60.0 jsqr@1.4.0 miniflare@4.20260730.0 jsdom@26
+      - run: ln -s "$RUNNER_TEMP/growth-tools/node_modules" node_modules
+      - name: Register operations governance before export checks
+        run: python3 scripts/register-workspace-governance.py
+      - run: python3 scripts/register-admin-form-drafts.py --check && python3 scripts/register-admin-hierarchy.py --check && python3 scripts/register-growth-governance.py --check && python3 scripts/register-look-manager.py --check && python3 scripts/register-look-provider.py --check
+      - run: node --test scripts/test-look-vision-provider.mjs scripts/test-look-vision-runtime.mjs scripts/test-growth.mjs scripts/test-method-capture-blockers.mjs scripts/test-existing-auth-contracts-api.mjs scripts/test-central-bootstrap.mjs
+      - run: node --test scripts/test-growth-postgres.mjs scripts/test-growth-intake.mjs scripts/test-growth-reporting.mjs scripts/test-growth-business.mjs
+      - run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/look/vision-provider.ts cloudflare/workers/src/growth/service.ts websites/typescript/src/main.ts
+      - run: node_modules/.bin/playwright install --with-deps chromium
+      - name: Check shared growth loading and retry states
+        run: node scripts/test-growth-loading-browser.mjs
+      - run: node --test scripts/test-growth-browser.mjs scripts/test-growth-admin-browser.mjs scripts/test-look-manager.mjs
+      - run: GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 node scripts/build-typescript-websites.mjs
+      - run: python3 scripts/register-media-look.py --check && node scripts/test-media-look-browser.mjs
+      - run: python3 scripts/test-auth-recovery-governance.py && python3 scripts/register-auth-recovery-web.py --check && python3 scripts/register-workspace-visual-review.py
+      - run: node --test scripts/test-workspace-browser.mjs scripts/test-auth-recovery-web.mjs
+      - run: node scripts/audit-workspace-role-browser.mjs
+      - run: REVIEW_PHASE=after node scripts/review-admin-marketing-ui.mjs
+      - run: python3 scripts/register-workforce-foundation.py --check && node --test scripts/test-workforce-foundation.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: founder-growth-browser-evidence
+          path: test-results/
+          retention-days: 14
+
+  auth:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        identity: [uuid, text]
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: auth_test
+          POSTGRES_USER: auth_test
+          POSTGRES_PASSWORD: disposable-ci-fixture
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U auth_test -d auth_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated test dependencies
+        run: |
+          mkdir -p "$RUNNER_TEMP/auth-dependencies"
+          npm install --prefix "$RUNNER_TEMP/auth-dependencies" --ignore-scripts esbuild@0.27.2 pg@8.16.3 bcryptjs@3.0.2 typescript@5.9.3 @types/pg@8.15.5 @cloudflare/workers-types@4.20260403.1 newman@6.2.1
+          ln -s "$RUNNER_TEMP/auth-dependencies/node_modules" node_modules
+      - name: Generate governed workspace catalog
+        run: |
+          python3 scripts/register-maintenance-governance.py
+          python3 scripts/register-workspace-governance.py
+          python3 scripts/register-care-governance.py
+          python3 scripts/test-auth-recovery-governance.py
+      - name: Unit tests
+        run: node scripts/verify-api-batches.mjs
+      - name: Type check Workers
+        run: node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
+      - name: Real PostgreSQL session lifecycle
+        env:
+          AUTH_TEST_ID_TYPE: ${{ matrix.identity }}
+          AUTH_TEST_DATABASE_URL: postgres://auth_test:disposable-ci-fixture@127.0.0.1:5432/auth_test
+        run: |
+          node scripts/test-auth-postgres.mjs
+          node scripts/test-auth-cleanup-postgres.mjs
+          node scripts/test-governance-postgres.mjs
+          node scripts/test-contract-gap-postgres.mjs
+          node scripts/test-governed-read-aliases-postgres.mjs
+          node scripts/test-owned-singleton-aliases-postgres.mjs
+          node scripts/test-account-admin-postgres.mjs
+          node scripts/test-self-sessions-postgres.mjs
+          node scripts/test-client-self-postgres.mjs
+          node scripts/test-provider-self-postgres.mjs
+          node scripts/test-client-booking-lifecycle-postgres.mjs
+          node scripts/test-client-records-postgres.mjs
+          node scripts/test-client-care-metadata-postgres.mjs
+          node scripts/test-client-care-events-postgres.mjs
+          node scripts/test-booking-payment-reads-postgres.mjs
+          node scripts/test-provider-timesheet-items-postgres.mjs
+          node scripts/test-training-message-postgres.mjs
+          node scripts/test-client-family-notifications-postgres.mjs
+          node scripts/test-owned-commerce-authoring-postgres.mjs
+          node scripts/test-owned-patient-observations-postgres.mjs
+          node scripts/test-self-records-postgres.mjs
+          node scripts/test-self-device-wellness-postgres.mjs
+          node scripts/test-feedback-reputation-postgres.mjs
+          node scripts/test-personal-metadata-postgres.mjs
+          node scripts/test-thread-family-postgres.mjs
+          node scripts/test-password-history-postgres.mjs
+          node scripts/test-provider-metadata-postgres.mjs
+          node scripts/test-provider-finance-metadata-postgres.mjs
+          node scripts/test-provider-event-metadata-postgres.mjs
+          node scripts/test-work-log-metadata-postgres.mjs
+          node scripts/test-care-metadata-postgres.mjs
+          node scripts/test-authorship-task-postgres.mjs
+          node scripts/test-report-audit-postgres.mjs
+          node scripts/test-review-telehealth-postgres.mjs
+          node scripts/test-owned-status-summaries-postgres.mjs
+          node scripts/test-operational-audit-postgres.mjs
+          node scripts/test-pagination-consistency-postgres.mjs
+          node scripts/test-date-serialization-postgres.mjs
+          node scripts/test-dense-result-postgres.mjs
+          node scripts/test-account-session-pages-postgres.mjs
+          node scripts/test-tenant-authority-postgres.mjs
+          node scripts/test-nested-adapter-postgres.mjs
+          node scripts/test-reference-read-postgres.mjs
+          node scripts/test-database-integer-postgres.mjs
+
+      - name: Upload consolidated local API diagnostic artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: primecare-api-diagnostics-${{ matrix.identity }}
+          path: |
+            docs/api/PrimeCare.postman_collection.json
+            docs/api/PrimeCare.local.postman_environment.json
+            docs/api/primecare-api-error-report.json
+          if-no-files-found: error
+
+      - name: Upload API fixture failure details
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: primecare-api-fixture-failure-${{ matrix.identity }}
+          path: /tmp/primecare-api-fixture-failure.log
+          if-no-files-found: ignore
+
+  acceptance:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: platform
+          POSTGRES_PASSWORD: integration-only
+          POSTGRES_DB: platform
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U platform" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PLATFORM_TEST_DATABASE_URL: postgresql://platform:integration-only@localhost:5432/platform
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/platform-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.11.3 bcryptjs@3 axe-core@4.10.3
+          ln -s "$RUNNER_TEMP/platform-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Validate authority, persistence, concurrency and rollback
+        run: node --test scripts/test-platform-bootstrap.mjs scripts/test-platform-administration-postgres.mjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check territory geography export
+        run: |
+          python3 -m pip install shapely==2.2.0
+          python3 scripts/register-territory-governance.py --check
+      - name: Check tenant operations governance
+        run: python3 scripts/register-tenant-operations.py --check
+      - name: Register and verify the first platform bundle
+        run: |
+          python3 scripts/register-platform-bundle.py
+          python3 scripts/register-platform-bundle.py --check
+          python3 scripts/register-media-look.py
+          python3 scripts/register-media-look.py --check
+      - name: Validate launch, renewals, support and routing in PostgreSQL and browsers
+        run: node --test scripts/test-platform-bundle.mjs
+      - name: Validate bounded histories, scope, keyboard navigation and accessibility
+        env:
+          ACCESSIBILITY_CONTRAST_REVIEW: '1'
+        run: node --test scripts/test-platform-history.mjs
+      - name: Scan administrative and growth role accessibility
+        env:
+          ACCESSIBILITY_CONTRAST_REVIEW: '1'
+        run: node --test scripts/test-admin-growth-accessibility.mjs
+      - name: Summarize visible-state contrast evidence
+        run: node scripts/summarize-contrast-review.mjs
+      - name: Validate scoped attention queue and workflow correction navigation
+        run: node --test scripts/test-platform-attention.mjs
+      - name: Validate public territory routing with UUID and text tenant identities
+        run: |
+          python3 scripts/register-territory-intake.py
+          python3 scripts/register-territory-intake.py --check
+          node --test scripts/test-public-territory-intake.mjs
+          PLATFORM_TEST_IDENTITY=text node --test scripts/test-public-territory-intake.mjs
+      - name: Validate tenant operations summaries, scope and fix navigation
+        run: node --test scripts/test-tenant-operations.mjs
+      - name: Validate territory allocation, duplicate-sale races and browser workflows
+        run: node --test scripts/test-territory-allocation.mjs
+      - name: Build actual website from governed metadata
+        run: |
+          python3 scripts/register-platform-admin-role.py
+          python3 scripts/register-admin-reports.py
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 python3 scripts/export-typescript-websites.py --output artifacts/admin-website/manifests --gateway http://127.0.0.1:4184/test-api
+          mkdir -p artifacts/admin-website/site/assets
+          node_modules/.bin/esbuild websites/typescript/src/main.ts --bundle --outfile=artifacts/admin-website/site/assets/app.js
+          cp websites/typescript/src/styles.css artifacts/admin-website/site/assets/app.css
+          cp websites/typescript/index.html artifacts/admin-website/site/index.html
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/platform-administration.ts websites/typescript/src/main.ts
+      - name: Record real platform-admin browser workflows
+        run: node scripts/test-platform-admin-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: platform-admin-workflow-video
+          path: |
+            artifacts/platform-admin-browser/
+            test-results/territories/
+            test-results/tenant-operations/
+            test-results/platform-bundle/
+            test-results/platform-attention/
+            test-results/platform-history/
+            test-results/accessibility/
+            test-results/contrast/
+            test-results/territory-intake/
+
+
+  browser:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/admin-browser-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 pg@8.11.3 bcryptjs@3
+          ln -s "$RUNNER_TEMP/admin-browser-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Build real website and PDF renderer
+        run: |
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 python3 scripts/export-typescript-websites.py --output artifacts/admin-website/manifests --gateway http://127.0.0.1:4173/test-api
+          mkdir -p artifacts/admin-website/site/assets
+          node_modules/.bin/esbuild websites/typescript/src/main.ts --bundle --outfile=artifacts/admin-website/site/assets/app.js
+          node_modules/.bin/esbuild cloudflare/workers/src/reporting.ts --bundle --platform=node --format=cjs --external:pg --external:bcryptjs --outfile=artifacts/admin-website/reporting.cjs
+          cp websites/typescript/src/styles.css artifacts/admin-website/site/assets/app.css
+          cp websites/typescript/index.html artifacts/admin-website/site/index.html
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable websites/typescript/src/main.ts
+      - name: Test and record admin workflows
+        run: node evidence/test-admin-reports-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: admin-website-fixed-workflows
+          path: artifacts/admin-website/
+
+  api:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: reports
+          POSTGRES_PASSWORD: integration-only
+          POSTGRES_DB: reports
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U reports" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      REPORT_TEST_DATABASE_URL: postgresql://reports:integration-only@localhost:5432/reports
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - run: npm install --prefix "$RUNNER_TEMP/reports-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.8.3 @types/node@22 @types/pg@8 pg@8.11.3 bcryptjs@3
+      - run: ln -s "$RUNNER_TEMP/reports-tools/node_modules" node_modules
+      - name: Register governed roles before deriving reporting grants
+        run: |
+          python3 scripts/register-workspace-governance.py
+          python3 scripts/register-care-governance.py
+      - run: python3 scripts/register-admin-reports.py && python3 scripts/register-admin-reports.py --check
+      - run: node --test scripts/test-admin-reports.mjs scripts/test-workspace.mjs scripts/test-auth-maintenance.mjs
+      - run: node --test scripts/test-admin-reports-postgres.mjs
+      - run: "$RUNNER_TEMP/reports-tools/node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/reporting.ts"
+  flutter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare isolated historical governance test fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter analyze lib/src/features/reports lib/src/features/workspace/governed_workspace_screen.dart test/admin_reports_test.dart test/report_pdf_exporter_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter test test/admin_reports_test.dart test/report_pdf_exporter_test.dart
+        working-directory: packages/primecare_ui
+      - run: dart test test/admin_report_models_test.dart
+        working-directory: packages/primecare_models
+
+  governance-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: apps/primecare_governance
+      - run: flutter test
+        working-directory: apps/primecare_governance
+
+  record:
+    needs: [care, growth, auth, acceptance, browser, api, flutter, governance-tests]
+    if: always()
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Review every implemented process against pinned live references and current source
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          REGRESSION_RESULTS: ${{ toJSON(needs) }}
+        run: |
+          python -u - <<'PY'
+          import sys,os,json,pathlib,hashlib,datetime,re
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import summary
+          root=pathlib.Path.cwd();out=root/'test-results/implemented-regressions';out.mkdir(parents=True,exist_ok=True)
+          def decoded(v):return json.loads(v) if isinstance(v,str) else v
+          def safe_path(path):
+              if not isinstance(path,str):return None
+              p=pathlib.Path(path)
+              if p.is_absolute() or '..' in p.parts:return None
+              target=(root/p).resolve()
+              return target if target.is_relative_to(root.resolve()) else None
+          needs=json.loads(os.environ['REGRESSION_RESULTS'])
+          groups={'auth':['auth'],'care':['care'],'growth':['growth'],'platform':['acceptance','browser','api','flutter','governance-tests']}
+          with ProductionWorkflowStore() as db:
+              keys=[c['name'] for c in db.tables['virtual_workflow_definitions']['columns']]
+              workflows=[dict(zip(keys,r)) for r in db.execute("SELECT * FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND verification_status IN ('implemented-unverified','verified') ORDER BY flow_id")]
+              cache={};reviews=[]
+              for row in workflows:
+                  plan=decoded(row['definition_json']);checks=[];unresolved=list(plan.get('unresolved_governance_refs',[]))
+                  for ref in plan.get('governance_refs',[]):
+                      table=ref.get('table');columns=ref.get('key_columns',[]);key=ref.get('key')
+                      if not table or table not in db.tables or not columns or not all(isinstance(c,str) and re.fullmatch('[a-z_][a-z0-9_]*',c) and c in {x['name'] for x in db.tables[table]['columns']} for c in columns):
+                          checks.append(dict(reference=ref,result='unresolved',reason='No exact manifest-backed key columns; no identity guessed'));continue
+                      values=[key] if len(columns)==1 else key
+                      if not isinstance(values,list) or len(values)!=len(columns):
+                          checks.append(dict(reference=ref,result='unresolved',reason='Composite reference lacks explicit key tuple'));continue
+                      cache_key=json.dumps([table,columns,values],sort_keys=True)
+                      if cache_key not in cache:
+                          metadata=[c['name'] for c in db.tables[table]['columns']]
+                          sql='SELECT * FROM '+table+' WHERE '+' AND '.join(c+'=?' for c in columns)
+                          cache[cache_key]=[dict(zip(metadata,r)) for r in db.execute(sql,values)]
+                      matches=cache[cache_key]
+                      checks.append(dict(reference=ref,result='resolved' if len(matches)==1 else 'unresolved',match_count=len(matches),record=matches[0] if len(matches)==1 else None))
+                  hashes={};missing=[];drift=[]
+                  for path in plan.get('source_paths',[]):
+                      p=safe_path(path)
+                      if not p or not p.is_file():missing.append(path);continue
+                      hashes[path]=hashlib.sha256(p.read_bytes()).hexdigest()
+                      expected=plan.get('source_sha256',{}).get(path)
+                      if expected and hashes[path]!=expected:drift.append(dict(path=path,registered_sha256=expected,current_sha256=hashes[path]))
+                  group=row['flow_id'].split('.')[0]
+                  jobs={j:needs[j]['result'] for j in groups[group]}
+                  review=dict(workflow_id=row['flow_id'],title=row['title'],verification_status=row['verification_status'],test_status=row['test_status'],definition_sha256=row['definition_sha256'],definition_quality=plan.get('definition_quality'),source_main_sha=os.environ['GITHUB_SHA'],requirements_references=checks,unresolved_declared_references=unresolved,missing_sources=missing,specification_source_drift=drift,current_source_bindings=hashes,existing_blockers=decoded(row.get('blocker_json') or '[]'),family_regression_results=jobs,full_acceptance_proven=False,remaining_acceptance=['Require workflow-specific credential login, UI/API/database/reload receipt and all registered acceptance alternatives; family regression results do not replace that receipt.','Require current externally produced acceptance review and all governed review/evidence gates before verified status.'],next_action='Resolve exact metadata/source drift where listed, then execute and bind this workflow acceptance criteria individually using isolated synthetic fixtures; preserve existing authority and tenant isolation.')
+                  reviews.append(review)
+                  db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('implemented-review:'+row['flow_id'],json.dumps(review,sort_keys=True,default=str)))
+              result=dict(generated_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),source_main_sha=os.environ['GITHUB_SHA'],summary=summary(db),implemented_count=len(reviews),job_results=needs,workflows=reviews,scope='Current-main family regression plus live production requirement/source review for every implemented business process. No full acceptance or independent approval is fabricated.')
+              (out/'implemented-review.json').write_text(json.dumps(result,ensure_ascii=False,indent=2,default=str))
+              checkpoint=dict(main_sha=os.environ['GITHUB_SHA'],active_branch=None,remote_branch_count=1,local_branch_count=1,open_pr_count=0,merged_pr=215,implemented_count=len(reviews),summary=result['summary'],regression_results={k:v['result'] for k,v in needs.items()},reviewed_workflow_ids=[r['workflow_id'] for r in reviews],full_acceptance_proven=False,next_action='Use per-workflow implemented-review snapshots and current-main artifacts to execute missing workflow-specific credential/UI/API/database acceptance; resolve listed exact metadata/source drift. Maintain main-only idle branch state; create at most one work branch only when a supported implementation fix requires it.')
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('implemented-verification-current',json.dumps(checkpoint,sort_keys=True)))
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('execution-handoff-current',json.dumps(checkpoint,sort_keys=True)))
+          print('ALL_IMPLEMENTED_REVIEW_COMMITTED '+json.dumps(dict(summary=result['summary'],implemented_count=len(reviews),regressions={k:v['result'] for k,v in needs.items()},unresolved_requirements=sum(bool(r['unresolved_declared_references'] or any(c['result']=='unresolved' for c in r['requirements_references'])) for r in reviews),source_drift=sum(bool(r['specification_source_drift']) for r in reviews),missing_sources=sum(bool(r['missing_sources']) for r in reviews))))
+          for r in reviews:print('IMPLEMENTED_REVIEW '+json.dumps(dict(workflow_id=r['workflow_id'],references=[dict(reference=c['reference'],result=c['result']) for c in r['requirements_references'] if c['result']!='resolved'],declared_unresolved=r['unresolved_declared_references'],drift=r['specification_source_drift'],family_regression_results=r['family_regression_results']),default=str))
+          
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-implemented-requirements-review
+          path: test-results/implemented-regressions
