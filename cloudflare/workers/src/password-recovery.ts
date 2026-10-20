@@ -1,3 +1,4 @@
+import {invalidateSessions,invalidatePasswordResets} from './auth-invalidation';
 import {resultRows,requiredRow,optionalRow} from './database-results';
 import {confirmedAudit} from './audit-confirmation';
 import type {Client} from 'pg';
@@ -54,8 +55,8 @@ export async function resetPassword(db:Client,input:{email:string;code:string;ne
   if(!consumed){await db.query('ROLLBACK');return {status:400,body:{error:'Invalid or expired reset code. Request a new code.'}};}
   if(accountId(consumed.user_id)!==id)throw Error('Invalid reset consumption');
   confirmedPasswordUpdate((await db.query('UPDATE users SET password_hash=$1,updated_at=NOW() WHERE id=$2 RETURNING id,password_hash',[passwordHash,id])).rows,id!,passwordHash);
-  await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[id]);
-  await db.query('DELETE FROM auth_password_resets WHERE user_id=$1',[id]);
+  await invalidateSessions(db,id!);
+  await invalidatePasswordResets(db,id!);
   confirmedAudit((await db.query("INSERT INTO auth_password_audit(user_id,action) VALUES($1,'password_changed') RETURNING id,user_id,action,created_at",[id])).rows,{user_id:id,action:'password_changed'});
   await db.query('COMMIT');return {status:200,body:{status:'password_reset',reauthenticationRequired:true}};
  } catch(error){await db.query('ROLLBACK');throw error;}

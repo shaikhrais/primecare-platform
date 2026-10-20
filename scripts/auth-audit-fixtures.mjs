@@ -1,5 +1,7 @@
 /** Explicit successful RETURNING fixture, shared by tests only. */
 export function auditFixture(sql,values) {
+ // Explicit empty postcondition for successful auth mutation fixtures only.
+ if(['SELECT EXISTS(SELECT 1 FROM auth_sessions WHERE user_id=$1) AS remaining','SELECT EXISTS(SELECT 1 FROM auth_password_resets WHERE user_id=$1) AS remaining'].includes(sql))return {rows:[{remaining:false}]};
  const base={id:'fixture-audit',created_at:'2026-01-01T00:00:00Z'};
  if(sql.startsWith('INSERT INTO auth_account_audit'))return {rows:[{...base,actor_user_id:values[0],target_user_id:values[1],tenant_id:values[2],action:'account_created'}]};
  if(sql.startsWith('INSERT INTO auth_password_audit'))return {rows:[{...base,user_id:values[0],action:'password_changed'}]};

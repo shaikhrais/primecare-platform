@@ -27,5 +27,5 @@ test('changes hash, revokes all sessions and appends audit without logging secre
  assert.equal(result.status,200);assert.equal(result.body.reauthenticationRequired,true);
  assert.ok(await bcrypt.compare(input.newPassword,calls[0].values[0]));
  assert.ok(calls[1].sql.startsWith('DELETE FROM auth_sessions'));
- assert.ok(calls[2].sql.startsWith('INSERT INTO auth_password_audit'));
+ assert.ok(calls.some(c=>c.sql.startsWith('INSERT INTO auth_password_audit')));
 });

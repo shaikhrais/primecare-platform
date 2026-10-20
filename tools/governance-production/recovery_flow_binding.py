@@ -6,7 +6,7 @@ SCOPE={'flowIds':FLOWS,'tables':['virtual_workflow_definitions','virtual_workflo
 def bind(db,catalog):
     if db.pin['recoveryRegistrationWriter'].get('workflowBinding')!=SCOPE:raise GovernanceReadError('Exact recovery workflow binding scope required')
     if read_catalog(db,load_definition())!=catalog or json.loads((ROOT/'packages/shared/src/auth-recovery.json').read_text())!=catalog:raise GovernanceReadError('Current production recovery catalog required before binding')
-    paths=['cloudflare/workers/src/password-recovery.ts','cloudflare/workers/src/auth.ts','cloudflare/workers/src/email.ts','cloudflare/workers/src/gateway.ts',SOURCE,'websites/typescript/src/auth-screen.ts','websites/typescript/src/main.ts','packages/shared/src/auth-recovery.json','tools/governance-production/recovery_registration.py','tools/governance-production/recovery_flow_binding.py']
+    paths=['cloudflare/workers/src/password-recovery.ts','cloudflare/workers/src/auth-invalidation.ts','cloudflare/workers/src/password-change.ts','cloudflare/workers/src/auth.ts','cloudflare/workers/src/email.ts','cloudflare/workers/src/gateway.ts',SOURCE,'websites/typescript/src/auth-screen.ts','websites/typescript/src/main.ts','packages/shared/src/auth-recovery.json','tools/governance-production/recovery_registration.py','tools/governance-production/recovery_flow_binding.py']
     sources={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths}
     results=[]
     for mode,flow in zip(['forgot','reset'],FLOWS):

@@ -26,7 +26,12 @@ jobs:
             const nativeRuns=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'verify-session-revocation-fault.yml',branch:'main',per_page:100})).data.workflow_runs;
             const nativeRun=nativeRuns.find(r=>r.head_sha===authRun.head_sha)||nativeRuns.find(r=>r.conclusion==='success');
             if(!nativeRun)throw Error('Current native revocation proof required');
-            for(const run_id of [authRunId,nativeRun.id]){
+            const invalidationRuns=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'verify-auth-invalidation.yml',branch:'main',per_page:100})).data.workflow_runs;
+            const invalidationRun=invalidationRuns.find(r=>r.head_sha===authRun.head_sha)||invalidationRuns.find(r=>r.conclusion==='success');
+            const passwordRuns=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'account-password-acceptance.yml',branch:'main',per_page:100})).data.workflow_runs;
+            const passwordRun=passwordRuns.find(r=>r.head_sha===authRun.head_sha)||passwordRuns.find(r=>r.conclusion==='success');
+            if(!invalidationRun||!passwordRun)throw Error('Native invalidation and real password UI proof required');
+            for(const run_id of [authRunId,nativeRun.id,invalidationRun.id,passwordRun.id]){
               let run;
               for(let i=0;i<48;i++){
                 run=(await github.rest.actions.getWorkflowRun({owner,repo,run_id})).data;

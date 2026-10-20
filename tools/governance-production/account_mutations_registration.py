@@ -86,7 +86,7 @@ def register(db,d):
 def bind_implementation(db,result):
  d=definition()
  if result!=read_catalog(db,d) or result!=json.loads((ROOT/'packages/shared/src/account-mutations.json').read_text()):raise GovernanceReadError('Production-generated mutation catalog required')
- paths=[d['panelFile'],d['clientFile'],'websites/typescript/src/workspace.ts','websites/typescript/src/tenant-accounts-panel.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','packages/shared/src/account-mutations.json','cloudflare/workers/src/auth.ts','cloudflare/workers/src/account-management.ts','cloudflare/workers/src/account-admin.ts','cloudflare/workers/src/gateway.ts'];hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths};out=[]
+ paths=[d['panelFile'],d['clientFile'],'websites/typescript/src/workspace.ts','websites/typescript/src/tenant-accounts-panel.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','packages/shared/src/account-mutations.json','cloudflare/workers/src/auth-invalidation.ts','cloudflare/workers/src/auth.ts','cloudflare/workers/src/account-management.ts','cloudflare/workers/src/account-admin.ts','cloudflare/workers/src/gateway.ts'];hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths};out=[]
  for op in d['operations'].values():
   rows=db.execute('SELECT definition_json,definition_sha256,flow_kind,actor_roles_json FROM virtual_workflow_definitions WHERE flow_id=?',(op['flow'],)).fetchall()
   if len(rows)!=1 or rows[0][2]!='business_process' or hashlib.sha256(rows[0][0].encode()).hexdigest()!=rows[0][1]:raise GovernanceReadError('Exact existing mutation process required')

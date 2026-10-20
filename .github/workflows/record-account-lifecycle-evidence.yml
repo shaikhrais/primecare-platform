@@ -32,11 +32,12 @@ jobs:
             if(jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').length!==3)throw Error('Three successful live browser proof jobs required');
             const owner=context.repo.owner,repo=context.repo.repo;
             if(run.path!=='.github/workflows/verify-account-mutations.yml'||run.head_branch!=='main')throw Error('Exact main account producer required');
-            const portal=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:39475799697})).data;
+            let portal=run;
+            if(!jobs.some(j=>j.name==='deploy / build'&&j.conclusion==='success'))portal=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:39475799697})).data;
             const deployed=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:portal.id,per_page:100});
             const required=['deploy / verify_gateway','deploy / build',...['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'].map(p=>'deploy / deploy ('+p+')')];
             if(required.some(name=>!deployed.some(j=>j.name===name&&j.conclusion==='success')))throw Error('Exact nine successful deployment jobs required');
-            if(portal.head_sha!=='7801d8205965460bfa9441a98a66b708911e35c0')throw Error('Pinned runtime required');
+            if(portal.id!==run.id&&portal.head_sha!=='7801d8205965460bfa9441a98a66b708911e35c0')throw Error('Pinned reused runtime required');
             core.setOutput('portal_run',portal.id);core.setOutput('portal_sha',portal.head_sha);
             const branches=await github.paginate(github.rest.repos.listBranches,{owner:context.repo.owner,repo:context.repo.repo,per_page:100});
             const prs=await github.paginate(github.rest.pulls.list,{owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});

@@ -74,7 +74,7 @@ def register(db,d):
  return catalog(db,d)
 def bind_implementation(db,result):
  if result!=catalog(db,definition()) or result!=json.loads((ROOT/'packages/shared/src/tenant-account-reads.json').read_text()):raise GovernanceReadError('Current production-generated read catalog required')
- d=definition();paths=['websites/typescript/src/workspace.ts',d['panelFile'],d['clientFile'],'websites/typescript/src/tenant-accounts-controller.ts','packages/shared/src/tenant-account-reads.json','cloudflare/workers/src/auth.ts','cloudflare/workers/src/account-admin.ts','cloudflare/workers/src/account-management.ts','cloudflare/workers/src/gateway.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','websites/typescript/src/account-mutations-panel.ts','websites/typescript/src/account-mutations-client.ts','packages/shared/src/account-mutations.json']
+ d=definition();paths=['websites/typescript/src/workspace.ts',d['panelFile'],d['clientFile'],'websites/typescript/src/tenant-accounts-controller.ts','packages/shared/src/tenant-account-reads.json','cloudflare/workers/src/auth-invalidation.ts','cloudflare/workers/src/auth.ts','cloudflare/workers/src/account-admin.ts','cloudflare/workers/src/account-management.ts','cloudflare/workers/src/gateway.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','websites/typescript/src/account-mutations-panel.ts','websites/typescript/src/account-mutations-client.ts','packages/shared/src/account-mutations.json']
  hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths};bindings=[]
  root_id=db.execute("SELECT id FROM screen_components WHERE screen_id=705 AND component_code='tenantAccounts.root'").fetchone()[0]
  for op in d['operations'].values():

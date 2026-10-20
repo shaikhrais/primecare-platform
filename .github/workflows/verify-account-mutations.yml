@@ -10,6 +10,10 @@ on:
       - packages/shared/src/account-mutations.json
       - tools/auth-verification/test-live-account-mutations.py
       - tools/auth-verification/owned_inbox.py
+  workflow_run:
+    workflows: ['Release confirmed self-session revocation']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -19,6 +23,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   test:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -91,9 +96,11 @@ jobs:
           GOVERNANCE_WORKFLOW_WRITES: '1'
           GOVERNANCE_ACCOUNT_MUTATIONS_REGISTRATION: '1'
           GOVERNANCE_TENANT_ACCOUNTS_READ_WRITES: '1'
+          GOVERNANCE_RECOVERY_REGISTRATION_WRITES: '1'
         run: |
           python3 tools/governance-production/account_mutations_registration.py --apply --bind
           python3 tools/governance-production/tenant_accounts_registration.py --apply --bind
+          python3 tools/governance-production/recovery_registration.py --apply
       - uses: actions/upload-artifact@v4
         if: always()
         with:

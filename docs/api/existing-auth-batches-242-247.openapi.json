@@ -120,6 +120,12 @@
                       "franchise_sales",
                       "gm",
                       "governance",
+                      "growth_caller",
+                      "growth_coordinator",
+                      "growth_google",
+                      "growth_meta",
+                      "growth_offline",
+                      "growth_seo",
                       "guest",
                       "hr_director",
                       "hr_hiring",
@@ -129,6 +135,7 @@
                       "legal",
                       "local_marketing",
                       "lpn",
+                      "maintenance",
                       "marketing",
                       "np",
                       "ops_manager",
@@ -161,8 +168,7 @@
                       "training_director",
                       "vip_manager",
                       "volunteer",
-                      "volunteer_coordinator",
-                      "maintenance"
+                      "volunteer_coordinator"
                     ]
                   },
                   "status": {
@@ -658,6 +664,12 @@
                       "franchise_sales",
                       "gm",
                       "governance",
+                      "growth_caller",
+                      "growth_coordinator",
+                      "growth_google",
+                      "growth_meta",
+                      "growth_offline",
+                      "growth_seo",
                       "guest",
                       "hr_director",
                       "hr_hiring",
