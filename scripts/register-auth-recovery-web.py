@@ -1,3 +1,14 @@
+import os,sys
+if os.environ.get('GOVERNANCE_ALLOW_SQLITE_FIXTURES')=='1':
+    if os.environ.get('PRODUCTION_DATABASE_URL') or os.environ.get('GOVERNANCE_DATABASE_URL'):
+        raise SystemExit('Production credentials forbidden in historical SQLite recovery fixtures')
+else:
+    if '--database' in sys.argv:
+        raise SystemExit('Historical database paths require explicit GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 with no production credentials')
+    sys.path.insert(0,str(__import__('pathlib').Path(__file__).resolve().parents[1]/'tools/governance-production'))
+    from recovery_registration import main
+    main()
+    raise SystemExit(0)
 """Register public web recovery separately from existing native screen metadata."""
 import sqlite3,json,argparse
 from pathlib import Path

@@ -64,5 +64,27 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "permissionChanges": false
+  },
+  "recoveryRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_RECOVERY_REGISTRATION_WRITES",
+    "screenIds": [
+      947,
+      950
+    ],
+    "apiIds": [
+      395,
+      396
+    ],
+    "tables": [
+      "screen_components",
+      "screen_api_links",
+      "language_resources",
+      "language_resource_values",
+      "api_endpoints"
+    ],
+    "definitionSha256": "04fb4dbdc80d862f80438664253ba14248ab19e2c62f813cb71b4fe41b83f9d3",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false
   }
 }
