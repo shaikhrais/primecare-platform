@@ -84,8 +84,12 @@ jobs:
               req=urllib.request.Request('https://'+project+'.pages.dev/assets/app.js?enable-semantics=true',headers={'User-Agent':'node','Accept-Encoding':'identity'})
               with urllib.request.urlopen(req,timeout=30) as response:actual=response.read()
               assert digest(actual)==digest(expected),'Deployed runtime asset drift: '+project
-              assets.append({'project':project,'asset_sha256':digest(actual),'source_commit':os.environ['PORTAL_SHA']})
-          runtime_paths=['websites/typescript/src/main.ts','websites/typescript/src/account.ts','websites/typescript/src/sessions-panel.ts','websites/typescript/src/sessions-client.ts','websites/typescript/src/sessions-controller.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','packages/shared/src/account-sessions.json']
+              expected_css=(root/'test-results/sessions-built-websites'/project/'assets/app.css').read_bytes()
+              req_css=urllib.request.Request('https://'+project+'.pages.dev/assets/app.css?enable-semantics=true',headers={'User-Agent':'node','Accept-Encoding':'identity'})
+              with urllib.request.urlopen(req_css,timeout=30) as response:actual_css=response.read()
+              assert digest(actual_css)==digest(expected_css),'Deployed stylesheet drift: '+project
+              assets.append({'project':project,'asset_sha256':digest(actual),'stylesheet_sha256':digest(actual_css),'source_commit':os.environ['PORTAL_SHA']})
+          runtime_paths=['websites/typescript/src/styles.css','websites/typescript/src/main.ts','websites/typescript/src/account.ts','websites/typescript/src/sessions-panel.ts','websites/typescript/src/sessions-client.ts','websites/typescript/src/sessions-controller.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','packages/shared/src/account-sessions.json']
           for path in runtime_paths:
               original=subprocess.check_output(['git','show',os.environ['PORTAL_SHA']+':'+path])
               assert digest(original)==digest((root/path).read_bytes()),'Runtime source drift: '+path
