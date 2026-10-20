@@ -36,6 +36,9 @@ jobs:
             if(required.some(name=>!deployed.some(j=>j.name===name&&j.conclusion==='success')))throw Error('Exact nine successful deployment jobs required');
             if(portal.id!==run.id&&portal.head_sha!=='7801d8205965460bfa9441a98a66b708911e35c0')throw Error('Pinned reused runtime required');
             core.setOutput('portal_run',portal.id);core.setOutput('portal_sha',portal.head_sha);
+            const passwordRuns=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'account-password-acceptance.yml',branch:'main',status:'success',per_page:10})).data.workflow_runs;
+            if(!passwordRuns.length)throw Error('Successful password browser native proof required');
+            core.setOutput('password_run',passwordRuns[0].id);
             const branches=await github.paginate(github.rest.repos.listBranches,{owner:context.repo.owner,repo:context.repo.repo,per_page:100});
             const prs=await github.paginate(github.rest.pulls.list,{owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
             if(branches.length!==1||branches[0].name!=='main'||prs.length)throw Error('Main-only state required');
@@ -52,6 +55,12 @@ jobs:
           github-token: ${{ github.token }}
           name: primecare-typescript-websites
           path: test-results/account-lifecycle-built-websites
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ steps.authority.outputs.password_run }}
+          github-token: ${{ github.token }}
+          name: current-account-password-native-browser
+          path: test-results/account-password-native
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -89,6 +98,19 @@ jobs:
                   assert r.get('cleanup')=='Exact synthetic account-read tenants, users, sessions, audits and login counters removed'
               receipts.append(r)
           assert {(r['scope'],r['locale'],r['width']) for r in receipts}=={(scope,loc,width) for scope in ['deployed-account-mutations-owned-inbox','deployed-ceo-account-reads'] for loc,width in [('en',320),('fr',768),('es',1440)]}
+          release_receipts=list((root/'test-results/account-lifecycle-accepted').rglob('auth-release-approved.json'))
+          assert len(release_receipts)==3,'Each live browser job must wait for the native-verified matching auth deployment'
+          for path in release_receipts:
+              r=json.loads(path.read_text());assert r.get('workerSourceMatch') is True and r.get('producer')==os.environ['PRODUCER_SHA']
+          password_receipt_path=root/'test-results/account-password-native/results.json'
+          password_receipt=json.loads(password_receipt_path.read_text())
+          assert password_receipt.get('passed') is True and password_receipt.get('cleanup')=='Isolated synthetic schema dropped; production business data untouched'
+          assert {(c['locale'],c['width']) for c in password_receipt['cases']}=={('en',320),('fr',768),('es',1440)}
+          for c in password_receipt['cases']:
+              assert all(c.get(k) is True for k in ['credentialLogin','actualMainUI','malformedSuccessRejected','offlineRetry','auditFailureRollsBack','passwordHashConfirmed','allPriorSessionsRevoked','resetTokensRevoked','foreignTenantPreserved','newCredentialLoginAndReload','replacementSessionPreserved'])
+          for path,sha in password_receipt['source_bindings'].items():
+              assert digest((root/path).read_bytes())==sha,'Native password proof source drift: '+path
+              assert digest(subprocess.check_output(['git','show',os.environ['PRODUCER_SHA']+':'+path]))==sha,'Producer password proof source drift: '+path
           assets=[]
           for project in ['primecare-clinic','primecare-client','primecare-business-development','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint']:
               expected=(root/'test-results/account-lifecycle-built-websites'/project/'assets/app.js').read_bytes()
@@ -119,21 +141,21 @@ jobs:
               assert read_accounts(db,account_definition())==json.loads((root/'packages/shared/src/tenant-account-reads.json').read_text())
               packet={'scope':'Actual deployed Chromium CEO/HR account UI / public gateway / native PostgreSQL / Cloudflare receiving Worker account lifecycle','receipts':receipts,'assets':assets,'registration_authority':catalog['authority'],'whole_auth_verified':False,'remaining':['Complete negative/failure-path evidence for the current definition','Full accessibility/PWA/native-platform acceptance','Independent current review approvals'],'source_main':os.environ['GITHUB_SHA']}
               p=out/'receipt.json';p.write_text(json.dumps(packet,indent=2))
-              for path in list((root/'test-results/account-lifecycle-accepted').rglob('*'))+[p]:
+              for path in list((root/'test-results/account-lifecycle-accepted').rglob('*'))+[p,password_receipt_path]:
                   if path.is_file():evidence.append({'kind':'browser','path':str(path.relative_to(root)),'sha256':digest(path.read_bytes()),'url':os.environ['RUN_URL']})
               attempts=[]
-              for flow in ['auth.create-tenant-account','auth.manage-account','auth.revoke-account-sessions','auth.list-tenant-accounts','auth.inspect-account','auth.inspect-account-sessions','auth.read-management-audit','auth.read-creation-audit','auth.forgot-password','auth.reset-password']:
+              for flow in ['auth.create-tenant-account','auth.manage-account','auth.revoke-account-sessions','auth.list-tenant-accounts','auth.inspect-account','auth.inspect-account-sessions','auth.read-management-audit','auth.read-creation-audit','auth.forgot-password','auth.reset-password','auth.change-password']:
                   definition=json.loads(db.execute('SELECT definition_json FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()[0])
-                  sources=definition['source_sha256']
+                  sources=password_receipt['source_bindings'] if flow=='auth.change-password' else definition['source_sha256']
                   for path,sha in sources.items():
                       assert digest((root/path).read_bytes())==sha,'Definition/source drift: '+path
                       producer_source=subprocess.check_output(['git','show',os.environ['PRODUCER_SHA']+':'+path])
                       assert digest(producer_source)==sha,'Producer/definition source drift: '+path
-                  blockers=['Deployed account reads and creation/edit/revocation/real-email recovery journey passed in EN/FR/ES at320/768/1440 widths. Each locale passed36 read checks and44 lifecycle checks. These scoped checks do not establish every registered failure alternative or all actor/platform coverage.','Existing authority is unchanged; CEO/HR creation and CEO management/revocation only. Registered localization values and required independent reviews remain unapproved.','Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete.']
+                  blockers=['Deployed account reads and creation/edit/revocation/real-email recovery journey passed in EN/FR/ES at320/768/1440 widths. Each locale passed36 read checks and44 lifecycle checks. These scoped checks do not establish every registered failure alternative or all actor/platform coverage.','Existing authority is unchanged; CEO/HR creation and CEO management/revocation only. Registered localization values and required independent reviews remain unapproved.','Password-change proof uses actual UI/gateway/native PostgreSQL with an explicitly isolated metadata fixture. Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete.']
                   attempts.append(record_attempt(db,flow,{'status':'implemented-unverified','test_status':'scoped_pass','scope':'scoped','source_bindings':sources,'evidence':evidence,'issues':[],'blockers':blockers,'next_action':'Complete current failure alternatives, accessibility/PWA/native acceptance and independent reviews; preserve these deployed proof receipts.'},root))
               auth=[dict(zip(['id','status','test_status'],row)) for row in db.execute("SELECT flow_id,verification_status,test_status FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE ? ORDER BY flow_id",('auth.%',))]
               assert len(auth)==23
-              state={'auth_acceptance':auth,'attempt_ids':[a['attempt_id'] for a in attempts],'workflows':['auth.create-tenant-account','auth.manage-account','auth.revoke-account-sessions','auth.list-tenant-accounts','auth.inspect-account','auth.inspect-account-sessions','auth.read-management-audit','auth.read-creation-audit','auth.forgot-password','auth.reset-password'],'browser_cases':3,'receipt_count':6,'deployed_portal_assets':len(assets),'summary':summary(db),'source_main':os.environ['GITHUB_SHA'],'main_only':True,'open_prs':0,'whole_auth_verified':False,'evidence':os.environ['RUN_URL']}
+              state={'auth_acceptance':auth,'attempt_ids':[a['attempt_id'] for a in attempts],'workflows':['auth.create-tenant-account','auth.manage-account','auth.revoke-account-sessions','auth.list-tenant-accounts','auth.inspect-account','auth.inspect-account-sessions','auth.read-management-audit','auth.read-creation-audit','auth.forgot-password','auth.reset-password','auth.change-password'],'browser_cases':3,'native_password_cases':3,'receipt_count':6,'deployed_portal_assets':len(assets),'summary':summary(db),'source_main':os.environ['GITHUB_SHA'],'main_only':True,'open_prs':0,'whole_auth_verified':False,'evidence':os.environ['RUN_URL']}
               db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('auth-account-lifecycle-browser-current',json.dumps(state)))
               (out/'summary.json').write_text(json.dumps(state,indent=2))
           print('AUTH_ACCOUNT_LIFECYCLE_RECORDED '+json.dumps(state))
