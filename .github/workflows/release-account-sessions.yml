@@ -1,0 +1,31 @@
+name: Release registered account session controls
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/release-account-sessions.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify-tested-source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Require successful browser checks and unchanged tested controls
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api repos/shaikhrais/primecare-platform/actions/runs/39445151306 > "$RUNNER_TEMP/session-run.json"
+          test "$(jq -r '.conclusion' "$RUNNER_TEMP/session-run.json")" = success
+          tested="$(jq -r '.head_sha' "$RUNNER_TEMP/session-run.json")"
+          git diff --exit-code "$tested" HEAD -- websites/typescript/src/account.ts websites/typescript/src/sessions-client.ts websites/typescript/src/sessions-controller.ts websites/typescript/src/sessions-panel.ts websites/typescript/src/infrastructure/http/base-session-client.ts packages/shared/src/account-sessions.json
+  deploy:
+    needs: verify-tested-source
+    uses: ./.github/workflows/deploy-typescript-websites.yml
+    with:
+      confirm: DEPLOY
+    secrets: inherit
