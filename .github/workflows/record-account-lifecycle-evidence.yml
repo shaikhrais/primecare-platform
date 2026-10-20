@@ -1,0 +1,135 @@
+name: Record deployed account lifecycle evidence
+on:
+  workflow_run:
+    workflows: ['Verify deployed account creation editing revocation and email recovery']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  record:
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: authority
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const run=context.payload.workflow_run;
+            if(run.status!=='completed'||run.conclusion!=='success')throw Error('Deployed session proof has not passed');
+            const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner:context.repo.owner,repo:context.repo.repo,run_id:run.id,per_page:100});
+            if(jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').length!==3)throw Error('Three successful live browser proof jobs required');
+            const owner=context.repo.owner,repo=context.repo.repo;
+            if(run.path!=='.github/workflows/verify-account-mutations.yml'||run.head_branch!=='main')throw Error('Exact main account producer required');
+            const portal=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:39475799697})).data;
+            const deployed=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:portal.id,per_page:100});
+            const required=['deploy / verify_gateway','deploy / build',...['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'].map(p=>'deploy / deploy ('+p+')')];
+            if(required.some(name=>!deployed.some(j=>j.name===name&&j.conclusion==='success')))throw Error('Exact nine successful deployment jobs required');
+            if(portal.head_sha!=='7801d8205965460bfa9441a98a66b708911e35c0')throw Error('Pinned runtime required');
+            core.setOutput('portal_run',portal.id);core.setOutput('portal_sha',portal.head_sha);
+            const branches=await github.paginate(github.rest.repos.listBranches,{owner:context.repo.owner,repo:context.repo.repo,per_page:100});
+            const prs=await github.paginate(github.rest.pulls.list,{owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
+            if(branches.length!==1||branches[0].name!=='main'||prs.length)throw Error('Main-only state required');
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          pattern: current-account-journeys-*
+          path: test-results/account-lifecycle-accepted
+          merge-multiple: false
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ steps.authority.outputs.portal_run }}
+          github-token: ${{ github.token }}
+          name: primecare-typescript-websites
+          path: test-results/account-lifecycle-built-websites
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Verify deployed assets and record current scoped evidence
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          PORTAL_SHA: ${{ steps.authority.outputs.portal_sha }}
+          PRODUCER_SHA: ${{ github.event.workflow_run.head_sha }}
+          RUN_URL: https://github.com/shaikhrais/primecare-platform/actions/runs/${{ github.run_id }}
+        run: |
+          python -u - <<'PY'
+          import sys,json,pathlib,hashlib,os,subprocess,urllib.request
+          sys.path.insert(0,'tools/workflow-verification');sys.path.insert(0,'tools/governance-production')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,summary
+          from account_mutations_registration import read_catalog,definition as load_definition
+          from tenant_accounts_registration import read_catalog as read_accounts,definition as account_definition
+          root=pathlib.Path.cwd();out=root/'test-results/account-lifecycle-attestation';out.mkdir(parents=True,exist_ok=True)
+          digest=lambda b:hashlib.sha256(b).hexdigest()
+          evidence=[];receipts=[]
+          files=list((root/'test-results/account-lifecycle-accepted').rglob('results-*.json'))
+          assert len(files)==6,'Three read and three lifecycle browser receipts required'
+          for path in files:
+              r=json.loads(path.read_text())
+              assert r.get('passed') is True and r.get('wholeAuthVerified') is False
+              assert not r.get('cleanupError') and not r.get('cleanup_error') and not r.get('inboxCleanupError')
+              if r['scope']=='deployed-account-mutations-owned-inbox':
+                  assert len(r.get('checks',[]))>=44 and r.get('received') is True
+                  assert r.get('cleanup')=='Exact owned synthetic mutation tenants, accounts, sessions, reset codes, audits and counters removed'
+                  assert r.get('inboxCleanup')=='Only the database-correlated, hash-matched synthetic message removed'
+              else:
+                  assert r['scope']=='deployed-ceo-account-reads' and len(r.get('checks',[]))>=36
+                  assert r.get('cleanup')=='Exact synthetic account-read tenants, users, sessions, audits and login counters removed'
+              receipts.append(r)
+          assert {(r['scope'],r['locale'],r['width']) for r in receipts}=={(scope,loc,width) for scope in ['deployed-account-mutations-owned-inbox','deployed-ceo-account-reads'] for loc,width in [('en',320),('fr',768),('es',1440)]}
+          assets=[]
+          for project in ['primecare-clinic','primecare-client','primecare-business-development','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint']:
+              expected=(root/'test-results/account-lifecycle-built-websites'/project/'assets/app.js').read_bytes()
+              req=urllib.request.Request('https://'+project+'.pages.dev/assets/app.js?enable-semantics=true',headers={'User-Agent':'node','Accept-Encoding':'identity'})
+              with urllib.request.urlopen(req,timeout=30) as response:actual=response.read()
+              assert digest(actual)==digest(expected),'Deployed runtime asset drift: '+project
+              expected_css=(root/'test-results/account-lifecycle-built-websites'/project/'assets/app.css').read_bytes()
+              req_css=urllib.request.Request('https://'+project+'.pages.dev/assets/app.css?enable-semantics=true',headers={'User-Agent':'node','Accept-Encoding':'identity'})
+              with urllib.request.urlopen(req_css,timeout=30) as response:actual_css=response.read()
+              assert digest(actual_css)==digest(expected_css),'Deployed stylesheet drift: '+project
+              assets.append({'project':project,'asset_sha256':digest(actual),'stylesheet_sha256':digest(actual_css),'source_commit':os.environ['PORTAL_SHA']})
+          runtime_paths=['websites/typescript/src/styles.css','websites/typescript/src/main.ts','websites/typescript/src/workspace.ts','websites/typescript/src/tenant-accounts-panel.ts','websites/typescript/src/tenant-accounts-client.ts','websites/typescript/src/tenant-accounts-controller.ts','websites/typescript/src/account-mutations-panel.ts','websites/typescript/src/account-mutations-client.ts','websites/typescript/src/infrastructure/http/base-session-client.ts','packages/shared/src/account-mutations.json','packages/shared/src/tenant-account-reads.json']
+          for path in runtime_paths:
+              original=subprocess.check_output(['git','show',os.environ['PORTAL_SHA']+':'+path])
+              assert digest(original)==digest((root/path).read_bytes()),'Runtime source drift: '+path
+              producer=subprocess.check_output(['git','show',os.environ['PRODUCER_SHA']+':'+path])
+              assert digest(producer)==digest(original),'Producer used a different runtime source: '+path
+          with ProductionWorkflowStore() as db:
+              catalog=read_catalog(db,load_definition())
+              assert catalog==json.loads((root/'packages/shared/src/account-mutations.json').read_text())
+              assert read_accounts(db,account_definition())==json.loads((root/'packages/shared/src/tenant-account-reads.json').read_text())
+              packet={'scope':'Actual deployed Chromium CEO/HR account UI / public gateway / native PostgreSQL / Cloudflare receiving Worker account lifecycle','receipts':receipts,'assets':assets,'registration_authority':catalog['authority'],'whole_auth_verified':False,'remaining':['Complete negative/failure-path evidence for the current definition','Full accessibility/PWA/native-platform acceptance','Independent current review approvals'],'source_main':os.environ['GITHUB_SHA']}
+              p=out/'receipt.json';p.write_text(json.dumps(packet,indent=2))
+              for path in list((root/'test-results/account-lifecycle-accepted').rglob('*'))+[p]:
+                  if path.is_file():evidence.append({'kind':'browser','path':str(path.relative_to(root)),'sha256':digest(path.read_bytes()),'url':os.environ['RUN_URL']})
+              attempts=[]
+              for flow in ['auth.create-tenant-account','auth.manage-account','auth.revoke-account-sessions','auth.list-tenant-accounts','auth.inspect-account','auth.inspect-account-sessions','auth.read-management-audit','auth.read-creation-audit']:
+                  definition=json.loads(db.execute('SELECT definition_json FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()[0])
+                  sources=definition['source_sha256']
+                  for path,sha in sources.items():
+                      assert digest((root/path).read_bytes())==sha,'Definition/source drift: '+path
+                      producer_source=subprocess.check_output(['git','show',os.environ['PRODUCER_SHA']+':'+path])
+                      assert digest(producer_source)==sha,'Producer/definition source drift: '+path
+                  blockers=['Deployed account reads and creation/edit/revocation/real-email recovery journey passed in EN/FR/ES at320/768/1440 widths. Each locale passed36 read checks and44 lifecycle checks. These scoped checks do not establish every registered failure alternative or all actor/platform coverage.','Existing authority is unchanged; CEO/HR creation and CEO management/revocation only. Registered localization values and required independent reviews remain unapproved.','Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete.']
+                  attempts.append(record_attempt(db,flow,{'status':'implemented-unverified','test_status':'scoped_pass','scope':'scoped','source_bindings':sources,'evidence':evidence,'issues':[],'blockers':blockers,'next_action':'Complete current failure alternatives, accessibility/PWA/native acceptance and independent reviews; preserve these deployed proof receipts.'},root))
+              state={'attempt_ids':[a['attempt_id'] for a in attempts],'workflows':['auth.create-tenant-account','auth.manage-account','auth.revoke-account-sessions','auth.list-tenant-accounts','auth.inspect-account','auth.inspect-account-sessions','auth.read-management-audit','auth.read-creation-audit'],'browser_cases':3,'receipt_count':6,'deployed_portal_assets':len(assets),'summary':summary(db),'source_main':os.environ['GITHUB_SHA'],'main_only':True,'open_prs':0,'whole_auth_verified':False,'evidence':os.environ['RUN_URL']}
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('auth-account-lifecycle-browser-current',json.dumps(state)))
+              (out/'summary.json').write_text(json.dumps(state,indent=2))
+          print('AUTH_ACCOUNT_LIFECYCLE_RECORDED '+json.dumps(state))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: current-deployed-account-lifecycle-attestation
+          path: test-results/account-lifecycle-attestation
+          retention-days: 90
