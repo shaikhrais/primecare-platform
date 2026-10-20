@@ -31,8 +31,12 @@ export class MaintenanceClient extends BaseSessionClient {
    !Array.isArray(value.audit)||!value.audit.every(item=>record(item)&&typeof item.action==='string'&&typeof item.created_at==='string'))throw Error(this.text('failed'));
   return value as MaintenanceConfiguration;
  }
- async save(value:unknown){return await this.requestJson(catalog.endpoints.configuration,'POST',value) as Record<string,unknown>;}
- async testEmail(){return await this.requestJson(catalog.endpoints.testEmail,'POST',{}) as Record<string,unknown>;}
+ private acknowledgement(value:unknown,message:keyof typeof catalog.serverMessages){
+  if(value===null||typeof value!=='object'||Array.isArray(value)||this.errorData(value).message!==message)throw Error(this.text('failed'));
+  return {message};
+ }
+ async save(value:unknown){return this.acknowledgement(await this.requestJson(catalog.endpoints.configuration,'POST',value),'Settings saved. Send a test email to check delivery.');}
+ async testEmail(){return this.acknowledgement(await this.requestJson(catalog.endpoints.testEmail,'POST',{}),'Provider accepted the test. Check your inbox/spam to confirm delivery.');}
  async createAccount(email:unknown,password:unknown){return await this.requestJson(catalog.endpoints.createAccount,'POST',{email,password,role:catalog.creationRole}) as Record<string,unknown>;}
  async logout(){this.assertSession();await signOut(this.gateway,this.token);this.assertSession();sessionStorage.removeItem('primecare_session');}
 }
