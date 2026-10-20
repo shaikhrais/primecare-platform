@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths: ['tools/auth-verification/test-live-sessions.py']
   workflow_run:
-    workflows: ['Release confirmed self-session revocation', 'Release registered account session controls']
+    workflows: ['Release confirmed self-session revocation', 'Release registered account session controls', 'Verify deployed account creation editing revocation and email recovery']
     types: [completed]
     branches: [main]
 permissions:
@@ -24,22 +24,23 @@ jobs:
         with:
           script: |
             const owner=context.repo.owner,repo=context.repo.repo;
-            let run_id=context.payload.workflow_run?.name==='Release registered account session controls'?context.payload.workflow_run.id:undefined;
-            if(!run_id){
-              const releases=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'release-account-sessions.yml',branch:'main',status:'success',per_page:1})).data.workflow_runs;
-              run_id=releases[0]?.id;
+            const candidates=[];
+            for(const workflow_id of ['release-account-sessions.yml','release-screen-text.yml','verify-account-mutations.yml']){
+              candidates.push(...(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id,branch:'main',status:'success',per_page:10})).data.workflow_runs);
             }
-            if(!run_id)throw Error('Successful portal deployment required');
-            let run;
-            for(let i=0;i<48;i++){
-              run=(await github.rest.actions.getWorkflowRun({owner,repo,run_id})).data;
-              if(run.status==='completed')break;
-              await new Promise(resolve=>setTimeout(resolve,15000));
+            candidates.sort((a,b)=>b.id-a.id);
+            const portals=['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'];
+            let deployment;
+            for(const candidate of candidates){
+              const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:candidate.id,per_page:100});
+              if(!portals.every(p=>jobs.some(j=>j.name.endsWith(' / deploy ('+p+')')&&j.conclusion==='success')))continue;
+              if(![' / build',' / verify_gateway'].every(suffix=>jobs.some(j=>j.name.endsWith(suffix)&&j.conclusion==='success')))continue;
+              const comparison=(await github.rest.repos.compareCommits({owner,repo,base:candidate.head_sha,head:context.sha})).data;
+              if(comparison.files.some(f=>f.filename.startsWith('websites/typescript/')||f.filename.startsWith('packages/shared/')||['scripts/build-typescript-websites.mjs','scripts/export-typescript-websites.py','scripts/theme_manifest.py'].includes(f.filename)))continue;
+              deployment=candidate;break;
             }
-            if(run.conclusion!=='success')throw Error('Required account deployment not successful: '+run.status+'/'+run.conclusion);
-            const comparison=(await github.rest.repos.compareCommits({owner,repo,base:run.head_sha,head:context.sha})).data;
-            if(comparison.files.some(f=>f.filename.startsWith('websites/typescript/')||f.filename.startsWith('packages/shared/')))throw Error('Runtime source changed after required deployment');
-            core.info('Current runtime matches successful nine-portal deployment '+run_id);
+            if(!deployment)throw Error('Successful current-source deployment of all nine portals required');
+            core.info('Current runtime matches successful nine-portal deployment '+deployment.id);
             let authRunId=context.payload.workflow_run?.name==='Release confirmed self-session revocation'?context.payload.workflow_run.id:undefined;
             if(!authRunId){
               const recent=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'release-session-revocation-fix.yml',branch:'main',status:'success',per_page:10})).data.workflow_runs;
