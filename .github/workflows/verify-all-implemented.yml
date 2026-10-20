@@ -1,0 +1,136 @@
+name: Merge remaining local history clean merged branch and inventory implemented workflows
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/verify-all-implemented.yml]
+permissions:
+  contents: write
+  actions: read
+  pull-requests: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Retrieve bounded existing local merge history
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const {data}=await github.rest.git.getBlob({owner:context.repo.owner,repo:context.repo.repo,file_sha:'3ce8d63489aa85b16ec6ba407a7652df3f2c7029'});
+            require('fs').writeFileSync('/tmp/primecare-local-history.bundle',Buffer.from(data.content,'base64'));
+      - id: history
+        name: Preserve existing local merge commits without changing current source
+        run: |
+          python - <<'PY'
+          import subprocess,os,tempfile,pathlib
+          def git(*args,env=None,input=None):return subprocess.check_output(['git',*args],env=env,input=input,text=True).strip()
+          subprocess.run(['git','bundle','verify','/tmp/primecare-local-history.bundle'],check=True)
+          git('fetch','/tmp/primecare-local-history.bundle','work/merge-all-20261019')
+          old=git('rev-parse','FETCH_HEAD');assert old=='77111b3cecb4906d0f03376daac92a9663bd4ba8'
+          main=git('rev-parse','HEAD');tree=git('rev-parse','HEAD^{tree}')
+          r=subprocess.run(['git','merge-tree','--write-tree',main,old],text=True,capture_output=True)
+          assert r.returncode in [0,1],r.stderr
+          merged=r.stdout.splitlines()[0];conflicts=[line.split('\t',1)[1] for line in r.stdout.splitlines() if '\t' in line]
+          assert all(p=='docs/task-progress/branch-merge-status-20261019.md' for p in conflicts),conflicts
+          fd,index=tempfile.mkstemp(prefix='primecare-history-index-');os.close(fd);os.unlink(index);env=dict(os.environ,GIT_INDEX_FILE=index)
+          git('read-tree',merged,env=env)
+          blob=git('rev-parse','HEAD:docs/task-progress/branch-merge-status-20261019.md')
+          git('update-index','--cacheinfo','100644,'+blob+',docs/task-progress/branch-merge-status-20261019.md',env=env)
+          assert git('write-tree',env=env)==tree,'Stop: local branch has unresolved unique source changes'
+          commit=git('-c','user.name=github-actions[bot]','-c','user.email=41898282+github-actions[bot]@users.noreply.github.com','commit-tree',tree,'-p',main,'-p',old,input='Merge remaining local integration history into current main\n\nExplicit owner merge instruction. Reconciled source tree is identical to current main; preserve the two historical local merge commits and the current progress document. Workflow acceptance status remains separate.\n')
+          git('push','origin',commit+':refs/heads/main');git('checkout','--detach',commit)
+          subprocess.run(['git','merge-base','--is-ancestor',old,commit],check=True)
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('sha='+commit+'\n')
+          print('LOCAL_HISTORY_MERGED '+commit)
+          PY
+      - id: cleanup
+        name: Verify merged PR inclusion and delete only the incorporated work branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo;
+            const {data:pr}=await github.rest.pulls.get({owner,repo,pull_number:215});
+            if(!pr.merged||pr.state!=='closed'||pr.head.sha!=='322c9497fa07c30c5cc0c1e59804121609388259')throw Error('Expected incorporated PR215');
+            const {data:merge}=await github.rest.repos.getCommit({owner,repo,ref:pr.merge_commit_sha});
+            if(!merge.parents.some(p=>p.sha===pr.head.sha))throw Error('Expected source parent absent from main merge');
+            const branch='work/auth-maintenance-repair-20261019';
+            try{
+              const {data:ref}=await github.rest.git.getRef({owner,repo,ref:'heads/'+branch});
+              if(ref.object.sha!==pr.head.sha)throw Error('Branch advanced: preserve new work');
+              await github.rest.git.deleteRef({owner,repo,ref:'heads/'+branch});
+            }catch(error){if(error.status!==404)throw error;}
+            const branches=await github.paginate(github.rest.repos.listBranches,{owner,repo,per_page:100});
+            const pulls=await github.paginate(github.rest.pulls.list,{owner,repo,state:'open',per_page:100});
+            if(branches.length!==1||branches[0].name!=='main'||pulls.length)throw Error('Unexpected remaining branch/PR; inspect before continuing');
+            const {data:ref}=await github.rest.git.getRef({owner,repo,ref:'heads/main'});
+            const {data:commit}=await github.rest.git.getCommit({owner,repo,commit_sha:ref.object.sha});
+            const {data:tree}=await github.rest.git.createTree({owner,repo,base_tree:commit.tree.sha,tree:[{path:'.github/workflows/verify-all-implemented.yml',mode:'100644',type:'blob',sha:null}]});
+            const {data:clean}=await github.rest.git.createCommit({owner,repo,message:'ops: remove completed merge and implemented-verification inventory launcher',tree:tree.sha,parents:[ref.object.sha]});
+            await github.rest.git.updateRef({owner,repo,ref:'heads/main',sha:clean.sha,force:false});
+            core.setOutput('main_sha',clean.sha);
+            core.info('PR215 closed; source incorporated; main is the only remote branch.');
+      - name: Read pinned live catalogue and save current main verification queue
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          FINAL_MAIN_SHA: ${{ steps.cleanup.outputs.main_sha }}
+          HISTORY_MERGE_SHA: ${{ steps.history.outputs.sha }}
+        run: |
+          python -u - <<'PY'
+          import sys,os,json,pathlib,hashlib,datetime
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import summary
+          root=pathlib.Path.cwd();out=root/'test-results/implemented-verification';out.mkdir(parents=True,exist_ok=True)
+          def decode(value):return json.loads(value) if isinstance(value,str) else value
+          with ProductionWorkflowStore() as db:
+              def rows(name,where='',parameters=()):
+                  keys=[c['name'] for c in db.tables[name]['columns']]
+                  return [dict(zip(keys,r)) for r in db.execute('SELECT * FROM '+name+(' WHERE '+where if where else ''),parameters)]
+              definitions=rows('virtual_workflow_definitions',"flow_kind='business_process'")
+              implemented=[r for r in definitions if r['verification_status'] in ['implemented-unverified','verified']]
+              ids={r['flow_id'] for r in implemented}
+              support={}
+              for name in ['virtual_workflow_steps','virtual_workflow_source_links','virtual_role_flow_guides']:
+                  data=rows(name);support[name]=[r for r in data if r.get('flow_id') in ids]
+              snapshots=[{k:r[k] for k in ['name','updated_at'] if k in r} for r in rows('virtual_flow_catalog_snapshots')]
+              entries=[]
+              for row in implemented:
+                  flow=row['flow_id'];plan=decode(row['definition_json']);paths=plan.get('source_paths',[])
+                  sources={path:hashlib.sha256((root/path).read_bytes()).hexdigest() for path in paths if isinstance(path,str) and (root/path).is_file()}
+                  missing=[p for p in paths if p not in sources]
+                  steps=[s for s in support['virtual_workflow_steps'] if s.get('flow_id')==flow]
+                  links=[s for s in support['virtual_workflow_source_links'] if s.get('flow_id')==flow]
+                  latest=db.execute('SELECT a.attempt_id,a.definition_sha256,a.source_bindings_json,a.result_json FROM virtual_workflow_checkpoints c JOIN virtual_workflow_attempts a ON a.attempt_id=c.attempt_id WHERE c.flow_id=?',(flow,)).fetchone()
+                  changes=[]
+                  if latest:
+                      for path,old in decode(latest[2]).items():
+                          p=root/path
+                          if not p.is_file():changes.append(dict(path=path,reason='Bound source missing'))
+                          elif hashlib.sha256(p.read_bytes()).hexdigest()!=old:changes.append(dict(path=path,reason='Bound source changed'))
+                  entry=dict(workflow_id=flow,title=row['title'],verification_status=row['verification_status'],test_status=row['test_status'],definition_sha256=row['definition_sha256'],definition_quality=plan.get('definition_quality'),definition=plan,steps=steps,source_links=links,sources=sources,missing_source_paths=missing,unresolved_governance_refs=plan.get('unresolved_governance_refs',[]),declared_gaps=plan.get('gaps',[]),stored_blockers=decode(row.get('blocker_json') or '[]'),latest_attempt_id=latest[0] if latest else None,latest_definition_stale=latest[1]!=row['definition_sha256'] if latest else None,changed_bound_sources=changes,acceptance_verified=False)
+                  entries.append(entry)
+              tables=['virtual_workflow_definitions','virtual_workflow_steps','virtual_workflow_source_links','virtual_role_flow_guides','virtual_flow_catalog_snapshots']
+              result=dict(authority=db.pin['authority'],schema=db.pin['schema'],source_main_sha=os.environ['GITHUB_SHA'],final_main_sha=os.environ['FINAL_MAIN_SHA'],generated_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),summary=summary(db),implemented_count=len(implemented),test_status_counts=dict(db.execute("SELECT test_status,COUNT(*) FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND verification_status IN ('implemented-unverified','verified') GROUP BY test_status")),catalog_kind_counts=dict(db.execute('SELECT flow_kind,COUNT(*) FROM virtual_workflow_definitions GROUP BY flow_kind')),schema_relationships={t:{k:v for k,v in db.tables[t].items() if k in ['columns','primary_key','foreign_keys','indexes','unique_keys']} for t in tables},catalog_snapshots=snapshots,role_guides=support['virtual_role_flow_guides'],workflows=entries,scope='Live implemented-business-process verification inventory; source/metadata audit is not browser acceptance or approval')
+              (out/'live-catalog.json').write_text(json.dumps(result,ensure_ascii=False,indent=2,default=str))
+              checkpoint=dict(main_sha=os.environ['FINAL_MAIN_SHA'],merged_pr=215,merge_commit='6f5eb891e95017894f97ebab6fb26a52ad196254',merged_work_head='322c9497fa07c30c5cc0c1e59804121609388259',local_history_merged=os.environ['HISTORY_MERGE_SHA'],active_branch=None,open_pr_count=0,remote_branch_count=1,implemented_count=len(implemented),summary=result['summary'],test_status_counts=result['test_status_counts'],workflow_verification_approvals='Still pending where not recorded; owner explicitly requested merge, no workflow approval fabricated',next_action='Read live implemented-workflow inventory; verify supported processes one at a time from merged main using real credential/UI/API/database/reload evidence, exact denial and isolation cases; record exact unresolved requirements and continue through unblocked work.',synthetic_cleanup='No production business data or synthetic accounts changed by this inventory; earlier maintenance fixtures dropped')
+              for name in ['implemented-verification-current','execution-handoff-current','maintenance-repair-current','maintenance-repair-in-progress']:
+                  db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',(name,json.dumps(checkpoint,sort_keys=True)))
+          print('IMPLEMENTED_VERIFICATION_INVENTORY '+json.dumps({k:result[k] for k in ['summary','implemented_count','test_status_counts','catalog_kind_counts']}))
+          for e in entries:print('IMPLEMENTED_WORKFLOW '+json.dumps(e,ensure_ascii=False,default=str))
+          print('MERGED_BRANCH_HANDOFF_COMMITTED '+json.dumps(checkpoint))
+          
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-implemented-workflow-verification
+          path: test-results/implemented-verification
