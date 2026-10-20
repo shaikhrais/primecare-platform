@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['cloudflare/workers/**', 'tools/auth-verification/test-revocation-fault.mjs', '.github/workflows/verify-session-revocation-fault.yml']
+    paths: ['cloudflare/workers/**', 'tools/auth-verification/test-revocation-fault.mjs', 'tools/auth-verification/test-admin-revocation-fault.mjs', '.github/workflows/verify-session-revocation-fault.yml']
 permissions:
   contents: read
 jobs:
@@ -31,4 +31,7 @@ jobs:
           ln -s "$RUNNER_TEMP/revoke-check/node_modules" node_modules
       - env:
           AUTH_TEST_DATABASE_URL: postgres://auth_test:disposable-ci-fixture@127.0.0.1:5432/auth_test
-        run: node tools/auth-verification/test-revocation-fault.mjs
+        run: |
+          node tools/auth-verification/test-revocation-fault.mjs
+          git fetch --no-tags --depth=1 origin bb7517bd9068b745ff682788daa151e896c56a4f
+          node tools/auth-verification/test-admin-revocation-fault.mjs
