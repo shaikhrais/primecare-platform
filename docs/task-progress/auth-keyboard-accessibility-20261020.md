@@ -1,0 +1,17 @@
+# Auth keyboard and form accessibility — 2026-10-20
+
+The auth browser producer now verifies keyboard login and keyboard password submission, forward and reverse tab order, and automated WCAG2A/AA,2.1A/AA and2.2AA checks on the login and password forms. The existing recovery link uses the approved media control-height token as an explicit minimum clickable height. No endpoint, role, permission or business policy was added.
+
+The first scans exposed undersized targets with the historical fixture's empty theme. The password button result was therefore not accepted as a production defect. The isolated fixture now uses the deployed clinic manifest's existing CSS tokens, validates required variables and preserves the source URL/hash. The initial strict import also exposed a non-CSS `null` key. The exporter now omits rows without a CSS variable name, validates exported names/values and rejects conflicting duplicate values. It preserves exact approved values and excludes inactive/other-theme rows. It does not write to the governance database or invent fallback tokens.
+
+[Run39508510798](https://github.com/shaikhrais/primecare-platform/actions/runs/39508510798) passed all nine cases, Chromium/Firefox/WebKit × EN320/FR768/ES1440, with the actual UI, gateway, auth service and isolated native PostgreSQL. All18 automated form scans reported zero violations and zero incomplete results. Each engine also passed the seven theme-export regression tests and13 existing auth/account/sign-out client tests. Full source-bound JSON, screenshots and videos are retained in artifacts. Summaries are in evidence/auth-keyboard-accessibility-20261020.json.
+
+All prior checks remain in the journey: malformed success, offline retry, localized denial, audit rollback, bcrypt hash, invalidation of old sessions/reset codes, foreign-tenant preservation, new login/reload and preservation of a replacement browser session. Keyboard submission now exercises the actual mutations throughout those cases.
+
+The UUID/text backend matrix passed [39507958555](https://github.com/shaikhrais/primecare-platform/actions/runs/39507958555). The auth release passed [39508913029](https://github.com/shaikhrais/primecare-platform/actions/runs/39508913029). The recovery-link CSS deployed to all nine portals and passed smoke checks in [39507678596](https://github.com/shaikhrais/primecare-platform/actions/runs/39507678596).
+
+Release gating previously chose an older failed browser run even after corrected proof passed. It now selects successful repaired proof and compares Worker, website source, shared data, auth localization and database migration inputs. Manual/retry releases use the latest successful backend run rather than an obsolete hardcoded run. Browser triggers cover those runtime inputs. The recorder requires all three engines, all nine journey cases, keyboard flags and18 passing form scans before tracking writes.
+
+The earlier live producer39507071862 passed its deployed journey, but its older password receipts were rejected by the stricter recorder39508167917 before tracking writes. Fresh deployed proof and recording for current source are still required before claiming new production tracking.
+
+These checks cover two forms and desktop browser engines. They do not approve full-page accessibility, manual screen-reader behavior, native/mobile devices, PWA installation, remaining workflow alternatives, or independent reviews. The three protected bootstrap policies and role-switch policy remain blocked. Whole auth acceptance remains false.

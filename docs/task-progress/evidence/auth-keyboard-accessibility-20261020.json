@@ -1,0 +1,415 @@
+{
+  "date": "2026-10-20",
+  "scope": "Keyboard auth journeys, automated form accessibility and governed theme export",
+  "sourceCommit": "17a5cd8dd5d41711b75183b22ea62b81faec205d",
+  "browserRun": 39508510798,
+  "browserCases": 9,
+  "automatedFormScans": 18,
+  "reportedViolations": 0,
+  "reportedIncomplete": 0,
+  "cssThemeVariables": 39,
+  "themeHelperUnitTests": 7,
+  "clientTestsPerEngine": 13,
+  "receipts": [
+    {
+      "passed": true,
+      "browser": "firefox",
+      "browser_version": "150.0.2",
+      "theme_evidence": {
+        "url": "https://primecare-clinic.pages.dev/portal.json?enable-semantics=true",
+        "sha256": "bd8f1511172b13d6b69474d570113cb295b731a269eda184df03d903d6aaafb6",
+        "portal_project": "primecare-clinic"
+      },
+      "accessibility": [
+        {
+          "browser": "firefox",
+          "locale": "en",
+          "form": "login-form",
+          "passes": 14,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "firefox",
+          "locale": "en",
+          "form": "change-password-form",
+          "passes": 10,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "firefox",
+          "locale": "fr",
+          "form": "login-form",
+          "passes": 14,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "firefox",
+          "locale": "fr",
+          "form": "change-password-form",
+          "passes": 10,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "firefox",
+          "locale": "es",
+          "form": "login-form",
+          "passes": 14,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "firefox",
+          "locale": "es",
+          "form": "change-password-form",
+          "passes": 10,
+          "violations": [],
+          "incomplete": []
+        }
+      ],
+      "baseline": false,
+      "probeCompleted": false,
+      "cases": [
+        {
+          "locale": "en",
+          "width": 320,
+          "keyboardLogin": true,
+          "keyboardPasswordSubmit": true,
+          "automatedFormAccessibility": true,
+          "credentialLogin": true,
+          "actualMainUI": true,
+          "malformedSuccessRejected": true,
+          "offlineRetry": true,
+          "invalidCredentialsLocalized": true,
+          "auditFailureRollsBack": true,
+          "passwordHashConfirmed": true,
+          "oldCredentialsDenied": true,
+          "allPriorSessionsRevoked": true,
+          "resetTokensRevoked": true,
+          "foreignTenantPreserved": true,
+          "newCredentialLoginAndReload": true,
+          "replacementSessionPreserved": true
+        },
+        {
+          "locale": "fr",
+          "width": 768,
+          "keyboardLogin": true,
+          "keyboardPasswordSubmit": true,
+          "automatedFormAccessibility": true,
+          "credentialLogin": true,
+          "actualMainUI": true,
+          "malformedSuccessRejected": true,
+          "offlineRetry": true,
+          "invalidCredentialsLocalized": true,
+          "auditFailureRollsBack": true,
+          "passwordHashConfirmed": true,
+          "oldCredentialsDenied": true,
+          "allPriorSessionsRevoked": true,
+          "resetTokensRevoked": true,
+          "foreignTenantPreserved": true,
+          "newCredentialLoginAndReload": true,
+          "replacementSessionPreserved": true
+        },
+        {
+          "locale": "es",
+          "width": 1440,
+          "keyboardLogin": true,
+          "keyboardPasswordSubmit": true,
+          "automatedFormAccessibility": true,
+          "credentialLogin": true,
+          "actualMainUI": true,
+          "malformedSuccessRejected": true,
+          "offlineRetry": true,
+          "invalidCredentialsLocalized": true,
+          "auditFailureRollsBack": true,
+          "passwordHashConfirmed": true,
+          "oldCredentialsDenied": true,
+          "allPriorSessionsRevoked": true,
+          "resetTokensRevoked": true,
+          "foreignTenantPreserved": true,
+          "newCredentialLoginAndReload": true,
+          "replacementSessionPreserved": true
+        }
+      ],
+      "failures": [],
+      "wholeTaskVerified": false
+    },
+    {
+      "passed": true,
+      "browser": "chromium",
+      "browser_version": "148.0.7778.96",
+      "theme_evidence": {
+        "url": "https://primecare-clinic.pages.dev/portal.json?enable-semantics=true",
+        "sha256": "bd8f1511172b13d6b69474d570113cb295b731a269eda184df03d903d6aaafb6",
+        "portal_project": "primecare-clinic"
+      },
+      "accessibility": [
+        {
+          "browser": "chromium",
+          "locale": "en",
+          "form": "login-form",
+          "passes": 14,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "chromium",
+          "locale": "en",
+          "form": "change-password-form",
+          "passes": 10,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "chromium",
+          "locale": "fr",
+          "form": "login-form",
+          "passes": 14,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "chromium",
+          "locale": "fr",
+          "form": "change-password-form",
+          "passes": 10,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "chromium",
+          "locale": "es",
+          "form": "login-form",
+          "passes": 14,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "chromium",
+          "locale": "es",
+          "form": "change-password-form",
+          "passes": 10,
+          "violations": [],
+          "incomplete": []
+        }
+      ],
+      "baseline": false,
+      "probeCompleted": false,
+      "cases": [
+        {
+          "locale": "en",
+          "width": 320,
+          "keyboardLogin": true,
+          "keyboardPasswordSubmit": true,
+          "automatedFormAccessibility": true,
+          "credentialLogin": true,
+          "actualMainUI": true,
+          "malformedSuccessRejected": true,
+          "offlineRetry": true,
+          "invalidCredentialsLocalized": true,
+          "auditFailureRollsBack": true,
+          "passwordHashConfirmed": true,
+          "oldCredentialsDenied": true,
+          "allPriorSessionsRevoked": true,
+          "resetTokensRevoked": true,
+          "foreignTenantPreserved": true,
+          "newCredentialLoginAndReload": true,
+          "replacementSessionPreserved": true
+        },
+        {
+          "locale": "fr",
+          "width": 768,
+          "keyboardLogin": true,
+          "keyboardPasswordSubmit": true,
+          "automatedFormAccessibility": true,
+          "credentialLogin": true,
+          "actualMainUI": true,
+          "malformedSuccessRejected": true,
+          "offlineRetry": true,
+          "invalidCredentialsLocalized": true,
+          "auditFailureRollsBack": true,
+          "passwordHashConfirmed": true,
+          "oldCredentialsDenied": true,
+          "allPriorSessionsRevoked": true,
+          "resetTokensRevoked": true,
+          "foreignTenantPreserved": true,
+          "newCredentialLoginAndReload": true,
+          "replacementSessionPreserved": true
+        },
+        {
+          "locale": "es",
+          "width": 1440,
+          "keyboardLogin": true,
+          "keyboardPasswordSubmit": true,
+          "automatedFormAccessibility": true,
+          "credentialLogin": true,
+          "actualMainUI": true,
+          "malformedSuccessRejected": true,
+          "offlineRetry": true,
+          "invalidCredentialsLocalized": true,
+          "auditFailureRollsBack": true,
+          "passwordHashConfirmed": true,
+          "oldCredentialsDenied": true,
+          "allPriorSessionsRevoked": true,
+          "resetTokensRevoked": true,
+          "foreignTenantPreserved": true,
+          "newCredentialLoginAndReload": true,
+          "replacementSessionPreserved": true
+        }
+      ],
+      "failures": [],
+      "wholeTaskVerified": false
+    },
+    {
+      "passed": true,
+      "browser": "webkit",
+      "browser_version": "26.4",
+      "theme_evidence": {
+        "url": "https://primecare-clinic.pages.dev/portal.json?enable-semantics=true",
+        "sha256": "bd8f1511172b13d6b69474d570113cb295b731a269eda184df03d903d6aaafb6",
+        "portal_project": "primecare-clinic"
+      },
+      "accessibility": [
+        {
+          "browser": "webkit",
+          "locale": "en",
+          "form": "login-form",
+          "passes": 14,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "webkit",
+          "locale": "en",
+          "form": "change-password-form",
+          "passes": 10,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "webkit",
+          "locale": "fr",
+          "form": "login-form",
+          "passes": 14,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "webkit",
+          "locale": "fr",
+          "form": "change-password-form",
+          "passes": 10,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "webkit",
+          "locale": "es",
+          "form": "login-form",
+          "passes": 14,
+          "violations": [],
+          "incomplete": []
+        },
+        {
+          "browser": "webkit",
+          "locale": "es",
+          "form": "change-password-form",
+          "passes": 10,
+          "violations": [],
+          "incomplete": []
+        }
+      ],
+      "baseline": false,
+      "probeCompleted": false,
+      "cases": [
+        {
+          "locale": "en",
+          "width": 320,
+          "keyboardLogin": true,
+          "keyboardPasswordSubmit": true,
+          "automatedFormAccessibility": true,
+          "credentialLogin": true,
+          "actualMainUI": true,
+          "malformedSuccessRejected": true,
+          "offlineRetry": true,
+          "invalidCredentialsLocalized": true,
+          "auditFailureRollsBack": true,
+          "passwordHashConfirmed": true,
+          "oldCredentialsDenied": true,
+          "allPriorSessionsRevoked": true,
+          "resetTokensRevoked": true,
+          "foreignTenantPreserved": true,
+          "newCredentialLoginAndReload": true,
+          "replacementSessionPreserved": true
+        },
+        {
+          "locale": "fr",
+          "width": 768,
+          "keyboardLogin": true,
+          "keyboardPasswordSubmit": true,
+          "automatedFormAccessibility": true,
+          "credentialLogin": true,
+          "actualMainUI": true,
+          "malformedSuccessRejected": true,
+          "offlineRetry": true,
+          "invalidCredentialsLocalized": true,
+          "auditFailureRollsBack": true,
+          "passwordHashConfirmed": true,
+          "oldCredentialsDenied": true,
+          "allPriorSessionsRevoked": true,
+          "resetTokensRevoked": true,
+          "foreignTenantPreserved": true,
+          "newCredentialLoginAndReload": true,
+          "replacementSessionPreserved": true
+        },
+        {
+          "locale": "es",
+          "width": 1440,
+          "keyboardLogin": true,
+          "keyboardPasswordSubmit": true,
+          "automatedFormAccessibility": true,
+          "credentialLogin": true,
+          "actualMainUI": true,
+          "malformedSuccessRejected": true,
+          "offlineRetry": true,
+          "invalidCredentialsLocalized": true,
+          "auditFailureRollsBack": true,
+          "passwordHashConfirmed": true,
+          "oldCredentialsDenied": true,
+          "allPriorSessionsRevoked": true,
+          "resetTokensRevoked": true,
+          "foreignTenantPreserved": true,
+          "newCredentialLoginAndReload": true,
+          "replacementSessionPreserved": true
+        }
+      ],
+      "failures": [],
+      "wholeTaskVerified": false
+    }
+  ],
+  "backendRun": 39507958555,
+  "backendStatus": "success",
+  "releaseRun": 39508913029,
+  "releaseStatus": "success",
+  "cssPortalDeploymentRun": 39507678596,
+  "wholeAuthVerified": false,
+  "productionRecording": "Pending fresh live producer and recorder for the current source",
+  "limits": [
+    "Only the login and change-password forms were automatically scanned.",
+    "Desktop Linux browser engines; actual native/mobile devices, PWA and manual assistive-technology verification remain pending.",
+    "Four bootstrap/role-switch policy decisions and independent review gates remain unapproved."
+  ],
+  "diagnostics": {
+    "emptyFixtureThemeCorrected": true,
+    "ignoredPublicThemeKey": "null",
+    "failedBaselineRuns": [
+      39507507028,
+      39507678530,
+      39507958241
+    ],
+    "staleRecordingRejectedBeforeTrackingWrites": 39508167917
+  }
+}
