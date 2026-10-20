@@ -26,7 +26,7 @@ export async function renderMaintenance(root:HTMLElement,gateway:string){
    const buttons=[...root.querySelectorAll<HTMLButtonElement>('button')];buttons.forEach(item=>item.disabled=true);
    try{const result=await operation();root.querySelectorAll<HTMLInputElement>('input[type=password]').forEach(input=>input.value='');await renderMaintenance(root,gateway);const refreshed=root.querySelector<HTMLOutputElement>('[data-cy="'+c.status+'"]');if(refreshed)refreshed.value=result.message?client.message(result.message):client.text('created');}
    catch(error){status.value=error instanceof Error?error.message:client.text('failed');}
-   finally{buttons.forEach(item=>item.disabled=false);if(!data.settingsReady)(cy(c.save) as HTMLButtonElement).disabled=true;}
+   finally{buttons.forEach(item=>item.disabled=false);const save=root.querySelector<HTMLButtonElement>('[data-cy="'+c.save+'"]');if(save&&!data.settingsReady)save.disabled=true;}
   };
   cy(c.refresh).addEventListener('click',()=>void renderMaintenance(root,gateway));
   cy(c.settings).addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget as HTMLFormElement,values=new FormData(form),templates:Record<string,Record<string,string>>={};form.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('[data-template]').forEach(field=>{const id=field.dataset.template!;templates[id]??={};templates[id][field.dataset.field!]=field.value;});void action(cy(c.save) as HTMLButtonElement,()=>client.save({sender:values.get('sender'),revision:data.revision,templates}));});
