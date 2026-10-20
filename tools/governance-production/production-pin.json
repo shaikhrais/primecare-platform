@@ -37,6 +37,17 @@
       "language_resource_values"
     ],
     "schemaChanges": false,
-    "businessDataWrites": false
+    "businessDataWrites": false,
+    "workflowBinding": {
+      "flowIds": [
+        "auth.inspect-email-config"
+      ],
+      "tables": [
+        "virtual_workflow_definitions",
+        "virtual_workflow_source_links"
+      ],
+      "schemaChanges": false,
+      "businessDataWrites": false
+    }
   }
 }

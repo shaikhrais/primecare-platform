@@ -38,6 +38,7 @@ class RegistrationTests(unittest.TestCase):
               'screen_required_elements':('id:i screen_id:i element_key:s element_type:s label:s test_id:s required:i',[]),
               'language_resources':('resource_id:i resource_key:s resource_group:s description:s context:s active:i',[]),
               'language_resource_values':('translation_id:i resource_id:i language_id:i translated_text:s reviewed:i approved:i version:s',[]),
+              'virtual_workflow_source_links':('flow_id:s source_table:s source_key:s source_key_columns:s reference_status:s',[]),
               'roles':('id:i role_code:s active:i',[(20,'ceo',1),(65,'maintenance',1),(51,'psw',1)]),
               'screens':('id:i screen_code:s route_path:s active:i',[(1264,'MAINTENANCE_CONFIGURATION','/maintenance/configuration',1)]),
               'role_screen_permissions':('id:i role_id:i screen_id:i can_view:i can_create:i can_edit:i',[(6587,65,1264,1,1,1),(6588,20,1264,1,1,1)]),
@@ -91,6 +92,27 @@ class RegistrationTests(unittest.TestCase):
         with self.assertRaises(GovernanceReadError):
             with self.store() as db:register(db,self.definition)
         with self.store() as db:self.assertEqual(db.execute('SELECT translated_text FROM language_resource_values WHERE translation_id=1').fetchone()[0],'Human edited')
+    def test_existing_process_binding_is_atomic_exact_and_idempotent(self):
+        import maintenance_flow_binding as binding
+        with self.store() as db:
+            catalog=register(db,self.definition)
+            plan=dict(self.plan,id='auth.inspect-email-config',actor_roles=['ceo','maintenance'])
+            db.db.execute('UPDATE '+self.table('virtual_workflow_definitions')+' SET flow_id=%s,actor_roles_json=%s,definition_json=%s',('auth.inspect-email-config',json.dumps(plan['actor_roles']),json.dumps(plan)))
+            db.execute("INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action) VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,next_action=excluded.next_action,invalidation_json='[]',updated_at=CURRENT_TIMESTAMP",('auth.inspect-email-config',0,'Isolated metadata binding fixture'))
+            for path in ['cloudflare/workers/src/maintenance.ts','cloudflare/workers/src/auth.ts','websites/typescript/src/maintenance.ts','websites/typescript/src/maintenance-client.ts','websites/typescript/src/auth-screen.ts','websites/typescript/src/main.ts']:
+                target=self.root/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_text('Synthetic metadata fixture source, not an application acceptance receipt')
+            target=self.root/'packages/shared/src/maintenance.json';target.parent.mkdir(parents=True,exist_ok=True);target.write_text(json.dumps(catalog))
+            with patch.object(binding,'ROOT',self.root):
+                first=binding.bind(db);second=binding.bind(db)
+            self.assertTrue(first['changed']);self.assertFalse(second['changed'])
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM virtual_workflow_definitions').fetchone()[0],1)
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM virtual_workflow_source_links').fetchone()[0],4)
+            self.assertEqual(json.loads(db.execute('SELECT actor_roles_json FROM virtual_workflow_definitions').fetchone()[0]),['ceo','maintenance'])
+    def test_workflow_binding_scope_is_required(self):
+        import maintenance_flow_binding as binding
+        with self.store() as db:
+            db.pin['maintenanceRegistrationWriter'].pop('workflowBinding',None)
+            with self.assertRaises(GovernanceReadError):binding.bind(db)
     def test_explicit_opt_in_is_required(self):
         with patch.dict(os.environ,{'GOVERNANCE_MAINTENANCE_REGISTRATION_WRITES':''}):
             with self.assertRaises(GovernanceReadError):self.store()
