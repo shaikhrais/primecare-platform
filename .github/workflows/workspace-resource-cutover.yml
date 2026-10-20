@@ -82,8 +82,8 @@ jobs:
             if changed or spec!=bound_spec:
              reasons=json.loads(blockers or '[]');reason='Current source/specification differs from the last successful scoped attempt; current acceptance evidence must be rerun.'
              if reason not in reasons:reasons.append(reason)
-             db.execute('UPDATE virtual_workflow_definitions SET verification_status=?,test_status=?,blocker_json=?,updated_at=CURRENT_TIMESTAMP WHERE flow_id=?',('implemented-unverified' if status=='verified' else status,'stale',json.dumps(reasons),flow))
-             db.execute('UPDATE virtual_workflow_checkpoints SET invalidation_json=?,updated_at=CURRENT_TIMESTAMP WHERE flow_id=?',(json.dumps([{'source_changes':changed,'bound_definition_sha256':bound_spec,'current_definition_sha256':spec}]),flow))
+             db.execute('UPDATE virtual_workflow_definitions SET verification_status=?, test_status=?,blocker_json=?,updated_at=CURRENT_TIMESTAMP WHERE flow_id=?',('implemented-unverified' if status=='verified' else status,'stale',json.dumps(reasons),flow))
+             db.execute('UPDATE virtual_workflow_checkpoints SET invalidation_json=?, updated_at=CURRENT_TIMESTAMP WHERE flow_id=?',(json.dumps([{'source_changes':changed,'bound_definition_sha256':bound_spec,'current_definition_sha256':spec}]),flow))
              invalidated.append({'workflow_id':flow,'attempt_id':attempt,'changes':changed})
            state={'resources':resources,'source_invalidation':invalidated,'summary':summary(db),'active_branch':'work/auth-session-repair-20261020','pr':None,'candidate_sha':'d4ba8843a3f21a320ca44f381dd6b53380b1be69','branch_lifecycle':'Native metadata proof passed; protected label registration applied; browser proof and PR/CI/merge/cleanup still pending.','full_auth_verified':False,'next_action':'Run current logout and password browser regressions, then open the single review PR. After CI/merge/cleanup reconcile the two maintenance mutation workflow bindings. Missing recovery/control requirements and independent reviews remain unresolved.'}
            for name in ['workspace-resource-cutover-current','auth-completion-current','execution-handoff-current']:
