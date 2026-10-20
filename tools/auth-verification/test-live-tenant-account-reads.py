@@ -7,6 +7,7 @@ locale=os.environ['TEST_LOCALE'];width=int(os.environ['TEST_WIDTH']);nonce=uuid.
 report={'synthetic':True,'scope':'deployed-ceo-account-reads','locale':locale,'width':width,'checks':[],'wholeAuthVerified':False}
 db=psycopg.connect(os.environ['PRODUCTION_DATABASE_URL'],connect_timeout=15)
 tenants=[str(uuid.uuid4()),str(uuid.uuid4())];users=[str(uuid.uuid4()) for _ in range(28)];password=secrets.token_urlsafe(24);created=False;pw=browser=context=None
+report['fixtureIdentifiers']={'tenants':tenants,'users':users,'nonce':nonce}
 emails=['a-'+nonce+'@example.invalid']+['b-'+nonce+'-'+str(i).zfill(2)+'@example.invalid' for i in range(26)]+['foreign-'+nonce+'@example.invalid']
 def must(value,label):
  assert value,label
@@ -21,7 +22,7 @@ def call(path,token=None,tenant=None):
  except urllib.error.HTTPError as e:return e.code,json.loads(e.read())
 def snapshot():
  values=[]
- for sql,args in [('SELECT id,email,roles,status FROM users WHERE tenant_id=ANY(%s::uuid[]) ORDER BY id',(tenants,)),('SELECT token_hash,user_id,expires_at FROM auth_sessions WHERE user_id=ANY(%s::uuid[]) ORDER BY token_hash',(users,)),('SELECT actor_user_id,target_user_id,previous_state,new_state FROM auth_management_audit WHERE tenant_id=ANY(%s::uuid[]) ORDER BY id',(tenants,)),('SELECT actor_user_id,target_user_id,action FROM auth_account_audit WHERE tenant_id=ANY(%s::uuid[]) ORDER BY id',(tenants,))]:values.append(db.execute(sql,args).fetchall())
+ for sql,args in [('SELECT id,email,roles,status FROM users WHERE tenant_id::text=ANY(%s::text[]) ORDER BY id',(tenants,)),('SELECT token_hash,user_id,expires_at FROM auth_sessions WHERE user_id::text=ANY(%s::text[]) ORDER BY token_hash',(users,)),('SELECT actor_user_id,target_user_id,previous_state,new_state FROM auth_management_audit WHERE tenant_id::text=ANY(%s::text[]) ORDER BY id',(tenants,)),('SELECT actor_user_id,target_user_id,action FROM auth_account_audit WHERE tenant_id::text=ANY(%s::text[]) ORDER BY id',(tenants,))]:values.append(db.execute(sql,args).fetchall())
  db.commit();return values
 try:
  hashed=bcrypt.hashpw(password.encode(),bcrypt.gensalt(12)).decode()
@@ -91,10 +92,13 @@ finally:
   db.rollback()
   if created:
    with db.transaction():
-    for table in ['auth_sessions','auth_password_resets','auth_password_audit']:db.execute('DELETE FROM '+table+' WHERE user_id=ANY(%s::uuid[])',(users,))
-    for table in ['auth_account_audit','auth_management_audit']:db.execute('DELETE FROM '+table+' WHERE tenant_id=ANY(%s::uuid[])',(tenants,))
+    for table in ['auth_sessions','auth_password_resets','auth_password_audit']:db.execute('DELETE FROM '+table+' WHERE user_id::text=ANY(%s::text[])',(users,))
+    for table in ['auth_account_audit','auth_management_audit']:db.execute('DELETE FROM '+table+' WHERE tenant_id::text=ANY(%s::text[])',(tenants,))
     for email in emails:db.execute('DELETE FROM auth_rate_limits WHERE subject_hash=%s',(hashlib.sha256(('login:'+email).encode()).hexdigest(),))
-    db.execute('DELETE FROM users WHERE id=ANY(%s::uuid[]) AND tenant_id=ANY(%s::uuid[])',(users,tenants));db.execute('DELETE FROM tenants WHERE id=ANY(%s::uuid[])',(tenants,))
+    db.execute('DELETE FROM users WHERE id::text=ANY(%s::text[]) AND tenant_id::text=ANY(%s::text[])',(users,tenants));db.execute('DELETE FROM tenants WHERE id::text=ANY(%s::text[])',(tenants,))
    report['cleanup']='Exact synthetic account-read tenants, users, sessions, audits and login counters removed'
+ except Exception as cleanup_error:
+  report['cleanup_error']=str(cleanup_error)
  finally:db.close()
  out=pathlib.Path('test-results/tenant-account-reads');out.mkdir(parents=True,exist_ok=True);(out/('results-'+locale+'.json')).write_text(json.dumps(report,indent=2));print('TENANT_ACCOUNT_READS_PROOF '+json.dumps(report))
+ if report.get('cleanup_error'):raise RuntimeError('Synthetic cleanup failed; fixture identifiers preserved in receipt')

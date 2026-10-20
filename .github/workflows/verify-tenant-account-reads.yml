@@ -24,10 +24,19 @@ jobs:
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --resolveJsonModule --allowSyntheticDefaultImports --lib dom,dom.iterable,es2022 websites/typescript/src/tenant-accounts-panel.ts
   deploy:
     needs: test
-    uses: ./.github/workflows/deploy-typescript-websites.yml
-    with:
-      confirm: DEPLOY
-    secrets: inherit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo;
+            const {data:diff}=await github.rest.repos.compareCommits({owner,repo,base:'d98868f39e006f07072ca007e9dcf46c3784d6b9',head:context.sha});
+            if(diff.files.some(f=>f.filename.startsWith('websites/typescript/')||f.filename.startsWith('packages/shared/')))throw Error('UI runtime changed; deploy new source before proof');
+            const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:39471170775,per_page:100});
+            for(const project of ['primecare-clinic','primecare-client','primecare-corporate','primecare-business-development','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'])if(!jobs.some(j=>j.name==='deploy / deploy ('+project+')'&&j.conclusion==='success'))throw Error('Successful source-current deployment required: '+project);
   proof:
     needs: deploy
     environment: production
@@ -62,6 +71,7 @@ jobs:
           TEST_WIDTH: ${{ matrix.width }}
         run: |
           python3 scripts/verify-tenant-account-reads-catalog.py
+          python3 tools/auth-verification/cleanup-stranded-account-read-fixtures.py
           python3 tools/auth-verification/test-live-tenant-account-reads.py
       - uses: actions/upload-artifact@v4
         if: always()
