@@ -106,7 +106,10 @@ jobs:
               for flow in ['auth.inspect-own-sessions','auth.revoke-own-sessions']:
                   definition=json.loads(db.execute('SELECT definition_json FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()[0])
                   sources=definition['source_sha256']
-                  for path,sha in sources.items():assert digest((root/path).read_bytes())==sha,'Definition/source drift: '+path
+                  for path,sha in sources.items():
+                      assert digest((root/path).read_bytes())==sha,'Definition/source drift: '+path
+                      producer_source=subprocess.check_output(['git','show',os.environ['PRODUCER_SHA']+':'+path])
+                      assert digest(producer_source)==sha,'Producer/definition source drift: '+path
                   blockers=['Actual deployed own-session browser/API/native-database journey passed in EN/FR/ES at 320/768/1440 widths, with cross-tenant denial, audit confirmation, revocation and reload. These scoped checks do not prove all roles or every registered failure alternative.','Own-session controls and canonical authenticated-self API metadata are reconciled in pinned production. Localization values remain reviewed=0/approved=0; registration does not grant review approval.','Full accessibility/PWA/native-platform acceptance and independently produced current acceptance review IDs remain incomplete.']
                   attempts.append(record_attempt(db,flow,{'status':'implemented-unverified','test_status':'scoped_pass','scope':'scoped','source_bindings':sources,'evidence':evidence,'issues':[],'blockers':blockers,'next_action':'Complete current failure alternatives, accessibility/PWA/native acceptance and independent reviews; preserve these deployed proof receipts.'},root))
               state={'attempt_ids':[a['attempt_id'] for a in attempts],'workflows':['auth.inspect-own-sessions','auth.revoke-own-sessions'],'browser_cases':3,'deployed_portal_assets':len(assets),'summary':summary(db),'source_main':os.environ['GITHUB_SHA'],'main_only':True,'open_prs':0,'whole_auth_verified':False,'evidence':os.environ['RUN_URL']}
