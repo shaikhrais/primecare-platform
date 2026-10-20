@@ -1,0 +1,172 @@
+{
+  "appId": 1,
+  "appCode": "ui",
+  "screenCode": "AUTHENTICATED_ACCOUNT",
+  "screenName": "Shared authenticated account",
+  "routeRegistryId": 7,
+  "route": "/success",
+  "file": "websites/typescript/src/account.ts",
+  "panelFile": "websites/typescript/src/sessions-panel.ts",
+  "permission": "authenticated_self_session",
+  "apiIds": {
+    "list": 16425,
+    "revoke": 16426
+  },
+  "endpoints": {
+    "list": "/v1/user/sessions",
+    "revoke": "/v1/user/sessions"
+  },
+  "routes": {
+    "login": "/login",
+    "account": "/success"
+  },
+  "flows": [
+    "auth.inspect-own-sessions",
+    "auth.revoke-own-sessions"
+  ],
+  "controls": {
+    "root": {
+      "testId": "own-sessions-panel",
+      "component": "prime_card",
+      "componentId": 2,
+      "label": "title"
+    },
+    "status": {
+      "testId": "own-sessions-status",
+      "component": "prime_card",
+      "componentId": 2,
+      "label": "title"
+    },
+    "table": {
+      "testId": "own-sessions-table",
+      "component": "prime_table_web",
+      "componentId": 14,
+      "label": "title"
+    },
+    "refresh": {
+      "testId": "own-sessions-refresh",
+      "component": "prime_button",
+      "componentId": 1,
+      "label": "refresh"
+    },
+    "previous": {
+      "testId": "own-sessions-previous",
+      "component": "prime_button",
+      "componentId": 1,
+      "label": "previous"
+    },
+    "next": {
+      "testId": "own-sessions-next",
+      "component": "prime_button",
+      "componentId": 1,
+      "label": "next"
+    },
+    "pagination": {
+      "testId": "own-sessions-pagination",
+      "component": "prime_card",
+      "componentId": 2,
+      "label": "total"
+    },
+    "revoke": {
+      "testId": "own-sessions-revoke",
+      "component": "prime_button",
+      "componentId": 1,
+      "label": "revoke"
+    },
+    "confirmation": {
+      "testId": "own-sessions-confirmation",
+      "component": "prime_card",
+      "componentId": 2,
+      "label": "confirmation"
+    },
+    "confirm": {
+      "testId": "own-sessions-confirm-revoke",
+      "component": "prime_button",
+      "componentId": 1,
+      "label": "confirm"
+    },
+    "cancel": {
+      "testId": "own-sessions-cancel-revoke",
+      "component": "prime_button",
+      "componentId": 1,
+      "label": "cancel"
+    }
+  },
+  "locales": {
+    "en": {
+      "title": "Active sessions",
+      "description": "Review your active sign-ins. Signing out all sessions also signs you out here.",
+      "created": "Signed in",
+      "expires": "Expires",
+      "current": "This session",
+      "other": "Other session",
+      "refresh": "Refresh sessions",
+      "previous": "Previous",
+      "next": "Next",
+      "total": "Active sessions",
+      "loading": "Loading sessions…",
+      "empty": "No active sessions.",
+      "load_failed": "Sessions could not be loaded. Try again.",
+      "revoke": "Sign out all sessions",
+      "confirmation": "Sign out every active session, including this one?",
+      "confirm": "Sign out all sessions",
+      "cancel": "Cancel",
+      "revoking": "Signing out…",
+      "revoke_failed": "Sign-out could not be confirmed. Retry or sign in again.",
+      "changed": "Your session changed. Reload the page."
+    },
+    "fr": {
+      "title": "Sessions actives",
+      "description": "Consultez vos connexions actives. La déconnexion de toutes les sessions vous déconnecte également ici.",
+      "created": "Connexion",
+      "expires": "Expiration",
+      "current": "Cette session",
+      "other": "Autre session",
+      "refresh": "Actualiser les sessions",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "total": "Sessions actives",
+      "loading": "Chargement des sessions…",
+      "empty": "Aucune session active.",
+      "load_failed": "Impossible de charger les sessions. Réessayez.",
+      "revoke": "Déconnecter toutes les sessions",
+      "confirmation": "Déconnecter toutes les sessions actives, y compris celle-ci?",
+      "confirm": "Déconnecter toutes les sessions",
+      "cancel": "Annuler",
+      "revoking": "Déconnexion…",
+      "revoke_failed": "La déconnexion n’a pas pu être confirmée. Réessayez ou reconnectez-vous.",
+      "changed": "Votre session a changé. Rechargez la page."
+    },
+    "es": {
+      "title": "Sesiones activas",
+      "description": "Revisa tus sesiones activas. Cerrar todas las sesiones también cierra esta sesión.",
+      "created": "Inicio de sesión",
+      "expires": "Vencimiento",
+      "current": "Esta sesión",
+      "other": "Otra sesión",
+      "refresh": "Actualizar sesiones",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "total": "Sesiones activas",
+      "loading": "Cargando sesiones…",
+      "empty": "No hay sesiones activas.",
+      "load_failed": "No se pudieron cargar las sesiones. Inténtalo de nuevo.",
+      "revoke": "Cerrar todas las sesiones",
+      "confirmation": "¿Cerrar todas las sesiones activas, incluida esta?",
+      "confirm": "Cerrar todas las sesiones",
+      "cancel": "Cancelar",
+      "revoking": "Cerrando sesiones…",
+      "revoke_failed": "No se pudo confirmar el cierre. Reinténtalo o inicia sesión de nuevo.",
+      "changed": "Tu sesión cambió. Vuelve a cargar la página."
+    }
+  },
+  "screenId": 2519,
+  "authority": {
+    "source": "pinned-production-postgresql",
+    "schema": "governance_68b0b02dd1215f58630d2c1a",
+    "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+    "authorization": "existing authenticated_self_session APIs; existing route7; no role grant changes",
+    "reviewStatus": "pending"
+  },
+  "implementationStatus": "registered-unimplemented"
+}
