@@ -36,3 +36,14 @@ for(const mode of ['missing','duplicate','identity','tenant','previous','current
 for(const method of ['GET','DELETE'])test('batch 357 session actor tenant is never coerced '+method,async()=>{fixture();actor.tenant_id=1;const r=await call(method);assert.equal(r.status,503);assert.ok(!queries.some(q=>q.sql.startsWith('WITH revoked')||q.sql==='COMMIT'));});
 
 test('partial own-session deletion cannot acknowledge sign-out or commit audit',async()=>{for(const value of [1,2,'0',null,-1]){fixture();remaining=value;const r=await call('DELETE');assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.deepEqual(await r.json(),{error:'Session service unavailable'});assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'||q.sql.startsWith('INSERT INTO auth_management_audit')));}});
+
+test('zero-byte streamed DELETE reaches authorization and confirmed revocation',async()=>{
+ fixture();const empty=await call('DELETE','',{},'');assert.equal(empty.status,200);assert.equal((await empty.json()).revokedSessions,2);
+ fixture();assert.equal((await call('DELETE','',{'x-tenant-id':'foreign'},'')).status,403);assert.ok(!queries.some(q=>q.sql.startsWith('WITH revoked')));
+ fixture();const body=new ReadableStream({start(c){c.enqueue(new Uint8Array(0));c.close();}});
+ const r=await auth(new Request('https://fixture'+path,{method:'DELETE',headers:{authorization:'Bearer '+token},body,duplex:'half'}),env,path,{});
+ assert.equal(r.status,200);
+});
+test('any content bytes in DELETE are rejected before database access',async()=>{
+ for(const body of [' ','{}','\u0000']){fixture();const r=await call('DELETE','',{},body);assert.equal(r.status,400);assert.equal(queries.length,0);}
+});

@@ -7,6 +7,15 @@ import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import {authRateLimit} from './auth-rate-limit';
 const exactCount=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid session count');return value;};
 
+/** Workers may expose a zero-byte DELETE as a stream. Inspect bytes without buffering a body. */
+async function requestHasContent(request:Request):Promise<boolean>{
+  if(request.body===null)return false;
+  const reader=request.body.getReader();
+  try{for(;;){const {done,value}=await reader.read();if(done)return false;if(value.byteLength>0)return true;}}
+  catch{return true;}
+  finally{await reader.cancel().catch(()=>{});reader.releaseLock();}
+}
+
 /** Personal session controls. No caller-supplied user identity is accepted. */
 export async function selfSessions(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null> {
   if(path!=='/user/sessions')return null;
@@ -15,8 +24,8 @@ export async function selfSessions(request:Request,env:Env,path:string,headers:H
   const params=new URL(request.url).searchParams,mutating=request.method==='DELETE';
   const keys=mutating?[]:['limit','offset'];
   const limit=params.get('limit')??'25',offset=params.get('offset')??'0';
-  if(request.body!==null||[...params.keys()].some(k=>!keys.includes(k)||params.getAll(k).length!==1)||
-    !/^[1-9]\d{0,2}$/.test(limit)||Number(limit)>100||!/^\d{1,6}$/.test(offset)||Number(offset)>100000)return json({error:'Invalid query or body'},400,safe);
+  if([...params.keys()].some(k=>!keys.includes(k)||params.getAll(k).length!==1)||
+    !/^[1-9]\d{0,2}$/.test(limit)||Number(limit)>100||!/^\d{1,6}$/.test(offset)||Number(offset)>100000||await requestHasContent(request))return json({error:'Invalid query or body'},400,safe);
   const token=request.headers.has('authorization')?tokenFrom(request):null;
   if(!token)return json({error:'No session'},401,safe);
   if(env.WORKSPACE_SOURCE_LIMIT&&!sourceLimitAllowed(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('self-sessions:'+(request.headers.get('cf-connecting-ip')??'unknown'))}))){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}

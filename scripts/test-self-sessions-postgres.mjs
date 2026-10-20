@@ -3,7 +3,7 @@ import {randomUUID,createHash} from 'node:crypto';import {mkdtemp} from 'node:fs
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
 const dir=await mkdtemp(join(tmpdir(),'self-sessions-pg-'));await build({entryPoints:['cloudflare/workers/src/auth.ts'],outfile:join(dir,'auth.cjs'),bundle:true,platform:'node',format:'cjs'});const {auth}=createRequire(import.meta.url)(join(dir,'auth.cjs'));
 const db=new Client({connectionString:url.href});await db.connect();const ids=[randomUUID(),randomUUID()],tenant=randomUUID(),tokens=['i'.repeat(43),'j'.repeat(43),'k'.repeat(43),'l'.repeat(43)];const hash=s=>createHash('sha256').update(s).digest('hex');let trigger=false,checks=0;
-const call=(method='GET',token=tokens[0],query='')=>auth(new Request('https://fixture/user/sessions'+query,{method,headers:{authorization:'Bearer '+token}}),{SERVICE_NAME:'auth',DB_URL:url.href},'/user/sessions',{});
+const call=(method='GET',token=tokens[0],query='',body)=>auth(new Request('https://fixture/user/sessions'+query,{method,headers:{authorization:'Bearer '+token},...(body===undefined?{}:{body})}),{SERVICE_NAME:'auth',DB_URL:url.href},'/user/sessions',{});
 try{
  for(let i=0;i<2;i++)await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'rmt',$3,'unused','active')",[ids[i],ids[i]+'@example.invalid',tenant]);
  for(let i=0;i<4;i++)await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+($3 * INTERVAL '1 hour'))",[hash(tokens[i]),ids[i===3?1:0],i===2?-1:1]);
@@ -30,7 +30,7 @@ try{
   await db.query('CREATE TRIGGER fixture_self_delete_confirmation BEFORE DELETE ON auth_sessions FOR EACH ROW EXECUTE FUNCTION fixture_self_delete_confirmation()');
   try{const before={sessions:(await db.query('SELECT * FROM auth_sessions ORDER BY token_hash')).rows,audit:(await db.query('SELECT * FROM auth_management_audit ORDER BY id')).rows};const r=await call('DELETE');assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.deepEqual({sessions:(await db.query('SELECT * FROM auth_sessions ORDER BY token_hash')).rows,audit:(await db.query('SELECT * FROM auth_management_audit ORDER BY id')).rows},before);checks++;}finally{await db.query('DROP TRIGGER fixture_self_delete_confirmation ON auth_sessions');}
  }
- const revoked=await call('DELETE');assert.equal(revoked.status,200);const revokedBody=await revoked.json();assert.equal(revokedBody.revokedSessions,3);assert.equal(typeof revokedBody.revokedSessions,'number');checks++;
+ const revoked=await call('DELETE',tokens[0],'','');assert.equal(revoked.status,200);const revokedBody=await revoked.json();assert.equal(revokedBody.revokedSessions,3);assert.equal(typeof revokedBody.revokedSessions,'number');checks++;
  for(const token of tokens.slice(0,3))assert.equal((await call('GET',token)).status,401);assert.equal((await call('GET',tokens[3])).status,200);checks++;
  const audit=(await db.query('SELECT previous_state,new_state FROM auth_management_audit WHERE actor_user_id=$1 AND target_user_id=$1',[ids[0]])).rows;assert.equal(audit.length,1);assert.equal(audit[0].previous_state.sessionCount,3);assert.equal(audit[0].new_state.initiatedBy,'self');checks++;
  assert.equal((await call('DELETE')).status,401);checks++;
