@@ -1,0 +1,70 @@
+name: Inspect live tenant email configuration requirements
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/inspect-email-config.yml]
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+jobs:
+  requirements:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/govt-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Load live specifications and theme after merge
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY'
+          import sys,json,pathlib,sqlite3
+          sys.path.insert(0,'tools/governance-production')
+          from production_reader import connect
+          flow='auth.inspect-email-config'
+          with connect() as db:
+              db.row_factory=sqlite3.Row
+              result={}
+              for name in ['virtual_workflow_definitions','virtual_workflow_steps','virtual_workflow_source_links','virtual_workflow_checkpoints']:
+                  result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE flow_id=?',(flow,))]
+              result['apis']=[dict(r) for r in db.execute("SELECT * FROM api_endpoints WHERE route_path LIKE '%maintenance/configuration%'")]
+              ids=[r['id'] for r in result['apis']]
+              for name,key in [('api_permissions','api_id'),('screen_api_links','api_id')]:
+                  result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE '+key+' IN ('+','.join('?' for _ in ids)+')',ids)] if ids else []
+              result['schema']={name:[dict(r) for r in db.execute('PRAGMA table_info('+name+')')] for name in ['roles','screens','screen_sections','screen_required_elements','screen_section_elements','screen_components','screen_component_map','auth_role_permissions','virtual_role_flow_guides','virtual_flow_catalog_snapshots']}
+              result['management_policy']=[dict(r) for r in db.execute("SELECT * FROM auth_account_management_policy WHERE actor_role_code='ceo'")]
+              screen_ids=sorted(set(r['screen_id'] for r in result['screen_api_links'])|set(r[0] for r in db.execute("SELECT id FROM screens WHERE route_path='/maintenance/configuration' OR screen_code='MAINTENANCE_CONFIGURATION'")))
+              result['linked_screens']=[dict(r) for r in db.execute('SELECT * FROM screens WHERE id IN ('+','.join('?' for _ in screen_ids)+')',screen_ids)] if screen_ids else []
+              for name in ['screen_required_elements','screen_section_elements','screen_sections','screen_components']:
+                  result[name]=[dict(r) for r in db.execute('SELECT * FROM '+name+' WHERE screen_id IN ('+','.join('?' for _ in screen_ids)+')',screen_ids)] if screen_ids else []
+              result['role_screen_permissions_schema']=[dict(r) for r in db.execute('PRAGMA table_info(role_screen_permissions)')]
+              result['roles']=[dict(r) for r in db.execute("SELECT id,role_code,role_name,active,post_login_route FROM roles WHERE role_code IN ('ceo','maintenance','platform_admin','psw')")]
+              result['screen_permissions']=[dict(r) for r in db.execute('SELECT p.* FROM role_screen_permissions p WHERE screen_id IN ('+','.join('?' for _ in screen_ids)+')',screen_ids)] if screen_ids else []
+              result['theme']=dict(db.execute('SELECT css_variable_name,token_value FROM theme_design_tokens WHERE theme_id=1 AND active=1'))
+              result['related_tables']=[dict(r) for r in db.execute("SELECT name FROM sqlite_master WHERE type='table' AND (name LIKE '%maintenance%' OR name LIKE '%mail%' OR name LIKE '%resource%')")]
+              result['resource_schema']={name:[dict(r) for r in db.execute('PRAGMA table_info('+name+')')] for name in ['resource_keys','language_resource_values']}
+              result['snapshots']=[dict(r) for r in db.execute("SELECT name,updated_at FROM virtual_flow_catalog_snapshots")]
+              result['permission_tables']=[dict(r) for r in db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE '%permission%'")]
+              result['guides']=[dict(r) for r in db.execute("SELECT * FROM virtual_role_flow_guides WHERE guide_json LIKE '%auth.inspect-email-config%'")]
+              result['totals']=[dict(r) for r in db.execute("SELECT verification_status,COUNT(*) n FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY verification_status")]
+              result['catalogue']=[dict(r) for r in db.execute("SELECT flow_kind,COUNT(*) n FROM virtual_workflow_definitions GROUP BY flow_kind")]
+              path=pathlib.Path('test-results/email-config');path.mkdir(parents=True,exist_ok=True)
+              (path/'governance.json').write_text(json.dumps(result,indent=2))
+              print('EMAIL_CONFIG_LIVE '+json.dumps(result))
+          
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: email-config-live-requirements
+          path: test-results/
