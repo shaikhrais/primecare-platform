@@ -1,6 +1,9 @@
 name: Verify deployed own-session controls
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-live-own-sessions.yml', 'tools/auth-verification/test-live-sessions.py']
   workflow_run:
     workflows: ['Release confirmed self-session revocation']
     types: [completed]
