@@ -17,7 +17,7 @@ export class MaintenanceClient extends BaseSessionClient {
  templateName(id:string){const key='template_'+id as keyof typeof catalog.locales.en;return this.text(key);}
  protected async requestJson(path:string,method:string,body?:unknown){try{return await super.requestJson(path,method,body);}catch(error){if(error instanceof TypeError||error instanceof SyntaxError)throw Error(this.text('cannotConnect'));throw error;}}
  protected accountChangedError(){return Error(this.text('changed'));}
- protected rejectResponse(_response:Response,value:unknown):never {const error=this.errorData(value).error,key=catalog.serverMessages[String(error)] as keyof typeof catalog.locales.en|undefined;throw Error(key?this.text(key):this.text('failed'));}
+ protected rejectResponse(response:Response,value:unknown):never {if(response.status===401&&sessionStorage.getItem('primecare_session')===this.token)sessionStorage.removeItem('primecare_session');const error=this.errorData(value).error,key=catalog.serverMessages[String(error)] as keyof typeof catalog.locales.en|undefined;throw Error(key?this.text(key):this.text('failed'));}
  async identify(){const value=await this.requestJson(catalog.endpoints.identity,'GET') as MaintenanceIdentity;if(!value||!catalog.actorRoles.includes(value.roles)||typeof value.userId!=='string')throw Error(this.text('access'));this.identity=value;return value;}
  get canCreateMaintenance(){return !!this.identity&&catalog.creationActorRoles.includes(this.identity.roles);}
  async read(){return await this.requestJson(catalog.endpoints.configuration,'GET') as MaintenanceConfiguration;}
