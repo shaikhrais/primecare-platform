@@ -1,0 +1,124 @@
+name: Finalize all implemented requirements review on main
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/verify-implemented-review-final.yml]
+permissions:
+  contents: write
+  actions: read
+  pull-requests: read
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - id: state
+        name: Verify actual regression results unchanged source and main-only cleanup
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo,run_id=39411474371;
+            const {data:run}=await github.rest.actions.getWorkflowRun({owner,repo,run_id});
+            if(run.conclusion!=='success')throw Error('Regression run is not successful');
+            const {data:jobs}=await github.rest.actions.listJobsForWorkflowRun({owner,repo,run_id,per_page:100});
+            const names=['care','growth','auth (uuid)','auth (text)','acceptance','browser','api','flutter','governance-tests'];
+            for(const name of names){const items=jobs.jobs.filter(j=>j.name===name);if(items.length!==1||items[0].conclusion!=='success')throw Error('Missing successful regression '+name);}
+            const {data:diff}=await github.rest.repos.compareCommitsWithBasehead({owner,repo,basehead:run.head_sha+'...'+context.sha});
+            if(diff.behind_by!==0||diff.files.some(f=>!['.github/workflows/verify-implemented-review-final.yml','.github/workflows/verify-implemented-regressions.yml'].includes(f.filename)))throw Error('Application source changed since successful regression; rerun required');
+            const {data:artifacts}=await github.rest.actions.listWorkflowRunArtifacts({owner,repo,run_id,per_page:100});
+            const evidence=artifacts.artifacts.filter(a=>!a.expired).map(a=>({name:a.name,url:run.html_url+'/artifacts/'+a.id}));
+            core.setOutput('evidence',JSON.stringify(evidence));core.setOutput('source_sha',run.head_sha);
+            const results={};for(const k of ['care','growth','auth','acceptance','browser','api','flutter','governance-tests'])results[k]={result:'success',outputs:{}};
+            core.setOutput('results',JSON.stringify(results));
+            const branches=await github.paginate(github.rest.repos.listBranches,{owner,repo,per_page:100});
+            const prs=await github.paginate(github.rest.pulls.list,{owner,repo,state:'open',per_page:100});
+            if(branches.length!==1||branches[0].name!=='main'||prs.length)throw Error('Unexpected active work branch or PR');
+            const {data:ref}=await github.rest.git.getRef({owner,repo,ref:'heads/main'});
+            const {data:commit}=await github.rest.git.getCommit({owner,repo,commit_sha:ref.object.sha});
+            const {data:tree}=await github.rest.git.createTree({owner,repo,base_tree:commit.tree.sha,tree:['.github/workflows/verify-implemented-regressions.yml','.github/workflows/verify-implemented-review-final.yml'].map(path=>({path,mode:'100644',type:'blob',sha:null}))});
+            const {data:clean}=await github.rest.git.createCommit({owner,repo,message:'ops: finish merged-main verification baseline and remove completed launchers',tree:tree.sha,parents:[ref.object.sha]});
+            await github.rest.git.updateRef({owner,repo,ref:'heads/main',sha:clean.sha,force:false});core.setOutput('main_sha',clean.sha);
+      - name: Validate row references and explicit catalogue snapshots then save each process review
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          REGRESSION_RESULTS: ${{ steps.state.outputs.results }}
+          FINAL_MAIN_SHA: ${{ steps.state.outputs.main_sha }}
+          REGRESSION_SOURCE_SHA: ${{ steps.state.outputs.source_sha }}
+          EVIDENCE_URLS: ${{ steps.state.outputs.evidence }}
+        run: |
+          python -u - <<'PY'
+          import sys,os,json,pathlib,hashlib,datetime,re
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import summary
+          root=pathlib.Path.cwd();out=root/'test-results/implemented-regressions';out.mkdir(parents=True,exist_ok=True)
+          def decoded(v):return json.loads(v) if isinstance(v,str) else v
+          def safe_path(path):
+              if not isinstance(path,str):return None
+              p=pathlib.Path(path)
+              if p.is_absolute() or '..' in p.parts:return None
+              target=(root/p).resolve()
+              return target if target.is_relative_to(root.resolve()) else None
+          needs=json.loads(os.environ['REGRESSION_RESULTS'])
+          groups={'auth':['auth'],'care':['care'],'growth':['growth'],'platform':['acceptance','browser','api','flutter','governance-tests']}
+          with ProductionWorkflowStore() as db:
+              keys=[c['name'] for c in db.tables['virtual_workflow_definitions']['columns']]
+              workflows=[dict(zip(keys,r)) for r in db.execute("SELECT * FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND verification_status IN ('implemented-unverified','verified') ORDER BY flow_id")]
+              cache={};reviews=[]
+              for row in workflows:
+                  plan=decoded(row['definition_json']);checks=[];unresolved=list(plan.get('unresolved_governance_refs',[]))
+                  for ref in plan.get('governance_refs',[]):
+                      table=ref.get('table');columns=ref.get('key_columns',[]);key=ref.get('key')
+                      if ref.get('reference_status')=='table_snapshot':
+                          if table not in ['theme_profiles','theme_design_tokens'] or table not in db.tables or 'id' not in {x['name'] for x in db.tables[table]['columns']}:
+                              checks.append(dict(reference=ref,result='unresolved',reason='Unsupported catalogue-provenance relation'));continue
+                          cache_key='snapshot:'+table
+                          if cache_key not in cache:cache[cache_key]=[r[0] for r in db.execute('SELECT id FROM '+table+' ORDER BY id')]
+                          actual=cache[cache_key];expected=ref.get('row_ids')
+                          checks.append(dict(reference=ref,result='catalogue_provenance_checked' if isinstance(expected,list) and actual==expected else 'unresolved',registered_row_ids=expected,current_row_ids=actual,note='Catalogue-wide provenance only; this reference does not establish an actor grant'))
+                          continue
+                      if not table or table not in db.tables or not columns or not all(isinstance(c,str) and re.fullmatch('[a-z_][a-z0-9_]*',c) and c in {x['name'] for x in db.tables[table]['columns']} for c in columns):
+                          checks.append(dict(reference=ref,result='unresolved',reason='No exact manifest-backed key columns; no identity guessed'));continue
+                      values=[key] if len(columns)==1 else key
+                      if not isinstance(values,list) or len(values)!=len(columns):
+                          checks.append(dict(reference=ref,result='unresolved',reason='Composite reference lacks explicit key tuple'));continue
+                      cache_key=json.dumps([table,columns,values],sort_keys=True)
+                      if cache_key not in cache:
+                          metadata=[c['name'] for c in db.tables[table]['columns']]
+                          sql='SELECT * FROM '+table+' WHERE '+' AND '.join(c+'=?' for c in columns)
+                          cache[cache_key]=[dict(zip(metadata,r)) for r in db.execute(sql,values)]
+                      matches=cache[cache_key]
+                      checks.append(dict(reference=ref,result='resolved' if len(matches)==1 else 'unresolved',match_count=len(matches),record=matches[0] if len(matches)==1 else None))
+                  hashes={};missing=[];drift=[]
+                  for path in plan.get('source_paths',[]):
+                      p=safe_path(path)
+                      if not p or not p.is_file():missing.append(path);continue
+                      hashes[path]=hashlib.sha256(p.read_bytes()).hexdigest()
+                      expected=plan.get('source_sha256',{}).get(path)
+                      if expected and hashes[path]!=expected:drift.append(dict(path=path,registered_sha256=expected,current_sha256=hashes[path]))
+                  group=row['flow_id'].split('.')[0]
+                  jobs={j:needs[j]['result'] for j in groups[group]}
+                  review=dict(workflow_id=row['flow_id'],title=row['title'],verification_status=row['verification_status'],test_status=row['test_status'],definition_sha256=row['definition_sha256'],definition_quality=plan.get('definition_quality'),source_main_sha=os.environ['GITHUB_SHA'],requirements_references=checks,unresolved_declared_references=unresolved,missing_sources=missing,specification_source_drift=drift,current_source_bindings=hashes,existing_blockers=decoded(row.get('blocker_json') or '[]'),family_regression_results=jobs,full_acceptance_proven=False,remaining_acceptance=['Require workflow-specific credential login, UI/API/database/reload receipt and all registered acceptance alternatives; family regression results do not replace that receipt.','Require current externally produced acceptance review and all governed review/evidence gates before verified status.'],next_action='Resolve exact metadata/source drift where listed, then execute and bind this workflow acceptance criteria individually using isolated synthetic fixtures; preserve existing authority and tenant isolation.')
+                  reviews.append(review)
+                  db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('implemented-review:'+row['flow_id'],json.dumps(review,sort_keys=True,default=str)))
+              result=dict(generated_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),source_main_sha=os.environ['GITHUB_SHA'],regression_source_sha=os.environ['REGRESSION_SOURCE_SHA'],regression_run_url='https://github.com/shaikhrais/primecare-platform/actions/runs/39411474371',summary=summary(db),implemented_count=len(reviews),job_results=needs,workflows=reviews,scope='Current-main family regression plus live production requirement/source review for every implemented business process. No full acceptance or independent approval is fabricated.')
+              (out/'implemented-review.json').write_text(json.dumps(result,ensure_ascii=False,indent=2,default=str))
+              checkpoint=dict(main_sha=os.environ['FINAL_MAIN_SHA'],regression_source_sha=os.environ['REGRESSION_SOURCE_SHA'],evidence_urls=json.loads(os.environ['EVIDENCE_URLS']),active_branch=None,remote_branch_count=1,local_branch_count=1,open_pr_count=0,merged_pr=215,implemented_count=len(reviews),summary=result['summary'],regression_results={k:v['result'] for k,v in needs.items()},reviewed_workflow_ids=[r['workflow_id'] for r in reviews],full_acceptance_proven=False,next_action='Reconcile exact auth.save-email-config and auth.test-maintenance-email references to the already registered POST API/screen grants through a bounded production writer, without using account-creation authority as an API grant. Then refresh auth.credential-login acceptance for its registered actor/redirect matrix and denied/expired/offline/identity-confirmation rollback cases. Use the 130 per-workflow review snapshots for the remaining queue. Main-only idle state; at most one work branch if a supported fix requires one.')
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('implemented-verification-current',json.dumps(checkpoint,sort_keys=True)))
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('execution-handoff-current',json.dumps(checkpoint,sort_keys=True)))
+          print('ALL_IMPLEMENTED_REVIEW_COMMITTED '+json.dumps(dict(summary=result['summary'],implemented_count=len(reviews),regressions={k:v['result'] for k,v in needs.items()},unresolved_requirements=sum(bool(r['unresolved_declared_references'] or any(c['result']=='unresolved' for c in r['requirements_references'])) for r in reviews),source_drift=sum(bool(r['specification_source_drift']) for r in reviews),missing_sources=sum(bool(r['missing_sources']) for r in reviews))))
+          for r in reviews:print('IMPLEMENTED_REVIEW '+json.dumps(dict(workflow_id=r['workflow_id'],references=[dict(reference=c['reference'],result=c['result']) for c in r['requirements_references'] if c['result']=='unresolved'],declared_unresolved=r['unresolved_declared_references'],drift=r['specification_source_drift'],family_regression_results=r['family_regression_results']),default=str))
+          
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-implemented-requirements-review-corrected
+          path: test-results/implemented-regressions
