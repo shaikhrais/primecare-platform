@@ -1,6 +1,9 @@
 name: Release confirmed self-session revocation
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/release-session-revocation-fix.yml']
   workflow_run:
     workflows: ['Auth Worker unit and PostgreSQL tests']
     types: [completed]
@@ -21,7 +24,12 @@ jobs:
         with:
           script: |
             const owner=context.repo.owner,repo=context.repo.repo;
-            const authRunId=context.payload.workflow_run?.id || 39450084516;
+            let authRunId=context.payload.workflow_run?.id;
+            if(!authRunId){
+              const runs=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'auth-worker-tests.yml',branch:'main',status:'success',per_page:1})).data.workflow_runs;
+              if(!runs.length)throw Error('Successful current auth backend verification required');
+              authRunId=runs[0].id;
+            }
             const authRun=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:authRunId})).data;
             const nativeRuns=(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'verify-session-revocation-fault.yml',branch:'main',per_page:100})).data.workflow_runs;
             const nativeRun=nativeRuns.find(r=>r.head_sha===authRun.head_sha)||nativeRuns.find(r=>r.conclusion==='success');
