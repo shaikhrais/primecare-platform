@@ -141,7 +141,7 @@ jobs:
               catalog=read_catalog(db,load_definition())
               assert catalog==json.loads((root/'packages/shared/src/account-mutations.json').read_text())
               assert read_accounts(db,account_definition())==json.loads((root/'packages/shared/src/tenant-account-reads.json').read_text())
-              packet={'scope':'Actual deployed Chromium CEO/HR account UI / public gateway / native PostgreSQL / Cloudflare receiving Worker account lifecycle','receipts':receipts,'assets':assets,'registration_authority':catalog['authority'],'whole_auth_verified':False,'remaining':['Complete negative/failure-path evidence for the current definition','Full accessibility/PWA/native-platform acceptance','Independent current review approvals'],'source_main':os.environ['GITHUB_SHA']}
+              packet={'native_password_receipt':password_receipt,'scope':'Actual deployed Chromium CEO/HR account UI / public gateway / native PostgreSQL / Cloudflare receiving Worker account lifecycle','receipts':receipts,'assets':assets,'registration_authority':catalog['authority'],'whole_auth_verified':False,'remaining':['Complete negative/failure-path evidence for the current definition','Full accessibility/PWA/native-platform acceptance','Independent current review approvals'],'source_main':os.environ['GITHUB_SHA']}
               p=out/'receipt.json';p.write_text(json.dumps(packet,indent=2))
               for path in list((root/'test-results/account-lifecycle-accepted').rglob('*'))+[p,password_receipt_path]:
                   if path.is_file():evidence.append({'kind':'browser','path':str(path.relative_to(root)),'sha256':digest(path.read_bytes()),'url':os.environ['RUN_URL']})
