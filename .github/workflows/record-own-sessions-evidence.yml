@@ -31,6 +31,9 @@ jobs:
             core.setOutput('producer_run',run.id);core.setOutput('producer_sha',run.head_sha);
             const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:run.id,per_page:100});
             if(jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').length!==3)throw Error('Three successful live browser proof jobs required');
+            const proofStarts=jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').map(j=>Date.parse(j.started_at));
+            if(proofStarts.some(t=>!Number.isFinite(t)))throw Error('Proof job timestamps required');
+            const firstProofStarted=Math.min(...proofStarts);
             const candidates=[];
             for(const workflow_id of ['release-account-sessions.yml','release-screen-text.yml','verify-account-mutations.yml']){
               candidates.push(...(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id,branch:'main',status:'success',per_page:10})).data.workflow_runs);
@@ -39,10 +42,11 @@ jobs:
             const portals=['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'];
             let portal;
             for(const candidate of candidates){
-              if(Date.parse(run.run_started_at)<Date.parse(candidate.updated_at))continue;
               const deployed=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:candidate.id,per_page:100});
               if(!portals.every(p=>deployed.some(j=>j.name.endsWith(' / deploy ('+p+')')&&j.conclusion==='success')))continue;
               if(![' / build',' / verify_gateway'].every(suffix=>deployed.some(j=>j.name.endsWith(suffix)&&j.conclusion==='success')))continue;
+              const completed=deployed.filter(j=>portals.some(p=>j.name.endsWith(' / deploy ('+p+')'))||[' / build',' / verify_gateway'].some(s=>j.name.endsWith(s))).map(j=>Date.parse(j.completed_at));
+              if(completed.some(t=>!Number.isFinite(t))||firstProofStarted<Math.max(...completed))continue;
               let matches=true;
               for(const head of [context.sha,run.head_sha]){
                 const comparison=(await github.rest.repos.compareCommits({owner,repo,base:candidate.head_sha,head})).data;
