@@ -1,3 +1,4 @@
+import {tenantAccountsScreen,tenantAccountsMarkup,bindTenantAccounts} from './tenant-accounts-panel';
 import careRegistry from '../../../packages/shared/src/care/registry.json';
 import {openAdminTraining,trainingText} from './admin-training';
 import {DashboardMediaLook} from './media-look';
@@ -69,7 +70,9 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     <ul>${p.blockers.map(b=>`<li>${escapeHtml(b)}</li>`).join('')}</ul></details>`;
   const activities=()=>data.overview.activity.length?`<ul class="activity-list">${data.overview.activity.map(a=>`<li><strong>${escapeHtml(a.action.replaceAll('_',' '))}</strong><time datetime="${escapeHtml(a.created_at)}">${escapeHtml(new Date(a.created_at).toLocaleString())}</time></li>`).join('')}</ul>`:`<p class="empty">${t('empty')}</p>`;
   const chart=()=>`<div class="role-bars">${data.overview.accountRoles.map(r=>`<div><div><span>${escapeHtml(media.roleLabel(r.role))}</span><strong>${r.count}</strong></div><meter min="0" max="${Math.max(1,data.overview.activeAccounts)}" value="${r.count}" aria-label="${escapeHtml(media.roleLabel(r.role))}">${r.count}</meter></div>`).join('')}</div>`;
+  let disposeAccountReads=()=>{};
   const draw=()=>{
+    disposeAccountReads();disposeAccountReads=()=>{};
     const inventoryOpen=root.querySelector<HTMLDetailsElement>('[data-cy="workspace-inventory"]')?.open??false;
     let page=data.screens.find(s=>s.route===location.pathname);
     if(location.pathname==='/' || location.pathname==='/dashboard') {
@@ -128,6 +131,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     root.querySelector('[data-cy="inventory-prev"]')?.addEventListener('click',()=>{pageNumber--;draw();});
     root.querySelector('[data-cy="inventory-next"]')?.addEventListener('click',()=>{pageNumber++;draw();});
     root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([inventoryCsv(rows)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
+    if(page?.code===tenantAccountsScreen&&!account){const target=root.querySelector('main')!;target.insertAdjacentHTML('beforeend',tenantAccountsMarkup());disposeAccountReads=bindTenantAccounts(root,gateway,token);}
     bindAccount(root,gateway,token,text('request_failed'),text('unavailable'));
   };
   const unsubscribe=live.subscribe(()=>{if(!root.querySelector('[data-cy=workspace-organization]')){unsubscribe();return;}if(!dirtyForm&&!signingOut)draw();});

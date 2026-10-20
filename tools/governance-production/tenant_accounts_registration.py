@@ -72,11 +72,39 @@ def register(db,d):
   db.ensure('screen_components',{'screen_id':705,'component_code':'tenantAccounts.'+key},{'component_name':'tenantAccounts.'+key,'component_type':c['component'],'data_cy':c['testId'],'file_path':d['panelFile'],'implementation_status':'registered-unimplemented'})
   db.ensure('screen_required_elements',{'screen_id':705,'element_key':'tenantAccounts.'+key},{'element_type':c['component'],'label':'tenantAccounts.'+key,'test_id':c['testId'],'required':1})
  return catalog(db,d)
+def bind_implementation(db,result):
+ if result!=catalog(db,definition()) or result!=json.loads((ROOT/'packages/shared/src/tenant-account-reads.json').read_text()):raise GovernanceReadError('Current production-generated read catalog required')
+ d=definition();paths=['websites/typescript/src/workspace.ts',d['panelFile'],d['clientFile'],'websites/typescript/src/tenant-accounts-controller.ts','packages/shared/src/tenant-account-reads.json','cloudflare/workers/src/auth.ts','cloudflare/workers/src/account-admin.ts','cloudflare/workers/src/account-management.ts','cloudflare/workers/src/gateway.ts']
+ hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths};bindings=[]
+ root_id=db.execute("SELECT id FROM screen_components WHERE screen_id=705 AND component_code='tenantAccounts.root'").fetchone()[0]
+ for op in d['operations'].values():
+  rows=db.execute('SELECT definition_json,definition_sha256,flow_kind,actor_roles_json FROM virtual_workflow_definitions WHERE flow_id=?',(op['flow'],)).fetchall()
+  if len(rows)!=1 or rows[0][2]!='business_process' or hashlib.sha256(rows[0][0].encode()).hexdigest()!=rows[0][1]:raise GovernanceReadError('Exact existing account read process required')
+  plan=json.loads(rows[0][0]);actors=json.loads(rows[0][3])
+  if actors!=['ceo'] or plan.get('actor_roles')!=actors:raise GovernanceReadError('Account read actor drift')
+  steps=[x for x in plan['steps'] if x.get('api_method')=='GET'];normalized=db.execute("SELECT step_order,api_path FROM virtual_workflow_steps WHERE flow_id=? AND api_method='GET'",(op['flow'],)).fetchall()
+  if len(steps)!=1 or len(normalized)!=1:raise GovernanceReadError('Exact registered read step required')
+  def canonical(path):return path.replace('/v1/auth/admin/','/v1/admin/').replace('{id}','{userId}')
+  if canonical(steps[0]['api_path'])!=op['path'] or canonical(normalized[0][1])!=op['path']:raise GovernanceReadError('Read step route drift')
+  refs=[dict(table=t,key=k,key_columns=keys,reference_status='row') for t,k,keys in [('screens',705,['id']),('api_endpoints',op['apiId'],['id']),('screen_components',root_id,['id']),('auth_account_management_policy','ceo',['actor_role_code'])]]
+  steps[0]['api_path']=op['path'];plan.update(governance_refs=refs,declared_governance_refs=refs,registered_source={'screen_id':705,'api_id':op['apiId'],'controls':d['controls'],'catalog':'packages/shared/src/tenant-account-reads.json'},definition_quality='source_mapped',source_paths=paths,source_sha256=hashes,gaps=['Existing read-only CEO UI implemented. Current deployed browser/API/native-record comparisons, remaining failure alternatives and independent review gates must be proven.'])
+  encoded=json.dumps(plan,ensure_ascii=False,sort_keys=True);digest=hashlib.sha256(encoded.encode()).hexdigest()
+  if digest==rows[0][1]:continue
+  db._update('virtual_workflow_definitions',dict(definition_json=encoded,definition_sha256=digest,definition_status='source_mapped',verification_status='implemented-unverified',test_status='stale',blocker_json=json.dumps(plan['gaps']),updated_at=datetime.datetime.now(datetime.timezone.utc).isoformat()),op['flow'])
+  changed=db.db.execute('UPDATE '+db.table('virtual_workflow_steps')+' SET api_path=%s WHERE flow_id=%s AND step_order=%s',(op['path'],op['flow'],normalized[0][0]))
+  if changed.rowcount!=1:raise GovernanceReadError('Unexpected normalized read update count')
+  db.db.execute('DELETE FROM '+db.table('virtual_workflow_source_links')+' WHERE flow_id=%s',(op['flow'],))
+  for ref in refs:
+   v=dict(flow_id=op['flow'],source_table=ref['table'],source_key=str(ref['key']),source_key_columns=json.dumps(ref['key_columns']),reference_status='row');ordinal=db.db.execute('SELECT COALESCE(MAX(_primecare_import_row),-1)+1 FROM '+db.table('virtual_workflow_source_links')).fetchone()[0];fields=list(v)
+   db.db.execute('INSERT INTO '+db.table('virtual_workflow_source_links')+' (_primecare_import_row,'+','.join(map(quote,fields))+') VALUES('+','.join(['%s']*(len(fields)+1))+')',[ordinal,*[db._value('virtual_workflow_source_links',k,v[k]) for k in fields]])
+  bindings.append(op['flow'])
+ return bindings
 def main():
  if not any(x in sys.argv for x in ['--apply','--dry-run']):raise SystemExit('Explicit --apply or --dry-run required')
  with TenantAccountsStore() as db:
   result=register(db,definition());assert result==register(db,definition()),'Idempotence failure'
+  bindings=bind_implementation(db,result) if '--bind' in sys.argv else []
   if '--dry-run' in sys.argv:db.db.rollback()
  out=ROOT/'test-results/tenant-accounts-registration';out.mkdir(parents=True,exist_ok=True);(out/'catalog.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
- print('TENANT_ACCOUNT_READS_REGISTERED '+json.dumps({'screen':705,'controls':len(result['controls']),'apis':len(result['operations']),'dryRun':'--dry-run' in sys.argv,'permissionsChanged':False,'reviewApprovals':False}))
+ print('TENANT_ACCOUNT_READS_REGISTERED '+json.dumps({'screen':705,'controls':len(result['controls']),'apis':len(result['operations']),'dryRun':'--dry-run' in sys.argv,'permissionsChanged':False,'reviewApprovals':False,'sourceBindings':bindings}))
 if __name__=='__main__':main()

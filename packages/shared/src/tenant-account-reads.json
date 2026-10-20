@@ -1,0 +1,218 @@
+{
+  "screenId": 705,
+  "screenCode": "ceo_dashboard",
+  "roleId": 20,
+  "actorRole": "ceo",
+  "route": "/offices/corporate/roles/ceo/dashboard",
+  "panelFile": "websites/typescript/src/tenant-accounts-panel.ts",
+  "clientFile": "websites/typescript/src/tenant-accounts-client.ts",
+  "namespace": "tenantAccounts",
+  "controls": {
+    "root": {
+      "testId": "tenant-accounts-root",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "status": {
+      "testId": "tenant-accounts-status",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "search": {
+      "testId": "tenant-accounts-search",
+      "component": "prime_text_field",
+      "componentId": 3
+    },
+    "searchSubmit": {
+      "testId": "tenant-accounts-search-submit",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "table": {
+      "testId": "tenant-accounts-table",
+      "component": "prime_table_web",
+      "componentId": 14
+    },
+    "previous": {
+      "testId": "tenant-accounts-previous",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "next": {
+      "testId": "tenant-accounts-next",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "refresh": {
+      "testId": "tenant-accounts-refresh",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "pagination": {
+      "testId": "tenant-accounts-pagination",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "details": {
+      "testId": "tenant-accounts-details",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "sessions": {
+      "testId": "tenant-accounts-sessions",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "managementAudit": {
+      "testId": "tenant-accounts-management-audit",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "creationAudit": {
+      "testId": "tenant-accounts-creation-audit",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "detailPanel": {
+      "testId": "tenant-accounts-detail-panel",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "detailTable": {
+      "testId": "tenant-accounts-detail-table",
+      "component": "prime_table_web",
+      "componentId": 14
+    },
+    "detailStatus": {
+      "testId": "tenant-accounts-detail-status",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "detailPrevious": {
+      "testId": "tenant-accounts-detail-previous",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "detailNext": {
+      "testId": "tenant-accounts-detail-next",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "detailPagination": {
+      "testId": "tenant-accounts-detail-pagination",
+      "component": "prime_card",
+      "componentId": 2
+    }
+  },
+  "locales": {
+    "en": {
+      "title": "Tenant accounts",
+      "search": "Search accounts",
+      "refresh": "Refresh",
+      "previous": "Previous",
+      "next": "Next",
+      "total": "Total",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status",
+      "details": "Account details",
+      "sessions": "Sessions",
+      "managementAudit": "Management history",
+      "creationAudit": "Creation history",
+      "created": "Created",
+      "expires": "Expires",
+      "action": "Action",
+      "actor": "Actor",
+      "target": "Account",
+      "empty": "No records",
+      "loading": "Loading",
+      "unavailable": "Unable to load. Retry refresh.",
+      "forbidden": "Access denied",
+      "select": "Select an account"
+    },
+    "fr": {
+      "title": "Comptes du locataire",
+      "search": "Rechercher des comptes",
+      "refresh": "Actualiser",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "total": "Total",
+      "email": "Courriel",
+      "role": "Rôle",
+      "status": "Statut",
+      "details": "Détails du compte",
+      "sessions": "Sessions",
+      "managementAudit": "Historique de gestion",
+      "creationAudit": "Historique de création",
+      "created": "Création",
+      "expires": "Expiration",
+      "action": "Action",
+      "actor": "Auteur",
+      "target": "Compte",
+      "empty": "Aucun enregistrement",
+      "loading": "Chargement",
+      "unavailable": "Chargement impossible. Réessayez.",
+      "forbidden": "Accès refusé",
+      "select": "Sélectionnez un compte"
+    },
+    "es": {
+      "title": "Cuentas del inquilino",
+      "search": "Buscar cuentas",
+      "refresh": "Actualizar",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "total": "Total",
+      "email": "Correo electrónico",
+      "role": "Rol",
+      "status": "Estado",
+      "details": "Detalles de la cuenta",
+      "sessions": "Sesiones",
+      "managementAudit": "Historial de gestión",
+      "creationAudit": "Historial de creación",
+      "created": "Creación",
+      "expires": "Vencimiento",
+      "action": "Acción",
+      "actor": "Actor",
+      "target": "Cuenta",
+      "empty": "Sin registros",
+      "loading": "Cargando",
+      "unavailable": "No se pudo cargar. Vuelva a actualizar.",
+      "forbidden": "Acceso denegado",
+      "select": "Seleccione una cuenta"
+    }
+  },
+  "operations": {
+    "list": {
+      "apiId": 16412,
+      "path": "/v1/admin/users",
+      "flow": "auth.list-tenant-accounts"
+    },
+    "details": {
+      "apiId": 16427,
+      "path": "/v1/admin/users/{userId}",
+      "flow": "auth.inspect-account"
+    },
+    "sessions": {
+      "apiId": 16421,
+      "path": "/v1/admin/users/{userId}/sessions",
+      "flow": "auth.inspect-account-sessions"
+    },
+    "managementAudit": {
+      "apiId": 16423,
+      "path": "/v1/admin/users/audit",
+      "flow": "auth.read-management-audit"
+    },
+    "creationAudit": {
+      "apiId": 16428,
+      "path": "/v1/admin/users/creation-audit",
+      "flow": "auth.read-creation-audit"
+    }
+  },
+  "authority": {
+    "source": "pinned-production-postgresql",
+    "schema": "governance_68b0b02dd1215f58630d2c1a",
+    "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+    "reviewStatus": "pending",
+    "permissionsChanged": false
+  }
+}

@@ -1,0 +1,70 @@
+name: Verify deployed CEO account read workflows
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-tenant-account-reads.yml', 'websites/typescript/src/tenant-accounts-*.ts', 'tools/auth-verification/test-live-tenant-account-reads.py']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tenant-account-reads-release
+  cancel-in-progress: false
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/read-tools" --ignore-scripts esbuild@0.27.2 typescript@5.9.3
+          ln -s "$RUNNER_TEMP/read-tools/node_modules" node_modules
+          node scripts/test-tenant-account-reads.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --resolveJsonModule --allowSyntheticDefaultImports --lib dom,dom.iterable,es2022 websites/typescript/src/tenant-accounts-panel.ts
+  deploy:
+    needs: test
+    uses: ./.github/workflows/deploy-typescript-websites.yml
+    with:
+      confirm: DEPLOY
+    secrets: inherit
+  proof:
+    needs: deploy
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - {locale: en, width: 320}
+          - {locale: fr, width: 768}
+          - {locale: es, width: 1440}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          pip install bcrypt==4.3.0 playwright==1.58.0
+          python -m playwright install --with-deps chromium
+          npm install --prefix "$RUNNER_TEMP/read-tools" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/read-tools/node_modules" node_modules
+      - name: Validate production catalog and compare real browser/API/native records
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          TEST_LOCALE: ${{ matrix.locale }}
+          TEST_WIDTH: ${{ matrix.width }}
+        run: |
+          python3 scripts/verify-tenant-account-reads-catalog.py
+          python3 tools/auth-verification/test-live-tenant-account-reads.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tenant-account-reads-${{ matrix.locale }}-${{ matrix.width }}
+          path: test-results/tenant-account-reads
