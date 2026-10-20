@@ -20,11 +20,11 @@ Receiver source is retained at docs/deployed-source/primecare-email-inbox.js; se
 
 Two test-infrastructure repairs were necessary: add pinned-production preflight before synthetic mutations, and replace an obsolete deployment-reuse assertion with the existing governed current-source deployment pipeline. The first blocked browser attempt is preserved as run39467328204. No application email transport fix was needed. The separate contract-review CI failure came from stale source fingerprints after the auth repair; regenerated provenance preserves the 1063 unresolved operations, zero activation/implementation credit, unchanged authority and unchanged runtime code. Nine planning, fifteen factory and seven code-generation tests passed locally, along with reproducibility checks.
 
-## Production acceptance still incomplete
+## Initial production acceptance snapshot (before account UI work)
 
-The fresh pinned catalogue contains 23 auth business processes: **0 verified, 11 implemented-unverified, 8 missing and 4 blocked**. These are acceptance states, not a count of failing positive-path tests. No production status or review approval was promoted by these tests.
+The initial pinned catalogue contained 23 auth business processes: **0 verified, 11 implemented-unverified, 8 missing and 4 blocked**. These are acceptance states, not a count of failing positive-path tests. No production status or review approval was promoted by these tests.
 
-Eight missing workflows are general governed account creation, account list/detail/update, another account's session list/revocation, and creation/management audit UI. Their existing APIs do not supply the absent registered controls and exact specification bindings. The production report requires a supported metadata writer and exact controls/resources before implementation.
+At that initial snapshot, eight missing workflows were general governed account creation, account list/detail/update, another account's session list/revocation, and creation/management audit UI. Their existing APIs do not supply the absent registered controls and exact specification bindings. The production report requires a supported metadata writer and exact controls/resources before implementation.
 
 Four blocked processes are the three protected bootstrap duties and role switching. Approved operator/environment bindings or multi-role tenant/session/audit policy remain unresolved. Bootstrapping real protected accounts is not part of this verification.
 
@@ -57,3 +57,15 @@ The eleven implemented processes still require their remaining registered negati
 | `auth.test-maintenance-email` | implemented-unverified |
 
 All work was published directly to main with expected-head checks. No new work branch or PR was created. Full auth is not declared complete.
+
+## Account UI implementation and fresh production status
+
+A later production read ([39476460788](https://github.com/shaikhrais/primecare-platform/actions/runs/39476460788)) found **23 auth business processes: 19 implemented-unverified, 0 missing, 4 blocked, 0 fully verified**. It supersedes the initial status table above. All eight previously missing account processes now have implementation bindings.
+
+Five CEO read workflows were registered on existing dashboard705 and passed 36 checks per locale in English320px, French768px and Spanish1440px ([39472098668](https://github.com/shaikhrais/primecare-platform/actions/runs/39472098668)); machine receipts are in evidence/auth-account-reads-20261020.json. The corrected proof removed only its own temporary data. Bounded recovery also removed 84 stranded synthetic users across three exact test datasets after an earlier fixture cleanup type mismatch; no real account was changed.
+
+Account API metadata1/11 was reconciled to the existing auth service, exact safe response contracts and approved role policy ([39472506674](https://github.com/shaikhrais/primecare-platform/actions/runs/39472506674)). Existing broad legacy grant rows were narrowed from128 to3 enabled rows: CEO/HR creation and CEO management. No grant was added or expanded. Historical runtime-artifact references remain unresolved; the exact quarantine carries both the isolated historical fingerprints and current narrowed fingerprints without asserting authority.
+
+Creation controls for existing CEO705 and HR39, and CEO edit/revoke controls, were registered before implementation ([39473584835](https://github.com/shaikhrais/primecare-platform/actions/runs/39473584835)). The release bound canonical API steps and source references to the three existing business processes. Creation has116 resolved source links, management5 and revocation4. No independent review approval or production verified status was inferred.
+
+The three protected bootstrap duties still need approved deployment operator/environment inputs. Role switching still needs approved multi-role assignment, tenant/session/grant and audit semantics. Remaining negative-path/platform coverage and independent architecture, database, security, accessibility, performance, localization, API, testing and documentation reviews remain acceptance gates.

@@ -13,6 +13,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 concurrency:
   group: account-mutations-live-release
   cancel-in-progress: false
@@ -35,8 +36,38 @@ jobs:
           node scripts/test-auth-client.mjs
           python3 tools/auth-verification/test-owned-inbox-parser.py
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --resolveJsonModule --allowSyntheticDefaultImports --lib dom,dom.iterable,es2022 websites/typescript/src/account-mutations-panel.ts websites/typescript/src/tenant-accounts-panel.ts
-  bind:
+  release_source:
     needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      reuse: ${{ steps.source.outputs.reuse }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          runtime=7801d8205965460bfa9441a98a66b708911e35c0
+          if git diff --quiet "$runtime" HEAD -- websites/typescript packages/shared cloudflare/workers scripts/build-typescript-websites.mjs 'scripts/verify-*-catalog.py'; then
+            gh api repos/${{ github.repository }}/actions/runs/39475799697/jobs --paginate > /tmp/deployed-account-jobs.json
+            python3 - <<'PY'
+          import json
+          jobs=json.load(open('/tmp/deployed-account-jobs.json'))['jobs']
+          expected={'deploy / verify_gateway','deploy / build',*('deploy / deploy ('+p+')' for p in ['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'])}
+          actual={j['name'] for j in jobs if j['conclusion']=='success'}
+          assert expected.issubset(actual),'All nine pinned runtime deployments must have succeeded'
+          print('Reusing successful all-nine deployment39475799697; complete runtime/catalog source identical to7801d820')
+          PY
+            echo reuse=true >> "$GITHUB_OUTPUT"
+          else
+            echo reuse=false >> "$GITHUB_OUTPUT"
+          fi
+  bind:
+    needs: release_source
+    if: needs.release_source.outputs.reuse != 'true'
     environment: production
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -77,7 +108,8 @@ jobs:
       confirm: DEPLOY
     secrets: inherit
   proof:
-    needs: deploy
+    needs: [release_source, deploy]
+    if: always() && needs.release_source.result == 'success' && (needs.deploy.result == 'success' || needs.release_source.outputs.reuse == 'true')
     environment: production
     runs-on: ubuntu-latest
     timeout-minutes: 15
