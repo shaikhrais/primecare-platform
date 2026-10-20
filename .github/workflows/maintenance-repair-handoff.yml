@@ -1,0 +1,81 @@
+name: Save review-blocked maintenance repair handoff and remove completed launchers
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/maintenance-repair-handoff.yml]
+permissions:
+  contents: write
+  actions: read
+  checks: read
+  pull-requests: read
+jobs:
+  handoff:
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 100c63aea562eb8a998d6617ffb16273a966715f
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39351030576
+          github-token: ${{ github.token }}
+          name: maintenance-complete-repair-evidence
+          path: test-results
+      - id: state
+        name: Verify actual current gates and remove only completed temporary launchers
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo,expected='100c63aea562eb8a998d6617ffb16273a966715f';
+            const {data:pr}=await github.rest.pulls.get({owner,repo,pull_number:215});
+            if(pr.merged||pr.state!=='open'||pr.head.ref!=='work/auth-maintenance-repair-20261019'||pr.head.sha!==expected)throw Error('Repair branch or PR changed; preserve work');
+            const {data:checks}=await github.rest.checks.listForRef({owner,repo,ref:expected,per_page:100});
+            if(checks.total_count!==23||checks.check_runs.some(c=>c.status!=='completed'||!['success','skipped','neutral'].includes(c.conclusion)))throw Error('Current-head CI is not complete and green');
+            const {data:proof}=await github.rest.actions.getWorkflowRun({owner,repo,run_id:39351030576});
+            const {data:record}=await github.rest.actions.getWorkflowRun({owner,repo,run_id:39351384602});
+            if(proof.conclusion!=='success'||record.conclusion!=='success')throw Error('Current repair evidence or recording not successful');
+            const {data:reviews}=await github.rest.pulls.listReviews({owner,repo,pull_number:215,per_page:100});
+            const approvals=reviews.filter(r=>r.state==='APPROVED'&&r.commit_id===expected).map(r=>({id:r.id,reviewer:r.user.login,commit:r.commit_id}));
+            if(approvals.length)throw Error('Review state changed; inspect new approvals before choosing handoff');
+            const files=['.github/workflows/verify-maintenance-repair.yml','.github/workflows/register-maintenance-production.yml','.github/workflows/pr215-superseded-runs.yml','.github/workflows/record-maintenance-repair.yml','.github/workflows/maintenance-repair-handoff.yml'];
+            const {data:ref}=await github.rest.git.getRef({owner,repo,ref:'heads/main'});
+            const {data:commit}=await github.rest.git.getCommit({owner,repo,commit_sha:ref.object.sha});
+            const {data:tree}=await github.rest.git.createTree({owner,repo,base_tree:commit.tree.sha,tree:files.map(path=>({path,mode:'100644',type:'blob',sha:null}))});
+            const {data:cleanup}=await github.rest.git.createCommit({owner,repo,message:'ops: remove completed maintenance repair launchers; preserve review-blocked PR215',tree:tree.sha,parents:[ref.object.sha]});
+            await github.rest.git.updateRef({owner,repo,ref:'heads/main',sha:cleanup.sha,force:false});
+            core.setOutput('main_sha',cleanup.sha);
+            core.setOutput('checks',JSON.stringify(checks.check_runs.map(c=>({name:c.name,conclusion:c.conclusion,url:c.html_url}))));
+            core.setOutput('approvals',JSON.stringify(approvals));
+            core.info('Temporary launchers removed. Unmerged repair branch preserved; independent review approvals remain absent.');
+      - name: Save exact production governance review blocker and resume checkpoint
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          FINAL_MAIN_SHA: ${{ steps.state.outputs.main_sha }}
+          CURRENT_CHECKS: ${{ steps.state.outputs.checks }}
+          CURRENT_APPROVALS: ${{ steps.state.outputs.approvals }}
+        run: |
+          python -u - <<'PY'
+          import sys,os,json,pathlib,hashlib
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import summary,_bindings_current
+          root=pathlib.Path.cwd();r=json.loads((root/'test-results/email-config/results.json').read_text())
+          assert r['commit']=='100c63aea562eb8a998d6617ffb16273a966715f' and r['passed'] is True and r['wholeTaskVerified'] is False and len(r['cases'])==6
+          assert _bindings_current(r['source_bindings'],root)
+          next_action='Obtain and record required current independent architecture/database/security/accessibility/performance/localization/API/testing/documentation review approvals for PR215. Current-head CI and focused maintenance proof passed. After required review gates pass, merge expected head 100c63aea562eb8a998d6617ffb16273a966715f into current main, verify inclusion, publish through the supported deployment workflow, verify release, then delete only the merged repair branch. Do not open another work branch or discard historical local staged work.'
+          with ProductionWorkflowStore() as db:
+              row=db.execute('SELECT d.verification_status,d.test_status,c.attempt_id FROM virtual_workflow_definitions d JOIN virtual_workflow_checkpoints c ON c.flow_id=d.flow_id WHERE d.flow_id=?',('auth.inspect-email-config',)).fetchone()
+              assert row==('implemented-unverified','scoped_pass',336)
+              db.execute('INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action) VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,next_action=excluded.next_action,invalidation_json=\'[]\',updated_at=CURRENT_TIMESTAMP',('auth.inspect-email-config',336,next_action))
+              checkpoint=dict(main_sha=os.environ['FINAL_MAIN_SHA'],work_branch_sha='100c63aea562eb8a998d6617ffb16273a966715f',active_branch='work/auth-maintenance-repair-20261019',pr=215,merged=False,remote_branch_count=2,open_pr_count=1,ci=json.loads(os.environ['CURRENT_CHECKS']),review=dict(current_pr_approvals=json.loads(os.environ['CURRENT_APPROVALS']),blocker='Required independent approvals under .agents/AGENTS.md section17 are not recorded. No approval or gate bypass was fabricated.'),workflows=[dict(workflow_id='auth.inspect-email-config',attempt_id=336,verification_status=row[0],test_status=row[1],issues_resolved=['ui.localization','ui.stable-test-ids','ui.semantics-navigation'])],tests=dict(browser_cases=6,api_security_groups=8,redirect_regressions=2,metadata_safety_tests=8,scoped_accessibility_violations=0,whole_workflow_verified=False),evidence='https://github.com/shaikhrais/primecare-platform/actions/runs/39351030576/artifacts/12233760376',synthetic_cleanup=r['cleanup'],cleanup=dict(temporary_launchers_removed=True,remote_work_branch='Preserved: unmerged and awaiting required reviews',local_repair_branch='Not created locally',historical_local_state='Existing work/merge-all-20261019 ref, staged branch-merge documentation and untracked historical items preserved; ancestry not proven, never discard'),next_action=next_action,summary=summary(db))
+              for name in ['maintenance-repair-current','maintenance-repair-in-progress','execution-handoff-current']:
+                  db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',(name,json.dumps(checkpoint,sort_keys=True)))
+          print('MAINTENANCE_REPAIR_HANDOFF_COMMITTED '+json.dumps(checkpoint))
+          PY
