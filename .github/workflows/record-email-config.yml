@@ -1,0 +1,107 @@
+name: Record email configuration acceptance failures and handoff
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/record-email-config.yml]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39346443108
+          github-token: ${{ github.token }}
+          name: email-config-browser-evidence
+          path: test-results
+      - name: Record failed acceptance honestly and verify clean main checkpoint
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GH_TOKEN: ${{ github.token }}
+          EVIDENCE_RUN: '39346443108'
+        run: |
+          python -u - <<'PY'
+          import sys,os,json,pathlib,hashlib,urllib.request,subprocess,time
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import record_attempt,summary,_bindings_current,_open_issues
+          root=pathlib.Path.cwd();base='test-results/email-config';flow='auth.inspect-email-config'
+          receipt=json.loads((root/base/'results.json').read_text());policy=json.loads((root/base/'governance.json').read_text())
+          assert receipt['workflow_id']==flow and receipt['passed'] is False and not receipt['wholeTaskVerified']
+          assert receipt['scoped_checks_passed'] is True and len(receipt['cases'])==4 and len(receipt['apiChecks'])==8
+          assert len([f for f in receipt['failures'] if f['criterion']=='ui.localization'])==2
+          assert len([f for f in receipt['failures'] if f['criterion']=='ui.stable-test-ids'])==4
+          assert _bindings_current(receipt['source_bindings'],root)
+          assert policy['apis']==[] and policy['screen_components']==[] and policy['screen_required_elements']==[]
+          assert [s['id'] for s in policy['linked_screens']]==[1264]
+          assert {(r['role_id'],r['can_view']) for r in policy['screen_permissions']}=={(20,1),(65,1)}
+          def request(path):return json.load(urllib.request.urlopen(urllib.request.Request('https://api.github.com/repos/shaikhrais/primecare-platform/'+path,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})))
+          run=request('actions/runs/'+os.environ['EVIDENCE_RUN']);assert run['conclusion']=='success' and run['head_sha']==receipt['commit']
+          artifact=next(a for a in request('actions/runs/'+os.environ['EVIDENCE_RUN']+'/artifacts')['artifacts'] if a['name']=='email-config-browser-evidence' and not a['expired']);url=run['html_url']+'/artifacts/'+str(artifact['id'])
+          sources=dict(receipt['source_bindings'])
+          reviewed=['websites/typescript/src/maintenance.ts','websites/typescript/src/auth-screen.ts','packages/primecare_ui/lib/src/features/maintenance/maintenance_configuration_screen.dart','tools/governance-production/production-pin.json']
+          for path in reviewed:sources[path]=hashlib.sha256((root/path).read_bytes()).hexdigest()
+          unqualified=[n for n in receipt['navigation'] if n['url'].startswith('http://127.0.0.1:') and 'enable-semantics=true' not in n['url']]
+          blockers=['Existing configuration read implementation and screen1264 are present, but no maintenance/configuration API endpoint is registered in pinned production api_endpoints. Record the approved authentication/authorization, safe response schema, validation, rate/audit/error ownership and exact route binding through a supported production metadata writer; do not invent grants or execute legacy SQLite writers.','Screen1264 has CEO/maintenance view permissions but no registered required elements or components. TypeScript configuration chrome remains hardcoded English in FR/ES and lacks stable governed data-cy control IDs. Maintenance-prefixed resource lookup returned no translations; no live control/resource binding exists. Register approved UI resources and exact controls through a governed production cutover before repair.','Definition contains an unresolved composite CEO->maintenance creation-policy reference and no resolved source links; creation authority is not a substitute for an API permission contract.']+receipt['limitations']
+          audit=dict(workflow_id=flow,producer_job_is_diagnostic_collector=True,acceptance_passed=False,browser_cases=receipt['cases'],acceptance_failures=receipt['failures'],navigation_missing_semantics=unqualified,registered_api_endpoints=[],screen_id=1264,registered_components=[],resource_lookup='No maintenance-prefixed translations found; source uses hardcoded English rather than a live registered label binding',reviewed_source_bindings={p:sources[p] for p in reviewed})
+          if unqualified:blockers.append('Actual login redirect omits enable-semantics=true. Explicit test entry/reload URLs include it, but internal redirect compliance remains failed; see recorded navigation evidence.')
+          with ProductionWorkflowStore() as db:
+              assert db.execute('SELECT definition_sha256 FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()[0]==receipt['definition_sha256']
+              cols=['actor_role_id','target_role_id','scope']
+              audit['resolved_creation_policy_rows']=[dict(zip(cols,r)) for r in db.execute("SELECT p.actor_role_id,p.target_role_id,p.scope FROM auth_account_creation_policy p JOIN roles a ON a.id=p.actor_role_id JOIN roles t ON t.id=p.target_role_id WHERE a.role_code='ceo' AND t.role_code='maintenance'")]
+              (root/base/'source-audit.json').write_text(json.dumps(audit,indent=2))
+              files=[('results.json','browser-api-database'),('governance.json','specification'),('run.mjs','test'),('source-audit.json','source-review')]+[('config-'+role+'-'+locale+'.webm','video') for role,locale in [('ceo','en'),('maintenance','en'),('maintenance','fr'),('maintenance','es')]]+[('config-'+role+'-'+locale+'.png','screenshot') for role,locale in [('ceo','en'),('maintenance','en'),('maintenance','fr'),('maintenance','es')]]
+              evidence=[dict(path=base+'/'+name,sha256=hashlib.sha256((root/base/name).read_bytes()).hexdigest(),kind=kind,url=('https://github.com/shaikhrais/primecare-platform/actions/runs/'+os.environ['GITHUB_RUN_ID'] if name=='source-audit.json' else url)) for name,kind in files]
+              existing=_open_issues(db,flow,root)
+              for issue in existing:
+                  for path in json.loads(db.execute('SELECT affected_sources_json FROM virtual_workflow_issues WHERE issue_id=?',(issue,)).fetchone()[0]):sources[path]=hashlib.sha256((root/path).read_bytes()).hexdigest()
+              issues=[dict(criterion_id='ui.localization',reproduction='Credential-login as synthetic maintenance; open /maintenance/configuration?locale=fr or es with enable-semantics=true and compare displayed configuration chrome.',expected='Configuration labels use governed FR/ES resources.',actual='Actual FR/ES document language still renders hardcoded English Organization configuration and email settings labels.',affected_sources=['websites/typescript/src/maintenance.ts']),dict(criterion_id='ui.stable-test-ids',reproduction='Open actual CEO/maintenance configuration in the four recorded browser cases and inspect sender/control data-cy registration.',expected='Testable configuration controls have stable IDs derived from registered controls.',actual='Sender input and maintenance controls have no governed data-cy IDs; screen1264 has no registered elements/components.',affected_sources=['websites/typescript/src/maintenance.ts'])]
+              if unqualified:issues.append(dict(criterion_id='ui.semantics-navigation',reproduction='Credential login with returnUrl=/maintenance/configuration&enable-semantics=true; inspect actual subsequent top-level navigation URLs.',expected='Navigations retain required enable-semantics=true per AGENTS23.',actual='Successful internal login redirect navigates to /maintenance/configuration without enable-semantics=true.',affected_sources=['websites/typescript/src/auth-screen.ts']))
+              old_criteria={db.execute('SELECT criterion_id FROM virtual_workflow_issues WHERE issue_id=?',(i,)).fetchone()[0] for i in existing}
+              issues=[i for i in issues if i['criterion_id'] not in old_criteria]
+              result=dict(status='blocked',test_status='failed',scope='scoped',source_bindings=sources,evidence=evidence,blockers=blockers,issues=issues,next_action='Resolve exact configuration API/control/resource registration and presentation failures through a production-compatible metadata writer; preserve grants. Continue the next live not_run business process.')
+              if existing:result['existing_issue_ids']=existing
+              output=record_attempt(db,flow,result,root)
+          print('EMAIL_CONFIG_ATTEMPT_COMMITTED '+json.dumps(dict(attempt=output,evidence_url=url,blockers=blockers,issue_criteria=[i['criterion_id'] for i in issues])))
+          with ProductionWorkflowStore() as db:
+              next_row=db.execute("SELECT flow_id,title,definition_json,definition_sha256,verification_status,test_status,blocker_json FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND test_status='not_run' AND verification_status!='blocked' ORDER BY flow_id LIMIT 1").fetchone()
+              next_definition=dict(zip(['flow_id','title','definition_json','definition_sha256','verification_status','test_status','blocker_json'],next_row))
+              catalog=dict(db.execute('SELECT flow_kind,COUNT(*) FROM virtual_workflow_definitions GROUP BY flow_kind'))
+              print('EMAIL_CONFIG_NEXT_LIVE '+json.dumps(next_definition))
+              print('EMAIL_CONFIG_LIVE_COUNTS '+json.dumps(dict(totals=summary(db),test_status_counts=dict(db.execute("SELECT test_status,COUNT(*) FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY test_status")))))
+          clean=None
+          for _ in range(36):
+              branches=request('branches?per_page=100');prs=request('pulls?state=open&per_page=100');main=next(b['commit']['sha'] for b in branches if b['name']=='main')
+              subprocess.run(['git','fetch','--no-tags','origin','main'],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              absent=all(subprocess.run(['git','cat-file','-e',main+':'+p],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode!=0 for p in ['.github/workflows/inspect-email-config.yml','.github/workflows/record-email-config.yml'])
+              checks=request('commits/'+main+'/check-runs?per_page=100')['check_runs']
+              if absent and len(branches)==1 and not prs and checks and all(c['status']=='completed' and c['conclusion'] in ['success','skipped','neutral'] for c in checks):
+                  for path,sha in sources.items():assert hashlib.sha256(subprocess.check_output(['git','show',main+':'+path])).hexdigest()==sha,'Source changed: '+path
+                  clean=dict(main_sha=main,work_branch=None,work_branch_sha=None,pr=None,branch_count=1,open_prs=0,ci_state=[dict(name=c['name'],conclusion=c['conclusion']) for c in checks],merge_cleanup_state='No implementation change/work branch; temporary operational workflows removed; main checks passed; acceptance failures remain open');break
+              time.sleep(15)
+          assert clean,'Attempt saved; final cleanup/checkpoint still outstanding'
+          with ProductionWorkflowStore() as db:
+              assert db.execute('SELECT attempt_id FROM virtual_workflow_checkpoints WHERE flow_id=?',(flow,)).fetchone()[0]==output['attempt_id']
+              prior=db.execute('SELECT summary_json FROM virtual_flow_catalog_snapshots WHERE name=?',('recovery-handoff-current',)).fetchone();handoff=json.loads(prior[0]) if prior else {}
+              handoff.update(clean)
+              handoff.update(attempted=[dict(workflow_id=flow,attempt_id=output['attempt_id'],verification_status='blocked',test_status='failed',blockers=blockers,evidence=evidence)],totals=summary(db),test_status_counts=dict(db.execute("SELECT test_status,COUNT(*) FROM virtual_workflow_definitions WHERE flow_kind='business_process' GROUP BY test_status")),catalogue=catalog,synthetic_data_cleanup=receipt['cleanup'],remaining_review_state='UI acceptance failures and unregistered API/controls/resources remain; full reviews outstanding; no verified promotion',next_action='Inspect '+next_definition['flow_id']+': '+next_definition['title']+' from fresh live requirements and source before isolated credential/UI/API/database/reload acceptance.')
+              db.execute("INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action) VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,next_action=excluded.next_action,invalidation_json='[]',updated_at=CURRENT_TIMESTAMP",(flow,output['attempt_id'],json.dumps(handoff,sort_keys=True)))
+              db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',('recovery-handoff-current',json.dumps(handoff,sort_keys=True)))
+          print('EMAIL_CONFIG_HANDOFF_COMMITTED '+json.dumps(handoff))
+          
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: email-config-recorded-review
+          path: test-results/email-config/source-audit.json
