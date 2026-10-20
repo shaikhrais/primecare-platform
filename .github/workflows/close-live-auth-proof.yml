@@ -1,0 +1,30 @@
+name: Close merged live auth proof branch
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/close-live-auth-proof.yml]
+permissions:
+  contents: write
+  pull-requests: read
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo;
+            const {data:pr}=await github.rest.pulls.get({owner,repo,pull_number:219});
+            if(!pr.merged||pr.state!=='closed')throw Error('PR219 is not merged; preserve work');
+            const {data:main}=await github.rest.git.getRef({owner,repo,ref:'heads/main'});
+            const {data:comparison}=await github.rest.repos.compareCommits({owner,repo,base:pr.head.sha,head:main.object.sha});
+            if(comparison.behind_by!==0)throw Error('Main lacks work branch commits');
+            try {
+              const {data:branch}=await github.rest.git.getRef({owner,repo,ref:'heads/work/auth-live-mail-20261020'});
+              if(branch.object.sha!==pr.head.sha)throw Error('Work branch changed; preserve work');
+              await github.rest.git.deleteRef({owner,repo,ref:'heads/work/auth-live-mail-20261020'});
+            } catch(error){if(error.status!==404)throw error;}
+            const branches=await github.paginate(github.rest.repos.listBranches,{owner,repo,per_page:100});
+            const pulls=await github.paginate(github.rest.pulls.list,{owner,repo,state:'open',per_page:100});
+            if(branches.length!==1||branches[0].name!=='main'||pulls.length)throw Error('Main-only lifecycle incomplete');
+            core.info('AUTH_MAIN_ONLY_CONFIRMED '+JSON.stringify({main:main.object.sha,merge:pr.merge_commit_sha,branches:1,open_prs:0}));

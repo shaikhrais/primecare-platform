@@ -1,8 +1,6 @@
 name: Verify existing owned email inbox roundtrip
 on:
-  push:
-    branches: [work/auth-live-mail-20261020]
-    paths: [.github/workflows/verify-existing-mail-roundtrip.yml]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:

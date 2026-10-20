@@ -1,8 +1,6 @@
 name: Verify deployed auth recovery through owned inbox
 on:
-  push:
-    branches: [work/auth-live-mail-20261020]
-    paths: [.github/workflows/verify-live-auth-recovery.yml]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
