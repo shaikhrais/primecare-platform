@@ -1,0 +1,43 @@
+name: Maintenance mutation contract and binding safety
+on:
+  pull_request:
+    paths:
+      - 'websites/typescript/src/maintenance*.ts'
+      - 'scripts/test-maintenance*.mjs'
+      - 'tools/governance-production/maintenance*.py'
+      - 'tools/governance-production/test-maintenance-registration.py'
+      - 'tools/governance-production/production-pin.json'
+      - '.github/workflows/maintenance-mutation-acceptance.yml'
+permissions:
+  contents: read
+jobs:
+  native-maintenance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: maintenance
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: maintenance_metadata_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U maintenance -d maintenance_metadata_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/maintenance-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2
+          ln -s /tmp/maintenance-tools/node_modules node_modules
+      - name: Reject malformed acknowledgements and preserve replacement sessions
+        run: node --test scripts/test-maintenance-client.mjs
+      - name: Test exact workflow binding, unchanged grants and transaction safety
+        env:
+          WORKFLOW_TEST_DATABASE_URL: postgres://maintenance:fixture-only@127.0.0.1:5432/maintenance_metadata_test
+        run: python tools/governance-production/test-maintenance-registration.py

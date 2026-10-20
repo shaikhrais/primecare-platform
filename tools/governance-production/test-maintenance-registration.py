@@ -96,7 +96,7 @@ class RegistrationTests(unittest.TestCase):
         import maintenance_flow_binding as binding
         with self.store() as db:
             catalog=register(db,self.definition)
-            plan=dict(self.plan,id='auth.inspect-email-config',actor_roles=['ceo','maintenance'])
+            plan=dict(self.plan,id='auth.inspect-email-config',actor_roles=['ceo','maintenance'],steps=[{'api_method':'GET','api_path':'/v1/auth/maintenance/configuration'}])
             db.db.execute('UPDATE '+self.table('virtual_workflow_definitions')+' SET flow_id=%s,actor_roles_json=%s,definition_json=%s',('auth.inspect-email-config',json.dumps(plan['actor_roles']),json.dumps(plan)))
             db.execute("INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action) VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,next_action=excluded.next_action,invalidation_json='[]',updated_at=CURRENT_TIMESTAMP",('auth.inspect-email-config',0,'Isolated metadata binding fixture'))
             for path in ['cloudflare/workers/src/maintenance.ts','cloudflare/workers/src/auth.ts','websites/typescript/src/maintenance.ts','websites/typescript/src/maintenance-client.ts','websites/typescript/src/auth-screen.ts','websites/typescript/src/main.ts','websites/typescript/src/styles.css']:
@@ -108,6 +108,35 @@ class RegistrationTests(unittest.TestCase):
             self.assertEqual(db.execute('SELECT COUNT(*) FROM virtual_workflow_definitions').fetchone()[0],1)
             self.assertEqual(db.execute('SELECT COUNT(*) FROM virtual_workflow_source_links').fetchone()[0],4)
             self.assertEqual(json.loads(db.execute('SELECT actor_roles_json FROM virtual_workflow_definitions').fetchone()[0]),['ceo','maintenance'])
+    def test_mutation_bindings_preserve_authority_and_exact_api_identity(self):
+        import maintenance_flow_binding as binding
+        with self.store() as db:
+            catalog=register(db,self.definition)
+            for path in ['cloudflare/workers/src/maintenance.ts','cloudflare/workers/src/auth.ts','websites/typescript/src/maintenance.ts','websites/typescript/src/maintenance-client.ts','websites/typescript/src/auth-screen.ts','websites/typescript/src/main.ts','websites/typescript/src/styles.css']:
+                target=self.root/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_text('Isolated binding fixture')
+            target=self.root/'packages/shared/src/maintenance.json';target.parent.mkdir(parents=True,exist_ok=True);target.write_text(json.dumps(catalog))
+            grants=list(db.execute('SELECT * FROM role_screen_permissions'));apis=list(db.execute('SELECT * FROM api_permissions'))
+            for flow in ['auth.save-email-config','auth.test-maintenance-email']:
+                method,route,permission=binding.FLOWS[flow]
+                plan=dict(self.plan,id=flow,actor_roles=['ceo','maintenance'],steps=[{'api_method':method,'api_path':route}])
+                db.db.execute('UPDATE '+self.table('virtual_workflow_definitions')+' SET flow_id=%s,actor_roles_json=%s,definition_json=%s',(flow,json.dumps(plan['actor_roles']),json.dumps(plan)))
+                with patch.object(binding,'ROOT',self.root):
+                    first=binding.bind(db,flow);second=binding.bind(db,flow)
+                self.assertTrue(first['changed']);self.assertFalse(second['changed'])
+                bound=json.loads(db.execute('SELECT definition_json FROM virtual_workflow_definitions WHERE flow_id=?',(flow,)).fetchone()[0])
+                self.assertEqual(bound['registered_source']['api']['route_path'],route)
+                self.assertEqual(bound['registered_source']['api']['http_method'],'POST')
+                self.assertEqual(bound['registered_source']['permission_operation'],'can_edit')
+                self.assertEqual(bound['steps'],plan['steps'])
+                self.assertEqual(db.execute('SELECT COUNT(*) FROM virtual_workflow_definitions').fetchone()[0],1)
+            self.assertEqual(list(db.execute('SELECT * FROM role_screen_permissions')),grants)
+            self.assertEqual(list(db.execute('SELECT * FROM api_permissions')),apis)
+            with self.assertRaises(GovernanceReadError):binding.bind(db,'auth.create-tenant-account')
+            db.db.execute('UPDATE '+self.table('role_screen_permissions')+' SET can_edit=0 WHERE role_id=65')
+            before=db.execute('SELECT definition_json FROM virtual_workflow_definitions').fetchone()[0]
+            with patch.object(binding,'ROOT',self.root):
+                with self.assertRaises(GovernanceReadError):binding.bind(db,'auth.test-maintenance-email')
+            self.assertEqual(db.execute('SELECT definition_json FROM virtual_workflow_definitions').fetchone()[0],before)
     def test_workflow_binding_scope_is_required(self):
         import maintenance_flow_binding as binding
         with self.store() as db:

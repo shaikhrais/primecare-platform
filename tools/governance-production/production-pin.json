@@ -40,7 +40,9 @@
     "businessDataWrites": false,
     "workflowBinding": {
       "flowIds": [
-        "auth.inspect-email-config"
+        "auth.inspect-email-config",
+        "auth.save-email-config",
+        "auth.test-maintenance-email"
       ],
       "tables": [
         "virtual_workflow_definitions",
