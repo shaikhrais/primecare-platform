@@ -29,7 +29,7 @@ export async function renderPlatformAdmin(root:HTMLElement,gateway:string):Promi
  const token=sessionStorage.getItem('primecare_session');if(!token){location.assign('/login');return;}
  const savedRows=new Set<string>();let discardRows=false;let renderedDraftScope='';let partners:any[]=[];let reports:HTMLElement|null=null;let reportsLocale='';let view='tenants';let dirtyForm=false;const live=liveScreenText(gateway);
  let adminRole='',scope='',canCreateTenant=true,extended=true,growthDashboard=false,canViewReports=false,canViewTerritories=false,canViewOperations=false,canViewBundle=false;let bundle:BundleController|null=null;let operations:OperationsController|null=null;let territories:TerritoryController|null=null;
- let locale:'en'|'fr'|'es'='en';const text=(key:string)=>((hierarchy.locales[locale] as Record<string,string>)[key==='role'||key==='title'?adminRole:key==='scope'?scope+'_scope':key]??live.text('platform_administration',locale,key,(resources[locale] as Record<string,string>)[key]??key));const label=(key:string)=>escapeHtml(text(key));
+ let locale:'en'|'fr'|'es'=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en';const text=(key:string)=>((hierarchy.locales[locale] as Record<string,string>)[key==='role'||key==='title'?adminRole:key==='scope'?scope+'_scope':key]??live.text('platform_administration',locale,key,(resources[locale] as Record<string,string>)[key]??key));const label=(key:string)=>escapeHtml(text(key));
  const base=gateway.replace(/\/+$/,'')+'/v1/governance/platform';let tenants:Tenant[]=[],roles:string[]=[],types:string[]=[],users:User[]=[],records:Master[]=[],events:{action:string;created_at:string}[]=[],selected='',actor='',busy=false,denied=false,notice='';
  const request=async(path='',method='GET',body?:Record<string,unknown>)=>{
   const headers:Record<string,string>={authorization:'Bearer '+token};let pending='';
@@ -56,7 +56,7 @@ ${view==='audit'&&selected?`<section id="audit" class="section"><h2 tabindex="-1
  for(const form of root.querySelectorAll<HTMLFormElement>('form[data-cy]'))drafts.get(form.dataset.cy!)?.restore(form);
  rowDraft.restore(root);
  bindAccount(root,gateway,token,text('request_failed'),text('unavailable'));
- root.querySelector<HTMLSelectElement>('[data-cy=platform-language]')!.onchange=e=>{locale=(e.currentTarget as HTMLSelectElement).value as typeof locale;draw();};
+ root.querySelector<HTMLSelectElement>('[data-cy=platform-language]')!.onchange=e=>{locale=(e.currentTarget as HTMLSelectElement).value as typeof locale;document.documentElement.lang=locale;draw();};
  if(view==='training')root.querySelector('main')!.append(trainingPanel(gateway,actor,locale));
  if(view==='reports'){if(!reports||reportsLocale!==locale){reports=reportPanel(gateway,'/v1/governance/reports',token,actor,locale);reportsLocale=locale;}reports.id='reports';root.querySelector('main')!.append(reports);}
  root.querySelectorAll<HTMLAnchorElement>('[data-section]').forEach(link=>link.onclick=e=>{e.preventDefault();jump(link.dataset.section!);});
