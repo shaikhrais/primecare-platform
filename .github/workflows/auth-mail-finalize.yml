@@ -1,0 +1,106 @@
+name: Finish auth repair merge cleanup and current acceptance handoff
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/auth-mail-finalize.yml]
+permissions:
+  contents: write
+  pull-requests: read
+  actions: read
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - uses: actions/github-script@v7
+        id: cleanup
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo,head='eb82878ddf480d36db0273a019e6681d89e670ee';
+            const {data:pr}=await github.rest.pulls.get({owner,repo,pull_number:218});
+            if(!pr.merged||pr.state!=='closed'||pr.head.sha!==head)throw Error('Expected merged PR218 head missing');
+            const {data:main}=await github.rest.git.getRef({owner,repo,ref:'heads/main'});
+            const {data:comparison}=await github.rest.repos.compareCommits({owner,repo,base:head,head:main.object.sha});
+            if(comparison.behind_by!==0)throw Error('Main lacks proven candidate');
+            try{
+              const {data:branch}=await github.rest.git.getRef({owner,repo,ref:'heads/work/auth-mail-contract-20261020'});
+              if(branch.object.sha!==head)throw Error('Branch moved; preserve work');
+              await github.rest.git.deleteRef({owner,repo,ref:'heads/work/auth-mail-contract-20261020'});
+            }catch(error){if(error.status!==404)throw error;}
+            const paths=['auth-mail-finalize.yml','auth-current-authority.yml','auth-mail-proof.yml','auth-current-core-proof.yml','auth-deployed-smoke.yml'].map(n=>'.github/workflows/'+n);
+            const {data:commit}=await github.rest.git.getCommit({owner,repo,commit_sha:main.object.sha});
+            const {data:tree}=await github.rest.git.createTree({owner,repo,base_tree:commit.tree.sha,tree:paths.map(path=>({path,mode:'100644',type:'blob',sha:null}))});
+            const {data:cleanup}=await github.rest.git.createCommit({owner,repo,message:'chore: close completed auth proof launchers after PR218 merge',tree:tree.sha,parents:[main.object.sha]});
+            await github.rest.git.updateRef({owner,repo,ref:'heads/main',sha:cleanup.sha,force:false});
+            core.setOutput('final_main',cleanup.sha);core.info('AUTH218_REMOTE_CLEANUP '+JSON.stringify({merge:pr.merge_commit_sha,final_main:cleanup.sha,pr_closed:true,branch_deleted:true}));
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.cleanup.outputs.final_main }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: auth-mail-browser-proof
+          run-id: 39428912401
+          github-token: ${{ github.token }}
+          path: test-results
+      - uses: actions/download-artifact@v4
+        with:
+          name: auth-session-current-browser-proof
+          run-id: 39429349272
+          github-token: ${{ github.token }}
+          path: test-results
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Save current acceptance evidence, exact blockers and merged checkpoint
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          FINAL_MAIN: ${{ steps.cleanup.outputs.final_main }}
+          RUN_URL: https://github.com/shaikhrais/primecare-platform/actions/runs/${{ github.run_id }}
+        run: |
+          python -u - <<'PY'
+          import sys,json,pathlib,hashlib,os
+          sys.path.insert(0,'tools/workflow-verification')
+          from production_store import ProductionWorkflowStore
+          from execution import summary,record_attempt,acceptance_ids
+          root=pathlib.Path.cwd();out=root/'test-results/auth-completion';out.mkdir(parents=True,exist_ok=True)
+          receipts=[]
+          for folder in ['auth.save-email-config','auth.test-maintenance-email','email-config','workspace-logout','auth-password']:
+           p=root/'test-results'/folder/'results.json';r=json.loads(p.read_text())
+           if r.get('passed') is not True:raise RuntimeError('Current browser receipt not passed: '+folder)
+           for name,sha in r['source_bindings'].items():
+            if hashlib.sha256((root/name).read_bytes()).hexdigest()!=sha:raise RuntimeError('Evidence source drift: '+name)
+           receipts.append({'path':str(p.relative_to(root)),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'workflow_id':r['workflow_id'],'cases':len(r['cases']),'definition_sha256':r.get('definition_sha256'),'source_bindings':r['source_bindings'],'cleanup':r.get('cleanup')})
+          with ProductionWorkflowStore() as db:
+           names=[c['name'] for c in db.tables['virtual_workflow_definitions']['columns']]
+           flows=[dict(zip(names,r)) for r in db.execute("SELECT * FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE ?",('auth.%',))]
+           reviews=db.execute('SELECT COUNT(*) FROM manual_review_checks').fetchone()[0]
+           missing_recovery='auth_recovery_web_policy' not in db.tables
+           packet={'source_main':os.environ['FINAL_MAIN'],'merged_main_commit':'fb5b50f7ed9609502644f78ad6d4bca08fd8479b','published_candidate':'eb82878ddf480d36db0273a019e6681d89e670ee','receipts':receipts,'browser_cases':sum(r['cases'] for r in receipts),'deployed_api_evidence':'https://github.com/shaikhrais/primecare-platform/actions/runs/39429453441/artifacts/12267376737','deployed_api_checks':22,'deployed_scope':'Actual deployed API smoke, distinct from candidate UI deployment; isolated tenant cleanup confirmed by producer','review_rows':reviews,'missing_recovery_policy_in_pinned_manifest':missing_recovery,'acceptance':{r['flow_id']:{'definition_sha256':r['definition_sha256'],'required_ids':acceptance_ids(json.loads(r['definition_json'])),'verification_status':r['verification_status'],'test_status':r['test_status'],'blockers':json.loads(r['blocker_json'] or '[]')} for r in flows},'full_auth_verified':False,'review_gate':'No external acceptance reviewer/approval ID. Scoped checks do not approve all required current acceptance criteria.'}
+           packet_path='test-results/auth-completion/current-auth-review-packet.json';(root/packet_path).write_text(json.dumps(packet,indent=2))
+           sources={}
+           for r in receipts:sources.update(r['source_bindings'])
+           evidence=[{'kind':'browser','path':packet_path,'sha256':hashlib.sha256((root/packet_path).read_bytes()).hexdigest(),'url':os.environ['RUN_URL']}]+[{'kind':'browser','path':r['path'],'sha256':r['sha256'],'url':'https://github.com/shaikhrais/primecare-platform/actions/runs/'+('39429349272/artifacts/12267706254' if r['workflow_id'] in ['auth.logout','auth.change-password'] else '39428912401/artifacts/12267311810')} for r in receipts]
+           new_attempts=[]
+           for flow in ['auth.credential-login','auth.read-current-session']:
+            blockers=['Current 27 browser cases cover selected Platform Admin, RMT, CEO and maintenance surfaces; not every registered actor/destination.','Deployed API smoke passed22 checks with synthetic cleanup, but does not establish current candidate UI deployment, complete cookie/PWA/cross-platform acceptance or every failure alternative.','Registered core API service/authentication/schema/permission metadata conflicts and current specification/source rebinding remain unresolved.','No independent current full acceptance review/approval ID exists; all seven gates and every registered acceptance criterion must be proven before verification.']
+            saved=record_attempt(db,flow,{'status':'implemented-unverified','test_status':'scoped_pass','scope':'scoped','source_bindings':sources,'evidence':evidence,'issues':[],'blockers':blockers,'next_action':'Reconcile conflicting registered core API requirements without inventing permissions; complete remaining actor/deployed UI and acceptance/review gates.'},root);new_attempts.append(saved)
+           if missing_recovery:
+            reset_sources={p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in ['cloudflare/workers/src/auth.ts','websites/typescript/src/auth-recovery.ts','packages/shared/src/auth-recovery.json']}
+            reason='Required shared auth_recovery_web_policy is absent from the exact pinned production manifest. Reset UI generated JSON is not a live authority fallback. Register/migrate approved recovery controls/resources and contracts through a supported production cutover before full browser acceptance.'
+            saved=record_attempt(db,'auth.reset-password',{'status':'implemented-unverified','test_status':'blocked','scope':'scoped','source_bindings':reset_sources,'evidence':[evidence[0]],'issues':[{'criterion_id':'registration.recovery-policy','reproduction':'Inspect the pinned source manifest before accepting the generated reset-password UI policy.','expected':'Live governed recovery controls/resources and exact contract are available through the shared adapter.','actual':reason,'affected_sources':list(reset_sources)}],'blockers':[reason,'Independent acceptance approvals, deployed recovery delivery and full failure/PWA/cross-platform evidence remain incomplete.'],'next_action':'Resolve the governed recovery policy cutover; retain source implementation without claiming full acceptance.'},root);new_attempts.append(saved)
+           # Re-read live statuses after the completed audit attempts.
+           final_flows=[dict(zip(names,r)) for r in db.execute("SELECT * FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE ?",('auth.%',))]
+           state={'main_sha':os.environ['FINAL_MAIN'],'merge_sha':'fb5b50f7ed9609502644f78ad6d4bca08fd8479b','work_branch_sha':'eb82878ddf480d36db0273a019e6681d89e670ee','active_remote_work_branch':None,'pr':218,'pr_state':'closed/merged','remote_cleanup':'complete','local_cleanup':'awaiting local confirmation of fast-forward and merged branch deletion','ci':'19 passed, 3 skipped, no failed/pending current-head PR checks','attempts':[353,354,355,356,357,358,359]+[a['attempt_id'] for a in new_attempts],'auth_summary':{s:sum(r['verification_status']==s for r in final_flows) for s in ['missing','implemented-unverified','verified','blocked']},'summary':summary(db),'browser_cases':packet['browser_cases'],'deployed_api_checks':22,'evidence':{'maintenance':'https://github.com/shaikhrais/primecare-platform/actions/runs/39428912401/artifacts/12267311810','password_logout':'https://github.com/shaikhrais/primecare-platform/actions/runs/39429349272/artifacts/12267706254','deployed_api':'https://github.com/shaikhrais/primecare-platform/actions/runs/39429453441/artifacts/12267376737','review_packet_run':os.environ['RUN_URL']},'workflow_statuses':[{k:r[k] for k in ['flow_id','verification_status','test_status','blocker_json']} for r in final_flows],'synthetic_cleanup':'All browser schemas dropped. Deployed API producer confirmed temporary tenant/account cleanup. Synthetic email provider only; no real email sent by these tests.','full_auth_verified':False,'next_action':'Confirm local main/branch cleanup. Reconcile registered core API contradictions and approved authenticated-account/session UI policy before implementation. Recovery policy is absent from pinned manifest; switch-role assignment and protected bootstrap operator requirements remain unresolved. Obtain independent acceptance review only after every required current criterion and evidence gate passes.'}
+           for name in ['auth-completion-current','execution-handoff-current']:
+            db.execute('INSERT INTO virtual_flow_catalog_snapshots VALUES(?,?,CURRENT_TIMESTAMP) ON CONFLICT(name) DO UPDATE SET summary_json=excluded.summary_json,updated_at=CURRENT_TIMESTAMP',(name,json.dumps(state)))
+           (out/'handoff.json').write_text(json.dumps(state,indent=2))
+           print('AUTH_CURRENT_MERGED_HANDOFF '+json.dumps({k:v for k,v in state.items() if k!='workflow_statuses'}))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: current-auth-review-packet-and-merged-handoff
+          path: test-results/auth-completion
+          retention-days: 90
