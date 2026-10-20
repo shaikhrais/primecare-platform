@@ -1,6 +1,14 @@
 {
   "policy": "Legacy identity violations only. No grants accepted, reassigned, enabled or repaired by this baseline. New or changed violations fail CI. Remediation must validate business authority separately.",
   "violations": {
+    "grant:[1,\"api_permission_api_v1_rmt_list_get\"]": {
+      "reasons": [
+        "permission_key_targets_different_operation",
+        "missing_runtime_artifact_foreign_key"
+      ],
+      "rowCount": 64,
+      "fingerprint": "a33825675eafbbcee567a1ca169ab657e7bae999506b2070f9a55bfabc311c21"
+    },
     "grant:[1,\"auth_account_creation_policy\"]": {
       "reasons": [
         "missing_runtime_artifact_foreign_key"
@@ -895,6 +903,14 @@
       ],
       "rowCount": 64,
       "fingerprint": "eb23bf865c8ea909b957b38cb788027f4bec40a4f30d61128ff473207e33d735"
+    },
+    "grant:[11,\"api_permission_api_v1_physician_list_get\"]": {
+      "reasons": [
+        "permission_key_targets_different_operation",
+        "missing_runtime_artifact_foreign_key"
+      ],
+      "rowCount": 64,
+      "fingerprint": "9b88006b13f9d429836602170c1fb7b0b08c48c347220e8622391a3d99cd436a"
     },
     "grant:[11,\"auth_account_management_policy\"]": {
       "reasons": [
@@ -18745,7 +18761,8 @@
       "productionReconciliationRun": 39472506674,
       "observedGuardRun": 39475799373,
       "disposition": "Carry forward the same 128 historical grant rows and dangling artifact references after canonical permission identity correction and disabling 125 legacy grants. No artifact identity is invented, no dangling reference is repaired, no new grant or acceptance approval is inferred. The guard remains exact for every group.",
-      "remainingDebt": "Historical runtime_artifact_id=1 is absent; reconcile only against independently established runtime artifact identity."
+      "remainingDebt": "Historical runtime_artifact_id=1 is absent; reconcile only against independently established runtime artifact identity.",
+      "historicalFixture": "Retain both exact old fingerprints for the explicitly isolated historical checkpoint. Production uses the narrowed canonical groups. Neither set grants authority."
     }
   ]
 }
