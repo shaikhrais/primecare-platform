@@ -27,7 +27,7 @@ jobs:
           from production_store import ProductionWorkflowStore
           from execution import summary
           def rows(db,sql,args=()):
-           c=db.execute(sql,args);return [dict(zip([v[0] for v in c.description],r)) for r in c.fetchall()]
+           c=db.execute(sql,args);names=[v['name'] for v in db.tables[sql.split(' FROM ')[1].split()[0]]['columns']];return [dict(zip(names,r)) for r in c.fetchall()]
           with ProductionWorkflowStore() as db:
            flows=rows(db,"SELECT * FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE ?",('auth.%',))
            ids=[r['flow_id'] for r in flows]
