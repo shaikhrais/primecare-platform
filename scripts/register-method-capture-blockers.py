@@ -150,13 +150,20 @@ EXPECTED = {12: {'id': 12,
        'recommended_indexes_json': None,
        'db_query_time_ms': 0,
        'optimization_status': 'pending'}}
-SOURCE_HASHES = {'cloudflare/workers/src/gateway.ts': '75c12f79db7ceb69590e797f009afa735062c17ee776286b267ce4f35ceea7f6', 'cloudflare/workers/src/account-admin.ts': '30fdd0212223a67db4e0f0af4d45e0edbd866ff69a8b40623517be695318962e', 'cloudflare/workers/src/client-self.ts': '61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5', 'cloudflare/workers/src/client-records-registry.json': '376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5', 'packages/domain/src/registries/FormRegistry/client-forms.ts': 'f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516', 'cloudflare/workers/src/core/base-worker.ts': '7c7d612386546bf86db4b217391e84cf8982331530a86020c9eb35010548a25a', 'cloudflare/workers/src/service.ts': 'fa19183dee1ef774c35db7205c03d9ba24e508b09699e36a15bbaed8f832e37e', 'cloudflare/workers/src/business-modules.ts': '10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa', 'cloudflare/workers/src/runtime/worker-application.ts': 'd15343e639df5523847767854bdc535658b577120bd7f3b8b9cc9e229e8cd288', 'cloudflare/workers/src/runtime/handler-pipeline.ts': 'd5f3241e46fc9455df12c5c7c2ee674b2bcec723f6590c1ed56b38c8a42acd41', 'cloudflare/workers/src/service-application.ts': '75ccdd8a409fd82b1162b2643066ce1f8549c632568f679457a30da9ec70e721'}
+SOURCE_HASHES = {'cloudflare/workers/src/gateway.ts': '75c12f79db7ceb69590e797f009afa735062c17ee776286b267ce4f35ceea7f6', 'cloudflare/workers/src/account-admin.ts': 'b108356241f0bc04b34ddbc04b36cd93551cb2dc1cdc4c9a9133c8ed906f02be', 'cloudflare/workers/src/client-self.ts': '61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5', 'cloudflare/workers/src/client-records-registry.json': '376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5', 'packages/domain/src/registries/FormRegistry/client-forms.ts': 'f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516', 'cloudflare/workers/src/core/base-worker.ts': '7c7d612386546bf86db4b217391e84cf8982331530a86020c9eb35010548a25a', 'cloudflare/workers/src/service.ts': 'fa19183dee1ef774c35db7205c03d9ba24e508b09699e36a15bbaed8f832e37e', 'cloudflare/workers/src/business-modules.ts': '10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa', 'cloudflare/workers/src/runtime/worker-application.ts': 'd15343e639df5523847767854bdc535658b577120bd7f3b8b9cc9e229e8cd288', 'cloudflare/workers/src/runtime/handler-pipeline.ts': 'd5f3241e46fc9455df12c5c7c2ee674b2bcec723f6590c1ed56b38c8a42acd41', 'cloudflare/workers/src/service-application.ts': '75ccdd8a409fd82b1162b2643066ce1f8549c632568f679457a30da9ec70e721'}
 
 def verify_sources(root=ROOT):
     for path,expected in SOURCE_HASHES.items():
         actual=root/path
         if not actual.is_file() or hashlib.sha256(actual.read_bytes()).hexdigest()!=expected:
             raise ValueError('Reviewed method/caller evidence changed: '+path)
+    # This amendment only excludes the newly governed protected role from legacy
+    # CEO session administration. Preserve every method/caller byte outside it.
+    account=(root/'cloudflare/workers/src/account-admin.ts').read_text()
+    narrowed="'platform_admin','central_admin','tenant_admin','code_admin'"
+    prior="'platform_admin','central_admin','tenant_admin'"
+    if account.count(narrowed)!=1 or hashlib.sha256(account.replace(narrowed,prior).encode()).hexdigest()!='30fdd0212223a67db4e0f0af4d45e0edbd866ff69a8b40623517be695318962e':
+        raise ValueError('Code admin protection amendment exceeded exact scope')
     form=(root/'packages/domain/src/registries/FormRegistry/client-forms.ts').read_text()
     if not re.search(r"id:\s*'client\.feedback'[\s\S]*?apiEndpoint:\s*'/v1/client/feedback',[\s\S]*?method:\s*'POST'",form):
         raise ValueError('Feedback submission caller contract changed')

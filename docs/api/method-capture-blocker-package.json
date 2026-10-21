@@ -11,7 +11,7 @@
   ],
   "sourceHashes": {
     "cloudflare/workers/src/gateway.ts": "75c12f79db7ceb69590e797f009afa735062c17ee776286b267ce4f35ceea7f6",
-    "cloudflare/workers/src/account-admin.ts": "30fdd0212223a67db4e0f0af4d45e0edbd866ff69a8b40623517be695318962e",
+    "cloudflare/workers/src/account-admin.ts": "b108356241f0bc04b34ddbc04b36cd93551cb2dc1cdc4c9a9133c8ed906f02be",
     "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5",
     "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5",
     "packages/domain/src/registries/FormRegistry/client-forms.ts": "f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516",
@@ -200,5 +200,11 @@
     "targetedTestRun": 39533198501,
     "targetedCorsScenariosPassed": 14,
     "independentReviewSignoff": false
+  },
+  "codeAdminProtectionAmendment": {
+    "previousSha256": "30fdd0212223a67db4e0f0af4d45e0edbd866ff69a8b40623517be695318962e",
+    "currentSha256": "b108356241f0bc04b34ddbc04b36cd93551cb2dc1cdc4c9a9133c8ed906f02be",
+    "scope": "Add code_admin to protected-target exclusion only; all method/caller bytes otherwise identical",
+    "independentReviewApproval": false
   }
 }
