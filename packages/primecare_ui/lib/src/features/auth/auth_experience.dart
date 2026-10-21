@@ -234,14 +234,35 @@ class PrimeAuthTextField extends StatefulWidget {
 
 class _PrimeAuthTextFieldState extends State<PrimeAuthTextField> {
   bool revealed = false;
+  late final TextEditingController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialValue);
+  }
+  @override
+  void didUpdateWidget(covariant PrimeAuthTextField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialValue != widget.initialValue &&
+        _controller.text != (widget.initialValue ?? '')) {
+      _controller.text = widget.initialValue ?? '';
+      revealed = false;
+    }
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Cy(id: widget.id, child: TextFormField(
-      initialValue: widget.initialValue, enabled: widget.enabled,
+      controller: _controller, enabled: widget.enabled,
       onChanged: widget.onChanged, onFieldSubmitted: widget.onSubmitted,
       obscureText: widget.password && !revealed, autocorrect: false,
       enableSuggestions: !widget.password, keyboardType: widget.keyboardType,
+      enableIMEPersonalizedLearning: !widget.password,
       autofillHints: widget.autofillHints,
       textInputAction: widget.password ? TextInputAction.done : TextInputAction.next,
       style: theme.typography.bodyLarge,

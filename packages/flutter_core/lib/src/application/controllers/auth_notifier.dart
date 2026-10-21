@@ -390,6 +390,7 @@ class AuthNotifier extends Notifier<AuthState> {
     String lastName,
     String role,
   ) async {
+    final actor = state;
     final result = await Result.guardFuture<bool>(
       () async {
         final apiClient = ref.read(apiClientProvider);
@@ -402,13 +403,12 @@ class AuthNotifier extends Notifier<AuthState> {
           },
         );
 
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          // This is privileged account provisioning. Keep the creating user's
-          // session; registration does not authenticate the new account.
-          return true;
-        } else {
-          return false;
-        }
+        final current = state;
+        return current.token == actor.token && current.userId == actor.userId &&
+            current.tenantId == actor.tenantId &&
+            response.confirmsCreatedAccount(
+              email: email, role: role, tenantId: actor.tenantId ?? '',
+            );
       },
       onError: (e, st) {
         ref

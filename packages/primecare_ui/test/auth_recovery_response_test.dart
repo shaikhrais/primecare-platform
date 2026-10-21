@@ -92,9 +92,15 @@ void main() {
         await tester.pumpAndSettle();
         final fields = find.byType(TextField);
         // Identifiers and recovery secrets must not be changed by keyboards.
-        for (final field in tester.widgetList<TextField>(fields)) {
+        final inputs = tester.widgetList<TextField>(fields).toList();
+        for (final field in inputs) {
           expect(field.autocorrect, isFalse);
           expect(field.enableSuggestions, isFalse);
+        }
+        if (reset) {
+          for (final field in inputs.skip(1)) {
+            expect(field.enableIMEPersonalizedLearning, isFalse);
+          }
         }
         await tester.enterText(fields.first, 'QA@example.test');
         if (reset) {

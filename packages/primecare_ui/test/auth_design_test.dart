@@ -77,6 +77,24 @@ void main() {
     }
   });
 
+  testWidgets('external password clear updates the field and hides it', (tester) async {
+    Widget field(String value) => localized(Scaffold(body: PrimeAuthTextField(
+      id: 'password-test', label: 'Password', password: true,
+      initialValue: value, onChanged: (_) {},
+    )));
+    await tester.pumpWidget(field('fixture-password'));
+    await tester.pumpAndSettle();
+    expect(tester.widget<EditableText>(find.byType(EditableText)).enableIMEPersonalizedLearning, isFalse);
+    await tester.tap(find.byType(IconButton));
+    await tester.pumpAndSettle();
+    expect(tester.widget<EditableText>(find.byType(EditableText)).obscureText, isFalse);
+    await tester.pumpWidget(field(''));
+    await tester.pumpAndSettle();
+    final editable = tester.widget<EditableText>(find.byType(EditableText));
+    expect(editable.controller.text, isEmpty);
+    expect(editable.obscureText, isTrue);
+  });
+
   testWidgets('password visibility is explicit and reversible', (tester) async {
     await tester.pumpWidget(localized(Scaffold(body: PrimeAuthTextField(
       id: 'password-test', label: 'Password', password: true, onChanged: (_) {},

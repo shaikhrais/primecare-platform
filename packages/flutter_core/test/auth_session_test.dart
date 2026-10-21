@@ -24,6 +24,7 @@ class RecordingAuth extends FixtureAuth {
 class FixtureApi extends Fake implements ApiClient {
   FixtureApi(this.status);
   final int status;
+  dynamic payload = <String, dynamic>{};
   final calls = <String>[];
   dynamic lastBody;
   @override
@@ -32,7 +33,7 @@ class FixtureApi extends Fake implements ApiClient {
   Future<ApiResponse> post(String path, {dynamic body, Map<String, String>? headers}) async {
     calls.add(path);
     lastBody = body;
-    return ApiResponse(statusCode: status, data: <String, dynamic>{});
+    return ApiResponse(statusCode: status, data: payload);
   }
 }
 
@@ -90,7 +91,7 @@ void main() {
       final result = await container.read(authProvider.notifier).register(
         'new@example.test', 'test-password-only', 'First', 'Last', 'rmt',
       );
-      expect(result, status == 200 || status == 201);
+      expect(result, isFalse);
       expect(api.calls, ['/v1/auth/register']);
       expect(api.lastBody, {
         'email': 'new@example.test', 'password': 'test-password-only', 'role': 'rmt',
@@ -99,6 +100,22 @@ void main() {
       expect((await SharedPreferences.getInstance()).getString('auth_token'), isNull);
     });
   }
+
+  test('provisioning requires the matching created account', () async {
+    final api = FixtureApi(201)..payload = {'user': {
+      'id': 'new-id', 'email': 'new@example.test', 'roles': 'rmt',
+      'status': 'active', 'tenant_id': 'actor-tenant',
+    }};
+    final container = ProviderContainer(overrides: [
+      apiClientProvider.overrideWithValue(api), authProvider.overrideWith(FixtureAuth.new),
+    ]);
+    addTearDown(container.dispose);
+    final auth = container.read(authProvider.notifier);
+    expect(await auth.register('new@example.test', 'fixture-password', 'First', 'Last', 'rmt'), isTrue);
+    api.payload['user']['tenant_id'] = 'foreign-tenant';
+    expect(await auth.register('new@example.test', 'fixture-password', 'First', 'Last', 'rmt'), isFalse);
+    expect(container.read(authProvider).token, 'actor-token');
+  });
 
   test('logout clears persistence and leaves routing initialized on rejected revoke', () async {
     SharedPreferences.setMockInitialValues({

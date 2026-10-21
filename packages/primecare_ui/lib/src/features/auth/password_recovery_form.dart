@@ -72,6 +72,7 @@ class _PasswordRecoveryFormState extends ConsumerState<PasswordRecoveryForm> {
       Padding(padding: const EdgeInsets.only(bottom: 16), child: Semantics(label: id, child: TextField(
         controller: controller, enabled: !_busy, obscureText: secret, keyboardType: keyboard,
         autocorrect: false, enableSuggestions: false,
+        enableIMEPersonalizedLearning: !secret && id != 'recovery-code',
         decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
       )));
   @override
