@@ -45,7 +45,7 @@ test('audit failure rolls back seed consumption, activation, challenge deletion 
  assert.equal((await finishMfa(db,env,{challenge:start.body.challenge,code:valid})).status,200);
 });
 test('new password exchange invalidates older challenge and user has no session before verification',async()=>{
- await reset();const a=await beginMfa(db,env,user),b=await beginMfa(db,env,user);assert.notEqual(a.body.challenge,b.body.challenge);assert.equal((await finishMfa(db,env,{challenge:a.body.challenge,code:await code()})).status,401);assert.equal(await count('auth_sessions'),0);
+ await reset();const a=await beginMfa(db,env,user),b=await beginMfa(db,env,user);assert.notEqual(a.body.challenge,b.body.challenge);assert.notEqual(a.body.setupKey,b.body.setupKey);assert.equal((await finishMfa(db,env,{challenge:a.body.challenge,code:await code()})).status,401);assert.equal(await count('auth_sessions'),0);
 });
 test('concurrent native requests consume the challenge and issue exactly one session',{skip:!client},async()=>{
  await reset();const start=await beginMfa(db,env,user),valid=await code();const pg=await import('pg');const clients=[new pg.default.Client({connectionString:process.env.MFA_TEST_DATABASE_URL}),new pg.default.Client({connectionString:process.env.MFA_TEST_DATABASE_URL})];

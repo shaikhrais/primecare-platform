@@ -1,4 +1,5 @@
 name: Release and verify complete Code Admin MFA journey
+# Pending enrollment seeds are renewed on each fresh password exchange.
 on:
   push:
     branches: [main]

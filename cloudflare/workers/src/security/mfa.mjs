@@ -20,6 +20,13 @@ export async function beginMfa(db,env,checked){
   const context=identity(user);
   let credential=(await db.query('SELECT envelope,enabled,last_counter FROM auth_mfa_credentials WHERE user_id=$1 FOR UPDATE',[user.id])).rows[0];
   if(!credential){const envelope=await sealMfaSeed(generateMfaSeed(),encryptionKey,context);const r=await db.query('INSERT INTO auth_mfa_credentials(user_id,tenant_id,envelope) VALUES($1,$2,$3) RETURNING envelope,enabled,last_counter',[user.id,user.tenant_id,JSON.stringify(envelope)]);if(r.rows.length!==1)throw Error('MFA enrollment unavailable');credential=r.rows[0];}
+  else if(!credential.enabled){
+   // A new password exchange replaces an unconfirmed seed. A seed exposed during
+   // an abandoned setup must not survive a later password recovery/enrollment.
+   const envelope=await sealMfaSeed(generateMfaSeed(),encryptionKey,context);
+   const r=await db.query('UPDATE auth_mfa_credentials SET envelope=$2,created_at=NOW() WHERE user_id=$1 AND enabled=false RETURNING envelope,enabled,last_counter',[user.id,JSON.stringify(envelope)]);
+   if(r.rows.length!==1)throw Error('MFA enrollment replacement unavailable');credential=r.rows[0];
+  }
   const seed=await openMfaSeed(credential.envelope,encryptionKey,context);
   const challenge=token(),purpose=credential.enabled?'verify':'enroll';
   // Only one password-verified challenge per user. New login invalidates old setup.
