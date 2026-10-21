@@ -1,0 +1,63 @@
+name: Provision Code Admin control tenant
+on:
+  push:
+    branches: [main]
+    paths: ['tools/governance-production/code-admin-root.json', 'tools/governance-production/code_admin_root_policy.py', 'scripts/bootstrap-code-admin-control-tenant.mjs', 'scripts/test-code-admin-control-tenant-postgres.mjs', '.github/workflows/code-admin-control-tenant.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: code-admin-control-tenant
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: root_test
+          POSTGRES_PASSWORD: isolated-only
+          POSTGRES_DB: root_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U root_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/control-native --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/control-native/node_modules node_modules
+      - name: Verify UUID/text identity, concurrency, collision rejection and atomic rollback
+        env:
+          CODE_ADMIN_ROOT_TEST_DATABASE_URL: postgres://root_test:isolated-only@localhost:5432/root_test
+        run: node --test scripts/test-code-admin-control-tenant-postgres.mjs
+  provision:
+    needs: native
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          npm install --prefix /tmp/control-production --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/control-production/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Validate and register the dedicated root policy
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_CODE_ADMIN_ROOT_POLICY: '1'
+        run: |
+          python tools/governance-production/code_admin_root_policy.py --dry-run
+          python tools/governance-production/code_admin_root_policy.py --apply
+      - name: Provision and bind the control tenant without creating users
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CODE_ADMIN_ROOT_BOOTSTRAP: '1'
+        run: node scripts/bootstrap-code-admin-control-tenant.mjs

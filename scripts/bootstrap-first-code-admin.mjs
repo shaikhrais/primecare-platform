@@ -1,5 +1,6 @@
 import pg from 'pg';const {Client}=pg;import bcrypt from 'bcryptjs';import {pathToFileURL} from 'node:url';import {randomUUID} from 'node:crypto';import {validateBootstrap} from './bootstrap-validation.mjs';
 import {validateCodeAdminOwner,verifyCodeAdminOwnerRegistration} from './code-admin-owner.mjs';
+import {resolveCodeAdminControlTenant} from './bootstrap-code-admin-control-tenant.mjs';
 /** Protected operator workflow only. Never promote or overwrite an existing account. */
 export async function bootstrapCodeAdmin(db,input){
  const {email,tenant,password}=validateBootstrap(input);const hash=await bcrypt.hash(password,12);await db.query('BEGIN');
@@ -19,7 +20,12 @@ export async function bootstrapCodeAdmin(db,input){
 async function main(){
  if(process.env.CONFIRM_BOOTSTRAP!=='CREATE_FIRST_CODE_ADMIN')throw Error('Explicit confirmation required');
  if(!process.env.PRODUCTION_DATABASE_URL)throw Error('Database secret required');
- const input=validateBootstrap({email:validateCodeAdminOwner(process.env.BOOTSTRAP_CODE_ADMIN_EMAIL),tenant:process.env.BOOTSTRAP_TENANT_ID,password:process.env.BOOTSTRAP_CODE_ADMIN_PASSWORD});
- const db=new Client({connectionString:process.env.PRODUCTION_DATABASE_URL,ssl:{rejectUnauthorized:true}});await db.connect();try{await verifyCodeAdminOwnerRegistration(db);console.log(JSON.stringify(await bootstrapCodeAdmin(db,input)));}finally{await db.end();}
+ const email=validateCodeAdminOwner(process.env.BOOTSTRAP_CODE_ADMIN_EMAIL);
+ const db=new Client({connectionString:process.env.PRODUCTION_DATABASE_URL,ssl:{rejectUnauthorized:true}});await db.connect();try{
+  await verifyCodeAdminOwnerRegistration(db);const tenant=await resolveCodeAdminControlTenant(db);
+  if(process.env.BOOTSTRAP_TENANT_ID&&process.env.BOOTSTRAP_TENANT_ID!==tenant)throw Error('Configured root tenant differs from governed control tenant');
+  const input=validateBootstrap({email,tenant,password:process.env.BOOTSTRAP_CODE_ADMIN_PASSWORD});
+  console.log(JSON.stringify(await bootstrapCodeAdmin(db,input)));
+ }finally{await db.end();}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(()=>{console.error('Code admin bootstrap failed; credentials and database details are not logged.');process.exitCode=1;});

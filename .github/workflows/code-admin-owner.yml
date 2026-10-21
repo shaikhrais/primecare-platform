@@ -46,6 +46,7 @@ jobs:
         run: |
           node --input-type=module <<'JS'
           import pg from 'pg';
+          import {resolveCodeAdminControlTenant} from './scripts/bootstrap-code-admin-control-tenant.mjs';
           import {owner,validateCodeAdminOwner,verifyCodeAdminOwnerRegistration} from './scripts/code-admin-owner.mjs';
           const db=new pg.Client({connectionString:process.env.PRODUCTION_DATABASE_URL,ssl:{rejectUnauthorized:true}});
           await db.connect();
@@ -54,9 +55,9 @@ jobs:
            await verifyCodeAdminOwnerRegistration(db);
            const accounts=await db.query("SELECT roles,status FROM users WHERE encode(sha256(convert_to(LOWER(email),'UTF8')),'hex')=$1 LIMIT 2",[owner.emailSha256]);
            if(accounts.rows.length>1)throw Error('Ambiguous approved owner account');
-           const root=await db.query("SELECT 1 FROM tenants WHERE id::text=$1 AND LOWER(status)='active'",[process.env.BOOTSTRAP_TENANT_ID||'']);
+           let rootConfigured=false;try{const tenant=await resolveCodeAdminControlTenant(db);rootConfigured=!process.env.BOOTSTRAP_TENANT_ID||tenant===process.env.BOOTSTRAP_TENANT_ID;}catch{}
            let emailConfigured=false;try{validateCodeAdminOwner(process.env.BOOTSTRAP_CODE_ADMIN_EMAIL);emailConfigured=true;}catch{}
-           const report={ownerBound:true,existingAccount:accounts.rows.length===1,alreadyCodeAdmin:accounts.rows[0]?.roles==='code_admin',existingAccountPreserved:true,emailSecretMatchesOwner:emailConfigured,passwordSecretConfigured:!!process.env.BOOTSTRAP_CODE_ADMIN_PASSWORD,rootTenantConfigured:root.rows.length===1,activatedByThisRun:false,mfaSetupStillRequired:true};
+           const report={ownerBound:true,existingAccount:accounts.rows.length===1,alreadyCodeAdmin:accounts.rows[0]?.roles==='code_admin',existingAccountPreserved:true,emailSecretMatchesOwner:emailConfigured,passwordSecretConfigured:!!process.env.BOOTSTRAP_CODE_ADMIN_PASSWORD,rootTenantConfigured:rootConfigured,activatedByThisRun:false,mfaSetupStillRequired:true};
            console.log('CODE_ADMIN_OWNER_PREFLIGHT '+JSON.stringify(report));
            await db.query('ROLLBACK');
           }finally{await db.end();}

@@ -225,5 +225,29 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "accountAssignments": false
+  },
+  "codeAdminRootPolicyWriter": {
+    "optInVariable": "GOVERNANCE_CODE_ADMIN_ROOT_POLICY",
+    "tables": [
+      "platform_hierarchy_policy"
+    ],
+    "policyId": "code-admin-control-tenant-v1",
+    "definitionSha256": "4f51233d538644ee82dd710de8018fc13d3c16114de83b763e204d0140634600",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "accountAssignments": false
+  },
+  "codeAdminRootBootstrap": {
+    "optInVariable": "CODE_ADMIN_ROOT_BOOTSTRAP",
+    "policyId": "code-admin-control-tenant-v1",
+    "definitionSha256": "4f51233d538644ee82dd710de8018fc13d3c16114de83b763e204d0140634600",
+    "businessTables": [
+      "public.tenants"
+    ],
+    "governanceTables": [
+      "platform_hierarchy_policy"
+    ],
+    "schemaChanges": false,
+    "accountAssignments": false
   }
 }

@@ -1,0 +1,10 @@
+{
+  "id": "code-admin-control-tenant-v1",
+  "roleCode": "code_admin",
+  "slug": "primecare-platform-control",
+  "name": "PrimeCare Platform Control",
+  "tenantId": null,
+  "purpose": "Dedicated administrative control tenant for the approved Code Admin bootstrap; no clinical data or live user assignment.",
+  "existingSlugDisposition": "reject-unbound-collision",
+  "approvalSource": "User authorized Code Admin hierarchy implementation and continued activation setup on 2026-10-21."
+}
