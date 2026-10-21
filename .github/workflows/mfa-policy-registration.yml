@@ -2,7 +2,7 @@ name: Register pending MFA security contract
 on:
   push:
     branches: [main]
-    paths: ['tools/governance-production/mfa-registration.json', 'tools/governance-production/mfa_registration.py', '.github/workflows/mfa-policy-registration.yml']
+    paths: ['tools/governance-production/mfa-surface.json', 'tools/governance-production/mfa_surface.py', 'tools/governance-production/mfa-registration.json', 'tools/governance-production/mfa_registration.py', '.github/workflows/mfa-policy-registration.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -37,3 +37,15 @@ jobs:
           GOVERNANCE_WORKFLOW_WRITES: '1'
           GOVERNANCE_MFA_POLICY_WRITES: '1'
         run: python tools/governance-production/mfa_registration.py --apply
+      - name: Validate localized MFA surface registration in rollback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_MFA_SURFACE_WRITES: '1'
+        run: python tools/governance-production/mfa_surface.py --dry-run
+      - name: Register challenge API and localized existing-screen controls
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_MFA_SURFACE_WRITES: '1'
+        run: python tools/governance-production/mfa_surface.py --apply

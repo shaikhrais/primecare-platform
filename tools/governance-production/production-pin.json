@@ -261,5 +261,22 @@
     "businessDataWrites": false,
     "permissionChanges": false,
     "activation": false
+  },
+  "mfaSurfaceWriter": {
+    "optInVariable": "GOVERNANCE_MFA_SURFACE_WRITES",
+    "tables": [
+      "api_endpoints",
+      "screen_components",
+      "screen_required_elements",
+      "screen_api_links",
+      "language_resources",
+      "language_resource_values"
+    ],
+    "screenId": 949,
+    "endpoint": "/v1/auth/mfa",
+    "definitionSha256": "744f6f103343d1e3ab28dcd48954dabe0c2961240d6e920141f3cb062cc99bef",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false
   }
 }
