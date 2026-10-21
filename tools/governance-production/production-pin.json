@@ -302,5 +302,20 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "roleGrants": false
+  },
+  "mfaEvidenceWriter": {
+    "optInVariable": "RECORD_MFA_EVIDENCE",
+    "tables": [
+      "api_endpoints",
+      "screen_components",
+      "platform_hierarchy_policy"
+    ],
+    "endpointCode": "auth_mfa_verify",
+    "screenId": 949,
+    "componentPrefix": "authMfa.",
+    "definitionSha256": "744f6f103343d1e3ab28dcd48954dabe0c2961240d6e920141f3cb062cc99bef",
+    "reviewApprovals": false,
+    "productionReadyCredit": false,
+    "accountChanges": false
   }
 }
