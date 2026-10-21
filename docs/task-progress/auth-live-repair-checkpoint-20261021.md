@@ -13,3 +13,13 @@ Latest completed live run39533901208 reached real browser login and accepted rec
 New source ec38b2edd8a8daef84b637f1fad2fa55388e95bf, run39534720268, is pending at this checkpoint. Still require received-code/native-hash correlation, reset, denial of old password/session and replay, normal new login, logout/reload, exact fixture/mail cleanup and unchanged deployed source. Full auth sign-off remains false.
 
 Source-binding amendment da4d8e51ee779383b046939eb37138236854560d proves gateway bytes outside the exact CORS block equal the previous pinned SHA256. The four unsupported method-capture workflows retain their blocked dispositions and no independent review is fabricated. The broader backend run39534027842 passed the old source-hash stopping point and is still running; do not count the whole run passed.
+
+## Later live findings and current pending repair
+
+Both Auth Worker PostgreSQL suites in run39534027842 passed after the exact CORS-only evidence rebind. Native invalidation and revocation fault proofs also passed.
+
+Run39534720268 sourceec38b2edd8a8daef84b637f1fad2fa55388e95bf proved real receiving-Worker email receipt, native code-hash matching and browser reset in EN/FR/ES, but its immediate secret-clear check failed. Awaited recheck run39535359500 source c66ae0a21d40cb667f2493ef29aa225242059811 confirmed the browser still retained a12-character recovery-code value after10seconds. This is a real web input rendering defect, not merely a slow assertion. Matched messages and synthetic accounts were cleaned; older unmatched messages were preserved.
+
+Pending repair f252cf4b3ef4f090995778ff73da0370703a1aae clears controllers, releases focus and changes the field subtree keys only after a confirmed reset, removing stale semantics DOM inputs. Failure/retry drafts remain. Source f8b3c2fe9c5b8ae83d426adedfb7547548e0549f also limits retained router/navigation State to existing public auth pages; protected pages retain their old rebuild behavior. Latest Auth Gateway run39536220864 and deployed inbox run39536221115 are in progress. No full roundtrip pass or full auth sign-off is claimed yet.
+
+Research: https://api.flutter.dev/flutter/widgets/Widget/key.html and https://api.flutter.dev/flutter/widgets/TextEditingController/clear.html . The final producer retains an awaited DOM-value check and does not print the code/password if clearing fails.

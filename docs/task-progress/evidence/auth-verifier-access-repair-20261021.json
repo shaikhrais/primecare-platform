@@ -25,16 +25,24 @@
     "clinic_job": 118997856931
   },
   "live_recovery": {
-    "previous_run": 39533901208,
-    "previous_status": "failed",
-    "observed_real_login_and_recovery_submission": true,
-    "received_code_correlated": false,
-    "reason": "Success text duplicated in Flutter accessibility announcement; corrected assertion and explicit UI locale selection",
-    "new_source": "ec38b2edd8a8daef84b637f1fad2fa55388e95bf",
-    "run": 39534720268,
-    "status": "pending",
+    "source": "c66ae0a21d40cb667f2493ef29aa225242059811",
+    "run": 39535359500,
+    "status": "failed",
     "passed": false,
-    "unmatched_messages": "Preserved; previous failures happened before code correlation"
+    "real_mail_receipt_and_native_code_hash_match": [
+      "en",
+      "fr",
+      "es"
+    ],
+    "browser_reset_succeeded": [
+      "en",
+      "fr",
+      "es"
+    ],
+    "failure": "Awaited browser recovery-code input still retained 12 characters after confirmed reset",
+    "matched_message_cleanup": true,
+    "synthetic_account_cleanup": true,
+    "older_unmatched_messages": "Preserved"
   },
   "prior_auth_regressions": {
     "source": "ee89c5cfd6d134ca5d7ba71cdca016371355ac7d",
@@ -68,5 +76,19 @@
     "synthetic_input_retained": true,
     "unpaced_semantics_focus_issue": "Unresolved upstream behavior; test waits for focus activation and fails if value is lost",
     "upstream": "https://github.com/flutter/flutter/issues/194186"
+  },
+  "backend_regressions": {
+    "run": 39534027842,
+    "uuid": "passed",
+    "text": "passed"
+  },
+  "pending_repair": {
+    "source": "f8b3c2fe9c5b8ae83d426adedfb7547548e0549f",
+    "field_replacement_source": "f252cf4b3ef4f090995778ff73da0370703a1aae",
+    "auth_run": 39536220864,
+    "live_run": 39536221115,
+    "status": "in_progress",
+    "passed": false,
+    "scope": "Replace the recovery field/semantics subtrees after confirmed reset; preserve drafts on failure. Public-only router state preservation."
   }
 }
