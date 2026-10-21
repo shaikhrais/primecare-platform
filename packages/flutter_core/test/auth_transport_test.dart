@@ -22,6 +22,27 @@ void main() {
     expect((await client.revokeSession('captured-old-token')).isSuccess, isTrue);
   });
 
+  test('recovery acknowledgements reject malformed and cross-operation success', () {
+    const forgot = {'message': 'If an active account matches, recovery instructions will be emailed. Check your inbox and spam folder.'};
+    const reset = {'status': 'password_reset', 'reauthenticationRequired': true};
+    for (final payload in <dynamic>[null, [], '', {}, {'message': 7},
+      {'status': 'password_reset'},
+      {'status': 'password_reset', 'reauthenticationRequired': 'true'},
+      {'status': 'password_reset', 'reauthenticationRequired': false}]) {
+      final response = ApiResponse(statusCode: 200, data: payload);
+      expect(response.confirmsPasswordRecovery(), isFalse);
+      expect(response.confirmsPasswordRecovery(reset: true), isFalse);
+    }
+    expect(ApiResponse(statusCode: 200, data: forgot).confirmsPasswordRecovery(), isTrue);
+    expect(ApiResponse(statusCode: 200, data: forgot).confirmsPasswordRecovery(reset: true), isFalse);
+    expect(ApiResponse(statusCode: 200, data: reset).confirmsPasswordRecovery(), isFalse);
+    expect(ApiResponse(statusCode: 200, data: reset).confirmsPasswordRecovery(reset: true), isTrue);
+    for (final status in [201, 400, 429, 503]) {
+      expect(ApiResponse(statusCode: status, data: forgot).confirmsPasswordRecovery(), isFalse);
+      expect(ApiResponse(statusCode: status, data: reset).confirmsPasswordRecovery(reset: true), isFalse);
+    }
+  });
+
   final calls = <String, Future<ApiResponse> Function(ApiClient, String)>{
     'GET': (client, path) => client.get(path),
     'POST': (client, path) => client.post(path, body: {'email': 'qa@example.test'}),

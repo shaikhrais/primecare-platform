@@ -438,7 +438,7 @@ class AuthNotifier extends Notifier<AuthState> {
           body: {'email': email},
         );
 
-        if (response.statusCode == 200) {
+        if (response.confirmsPasswordRecovery()) {
           ref.read<ExecutionGateService>(executionGateProvider).passGate(
             ExecutionGateCategory.auth,
             'Forgot Password request successful.',

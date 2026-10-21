@@ -620,6 +620,18 @@ class ApiResponse {
   ApiResponse({required this.data, required this.statusCode, this.error});
 
   bool get isSuccess => statusCode >= 200 && statusCode < 300;
+
+  /// Existing recovery contracts must acknowledge the requested operation.
+  bool confirmsPasswordRecovery({bool reset = false}) {
+    final value = data;
+    if (statusCode != 200 || value is! Map) return false;
+    return reset
+        ? value['status'] == 'password_reset' &&
+            value['reauthenticationRequired'] == true
+        : value['message'] ==
+            'If an active account matches, recovery instructions will be emailed. Check your inbox and spam folder.';
+  }
+
 }
 
 /// Centralized configuration for API endpoints and base URL.
