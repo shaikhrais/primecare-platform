@@ -25,9 +25,16 @@
     "clinic_job": 118997856931
   },
   "live_recovery": {
-    "run": 39531391322,
-    "status": "in_progress",
-    "passed": false
+    "previous_run": 39533901208,
+    "previous_status": "failed",
+    "observed_real_login_and_recovery_submission": true,
+    "received_code_correlated": false,
+    "reason": "Success text duplicated in Flutter accessibility announcement; corrected assertion and explicit UI locale selection",
+    "new_source": "ec38b2edd8a8daef84b637f1fad2fa55388e95bf",
+    "run": 39534720268,
+    "status": "pending",
+    "passed": false,
+    "unmatched_messages": "Preserved; previous failures happened before code correlation"
   },
   "prior_auth_regressions": {
     "source": "ee89c5cfd6d134ca5d7ba71cdca016371355ac7d",
@@ -35,5 +42,31 @@
     "jobs_passed": 11,
     "focused_tests_passed": 402
   },
-  "full_auth_signed_off": false
+  "full_auth_signed_off": false,
+  "gateway_cors": {
+    "source": "3f2b0a07a78a121c2b6910d9c001175cd0191381",
+    "release_source": "f71fbb31f419dedce50d567ce4f0e263a06026da",
+    "run": 39533198501,
+    "job": 119003698671,
+    "scenarios_passed": 14,
+    "live_preflight_passed": true,
+    "foreign_origin_denied": true,
+    "worker_version": "f2d0cf15-1d9d-4435-ae5f-34f719d9ea57",
+    "diagnostic_run": 39532792216,
+    "original_error": "Credentialed browser preflight missing Access-Control-Allow-Credentials"
+  },
+  "router_repair": {
+    "source": "5e9a3413b0d91a28022e29016247141621566f37",
+    "auth_run": 39533901132,
+    "jobs_passed": 11,
+    "focused_tests_passed": 403,
+    "clinic_job": 119005945862,
+    "session_restore_and_logout_preserve_form": true
+  },
+  "browser_input": {
+    "focus_diagnostic_run": 39532484343,
+    "synthetic_input_retained": true,
+    "unpaced_semantics_focus_issue": "Unresolved upstream behavior; test waits for focus activation and fails if value is lost",
+    "upstream": "https://github.com/flutter/flutter/issues/194186"
+  }
 }
