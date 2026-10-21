@@ -1,4 +1,5 @@
 name: Inspect owned auth test fixture collision
+# Use the transaction context rollback signal for the dry run.
 on:
   push:
     branches: [main]

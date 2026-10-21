@@ -36,4 +36,4 @@ with psycopg.connect(os.environ['PRODUCTION_DATABASE_URL']) as db:
   if db.execute('DELETE FROM users WHERE id::text=ANY(%s::text[]) AND tenant_id::text=ANY(%s::text[])',(ids,tids)).rowcount!=5:raise RuntimeError('Unexpected account cleanup count')
   if db.execute('DELETE FROM tenants WHERE id::text=ANY(%s::text[])',(tids,)).rowcount!=2:raise RuntimeError('Unexpected tenant cleanup count')
   print('STRANDED_MUTATION_RECOVERED '+json.dumps({'users':5,'tenants':2,'producerJob':119295482070,'realAccountsTouched':False,'dryRun':sys.argv[1]=='--dry-run'}))
-  if sys.argv[1]=='--dry-run':db.rollback()
+  if sys.argv[1]=='--dry-run':raise psycopg.Rollback()
