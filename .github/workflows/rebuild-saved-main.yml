@@ -1,0 +1,54 @@
+name: Rebuild and deploy saved main checkpoint
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/rebuild-saved-main.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: primecare-saved-main-release
+  cancel-in-progress: false
+jobs:
+  saved:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - name: Require saved checkpoint before build or deployment
+        run: |
+          test "$GITHUB_REF" = refs/heads/main
+          test -s docs/task-progress/auth-pause-checkpoint-20261021.md
+          git merge-base --is-ancestor 8308a60ee2540b084046f331e5ac32a878100c78 HEAD
+  verify:
+    needs: saved
+    uses: ./.github/workflows/code-admin-tests.yml
+    secrets: inherit
+  apis:
+    needs: verify
+    uses: ./.github/workflows/deploy-cloudflare-workers.yml
+    with: {confirm: DEPLOY}
+    secrets: inherit
+  websites:
+    needs: apis
+    uses: ./.github/workflows/deploy-typescript-websites.yml
+    with: {confirm: DEPLOY}
+    secrets: inherit
+  smoke:
+    needs: websites
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Verify deployed portals and public MFA failure behavior without owner changes
+        run: |
+          node scripts/verify-screen-text-deployment.mjs
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          const response=await fetch('https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/auth/mfa',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({challenge:'a'.repeat(43),code:'123456'})});
+          assert.equal(response.status,401);assert.equal(response.headers.get('cache-control'),'no-store');
+          console.log('SAVED_MAIN_RELEASE_VERIFIED '+JSON.stringify({source:process.env.GITHUB_SHA,checkpoint:'8308a60ee2540b084046f331e5ac32a878100c78',ownerChanges:0,enrollmentPaused:true}));
+          JS
