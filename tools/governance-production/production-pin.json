@@ -356,5 +356,18 @@
     "businessDataWrites": false,
     "permissionChanges": false,
     "activation": false
+  },
+  "flutterMfaEvidenceWriter": {
+    "optInVariable": "RECORD_FLUTTER_MFA_EVIDENCE",
+    "tables": [
+      "screen_components",
+      "platform_hierarchy_policy"
+    ],
+    "screenId": 949,
+    "componentPrefix": "authMfa.native.",
+    "definitionSha256": "35064de852366b7a3ca336253e47fa0208546b1083fda5b40140bfe377510822",
+    "reviewApprovals": false,
+    "productionReadyCredit": false,
+    "accountChanges": false
   }
 }
