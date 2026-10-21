@@ -36,7 +36,12 @@ jobs:
               selected=[n for n in db.tables if n in ['roles','apps','api_endpoints','api_permissions','role_screen_permissions','screens','virtual_workflow_definitions','auth_account_creation_policy','auth_account_management_policy'] or any(s in n for s in ['hierarchy','bootstrap','role_switch','authority','reporting'])]
               packet['schemas']={n:db.tables[n] for n in selected}
               for name,sql in {
-                  'roles':'SELECT * FROM roles',
+                  'roles':'SELECT id,role_code,role_name,role_type,active,primary_app_code,primary_app_url,auth_redirect_url,post_login_route FROM roles',
+                  'hierarchy':'SELECT * FROM platform_hierarchy_policy',
+                  'admin_screens':"SELECT * FROM screens WHERE route_path='/platform/administration'",
+                  'admin_screen_grants':"SELECT * FROM role_screen_permissions WHERE screen_id IN (SELECT id FROM screens WHERE route_path='/platform/administration')",
+                  'platform_apis':"SELECT * FROM api_endpoints WHERE route_path LIKE '%platform%'",
+                  'admin_api_grants':"SELECT * FROM api_permissions WHERE role_id IN (70,71,72)",
                   'apps':'SELECT * FROM apps',
                   'auth_flows':"SELECT * FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE 'auth.%'",
                   'creation_policy':'SELECT * FROM auth_account_creation_policy',
