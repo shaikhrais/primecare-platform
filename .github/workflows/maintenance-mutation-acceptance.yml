@@ -1,5 +1,15 @@
 name: Maintenance mutation contract and binding safety
 on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'websites/typescript/src/maintenance*.ts'
+      - 'scripts/test-maintenance*.mjs'
+      - 'tools/governance-production/maintenance*.py'
+      - 'tools/governance-production/test-maintenance-registration.py'
+      - 'tools/governance-production/production-pin.json'
+      - '.github/workflows/maintenance-mutation-acceptance.yml'
   pull_request:
     paths:
       - 'websites/typescript/src/maintenance*.ts'
