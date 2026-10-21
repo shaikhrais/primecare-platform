@@ -17,5 +17,6 @@ try {
   const rows=await db.query(`SELECT row_to_json(t) AS record FROM "${pin.schema}"."${table}" t WHERE row_to_json(t)::text ~* '(mfa|multi.factor|totp|webauthn|passkey)'`);
   console.log('MFA_REGISTRATION '+JSON.stringify({table,records:rows.rows.map(x=>x.record)}));
  }
+ const login=await db.query(`SELECT id,route_path,http_method,request_schema,response_schema,service_name,auth_required FROM "${pin.schema}".govt_api_endpoints WHERE route_path='/v1/auth/login' AND http_method='POST'`);console.log('MFA_LOGIN_CONTRACT '+JSON.stringify(login.rows));
  await db.query('ROLLBACK');
 }finally{await db.end();}
