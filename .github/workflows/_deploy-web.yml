@@ -28,6 +28,8 @@ jobs:
           flutter-version: '3.41.5'
           channel: stable
           cache: true
+      - name: Verify deployment HTTP client
+        run: python3 -m unittest tools.deployment.test_http_client -v
       - name: Verify Cloudflare configuration
         env:
           CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -84,12 +86,14 @@ jobs:
           PROJECT: ${{ inputs.project }}
         shell: python
         run: |
-          import os,json,hashlib,pathlib,time,urllib.request
+          import os,json,hashlib,pathlib,time,urllib.error,sys
+          sys.path.insert(0,os.getcwd())
+          from tools.deployment.http_client import read_public_asset
           root=pathlib.Path('apps')/os.environ['APP']/'build/web'
           expected=json.loads((root/'primecare-build.json').read_text())
           base='https://'+os.environ['PROJECT']+'.pages.dev/'
           def read(path):
-              with urllib.request.urlopen(base+path+'?enable-semantics=true&deployment='+os.environ['GITHUB_SHA'],timeout=25) as response:return response.read()
+              return read_public_asset(base+path+'?enable-semantics=true&deployment='+os.environ['GITHUB_SHA'])
           for attempt in range(12):
               try:
                   actual=json.loads(read('primecare-build.json'))
@@ -97,6 +101,11 @@ jobs:
                   assert hashlib.sha256(read('main.dart.js')).hexdigest()==expected['sha256'],'Live Flutter bundle differs from this build'
                   print('Verified source-bound Flutter deployment '+os.environ['PROJECT'])
                   break
+              except urllib.error.HTTPError as error:
+                  if error.code in (401,403):
+                      raise RuntimeError('Live verification access denied; inspect Pages access diagnosis, do not retry authorization failures') from error
+                  if attempt==11:raise
+                  time.sleep(5)
               except Exception:
                   if attempt==11:raise
                   time.sleep(5)

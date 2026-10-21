@@ -1,5 +1,5 @@
 name: Verify deployed Flutter auth recovery through owned inbox
-# Verify the complete recovery journey after the maintenance acknowledgement repair.
+# Verify recovery after correcting the truthful CI verifier client identity.
 # Cloudflare uses its scoped secret; no GitHub deployment-write permission is needed.
 on:
   push:
@@ -64,7 +64,9 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         shell: python
         run: |
-          import os,json,pathlib,urllib.request,urllib.error,urllib.parse,time,uuid,hashlib
+          import os,json,pathlib,urllib.request,urllib.error,urllib.parse,time,uuid,hashlib,sys
+          sys.path.insert(0,os.getcwd())
+          from tools.deployment.http_client import read_public_asset,VERIFIER_USER_AGENT
           token=os.environ.get('CLOUDFLARE_API_TOKEN');account=os.environ.get('CLOUDFLARE_ACCOUNT_ID');assert token and account
           domain='15minutes-email.com';recipient='auth-test@'+domain;sender='noreply@'+domain;nonce=str(uuid.uuid4())
           report={'domain':domain,'recipient':recipient,'sender':sender,'synthetic':True,'read_other_inboxes':False,'application_accounts_changed':False,'password_resets_requested':False,'send_attempted':False,'accepted':False,'received':False,'cleanup':'No message sent','whole_workflow_verified':False}
@@ -106,7 +108,7 @@ jobs:
           tenant_id=str(uuid.uuid4());user_id=str(uuid.uuid4());password=secrets.token_urlsafe(24);new_password=secrets.token_urlsafe(24);fixture_created=False
           gateway='https://primecare-api-gateway.itpro-mohammed.workers.dev'
           def auth_call(path,body=None,bearer=None):
-              headers={'Content-Type':'application/json','User-Agent':'node','Origin':'https://primecare-clinic.pages.dev'}
+              headers={'Content-Type':'application/json','User-Agent':VERIFIER_USER_AGENT,'Origin':'https://primecare-clinic.pages.dev'}
               if bearer:headers['Authorization']='Bearer '+bearer
               request=urllib.request.Request(gateway+path,headers=headers,data=None if body is None else json.dumps(body).encode(),method='GET' if body is None else 'POST')
               try:
@@ -127,10 +129,9 @@ jobs:
               expected=json.loads(pathlib.Path('test-results/flutter-build/primecare-build.json').read_text())
               must(expected['runtime']=='flutter' and expected['commit']==os.environ['GITHUB_SHA'] and expected['project']=='primecare-clinic','Expected Flutter build is bound to current source')
               def live_build():
-                  with urllib.request.urlopen(portal+'/primecare-build.json?enable-semantics=true&deployment='+os.environ['GITHUB_SHA'],timeout=25) as response:return json.loads(response.read())
+                  return json.loads(read_public_asset(portal+'/primecare-build.json?enable-semantics=true&deployment='+os.environ['GITHUB_SHA']))
               must(live_build()==expected,'Live Flutter build matches this workflow before synthetic changes')
-              with urllib.request.urlopen(portal+'/main.dart.js?enable-semantics=true&deployment='+os.environ['GITHUB_SHA'],timeout=25) as response:
-                  must(hashlib.sha256(response.read()).hexdigest()==expected['sha256'],'Live Flutter JavaScript hash matches deployment artifact')
+              must(hashlib.sha256(read_public_asset(portal+'/main.dart.js?enable-semantics=true&deployment='+os.environ['GITHUB_SHA'])).hexdigest()==expected['sha256'],'Live Flutter JavaScript hash matches deployment artifact')
               report['runtime']='flutter';report['source_commit']=expected['commit'];report['bundle_sha256']=expected['sha256']
               raw=pathlib.Path('packages/primecare_ui/lib/src/localization/auth_screen_text_generated.dart').read_text().split('const passwordRecoveryScreenCatalog =',1)[1]
               raw=raw[raw.index('{'):].strip().rstrip(';')
