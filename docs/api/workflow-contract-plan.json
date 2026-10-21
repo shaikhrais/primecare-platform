@@ -91709,7 +91709,7 @@
     "apps/primecare_governance/lib/core/governance/registries/api_governance_registry.dart": "9898689ddc5aa366eade2a789439acef74d2e9d114a4415de52802a6c872ea71",
     "cloudflare/workers/src/account-admin.ts": "b108356241f0bc04b34ddbc04b36cd93551cb2dc1cdc4c9a9133c8ed906f02be",
     "cloudflare/workers/src/account-policy.json": "36a6f57074e8497378de91dd17d4c4c078694509c95ae248864b4d60343a868b",
-    "cloudflare/workers/src/auth.ts": "436ef13dadfc91ea0d73c8f7661c2e811ba4996c18d0a25ee9d5c15ef923dca5",
+    "cloudflare/workers/src/auth.ts": "96430d220e35b229c6b37f2671639166c038f4c49dabda3d3899412c5937ae1f",
     "cloudflare/workers/src/client-booking-lifecycle.ts": "2eeaf8a0f563a6de1dc3b9add19e37bc32107856a9138b5cacc1714cc0be443c",
     "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5",
     "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5",
