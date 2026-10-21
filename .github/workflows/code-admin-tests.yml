@@ -2,7 +2,7 @@ name: Code admin hierarchy security checks
 on:
   push:
     branches: [main]
-    paths: ['cloudflare/workers/src/admin-hierarchy.json', 'cloudflare/workers/src/platform-administration.ts', 'cloudflare/workers/src/account-admin.ts', 'cloudflare/workers/src/account-read-projection.ts', 'websites/typescript/src/platform-admin.ts', 'websites/typescript/src/auth-screen.ts', 'packages/shared/src/admin-entry-routes.json', 'scripts/*code-admin*', '.github/workflows/code-admin-tests.yml']
+    paths: ['cloudflare/workers/src/admin-hierarchy.json', 'cloudflare/workers/src/platform-administration.ts', 'cloudflare/workers/src/account-admin.ts', 'cloudflare/workers/src/account-read-projection.ts', 'websites/typescript/src/platform-admin.ts', 'websites/typescript/src/auth-screen.ts', 'packages/shared/src/admin-entry-routes.json', 'scripts/*code-admin*', 'scripts/test-platform-administration-postgres.mjs', 'scripts/test-auth-management.mjs', '.github/workflows/code-admin-tests.yml']
   workflow_dispatch:
 permissions:
   contents: read
