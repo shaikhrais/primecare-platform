@@ -1,0 +1,29 @@
+name: Inspect approved Code Admin enrollment status
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/inspect-code-admin-enrollment.mjs', '.github/workflows/inspect-code-admin-enrollment.yml']
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Release and verify complete Code Admin MFA journey']
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/mfa-status --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/mfa-status/node_modules node_modules
+      - name: Read booleans and aggregate session count only, never a secret or MFA seed
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/inspect-code-admin-enrollment.mjs
