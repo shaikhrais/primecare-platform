@@ -60,6 +60,11 @@ void main() {
     expect(validateClinicReturnUrl('https://example.test/path'), isNull);
     expect(validateClinicReturnUrl('//example.test/path'), isNull);
     expect(validateClinicReturnUrl('/login'), isNull);
+    for (final path in ['/forgot-password', '/reset-password']) {
+      expect(validateClinicReturnUrl(path), isNull);
+      expect(validateClinicReturnUrl('$path?enable-semantics=true'), isNull);
+      expect(validateClinicReturnUrl('$path#form'), isNull);
+    }
     expect(validateClinicReturnUrl('/auth/callback'), isNull);
     expect(validateClinicReturnUrl('relative/path'), isNull);
     expect(validateClinicReturnUrl('/clinic/care-plan?q=a%26b'),

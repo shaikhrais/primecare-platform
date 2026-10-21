@@ -39,6 +39,8 @@ String? validateAppReturnUrl(String? rawValue) {
   const blockedRoutes = <String>{
     '/login',
     '/logout',
+    '/forgot-password',
+    '/reset-password',
     '/sso-redirect',
     '/auth/callback',
     '/auth/error',
