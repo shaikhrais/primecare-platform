@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths: ['cloudflare/workers/src/security/*.mjs', 'cloudflare/workers/src/auth.ts', 'websites/typescript/src/auth-client.ts', 'websites/typescript/src/auth-mfa.ts', 'packages/shared/src/auth-mfa.json', 'packages/database/migrations/20261025_auth_mfa.sql', 'cloudflare/workers/src/admin-hierarchy.json', 'cloudflare/workers/src/platform-administration.ts', 'cloudflare/workers/src/account-admin.ts', 'cloudflare/workers/src/account-read-projection.ts', 'websites/typescript/src/platform-admin.ts', 'websites/typescript/src/auth-screen.ts', 'packages/shared/src/admin-entry-routes.json', 'scripts/*code-admin*', 'scripts/test-platform-administration-postgres.mjs', 'scripts/test-auth-management.mjs', '.github/workflows/code-admin-tests.yml']
+  workflow_call:
   workflow_dispatch:
 permissions:
   contents: read
@@ -39,7 +40,7 @@ jobs:
           MFA_TEST_ID_TYPE=text node --test scripts/test-code-admin-mfa-postgres.mjs
           MFA_TEST_ID_TYPE=uuid node --test scripts/test-code-admin-mfa-postgres.mjs
       - name: Check API and shared administration UI types
-        run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/platform-administration.ts websites/typescript/src/platform-admin.ts
+        run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/auth.ts cloudflare/workers/src/platform-administration.ts websites/typescript/src/auth-screen.ts websites/typescript/src/platform-admin.ts
       - name: Exercise MFA enrollment and denied codes through browser, auth API and database
         run: node scripts/test-code-admin-mfa-browser.mjs
       - name: Exercise Code admin login, delegation, training and logout in English, French and Spanish

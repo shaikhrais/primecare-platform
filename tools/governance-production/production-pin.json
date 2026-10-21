@@ -278,5 +278,16 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "roleGrants": false
+  },
+  "mfaSchemaWriter": {
+    "optInVariable": "APPLY_MFA_SCHEMA",
+    "tables": [
+      "auth_mfa_credentials",
+      "auth_mfa_challenges",
+      "auth_mfa_audit"
+    ],
+    "migrationSha256": "1205cc241eb6246a6bb0647cc3fe8935c93c8d67a8f974494e9dcaef3e47258b",
+    "accountAssignments": false,
+    "credentialWrites": false
   }
 }

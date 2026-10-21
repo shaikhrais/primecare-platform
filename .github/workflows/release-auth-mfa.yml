@@ -1,0 +1,82 @@
+name: Release and verify complete Code Admin MFA journey
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/release-auth-mfa.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: primecare-mfa-release
+  cancel-in-progress: false
+jobs:
+  verify:
+    uses: ./.github/workflows/code-admin-tests.yml
+    secrets: inherit
+  deploy:
+    needs: verify
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/mfa-release --ignore-scripts --no-audit --no-fund wrangler@4.68.1 pg@8.16.3 bcryptjs@3.0.2
+          ln -s /tmp/mfa-release/node_modules node_modules
+      - name: Validate pinned migration in rollback and apply only registered MFA tables
+        env:
+          APPLY_MFA_SCHEMA: '1'
+        run: |
+          MFA_SCHEMA_DRY_RUN=1 node scripts/apply-mfa-schema.mjs
+          node scripts/apply-mfa-schema.mjs
+      - name: Preserve existing server secrets and provision dedicated MFA encryption key once
+        run: |
+          node scripts/generate-cloudflare-worker-config.mjs
+          npx wrangler secret list --config .cloudflare-workers/auth.jsonc > "$RUNNER_TEMP/mfa-secret-names.json"
+          jq -e 'any(.[]; .name == "DB_URL")' "$RUNNER_TEMP/mfa-secret-names.json" > /dev/null
+          if ! jq -e 'any(.[]; .name == "MFA_ENCRYPTION_KEY")' "$RUNNER_TEMP/mfa-secret-names.json" > /dev/null; then
+            node --input-type=module -e 'import {randomBytes} from "node:crypto";process.stdout.write(randomBytes(32).toString("hex"))' | npx wrangler secret put MFA_ENCRYPTION_KEY --config .cloudflare-workers/auth.jsonc
+          fi
+          npx wrangler deploy --config .cloudflare-workers/auth.jsonc
+      - name: Probe public challenge route without any account or password
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          const r=await fetch('https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/auth/mfa',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({challenge:'a'.repeat(43),code:'123456'})});
+          assert.equal(r.status,401);assert.equal(r.headers.get('cache-control'),'no-store');
+          JS
+  portals:
+    needs: deploy
+    uses: ./.github/workflows/deploy-typescript-websites.yml
+    with: {confirm: DEPLOY}
+    secrets: inherit
+  live:
+    needs: portals
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/live-mfa --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@3.0.2 playwright@1.60.0
+          ln -s /tmp/live-mfa/node_modules node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Compare deployed browser MFA, gateway responses and native PostgreSQL records
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/test-live-code-admin-mfa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-mfa-acceptance
+          path: test-results/live-mfa
+          retention-days: 90
