@@ -54,4 +54,7 @@ async function main(){
  const db=new pg.Client({connectionString:process.env.PRODUCTION_DATABASE_URL,ssl:{rejectUnauthorized:true}});await db.connect();
  try{await verifyCodeAdminOwnerRegistration(db);console.log('CODE_ADMIN_CONTROL_TENANT '+JSON.stringify(await bootstrapControlTenant(db,{receipt:{runId:process.env.GITHUB_RUN_ID,actor:process.env.GITHUB_ACTOR}})));}finally{await db.end();}
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(()=>{console.error('Control-tenant provisioning failed; existing records and private configuration are not logged.');process.exitCode=1;});
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(error=>{
+ const safeReasons=new Set(['Exact root provisioning scope required','Governance authority mismatch','Approved Code Admin owner is not registered','Approved Code Admin owner binding differs','Protected provisioning attribution required','Invalid schema','Control-tenant policy drift','Control-tenant receipt missing','Registered control tenant is missing or changed','Registered control-tenant policy required','Unbound control-tenant slug collision; preserve existing tenant','Control tenant did not persist','Control-tenant binding did not persist']);
+ console.error('CODE_ADMIN_CONTROL_TENANT_FAILED '+JSON.stringify({reason:safeReasons.has(error?.message)?error.message:'database_operation_failed',code:/^[A-Z0-9]{5}$/.test(error?.code||'')?error.code:null,column:/^[a-z][a-z0-9_]*$/.test(error?.column||'')?error.column:null}));process.exitCode=1;
+});

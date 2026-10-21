@@ -56,6 +56,15 @@ jobs:
         run: |
           python tools/governance-production/code_admin_root_policy.py --dry-run
           python tools/governance-production/code_admin_root_policy.py --apply
+      - name: Inspect tenant schema requirements without reading tenant records
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          node --input-type=module <<'JS'
+          import pg from 'pg';
+          const db=new pg.Client({connectionString:process.env.PRODUCTION_DATABASE_URL,ssl:{rejectUnauthorized:true}});await db.connect();
+          try{const rows=await db.query("SELECT column_name,udt_name,is_nullable,column_default IS NOT NULL AS has_default FROM information_schema.columns WHERE table_schema='public' AND table_name='tenants' ORDER BY ordinal_position");console.log('CONTROL_TENANT_SCHEMA '+JSON.stringify(rows.rows));}finally{await db.end();}
+          JS
       - name: Provision and bind the control tenant without creating users
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
