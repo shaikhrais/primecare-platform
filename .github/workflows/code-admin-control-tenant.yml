@@ -2,7 +2,7 @@ name: Provision Code Admin control tenant
 on:
   push:
     branches: [main]
-    paths: ['tools/governance-production/code-admin-root.json', 'tools/governance-production/code_admin_root_policy.py', 'scripts/bootstrap-code-admin-control-tenant.mjs', 'scripts/test-code-admin-control-tenant-postgres.mjs', '.github/workflows/code-admin-control-tenant.yml']
+    paths: ['tools/governance-production/code-admin-root.json', 'tools/governance-production/code_admin_root_policy.py', 'scripts/bootstrap-code-admin-control-tenant.mjs', 'scripts/test-code-admin-control-tenant-postgres.mjs', 'packages/shared/src/tenant-creation.mjs', 'cloudflare/workers/src/platform-administration.ts', 'cloudflare/workers/src/growth/provisioning.ts', '.github/workflows/code-admin-control-tenant.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -27,12 +27,14 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix /tmp/control-native --ignore-scripts --no-audit --no-fund pg@8.16.3
+          npm install --prefix /tmp/control-native --ignore-scripts --no-audit --no-fund pg@8.16.3 esbuild@0.27.2 bcryptjs@3
           ln -s /tmp/control-native/node_modules node_modules
       - name: Verify UUID/text identity, concurrency, collision rejection and atomic rollback
         env:
           CODE_ADMIN_ROOT_TEST_DATABASE_URL: postgres://root_test:isolated-only@localhost:5432/root_test
-        run: node --test scripts/test-code-admin-control-tenant-postgres.mjs
+          PLATFORM_TEST_DATABASE_URL: postgres://root_test:isolated-only@localhost:5432/root_test
+          GROWTH_TEST_DATABASE_URL: postgres://root_test:isolated-only@localhost:5432/root_test
+        run: node --test scripts/test-code-admin-control-tenant-postgres.mjs scripts/test-platform-administration-postgres.mjs scripts/test-growth-business.mjs
   provision:
     needs: native
     environment: production
@@ -70,3 +72,8 @@ jobs:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           CODE_ADMIN_ROOT_BOOTSTRAP: '1'
         run: node scripts/bootstrap-code-admin-control-tenant.mjs
+  release_apis:
+    needs: [native, provision]
+    uses: ./.github/workflows/deploy-cloudflare-workers.yml
+    with: {confirm: DEPLOY}
+    secrets: inherit

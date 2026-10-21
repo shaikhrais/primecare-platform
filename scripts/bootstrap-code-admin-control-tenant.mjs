@@ -1,3 +1,4 @@
+import {createTenantRecord} from '../packages/shared/src/tenant-creation.mjs';
 import pg from 'pg';
 import {readFileSync} from 'node:fs';
 import {createHash,randomUUID} from 'node:crypto';
@@ -39,8 +40,7 @@ export async function bootstrapControlTenant(db,{policySchema,tenantSchema,recei
   if(data.tenantId){await checkedTenant(db,t.tenant,data);await db.query('COMMIT');return {created:false,rootTenantBound:true,accountChanges:0};}
   if((await db.query('SELECT id FROM '+t.tenant+' WHERE slug=$1',[data.slug])).rows.length)throw Error('Unbound control-tenant slug collision; preserve existing tenant');
   const tenantId=randomUUID();
-  const inserted=await db.query('INSERT INTO '+t.tenant+" (id,slug,name,status,updated_at) VALUES ($1,$2,$3,'active',NOW()) RETURNING id,slug,name,status",[tenantId,data.slug,data.name]);
-  if(inserted.rows.length!==1||String(inserted.rows[0].id)!==tenantId||inserted.rows[0].slug!==data.slug||inserted.rows[0].name!==data.name||inserted.rows[0].status!=='active')throw Error('Control tenant did not persist');
+  await createTenantRecord(db,{id:tenantId,slug:data.slug,name:data.name},t.tenant);
   data.tenantId=tenantId;data.provisioningReceipt={runId:receipt.runId,actor:receipt.actor};
   const updated=await db.query('UPDATE '+t.policy+' SET definition=$1 WHERE id=$2 RETURNING definition',[JSON.stringify(data),rootPolicy.id]);
   if(updated.rows.length!==1||updated.rows[0].definition!==JSON.stringify(data))throw Error('Control-tenant binding did not persist');
