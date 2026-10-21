@@ -21,8 +21,30 @@ jobs:
           test "$GITHUB_REF" = refs/heads/main
           test -s docs/task-progress/auth-pause-checkpoint-20261021.md
           git merge-base --is-ancestor 8308a60ee2540b084046f331e5ac32a878100c78 HEAD
-  verify:
+  catalog:
     needs: saved
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      GOVERNANCE_WORKFLOW_WRITES: '1'
+      GOVERNANCE_PUBLIC_LOGIN_GRANTS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/login-grants --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/login-grants/node_modules node_modules
+          python tools/governance-production/public_login_grants.py --dry-run
+          python tools/governance-production/public_login_grants.py --apply
+          python scripts/check-api-catalog-identity.py
+  verify:
+    needs: catalog
     uses: ./.github/workflows/code-admin-tests.yml
     secrets: inherit
   apis:

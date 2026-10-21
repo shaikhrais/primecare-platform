@@ -317,5 +317,19 @@
     "reviewApprovals": false,
     "productionReadyCredit": false,
     "accountChanges": false
+  },
+  "publicLoginGrantRepairWriter": {
+    "optInVariable": "GOVERNANCE_PUBLIC_LOGIN_GRANTS",
+    "tables": [
+      "api_permissions"
+    ],
+    "apiIds": [
+      2
+    ],
+    "reviewedFingerprint": "c2b0688d492d8bfd9c11383e95509dc886e8763234f3ca99bb96e182c456f0e0",
+    "rowCount": 64,
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false
   }
 }
