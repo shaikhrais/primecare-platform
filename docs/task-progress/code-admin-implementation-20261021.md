@@ -43,6 +43,15 @@ Run 39598240589 passed six native PostgreSQL tests across UUID/text identity, co
 
 Focused run 39598240604 passed 74 security tests, API/UI type checks and EN/FR/ES browser journeys. The broader API release is running at this checkpoint. A fresh owner preflight confirms the root tenant is now configured; the protected email setting is still missing/mismatched, the bootstrap password is absent, and MFA enrollment remains unfinished. Account activation is not complete.
 
-Protected first-account setup now also enforces the registered owner readiness state. The current `owner-bound-not-activated` policy blocks live activation even if bootstrap credentials are configured; a later governed MFA implementation/readiness transition is required. This is an activation interlock, not an implemented MFA enrollment service. Two owner-policy tests pass locally. GitHub's connected tools cannot edit protected secrets; browser fallback requires user approval before configuration of the selected email and a generated bootstrap password. No password should be supplied in chat.
+Protected first-account setup now also enforces the registered owner readiness state. The current `owner-bound-not-activated` policy blocks live activation even if bootstrap credentials are configured; a later governed MFA implementation/readiness transition is required. This is an activation interlock, not an implemented MFA enrollment service. Two owner-policy tests pass locally. GitHub's connected tools cannot edit protected secrets; the browser settings were used for this unsupported operation, with user entry of the new bootstrap password. No password should be supplied in chat.
 
 The API release in run 39598240589 subsequently completed successfully, including type checks, source validation, Worker deployment and deployed API/gateway checks. The required-field tenant-creation repair is deployed. The configured owner still has no account and MFA enrollment remains unfinished.
+
+
+## MFA verifier foundation (2026-10-21)
+
+Production owner preflight job 119249896383 passed: selected email matches, password is configured, control tenant is bound, and no Code Admin account exists or was activated. Secret values were not read or logged.
+
+Added an isolated Web Crypto RFC 6238 primitive, validated against all 18 Appendix B vectors for SHA-1/SHA-256/SHA-512, including post-2038 times. The six-digit verifier accepts only current/previous counters, rejects future/expired/replayed counters and malformed codes, and returns a counter for a future atomic database consumption. Six local tests passed. Added it to the existing security CI.
+
+This is cryptographic foundation only, not an enabled MFA flow. Enrollment, encrypted secret storage, rate limiting, atomic counter consumption, challenge-limited login sessions, recovery and governed UI/API registrations remain required before integration. No new UI, API or permission has been introduced. Code Admin activation remains locked. Reference: https://www.rfc-editor.org/rfc/rfc6238.html (Appendix B with corrected key lengths).
