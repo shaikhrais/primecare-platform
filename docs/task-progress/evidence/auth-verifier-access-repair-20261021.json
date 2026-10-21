@@ -1,0 +1,39 @@
+{
+  "source_commit": "e40ee7d71f51d94b42c8606685e5af918ffa9493",
+  "date": "2026-10-21",
+  "diagnosis": {
+    "baseline_run": 39531040882,
+    "baseline_http_status": 403,
+    "baseline_cloudflare_error": 1010,
+    "edge_server": "cloudflare",
+    "matching_access_apps": 0,
+    "protection_changed": false,
+    "named_verifier_run": 39531207228,
+    "named_verifier_http_status": 200
+  },
+  "repair": {
+    "user_agent": "PrimeCareDeploymentVerifier/1.0 (+https://github.com/shaikhrais/primecare-platform)",
+    "browser_impersonation": false,
+    "protection_disabled": false,
+    "redirects_rejected": true,
+    "source_stamp_and_bundle_hash_required": true,
+    "http_client_tests": 3
+  },
+  "deployment_verification": {
+    "all_nine_portals_passed": true,
+    "clinic_run": 39531391397,
+    "clinic_job": 118997856931
+  },
+  "live_recovery": {
+    "run": 39531391322,
+    "status": "in_progress",
+    "passed": false
+  },
+  "prior_auth_regressions": {
+    "source": "ee89c5cfd6d134ca5d7ba71cdca016371355ac7d",
+    "run": 39529969521,
+    "jobs_passed": 11,
+    "focused_tests_passed": 402
+  },
+  "full_auth_signed_off": false
+}
