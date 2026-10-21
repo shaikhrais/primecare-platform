@@ -46403,7 +46403,7 @@
     "scripts/test-method-capture-blockers.py": "c75297e97668734b8f5ce9eaa830488ee60e34ff7a30a93065a7431f381e62da",
     "cloudflare/workers/src/core/base-worker.ts": "7c7d612386546bf86db4b217391e84cf8982331530a86020c9eb35010548a25a",
     "cloudflare/workers/src/business-modules.ts": "10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa",
-    "scripts/audit-api-reachability.mjs": "01b6d25de148370a5c6886af924e997421cbdd8ce6a720e92b9ff36d3c29267b",
+    "scripts/audit-api-reachability.mjs": "5afb36de6436a8d4b141fecbd0d68e657f24eb6ffc0f050d7cd23321ceff0210",
     "cloudflare/workers/src/runtime/worker-application.ts": "d15343e639df5523847767854bdc535658b577120bd7f3b8b9cc9e229e8cd288",
     "cloudflare/workers/src/runtime/handler-pipeline.ts": "d5f3241e46fc9455df12c5c7c2ee674b2bcec723f6590c1ed56b38c8a42acd41",
     "cloudflare/workers/src/service-application.ts": "75ccdd8a409fd82b1162b2643066ce1f8549c632568f679457a30da9ec70e721"
