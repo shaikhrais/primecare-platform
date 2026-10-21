@@ -47,7 +47,13 @@ class _PasswordRecoveryFormState extends ConsumerState<PasswordRecoveryForm> {
       );
       if (!mounted) return;
       setState(() {
-        _success = response.statusCode == 200;
+        final data = response.data;
+        _success = response.statusCode == 200 && data is Map &&
+            (widget.reset
+                ? data['status'] == 'password_reset' &&
+                    data['reauthenticationRequired'] == true
+                : data['message'] ==
+                    'If an active account matches, recovery instructions will be emailed. Check your inbox and spam folder.');
         _messageKey = _success
             ? (widget.reset ? 'reset_success' : 'forgot_success')
             : 'request_failed';

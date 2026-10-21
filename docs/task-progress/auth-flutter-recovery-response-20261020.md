@@ -1,0 +1,7 @@
+# Flutter recovery acknowledgement repair — 2026-10-20
+
+The live Flutter recovery form previously treated every HTTP 200 as success, including empty or malformed responses. It now requires the existing API acknowledgement: the generic recovery message, or password_reset plus Boolean reauthenticationRequired=true. Failed acknowledgements retain drafts and cannot clear reset secrets or display success. No route, permission, role or server policy changed.
+
+Six locale/mode widget scenarios cover malformed payloads, the other operation's acknowledgement, wrong/missing Boolean values, unavailable transport, HTTP failure despite a valid payload, retry, normalized requests, confirmed secret clearing and persistent success. Auth Gateway CI now executes these scenarios and the existing live-screen-text tests. YAML/parity/whitespace checks passed locally; Flutter SDK is unavailable locally, so widget execution is pending CI and is not claimed passed.
+
+Gateway run 39524170230 passed all eleven jobs before this repair. Maintenance native safety run 39524173446 passed. Prior live TypeScript/email proofs remain historical scoped evidence; deployed Flutter email/browser acceptance still needs its own source-bound receipt. The deployment overlap recorded in auth-current-deployment-boundary-20261020.md remains unresolved. No full verified status, physical-device/manual accessibility acceptance or independent review approval is asserted.
