@@ -1,5 +1,7 @@
 # Saved auth checkpoint — 2026-10-21
 
+Superseded personal-enrollment status: the owner subsequently completed setup and reached the dashboard. Read-only production verification confirms active Code Admin with MFA enabled. Current complete web verification39666003000 passed; see `auth-full-web-verification-20261021.md`. The paused state below is historical.
+
 User requested: save everything first, then rebuild and deploy all changes; resume authenticator setup later.
 
 All implementation changes were already committed on main at a787300aecc8fac1a93db21446eb176bd2c6c848. No new branch is required. The web MFA implementation, production schema, dedicated server secret, owner bootstrap and verification evidence are preserved in GitHub and the pinned production database.
