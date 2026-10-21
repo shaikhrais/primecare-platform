@@ -344,5 +344,17 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "roleGrants": false
+  },
+  "authLifecyclePolicyWriter": {
+    "optInVariable": "GOVERNANCE_AUTH_LIFECYCLE_POLICY_WRITES",
+    "tables": [
+      "platform_hierarchy_policy"
+    ],
+    "policyId": "auth-lifecycle-completion-v1",
+    "definitionSha256": "63a8a941410bf22c09152f00885843a524dbc9bf1c80b8e9929e5516d512cad6",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "activation": false
   }
 }

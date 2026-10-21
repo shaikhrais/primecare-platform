@@ -1,0 +1,60 @@
+{
+  "id": "auth-lifecycle-completion-v1",
+  "requirement": "User instruction: Continue until done all auth tasks, including lost-authenticator recovery, MFA replacement/key rotation, temporary privilege elevation and scoped tenant support access.",
+  "status": "registered-unimplemented",
+  "existingRoles": ["code_admin", "platform_admin", "tenant_admin"],
+  "existingMfaScreenId": 949,
+  "savedRecoveryCodes": {
+    "count": 10,
+    "randomBytesPerCode": 16,
+    "hashAtRest": "SHA-256 with user, tenant and generation context",
+    "displayOnce": true,
+    "issueRequires": ["active-account", "fresh-password", "current-authenticator"],
+    "replaceInvalidatesPreviousGeneration": true,
+    "recoveryRequires": ["fresh-password", "unused-saved-recovery-code", "confirmation-of-new-authenticator"],
+    "fullSessionBeforeNewFactorConfirmation": false,
+    "consumeAtomically": true,
+    "recoveryRevokesExistingSessions": true,
+    "notifications": "Durable queued notification on issue, replacement and recovery; no codes, seeds or tokens in email or logs",
+    "noCodesAndNoAuthenticator": "deny-access; no administrator or password-reset bypass"
+  },
+  "authenticatorReplacement": {
+    "requires": ["fresh-password", "current-authenticator-or-unused-recovery-code", "confirmation-of-new-authenticator"],
+    "invalidateOldFactorOnlyAfterNewConfirmation": true,
+    "cancelNeverRemovesWorkingFactor": true,
+    "revokeSessionsAfterReplacement": true,
+    "auditAndCredentialUpdateAtomic": true
+  },
+  "serverEncryptionKeyRotation": {
+    "operator": "protected-production-deployment",
+    "retainOldKeyDuringMigration": true,
+    "newKeyMustBeIndependentRandom256Bit": true,
+    "envelopeKeyIdSelectsDecryptionKey": true,
+    "rewrapPreservesTotpSeed": true,
+    "noPlaintextKeyExportOrLogging": true,
+    "retireOldKeyOnlyAfterZeroOldEnvelopesAndRecoveryDrill": true
+  },
+  "privilegeElevation": {
+    "actor": "code_admin",
+    "requires": ["fresh-password", "current-authenticator", "explicit-action-scope", "reason"],
+    "maximumSeconds": 900,
+    "serverCheckedExpiry": true,
+    "notTransferable": true,
+    "revocationAuditRequired": true,
+    "noNewClinicalDataAccess": true
+  },
+  "tenantSupportAccess": {
+    "actor": "code_admin",
+    "requires": ["active-elevation", "tenant-admin-approval", "explicit-tenant", "ticket-reference", "reason", "explicit-action-scope"],
+    "maximumSeconds": 900,
+    "serverCheckedTenantAndExpiry": true,
+    "tenantAdminCanRevoke": true,
+    "clinicalDataExcluded": true,
+    "noImpersonation": true,
+    "allUseAudited": true
+  },
+  "acceptance": ["native-transaction-rollback", "expired-and-replayed-proof-denial", "cross-actor-and-tenant-denial", "notification-failure-retains-outbox", "cancel-retains-working-factor", "session-revocation", "EN-FR-ES-browser-API-database-reload", "exact-synthetic-cleanup", "key-rotation-rollback-and-recovery-drill"],
+  "approvals": {"architecture": "pending", "database": "pending", "security": "pending", "accessibility": "pending", "localization": "pending"},
+  "activationApproved": false,
+  "permissionGrants": false
+}
