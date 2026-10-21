@@ -1,0 +1,6 @@
+{
+  "platform_admin": "/platform/administration",
+  "central_admin": "/platform/administration",
+  "tenant_admin": "/platform/administration",
+  "code_admin": "/platform/administration"
+}

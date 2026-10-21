@@ -2,7 +2,7 @@ name: Code admin hierarchy security checks
 on:
   push:
     branches: [main]
-    paths: ['cloudflare/workers/src/admin-hierarchy.json', 'cloudflare/workers/src/platform-administration.ts', 'cloudflare/workers/src/account-admin.ts', 'cloudflare/workers/src/account-read-projection.ts', 'websites/typescript/src/platform-admin.ts', 'scripts/*code-admin*', '.github/workflows/code-admin-tests.yml']
+    paths: ['cloudflare/workers/src/admin-hierarchy.json', 'cloudflare/workers/src/platform-administration.ts', 'cloudflare/workers/src/account-admin.ts', 'cloudflare/workers/src/account-read-projection.ts', 'websites/typescript/src/platform-admin.ts', 'websites/typescript/src/auth-screen.ts', 'packages/shared/src/admin-entry-routes.json', 'scripts/*code-admin*', '.github/workflows/code-admin-tests.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -27,9 +27,18 @@ jobs:
         with:
           node-version: '24'
       - run: |
-          npm install --prefix /tmp/code-admin-tests --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.16.3 bcryptjs@3
+          npm install --prefix /tmp/code-admin-tests --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.16.3 bcryptjs@3 playwright@1.60.0
           ln -s /tmp/code-admin-tests/node_modules node_modules
+          node_modules/.bin/playwright install --with-deps chromium
       - name: Validate protected setup, grants, tenant boundaries, session invalidation and audit rollback
         run: node --test scripts/test-code-admin-bootstrap.mjs scripts/test-platform-bootstrap.mjs scripts/test-platform-administration-postgres.mjs scripts/test-account-admin-api.mjs scripts/test-auth-management.mjs
       - name: Check API and shared administration UI types
         run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/platform-administration.ts websites/typescript/src/platform-admin.ts
+      - name: Exercise Code admin login, delegation, training and logout in English, French and Spanish
+        run: node scripts/test-code-admin-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: code-admin-browser-evidence
+          path: test-results/code-admin-browser
+          retention-days: 30
