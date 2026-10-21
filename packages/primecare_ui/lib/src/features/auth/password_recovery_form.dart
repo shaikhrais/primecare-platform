@@ -19,6 +19,7 @@ class _PasswordRecoveryFormState extends ConsumerState<PasswordRecoveryForm> {
   final _confirm = TextEditingController();
   bool _busy = false;
   bool _success = false;
+  int _fieldRevision = 0;
   String? _messageKey;
   String text(String key) => authScreenText(context, key, recovery: true);
   @override
@@ -55,7 +56,11 @@ class _PasswordRecoveryFormState extends ConsumerState<PasswordRecoveryForm> {
             : 'request_failed';
       });
       if (_success && widget.reset) {
+        FocusScope.of(context).unfocus();
         _password.clear(); _confirm.clear(); _code.clear();
+        // Replace the semantics input nodes too: disabled Flutter web inputs
+        // can retain their old DOM value after the controllers are cleared.
+        setState(() { _fieldRevision++; });
         final currentSession = ref.read(authProvider);
         if (currentSession.token == originalSession.token &&
             currentSession.userId == originalSession.userId) {
@@ -69,7 +74,7 @@ class _PasswordRecoveryFormState extends ConsumerState<PasswordRecoveryForm> {
   void _go(String path) => context.go(authPageLocation(GoRouterState.of(context).uri, path));
 
   Widget _field(String id, String label, TextEditingController controller, {bool secret = false, TextInputType? keyboard}) =>
-      Padding(padding: const EdgeInsets.only(bottom: 16), child: Semantics(label: id, child: TextField(
+      Padding(key: ValueKey('$id-$_fieldRevision'), padding: const EdgeInsets.only(bottom: 16), child: Semantics(label: id, child: TextField(
         controller: controller, enabled: !_busy, obscureText: secret, keyboardType: keyboard,
         autocorrect: false, enableSuggestions: false,
         enableIMEPersonalizedLearning: !secret && id != 'recovery-code',

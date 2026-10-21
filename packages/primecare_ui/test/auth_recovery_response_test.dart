@@ -128,7 +128,10 @@ void main() {
           expect(find.text(success), findsNothing);
           expect(auth.logoutCalls, 0);
           expect(find.text(text['request_failed']!), findsOneWidget);
-          if (reset) expect(tester.widget<TextField>(fields.at(2)).controller!.text, 'fixture-password-123');
+          if (reset) {
+            expect(tester.widget<TextField>(fields.at(2)).controller!.text, 'fixture-password-123');
+            expect(find.byKey(const ValueKey('recovery-code-0')), findsOneWidget);
+          }
         }
         api.offline = true;
         await submit();
@@ -149,6 +152,10 @@ void main() {
         final body = api.requests.last['body'] as Map<String, dynamic>;
         expect(body['email'], 'qa@example.test');
         if (reset) {
+          expect(find.byKey(const ValueKey('recovery-code-0')), findsNothing);
+          for (final id in ['recovery-code', 'recovery-password', 'recovery-confirm']) {
+            expect(find.byKey(ValueKey('$id-1')), findsOneWidget);
+          }
           expect(body['code'], 'ABCDEF123456');
           expect(body['newPassword'], 'fixture-password-123');
           for (var index = 1; index < 4; index++) {
