@@ -4,8 +4,28 @@ on:
   push:
     branches: [main]
     paths:
+      - 'services/auth_api/**'
+      - 'scripts/refactor_gateway_layers.py'
+      - 'scripts/verify_gateway_layer_parity.py'
+      - 'scripts/refactor_auth_layers.py'
+      - 'scripts/verify_auth_layer_parity.py'
+      - 'services/api_gateway/**'
+      - 'packages/database_client/**'
       - 'packages/flutter_core/test/auth*_test.dart'
+      - 'packages/flutter_core/lib/src/security/security_interceptor.dart'
+      - 'packages/flutter_core/lib/auth_service.dart'
       - 'packages/flutter_core/lib/src/application/controllers/auth_notifier.dart'
+      - 'packages/primecare_models/lib/src/models/auth_state.dart'
+      - 'packages/primecare_models/lib/src/models/base_authentication_state.dart'
+      - 'packages/flutter_core/lib/src/network/api_client.dart'
+      - 'packages/primecare_ui/test/auth*_test.dart'
+      - 'packages/primecare_ui/lib/src/features/auth/**'
+      - 'apps/*/lib/**'
+      - 'apps/*/test/auth*_test.dart'
+      - 'packages/flutter_core/lib/routes/clinic_login_bridge.dart'
+      - 'packages/flutter_core/lib/routes/governance_router.dart'
+      - 'compose.auth.yml'
+      - '.dockerignore'
       - '.github/workflows/auth-gateway.yml'
   pull_request:
     branches: [main]
