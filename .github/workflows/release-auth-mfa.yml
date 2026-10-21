@@ -1,5 +1,5 @@
 name: Release and verify complete Code Admin MFA journey
-# Pending enrollment seeds are renewed on each fresh password exchange.
+# Confirm hidden login state and keyboard focus during MFA cancellation.
 on:
   push:
     branches: [main]

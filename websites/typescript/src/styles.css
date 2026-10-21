@@ -283,3 +283,7 @@ aside nav a[aria-current="page"], aside nav a:hover, aside nav a:focus-visible {
 /* Content-only states retain the shared layout while suppressing its chrome. */
 .app-shell.shell-content-only { grid-template-columns:minmax(0,1fr); }
 .app-shell > aside[hidden], .workspace > header[hidden] { display:none !important; }
+
+/* A hidden authentication form must override its normal grid layout. */
+.auth-card[hidden] { display: none; }
+[data-cy="mfa-seed"] { overflow-wrap: anywhere; }
