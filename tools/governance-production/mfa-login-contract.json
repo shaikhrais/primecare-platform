@@ -1,0 +1,103 @@
+{
+  "id": "auth-login-mfa-contract-v1",
+  "apiId": 2,
+  "route": "/v1/auth/login",
+  "method": "POST",
+  "requirement": "Existing public password exchange returns either an authenticated session or a password-verified MFA challenge. No role grants or account changes.",
+  "request": {
+    "type": "object",
+    "required": [
+      "email",
+      "password"
+    ],
+    "additionalProperties": true,
+    "properties": {
+      "email": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 254
+      },
+      "password": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Maximum 72 UTF-8 bytes; additional fields confer no authority."
+      }
+    }
+  },
+  "response": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "userId",
+          "role",
+          "token",
+          "status"
+        ],
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{43}$"
+          },
+          "status": {
+            "const": "authenticated"
+          }
+        }
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "challenge",
+          "purpose",
+          "setupKey"
+        ],
+        "properties": {
+          "status": {
+            "const": "mfa_required"
+          },
+          "challenge": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{43}$"
+          },
+          "purpose": {
+            "const": "enroll"
+          },
+          "setupKey": {
+            "type": "string",
+            "pattern": "^[A-Z2-7]{32}$"
+          }
+        }
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "challenge",
+          "purpose"
+        ],
+        "properties": {
+          "status": {
+            "const": "mfa_required"
+          },
+          "challenge": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{43}$"
+          },
+          "purpose": {
+            "const": "verify"
+          }
+        }
+      }
+    ]
+  }
+}

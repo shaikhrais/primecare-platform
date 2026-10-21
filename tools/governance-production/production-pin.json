@@ -289,5 +289,18 @@
     "migrationSha256": "1205cc241eb6246a6bb0647cc3fe8935c93c8d67a8f974494e9dcaef3e47258b",
     "accountAssignments": false,
     "credentialWrites": false
+  },
+  "mfaLoginContractWriter": {
+    "optInVariable": "GOVERNANCE_MFA_LOGIN_CONTRACT",
+    "tables": [
+      "api_endpoints"
+    ],
+    "apiIds": [
+      2
+    ],
+    "definitionSha256": "38f694fc3d66a7edebde8ae728515a7b0caae66d793ae8c3a5f2fb0f68bafaa8",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false
   }
 }

@@ -1,0 +1,29 @@
+name: Reconcile deployed password and MFA login contract
+on:
+  push:
+    branches: [main]
+    paths: ['tools/governance-production/mfa-login-contract.json', 'tools/governance-production/mfa_login_contract.py', '.github/workflows/mfa-login-contract.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reconcile:
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      GOVERNANCE_WORKFLOW_WRITES: '1'
+      GOVERNANCE_MFA_LOGIN_CONTRACT: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/mfa-contract --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/mfa-contract/node_modules node_modules
+          python tools/governance-production/mfa_login_contract.py --dry-run
+          python tools/governance-production/mfa_login_contract.py --apply
