@@ -1,94 +1,347 @@
 {
-  "source_commit": "e40ee7d71f51d94b42c8606685e5af918ffa9493",
+  "schema_version": 2,
   "date": "2026-10-21",
-  "diagnosis": {
-    "baseline_run": 39531040882,
-    "baseline_http_status": 403,
-    "baseline_cloudflare_error": 1010,
-    "edge_server": "cloudflare",
-    "matching_access_apps": 0,
-    "protection_changed": false,
-    "named_verifier_run": 39531207228,
-    "named_verifier_http_status": 200
+  "runtime_source_commit": "3529100a21be93043026a085ab6581063667ffce",
+  "branch": "main",
+  "branches": [
+    "main"
+  ],
+  "open_pull_requests": 0,
+  "scoped_live_recovery_verified": true,
+  "full_auth_signed_off": false,
+  "fixes": {
+    "deployment_verifier": {
+      "source": "e40ee7d71f51d94b42c8606685e5af918ffa9493",
+      "baseline_diagnostic_run": 39531040882,
+      "baseline_status": 403,
+      "baseline_error": 1010,
+      "truthful_client_diagnostic_run": 39531207228,
+      "truthful_client_status": 200,
+      "user_agent": "PrimeCareDeploymentVerifier/1.0 (+https://github.com/shaikhrais/primecare-platform)",
+      "browser_impersonation": false,
+      "cloudflare_protection_disabled": false,
+      "http_reader_tests": 3,
+      "historical_nine_deployments_passed_at_source": "e40ee7d71f51d94b42c8606685e5af918ffa9493"
+    },
+    "credentialed_cors": {
+      "source": "3f2b0a07a78a121c2b6910d9c001175cd0191381",
+      "release_source": "f71fbb31f419dedce50d567ce4f0e263a06026da",
+      "run": 39533198501,
+      "job": 119003698671,
+      "scenarios_passed": 14,
+      "live_preflight_passed": true,
+      "foreign_origin_denied": true,
+      "existing_origin_rule_retained": true,
+      "worker_version": "f2d0cf15-1d9d-4435-ae5f-34f719d9ea57"
+    },
+    "router": {
+      "initial_source": "5e9a3413b0d91a28022e29016247141621566f37",
+      "public_only_scope_source": "f8b3c2fe9c5b8ae83d426adedfb7547548e0549f",
+      "uri_and_public_form_state_preserved": true,
+      "protected_state_retention_added": false,
+      "role_specific_route_registration_retained": true
+    },
+    "browser_secret_clearing": {
+      "source": "f252cf4b3ef4f090995778ff73da0370703a1aae",
+      "confirmed_success_only": true,
+      "old_semantics_input_subtrees_replaced": true,
+      "failure_drafts_preserved": true,
+      "live_dom_empty_checks_passed": true
+    },
+    "semantics_redirects": {
+      "source": "3529100a21be93043026a085ab6581063667ffce",
+      "explicit_flag_retained": true,
+      "query_values_and_fragment_preserved": true
+    }
   },
-  "repair": {
-    "user_agent": "PrimeCareDeploymentVerifier/1.0 (+https://github.com/shaikhrais/primecare-platform)",
-    "browser_impersonation": false,
-    "protection_disabled": false,
-    "redirects_rejected": true,
-    "source_stamp_and_bundle_hash_required": true,
-    "http_client_tests": 3
-  },
-  "deployment_verification": {
-    "all_nine_portals_passed": true,
-    "clinic_run": 39531391397,
-    "clinic_job": 118997856931
+  "verification": {
+    "auth_gateway": {
+      "source": "3529100a21be93043026a085ab6581063667ffce",
+      "run": 39536853037,
+      "conclusion": "success",
+      "jobs_passed": 11,
+      "flutter_job": 119015673603,
+      "ui_tests": 105,
+      "core_tests": 295,
+      "clinic_routing_tests": 4,
+      "focused_tests_total": 404
+    },
+    "backend_postgresql": {
+      "run": 39534027842,
+      "uuid": "success",
+      "text": "success",
+      "source_binding_amendment": "da4d8e51ee779383b046939eb37138236854560d"
+    },
+    "native_invalidation": {
+      "run": 39533091128,
+      "conclusion": "success"
+    },
+    "native_revocation": {
+      "run": 39533091078,
+      "conclusion": "success"
+    }
   },
   "live_recovery": {
-    "source": "c66ae0a21d40cb667f2493ef29aa225242059811",
-    "run": 39535359500,
-    "status": "failed",
-    "passed": false,
-    "real_mail_receipt_and_native_code_hash_match": [
-      "en",
-      "fr",
-      "es"
+    "source": "3529100a21be93043026a085ab6581063667ffce",
+    "run": 39536853161,
+    "conclusion": "success",
+    "runtime": "flutter",
+    "project": "primecare-clinic",
+    "bundle_sha256": "5bdd683b8a20c04db378d54a23f907d269224f439fecf5680c3ed89a4ad4e19d",
+    "jobs": {
+      "deploy": 119016968930,
+      "en": 119018421632,
+      "fr": 119018421538,
+      "es": 119018421542
+    },
+    "cases": [
+      {
+        "locale": "en",
+        "viewport_width": 320,
+        "browser": "chromium",
+        "source_commit": "3529100a21be93043026a085ab6581063667ffce",
+        "bundle_sha256": "5bdd683b8a20c04db378d54a23f907d269224f439fecf5680c3ed89a4ad4e19d",
+        "roundtrip_passed": true,
+        "deployed_recovery_passed": true,
+        "received": true,
+        "matched_correlation": true,
+        "received_record_sha256": "39f6430c1d1e44ecf9eac7cb1ba2eb27a5638af7b0be6df1923d057c0b656fb7",
+        "checks": [
+          "Expected Flutter build is bound to current source",
+          "Live Flutter build matches this workflow before synthetic changes",
+          "Live Flutter JavaScript hash matches deployment artifact",
+          "Synthetic inbox has no existing account; preserve existing users",
+          "Browser language selected and persisted through the actual UI",
+          "Deployed browser credential login en",
+          "Deployed browser recovery accepted with generic response",
+          "Recovery code absent from HTTP response",
+          "Deployed recovery request accepted with generic response",
+          "Recovery code absent from HTTP response",
+          "Recovery email received and code hash matches database",
+          "Localized Flutter forgot-password success is visible",
+          "Recovery form fits registered viewport",
+          "Deployed browser password reset succeeds",
+          "Flutter reset clears all recovery secrets",
+          "Flutter reset clears local authority and requires normal sign-in",
+          "Reset form fits registered viewport",
+          "Reset revokes existing session",
+          "Old password rejected",
+          "Deployed browser credential login en",
+          "Browser new-password session matches fixture account",
+          "Consumed reset code cannot be replayed",
+          "New authenticated identity survives reread",
+          "New session logout succeeds",
+          "Logged-out session rejected",
+          "All reset codes removed after success",
+          "Browser reload clears revoked session and returns to login",
+          "Live Flutter source binding remains unchanged after complete journey"
+        ],
+        "expected_denials": [
+          {
+            "path": "/v1/auth/me",
+            "status": 401,
+            "non_json": false
+          },
+          {
+            "path": "/v1/auth/login",
+            "status": 401,
+            "non_json": false
+          },
+          {
+            "path": "/v1/auth/reset-password",
+            "status": 400,
+            "non_json": false
+          },
+          {
+            "path": "/v1/auth/me",
+            "status": 401,
+            "non_json": false
+          }
+        ],
+        "mail_cleanup": "Only the exact nonce/hash-matched synthetic message removed; pre-existing inbox entries preserved",
+        "account_cleanup": "Exact synthetic user, tenant, sessions, codes, audit and counters removed"
+      },
+      {
+        "locale": "fr",
+        "viewport_width": 768,
+        "browser": "chromium",
+        "source_commit": "3529100a21be93043026a085ab6581063667ffce",
+        "bundle_sha256": "5bdd683b8a20c04db378d54a23f907d269224f439fecf5680c3ed89a4ad4e19d",
+        "roundtrip_passed": true,
+        "deployed_recovery_passed": true,
+        "received": true,
+        "matched_correlation": true,
+        "received_record_sha256": "ffe747484150d2784f0630a508667c7c7a7edcb9a584cf0444f9bf66397ad302",
+        "checks": [
+          "Expected Flutter build is bound to current source",
+          "Live Flutter build matches this workflow before synthetic changes",
+          "Live Flutter JavaScript hash matches deployment artifact",
+          "Synthetic inbox has no existing account; preserve existing users",
+          "Browser language selected and persisted through the actual UI",
+          "Deployed browser credential login fr",
+          "Deployed browser recovery accepted with generic response",
+          "Recovery code absent from HTTP response",
+          "Deployed recovery request accepted with generic response",
+          "Recovery code absent from HTTP response",
+          "Recovery email received and code hash matches database",
+          "Localized Flutter forgot-password success is visible",
+          "Recovery form fits registered viewport",
+          "Deployed browser password reset succeeds",
+          "Flutter reset clears all recovery secrets",
+          "Flutter reset clears local authority and requires normal sign-in",
+          "Reset form fits registered viewport",
+          "Reset revokes existing session",
+          "Old password rejected",
+          "Deployed browser credential login fr",
+          "Browser new-password session matches fixture account",
+          "Consumed reset code cannot be replayed",
+          "New authenticated identity survives reread",
+          "New session logout succeeds",
+          "Logged-out session rejected",
+          "All reset codes removed after success",
+          "Browser reload clears revoked session and returns to login",
+          "Live Flutter source binding remains unchanged after complete journey"
+        ],
+        "expected_denials": [
+          {
+            "path": "/v1/auth/me",
+            "status": 401,
+            "non_json": false
+          },
+          {
+            "path": "/v1/auth/login",
+            "status": 401,
+            "non_json": false
+          },
+          {
+            "path": "/v1/auth/reset-password",
+            "status": 400,
+            "non_json": false
+          },
+          {
+            "path": "/v1/auth/me",
+            "status": 401,
+            "non_json": false
+          }
+        ],
+        "mail_cleanup": "Only the exact nonce/hash-matched synthetic message removed; pre-existing inbox entries preserved",
+        "account_cleanup": "Exact synthetic user, tenant, sessions, codes, audit and counters removed"
+      },
+      {
+        "locale": "es",
+        "viewport_width": 1440,
+        "browser": "chromium",
+        "source_commit": "3529100a21be93043026a085ab6581063667ffce",
+        "bundle_sha256": "5bdd683b8a20c04db378d54a23f907d269224f439fecf5680c3ed89a4ad4e19d",
+        "roundtrip_passed": true,
+        "deployed_recovery_passed": true,
+        "received": true,
+        "matched_correlation": true,
+        "received_record_sha256": "93c9919357b827306e84bf9fa0b69d8762ef22f62c804b36e921bed31f404cc3",
+        "checks": [
+          "Expected Flutter build is bound to current source",
+          "Live Flutter build matches this workflow before synthetic changes",
+          "Live Flutter JavaScript hash matches deployment artifact",
+          "Synthetic inbox has no existing account; preserve existing users",
+          "Browser language selected and persisted through the actual UI",
+          "Deployed browser credential login es",
+          "Deployed browser recovery accepted with generic response",
+          "Recovery code absent from HTTP response",
+          "Deployed recovery request accepted with generic response",
+          "Recovery code absent from HTTP response",
+          "Recovery email received and code hash matches database",
+          "Localized Flutter forgot-password success is visible",
+          "Recovery form fits registered viewport",
+          "Deployed browser password reset succeeds",
+          "Flutter reset clears all recovery secrets",
+          "Flutter reset clears local authority and requires normal sign-in",
+          "Reset form fits registered viewport",
+          "Reset revokes existing session",
+          "Old password rejected",
+          "Deployed browser credential login es",
+          "Browser new-password session matches fixture account",
+          "Consumed reset code cannot be replayed",
+          "New authenticated identity survives reread",
+          "New session logout succeeds",
+          "Logged-out session rejected",
+          "All reset codes removed after success",
+          "Browser reload clears revoked session and returns to login",
+          "Live Flutter source binding remains unchanged after complete journey"
+        ],
+        "expected_denials": [
+          {
+            "path": "/v1/auth/me",
+            "status": 401,
+            "non_json": false
+          },
+          {
+            "path": "/v1/auth/login",
+            "status": 401,
+            "non_json": false
+          },
+          {
+            "path": "/v1/auth/reset-password",
+            "status": 400,
+            "non_json": false
+          },
+          {
+            "path": "/v1/auth/me",
+            "status": 401,
+            "non_json": false
+          }
+        ],
+        "mail_cleanup": "Only the exact nonce/hash-matched synthetic message removed; pre-existing inbox entries preserved",
+        "account_cleanup": "Exact synthetic user, tenant, sessions, codes, audit and counters removed"
+      }
     ],
-    "browser_reset_succeeded": [
-      "en",
-      "fr",
-      "es"
-    ],
-    "failure": "Awaited browser recovery-code input still retained 12 characters after confirmed reset",
-    "matched_message_cleanup": true,
-    "synthetic_account_cleanup": true,
+    "other_inboxes_read": false,
     "older_unmatched_messages": "Preserved"
   },
-  "prior_auth_regressions": {
-    "source": "ee89c5cfd6d134ca5d7ba71cdca016371355ac7d",
-    "run": 39529969521,
-    "jobs_passed": 11,
-    "focused_tests_passed": 402
-  },
-  "full_auth_signed_off": false,
-  "gateway_cors": {
-    "source": "3f2b0a07a78a121c2b6910d9c001175cd0191381",
-    "release_source": "f71fbb31f419dedce50d567ce4f0e263a06026da",
-    "run": 39533198501,
-    "job": 119003698671,
-    "scenarios_passed": 14,
-    "live_preflight_passed": true,
-    "foreign_origin_denied": true,
-    "worker_version": "f2d0cf15-1d9d-4435-ae5f-34f719d9ea57",
-    "diagnostic_run": 39532792216,
-    "original_error": "Credentialed browser preflight missing Access-Control-Allow-Credentials"
-  },
-  "router_repair": {
-    "source": "5e9a3413b0d91a28022e29016247141621566f37",
-    "auth_run": 39533901132,
-    "jobs_passed": 11,
-    "focused_tests_passed": 403,
-    "clinic_job": 119005945862,
-    "session_restore_and_logout_preserve_form": true
-  },
-  "browser_input": {
-    "focus_diagnostic_run": 39532484343,
-    "synthetic_input_retained": true,
-    "unpaced_semantics_focus_issue": "Unresolved upstream behavior; test waits for focus activation and fails if value is lost",
-    "upstream": "https://github.com/flutter/flutter/issues/194186"
-  },
-  "backend_regressions": {
-    "run": 39534027842,
-    "uuid": "passed",
-    "text": "passed"
-  },
-  "pending_repair": {
-    "source": "f8b3c2fe9c5b8ae83d426adedfb7547548e0549f",
-    "field_replacement_source": "f252cf4b3ef4f090995778ff73da0370703a1aae",
-    "auth_run": 39536220864,
-    "live_run": 39536221115,
-    "status": "in_progress",
-    "passed": false,
-    "scope": "Replace the recovery field/semantics subtrees after confirmed reset; preserve drafts on failure. Public-only router state preservation."
-  }
+  "historical_attempts": [
+    {
+      "run": 39531040882,
+      "result": "403/1010"
+    },
+    {
+      "run": 39531207228,
+      "result": "Named verifier HTTP200"
+    },
+    {
+      "run": 39531391322,
+      "result": "Source matched; login never dispatched due semantics focus and then credentialed CORS"
+    },
+    {
+      "run": 39533901208,
+      "result": "Login and recovery submitted; assertion saw duplicated accessibility announcement"
+    },
+    {
+      "run": 39534720268,
+      "result": "EN/FR/ES received correlated real mail and reset; immediate DOM clearing assertion failed"
+    },
+    {
+      "run": 39535359500,
+      "result": "EN/FR/ES received correlated real mail and reset; awaited DOM check confirmed a retained 12-character code"
+    },
+    {
+      "run": 39536221115,
+      "result": "EN/FR complete passed; ES source guard stopped before creating an account or sending mail after newer deployment"
+    }
+  ],
+  "remaining": [
+    "Approved administrator bootstrap operator/environment bindings",
+    "Approved role-switching authority, tenant, session and audit rules",
+    "Other-role and failure-alternative auth acceptance coverage",
+    "Physical-device, PWA and manual accessibility checks",
+    "Independent architecture/database/security/accessibility/performance/localization/API/testing/documentation review evidence",
+    "Unpaced Flutter semantics focus/input loss remains an upstream/manual-acceptance limitation; the producer waits for activation and fails on a lost value"
+  ],
+  "research": [
+    "https://developers.cloudflare.com/waf/tools/browser-integrity-check/",
+    "https://docs.python.org/3/library/urllib.request.html",
+    "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Credentials",
+    "https://riverpod.dev/docs/concepts2/refs",
+    "https://api.flutter.dev/flutter/widgets/Widget/key.html",
+    "https://api.flutter.dev/flutter/widgets/TextEditingController/clear.html",
+    "https://github.com/flutter/flutter/issues/194186"
+  ]
 }
