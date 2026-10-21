@@ -1,0 +1,61 @@
+{
+  "sourceCommit": "fa18ab5824321141a30b8e247a70dcc5cde987e8",
+  "wholeAuthVerified": false,
+  "flutterTests": {
+    "runId": 39527621336,
+    "jobId": 118986105382,
+    "conclusion": "success",
+    "ui": 103,
+    "coreAuthTransport": 294,
+    "clinicRouting": 3,
+    "total": 400
+  },
+  "precedingGateway": {
+    "runId": 39526571253,
+    "jobsPassed": 11,
+    "jobsTotal": 11
+  },
+  "productionAcceptance": {
+    "runId": 39526605713,
+    "businessProcesses": 23,
+    "implementedUnverified": 19,
+    "policyBlocked": 4,
+    "verified": 0
+  },
+  "deployedVerification": {
+    "runId": 39527235423,
+    "conclusion": "blocked-before-browser-proof",
+    "uploadCompleted": true,
+    "sourceHashProbeHttpStatus": 403,
+    "correlatedLocalProbeError": "1010",
+    "syntheticAccountsCreated": false,
+    "syntheticEmailsSent": false,
+    "sourceCommit": "603d63f0bbffcf1c83afa666731c98e08a7a7fcd",
+    "runConclusion": "failure"
+  },
+  "blockers": [
+    "Deployed source-hash verification client receives HTTP 403; matching local Python probe returns error1010. Security protections were not disabled or bypassed.",
+    "Three protected bootstrap duties lack approved operator/environment bindings.",
+    "Role switching lacks approved assignment/session/tenant/grant/audit semantics.",
+    "Independent review IDs and complete physical-device/PWA/manual accessibility and actor/failure coverage remain open."
+  ],
+  "research": [
+    "https://api.flutter.dev/flutter/semantics/SemanticsProperties/label.html",
+    "https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html",
+    "https://docs.github.com/en/actions/reference/workflows-and-actions/reusing-workflow-configurations",
+    "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/"
+  ],
+  "currentGateway": {
+    "runId": 39527621336,
+    "jobsPassed": 11,
+    "jobsTotal": 11,
+    "conclusion": "success"
+  },
+  "branches": {
+    "remote": [
+      "main"
+    ],
+    "openPullRequests": 0
+  }
+}
