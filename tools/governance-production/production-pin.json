@@ -200,5 +200,19 @@
     "schemaChanges": false,
     "permissionChanges": false,
     "businessDataWrites": false
+  },
+  "codeAdminRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_CODE_ADMIN_REGISTRATION",
+    "tables": [
+      "roles",
+      "role_screen_permissions",
+      "platform_hierarchy_policy"
+    ],
+    "definitionSha256": "785090fb9ff03e2aa47cbdccba126d106b2bb876e87d82eb761b38b5d04cdadb",
+    "screenId": 1269,
+    "roleCode": "code_admin",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "accountAssignments": false
   }
 }

@@ -2,7 +2,7 @@ name: Inspect Code admin registration prerequisites
 on:
   push:
     branches: [main]
-    paths: [.github/workflows/code-admin-governance.yml]
+    paths: [.github/workflows/code-admin-governance.yml, tools/governance-production/code_admin_registration.py, tools/governance-production/code-admin-registration.json]
   workflow_dispatch:
 permissions:
   contents: read
@@ -61,3 +61,33 @@ jobs:
           name: code-admin-prerequisites
           path: test-results/code-admin
           retention-days: 30
+  register:
+    needs: inspect
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/admin-registration --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/admin-registration/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+          python -m py_compile tools/governance-production/code_admin_registration.py
+      - name: Validate exact production baseline and rollback the registration
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_CODE_ADMIN_REGISTRATION: '1'
+        run: python tools/governance-production/code_admin_registration.py --dry-run
+      - name: Register approved Code admin metadata without changing accounts
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_CODE_ADMIN_REGISTRATION: '1'
+        run: python tools/governance-production/code_admin_registration.py --apply
