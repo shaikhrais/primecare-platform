@@ -45,7 +45,7 @@ export async function manageAccount(db:Client, actor:{id:string;roles:string;ten
     return {status:403,body:{error:'Forbidden'}};
   const target=optionalRow((await db.query('SELECT id,roles,status FROM users WHERE id=$1 AND tenant_id=$2 FOR UPDATE',[input.id,actor.tenant_id])).rows);
   if(!target) return {status:404,body:{error:'Account not found'}};
-  if(['platform_admin','central_admin','tenant_admin'].includes(String(target.roles)))return {status:403,body:{error:'Platform accounts are protected'}};
+  if(['platform_admin','central_admin','tenant_admin','code_admin'].includes(String(target.roles)))return {status:403,body:{error:'Platform accounts are protected'}};
   if(accountId(target.id).toLowerCase()===actor.id.toLowerCase())
     return {status:403,body:{error:'Forbidden'}};
   if(accountId(target.id).toLowerCase()!==input.id.toLowerCase() ||

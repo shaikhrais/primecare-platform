@@ -47,6 +47,21 @@ test('real platform provisioning persists tenants, accounts, master records and 
   assert.equal((await call('/platform','DELETE')).status,405);assert.equal((await call('/platform/tenants','POST',{slug:'escape',name:'Name',tenant_id:'foreign'})).status,400);assert.equal((await call('/platform','GET',undefined,undefined,{'x-tenant-id':'foreign'})).status,400);
   await resetRate();for(let i=0;i<30;i++)assert.equal((await call('/platform/tenants','POST',{slug:'second-clinic',name:'Duplicate'})).status,409);assert.equal((await call('/platform/tenants','POST',{slug:'rate-clinic',name:'Rate limited'})).status,429);
   assert.throws(()=>platformCommand('/platform/tenants/%2F/accounts','GET'));assert.throws(()=>platformCommand('/platform/tenants/'+tenant.id,'POST',{slug:'unwanted',name:'Name'}));
+  await resetRate();
+  await setup.query("UPDATE users SET roles='code_admin' WHERE id=$1",[actor]);
+  const codeScope=await (await call()).json();assert.equal(codeScope.role,'code_admin');assert.equal(codeScope.scope,'global');assert.equal(codeScope.canViewTraining,true);assert.ok(codeScope.assignableRoles.includes('platform_admin'));assert.ok(!codeScope.assignableRoles.includes('code_admin'));
+  const appointed=await call(`/platform/tenants/${tenant.id}/accounts`,'POST',{email:'appointed-platform@example.test',password:'TestOnly-Appointed-2026!',role:'platform_admin'});assert.equal(appointed.status,201);const appointedUser=(await appointed.json()).user;
+  assert.equal((await call(`/platform/tenants/${tenant.id}/accounts`,'POST',{email:'forbidden-code@example.test',password:'TestOnly-Forbidden-2026!',role:'code_admin'})).status,400);
+  await setup.query("INSERT INTO auth_sessions VALUES($1,'appointed-session',NOW()+INTERVAL '1 hour')",[appointedUser.id]);
+  assert.equal((await call(`/platform/tenants/${tenant.id}/accounts/${appointedUser.id}`,'PATCH',{role:'tenant_admin',status:'active'})).status,200);assert.equal((await setup.query('SELECT COUNT(*)::int AS n FROM auth_sessions WHERE user_id=$1',[appointedUser.id])).rows[0].n,0);
+  assert.equal((await call(`/platform/tenants/platform-root/accounts/${actor}`,'PATCH',{role:'admin',status:'active'})).status,403);
+  const lowerId=crypto.randomUUID();await setup.query("INSERT INTO users(id,email,roles,tenant_id,status) VALUES($1,'lower@example.test','platform_admin','platform-root','active')",[lowerId]);
+  await setup.query("UPDATE users SET roles='platform_admin' WHERE id=$1",[actor]);
+  const protectedCode=crypto.randomUUID();await setup.query("INSERT INTO users(id,email,roles,tenant_id,status) VALUES($1,'code-protected@example.test','code_admin','platform-root','active')",[protectedCode]);
+  assert.equal((await call(`/platform/tenants/platform-root/accounts/${protectedCode}`,'PATCH',{role:'admin',status:'inactive'})).status,403);
+  const lowerList=await (await call('/platform/tenants/platform-root/accounts')).json();assert.ok(lowerList.users.every(u=>u.roles!=='code_admin'));
+  await setup.query("UPDATE users SET roles='tenant_admin' WHERE id=$1",[actor]);assert.equal((await call(`/platform/tenants/${tenant.id}/accounts`)).status,403);assert.equal((await call('/platform/tenants','POST',{slug:'tenant-escalation',name:'Denied'})).status,403);
+
  }finally{await setup.query('SET search_path TO public');await setup.query(`DROP SCHEMA ${schema} CASCADE`);await setup.end();}
 });
 

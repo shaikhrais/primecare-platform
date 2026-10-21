@@ -1,0 +1,35 @@
+name: Code admin hierarchy security checks
+on:
+  push:
+    branches: [main]
+    paths: ['cloudflare/workers/src/admin-hierarchy.json', 'cloudflare/workers/src/platform-administration.ts', 'cloudflare/workers/src/account-admin.ts', 'cloudflare/workers/src/account-read-projection.ts', 'websites/typescript/src/platform-admin.ts', 'scripts/*code-admin*', '.github/workflows/code-admin-tests.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: platform
+          POSTGRES_PASSWORD: integration-only
+          POSTGRES_DB: platform
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U platform" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PLATFORM_TEST_DATABASE_URL: postgresql://platform:integration-only@localhost:5432/platform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix /tmp/code-admin-tests --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.16.3 bcryptjs@3
+          ln -s /tmp/code-admin-tests/node_modules node_modules
+      - name: Validate protected setup, grants, tenant boundaries, session invalidation and audit rollback
+        run: node --test scripts/test-code-admin-bootstrap.mjs scripts/test-platform-bootstrap.mjs scripts/test-platform-administration-postgres.mjs scripts/test-account-admin-api.mjs scripts/test-auth-management.mjs
+      - name: Check API and shared administration UI types
+        run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/platform-administration.ts websites/typescript/src/platform-admin.ts

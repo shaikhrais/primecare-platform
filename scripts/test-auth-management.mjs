@@ -41,3 +41,8 @@ test('management projects returned account fields only',async()=>{const db=fixtu
 test('malformed management results cannot revoke sessions or append audit',async()=>{for(const change of [{id:'other'},{email:null},{roles:'ceo'},{status:'active'},{tenant_id:'other'}]){const db=fixture();const query=db.query.bind(db);db.query=async(sql,values)=>{const r=await query(sql,values);if(sql.startsWith('UPDATE'))Object.assign(r.rows[0],change);return r;};await assert.rejects(manageAccount(db,actor,input));assert.ok(!db.calls.some(c=>c.sql.startsWith('DELETE FROM auth_sessions')||c.sql.startsWith('INSERT INTO auth_management_audit')));}});
 
 test('missing management RETURNING row prevents audit and revocation',async()=>{const db=fixture();const query=db.query.bind(db);db.query=async(sql,values)=>{const r=await query(sql,values);return sql.startsWith('UPDATE')?{rows:[]}:r;};await assert.rejects(manageAccount(db,actor,input));assert.ok(!db.calls.some(c=>c.sql.startsWith('DELETE FROM auth_sessions')||c.sql.startsWith('INSERT INTO auth_management_audit')));});
+test('CEO cannot modify a Code admin account through the legacy account endpoint',async()=>{
+ const calls=[];const db={async query(sql,values){calls.push(sql);return {rows:sql.startsWith('SELECT')?[{id:input.id,roles:'code_admin',status:'active'}]:[]};}};
+ assert.equal((await manageAccount(db,actor,input)).status,403);
+ assert.ok(calls.every(sql=>sql.startsWith('SELECT')));
+});
