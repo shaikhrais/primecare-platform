@@ -72,12 +72,16 @@ void main() {
     await tester.pumpWidget(const SizedBox.shrink());
   });
   test('MFA and reset cannot report simulated success', () async {
-    final container = ProviderContainer();
+    final container = ProviderContainer(overrides: [
+      authProvider.overrideWith(GuestAuth.new),
+    ]);
     addTearDown(container.dispose);
     final mfa = container.read(mfaControllerProvider.notifier);
     mfa.onCodeChanged('123456');
     await mfa.verify();
-    expect(container.read(mfaControllerProvider).isVerified, isFalse);
+    expect(container.read(mfaControllerProvider).pending, isFalse);
+    expect(container.read(authProvider).isAuthenticated, isFalse);
+    expect(container.read(authProvider).token, isNull);
     final reset = container.read(resetPasswordControllerProvider.notifier);
     reset.onNewPasswordChanged('Example-password-123');
     reset.onConfirmPasswordChanged('Example-password-123');

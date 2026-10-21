@@ -2,7 +2,14 @@ name: Verify registered Flutter MFA implementation
 on:
   push:
     branches: [main]
-    paths: [.github/workflows/verify-flutter-mfa.yml, packages/flutter_core/test/auth_mfa_test.dart, packages/primecare_ui/test/auth_mfa_test.dart]
+    paths:
+      - .github/workflows/verify-flutter-mfa.yml
+      - packages/flutter_core/**
+      - packages/primecare_ui/**
+      - packages/primecare_models/**
+      - packages/shared/src/auth-mfa.json
+      - scripts/generate-flutter-mfa-catalog.py
+      - apps/primecare_clinic/**
   workflow_dispatch:
 permissions:
   contents: read
