@@ -99,5 +99,13 @@
         }
       }
     ]
+  },
+  "reviewed": {
+    "service_name": "PRISMA",
+    "auth_required": 1,
+    "request_schema": null,
+    "response_schema": null,
+    "permission_key": null,
+    "rate_limit_key": "auth.login"
   }
 }

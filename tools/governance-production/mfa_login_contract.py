@@ -18,7 +18,7 @@ def register(db):
  target=('auth',0,json.dumps(d['request'],sort_keys=True),json.dumps(d['response'],sort_keys=True),'public_password_exchange','login')
  current=tuple(row[0][2:])
  if current!=target:
-  if current!=('PRISMA',1,None,None,None,None):raise GovernanceReadError('Login metadata drift; preserve existing contract')
+  if current!=tuple(d['reviewed'][k] for k in fields):raise GovernanceReadError('Login metadata drift; preserve existing contract')
   r=db.db.execute('UPDATE '+table+' SET '+','.join(quote(k)+'=%s' for k in fields)+' WHERE id=2',[db._value('api_endpoints',k,v) for k,v in zip(fields,target)])
   if r.rowcount!=1:raise GovernanceReadError('Unexpected login update count')
  if db.execute('SELECT '+','.join(fields)+' FROM api_endpoints WHERE id=2').fetchall()!=[target]:raise GovernanceReadError('Login contract readback mismatch')
