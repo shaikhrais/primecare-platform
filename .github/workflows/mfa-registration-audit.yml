@@ -1,0 +1,24 @@
+name: Inspect registered MFA authority
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/audit-mfa-registration.mjs', '.github/workflows/mfa-registration-audit.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/mfa-audit --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/mfa-audit/node_modules node_modules
+      - name: Read only registered metadata, never users or secrets
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/audit-mfa-registration.mjs
