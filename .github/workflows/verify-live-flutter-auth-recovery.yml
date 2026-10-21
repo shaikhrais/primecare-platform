@@ -1,5 +1,5 @@
 name: Verify deployed Flutter auth recovery through owned inbox
-# Verify recovery after preserving public routes across session restoration.
+# Verify recovery with explicit locale selection and Flutter live-announcement assertions.
 # Cloudflare uses its scoped secret; no GitHub deployment-write permission is needed.
 on:
   push:
@@ -166,16 +166,19 @@ jobs:
                   page.wait_for_url(lambda u:urllib.parse.urlsplit(u).path!='/login',wait_until='domcontentloaded',timeout=30000)
                   page.wait_for_function("(value)=>JSON.parse(localStorage.getItem('flutter.auth_token'))===value",arg=issued,timeout=30000)
                   return issued
+              visit('/language')
+              page.get_by_role('button',name={'en':'English','fr':'Français','es':'Español'}[locale],exact=True).click()
+              page.wait_for_function("(value)=>JSON.parse(localStorage.getItem('flutter.auth_preferred_language'))===value",arg=locale,timeout=10000)
+              must(True,'Browser language selected and persisted through the actual UI')
               old_token=ui_login(password)
               visit('/forgot-password');fill_flutter_field(page,el('recovery-email'),recipient);report['password_resets_requested']=True
               with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/forgot-password') and r.request.method=='POST',timeout=30000) as pending:
                   el('recovery-submit').click()
               status=pending.value.status;response=pending.value.json()
+              report['send_attempted']=True;report['send_http_status']=status
+              report['cleanup']='Recovery request submitted; correlated receipt not yet found'
               must(status==200 and response.get('message')=='If an active account matches, recovery instructions will be emailed. Check your inbox and spam folder.','Deployed browser recovery accepted with generic response')
               must('code' not in response and 'token' not in response,'Recovery code absent from HTTP response')
-              page.get_by_text(copy['forgot_success'],exact=True).wait_for(timeout=10000)
-              must(True,'Localized Flutter forgot-password success is visible')
-              must(page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Recovery form fits registered viewport')
               report['send_attempted']=True;report['send_http_status']=status
               must(status==200 and response.get('message')=='If an active account matches, recovery instructions will be emailed. Check your inbox and spam folder.','Deployed recovery request accepted with generic response')
               must('code' not in response and 'token' not in response,'Recovery code absent from HTTP response')
@@ -220,13 +223,16 @@ jobs:
                   time.sleep(5)
               assert owned_key,'Owned receiving Worker did not record the correlated email within 120 seconds'
               must(bool(received_code),'Recovery email received and code hash matches database')
+              page.get_by_text(copy['forgot_success'],exact=True).filter(visible=True).first.wait_for(timeout=10000)
+              must(True,'Localized Flutter forgot-password success is visible')
+              must(page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Recovery form fits registered viewport')
               el('recovery-reset-link').click();fill_flutter_field(page,el('recovery-email'),recipient)
               fill_flutter_field(page,el('recovery-code'),received_code);fill_flutter_field(page,el('recovery-password'),new_password);fill_flutter_field(page,el('recovery-confirm'),new_password)
               with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/reset-password') and r.request.method=='POST',timeout=30000) as pending:
                   el('recovery-submit').click()
               reset=pending.value.json()
               must(pending.value.status==200 and reset.get('status')=='password_reset' and reset.get('reauthenticationRequired') is True,'Deployed browser password reset succeeds')
-              page.get_by_text(copy['reset_success'],exact=True).wait_for(timeout=10000)
+              page.get_by_text(copy['reset_success'],exact=True).filter(visible=True).first.wait_for(timeout=10000)
               must(el('recovery-code').input_value()=='' and el('recovery-password').input_value()=='' and el('recovery-confirm').input_value()=='','Flutter reset clears all recovery secrets')
               page.wait_for_function("localStorage.getItem('flutter.auth_token')===null",timeout=10000)
               must(True,'Flutter reset clears local authority and requires normal sign-in')
