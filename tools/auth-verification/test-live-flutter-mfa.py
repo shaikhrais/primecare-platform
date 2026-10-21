@@ -135,9 +135,11 @@ def main():
                         seed = challenge['setupKey']
                         must(bool(re.fullmatch('[A-Z2-7]{32}', seed)) and seed != abandoned['setupKey'], 'fresh password replaces abandoned setup key')
                         must(api('/v1/auth/mfa', {'challenge': abandoned['challenge'], 'code': totp(abandoned['setupKey'], int(time.time()) // 30)})[0] == 401, 'abandoned challenge rejected after fresh exchange')
+                        step = 'render setup key semantics'
                         visible = page.locator('[aria-label^="mfa-seed"]')
                         visible.wait_for()
-                        must(seed in visible.evaluate("e => e.getAttribute('aria-label') + ' ' + e.textContent"), 'setup key is rendered in Flutter semantics')
+                        must(seed in visible.evaluate("e => [e, ...e.querySelectorAll('[aria-label]')].map(n => n.getAttribute('aria-label') + ' ' + n.textContent).join(' ')"), 'setup key is rendered in Flutter semantics')
+                        step = 'deny wrong code'
                         counter = int(time.time()) // 30
                         wrong = next(str(n).zfill(6) for n in range(10) if str(n).zfill(6) not in [totp(seed, counter), totp(seed, counter - 1)])
                         status, data = factor(wrong)
