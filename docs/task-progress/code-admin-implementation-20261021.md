@@ -24,3 +24,11 @@ Planning/factory provenance was regenerated after stale bindings were detected. 
 This is the implemented administrator hierarchy and training-access slice, not full completion of every proposed security control or full auth acceptance. MFA/security-key enforcement, time-limited privilege elevation, emergency recovery-account drills, reason-bound/time-limited tenant support access, general assigned-role switching, physical-device/manual accessibility acceptance and independent reviews remain unfinished. Live Code Admin activation needs an identified owner and secure credential/MFA setup. No universal database superuser or clinical-data bypass was introduced, and no independent approval was fabricated.
 
 Main is the only branch; no work branch or pull request was created.
+
+## Approved owner binding update
+
+The user selected the first Code Admin email. Its normalized SHA256 is pinned in `tools/governance-production/code-admin-owner.json` and in production policy `code-admin-owner-v1`; no plaintext owner email or password is committed. Protected CLI setup validates both the configured email against that pin and the live policy against the production manifest before creating an account.
+
+Run 39595638844 passed rolled-back validation, idempotent production binding and read-only activation preflight. The selected email has no existing account. The protected email setting does not match the approved identity (missing or mismatched), password configuration is absent, and no active root tenant is selected by the protected configuration. MFA setup remains unfinished. No account, password, role assignment, session or outbound email was changed. This supersedes the earlier note that no owner was selected; it does not claim activation.
+
+The earlier replacement Auth Worker run 39589493303 subsequently passed both UUID and text PostgreSQL suites.
