@@ -1,0 +1,283 @@
+name: Verify current deployed complete web auth
+'on':
+  push:
+    branches:
+    - main
+    paths:
+    - .github/workflows/verify-current-web-auth.yml
+    - tools/auth-verification/test-live-browser-recovery.py
+  workflow_dispatch: null
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: auth-owned-inbox-browser
+  cancel-in-progress: false
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Require successful full deployment with unchanged current runtime
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+        release=39654261251
+        gh api repos/${{ github.repository }}/actions/runs/$release > /tmp/auth-deployed-run.json
+        gh api repos/${{ github.repository }}/actions/runs/$release/jobs --paginate > /tmp/auth-deployed-jobs.json
+        python - <<'CHECK'
+        import json
+        r=json.load(open('/tmp/auth-deployed-run.json'));assert r['conclusion']=='success'
+        j=json.load(open('/tmp/auth-deployed-jobs.json'))['jobs']
+        expected={'apis / deploy','websites / build','websites / verify_gateway','smoke',*('websites / deploy ('+p+')' for p in ['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'])}
+        assert expected.issubset({x['name'] for x in j if x['conclusion']=='success'})
+        CHECK
+        sha=$(jq -r .head_sha /tmp/auth-deployed-run.json)
+        git diff --exit-code "$sha" HEAD -- cloudflare/workers websites/typescript packages/shared packages/database/migrations scripts/build-typescript-websites.mjs scripts/export-typescript-websites.py scripts/theme_manifest.py
+        echo 'Successful full deployment matches current auth runtime'
+  security:
+    needs: source
+    uses: ./.github/workflows/code-admin-tests.yml
+    secrets: inherit
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        identity:
+        - uuid
+        - text
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: auth_test
+          POSTGRES_USER: auth_test
+          POSTGRES_PASSWORD: disposable-ci-fixture
+        ports:
+        - 5432:5432
+        options: --health-cmd "pg_isready -U auth_test -d auth_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+    - run: |
+        npm install --prefix "$RUNNER_TEMP/invalidation-check" --ignore-scripts esbuild@0.27.2 pg@8.16.3 bcryptjs@3.0.2
+        ln -s "$RUNNER_TEMP/invalidation-check/node_modules" node_modules
+        git fetch --no-tags --depth=1 origin 7a875f6511838ecfdfbe6763798a676b3e138aa8
+    - name: Verify auth request, recovery and client failure paths
+      run: node --test scripts/test-auth-api.mjs scripts/test-auth-client.mjs scripts/test-auth-password.mjs scripts/test-auth-rate-limit.mjs
+        scripts/test-auth-recovery.mjs
+    - env:
+        AUTH_TEST_DATABASE_URL: postgres://auth_test:disposable-ci-fixture@127.0.0.1:5432/auth_test
+        AUTH_TEST_ID_TYPE: ${{ matrix.identity }}
+      run: |-
+        node tools/auth-verification/test-auth-invalidation-fault.mjs
+        node scripts/test-auth-postgres.mjs
+        node scripts/test-self-sessions-postgres.mjs
+        node scripts/test-account-admin-postgres.mjs
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: auth-invalidation-${{ matrix.identity }}
+        path: test-results/auth-invalidation
+    needs: source
+  public_auth:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+    - name: Install isolated dependencies
+      run: |
+        mkdir -p "$RUNNER_TEMP/auth-smoke-dependencies"
+        npm install --prefix "$RUNNER_TEMP/auth-smoke-dependencies" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2
+        ln -s "$RUNNER_TEMP/auth-smoke-dependencies/node_modules" node_modules
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Verify pinned production authority before synthetic account changes
+      env:
+        PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      run: |
+        pip install -r tools/governance-production/requirements.txt
+        python3 tools/governance-production/verify-production-reader.py
+    - name: Verify public auth and remove QA fixtures
+      env:
+        CONFIRM_AUTH_SMOKE: VERIFY_AUTH
+        PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
+      run: node scripts/verify-production-auth.mjs
+    - name: Confirm approved owner activation without reading secrets
+      env:
+        PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      run: node scripts/inspect-code-admin-enrollment.mjs
+    needs:
+    - source
+    - security
+    - native
+  mfa:
+    needs: public_auth
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+    - run: |
+        npm install --prefix /tmp/live-mfa --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@3.0.2 playwright@1.60.0
+        ln -s /tmp/live-mfa/node_modules node_modules
+        node_modules/.bin/playwright install --with-deps chromium
+    - name: Compare deployed browser MFA, gateway responses and native PostgreSQL records
+      env:
+        PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      run: node scripts/test-live-code-admin-mfa.mjs
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: live-mfa-acceptance
+        path: test-results/live-mfa
+        retention-days: 90
+  accounts:
+    needs: mfa
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+        - locale: en
+          width: 320
+        - locale: fr
+          width: 768
+        - locale: es
+          width: 1440
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - run: |
+        pip install -r tools/governance-production/requirements.txt
+        pip install bcrypt==4.3.0 playwright==1.58.0
+        python -m playwright install --with-deps chromium
+        npm install --prefix "$RUNNER_TEMP/account-tools" --ignore-scripts pg@8.16.3
+        ln -s "$RUNNER_TEMP/account-tools/node_modules" node_modules
+    - name: Verify actual account UI API database audit reload and owned receiving-Worker mail
+      env:
+        PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        TEST_LOCALE: ${{ matrix.locale }}
+        TEST_WIDTH: ${{ matrix.width }}
+      run: |
+        python3 scripts/verify-tenant-account-reads-catalog.py
+        python3 scripts/verify-account-mutations-catalog.py
+        python3 tools/auth-verification/test-live-tenant-account-reads.py
+        python3 tools/auth-verification/test-live-account-mutations.py
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: current-account-journeys-${{ matrix.locale }}-${{ matrix.width }}
+        path: |
+          test-results/tenant-account-reads
+          test-results/account-mutations
+  sessions:
+    needs: accounts
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      max-parallel: 1
+      fail-fast: true
+      matrix:
+        include:
+        - locale: en
+          width: 320
+        - locale: fr
+          width: 768
+        - locale: es
+          width: 1440
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - run: |
+        pip install psycopg[binary]==3.2.13 bcrypt==4.3.0 playwright==1.58.0
+        python -m playwright install --with-deps chromium
+    - name: Compare deployed account session behavior with native database records
+      env:
+        PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        TEST_LOCALE: ${{ matrix.locale }}
+        TEST_WIDTH: ${{ matrix.width }}
+      run: python tools/auth-verification/test-live-sessions.py
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: deployed-own-sessions-${{ matrix.locale }}-${{ matrix.width }}
+        path: test-results/live-sessions
+  recovery:
+    needs: sessions
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 12
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        include:
+        - locale: en
+          width: 320
+        - locale: fr
+          width: 768
+        - locale: es
+          width: 1440
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - run: |
+        pip install psycopg[binary]==3.2.13 bcrypt==4.3.0 playwright==1.58.0
+        python -m playwright install --with-deps chromium
+    - name: Verify pinned production authority before synthetic account changes
+      env:
+        PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      run: |
+        npm install --prefix "$RUNNER_TEMP/recovery-reader" --ignore-scripts pg@8.16.3
+        ln -s "$RUNNER_TEMP/recovery-reader/node_modules" node_modules
+        pip install -r tools/governance-production/requirements.txt
+        python3 tools/governance-production/verify-production-reader.py
+    - name: Send one correlated synthetic email and remove only its inbox record
+      env:
+        TEST_LOCALE: ${{ matrix.locale }}
+        TEST_WIDTH: ${{ matrix.width }}
+        PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      run: python tools/auth-verification/test-live-browser-recovery.py
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: current-auth-recovery-${{ matrix.locale }}-${{ matrix.width }}
+        path: test-results
