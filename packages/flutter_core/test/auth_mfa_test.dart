@@ -13,6 +13,7 @@ class MfaApi extends Fake implements ApiClient {
   final challenge = List.filled(43, 'a').join();
   final token = List.filled(43, 'b').join();
   Map<String, dynamic>? challengeOverride;
+  Map<String, dynamic>? factorOverride;
   final calls = <String>[];
   final revoked = <String>[];
   int factorStatus = 200;
@@ -28,7 +29,7 @@ class MfaApi extends Fake implements ApiClient {
     expect(path, '/v1/auth/mfa');
     expect(body, {'challenge': challenge, 'code': '123456'});
     if (factor != null) return factor!.future;
-    return ApiResponse(statusCode: factorStatus, data: {'status':'authenticated', 'token':token, 'role':'code_admin', 'userId':'owner'});
+    return ApiResponse(statusCode: factorStatus, data: factorOverride ?? {'status':'authenticated', 'token':token, 'role':'code_admin', 'userId':'owner'});
   }
   @override
   Future<ApiResponse> confirmSession(String value) async {
@@ -117,6 +118,29 @@ void main() {
     final api=MfaApi()..challengeOverride={'status':'mfa_required','challenge':'bad','purpose':'enroll','setupKey':'bad'};final c=fixture(api);addTearDown(c.dispose);var prompted=false;
     expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {prompted=true;}),false);expect(prompted,false);
   });
+  test('a challenge carrying unexpected authority is revoked without opening a prompt', () async {
+    final api=MfaApi();final c=fixture(api);addTearDown(c.dispose);var prompted=false;
+    api.challengeOverride={'status':'mfa_required','challenge':api.challenge,'purpose':'verify','token':api.token};
+    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {prompted=true;}),false);
+    expect(prompted,false);expect(api.calls,['/v1/auth/login']);expect(api.revoked,[api.token]);
+    expect(c.read(authProvider).isAuthenticated,false);expect(c.read(authProvider).token,isNull);
+    expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
+  });
+  for (final failure in ['http-status','envelope-status','token-format']) {
+    test('rejected MFA $failure revokes returned authority without confirming or persisting it', () async {
+      final api=MfaApi();final c=fixture(api);addTearDown(c.dispose);
+      final issued=failure=='token-format' ? 'malformed-provisional-token' : api.token;
+      api.factorStatus=failure=='http-status' ? 401 : 200;
+      api.factorOverride={'status':failure=='envelope-status' ? 'unexpected' : 'authenticated',
+        'token':issued,'role':'code_admin','userId':'owner'};
+      expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {
+        expect(await verify('123456'),false);
+      }),false);
+      expect(api.calls,isNot(contains('confirm')));expect(api.revoked,[issued]);
+      expect(c.read(authProvider).isAuthenticated,false);expect(c.read(authProvider).token,isNull);
+      expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
+    });
+  }
   test('logout during factor confirmation wins and revokes its late token', () async {
     final api=MfaApi()..identity=Completer<ApiResponse>();final c=fixture(api);addTearDown(c.dispose);final auth=c.read(authProvider.notifier);
     final login=auth.login('e','p',completeMfa:(challenge,verify) async {expect(await verify('123456'),false);});

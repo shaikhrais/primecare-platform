@@ -290,6 +290,13 @@ class AuthNotifier extends Notifier<AuthState> {
 
         var payload = response.data;
         if (response.statusCode == 200 && payload is Map<String, dynamic> && payload['status'] == 'mfa_required') {
+          // A challenge must never issue authority. Reject it and clean up any
+          // unexpected session without installing it as the active actor.
+          final unexpectedToken = payload['token'];
+          if (unexpectedToken is String && unexpectedToken.trim().isNotEmpty) {
+            try { await apiClient.revokeSession(unexpectedToken); } catch (_) {}
+            return false;
+          }
           if (completeMfa == null || !_isCurrent(revision) ||
               payload['challenge'] is! String || !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(payload['challenge'] as String) ||
               !['enroll', 'verify'].contains(payload['purpose']) || payload.containsKey('token') ||
@@ -306,9 +313,12 @@ class AuthNotifier extends Notifier<AuthState> {
             try {
               final factor = await apiClient.post(ApiConfig.endpoints['mfa']!, body: {'challenge': challenge['challenge'], 'code': code});
               final data = factor.data;
+              // Capture issued authority before validating the envelope so
+              // rejected status/identity/token formats still reach cleanup.
+              provisional = data is Map<String, dynamic> && data['token'] is String &&
+                  (data['token'] as String).trim().isNotEmpty ? data['token'] as String : null;
               if (factor.statusCode != 200 || data is! Map<String, dynamic> || data['status'] != 'authenticated' ||
-                  data['token'] is! String || !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(data['token'] as String)) return false;
-              provisional = data['token'] as String;
+                  provisional == null || !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(provisional)) return false;
               if (!promptOpen || !_isCurrent(revision) || data['role'] != 'code_admin' || data['userId'] is! String || (data['userId'] as String).trim().isEmpty) return false;
               final confirmation = await apiClient.confirmSession(provisional);
               final identity = confirmation.data;
