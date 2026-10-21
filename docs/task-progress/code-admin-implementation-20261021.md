@@ -62,3 +62,16 @@ This is cryptographic foundation only, not an enabled MFA flow. Enrollment, encr
 Previous verifier security CI 39608775312 passed. Added a server-only AES-256-GCM envelope primitive with random 20-byte seeds, random 96-bit nonces, 128-bit tags and authenticated context binding version, key identifier, tenant and user. Exact envelope shape and lengths are validated, with generic decryption errors. Four new tests exercise roundtrip, nonce freshness, wrong keys, tenant/user/key copying, tampering and malformed inputs; all ten combined crypto tests passed locally. Included in security CI.
 
 This does not store real seeds or configure a key. Enrollment storage schema, production governance registration, key provisioning/rotation, rate limits, atomic one-time counter consumption, restricted login challenges, UI and recovery remain unfinished. No live endpoint, schema or permissions changed. Activation remains locked.
+
+
+## Full-auth continuation: live authority and evidence repair (2026-10-21)
+
+Read-only production MFA audit 39619417816 confirmed route registry id5 `/mfa` still has flow type `challenge_contract_pending` and there are no MFA/TOTP/passkey API endpoint records. This is an incomplete auth feature, not a verification-only gap.
+
+Registered pending policy `mfa-auth-policy-v1` in the pinned production metadata through run 39619980268. Both rolled-back validation and repeated/idempotent application passed. Requirements cover fresh-password setup, encrypted tenant/user-bound seeds, five-minute purpose-bound challenges, five failed attempts, atomic replay prevention and session issue, credential/status revalidation, audit rollback and EN/FR/ES browser/API/database acceptance. The record explicitly preserves pending reviews, unimplemented status and activation=false. No API grant, user or business schema was changed.
+
+Investigated own-session evidence failure 39610477438: the first attempt could not see three proof jobs; retry succeeded unchanged after all jobs became visible. The successful live producer 39612151456 has exact EN320/FR768/ES1440 proof jobs. Added a bounded visibility retry requiring those exact successful completed jobs and valid timestamps. Failed, skipped, duplicate, substitute-language and missing proof jobs still fail closed. Four regression tests and ten crypto tests pass locally. This repairs evidence collection only; it does not grant whole-auth verification credit.
+
+Remaining actual MFA implementation: governed API/screen/control/localization registration, database credential/challenge migrations, server-key provisioning, enrollment and verification handlers, restricted login challenge handling, atomic counter/challenge/session writes, native fault/rollback tests, browser enrollment/login tests and real owner enrollment. Existing Code Admin bootstrap remains locked, and the owner has no live account. Full auth acceptance remains false.
+
+Evidence repair run 39620117852 subsequently passed all tests, exact live-producer checks, deployed asset comparison and pinned production evidence recording. No whole-auth acceptance was asserted.
