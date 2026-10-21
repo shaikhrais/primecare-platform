@@ -88,8 +88,9 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        # Docker's official image mirror avoids Docker Hub's anonymous pull limit.
-        image: public.ecr.aws/docker/library/postgres:15-alpine
+        # ECR's public mirror exhausted its data quota; retain PostgreSQL 15
+        # using the official image (the native maintenance job uses this registry).
+        image: postgres:15-alpine
         env:
           POSTGRES_USER: primecare
           POSTGRES_PASSWORD: integration-only-password
