@@ -23,7 +23,8 @@ with sync_playwright() as p:
     page = browser.new_page(viewport={'width': 320, 'height': 1000}, locale='en')
     page.on('request', lambda r: event('request', r))
     page.on('response', lambda r: event('response', r.request, r.status))
-    page.on('requestfailed', lambda r: event('request_failed', r))
+    page.on('requestfailed', lambda r: (event('request_failed', r), report.setdefault('network_failures', []).append(safe(r.failure))))
+    page.on('console', lambda m: report.setdefault('cors_errors', []).append(safe(m.text)) if 'CORS' in m.text or 'Cross-Origin' in m.text else None)
     page.on('pageerror', lambda e: report.setdefault('page_errors', []).append(safe(e)))
     try:
         page.goto('https://primecare-clinic.pages.dev/login?enable-semantics=true', wait_until='domcontentloaded')
