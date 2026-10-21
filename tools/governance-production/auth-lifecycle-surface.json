@@ -1,0 +1,277 @@
+{
+  "id": "auth-lifecycle-surface-v1",
+  "policyId": "auth-lifecycle-completion-v1",
+  "screenId": 949,
+  "file": "packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart",
+  "endpoints": [
+    {
+      "code": "auth_mfa_lifecycle_codes",
+      "route": "/v1/auth/mfa/recovery-codes",
+      "authenticated": 1,
+      "permission": "self_code_admin_mfa",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "password",
+          "code"
+        ],
+        "properties": {
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Maximum 72 UTF-8 bytes"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[0-9]{6}$"
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "recoveryCodes"
+        ],
+        "properties": {
+          "status": {
+            "const": "recovery_codes_issued"
+          },
+          "recoveryCodes": {
+            "type": "array",
+            "minItems": 10,
+            "maxItems": 10,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z2-7]{26}$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "code": "auth_mfa_lifecycle_replace",
+      "route": "/v1/auth/mfa/replacement",
+      "authenticated": 1,
+      "permission": "self_code_admin_mfa",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "password",
+          "code"
+        ],
+        "properties": {
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Maximum 72 UTF-8 bytes"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[0-9]{6}$"
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "challenge",
+          "setupKey"
+        ],
+        "properties": {
+          "status": {
+            "const": "mfa_replacement_required"
+          },
+          "challenge": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{43}$"
+          },
+          "setupKey": {
+            "type": "string",
+            "pattern": "^[A-Z2-7]{32}$"
+          }
+        }
+      }
+    },
+    {
+      "code": "auth_mfa_lifecycle_recover",
+      "route": "/v1/auth/mfa/recovery",
+      "authenticated": 0,
+      "permission": "password_verified_mfa_replacement_challenge",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "challenge",
+          "recoveryCode"
+        ],
+        "properties": {
+          "challenge": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{43}$"
+          },
+          "recoveryCode": {
+            "type": "string",
+            "pattern": "^[A-Z2-7]{26}$"
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "challenge",
+          "setupKey"
+        ],
+        "properties": {
+          "status": {
+            "const": "mfa_replacement_required"
+          },
+          "challenge": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{43}$"
+          },
+          "setupKey": {
+            "type": "string",
+            "pattern": "^[A-Z2-7]{32}$"
+          }
+        }
+      }
+    },
+    {
+      "code": "auth_mfa_lifecycle_confirm",
+      "route": "/v1/auth/mfa/replacement/confirm",
+      "authenticated": 0,
+      "permission": "password_verified_mfa_replacement_challenge",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "challenge",
+          "code"
+        ],
+        "properties": {
+          "challenge": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{43}$"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[0-9]{6}$"
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "token",
+          "userId",
+          "role"
+        ],
+        "properties": {
+          "status": {
+            "const": "authenticated"
+          },
+          "token": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{43}$"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "role": {
+            "const": "code_admin"
+          }
+        }
+      }
+    }
+  ],
+  "locales": {
+    "en": {
+      "title": "Manage authenticator security",
+      "password": "Current password",
+      "factor": "Current authenticator code",
+      "issue": "Create new recovery codes",
+      "codes": "Save these recovery codes somewhere private. Each code works once. Creating new codes invalidates the previous set.",
+      "replace": "Replace authenticator",
+      "newKey": "Add this new setup key to your authenticator, then confirm its code. Your current authenticator remains active until confirmation.",
+      "newCode": "New authenticator code",
+      "confirm": "Confirm replacement",
+      "recovery": "Use a recovery code",
+      "recoveryCode": "Saved recovery code",
+      "recover": "Recover and replace authenticator",
+      "cancel": "Cancel",
+      "saved": "I saved my recovery codes",
+      "error": "Unable to complete this request. Verify your password and code, or sign in again.",
+      "done": "Authenticator security updated.",
+      "working": "Working…"
+    },
+    "fr": {
+      "title": "Gérer la sécurité de votre authentificateur",
+      "password": "Mot de passe actuel",
+      "factor": "Code actuel de votre authentificateur",
+      "issue": "Créer de nouveaux codes de récupération",
+      "codes": "Conservez ces codes dans un endroit privé. Chaque code est à usage unique. Les nouveaux codes remplacent les précédents.",
+      "replace": "Remplacer l’authentificateur",
+      "newKey": "Ajoutez cette nouvelle clé à votre authentificateur, puis confirmez son code. L’ancien reste actif jusqu’à la confirmation.",
+      "newCode": "Code du nouvel authentificateur",
+      "confirm": "Confirmer le remplacement",
+      "recovery": "Utiliser un code de récupération",
+      "recoveryCode": "Code de récupération enregistré",
+      "recover": "Récupérer et remplacer l’authentificateur",
+      "cancel": "Annuler",
+      "saved": "J’ai enregistré mes codes de récupération",
+      "error": "Impossible de terminer. Vérifiez votre mot de passe et votre code, ou reconnectez-vous.",
+      "done": "Sécurité de l’authentificateur mise à jour.",
+      "working": "Traitement…"
+    },
+    "es": {
+      "title": "Gestionar la seguridad del autenticador",
+      "password": "Contraseña actual",
+      "factor": "Código actual del autenticador",
+      "issue": "Crear nuevos códigos de recuperación",
+      "codes": "Guarda estos códigos en un lugar privado. Cada código sirve una sola vez. Los códigos nuevos invalidan los anteriores.",
+      "replace": "Reemplazar el autenticador",
+      "newKey": "Añade esta clave nueva a tu autenticador y confirma su código. El autenticador actual seguirá activo hasta la confirmación.",
+      "newCode": "Código del autenticador nuevo",
+      "confirm": "Confirmar reemplazo",
+      "recovery": "Usar un código de recuperación",
+      "recoveryCode": "Código de recuperación guardado",
+      "recover": "Recuperar y reemplazar el autenticador",
+      "cancel": "Cancelar",
+      "saved": "He guardado mis códigos de recuperación",
+      "error": "No se pudo completar la solicitud. Verifica la contraseña y el código, o inicia sesión de nuevo.",
+      "done": "Seguridad del autenticador actualizada.",
+      "working": "Procesando…"
+    }
+  },
+  "controls": {
+    "title": "prime_card",
+    "password": "prime_text_field",
+    "factor": "prime_text_field",
+    "issue": "prime_button",
+    "codes": "prime_card",
+    "replace": "prime_button",
+    "newKey": "prime_card",
+    "newCode": "prime_text_field",
+    "confirm": "prime_button",
+    "recovery": "prime_button",
+    "recoveryCode": "prime_text_field",
+    "recover": "prime_button",
+    "cancel": "prime_button",
+    "saved": "prime_button",
+    "error": "prime_card",
+    "done": "prime_card",
+    "working": "prime_card"
+  },
+  "reviewStatus": "pending",
+  "permissionGrants": false
+}

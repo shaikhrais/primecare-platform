@@ -369,5 +369,22 @@
     "reviewApprovals": false,
     "productionReadyCredit": false,
     "accountChanges": false
+  },
+  "authLifecycleSurfaceWriter": {
+    "optInVariable": "GOVERNANCE_AUTH_LIFECYCLE_SURFACE_WRITES",
+    "tables": [
+      "api_endpoints",
+      "screen_components",
+      "screen_required_elements",
+      "screen_api_links",
+      "language_resources",
+      "language_resource_values"
+    ],
+    "screenId": 949,
+    "endpointPrefix": "/v1/auth/mfa/",
+    "definitionSha256": "a742b14c592ea04a210d996b559f3a2446b483757990042018931509c11e43ec",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false
   }
 }
