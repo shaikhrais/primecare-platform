@@ -24,7 +24,10 @@ function corsHeaders(request: Request): Headers {
     'Access-Control-Expose-Headers': 'Idempotency-Replayed',
     Vary: 'Origin',
   });
-  if (allowed) headers.set('Access-Control-Allow-Origin', origin);
+  if (allowed) {
+    headers.set('Access-Control-Allow-Origin', origin);
+    headers.set('Access-Control-Allow-Credentials', 'true');
+  }
   return headers;
 }
 
