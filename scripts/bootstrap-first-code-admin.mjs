@@ -1,5 +1,5 @@
 import pg from 'pg';const {Client}=pg;import bcrypt from 'bcryptjs';import {pathToFileURL} from 'node:url';import {randomUUID} from 'node:crypto';import {validateBootstrap} from './bootstrap-validation.mjs';
-import {validateCodeAdminOwner,verifyCodeAdminOwnerRegistration} from './code-admin-owner.mjs';
+import {validateCodeAdminOwner,verifyCodeAdminOwnerRegistration,requireCodeAdminActivationReady} from './code-admin-owner.mjs';
 import {resolveCodeAdminControlTenant} from './bootstrap-code-admin-control-tenant.mjs';
 /** Protected operator workflow only. Never promote or overwrite an existing account. */
 export async function bootstrapCodeAdmin(db,input){
@@ -22,7 +22,7 @@ async function main(){
  if(!process.env.PRODUCTION_DATABASE_URL)throw Error('Database secret required');
  const email=validateCodeAdminOwner(process.env.BOOTSTRAP_CODE_ADMIN_EMAIL);
  const db=new Client({connectionString:process.env.PRODUCTION_DATABASE_URL,ssl:{rejectUnauthorized:true}});await db.connect();try{
-  await verifyCodeAdminOwnerRegistration(db);const tenant=await resolveCodeAdminControlTenant(db);
+  await verifyCodeAdminOwnerRegistration(db);requireCodeAdminActivationReady();const tenant=await resolveCodeAdminControlTenant(db);
   if(process.env.BOOTSTRAP_TENANT_ID&&process.env.BOOTSTRAP_TENANT_ID!==tenant)throw Error('Configured root tenant differs from governed control tenant');
   const input=validateBootstrap({email,tenant,password:process.env.BOOTSTRAP_CODE_ADMIN_PASSWORD});
   console.log(JSON.stringify(await bootstrapCodeAdmin(db,input)));

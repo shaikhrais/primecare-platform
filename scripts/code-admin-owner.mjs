@@ -6,6 +6,10 @@ export function validateCodeAdminOwner(value){
  if(createHash('sha256').update(email).digest('hex')!==owner.emailSha256)throw Error('Configured Code Admin email differs from the approved owner');
  return email;
 }
+/** The registered owner is pending setup. Secrets alone cannot activate it. */
+export function requireCodeAdminActivationReady(){
+ if(owner.verificationStatus!=='activation-approved-with-mfa')throw Error('Code Admin activation remains disabled pending verified MFA setup');
+}
 export async function verifyCodeAdminOwnerRegistration(db){
  const pin=JSON.parse(readFileSync(new URL('../tools/governance-production/production-pin.json',import.meta.url),'utf8'));
  const schema='"'+pin.schema.replaceAll('"','""')+'"';
