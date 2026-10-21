@@ -17,7 +17,9 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 def fetch(url, token=None):
-    headers = {'Authorization': 'Bearer ' + token} if token else {}
+    headers = {'User-Agent': 'PrimeCareDeploymentVerifier/1.0 (+https://github.com/shaikhrais/primecare-platform)'}
+    if token:
+        headers['Authorization'] = 'Bearer ' + token
     request = urllib.request.Request(url, headers=headers)
     try:
         with urllib.request.build_opener(NoRedirect).open(request, timeout=25) as response:
