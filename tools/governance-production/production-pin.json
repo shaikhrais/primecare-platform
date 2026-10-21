@@ -331,5 +331,18 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "roleGrants": false
+  },
+  "mfaNativeSurfaceWriter": {
+    "optInVariable": "GOVERNANCE_MFA_NATIVE_WRITES",
+    "tables": [
+      "screen_components",
+      "screen_required_elements"
+    ],
+    "screenId": 949,
+    "apiId": 16496,
+    "definitionSha256": "35064de852366b7a3ca336253e47fa0208546b1083fda5b40140bfe377510822",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false
   }
 }

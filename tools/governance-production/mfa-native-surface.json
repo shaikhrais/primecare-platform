@@ -1,0 +1,16 @@
+{
+  "id": "mfa-native-presentation-v1",
+  "screenId": 949,
+  "apiId": 16496,
+  "file": "packages/primecare_ui/lib/src/features/auth/mfa_form.dart",
+  "controls": {
+    "form": "prime_card",
+    "seed": "prime_card",
+    "code": "prime_text_field",
+    "submit": "prime_button",
+    "cancel": "prime_button",
+    "status": "prime_card"
+  },
+  "sourceContract": "mfa-auth-policy-v1",
+  "reviewStatus": "pending"
+}
