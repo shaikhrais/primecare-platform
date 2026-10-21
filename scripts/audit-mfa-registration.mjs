@@ -6,9 +6,12 @@ const db=new pg.Client({connectionString:process.env.PRODUCTION_DATABASE_URL,ssl
 await db.connect();
 try {
  await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
- const m=await db.query(`SELECT manifest_sha256 FROM "${pin.schema}".govt_source_manifest`);
+ const m=await db.query(`SELECT manifest,manifest_sha256 FROM "${pin.schema}".govt_source_manifest`);
  if(m.rows.length!==1||m.rows[0].manifest_sha256!==pin.manifestSha256)throw Error('Governance authority mismatch');
  const names=await db.query('SELECT table_name FROM information_schema.tables WHERE table_schema=$1',[pin.schema]);
+ for(const table of ['api_endpoints','screens','screen_components','screen_required_elements','screen_api_links','language_resources','language_resource_values'])console.log('MFA_SCHEMA '+JSON.stringify(m.rows[0].manifest.tables.find(t=>t.name===table)));
+ const screens=await db.query(`SELECT row_to_json(t) AS record FROM "${pin.schema}".govt_screens t WHERE route_path='/mfa' OR screen_code='mfa'`);
+ console.log('MFA_SCREENS '+JSON.stringify(screens.rows));
  console.log('MFA_GOVERNANCE_TABLES '+JSON.stringify(names.rows.map(x=>x.table_name).filter(x=>/auth|mfa|permission|api_endpoint|screen|language/.test(x))));
  for(const table of ['govt_auth_route_registry','govt_api_endpoints']) {
   const rows=await db.query(`SELECT row_to_json(t) AS record FROM "${pin.schema}"."${table}" t WHERE row_to_json(t)::text ~* '(mfa|multi.factor|totp|webauthn|passkey)'`);
