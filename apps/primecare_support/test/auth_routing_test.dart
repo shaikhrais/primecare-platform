@@ -17,7 +17,6 @@ void main() {
     ]);
     addTearDown(container.dispose);
     final router = container.read(appRouterProvider);
-    addTearDown(router.dispose);
     final paths = router.configuration.routes.whereType<GoRoute>().map((route) => route.path);
     expect(paths, containsAll(SharedAuthRoutes.publicPaths));
     final route = router.configuration.routes.whereType<GoRoute>()

@@ -20,6 +20,7 @@ class GovernanceRouter {
     required PlatformApplication application,
     required PlatformRole activeRole,
     required String initialLocation,
+    GlobalKey<NavigatorState>? navigatorKey,
     Listenable? refreshListenable,
     GoRouterRedirect? redirect,
     GoRouterWidgetBuilder? guestErrorBuilder,
@@ -61,11 +62,12 @@ class GovernanceRouter {
       }
     }
     if (authorizedRoutes.isEmpty) {
-      final fallbackPath = (initialLocation == CommonRoutes.login ||
-                             initialLocation == CommonRoutes.authCallback ||
-                             publicRoutes.any((r) => r.path == initialLocation))
+      final initialPath = Uri.parse(initialLocation).path;
+      final fallbackPath = (initialPath == CommonRoutes.login ||
+                             initialPath == CommonRoutes.authCallback ||
+                             publicRoutes.any((r) => r.path == initialPath))
           ? '/unauthorized_fallback'
-          : initialLocation;
+          : initialPath;
       authorizedRoutes.add(
         GoRoute(
           path: fallbackPath,
@@ -78,6 +80,7 @@ class GovernanceRouter {
 
     // 3. Build GoRouter with strict shell
     return GoRouter(
+      navigatorKey: navigatorKey,
       initialLocation: initialLocation,
       refreshListenable: refreshListenable,
       redirect: redirect,

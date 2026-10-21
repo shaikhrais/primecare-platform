@@ -14,6 +14,15 @@ import 'signup_access_view.dart';
 import 'shared_account/consent/consent_screen.dart' as consent;
 import 'shared_account/success_profile/success_profile_screen.dart' as account;
 
+class _AuthNavigation {
+  Uri? location;
+  final navigatorKey = GlobalKey<NavigatorState>();
+}
+
+final _authNavigationProvider = Provider.family<_AuthNavigation, PlatformApplication>(
+  (ref, application) => _AuthNavigation(),
+);
+
 class SharedAuthRouter {
   static GoRouter build({
     required Ref ref,
@@ -21,16 +30,18 @@ class SharedAuthRouter {
     required PlatformRole activeRole,
     List<GoRoute> additionalPublicRoutes = const [],
   }) {
+    final navigation = ref.read(_authNavigationProvider(application));
     final auth = ref.watch(authProvider);
     final workspaceRoutes = governedWorkspaceRoleRoutes[auth.role] ?? const <String>[];
     final dashboard = auth.isAuthenticated && auth.role == 'maintenance' ? '/maintenance/configuration' : !auth.isAuthenticated
         ? CommonRoutes.login
         : governedWorkspaceLandings[auth.role] ?? application.getDefinition(activeRole)?.dashboardRoute ??
             AuthNotifier.getDashboardRouteForRole(auth.role ?? '');
-    return GovernanceRouter.buildZeroTrustRouter(
+    final router = GovernanceRouter.buildZeroTrustRouter(
       application: application,
       activeRole: activeRole,
-      initialLocation: dashboard,
+      initialLocation: navigation.location?.toString() ?? dashboard,
+      navigatorKey: navigation.navigatorKey,
       refreshListenable: authListenable,
       additionalGovernedRoutes: workspaceRoutes,
       governedScreenBuilder: (context, state) => GovernedWorkspaceScreen(route: state.uri.path),
@@ -96,6 +107,16 @@ class SharedAuthRouter {
         ...additionalPublicRoutes,
       ],
     );
+    void rememberLocation() {
+      navigation.location = router.routeInformationProvider.value.uri;
+    }
+    rememberLocation();
+    router.routeInformationProvider.addListener(rememberLocation);
+    ref.onDispose(() {
+      router.routeInformationProvider.removeListener(rememberLocation);
+      router.dispose();
+    });
+    return router;
   }
 }
 
