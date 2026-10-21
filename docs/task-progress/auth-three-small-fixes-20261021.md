@@ -15,3 +15,8 @@ Research before implementation: Flutter TextEditingController docs explain progr
 - https://api.flutter.dev/flutter/services/TextInputConfiguration/enableIMEPersonalizedLearning.html
 
 Validation at publication: git diff --check passed. Flutter SDK unavailable locally; CI runtime results pending. Earlier 72c94c2a run had successful runtime-smoke and dart-services jobs; remaining jobs were superseded/cancelled after the next main commit. Do not count cancelled jobs as passed. These changes do not resolve the deployed source-probe 403/1010, missing policy decisions, independent reviews or full auth acceptance.
+
+
+## CI result
+
+Source `ee89c5cfd6d134ca5d7ba71cdca016371355ac7d`: Auth Gateway Verification run [39529969521](https://github.com/shaikhrais/primecare-platform/actions/runs/39529969521), Flutter job `118993404904` passed. Logs confirm 104 UI tests, 295 core auth/transport tests and 3 clinic routing tests (402 total). New external password clear and matching created-account cases passed. Native PostgreSQL runtime-smoke also passed. Client, marketing and franchise portal jobs passed at this checkpoint; other portal jobs remained pending/running. This is focused regression evidence, not full live auth sign-off.
