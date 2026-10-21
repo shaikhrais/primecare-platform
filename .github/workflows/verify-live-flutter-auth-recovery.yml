@@ -1,4 +1,5 @@
 name: Verify deployed Flutter auth recovery through owned inbox
+# Verify the complete recovery journey after the maintenance acknowledgement repair.
 # Cloudflare uses its scoped secret; no GitHub deployment-write permission is needed.
 on:
   push:

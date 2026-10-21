@@ -621,6 +621,25 @@ class ApiResponse {
 
   bool get isSuccess => statusCode >= 200 && statusCode < 300;
 
+  bool confirmsMaintenanceAcknowledgement({required bool testEmail}) {
+    final value = data;
+    return statusCode == 200 && value is Map && value['message'] ==
+        (testEmail
+            ? 'Provider accepted the test. Check your inbox/spam to confirm delivery.'
+            : 'Settings saved. Send a test email to check delivery.');
+  }
+
+  bool confirmsCreatedAccount({required String email, required String role,
+      required String tenantId}) {
+    final value = data;
+    if (statusCode != 201 || value is! Map || tenantId.isEmpty) return false;
+    final user = value['user'];
+    return user is Map && user['id'] is String &&
+        (user['id'] as String).trim().isNotEmpty &&
+        user['email'] == email.trim().toLowerCase() && user['roles'] == role &&
+        user['status'] == 'active' && user['tenant_id'] == tenantId;
+  }
+
   /// Existing recovery contracts must acknowledge the requested operation.
   bool confirmsPasswordRecovery({bool reset = false}) {
     final value = data;

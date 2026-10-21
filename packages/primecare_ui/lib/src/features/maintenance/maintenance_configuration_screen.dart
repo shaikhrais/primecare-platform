@@ -15,6 +15,9 @@ class _MaintenanceConfigurationState extends ConsumerState<MaintenanceConfigurat
   final Map<String, Map<String, TextEditingController>> _templates = {};
   Map<String, dynamic>? _data;
   bool _busy = false;
+  String? _loadedToken;
+  String? _loadedUser;
+  String? _loadedTenant;
   String? _message;
   @override
   void initState() { super.initState(); Future.microtask(_load); }
@@ -29,10 +32,14 @@ class _MaintenanceConfigurationState extends ConsumerState<MaintenanceConfigurat
   }
   Future<void> _load() async {
     if (!_allowed || _busy) return;
+    final original = ref.read(authProvider);
     setState(() { _busy = true; });
     try {
       final r = await ref.read(apiClientProvider).get(endpoint);
       if (!mounted) return;
+      final current = ref.read(authProvider);
+      if (current.token != original.token || current.userId != original.userId ||
+          current.tenantId != original.tenantId) return;
       if (r.statusCode != 200 || r.data is! Map) { setState(() { _data = null; _message = _error(r.data); }); return; }
       final data = Map<String, dynamic>.from(r.data as Map);
       for (final c in _templates.values.expand((v) => v.values)) { c.dispose(); }
@@ -41,22 +48,35 @@ class _MaintenanceConfigurationState extends ConsumerState<MaintenanceConfigurat
         final t = entry.value as Map;
         _templates[entry.key.toString()] = {for (final field in ['subject', 'title', 'body']) field: TextEditingController(text: t[field] as String)};
       }
-      setState(() { _data = data; _sender.text = data['sender'] as String; });
+      setState(() { _data = data; _sender.text = data['sender'] as String;
+        _loadedToken = original.token; _loadedUser = original.userId; _loadedTenant = original.tenantId;
+      });
     } catch (_) { if (mounted) setState(() { _message = 'Unable to load configuration. Check your connection and sign-in.'; }); }
     finally { if (mounted) setState(() { _busy = false; }); }
   }
   String _error(dynamic data) => data is Map && data['error'] is String ? data['error'] as String : 'Request failed. Check your connection and sign-in.';
   Future<void> _post(String path, Map<String, dynamic> body) async {
     if (_busy || !_allowed) return;
+    final original = ref.read(authProvider);
     setState(() { _busy = true; _message = null; });
     bool reload = false;
     try {
       final r = await ref.read(apiClientProvider).post(path, body: body);
       if (!mounted) return;
-      setState(() { _message = r.statusCode == 200 || r.statusCode == 201 ? (r.data is Map && r.data['message'] is String ? r.data['message'] as String : 'Maintenance account created. Share access through your approved IT process.') : _error(r.data); });
-      if (r.statusCode == 200 || r.statusCode == 201) {
-        _accountPassword.clear(); reload = path == endpoint || path.endsWith('/test-email');
-      }
+      final current = ref.read(authProvider);
+      if (current.token != original.token || current.userId != original.userId ||
+          current.tenantId != original.tenantId) return;
+      final created = path == '/v1/auth/register' && r.confirmsCreatedAccount(
+          email: body['email'] as String, role: body['role'] as String,
+          tenantId: original.tenantId ?? '');
+      final saved = path == endpoint && r.confirmsMaintenanceAcknowledgement(testEmail: false);
+      final tested = path == '$endpoint/test-email' && r.confirmsMaintenanceAcknowledgement(testEmail: true);
+      final success = created || saved || tested;
+      setState(() { _message = success
+          ? (created ? 'Maintenance account created. Share access through your approved IT process.' : r.data['message'] as String)
+          : _error(null); });
+      if (created) _accountPassword.clear();
+      reload = saved || tested;
     } catch (_) { if (mounted) setState(() { _message = 'Unable to save. Check your connection and try again.'; }); }
     finally { if (mounted) setState(() { _busy = false; }); }
     if (reload && mounted) await _load();
@@ -73,7 +93,8 @@ class _MaintenanceConfigurationState extends ConsumerState<MaintenanceConfigurat
     if (!session.isAuthenticated || !['ceo', 'maintenance'].contains(session.role)) {
       return Scaffold(appBar: AppBar(title: const Text('IT maintenance')), body: const Center(child: Text('CEO or maintenance access required.')));
     }
-    final data = _data;
+    final data = session.token == _loadedToken && session.userId == _loadedUser &&
+        session.tenantId == _loadedTenant ? _data : null;
     return Scaffold(
       appBar: AppBar(title: const Text('IT maintenance'), actions: [IconButton(tooltip: 'Reload configuration', onPressed: _busy ? null : _load, icon: const Icon(Icons.refresh)), IconButton(tooltip: 'Sign out', onPressed: () async { await ref.read(authProvider.notifier).logout(); if (context.mounted) context.go('/login'); }, icon: const Icon(Icons.logout))]),
       body: Align(alignment: Alignment.topCenter, child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 960),

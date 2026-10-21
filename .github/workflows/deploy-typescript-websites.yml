@@ -80,6 +80,10 @@ jobs:
           retention-days: 14
 
   deploy:
+    # Share the per-project deployment lock with the Flutter publisher.
+    concurrency:
+      group: primecare-cloudflare-${{ matrix.project }}
+      cancel-in-progress: false
     needs: [verify_gateway, build]
     runs-on: ubuntu-latest
     strategy:
