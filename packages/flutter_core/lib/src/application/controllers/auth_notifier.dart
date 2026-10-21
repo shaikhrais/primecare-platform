@@ -275,7 +275,7 @@ class AuthNotifier extends Notifier<AuthState> {
     // Untrusted callback parameters neither establish nor destroy a session.
   }
 
-  Future<bool> login(String email, String password) async {
+  Future<bool> login(String email, String password, {MfaPrompt? completeMfa}) async {
     final revision = ++_sessionRevision;
     if (!state.isInitialized) {
       state = AuthState(isInitialized: true, preferredLanguage: state.preferredLanguage);
@@ -288,7 +288,48 @@ class AuthNotifier extends Notifier<AuthState> {
           body: {'email': email, 'password': password},
         );
 
-        final payload = response.data;
+        var payload = response.data;
+        if (response.statusCode == 200 && payload is Map<String, dynamic> && payload['status'] == 'mfa_required') {
+          if (completeMfa == null || !_isCurrent(revision) ||
+              payload['challenge'] is! String || !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(payload['challenge'] as String) ||
+              !['enroll', 'verify'].contains(payload['purpose']) || payload.containsKey('token') ||
+              (payload['purpose'] == 'enroll' && (payload['setupKey'] is! String || !RegExp(r'^[A-Z2-7]{32}$').hasMatch(payload['setupKey'] as String))) ||
+              (payload['purpose'] == 'verify' && payload.containsKey('setupKey'))) return false;
+          final challenge = Map<String, dynamic>.unmodifiable(payload);
+          Map<String, dynamic>? verified;
+          var verifying = false;
+          try { await completeMfa(challenge, (code) async {
+            if (!_isCurrent(revision) || verifying || verified != null || !RegExp(r'^[0-9]{6}$').hasMatch(code)) return false;
+            verifying = true;
+            String? provisional;
+            try {
+              final factor = await apiClient.post(ApiConfig.endpoints['mfa']!, body: {'challenge': challenge['challenge'], 'code': code});
+              final data = factor.data;
+              if (factor.statusCode != 200 || data is! Map<String, dynamic> || data['status'] != 'authenticated' ||
+                  data['token'] is! String || !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(data['token'] as String)) return false;
+              provisional = data['token'] as String;
+              if (!_isCurrent(revision) || data['role'] != 'code_admin' || data['userId'] is! String || (data['userId'] as String).trim().isEmpty) return false;
+              final confirmation = await apiClient.confirmSession(provisional);
+              final identity = confirmation.data;
+              if (!_isCurrent(revision) || !confirmation.isSuccess || identity is! Map<String, dynamic> ||
+                  identity['status'] != 'authenticated' || identity['roles'] != data['role'] || identity['userId'] != data['userId']) return false;
+              verified = Map<String, dynamic>.unmodifiable(data);
+              return true;
+            } catch (_) { return false; }
+            finally {
+              verifying = false;
+              if (provisional != null && verified == null) {
+                try { await apiClient.revokeSession(provisional); } catch (_) {}
+              }
+            }
+          }); } catch (_) {
+            final issued = verified?['token'];
+            if (issued is String) { try { await apiClient.revokeSession(issued); } catch (_) {} }
+            rethrow;
+          }
+          if (verified == null) return false;
+          payload = verified;
+        }
         final issuedToken = response.statusCode == 200 &&
                 payload is Map<String, dynamic> && payload['token'] is String &&
                 (payload['token'] as String).trim().isNotEmpty

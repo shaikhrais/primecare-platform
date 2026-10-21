@@ -1,63 +1,53 @@
-// Governance - Category: controller | Purpose: Controller layer orchestrating business logic and state management for the corresponding module.
+import 'dart:async';
 import 'package:primecare_ui/primecare_ui.dart';
 
+/// Challenge/code are transient; neither is persisted or logged.
 class MfaState {
   final String code;
   final bool isLoading;
-  final String? errorMessage;
-  final bool isVerified;
-
-  const MfaState({
-    this.code = '',
-    this.isLoading = false,
-    this.errorMessage,
-    this.isVerified = false,
-  });
-
-  MfaState copyWith({
-    String? code,
-    bool? isLoading,
-    String? errorMessage,
-    bool? isVerified,
-    bool clearError = false,
-  }) {
-    return MfaState(
-      code: code ?? this.code,
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
-      isVerified: isVerified ?? this.isVerified,
-    );
-  }
+  final bool failed;
+  final Map<String, dynamic>? challenge;
+  const MfaState({this.code = '', this.isLoading = false, this.failed = false, this.challenge});
+  bool get pending => challenge != null;
 }
 
 class MfaController extends Notifier<MfaState> {
+  Completer<void>? _prompt;
+  Future<bool> Function(String)? _verify;
+  int _revision = 0;
   @override
   MfaState build() {
+    ref.onDispose(() { _revision++; _verify = null; final prompt = _prompt; if (prompt != null && !prompt.isCompleted) prompt.complete(); });
     return const MfaState();
   }
-
-  void onCodeChanged(String value) {
-    state = state.copyWith(code: value, clearError: true);
+  Future<void> request(Map<String, dynamic> challenge, Future<bool> Function(String) verify) {
+    cancel();
+    final prompt = Completer<void>(); _prompt = prompt; _verify = verify;
+    state = MfaState(challenge: Map<String, dynamic>.unmodifiable(challenge));
+    return prompt.future;
   }
-
+  void onCodeChanged(String value) {
+    if (state.isLoading) return;
+    state = MfaState(code: value, challenge: state.challenge);
+  }
   Future<void> verify() async {
-    if (state.code.length < 6) {
-      state = state.copyWith(
-        errorMessage: 'Please enter a valid 6-digit code.',
-      );
-      return;
+    final verifier = _verify;
+    if (state.isLoading || !state.pending || verifier == null) return;
+    if (!RegExp(r'^[0-9]{6}$').hasMatch(state.code)) {
+      state = MfaState(challenge: state.challenge, failed: true); return;
     }
-    state = state.copyWith(isLoading: true, clearError: true);
-
-    // Fail closed until the central service provides a verified recovery/challenge contract.
-    state = state.copyWith(
-      isLoading: false,
-      isVerified: false,
-      errorMessage: 'auth_flow_unavailable'.tr(),
-    );
+    final revision = _revision, challenge = state.challenge, code = state.code;
+    state = MfaState(challenge: challenge, isLoading: true);
+    var accepted = false;
+    try { accepted = await verifier(code); } catch (_) {}
+    if (!ref.mounted || revision != _revision) return;
+    if (accepted) { cancel(); } else { state = MfaState(challenge: challenge, failed: true); }
+  }
+  void cancel() {
+    _revision++; _verify = null;
+    final prompt = _prompt; _prompt = null;
+    if (ref.mounted) state = const MfaState();
+    if (prompt != null && !prompt.isCompleted) prompt.complete();
   }
 }
-
-final mfaControllerProvider = NotifierProvider<MfaController, MfaState>(
-  () => MfaController(),
-);
+final mfaControllerProvider = NotifierProvider<MfaController, MfaState>(() => MfaController());

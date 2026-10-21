@@ -1,0 +1,43 @@
+name: Verify registered Flutter MFA implementation
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/verify-flutter-mfa.yml, packages/flutter_core/test/auth_mfa_test.dart, packages/primecare_ui/test/auth_mfa_test.dart]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  flutter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Require reproducible registered MFA labels
+        run: |
+          python scripts/generate-flutter-mfa-catalog.py
+          git diff --exit-code -- packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart
+      - name: Core MFA session boundary and previous session regressions
+        working-directory: packages/flutter_core
+        run: |
+          flutter pub get
+          flutter analyze --no-fatal-infos lib/auth_service.dart lib/src/application/controllers/auth_notifier.dart test/auth_mfa_test.dart
+          flutter test test/auth_mfa_test.dart test/auth_session_test.dart test/auth_transport_test.dart test/auth_route_guard_test.dart
+      - name: Localized Flutter presentation and previous auth regressions
+        working-directory: packages/primecare_ui
+        run: |
+          flutter pub get
+          flutter analyze --no-fatal-infos lib/src/features/auth/mfa_controller.dart lib/src/features/auth/mfa_form.dart lib/src/features/auth/auth_experience.dart test/auth_mfa_test.dart
+          flutter test test/auth_mfa_test.dart test/auth_design_test.dart test/auth_recovery_response_test.dart test/auth_maintenance_response_test.dart
+      - name: Build current clinic Flutter bundle without replacing production web portals
+        working-directory: apps/primecare_clinic
+        run: |
+          flutter pub get
+          flutter test test/auth_routing_test.dart
+          flutter build web --release --no-tree-shake-icons --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-flutter-mfa-clinic
+          path: apps/primecare_clinic/build/web
+          retention-days: 30

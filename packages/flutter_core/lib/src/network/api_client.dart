@@ -473,6 +473,17 @@ class ApiClient {
     }
   }
 
+  /// Confirm a provisional MFA session without installing it as the active actor.
+  Future<ApiResponse> confirmSession(String token) async {
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        ApiConfig.endpoints['me']!,
+        options: Options(headers: {'Authorization': 'Bearer $token', 'Cache-Control': 'no-store'}),
+      );
+      return ApiResponse(data: response.data, statusCode: response.statusCode ?? 200);
+    } catch (error) { return _authFailure(error); }
+  }
+
   /// Performs a POST request.
   /// Revoke exactly the captured session, even if another login has since won.
   Future<ApiResponse> revokeSession(String token) async {
@@ -664,6 +675,7 @@ class ApiConfig {
 
   static const Map<String, String> endpoints = {
     'login': '/v1/auth/login',
+    'mfa': '/v1/auth/mfa',
     'register': '/v1/auth/register',
     'forgotPassword': '/v1/auth/forgot-password',
     'resetPassword': '/v1/auth/reset-password',

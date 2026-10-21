@@ -70,16 +70,20 @@ class LoginController extends Notifier<LoginState> {
     try {
       final success = await ref
           .read(authProvider.notifier)
-          .login(email, password);
+          .login(email, password, completeMfa: (challenge, verify) {
+            state = state.copyWith(password: '');
+            return ref.read(mfaControllerProvider.notifier).request(challenge, verify);
+          });
 
       if (!success) {
         state = state.copyWith(
           isLoading: false,
+          password: '',
           errorMessage:
               'Authentication failed. Please verify your credentials.',
         );
       } else {
-        state = state.copyWith(isLoading: false);
+        state = state.copyWith(isLoading: false, password: '');
       }
     } catch (e) {
       state = state.copyWith(
@@ -108,6 +112,7 @@ class LoginController extends Notifier<LoginState> {
       if (!success) {
         state = state.copyWith(
           isLoading: false,
+          password: '',
           errorMessage: 'Failed to send password reset link. Please verify your email.',
         );
         return false;
@@ -153,7 +158,7 @@ class LoginController extends Notifier<LoginState> {
     try {
       // Injects the role directly into the session via the auth provider
       await ref.read(authProvider.notifier).simulateRoleSession(role);
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(isLoading: false, password: '');
     } catch (e) {
       state = state.copyWith(
         isLoading: false,

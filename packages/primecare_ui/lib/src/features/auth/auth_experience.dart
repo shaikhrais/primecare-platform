@@ -3,6 +3,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'auth_design_tokens.dart';
 import 'password_recovery_form.dart';
+import 'mfa_form.dart';
 import 'auth_navigation.dart';
 import '../../localization/auth_screen_text.dart';
 
@@ -85,10 +86,11 @@ class PrimeAuthExperience extends ConsumerWidget {
     final gap = SizedBox(height: theme.spacing.lg);
     switch (page) {
       case AuthPage.login:
+        if (ref.watch(mfaControllerProvider).pending) return [const NativeMfaForm()];
         final state = ref.watch(loginControllerProvider);
         final controller = ref.read(loginControllerProvider.notifier);
         return [AutofillGroup(child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          PrimeAuthTextField(id: 'login-email', label: _copy(context, 'email'), hint: _copy(context, 'email_hint'), initialValue: state.email, onChanged: controller.onEmailChanged, enabled: !state.isLoading, autofillHints: const [AutofillHints.username, AutofillHints.email], keyboardType: TextInputType.emailAddress),
+          PrimeAuthTextField(id: 'login-email', autofocus: true, label: _copy(context, 'email'), hint: _copy(context, 'email_hint'), initialValue: state.email, onChanged: controller.onEmailChanged, enabled: !state.isLoading, autofillHints: const [AutofillHints.username, AutofillHints.email], keyboardType: TextInputType.emailAddress),
           gap,
           PrimeAuthTextField(id: 'login-password', label: _copy(context, 'password'), initialValue: state.password, onChanged: controller.onPasswordChanged, enabled: !state.isLoading, password: true, autofillHints: const [AutofillHints.password], onSubmitted: state.isLoading ? null : (_) => controller.login()),
           Align(alignment: AlignmentDirectional.centerEnd, child: TextButton(onPressed: state.isLoading ? null : () => _go(context, '/forgot-password'), child: Text(_copy(context, 'forgot')))),
@@ -108,6 +110,7 @@ class PrimeAuthExperience extends ConsumerWidget {
       case AuthPage.reset:
         return [const PasswordRecoveryForm(reset: true)];
       case AuthPage.mfa:
+        return [const NativeMfaForm()];
       case AuthPage.consent:
         // These backend capabilities are not enabled. Do not collect unusable
         // passwords/codes, fabricate success, or imply a recovery email was sent.
@@ -222,12 +225,12 @@ class PrimeAuthTextField extends StatefulWidget {
   final String? hint, initialValue;
   final ValueChanged<String> onChanged;
   final ValueChanged<String>? onSubmitted;
-  final bool password, enabled;
+  final bool password, enabled, sensitive, autofocus;
   final Iterable<String>? autofillHints;
   final TextInputType? keyboardType;
   const PrimeAuthTextField({super.key, required this.id, required this.label,
     required this.onChanged, this.hint, this.initialValue, this.onSubmitted,
-    this.password = false, this.enabled = true, this.autofillHints, this.keyboardType});
+    this.password = false, this.enabled = true, this.autofillHints, this.keyboardType, this.sensitive = false, this.autofocus = false});
   @override
   State<PrimeAuthTextField> createState() => _PrimeAuthTextFieldState();
 }
@@ -258,11 +261,11 @@ class _PrimeAuthTextFieldState extends State<PrimeAuthTextField> {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Cy(id: widget.id, child: TextFormField(
-      controller: _controller, enabled: widget.enabled,
+      controller: _controller, enabled: widget.enabled, autofocus: widget.autofocus,
       onChanged: widget.onChanged, onFieldSubmitted: widget.onSubmitted,
       obscureText: widget.password && !revealed, autocorrect: false,
-      enableSuggestions: !widget.password, keyboardType: widget.keyboardType,
-      enableIMEPersonalizedLearning: !widget.password,
+      enableSuggestions: !widget.password && !widget.sensitive, keyboardType: widget.keyboardType,
+      enableIMEPersonalizedLearning: !widget.password && !widget.sensitive,
       autofillHints: widget.autofillHints,
       textInputAction: widget.password ? TextInputAction.done : TextInputAction.next,
       style: theme.typography.bodyLarge,

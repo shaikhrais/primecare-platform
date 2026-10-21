@@ -40,7 +40,7 @@ class SharedAuthRouter {
       navigation.navigatorKey = GlobalKey<NavigatorState>();
     }
     final workspaceRoutes = governedWorkspaceRoleRoutes[auth.role] ?? const <String>[];
-    final dashboard = auth.isAuthenticated && auth.role == 'maintenance' ? '/maintenance/configuration' : !auth.isAuthenticated
+    final dashboard = auth.isAuthenticated && auth.role == 'code_admin' ? '/success' : auth.isAuthenticated && auth.role == 'maintenance' ? '/maintenance/configuration' : !auth.isAuthenticated
         ? CommonRoutes.login
         : governedWorkspaceLandings[auth.role] ?? application.getDefinition(activeRole)?.dashboardRoute ??
             AuthNotifier.getDashboardRouteForRole(auth.role ?? '');
