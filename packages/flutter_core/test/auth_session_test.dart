@@ -42,6 +42,7 @@ class DeferredApi extends Fake implements ApiClient {
   final logins = <Completer<ApiResponse>>[];
   final revoked = <String>[];
   Completer<ApiResponse>? pendingLogout;
+  bool failRevocation = false;
 
   @override
   Future<ApiResponse> get(String path, {Map<String, dynamic>? queryParameters}) {
@@ -59,6 +60,7 @@ class DeferredApi extends Fake implements ApiClient {
   @override
   Future<ApiResponse> revokeSession(String token) async {
     revoked.add(token);
+    if (failRevocation) throw StateError('fixture revocation unavailable');
     return pendingLogout == null
         ? ApiResponse(statusCode: 200, data: {})
         : await pendingLogout!.future;
@@ -205,6 +207,74 @@ void main() {
     expect(container.read(authProvider).isAuthenticated, isFalse);
     expect((await SharedPreferences.getInstance()).getKeys(), {'auth_preferred_language'});
   });
+
+
+  final malformedIdentities = <String, Map<String, dynamic>>{
+    'missing role': {'userId': 'new-user'},
+    'numeric role': {'role': 42, 'userId': 'new-user'},
+    'blank role': {'role': '  ', 'userId': 'new-user'},
+    'missing user': {'role': 'ceo'},
+    'numeric user': {'role': 'ceo', 'userId': 42},
+    'object user': {'role': 'ceo', 'userId': {'id': 'new-user'}},
+    'blank user': {'role': 'ceo', 'userId': '  '},
+    'numeric tenant': {'role': 'ceo', 'userId': 'new-user', 'tenantId': 42},
+  };
+  for (final example in malformedIdentities.entries) {
+    for (final revokeFails in [false, true]) {
+      test('rejects ${example.key}; revocation failure=$revokeFails preserves actor', () async {
+        SharedPreferences.setMockInitialValues({
+          'auth_token': 'actor-token', 'auth_role': 'ceo',
+          'auth_user_id': 'actor-id', 'auth_tenant_id': 'actor-tenant',
+        });
+        final api = DeferredApi()..failRevocation = revokeFails;
+        final container = ProviderContainer(overrides: [
+          apiClientProvider.overrideWithValue(api),
+          authProvider.overrideWith(FixtureAuth.new),
+        ]);
+        addTearDown(container.dispose);
+        final before = container.read(authProvider);
+        authListenable.value = true;
+        final login = container.read(authProvider.notifier).login(
+          'fixture@example.test', 'fixture-password',
+        );
+        api.logins.single.complete(ApiResponse(statusCode: 200, data: {
+          'token': 'rejected-token', ...example.value,
+        }));
+        expect(await login, isFalse);
+        expect(api.revoked, ['rejected-token']);
+        expect(identical(container.read(authProvider), before), isTrue);
+        expect(authListenable.value, isTrue);
+        final prefs = await SharedPreferences.getInstance();
+        expect(prefs.getString('auth_token'), 'actor-token');
+        expect(prefs.getString('auth_user_id'), 'actor-id');
+        expect(prefs.getString('auth_tenant_id'), 'actor-tenant');
+      });
+    }
+  }
+
+  for (final payload in <dynamic>[
+    null, 'invalid', <String, dynamic>{},
+    {'token': ' ', 'role': 'ceo', 'userId': 'new-user'},
+    {'token': 42, 'role': 'ceo', 'userId': 'new-user'},
+  ]) {
+    test('malformed login payload $payload cannot establish authority', () async {
+      final api = DeferredApi();
+      final container = ProviderContainer(overrides: [
+        apiClientProvider.overrideWithValue(api),
+        authProvider.overrideWith(FixtureAuth.new),
+      ]);
+      addTearDown(container.dispose);
+      final before = container.read(authProvider);
+      final login = container.read(authProvider.notifier).login(
+        'fixture@example.test', 'fixture-password',
+      );
+      api.logins.single.complete(ApiResponse(statusCode: 200, data: payload));
+      expect(await login, isFalse);
+      expect(api.revoked, isEmpty);
+      expect(identical(container.read(authProvider), before), isTrue);
+      expect((await SharedPreferences.getInstance()).getString('auth_token'), isNull);
+    });
+  }
 
   final cases = [
     ('/v1/auth/logout', 'actor-token', 401, 0),

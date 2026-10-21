@@ -288,73 +288,80 @@ class AuthNotifier extends Notifier<AuthState> {
           body: {'email': email, 'password': password},
         );
 
-        if (!_isCurrent(revision)) {
-          final data = response.data;
-          if (response.statusCode == 200 && data is Map<String, dynamic> &&
-              data['token'] is String && (data['token'] as String).isNotEmpty) {
-            await apiClient.revokeSession(data['token'] as String);
-          }
-          return false;
-        }
-        if (response.statusCode == 200) {
-          final Map<String, dynamic> data =
-              response.data as Map<String, dynamic>;
-          final token = data['token'] as String?;
-          if (token == null || token.isEmpty) return false;
+        final payload = response.data;
+        final issuedToken = response.statusCode == 200 &&
+                payload is Map<String, dynamic> && payload['token'] is String &&
+                (payload['token'] as String).trim().isNotEmpty
+            ? payload['token'] as String : null;
+        var retained = false;
+        try {
+          if (!_isCurrent(revision)) return false;
+          if (response.statusCode == 200) {
+            if (issuedToken == null || payload is! Map<String, dynamic>) return false;
+            final data = payload;
+            final token = issuedToken;
+            final role = data['role'];
+            final userId = data['userId'];
+            final tenant = data['tenantId'];
+            if (role is! String || role.trim().isEmpty ||
+                userId is! String || userId.trim().isEmpty ||
+                (tenant != null && tenant is! String)) {
+              return false;
+            }
+            final userName = email.trim();
+            final tenantId = tenant as String? ?? '';
+            final preferredLanguage = state.preferredLanguage ?? 'en';
 
-          final role = data['role'] as String?;
-          final userId = data['userId']?.toString();
-          if (role == null || role.isEmpty || userId == null || userId.isEmpty) {
+            await _persist((prefs) async {
+              if (!_isCurrent(revision)) return;
+              await prefs.setString('auth_token', token);
+              await prefs.setString('auth_role', role);
+              await prefs.setString('auth_tenant_id', tenantId);
+              await prefs.setString('auth_username', userName);
+              await prefs.setString('auth_user_id', userId);
+              // A newer operation may start while the platform writes are in
+              // flight. It will run after this queue entry, so remove the stale
+              // credentials before allowing the next entry to proceed.
+              if (!_isCurrent(revision)) await _clearSession(prefs);
+            });
+            if (!_isCurrent(revision)) return false;
+            state = AuthState(
+              isAuthenticated: true, isInitialized: true,
+              token: token, role: role, tenantId: tenantId,
+              userName: userName, userId: userId,
+              preferredLanguage: state.preferredLanguage ?? preferredLanguage,
+            );
+            authListenable.value = true;
+            retained = true;
+            ref
+                .read<ExecutionGateService>(executionGateProvider)
+                .passGate(
+                  ExecutionGateCategory.auth,
+                  'API Authentication via Cloudflare successful. Role: $role',
+                  metadata: {'tenantId': tenantId, 'email': email},
+                );
+            return true;
+          } else {
+            ref
+                .read<ExecutionGateService>(executionGateProvider)
+                .failGate(
+                  ExecutionGateCategory.auth,
+                  'API Authentication declined. Status: ${response.statusCode}',
+                  metadata: {
+                    'email': email,
+                    'statusCode': response.statusCode,
+                    'responseBody': response.data.toString(),
+                  },
+                );
             return false;
           }
-          final userName = email.trim();
-          final tenantId = data['tenantId']?.toString() ?? '';
-          final preferredLanguage = state.preferredLanguage ?? 'en';
-
-          await _persist((prefs) async {
-            if (!_isCurrent(revision)) return;
-            await prefs.setString('auth_token', token);
-            await prefs.setString('auth_role', role);
-            await prefs.setString('auth_tenant_id', tenantId);
-            await prefs.setString('auth_username', userName);
-            await prefs.setString('auth_user_id', userId);
-            // A newer operation may start while the platform writes are in
-            // flight. It will run after this queue entry, so remove the stale
-            // credentials before allowing the next entry to proceed.
-            if (!_isCurrent(revision)) await _clearSession(prefs);
-          });
-          if (!_isCurrent(revision)) {
-            await apiClient.revokeSession(token);
-            return false;
+        } finally {
+          // Rejected, malformed and superseded login replies still issued a
+          // server session. Revoke that captured token without changing the
+          // active actor or allowing a failed cleanup to grant authority.
+          if (issuedToken != null && !retained) {
+            try { await apiClient.revokeSession(issuedToken); } catch (_) {}
           }
-          state = AuthState(
-            isAuthenticated: true, isInitialized: true,
-            token: token, role: role, tenantId: tenantId,
-            userName: userName, userId: userId,
-            preferredLanguage: state.preferredLanguage ?? preferredLanguage,
-          );
-          authListenable.value = true;
-          ref
-              .read<ExecutionGateService>(executionGateProvider)
-              .passGate(
-                ExecutionGateCategory.auth,
-                'API Authentication via Cloudflare successful. Role: $role',
-                metadata: {'tenantId': tenantId, 'email': email},
-              );
-          return true;
-        } else {
-          ref
-              .read<ExecutionGateService>(executionGateProvider)
-              .failGate(
-                ExecutionGateCategory.auth,
-                'API Authentication declined. Status: ${response.statusCode}',
-                metadata: {
-                  'email': email,
-                  'statusCode': response.statusCode,
-                  'responseBody': response.data.toString(),
-                },
-              );
-          return false;
         }
       },
       onError: (e, st) {
