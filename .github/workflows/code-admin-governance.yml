@@ -1,0 +1,58 @@
+name: Inspect Code admin registration prerequisites
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/code-admin-governance.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          npm install --prefix /tmp/admin-reader --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/admin-reader/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Inspect pinned role and permission metadata without reading accounts
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python -u - <<'PYCODE'
+          import sys,json,pathlib
+          sys.path.insert(0,'tools/governance-production')
+          from production_reader import connect
+          packet={}
+          with connect() as db:
+              selected=[n for n in db.tables if n in ['roles','apps','api_endpoints','api_permissions','role_screen_permissions','screens','virtual_workflow_definitions','auth_account_creation_policy','auth_account_management_policy'] or any(s in n for s in ['hierarchy','bootstrap','role_switch','authority','reporting'])]
+              packet['schemas']={n:db.tables[n] for n in selected}
+              for name,sql in {
+                  'roles':'SELECT * FROM roles',
+                  'apps':'SELECT * FROM apps',
+                  'auth_flows':"SELECT * FROM virtual_workflow_definitions WHERE flow_kind='business_process' AND flow_id LIKE 'auth.%'",
+                  'creation_policy':'SELECT * FROM auth_account_creation_policy',
+                  'management_policy':'SELECT * FROM auth_account_management_policy',
+                  'admin_apis':"SELECT * FROM api_endpoints WHERE route_path LIKE '/v1/admin/%' OR route_path LIKE '/v1/auth/%'"
+              }.items():
+                  columns,rows=db.query(sql)
+                  packet[name]=[dict(zip(columns,r)) for r in rows]
+                  print('CODE_ADMIN_METADATA '+json.dumps({'name':name,'rows':packet[name]}))
+          out=pathlib.Path('test-results/code-admin');out.mkdir(parents=True,exist_ok=True)
+          (out/'prerequisites.json').write_text(json.dumps(packet,indent=2))
+          print('CODE_ADMIN_SCHEMAS '+json.dumps(packet['schemas']))
+          PYCODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: code-admin-prerequisites
+          path: test-results/code-admin
+          retention-days: 30
