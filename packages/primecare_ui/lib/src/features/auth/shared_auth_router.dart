@@ -6,6 +6,7 @@ import '../maintenance/maintenance_configuration_screen.dart';
 import '../workspace/governed_workspace_screen.dart';
 import '../workspace/workspace_routes_generated.dart';
 import 'auth_experience.dart';
+import 'auth_navigation.dart';
 import 'language_selection_view.dart';
 import 'forgot_password_view.dart';
 import 'reset_password_view.dart';
@@ -58,12 +59,13 @@ class SharedAuthRouter {
         final session = ref.read(authProvider);
         if (!session.isInitialized) return null;
         final path = state.uri.path;
+        String destination(String value) => withAuthSemantics(state.uri, value);
         final landing = path == '/' ||
             path == CommonRoutes.login ||
             path == CommonRoutes.authCallback;
         if (path == '/maintenance/configuration') {
-          if (!session.isAuthenticated) return '/login?returnUrl=/maintenance/configuration';
-          return ['ceo', 'maintenance'].contains(session.role) ? null : '/success';
+          if (!session.isAuthenticated) return destination('/login?returnUrl=/maintenance/configuration');
+          return ['ceo', 'maintenance'].contains(session.role) ? null : destination('/success');
         }
         if (session.isAuthenticated && landing) {
           final target = validateAppReturnUrl(
@@ -75,12 +77,12 @@ class SharedAuthRouter {
                 isLoggedIn: true,
                 userRole: session.role,
               ).isAllowed) {
-            return target;
+            return destination(target);
           }
-          return dashboard;
+          return destination(dashboard);
         }
         if (session.isAuthenticated && (path == '/consent' || path == '/success')) return null;
-        if (path == CommonRoutes.authCallback) return CommonRoutes.login;
+        if (path == CommonRoutes.authCallback) return destination(CommonRoutes.login);
         if (path == CommonRoutes.login ||
             path == CommonRoutes.language ||
             path == CommonRoutes.ssoRedirect ||
@@ -92,10 +94,10 @@ class SharedAuthRouter {
           return null;
         }
         if (!session.isAuthenticated) {
-          return Uri(
+          return destination(Uri(
             path: CommonRoutes.login,
             queryParameters: {'returnUrl': state.uri.toString()},
-          ).toString();
+          ).toString());
         }
         final result = RouteGuard.verify(
           requestedRoute: path,
@@ -104,7 +106,7 @@ class SharedAuthRouter {
         );
         return result.isAllowed || workspaceRoutes.contains(path)
             ? null
-            : result.redirectRoute ?? CommonRoutes.globalSettings;
+            : destination(result.redirectRoute ?? CommonRoutes.globalSettings);
       },
       publicRoutes: [
         GoRoute(path: '/maintenance/configuration', builder: (context, state) => const AppShellBoundary(child: MaintenanceConfigurationScreen())),
@@ -169,10 +171,10 @@ class SharedAuthRoutes {
               state.uri.queryParameters['returnUrl'] ??
                   state.uri.queryParameters['target'],
             );
-            return Uri(
+            return withAuthSemantics(state.uri, Uri(
               path: CommonRoutes.login,
               queryParameters: {if (target != null) 'returnUrl': target},
-            ).toString();
+            ).toString());
           },
         ),
   ];

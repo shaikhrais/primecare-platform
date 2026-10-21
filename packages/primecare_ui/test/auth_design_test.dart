@@ -77,6 +77,19 @@ void main() {
     }
   });
 
+  test('post-login semantics preserves destination query and fragment', () {
+    final source = Uri.parse('/login?enable-semantics=true');
+    final uri = Uri.parse(withAuthSemantics(source, '/dashboard?tag=a&tag=b#details'));
+    expect(uri.path, '/dashboard');
+    expect(uri.queryParametersAll['tag'], ['a', 'b']);
+    expect(uri.queryParameters['enable-semantics'], 'true');
+    expect(uri.fragment, 'details');
+    expect(withAuthSemantics(Uri.parse('/login'), '/dashboard'), '/dashboard');
+    final denied = Uri.parse(withAuthSemantics(source, '/login?returnUrl=%2Fappointments'));
+    expect(denied.queryParameters['returnUrl'], '/appointments');
+    expect(denied.queryParameters['enable-semantics'], 'true');
+  });
+
   testWidgets('external password clear updates the field and hides it', (tester) async {
     Widget field(String value) => localized(Scaffold(body: PrimeAuthTextField(
       id: 'password-test', label: 'Password', password: true,
