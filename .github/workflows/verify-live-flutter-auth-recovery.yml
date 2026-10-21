@@ -1,5 +1,5 @@
 name: Verify deployed Flutter auth recovery through owned inbox
-# Verify recovery with explicit locale selection and Flutter live-announcement assertions.
+# Verify reset replaces stale Flutter web semantics input nodes after confirmed success.
 # Cloudflare uses its scoped secret; no GitHub deployment-write permission is needed.
 on:
   push:
@@ -104,7 +104,7 @@ jobs:
           import psycopg,bcrypt,re,secrets,base64,email
           from email import policy
           from email.parser import BytesParser
-          from playwright.sync_api import sync_playwright
+          from playwright.sync_api import sync_playwright,expect
           db=psycopg.connect(os.environ['PRODUCTION_DATABASE_URL'],connect_timeout=15)
           tenant_id=str(uuid.uuid4());user_id=str(uuid.uuid4());password=secrets.token_urlsafe(24);new_password=secrets.token_urlsafe(24);fixture_created=False
           gateway='https://primecare-api-gateway.itpro-mohammed.workers.dev'
@@ -233,7 +233,13 @@ jobs:
               reset=pending.value.json()
               must(pending.value.status==200 and reset.get('status')=='password_reset' and reset.get('reauthenticationRequired') is True,'Deployed browser password reset succeeds')
               page.get_by_text(copy['reset_success'],exact=True).filter(visible=True).first.wait_for(timeout=10000)
-              must(el('recovery-code').input_value()=='' and el('recovery-password').input_value()=='' and el('recovery-confirm').input_value()=='','Flutter reset clears all recovery secrets')
+              for field_id in ['recovery-code','recovery-password','recovery-confirm']:
+                  try:expect(el(field_id)).to_have_value('',timeout=10000)
+                  except Exception:
+                      report['uncleared_field']=field_id
+                      report['uncleared_length']=len(el(field_id).input_value())
+                      raise AssertionError('Flutter reset did not clear a recovery field after rendering') from None
+              must(True,'Flutter reset clears all recovery secrets')
               page.wait_for_function("localStorage.getItem('flutter.auth_token')===null",timeout=10000)
               must(True,'Flutter reset clears local authority and requires normal sign-in')
               must(page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Reset form fits registered viewport')
