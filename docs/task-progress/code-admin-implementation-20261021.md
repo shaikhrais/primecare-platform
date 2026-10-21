@@ -55,3 +55,10 @@ Production owner preflight job 119249896383 passed: selected email matches, pass
 Added an isolated Web Crypto RFC 6238 primitive, validated against all 18 Appendix B vectors for SHA-1/SHA-256/SHA-512, including post-2038 times. The six-digit verifier accepts only current/previous counters, rejects future/expired/replayed counters and malformed codes, and returns a counter for a future atomic database consumption. Six local tests passed. Added it to the existing security CI.
 
 This is cryptographic foundation only, not an enabled MFA flow. Enrollment, encrypted secret storage, rate limiting, atomic counter consumption, challenge-limited login sessions, recovery and governed UI/API registrations remain required before integration. No new UI, API or permission has been introduced. Code Admin activation remains locked. Reference: https://www.rfc-editor.org/rfc/rfc6238.html (Appendix B with corrected key lengths).
+
+
+## MFA encrypted storage foundation (2026-10-21)
+
+Previous verifier security CI 39608775312 passed. Added a server-only AES-256-GCM envelope primitive with random 20-byte seeds, random 96-bit nonces, 128-bit tags and authenticated context binding version, key identifier, tenant and user. Exact envelope shape and lengths are validated, with generic decryption errors. Four new tests exercise roundtrip, nonce freshness, wrong keys, tenant/user/key copying, tampering and malformed inputs; all ten combined crypto tests passed locally. Included in security CI.
+
+This does not store real seeds or configure a key. Enrollment storage schema, production governance registration, key provisioning/rotation, rate limits, atomic one-time counter consumption, restricted login challenges, UI and recovery remain unfinished. No live endpoint, schema or permissions changed. Activation remains locked.
