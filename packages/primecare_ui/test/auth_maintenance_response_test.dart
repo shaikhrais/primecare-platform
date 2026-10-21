@@ -37,6 +37,10 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   for (final operation in ['save', 'test', 'create']) {
     testWidgets('maintenance $operation rejects malformed success before clearing drafts or reloading', (tester) async {
+      tester.view.physicalSize = const Size(1000, 2600);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
       final api = MaintenanceApi();
       await tester.pumpWidget(ProviderScope(overrides: [
         authProvider.overrideWith(MaintenanceActor.new), apiClientProvider.overrideWithValue(api),
