@@ -16,7 +16,7 @@ import 'shared_account/success_profile/success_profile_screen.dart' as account;
 
 class _AuthNavigation {
   Uri? location;
-  final navigatorKey = GlobalKey<NavigatorState>();
+  var navigatorKey = GlobalKey<NavigatorState>();
 }
 
 final _authNavigationProvider = Provider.family<_AuthNavigation, PlatformApplication>(
@@ -32,6 +32,12 @@ class SharedAuthRouter {
   }) {
     final navigation = ref.read(_authNavigationProvider(application));
     final auth = ref.watch(authProvider);
+    // Preserve drafts only on public auth pages. Protected pages retain their
+    // previous rebuild behavior and must not carry view State between actors.
+    if (navigation.location != null &&
+        !SharedAuthRoutes.publicPaths.contains(navigation.location!.path)) {
+      navigation.navigatorKey = GlobalKey<NavigatorState>();
+    }
     final workspaceRoutes = governedWorkspaceRoleRoutes[auth.role] ?? const <String>[];
     final dashboard = auth.isAuthenticated && auth.role == 'maintenance' ? '/maintenance/configuration' : !auth.isAuthenticated
         ? CommonRoutes.login

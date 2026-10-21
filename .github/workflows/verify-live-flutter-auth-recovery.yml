@@ -1,5 +1,5 @@
 name: Verify deployed Flutter auth recovery through owned inbox
-# Verify reset replaces stale Flutter web semantics input nodes after confirmed success.
+# Verify reset input replacement with public-only navigation-state preservation.
 # Cloudflare uses its scoped secret; no GitHub deployment-write permission is needed.
 on:
   push:
