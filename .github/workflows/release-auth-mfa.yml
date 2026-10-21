@@ -80,3 +80,10 @@ jobs:
           name: live-mfa-acceptance
           path: test-results/live-mfa
           retention-days: 90
+      - name: Prepare the approved owner for authenticator enrollment without granting a session
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          BOOTSTRAP_CODE_ADMIN_EMAIL: ${{ secrets.BOOTSTRAP_CODE_ADMIN_EMAIL }}
+          BOOTSTRAP_CODE_ADMIN_PASSWORD: ${{ secrets.BOOTSTRAP_CODE_ADMIN_PASSWORD }}
+          MFA_LIVE_PROOF_REQUIRED: '1'
+        run: node scripts/bootstrap-code-admin-enrollment.mjs

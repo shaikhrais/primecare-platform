@@ -10,8 +10,8 @@ export async function bootstrapCodeAdmin(db,input){
   if((await db.query("SELECT id FROM users WHERE roles='code_admin' LIMIT 1")).rows.length)throw Error('First Code administrator already exists');
   await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',[email]);
   if((await db.query('SELECT id FROM users WHERE LOWER(email)=$1 LIMIT 1',[email])).rows.length)throw Error('Existing account cannot be overwritten');
-  const id=randomUUID();const result=await db.query("INSERT INTO users(email,tenant_id,roles,password_hash,status,id,updated_at) VALUES($1,$2,'code_admin',$3,'active',$4,NOW()) RETURNING id,email,tenant_id,roles,status",[email,tenant,hash,id]);
-  if(result.rows.length!==1||result.rows[0].id!==id||result.rows[0].email!==email||result.rows[0].tenant_id!==tenant||result.rows[0].roles!=='code_admin'||result.rows[0].status!=='active')throw Error('Bootstrap identity not persisted');
+  const id=randomUUID();const result=await db.query("INSERT INTO users(email,tenant_id,roles,password_hash,status,id,updated_at) VALUES($1,$2,'code_admin',$3,'mfa_pending',$4,NOW()) RETURNING id,email,tenant_id,roles,status",[email,tenant,hash,id]);
+  if(result.rows.length!==1||result.rows[0].id!==id||result.rows[0].email!==email||result.rows[0].tenant_id!==tenant||result.rows[0].roles!=='code_admin'||result.rows[0].status!=='mfa_pending')throw Error('Bootstrap identity not persisted');
   const audit=await db.query("INSERT INTO auth_bootstrap_audit(user_id,tenant_id,source) VALUES($1,$2,'protected_workflow') RETURNING user_id,tenant_id,source",[id,tenant]);
   if(audit.rows.length!==1||audit.rows[0].user_id!==id||audit.rows[0].tenant_id!==tenant||audit.rows[0].source!=='protected_workflow')throw Error('Bootstrap audit not persisted');
   await db.query('COMMIT');return {created:true};
