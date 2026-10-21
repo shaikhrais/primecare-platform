@@ -1,5 +1,5 @@
 name: Verify deployed Flutter auth recovery through owned inbox
-# Verify recovery after correcting the truthful CI verifier client identity.
+# Verify recovery with truthful client identity and activated Flutter input semantics.
 # Cloudflare uses its scoped secret; no GitHub deployment-write permission is needed.
 on:
   push:
@@ -67,6 +67,7 @@ jobs:
           import os,json,pathlib,urllib.request,urllib.error,urllib.parse,time,uuid,hashlib,sys
           sys.path.insert(0,os.getcwd())
           from tools.deployment.http_client import read_public_asset,VERIFIER_USER_AGENT
+          from tools.deployment.flutter_browser import fill_flutter_field
           token=os.environ.get('CLOUDFLARE_API_TOKEN');account=os.environ.get('CLOUDFLARE_ACCOUNT_ID');assert token and account
           domain='15minutes-email.com';recipient='auth-test@'+domain;sender='noreply@'+domain;nonce=str(uuid.uuid4())
           report={'domain':domain,'recipient':recipient,'sender':sender,'synthetic':True,'read_other_inboxes':False,'application_accounts_changed':False,'password_resets_requested':False,'send_attempted':False,'accepted':False,'received':False,'cleanup':'No message sent','whole_workflow_verified':False}
@@ -156,7 +157,7 @@ jobs:
                   return page.locator('[aria-label="'+name+'"][role="button"], [aria-label="'+name+'"] [role="button"]')
               def visit(path):page.goto(portal+path+'?locale='+locale+'&enable-semantics=true',wait_until='domcontentloaded',timeout=60000)
               def ui_login(secret):
-                  visit('/login');el('login-email').fill(recipient);el('login-password').fill(secret)
+                  visit('/login');fill_flutter_field(page,el('login-email'),recipient);fill_flutter_field(page,el('login-password'),secret)
                   with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/login') and r.request.method=='POST',timeout=30000) as response:
                       el('login-submit').click()
                   must(response.value.status==200,'Deployed browser credential login '+locale)
@@ -166,7 +167,7 @@ jobs:
                   page.wait_for_function("(value)=>JSON.parse(localStorage.getItem('flutter.auth_token'))===value",arg=issued,timeout=30000)
                   return issued
               old_token=ui_login(password)
-              visit('/forgot-password');el('recovery-email').fill(recipient);report['password_resets_requested']=True
+              visit('/forgot-password');fill_flutter_field(page,el('recovery-email'),recipient);report['password_resets_requested']=True
               with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/forgot-password') and r.request.method=='POST',timeout=30000) as pending:
                   el('recovery-submit').click()
               status=pending.value.status;response=pending.value.json()
@@ -219,8 +220,8 @@ jobs:
                   time.sleep(5)
               assert owned_key,'Owned receiving Worker did not record the correlated email within 120 seconds'
               must(bool(received_code),'Recovery email received and code hash matches database')
-              el('recovery-reset-link').click();el('recovery-email').fill(recipient)
-              el('recovery-code').fill(received_code);el('recovery-password').fill(new_password);el('recovery-confirm').fill(new_password)
+              el('recovery-reset-link').click();fill_flutter_field(page,el('recovery-email'),recipient)
+              fill_flutter_field(page,el('recovery-code'),received_code);fill_flutter_field(page,el('recovery-password'),new_password);fill_flutter_field(page,el('recovery-confirm'),new_password)
               with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/reset-password') and r.request.method=='POST',timeout=30000) as pending:
                   el('recovery-submit').click()
               reset=pending.value.json()
