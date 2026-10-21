@@ -27,7 +27,7 @@ class MfaController extends Notifier<MfaState> {
     return prompt.future;
   }
   void onCodeChanged(String value) {
-    if (state.isLoading) return;
+    if (!state.pending || state.isLoading) return;
     state = MfaState(code: value, challenge: state.challenge);
   }
   Future<void> verify() async {

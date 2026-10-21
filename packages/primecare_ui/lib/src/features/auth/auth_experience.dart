@@ -246,7 +246,10 @@ class _PrimeAuthTextFieldState extends State<PrimeAuthTextField> {
   @override
   void didUpdateWidget(covariant PrimeAuthTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.initialValue != widget.initialValue &&
+    // A submit can clear controlled state before the next frame, so the
+    // previous widget value may already equal the reset value. Reconcile the
+    // displayed text itself; fields without a supplied value stay uncontrolled.
+    if ((widget.initialValue != null || oldWidget.initialValue != null) &&
         _controller.text != (widget.initialValue ?? '')) {
       _controller.text = widget.initialValue ?? '';
       revealed = false;

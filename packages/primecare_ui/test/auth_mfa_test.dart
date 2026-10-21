@@ -23,11 +23,25 @@ void main() {
       final field=find.byType(TextFormField);expect(field,findsOneWidget);
       await tester.enterText(field,'123456');await controller.verify();await tester.pumpAndSettle();
       expect(submitted,'123456');expect(container.read(mfaControllerProvider).code,'');expect(container.read(mfaControllerProvider).failed,true);
+      // No intermediate pump: a fast failure must clear the rendered digits
+      // even when the old/new widget initialValue are both empty.
+      expect(tester.widget<TextFormField>(field).controller!.text, isEmpty);
       expect(find.text(nativeMfaText[language]!['error']!),findsOneWidget);
+      await tester.enterText(field, '12');
+      await controller.verify();await tester.pumpAndSettle();
+      expect(tester.widget<TextFormField>(field).controller!.text, isEmpty);
+      expect(submitted, '123456');
       controller.cancel();await pending;await tester.pumpAndSettle();
       expect(container.read(mfaControllerProvider).challenge,isNull);expect(find.byType(TextFormField),findsNothing);
     });
   }
+  test('codes outside an active challenge are ignored', () {
+    final container=ProviderContainer();addTearDown(container.dispose);
+    final controller=container.read(mfaControllerProvider.notifier);
+    controller.onCodeChanged('123456');
+    expect(container.read(mfaControllerProvider).code, isEmpty);
+    expect(container.read(mfaControllerProvider).pending, isFalse);
+  });
   testWidgets('enrolled challenge never displays setup key and confirmation clears transient state', (tester) async {
     final container=ProviderContainer(overrides:[authProvider.overrideWith(GuestAuth.new)]);addTearDown(container.dispose);
     final controller=container.read(mfaControllerProvider.notifier);
