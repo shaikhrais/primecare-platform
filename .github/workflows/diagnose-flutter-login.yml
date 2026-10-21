@@ -2,7 +2,7 @@ name: Diagnose deployed Flutter login dispatch
 on:
   push:
     branches: [main]
-    paths: [.github/workflows/diagnose-flutter-login.yml, tools/deployment/diagnose_flutter_login.py]
+    paths: [.github/workflows/diagnose-flutter-login.yml, tools/deployment/diagnose_flutter_login.py, tools/deployment/flutter_browser.py]
   workflow_dispatch:
 permissions:
   contents: read

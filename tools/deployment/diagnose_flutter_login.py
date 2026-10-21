@@ -1,4 +1,8 @@
 """Probe the existing login UI with a unique, deliberately nonexistent account."""
+import os
+import sys
+sys.path.insert(0,os.getcwd())
+from tools.deployment.flutter_browser import fill_flutter_field
 import json
 import secrets
 import uuid
@@ -25,8 +29,8 @@ with sync_playwright() as p:
         page.goto('https://primecare-clinic.pages.dev/login?enable-semantics=true', wait_until='domcontentloaded')
         field_email = page.get_by_role('textbox', name=__import__('re').compile(r'^login-email\b'))
         field_password = page.get_by_role('textbox', name=__import__('re').compile(r'^login-password\b'))
-        field_email.fill(email)
-        field_password.fill(password)
+        fill_flutter_field(page, field_email, email)
+        fill_flutter_field(page, field_password, password)
         report['input_lengths'] = [len(field_email.input_value()), len(field_password.input_value())]
         report['button_semantics'] = page.locator('[role="button"]').evaluate_all('(els)=>els.map(e=>({label:e.getAttribute("aria-label"),text:e.textContent,disabled:e.getAttribute("aria-disabled")}))')
         submit = page.locator('[aria-label="login-submit"][role="button"], [aria-label="login-submit"] [role="button"]')
