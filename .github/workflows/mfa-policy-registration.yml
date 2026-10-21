@@ -1,0 +1,39 @@
+name: Register pending MFA security contract
+on:
+  push:
+    branches: [main]
+    paths: ['tools/governance-production/mfa-registration.json', 'tools/governance-production/mfa_registration.py', '.github/workflows/mfa-policy-registration.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mfa-policy-registration
+  cancel-in-progress: false
+jobs:
+  register:
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/mfa-register --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/mfa-register/node_modules node_modules
+          node --test scripts/test-code-admin-totp.mjs scripts/test-code-admin-mfa-secret.mjs
+      - name: Rollback and idempotence proof before metadata registration
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_MFA_POLICY_WRITES: '1'
+        run: python tools/governance-production/mfa_registration.py --dry-run
+      - name: Register pending requirements without account or permission changes
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_MFA_POLICY_WRITES: '1'
+        run: python tools/governance-production/mfa_registration.py --apply

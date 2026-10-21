@@ -1,0 +1,18 @@
+{
+  "id": "mfa-auth-policy-v1",
+  "requirement": "User requested complete auth verification and Code Admin activation with MFA; register the incomplete MFA contract before implementation.",
+  "status": "registered-unimplemented",
+  "routeRegistryId": 5,
+  "route": "/mfa",
+  "requiredRoles": ["code_admin"],
+  "factor": {"type": "totp", "algorithm": "SHA-1", "digits": 6, "periodSeconds": 30, "seedBytes": 20, "acceptedCounters": [0, -1]},
+  "challenge": {"tokenBytes": 32, "hashAtRest": "SHA-256", "expiresSeconds": 300, "maxFailedAttempts": 5, "purposeBound": true, "credentialVersionBound": true, "tenantAndUserBound": true, "fullSessionBeforeVerification": false},
+  "seedStorage": {"algorithm": "AES-256-GCM", "nonceBytes": 12, "tagBits": 128, "context": ["purpose", "version", "tenantId", "userId", "keyId"], "plaintextStorage": false, "dedicatedServerKeyRequired": true},
+  "enrollment": {"requiresFreshPassword": true, "requiresAuthenticatorConfirmation": true, "seedDisplayedOnlyDuringSetup": true, "replacementRequiresExistingFactor": true, "pendingEnrollmentGrantsAccess": false},
+  "verification": {"atomicCounterConsumption": true, "atomicChallengeConsumptionAndSessionIssue": true, "revalidateActiveUserAndPasswordVersion": true, "futureCodesAccepted": false, "concurrentReplayAccepted": false},
+  "recovery": {"passwordRecoveryDisablesMfa": false, "administratorResetWithoutEvidence": false, "lostFactorDisposition": "deny-access-until-separately-governed-recovery", "recoveryCodesImplemented": false},
+  "auditActions": ["mfa_enrollment_started", "mfa_enrolled", "mfa_verification_failed", "mfa_verified"],
+  "requiredAcceptance": ["fresh-password-setup", "invalid-and-expired-challenge", "attempt-limit", "wrong-and-expired-code", "concurrent-replay", "tampered-seed", "cross-user-and-tenant-denial", "password-status-change-during-challenge", "audit-failure-rolls-back", "no-session-before-factor", "all-EN-FR-ES-browser-API-database-reload", "secret-redaction", "synthetic-cleanup"],
+  "approvals": {"architecture": "pending", "database": "pending", "security": "pending", "accessibility": "pending", "localization": "pending"},
+  "activationApproved": false
+}

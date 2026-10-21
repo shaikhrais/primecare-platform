@@ -249,5 +249,17 @@
     ],
     "schemaChanges": false,
     "accountAssignments": false
+  },
+  "mfaPolicyWriter": {
+    "optInVariable": "GOVERNANCE_MFA_POLICY_WRITES",
+    "tables": [
+      "platform_hierarchy_policy"
+    ],
+    "policyId": "mfa-auth-policy-v1",
+    "definitionSha256": "24fedad34ff5878e940ad6ba06e22c018204c644bc2772346e7055129afad027",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "activation": false
   }
 }
