@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/src/features/auth/auth_experience.dart';
+import 'package:primecare_ui/src/features/auth/auth_navigation.dart';
 
 class GuestAuth extends AuthNotifier {
   @override
@@ -57,6 +58,25 @@ void main() {
 
   }
 
+  test('auth navigation preserves only safe destination and requested semantics', () {
+    for (final page in ['/login', '/forgot-password', '/reset-password']) {
+      final uri = Uri.parse(authPageLocation(Uri.parse('/login?returnUrl=%2Fappointments&enable-semantics=true'), page));
+      expect(uri.path, page);
+      expect(uri.queryParameters['returnUrl'], '/appointments');
+      expect(uri.queryParameters['enable-semantics'], 'true');
+      final nested = Uri.parse(authPageLocation(Uri(path: '/login', queryParameters: {
+        'returnUrl': '/?enable-semantics=true',
+      }), page));
+      expect(nested.queryParameters['enable-semantics'], 'true');
+      final unsafe = Uri.parse(authPageLocation(Uri(path: '/login', queryParameters: {
+        'returnUrl': 'https://foreign.example/', 'unrelated': 'secret',
+      }), page));
+      expect(unsafe.queryParameters.containsKey('returnUrl'), isFalse);
+      expect(unsafe.queryParameters.containsKey('unrelated'), isFalse);
+      expect(unsafe.queryParameters.containsKey('enable-semantics'), isFalse);
+    }
+  });
+
   testWidgets('password visibility is explicit and reversible', (tester) async {
     await tester.pumpWidget(localized(Scaffold(body: PrimeAuthTextField(
       id: 'password-test', label: 'Password', password: true, onChanged: (_) {},
@@ -85,6 +105,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(router.routeInformationProvider.value.uri.path, '/forgot-password');
     expect(router.routeInformationProvider.value.uri.queryParameters['returnUrl'], '/appointments');
+    expect(router.routeInformationProvider.value.uri.queryParameters['enable-semantics'], 'true');
     expect(find.text('Recovery destination'), findsOneWidget);
   });
 

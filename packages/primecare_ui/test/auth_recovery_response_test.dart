@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,12 +11,30 @@ class RecoveryApi extends Fake implements ApiClient {
   dynamic payload;
   int status = 200;
   bool offline = false;
+  Completer<ApiResponse>? pending;
   final requests = <Map<String, dynamic>>[];
   @override
   Future<ApiResponse> post(String path, {dynamic body, Map<String, String>? headers}) async {
     requests.add({'path': path, 'body': body});
     if (offline) throw StateError('fixture transport failure');
+    if (pending != null) return pending!.future;
     return ApiResponse(statusCode: status, data: payload);
+  }
+}
+
+class RecoveryAuth extends AuthNotifier {
+  int logoutCalls = 0;
+  @override
+  AuthState build() => AuthState(isInitialized: true, isAuthenticated: true,
+      token: 'fixture-token', userId: 'fixture-user', role: 'rmt');
+  void replaceSession() {
+    state = AuthState(isInitialized: true, isAuthenticated: true,
+        token: 'replacement-token', userId: 'replacement-user', role: 'rmt');
+  }
+  @override
+  Future<void> logout() async {
+    logoutCalls++;
+    state = AuthState(isInitialized: true);
   }
 }
 
@@ -25,14 +44,48 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     await EasyLocalization.ensureInitialized();
   });
+  testWidgets('confirmed reset preserves a newer browser session', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final api = RecoveryApi()..pending = Completer<ApiResponse>();
+    final auth = RecoveryAuth();
+    await tester.pumpWidget(ProviderScope(overrides: [
+      apiClientProvider.overrideWithValue(api), authProvider.overrideWith(() => auth),
+    ], child: localized(const Scaffold(body: SingleChildScrollView(
+      child: PasswordRecoveryForm(reset: true),
+    )))));
+    await tester.pumpAndSettle();
+    final fields = find.byType(TextField);
+    for (final entry in <int, String>{0: 'qa@example.test', 1: 'ABCDEF123456',
+      2: 'fixture-password-123', 3: 'fixture-password-123'}.entries) {
+      await tester.enterText(fields.at(entry.key), entry.value);
+    }
+    await tester.ensureVisible(find.byType(FilledButton));
+    await tester.tap(find.byType(FilledButton));
+    await tester.pump();
+    expect(api.requests.length, 1);
+    auth.replaceSession();
+    api.pending!.complete(ApiResponse(statusCode: 200, data: {
+      'status': 'password_reset', 'reauthenticationRequired': true,
+    }));
+    await tester.pumpAndSettle();
+    expect(auth.logoutCalls, 0);
+    final current = ProviderScope.containerOf(tester.element(find.byType(PasswordRecoveryForm))).read(authProvider);
+    expect(current.token, 'replacement-token');
+    expect(current.userId, 'replacement-user');
+    expect(tester.widget<TextField>(fields.at(2)).controller!.text, isEmpty);
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+
   for (final language in ['en', 'fr', 'es']) {
     for (final reset in [false, true]) {
       testWidgets('recovery reset=$reset validates response and retries in $language', (tester) async {
         SharedPreferences.setMockInitialValues({});
         final api = RecoveryApi();
+        final auth = RecoveryAuth();
         final text = passwordRecoveryScreenCatalog[language]!;
         await tester.pumpWidget(ProviderScope(overrides: [
           apiClientProvider.overrideWithValue(api),
+          authProvider.overrideWith(() => auth),
         ], child: localized(Scaffold(body: SingleChildScrollView(
           child: PasswordRecoveryForm(reset: reset),
         )), language: language)));
@@ -62,6 +115,7 @@ void main() {
           api.payload = payload;
           await submit();
           expect(find.text(success), findsNothing);
+          expect(auth.logoutCalls, 0);
           expect(find.text(text['request_failed']!), findsOneWidget);
           if (reset) expect(tester.widget<TextField>(fields.at(2)).controller!.text, 'fixture-password-123');
         }
@@ -78,6 +132,8 @@ void main() {
         api.status = 200;
         await submit();
         expect(find.text(success), findsOneWidget);
+        expect(auth.logoutCalls, reset ? 1 : 0);
+        expect(ProviderScope.containerOf(tester.element(find.byType(PasswordRecoveryForm))).read(authProvider).isAuthenticated, !reset);
         expect(api.requests.last['path'], ApiConfig.endpoints[reset ? 'resetPassword' : 'forgotPassword']);
         final body = api.requests.last['body'] as Map<String, dynamic>;
         expect(body['email'], 'qa@example.test');

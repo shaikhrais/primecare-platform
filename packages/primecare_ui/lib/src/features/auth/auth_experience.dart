@@ -3,6 +3,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'auth_design_tokens.dart';
 import 'password_recovery_form.dart';
+import 'auth_navigation.dart';
 import '../../localization/auth_screen_text.dart';
 
 enum AuthPage { login, signup, forgot, reset, mfa, language, consent, success, error }
@@ -15,10 +16,7 @@ class PrimeAuthExperience extends ConsumerWidget {
   const PrimeAuthExperience({super.key, required this.page});
 
   void _go(BuildContext context, String path) {
-    final target = validateAppReturnUrl(GoRouterState.of(context).uri.queryParameters['returnUrl']);
-    context.go(Uri(path: path, queryParameters: {
-      if (target != null) 'returnUrl': target,
-    }).toString());
+    context.go(authPageLocation(GoRouterState.of(context).uri, path));
   }
 
   @override
