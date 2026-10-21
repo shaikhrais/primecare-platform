@@ -298,8 +298,9 @@ class AuthNotifier extends Notifier<AuthState> {
           final challenge = Map<String, dynamic>.unmodifiable(payload);
           Map<String, dynamic>? verified;
           var verifying = false;
+          var promptOpen = true;
           try { await completeMfa(challenge, (code) async {
-            if (!_isCurrent(revision) || verifying || verified != null || !RegExp(r'^[0-9]{6}$').hasMatch(code)) return false;
+            if (!promptOpen || !_isCurrent(revision) || verifying || verified != null || !RegExp(r'^[0-9]{6}$').hasMatch(code)) return false;
             verifying = true;
             String? provisional;
             try {
@@ -308,10 +309,10 @@ class AuthNotifier extends Notifier<AuthState> {
               if (factor.statusCode != 200 || data is! Map<String, dynamic> || data['status'] != 'authenticated' ||
                   data['token'] is! String || !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(data['token'] as String)) return false;
               provisional = data['token'] as String;
-              if (!_isCurrent(revision) || data['role'] != 'code_admin' || data['userId'] is! String || (data['userId'] as String).trim().isEmpty) return false;
+              if (!promptOpen || !_isCurrent(revision) || data['role'] != 'code_admin' || data['userId'] is! String || (data['userId'] as String).trim().isEmpty) return false;
               final confirmation = await apiClient.confirmSession(provisional);
               final identity = confirmation.data;
-              if (!_isCurrent(revision) || !confirmation.isSuccess || identity is! Map<String, dynamic> ||
+              if (!promptOpen || !_isCurrent(revision) || !confirmation.isSuccess || identity is! Map<String, dynamic> ||
                   identity['status'] != 'authenticated' || identity['roles'] != data['role'] || identity['userId'] != data['userId']) return false;
               verified = Map<String, dynamic>.unmodifiable(data);
               return true;
@@ -326,6 +327,10 @@ class AuthNotifier extends Notifier<AuthState> {
             final issued = verified?['token'];
             if (issued is String) { try { await apiClient.revokeSession(issued); } catch (_) {} }
             rethrow;
+          } finally {
+            // Disposal/cancellation may close the prompt with a request still
+            // in flight. Its callback must not retain a late server session.
+            promptOpen = false;
           }
           if (verified == null) return false;
           payload = verified;

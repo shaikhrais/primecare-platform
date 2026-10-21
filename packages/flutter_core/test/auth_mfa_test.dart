@@ -18,6 +18,7 @@ class MfaApi extends Fake implements ApiClient {
   int factorStatus = 200;
   bool identityMatches = true;
   Completer<ApiResponse>? identity;
+  Completer<ApiResponse>? factor;
   @override
   Future<ApiResponse> post(String path, {dynamic body, Map<String, String>? headers}) async {
     calls.add(path);
@@ -26,6 +27,7 @@ class MfaApi extends Fake implements ApiClient {
     });
     expect(path, '/v1/auth/mfa');
     expect(body, {'challenge': challenge, 'code': '123456'});
+    if (factor != null) return factor!.future;
     return ApiResponse(statusCode: factorStatus, data: {'status':'authenticated', 'token':token, 'role':'code_admin', 'userId':'owner'});
   }
   @override
@@ -73,6 +75,39 @@ void main() {
       api.factorStatus=200;expect(await verify('123456'),true);
     }),true);
   });
+  test('closed prompt invalidates a captured verifier without making a factor request', () async {
+    final api=MfaApi();final c=fixture(api);addTearDown(c.dispose);
+    late Future<bool> Function(String) captured;
+    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {captured=verify;}),false);
+    expect(await captured('123456'),false);
+    expect(api.calls, ['/v1/auth/login']);
+    expect(api.revoked,isEmpty);
+    expect(c.read(authProvider).isAuthenticated,false);
+    expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
+  });
+  for (final closingDuringConfirmation in [false,true]) {
+    test('prompt closure revokes a late ${closingDuringConfirmation ? "confirmation" : "factor"} response', () async {
+      final api=MfaApi();final c=fixture(api);addTearDown(c.dispose);
+      final response=Completer<ApiResponse>();
+      if (closingDuringConfirmation) {api.identity=response;} else {api.factor=response;}
+      late Future<bool> verification;
+      expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {
+        verification=verify('123456');
+        final waitingFor=closingDuringConfirmation ? 'confirm' : '/v1/auth/mfa';
+        while (!api.calls.contains(waitingFor)) {await Future<void>.delayed(Duration.zero);}
+        // Model prompt disposal without logout or a replacement login.
+      }),false);
+      response.complete(ApiResponse(statusCode:200,data:closingDuringConfirmation
+        ? {'status':'authenticated','roles':'code_admin','userId':'owner'}
+        : {'status':'authenticated','token':api.token,'role':'code_admin','userId':'owner'}));
+      expect(await verification,false);
+      expect(api.revoked,[api.token]);
+      expect(c.read(authProvider).isAuthenticated,false);
+      expect(c.read(authProvider).token,isNull);
+      expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
+      if (!closingDuringConfirmation) expect(api.calls, isNot(contains('confirm')));
+    });
+  }
   test('identity mismatch revokes provisional MFA session', () async {
     final api=MfaApi()..identityMatches=false;final c=fixture(api);addTearDown(c.dispose);
     expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async { expect(await verify('123456'),false); }),false);
