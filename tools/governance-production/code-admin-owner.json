@@ -1,0 +1,9 @@
+{
+  "id": "code-admin-owner-v1",
+  "roleCode": "code_admin",
+  "emailSha256": "c70d1e3e18dd9d2fa17c3224bce4dd628a22a68fd60516b15928503d7371a1d1",
+  "approvalSource": "User explicitly selected the first Code Admin email on 2026-10-21.",
+  "accountCreation": "protected-bootstrap",
+  "existingAccountDisposition": "preserve-until-protected-migration",
+  "verificationStatus": "owner-bound-not-activated"
+}

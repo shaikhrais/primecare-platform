@@ -214,5 +214,16 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "accountAssignments": false
+  },
+  "codeAdminOwnerWriter": {
+    "optInVariable": "GOVERNANCE_CODE_ADMIN_OWNER",
+    "tables": [
+      "platform_hierarchy_policy"
+    ],
+    "policyId": "code-admin-owner-v1",
+    "definitionSha256": "7713a260f45ad201ffbe733b7d16dbdd87f6d17f5018d21886d8252f36bb3e28",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "accountAssignments": false
   }
 }

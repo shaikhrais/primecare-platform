@@ -1,0 +1,63 @@
+name: Bind approved Code Admin owner
+on:
+  push:
+    branches: [main]
+    paths: ['tools/governance-production/code-admin-owner.json', 'tools/governance-production/code_admin_owner.py', 'scripts/code-admin-owner.mjs', '.github/workflows/code-admin-owner.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: code-admin-owner-binding
+  cancel-in-progress: false
+jobs:
+  bind:
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          npm install --prefix /tmp/code-owner --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/code-owner/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+          node --test scripts/test-code-admin-owner.mjs
+      - name: Validate owner binding in a rolled-back production transaction
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_CODE_ADMIN_OWNER: '1'
+        run: python tools/governance-production/code_admin_owner.py --dry-run
+      - name: Save approved identity without changing users or credentials
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_CODE_ADMIN_OWNER: '1'
+        run: python tools/governance-production/code_admin_owner.py --apply
+      - name: Inspect exact owner account and protected activation prerequisites
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          BOOTSTRAP_CODE_ADMIN_EMAIL: ${{ secrets.BOOTSTRAP_CODE_ADMIN_EMAIL }}
+          BOOTSTRAP_CODE_ADMIN_PASSWORD: ${{ secrets.BOOTSTRAP_CODE_ADMIN_PASSWORD }}
+          BOOTSTRAP_TENANT_ID: ${{ secrets.BOOTSTRAP_TENANT_ID }}
+        run: |
+          node --input-type=module <<'JS'
+          import pg from 'pg';
+          import {owner,validateCodeAdminOwner,verifyCodeAdminOwnerRegistration} from './scripts/code-admin-owner.mjs';
+          const db=new pg.Client({connectionString:process.env.PRODUCTION_DATABASE_URL,ssl:{rejectUnauthorized:true}});
+          await db.connect();
+          try {
+           await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
+           await verifyCodeAdminOwnerRegistration(db);
+           const accounts=await db.query("SELECT roles,status FROM users WHERE encode(sha256(convert_to(LOWER(email),'UTF8')),'hex')=$1 LIMIT 2",[owner.emailSha256]);
+           if(accounts.rows.length>1)throw Error('Ambiguous approved owner account');
+           const root=await db.query("SELECT 1 FROM tenants WHERE id::text=$1 AND LOWER(status)='active'",[process.env.BOOTSTRAP_TENANT_ID||'']);
+           let emailConfigured=false;try{validateCodeAdminOwner(process.env.BOOTSTRAP_CODE_ADMIN_EMAIL);emailConfigured=true;}catch{}
+           const report={ownerBound:true,existingAccount:accounts.rows.length===1,alreadyCodeAdmin:accounts.rows[0]?.roles==='code_admin',existingAccountPreserved:true,emailSecretMatchesOwner:emailConfigured,passwordSecretConfigured:!!process.env.BOOTSTRAP_CODE_ADMIN_PASSWORD,rootTenantConfigured:root.rows.length===1,activatedByThisRun:false,mfaSetupStillRequired:true};
+           console.log('CODE_ADMIN_OWNER_PREFLIGHT '+JSON.stringify(report));
+           await db.query('ROLLBACK');
+          }finally{await db.end();}
+          JS
