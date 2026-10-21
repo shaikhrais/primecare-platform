@@ -1,4 +1,5 @@
 name: Inspect current production auth acceptance
+# Refresh the pinned read-only snapshot after source-bound Flutter recovery repair.
 on:
   push:
     branches: [main]
