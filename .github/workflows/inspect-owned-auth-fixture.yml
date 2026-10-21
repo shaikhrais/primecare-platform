@@ -1,0 +1,31 @@
+name: Inspect owned auth test fixture collision
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/inspect-owned-auth-fixture.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install psycopg[binary]==3.2.13
+      - name: Read only metadata for the exact owned test address
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        shell: python
+        run: |
+          import os,json,psycopg
+          with psycopg.connect(os.environ['PRODUCTION_DATABASE_URL']) as db:
+            db.execute('BEGIN READ ONLY')
+            rows=db.execute("SELECT u.id::text,u.roles,u.status,u.tenant_id::text,t.name,t.slug FROM users u LEFT JOIN tenants t ON t.id=u.tenant_id WHERE LOWER(u.email)='auth-test@15minutes-email.com'").fetchall()
+            print('OWNED_TEST_COLLISION '+json.dumps(rows))
+            for r in rows:
+              users=db.execute('SELECT id::text,email,roles,status FROM users WHERE tenant_id::text=%s ORDER BY email',(r[3],)).fetchall()
+              print('FIXTURE_TENANT_MEMBERS '+json.dumps(users))
+            db.rollback()
