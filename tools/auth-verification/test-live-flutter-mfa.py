@@ -64,6 +64,7 @@ def main():
     db = psycopg.connect(os.environ['PRODUCTION_DATABASE_URL'], autocommit=True, connect_timeout=15)
     catalog = Path('packages/primecare_ui/lib/src/localization/auth_screen_text_generated.dart').read_text()
     catalog = catalog.split('const authScreenCatalog =', 1)[1].split(';', 1)[0].strip()
+    catalog = catalog[catalog.index('{'):]
     labels = json.loads(re.sub(r',\s*([}\]])', r'\1', catalog))
     try:
         with sync_playwright() as pw:
