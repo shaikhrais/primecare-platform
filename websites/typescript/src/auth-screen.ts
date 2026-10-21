@@ -1,5 +1,6 @@
 import adminEntryRoutes from '../../../packages/shared/src/admin-entry-routes.json';
-import {authenticate,revokeProvisionalSession} from './auth-client';
+import {requestMfa} from './auth-mfa';
+import {authenticate,revokeProvisionalSession,verifyMfa} from './auth-client';
 import {liveScreenText} from './screen-text';
 import recovery from '../../../packages/shared/src/auth-recovery.json';
 import {EntryMediaLook,applyMediaTokens} from './media-look';
@@ -49,7 +50,7 @@ export function renderAuth(root: HTMLElement, gateway: string, portalName: strin
     const fields = new FormData(form);
     let provisionalToken: string | null = null;
     try {
-      const confirmed = await authenticate(gateway, String(fields.get('email') || ''), String(fields.get('password') || ''));
+      const confirmed = await authenticate(gateway, String(fields.get('email') || ''), String(fields.get('password') || ''),fetch,async challenge=>{form.reset();form.hidden=true;try{return await requestMfa(form.parentElement!,challenge,locale,code=>verifyMfa(gateway,challenge.challenge,code));}finally{form.hidden=false;}});
       provisionalToken = confirmed.token;
       const claims = confirmed.identity;
       sessionStorage.setItem('primecare_session', provisionalToken);

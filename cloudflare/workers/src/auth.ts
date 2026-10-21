@@ -1,3 +1,4 @@
+import {beginMfa,finishMfa} from './security/mfa.mjs';
 import {invalidateSessionToken} from './auth-invalidation';
 import {confirmedAudit} from './audit-confirmation';
 import {optionalRow,requiredRow,resultRows} from './database-results';
@@ -18,7 +19,7 @@ import {parseAccountAdminRequest,accountAdministration} from './account-admin';
 import {changePassword,validatePasswordChange} from './password-change';
 
 export interface Env extends SourceLimitEnv, MaintenanceEnv {
-  DB_URL: string; SERVICE_NAME: string;
+  DB_URL: string; SERVICE_NAME: string; MFA_ENCRYPTION_KEY?: string;
   WORKSPACE_SOURCE_LIMIT?: {limit(options:{key:string}):Promise<{success:boolean}>};
 }
 type Json = Record<string, unknown>;
@@ -301,6 +302,11 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
       }
     });
   }
+  if(path==='/mfa') {
+    if(request.method!=='POST')return json({error:'Method not allowed'},405,{...headers,allow:'POST'});
+    let body:Json;try{body=await parseBody(request);}catch(error){return bodyFailure(error,'Invalid MFA request',headers);}
+    return withDb(env,async db=>{const result=await finishMfa(db,env,body);return json(result.body,result.status,result.body.token?{...headers,'set-cookie':`session_token=${result.body.token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=43200`}:headers);});
+  }
   if (request.method === 'POST' && path === '/login') {
     let body: Json;
     try { body = await parseBody(request); } catch(error) { return bodyFailure(error,'Invalid request',headers); }
@@ -315,12 +321,13 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
       if (retryAfter !== null) return json({error:'Too many login attempts'},429,
         {...headers,'retry-after':String(retryAfter)});
       const result = await db.query(
-        'SELECT id, roles, password_hash, status FROM users WHERE LOWER(email) = $1 LIMIT 2', [email]);
+        'SELECT id, roles, password_hash, status, tenant_id FROM users WHERE LOWER(email) = $1 LIMIT 2', [email]);
       const user = result.rows[0];
-      if (result.rows.length !== 1 || !user || (typeof user.status !== 'string' || user.status.toLowerCase() !== 'active') ||
+      if (result.rows.length !== 1 || !user || (typeof user.status !== 'string' || !(user.status.toLowerCase()==='active'||user.roles==='code_admin'&&user.status==='mfa_pending')) ||
           typeof user.password_hash !== 'string' || !await bcrypt.compare(password, user.password_hash)) {
         return json({ error: 'Invalid credentials' }, 401, headers);
       }
+      if(user.roles==='code_admin'){const result=await beginMfa(db,env,user);return json(result.body,result.status,headers);}
       const identity = authIdentity(user);
       const token = newToken();
       // Revalidate the checked credential while locking the user until the insert

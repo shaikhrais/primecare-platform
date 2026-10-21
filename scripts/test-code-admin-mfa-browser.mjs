@@ -1,0 +1,34 @@
+import {PGlite} from '@electric-sql/pglite';
+import {build} from 'esbuild';
+import {chromium} from 'playwright';
+import {createServer} from 'node:http';
+import {readFile,mkdir,writeFile,cp,mkdtemp} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import bcrypt from 'bcryptjs';
+import assert from 'node:assert/strict';
+import {openMfaSeed} from '../cloudflare/workers/src/security/mfa-secret.mjs';
+import {totpAt} from '../cloudflare/workers/src/security/totp.mjs';
+const db=new PGlite();globalThis.__mfaBrowserDb=db;
+await db.exec('CREATE TABLE users(id text PRIMARY KEY,email text,tenant_id text,roles text,status text,password_hash text,updated_at timestamptz DEFAULT NOW());CREATE TABLE auth_sessions(token_hash text PRIMARY KEY,user_id text,expires_at timestamptz);');
+for(const file of ['20260928_auth_rate_limits.sql','20261025_auth_mfa.sql'])await db.exec(await readFile('packages/database/migrations/'+file,'utf8'));
+const worker=await build({entryPoints:['cloudflare/workers/src/auth.ts'],bundle:true,platform:'node',format:'esm',write:false,plugins:[{name:'native-local-db',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'local'}));b.onLoad({filter:/.*/,namespace:'local'},()=>({contents:'export class Client {async connect(){} async end(){} query(...args){return globalThis.__mfaBrowserDb.query(...args)}}'}));}}]});
+const {auth}=await import('data:text/javascript;base64,'+Buffer.from(worker.outputFiles[0].text).toString('base64'));
+const site=await mkdtemp(join(tmpdir(),'mfa-browser-'));await mkdir(join(site,'assets'),{recursive:true});await cp('websites/typescript/public/assets/media',join(site,'assets/media'),{recursive:true});
+const bundle=await build({stdin:{contents:"import {renderAuth} from './websites/typescript/src/auth-screen';const locale=new URLSearchParams(location.search).get('locale')||'en';document.documentElement.lang=locale;if(location.pathname==='/login')renderAuth(document.getElementById('app'),location.origin,'PrimeCare',locale);else (async()=>{const response=await fetch(location.origin+'/v1/auth/me',{headers:{authorization:'Bearer '+sessionStorage.getItem('primecare_session')}});if(!response.ok)location.assign('/login?enable-semantics=true');else document.getElementById('app').innerHTML='<p data-cy=authenticated>Authenticated</p>';})();",resolveDir:process.cwd()},bundle:true,write:false});
+await writeFile(join(site,'app.js'),bundle.outputFiles[0].text);await writeFile(join(site,'app.css'),await readFile('websites/typescript/src/styles.css'));const env={DB_URL:'synthetic',SERVICE_NAME:'auth',MFA_ENCRYPTION_KEY:'a1'.repeat(32)};
+let origin;
+const server=createServer(async(req,res)=>{try{const url=new URL(req.url,origin);if(url.pathname.startsWith('/v1/auth/')){let body='';for await(const part of req)body+=part;const response=await auth(new Request(url,{method:req.method,headers:req.headers,...(body?{body}:{})}),env,url.pathname.replace('/v1/auth',''),{});res.writeHead(response?.status??404,Object.fromEntries(response?.headers??[]));res.end(response?Buffer.from(await response.arrayBuffer()):'');return;}
+const file=url.pathname==='/app.js'?'app.js':url.pathname==='/app.css'?'app.css':url.pathname.startsWith('/assets/')?url.pathname.slice(1):null;if(file){res.setHeader('content-type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':'image/svg+xml');res.end(await readFile(join(site,file)));}else{res.setHeader('content-type','text/html');res.end('<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/app.css"></head><body><main id="app"></main><script src="/app.js"></script></body></html>');}}catch{res.writeHead(500);res.end('Synthetic test server failure');}});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));origin='http://127.0.0.1:'+server.address().port;
+const browser=await chromium.launch();const results=[];await mkdir('test-results/mfa-browser',{recursive:true});
+try{for(const [locale,width] of [['en',320],['fr',768],['es',1440]]){
+ await db.exec('TRUNCATE auth_sessions,auth_mfa_audit,auth_mfa_challenges,auth_mfa_credentials,auth_rate_limits,users');const id='synthetic-code-admin';await db.query("INSERT INTO users VALUES($1,'mfa@example.test','synthetic-root','code_admin','mfa_pending',$2,NOW())",[id,await bcrypt.hash('Synthetic-Password-2026!',4)]);
+ const context=await browser.newContext({viewport:{width,height:1000}}),page=await context.newPage(),cy=name=>page.locator('[data-cy="'+name+'"]');
+ try{
+ await page.goto(origin+'/login?locale='+locale+'&enable-semantics=true');await cy('login-email').fill('mfa@example.test');await cy('login-password').fill('Synthetic-Password-2026!');await cy('login-submit').click();await cy('mfa-form').waitFor();assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM auth_sessions')).rows[0].n,0);assert.equal(await page.evaluate(()=>sessionStorage.length),0);
+ const credential=(await db.query('SELECT envelope FROM auth_mfa_credentials')).rows[0];const seed=await openMfaSeed(credential.envelope,Uint8Array.from(env.MFA_ENCRYPTION_KEY.match(/../g),x=>parseInt(x,16)),{tenantId:'synthetic-root',userId:id,keyId:'mfa-v1'});const valid=await totpAt(seed,Math.floor(Date.now()/1000));await cy('mfa-code').fill(valid==='000000'?'000001':'000000');await cy('mfa-submit').click();await page.waitForFunction(()=>document.querySelector('[data-cy=mfa-code]').value==='');assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM auth_sessions')).rows[0].n,0);
+ await cy('mfa-code').fill(await totpAt(seed,Math.floor(Date.now()/1000)));await cy('mfa-submit').click();await cy('authenticated').waitFor();assert.ok(await page.evaluate(()=>sessionStorage.getItem('primecare_session')));assert.equal((await db.query('SELECT status FROM users')).rows[0].status,'active');assert.equal((await db.query('SELECT enabled FROM auth_mfa_credentials')).rows[0].enabled,true);assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM auth_sessions')).rows[0].n,1);await page.reload();await cy('authenticated').waitFor();await page.screenshot({path:'test-results/mfa-browser/'+locale+'-verified.png'});results.push({locale,width,enrollment:true,wrongCodeDenied:true,noPrematureSession:true,databaseConfirmed:true,reload:true});
+ }finally{await context.close();}
+}await writeFile('test-results/mfa-browser/receipt.json',JSON.stringify({synthetic:true,passed:true,results},null,2));console.log('MFA_BROWSER '+JSON.stringify(results));}
+finally{await browser.close();await new Promise(r=>server.close(r));await db.close();delete globalThis.__mfaBrowserDb;}
