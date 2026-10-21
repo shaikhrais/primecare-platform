@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/record-own-sessions-evidence.yml']
+    paths: ['.github/workflows/record-own-sessions-evidence.yml', 'scripts/session-proof-jobs.mjs', 'scripts/test-session-proof-jobs.mjs']
 permissions:
   contents: read
   actions: read
@@ -21,6 +21,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test scripts/test-session-proof-jobs.mjs
       - id: authority
         uses: actions/github-script@v7
         with:
@@ -29,9 +32,9 @@ jobs:
             const run=context.payload.workflow_run||(await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'verify-live-own-sessions.yml',branch:'main',status:'success',per_page:1})).data.workflow_runs[0];
             if(!run||run.status!=='completed'||run.conclusion!=='success'||run.path!=='.github/workflows/verify-live-own-sessions.yml'||run.head_branch!=='main')throw Error('Successful exact main own-session producer required');
             core.setOutput('producer_run',run.id);core.setOutput('producer_sha',run.head_sha);
-            const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:run.id,per_page:100});
-            if(jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').length!==3)throw Error('Three successful live browser proof jobs required');
-            const proofStarts=jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').map(j=>Date.parse(j.started_at));
+            const {confirmedSessionProofJobs}=await import(process.env.GITHUB_WORKSPACE+'/scripts/session-proof-jobs.mjs');
+            const proof=await confirmedSessionProofJobs(()=>github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:run.id,per_page:100}));
+            const proofStarts=proof.map(j=>Date.parse(j.started_at));
             if(proofStarts.some(t=>!Number.isFinite(t)))throw Error('Proof job timestamps required');
             const firstProofStarted=Math.min(...proofStarts);
             const candidates=[];
