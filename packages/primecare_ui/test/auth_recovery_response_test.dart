@@ -91,6 +91,11 @@ void main() {
         )), language: language)));
         await tester.pumpAndSettle();
         final fields = find.byType(TextField);
+        // Identifiers and recovery secrets must not be changed by keyboards.
+        for (final field in tester.widgetList<TextField>(fields)) {
+          expect(field.autocorrect, isFalse);
+          expect(field.enableSuggestions, isFalse);
+        }
         await tester.enterText(fields.first, 'QA@example.test');
         if (reset) {
           await tester.enterText(fields.at(1), 'abcdef123456');

@@ -71,7 +71,7 @@ class _PasswordRecoveryFormState extends ConsumerState<PasswordRecoveryForm> {
   Widget _field(String id, String label, TextEditingController controller, {bool secret = false, TextInputType? keyboard}) =>
       Padding(padding: const EdgeInsets.only(bottom: 16), child: Semantics(label: id, child: TextField(
         controller: controller, enabled: !_busy, obscureText: secret, keyboardType: keyboard,
-        autocorrect: !secret, enableSuggestions: !secret,
+        autocorrect: false, enableSuggestions: false,
         decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
       )));
   @override
