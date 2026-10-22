@@ -225,3 +225,9 @@ See [evidence/communication-storage-20261022.json](evidence/communication-storag
 The storage registration/migration item is now complete; current session and
 permission adapters, provider integration, shared UI and live user acceptance
 remain open.
+
+### Native session binding checkpoint
+
+`PostgresCommunicationSession` now resolves bearer credentials against current native `auth_sessions` and active `users`, returning an immutable server-derived actor and tenant. It checks expiry on every request, rejects cookie-only access and tenant overrides, and never accepts request roles. Canonical credential parsing/hashing was extracted from auth with compatibility exports preserved. The registered HTTP worker maps explicit session denials to 401/403; database failures remain unavailable.
+
+Five isolated adapter checks cover credential hashing, ambiguous/malformed identities, tenant denial and revocation on subsequent requests. These checks do not establish live deployment acceptance. Current governance grants/case/contact/mailbox policy, provider composition, gateway mounting, shared registered UI and owned-user end-to-end acceptance remain pending. No new route or permission was exposed by this checkpoint.

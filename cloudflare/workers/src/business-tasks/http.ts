@@ -1,4 +1,5 @@
 import {BaseWorker} from '../core/base-worker';
+import {CommunicationSessionError} from './session.ts';
 import type {Actor} from './store.ts';
 import type {CommunicationCore,ChannelRequests} from './channels.ts';
 import catalog from '../../../../packages/shared/src/communications/registered-contracts.json';
@@ -84,7 +85,7 @@ export class CommunicationHttpWorker<E> extends BaseWorker<E> {
   for(const name of ['Invalid members','Invalid message','Empty or invalid message','Invalid picture size','Invalid picture type','Invalid read receipt','Invalid call action','Invalid recipient','Invalid signal','Invalid candidate','Invalid description','Invalid offer','Invalid answer','Invalid address','Invalid mail body'])known[name]=400;
   for(const name of ['Already exists','Call conflict','Call not accepted','Mail already attempted','Mail state conflict','Conversation storage limit'])known[name]=409;
   known['Signal limit']=413;
-  const status=error instanceof CommunicationHttpError?error.status:error instanceof Error?known[error.message]??503:503;
+  const status=error instanceof CommunicationHttpError||error instanceof CommunicationSessionError?error.status:error instanceof Error?known[error.message]??503:503;
   const names:Record<number,string>={400:'invalid_request',401:'unauthorized',403:'forbidden',404:'not_found',409:'conflict',413:'too_large',415:'unsupported_media_type',503:'unavailable'};
   return Response.json({error:names[status]??'unavailable'},{status,headers});
  }
