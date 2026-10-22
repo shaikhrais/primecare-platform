@@ -56,3 +56,20 @@ function distinctKeys(env,fromKeyId,toKeyId) {
   const before=mfaStorageKey(env,fromKeyId),after=mfaStorageKey(env,toKeyId);
   if(before.every((value,index)=>value===after[index]))throw Error('MFA rotation requires distinct keys');
 }
+
+/** Bounded migration observation. Expired pending factors are unusable and may
+ * be purged; counts include every remaining old envelope before retirement. */
+export async function runMfaKeyRotation(db,env,fromKeyId){
+ const toKeyId=activeMfaKeyId(env);
+ const changed=await rotateMfaStorageBatch(db,env,{fromKeyId,toKeyId,limit:10});
+ const removed=await db.query(`DELETE FROM auth_mfa_replacement_challenges WHERE token_hash IN
+   (SELECT token_hash FROM auth_mfa_replacement_challenges WHERE expires_at<=clock_timestamp() ORDER BY expires_at,token_hash LIMIT 50)
+   RETURNING token_hash`);
+ if(!Array.isArray(removed.rows)||removed.rows.length>50)throw Error('Invalid expired replacement cleanup');
+ const counts=(await db.query(`SELECT
+   (SELECT COUNT(*)::int FROM auth_mfa_credentials WHERE envelope->>'keyId'=$1) AS credentials,
+   (SELECT COUNT(*)::int FROM auth_mfa_replacement_challenges WHERE pending_envelope->>'keyId'=$1) AS replacements`,[fromKeyId])).rows;
+ if(counts.length!==1||!Object.values(counts[0]).every(value=>Number.isInteger(value)&&value>=0))throw Error('Invalid MFA migration counts');
+ return {fromKeyId,toKeyId,...changed,expiredReplacementChallengesRemoved:removed.rows.length,
+   remainingOldCredentials:counts[0].credentials,remainingOldReplacementEnvelopes:counts[0].replacements};
+}

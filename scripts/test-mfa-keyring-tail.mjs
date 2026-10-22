@@ -1,0 +1,11 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {TailObjects,keyringEvidence} from '../tools/auth-verification/mfa-keyring-tail.mjs';
+const expected={source:'a'.repeat(64),activeKeyId:'mfa-v2',migrateFromKeyId:'mfa-v1'};
+const drill={source:expected.source,activeKeyId:'mfa-v2',fromKeyId:'mfa-v1',toKeyId:'mfa-v2',verified:true};
+const rotation={source:expected.source,verified:true,fromKeyId:'mfa-v1',toKeyId:'mfa-v2',rewrapped:1,expiredReplacementChallengesRemoved:0,remainingOldCredentials:0,remainingOldReplacementEnvelopes:0};
+const event=(body=drill,prefix='MFA_KEYRING_DRILL ')=>({scriptName:'primecare-auth-api',event:{cron:'*/5 * * * *'},outcome:'ok',logs:[{message:[prefix+JSON.stringify(body)]}]});
+test('chunked pretty JSON preserves escapes and concatenated scheduled objects',()=>{const actual=[],parser=new TailObjects(x=>actual.push(x));const values=[event(),{nested:{value:'a { \\" } b'}}];const input=values.map(v=>JSON.stringify(v,null,2)).join('\n');for(const ch of input)parser.push(ch);assert.deepEqual(actual,values);});
+test('proof accepts exact scheduled source and rejects stale or HTTP injected log text',()=>{assert.equal(keyringEvidence(event(),expected).length,1);for(const value of [{...event(),event:{request:{url:'https://example.invalid'}}},{...event(),scriptName:'other'},{...event(),outcome:'exception'},event({...drill,source:'b'.repeat(64)}),event({...drill,verified:false}),event({...drill,extra:'secret'}),event({...drill,activeKeyId:'mfa-v1'})])assert.deepEqual(keyringEvidence(value,expected),[]);});
+test('migration evidence is bounded exact and includes every remaining envelope',()=>{assert.deepEqual(keyringEvidence(event(rotation,'MFA_KEY_ROTATION_REPORT '),expected),[{kind:'rotation',...rotation}]);for(const body of [{...rotation,rewrapped:11},{...rotation,remainingOldCredentials:-1},{...rotation,remainingOldReplacementEnvelopes:0.5},{...rotation,toKeyId:'mfa-v1'},{...rotation,account:'secret'}])assert.deepEqual(keyringEvidence(event(body,'MFA_KEY_ROTATION_REPORT '),expected),[]);});
+test('bounded stream fails without emitting malformed or oversized raw content',()=>{assert.throws(()=>new TailObjects(()=>assert.fail()).push('{invalid}'),/Malformed/);assert.throws(()=>new TailObjects(()=>assert.fail()).push('{"x":"'+'x'.repeat(2*1024*1024)),/limit/);});

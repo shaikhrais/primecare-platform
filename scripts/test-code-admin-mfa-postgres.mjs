@@ -2,7 +2,7 @@ import {test,after} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {beginMfa,finishMfa,digest} from '../cloudflare/workers/src/security/mfa.mjs';
-import {openMfaSeed} from '../cloudflare/workers/src/security/mfa-secret.mjs';
+import {openStoredMfaSeed} from '../cloudflare/workers/src/security/mfa-keyring.mjs';
 import {totpAt} from '../cloudflare/workers/src/security/totp.mjs';
 const env={MFA_ENCRYPTION_KEY:'a1'.repeat(32)},user={id:'11111111-1111-4111-8111-111111111111',tenant_id:'22222222-2222-4222-8222-222222222222',roles:'code_admin',status:'mfa_pending',password_hash:'synthetic-password-version'};
 let db,client,schema='mfa_'+crypto.randomUUID().replaceAll('-','');
@@ -15,7 +15,7 @@ await multi(`CREATE TABLE users(id ${idType} PRIMARY KEY,tenant_id ${idType},rol
 await multi(readFileSync('packages/database/migrations/20261025_auth_mfa.sql','utf8'));
 after(async()=>{if(client){await client.query('DROP SCHEMA '+schema+' CASCADE');await client.end();}else await db.close();});
 async function reset(){await multi('TRUNCATE auth_mfa_audit,auth_mfa_challenges,auth_mfa_credentials,auth_sessions,users');await db.query('INSERT INTO users(id,tenant_id,roles,status,password_hash) VALUES($1,$2,$3,$4,$5)',Object.values(user));}
-async function code(){const r=(await db.query('SELECT envelope FROM auth_mfa_credentials')).rows[0];const seed=await openMfaSeed(r.envelope,Uint8Array.from(env.MFA_ENCRYPTION_KEY.match(/../g),x=>parseInt(x,16)),{tenantId:user.tenant_id,userId:user.id,keyId:'mfa-v1'});return totpAt(seed,Math.floor(Date.now()/1000));}
+async function code(){const r=(await db.query('SELECT envelope FROM auth_mfa_credentials')).rows[0];const seed=await openStoredMfaSeed(env,r.envelope,user);return totpAt(seed,Math.floor(Date.now()/1000));}
 async function count(table){return Number((await db.query('SELECT COUNT(*) AS n FROM '+table)).rows[0].n);}
 test('enrollment grants no session until valid factor; activates pending user and persists audit',async()=>{
  await reset();const started=await beginMfa(db,env,user);assert.equal(started.body.status,'mfa_required');assert.equal(started.body.purpose,'enroll');assert.match(started.body.setupKey,/^[A-Z2-7]{32}$/);assert.equal(started.body.token,undefined);assert.equal(await count('auth_sessions'),0);
@@ -50,4 +50,19 @@ test('new password exchange invalidates older challenge and user has no session 
 test('concurrent native requests consume the challenge and issue exactly one session',{skip:!client},async()=>{
  await reset();const start=await beginMfa(db,env,user),valid=await code();const pg=await import('pg');const clients=[new pg.default.Client({connectionString:process.env.MFA_TEST_DATABASE_URL}),new pg.default.Client({connectionString:process.env.MFA_TEST_DATABASE_URL})];
  try{for(const c of clients){await c.connect();await c.query('SET search_path TO '+schema);}const results=await Promise.all(clients.map(c=>finishMfa(c,env,{challenge:start.body.challenge,code:valid})));assert.deepEqual(results.map(x=>x.status).sort(),[200,401]);assert.equal(await count('auth_sessions'),1);assert.equal((await db.query("SELECT COUNT(*) AS n FROM auth_mfa_audit WHERE action='mfa_enrolled'")).rows[0].n,'1');}finally{await Promise.all(clients.map(c=>c.end()));}
+});
+
+test('active v2 enrolls and verifies while dual-key server still reads existing v1 credentials',async()=>{
+ await reset();const legacy=await beginMfa(db,env,user);
+ const dual={...env,MFA_ENCRYPTION_KEY_V2:'b2'.repeat(32),MFA_ACTIVE_KEY_ID:'mfa-v2'};
+ assert.equal((await finishMfa(db,dual,{challenge:legacy.body.challenge,code:await code()})).status,200);
+ assert.equal((await db.query('SELECT envelope FROM auth_mfa_credentials')).rows[0].envelope.keyId,'mfa-v1');
+ await reset();const current=await beginMfa(db,dual,user);
+ const envelope=(await db.query('SELECT envelope FROM auth_mfa_credentials')).rows[0].envelope;
+ assert.equal(envelope.keyId,'mfa-v2');
+ const seed=await openStoredMfaSeed(dual,envelope,user);
+ const request={challenge:current.body.challenge,code:await totpAt(seed,Math.floor(Date.now()/1000))};
+ await assert.rejects(finishMfa(db,env,request));
+ assert.equal(await count('auth_sessions'),0);assert.equal(await count('auth_mfa_challenges'),1);
+ assert.equal((await finishMfa(db,dual,request)).status,200);
 });

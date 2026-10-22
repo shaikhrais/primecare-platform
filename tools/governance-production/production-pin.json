@@ -432,5 +432,23 @@
     "governanceSchemaChanges": false,
     "accountChanges": false,
     "existingCredentialChanges": false
+  },
+  "authLifecycleEvidenceWriter": {
+    "optInVariable": "RECORD_AUTH_LIFECYCLE_EVIDENCE",
+    "tables": [
+      "api_endpoints",
+      "screen_components",
+      "platform_hierarchy_policy"
+    ],
+    "definitionHashes": {
+      "mfa-native-surface": "35064de852366b7a3ca336253e47fa0208546b1083fda5b40140bfe377510822",
+      "auth-lifecycle-surface": "8d4d2fdd786a68d0fda7cf214c51251e244aabfe4b25f3c96c245f30d606d793",
+      "auth-elevation-surface": "60fbbb141ccc35d1845ca2dd14edbd847c940c1ce7615c4e2d7dd180add3e538"
+    },
+    "apiCount": 11,
+    "reviewApprovals": false,
+    "productionReadyCredit": false,
+    "accountChanges": false,
+    "roleGrants": false
   }
 }

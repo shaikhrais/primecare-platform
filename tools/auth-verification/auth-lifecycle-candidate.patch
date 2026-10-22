@@ -1729,10 +1729,10 @@ index 00000000..91a1a620
 +final mfaManagementProvider = NotifierProvider.autoDispose<MfaManagementController, MfaManagementState>(MfaManagementController.new);
 diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart b/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart
 new file mode 100644
-index 00000000..f2a33aaf
+index 00000000..2fa22fd5
 --- /dev/null
 +++ b/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart
-@@ -0,0 +1,80 @@
+@@ -0,0 +1,82 @@
 +import 'package:primecare_ui/primecare_ui.dart';
 +import 'auth_experience.dart' show PrimeAuthTextField;
 +import 'auth_lifecycle_catalog.g.dart';
@@ -1808,6 +1808,8 @@ index 00000000..f2a33aaf
 +          isFullWidth: true, dataCy: 'mfa-lifecycle-replace'),
 +      ]);
 +    }
++    if (state.working) children.addAll([gap, Cy(id: 'mfa-lifecycle-working', child: Semantics(liveRegion: true,
++      child: Text(text['working']!, style: theme.typography.bodyMedium)))]);
 +    if (state.failed) children.addAll([gap, Cy(id: 'mfa-lifecycle-error', child: Semantics(liveRegion: true,
 +      child: Text(text['error']!, style: theme.typography.bodyMedium)))]);
 +    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: children);
@@ -1966,10 +1968,10 @@ index 00000000..fbf60663
 +}
 diff --git a/packages/primecare_ui/test/auth_mfa_lifecycle_test.dart b/packages/primecare_ui/test/auth_mfa_lifecycle_test.dart
 new file mode 100644
-index 00000000..f795414a
+index 00000000..c0a409a6
 --- /dev/null
 +++ b/packages/primecare_ui/test/auth_mfa_lifecycle_test.dart
-@@ -0,0 +1,103 @@
+@@ -0,0 +1,104 @@
 +import 'dart:async';
 +import 'package:flutter/material.dart';
 +import 'package:flutter_test/flutter_test.dart';
@@ -2023,6 +2025,7 @@ index 00000000..f795414a
 +    await tester.pumpWidget(UncontrolledProviderScope(container:c,child:localized(const Scaffold(body:NativeMfaManagementForm()))));await tester.pumpAndSettle();
 +    final controller=c.read(mfaManagementProvider.notifier);controller.onPasswordChanged('synthetic-password');controller.onFactorChanged('123456');
 +    final pending=controller.issueCodes();await tester.pump();
++    expect(find.byWidgetPredicate((widget)=>widget is Cy&&widget.id=='mfa-lifecycle-working'),findsOneWidget);
 +    await tester.pumpWidget(const SizedBox.shrink());await tester.pumpAndSettle();
 +    auth.pending!.complete({'status':'recovery_codes_issued','recoveryCodes':List.filled(10,List.filled(26,'A').join())});
 +    await pending;expect(tester.takeException(),isNull);

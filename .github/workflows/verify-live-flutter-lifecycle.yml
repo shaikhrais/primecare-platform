@@ -1,0 +1,63 @@
+name: Verify deployed Flutter auth lifecycle and approved support
+on:
+  workflow_run:
+    workflows: [Verify isolated auth lifecycle candidate]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: auth-live-flutter-mfa
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository && github.event.workflow_run.head_sha == github.sha)
+    uses: ./.github/workflows/_deploy-web.yml
+    with:
+      app: primecare_clinic
+      project: primecare-clinic
+    secrets: inherit
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require promoted registered auth source
+        run: |
+          python - <<'PYCODE'
+          import json
+          assert json.load(open('tools/auth-verification/auth-lifecycle-candidate.json')).get('state')=='promoted'
+          PYCODE
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install psycopg[binary]==3.2.13 bcrypt==4.3.0 playwright==1.58.0
+          python -m playwright install --with-deps chromium
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/mfa-reader" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/mfa-reader/node_modules" node_modules
+      - uses: actions/download-artifact@v4
+        with:
+          name: flutter-build-primecare-clinic
+          path: test-results/flutter-build
+      - name: Verify pinned production governance authority
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/governance-production/verify-production-reader.py
+      - name: Verify deployed English French Spanish MFA and exact synthetic cleanup
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          VERIFY_MFA_LIFECYCLE: '1'
+        run: python tools/auth-verification/test-live-flutter-mfa.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-flutter-lifecycle-acceptance
+          path: test-results/live-flutter-mfa
+          retention-days: 90

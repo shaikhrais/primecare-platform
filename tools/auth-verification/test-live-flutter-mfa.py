@@ -179,7 +179,9 @@ def main():
                         signout = page.get_by_role('button', name=labels[locale]['signout'], exact=True)
                         signout.wait_for(timeout=30000)
                         must(page.locator('[aria-label^="mfa-seed"]').count() == 0, 'reload retains session without displaying seed')
-                        signout.click()
+                        with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/logout') and r.request.method == 'POST') as ended:
+                            signout.click()
+                        must(ended.value.status == 200, 'server acknowledged initial signout')
                         field('login-email').wait_for()
                         must(api('/v1/auth/me', token=token)[0] == 401, 'logout revokes server session')
                         enrolled = exchange()
@@ -199,13 +201,27 @@ def main():
                         page.wait_for_function("t => JSON.parse(localStorage.getItem('flutter.auth_token')) === t", arg=data['token'])
                         must(api('/v1/auth/me', token=data['token'])[1].get('userId') == user, 'fresh enrolled session identity matches account')
                         token = data['token']
+                        if os.environ.get('VERIFY_MFA_LIFECYCLE') == '1':
+                            from flutter_mfa_lifecycle import verify_lifecycle
+                            step = 'MFA management replacement and lost-factor recovery'
+                            token, seed = verify_lifecycle(page, db, user=user, tenant=tenant, password=password,
+                                seed=seed, token=token, field=field, button=button, api=api, totp=totp,
+                                must=must, exchange=exchange)
+                            from flutter_privileged_access import verify_privileged
+                            step = 'temporary elevation and explicit tenant support approval'
+                            verify_privileged(page, db, user=user, tenant=tenant, password=password, seed=seed,
+                                token=token, locale=locale, field=field, button=button, api=api, totp=totp, must=must)
+                        step = 'acknowledged final logout and signed-out reload'
                         page.get_by_role('button', name=labels[locale]['signout'], exact=True).wait_for(timeout=30000)
-                        page.get_by_role('button', name=labels[locale]['signout'], exact=True).click()
+                        with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/logout') and r.request.method == 'POST') as ended:
+                            page.get_by_role('button', name=labels[locale]['signout'], exact=True).click()
+                        must(ended.value.status == 200, 'server acknowledged final signout')
                         field('login-email').wait_for()
                         page.reload(wait_until='domcontentloaded')
                         field('login-email').wait_for()
                         must(api('/v1/auth/me', token=token)[0] == 401 and page.evaluate("localStorage.getItem('flutter.auth_token')") is None, 'signed-out reload has no local or server authority')
                         build()
+                        result.pop('identityStatuses', None)
                         result['passed'] = True
                     except Exception:
                         result['failedStep'] = step
@@ -224,9 +240,12 @@ def main():
                             with db.transaction():
                                 must(db.execute('SELECT email,tenant_id::text FROM users WHERE id::text=%s', (user,)).fetchall() == [(email, tenant)], 'cleanup identity guard')
                                 must(db.execute('SELECT slug FROM tenants WHERE id::text=%s', (tenant,)).fetchall() == [(slug,)], 'cleanup tenant guard')
-                                for table in ['auth_sessions', 'auth_mfa_challenges', 'auth_mfa_credentials', 'auth_mfa_audit', 'auth_password_resets', 'auth_password_audit']:
+                                db.execute('DELETE FROM auth_privileged_access_audit WHERE actor_user_id=%s', (user,))
+                                db.execute('DELETE FROM auth_tenant_support_requests WHERE requester_user_id=%s', (user,))
+                                db.execute('DELETE FROM auth_privilege_elevations WHERE user_id=%s', (user,))
+                                for table in ['auth_mfa_notification_outbox', 'auth_mfa_lifecycle_audit', 'auth_mfa_recovery_codes', 'auth_mfa_replacement_challenges', 'auth_sessions', 'auth_mfa_challenges', 'auth_mfa_credentials', 'auth_mfa_audit', 'auth_password_resets', 'auth_password_audit']:
                                     db.execute('DELETE FROM ' + table + ' WHERE user_id::text=%s', (user,))
-                                db.execute('DELETE FROM auth_rate_limits WHERE subject_hash =%s', (hashlib.sha256(('login:' + email).encode()).hexdigest(),))
+                                db.execute('DELETE FROM auth_rate_limits WHERE subject_hash IN (%s,%s,%s)', (hashlib.sha256(('login:' + email).encode()).hexdigest(), hashlib.sha256(('mfa-lifecycle:' + user).encode()).hexdigest(), hashlib.sha256(('privileged-read:' + user).encode()).hexdigest()))
                                 db.execute('DELETE FROM users WHERE id::text=%s AND email=%s AND tenant_id::text=%s', (user, email, tenant))
                                 db.execute('DELETE FROM tenants WHERE id::text=%s AND slug=%s', (tenant, slug))
                             result['cleanup'] = True

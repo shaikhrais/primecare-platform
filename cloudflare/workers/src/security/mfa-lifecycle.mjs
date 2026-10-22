@@ -49,7 +49,10 @@ async function sessionLookup(db, sessionToken) {
 }
 
 async function sessionCurrent(db, sessionToken, user) {
-  return (await db.query('SELECT token_hash FROM auth_sessions WHERE token_hash=$1 AND user_id::text=$2 AND expires_at>NOW() FOR UPDATE', [await digest(sessionToken), user.id])).rows.length === 1;
+  const hash = await digest(sessionToken);
+  if ((await db.query('SELECT token_hash FROM auth_sessions WHERE token_hash=$1 AND user_id::text=$2 FOR UPDATE', [hash, user.id])).rows.length !== 1) return false;
+  // NOW() is fixed at BEGIN; evaluate expiry after any row-lock wait.
+  return (await db.query('SELECT token_hash FROM auth_sessions WHERE token_hash=$1 AND user_id::text=$2 AND expires_at>clock_timestamp()', [hash, user.id])).rows.length === 1;
 }
 
 async function freshFactor(db, env, user, password, code) {
@@ -121,6 +124,7 @@ export async function manageMfaLifecycle(db, env, sessionToken, body, action, lo
       response = await replacement(db, env, user, credential, 'current_factor');
       await audit(db, user, 'authenticator_replacement_started');
     }
+    if (!await sessionCurrent(db, sessionToken, user)) {await db.query('ROLLBACK'); return denied();}
     await db.query('COMMIT'); return response;
   } catch (error) {await db.query('ROLLBACK'); throw error;}
 }
@@ -134,7 +138,7 @@ export async function recoverMfaLifecycle(db, env, body, locale = 'en') {
   await db.query('BEGIN');
   try {
     const user = await lockedUser(db, found[0].user_id);
-    const rows = (await db.query('SELECT *,expires_at>NOW() AS fresh FROM auth_mfa_challenges WHERE token_hash=$1 FOR UPDATE', [hash])).rows;
+    const rows = (await db.query('SELECT *,expires_at>clock_timestamp() AS fresh FROM auth_mfa_challenges WHERE token_hash=$1 FOR UPDATE', [hash])).rows;
     const challenge = rows[0];
     if (!user || user.status !== 'active' || user.roles !== 'code_admin' || rows.length !== 1 || challenge.fresh !== true ||
         challenge.attempts >= 5 || challenge.purpose !== 'verify' || challenge.role !== user.roles || challenge.tenant_id !== user.tenant_id ||
@@ -166,7 +170,7 @@ export async function confirmMfaReplacement(db, env, body, locale = 'en') {
   await db.query('BEGIN');
   try {
     const user = await lockedUser(db, found[0].user_id);
-    const rows = (await db.query('SELECT *,expires_at>NOW() AS fresh FROM auth_mfa_replacement_challenges WHERE token_hash=$1 FOR UPDATE', [hash])).rows;
+    const rows = (await db.query('SELECT *,expires_at>clock_timestamp() AS fresh FROM auth_mfa_replacement_challenges WHERE token_hash=$1 FOR UPDATE', [hash])).rows;
     const pending = rows[0];
     if (!user || user.status !== 'active' || user.roles !== 'code_admin' || rows.length !== 1 || pending.fresh !== true || pending.attempts >= 5 ||
         pending.tenant_id !== user.tenant_id || pending.password_version !== await digest(user.password_hash)) {await db.query('ROLLBACK'); return denied();}

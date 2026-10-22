@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'auth_design_tokens.dart';
 import 'password_recovery_form.dart';
 import 'mfa_form.dart';
+import 'mfa_management_form.dart';
+import 'auth_elevation_form.dart';
+import 'tenant_support_form.dart';
 import 'auth_navigation.dart';
 import '../../localization/auth_screen_text.dart';
 
@@ -110,7 +113,9 @@ class PrimeAuthExperience extends ConsumerWidget {
       case AuthPage.reset:
         return [const PasswordRecoveryForm(reset: true)];
       case AuthPage.mfa:
-        return [const NativeMfaForm()];
+        if (ref.watch(authProvider).isAuthenticated) return [const NativeMfaManagementForm(), gap, const NativeAuthElevationForm()];
+        if (ref.watch(mfaControllerProvider).pending) return [const NativeMfaForm()];
+        return [_Notice(message: '${_copy(context, 'unavailable_title')}\n${_copy(context, 'unavailable_body')}')];
       case AuthPage.consent:
         // These backend capabilities are not enabled. Do not collect unusable
         // passwords/codes, fabricate success, or imply a recovery email was sent.
@@ -139,6 +144,10 @@ class PrimeAuthExperience extends ConsumerWidget {
           const AdminTrainingLauncher(), gap,
           Text(_copy(context, 'role'), style: theme.typography.labelBold),
           Text(auth.role ?? '', style: theme.typography.bodyLarge), gap,
+          if (ref.read(authProvider.notifier).canManageMfa)
+            PrimeButton(label: mfaLifecycleLabels(context)['title']!, onPressed: () => _go(context, '/mfa'),
+              isFullWidth: true, dataCy: 'mfa-lifecycle-manage'),
+          const NativeTenantSupportForm(), gap,
           if (['ceo', 'maintenance'].contains(auth.role)) TextButton(onPressed: () => _go(context, '/maintenance/configuration'), child: const Text('IT maintenance configuration')),
           PrimeButton(label: _copy(context, 'signout'), onPressed: () async {
             await ref.read(authProvider.notifier).logout();

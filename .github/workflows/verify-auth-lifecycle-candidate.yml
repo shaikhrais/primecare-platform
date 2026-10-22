@@ -27,17 +27,24 @@ jobs:
         options: --health-cmd "pg_isready -U lifecycle" --health-interval 5s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
-      - name: Apply isolated candidate with exact patch digest
+      - name: Verify exact candidate or promoted source
         run: |
           python - <<'PYCODE'
           import hashlib,json,pathlib,subprocess
           p=pathlib.Path('tools/auth-verification/auth-lifecycle-candidate.patch')
           m=json.loads(pathlib.Path('tools/auth-verification/auth-lifecycle-candidate.json').read_text())
           assert hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256']
-          subprocess.run(['git','apply','--check',str(p)],check=True)
-          subprocess.run(['git','apply',str(p)],check=True)
-          actual=set(subprocess.check_output(['git','ls-files','--modified','--others','--exclude-standard'],text=True).splitlines())
-          assert actual==set(m['paths']), (actual,set(m['paths']))
+          if m.get('state')=='promoted':
+              assert set(m['sourceSha256'])==set(m['paths'])
+              for name,digest in m['sourceSha256'].items():
+                  source=pathlib.Path(name)
+                  assert not source.is_absolute() and '..' not in source.parts and not source.is_symlink()
+                  assert hashlib.sha256(source.read_bytes()).hexdigest()==digest, name
+          else:
+              subprocess.run(['git','apply','--check',str(p)],check=True)
+              subprocess.run(['git','apply',str(p)],check=True)
+              actual=set(subprocess.check_output(['git','ls-files','--modified','--others','--exclude-standard'],text=True).splitlines())
+              assert actual==set(m['paths']), (actual,set(m['paths']))
           subprocess.run(['git','diff','--check'],check=True)
           PYCODE
       - uses: actions/setup-node@v4
@@ -45,7 +52,7 @@ jobs:
       - run: |
           npm install --prefix "$RUNNER_TEMP/lifecycle-foundation" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2 esbuild@0.25.12 typescript@5.9.3 @types/pg@8.15.5 @cloudflare/workers-types@4.20260403.1
           ln -s "$RUNNER_TEMP/lifecycle-foundation/node_modules" node_modules
-          node --test scripts/test-code-admin-keyring.mjs scripts/test-code-admin-recovery-codes.mjs scripts/test-code-admin-key-rotation-drill.mjs scripts/test-mfa-keyring-tail.mjs
+          node --test scripts/test-code-admin-keyring.mjs scripts/test-code-admin-recovery-codes.mjs scripts/test-code-admin-key-rotation-drill.mjs scripts/test-mfa-keyring-tail.mjs scripts/test-auth-lifecycle-receipt.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
       - name: Require rollback and idempotency on native disposable PostgreSQL
         env:
@@ -66,27 +73,40 @@ jobs:
           MFA_TEST_ID_TYPE=text node --test scripts/test-auth-privileged-postgres.mjs
           MFA_TEST_ID_TYPE=uuid node --test scripts/test-auth-privileged-postgres.mjs
           node --test scripts/test-worker-inheritance.mjs
+          node --test scripts/test-auth-lifecycle-evidence-postgres.mjs
           node scripts/export-mfa-lifecycle-schema.mjs
+          node scripts/export-auth-privileged-schema.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: native-mfa-lifecycle-schema
           path: test-results/mfa-lifecycle-schema
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-auth-privileged-schema
+          path: test-results/auth-privileged-schema
   flutter:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Apply isolated candidate with exact patch digest
+      - name: Verify exact candidate or promoted source
         run: |
           python - <<'PYCODE'
           import hashlib,json,pathlib,subprocess
           p=pathlib.Path('tools/auth-verification/auth-lifecycle-candidate.patch')
           m=json.loads(pathlib.Path('tools/auth-verification/auth-lifecycle-candidate.json').read_text())
           assert hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256']
-          subprocess.run(['git','apply','--check',str(p)],check=True)
-          subprocess.run(['git','apply',str(p)],check=True)
-          actual=set(subprocess.check_output(['git','ls-files','--modified','--others','--exclude-standard'],text=True).splitlines())
-          assert actual==set(m['paths']), (actual,set(m['paths']))
+          if m.get('state')=='promoted':
+              assert set(m['sourceSha256'])==set(m['paths'])
+              for name,digest in m['sourceSha256'].items():
+                  source=pathlib.Path(name)
+                  assert not source.is_absolute() and '..' not in source.parts and not source.is_symlink()
+                  assert hashlib.sha256(source.read_bytes()).hexdigest()==digest, name
+          else:
+              subprocess.run(['git','apply','--check',str(p)],check=True)
+              subprocess.run(['git','apply',str(p)],check=True)
+              actual=set(subprocess.check_output(['git','ls-files','--modified','--others','--exclude-standard'],text=True).splitlines())
+              assert actual==set(m['paths']), (actual,set(m['paths']))
           subprocess.run(['git','diff','--check'],check=True)
           PYCODE
       - uses: subosito/flutter-action@v2
@@ -121,3 +141,79 @@ jobs:
           name: verified-flutter-mfa-clinic
           path: apps/primecare_clinic/build/web
           retention-days: 30
+  release:
+    needs: [foundation, flutter]
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 25
+    concurrency:
+      group: primecare-cloudflare-typescript-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require promoted source and current main
+        id: source
+        run: |
+          python - <<'PYCODE'
+          import json,os
+          m=json.load(open('tools/auth-verification/auth-lifecycle-candidate.json'))
+          promoted=m.get('state')=='promoted'
+          with open(os.environ['GITHUB_OUTPUT'],'a') as output:output.write('promoted='+str(promoted).lower()+'\n')
+          PYCODE
+          test "$(git ls-remote origin refs/heads/main | cut -f1)" = "$GITHUB_SHA"
+      - uses: actions/setup-node@v4
+        if: steps.source.outputs.promoted == 'true'
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        if: steps.source.outputs.promoted == 'true'
+        with: {python-version: '3.12'}
+      - uses: actions/download-artifact@v4
+        if: steps.source.outputs.promoted == 'true'
+        with:
+          name: native-mfa-lifecycle-schema
+          path: test-results/mfa-lifecycle-schema
+      - uses: actions/download-artifact@v4
+        if: steps.source.outputs.promoted == 'true'
+        with:
+          name: native-auth-privileged-schema
+          path: test-results/auth-privileged-schema
+      - name: Verify production authority contracts and exact native schema in rollback
+        if: steps.source.outputs.promoted == 'true'
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          APPLY_MFA_LIFECYCLE_SCHEMA: '1'
+          APPLY_AUTH_PRIVILEGED_SCHEMA: '1'
+        run: |
+          npm install --prefix "$RUNNER_TEMP/auth-release" --ignore-scripts --no-audit --no-fund wrangler@4.68.1 pg@8.16.3
+          ln -s "$RUNNER_TEMP/auth-release/node_modules" node_modules
+          pip install -r tools/governance-production/requirements.txt
+          python tools/governance-production/verify-production-reader.py
+          python scripts/check-api-catalog-identity.py
+          node scripts/check-auth-schema.mjs
+          node scripts/apply-mfa-lifecycle-schema.mjs --dry-run
+          node scripts/apply-auth-privileged-schema.mjs --dry-run
+          node scripts/generate-cloudflare-worker-config.mjs
+      - name: Preserve existing bindings and deploy only verified auth service
+        if: steps.source.outputs.promoted == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          test "$(git ls-remote origin refs/heads/main | cut -f1)" = "$GITHUB_SHA"
+          npx wrangler secret list --config .cloudflare-workers/auth.jsonc > "$RUNNER_TEMP/auth-bindings.json"
+          jq -e 'any(.[]; .name == "DB_URL") and any(.[]; .name == "MFA_ENCRYPTION_KEY") and any(.[]; .name == "MFA_ENCRYPTION_KEY_V2")' "$RUNNER_TEMP/auth-bindings.json" > /dev/null
+          npx wrangler deploy --config .cloudflare-workers/auth.jsonc
+          curl --fail --show-error --retry 10 --retry-all-errors --retry-delay 3 https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/auth/health
+      - name: Observe actual scheduled binding drill and required migration counts
+        if: steps.source.outputs.promoted == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: node tools/auth-verification/mfa-keyring-tail.mjs "$RUNNER_TEMP/auth-release/node_modules/wrangler/bin/wrangler.js"
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.source.outputs.promoted == 'true'
+        with:
+          name: live-auth-keyring-binding-proof
+          path: test-results/mfa-keyring
+          retention-days: 90

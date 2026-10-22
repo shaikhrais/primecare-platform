@@ -72,7 +72,7 @@ class LoginController extends Notifier<LoginState> {
           .read(authProvider.notifier)
           .login(email, password, completeMfa: (challenge, verify) {
             state = state.copyWith(password: '');
-            return ref.read(mfaControllerProvider.notifier).request(challenge, verify);
+            return ref.read(mfaControllerProvider.notifier).request(challenge, verify.call, recover: verify.recover);
           });
 
       if (!success) {

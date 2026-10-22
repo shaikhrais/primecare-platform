@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "activeKeyId": "mfa-v1",
+  "migrateFromKeyId": null,
+  "maximumBatch": 10
+}

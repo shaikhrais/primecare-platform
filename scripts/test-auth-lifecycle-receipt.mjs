@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {validateAuthLifecycleReceipt,requiredAuthLifecycleChecks} from './validate-auth-lifecycle-receipt.mjs';
+import {requiredFlutterMfaChecks} from './validate-flutter-mfa-receipt.mjs';
+const source='a'.repeat(40);
+function fixture(){return {source,bundleSha256:'b'.repeat(64),synthetic:true,ownerAccountTouched:false,independentApprovals:false,passed:true,results:[['en',320],['fr',768],['es',1440]].map(([locale,width])=>({locale,width,cleanup:true,passed:true,checks:[...requiredFlutterMfaChecks,...requiredAuthLifecycleChecks,'fresh owned proof accepted for recovery-codes','fresh owned proof accepted for replacement']}))};}
+test('complete proof grants only eleven scoped APIs without inbox device or approval credit',()=>{const result=validateAuthLifecycleReceipt(fixture(),source);assert.equal(result.apiCount,11);assert.equal(result.inboxDeliveryVerified,false);assert.equal(result.physicalDevicesVerified,false);assert.equal(result.independentApprovals,false);});
+for(const [label,edit] of [
+ ['wrong source',r=>r.source='c'.repeat(40)],['invalid bundle',r=>r.bundleSha256='x'],['failed locale',r=>r.results[1].passed=false],['missing cleanup',r=>r.results[0].cleanup=false],['missing support denial',r=>r.results[2].checks=r.results[2].checks.filter(x=>x!=='unapproved support reveals no aggregate')],['missing recovery',r=>r.results[1].checks=r.results[1].checks.filter(x=>x!=='saved-code proof grants no browser or database session')],['only one code generation',r=>r.results[0].checks.splice(r.results[0].checks.lastIndexOf('fresh owned proof accepted for recovery-codes'),1)],['duplicate locale',r=>r.results[1].locale='en'],['owner touched',r=>r.ownerAccountTouched=true],['invented approval',r=>r.independentApprovals=true],['secret field',r=>r.results[0].token='secret'],['missing factor boundary',r=>r.results[0].checks=r.results[0].checks.filter(x=>x!=='no browser authority before factor')]
+])test('rejects '+label,()=>{const value=fixture();edit(value);assert.throws(()=>validateAuthLifecycleReceipt(value,source));});

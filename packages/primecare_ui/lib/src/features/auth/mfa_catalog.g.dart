@@ -28,3 +28,4 @@ const nativeMfaText = <String, Map<String, String>>{
     'loading': 'Verificando…',
   },
 };
+const nativeMfaChallengeLifetimeSeconds = 300;

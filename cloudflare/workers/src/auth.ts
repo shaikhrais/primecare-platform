@@ -1,4 +1,7 @@
 import {beginMfa,finishMfa} from './security/mfa.mjs';
+import {privilegedAccess,validPrivilegedRequest} from './security/mfa-elevation.mjs';
+import elevationSurface from '../../../packages/shared/src/auth-elevation.json';
+import {manageMfaLifecycle,recoverMfaLifecycle,confirmMfaReplacement} from './security/mfa-lifecycle.mjs';
 import {invalidateSessionToken} from './auth-invalidation';
 import {confirmedAudit} from './audit-confirmation';
 import {optionalRow,requiredRow,resultRows} from './database-results';
@@ -19,10 +22,17 @@ import {parseAccountAdminRequest,accountAdministration} from './account-admin';
 import {changePassword,validatePasswordChange} from './password-change';
 
 export interface Env extends SourceLimitEnv, MaintenanceEnv {
-  DB_URL: string; SERVICE_NAME: string; MFA_ENCRYPTION_KEY?: string;
+  DB_URL: string; SERVICE_NAME: string; MFA_ENCRYPTION_KEY?: string; MFA_ENCRYPTION_KEY_V2?: string; MFA_ACTIVE_KEY_ID?: string; MFA_KEYRING_SOURCE_SHA256?: string; MFA_ROTATION_FROM_KEY_ID?: string;
   WORKSPACE_SOURCE_LIMIT?: {limit(options:{key:string}):Promise<{success:boolean}>};
 }
 type Json = Record<string, unknown>;
+const privilegedOperations:Record<string,string>={auth_elevation:'elevate',auth_elevation_revoke:'revokeElevation',
+  auth_support_request:'requestSupport',auth_support_requests:'listSupport',auth_support_approve:'approveSupport',
+  auth_support_revoke:'revokeSupport',auth_support_summary:'summary'};
+const privilegedRoutes:Record<string,{method:string;operation:string}>=Object.fromEntries(elevationSurface.endpoints
+  .filter(endpoint=>Object.hasOwn(privilegedOperations,endpoint.code))
+  .map(endpoint=>[endpoint.route.replace(/^\/v1\/auth/,''),{method:endpoint.method,operation:privilegedOperations[endpoint.code]}]));
+
 
 export function json(body: unknown, status = 200, headers: HeadersInit = {}): Response {
   return Response.json(body, { status, headers });
@@ -300,6 +310,37 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         if ((error as {code?:string}).code === '23505') return json({error:'Account cannot be created'},409,headers);
         throw error;
       }
+    });
+  }
+  const privileged=Object.hasOwn(privilegedRoutes,path)?privilegedRoutes[path]:null;
+  if(privileged){
+    if(request.method!==privileged.method)return json({error:'Method not allowed'},405,{...headers,allow:privileged.method});
+    if(new URL(request.url).search || privileged.method==='GET'&&await requestHasContent(request))return json({error:'Invalid query or body'},400,headers);
+    const session=request.headers.has('authorization')?tokenFrom(request):null;
+    if(!session)return json({error:'No session'},401,headers);
+    let body:Json={};
+    if(privileged.method!=='GET'){try{body=await parseBody(request,10000);}catch(error){return bodyFailure(error,'Invalid privileged access request',headers);}}
+    if(!validPrivilegedRequest(body,privileged.operation))return json({error:'Invalid privileged access request'},400,headers);
+    return withDb(env,async db=>{
+      const result=await privilegedAccess(db,env,session,body,privileged.operation,request.headers.get('x-tenant-id'));
+      const limited=result.status===429?{'retry-after':['elevate','approveSupport','revokeSupport'].includes(privileged.operation)?'900':'60'}:{};
+      return json(result.body,result.status,{...headers,...limited});
+    });
+  }
+  if(['/mfa/recovery-codes','/mfa/replacement','/mfa/recovery','/mfa/replacement/confirm'].includes(path)) {
+    if(request.method!=='POST')return json({error:'Method not allowed'},405,{...headers,allow:'POST'});
+    const managing=['/mfa/recovery-codes','/mfa/replacement'].includes(path);
+    const session=request.headers.has('authorization')?tokenFrom(request):null;
+    if(managing&&!session)return json({error:'No session'},401,headers);
+    let body:Json;try{body=await parseBody(request);}catch(error){return bodyFailure(error,'Invalid MFA security request',headers);}
+    const requestedLocale=(request.headers.get('accept-language')??'en').split(',')[0].split('-')[0].toLowerCase();
+    const locale=['en','fr','es'].includes(requestedLocale)?requestedLocale:'en';
+    return withDb(env,async db=>{
+      const result=managing
+        ? await manageMfaLifecycle(db,env,session,body,path.endsWith('recovery-codes')?'codes':'replace',locale,request.headers.get('x-tenant-id'))
+        : path==='/mfa/recovery' ? await recoverMfaLifecycle(db,env,body,locale)
+        : await confirmMfaReplacement(db,env,body,locale);
+      return json(result.body,result.status,result.body.token?{...headers,'set-cookie':`session_token=${result.body.token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=43200`}:headers);
     });
   }
   if(path==='/mfa') {

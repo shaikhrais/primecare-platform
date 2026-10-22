@@ -1,0 +1,45 @@
+name: Record scoped live Flutter lifecycle and support evidence
+on:
+  workflow_run:
+    workflows: [Verify deployed Flutter auth lifecycle and approved support]
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  record:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Require exact successful producer and unchanged runtime verification and definitions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const run=context.payload.workflow_run;
+            if(run.path!=='.github/workflows/verify-live-flutter-lifecycle.yml'||run.head_branch!=='main'||run.conclusion!=='success'||run.head_repository.full_name!==context.payload.repository.full_name)throw Error('Exact successful lifecycle producer required');
+            const diff=(await github.rest.repos.compareCommits({...context.repo,base:run.head_sha,head:context.sha})).data;
+            const protectedSource=['cloudflare/workers/','packages/flutter_core/','packages/primecare_ui/','packages/primecare_models/','packages/shared/src/auth-','apps/primecare_clinic/','tools/auth-verification/','tools/governance-production/','scripts/record-auth-lifecycle','scripts/validate-auth-lifecycle','scripts/generate-flutter-auth-','scripts/generate-cloudflare-worker-config','scripts/mfa-keyring-source','.github/workflows/verify-live-flutter-lifecycle.yml','.github/workflows/verify-auth-lifecycle-candidate.yml'];
+            if(!['identical','ahead'].includes(diff.status)||diff.files.some(f=>protectedSource.some(p=>f.filename.startsWith(p))))throw Error('Auth runtime or evidence source changed after proof');
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          name: live-flutter-lifecycle-acceptance
+          path: test-results/live-flutter-mfa
+      - run: |
+          node --test scripts/test-auth-lifecycle-receipt.mjs scripts/test-flutter-mfa-receipt.mjs
+          npm install --prefix "$RUNNER_TEMP/auth-evidence" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/auth-evidence/node_modules" node_modules
+      - name: Record exact registered source-bound APIs and controls without review or production-ready credit
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          RECORD_AUTH_LIFECYCLE_EVIDENCE: '1'
+          AUTH_LIFECYCLE_PRODUCER_SHA: ${{ github.event.workflow_run.head_sha }}
+          AUTH_LIFECYCLE_PRODUCER_RUN: ${{ github.event.workflow_run.id }}
+        run: node scripts/record-auth-lifecycle-evidence.mjs

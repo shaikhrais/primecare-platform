@@ -8,4 +8,5 @@ s='// Generated from packages/shared/src/auth-mfa.json; do not edit.\nconst nati
 for locale,strings in d.items():
  s+='  '+dart(locale)+': {\n'+''.join('    '+dart(k)+': '+dart(v)+',\n' for k,v in strings.items())+'  },\n'
 s+='};\n'
+s+='const nativeMfaChallengeLifetimeSeconds = '+str(json.loads((root/'tools/governance-production/mfa-registration.json').read_text())['challenge']['expiresSeconds'])+';\n'
 (root/'packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart').write_text(s)

@@ -69,7 +69,7 @@ test('fresh tenant password is required for approval and failure audits cannot g
  await reset();const e=await elevate(),r=await request(e);
  assert.equal((await call(admin,{requestId:r.requestId,password:'wrong'},'approveSupport')).status,401);
  assert.equal((await db.query('SELECT state FROM auth_tenant_support_requests')).rows[0].state,'pending');assert.equal((await call(root,{requestId:r.requestId},'summary')).status,403);
- assert.equal((await db.query("SELECT COUNT(*)::int AS n FROM auth_privileged_access_audit WHERE action='proof_failed'")).rows[0].n,1);
+ assert.equal((await db.query("SELECT COUNT(*)::int AS n FROM auth_privileged_access_audit WHERE action='proof_failed' AND actor_user_id=$1",[admin.id])).rows[0].n,1);
 });
 test('audit fault rolls back factor consumption and elevation creation; summary audit fault returns no data',async()=>{
  await reset();await multi("CREATE FUNCTION fail_privilege() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'synthetic audit fault'; END $$;CREATE TRIGGER fail_privilege BEFORE INSERT ON auth_privileged_access_audit FOR EACH ROW EXECUTE FUNCTION fail_privilege();");
@@ -99,4 +99,28 @@ test('approval audit failure preserves pending request and missing MFA key canno
  assert.equal((await call(root,{requestId:r.requestId},'summary')).status,403);
  await reset();await assert.rejects(privilegedAccess(db,{},root.session,{password,code:await totpAt(seed,Math.floor(Date.now()/1000)),reason:'Investigate tenant sign-in counts',scope,seconds:900},'elevate'));
  assert.equal(await count('auth_privilege_elevations'),0);assert.equal(await count('auth_sessions'),4);
+});
+test('denied support use is audited and an audit fault rolls back its transaction',async()=>{
+ await reset();const e=await elevate(),r=await request(e);
+ assert.equal((await call(root,{requestId:r.requestId},'summary')).status,403);
+ const denied=(await db.query("SELECT actor_user_id,support_request_id FROM auth_privileged_access_audit WHERE action='proof_failed' AND support_request_id=$1",[r.requestId])).rows;
+ assert.deepEqual(denied,[{actor_user_id:root.id,support_request_id:r.requestId}]);
+ await multi("CREATE FUNCTION fail_denial() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'synthetic denial audit fault'; END $$;CREATE TRIGGER fail_denial BEFORE INSERT ON auth_privileged_access_audit FOR EACH ROW EXECUTE FUNCTION fail_denial();");
+ await assert.rejects(call(root,{requestId:r.requestId},'summary'));
+ assert.equal((await db.query('SELECT state FROM auth_tenant_support_requests WHERE id=$1',[r.requestId])).rows[0].state,'pending');
+ await multi('DROP TRIGGER fail_denial ON auth_privileged_access_audit;DROP FUNCTION fail_denial();');
+});
+test('a support request waiting on a row lock cannot outlive its real database deadline',{skip:!client},async()=>{
+ for(const lockedTable of ['auth_privilege_elevations','auth_tenant_support_requests']){
+ await reset();const {e,r}=await approved();
+ await db.query("UPDATE auth_privilege_elevations SET created_at=clock_timestamp()-INTERVAL '1 second',expires_at=clock_timestamp()+INTERVAL '1 second' WHERE id=$1",[e.elevationId]);
+ await db.query("UPDATE auth_tenant_support_requests SET created_at=clock_timestamp()-INTERVAL '1 second',expires_at=(SELECT expires_at FROM auth_privilege_elevations WHERE id=$2) WHERE id=$1",[r.requestId,e.elevationId]);
+ const pg=await import('pg'),blocker=new pg.default.Client({connectionString:process.env.MFA_TEST_DATABASE_URL});await blocker.connect();
+ try{
+  await blocker.query('SET search_path TO '+schema);await blocker.query('BEGIN');await blocker.query('SELECT id FROM '+lockedTable+' WHERE id=$1 FOR UPDATE',[lockedTable==='auth_privilege_elevations'?e.elevationId:r.requestId]);
+  const pending=call(root,{requestId:r.requestId},'summary');await blocker.query('SELECT pg_sleep(1.2)');await blocker.query('COMMIT');
+  const result=await pending;assert.equal(result.status,403);assert.equal(result.body.activeAccounts,undefined);
+  assert.equal((await db.query("SELECT COUNT(*)::int AS n FROM auth_privileged_access_audit WHERE action='security_summary_read'")).rows[0].n,0);
+ }finally{await blocker.query('ROLLBACK');await blocker.end();}
+ }
 });

@@ -304,14 +304,16 @@ class AuthNotifier extends Notifier<AuthState> {
               (payload['purpose'] == 'verify' && payload.containsKey('setupKey'))) return false;
           final challenge = Map<String, dynamic>.unmodifiable(payload);
           Map<String, dynamic>? verified;
+          Map<String, dynamic>? replacement;
           var verifying = false;
           var promptOpen = true;
-          try { await completeMfa(challenge, (code) async {
+          Future<bool> verifyFactor(String code) async {
             if (!promptOpen || !_isCurrent(revision) || verifying || verified != null || !RegExp(r'^[0-9]{6}$').hasMatch(code)) return false;
             verifying = true;
             String? provisional;
             try {
-              final factor = await apiClient.post(ApiConfig.endpoints['mfa']!, body: {'challenge': challenge['challenge'], 'code': code});
+              final factor = await apiClient.post(ApiConfig.endpoints[replacement == null ? 'mfa' : 'mfaReplacementConfirm']!,
+                body: {'challenge': replacement?['challenge'] ?? challenge['challenge'], 'code': code});
               final data = factor.data;
               // Capture issued authority before validating the envelope so
               // rejected status/identity/token formats still reach cleanup.
@@ -333,7 +335,32 @@ class AuthNotifier extends Notifier<AuthState> {
                 try { await apiClient.revokeSession(provisional); } catch (_) {}
               }
             }
-          }); } catch (_) {
+          }
+          Future<Map<String, dynamic>?> recoverFactor(String savedCode) async {
+            if (!promptOpen || !_isCurrent(revision) || verifying || verified != null || replacement != null ||
+                challenge['purpose'] != 'verify' || !RegExp(r'^[A-Z2-7]{26}$').hasMatch(savedCode)) return null;
+            verifying = true;
+            String? unexpected;
+            try {
+              final response = await apiClient.post(ApiConfig.endpoints['mfaRecovery']!,
+                body: {'challenge': challenge['challenge'], 'recoveryCode': savedCode});
+              final data = response.data;
+              if (data is Map<String, dynamic> && data['token'] is String && (data['token'] as String).trim().isNotEmpty) {
+                unexpected = data['token'] as String;
+              }
+              if (!promptOpen || !_isCurrent(revision) || response.statusCode != 200 || unexpected != null || data is! Map<String, dynamic> ||
+                  data.length != 3 || data['status'] != 'mfa_replacement_required' || data['challenge'] is! String ||
+                  !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(data['challenge'] as String) || data['setupKey'] is! String ||
+                  !RegExp(r'^[A-Z2-7]{32}$').hasMatch(data['setupKey'] as String)) return null;
+              replacement = Map<String, dynamic>.unmodifiable(data);
+              return Map<String, dynamic>.unmodifiable({...data, 'purpose': 'replace'});
+            } catch (_) {return null;}
+            finally {
+              verifying = false;
+              if (unexpected != null) {try {await apiClient.revokeSession(unexpected);} catch (_) {}}
+            }
+          }
+          try { await completeMfa(challenge, MfaVerifier(verify: verifyFactor, recover: recoverFactor)); } catch (_) {
             final issued = verified?['token'];
             if (issued is String) { try { await apiClient.revokeSession(issued); } catch (_) {} }
             rethrow;
@@ -525,6 +552,83 @@ class AuthNotifier extends Notifier<AuthState> {
       },
     );
     return result.fold((data) => data, (error) => false);
+  }
+
+  bool get canManageMfa => state.isInitialized && state.isAuthenticated && state.role == 'code_admin' &&
+      state.token != null && state.userId != null;
+
+  Future<Map<String, dynamic>?> manageMfa(MfaManagementAction action, String password, String code) async {
+    if (!canManageMfa || password.isEmpty || !RegExp(r'^[0-9]{6}$').hasMatch(code)) return null;
+    final actor = state, revision = _sessionRevision, api = ref.read(apiClientProvider);
+    String? unexpected;
+    try {
+      final response = await api.post(ApiConfig.endpoints[action == MfaManagementAction.recoveryCodes ? 'mfaRecoveryCodes' : 'mfaReplacement']!,
+        body: {'password': password, 'code': code});
+      final data = response.data;
+      if (data is Map<String, dynamic> && data['token'] is String && (data['token'] as String).trim().isNotEmpty) unexpected = data['token'] as String;
+      if (!_isCurrent(revision) || state.token != actor.token || state.userId != actor.userId ||
+          response.statusCode != 200 || unexpected != null || data is! Map<String, dynamic>) return null;
+      if (action == MfaManagementAction.recoveryCodes) {
+        final codes = data['recoveryCodes'];
+        if (data.length != 2 || data['status'] != 'recovery_codes_issued' || codes is! List || codes.length != 10 ||
+            codes.toSet().length != 10 || !codes.every((value) => value is String && RegExp(r'^[A-Z2-7]{26}$').hasMatch(value))) return null;
+        return Map<String, dynamic>.unmodifiable({'status': data['status'], 'recoveryCodes': List<String>.unmodifiable(codes.cast<String>())});
+      }
+      if (data.length != 3 || data['status'] != 'mfa_replacement_required' || data['challenge'] is! String ||
+          !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(data['challenge'] as String) || data['setupKey'] is! String ||
+          !RegExp(r'^[A-Z2-7]{32}$').hasMatch(data['setupKey'] as String)) return null;
+      return Map<String, dynamic>.unmodifiable(data);
+    } catch (_) {return null;}
+    finally {if (unexpected != null) {try {await api.revokeSession(unexpected);} catch (_) {}}}
+  }
+
+  Future<bool> confirmManagedMfa(String challenge, String code) async {
+    if (!canManageMfa || !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(challenge) || !RegExp(r'^[0-9]{6}$').hasMatch(code)) return false;
+    final actor = state, revision = ++_sessionRevision, api = ref.read(apiClientProvider);
+    String? provisional;
+    var retained = false;
+    var replacementAcknowledged = false;
+    try {
+      final response = await api.post(ApiConfig.endpoints['mfaReplacementConfirm']!, body: {'challenge': challenge, 'code': code});
+      final data = response.data;
+      if (data is Map<String, dynamic> && data['token'] is String && (data['token'] as String).trim().isNotEmpty) provisional = data['token'] as String;
+      if (!_isCurrent(revision) || state.token != actor.token || response.statusCode != 200 || data is! Map<String, dynamic> ||
+          data['status'] != 'authenticated' || provisional == null || !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(provisional) ||
+          data['role'] != 'code_admin' || data['userId'] != actor.userId) return false;
+      replacementAcknowledged = true;
+      final confirmation = await api.confirmSession(provisional);
+      final identity = confirmation.data;
+      if (!_isCurrent(revision) || state.token != actor.token || !confirmation.isSuccess || identity is! Map<String, dynamic> ||
+          identity['status'] != 'authenticated' || identity['userId'] != actor.userId || identity['roles'] != 'code_admin') return false;
+      final token = provisional;
+      await _persist((prefs) async {
+        if (!_isCurrent(revision)) return;
+        await prefs.setString('auth_token', token);
+        await prefs.setString('auth_role', 'code_admin');
+        await prefs.setString('auth_user_id', actor.userId!);
+        await prefs.setString('auth_tenant_id', actor.tenantId ?? '');
+        await prefs.setString('auth_username', actor.userName ?? '');
+        if (!_isCurrent(revision)) await _clearSession(prefs);
+      });
+      if (!_isCurrent(revision)) return false;
+      state = actor.copyWith(token: token, preferredLanguage: state.preferredLanguage);
+      authListenable.value = true;
+      retained = true;
+      return true;
+    } catch (_) {return false;}
+    finally {
+      if (provisional != null && !retained) {
+        try {await api.revokeSession(provisional);} catch (_) {}
+        // A confirmed replacement invalidates the old server session. If its
+        // new authority cannot be confirmed, fail closed for this captured actor.
+        if (replacementAcknowledged && _isCurrent(revision) && state.token == actor.token && state.userId == actor.userId) {
+          state = AuthState(isInitialized: true, preferredLanguage: state.preferredLanguage);
+          authListenable.value = false;
+          await _persist(_clearSession);
+          if (actor.token != null) {try {await api.revokeSession(actor.token!);} catch (_) {}}
+        }
+      }
+    }
   }
 
   Future<void> logout() async {

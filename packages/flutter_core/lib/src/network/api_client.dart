@@ -676,6 +676,10 @@ class ApiConfig {
   static const Map<String, String> endpoints = {
     'login': '/v1/auth/login',
     'mfa': '/v1/auth/mfa',
+    'mfaRecovery': '/v1/auth/mfa/recovery',
+    'mfaRecoveryCodes': '/v1/auth/mfa/recovery-codes',
+    'mfaReplacement': '/v1/auth/mfa/replacement',
+    'mfaReplacementConfirm': '/v1/auth/mfa/replacement/confirm',
     'register': '/v1/auth/register',
     'forgotPassword': '/v1/auth/forgot-password',
     'resetPassword': '/v1/auth/reset-password',

@@ -1,7 +1,7 @@
 import {test,after} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {rotateMfaStorageBatch} from '../cloudflare/workers/src/security/mfa-key-rotation.mjs';
+import {rotateMfaStorageBatch,runMfaKeyRotation} from '../cloudflare/workers/src/security/mfa-key-rotation.mjs';
 import {sealCurrentMfaSeed,openStoredMfaSeed} from '../cloudflare/workers/src/security/mfa-keyring.mjs';
 import {generateMfaSeed} from '../cloudflare/workers/src/security/mfa-secret.mjs';
 let db,client;
@@ -55,4 +55,12 @@ test('parallel native rotation batches audit and rewrap each credential once',{s
   assert.equal(results.reduce((sum,r)=>sum+r.rewrapped,0),1);
   assert.equal(Number((await db.query('SELECT COUNT(*) AS n FROM auth_mfa_lifecycle_audit')).rows[0].n),1);
  }finally{await Promise.all(peers.map(peer=>peer.end()));}
+});
+
+test('migration report purges only expired pending factors and counts every old envelope',async()=>{
+ await reset();const c=await credential();
+ await db.query("INSERT INTO auth_mfa_replacement_challenges(token_hash,user_id,tenant_id,password_version,original_envelope_hash,pending_envelope,proof_kind,expires_at) VALUES($1,$2,$3,'version','hash',$4,'current_factor',clock_timestamp()-INTERVAL '1 second')",['b'.repeat(64),user.id,user.tenant_id,JSON.stringify(c.envelope)]);
+ const report=await runMfaKeyRotation(db,dual,'mfa-v1');
+ assert.deepEqual(report,{fromKeyId:'mfa-v1',toKeyId:'mfa-v2',rewrapped:1,expiredReplacementChallengesRemoved:1,remainingOldCredentials:0,remainingOldReplacementEnvelopes:0});
+ assert.equal((await db.query('SELECT * FROM auth_mfa_replacement_challenges')).rows.length,0);
 });

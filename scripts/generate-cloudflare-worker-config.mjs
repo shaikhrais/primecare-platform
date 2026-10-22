@@ -1,4 +1,5 @@
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
+import {mfaKeyringSource} from './mfa-keyring-source.mjs';
 
 const sourcePolicy = JSON.parse(readFileSync(new URL('../cloudflare/workers/src/auth-source-policy.json',import.meta.url),'utf8')).login;
 const visionPolicy = JSON.parse(readFileSync(new URL('../cloudflare/workers/src/look/provider-policy.json',import.meta.url),'utf8'));
@@ -6,6 +7,12 @@ const visionPolicy = JSON.parse(readFileSync(new URL('../cloudflare/workers/src/
 const services = ['auth', 'client', 'provider', 'visit', 'notes', 'billing', 'scheduling',
   'notification', 'verification', 'compliance', 'governance', 'franchise-reporting'];
 const emailServices = new Set(['auth', 'governance']);
+const keyringPolicy=JSON.parse(readFileSync(new URL('../cloudflare/workers/src/security/mfa-keyring-policy.json',import.meta.url),'utf8'));
+if(keyringPolicy.version!==1||!['mfa-v1','mfa-v2'].includes(keyringPolicy.activeKeyId)||
+  keyringPolicy.migrateFromKeyId!==null&&(!['mfa-v1','mfa-v2'].includes(keyringPolicy.migrateFromKeyId)||keyringPolicy.migrateFromKeyId===keyringPolicy.activeKeyId)||keyringPolicy.maximumBatch!==10)throw Error('Invalid MFA keyring deployment policy');
+const keyringVars={MFA_ACTIVE_KEY_ID:keyringPolicy.activeKeyId,MFA_KEYRING_SOURCE_SHA256:mfaKeyringSource(),
+  ...(keyringPolicy.migrateFromKeyId?{MFA_ROTATION_FROM_KEY_ID:keyringPolicy.migrateFromKeyId}:{})};
+
 const output = process.argv[2] || '.cloudflare-workers';
 mkdirSync(output, { recursive: true });
 if(process.env.LOOK_AI_SERVICE&&!/^[a-z0-9][a-z0-9-]{0,62}$/.test(process.env.LOOK_AI_SERVICE))throw Error('Invalid LOOK_AI_SERVICE');
@@ -28,13 +35,14 @@ for (const service of services) {
     ...(service === 'auth' ? {ratelimits:[{name:'AUTH_SOURCE_LIMIT',namespace_id:sourcePolicy.namespaceId,
       simple:{limit:sourcePolicy.maxAttempts,period:sourcePolicy.windowSeconds}},
       {name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100402',simple:{limit:120,period:60}}]} : {}),
+    ...(service === 'auth' ? {triggers:{crons:['*/5 * * * *']}} : {}),
     ...(service === 'provider' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100404',simple:{limit:120,period:60}}]} : {}),
     ...(service === 'client' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100403',simple:{limit:120,period:60}}]} : {}),
     ...(service === 'governance' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100401',
       simple:{limit:120,period:60}}]} : {}),
     ...(service === 'governance' && process.env.LOOK_AI_SERVICE ? {services:[{binding:'LOOK_AI',service:process.env.LOOK_AI_SERVICE}]} : {}),
     observability: { enabled: true },
-    vars: { SERVICE_NAME: service, ...(emailServices.has(service) ? {EMAIL_FROM:'noreply@15minutes-email.com',EMAIL_ALLOWED_SENDER:'noreply@15minutes-email.com'} : {}) },
+    vars: { SERVICE_NAME: service, ...(service === 'auth' ? keyringVars : {}), ...(emailServices.has(service) ? {EMAIL_FROM:'noreply@15minutes-email.com',EMAIL_ALLOWED_SENDER:'noreply@15minutes-email.com'} : {}) },
     ...(emailServices.has(service) ? {send_email:[{name:'EMAIL',allowed_sender_addresses:['noreply@15minutes-email.com']}]} : {}),
   }, null, 2)}\n`);
 }

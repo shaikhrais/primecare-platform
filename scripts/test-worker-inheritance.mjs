@@ -40,6 +40,16 @@ test('unhandled gateway failures retain rejection semantics', async () => {
   class Worker extends BaseWorker {async handle(){throw Error('binding unavailable');}}
   await assert.rejects(workerHandler(new Worker()).fetch(new Request('https://fixture'),{}),/binding unavailable/);
 });
+test('scheduled work inherits the shared lifecycle without retaining another environment', async () => {
+  const completed=[];
+  class Worker extends BaseWorker {
+    async handle(){return new Response('ok');}
+    async scheduled(_event,env){await Promise.resolve();completed.push(env.name);}
+  }
+  const {scheduled}=workerHandler(new Worker());
+  await Promise.all(['first','second'].map(name=>scheduled({}, {name})));
+  assert.deepEqual(completed,['first','second']);
+});
 const noDatabase={name:'no-database',setup(builder){
   builder.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));
   builder.onLoad({filter:/.*/,namespace:'fixture'},()=>({loader:'js',contents:'export class Client {constructor(){throw Error("Unexpected database access")}}'}));
@@ -58,6 +68,27 @@ for(const name of ['auth','client','provider','visit','notes','billing','schedul
     assert.equal(denied.status,403);
   });
 }
+test('registered lifecycle routes reject wrong methods malformed bodies and cookie-only management before database access',async()=>{
+  for(const path of ['/mfa/recovery-codes','/mfa/replacement','/mfa/recovery','/mfa/replacement/confirm']) {
+    const method=await service.fetch(new Request('https://fixture'+path),{SERVICE_NAME:'auth'});
+    assert.equal(method.status,405);assert.equal(method.headers.get('allow'),'POST');assert.equal(method.headers.get('cache-control'),'no-store');
+    const managing=['/mfa/recovery-codes','/mfa/replacement'].includes(path);
+    const response=await service.fetch(new Request('https://fixture'+path,{method:'POST',headers:{cookie:'session_token='+'a'.repeat(43),'content-type':'application/json'},body:'{'}),{SERVICE_NAME:'auth'});
+    assert.equal(response.status,managing?401:400);assert.equal(response.headers.get('cache-control'),'no-store');
+  }
+});
+test('registered elevation and support HTTP methods and bearer boundaries reject before database access',async()=>{
+ const endpoints=JSON.parse((await import('node:fs')).readFileSync('packages/shared/src/auth-elevation.json','utf8')).endpoints;
+ for(const endpoint of endpoints){
+  const path=endpoint.route.replace('/v1/auth',''),url='https://fixture'+path;
+  const wrong=await service.fetch(new Request(url,{method:endpoint.method==='GET'?'POST':'GET'}),{SERVICE_NAME:'auth'});
+  assert.equal(wrong.status,405);assert.equal(wrong.headers.get('allow'),endpoint.method);
+  const cookie=await service.fetch(new Request(url,{method:endpoint.method,headers:{cookie:'session_token='+'a'.repeat(43)}}),{SERVICE_NAME:'auth'});
+  assert.equal(cookie.status,401);assert.equal(cookie.headers.get('cache-control'),'no-store');
+  const malformed=await service.fetch(new Request(url+(endpoint.method==='GET'?'?tenantId=other':''),{method:endpoint.method,headers:{authorization:'Bearer '+'a'.repeat(43),'content-type':'application/json'},...(endpoint.method==='POST'?{body:JSON.stringify({userId:'untrusted-actor'})}:{})}),{SERVICE_NAME:'auth'});
+  assert.equal(malformed.status,400);assert.equal(malformed.headers.get('cache-control'),'no-store');
+ }
+});
 const registryBuild=await build({entryPoints:['cloudflare/workers/src/business-modules.ts'],bundle:true,write:false,platform:'node',format:'esm',plugins:[noDatabase]});
 const {businessModules}=await import('data:text/javascript;base64,'+Buffer.from(registryBuild.outputFiles[0].text).toString('base64'));
 test('central module registry retains reviewed precedence and cannot mutate',()=>{

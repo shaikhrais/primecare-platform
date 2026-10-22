@@ -2,6 +2,7 @@ import { compressResponse } from './response-compression';
 
 /** Shared request lifecycle. Instances must never retain per-request identity or state. */
 export abstract class BaseWorker<Environment> {
+  async scheduled(_controller: unknown, _env: Environment): Promise<void> {}
   async fetch(request: Request, env: Environment): Promise<Response> {
     try {
       const early = await this.preflight(request, env);
@@ -26,5 +27,6 @@ export abstract class BaseWorker<Environment> {
 export function workerHandler<Environment>(worker: BaseWorker<Environment>) {
   return {
     fetch: async (request: Request, env: Environment): Promise<Response> => compressResponse(request, await worker.fetch(request, env)),
+    scheduled: async (controller: unknown, env: Environment): Promise<void> => worker.scheduled(controller, env),
   };
 }

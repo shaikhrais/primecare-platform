@@ -14,6 +14,9 @@ class MfaApi extends Fake implements ApiClient {
   final token = List.filled(43, 'b').join();
   Map<String, dynamic>? challengeOverride;
   Map<String, dynamic>? factorOverride;
+  Map<String, dynamic>? recoveryOverride;
+  Completer<ApiResponse>? recoveryResponse;
+  final replacementChallenge = List.filled(43, 'r').join();
   final calls = <String>[];
   final revoked = <String>[];
   int factorStatus = 200;
@@ -26,8 +29,14 @@ class MfaApi extends Fake implements ApiClient {
     if (path.endsWith('/login')) return ApiResponse(statusCode: 200, data: challengeOverride ?? {
       'status': 'mfa_required', 'challenge': challenge, 'purpose': 'enroll', 'setupKey': List.filled(32, 'A').join(),
     });
-    expect(path, '/v1/auth/mfa');
-    expect(body, {'challenge': challenge, 'code': '123456'});
+    if (path.endsWith('/mfa/recovery')) {
+      expect(body, {'challenge': challenge, 'recoveryCode': List.filled(26, 'A').join()});
+      if (recoveryResponse != null) return recoveryResponse!.future;
+      return ApiResponse(statusCode:200, data:recoveryOverride ?? {'status':'mfa_replacement_required',
+        'challenge':replacementChallenge,'setupKey':List.filled(32,'B').join()});
+    }
+    expect(path, anyOf('/v1/auth/mfa','/v1/auth/mfa/replacement/confirm'));
+    expect(body, {'challenge':path.endsWith('/confirm') ? replacementChallenge : challenge, 'code': '123456'});
     if (factor != null) return factor!.future;
     return ApiResponse(statusCode: factorStatus, data: factorOverride ?? {'status':'authenticated', 'token':token, 'role':'code_admin', 'userId':'owner'});
   }
@@ -79,7 +88,7 @@ void main() {
   test('closed prompt invalidates a captured verifier without making a factor request', () async {
     final api=MfaApi();final c=fixture(api);addTearDown(c.dispose);
     late Future<bool> Function(String) captured;
-    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {captured=verify;}),false);
+    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {captured=verify.call;}),false);
     expect(await captured('123456'),false);
     expect(api.calls, ['/v1/auth/login']);
     expect(api.revoked,isEmpty);
@@ -147,5 +156,44 @@ void main() {
     while (!api.calls.contains('confirm')) {await Future<void>.delayed(Duration.zero);}
     await auth.logout();api.identity!.complete(ApiResponse(statusCode:200,data:{'status':'authenticated','roles':'code_admin','userId':'owner'}));
     expect(await login,false);expect(api.revoked,[api.token]);expect(c.read(authProvider).isAuthenticated,false);expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
+  });
+  test('saved code supplies only replacement proof; new factor and identity confirmation establish authority', () async {
+    final api=MfaApi();api.challengeOverride={'status':'mfa_required','challenge':api.challenge,'purpose':'verify'};
+    final c=fixture(api);addTearDown(c.dispose);
+    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {
+      final next=await verify.recover(List.filled(26,'A').join());expect(next?['purpose'],'replace');
+      expect(c.read(authProvider).isAuthenticated,false);expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
+      expect(api.calls,isNot(contains('confirm')));expect(await verify('123456'),true);
+    }),true);
+    expect(api.calls,contains('/v1/auth/mfa/replacement/confirm'));expect(api.calls,isNot(contains('/v1/auth/mfa')));
+    expect(c.read(authProvider).token,api.token);expect((await SharedPreferences.getInstance()).getKeys().any((key)=>key.contains('recovery')||key.contains('mfa')),false);
+  });
+  test('enrollment cannot substitute saved-code recovery for confirming its first authenticator', () async {
+    final api=MfaApi();final c=fixture(api);addTearDown(c.dispose);
+    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {
+      expect(await verify.recover(List.filled(26,'A').join()),isNull);
+    }),false);expect(api.calls,['/v1/auth/login']);
+  });
+  test('malformed recovery authority is revoked without storing secrets or opening replacement', () async {
+    final api=MfaApi();api.challengeOverride={'status':'mfa_required','challenge':api.challenge,'purpose':'verify'};
+    api.recoveryOverride={'status':'mfa_replacement_required','challenge':api.replacementChallenge,'setupKey':List.filled(32,'B').join(),'token':api.token};
+    final c=fixture(api);addTearDown(c.dispose);
+    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {
+      expect(await verify.recover(List.filled(26,'A').join()),isNull);
+    }),false);expect(api.revoked,[api.token]);expect(c.read(authProvider).isAuthenticated,false);
+    expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
+  });
+  test('prompt closure discards a late recovery key and prevents using its verifier again', () async {
+    final api=MfaApi()..recoveryResponse=Completer<ApiResponse>();
+    api.challengeOverride={'status':'mfa_required','challenge':api.challenge,'purpose':'verify'};
+    final c=fixture(api);addTearDown(c.dispose);late Future<Map<String,dynamic>?> pending;
+    late MfaVerifier captured;
+    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {
+      captured=verify;pending=verify.recover(List.filled(26,'A').join());
+      while(!api.calls.contains('/v1/auth/mfa/recovery')){await Future<void>.delayed(Duration.zero);}
+    }),false);
+    api.recoveryResponse!.complete(ApiResponse(statusCode:200,data:{'status':'mfa_replacement_required','challenge':api.replacementChallenge,'setupKey':List.filled(32,'B').join()}));
+    expect(await pending,isNull);expect(await captured('123456'),false);
+    expect(await captured.recover(List.filled(26,'A').join()),isNull);expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
   });
 }
