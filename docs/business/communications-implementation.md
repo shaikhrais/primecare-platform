@@ -162,3 +162,34 @@ browser audio transport. Production inventory remained read-only. See
 [evidence/communication-http-20261022.json](evidence/communication-http-20261022.json).
 This supersedes the earlier missing-contract checkpoint for these six endpoints;
 the role grants, production adapter bindings and user acceptance remain pending.
+
+### Registered native storage migration — 2026-10-22
+
+The storage design now has an exact production writer scope for three
+`db_schema_tables` rows, 16 `db_schema_columns` rows and one complete
+`database_rebuild_baselines` entry. The baseline preserves the pinned DDL,
+relationships, defaults and generated identity. Registration and business DDL
+are separate committed steps; migration refuses missing or edited registration.
+
+`CommunicationStorageStore` inherits the pinned `ProductionWorkflowStore`.
+`communication_storage.py` restricts metadata writes to the exact definition.
+The separately opted-in native migration creates only the three registered
+business tables and compares their native parsed schema with temporary tables
+on the same PostgreSQL server. It checks columns, nullability, identity/defaults,
+primary/foreign/unique/check constraints and validation state. Drift rolls back;
+it does not alter existing business records or grant access. Temporary validation
+tables are removed before commit.
+
+The production SQL requires matching tenant/record IDs, supported record kinds,
+non-null JSON identity fields, safe positive versions, actor-bound command keys,
+SHA-256 fingerprints, same-tenant aggregate references and unique audit versions.
+The shared store rejects a mutation whose next version would exceed JavaScript's
+safe integer range. Native service/HTTP tests now run this actual migration in
+isolated schemas instead of the older weaker fixture DDL.
+
+Eight isolated storage cases check idempotence, complete registration rollback,
+missing/edited design rejection, permission preservation, native schema drift,
+tenant/foreign-key constraints and opt-in enforcement. The storage workflow must
+pass these before its production dry-run, registration, DDL dry-run, migration and
+fresh-transaction native reread. No synthetic user or message is written in
+production by this workflow. Storage readiness is not live channel acceptance.

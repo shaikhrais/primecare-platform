@@ -25,7 +25,7 @@ if(process.env.BUSINESS_TEST_DATABASE_URL){
  const {Pool}=await import('pg');pool=new Pool({connectionString:process.env.BUSINESS_TEST_DATABASE_URL});
  const schema='communication_http_'+crypto.randomUUID().replaceAll('-','');await pool.query('CREATE SCHEMA '+schema);await pool.end();
  pool=new Pool({connectionString:process.env.BUSINESS_TEST_DATABASE_URL,options:'-c search_path='+schema});
- await pool.query(readFileSync('scripts/fixtures/business-communications.sql','utf8'));store=new PostgresAtomicStore(pool);
+ await pool.query(readFileSync('packages/database/migrations/20261022_business_communications.sql','utf8').replaceAll('public.',''));store=new PostgresAtomicStore(pool);
  after(async()=>{await pool.query('DROP SCHEMA '+schema+' CASCADE');await pool.end();});
 }else{store=new MemoryAtomicStore();console.log('HTTP: isolated memory fixture; native persistence acceptance requires CI');}
 const users=new Map(['a','b','c','denied','other'].map(id=>[id,{id,tenantId:id==='other'?'tenant-b':'tenant-a'}]));

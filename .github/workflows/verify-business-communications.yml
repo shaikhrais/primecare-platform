@@ -15,6 +15,7 @@ on:
       - 'scripts/test-business-media.mjs'
       - 'scripts/test-communication-adapter-base.mjs'
       - 'scripts/fixtures/business-*'
+      - 'packages/database/migrations/20261022_business_communications.sql'
       - 'packages/flutter_core/lib/communications/**'
       - 'packages/flutter_core/lib/src/network/api_client.dart'
       - 'packages/flutter_core/lib/flutter_core.dart'

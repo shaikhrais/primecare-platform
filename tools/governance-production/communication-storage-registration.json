@@ -1,0 +1,205 @@
+{
+  "version": 1,
+  "baseline": "business-communications-storage-v1",
+  "sourceApiId": 710,
+  "migrationPath": "packages/database/migrations/20261022_business_communications.sql",
+  "migrationSha256": "1ecfad0a085a50d55e32bd424dee6f8d065b26fe78144165b48042a62aabc46b",
+  "tables": {
+    "business_work_aggregates": [
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "state",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_work_commands": [
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_work_aggregates",
+        "foreign_column_name": "tenant_id"
+      },
+      {
+        "column_name": "aggregate_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_work_aggregates",
+        "foreign_column_name": "id"
+      },
+      {
+        "column_name": "command_key",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "actor_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "fingerprint",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "result",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_work_events": [
+      {
+        "column_name": "id",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_work_aggregates",
+        "foreign_column_name": "tenant_id"
+      },
+      {
+        "column_name": "aggregate_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_work_aggregates",
+        "foreign_column_name": "id"
+      },
+      {
+        "column_name": "actor_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "event_type",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "version",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "now()",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ]
+  },
+  "relationships": [
+    {
+      "from": "business_work_commands",
+      "columns": [
+        "tenant_id",
+        "aggregate_id"
+      ],
+      "to": "business_work_aggregates",
+      "targetColumns": [
+        "tenant_id",
+        "id"
+      ]
+    },
+    {
+      "from": "business_work_events",
+      "columns": [
+        "tenant_id",
+        "aggregate_id"
+      ],
+      "to": "business_work_aggregates",
+      "targetColumns": [
+        "tenant_id",
+        "id"
+      ]
+    }
+  ],
+  "scope": "No role grants, actor/tenant records, message content or feature activation. Constraints and full DDL preserved in baseline. Tenant/account eligibility remains mandatory application policy.",
+  "generatedIdentity": {
+    "business_work_events.id": "always"
+  }
+}

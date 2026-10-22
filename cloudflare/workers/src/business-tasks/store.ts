@@ -4,7 +4,7 @@ export type {Actor,RecordState,Command,Change,AtomicStore,AccessPolicy} from '..
 import {required,type Actor,type RecordState,type Command,type Change,type AtomicStore} from '../../../../packages/shared/src/communications/service-base.ts';
 export function commandValid(command: Command) {
  for (const value of [command.id, command.key, command.type, command.actor.id, command.actor.tenantId]) required(value);
- if (!Number.isSafeInteger(command.expectedVersion) || command.expectedVersion < 0) throw Error('Invalid version');
+ if (!Number.isSafeInteger(command.expectedVersion) || command.expectedVersion < 0 || command.expectedVersion >= Number.MAX_SAFE_INTEGER) throw Error('Invalid version');
 }
 function canonical(value: any): string {
  if (value === null || typeof value !== 'object') return JSON.stringify(value);

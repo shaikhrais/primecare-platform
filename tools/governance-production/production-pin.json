@@ -472,5 +472,40 @@
     "businessDataWrites": false,
     "roleGrants": false,
     "activation": false
+  },
+  "communicationStorageWriter": {
+    "optInVariable": "GOVERNANCE_COMMUNICATION_STORAGE_WRITES",
+    "tables": [
+      "database_rebuild_baselines",
+      "db_schema_columns",
+      "db_schema_tables"
+    ],
+    "definitionSha256": "3c4a649c96a7058f9c7448d1e212721f9a17ce867cb7f4f2351e1b3876f7fc53",
+    "migrationSha256": "1ecfad0a085a50d55e32bd424dee6f8d065b26fe78144165b48042a62aabc46b",
+    "businessTables": [
+      "business_work_aggregates",
+      "business_work_commands",
+      "business_work_events"
+    ],
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "activation": false
+  },
+  "communicationStorageMigration": {
+    "optInVariable": "GOVERNANCE_COMMUNICATION_STORAGE_MIGRATION",
+    "migrationPath": "packages/database/migrations/20261022_business_communications.sql",
+    "migrationSha256": "1ecfad0a085a50d55e32bd424dee6f8d065b26fe78144165b48042a62aabc46b",
+    "businessTables": [
+      "business_work_aggregates",
+      "business_work_commands",
+      "business_work_events"
+    ],
+    "governanceSchemaChanges": false,
+    "businessSchemaChanges": true,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "activation": false,
+    "temporaryValidationTables": true
   }
 }

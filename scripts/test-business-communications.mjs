@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import {BusinessWorkflowService} from '../cloudflare/workers/src/business-tasks/workflow.ts';
 import {CommunicationService} from '../cloudflare/workers/src/business-tasks/communication.ts';
 import {BusinessMailService} from '../cloudflare/workers/src/business-tasks/mail.ts';
-import {PostgresAtomicStore} from '../cloudflare/workers/src/business-tasks/store.ts';
+import {PostgresAtomicStore,commandValid} from '../cloudflare/workers/src/business-tasks/store.ts';
 import {MemoryAtomicStore} from './fixtures/business-memory-store.mjs';
 import {BusinessWorkspaceService} from '../cloudflare/workers/src/business-tasks/workspace.ts';
 import {CommunicationCore} from '../cloudflare/workers/src/business-tasks/channels.ts';
@@ -28,7 +28,7 @@ if(process.env.BUSINESS_TEST_DATABASE_URL) {
  const schema='business_test_'+crypto.randomUUID().replaceAll('-','');
  await pool.query('CREATE SCHEMA '+schema);await pool.end();
  pool=new Pool({connectionString:process.env.BUSINESS_TEST_DATABASE_URL,options:'-c search_path='+schema});
- await pool.query(readFileSync('scripts/fixtures/business-communications.sql','utf8'));
+ await pool.query(readFileSync('packages/database/migrations/20261022_business_communications.sql','utf8').replaceAll('public.',''));
  store=new PostgresAtomicStore(pool);
  after(async()=>{await pool.query('DROP SCHEMA '+schema+' CASCADE');await pool.end();});
  console.log('Storage: native PostgreSQL, isolated schema, production credentials unused');
@@ -219,8 +219,14 @@ if(pool)test('native transaction rollback includes aggregate, audit and idempote
  await pool.query("CREATE FUNCTION reject_fixture_event() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF NEW.event_type='fixture.fail' THEN RAISE EXCEPTION 'fixture rollback'; END IF; RETURN NEW; END $$");
  await pool.query('CREATE TRIGGER reject_fixture_event BEFORE INSERT ON business_work_events FOR EACH ROW EXECUTE FUNCTION reject_fixture_event()');
  const command={actor:a,id:aggregate,key:'rollback',expectedVersion:0,type:'fixture',payload:{}};
- await assert.rejects(store.run(command,async()=>{},async()=>({state:{id:aggregate,tenantId:a.tenantId,kind:'fixture',version:0},event:'fixture.fail'})),/fixture rollback/);
+ await assert.rejects(store.run(command,async()=>{},async()=>({state:{id:aggregate,tenantId:a.tenantId,kind:'conversation',version:0},event:'fixture.fail'})),/fixture rollback/);
  assert.equal((await pool.query('SELECT COUNT(*)::int AS n FROM business_work_aggregates WHERE id=$1',[aggregate])).rows[0].n,0);
  assert.equal((await pool.query('SELECT COUNT(*)::int AS n FROM business_work_commands WHERE aggregate_id=$1',[aggregate])).rows[0].n,0);
  await pool.query('DROP TRIGGER reject_fixture_event ON business_work_events');
+});
+
+test('version bound rejects a write that would exceed a safe integer before acquiring storage',()=>{
+ const command={actor:a,id:'fixture',key:'version',type:'fixture',payload:{},expectedVersion:Number.MAX_SAFE_INTEGER};
+ assert.throws(()=>commandValid(command),/Invalid version/);
+ command.expectedVersion=Number.MAX_SAFE_INTEGER-1;assert.doesNotThrow(()=>commandValid(command));
 });
