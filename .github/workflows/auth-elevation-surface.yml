@@ -1,0 +1,35 @@
+name: Register bounded elevation and tenant-support contracts
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/auth-elevation-surface.yml
+      - tools/governance-production/auth-elevation-surface.json
+      - tools/governance-production/auth_elevation_surface.py
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: auth-elevation-surface
+  cancel-in-progress: false
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    env:
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      GOVERNANCE_WORKFLOW_WRITES: '1'
+      GOVERNANCE_AUTH_ELEVATION_SURFACE_WRITES: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/lifecycle-surface" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/lifecycle-surface/node_modules" node_modules
+          python tools/governance-production/auth_elevation_surface.py --dry-run
+          python tools/governance-production/auth_elevation_surface.py --apply

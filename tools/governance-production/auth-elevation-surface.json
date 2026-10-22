@@ -1,0 +1,619 @@
+{
+  "id": "auth-elevation-surface-v1",
+  "policyId": "auth-lifecycle-completion-v1",
+  "action": "tenant_security_summary",
+  "maximumSeconds": 900,
+  "endpoints": [
+    {
+      "code": "auth_elevation",
+      "route": "/v1/auth/mfa/elevation",
+      "method": "POST",
+      "permission": "self_code_admin_elevation",
+      "authenticated": 1,
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "password",
+          "code",
+          "reason",
+          "scope",
+          "seconds"
+        ],
+        "properties": {
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 72,
+            "description": "Maximum 72 UTF-8 bytes; compare against current actor password"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[0-9]{6}$"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 500
+          },
+          "scope": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "const": "tenant_security_summary"
+            }
+          },
+          "seconds": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 900
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "elevationId",
+          "expiresAt",
+          "scope"
+        ],
+        "properties": {
+          "status": {
+            "const": "elevated"
+          },
+          "elevationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "scope": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "const": "tenant_security_summary"
+            }
+          }
+        }
+      }
+    },
+    {
+      "code": "auth_elevation_revoke",
+      "route": "/v1/auth/mfa/elevation/revoke",
+      "method": "POST",
+      "permission": "self_code_admin_elevation",
+      "authenticated": 1,
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "elevationId"
+        ],
+        "properties": {
+          "elevationId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "const": "revoked"
+          }
+        }
+      }
+    },
+    {
+      "code": "auth_support_request",
+      "route": "/v1/auth/mfa/support/request",
+      "method": "POST",
+      "permission": "elevated_code_admin_support_request",
+      "authenticated": 1,
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "elevationId",
+          "tenantId",
+          "ticket",
+          "reason",
+          "scope",
+          "seconds"
+        ],
+        "properties": {
+          "elevationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tenantId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ticket": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 500
+          },
+          "scope": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "const": "tenant_security_summary"
+            }
+          },
+          "seconds": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 900
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "requestId",
+          "requesterId",
+          "tenantId",
+          "ticket",
+          "reason",
+          "scope",
+          "expiresAt",
+          "state"
+        ],
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "requesterId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tenantId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ticket": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 500
+          },
+          "scope": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "const": "tenant_security_summary"
+            }
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "state": {
+            "enum": [
+              "pending",
+              "approved",
+              "revoked"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "code": "auth_support_requests",
+      "route": "/v1/auth/mfa/support/requests",
+      "method": "GET",
+      "permission": "tenant_admin_support_approval",
+      "authenticated": 1,
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [],
+        "properties": {}
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "requests"
+        ],
+        "properties": {
+          "requests": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "requestId",
+                "requesterId",
+                "tenantId",
+                "ticket",
+                "reason",
+                "scope",
+                "expiresAt",
+                "state"
+              ],
+              "properties": {
+                "requestId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "requesterId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "tenantId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "ticket": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 10,
+                  "maxLength": 500
+                },
+                "scope": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "const": "tenant_security_summary"
+                  }
+                },
+                "expiresAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "state": {
+                  "enum": [
+                    "pending",
+                    "approved",
+                    "revoked"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "code": "auth_support_approve",
+      "route": "/v1/auth/mfa/support/approve",
+      "method": "POST",
+      "permission": "tenant_admin_support_approval",
+      "authenticated": 1,
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "requestId",
+          "password"
+        ],
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 72,
+            "description": "Maximum 72 UTF-8 bytes; compare against current actor password"
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "requestId",
+          "expiresAt"
+        ],
+        "properties": {
+          "status": {
+            "const": "approved"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    {
+      "code": "auth_support_revoke",
+      "route": "/v1/auth/mfa/support/revoke",
+      "method": "POST",
+      "permission": "owned_or_tenant_admin_support_revocation",
+      "authenticated": 1,
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "requestId",
+          "password"
+        ],
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 72,
+            "description": "Maximum 72 UTF-8 bytes; compare against current actor password"
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "const": "revoked"
+          }
+        }
+      }
+    },
+    {
+      "code": "auth_support_summary",
+      "route": "/v1/auth/mfa/support/summary",
+      "method": "POST",
+      "permission": "approved_tenant_security_summary",
+      "authenticated": 1,
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "requestId"
+        ],
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenantId",
+          "activeAccounts",
+          "activeSessions",
+          "enrolledAuthenticators"
+        ],
+        "properties": {
+          "tenantId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "activeAccounts": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "activeSessions": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "enrolledAuthenticators": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    }
+  ],
+  "controls": {
+    "title": {
+      "component": "prime_label",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "password": {
+      "component": "prime_text_field",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "factor": {
+      "component": "prime_text_field",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "reason": {
+      "component": "prime_text_field",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "elevate": {
+      "component": "prime_button",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "revoke": {
+      "component": "prime_button",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "tenant": {
+      "component": "prime_text_field",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "ticket": {
+      "component": "prime_text_field",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "request": {
+      "component": "prime_button",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "summary": {
+      "component": "prime_button",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "cancelSupport": {
+      "component": "prime_button",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "status": {
+      "component": "prime_label",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "approvalTitle": {
+      "component": "prime_label",
+      "screen": "AUTHENTICATED_ACCOUNT",
+      "file": "packages/primecare_ui/lib/src/features/auth/tenant_support_form.dart"
+    },
+    "approvalPassword": {
+      "component": "prime_text_field",
+      "screen": "AUTHENTICATED_ACCOUNT",
+      "file": "packages/primecare_ui/lib/src/features/auth/tenant_support_form.dart"
+    },
+    "approvalRequests": {
+      "component": "prime_label",
+      "screen": "AUTHENTICATED_ACCOUNT",
+      "file": "packages/primecare_ui/lib/src/features/auth/tenant_support_form.dart"
+    },
+    "approve": {
+      "component": "prime_button",
+      "screen": "AUTHENTICATED_ACCOUNT",
+      "file": "packages/primecare_ui/lib/src/features/auth/tenant_support_form.dart"
+    },
+    "reject": {
+      "component": "prime_button",
+      "screen": "AUTHENTICATED_ACCOUNT",
+      "file": "packages/primecare_ui/lib/src/features/auth/tenant_support_form.dart"
+    }
+  },
+  "locales": {
+    "en": {
+      "title": "Temporary support access",
+      "password": "Current password",
+      "factor": "Authenticator code",
+      "reason": "Reason for access",
+      "elevate": "Verify for 15 minutes",
+      "revoke": "End temporary access",
+      "tenant": "Tenant ID",
+      "ticket": "Support ticket",
+      "request": "Request tenant approval",
+      "summary": "View security summary",
+      "cancelSupport": "Revoke support request",
+      "status": "Access status",
+      "approvalTitle": "Tenant support approvals",
+      "approvalPassword": "Current password",
+      "approvalRequests": "Requests for this tenant",
+      "approve": "Approve request",
+      "reject": "Revoke request",
+      "pending": "Waiting for tenant approval",
+      "approved": "Approved until expiry",
+      "expired": "Access expired or revoked",
+      "error": "The request could not be completed. Verify the details and try again.",
+      "working": "Working…",
+      "scope": "Scope: aggregate account, session and authenticator counts only.",
+      "privacy": "No clinical records, personal account details or impersonation. Tenant approval and current verified access are required for each use."
+    },
+    "fr": {
+      "title": "Accès temporaire au support",
+      "password": "Mot de passe actuel",
+      "factor": "Code de l’application d’authentification",
+      "reason": "Motif de l’accès",
+      "elevate": "Vérifier pour 15 minutes",
+      "revoke": "Terminer l’accès temporaire",
+      "tenant": "Identifiant du locataire",
+      "ticket": "Ticket de support",
+      "request": "Demander l’approbation du locataire",
+      "summary": "Voir le résumé de sécurité",
+      "cancelSupport": "Révoquer la demande de support",
+      "status": "État de l’accès",
+      "approvalTitle": "Approbations du support du locataire",
+      "approvalPassword": "Mot de passe actuel",
+      "approvalRequests": "Demandes pour ce locataire",
+      "approve": "Approuver la demande",
+      "reject": "Révoquer la demande",
+      "pending": "En attente de l’approbation du locataire",
+      "approved": "Approuvé jusqu’à expiration",
+      "expired": "Accès expiré ou révoqué",
+      "error": "La demande n’a pas pu être traitée. Vérifiez les informations et réessayez.",
+      "working": "Traitement…",
+      "scope": "Portée : nombres agrégés de comptes, sessions et applications d’authentification uniquement.",
+      "privacy": "Aucun dossier clinique, détail personnel de compte ni usurpation d’identité. L’approbation du locataire et un accès vérifié valide sont requis pour chaque utilisation."
+    },
+    "es": {
+      "title": "Acceso temporal de soporte",
+      "password": "Contraseña actual",
+      "factor": "Código de autenticación",
+      "reason": "Motivo del acceso",
+      "elevate": "Verificar durante 15 minutos",
+      "revoke": "Finalizar acceso temporal",
+      "tenant": "ID del inquilino",
+      "ticket": "Ticket de soporte",
+      "request": "Solicitar aprobación del inquilino",
+      "summary": "Ver resumen de seguridad",
+      "cancelSupport": "Revocar solicitud de soporte",
+      "status": "Estado del acceso",
+      "approvalTitle": "Aprobaciones de soporte del inquilino",
+      "approvalPassword": "Contraseña actual",
+      "approvalRequests": "Solicitudes para este inquilino",
+      "approve": "Aprobar solicitud",
+      "reject": "Revocar solicitud",
+      "pending": "Esperando aprobación del inquilino",
+      "approved": "Aprobado hasta su vencimiento",
+      "expired": "Acceso vencido o revocado",
+      "error": "No se pudo completar la solicitud. Verifica los datos e inténtalo de nuevo.",
+      "working": "Procesando…",
+      "scope": "Alcance: solo recuentos agregados de cuentas, sesiones y autenticadores.",
+      "privacy": "Sin registros clínicos, datos personales de cuentas ni suplantación. Cada uso requiere aprobación del inquilino y acceso verificado vigente."
+    }
+  }
+}
