@@ -40,7 +40,10 @@ CREATE TABLE IF NOT EXISTS auth_mfa_notification_outbox (
  attempts integer NOT NULL DEFAULT 0 CHECK (attempts>=0),
  available_at timestamptz NOT NULL DEFAULT NOW(),
  lease_until timestamptz,
+ lease_token text,
  created_at timestamptz NOT NULL DEFAULT NOW(),
- sent_at timestamptz
+ sent_at timestamptz,
+ CHECK ((state='sending' AND lease_until IS NOT NULL AND lease_token IS NOT NULL) OR
+        (state<>'sending' AND lease_until IS NULL AND lease_token IS NULL))
 );
 CREATE INDEX IF NOT EXISTS auth_mfa_notification_due ON auth_mfa_notification_outbox(state,available_at);

@@ -7,10 +7,15 @@ on:
       - cloudflare/workers/src/security/mfa-keyring.mjs
       - cloudflare/workers/src/security/mfa-recovery-codes.mjs
       - cloudflare/workers/src/security/mfa-lifecycle.mjs
+      - cloudflare/workers/src/security/mfa-notifications.mjs
       - scripts/test-code-admin-keyring.mjs
       - scripts/test-code-admin-recovery-codes.mjs
       - scripts/test-mfa-lifecycle-schema.mjs
       - scripts/test-code-admin-lifecycle-postgres.mjs
+      - scripts/test-code-admin-mfa-outbox-postgres.mjs
+      - scripts/mfa-schema-profile.mjs
+      - scripts/export-mfa-lifecycle-schema.mjs
+      - scripts/apply-mfa-lifecycle-schema.mjs
       - packages/database/migrations/20261026_auth_mfa_lifecycle.sql
   workflow_dispatch:
 permissions:
@@ -46,3 +51,32 @@ jobs:
         run: |
           MFA_TEST_ID_TYPE=text node --test scripts/test-code-admin-lifecycle-postgres.mjs
           MFA_TEST_ID_TYPE=uuid node --test scripts/test-code-admin-lifecycle-postgres.mjs
+          node --test scripts/test-code-admin-mfa-outbox-postgres.mjs
+          node scripts/export-mfa-lifecycle-schema.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-mfa-lifecycle-schema
+          path: test-results/mfa-lifecycle-schema
+  schema:
+    needs: foundation
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/download-artifact@v4
+        with:
+          name: native-mfa-lifecycle-schema
+          path: test-results/mfa-lifecycle-schema
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/lifecycle-schema" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/lifecycle-schema/node_modules" node_modules
+      - name: Validate exact native schema in rollback before applying empty lifecycle tables
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          APPLY_MFA_LIFECYCLE_SCHEMA: '1'
+        run: |
+          node scripts/apply-mfa-lifecycle-schema.mjs --dry-run
+          node scripts/apply-mfa-lifecycle-schema.mjs --apply

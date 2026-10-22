@@ -386,5 +386,18 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "roleGrants": false
+  },
+  "authLifecycleSchemaWriter": {
+    "optInVariable": "APPLY_MFA_LIFECYCLE_SCHEMA",
+    "tables": [
+      "auth_mfa_recovery_codes",
+      "auth_mfa_replacement_challenges",
+      "auth_mfa_lifecycle_audit",
+      "auth_mfa_notification_outbox"
+    ],
+    "migrationSha256": "42869735e254acb7a04b1530a8971ee45a9ade33da009c113f6d49a1151dbd8b",
+    "governanceSchemaChanges": false,
+    "accountChanges": false,
+    "existingCredentialChanges": false
   }
 }
