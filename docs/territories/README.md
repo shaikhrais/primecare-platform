@@ -1,15 +1,21 @@
 # Territory sales and allocation
 
-One new section in Platform Administration, shared with tenant administrators. Implementation is local and API-connected; PostgreSQL concurrency CI, public-source publication permission, production rollout and human approval remain pending. No real territory sale has been recorded.
+This feature has Worker handlers and an older TypeScript client. It is not verified as an available end-to-end flow in the current Flutter portals. A read-only check of the pinned production registry on 2026-10-22 found no matching territory-board section or `/v1/governance/platform/territories` API registrations. The local registrar and historical test metadata do not prove current production registration. See [the current tenant/territory review](../task-progress/tenant-territory-review-20261022.md).
+
+Native PostgreSQL and existing-client browser checks passed in an isolated environment on 2026-10-22, including a double-sale race and synthetic sale/lock/reload behavior. No real territory sale was made.
+
+## Historical implementation scope in the older client
 
 1. **Done — governed catalog.** Registered 30 geographic pieces, 24 sale territories, two APIs, presentation components, semantic colors and EN/FR/ES resources before implementation. The 24 draft territories contain **1,246,300 residents aged 65+**; six reserves contain 32,335. Each sale territory has 50,000–55,000 seniors. Every one of the 226 selected postal FSAs occurs once.
 2. **Done — numbered map.** Natural Earth roads/water and GeoNames place labels provide geographic context. Available territories are green; sold territories are red; reserves are grey. Select a green map piece with a mouse or keyboard, or choose a territory from the selector/table. Zoom to the selection or restore the full map. Sold pieces are disabled for allocation; details remain readable.
 3. **Done — tenant allocation.** A platform or central administrator chooses an active tenant, PSW and/or home care, an approved sale reference, and confirmation. Recording the sale assigns that entire territory exclusively to one tenant. There is no independent second sale for its other service. This records an approved sale; it does not collect money, execute an agreement, or create care visits.
 4. **Done — persistence and access.** All reads/writes use authenticated APIs. The browser has no database adapter. Tenant administrators receive only their own allocations and no global tenant picker. Staff and unknown roles are denied. A sale, its actor/tenant audit record and replay receipt commit together. A row lock plus a unique territory key prevent duplicate ownership. Retries reuse an idempotency key; mismatched requests and later sales return 409. There is no reassignment or unsell endpoint.
 5. **Done — summaries and local review.** The board shows sold/available counts and senior totals, plus each territory’s name, number, code, postal areas, population, operating tenant, services, reference and recording date. Six browser cases cover English/French/Spanish at 320 and 1440 CSS pixels in headless Chromium, with keyboard selection, failed-save draft retention, successful sale, lock, refresh, reload and tenant views. These are emulated viewports, not physical-device tests. Screenshots use synthetic tenants and test sales; counts in screenshots are not business results.
-6. **Pending — release.** Apply migrations to the target database, run the PostgreSQL CI race test, deploy API and web assets, and obtain human admin review. GitHub read access is verified, but an earlier automatic approval review rejected publishing private source to the public repository without explicit permission. Cloudflare/database credentials are not configured. Nothing has been deployed.
+6. **Pending — production registration and current-client completion.** Reconcile the missing production API/presentation metadata and business-process definition, bind the approved flow to the current Flutter client, verify deployment/migrations and obtain required review evidence. Existing isolated tests do not supply these gates.
 
-## Evidence
+## Historical implementation evidence
+
+The following original counts describe earlier isolated implementation work; use the dated review linked above for the current native PostgreSQL run.
 
 - Territory suite: 16 local cases pass; one independent-connection PostgreSQL race case is skipped locally because PGlite uses a shared engine. CI runs the race on PostgreSQL 16. Local retry checks are not claimed as concurrency proof.
 - Added recovery checks: a stale browser receives 409 after another administrator sells an area, automatically refreshes to its locked red state and shows the actual owner. A server-committed sale followed by a simulated lost response retries with the original key and creates exactly one audit record. These sequential checks do not replace the PostgreSQL race test.
@@ -33,7 +39,7 @@ All images below show **synthetic QA data, not actual sales**.
 
 ## Reproduce and deploy
 
-Install Shapely 2.2.0 for geographic export. `python3 scripts/register-territory-governance.py` registers the source inputs in governance.db and exports the API policy, map paths, catalog SQL and OpenAPI. Use `--check` to verify the exports in an isolated governance copy. The registrar first installs the existing approved admin/growth registrations, so a clean checkout does not depend on an edited local database. `--database PATH --check` verifies exports against an isolated copy of a chosen governance database. Geography, IDs and Census counts must not be changed to reuse an already sold territory.
+The legacy registrar `scripts/register-territory-governance.py` is an isolated-fixture tool, not a production-compatible writer. Its SQLite assumptions must not be redirected at production or used to recreate a live governance.db. CI explicitly prepares historical metadata with `GOVERNANCE_ALLOW_SQLITE_FIXTURES=1`, in a disposable job without production credentials, before browser/export checks. Production registration must use the pinned PostgreSQL authority and a reviewed scoped writer. Do not infer deployment readiness from regenerated fixture exports.
 
 Apply, in order:
 
