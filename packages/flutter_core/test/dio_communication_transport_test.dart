@@ -43,7 +43,7 @@ void main() {
     await CommunicationHub(transport('picture.upload')).pictures.upload('thread', source, 'image/png');
     source[0] = 0;
     final form = requests.single.data as FormData;
-    expect(form.fields, contains(const MapEntry('threadId', 'thread')));
+    expect(Map.fromEntries(form.fields)['threadId'], 'thread');
     expect(form.fields.any((entry) => entry.key == 'bytes'), isFalse);
     final file = form.files.single.value;
     expect(file.filename, 'picture.png');
