@@ -1,7 +1,7 @@
 """Browser fixtures for focus handoff; no service or account access."""
 import unittest
 from playwright.sync_api import sync_playwright, expect
-from tools.deployment.flutter_browser import fill_flutter_field
+from tools.deployment.flutter_browser import fill_flutter_field, click_flutter_control
 
 
 class FocusHandoffTests(unittest.TestCase):
@@ -55,6 +55,30 @@ class FocusHandoffTests(unittest.TestCase):
             expect(field).to_be_focused()
             expect(field).to_have_value('fixture-proof')
             self.assertEqual(page.evaluate('window.clicks'), 1)
+        finally:
+            page.close()
+
+    def test_reresolves_replaced_semantics_before_one_click(self):
+        page = self.browser.new_page()
+        try:
+            page.set_content('''<button aria-label="fixture" onclick="window.clicks=(window.clicks||0)+1">Action</button>
+              <script>setTimeout(()=>{const old=document.querySelector('button');
+                old.replaceWith(old.cloneNode(true));window.replaced=true},350)</script>''')
+            click_flutter_control(page.get_by_role('button', name='fixture'))
+            self.assertTrue(page.evaluate('window.replaced'))
+            self.assertEqual(page.evaluate('window.clicks'), 1)
+        finally:
+            page.close()
+
+    def test_replaced_focused_field_never_receives_retried_proof(self):
+        page = self.browser.new_page()
+        try:
+            page.set_content('''<input aria-label="fixture" onfocus="
+              if(!window.replaced){window.replaced=true;setTimeout(()=>this.replaceWith(this.cloneNode(true)),80)}"
+              oninput="window.entries=(window.entries||0)+1">''')
+            with self.assertRaises(AssertionError):
+                fill_flutter_field(page, page.get_by_label('fixture'), 'fixture-proof')
+            self.assertEqual(page.evaluate('window.entries||0'), 0)
         finally:
             page.close()
 
