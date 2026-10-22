@@ -42,6 +42,8 @@ jobs:
           pip install -r tools/governance-production/requirements.txt
           npm install --prefix "$RUNNER_TEMP/mfa-reader" --ignore-scripts pg@8.16.3
           ln -s "$RUNNER_TEMP/mfa-reader/node_modules" node_modules
+      - name: Verify browser focus handoff and rejection of lost input
+        run: python -m unittest tools.deployment.test_flutter_browser
       - uses: actions/download-artifact@v4
         with:
           name: flutter-build-primecare-clinic

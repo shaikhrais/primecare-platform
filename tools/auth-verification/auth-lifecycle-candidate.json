@@ -2,6 +2,7 @@
   "base": "095817004c06c373240fc7fadb819642ac1376b3",
   "sha256": "5e51a9964e44422c2012488a86c16a5e18c00967fe87234673311349003a704e",
   "paths": [
+    ".github/workflows/verify-live-flutter-lifecycle.yml",
     "cloudflare/workers/src/auth.ts",
     "cloudflare/workers/src/core/base-worker.ts",
     "cloudflare/workers/src/security/mfa-elevation.mjs",
@@ -45,10 +46,13 @@
     "tools/auth-verification/flutter_mfa_lifecycle.py",
     "tools/auth-verification/flutter_privileged_access.py",
     "tools/auth-verification/mfa-keyring-tail.mjs",
-    "tools/auth-verification/test-live-flutter-mfa.py"
+    "tools/auth-verification/test-live-flutter-mfa.py",
+    "tools/deployment/flutter_browser.py",
+    "tools/deployment/test_flutter_browser.py"
   ],
   "state": "promoted",
   "sourceSha256": {
+    ".github/workflows/verify-live-flutter-lifecycle.yml": "1b7aed167de3c180bb4e5bb473eb8eec713d69393d0a9f92fb56ee3459466313",
     "cloudflare/workers/src/auth.ts": "d9bc42a7740ea3a7711ccddf4ea2035c3dbab8a4fce45c02414a730622a62ce9",
     "cloudflare/workers/src/core/base-worker.ts": "bbecbff8fe9a4c8ca60635c7d825c2980855d768fc80a989741de1368034b18b",
     "cloudflare/workers/src/security/mfa-elevation.mjs": "e05f1ca5258c52b848d995aeeff48c047423c6197cdd00130ed61e904c43e5e6",
@@ -92,6 +96,8 @@
     "tools/auth-verification/flutter_mfa_lifecycle.py": "f8cef4b623ea8c4981a54aa90a6b1bcddd739c61b61dde603549be286252ba49",
     "tools/auth-verification/flutter_privileged_access.py": "97462bd78bf67e9f67838adba864d561169e1e1d4bc8dcc4398150706e5def1b",
     "tools/auth-verification/mfa-keyring-tail.mjs": "af6e7305019dfd5ff7c31650f99fd0406d6aa6f739040974aa52caff0187f5e0",
-    "tools/auth-verification/test-live-flutter-mfa.py": "db73d34310d8cd4af361e5fbe34a3b970be23f611b1d56db5a1f05eb79a6c712"
+    "tools/auth-verification/test-live-flutter-mfa.py": "db73d34310d8cd4af361e5fbe34a3b970be23f611b1d56db5a1f05eb79a6c712",
+    "tools/deployment/flutter_browser.py": "89568c139591e346a1a7c9ddd3ad1db4f15664c092e7475dc5408e08b0e1a5fd",
+    "tools/deployment/test_flutter_browser.py": "7b50db2b0bbe5bcf9654b0085e84146782e980fd8aa3856af03ca8e053b433f2"
   }
 }
