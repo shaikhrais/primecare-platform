@@ -16,12 +16,16 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: |
           pip install psycopg[binary]==3.2.13 bcrypt==4.3.0 playwright==1.58.0
           python -m playwright install --with-deps chromium
           pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/focus-reader" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/focus-reader/node_modules" node_modules
       - name: Verify pinned production governance authority
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
