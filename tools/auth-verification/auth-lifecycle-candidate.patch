@@ -87,10 +87,10 @@ index 4a3ad117..edb4b57c 100644
    };
  }
 diff --git a/cloudflare/workers/src/security/mfa-elevation.mjs b/cloudflare/workers/src/security/mfa-elevation.mjs
-index e6137cc8..cd324fd5 100644
+index e6137cc8..eac2ca05 100644
 --- a/cloudflare/workers/src/security/mfa-elevation.mjs
 +++ b/cloudflare/workers/src/security/mfa-elevation.mjs
-@@ -34,21 +34,25 @@ async function readRate(db,userId){
+@@ -34,23 +34,29 @@ async function readRate(db,userId){
   if(!Number.isInteger(result.attempts)||result.attempts<1||result.attempts>61)throw Error('Invalid privileged rate result');return result.attempts<=60;
  }
  async function elevation(db,elevationId){
@@ -120,9 +120,14 @@ index e6137cc8..cd324fd5 100644
 - const request=rows[0];
 + const request={...rows[0],fresh:one(await db.query('SELECT expires_at>clock_timestamp() AS fresh FROM auth_tenant_support_requests WHERE id=$1',[requestId])).fresh};
   if(request.requester_user_id!==elevated.user_id||request.requester_tenant_id!==elevated.tenant_id||request.requester_session_hash!==elevated.session_hash||!scope(request.scopes))throw Error('Inconsistent support binding');
-  return {request,elevated};
+- return {request,elevated};
++ // A different actor may have held the request lock past the elevation deadline.
++ const refreshed=await elevation(db,elevated.id);
++ return {request,elevated:refreshed};
  }
-@@ -58,11 +62,19 @@ function project(request){
+ function project(request){
+  if(!id(request.id)||!id(request.requester_user_id)||!id(request.target_tenant_id)||!text(request.ticket,1,100)||!text(request.reason,10,500)||!scope(request.scopes)||!['pending','approved','revoked'].includes(request.state))throw Error('Invalid support projection');
+@@ -58,11 +64,19 @@ function project(request){
  }
  async function targetActive(db,tenantId){return (await db.query("SELECT id::text AS id FROM tenants WHERE id::text=$1 AND status='active'",[tenantId])).rows.length===1;}
  
@@ -142,7 +147,7 @@ index e6137cc8..cd324fd5 100644
   const userId=await sessionLookup(db,sessionToken);if(!userId)return denied();
   const proving=['elevate','approveSupport','revokeSupport'].includes(operation);
   if(!(proving?await proofRate(db,userId):await readRate(db,userId)))return denied(429);
-@@ -70,10 +82,10 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+@@ -70,10 +84,10 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
   try{
    const actor=await lockedUser(db,userId);
    if(!actor||actor.status!=='active'||!await sessionCurrent(db,sessionToken,actor)){await db.query('ROLLBACK');return denied();}
@@ -156,7 +161,7 @@ index e6137cc8..cd324fd5 100644
    const sessionHash=await digest(sessionToken);
    let response;
    if(operation==='elevate'){
-@@ -86,29 +98,29 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+@@ -86,29 +100,29 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
     response={status:'elevated',elevationId,expiresAt:stamp(stored.expires_at),scope:body.scope};
    }else if(operation==='revokeElevation'){
     const elevated=await elevation(db,body.elevationId);
@@ -191,7 +196,7 @@ index e6137cc8..cd324fd5 100644
      const counts=one(await db.query(`SELECT
       (SELECT COUNT(*)::int FROM users WHERE tenant_id::text=$1 AND status='active') AS accounts,
       (SELECT COUNT(*)::int FROM auth_sessions s JOIN users u ON u.id::text=s.user_id::text WHERE u.tenant_id::text=$1 AND u.status='active' AND s.expires_at>NOW()) AS sessions,
-@@ -117,10 +129,10 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+@@ -117,10 +131,10 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
      await audit(db,actor,'security_summary_read',{elevationId:elevated.id,requestId:request.id,targetTenantId:request.target_tenant_id});
      response={tenantId:request.target_tenant_id,activeAccounts:counts.accounts,activeSessions:counts.sessions,enrolledAuthenticators:counts.factors};
     }else{
@@ -204,6 +209,14 @@ index e6137cc8..cd324fd5 100644
       if(request.state==='pending'){
        one(await db.query("UPDATE auth_tenant_support_requests SET state='approved',approved_by=$2,approved_at=NOW() WHERE id=$1 AND state='pending' RETURNING id",[request.id,actor.id]));
        await audit(db,actor,'support_approved',{elevationId:elevated.id,requestId:request.id,targetTenantId:request.target_tenant_id});
+@@ -135,6 +149,7 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+     }
+    }
+   }
++  if(!await sessionCurrent(db,sessionToken,actor)){await db.query('ROLLBACK');return denied();}
+   await db.query('COMMIT');return {status:200,body:response};
+  }catch(error){await db.query('ROLLBACK');throw error;}
+ }
 diff --git a/cloudflare/workers/src/security/mfa-key-rotation.mjs b/cloudflare/workers/src/security/mfa-key-rotation.mjs
 index 40459f14..f6ae6977 100644
 --- a/cloudflare/workers/src/security/mfa-key-rotation.mjs
@@ -2171,7 +2184,7 @@ index 00000000..0a30e154
 + const hash=createHash('sha256');for(const path of paths)hash.update(path).update('\0').update(readFileSync(new URL('../'+path,import.meta.url))).update('\0');return hash.digest('hex');
 +}
 diff --git a/scripts/test-auth-privileged-postgres.mjs b/scripts/test-auth-privileged-postgres.mjs
-index 16558331..32120c4b 100644
+index 16558331..e361c29e 100644
 --- a/scripts/test-auth-privileged-postgres.mjs
 +++ b/scripts/test-auth-privileged-postgres.mjs
 @@ -69,7 +69,7 @@ test('fresh tenant password is required for approval and failure audits cannot g
@@ -2183,7 +2196,7 @@ index 16558331..32120c4b 100644
  });
  test('audit fault rolls back factor consumption and elevation creation; summary audit fault returns no data',async()=>{
   await reset();await multi("CREATE FUNCTION fail_privilege() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'synthetic audit fault'; END $$;CREATE TRIGGER fail_privilege BEFORE INSERT ON auth_privileged_access_audit FOR EACH ROW EXECUTE FUNCTION fail_privilege();");
-@@ -100,3 +100,25 @@ test('approval audit failure preserves pending request and missing MFA key canno
+@@ -100,3 +100,27 @@ test('approval audit failure preserves pending request and missing MFA key canno
   await reset();await assert.rejects(privilegedAccess(db,{},root.session,{password,code:await totpAt(seed,Math.floor(Date.now()/1000)),reason:'Investigate tenant sign-in counts',scope,seconds:900},'elevate'));
   assert.equal(await count('auth_privilege_elevations'),0);assert.equal(await count('auth_sessions'),4);
  });
@@ -2198,16 +2211,18 @@ index 16558331..32120c4b 100644
 + await multi('DROP TRIGGER fail_denial ON auth_privileged_access_audit;DROP FUNCTION fail_denial();');
 +});
 +test('a support request waiting on a row lock cannot outlive its real database deadline',{skip:!client},async()=>{
++ for(const lockedTable of ['auth_privilege_elevations','auth_tenant_support_requests']){
 + await reset();const {e,r}=await approved();
 + await db.query("UPDATE auth_privilege_elevations SET created_at=clock_timestamp()-INTERVAL '1 second',expires_at=clock_timestamp()+INTERVAL '1 second' WHERE id=$1",[e.elevationId]);
 + await db.query("UPDATE auth_tenant_support_requests SET created_at=clock_timestamp()-INTERVAL '1 second',expires_at=(SELECT expires_at FROM auth_privilege_elevations WHERE id=$2) WHERE id=$1",[r.requestId,e.elevationId]);
 + const pg=await import('pg'),blocker=new pg.default.Client({connectionString:process.env.MFA_TEST_DATABASE_URL});await blocker.connect();
 + try{
-+  await blocker.query('SET search_path TO '+schema);await blocker.query('BEGIN');await blocker.query('SELECT id FROM auth_privilege_elevations WHERE id=$1 FOR UPDATE',[e.elevationId]);
++  await blocker.query('SET search_path TO '+schema);await blocker.query('BEGIN');await blocker.query('SELECT id FROM '+lockedTable+' WHERE id=$1 FOR UPDATE',[lockedTable==='auth_privilege_elevations'?e.elevationId:r.requestId]);
 +  const pending=call(root,{requestId:r.requestId},'summary');await blocker.query('SELECT pg_sleep(1.2)');await blocker.query('COMMIT');
 +  const result=await pending;assert.equal(result.status,403);assert.equal(result.body.activeAccounts,undefined);
 +  assert.equal((await db.query("SELECT COUNT(*)::int AS n FROM auth_privileged_access_audit WHERE action='security_summary_read'")).rows[0].n,0);
 + }finally{await blocker.query('ROLLBACK');await blocker.end();}
++ }
 +});
 diff --git a/scripts/test-code-admin-key-rotation-postgres.mjs b/scripts/test-code-admin-key-rotation-postgres.mjs
 index f5027b60..af2dbc50 100644
@@ -2343,7 +2358,7 @@ index 6baf4ea8..659aab15 100644
  test('central module registry retains reviewed precedence and cannot mutate',()=>{
 diff --git a/tools/auth-verification/mfa-keyring-tail.mjs b/tools/auth-verification/mfa-keyring-tail.mjs
 new file mode 100644
-index 00000000..cd0eba76
+index 00000000..9dcd358c
 --- /dev/null
 +++ b/tools/auth-verification/mfa-keyring-tail.mjs
 @@ -0,0 +1,59 @@
@@ -2397,7 +2412,7 @@ index 00000000..cd0eba76
 +    const parser=new TailObjects(event=>{
 +      for(const receipt of keyringEvidence(event,expected)){if(receipt.kind==='drill')drill=receipt;else rotation=receipt;}
 +      if(drill&&(!expected.migrateFromKeyId||rotation&&rotation.remainingOldCredentials===0&&rotation.remainingOldReplacementEnvelopes===0)){
-+        writeFileSync(output,JSON.stringify({source:process.env.GITHUB_SHA,...expected,observedAt:new Date().toISOString(),actualBindingDrill:drill,rotation:rotation??null,oldKeyDeleted:false,independentApprovals:false},null,2)+'\n');finish();
++        writeFileSync(output,JSON.stringify({source:process.env.GITHUB_SHA,keyringSource:expected.source,activeKeyId:expected.activeKeyId,migrateFromKeyId:expected.migrateFromKeyId,observedAt:new Date().toISOString(),actualBindingDrill:drill,rotation:rotation??null,oldKeyDeleted:false,independentApprovals:false},null,2)+'\n');finish();
 +      }
 +    });
 +    child.stdout.setEncoding('utf8');child.stdout.on('data',chunk=>{try{parser.push(chunk);}catch{finish(Error('Invalid keyring tail stream'));}});
