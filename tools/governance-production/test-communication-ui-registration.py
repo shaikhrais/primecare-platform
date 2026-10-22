@@ -72,4 +72,16 @@ class UiTests(unittest.TestCase):
   with self.store() as db:
    for table,key,values in [('api_permissions',{},{}),('screen_components',{'screen_id':999,'component_code':'communicationWorkspace.root'},{}),('screen_required_elements',{'screen_id':234,'element_key':'other.root'},{}),('language_resources',{'resource_key':'other.title'},{})]:
     with self.subTest(table=table),self.assertRaises(GovernanceReadError):db.ensure_exact(table,key,values)
+ def test_extension_preserves_original_ids_and_values(self):
+  legacy=json.loads(json.dumps(definition()));legacy['controls']=dict(list(legacy['controls'].items())[:17]);legacy['locales']={loc:dict(list(values.items())[:28]) for loc,values in legacy['locales'].items()};legacy['apiIds']=legacy['apiIds'][:4]
+  with self.store() as db:
+   with patch('communication_ui_registration.definition',return_value=legacy):register(db)
+   before={table:db.execute('SELECT * FROM '+table).fetchall() for table in ['screen_components','screen_required_elements','language_resources','language_resource_values']}
+   register(db);self.assertTrue(readback(db))
+   for table,rows in before.items():self.assertTrue(set(rows).issubset(set(db.execute('SELECT * FROM '+table).fetchall())))
+ def test_wrong_context_with_same_resource_key_is_not_duplicated(self):
+  with self.store() as db:register(db)
+  with psycopg.connect(URL,autocommit=True) as admin:admin.execute('UPDATE '+self.table('language_resources')+" SET context='human-edited-context' WHERE resource_id=1")
+  with self.assertRaises(GovernanceReadError):
+   with self.store() as db:register(db)
 if __name__=='__main__':unittest.main()
