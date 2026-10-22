@@ -1,14 +1,16 @@
 diff --git a/cloudflare/workers/src/auth.ts b/cloudflare/workers/src/auth.ts
-index d9fdaf21..db14ac98 100644
+index d9fdaf21..57dae23f 100644
 --- a/cloudflare/workers/src/auth.ts
 +++ b/cloudflare/workers/src/auth.ts
-@@ -1,4 +1,5 @@
+@@ -1,4 +1,7 @@
  import {beginMfa,finishMfa} from './security/mfa.mjs';
++import {privilegedAccess,validPrivilegedRequest} from './security/mfa-elevation.mjs';
++import elevationSurface from '../../../packages/shared/src/auth-elevation.json';
 +import {manageMfaLifecycle,recoverMfaLifecycle,confirmMfaReplacement} from './security/mfa-lifecycle.mjs';
  import {invalidateSessionToken} from './auth-invalidation';
  import {confirmedAudit} from './audit-confirmation';
  import {optionalRow,requiredRow,resultRows} from './database-results';
-@@ -19,7 +20,7 @@ import {parseAccountAdminRequest,accountAdministration} from './account-admin';
+@@ -19,10 +22,17 @@ import {parseAccountAdminRequest,accountAdministration} from './account-admin';
  import {changePassword,validatePasswordChange} from './password-change';
  
  export interface Env extends SourceLimitEnv, MaintenanceEnv {
@@ -17,10 +19,35 @@ index d9fdaf21..db14ac98 100644
    WORKSPACE_SOURCE_LIMIT?: {limit(options:{key:string}):Promise<{success:boolean}>};
  }
  type Json = Record<string, unknown>;
-@@ -302,6 +303,22 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
++const privilegedOperations:Record<string,string>={auth_elevation:'elevate',auth_elevation_revoke:'revokeElevation',
++  auth_support_request:'requestSupport',auth_support_requests:'listSupport',auth_support_approve:'approveSupport',
++  auth_support_revoke:'revokeSupport',auth_support_summary:'summary'};
++const privilegedRoutes:Record<string,{method:string;operation:string}>=Object.fromEntries(elevationSurface.endpoints
++  .filter(endpoint=>Object.hasOwn(privilegedOperations,endpoint.code))
++  .map(endpoint=>[endpoint.route.replace(/^\/v1\/auth/,''),{method:endpoint.method,operation:privilegedOperations[endpoint.code]}]));
++
+ 
+ export function json(body: unknown, status = 200, headers: HeadersInit = {}): Response {
+   return Response.json(body, { status, headers });
+@@ -302,6 +312,37 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
        }
      });
    }
++  const privileged=Object.hasOwn(privilegedRoutes,path)?privilegedRoutes[path]:null;
++  if(privileged){
++    if(request.method!==privileged.method)return json({error:'Method not allowed'},405,{...headers,allow:privileged.method});
++    if(new URL(request.url).search || privileged.method==='GET'&&await requestHasContent(request))return json({error:'Invalid query or body'},400,headers);
++    const session=request.headers.has('authorization')?tokenFrom(request):null;
++    if(!session)return json({error:'No session'},401,headers);
++    let body:Json={};
++    if(privileged.method!=='GET'){try{body=await parseBody(request,10000);}catch(error){return bodyFailure(error,'Invalid privileged access request',headers);}}
++    if(!validPrivilegedRequest(body,privileged.operation))return json({error:'Invalid privileged access request'},400,headers);
++    return withDb(env,async db=>{
++      const result=await privilegedAccess(db,env,session,body,privileged.operation,request.headers.get('x-tenant-id'));
++      const limited=result.status===429?{'retry-after':['elevate','approveSupport','revokeSupport'].includes(privileged.operation)?'900':'60'}:{};
++      return json(result.body,result.status,{...headers,...limited});
++    });
++  }
 +  if(['/mfa/recovery-codes','/mfa/replacement','/mfa/recovery','/mfa/replacement/confirm'].includes(path)) {
 +    if(request.method!=='POST')return json({error:'Method not allowed'},405,{...headers,allow:'POST'});
 +    const managing=['/mfa/recovery-codes','/mfa/replacement'].includes(path);
@@ -59,6 +86,88 @@ index 4a3ad117..edb4b57c 100644
 +    scheduled: async (controller: unknown, env: Environment): Promise<void> => worker.scheduled(controller, env),
    };
  }
+diff --git a/cloudflare/workers/src/security/mfa-elevation.mjs b/cloudflare/workers/src/security/mfa-elevation.mjs
+index e6137cc8..4512213a 100644
+--- a/cloudflare/workers/src/security/mfa-elevation.mjs
++++ b/cloudflare/workers/src/security/mfa-elevation.mjs
+@@ -58,11 +58,19 @@ function project(request){
+ }
+ async function targetActive(db,tenantId){return (await db.query("SELECT id::text AS id FROM tenants WHERE id::text=$1 AND status='active'",[tenantId])).rows.length===1;}
+ 
++export function validPrivilegedRequest(body,operation){return valid(body,operation);}
++async function rejectedCapability(db,actor,body){
++ await audit(db,actor,'proof_failed',{elevationId:body.elevationId??null,requestId:body.requestId??null,targetTenantId:body.tenantId??null});
++ await db.query('COMMIT');return denied(403);
++}
++
+ /** All capability authority is derived from the current verified database session.
+  * IDs are references, never bearer credentials. There is no clinical handler.
+  */
+ export async function privilegedAccess(db,env,sessionToken,body,operation,tenantHint=null){
+  if(!valid(body,operation))return invalid();
++ body={...body};for(const key of ['elevationId','requestId','tenantId'])if(typeof body[key]==='string')body[key]=body[key].toLowerCase();
++ if(id(tenantHint))tenantHint=tenantHint.toLowerCase();
+  const userId=await sessionLookup(db,sessionToken);if(!userId)return denied();
+  const proving=['elevate','approveSupport','revokeSupport'].includes(operation);
+  if(!(proving?await proofRate(db,userId):await readRate(db,userId)))return denied(429);
+@@ -70,10 +78,10 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+  try{
+   const actor=await lockedUser(db,userId);
+   if(!actor||actor.status!=='active'||!await sessionCurrent(db,sessionToken,actor)){await db.query('ROLLBACK');return denied();}
+-  if(!await targetActive(db,actor.tenant_id)){await db.query('ROLLBACK');return denied(403);}
+-  if(tenantHint!==null&&tenantHint!==actor.tenant_id){await db.query('ROLLBACK');return denied(403);}
++  if(!await targetActive(db,actor.tenant_id)){return await rejectedCapability(db,actor,body);}
++  if(tenantHint!==null&&tenantHint!==actor.tenant_id){return await rejectedCapability(db,actor,body);}
+   const allowed=operation==='listSupport'||operation==='approveSupport'?actor.roles==='tenant_admin':operation==='revokeSupport'?['code_admin','tenant_admin'].includes(actor.roles):actor.roles==='code_admin';
+-  if(!allowed){await db.query('ROLLBACK');return denied(403);}
++  if(!allowed){return await rejectedCapability(db,actor,body);}
+   const sessionHash=await digest(sessionToken);
+   let response;
+   if(operation==='elevate'){
+@@ -86,12 +94,12 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+    response={status:'elevated',elevationId,expiresAt:stamp(stored.expires_at),scope:body.scope};
+   }else if(operation==='revokeElevation'){
+    const elevated=await elevation(db,body.elevationId);
+-   if(!owns(elevated,actor,sessionHash)){await db.query('ROLLBACK');return denied(403);}
++   if(!owns(elevated,actor,sessionHash)){return await rejectedCapability(db,actor,body);}
+    if(elevated.revoked_at===null){one(await db.query('UPDATE auth_privilege_elevations SET revoked_at=NOW() WHERE id=$1 AND revoked_at IS NULL RETURNING id',[elevated.id]));await audit(db,actor,'elevation_revoked',{elevationId:elevated.id});}
+    response={status:'revoked'};
+   }else if(operation==='requestSupport'){
+    const elevated=await elevation(db,body.elevationId);
+-   if(!owns(elevated,actor,sessionHash)||elevated.live!==true||!await targetActive(db,body.tenantId)){await db.query('ROLLBACK');return denied(403);}
++   if(!owns(elevated,actor,sessionHash)||elevated.live!==true||!await targetActive(db,body.tenantId)){return await rejectedCapability(db,actor,body);}
+    const requestId=crypto.randomUUID();
+    const request=one(await db.query("INSERT INTO auth_tenant_support_requests(id,elevation_id,requester_user_id,requester_tenant_id,requester_session_hash,target_tenant_id,ticket,reason,scopes,expires_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9::jsonb,LEAST($10,NOW()+$11*INTERVAL '1 second')) RETURNING *",[requestId,elevated.id,actor.id,actor.tenant_id,sessionHash,body.tenantId,body.ticket,body.reason,JSON.stringify(body.scope),elevated.expires_at,body.seconds]));
+    if(request.id!==requestId)throw Error('Support request mismatch');await audit(db,actor,'support_requested',{elevationId:elevated.id,requestId,targetTenantId:body.tenantId});response=project(request);
+@@ -102,13 +110,13 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+    if(rows.length>50)throw Error('Unbounded support result');response={requests:rows.map(project)};
+   }else{
+    const record=await support(db,body.requestId);
+-   if(!record){await db.query('ROLLBACK');return denied(403);}
++   if(!record){return await rejectedCapability(db,actor,body);}
+    const {request,elevated}=record;
+    const owner=owns(elevated,actor,sessionHash)&&request.requester_user_id===actor.id;
+    const approver=actor.roles==='tenant_admin'&&actor.tenant_id===request.target_tenant_id&&actor.id!==request.requester_user_id;
+    if(operation==='summary'){
+     const approval=(await db.query("SELECT id::text AS id FROM users WHERE id::text=$1 AND tenant_id::text=$2 AND roles='tenant_admin' AND status='active'",[request.approved_by,request.target_tenant_id])).rows;
+-    if(!owner||elevated.live!==true||request.fresh!==true||request.state!=='approved'||approval.length!==1||!await targetActive(db,request.target_tenant_id)){await db.query('ROLLBACK');return denied(403);}
++    if(!owner||elevated.live!==true||request.fresh!==true||request.state!=='approved'||approval.length!==1||!await targetActive(db,request.target_tenant_id)){return await rejectedCapability(db,actor,body);}
+     const counts=one(await db.query(`SELECT
+      (SELECT COUNT(*)::int FROM users WHERE tenant_id::text=$1 AND status='active') AS accounts,
+      (SELECT COUNT(*)::int FROM auth_sessions s JOIN users u ON u.id::text=s.user_id::text WHERE u.tenant_id::text=$1 AND u.status='active' AND s.expires_at>NOW()) AS sessions,
+@@ -117,10 +125,10 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+     await audit(db,actor,'security_summary_read',{elevationId:elevated.id,requestId:request.id,targetTenantId:request.target_tenant_id});
+     response={tenantId:request.target_tenant_id,activeAccounts:counts.accounts,activeSessions:counts.sessions,enrolledAuthenticators:counts.factors};
+    }else{
+-    if(operation==='approveSupport'?!approver:!approver&&!owner){await db.query('ROLLBACK');return denied(403);}
++    if(operation==='approveSupport'?!approver:!approver&&!owner){return await rejectedCapability(db,actor,body);}
+     if(!await bcrypt.compare(body.password,actor.password_hash)){await audit(db,actor,'proof_failed');await db.query('COMMIT');return denied();}
+     if(operation==='approveSupport'){
+-     if(elevated.live!==true||request.fresh!==true||request.state==='revoked'||!await targetActive(db,request.target_tenant_id)){await db.query('ROLLBACK');return denied(403);}
++     if(elevated.live!==true||request.fresh!==true||request.state==='revoked'||!await targetActive(db,request.target_tenant_id)){return await rejectedCapability(db,actor,body);}
+      if(request.state==='pending'){
+       one(await db.query("UPDATE auth_tenant_support_requests SET state='approved',approved_by=$2,approved_at=NOW() WHERE id=$1 AND state='pending' RETURNING id",[request.id,actor.id]));
+       await audit(db,actor,'support_approved',{elevationId:elevated.id,requestId:request.id,targetTenantId:request.target_tenant_id});
 diff --git a/cloudflare/workers/src/security/mfa.mjs b/cloudflare/workers/src/security/mfa.mjs
 index 2bcd7808..6495f5c2 100644
 --- a/cloudflare/workers/src/security/mfa.mjs
@@ -500,7 +609,7 @@ index 8bf57980..8c601d70 100644
          !credentialCheck &&
 diff --git a/packages/flutter_core/test/auth_interceptor_test.dart b/packages/flutter_core/test/auth_interceptor_test.dart
 new file mode 100644
-index 00000000..1a6946e2
+index 00000000..1c2fe373
 --- /dev/null
 +++ b/packages/flutter_core/test/auth_interceptor_test.dart
 @@ -0,0 +1,38 @@
@@ -527,7 +636,7 @@ index 00000000..1a6946e2
 +  try{
 +   c.read(authProvider);final interceptor=c.read(Provider((ref)=>SecurityInterceptor(ref)));
 +   final sentToken=actor.token;if(newerActor)actor.replace();
-+   transport.interceptors.add(InterceptorsWrapper(onRequest:(options,handler)=>handler.reject(DioException(requestOptions:options,type:DioExceptionType.badResponse,response:Response(requestOptions:options,statusCode:status,data:{'error':'Synthetic denial'})))));
++   transport.interceptors.add(InterceptorsWrapper(onRequest:(options,handler)=>handler.reject(DioException(requestOptions:options,type:DioExceptionType.badResponse,response:Response(requestOptions:options,statusCode:status,data:{'error':'Synthetic denial'})),true)));
 +   transport.interceptors.add(InterceptorsWrapper(onError:interceptor.onError));
 +   await expectLater(transport.post<dynamic>(path,options:Options(headers:{'Authorization':'Bearer $sentToken'})),throwsA(isA<DioException>()));
 +   if(actor.signouts==0)expect(c.read(authProvider).token,actor.token);
@@ -936,36 +1045,223 @@ index 00000000..6c2c35f9
 +    "none": "No hay solicitudes de soporte vigentes.",
 +  },
 +};
+diff --git a/packages/primecare_ui/lib/src/features/auth/auth_elevation_controller.dart b/packages/primecare_ui/lib/src/features/auth/auth_elevation_controller.dart
+new file mode 100644
+index 00000000..bfde773e
+--- /dev/null
++++ b/packages/primecare_ui/lib/src/features/auth/auth_elevation_controller.dart
+@@ -0,0 +1,113 @@
++import 'dart:async';
++import 'package:primecare_ui/primecare_ui.dart';
++import 'package:flutter_core/src/application/controllers/privileged_access_service.dart';
++
++class ElevationViewState {
++  final bool canUse,working,failed,ended;
++  final String password,factor,reason,tenant,ticket;
++  final TemporaryElevation? elevation;
++  final TenantSupportRequest? request;
++  final TenantSecuritySummary? summary;
++  const ElevationViewState({this.canUse=false,this.working=false,this.failed=false,this.ended=false,
++    this.password='',this.factor='',this.reason='',this.tenant='',this.ticket='',this.elevation,this.request,this.summary});
++  ElevationViewState copy({bool? working,bool? failed,String? password,String? factor,String? reason,String? tenant,String? ticket,
++    TemporaryElevation? elevation,TenantSupportRequest? request,TenantSecuritySummary? summary,bool clearRequest=false,bool clearSummary=false})=>
++    ElevationViewState(canUse:canUse,working:working??this.working,failed:failed??this.failed,password:password??this.password,factor:factor??this.factor,
++      reason:reason??this.reason,tenant:tenant??this.tenant,ticket:ticket??this.ticket,elevation:elevation??this.elevation,
++      request:clearRequest?null:request??this.request,summary:clearSummary?null:summary??this.summary);
++}
++class AuthElevationController extends Notifier<ElevationViewState> {
++  int _revision=0;Timer? _expiry;
++  @override
++  ElevationViewState build(){
++    final lifetime=ref;
++    ref.onDispose((){_revision++;_expiry?.cancel();});
++    ref.onCancel((){_revision++;_expiry?.cancel();scheduleMicrotask((){if(lifetime.mounted)lifetime.invalidateSelf();});});
++    ref.listen(authProvider,(previous,next){if(previous?.token!=next.token||previous?.userId!=next.userId||previous?.role!=next.role||previous?.tenantId!=next.tenantId||!next.isAuthenticated)_clear();});
++    return ElevationViewState(canUse:ref.read(privilegedAccessServiceProvider).canElevate);
++  }
++  bool _live(int revision)=>ref.mounted&&revision==_revision;
++  void _clear({bool ended=false}){_revision++;_expiry?.cancel();if(ref.mounted)state=ElevationViewState(canUse:ref.read(privilegedAccessServiceProvider).canElevate,ended:ended);}
++  void _watch(DateTime deadline){_expiry?.cancel();final revision=_revision;_expiry=Timer(deadline.difference(DateTime.now()),(){if(_live(revision))_clear(ended:true);});}
++  void password(String value){if(!state.working)state=state.copy(password:value,failed:false);}
++  void factor(String value){if(!state.working)state=state.copy(factor:value,failed:false);}
++  void reason(String value){if(!state.working)state=state.copy(reason:value,failed:false);}
++  void tenant(String value){if(!state.working)state=state.copy(tenant:value,failed:false);}
++  void ticket(String value){if(!state.working)state=state.copy(ticket:value,failed:false);}
++  Future<void> elevate()async{
++    if(!state.canUse||state.working||state.elevation!=null)return;
++    final password=state.password,code=state.factor,reason=state.reason,revision=++_revision;
++    state=state.copy(working:true,failed:false,password:'',factor:'');TemporaryElevation? result;
++    try{result=await ref.read(privilegedAccessServiceProvider).elevate(password,code,reason);}catch(_){}
++    if(!_live(revision))return;
++    state=state.copy(working:false,failed:result==null,elevation:result);if(result!=null)_watch(result.expiresAt);
++  }
++  Future<void> requestSupport()async{
++    final elevation=state.elevation;if(!state.canUse||state.working||elevation==null||state.request!=null)return;
++    final tenant=state.tenant,ticket=state.ticket,reason=state.reason,revision=++_revision;
++    state=state.copy(working:true,failed:false,password:'',factor:'');TenantSupportRequest? result;
++    try{result=await ref.read(privilegedAccessServiceProvider).requestSupport(elevation,tenant,ticket,reason);}catch(_){}
++    if(!_live(revision))return;
++    state=state.copy(working:false,failed:result==null,request:result);_watch(result?.expiresAt??elevation.expiresAt);
++  }
++  Future<void> readSummary()async{
++    final request=state.request;if(!state.canUse||state.working||request==null)return;
++    final revision=++_revision;state=state.copy(working:true,failed:false,clearSummary:true,password:'',factor:'');TenantSecuritySummary? result;
++    try{result=await ref.read(privilegedAccessServiceProvider).summary(request);}catch(_){}
++    if(!_live(revision))return;
++    state=state.copy(working:false,failed:result==null,summary:result);_watch(request.expiresAt);
++  }
++  Future<void> revokeSupport()async{
++    final request=state.request;if(!state.canUse||state.working||request==null)return;
++    final password=state.password,revision=++_revision;state=state.copy(working:true,failed:false,password:'',factor:'',clearSummary:true);var accepted=false;
++    try{accepted=await ref.read(privilegedAccessServiceProvider).revokeSupport(request,password);}catch(_){}
++    if(!_live(revision))return;
++    state=state.copy(working:false,failed:!accepted,clearRequest:accepted,clearSummary:true,tenant:accepted?'':state.tenant,ticket:accepted?'':state.ticket);
++    final elevation=state.elevation;if(elevation!=null)_watch(elevation.expiresAt);
++  }
++  Future<void> end()async{
++    final elevation=state.elevation;if(state.working||elevation==null)return;
++    final revision=++_revision;state=state.copy(working:true,failed:false,password:'',factor:'',clearSummary:true);var accepted=false;
++    try{accepted=await ref.read(privilegedAccessServiceProvider).revokeElevation(elevation);}catch(_){}
++    if(!_live(revision))return;
++    if(accepted){_clear(ended:true);}else{state=state.copy(working:false,failed:true);_watch(elevation.expiresAt);}
++  }
++}
++final authElevationProvider=NotifierProvider.autoDispose<AuthElevationController,ElevationViewState>(AuthElevationController.new);
++
++class TenantApprovalViewState {
++  final bool canUse,working,failed;
++  final String password;
++  final List<TenantSupportRequest> requests;
++  const TenantApprovalViewState({this.canUse=false,this.working=false,this.failed=false,this.password='',this.requests=const []});
++}
++class TenantSupportController extends Notifier<TenantApprovalViewState> {
++  int _revision=0;
++  @override
++  TenantApprovalViewState build(){
++    final lifetime=ref;
++    ref.onDispose((){_revision++;});
++    ref.onCancel((){_revision++;scheduleMicrotask((){if(lifetime.mounted)lifetime.invalidateSelf();});});
++    ref.listen(authProvider,(previous,next){if(previous?.token!=next.token||previous?.userId!=next.userId||previous?.role!=next.role||previous?.tenantId!=next.tenantId||!next.isAuthenticated){_revision++;state=TenantApprovalViewState(canUse:ref.read(privilegedAccessServiceProvider).canApprove);}});
++    final allowed=ref.read(privilegedAccessServiceProvider).canApprove;
++    if(allowed)scheduleMicrotask((){if(lifetime.mounted)refresh();});
++    return TenantApprovalViewState(canUse:allowed);
++  }
++  bool _live(int revision)=>ref.mounted&&revision==_revision;
++  void password(String value){if(!state.working)state=TenantApprovalViewState(canUse:state.canUse,password:value,requests:state.requests);}
++  Future<void> refresh()async{
++    if(!state.canUse||state.working)return;
++    final revision=++_revision;state=TenantApprovalViewState(canUse:true,working:true,requests:state.requests);List<TenantSupportRequest>? result;
++    try{result=await ref.read(privilegedAccessServiceProvider).listRequests();}catch(_){}
++    if(_live(revision))state=TenantApprovalViewState(canUse:true,failed:result==null,requests:result??const []);
++  }
++  Future<void> decide(TenantSupportRequest request,{required bool approve})async{
++    if(!state.canUse||state.working)return;
++    final password=state.password,revision=++_revision;state=TenantApprovalViewState(canUse:true,working:true,requests:state.requests);var accepted=false;
++    try{final service=ref.read(privilegedAccessServiceProvider);accepted=approve?await service.approve(request,password):await service.revokeSupport(request,password);}catch(_){}
++    if(!_live(revision))return;
++    state=TenantApprovalViewState(canUse:true,failed:!accepted,requests:accepted&&!approve?state.requests.where((item)=>item.id!=request.id).toList():state.requests);
++    if(accepted)await refresh();
++  }
++}
++final tenantSupportProvider=NotifierProvider.autoDispose<TenantSupportController,TenantApprovalViewState>(TenantSupportController.new);
+diff --git a/packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart b/packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart
+new file mode 100644
+index 00000000..c62c83bb
+--- /dev/null
++++ b/packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart
+@@ -0,0 +1,59 @@
++import 'package:intl/intl.dart';
++import 'package:primecare_ui/primecare_ui.dart';
++import 'auth_experience.dart' show PrimeAuthTextField;
++import 'auth_elevation_catalog.g.dart';
++import 'auth_elevation_controller.dart';
++Map<String,String> elevationLabels(BuildContext context)=>authElevationText[Localizations.localeOf(context).languageCode]??authElevationText['en']!;
++String supportExpiry(BuildContext context,DateTime deadline){
++  final local=deadline.toLocal(),copy=elevationLabels(context),format=MaterialLocalizations.of(context);
++  return copy['expires']!.replaceAll('{time}','${format.formatShortDate(local)} ${format.formatTimeOfDay(TimeOfDay.fromDateTime(local))}');
++}
++class NativeAuthElevationForm extends ConsumerWidget {
++ const NativeAuthElevationForm({super.key});
++ @override
++ Widget build(BuildContext context,WidgetRef ref){
++  final state=ref.watch(authElevationProvider),controller=ref.read(authElevationProvider.notifier),theme=context.theme,text=elevationLabels(context);
++  if(!state.canUse)return const SizedBox.shrink();
++  final gap=SizedBox(height:theme.spacing.lg),children=<Widget>[
++   Cy(id:'mfa-elevation-title',child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[Semantics(header:true,child:Text(text['title']!,style:theme.typography.h2)),SizedBox(height:theme.spacing.md),Text(text['scope']!,style:theme.typography.bodyMedium),SizedBox(height:theme.spacing.md),Text(text['privacy']!,style:theme.typography.bodyMedium)])),gap,
++  ];
++  if(state.elevation==null){
++   children.addAll([
++    PrimeAuthTextField(id:'mfa-elevation-password',label:text['password']!,password:true,initialValue:state.password,onChanged:controller.password,enabled:!state.working,autofillHints:const [AutofillHints.password]),gap,
++    PrimeAuthTextField(id:'mfa-elevation-factor',label:text['factor']!,sensitive:true,initialValue:state.factor,onChanged:controller.factor,enabled:!state.working,keyboardType:TextInputType.number,autofillHints:const [AutofillHints.oneTimeCode]),gap,
++    PrimeAuthTextField(id:'mfa-elevation-reason',label:text['reason']!,initialValue:state.reason,onChanged:controller.reason,enabled:!state.working),gap,
++    PrimeButton(label:text[state.working?'working':'elevate']!,onPressed:controller.elevate,isLoading:state.working,isFullWidth:true,dataCy:'mfa-elevation-elevate'),
++   ]);
++  }else{
++   children.addAll([Cy(id:'mfa-elevation-status',child:Semantics(liveRegion:true,child:Text(supportExpiry(context,state.request?.expiresAt??state.elevation!.expiresAt),style:theme.typography.bodyMedium))),gap]);
++   if(state.request==null){
++    children.addAll([
++     PrimeAuthTextField(id:'mfa-elevation-tenant',label:text['tenant']!,initialValue:state.tenant,onChanged:controller.tenant,enabled:!state.working),gap,
++     PrimeAuthTextField(id:'mfa-elevation-ticket',label:text['ticket']!,initialValue:state.ticket,onChanged:controller.ticket,enabled:!state.working),gap,
++     PrimeAuthTextField(id:'mfa-elevation-reason',label:text['reason']!,initialValue:state.reason,onChanged:controller.reason,enabled:!state.working),gap,
++     PrimeButton(label:text['request']!,onPressed:state.working?null:controller.requestSupport,isFullWidth:true,dataCy:'mfa-elevation-request'),gap,
++    ]);
++   }else{
++    children.addAll([
++     Text(state.failed?text['error']!:state.summary!=null?text['approved']!:text['pending']!,style:theme.typography.bodyMedium),gap,
++     PrimeButton(label:text['summary']!,onPressed:state.working?null:controller.readSummary,isFullWidth:true,dataCy:'mfa-elevation-summary'),gap,
++     PrimeAuthTextField(id:'mfa-elevation-password',label:text['password']!,password:true,initialValue:state.password,onChanged:controller.password,enabled:!state.working,autofillHints:const [AutofillHints.password]),gap,
++     PrimeButton(label:text['cancelSupport']!,onPressed:state.working?null:controller.revokeSupport,isFullWidth:true,dataCy:'mfa-elevation-cancelsupport'),gap,
++    ]);
++    final summary=state.summary;
++    if(summary!=null){
++     final numbers=NumberFormat.decimalPattern(Localizations.localeOf(context).languageCode);
++     children.addAll([Cy(id:'mfa-elevation-summaryvalues',child:Semantics(container:true,child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
++      Text(text['activeAccounts']!.replaceAll('{count}',numbers.format(summary.activeAccounts)),style:theme.typography.bodyMedium),
++      Text(text['activeSessions']!.replaceAll('{count}',numbers.format(summary.activeSessions)),style:theme.typography.bodyMedium),
++      Text(text['enrolledAuthenticators']!.replaceAll('{count}',numbers.format(summary.enrolledAuthenticators)),style:theme.typography.bodyMedium),
++     ]))),gap]);
++    }
++   }
++   children.add(PrimeButton(label:text['revoke']!,onPressed:state.working?null:controller.end,isFullWidth:true,dataCy:'mfa-elevation-revoke'));
++  }
++  if(state.failed&&state.request==null)children.addAll([gap,Text(text['error']!,style:theme.typography.bodyMedium)]);
++  if(state.ended)children.addAll([gap,Text(text['expired']!,style:theme.typography.bodyMedium)]);
++  return Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:children);
++ }
++}
 diff --git a/packages/primecare_ui/lib/src/features/auth/auth_experience.dart b/packages/primecare_ui/lib/src/features/auth/auth_experience.dart
-index 1b5a11e5..1f8f2d2d 100644
+index 1b5a11e5..f1c8874c 100644
 --- a/packages/primecare_ui/lib/src/features/auth/auth_experience.dart
 +++ b/packages/primecare_ui/lib/src/features/auth/auth_experience.dart
-@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
+@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
  import 'auth_design_tokens.dart';
  import 'password_recovery_form.dart';
  import 'mfa_form.dart';
 +import 'mfa_management_form.dart';
++import 'auth_elevation_form.dart';
++import 'tenant_support_form.dart';
  import 'auth_navigation.dart';
  import '../../localization/auth_screen_text.dart';
  
-@@ -110,7 +111,9 @@ class PrimeAuthExperience extends ConsumerWidget {
+@@ -110,7 +113,9 @@ class PrimeAuthExperience extends ConsumerWidget {
        case AuthPage.reset:
          return [const PasswordRecoveryForm(reset: true)];
        case AuthPage.mfa:
 -        return [const NativeMfaForm()];
-+        if (ref.watch(authProvider).isAuthenticated) return [const NativeMfaManagementForm()];
++        if (ref.watch(authProvider).isAuthenticated) return [const NativeMfaManagementForm(), gap, const NativeAuthElevationForm()];
 +        if (ref.watch(mfaControllerProvider).pending) return [const NativeMfaForm()];
 +        return [_Notice(message: '${_copy(context, 'unavailable_title')}\n${_copy(context, 'unavailable_body')}')];
        case AuthPage.consent:
          // These backend capabilities are not enabled. Do not collect unusable
          // passwords/codes, fabricate success, or imply a recovery email was sent.
-@@ -139,6 +142,9 @@ class PrimeAuthExperience extends ConsumerWidget {
+@@ -139,6 +144,10 @@ class PrimeAuthExperience extends ConsumerWidget {
            const AdminTrainingLauncher(), gap,
            Text(_copy(context, 'role'), style: theme.typography.labelBold),
            Text(auth.role ?? '', style: theme.typography.bodyLarge), gap,
 +          if (ref.read(authProvider.notifier).canManageMfa)
 +            PrimeButton(label: mfaLifecycleLabels(context)['title']!, onPressed: () => _go(context, '/mfa'),
 +              isFullWidth: true, dataCy: 'mfa-lifecycle-manage'),
++          const NativeTenantSupportForm(), gap,
            if (['ceo', 'maintenance'].contains(auth.role)) TextButton(onPressed: () => _go(context, '/maintenance/configuration'), child: const Text('IT maintenance configuration')),
            PrimeButton(label: _copy(context, 'signout'), onPressed: () async {
              await ref.read(authProvider.notifier).logout();
@@ -1244,7 +1540,7 @@ index 203a445d..c6278447 100644
          isFullWidth: true, dataCy: 'mfa-cancel'),
 diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_management_controller.dart b/packages/primecare_ui/lib/src/features/auth/mfa_management_controller.dart
 new file mode 100644
-index 00000000..9f81840d
+index 00000000..91a1a620
 --- /dev/null
 +++ b/packages/primecare_ui/lib/src/features/auth/mfa_management_controller.dart
 @@ -0,0 +1,89 @@
@@ -1276,12 +1572,12 @@ index 00000000..9f81840d
 +    // No listener may retain one-time codes or accept a late proof response.
 +    final lifetime = ref;
 +    ref.onCancel(() {
-+      final cancelledRevision = ++_revision;
++      _revision++;
 +      _expiry?.cancel();
 +      // Riverpod forbids provider mutations inside lifecycle callbacks. Stop
 +      // late work synchronously, then discard cached proof outside the callback.
 +      scheduleMicrotask(() {
-+        if (lifetime.mounted && cancelledRevision == _revision) lifetime.invalidateSelf();
++        if (lifetime.mounted) lifetime.invalidateSelf();
 +      });
 +    });
 +    ref.listen(authProvider, (previous, next) {
@@ -1422,6 +1718,157 @@ index 00000000..f2a33aaf
 +      child: Text(text['error']!, style: theme.typography.bodyMedium)))]);
 +    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: children);
 +  }
++}
+diff --git a/packages/primecare_ui/lib/src/features/auth/tenant_support_form.dart b/packages/primecare_ui/lib/src/features/auth/tenant_support_form.dart
+new file mode 100644
+index 00000000..73b1cd36
+--- /dev/null
++++ b/packages/primecare_ui/lib/src/features/auth/tenant_support_form.dart
+@@ -0,0 +1,35 @@
++import 'package:primecare_ui/primecare_ui.dart';
++import 'auth_experience.dart' show PrimeAuthTextField;
++import 'auth_elevation_form.dart' show elevationLabels,supportExpiry;
++import 'auth_elevation_controller.dart';
++class NativeTenantSupportForm extends ConsumerWidget {
++ const NativeTenantSupportForm({super.key});
++ @override
++ Widget build(BuildContext context,WidgetRef ref){
++  final state=ref.watch(tenantSupportProvider),controller=ref.read(tenantSupportProvider.notifier),text=elevationLabels(context),theme=context.theme;
++  if(!state.canUse)return const SizedBox.shrink();
++  final gap=SizedBox(height:theme.spacing.lg),children=<Widget>[
++   Cy(id:'mfa-elevation-approvaltitle',child:Semantics(header:true,child:Text(text['approvalTitle']!,style:theme.typography.h2))),gap,
++   Text(text['privacy']!,style:theme.typography.bodyMedium),gap,
++   PrimeButton(label:text[state.working?'working':'refresh']!,onPressed:state.working?null:controller.refresh,isLoading:state.working,isFullWidth:true,dataCy:'mfa-elevation-refresh'),gap,
++   PrimeAuthTextField(id:'mfa-elevation-approvalpassword',label:text['approvalPassword']!,password:true,initialValue:state.password,onChanged:controller.password,enabled:!state.working,autofillHints:const [AutofillHints.password]),gap,
++  ];
++  final rows=<Widget>[];
++  if(!state.working&&state.requests.isEmpty)rows.add(Text(text['none']!,style:theme.typography.bodyMedium));
++  for(final request in state.requests){
++   rows.addAll([
++    Text('${text['ticket']} ${request.ticket}',style:theme.typography.bodyLarge),
++    Text('${text['requester']} ${request.requesterId}',style:theme.typography.bodyMedium),
++    Text('${text['tenant']} ${request.tenantId}',style:theme.typography.bodyMedium),
++    Text('${text['reason']} ${request.reason}',style:theme.typography.bodyMedium),
++    Text(supportExpiry(context,request.expiresAt),style:theme.typography.bodyMedium),gap,
++    if(request.status=='pending')PrimeButton(label:text['approve']!,onPressed:state.working?null:()=>controller.decide(request,approve:true),isFullWidth:true,dataCy:'mfa-elevation-approve-${request.id}'),
++    if(request.status=='approved')Text(text['approved']!,style:theme.typography.bodyMedium),gap,
++    PrimeButton(label:text['reject']!,onPressed:state.working?null:()=>controller.decide(request,approve:false),isFullWidth:true,dataCy:'mfa-elevation-reject-${request.id}'),gap,
++   ]);
++  }
++  children.add(Cy(id:'mfa-elevation-approvalrequests',child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:rows)));
++  if(state.failed)children.add(Text(text['error']!,style:theme.typography.bodyMedium));
++  return Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:children);
++ }
++}
+diff --git a/packages/primecare_ui/test/auth_elevation_test.dart b/packages/primecare_ui/test/auth_elevation_test.dart
+new file mode 100644
+index 00000000..fbf60663
+--- /dev/null
++++ b/packages/primecare_ui/test/auth_elevation_test.dart
+@@ -0,0 +1,104 @@
++import 'dart:async';
++import 'package:flutter/material.dart';
++import 'package:flutter_test/flutter_test.dart';
++import 'package:shared_preferences/shared_preferences.dart';
++import 'package:primecare_ui/primecare_ui.dart';
++import 'package:flutter_core/src/application/controllers/privileged_access_service.dart';
++import 'package:primecare_ui/src/features/auth/auth_elevation_controller.dart';
++import 'package:primecare_ui/src/features/auth/auth_elevation_form.dart';
++import 'package:primecare_ui/src/features/auth/tenant_support_form.dart';
++import 'package:primecare_ui/src/features/auth/auth_elevation_catalog.g.dart';
++import 'auth_design_test.dart' show localized;
++String id(int n)=>'${n.toString().padLeft(8,'0')}-1111-4111-8111-111111111111';
++class SupportPresentationAuth extends AuthNotifier {
++ @override
++ AuthState build()=>AuthState(isInitialized:true,isAuthenticated:true,userId:id(1),role:'code_admin',token:List.filled(43,'a').join(),tenantId:id(11));
++}
++class SupportPresentationService extends Fake implements PrivilegedAccessService {
++ bool elevatedActor=true,approvingActor=false,approved=false,revoked=false;
++ int lists=0;
++ Duration lifetime=const Duration(minutes:10);
++ Completer<TemporaryElevation?>? pending;
++ DateTime? deadline;
++ @override
++ bool get canElevate=>elevatedActor;
++ @override
++ bool get canApprove=>approvingActor;
++ TenantSupportRequest get request=>TenantSupportRequest(id:id(22),requesterId:id(1),tenantId:id(12),ticket:'SYN-1',reason:'Synthetic tenant support',status:approved?'approved':'pending',expiresAt:deadline??DateTime.now().toUtc().add(lifetime));
++ @override
++ Future<TemporaryElevation?> elevate(String password,String code,String reason)async{
++  if(pending!=null)return pending!.future;
++  deadline=DateTime.now().toUtc().add(lifetime);return TemporaryElevation(id(21),deadline!);
++ }
++ @override
++ Future<TenantSupportRequest?> requestSupport(TemporaryElevation elevation,String tenantId,String ticket,String reason)async=>request;
++ @override
++ Future<TenantSecuritySummary?> summary(TenantSupportRequest request)async=>TenantSecuritySummary(id(12),2,3,1);
++ @override
++ Future<bool> revokeSupport(TenantSupportRequest request,String password)async{revoked=true;return true;}
++ @override
++ Future<bool> revokeElevation(TemporaryElevation elevation)async=>true;
++ @override
++ Future<List<TenantSupportRequest>?> listRequests()async{lists++;return revoked?<TenantSupportRequest>[]:[request];}
++ @override
++ Future<bool> approve(TenantSupportRequest request,String password)async{approved=true;return true;}
++}
++void main(){
++ TestWidgetsFlutterBinding.ensureInitialized();
++ setUpAll(()async{SharedPreferences.setMockInitialValues({});await EasyLocalization.ensureInitialized();});
++ ProviderContainer fixture(SupportPresentationService service)=>ProviderContainer(overrides:[authProvider.overrideWith(SupportPresentationAuth.new),privilegedAccessServiceProvider.overrideWithValue(service)]);
++ Widget screen(ProviderContainer c,Widget child,String locale)=>UncontrolledProviderScope(container:c,child:localized(Scaffold(body:SingleChildScrollView(child:MediaQuery(data:const MediaQueryData(textScaler:TextScaler.linear(2)),child:child))),language:locale));
++ for(final locale in ['en','fr','es']){
++  testWidgets('localized temporary support fits scaled 320px and clears proof and revoked data in $locale',(tester)async{
++   tester.view.physicalSize=const Size(320,1200);tester.view.devicePixelRatio=1;addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
++   final service=SupportPresentationService(),c=fixture(service);
++   try{
++    await tester.pumpWidget(screen(c,const NativeAuthElevationForm(),locale));await tester.pumpAndSettle();expect(tester.takeException(),isNull);
++    final controller=c.read(authElevationProvider.notifier);
++    controller.password('synthetic-password');controller.factor('123456');controller.reason('Synthetic tenant support');await controller.elevate();await tester.pumpAndSettle();
++    expect(c.read(authElevationProvider).password,isEmpty);expect(c.read(authElevationProvider).factor,isEmpty);expect(c.read(authElevationProvider).elevation,isNotNull);
++    controller.tenant(id(12));controller.ticket('SYN-1');await controller.requestSupport();await tester.pumpAndSettle();
++    expect(find.text(authElevationText[locale]!['pending']!),findsOneWidget);
++    await controller.readSummary();await tester.pumpAndSettle();expect(find.text(authElevationText[locale]!['activeAccounts']!.replaceAll('{count}','2')),findsOneWidget);
++    controller.password('synthetic-password');await controller.revokeSupport();await tester.pumpAndSettle();expect(c.read(authElevationProvider).summary,isNull);expect(c.read(authElevationProvider).request,isNull);
++    await controller.end();await tester.pumpAndSettle();expect(c.read(authElevationProvider).elevation,isNull);expect(find.text(authElevationText[locale]!['expired']!),findsOneWidget);expect(tester.takeException(),isNull);
++   }finally{await tester.pumpWidget(const SizedBox.shrink());c.dispose();await tester.pump(Duration.zero);}
++  });
++  testWidgets('tenant approval refresh and revocation retain no password in $locale',(tester)async{
++   tester.view.physicalSize=const Size(320,1600);tester.view.devicePixelRatio=1;addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
++   final service=SupportPresentationService()..elevatedActor=false..approvingActor=true,c=fixture(service);
++   try{
++    await tester.pumpWidget(screen(c,const NativeTenantSupportForm(),locale));await tester.pumpAndSettle();expect(tester.takeException(),isNull);expect(service.lists,1);
++    final controller=c.read(tenantSupportProvider.notifier),request=c.read(tenantSupportProvider).requests.single;
++    await tester.enterText(find.byType(TextField),'synthetic-password');await controller.decide(request,approve:true);await tester.pumpAndSettle();
++    expect(c.read(tenantSupportProvider).password,isEmpty);expect(tester.widget<TextField>(find.byType(TextField)).controller!.text,isEmpty);expect(c.read(tenantSupportProvider).requests.single.status,'approved');
++    await tester.enterText(find.byType(TextField),'synthetic-password');await controller.decide(c.read(tenantSupportProvider).requests.single,approve:false);await tester.pumpAndSettle();
++    expect(c.read(tenantSupportProvider).requests,isEmpty);expect(find.text(authElevationText[locale]!['none']!),findsOneWidget);expect(c.read(tenantSupportProvider).password,isEmpty);expect(tester.takeException(),isNull);
++   }finally{await tester.pumpWidget(const SizedBox.shrink());c.dispose();await tester.pump(Duration.zero);}
++  });
++ }
++ testWidgets('leaving temporary support drops a late elevation receipt',(tester)async{
++  final service=SupportPresentationService()..pending=Completer<TemporaryElevation?>(),c=fixture(service);
++  try{
++   await tester.pumpWidget(screen(c,const NativeAuthElevationForm(),'en'));await tester.pumpAndSettle();final controller=c.read(authElevationProvider.notifier);
++   controller.password('synthetic-password');controller.factor('123456');controller.reason('Synthetic tenant support');final pending=controller.elevate();await tester.pump();
++   await tester.pumpWidget(const SizedBox.shrink());await tester.pumpAndSettle();service.pending!.complete(TemporaryElevation(id(21),DateTime.now().toUtc().add(const Duration(minutes:10))));await pending;
++   expect(c.read(authElevationProvider).elevation,isNull);expect(c.read(authElevationProvider).password,isEmpty);expect(tester.takeException(),isNull);
++  }finally{await tester.pumpWidget(const SizedBox.shrink());c.dispose();await tester.pump(Duration.zero);}
++ });
++ testWidgets('expiry clears elevation support reference and visible summary',(tester)async{
++  final service=SupportPresentationService()..lifetime=const Duration(seconds:2),c=fixture(service);
++  try{
++   await tester.pumpWidget(screen(c,const NativeAuthElevationForm(),'en'));await tester.pumpAndSettle();final controller=c.read(authElevationProvider.notifier);
++   controller.password('synthetic-password');controller.factor('123456');controller.reason('Synthetic tenant support');await controller.elevate();await tester.pump();expect(c.read(authElevationProvider).elevation,isNotNull);
++   await tester.pump(const Duration(seconds:3));await tester.pumpAndSettle();expect(c.read(authElevationProvider).elevation,isNull);expect(c.read(authElevationProvider).request,isNull);expect(c.read(authElevationProvider).summary,isNull);expect(c.read(authElevationProvider).ended,true);
++  }finally{await tester.pumpWidget(const SizedBox.shrink());c.dispose();await tester.pump(Duration.zero);}
++ });
++ testWidgets('ordinary verified actor renders no privileged controls and issues no approval reads',(tester)async{
++  final service=SupportPresentationService()..elevatedActor=false..approvingActor=false,c=fixture(service);
++  try{
++   await tester.pumpWidget(screen(c,const Column(children:[NativeAuthElevationForm(),NativeTenantSupportForm()]),'en'));await tester.pumpAndSettle();
++   expect(find.byType(TextField),findsNothing);expect(find.byType(PrimeButton),findsNothing);expect(service.lists,0);
++  }finally{await tester.pumpWidget(const SizedBox.shrink());c.dispose();await tester.pump(Duration.zero);}
++ });
 +}
 diff --git a/packages/primecare_ui/test/auth_mfa_lifecycle_test.dart b/packages/primecare_ui/test/auth_mfa_lifecycle_test.dart
 new file mode 100644
@@ -1597,6 +2044,33 @@ index 7a481b7d..9d5e19d4 100644
  s+='};\n'
 +s+='const nativeMfaChallengeLifetimeSeconds = '+str(json.loads((root/'tools/governance-production/mfa-registration.json').read_text())['challenge']['expiresSeconds'])+';\n'
  (root/'packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart').write_text(s)
+diff --git a/scripts/test-auth-privileged-postgres.mjs b/scripts/test-auth-privileged-postgres.mjs
+index 16558331..538dc47c 100644
+--- a/scripts/test-auth-privileged-postgres.mjs
++++ b/scripts/test-auth-privileged-postgres.mjs
+@@ -69,7 +69,7 @@ test('fresh tenant password is required for approval and failure audits cannot g
+  await reset();const e=await elevate(),r=await request(e);
+  assert.equal((await call(admin,{requestId:r.requestId,password:'wrong'},'approveSupport')).status,401);
+  assert.equal((await db.query('SELECT state FROM auth_tenant_support_requests')).rows[0].state,'pending');assert.equal((await call(root,{requestId:r.requestId},'summary')).status,403);
+- assert.equal((await db.query("SELECT COUNT(*)::int AS n FROM auth_privileged_access_audit WHERE action='proof_failed'")).rows[0].n,1);
++ assert.equal((await db.query("SELECT COUNT(*)::int AS n FROM auth_privileged_access_audit WHERE action='proof_failed' AND actor_user_id=$1",[admin.id])).rows[0].n,1);
+ });
+ test('audit fault rolls back factor consumption and elevation creation; summary audit fault returns no data',async()=>{
+  await reset();await multi("CREATE FUNCTION fail_privilege() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'synthetic audit fault'; END $$;CREATE TRIGGER fail_privilege BEFORE INSERT ON auth_privileged_access_audit FOR EACH ROW EXECUTE FUNCTION fail_privilege();");
+@@ -100,3 +100,13 @@ test('approval audit failure preserves pending request and missing MFA key canno
+  await reset();await assert.rejects(privilegedAccess(db,{},root.session,{password,code:await totpAt(seed,Math.floor(Date.now()/1000)),reason:'Investigate tenant sign-in counts',scope,seconds:900},'elevate'));
+  assert.equal(await count('auth_privilege_elevations'),0);assert.equal(await count('auth_sessions'),4);
+ });
++test('denied support use is audited and an audit fault rolls back its transaction',async()=>{
++ await reset();const e=await elevate(),r=await request(e);
++ assert.equal((await call(root,{requestId:r.requestId},'summary')).status,403);
++ const denied=(await db.query("SELECT actor_user_id,support_request_id FROM auth_privileged_access_audit WHERE action='proof_failed' AND support_request_id=$1",[r.requestId])).rows;
++ assert.deepEqual(denied,[{actor_user_id:root.id,support_request_id:r.requestId}]);
++ await multi("CREATE FUNCTION fail_denial() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'synthetic denial audit fault'; END $$;CREATE TRIGGER fail_denial BEFORE INSERT ON auth_privileged_access_audit FOR EACH ROW EXECUTE FUNCTION fail_denial();");
++ await assert.rejects(call(root,{requestId:r.requestId},'summary'));
++ assert.equal((await db.query('SELECT state FROM auth_tenant_support_requests WHERE id=$1',[r.requestId])).rows[0].state,'pending');
++ await multi('DROP TRIGGER fail_denial ON auth_privileged_access_audit;DROP FUNCTION fail_denial();');
++});
 diff --git a/scripts/test-code-admin-mfa-postgres.mjs b/scripts/test-code-admin-mfa-postgres.mjs
 index f8e33e9f..2924ce63 100644
 --- a/scripts/test-code-admin-mfa-postgres.mjs
@@ -1639,7 +2113,7 @@ index f8e33e9f..2924ce63 100644
 + assert.equal((await finishMfa(db,dual,request)).status,200);
 +});
 diff --git a/scripts/test-worker-inheritance.mjs b/scripts/test-worker-inheritance.mjs
-index 6baf4ea8..bf90f12d 100644
+index 6baf4ea8..659aab15 100644
 --- a/scripts/test-worker-inheritance.mjs
 +++ b/scripts/test-worker-inheritance.mjs
 @@ -40,6 +40,16 @@ test('unhandled gateway failures retain rejection semantics', async () => {
@@ -1659,7 +2133,7 @@ index 6baf4ea8..bf90f12d 100644
  const noDatabase={name:'no-database',setup(builder){
    builder.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));
    builder.onLoad({filter:/.*/,namespace:'fixture'},()=>({loader:'js',contents:'export class Client {constructor(){throw Error("Unexpected database access")}}'}));
-@@ -58,6 +68,15 @@ for(const name of ['auth','client','provider','visit','notes','billing','schedul
+@@ -58,6 +68,27 @@ for(const name of ['auth','client','provider','visit','notes','billing','schedul
      assert.equal(denied.status,403);
    });
  }
@@ -1671,6 +2145,18 @@ index 6baf4ea8..bf90f12d 100644
 +    const response=await service.fetch(new Request('https://fixture'+path,{method:'POST',headers:{cookie:'session_token='+'a'.repeat(43),'content-type':'application/json'},body:'{'}),{SERVICE_NAME:'auth'});
 +    assert.equal(response.status,managing?401:400);assert.equal(response.headers.get('cache-control'),'no-store');
 +  }
++});
++test('registered elevation and support HTTP methods and bearer boundaries reject before database access',async()=>{
++ const endpoints=JSON.parse((await import('node:fs')).readFileSync('packages/shared/src/auth-elevation.json','utf8')).endpoints;
++ for(const endpoint of endpoints){
++  const path=endpoint.route.replace('/v1/auth',''),url='https://fixture'+path;
++  const wrong=await service.fetch(new Request(url,{method:endpoint.method==='GET'?'POST':'GET'}),{SERVICE_NAME:'auth'});
++  assert.equal(wrong.status,405);assert.equal(wrong.headers.get('allow'),endpoint.method);
++  const cookie=await service.fetch(new Request(url,{method:endpoint.method,headers:{cookie:'session_token='+'a'.repeat(43)}}),{SERVICE_NAME:'auth'});
++  assert.equal(cookie.status,401);assert.equal(cookie.headers.get('cache-control'),'no-store');
++  const malformed=await service.fetch(new Request(url+(endpoint.method==='GET'?'?tenantId=other':''),{method:endpoint.method,headers:{authorization:'Bearer '+'a'.repeat(43),'content-type':'application/json'},...(endpoint.method==='POST'?{body:JSON.stringify({userId:'untrusted-actor'})}:{})}),{SERVICE_NAME:'auth'});
++  assert.equal(malformed.status,400);assert.equal(malformed.headers.get('cache-control'),'no-store');
++ }
 +});
  const registryBuild=await build({entryPoints:['cloudflare/workers/src/business-modules.ts'],bundle:true,write:false,platform:'node',format:'esm',plugins:[noDatabase]});
  const {businessModules}=await import('data:text/javascript;base64,'+Buffer.from(registryBuild.outputFiles[0].text).toString('base64'));

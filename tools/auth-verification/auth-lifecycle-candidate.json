@@ -1,9 +1,10 @@
 {
   "base": "7de9e8b24bff2367cac28bdbb9665da458753e2a",
-  "sha256": "5eb7127113e5a03f7204ecf1781dfa6a8bb469a12615218860f6cb416b310b15",
+  "sha256": "d7361be90441481551aeab1dbdfd167702f444a22d64d262120ced0de1ee9891",
   "paths": [
     "cloudflare/workers/src/auth.ts",
     "cloudflare/workers/src/core/base-worker.ts",
+    "cloudflare/workers/src/security/mfa-elevation.mjs",
     "cloudflare/workers/src/security/mfa.mjs",
     "cloudflare/workers/src/service-application.ts",
     "packages/flutter_core/lib/auth_service.dart",
@@ -17,6 +18,8 @@
     "packages/flutter_core/test/auth_mfa_test.dart",
     "packages/flutter_core/test/auth_privileged_access_test.dart",
     "packages/primecare_ui/lib/src/features/auth/auth_elevation_catalog.g.dart",
+    "packages/primecare_ui/lib/src/features/auth/auth_elevation_controller.dart",
+    "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart",
     "packages/primecare_ui/lib/src/features/auth/auth_experience.dart",
     "packages/primecare_ui/lib/src/features/auth/auth_lifecycle_catalog.g.dart",
     "packages/primecare_ui/lib/src/features/auth/login_controller.dart",
@@ -25,11 +28,14 @@
     "packages/primecare_ui/lib/src/features/auth/mfa_form.dart",
     "packages/primecare_ui/lib/src/features/auth/mfa_management_controller.dart",
     "packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart",
+    "packages/primecare_ui/lib/src/features/auth/tenant_support_form.dart",
+    "packages/primecare_ui/test/auth_elevation_test.dart",
     "packages/primecare_ui/test/auth_mfa_lifecycle_test.dart",
     "scripts/generate-cloudflare-worker-config.mjs",
     "scripts/generate-flutter-auth-elevation-catalog.py",
     "scripts/generate-flutter-auth-lifecycle-catalog.py",
     "scripts/generate-flutter-mfa-catalog.py",
+    "scripts/test-auth-privileged-postgres.mjs",
     "scripts/test-code-admin-mfa-postgres.mjs",
     "scripts/test-worker-inheritance.mjs"
   ]
