@@ -73,6 +73,16 @@ def main():
                 for locale, width in [('en', 320), ('fr', 768), ('es', 1440)]:
                     tenant, user = str(uuid.uuid4()), str(uuid.uuid4())
                     email, password = 'flutter-mfa-' + user + '@example.invalid', secrets.token_urlsafe(30)
+                    inbox = None
+                    if os.environ.get('VERIFY_MFA_NOTICE_INBOX') == '1':
+                        if os.environ.get('VERIFY_MFA_LIFECYCLE') != '1':
+                            raise RuntimeError('Notice inbox proof requires the complete lifecycle')
+                        from security_notice_inbox import SecurityNoticeInbox
+                        from owned_inbox import RECIPIENT
+                        inbox = SecurityNoticeInbox(locale)
+                        email = RECIPIENT
+                        if db.execute('SELECT COUNT(*) FROM users WHERE LOWER(email)=%s', (email,)).fetchone()[0] != 0:
+                            raise RuntimeError('QA inbox already belongs to an account; preserve it')
                     slug = 'flutter-mfa-' + tenant
                     result = {'locale': locale, 'width': width, 'checks': [], 'cleanup': False}
                     report['results'].append(result)
@@ -228,6 +238,9 @@ def main():
                             step = 'temporary elevation and explicit tenant support approval'
                             verify_privileged(page, db, user=user, tenant=tenant, password=password, seed=seed,
                                 token=token, locale=locale, field=field, button=button, api=api, totp=totp, must=must, checkpoint=checkpoint)
+                        if inbox is not None:
+                            step = 'actual security notice inbox observation'
+                            result['securityNoticeInbox'] = inbox.verify(db, user, page.wait_for_timeout)
                         step = 'acknowledged final logout and signed-out reload'
                         page.get_by_role('button', name=labels[locale]['signout'], exact=True).wait_for(timeout=30000)
                         with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/logout') and r.request.method == 'POST') as ended:
@@ -270,6 +283,8 @@ def main():
                                 db.execute('DELETE FROM users WHERE id::text=%s AND email=%s AND tenant_id::text=%s', (user, email, tenant))
                                 db.execute('DELETE FROM tenants WHERE id::text=%s AND slug=%s', (tenant, slug))
                             result['cleanup'] = True
+                        if inbox is not None:
+                            result['securityNoticeInboxCleanup'] = inbox.cleanup()
                         (OUT / 'receipt.json').write_text(json.dumps(report, indent=2))
             finally:
                 browser.close()
