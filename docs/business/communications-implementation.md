@@ -439,3 +439,34 @@ Media artifact 12459242458 and registry artifact 12458942760 preserve the run.
 The fresh read-only audit still reports no matching grants for the seven registered
 communication APIs; all-user production rollout remains unverified. See
 [evidence/communication-snapshots-20261022.json](evidence/communication-snapshots-20261022.json).
+
+
+### Registered native access adapters (2026-10-22)
+
+Source `77f767fd5d9b9daae92bf0467d44962e5323ee84` registered
+`communication-access-v1` and the empty `communication-mailboxes-v1` directory.
+[Registration run 39855660364](https://github.com/shaikhrais/primecare-platform/actions/runs/39855660364)
+passed six disposable PostgreSQL registration tests, production rollback validation,
+idempotent registration and an independent read-only production readback. No user
+accounts, endpoint grants, mailbox mappings or activation were changed.
+
+After that readback, native access/mailbox adapters were implemented using one
+inherited `PostgresCommunicationPolicyBase`. Each operation reads the pinned native
+policy, current active tenant/accounts, current linked-task participants and
+current explicit mailbox ownership/delegation. The default runtime now composes
+these adapters; trusted specialized ports remain supported. `general` permits
+active same-tenant conversations; unknown references fail closed. Linked task
+membership is rechecked after handoff. External recipients require an explicit
+contact on an accessible provider-verified owned mailbox. The initial empty
+directory intentionally provides no inbound mailbox or external recipient access.
+
+Local checks: strict TypeScript passes, 128 Node tests pass and two native-only
+checks skip because PostgreSQL is unavailable locally. The new CI test runs
+separately against disposable PostgreSQL to avoid fixture table collisions. It
+covers native policies and default runtime session -> endpoint grant -> registered
+HTTP -> inherited service -> storage -> reload for messages, pictures, calls and
+mail. Provider email and image ports in this integration are synthetic; existing
+separate real browser/raster tests provide their own bounded acceptance. Current
+source CI results will be recorded after execution. This is not deployed all-user
+acceptance; provider configuration, mailbox provisioning, live grants/mounting and
+shared functional screens remain open.

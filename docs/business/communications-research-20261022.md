@@ -1,0 +1,26 @@
+# Communication architecture research — 2026-10-22
+
+This review uses official platform documentation, W3C specifications, PostgreSQL
+manuals and OWASP project guidance. Recommendations below are mapped to code and
+checks; the sources do not constitute production acceptance of PrimeCare.
+
+| Area | Finding and implementation decision | Source |
+| --- | --- | --- |
+| Authorization | Deny by default and check each request. Keep endpoint/screen grants separate from current tenant, account, task and mailbox relationships. Both native adapters inherit one policy-source base and re-read native state rather than caching grants. | [OWASP authorization](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) |
+| Pictures | Do not trust the declared MIME type. Bound bytes/pixels, decode and re-encode, scan, generate private object identities and authorize downloads. Existing PrivatePictureRepository implements this pipeline; a real compatible scanner/decoder/storage composition remains a release dependency. | [OWASP file uploads](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html) |
+| Outbound email | The current native send_email binding supports structured from/to/subject/text/html messages and returns messageId. Keep configured sender restrictions and explicit queue/deliver actions. A receipt identifies provider acceptance; do not infer inbox delivery or retry an ambiguous send. | [Cloudflare sending API](https://developers.cloudflare.com/email-service/api/send-emails/workers-api/), [email lifecycle](https://developers.cloudflare.com/email-service/concepts/email-lifecycle/) |
+| Inbound email | Receive through the Worker email event, not a public JSON receive command. Bound rawSize and streamed bytes; use the envelope recipient to resolve an explicitly owned mailbox. Raw MIME stays quarantined; rendering/parsing requires a separately bounded parser and sanitized presentation. | [Cloudflare receiving API](https://developers.cloudflare.com/email-service/api/route-emails/email-handler/) |
+| Audio negotiation | Deliver offer/answer and ICE signaling through authenticated participant-scoped transport. Queue candidates until a remote description is installed. Release microphone tracks and peer resources on denial, end or failure. Preserve the existing actual browser packet tests. | [W3C WebRTC specification](https://www.w3.org/TR/webrtc/) |
+| Network reachability | TURN relays calls that direct connections cannot establish. Generate expiring per-user credentials on the server; never expose the long-term TURN key. Loopback media tests do not establish mobile/firewall reachability. Live TURN provisioning and deployed network tests remain open. | [Cloudflare TURN](https://developers.cloudflare.com/realtime/turn/), [credential generation](https://developers.cloudflare.com/realtime/turn/generate-credentials/) |
+| Database consistency | Repeatable Read provides a stable snapshot within one native authorization evaluation. It does not promise instantaneous revocation during an already-running request or serializable coordination with a separate business transaction. Recheck every new action, avoid long-lived authorization caches and retain versioned atomic commands. | [PostgreSQL transaction isolation](https://www.postgresql.org/docs/current/transaction-iso.html) |
+
+The new native-policy integration tests exercise actual PostgreSQL account status,
+tenant status, task handoff, mailbox ownership/delegation, contact scope, policy
+drift, session resolution, endpoint grants and persistence through registered HTTP.
+Email and image provider ports in that test are explicitly synthetic. Other suites
+exercise real raster decoding and browser audio packets. Neither suite establishes
+that live providers, user screens or production route activation are complete.
+
+The hierarchy policy rows registered by run 39855660364 are requirements and an
+empty owned-mailbox directory. They do not create endpoint grants, verify domain
+ownership, provision a user mailbox or grant broad clinical/HR access.

@@ -142,3 +142,34 @@ original inputs; changing them after invocation cannot change validated content,
 command fingerprints or saved communication records. Inbound email separately
 copies its raw bytes and envelope before mailbox resolution. Regression tests
 pause policy resolution to exercise these boundaries.
+
+
+### Native account, task and mailbox policies
+
+`PostgresCommunicationAccessPolicy` and `PostgresCommunicationMailboxPolicy`
+extend `PostgresCommunicationPolicyBase`. The default worker composes these
+adapters when specialized trusted policy ports are omitted. Explicit malformed
+ports still fail construction. Native policies read the pinned manifest and both
+registered policy documents in a bounded read-only snapshot on every action.
+They never create accounts, grant endpoint access or write mailbox configuration.
+
+Use the registered `general` business reference for general same-tenant active-user
+conversations. Any other reference must identify an existing workflow aggregate;
+all conversation members must remain current originator/owner/reviewer participants.
+Unknown clinical/HR references are denied. A task handoff can therefore make an
+older linked conversation inaccessible; there is no silent expansion of membership.
+
+Owned addresses come from `communication-mailboxes-v1` in native
+`govt_platform_hierarchy_policy`. Each governed entry contains `id`, `tenantId`,
+`address` (lowercase), `ownerId`, `delegateIds`, `recipientAddresses`, `active` and
+`ownershipVerified`. A separate governed provisioning operation must verify actual
+provider ownership before creating entries. The initial production directory is
+empty. It grants no inbound mailbox or external-contact access. Active same-tenant
+account emails are permitted outbound recipients; known inactive/cross-tenant
+accounts cannot be reclassified as external contacts. All other addresses require
+an explicit contact on a currently accessible owned mailbox. Owner/delegate and
+active-tenant checks are current, including retries and incoming email ingestion.
+
+The registered policy is a requirement, not a release approval. Endpoint/API and
+screen grants remain separate. The worker remains unmounted pending providers,
+mailbox provisioning, shared screens and deployed acceptance.
