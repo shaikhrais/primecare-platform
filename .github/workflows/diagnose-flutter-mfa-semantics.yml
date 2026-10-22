@@ -1,0 +1,27 @@
+name: Diagnose public Flutter MFA semantics without accounts
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/diagnose-flutter-mfa-semantics.yml
+      - tools/auth-verification/test-flutter-semantics-diagnostic.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install playwright==1.58.0
+          python -m playwright install --with-deps chromium
+          python tools/auth-verification/test-flutter-semantics-diagnostic.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: synthetic-flutter-semantics-diagnostic
+          path: test-results/flutter-semantics-diagnostic
