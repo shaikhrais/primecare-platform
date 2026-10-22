@@ -27,11 +27,15 @@ test('compiled Dart adapter loads the shared media asset and two Chromium peers 
   await page.goto('http://127.0.0.1:'+server.address().port+'/?enable-semantics=true');
   await page.waitForFunction(()=>!!window.primecareFlutterAudio);
   assert.equal(await page.evaluate(()=>window.primecareFlutterAudio.start()),true);
-  await page.waitForFunction(async()=>{
-   if(window.actualPeers.length!==2)return false;
-   const counts=await Promise.all(window.actualPeers.map(async peer=>[...((await peer.getStats()).values())].filter(r=>r.type==='inbound-rtp'&&r.kind==='audio').reduce((n,r)=>n+(r.packetsReceived??0),0)));
-   return counts.every(n=>n>0);
-  },null,{timeout:25000});
+  let packets=[];
+  const deadline=Date.now()+25000;
+  do {
+   packets=await page.evaluate(async()=>Promise.all(window.actualPeers.map(async peer=>[...((await peer.getStats()).values())].filter(r=>r.type==='inbound-rtp'&&r.kind==='audio').reduce((n,r)=>n+(r.packetsReceived??0),0))));
+   if(packets.length===2&&packets.every(n=>n>0))break;
+   await new Promise(resolve=>setTimeout(resolve,100));
+  }while(Date.now()<deadline);
+  assert.equal(packets.length,2);
+  assert.ok(packets.every(n=>n>0),'Both compiled-Dart peers must receive actual audio packets: '+JSON.stringify(packets));
   const evidence=await page.evaluate(async()=>{
    const counts=await Promise.all(window.actualPeers.map(async peer=>[...((await peer.getStats()).values())].filter(r=>r.type==='inbound-rtp'&&r.kind==='audio').reduce((n,r)=>n+(r.packetsReceived??0),0)));
    window.primecareFlutterAudio.mute(true);const muted=window.actualStreams[0].getAudioTracks().every(t=>!t.enabled);
@@ -39,6 +43,7 @@ test('compiled Dart adapter loads the shared media asset and two Chromium peers 
    window.primecareFlutterAudio.close();
    return {packets:counts,muted,unmuted,tracksStopped:window.actualStreams.every(s=>s.getTracks().every(t=>t.readyState==='ended')),peersClosed:window.actualPeers.every(p=>p.connectionState==='closed'),audioElementsRemoved:document.querySelectorAll('audio').length===0};
   });
+  assert.equal(evidence.packets.length,2);assert.ok(evidence.packets.every(n=>n>0),'Final artifact must contain positive packet counts');
   assert.equal(evidence.muted,true);assert.equal(evidence.unmuted,true);assert.equal(evidence.tracksStopped,true);assert.equal(evidence.peersClosed,true);assert.equal(evidence.audioElementsRemoved,true);
   mkdirSync('test-results/communication-flutter-browser',{recursive:true});writeFileSync('test-results/communication-flutter-browser/compiled-dart-audio.json',JSON.stringify({syntheticTransport:true,productUi:false,browser:browser.version(),...evidence},null,2));
  }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}
