@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/communications/communication_core.dart';
 import 'package:flutter_core/communications/communication_workspace_controller.dart';
+import 'package:flutter_core/auth_service.dart';
+import 'package:flutter_core/src/network/api_client.dart';
 import 'package:primecare_ui/src/communications/communication_workspace.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'package:primecare_ui/src/screens/staff/communication/communication_screen.dart';
@@ -13,7 +16,13 @@ import 'package:primecare_ui/src/screens/psw/messaging/messaging_screen.dart';
 import 'package:primecare_ui/src/screens/psw/psw_messages/psw_messages_screen.dart';
 import '../../flutter_core/test/fixtures/communication_workspace_transport.dart';
 
+class WorkspaceSessionFixture extends AuthNotifier {
+ @override AuthState build()=>AuthState(isInitialized:true,isAuthenticated:true,userId:'alice',tenantId:'tenant-a',token:'synthetic-session-a');
+ void replace(AuthState value){state=value;}
+}
+
 void main(){
+ TestWidgetsFlutterBinding.ensureInitialized();
  late FixtureTransport transport;late CommunicationWorkspaceController controller;var key=0;
  setUp((){transport=FixtureTransport();controller=CommunicationWorkspaceController(hub:CommunicationHub(transport),userId:'alice',tenantId:'tenant-a',key:()=> 'widget-${key++}');});
  tearDown(()=>controller.dispose());
@@ -24,6 +33,18 @@ void main(){
  test('all four existing entry classes inherit the same workspace',(){
   for(final screen in [const CommunicationScreen(),const PatientMessagesScreen(),const MessagingScreen(),const MessagesScreen()])expect(screen,isA<CommunicationScreenBase>());
   expect(CommunicationScreenBase.implementationTags['productionReady'],false);
+ });
+ test('session-dependent provider disposes private state on account change and logout',() async {
+  final dio=Dio(BaseOptions(baseUrl:'https://synthetic.invalid'));
+  dio.interceptors.add(InterceptorsWrapper(onRequest:(options,handler)=>handler.resolve(Response(requestOptions:options,statusCode:200,data:{'items':[clone(transport.record)]}))));
+  final container=ProviderContainer(overrides:[authProvider.overrideWith(WorkspaceSessionFixture.new),apiClientProvider.overrideWith((ref)=>ApiClient(ref,transport:dio))]);
+  final subscription=container.listen(communicationWorkspaceControllerProvider,(previous,next){},fireImmediately:true);
+  try{
+   final first=container.read(communicationWorkspaceControllerProvider)!;expect(await first.loadInbox(),true);expect(first.inbox,isNotEmpty);
+   (container.read(authProvider.notifier) as WorkspaceSessionFixture).replace(AuthState(isInitialized:true,isAuthenticated:true,userId:'bob',tenantId:'tenant-b',token:'synthetic-session-b'));
+   final second=container.read(communicationWorkspaceControllerProvider)!;expect(identical(first,second),false);expect(first.isDisposed,true);expect(first.inbox,isEmpty);expect(second.userId,'bob');expect(second.tenantId,'tenant-b');
+   (container.read(authProvider.notifier) as WorkspaceSessionFixture).replace(AuthState(isInitialized:true));expect(container.read(communicationWorkspaceControllerProvider),isNull);expect(second.isDisposed,true);
+  }finally{subscription.close();container.dispose();dio.close(force:true);}
  });
  testWidgets('inbox open, send and reload render the actual returned message', (tester) async {
   await tester.pumpWidget(app());await tester.pumpAndSettle();

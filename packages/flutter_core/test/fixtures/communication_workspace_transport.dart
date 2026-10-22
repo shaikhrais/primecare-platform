@@ -17,6 +17,7 @@ class FixtureTransport implements CommunicationTransport {
  final receipts=<String,Map<String,Object?>>{};
  Object? nextFailure;
  bool loseSendReceipt=false;
+ bool badAcknowledgement=false;
  Completer<Map<String,Object?>>? pendingRead;
  Uint8List png=Uint8List.fromList([137,80,78,71,13,10,26,10]);
  @override Future<Map<String,Object?>> execute(String channel,Map<String,Object?> input) async {
@@ -52,7 +53,7 @@ class FixtureTransport implements CommunicationTransport {
   }
   final result=<String,Object?>{'id':record['id'],'version':record['version']};receipts[request['key'] as String]=result;
   if(request['action']=='send'&&loseSendReceipt){loseSendReceipt=false;throw denied(null);}
-  return result;
+  return badAcknowledgement?{...result,'version':0}:result;
  }
 }
 

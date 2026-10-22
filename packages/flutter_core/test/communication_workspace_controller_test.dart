@@ -43,6 +43,11 @@ void main(){
   final sending=controller.sendMessage('Confirmed but unread');await Future<void>.delayed(Duration.zero);delayed.completeError(denied(503));
   expect(await sending,false);expect(controller.hasPendingCommand,true);expect(await controller.retryPending(),true);expect((controller.thread!['messages'] as List).length,1);
  });
+ test('a malformed acknowledgement cannot clear the draft or original command',() async {
+  await controller.openThread('thread');transport.badAcknowledgement=true;
+  expect(await controller.sendMessage('Malformed receipt'),false);expect(controller.hasPendingCommand,true);expect(controller.failureKey,'uncertain');
+  transport.badAcknowledgement=false;expect(await controller.retryPending(),true);expect((controller.thread!['messages'] as List).length,1);
+ });
  test('permission failures clear private records and do not leak provider text',() async {
   await controller.loadInbox();await controller.openThread('thread');transport.nextFailure=denied(403);
   expect(await controller.loadInbox(),false);expect(controller.inbox,isEmpty);expect(controller.thread,isNull);expect(controller.previewBytes,isNull);expect(controller.failureKey,'forbidden');

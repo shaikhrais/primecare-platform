@@ -31,6 +31,7 @@ on:
       - 'packages/flutter_core/test/communication_workspace_controller_test.dart'
       - 'packages/flutter_core/test/fixtures/communication_workspace_transport.dart'
       - 'packages/primecare_ui/lib/src/communications/**'
+      - 'packages/primecare_ui/lib/primecare_ui.dart'
       - 'packages/primecare_ui/lib/src/components/prime_components.dart'
       - 'packages/primecare_ui/lib/src/screens/staff/communication/communication_screen.dart'
       - 'packages/primecare_ui/lib/src/screens/common/patient_messages/patient_messages_screen.dart'

@@ -123,8 +123,10 @@ final class CommunicationWorkspaceController extends CommunicationWorkspaceContr
  });
  Future<CommunicationCommit> _executePending(_PendingMessageCommand pending) async {
   final result=await hub.messages.execute(pending.action,pending.fields);requireActive();
-  if(result['id']!=pending.id||result['version'] is! int)throw const FormatException('Communication action unconfirmed');
+  final expectedVersion=(pending.fields['version'] as int?)??0;
+  if(result['id']!=pending.id||result['version']!=expectedVersion+1)throw const FormatException('Communication action unconfirmed');
   final record=_record(await hub.messages.read(pending.id),pending.id);requireActive();
+  if((record['version'] as int)<(result['version'] as int))throw const FormatException('Communication reload regressed');
   return (){_pending=null;_select(record);};
  }
  Future<bool> _mutation(String action,Map<String,Object?> Function() fields) {
