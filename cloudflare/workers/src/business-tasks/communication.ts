@@ -33,11 +33,13 @@ export class CommunicationService extends ScopedServiceBase {
   required(businessReference);
   if (!Array.isArray(members) || !members.includes(actor.id) || members.length < 2 || members.length > this.limits.maxMembers || new Set(members).size !== members.length) throw Error('Invalid members');
   members.forEach(member => required(member));
-  return this.store.run({actor,id,key,expectedVersion:0,type:'conversation.create',payload:{members,businessReference}},
-   async state => {await this.checkAccess(actor,'conversation.create',state,['conversation'],true);for(const member of members) await this.policy.assignee(actor,member,'communication');},
+  const memberIds=[...members];
+  const draft={id,tenantId:actor.tenantId,version:0,kind:'conversation',members:memberIds,businessReference,messages:[],readThrough:{},calls:[]};
+  return this.store.run({actor,id,key,expectedVersion:0,type:'conversation.create',payload:{members:memberIds,businessReference}},
+   async state => {await this.checkAccess(actor,'conversation.create',state,['conversation'],true);await this.policy.assert(actor,'conversation.create',structuredClone(draft));for(const member of memberIds) await this.policy.assignee(actor,member,'communication');},
    async state => {
     if(state) throw Error('Already exists');
-    return {state:{id,tenantId:actor.tenantId,version:0,kind:'conversation',members:[...members],businessReference,messages:[],readThrough:{},calls:[]},event:'conversation.created'};
+    return {state:structuredClone(draft),event:'conversation.created'};
    });
  }
  async message(actor: Actor, id: string, key: string, expectedVersion: number, text: string, pictureIds: string[] = []) {

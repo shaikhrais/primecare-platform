@@ -142,7 +142,7 @@ test('call invitation, accepted recipient, decline, expiry and ending are state 
 });
 
 let sends=0,transportFails=false;const sent=[];
-const mailboxes={async resolve(to){return to==='owned@example.invalid'?{tenantId:a.tenantId,mailboxId:'owned'}:null;},async recipient(actor,to){if(to!=='recipient@example.invalid')throw Error('Unapproved recipient');}};
+const mailboxes={async access(actor,mailboxId){if(mailboxId!=='owned'||![a.id,b.id].includes(actor.id))throw Error('Forbidden');},async resolve(to){return to==='owned@example.invalid'?{tenantId:a.tenantId,mailboxId:'owned'}:null;},async recipient(actor,to){if(to!=='recipient@example.invalid')throw Error('Unapproved recipient');}};
 const mail=new BusinessMailService(store,policy,mailboxes,{async send(message){sends++;sent.push(message);if(transportFails)throw Error('private-provider-detail');return {messageId:'synthetic-provider-'+sends};}},'sender@example.invalid',2048);
 test('one inherited core serves different permitted users across all four channels',async()=>{
  const core=new CommunicationCore(communication,mail);
@@ -191,6 +191,8 @@ test('email queues once, escapes HTML and preserves accepted versus delivered di
  assert.equal(record.status,'accepted');assert.equal(sends,before+1);assert.ok(sent.at(-1).html.includes('&lt;script&gt;'));
  await mail.deliver(a,message,'deliver',result.version);assert.equal(sends,before+1);
  await assert.rejects(mail.read(outsider,message),/Not found/);
+ await assert.rejects(mail.read(b,message),/Not found/);
+ await assert.rejects(mail.deliver(b,message,'other-owner',record.version),/Not found/);
  await assert.rejects(mail.queue(a,id('bad'),'queue','recipient@example.invalid','subject\r\nBcc: victim','text'),/Invalid input/);
  await assert.rejects(mail.queue(a,id('unapproved'),'queue','victim@example.invalid','subject','text'),/Unapproved recipient/);
 });
@@ -213,6 +215,7 @@ test('inbound mail uses owned mailbox scope, deduplicates bytes and quarantines 
  await assert.rejects(mail.receive({...envelope,to:'unknown@example.invalid'}),/Unknown mailbox/);
  await assert.rejects(mail.receive({...envelope,raw:new Uint8Array(2049)}),/inbound size/);
  await assert.rejects(mail.read(outsider,received.id),/Not found/);
+ await assert.rejects(mail.read(c,received.id),/Forbidden/);
 });
 if(pool)test('native transaction rollback includes aggregate, audit and idempotency receipt',async()=>{
  const aggregate=id('rollback');
@@ -229,4 +232,15 @@ test('version bound rejects a write that would exceed a safe integer before acqu
  const command={actor:a,id:'fixture',key:'version',type:'fixture',payload:{},expectedVersion:Number.MAX_SAFE_INTEGER};
  assert.throws(()=>commandValid(command),/Invalid version/);
  command.expectedVersion=Number.MAX_SAFE_INTEGER-1;assert.doesNotThrow(()=>commandValid(command));
+});
+
+test('conversation creation authorizes proposed case and participants before persistence',async()=>{
+ const thread=id('restricted-case');
+ const scopedPolicy={...policy,async assert(actor,action,state){await policy.assert(actor,action,state);if(action==='conversation.create'&&state?.businessReference==='restricted-case')throw Error('Forbidden');}};
+ const guarded=new CommunicationService(store,scopedPolicy,pictures,limits);
+ await assert.rejects(guarded.create(a,thread,'create',[a.id,b.id],'restricted-case'),/Forbidden/);
+ await assert.rejects(guarded.read(a,thread),/Not found/);
+});
+test('mailbox read policy cannot be omitted at service construction',()=>{
+ assert.throws(()=>new BusinessMailService(store,policy,{resolve:mailboxes.resolve,recipient:mailboxes.recipient},{async send(){return {messageId:'fixture'};}},'sender@example.invalid',2048),/Mailbox policy/);
 });

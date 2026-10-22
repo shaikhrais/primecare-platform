@@ -35,7 +35,7 @@ const pictureAdapter={async prepare(actor,threadId,bytes,mediaType){const record
 const limits={maxMembers:8,maxMessages:100,maxText:2000,maxPictureBytes:1024,maxPictures:3,ringMilliseconds:30000,maxSignalBytes:16384};
 const conversations=new CommunicationService(store,policy,pictureAdapter,limits);
 let nativeSends=0;
-const mail=new BusinessMailService(store,policy,{async recipient(){},async resolve(){return {tenantId:'tenant-a',mailboxId:'fixture'};}},{async send(){nativeSends++;return {messageId:'synthetic-receipt'};}},'sender@example.invalid',4096);
+const mail=new BusinessMailService(store,policy,{async access(){},async recipient(){},async resolve(){return {tenantId:'tenant-a',mailboxId:'fixture'};}},{async send(){nativeSends++;return {messageId:'synthetic-receipt'};}},'sender@example.invalid',4096);
 const core=new CommunicationCore(conversations,mail);
 const worker=new CommunicationHttpWorker({core,validate,maxRequestBytes:4096,
  async authenticate(request){const actor=users.get(request.headers.get('authorization'));if(!actor)throw new CommunicationHttpError(401);return actor;},
@@ -98,6 +98,7 @@ test('email queue/deliver/read preserve native acceptance and duplicate-send gua
  await command('a','/v1/messages/email',{action:'queue',id,key:'queue',to:'receiver@example.invalid',subject:'Synthetic',text:'Fixture only'});
  const deliver={action:'deliver',id,key:'deliver',version:1};const first=await command('a','/v1/messages/email',deliver);assert.equal(first.status,'accepted');
  await command('a','/v1/messages/email',deliver);assert.equal(nativeSends,1);
+ await command('b','/v1/messages/email',{action:'read',id},404);
  const read=await command('a','/v1/messages/email',{action:'read',id});assert.equal(read.providerMessageId,'synthetic-receipt');
  await command('a','/v1/messages/email',{action:'receive',raw:'forged'},400);
 });

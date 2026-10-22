@@ -193,3 +193,18 @@ tenant/foreign-key constraints and opt-in enforcement. The storage workflow must
 pass these before its production dry-run, registration, DDL dry-run, migration and
 fresh-transaction native reread. No synthetic user or message is written in
 production by this workflow. Storage readiness is not live channel acceptance.
+
+The live-binding review also exposed two core access gaps, repaired before any
+handler activation. Outbound mail now records `ownerId` from the authenticated
+actor and refuses another user's reads, delivery claims or retries, even when an
+injected policy is too broad. Inbound reads require a mandatory
+`MailboxPolicy.access(actor, mailboxId)` check; recipient eligibility and inbound
+address resolution cannot substitute for current mailbox read access. Missing
+mailbox access adapters fail during construction.
+
+Conversation creation now passes a copied prospective record (business reference
+and complete member set) to the current policy before persistence. Previously a
+policy saw only null state on initial creation and could not inspect that case
+context. Existing tenant/type checks and member eligibility checks remain active.
+New tests deny another same-tenant mail reader/sender, an ungranted inbound reader
+and a restricted case at creation, and confirm missing mailbox adapters fail.

@@ -9,6 +9,8 @@ export interface MailboxPolicy {
  resolve(address:string): Promise<{tenantId:string;mailboxId:string}|null>;
  /** Must validate permission/contact basis and configured sender before queueing. */
  recipient(actor:Actor,address:string): Promise<void>;
+ /** Current mailbox membership/delegation must be checked on every inbound read. */
+ access(actor:Actor,mailboxId:string): Promise<void>;
 }
 function address(value:unknown): asserts value is string {
  required(value,254);
@@ -23,22 +25,28 @@ export class BusinessMailService extends ScopedServiceBase {
  constructor(store:AtomicStore,policy:AccessPolicy,mailboxes:MailboxPolicy,transport:BusinessMailTransport,sender:string,maxBytes:number) {
   super(store,policy);
   address(sender);if(!Number.isSafeInteger(maxBytes)||maxBytes<1)throw Error('Invalid mail limit');
+  if(!mailboxes||typeof mailboxes.resolve!=='function'||typeof mailboxes.recipient!=='function'||typeof mailboxes.access!=='function')throw Error('Mailbox policy adapters required');
   this.mailboxes=mailboxes;this.transport=transport;this.sender=sender;this.maxBytes=maxBytes;
+ }
+ async authorizeMail(actor:Actor,action:string,state:import('./store.ts').RecordState|null,creating=false) {
+  if(state?.kind==='outbound_mail'&&state.ownerId!==actor.id)throw Error('Not found');
+  await this.checkAccess(actor,action,state,action==='mail.read'?['outbound_mail','inbound_mail']:['outbound_mail'],creating);
+  if(state?.kind==='inbound_mail'){required(state.mailboxId);await this.mailboxes.access(actor,state.mailboxId);}
  }
  async queue(actor:Actor,id:string,key:string,to:string,subject:string,text:string) {
   address(to);required(subject,200);
   if(typeof text!=='string'||!text.trim()||new TextEncoder().encode(text).byteLength>this.maxBytes)throw Error('Invalid mail body');
   return this.store.run({actor,id,key,expectedVersion:0,type:'mail.queue',payload:{to,subject,text}},
-   async state=>{await this.checkAccess(actor,'mail.queue',state,['outbound_mail'],true);await this.mailboxes.recipient(actor,to);},async state=>{
+   async state=>{await this.authorizeMail(actor,'mail.queue',state,true);await this.mailboxes.recipient(actor,to);},async state=>{
     if(state)throw Error('Already exists');
-    return {state:{id,tenantId:actor.tenantId,version:0,kind:'outbound_mail',from:this.sender,to,subject,text,status:'queued'},event:'mail.queued'};
+    return {state:{id,tenantId:actor.tenantId,version:0,kind:'outbound_mail',ownerId:actor.id,from:this.sender,to,subject,text,status:'queued'},event:'mail.queued'};
    });
  }
  async deliver(actor:Actor,id:string,key:string,expectedVersion:number) {
   required(key,190); // Leave room for the atomic receipt command suffix before attempting a send.
   const token=crypto.randomUUID();
   const claimed=await this.store.run({actor,id,key,expectedVersion,type:'mail.claim',payload:{}},
-   async state=>{await this.checkAccess(actor,'mail.deliver',state,['outbound_mail']);await this.mailboxes.recipient(actor,state!.to);},
+   async state=>{await this.authorizeMail(actor,'mail.deliver',state);await this.mailboxes.recipient(actor,state!.to);},
    async state=>{if(state!.status!=='queued')throw Error('Mail already attempted');state!.status='sending';return {state:state!,event:'mail.claimed',result:{id,version:expectedVersion+1,claimToken:token}};});
   // A retry must never resend an ambiguous native transport request.
   if(claimed.claimToken!==token)return this.read(actor,id);
@@ -49,11 +57,11 @@ export class BusinessMailService extends ScopedServiceBase {
    required(result?.messageId,500);receipt=result.messageId;
   } catch { /* Native acceptance may have occurred. Preserve unknown; do not retry. */ }
   await this.store.run({actor,id,key:key+':receipt',expectedVersion:claimed.version,type:'mail.receipt',payload:{receipt}},
-   state=>this.checkAccess(actor,'mail.deliver',state,['outbound_mail']),
+   state=>this.authorizeMail(actor,'mail.deliver',state),
    async state=>{if(state!.status!=='sending')throw Error('Mail state conflict');state!.status=receipt?'accepted':'unknown';state!.providerMessageId=receipt;return {state:state!,event:receipt?'mail.accepted':'mail.unknown'};});
   return this.read(actor,id);
  }
- async read(actor:Actor,id:string) {return this.store.read(actor,id,state=>this.checkAccess(actor,'mail.read',state,['outbound_mail','inbound_mail']));}
+ async read(actor:Actor,id:string) {return this.store.read(actor,id,state=>this.authorizeMail(actor,'mail.read',state));}
  /** Trusted inbound worker boundary only. Raw content stays quarantined and never executes actions. */
  async receive(envelope:{from:string;to:string;raw:Uint8Array}) {
   address(envelope.to);address(envelope.from);
