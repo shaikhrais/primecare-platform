@@ -82,10 +82,12 @@ def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, bu
     saved = issued['recoveryCodes'][0]
     rendered('mfa-lifecycle-codes', issued['recoveryCodes'])
     transient(issued['recoveryCodes'])
-    # End this managed session through the same gateway boundary as sign-out,
-    # then reload so recovery starts from an unauthenticated password exchange.
+    # Revoke through the gateway, then open the registered login route. A
+    # reload stays on /mfa, which is public and has no challenge after reload.
     must(api('/v1/auth/logout', {}, token=token)[0] == 200, 'owned session revoked before lost-factor recovery')
-    page.reload(wait_until='domcontentloaded')
+    from urllib.parse import urlsplit, urlunsplit
+    location = urlsplit(page.url)
+    page.goto(urlunsplit((location.scheme, location.netloc, '/login', location.query, '')), wait_until='domcontentloaded')
     field('login-email').wait_for(timeout=30000)
     login = exchange()
     must(login.get('purpose') == 'verify' and 'setupKey' not in login, 'lost-factor recovery begins with password-verified limited challenge')

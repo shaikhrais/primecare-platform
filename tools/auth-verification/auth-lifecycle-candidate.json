@@ -42,6 +42,7 @@
     "scripts/test-code-admin-mfa-postgres.mjs",
     "scripts/test-mfa-keyring-tail.mjs",
     "scripts/test-worker-inheritance.mjs",
+    "tools/auth-verification/flutter_mfa_lifecycle.py",
     "tools/auth-verification/mfa-keyring-tail.mjs"
   ],
   "state": "promoted",
@@ -86,6 +87,7 @@
     "scripts/test-code-admin-mfa-postgres.mjs": "174275f959766e0be17bc281d6f894678c390ab0a173cae50b3f92fa8eab2b45",
     "scripts/test-mfa-keyring-tail.mjs": "404edfa55890a9e8d0411f0915e4885beab5f1e39596b2c2b11fdeba90d6b638",
     "scripts/test-worker-inheritance.mjs": "0609eb79fa275179af04708e2b5c689d18dd19dd0314400a6bd5701c346ef292",
+    "tools/auth-verification/flutter_mfa_lifecycle.py": "f8cef4b623ea8c4981a54aa90a6b1bcddd739c61b61dde603549be286252ba49",
     "tools/auth-verification/mfa-keyring-tail.mjs": "af6e7305019dfd5ff7c31650f99fd0406d6aa6f739040974aa52caff0187f5e0"
   }
 }
