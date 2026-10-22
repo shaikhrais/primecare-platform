@@ -28,7 +28,8 @@ test('bad remote signaling and terminal peer failures release microphone resourc
  const badSignal=make();await badSignal.start();
  await assert.rejects(badSignal.receive({type:'answer',description:{type:'answer',sdp:'bad'}}),/Invalid description/);
  assert.equal(stops,1);assert.equal(peersClosed,1);
- const failedPeer=make();await failedPeer.start();peer.connectionState='failed';peer.onconnectionstatechange();
+ const failedPeer=make();await failedPeer.start();failedPeer.onState=state=>{if(state==='failed')throw Error('Fixture display failure');};peer.connectionState='failed';
+ assert.throws(()=>peer.onconnectionstatechange(),/display failure/);
  assert.equal(stops,2);assert.equal(peersClosed,2);assert.equal(failedPeer.closed,true);
 });
 test('binary stream base measures real bytes, cancels overflow and releases the reader',async()=>{

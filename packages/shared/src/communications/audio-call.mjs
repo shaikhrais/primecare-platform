@@ -18,7 +18,7 @@ export class BrowserAudioCall extends CommunicationResourceBase {
    const peer=this.peer;this.registerCleanup(()=>{peer.onicecandidate=null;peer.ontrack=null;peer.onconnectionstatechange=null;peer.close();});
    this.peer.onicecandidate=event=>{if(event.candidate)this.sendSignal({type:'candidate',candidate:event.candidate.toJSON()}).catch(()=>this.close());};
    this.peer.ontrack=event=>this.onTrack(event.streams[0]);
-   this.peer.onconnectionstatechange=()=>{const state=peer.connectionState;this.onState(state);if(state==='failed'||state==='closed')this.close();};
+   this.peer.onconnectionstatechange=()=>{const state=peer.connectionState;try{this.onState(state);}finally{if(state==='failed'||state==='closed')this.close();}};
    for(const track of this.stream.getTracks())this.peer.addTrack(track,this.stream);
   } catch(error) {this.close();throw error;} finally {this.starting=false;}
  }
