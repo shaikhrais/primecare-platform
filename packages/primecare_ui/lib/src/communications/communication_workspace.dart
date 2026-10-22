@@ -9,7 +9,8 @@ import '../components/cy.dart';
 import '../components/prime_components.dart';
 
 final communicationWorkspaceControllerProvider=Provider.autoDispose<CommunicationWorkspaceController?>((ref){
- final (signedIn,user,tenant,token)=ref.watch(authProvider.select((s)=>(s.isAuthenticated,s.userId,s.tenantId,s.token)));
+ // A role change invalidates presentation; it never grants a client-side right.
+ final (signedIn,user,tenant,token,_)=ref.watch(authProvider.select((s)=>(s.isAuthenticated,s.userId,s.tenantId,s.token,s.role)));
  if(!signedIn||user==null||tenant==null||token==null||token.isEmpty)return null;
  final controller=CommunicationWorkspaceController(
   hub:ref.watch(apiClientProvider).communications(maxPictureBytes:CommunicationWorkspaceCatalog.limits['maxPictureBytes']!),userId:user,tenantId:tenant);

@@ -547,3 +547,15 @@ CI results for this source must be recorded after execution. Implementation tags
 remain unverified and productionReady false. Provider provisioning, route grants
 and mounting, contact discovery, call/mail views and deployed browser acceptance
 remain open; existing database registration is not a release approval.
+
+
+Initial workspace CI run 39859541029 passed all six jobs on source
+`d493630d80518f8888aca6e85db704aebc1b6dc4`: 560 core/transport Flutter checks,
+100 workspace/theme/auth widget checks, plus unchanged native Node/media/Dart and
+metadata checks. Follow-up source `789dfff38c5a34905cb9068d72453c2b945e5bb8`
+also passed all six jobs, including malformed acknowledgement and actual
+session-dependent provider disposal checks. Final review additionally tightened
+rapid-write double-click handling, role-change disposal and selected-thread
+refresh without losing unsent picture references. The resulting source's CI
+acceptance is recorded separately below; earlier successful runs do not certify
+later edits or a deployed all-user release.

@@ -111,11 +111,14 @@ final class CommunicationWorkspaceController extends CommunicationWorkspaceContr
   _inbox=List.unmodifiable(records.take(CommunicationWorkspaceCatalog.limits['inboxLimit']!));
  }
  Future<bool> loadInbox()=>run(() async {
+  final selectedId=_thread?['id'] as String?;
   final response=await hub.messages.inbox(limit:CommunicationWorkspaceCatalog.limits['inboxLimit']!);requireActive();
   if(response['items'] is! List)throw const FormatException('Communication inbox unavailable');
   final records=(response['items'] as List).map((item)=>_record(Map<String,Object?>.from(item as Map))).toList();
   if(records.length>CommunicationWorkspaceCatalog.limits['inboxLimit']!)throw const FormatException('Communication inbox limit');
-  return ()=>_inbox=List.unmodifiable(records);
+  Map<String,Object?>? selected;
+  if(selectedId!=null){selected=_record(await hub.messages.read(selectedId),selectedId);requireActive();}
+  return (){_inbox=List.unmodifiable(records);if(selected!=null)_select(selected!,clearDraft:false);};
  });
  Future<bool> openThread(String id)=>run(() async {
   final selected=_text(id);final record=_record(await hub.messages.read(selected),selected);requireActive();
@@ -130,6 +133,7 @@ final class CommunicationWorkspaceController extends CommunicationWorkspaceContr
   return (){_pending=null;_select(record);};
  }
  Future<bool> _mutation(String action,Map<String,Object?> Function() fields) {
+  if(busy||isDisposed)return Future.value(false);
   if(_pending!=null){showFailure('uncertain');return Future.value(false);}
   return run(() async {
    final command=_PendingMessageCommand(action,fields());_pending=command;

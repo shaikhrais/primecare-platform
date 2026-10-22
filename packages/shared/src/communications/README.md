@@ -180,3 +180,27 @@ buffer bounded by the declared size. It retains no chunk list, so reused produce
 buffers and many empty chunks cannot change prior content or grow bookkeeping.
 It cancels invalid streams, rejects declared-size overflow immediately and preserves
 the original input error if provider cancellation itself fails.
+
+
+### Shared messaging presentation
+
+Four existing Flutter screen entry classes now inherit `CommunicationScreenBase`.
+They compose `CommunicationWorkspaceView` and a session-owned
+`CommunicationWorkspaceController`, derived from one lifecycle base. Public
+exports are available from primecare_ui and both Flutter core entry points. The
+workspace uses `ApiClient.communications()` and registered generated control/text
+bindings; the view contains no API paths, grant lists or version calculations.
+
+Inbox/open/create, text messages, read receipts and private picture draft/preview
+use the same clients. Refresh re-reads the selected conversation while retaining
+unsent picture references. Keyboard input is disabled during work. Uncertain
+writes retain the original immutable key/version/payload for explicit retry;
+wrong acknowledgements and later denied reads cannot turn uncertainty into a new
+write. A second click cannot overwrite the first action's result. Account, tenant,
+token or role changes dispose private state; no role grants are inferred locally.
+
+The registered labels support en/fr/es and responsive, live-region presentation.
+Known recipient account IDs are required until a governed contact picker exists.
+This messaging view does not yet expose the core's call/mail clients. Native media,
+mailbox/provider provisioning, activation/grants and deployed acceptance remain
+separate release work. All presentation implementation tags remain unverified.

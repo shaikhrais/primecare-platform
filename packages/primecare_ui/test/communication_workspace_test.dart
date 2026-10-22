@@ -41,8 +41,10 @@ void main(){
   final subscription=container.listen(communicationWorkspaceControllerProvider,(previous,next){},fireImmediately:true);
   try{
    final first=container.read(communicationWorkspaceControllerProvider)!;expect(await first.loadInbox(),true);expect(first.inbox,isNotEmpty);
+   (container.read(authProvider.notifier) as WorkspaceSessionFixture).replace(AuthState(isInitialized:true,isAuthenticated:true,userId:'alice',tenantId:'tenant-a',token:'synthetic-session-a',role:'fixture-changed-role'));
+   final changedRole=container.read(communicationWorkspaceControllerProvider)!;expect(identical(first,changedRole),false);expect(first.isDisposed,true);expect(changedRole.inbox,isEmpty);
    (container.read(authProvider.notifier) as WorkspaceSessionFixture).replace(AuthState(isInitialized:true,isAuthenticated:true,userId:'bob',tenantId:'tenant-b',token:'synthetic-session-b'));
-   final second=container.read(communicationWorkspaceControllerProvider)!;expect(identical(first,second),false);expect(first.isDisposed,true);expect(first.inbox,isEmpty);expect(second.userId,'bob');expect(second.tenantId,'tenant-b');
+   final second=container.read(communicationWorkspaceControllerProvider)!;expect(identical(changedRole,second),false);expect(changedRole.isDisposed,true);expect(first.inbox,isEmpty);expect(second.userId,'bob');expect(second.tenantId,'tenant-b');
    (container.read(authProvider.notifier) as WorkspaceSessionFixture).replace(AuthState(isInitialized:true));expect(container.read(communicationWorkspaceControllerProvider),isNull);expect(second.isDisposed,true);
   }finally{subscription.close();container.dispose();dio.close(force:true);}
  });

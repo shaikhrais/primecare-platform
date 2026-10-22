@@ -70,6 +70,12 @@ void main(){
   final waiting=Completer<Map<String,Object?>>();transport.pendingRead=waiting;final reading=controller.openThread('thread');
   expect(await controller.createConversation('bob',''),false);expect(transport.requests.length,1);waiting.complete(clone(transport.record));expect(await reading,true);
  });
+ test('a second click during a write cannot overwrite a confirmed success status',() async {
+  await controller.openThread('thread');final waiting=Completer<Map<String,Object?>>();transport.pendingRead=waiting;
+  final sending=controller.sendMessage('One click');await Future<void>.delayed(Duration.zero);
+  expect(await controller.sendMessage('Second click'),false);waiting.complete(clone(transport.record));
+  expect(await sending,true);expect(controller.failureKey,isNull);expect(transport.requests.where((r)=>r['action']=='send').length,1);
+ });
  test('cross-session response scope is rejected before becoming visible',() async {
   transport.record['tenantId']='tenant-b';expect(await controller.openThread('thread'),false);expect(controller.thread,isNull);
  });
@@ -98,5 +104,10 @@ void main(){
  test('read receipts use the current record version and last message sequence',() async {
   await controller.openThread('thread');await controller.sendMessage('Read this');expect(await controller.markRead(),true);
   final request=transport.requests.firstWhere((r)=>r['action']=='mark_read');expect(request['version'],2);expect(request['sequence'],1);expect((controller.thread!['readThrough'] as Map)['alice'],1);
+ });
+ test('refresh updates the selected conversation without dropping unsent attachment references',() async {
+  await controller.openThread('thread');await controller.pickPicture(() async=>CommunicationPictureSelection(length:8,bytes:Stream.value(transport.png)));
+  (transport.record['messages'] as List).add({'id':'incoming','text':'New reply','authorId':'bob','sequence':1,'pictureIds':<String>[]});transport.record['version']=2;
+  expect(await controller.loadInbox(),true);expect((controller.thread!['messages'] as List).single['text'],'New reply');expect(controller.thread!['version'],2);expect(controller.draftPictureIds,['picture']);
  });
 }
