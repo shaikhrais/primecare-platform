@@ -1,6 +1,6 @@
 {
   "base": "bf1184769fc41685139dec8f10c1904ebfac4d86",
-  "sha256": "55f11f4426ea1066e77663d111272bd4c56907e79fc8db6e526d1e5ac0a74d41",
+  "sha256": "5882afe13feac0dbcb71c1e5c6cb7a72a216ddccf815cd2ec186b90277fb2bcf",
   "paths": [
     "cloudflare/workers/src/auth.ts",
     "cloudflare/workers/src/core/base-worker.ts",
