@@ -100,7 +100,9 @@ def main():
                 db.execute('DELETE FROM tenants WHERE id::text=%s AND slug=%s', (tenant, slug))
             report['cleanup'] = True
         db.close()
+        report['focusChecksPassed'] = len(report['cases']) == 5 and all(case.get('matches') is True for case in report['cases'])
         (OUT / 'diagnostic.json').write_text(json.dumps(report, indent=2))
+    assert report['cleanup'] and report['focusChecksPassed']
     print('Synthetic support focus diagnostic saved; no acceptance credit.')
 
 

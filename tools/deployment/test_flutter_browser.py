@@ -42,6 +42,22 @@ class FocusHandoffTests(unittest.TestCase):
         finally:
             page.close()
 
+    def test_settles_scroll_before_pointer_hit_testing(self):
+        page = self.browser.new_page(viewport={'width': 320, 'height': 640})
+        try:
+            page.set_content('''<input id="other"><div style="height:1400px"></div>
+              <input aria-label="fixture" onclick="
+                window.clicks=(window.clicks||0)+1;
+                if(performance.now()<window.readyAt)document.getElementById('other').focus()">
+              <script>window.readyAt=Infinity;window.addEventListener('scroll',()=>window.readyAt=performance.now()+160)</script>''')
+            field = page.get_by_label('fixture')
+            fill_flutter_field(page, field, 'fixture-proof')
+            expect(field).to_be_focused()
+            expect(field).to_have_value('fixture-proof')
+            self.assertEqual(page.evaluate('window.clicks'), 1)
+        finally:
+            page.close()
+
 
 if __name__ == '__main__':
     unittest.main()

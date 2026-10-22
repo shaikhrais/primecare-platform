@@ -10,7 +10,7 @@ import secrets
 import time
 import uuid
 from playwright.sync_api import expect
-from tools.deployment.flutter_browser import fill_flutter_field
+from tools.deployment.flutter_browser import fill_flutter_field, click_flutter_control
 
 
 def verify_privileged(page, db, *, user, tenant, password, seed, token, locale, field, button, api, totp, must, checkpoint):
@@ -30,7 +30,7 @@ def verify_privileged(page, db, *, user, tenant, password, seed, token, locale, 
     def response_click(surface, control, suffix, method='POST'):
         checkpoint('support request ' + suffix)
         with surface.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/' + suffix) and r.request.method == method) as response:
-            control.click()
+            click_flutter_control(control)
         checkpoint('support response ' + suffix, response.value.status)
         return response.value.status, response.value.json()
 

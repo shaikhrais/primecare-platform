@@ -2,7 +2,7 @@ name: Diagnose synthetic deployed support focus
 on:
   push:
     branches: [main]
-    paths: [.github/workflows/diagnose-support-focus.yml, tools/auth-verification/diagnose-support-focus.py]
+    paths: [.github/workflows/diagnose-support-focus.yml, tools/auth-verification/diagnose-support-focus.py, tools/deployment/flutter_browser.py, tools/deployment/test_flutter_browser.py]
   workflow_dispatch:
 permissions:
   contents: read
