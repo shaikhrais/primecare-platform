@@ -14,6 +14,7 @@ export 'package:easy_localization/easy_localization.dart' hide TextDirection;
 export 'adapter_providers.dart';
 export 'communications/communication_core.dart';
 export 'communications/dio_communication_transport.dart';
+export 'communications/registered_communication_bindings.dart';
 export 'src/models/dashboard_models.dart';
 export 'src/domain/platform_hierarchy.dart';
 export 'auth_service.dart';

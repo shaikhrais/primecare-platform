@@ -114,3 +114,42 @@ missing grants. Register controls/resources before mounting UI or public routes.
 The legacy SQLite registrars must not be run against the production connection.
 No business data, accounts, credentials, grants or production metadata changed
 in this audit. A complete metadata report is not live acceptance evidence.
+
+### Production registration and inherited HTTP adapter — 2026-10-22
+
+Registration run [39811946324](https://github.com/shaikhrais/primecare-platform/actions/runs/39811946324)
+passed isolated native PostgreSQL tests, a rolled-back production transaction,
+idempotent apply and an independent production read-back. APIs710/857 were
+preserved; picture upload/open16508/16509, call commands16510 and email commands16511
+were registered with 24 links across existing screens234/331/559/578. Registration
+changed no role grants, business records, accounts or feature activation. The six
+endpoints remain `registered-unimplemented` until deployment and acceptance.
+
+The database read-back is preserved in
+`packages/shared/src/communications/registered-contracts.json`.
+`tools/communication-route-bindings.py` checks exact schema/route/identity parity
+and reproduces 16 Dart action bindings from it. The shared Flutter transport now
+supports the registered inbox query without leaking the internal channel action
+into the public query schema. No widget hardcodes a route or role.
+
+`CommunicationHttpWorker` inherits `BaseWorker` and dispatches through
+`CommunicationCore`. It requires authentication, current endpoint authorization,
+a real JSON Schema validator and an explicit request-byte bound. It validates
+registered schemas, rejects identity overrides/duplicate query and form fields,
+bounds and cancels streamed bodies, supports private multipart upload/download,
+and keeps unknown errors generic. Conversation inboxes invoke the current policy
+and the same participant/tenant checks as reads. No permissive production adapter
+or live router mount was added.
+
+Nine HTTP tests cover message/inbox persistence and retries, identity/tenant
+rejection, endpoint denial, exact route/method/media handling, stream cancellation,
+picture attachment/download, call state/signaling, email acceptance/retry and
+response-schema failure. Local memory results are not production persistence
+proof; native PostgreSQL and Flutter CI must pass for this source checkpoint.
+The picture scan/mail/auth callbacks in HTTP tests are explicit fixtures, not live
+providers. Actual raster processing and browser packets retain their separate tests.
+
+Remaining live work includes registered business storage and its native migration,
+authenticated current API/case/mailbox policy bindings, handler deployment/routing,
+private storage/scanner, actual inbound mailbox integration, media signaling/relay,
+registered shared UI controls/resources and authenticated user acceptance.

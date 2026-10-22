@@ -8,7 +8,22 @@ def object_schema(value):
             value = json.loads(value)
         except (ValueError, TypeError):
             return False
-    return isinstance(value, dict) and value.get('type') == 'object' and bool(value.get('properties'))
+    if not isinstance(value, dict) or value.get('type') != 'object':
+        return False
+    if value.get('properties'):
+        return True
+    alternatives=value.get('oneOf')
+    return isinstance(alternatives,list) and bool(alternatives) and all(object_schema(branch) for branch in alternatives)
+
+
+def response_schema(value):
+    if object_schema(value):
+        return True
+    if isinstance(value,str):
+        try:value=json.loads(value)
+        except (ValueError,TypeError):return False
+    return (isinstance(value,dict) and value.get('type')=='string' and value.get('format')=='binary'
+        and value.get('contentMediaType') in ['image/png','image/jpeg'])
 
 
 def assess_contracts(apis, links, permissions, screen_grants, active_roles):
@@ -25,7 +40,7 @@ def assess_contracts(apis, links, permissions, screen_grants, active_roles):
             gaps.append('permission_key_missing')
         if not object_schema(api.get('requestSchema')):
             gaps.append('request_object_schema_missing_or_incomplete')
-        if not object_schema(api.get('responseSchema')):
+        if not response_schema(api.get('responseSchema')):
             gaps.append('response_object_schema_missing_or_incomplete')
         if not attached:
             gaps.append('screen_link_missing')

@@ -7,7 +7,8 @@ export type MessageRequest =
  | {action:'create';id:string;key:string;members:string[];businessReference:string}
  | (Versioned & {action:'send';text:string;pictureIds?:string[]})
  | (Versioned & {action:'mark_read';sequence:number})
- | {action:'read';id:string};
+ | {action:'read';id:string}
+ | {action:'inbox';limit?:number};
 export class MessageChannel extends CommunicationChannelBase<MessageRequest,unknown> {
  readonly channel='message' as const;
  readonly service:CommunicationService;
@@ -18,6 +19,7 @@ export class MessageChannel extends CommunicationChannelBase<MessageRequest,unkn
    case 'send':return this.service.message(actor,request.id,request.key,request.version,request.text,request.pictureIds);
    case 'mark_read':return this.service.markRead(actor,request.id,request.key,request.version,request.sequence);
    case 'read':return this.service.read(actor,request.id);
+   case 'inbox':return this.service.inbox(actor,request.limit);
    default:throw Error('Invalid message action');
   }
  }

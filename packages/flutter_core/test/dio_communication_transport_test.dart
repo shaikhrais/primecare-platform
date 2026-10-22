@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/communications/communication_core.dart';
+import 'package:flutter_core/communications/registered_communication_bindings.dart';
 import 'package:flutter_core/communications/dio_communication_transport.dart';
 
 void main() {
@@ -31,6 +32,14 @@ void main() {
     expect(requests.single.followRedirects, isFalse);
     expect(requests.single.data['key'], 'deduplicate');
     expect(requests.single.data['version'], 1);
+  });
+  test('production-generated inbox binding omits the internal action field', () async {
+    final hub = CommunicationHub(DioCommunicationTransport(dio, registeredCommunicationBindings, maxPictureBytes: 1024));
+    await hub.messages.inbox(limit: 10);
+    expect(requests.single.path, '/v1/messages/inbox');
+    expect(requests.single.method, 'GET');
+    expect(requests.single.queryParameters, {'limit': 10});
+    expect(registeredCommunicationBindings.length, 16);
   });
   test('read sends fields as query and no body', () async {
     await CommunicationHub(transport('message.read', method: 'GET')).messages.read('thread');

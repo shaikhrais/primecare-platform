@@ -1,6 +1,6 @@
 """No database access, credentials, grants or business records in these fixtures."""
 import unittest
-from communication_contract_report import assess_contracts, object_schema
+from communication_contract_report import assess_contracts, object_schema, response_schema
 
 class Contracts(unittest.TestCase):
     def setUp(self):
@@ -35,6 +35,12 @@ class Contracts(unittest.TestCase):
         for value in [None, '', '{}', '{', [], True, {'type':'object'}, {'type':'array','properties':{'x':{}}}]:
             self.assertFalse(object_schema(value))
         self.assertTrue(object_schema(self.api['requestSchema']))
+    def test_registered_command_variants_and_private_binary_response_are_recognized(self):
+        self.assertTrue(object_schema({'type':'object','oneOf':[self.api['requestSchema'],self.api['requestSchema']]}))
+        self.assertFalse(object_schema({'type':'object','oneOf':[{}]}))
+        self.assertFalse(object_schema({'type':'object','oneOf':[]}))
+        self.assertTrue(response_schema({'type':'string','format':'binary','contentMediaType':'image/png'}))
+        self.assertFalse(response_schema({'type':'string','format':'binary','contentMediaType':'image/svg+xml'}))
     def test_report_does_not_mutate_registration_inputs(self):
         import copy
         before=copy.deepcopy([self.api,self.links,self.permissions,self.grants])

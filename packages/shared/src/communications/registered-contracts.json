@@ -1,0 +1,743 @@
+{
+  "authority": "pinned-production-postgresql",
+  "sourceCommit": "594b02b249742029940030d41aae33d2822d6109",
+  "registrationRun": 39811946324,
+  "activation": false,
+  "roleGrantsChanged": false,
+  "apis": [
+    {
+      "id": 710,
+      "method": "POST",
+      "path": "/v1/messages",
+      "status": "registered-unimplemented",
+      "permission": "role_screen_permissions",
+      "service": "governance",
+      "authRequired": 1,
+      "requestSchema": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "create"
+              },
+              "businessReference": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "members": {
+                "items": {
+                  "maxLength": 200,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "minItems": 2,
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "members",
+              "businessReference"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "send"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "pictureIds": {
+                "items": {
+                  "maxLength": 200,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "text": {
+                "maxLength": 20000,
+                "type": "string"
+              },
+              "version": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "text"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "mark_read"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "sequence": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "version": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "sequence"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "read"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "action",
+              "id"
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "responseSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "version": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "operation": "message.command"
+    },
+    {
+      "id": 857,
+      "method": "GET",
+      "path": "/v1/messages/inbox",
+      "status": "registered-unimplemented",
+      "permission": "role_screen_permissions",
+      "service": "governance",
+      "authRequired": 1,
+      "requestSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "responseSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "operation": "message.inbox"
+    },
+    {
+      "id": 16508,
+      "method": "POST",
+      "path": "/v1/messages/pictures",
+      "status": "registered-unimplemented",
+      "permission": "role_screen_permissions",
+      "service": "governance",
+      "authRequired": 1,
+      "requestSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "const": "upload"
+          },
+          "file": {
+            "format": "binary",
+            "type": "string"
+          },
+          "mediaType": {
+            "enum": [
+              "image/png",
+              "image/jpeg"
+            ]
+          },
+          "threadId": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "threadId",
+          "mediaType",
+          "file"
+        ],
+        "type": "object",
+        "x-primecare-content-type": "multipart/form-data"
+      },
+      "responseSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "mediaType": {
+            "enum": [
+              "image/png",
+              "image/jpeg"
+            ]
+          },
+          "size": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "status": {
+            "const": "clean"
+          },
+          "tenantId": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "threadId": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "tenantId",
+          "threadId",
+          "mediaType",
+          "size",
+          "status"
+        ],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "operation": "picture.upload"
+    },
+    {
+      "id": 16509,
+      "method": "GET",
+      "path": "/v1/messages/pictures",
+      "status": "registered-unimplemented",
+      "permission": "role_screen_permissions",
+      "service": "governance",
+      "authRequired": 1,
+      "requestSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "const": "open"
+          },
+          "pictureId": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "threadId": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "threadId",
+          "pictureId"
+        ],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "responseSchema": {
+        "contentMediaType": "image/png",
+        "format": "binary",
+        "type": "string",
+        "x-primecare-content-type": "image/png"
+      },
+      "operation": "picture.open"
+    },
+    {
+      "id": 16510,
+      "method": "POST",
+      "path": "/v1/messages/calls",
+      "status": "registered-unimplemented",
+      "permission": "role_screen_permissions",
+      "service": "governance",
+      "authRequired": 1,
+      "requestSchema": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "invite"
+              },
+              "callId": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "recipientId": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "version": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId",
+              "recipientId"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "accept"
+              },
+              "callId": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "version": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "decline"
+              },
+              "callId": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "version": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "end"
+              },
+              "callId": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "version": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "expire"
+              },
+              "callId": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "version": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "signal"
+              },
+              "callId": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "signal": {
+                "additionalProperties": false,
+                "properties": {
+                  "candidate": {
+                    "type": "object"
+                  },
+                  "description": {
+                    "type": "object"
+                  },
+                  "type": {
+                    "enum": [
+                      "offer",
+                      "answer",
+                      "ice"
+                    ]
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "version": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId",
+              "signal"
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "responseSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "version": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "operation": "audio.command"
+    },
+    {
+      "id": 16511,
+      "method": "POST",
+      "path": "/v1/messages/email",
+      "status": "registered-unimplemented",
+      "permission": "role_screen_permissions",
+      "service": "governance",
+      "authRequired": 1,
+      "requestSchema": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "queue"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "subject": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "text": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "to": {
+                "format": "email",
+                "type": "string"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "to",
+              "subject",
+              "text"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "deliver"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "key": {
+                "maxLength": 190,
+                "minLength": 1,
+                "type": "string"
+              },
+              "version": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "read"
+              },
+              "id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "action",
+              "id"
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "responseSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "version": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "operation": "email.command"
+    }
+  ]
+}

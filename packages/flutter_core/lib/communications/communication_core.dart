@@ -53,7 +53,7 @@ abstract base class CommunicationChannelClient {
 
 final class MessageChannelClient extends CommunicationChannelClient {
   MessageChannelClient(CommunicationTransport transport)
-      : super(transport, 'message', {'create', 'send', 'read', 'mark_read'});
+      : super(transport, 'message', {'create', 'send', 'read', 'mark_read', 'inbox'});
 
   Future<Map<String, Object?>> create(
     String id,
@@ -80,6 +80,8 @@ final class MessageChannelClient extends CommunicationChannelClient {
         'text': text,
         'pictureIds': List<String>.unmodifiable(pictureIds),
       });
+
+  Future<Map<String, Object?>> inbox({int limit = 50}) => execute('inbox', {'limit': limit});
 
   Future<Map<String, Object?>> read(String id) => execute('read', {'id': id});
 

@@ -10,6 +10,8 @@ on:
       - 'packages/shared/src/communications/**'
       - 'cloudflare/workers/src/business-tasks/**'
       - 'scripts/test-business-communications.mjs'
+      - 'scripts/test-communication-http.mjs'
+      - 'tools/communication-route-bindings.py'
       - 'scripts/test-business-media.mjs'
       - 'scripts/test-communication-adapter-base.mjs'
       - 'scripts/fixtures/business-*'
@@ -99,16 +101,20 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/communications-tools" --ignore-scripts pg@8.16.3 esbuild@0.27.2 typescript@5.9.3
+          npm install --prefix "$RUNNER_TEMP/communications-tools" --ignore-scripts pg@8.16.3 esbuild@0.27.2 typescript@5.9.3 @types/node@24.0.0 ajv@8.17.1 ajv-formats@3.0.1
           ln -s "$RUNNER_TEMP/communications-tools/node_modules" node_modules
+      - name: Check production-generated shared route bindings
+        run: python3 tools/communication-route-bindings.py
       - name: Shared business rules
         run: node --test packages/shared/test/business-*.test.mjs
       - name: Strict service types and existing email compatibility
         run: |
-          node_modules/.bin/tsc --noEmit --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strict --skipLibCheck cloudflare/workers/src/business-tasks/*.ts
+          node_modules/.bin/tsc --noEmit --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strict --skipLibCheck --resolveJsonModule cloudflare/workers/src/business-tasks/*.ts
           node --test scripts/test-email-runtime-validation.mjs
       - name: All candidate workflow services and communications with native PostgreSQL
         run: node --test scripts/test-business-communications.mjs
+      - name: Registered HTTP contracts through native PostgreSQL
+        run: node --test scripts/test-communication-http.mjs
       - name: Shared communication resource and byte-limit bases
         run: node --test scripts/test-communication-adapter-base.mjs
   media:

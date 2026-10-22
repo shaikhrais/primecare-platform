@@ -6,7 +6,7 @@ import 'communication_core.dart';
 /// Supplied by the registered contract loader, never by a screen or message.
 /// This declaration does not register an endpoint or grant a permission.
 final class CommunicationRouteBinding {
-  CommunicationRouteBinding({required this.path, required this.method}) {
+  CommunicationRouteBinding({required this.path, required this.method, this.includeAction = true}) {
     final uri = Uri.tryParse(path);
     if (uri == null || uri.hasScheme || uri.hasAuthority ||
         uri.hasQuery || uri.hasFragment || !path.startsWith('/v1/') ||
@@ -18,6 +18,7 @@ final class CommunicationRouteBinding {
   }
   final String path;
   final String method;
+  final bool includeAction;
 }
 
 /// Common dispatch checks for every authenticated communication adapter.
@@ -27,7 +28,7 @@ abstract base class CommunicationTransportBase implements CommunicationTransport
 
   final Map<String, CommunicationRouteBinding> bindings;
   static const actions = {
-    'message': {'create', 'send', 'read', 'mark_read'},
+    'message': {'create', 'send', 'read', 'mark_read', 'inbox'},
     'picture': {'upload', 'open'},
     'audio': {'invite', 'accept', 'decline', 'end', 'expire', 'signal'},
     'email': {'queue', 'deliver', 'read'},
@@ -44,7 +45,7 @@ abstract base class CommunicationTransportBase implements CommunicationTransport
     }
     final binding = bindings['$channel.$action'];
     if (binding == null) throw StateError('Communication contract is not bound');
-    if (binding.method == 'GET' && !{'read', 'open'}.contains(action)) {
+    if (binding.method == 'GET' && !{'read', 'open', 'inbox'}.contains(action)) {
       throw StateError('A mutating communication command requires POST');
     }
     return dispatch(binding, channel, Map.unmodifiable(request));
@@ -87,7 +88,10 @@ final class DioCommunicationTransport extends CommunicationTransportBase {
     }
     final response = await dio.request<Object?>(binding.path,
       data: binding.method == 'GET' ? null : body,
-      queryParameters: binding.method == 'GET' ? request : null,
+      queryParameters: binding.method == 'GET' ? {
+        for (final entry in request.entries)
+          if (binding.includeAction || entry.key != 'action') entry.key: entry.value,
+      } : null,
       options: Options(method: binding.method, followRedirects: false,
         responseType: binary ? ResponseType.stream : ResponseType.json,
         validateStatus: (status) => status != null && status >= 200 && status < 300),

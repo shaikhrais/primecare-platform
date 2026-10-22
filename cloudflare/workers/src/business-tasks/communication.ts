@@ -21,6 +21,10 @@ export class CommunicationService extends ScopedServiceBase {
   }
   this.pictures=pictures;this.limits={...limits};this.now=now;
  }
+ async inbox(actor:Actor,limit=50) {
+  await this.policy.assert(actor,'conversation.inbox',null);
+  return {items:await this.store.inbox(actor,'conversation',state=>this.authorize(actor,'conversation.read',state),limit)};
+ }
  async authorize(actor: Actor, action: string, state: RecordState | null) {
   if (!state || state.kind !== 'conversation' || !state.members.includes(actor.id)) throw Error('Not found');
   await this.checkAccess(actor,action,state,['conversation']);
