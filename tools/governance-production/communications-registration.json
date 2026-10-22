@@ -1,0 +1,727 @@
+{
+  "version": 1,
+  "requirement": "Shared inherited communication channels requested by user; register contracts before handlers and UI; no grants or activation.",
+  "screens": {
+    "234": "psw_messages",
+    "331": "patient_messages",
+    "559": "communication",
+    "578": "messaging"
+  },
+  "service": "governance",
+  "permission": "role_screen_permissions",
+  "implementationStatus": "registered-unimplemented",
+  "operations": [
+    {
+      "key": "message.command",
+      "existingId": 710,
+      "method": "POST",
+      "path": "/v1/messages",
+      "request": {
+        "type": "object",
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "create"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "members": {
+                "type": "array",
+                "minItems": 2,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              },
+              "businessReference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "members",
+              "businessReference"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "send"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "text": {
+                "type": "string",
+                "maxLength": 20000
+              },
+              "pictureIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "text"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "mark_read"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sequence": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "sequence"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "read"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "action",
+              "id"
+            ]
+          }
+        ],
+        "x-primecare-content-type": "application/json"
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "version"
+        ],
+        "x-primecare-content-type": "application/json"
+      },
+      "contentType": "application/json"
+    },
+    {
+      "key": "message.inbox",
+      "existingId": 857,
+      "method": "GET",
+      "path": "/v1/messages/inbox",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [],
+        "x-primecare-content-type": "application/json"
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "x-primecare-content-type": "application/json"
+      },
+      "contentType": "application/json"
+    },
+    {
+      "key": "picture.upload",
+      "method": "POST",
+      "path": "/v1/messages/pictures",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "const": "upload"
+          },
+          "threadId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "mediaType": {
+            "enum": [
+              "image/png",
+              "image/jpeg"
+            ]
+          },
+          "file": {
+            "type": "string",
+            "format": "binary"
+          }
+        },
+        "required": [
+          "action",
+          "threadId",
+          "mediaType",
+          "file"
+        ],
+        "x-primecare-content-type": "multipart/form-data"
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "tenantId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "threadId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "mediaType": {
+            "enum": [
+              "image/png",
+              "image/jpeg"
+            ]
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "const": "clean"
+          }
+        },
+        "required": [
+          "id",
+          "tenantId",
+          "threadId",
+          "mediaType",
+          "size",
+          "status"
+        ],
+        "x-primecare-content-type": "application/json"
+      },
+      "contentType": "multipart/form-data"
+    },
+    {
+      "key": "picture.open",
+      "method": "GET",
+      "path": "/v1/messages/pictures",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "const": "open"
+          },
+          "threadId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "pictureId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "action",
+          "threadId",
+          "pictureId"
+        ],
+        "x-primecare-content-type": "application/json"
+      },
+      "response": {
+        "type": "string",
+        "format": "binary",
+        "contentMediaType": "image/png",
+        "x-primecare-content-type": "image/png"
+      },
+      "contentType": "image/png"
+    },
+    {
+      "key": "audio.command",
+      "method": "POST",
+      "path": "/v1/messages/calls",
+      "request": {
+        "type": "object",
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "invite"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "callId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "recipientId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId",
+              "recipientId"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "accept"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "callId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "decline"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "callId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "end"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "callId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "expire"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "callId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "signal"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "callId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "signal": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "offer",
+                      "answer",
+                      "ice"
+                    ]
+                  },
+                  "description": {
+                    "type": "object"
+                  },
+                  "candidate": {
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId",
+              "signal"
+            ]
+          }
+        ],
+        "x-primecare-content-type": "application/json"
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "version"
+        ],
+        "x-primecare-content-type": "application/json"
+      },
+      "contentType": "application/json"
+    },
+    {
+      "key": "email.command",
+      "method": "POST",
+      "path": "/v1/messages/email",
+      "request": {
+        "type": "object",
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "queue"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "to": {
+                "type": "string",
+                "format": "email"
+              },
+              "subject": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "to",
+              "subject",
+              "text"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "deliver"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 190
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "const": "read"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "action",
+              "id"
+            ]
+          }
+        ],
+        "x-primecare-content-type": "application/json"
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "version"
+        ],
+        "x-primecare-content-type": "application/json"
+      },
+      "contentType": "application/json"
+    }
+  ]
+}
