@@ -1,4 +1,5 @@
 import {required, type Actor, type AtomicStore, type AccessPolicy} from './store.ts';
+import {ScopedServiceBase} from '../../../../packages/shared/src/communications/service-base.ts';
 
 export interface BusinessMailTransport {
  send(message:{from:string;to:string;subject:string;text:string;html:string}): Promise<{messageId:string}>;
@@ -16,18 +17,19 @@ function address(value:unknown): asserts value is string {
 const escape = (text:string) => text.replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]!));
 
 /** No external sends occur unless a registered caller explicitly invokes deliver(). */
-export class BusinessMailService {
- readonly store:AtomicStore;readonly policy:AccessPolicy;readonly mailboxes:MailboxPolicy;
+export class BusinessMailService extends ScopedServiceBase {
+ readonly mailboxes:MailboxPolicy;
  readonly transport:BusinessMailTransport;readonly sender:string;readonly maxBytes:number;
  constructor(store:AtomicStore,policy:AccessPolicy,mailboxes:MailboxPolicy,transport:BusinessMailTransport,sender:string,maxBytes:number) {
+  super(store,policy);
   address(sender);if(!Number.isSafeInteger(maxBytes)||maxBytes<1)throw Error('Invalid mail limit');
-  this.store=store;this.policy=policy;this.mailboxes=mailboxes;this.transport=transport;this.sender=sender;this.maxBytes=maxBytes;
+  this.mailboxes=mailboxes;this.transport=transport;this.sender=sender;this.maxBytes=maxBytes;
  }
  async queue(actor:Actor,id:string,key:string,to:string,subject:string,text:string) {
   address(to);required(subject,200);
   if(typeof text!=='string'||!text.trim()||new TextEncoder().encode(text).byteLength>this.maxBytes)throw Error('Invalid mail body');
   return this.store.run({actor,id,key,expectedVersion:0,type:'mail.queue',payload:{to,subject,text}},
-   async state=>{await this.policy.assert(actor,'mail.queue',state);await this.mailboxes.recipient(actor,to);},async state=>{
+   async state=>{await this.checkAccess(actor,'mail.queue',state,['outbound_mail'],true);await this.mailboxes.recipient(actor,to);},async state=>{
     if(state)throw Error('Already exists');
     return {state:{id,tenantId:actor.tenantId,version:0,kind:'outbound_mail',from:this.sender,to,subject,text,status:'queued'},event:'mail.queued'};
    });
@@ -36,7 +38,7 @@ export class BusinessMailService {
   required(key,190); // Leave room for the atomic receipt command suffix before attempting a send.
   const token=crypto.randomUUID();
   const claimed=await this.store.run({actor,id,key,expectedVersion,type:'mail.claim',payload:{}},
-   async state=>{if(!state||state.kind!=='outbound_mail')throw Error('Not found');await this.policy.assert(actor,'mail.deliver',state);await this.mailboxes.recipient(actor,state.to);},
+   async state=>{await this.checkAccess(actor,'mail.deliver',state,['outbound_mail']);await this.mailboxes.recipient(actor,state!.to);},
    async state=>{if(state!.status!=='queued')throw Error('Mail already attempted');state!.status='sending';return {state:state!,event:'mail.claimed',result:{id,version:expectedVersion+1,claimToken:token}};});
   // A retry must never resend an ambiguous native transport request.
   if(claimed.claimToken!==token)return this.read(actor,id);
@@ -47,11 +49,11 @@ export class BusinessMailService {
    required(result?.messageId,500);receipt=result.messageId;
   } catch { /* Native acceptance may have occurred. Preserve unknown; do not retry. */ }
   await this.store.run({actor,id,key:key+':receipt',expectedVersion:claimed.version,type:'mail.receipt',payload:{receipt}},
-   async state=>{if(!state||state.kind!=='outbound_mail')throw Error('Not found');await this.policy.assert(actor,'mail.deliver',state);},
+   state=>this.checkAccess(actor,'mail.deliver',state,['outbound_mail']),
    async state=>{if(state!.status!=='sending')throw Error('Mail state conflict');state!.status=receipt?'accepted':'unknown';state!.providerMessageId=receipt;return {state:state!,event:receipt?'mail.accepted':'mail.unknown'};});
   return this.read(actor,id);
  }
- async read(actor:Actor,id:string) {return this.store.read(actor,id,async state=>{if(!['outbound_mail','inbound_mail'].includes(state.kind))throw Error('Not found');await this.policy.assert(actor,'mail.read',state);});}
+ async read(actor:Actor,id:string) {return this.store.read(actor,id,state=>this.checkAccess(actor,'mail.read',state,['outbound_mail','inbound_mail']));}
  /** Trusted inbound worker boundary only. Raw content stays quarantined and never executes actions. */
  async receive(envelope:{from:string;to:string;raw:Uint8Array}) {
   address(envelope.to);address(envelope.from);
@@ -62,7 +64,7 @@ export class BusinessMailService {
   const actor={id:'inbound-mail',tenantId:mailbox.tenantId};
   // The internal service identity still requires a registered permission policy.
   return this.store.run({actor,id,key:digest,expectedVersion:0,type:'mail.receive',payload:{from:envelope.from,to:envelope.to.toLowerCase(),digest}},
-   state=>this.policy.assert(actor,'mail.receive',state),async state=>{
+   state=>this.checkAccess(actor,'mail.receive',state,['inbound_mail'],true),async state=>{
     if(state)throw Error('Already exists');
     let binary='';for(let i=0;i<envelope.raw.length;i+=8192)binary+=String.fromCharCode(...envelope.raw.subarray(i,i+8192));
     return {state:{id,tenantId:mailbox.tenantId,version:0,kind:'inbound_mail',mailboxId:mailbox.mailboxId,from:envelope.from,to:envelope.to.toLowerCase(),rawBase64:btoa(binary),digest,status:'quarantined',senderIdentityVerified:false},event:'mail.received'};

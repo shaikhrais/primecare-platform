@@ -9,11 +9,32 @@ on:
       - 'cloudflare/workers/src/business-tasks/**'
       - 'scripts/test-business-communications.mjs'
       - 'scripts/test-business-media.mjs'
+      - 'scripts/test-communication-adapter-base.mjs'
       - 'scripts/fixtures/business-*'
+      - 'packages/flutter_core/lib/communications/**'
+      - 'tools/communication-client-check.dart'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
+  dart-core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with: {sdk: '3.11.3'}
+      - name: Analyze and execute the shared Dart client without unrelated Flutter dependencies
+        run: |
+          acceptance="$RUNNER_TEMP/communication-dart"
+          mkdir -p "$acceptance/packages/flutter_core/lib/communications" "$acceptance/tools"
+          cp packages/flutter_core/lib/communications/communication_core.dart "$acceptance/packages/flutter_core/lib/communications/"
+          cp tools/communication-client-check.dart "$acceptance/tools/"
+          printf 'name: communication_core_acceptance\nenvironment:\n  sdk: ">=3.11.3 <4.0.0"\n' > "$acceptance/pubspec.yaml"
+          cd "$acceptance"
+          dart pub get
+          dart analyze
+          dart run tools/communication-client-check.dart
   inventory:
     runs-on: ubuntu-latest
     environment: production
@@ -67,6 +88,8 @@ jobs:
           node --test scripts/test-email-runtime-validation.mjs
       - name: All candidate workflow services and communications with native PostgreSQL
         run: node --test scripts/test-business-communications.mjs
+      - name: Shared communication resource and byte-limit bases
+        run: node --test scripts/test-communication-adapter-base.mjs
   media:
     runs-on: ubuntu-latest
     timeout-minutes: 15

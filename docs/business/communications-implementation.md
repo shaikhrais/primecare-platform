@@ -2,6 +2,8 @@
 
 2026-10-22. Internal service code, not a released end-user communication platform.
 
+Shared inheritance and server/Dart usage are documented in [the communication core](../../packages/shared/src/communications/README.md). Task, conversation and mail services now inherit ScopedServiceBase. Message, picture, audio and email channels inherit CommunicationChannelBase and are composed by CommunicationCore. The Dart CommunicationHub provides matching derived clients for all portals through an injected authenticated transport. Browser resources and binary adapters inherit common cleanup and byte-limit bases. No hardcoded role list or permissive grant was introduced; production registration and integration gaps below still apply.
+
 ## Implemented modules
 
 | Source | Behavior |

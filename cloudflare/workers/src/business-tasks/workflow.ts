@@ -1,12 +1,11 @@
 import {BusinessTaskFlowBase, type TaskFlow} from '../../../../packages/shared/src/business/task-flow.ts';
 import {required, type Actor, type AtomicStore, type AccessPolicy, type RecordState} from './store.ts';
+import {ScopedServiceBase} from '../../../../packages/shared/src/communications/service-base.ts';
 
-export class BusinessWorkflowService {
- readonly store: AtomicStore;
- readonly policy: AccessPolicy;
+export class BusinessWorkflowService extends ScopedServiceBase {
  readonly flows: ReadonlyMap<string, BusinessTaskFlowBase>;
  constructor(store: AtomicStore, policy: AccessPolicy, definitions: readonly TaskFlow[]) {
-  this.store = store; this.policy = policy;
+  super(store,policy);
   this.flows = new Map(definitions.map(definition => [definition.id,new BusinessTaskFlowBase(definition)]));
   if (this.flows.size !== definitions.length) throw Error('Duplicate flow');
  }
@@ -16,7 +15,7 @@ export class BusinessWorkflowService {
   if (ownerId === reviewerId) throw Error('Independent reviewer required');
   if (!/^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$/.test(dueAt) || !Number.isFinite(Date.parse(dueAt))) throw Error('Timezone deadline required');
   return this.store.run({actor,id,key,expectedVersion:0,type:'workflow.create',payload:{flowId,ownerId,reviewerId,dueAt}},
-   async state => { await this.policy.assert(actor,'workflow.create',state); await this.policy.assignee(actor,ownerId,flow.definition.steps[0].responsibility); await this.policy.assignee(actor,reviewerId,'review'); },
+   async state => { await this.checkAccess(actor,'workflow.create',state,['workflow'],true); await this.policy.assignee(actor,ownerId,flow.definition.steps[0].responsibility); await this.policy.assignee(actor,reviewerId,'review'); },
    async state => {
     if (state) throw Error('Already exists');
     return {state:{id,tenantId:actor.tenantId,version:0,kind:'workflow',flowId,definition:flow.definition,stepIndex:0,status:'draft',originatorId:actor.id,ownerId,reviewerId,dueAt,originalDueAt:dueAt,createdAt:new Date().toISOString(),submissions:[],history:[]},event:'workflow.created'};
@@ -27,7 +26,7 @@ export class BusinessWorkflowService {
   return this.store.run({actor,id,key,expectedVersion,type:'workflow.'+action,payload:input},
    async state => {
     if (!state || state.kind !== 'workflow') throw Error('Not found');
-    await this.policy.assert(actor,'workflow.'+action,state);
+    await this.checkAccess(actor,'workflow.'+action,state,['workflow']);
    }, async state => {
     const task = state!;
     if (task.status === 'closed') throw Error('Closed task');
@@ -69,9 +68,9 @@ export class BusinessWorkflowService {
    });
  }
  async read(actor: Actor, id: string): Promise<RecordState> {
-  return this.store.read(actor,id,async state => { if(state.kind !== 'workflow') throw Error('Not found'); await this.policy.assert(actor,'workflow.read',state); });
+  return this.store.read(actor,id,state=>this.checkAccess(actor,'workflow.read',state,['workflow']));
  }
  async inbox(actor: Actor, limit=50) {
-  return this.store.inbox(actor,'workflow',state=>this.policy.assert(actor,'workflow.read',state),limit);
+  return this.store.inbox(actor,'workflow',state=>this.checkAccess(actor,'workflow.read',state,['workflow']),limit);
  }
 }

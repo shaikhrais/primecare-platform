@@ -38,9 +38,11 @@ test('inbound handler bounds actual streamed bytes and propagates storage failur
 });
 test('two real Chromium peers exchange audio packets, mute and release tracks',async()=>{
  const source=readFileSync('packages/shared/src/communications/audio-call.mjs');
+ const base=readFileSync('packages/shared/src/communications/adapter-base.mjs');
  const server=createServer((request,response)=>{
-  response.setHeader('Content-Type',request.url.startsWith('/audio-call.mjs')?'text/javascript':'text/html');
-  response.end(request.url.startsWith('/audio-call.mjs')?source:'<!doctype html><title>Isolated audio transport test</title>');
+  const module=request.url.startsWith('/audio-call.mjs')?source:request.url.startsWith('/adapter-base.mjs')?base:null;
+  response.setHeader('Content-Type',module?'text/javascript':'text/html');
+  response.end(module??'<!doctype html><title>Isolated audio transport test</title>');
  });
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  let browser;

@@ -1,4 +1,5 @@
 import {required, type Actor, type AtomicStore, type AccessPolicy, type RecordState} from './store.ts';
+import {ScopedServiceBase} from '../../../../packages/shared/src/communications/service-base.ts';
 
 export interface PictureRepository {
  /** Must decode, bound pixels, scan, strip metadata/re-encode and store privately before returning. */
@@ -9,28 +10,27 @@ export interface PictureRepository {
 export type CommunicationLimits = {maxMembers:number;maxMessages:number;maxText:number;maxPictureBytes:number;maxPictures:number;ringMilliseconds:number;maxSignalBytes:number};
 
 /** Internal orchestration only. No public messaging/call API exists until registration. */
-export class CommunicationService {
- readonly store: AtomicStore;
- readonly policy: AccessPolicy;
+export class CommunicationService extends ScopedServiceBase {
  readonly pictures: PictureRepository;
  readonly limits: CommunicationLimits;
  readonly now: () => number;
  constructor(store: AtomicStore, policy: AccessPolicy, pictures: PictureRepository, limits: CommunicationLimits, now = Date.now) {
+  super(store,policy);
   for (const field of ['maxMembers','maxMessages','maxText','maxPictureBytes','maxPictures','ringMilliseconds','maxSignalBytes'] as const) {
    if (!limits || !Number.isSafeInteger(limits[field]) || limits[field] < 1) throw Error('Invalid configured limit');
   }
-  this.store=store;this.policy=policy;this.pictures=pictures;this.limits={...limits};this.now=now;
+  this.pictures=pictures;this.limits={...limits};this.now=now;
  }
  async authorize(actor: Actor, action: string, state: RecordState | null) {
   if (!state || state.kind !== 'conversation' || !state.members.includes(actor.id)) throw Error('Not found');
-  await this.policy.assert(actor,action,state);
+  await this.checkAccess(actor,action,state,['conversation']);
  }
  async create(actor: Actor, id: string, key: string, members: string[], businessReference: string) {
   required(businessReference);
   if (!Array.isArray(members) || !members.includes(actor.id) || members.length < 2 || members.length > this.limits.maxMembers || new Set(members).size !== members.length) throw Error('Invalid members');
   members.forEach(member => required(member));
   return this.store.run({actor,id,key,expectedVersion:0,type:'conversation.create',payload:{members,businessReference}},
-   async state => {await this.policy.assert(actor,'conversation.create',state);for(const member of members) await this.policy.assignee(actor,member,'communication');},
+   async state => {await this.checkAccess(actor,'conversation.create',state,['conversation'],true);for(const member of members) await this.policy.assignee(actor,member,'communication');},
    async state => {
     if(state) throw Error('Already exists');
     return {state:{id,tenantId:actor.tenantId,version:0,kind:'conversation',members:[...members],businessReference,messages:[],readThrough:{},calls:[]},event:'conversation.created'};

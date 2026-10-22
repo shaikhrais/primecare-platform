@@ -1,17 +1,21 @@
 /** Browser media adapter. Signaling must validate live membership and accepted call ID. */
-export class BrowserAudioCall {
+import {CommunicationResourceBase} from './adapter-base.mjs';
+export class BrowserAudioCall extends CommunicationResourceBase {
  constructor({sendSignal, getUserMedia, createPeer, configuration, onTrack = () => {}, onState = () => {}}) {
+  super();
   if(typeof sendSignal !== 'function' || typeof getUserMedia !== 'function' || typeof createPeer !== 'function' || !configuration || !Array.isArray(configuration.iceServers)) throw Error('Configured media adapters required');
   this.sendSignal=sendSignal;this.getUserMedia=getUserMedia;this.createPeer=createPeer;
-  this.configuration=configuration;this.onTrack=onTrack;this.onState=onState;this.pending=[];this.closed=false;
+  this.configuration=configuration;this.onTrack=onTrack;this.onState=onState;this.pending=[];
  }
  async start() {
   if(this.closed || this.starting || this.peer) throw Error('Call already started or closed');
   this.starting=true;
   try {
    this.stream=await this.getUserMedia({audio:true,video:false});
-   if(this.closed) {this.stream.getTracks().forEach(track=>track.stop());throw Error('Call closed');}
+   const stream=this.stream;this.registerCleanup(()=>stream.getTracks().forEach(track=>track.stop()));
+   this.assertOpen();
    this.peer=this.createPeer(this.configuration);
+   const peer=this.peer;this.registerCleanup(()=>{peer.onicecandidate=null;peer.ontrack=null;peer.onconnectionstatechange=null;peer.close();});
    this.peer.onicecandidate=event=>{if(event.candidate)this.sendSignal({type:'candidate',candidate:event.candidate.toJSON()}).catch(()=>this.close());};
    this.peer.ontrack=event=>this.onTrack(event.streams[0]);
    this.peer.onconnectionstatechange=()=>this.onState(this.peer?.connectionState??'closed');
@@ -42,10 +46,8 @@ export class BrowserAudioCall {
   }
  }
  mute(muted) {if(typeof muted!=='boolean')throw Error('Invalid mute state');this.stream?.getAudioTracks().forEach(track=>{track.enabled=!muted;});}
- close() {
-  this.closed=true;this.pending=[];
-  this.stream?.getTracks().forEach(track=>track.stop());
-  if(this.peer) {this.peer.onicecandidate=null;this.peer.ontrack=null;this.peer.onconnectionstatechange=null;this.peer.close();}
+ afterClose() {
+  this.pending=[];
   this.onState('closed');
  }
 }

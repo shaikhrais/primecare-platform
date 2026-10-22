@@ -7,6 +7,8 @@ import {BusinessMailService} from '../cloudflare/workers/src/business-tasks/mail
 import {PostgresAtomicStore} from '../cloudflare/workers/src/business-tasks/store.ts';
 import {MemoryAtomicStore} from './fixtures/business-memory-store.mjs';
 import {BusinessWorkspaceService} from '../cloudflare/workers/src/business-tasks/workspace.ts';
+import {CommunicationCore} from '../cloudflare/workers/src/business-tasks/channels.ts';
+import {CommunicationChannelBase,ScopedServiceBase} from '../packages/shared/src/communications/service-base.ts';
 
 const definitions=JSON.parse(readFileSync('packages/shared/src/business/task-flows.json')).flows;
 const a={id:'alice',tenantId:'fixture-a'},b={id:'bob',tenantId:'fixture-a'},c={id:'carol',tenantId:'fixture-a'};
@@ -142,6 +144,46 @@ test('call invitation, accepted recipient, decline, expiry and ending are state 
 let sends=0,transportFails=false;const sent=[];
 const mailboxes={async resolve(to){return to==='owned@example.invalid'?{tenantId:a.tenantId,mailboxId:'owned'}:null;},async recipient(actor,to){if(to!=='recipient@example.invalid')throw Error('Unapproved recipient');}};
 const mail=new BusinessMailService(store,policy,mailboxes,{async send(message){sends++;sent.push(message);if(transportFails)throw Error('private-provider-detail');return {messageId:'synthetic-provider-'+sends};}},'sender@example.invalid',2048);
+test('one inherited core serves different permitted users across all four channels',async()=>{
+ const core=new CommunicationCore(communication,mail);
+ for(const channel of Object.values(core.channels))assert.ok(channel instanceof CommunicationChannelBase);
+ for(const service of [workflow,communication,mail])assert.ok(service instanceof ScopedServiceBase);
+ const thread=id('shared-core');
+ let result=await core.execute('message',a,{action:'create',id:thread,key:'create',members:[a.id,b.id],businessReference:'synthetic-core-task'});
+ const picture=await core.execute('picture',a,{action:'upload',threadId:thread,bytes:new Uint8Array([137,80,78,71,13,10,26,10,0]),mediaType:'image/png'});
+ result=await core.execute('message',b,{action:'send',id:thread,key:'reply',version:result.version,text:'Shared core reply',pictureIds:[picture.id]});
+ result=await core.execute('message',a,{action:'mark_read',id:thread,key:'read',version:result.version,sequence:1});
+ result=await core.execute('audio',a,{action:'invite',id:thread,key:'invite',version:result.version,callId:'core-call',recipientId:b.id});
+ result=await core.execute('audio',b,{action:'accept',id:thread,key:'accept',version:result.version,callId:'core-call'});
+ await core.execute('audio',b,{action:'end',id:thread,key:'end',version:result.version,callId:'core-call'});
+ assert.equal((await core.execute('message',a,{action:'read',id:thread})).messages[0].authorId,b.id);
+ const message=id('core-mail');
+ result=await core.execute('email',b,{action:'queue',id:message,key:'queue',to:'recipient@example.invalid',subject:'Synthetic update',text:'Fixture'});
+ assert.equal((await core.execute('email',b,{action:'deliver',id:message,key:'deliver',version:result.version})).status,'accepted');
+ for(const channel of ['message','email'])await assert.rejects(core.execute(channel,outsider,{action:'read',id:channel==='message'?thread:message}),/Not found/);
+ await assert.rejects(core.execute('picture',outsider,{action:'upload',threadId:thread,bytes:new Uint8Array([255,216,255]),mediaType:'image/jpeg'}),/Not found/);
+ await assert.rejects(core.execute('audio',outsider,{action:'invite',id:thread,key:'foreign',version:1,callId:'bad',recipientId:a.id}),/Not found/);
+ await assert.rejects(core.execute('message',a,{action:'read',id:thread,actorId:b.id}),/server context/);
+ await assert.rejects(core.execute('email',a,{action:'receive',to:'owned@example.invalid'}),/Invalid email action/);
+ assert.throws(()=>core.execute('__proto__',a,{}),/Unknown communication channel/);
+});
+test('shared scope base rejects cross-tenant state even with a permissive adapter',async()=>{
+ let policyCalls=0;
+ const permissive={async assert(){policyCalls++;},async assignee(){}};
+ class Probe extends ScopedServiceBase {check(actor,state){return this.checkAccess(actor,'fixture.read',state,['fixture']);}}
+ const probe=new Probe(store,permissive);
+ await assert.rejects(probe.check(a,{id:'foreign',tenantId:outsider.tenantId,kind:'fixture',version:1}),/Not found/);
+ assert.equal(policyCalls,0);
+ assert.throws(()=>new Probe(store,null),/adapters required/);
+});
+test('same core supports a separate tenant without sharing its conversation',async()=>{
+ const partner={id:'partner-b',tenantId:outsider.tenantId};users.set(partner.id,partner);
+ const core=new CommunicationCore(communication,mail),thread=id('tenant-b');
+ const result=await core.execute('message',outsider,{action:'create',id:thread,key:'create',members:[outsider.id,partner.id],businessReference:'synthetic-b'});
+ await core.execute('message',partner,{action:'send',id:thread,key:'send',version:result.version,text:'Tenant B only'});
+ assert.equal((await core.execute('message',outsider,{action:'read',id:thread})).messages.length,1);
+ await assert.rejects(core.execute('message',a,{action:'read',id:thread}),/Not found/);
+});
 test('email queues once, escapes HTML and preserves accepted versus delivered distinction',async()=>{
  const message=id('outbound');let result=await mail.queue(a,message,'queue','recipient@example.invalid','Task update','<script>private</script>');
  const before=sends;

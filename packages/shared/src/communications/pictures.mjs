@@ -1,11 +1,14 @@
 /** Node-side image adapter. Deployment must provide a scanner and private object storage. */
-export class PrivatePictureRepository {
+import {BoundedBinaryAdapterBase} from './adapter-base.mjs';
+export class PrivatePictureRepository extends BoundedBinaryAdapterBase {
  constructor({sharp,bucket,scan,maxPixels,maxBytes}) {
+  super(maxBytes);
   if(typeof sharp!=='function'||typeof scan!=='function'||!bucket||!Number.isSafeInteger(maxPixels)||maxPixels<1||!Number.isSafeInteger(maxBytes)||maxBytes<1)throw Error('Picture adapters required');
-  this.sharp=sharp;this.bucket=bucket;this.scan=scan;this.maxPixels=maxPixels;this.maxBytes=maxBytes;
+  this.sharp=sharp;this.bucket=bucket;this.scan=scan;this.maxPixels=maxPixels;
  }
  async prepare(actor,threadId,bytes,mediaType) {
-  if(!(bytes instanceof Uint8Array)||!bytes.length||bytes.length>this.maxBytes||!['image/png','image/jpeg'].includes(mediaType))throw Error('Invalid picture');
+  this.validateBytes(bytes);
+  if(!['image/png','image/jpeg'].includes(mediaType))throw Error('Invalid picture');
   const image=this.sharp(bytes,{limitInputPixels:this.maxPixels,failOn:'warning',animated:false});
   const metadata=await image.metadata();
   if(!['png','jpeg'].includes(metadata.format)||mediaType!==('image/'+metadata.format)||!metadata.width||!metadata.height||metadata.width*metadata.height>this.maxPixels||(metadata.pages??1)>1)throw Error('Invalid raster');

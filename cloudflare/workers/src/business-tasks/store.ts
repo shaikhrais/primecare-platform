@@ -1,22 +1,7 @@
-/** Internal service storage port. No API or production schema is registered by this module. */
-export type Actor = Readonly<{id: string; tenantId: string}>;
-export type RecordState = {id: string; tenantId: string; version: number; kind: string; [key: string]: any};
-export type Command = {actor: Actor; id: string; key: string; expectedVersion: number; type: string; payload: unknown};
-export type Change = {state: RecordState; event: string; result?: unknown};
-export interface AtomicStore {
- run(command: Command, authorize: (state: RecordState | null) => Promise<void>, apply: (state: RecordState | null) => Promise<Change>): Promise<any>;
- read(actor: Actor, id: string, authorize: (state: RecordState) => Promise<void>): Promise<RecordState>;
- inbox(actor: Actor, kind: 'workflow'|'conversation', authorize: (state: RecordState) => Promise<void>, limit?: number): Promise<RecordState[]>;
-}
-export interface AccessPolicy {
- /** Resolve actual registered authority and active tenant/user status; never trust request roles. */
- assert(actor: Actor, action: string, state: RecordState | null): Promise<void>;
- /** Must verify same-tenant active user and permitted responsibility before assignment. */
- assignee(actor: Actor, userId: string, responsibility: string): Promise<void>;
-}
-export function required(value: unknown, max = 200): asserts value is string {
- if (typeof value !== 'string' || !value.trim() || value.length > max || /[\u0000-\u001f\u007f]/.test(value)) throw Error('Invalid input');
-}
+/** Compatibility exports; shared contracts are owned by the communication core. */
+export {required} from '../../../../packages/shared/src/communications/service-base.ts';
+export type {Actor,RecordState,Command,Change,AtomicStore,AccessPolicy} from '../../../../packages/shared/src/communications/service-base.ts';
+import {required,type Actor,type RecordState,type Command,type Change,type AtomicStore} from '../../../../packages/shared/src/communications/service-base.ts';
 export function commandValid(command: Command) {
  for (const value of [command.id, command.key, command.type, command.actor.id, command.actor.tenantId]) required(value);
  if (!Number.isSafeInteger(command.expectedVersion) || command.expectedVersion < 0) throw Error('Invalid version');
