@@ -5,6 +5,7 @@ import '../security/security_interceptor.dart';
 import '../services/device_manager.dart';
 import 'local_cache_service.dart';
 import 'package:flutter/foundation.dart';
+import '../../communications/communication_core.dart' show isCommunicationPath;
 /// A provider for the [ApiClient], ensuring a single instance is used across the app.
 final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient(ref);
@@ -373,7 +374,8 @@ class ApiClient {
   static bool _isUncachedWorkflowPath(String path) {
     final route = (Uri.tryParse(path)?.normalizePath().path ?? path)
         .replaceFirst(RegExp(r'/+$'), '');
-    return route == '/v1/governance/reports' || route.startsWith('/v1/governance/reports/') ||
+    return isCommunicationPath(path) ||
+        route == '/v1/governance/reports' || route.startsWith('/v1/governance/reports/') ||
         route == '/v1/clinical/dashboard' ||
         route == '/v1/business-development' ||
         route.startsWith('/v1/business-development-') ||

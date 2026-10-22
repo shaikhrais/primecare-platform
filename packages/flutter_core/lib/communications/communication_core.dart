@@ -1,5 +1,20 @@
 import 'dart:typed_data';
 
+/// Existing registered communication paths must never use demo/offline success.
+/// This classifies failure handling only; it grants no route or permission.
+bool isCommunicationPath(String value) {
+  final path = (Uri.tryParse(value)?.normalizePath().path ?? value)
+      .replaceFirst(RegExp(r'/+$'), '');
+  const roots = {
+    '/v1/messages',
+    '/v1/psw/messages',
+    '/v1/user/messaging/threads',
+    '/v1/staff/messages/hub',
+    '/v1/client/family/message',
+  };
+  return roots.any((root) => path == root || path.startsWith('$root/'));
+}
+
 /// Implement with authenticated transport and registered route mappings.
 /// Binary requests require the approved upload adapter, not JSON encoding.
 abstract interface class CommunicationTransport {

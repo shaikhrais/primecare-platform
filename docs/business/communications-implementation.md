@@ -4,6 +4,8 @@
 
 Shared inheritance and server/Dart usage are documented in [the communication core](../../packages/shared/src/communications/README.md). Task, conversation and mail services now inherit ScopedServiceBase. Message, picture, audio and email channels inherit CommunicationChannelBase and are composed by CommunicationCore. The Dart CommunicationHub provides matching derived clients for all portals through an injected authenticated transport. Browser resources and binary adapters inherit common cleanup and byte-limit bases. No hardcoded role list or permissive grant was introduced; production registration and integration gaps below still apply.
 
+The hub is exported through both existing Flutter core entry points. The existing ApiClient now consumes the shared communication-path guard, so failed registered messaging requests no longer become synthetic demo success or path-only cached conversation responses. This is a real existing-client repair; it neither grants messaging permission nor implements an unavailable backend. Dedicated Flutter tests cover the actual client boundary, offline errors, server denial and genuine successful responses.
+
 ## Implemented modules
 
 | Source | Behavior |

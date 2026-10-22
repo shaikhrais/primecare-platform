@@ -23,6 +23,11 @@ Future<void> rejects(Future<void> Function() action) async {
   check(rejected, 'Expected rejection');
 }
 Future<void> main() async {
+  check(isCommunicationPath('/v1/psw/messages?enable-semantics=true'), 'Protect legacy messaging');
+  check(isCommunicationPath('https://api.example.invalid/v1/messages/inbox/'), 'Protect absolute inbox');
+  check(isCommunicationPath('/v1/user/messaging/threads/thread'), 'Protect thread children');
+  check(!isCommunicationPath('/v1/messages-other'), 'Match path boundaries');
+  check(!isCommunicationPath('/v1/provider/profile'), 'Keep unrelated classification');
   final transport = FixtureTransport();
   final hub = CommunicationHub(transport);
   await hub.messages.send('thread', 'command', 1, 'Fixture', pictureIds: ['picture']);

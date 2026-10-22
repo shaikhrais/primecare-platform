@@ -12,11 +12,27 @@ on:
       - 'scripts/test-communication-adapter-base.mjs'
       - 'scripts/fixtures/business-*'
       - 'packages/flutter_core/lib/communications/**'
+      - 'packages/flutter_core/lib/src/network/api_client.dart'
+      - 'packages/flutter_core/lib/flutter_core.dart'
+      - 'packages/flutter_core/lib/business_core.dart'
+      - 'packages/flutter_core/test/communication_transport_failure_test.dart'
       - 'tools/communication-client-check.dart'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
+  flutter-transport:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - name: Real communication transport failures and existing caller regressions
+        working-directory: packages/flutter_core
+        run: flutter test test/communication_transport_failure_test.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/provider_profile_test.dart
   dart-core:
     runs-on: ubuntu-latest
     timeout-minutes: 8
