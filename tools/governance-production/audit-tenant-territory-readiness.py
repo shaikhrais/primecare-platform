@@ -24,7 +24,11 @@ with connect() as db:
             'flutterSourceBindingRecorded':any(s.endswith('.dart') for s in sources),
             'recordedGaps':definition.get('gaps',[])})
     if not selected:raise RuntimeError('No matching production workflow definitions; do not substitute historical exports')
-    report={'source':os.environ['GITHUB_SHA'],'authority':'pinned-production-postgresql',
+    api_rows=db.execute("SELECT id,http_method,route_path,implementation_status,permission_key FROM api_endpoints WHERE route_path LIKE ? OR route_path LIKE ? OR route_path LIKE ? ORDER BY id",('/v1/governance/platform/territories%','/v1/governance/platform/tenants%','/v1/governance/platform/onboarding%')).fetchall()
+    sections=db.execute("SELECT s.screen_code,s.route_path,x.section_code,x.status,x.file_path FROM screens s JOIN screen_sections x ON x.screen_id=s.id WHERE s.screen_code=? ORDER BY x.section_code",('PLATFORM_ADMINISTRATION',)).fetchall()
+    report={'apiRegistrations':[dict(zip(['id','method','path','implementationStatus','permissionKey'],r)) for r in api_rows],
+            'presentationSections':[dict(zip(['screen','route','section','status','file'],r)) for r in sections],
+            'source':os.environ['GITHUB_SHA'],'authority':'pinned-production-postgresql',
             'businessProcesses':len(rows),'selectedProcesses':len(selected),'writesAttempted':False,
             'registrationDoesNotProveImplementation':True,'flows':selected}
     (out/'production-registry-readiness.json').write_text(json.dumps(report,indent=2))
