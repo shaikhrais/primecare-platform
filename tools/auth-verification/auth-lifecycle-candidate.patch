@@ -795,7 +795,7 @@ index 6c61a7c3..6a2dc54f 100644
      if (ref.mounted) state = const MfaState();
      if (prompt != null && !prompt.isCompleted) prompt.complete();
 diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_form.dart b/packages/primecare_ui/lib/src/features/auth/mfa_form.dart
-index c811452a..73f208d3 100644
+index cb7c6b7d..0733fd96 100644
 --- a/packages/primecare_ui/lib/src/features/auth/mfa_form.dart
 +++ b/packages/primecare_ui/lib/src/features/auth/mfa_form.dart
 @@ -1,6 +1,7 @@
@@ -941,7 +941,7 @@ index 00000000..3b9bd031
 +final mfaManagementProvider = NotifierProvider.autoDispose<MfaManagementController, MfaManagementState>(MfaManagementController.new);
 diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart b/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart
 new file mode 100644
-index 00000000..216e128b
+index 00000000..c60b59c7
 --- /dev/null
 +++ b/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart
 @@ -0,0 +1,80 @@
@@ -962,8 +962,8 @@ index 00000000..216e128b
 +    final theme = context.theme, text = mfaLifecycleLabels(context);
 +    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
 +      Text(text['newKey']!, style: theme.typography.bodyMedium), SizedBox(height: theme.spacing.md),
-+      Cy(id: 'mfa-lifecycle-newkey', child: Semantics(value: setupKey, textField: true,
-+        readOnly: true, excludeSemantics: true, child: SelectableText(setupKey, style: theme.typography.bodyMedium))),
++      Cy(id: 'mfa-lifecycle-newkey', child: Semantics(label: setupKey,
++        excludeSemantics: true, child: SelectableText(setupKey, style: theme.typography.bodyMedium))),
 +    ]);
 +  }
 +}
@@ -985,8 +985,8 @@ index 00000000..216e128b
 +    if (state.recoveryCodes.isNotEmpty) {
 +      children.addAll([
 +        Text(text['codes']!, style: theme.typography.bodyMedium), gap,
-+        Cy(id: 'mfa-lifecycle-codes', child: Semantics(value: state.recoveryCodes.join('\n'),
-+          textField: true, readOnly: true, excludeSemantics: true,
++        Cy(id: 'mfa-lifecycle-codes', child: Semantics(label: state.recoveryCodes.join('\n'),
++          excludeSemantics: true,
 +          child: SelectableText(state.recoveryCodes.join('\n'), style: theme.typography.bodyMedium))), gap,
 +        PrimeButton(label: text['saved']!, onPressed: controller.saved, isFullWidth: true, dataCy: 'mfa-lifecycle-saved'),
 +      ]);
