@@ -7,7 +7,7 @@ import {activeMfaKeyId,mfaStorageKey,rewrapMfaSeed} from './mfa-keyring.mjs';
 export async function rotateMfaStorageBatch(db,env,{fromKeyId,toKeyId,limit=10}={}) {
   if (!['mfa-v1','mfa-v2'].includes(fromKeyId) || !['mfa-v1','mfa-v2'].includes(toKeyId) ||
       fromKeyId===toKeyId || !Number.isInteger(limit) || limit<1 || limit>50 || activeMfaKeyId(env)!==toKeyId) throw Error('Invalid MFA rotation scope');
-  mfaStorageKey(env,fromKeyId);
+  distinctKeys(env,fromKeyId,toKeyId);
   await db.query('BEGIN');
   try {
     const users=await db.query(`SELECT u.id::text AS id,u.tenant_id::text AS tenant_id FROM users u
@@ -32,4 +32,27 @@ export async function rotateMfaStorageBatch(db,env,{fromKeyId,toKeyId,limit=10}=
     await db.query('COMMIT');
     return {rewrapped};
   }catch(error){await db.query('ROLLBACK');throw error;}
+}
+
+/** Exercise both actual server bindings without reading or changing an account.
+ * This result is only cryptographic configuration proof, never migration proof.
+ */
+export async function verifyMfaKeyRotation(env,fromKeyId,toKeyId) {
+  if (!['mfa-v1','mfa-v2'].includes(fromKeyId) || !['mfa-v1','mfa-v2'].includes(toKeyId) || fromKeyId===toKeyId) throw Error('Invalid MFA rotation drill');
+  distinctKeys(env,fromKeyId,toKeyId);
+  const {generateMfaSeed}=await import('./mfa-secret.mjs');
+  const {sealCurrentMfaSeed,openStoredMfaSeed}=await import('./mfa-keyring.mjs');
+  const seed=generateMfaSeed(),user={id:'synthetic-keyring-drill',tenant_id:'synthetic-keyring-drill'};
+  const from={...env,MFA_ACTIVE_KEY_ID:fromKeyId},to={...env,MFA_ACTIVE_KEY_ID:toKeyId};
+  const original=await sealCurrentMfaSeed(from,seed,user);
+  const migrated=await rewrapMfaSeed(to,original,user);
+  const returned=await rewrapMfaSeed(from,migrated,user);
+  const verified=await openStoredMfaSeed(from,returned,user);
+  if(verified.length!==seed.length||verified.some((value,index)=>value!==seed[index]))throw Error('MFA rotation drill failed');
+  return {fromKeyId,toKeyId,verified:true};
+}
+
+function distinctKeys(env,fromKeyId,toKeyId) {
+  const before=mfaStorageKey(env,fromKeyId),after=mfaStorageKey(env,toKeyId);
+  if(before.every((value,index)=>value===after[index]))throw Error('MFA rotation requires distinct keys');
 }
