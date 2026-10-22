@@ -1,0 +1,150 @@
+{
+  "sourceCommit": "48300c595ba2cf610e3b003bf4e7f7380e67e965",
+  "runId": 39810235934,
+  "authority": "pinned-production-postgresql",
+  "writesAttempted": false,
+  "scope": "Read-only keyword candidate audit, not a count of communication workflows or a runtime availability test",
+  "contractSummary": {
+    "total": 53,
+    "metadataComplete": 0,
+    "liveAcceptanceVerified": 0,
+    "grantsChanged": false,
+    "gapCounts": {
+      "matching_active_role_api_and_screen_grants_missing": 52,
+      "permission_key_missing": 44,
+      "request_object_schema_missing_or_incomplete": 45,
+      "response_object_schema_missing_or_incomplete": 49,
+      "screen_link_missing": 44
+    }
+  },
+  "coreMessageRegistrations": [
+    {
+      "id": 710,
+      "method": "POST",
+      "path": "/v1/messages",
+      "status": "active",
+      "permission": null,
+      "service": "PRISMA",
+      "authRequired": 1,
+      "requestSchema": null,
+      "responseSchema": null
+    },
+    {
+      "id": 857,
+      "method": "GET",
+      "path": "/v1/messages/inbox",
+      "status": "active",
+      "permission": null,
+      "service": "PRISMA",
+      "authRequired": 1,
+      "requestSchema": null,
+      "responseSchema": null
+    }
+  ],
+  "coreMessageBindingGaps": [
+    {
+      "apiId": 191,
+      "method": "POST",
+      "path": "/v1/staff/messages/hub",
+      "linkedScreenIds": [],
+      "matchingRegisteredGrants": [],
+      "metadataGaps": [
+        "permission_key_missing",
+        "request_object_schema_missing_or_incomplete",
+        "response_object_schema_missing_or_incomplete",
+        "screen_link_missing",
+        "matching_active_role_api_and_screen_grants_missing"
+      ],
+      "metadataComplete": false,
+      "runtimePolicyVerified": false,
+      "liveAcceptanceVerified": false
+    },
+    {
+      "apiId": 246,
+      "method": "POST",
+      "path": "/v1/client/family/message",
+      "linkedScreenIds": [],
+      "matchingRegisteredGrants": [],
+      "metadataGaps": [
+        "permission_key_missing",
+        "request_object_schema_missing_or_incomplete",
+        "response_object_schema_missing_or_incomplete",
+        "screen_link_missing",
+        "matching_active_role_api_and_screen_grants_missing"
+      ],
+      "metadataComplete": false,
+      "runtimePolicyVerified": false,
+      "liveAcceptanceVerified": false
+    },
+    {
+      "apiId": 278,
+      "method": "POST",
+      "path": "/v1/user/messaging/threads",
+      "linkedScreenIds": [],
+      "matchingRegisteredGrants": [],
+      "metadataGaps": [
+        "permission_key_missing",
+        "request_object_schema_missing_or_incomplete",
+        "response_object_schema_missing_or_incomplete",
+        "screen_link_missing",
+        "matching_active_role_api_and_screen_grants_missing"
+      ],
+      "metadataComplete": false,
+      "runtimePolicyVerified": false,
+      "liveAcceptanceVerified": false
+    },
+    {
+      "apiId": 710,
+      "method": "POST",
+      "path": "/v1/messages",
+      "linkedScreenIds": [],
+      "matchingRegisteredGrants": [],
+      "metadataGaps": [
+        "permission_key_missing",
+        "request_object_schema_missing_or_incomplete",
+        "response_object_schema_missing_or_incomplete",
+        "screen_link_missing",
+        "matching_active_role_api_and_screen_grants_missing"
+      ],
+      "metadataComplete": false,
+      "runtimePolicyVerified": false,
+      "liveAcceptanceVerified": false
+    },
+    {
+      "apiId": 783,
+      "method": "POST",
+      "path": "/v1/psw/messages",
+      "linkedScreenIds": [],
+      "matchingRegisteredGrants": [],
+      "metadataGaps": [
+        "permission_key_missing",
+        "request_object_schema_missing_or_incomplete",
+        "response_object_schema_missing_or_incomplete",
+        "screen_link_missing",
+        "matching_active_role_api_and_screen_grants_missing"
+      ],
+      "metadataComplete": false,
+      "runtimePolicyVerified": false,
+      "liveAcceptanceVerified": false
+    },
+    {
+      "apiId": 857,
+      "method": "GET",
+      "path": "/v1/messages/inbox",
+      "linkedScreenIds": [],
+      "matchingRegisteredGrants": [],
+      "metadataGaps": [
+        "permission_key_missing",
+        "request_object_schema_missing_or_incomplete",
+        "response_object_schema_missing_or_incomplete",
+        "screen_link_missing",
+        "matching_active_role_api_and_screen_grants_missing"
+      ],
+      "metadataComplete": false,
+      "runtimePolicyVerified": false,
+      "liveAcceptanceVerified": false
+    }
+  ],
+  "liveAcceptanceVerified": false,
+  "approvalGranted": false
+}

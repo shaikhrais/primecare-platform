@@ -90,3 +90,27 @@ malformed/error responses, single-attempt network failure and bounded private pi
 claim that unregistered production commands or Flutter screens are exposed.
 Production contract/policy registration, private storage/scanner bindings,
 mailbox routing, real call signaling/relay and user acceptance remain open.
+
+### Production contract reconciliation — 2026-10-22
+
+Read-only run 39810235934 on source `48300c595ba2cf610e3b003bf4e7f7380e67e965`
+checked schemas, authentication declarations, API-to-screen links and matching
+active-role API/screen grants. The six new report tests passed. The broad keyword
+inventory contains 53 candidate records (including adjacent tasks and sales-call
+records); it is not a count of communication workflows. None meets every minimum
+metadata check. This does not prove these other domains fail at runtime.
+
+For the concrete messaging routes, existing API710 (`POST /v1/messages`) and
+API857 (`GET /v1/messages/inbox`) both retain service `PRISMA`, no request or
+response schema, no permission key, no screen links and no matching role grants.
+Existing API191,246,278,783 have the same binding gaps. See
+[evidence/communication-registration-20261022.json](evidence/communication-registration-20261022.json).
+
+The next production mutation must reconcile exact API identities, contract
+schemas, service routing and existing screen/API permission relationships in a
+scoped native PostgreSQL transaction. Preserve existing role-screen grants and
+restricted case/mailbox boundaries; the audit is not authorization to infer
+missing grants. Register controls/resources before mounting UI or public routes.
+The legacy SQLite registrars must not be run against the production connection.
+No business data, accounts, credentials, grants or production metadata changed
+in this audit. A complete metadata report is not live acceptance evidence.
