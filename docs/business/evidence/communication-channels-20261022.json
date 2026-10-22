@@ -1,0 +1,177 @@
+{
+  "sourceCommit": "00f82dd7ec9bcddcdefbbe34f626bb28b1b41104",
+  "scope": "Shared inherited call/email controls, explicit mail command confirmation, typed Flutter browser media bridge, and session lifecycle",
+  "registration": {
+    "definitionSha256": "9a12bbe075f29f92ce05f03e850bc7764527e24d3a9a7b3176fbc1096305b0f7",
+    "screens": 4,
+    "controlsPerScreen": 43,
+    "resources": 71,
+    "locales": [
+      "en",
+      "es",
+      "fr"
+    ],
+    "permissionGrants": 0,
+    "activation": false,
+    "reviewApproved": false,
+    "independentReadback": true,
+    "sourceCommit": "2551a388dad9c443f1c86c34a8c459ed24b3f4a1",
+    "runId": 39866983814,
+    "authority": "pinned-production-postgresql",
+    "isolatedTestsPassed": 8
+  },
+  "inheritance": {
+    "presentation": "CommunicationScreenBase",
+    "controller": "CommunicationWorkspaceControllerBase > CommunicationCommandControllerBase > CommunicationMailController / CommunicationCallController",
+    "channel": "CommunicationChannelClient",
+    "browserResources": "CommunicationResourceBase > FlutterBrowserAudioSession / BrowserAudioSession / BrowserAudioCall"
+  },
+  "newChecks": {
+    "mailControllerTests": 12,
+    "callControllerTests": 14,
+    "channelWidgetTests": 7,
+    "jsBridgeTests": 5,
+    "compiledDartRealBrowserTests": 1,
+    "providerSessionRegression": "role/account/logout disposes call/mail controllers and active media"
+  },
+  "ci": {
+    "runId": 39868969689,
+    "status": "success",
+    "runnerImage": "ubuntu-24.04",
+    "positivePacketAssertionRequired": true,
+    "flutterCoreTransportTestsPassed": 590,
+    "flutterWorkspaceThemeAuthTestsPassed": 107,
+    "flutterTotalPassed": 697,
+    "nodeServiceTestsPassed": 151,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39868969689",
+    "jobs": [
+      {
+        "id": 120138263957,
+        "name": "isolated",
+        "conclusion": "success"
+      },
+      {
+        "id": 120138264136,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      },
+      {
+        "id": 120138264151,
+        "name": "flutter-workspace",
+        "conclusion": "success"
+      },
+      {
+        "id": 120138264267,
+        "name": "flutter-browser-media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120138264307,
+        "name": "inventory",
+        "conclusion": "success"
+      },
+      {
+        "id": 120138264356,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120138264369,
+        "name": "dart-core",
+        "conclusion": "success"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 12466120907,
+        "name": "communication-flutter-browser",
+        "sha256": "ae1ff0fd95330e29ade6e8f5b962241780024ba53ff91126e56ed9b124dfb888"
+      },
+      {
+        "id": 12466085989,
+        "name": "business-communications-media",
+        "sha256": "93d4c7b095fe336b7edc76ea207b61cf9078683b96e08f33e29b6aa977cdf0bc"
+      },
+      {
+        "id": 12466010893,
+        "name": "business-communications-registry",
+        "sha256": "70a82af7d1002ebfc8787848e37e2ae607700fb76a63af426e564e05a6fac34b"
+      }
+    ],
+    "nodeMediaTestsPassed": 3,
+    "compiledDartRealBrowserTestsPassed": 1,
+    "nodeBrowserTotalPassed": 155,
+    "metadataReportTestsPassed": 10,
+    "strictTypeScript": "passed",
+    "dartAnalysisAndCoreHarness": "passed",
+    "routeBindings": "passed",
+    "uiBindings": "passed",
+    "mediaBundle": "passed"
+  },
+  "onlyRemoteBranch": "main",
+  "permissionsChanged": false,
+  "activationChanged": false,
+  "accountsChanged": false,
+  "productionReady": false,
+  "allUserReleaseVerified": false,
+  "liveBusinessEmailSendReceiveVerified": false,
+  "deployedBrowserToDatabaseVerified": false,
+  "receivedMailBodyDisplay": "not implemented: envelope and quarantine warning only",
+  "mediaDefault": "unconfigured; trusted host factory required",
+  "remaining": [
+    "governed contact discovery instead of known account/mailbox identifiers",
+    "trusted inbound MIME/content processing before body display",
+    "provider-verified business mailbox provisioning and end-to-end delivery/receive proof",
+    "real private scanner/storage/decoder composition",
+    "fresh TURN composition and restrictive-network/device acceptance",
+    "native-platform media adapters if native calling is required",
+    "explicit current endpoint/screen grants, worker/gateway mounting and deployment",
+    "deployed login-to-UI-to-API-to-database acceptance and release review"
+  ],
+  "checkpoints": [
+    {
+      "sourceCommit": "745f709e4b9f6dbb259fa110b048e458787a9a19",
+      "runId": 39867746785,
+      "jobsPassed": 6,
+      "jobsFailed": [
+        "flutter-browser-media"
+      ],
+      "failure": "Browser harness extension type declared duplicate constructors; corrected in 74295d5eee07128272353af52e14496bd3c5d23d"
+    },
+    {
+      "sourceCommit": "74295d5eee07128272353af52e14496bd3c5d23d",
+      "runId": 39867929338,
+      "compiledDartRealAudio": "invalidated: artifact contained zero packets; browser wait required explicit packet assertions",
+      "artifactId": 12465640425
+    }
+  ],
+  "invalidatedBrowserArtifact": {
+    "runId": 39868051436,
+    "artifactId": 12465600624,
+    "packets": [
+      0,
+      0
+    ],
+    "acceptedAsAudioEvidence": false
+  },
+  "compiledDartBrowserEvidence": {
+    "sourceCommit": "00f82dd7ec9bcddcdefbbe34f626bb28b1b41104",
+    "runId": 39868969689,
+    "artifactId": 12466120907,
+    "artifactSha256": "ae1ff0fd95330e29ade6e8f5b962241780024ba53ff91126e56ed9b124dfb888",
+    "archiveDigestIndependentlyChecked": true,
+    "syntheticTransport": true,
+    "productUi": false,
+    "browser": "155.0.8059.39",
+    "packets": [
+      3,
+      3
+    ],
+    "muted": true,
+    "unmuted": true,
+    "tracksStopped": true,
+    "peersClosed": true,
+    "audioElementsRemoved": true
+  },
+  "providerSessionRegression": "passed in latest run: wait for actual refresh completion, then assert role/account/logout invalidation and active media cleanup"
+}
