@@ -1,0 +1,108 @@
+name: Verify isolated auth lifecycle candidate
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/verify-auth-lifecycle-candidate.yml
+      - tools/auth-verification/auth-lifecycle-candidate.patch
+      - tools/auth-verification/auth-lifecycle-candidate.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: lifecycle
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: lifecycle
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U lifecycle" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply isolated candidate with exact patch digest
+        run: |
+          python - <<'PYCODE'
+          import hashlib,json,pathlib,subprocess
+          p=pathlib.Path('tools/auth-verification/auth-lifecycle-candidate.patch')
+          m=json.loads(pathlib.Path('tools/auth-verification/auth-lifecycle-candidate.json').read_text())
+          assert hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256']
+          subprocess.run(['git','apply','--check',str(p)],check=True)
+          subprocess.run(['git','apply',str(p)],check=True)
+          actual=set(subprocess.check_output(['git','ls-files','--modified','--others','--exclude-standard'],text=True).splitlines())
+          assert actual==set(m['paths']), (actual,set(m['paths']))
+          PYCODE
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/lifecycle-foundation" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2 esbuild@0.25.12
+          ln -s "$RUNNER_TEMP/lifecycle-foundation/node_modules" node_modules
+          node --test scripts/test-code-admin-keyring.mjs scripts/test-code-admin-recovery-codes.mjs
+      - name: Require rollback and idempotency on native disposable PostgreSQL
+        env:
+          MFA_TEST_DATABASE_URL: postgresql://lifecycle:disposable-only@localhost:5432/lifecycle
+        run: node --test scripts/test-mfa-lifecycle-schema.mjs
+      - name: Verify native transaction proof consumption isolation revocation and fault rollback
+        env:
+          MFA_TEST_DATABASE_URL: postgresql://lifecycle:disposable-only@localhost:5432/lifecycle
+        run: |
+          MFA_TEST_ID_TYPE=text node --test scripts/test-code-admin-lifecycle-postgres.mjs
+          MFA_TEST_ID_TYPE=uuid node --test scripts/test-code-admin-lifecycle-postgres.mjs
+          node --test scripts/test-code-admin-mfa-outbox-postgres.mjs
+          node --test scripts/test-worker-inheritance.mjs
+          node scripts/export-mfa-lifecycle-schema.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-mfa-lifecycle-schema
+          path: test-results/mfa-lifecycle-schema
+  flutter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply isolated candidate with exact patch digest
+        run: |
+          python - <<'PYCODE'
+          import hashlib,json,pathlib,subprocess
+          p=pathlib.Path('tools/auth-verification/auth-lifecycle-candidate.patch')
+          m=json.loads(pathlib.Path('tools/auth-verification/auth-lifecycle-candidate.json').read_text())
+          assert hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256']
+          subprocess.run(['git','apply','--check',str(p)],check=True)
+          subprocess.run(['git','apply',str(p)],check=True)
+          actual=set(subprocess.check_output(['git','ls-files','--modified','--others','--exclude-standard'],text=True).splitlines())
+          assert actual==set(m['paths']), (actual,set(m['paths']))
+          PYCODE
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Require reproducible registered MFA labels
+        run: |
+          python scripts/generate-flutter-auth-lifecycle-catalog.py
+          python scripts/generate-flutter-mfa-catalog.py
+          git diff --exit-code -- packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart
+      - name: Core MFA session boundary and previous session regressions
+        working-directory: packages/flutter_core
+        run: |
+          flutter pub get
+          flutter analyze --no-fatal-infos lib/auth_service.dart lib/src/application/controllers/auth_notifier.dart test/auth_mfa_test.dart test/auth_mfa_management_test.dart
+          flutter test test/auth_mfa_test.dart test/auth_mfa_management_test.dart test/auth_session_test.dart test/auth_transport_test.dart test/auth_route_guard_test.dart
+      - name: Localized Flutter presentation and previous auth regressions
+        working-directory: packages/primecare_ui
+        run: |
+          flutter pub get
+          flutter analyze --no-fatal-infos lib/src/features/auth/mfa_controller.dart lib/src/features/auth/mfa_form.dart lib/src/features/auth/auth_experience.dart test/auth_mfa_test.dart test/auth_mfa_lifecycle_test.dart
+          flutter test test/auth_mfa_test.dart test/auth_mfa_lifecycle_test.dart test/auth_design_test.dart test/auth_recovery_response_test.dart test/auth_maintenance_response_test.dart
+      - name: Build current clinic Flutter bundle without replacing production web portals
+        working-directory: apps/primecare_clinic
+        run: |
+          flutter pub get
+          flutter test test/auth_routing_test.dart
+          flutter build web --release --no-tree-shake-icons --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-flutter-mfa-clinic
+          path: apps/primecare_clinic/build/web
+          retention-days: 30

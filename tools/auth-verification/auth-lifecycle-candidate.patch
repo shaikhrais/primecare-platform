@@ -1,0 +1,1113 @@
+diff --git a/cloudflare/workers/src/auth.ts b/cloudflare/workers/src/auth.ts
+index d9fdaf21..db14ac98 100644
+--- a/cloudflare/workers/src/auth.ts
++++ b/cloudflare/workers/src/auth.ts
+@@ -1,4 +1,5 @@
+ import {beginMfa,finishMfa} from './security/mfa.mjs';
++import {manageMfaLifecycle,recoverMfaLifecycle,confirmMfaReplacement} from './security/mfa-lifecycle.mjs';
+ import {invalidateSessionToken} from './auth-invalidation';
+ import {confirmedAudit} from './audit-confirmation';
+ import {optionalRow,requiredRow,resultRows} from './database-results';
+@@ -19,7 +20,7 @@ import {parseAccountAdminRequest,accountAdministration} from './account-admin';
+ import {changePassword,validatePasswordChange} from './password-change';
+ 
+ export interface Env extends SourceLimitEnv, MaintenanceEnv {
+-  DB_URL: string; SERVICE_NAME: string; MFA_ENCRYPTION_KEY?: string;
++  DB_URL: string; SERVICE_NAME: string; MFA_ENCRYPTION_KEY?: string; MFA_ENCRYPTION_KEY_V2?: string; MFA_ACTIVE_KEY_ID?: string;
+   WORKSPACE_SOURCE_LIMIT?: {limit(options:{key:string}):Promise<{success:boolean}>};
+ }
+ type Json = Record<string, unknown>;
+@@ -302,6 +303,22 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
+       }
+     });
+   }
++  if(['/mfa/recovery-codes','/mfa/replacement','/mfa/recovery','/mfa/replacement/confirm'].includes(path)) {
++    if(request.method!=='POST')return json({error:'Method not allowed'},405,{...headers,allow:'POST'});
++    const managing=['/mfa/recovery-codes','/mfa/replacement'].includes(path);
++    const session=request.headers.has('authorization')?tokenFrom(request):null;
++    if(managing&&!session)return json({error:'No session'},401,headers);
++    let body:Json;try{body=await parseBody(request);}catch(error){return bodyFailure(error,'Invalid MFA security request',headers);}
++    const requestedLocale=(request.headers.get('accept-language')??'en').split(',')[0].split('-')[0].toLowerCase();
++    const locale=['en','fr','es'].includes(requestedLocale)?requestedLocale:'en';
++    return withDb(env,async db=>{
++      const result=managing
++        ? await manageMfaLifecycle(db,env,session,body,path.endsWith('recovery-codes')?'codes':'replace',locale,request.headers.get('x-tenant-id'))
++        : path==='/mfa/recovery' ? await recoverMfaLifecycle(db,env,body,locale)
++        : await confirmMfaReplacement(db,env,body,locale);
++      return json(result.body,result.status,result.body.token?{...headers,'set-cookie':`session_token=${result.body.token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=43200`}:headers);
++    });
++  }
+   if(path==='/mfa') {
+     if(request.method!=='POST')return json({error:'Method not allowed'},405,{...headers,allow:'POST'});
+     let body:Json;try{body=await parseBody(request);}catch(error){return bodyFailure(error,'Invalid MFA request',headers);}
+diff --git a/cloudflare/workers/src/core/base-worker.ts b/cloudflare/workers/src/core/base-worker.ts
+index 4a3ad117..edb4b57c 100644
+--- a/cloudflare/workers/src/core/base-worker.ts
++++ b/cloudflare/workers/src/core/base-worker.ts
+@@ -2,6 +2,7 @@ import { compressResponse } from './response-compression';
+ 
+ /** Shared request lifecycle. Instances must never retain per-request identity or state. */
+ export abstract class BaseWorker<Environment> {
++  async scheduled(_controller: unknown, _env: Environment): Promise<void> {}
+   async fetch(request: Request, env: Environment): Promise<Response> {
+     try {
+       const early = await this.preflight(request, env);
+@@ -26,5 +27,6 @@ export abstract class BaseWorker<Environment> {
+ export function workerHandler<Environment>(worker: BaseWorker<Environment>) {
+   return {
+     fetch: async (request: Request, env: Environment): Promise<Response> => compressResponse(request, await worker.fetch(request, env)),
++    scheduled: async (controller: unknown, env: Environment): Promise<void> => worker.scheduled(controller, env),
+   };
+ }
+diff --git a/cloudflare/workers/src/security/mfa-lifecycle.mjs b/cloudflare/workers/src/security/mfa-lifecycle.mjs
+index 48f4c816..c873485c 100644
+--- a/cloudflare/workers/src/security/mfa-lifecycle.mjs
++++ b/cloudflare/workers/src/security/mfa-lifecycle.mjs
+@@ -74,6 +74,11 @@ async function notification(db, user, event, locale) {
+   if (one(await db.query('INSERT INTO auth_mfa_notification_outbox(id,user_id,tenant_id,recipient,event,locale) VALUES($1,$2,$3,$4,$5,$6) RETURNING id', [id, user.id, user.tenant_id, user.email, event, localeValue(locale)])).id !== id) throw Error('MFA notification queue failed');
+ }
+ 
++async function failedProof(db, user) {
++  const id = crypto.randomUUID();
++  if (one(await db.query("INSERT INTO auth_mfa_audit(id,user_id,tenant_id,action) VALUES($1,$2,$3,'mfa_verification_failed') RETURNING id", [id, user.id, user.tenant_id])).id !== id) throw Error('MFA failure audit failed');
++}
++
+ async function replacement(db, env, user, credential, proofKind) {
+   const challenge = token(), seed = generateMfaSeed(), pending = await sealCurrentMfaSeed(env, seed, user);
+   await db.query('DELETE FROM auth_mfa_replacement_challenges WHERE user_id=$1', [user.id]);
+@@ -100,7 +105,7 @@ export async function manageMfaLifecycle(db, env, sessionToken, body, action, lo
+     if (!user || user.status !== 'active' || !await sessionCurrent(db, sessionToken, user)) {await db.query('ROLLBACK'); return denied();}
+     if (user.roles !== 'code_admin' || (tenantHint !== null && tenantHint !== user.tenant_id)) {await db.query('ROLLBACK'); return denied(403);}
+     const credential = await freshFactor(db, env, user, password, code);
+-    if (!credential) {await db.query('ROLLBACK'); return denied();}
++    if (!credential) {await failedProof(db, user); await db.query('COMMIT'); return denied();}
+     let response;
+     if (action === 'codes') {
+       const generated = await generateMfaRecoveryCodes(user);
+@@ -141,8 +146,7 @@ export async function recoverMfaLifecycle(db, env, body, locale = 'en') {
+     const consumed = codeHash ? (await db.query('UPDATE auth_mfa_recovery_codes SET consumed_at=NOW() WHERE code_hash=$1 AND user_id=$2 AND tenant_id=$3 AND consumed_at IS NULL RETURNING code_hash', [codeHash, user.id, user.tenant_id])).rows : [];
+     if (consumed.length !== 1) {
+       one(await db.query('UPDATE auth_mfa_challenges SET attempts=attempts+1 WHERE token_hash=$1 AND attempts<5 RETURNING attempts', [hash]));
+-      const id = crypto.randomUUID();
+-      if (one(await db.query("INSERT INTO auth_mfa_audit(id,user_id,tenant_id,action) VALUES($1,$2,$3,'mfa_verification_failed') RETURNING id", [id, user.id, user.tenant_id])).id !== id) throw Error('MFA failure audit failed');
++      await failedProof(db, user);
+       await db.query('COMMIT'); return denied();
+     }
+     if (one(await db.query('DELETE FROM auth_mfa_challenges WHERE token_hash=$1 RETURNING token_hash', [hash])).token_hash !== hash) throw Error('Recovery challenge consumption failed');
+@@ -172,6 +176,7 @@ export async function confirmMfaReplacement(db, env, body, locale = 'en') {
+     const counter = await matchTotp(seed, code, {seconds: Math.floor(Date.now() / 1000), lastAcceptedCounter: -1});
+     if (counter === null) {
+       one(await db.query('UPDATE auth_mfa_replacement_challenges SET attempts=attempts+1 WHERE token_hash=$1 AND attempts<5 RETURNING attempts', [hash]));
++      await failedProof(db, user);
+       await db.query('COMMIT'); return denied();
+     }
+     if (one(await db.query('UPDATE auth_mfa_credentials SET envelope=$2,last_counter=$3,enabled_at=NOW() WHERE user_id=$1 AND enabled=true RETURNING user_id', [user.id, JSON.stringify(pending.pending_envelope), counter])).user_id !== user.id) throw Error('Replacement credential update failed');
+diff --git a/cloudflare/workers/src/service-application.ts b/cloudflare/workers/src/service-application.ts
+index 29d72fb4..cb5e0b98 100644
+--- a/cloudflare/workers/src/service-application.ts
++++ b/cloudflare/workers/src/service-application.ts
+@@ -2,6 +2,9 @@ import {businessModules} from './business-modules';
+ import {legacyDomain} from './legacy-domain';
+ import {sourceLoginLimit} from './auth-source-limit';
+ import { auth, withDb, type Env } from './auth';
++import {sendEmail} from './email';
++import {deliverMfaNotifications} from './security/mfa-notifications.mjs';
++import lifecycle from '../../../packages/shared/src/auth-lifecycle.json';
+ 
+ import {HandlerPipeline, type WorkerContext} from './runtime/handler-pipeline';
+ import {WorkerApplication} from './runtime/worker-application';
+@@ -34,6 +37,18 @@ const pipeline = new HandlerPipeline<Env>([
+ 
+ /** Shared service implementation inherited by the existing Worker entry point. */
+ export class ServiceApplication extends WorkerApplication<Env> {
++  async scheduled(_controller: unknown, env: Env): Promise<void> {
++    if (env.SERVICE_NAME !== 'auth') return;
++    const report = await withDb(env, db => deliverMfaNotifications(db, async (notice: {id:string;recipient:string;locale:string}) => {
++      const language = ['en','fr','es'].includes(notice.locale) ? notice.locale as 'en'|'fr'|'es' : 'en';
++      const copy = lifecycle.locales[language];
++      const templates = {...env.EMAIL_TEMPLATES, security_notice: {subject:copy.notifySubject,
++        title:copy.notifyTitle,body:copy.notifyBody,required:['message','support']}};
++      return sendEmail({...env,EMAIL_TEMPLATES:templates}, notice.recipient, 'security_notice',
++        {message:copy.notifyMessage,support:copy.supportContact}, 'mfa-lifecycle-'+notice.id);
++    }));
++    console.log('MFA_NOTIFICATION_QUEUE '+JSON.stringify(report));
++  }
+   protected healthy(env: Env): Promise<void> {
+     return withDb(env, db => db.query('SELECT 1').then(() => undefined));
+   }
+diff --git a/packages/flutter_core/lib/auth_service.dart b/packages/flutter_core/lib/auth_service.dart
+index c16d0446..fbebcac5 100644
+--- a/packages/flutter_core/lib/auth_service.dart
++++ b/packages/flutter_core/lib/auth_service.dart
+@@ -11,7 +11,21 @@ import 'package:primecare_models/src/models/auth_state.dart';
+ part 'src/application/controllers/auth_notifier.dart';
+ 
+ /// A transient presentation callback. Only the core verifier can issue authority.
+-typedef MfaPrompt = Future<void> Function(Map<String, dynamic> challenge, Future<bool> Function(String code) verify);
++typedef MfaPrompt = Future<void> Function(Map<String, dynamic> challenge, MfaVerifier verify);
++
++/// The core owns both factor calls and limited recovery. Presentation cannot
++/// supply a bearer token or turn a replacement challenge into session authority.
++class MfaVerifier {
++  final Future<bool> Function(String) _verify;
++  final Future<Map<String, dynamic>?> Function(String) _recover;
++  MfaVerifier({required Future<bool> Function(String) verify,
++    required Future<Map<String, dynamic>?> Function(String) recover})
++      : _verify = verify, _recover = recover;
++  Future<bool> call(String code) => _verify(code);
++  Future<Map<String, dynamic>?> recover(String code) => _recover(code);
++}
++
++enum MfaManagementAction { recoveryCodes, replace }
+ 
+ // Global listenable for GoRouter
+ final authListenable = ValueNotifier<bool>(false);
+diff --git a/packages/flutter_core/lib/src/application/controllers/auth_notifier.dart b/packages/flutter_core/lib/src/application/controllers/auth_notifier.dart
+index f0b01a75..66c68b84 100644
+--- a/packages/flutter_core/lib/src/application/controllers/auth_notifier.dart
++++ b/packages/flutter_core/lib/src/application/controllers/auth_notifier.dart
+@@ -304,14 +304,16 @@ class AuthNotifier extends Notifier<AuthState> {
+               (payload['purpose'] == 'verify' && payload.containsKey('setupKey'))) return false;
+           final challenge = Map<String, dynamic>.unmodifiable(payload);
+           Map<String, dynamic>? verified;
++          Map<String, dynamic>? replacement;
+           var verifying = false;
+           var promptOpen = true;
+-          try { await completeMfa(challenge, (code) async {
++          Future<bool> verifyFactor(String code) async {
+             if (!promptOpen || !_isCurrent(revision) || verifying || verified != null || !RegExp(r'^[0-9]{6}$').hasMatch(code)) return false;
+             verifying = true;
+             String? provisional;
+             try {
+-              final factor = await apiClient.post(ApiConfig.endpoints['mfa']!, body: {'challenge': challenge['challenge'], 'code': code});
++              final factor = await apiClient.post(ApiConfig.endpoints[replacement == null ? 'mfa' : 'mfaReplacementConfirm']!,
++                body: {'challenge': replacement?['challenge'] ?? challenge['challenge'], 'code': code});
+               final data = factor.data;
+               // Capture issued authority before validating the envelope so
+               // rejected status/identity/token formats still reach cleanup.
+@@ -333,7 +335,32 @@ class AuthNotifier extends Notifier<AuthState> {
+                 try { await apiClient.revokeSession(provisional); } catch (_) {}
+               }
+             }
+-          }); } catch (_) {
++          }
++          Future<Map<String, dynamic>?> recoverFactor(String savedCode) async {
++            if (!promptOpen || !_isCurrent(revision) || verifying || verified != null || replacement != null ||
++                challenge['purpose'] != 'verify' || !RegExp(r'^[A-Z2-7]{26}$').hasMatch(savedCode)) return null;
++            verifying = true;
++            String? unexpected;
++            try {
++              final response = await apiClient.post(ApiConfig.endpoints['mfaRecovery']!,
++                body: {'challenge': challenge['challenge'], 'recoveryCode': savedCode});
++              final data = response.data;
++              if (data is Map<String, dynamic> && data['token'] is String && (data['token'] as String).trim().isNotEmpty) {
++                unexpected = data['token'] as String;
++              }
++              if (!promptOpen || !_isCurrent(revision) || response.statusCode != 200 || unexpected != null || data is! Map<String, dynamic> ||
++                  data.length != 3 || data['status'] != 'mfa_replacement_required' || data['challenge'] is! String ||
++                  !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(data['challenge'] as String) || data['setupKey'] is! String ||
++                  !RegExp(r'^[A-Z2-7]{32}$').hasMatch(data['setupKey'] as String)) return null;
++              replacement = Map<String, dynamic>.unmodifiable(data);
++              return Map<String, dynamic>.unmodifiable({...data, 'purpose': 'replace'});
++            } catch (_) {return null;}
++            finally {
++              verifying = false;
++              if (unexpected != null) {try {await apiClient.revokeSession(unexpected);} catch (_) {}}
++            }
++          }
++          try { await completeMfa(challenge, MfaVerifier(verify: verifyFactor, recover: recoverFactor)); } catch (_) {
+             final issued = verified?['token'];
+             if (issued is String) { try { await apiClient.revokeSession(issued); } catch (_) {} }
+             rethrow;
+@@ -527,6 +554,83 @@ class AuthNotifier extends Notifier<AuthState> {
+     return result.fold((data) => data, (error) => false);
+   }
+ 
++  bool get canManageMfa => state.isInitialized && state.isAuthenticated && state.role == 'code_admin' &&
++      state.token != null && state.userId != null;
++
++  Future<Map<String, dynamic>?> manageMfa(MfaManagementAction action, String password, String code) async {
++    if (!canManageMfa || password.isEmpty || !RegExp(r'^[0-9]{6}$').hasMatch(code)) return null;
++    final actor = state, revision = _sessionRevision, api = ref.read(apiClientProvider);
++    String? unexpected;
++    try {
++      final response = await api.post(ApiConfig.endpoints[action == MfaManagementAction.recoveryCodes ? 'mfaRecoveryCodes' : 'mfaReplacement']!,
++        body: {'password': password, 'code': code});
++      final data = response.data;
++      if (data is Map<String, dynamic> && data['token'] is String && (data['token'] as String).trim().isNotEmpty) unexpected = data['token'] as String;
++      if (!_isCurrent(revision) || state.token != actor.token || state.userId != actor.userId ||
++          response.statusCode != 200 || unexpected != null || data is! Map<String, dynamic>) return null;
++      if (action == MfaManagementAction.recoveryCodes) {
++        final codes = data['recoveryCodes'];
++        if (data.length != 2 || data['status'] != 'recovery_codes_issued' || codes is! List || codes.length != 10 ||
++            codes.toSet().length != 10 || !codes.every((value) => value is String && RegExp(r'^[A-Z2-7]{26}$').hasMatch(value))) return null;
++        return Map<String, dynamic>.unmodifiable({'status': data['status'], 'recoveryCodes': List<String>.unmodifiable(codes.cast<String>())});
++      }
++      if (data.length != 3 || data['status'] != 'mfa_replacement_required' || data['challenge'] is! String ||
++          !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(data['challenge'] as String) || data['setupKey'] is! String ||
++          !RegExp(r'^[A-Z2-7]{32}$').hasMatch(data['setupKey'] as String)) return null;
++      return Map<String, dynamic>.unmodifiable(data);
++    } catch (_) {return null;}
++    finally {if (unexpected != null) {try {await api.revokeSession(unexpected);} catch (_) {}}}
++  }
++
++  Future<bool> confirmManagedMfa(String challenge, String code) async {
++    if (!canManageMfa || !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(challenge) || !RegExp(r'^[0-9]{6}$').hasMatch(code)) return false;
++    final actor = state, revision = ++_sessionRevision, api = ref.read(apiClientProvider);
++    String? provisional;
++    var retained = false;
++    var replacementAcknowledged = false;
++    try {
++      final response = await api.post(ApiConfig.endpoints['mfaReplacementConfirm']!, body: {'challenge': challenge, 'code': code});
++      final data = response.data;
++      if (data is Map<String, dynamic> && data['token'] is String && (data['token'] as String).trim().isNotEmpty) provisional = data['token'] as String;
++      if (!_isCurrent(revision) || state.token != actor.token || response.statusCode != 200 || data is! Map<String, dynamic> ||
++          data['status'] != 'authenticated' || provisional == null || !RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(provisional) ||
++          data['role'] != 'code_admin' || data['userId'] != actor.userId) return false;
++      replacementAcknowledged = true;
++      final confirmation = await api.confirmSession(provisional);
++      final identity = confirmation.data;
++      if (!_isCurrent(revision) || state.token != actor.token || !confirmation.isSuccess || identity is! Map<String, dynamic> ||
++          identity['status'] != 'authenticated' || identity['userId'] != actor.userId || identity['roles'] != 'code_admin') return false;
++      final token = provisional;
++      await _persist((prefs) async {
++        if (!_isCurrent(revision)) return;
++        await prefs.setString('auth_token', token);
++        await prefs.setString('auth_role', 'code_admin');
++        await prefs.setString('auth_user_id', actor.userId!);
++        await prefs.setString('auth_tenant_id', actor.tenantId ?? '');
++        await prefs.setString('auth_username', actor.userName ?? '');
++        if (!_isCurrent(revision)) await _clearSession(prefs);
++      });
++      if (!_isCurrent(revision)) return false;
++      state = actor.copyWith(token: token, preferredLanguage: state.preferredLanguage);
++      authListenable.value = true;
++      retained = true;
++      return true;
++    } catch (_) {return false;}
++    finally {
++      if (provisional != null && !retained) {
++        try {await api.revokeSession(provisional);} catch (_) {}
++        // A confirmed replacement invalidates the old server session. If its
++        // new authority cannot be confirmed, fail closed for this captured actor.
++        if (replacementAcknowledged && _isCurrent(revision) && state.token == actor.token && state.userId == actor.userId) {
++          state = AuthState(isInitialized: true, preferredLanguage: state.preferredLanguage);
++          authListenable.value = false;
++          await _persist(_clearSession);
++          if (actor.token != null) {try {await api.revokeSession(actor.token!);} catch (_) {}}
++        }
++      }
++    }
++  }
++
+   Future<void> logout() async {
+     ++_sessionRevision;
+     final token = state.token;
+diff --git a/packages/flutter_core/lib/src/network/api_client.dart b/packages/flutter_core/lib/src/network/api_client.dart
+index d3fd8236..1c3162e8 100644
+--- a/packages/flutter_core/lib/src/network/api_client.dart
++++ b/packages/flutter_core/lib/src/network/api_client.dart
+@@ -676,6 +676,10 @@ class ApiConfig {
+   static const Map<String, String> endpoints = {
+     'login': '/v1/auth/login',
+     'mfa': '/v1/auth/mfa',
++    'mfaRecovery': '/v1/auth/mfa/recovery',
++    'mfaRecoveryCodes': '/v1/auth/mfa/recovery-codes',
++    'mfaReplacement': '/v1/auth/mfa/replacement',
++    'mfaReplacementConfirm': '/v1/auth/mfa/replacement/confirm',
+     'register': '/v1/auth/register',
+     'forgotPassword': '/v1/auth/forgot-password',
+     'resetPassword': '/v1/auth/reset-password',
+diff --git a/packages/flutter_core/test/auth_mfa_management_test.dart b/packages/flutter_core/test/auth_mfa_management_test.dart
+new file mode 100644
+index 00000000..57a566b4
+--- /dev/null
++++ b/packages/flutter_core/test/auth_mfa_management_test.dart
+@@ -0,0 +1,78 @@
++import 'dart:async';
++import 'package:flutter_test/flutter_test.dart';
++import 'package:flutter_riverpod/flutter_riverpod.dart';
++import 'package:shared_preferences/shared_preferences.dart';
++import 'package:flutter_core/auth_service.dart';
++import 'package:flutter_core/src/network/api_client.dart';
++
++final oldToken=List.filled(43,'c').join(),newToken=List.filled(43,'b').join(),replacementToken=List.filled(43,'d').join();
++class ManagedAuth extends AuthNotifier {
++  @override
++  AuthState build()=>AuthState(isInitialized:true,isAuthenticated:true,role:'code_admin',userId:'owner',token:oldToken,tenantId:'synthetic-tenant',userName:'synthetic@example.invalid');
++}
++class ManagementApi extends Fake implements ApiClient {
++  final calls=<String>[],revoked=<String>[];
++  Completer<ApiResponse>? pending,identity;
++  Map<String,dynamic>? replyOverride;
++  bool foreignIdentity=false;
++  @override
++  Future<ApiResponse> post(String path,{dynamic body,Map<String,String>? headers}) async {
++    calls.add(path);
++    if(path.endsWith('/login'))return ApiResponse(statusCode:200,data:{'token':replacementToken,'role':'rmt','userId':'replacement-user','tenantId':'replacement-tenant'});
++    if(pending!=null)return pending!.future;
++    return ApiResponse(statusCode:200,data:replyOverride ?? (path.endsWith('recovery-codes')
++      ? {'status':'recovery_codes_issued','recoveryCodes':List.generate(10,(i)=>String.fromCharCode(65+i)+List.filled(25,'A').join())}
++      : path.endsWith('/confirm') ? {'status':'authenticated','token':newToken,'role':'code_admin','userId':'owner'}
++      : {'status':'mfa_replacement_required','challenge':List.filled(43,'r').join(),'setupKey':List.filled(32,'A').join()}));
++  }
++  @override
++  Future<ApiResponse> confirmSession(String value) async {
++    expect(value,newToken);calls.add('confirm');if(identity!=null)return identity!.future;
++    return ApiResponse(statusCode:200,data:{'status':'authenticated','roles':'code_admin','userId':foreignIdentity?'foreign':'owner'});
++  }
++  @override
++  Future<ApiResponse> revokeSession(String value)async{revoked.add(value);return ApiResponse(statusCode:200,data:{'status':'signed_out'});}
++}
++void main(){
++  TestWidgetsFlutterBinding.ensureInitialized();
++  setUp(()=>SharedPreferences.setMockInitialValues({}));
++  ProviderContainer fixture(ManagementApi api)=>ProviderContainer(overrides:[authProvider.overrideWith(ManagedAuth.new),apiClientProvider.overrideWithValue(api)]);
++  test('code management keeps proof transient and never changes session authority',()async{
++    final api=ManagementApi(),c=fixture(api);addTearDown(c.dispose);
++    final result=await c.read(authProvider.notifier).manageMfa(MfaManagementAction.recoveryCodes,'synthetic-password','123456');
++    expect(result?['recoveryCodes'],hasLength(10));expect(c.read(authProvider).token,oldToken);
++    expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);expect(api.calls,['/v1/auth/mfa/recovery-codes']);
++  });
++  test('duplicate codes and unexpected authority fail without clearing the current actor',()async{
++    final api=ManagementApi(),c=fixture(api);addTearDown(c.dispose);final auth=c.read(authProvider.notifier);
++    api.replyOverride={'status':'recovery_codes_issued','recoveryCodes':List.filled(10,List.filled(26,'A').join())};
++    expect(await auth.manageMfa(MfaManagementAction.recoveryCodes,'p','123456'),isNull);
++    api.replyOverride={'status':'mfa_replacement_required','token':newToken};
++    expect(await auth.manageMfa(MfaManagementAction.replace,'p','123456'),isNull);
++    expect(api.revoked,[newToken]);expect(c.read(authProvider).token,oldToken);expect(c.read(authProvider).isAuthenticated,true);
++  });
++  test('replacement authority is stored only after the matching owned identity is confirmed',()async{
++    final api=ManagementApi()..identity=Completer<ApiResponse>(),c=fixture(api);addTearDown(c.dispose);
++    final pending=c.read(authProvider.notifier).confirmManagedMfa(List.filled(43,'r').join(),'123456');
++    while(!api.calls.contains('confirm')){await Future<void>.delayed(Duration.zero);}
++    expect(c.read(authProvider).token,oldToken);expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
++    api.identity!.complete(ApiResponse(statusCode:200,data:{'status':'authenticated','roles':'code_admin','userId':'owner'}));
++    expect(await pending,true);expect(c.read(authProvider).token,newToken);
++    expect((await SharedPreferences.getInstance()).getString('auth_token'),newToken);
++  });
++  test('unconfirmed replacement revokes provisional authority and removes the invalidated old actor',()async{
++    final api=ManagementApi()..foreignIdentity=true,c=fixture(api);addTearDown(c.dispose);
++    expect(await c.read(authProvider.notifier).confirmManagedMfa(List.filled(43,'r').join(),'123456'),false);
++    expect(api.revoked,containsAll([newToken,oldToken]));expect(c.read(authProvider).isAuthenticated,false);
++    expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
++  });
++  test('a newer actor survives a late management confirmation and its cleanup',()async{
++    final api=ManagementApi()..identity=Completer<ApiResponse>(),c=fixture(api);addTearDown(c.dispose);final auth=c.read(authProvider.notifier);
++    final pending=auth.confirmManagedMfa(List.filled(43,'r').join(),'123456');
++    while(!api.calls.contains('confirm')){await Future<void>.delayed(Duration.zero);}
++    expect(await auth.login('replacement@example.invalid','synthetic-password'),true);
++    api.identity!.complete(ApiResponse(statusCode:200,data:{'status':'authenticated','roles':'code_admin','userId':'owner'}));
++    expect(await pending,false);expect(api.revoked,[newToken]);expect(c.read(authProvider).userId,'replacement-user');
++    expect((await SharedPreferences.getInstance()).getString('auth_token'),replacementToken);
++  });
++}
+diff --git a/packages/flutter_core/test/auth_mfa_test.dart b/packages/flutter_core/test/auth_mfa_test.dart
+index 440ee299..0d60d889 100644
+--- a/packages/flutter_core/test/auth_mfa_test.dart
++++ b/packages/flutter_core/test/auth_mfa_test.dart
+@@ -14,6 +14,9 @@ class MfaApi extends Fake implements ApiClient {
+   final token = List.filled(43, 'b').join();
+   Map<String, dynamic>? challengeOverride;
+   Map<String, dynamic>? factorOverride;
++  Map<String, dynamic>? recoveryOverride;
++  Completer<ApiResponse>? recoveryResponse;
++  final replacementChallenge = List.filled(43, 'r').join();
+   final calls = <String>[];
+   final revoked = <String>[];
+   int factorStatus = 200;
+@@ -26,8 +29,14 @@ class MfaApi extends Fake implements ApiClient {
+     if (path.endsWith('/login')) return ApiResponse(statusCode: 200, data: challengeOverride ?? {
+       'status': 'mfa_required', 'challenge': challenge, 'purpose': 'enroll', 'setupKey': List.filled(32, 'A').join(),
+     });
+-    expect(path, '/v1/auth/mfa');
+-    expect(body, {'challenge': challenge, 'code': '123456'});
++    if (path.endsWith('/mfa/recovery')) {
++      expect(body, {'challenge': challenge, 'recoveryCode': List.filled(26, 'A').join()});
++      if (recoveryResponse != null) return recoveryResponse!.future;
++      return ApiResponse(statusCode:200, data:recoveryOverride ?? {'status':'mfa_replacement_required',
++        'challenge':replacementChallenge,'setupKey':List.filled(32,'B').join()});
++    }
++    expect(path, anyOf('/v1/auth/mfa','/v1/auth/mfa/replacement/confirm'));
++    expect(body, {'challenge':path.endsWith('/confirm') ? replacementChallenge : challenge, 'code': '123456'});
+     if (factor != null) return factor!.future;
+     return ApiResponse(statusCode: factorStatus, data: factorOverride ?? {'status':'authenticated', 'token':token, 'role':'code_admin', 'userId':'owner'});
+   }
+@@ -79,7 +88,7 @@ void main() {
+   test('closed prompt invalidates a captured verifier without making a factor request', () async {
+     final api=MfaApi();final c=fixture(api);addTearDown(c.dispose);
+     late Future<bool> Function(String) captured;
+-    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {captured=verify;}),false);
++    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {captured=verify.call;}),false);
+     expect(await captured('123456'),false);
+     expect(api.calls, ['/v1/auth/login']);
+     expect(api.revoked,isEmpty);
+@@ -148,4 +157,43 @@ void main() {
+     await auth.logout();api.identity!.complete(ApiResponse(statusCode:200,data:{'status':'authenticated','roles':'code_admin','userId':'owner'}));
+     expect(await login,false);expect(api.revoked,[api.token]);expect(c.read(authProvider).isAuthenticated,false);expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
+   });
++  test('saved code supplies only replacement proof; new factor and identity confirmation establish authority', () async {
++    final api=MfaApi();api.challengeOverride={'status':'mfa_required','challenge':api.challenge,'purpose':'verify'};
++    final c=fixture(api);addTearDown(c.dispose);
++    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {
++      final next=await verify.recover(List.filled(26,'A').join());expect(next?['purpose'],'replace');
++      expect(c.read(authProvider).isAuthenticated,false);expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
++      expect(api.calls,isNot(contains('confirm')));expect(await verify('123456'),true);
++    }),true);
++    expect(api.calls,contains('/v1/auth/mfa/replacement/confirm'));expect(api.calls,isNot(contains('/v1/auth/mfa')));
++    expect(c.read(authProvider).token,api.token);expect((await SharedPreferences.getInstance()).getKeys().any((key)=>key.contains('recovery')||key.contains('mfa')),false);
++  });
++  test('enrollment cannot substitute saved-code recovery for confirming its first authenticator', () async {
++    final api=MfaApi();final c=fixture(api);addTearDown(c.dispose);
++    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {
++      expect(await verify.recover(List.filled(26,'A').join()),isNull);
++    }),false);expect(api.calls,['/v1/auth/login']);
++  });
++  test('malformed recovery authority is revoked without storing secrets or opening replacement', () async {
++    final api=MfaApi();api.challengeOverride={'status':'mfa_required','challenge':api.challenge,'purpose':'verify'};
++    api.recoveryOverride={'status':'mfa_replacement_required','challenge':api.replacementChallenge,'setupKey':List.filled(32,'B').join(),'token':api.token};
++    final c=fixture(api);addTearDown(c.dispose);
++    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {
++      expect(await verify.recover(List.filled(26,'A').join()),isNull);
++    }),false);expect(api.revoked,[api.token]);expect(c.read(authProvider).isAuthenticated,false);
++    expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
++  });
++  test('prompt closure discards a late recovery key and prevents using its verifier again', () async {
++    final api=MfaApi()..recoveryResponse=Completer<ApiResponse>();
++    api.challengeOverride={'status':'mfa_required','challenge':api.challenge,'purpose':'verify'};
++    final c=fixture(api);addTearDown(c.dispose);late Future<Map<String,dynamic>?> pending;
++    late MfaVerifier captured;
++    expect(await c.read(authProvider.notifier).login('e','p',completeMfa:(challenge,verify) async {
++      captured=verify;pending=verify.recover(List.filled(26,'A').join());
++      while(!api.calls.contains('/v1/auth/mfa/recovery')){await Future<void>.delayed(Duration.zero);}
++    }),false);
++    api.recoveryResponse!.complete(ApiResponse(statusCode:200,data:{'status':'mfa_replacement_required','challenge':api.replacementChallenge,'setupKey':List.filled(32,'B').join()}));
++    expect(await pending,isNull);expect(await captured('123456'),false);
++    expect(await captured.recover(List.filled(26,'A').join()),isNull);expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
++  });
+ }
+diff --git a/packages/primecare_ui/lib/src/features/auth/auth_experience.dart b/packages/primecare_ui/lib/src/features/auth/auth_experience.dart
+index 9e96068d..5866f8f7 100644
+--- a/packages/primecare_ui/lib/src/features/auth/auth_experience.dart
++++ b/packages/primecare_ui/lib/src/features/auth/auth_experience.dart
+@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
+ import 'auth_design_tokens.dart';
+ import 'password_recovery_form.dart';
+ import 'mfa_form.dart';
++import 'mfa_management_form.dart';
+ import 'auth_navigation.dart';
+ import '../../localization/auth_screen_text.dart';
+ 
+@@ -110,7 +111,9 @@ class PrimeAuthExperience extends ConsumerWidget {
+       case AuthPage.reset:
+         return [const PasswordRecoveryForm(reset: true)];
+       case AuthPage.mfa:
+-        return [const NativeMfaForm()];
++        if (ref.watch(authProvider).isAuthenticated) return [const NativeMfaManagementForm()];
++        if (ref.watch(mfaControllerProvider).pending) return [const NativeMfaForm()];
++        return [_Notice(message: '${_copy(context, 'unavailable_title')}\n${_copy(context, 'unavailable_body')}')];
+       case AuthPage.consent:
+         // These backend capabilities are not enabled. Do not collect unusable
+         // passwords/codes, fabricate success, or imply a recovery email was sent.
+@@ -139,6 +142,9 @@ class PrimeAuthExperience extends ConsumerWidget {
+           const AdminTrainingLauncher(), gap,
+           Text(_copy(context, 'role'), style: theme.typography.labelBold),
+           Text(auth.role ?? '', style: theme.typography.bodyLarge), gap,
++          if (ref.read(authProvider.notifier).canManageMfa)
++            PrimeButton(label: mfaLifecycleLabels(context)['title']!, onPressed: () => _go(context, '/mfa'),
++              isFullWidth: true, dataCy: 'mfa-lifecycle-manage'),
+           if (['ceo', 'maintenance'].contains(auth.role)) TextButton(onPressed: () => _go(context, '/maintenance/configuration'), child: const Text('IT maintenance configuration')),
+           PrimeButton(label: _copy(context, 'signout'), onPressed: () async {
+             await ref.read(authProvider.notifier).logout();
+diff --git a/packages/primecare_ui/lib/src/features/auth/auth_lifecycle_catalog.g.dart b/packages/primecare_ui/lib/src/features/auth/auth_lifecycle_catalog.g.dart
+new file mode 100644
+index 00000000..230d1a90
+--- /dev/null
++++ b/packages/primecare_ui/lib/src/features/auth/auth_lifecycle_catalog.g.dart
+@@ -0,0 +1,75 @@
++// Generated from registered auth lifecycle resources; do not edit.
++const authLifecycleText = <String, Map<String, String>>{
++  "en": {
++    "title": "Manage authenticator security",
++    "password": "Current password",
++    "factor": "Current authenticator code",
++    "issue": "Create new recovery codes",
++    "codes": "Save these recovery codes somewhere private. Each code works once. Creating new codes invalidates the previous set.",
++    "replace": "Replace authenticator",
++    "newKey": "Add this new setup key to your authenticator, then confirm its code. Your current authenticator remains active until confirmation.",
++    "newCode": "New authenticator code",
++    "confirm": "Confirm replacement",
++    "recovery": "Use a recovery code",
++    "recoveryCode": "Saved recovery code",
++    "recover": "Recover and replace authenticator",
++    "cancel": "Cancel",
++    "saved": "I saved my recovery codes",
++    "error": "Unable to complete this request. Verify your password and code, or sign in again.",
++    "done": "Authenticator security updated.",
++    "working": "Working…",
++    "notifySubject": "PrimeCare authenticator security notice",
++    "notifyTitle": "Authenticator security",
++    "notifyBody": "{{message}} If you did not request this change, contact {{support}}. Never send passwords, recovery codes or authenticator keys by email.",
++    "notifyMessage": "Your authenticator recovery or security settings changed.",
++    "supportContact": "your organization’s authorized administrator",
++  },
++  "fr": {
++    "title": "Gérer la sécurité de votre authentificateur",
++    "password": "Mot de passe actuel",
++    "factor": "Code actuel de votre authentificateur",
++    "issue": "Créer de nouveaux codes de récupération",
++    "codes": "Conservez ces codes dans un endroit privé. Chaque code est à usage unique. Les nouveaux codes remplacent les précédents.",
++    "replace": "Remplacer l’authentificateur",
++    "newKey": "Ajoutez cette nouvelle clé à votre authentificateur, puis confirmez son code. L’ancien reste actif jusqu’à la confirmation.",
++    "newCode": "Code du nouvel authentificateur",
++    "confirm": "Confirmer le remplacement",
++    "recovery": "Utiliser un code de récupération",
++    "recoveryCode": "Code de récupération enregistré",
++    "recover": "Récupérer et remplacer l’authentificateur",
++    "cancel": "Annuler",
++    "saved": "J’ai enregistré mes codes de récupération",
++    "error": "Impossible de terminer. Vérifiez votre mot de passe et votre code, ou reconnectez-vous.",
++    "done": "Sécurité de l’authentificateur mise à jour.",
++    "working": "Traitement…",
++    "notifySubject": "Avis de sécurité de votre authentificateur PrimeCare",
++    "notifyTitle": "Sécurité de l’authentificateur",
++    "notifyBody": "{{message}} Si vous n’avez pas demandé ce changement, contactez {{support}}. N’envoyez jamais de mots de passe, de codes de récupération ou de clés par courriel.",
++    "notifyMessage": "Vos paramètres de récupération ou de sécurité de l’authentificateur ont changé.",
++    "supportContact": "l’administrateur autorisé de votre organisation",
++  },
++  "es": {
++    "title": "Gestionar la seguridad del autenticador",
++    "password": "Contraseña actual",
++    "factor": "Código actual del autenticador",
++    "issue": "Crear nuevos códigos de recuperación",
++    "codes": "Guarda estos códigos en un lugar privado. Cada código sirve una sola vez. Los códigos nuevos invalidan los anteriores.",
++    "replace": "Reemplazar el autenticador",
++    "newKey": "Añade esta clave nueva a tu autenticador y confirma su código. El autenticador actual seguirá activo hasta la confirmación.",
++    "newCode": "Código del autenticador nuevo",
++    "confirm": "Confirmar reemplazo",
++    "recovery": "Usar un código de recuperación",
++    "recoveryCode": "Código de recuperación guardado",
++    "recover": "Recuperar y reemplazar el autenticador",
++    "cancel": "Cancelar",
++    "saved": "He guardado mis códigos de recuperación",
++    "error": "No se pudo completar la solicitud. Verifica la contraseña y el código, o inicia sesión de nuevo.",
++    "done": "Seguridad del autenticador actualizada.",
++    "working": "Procesando…",
++    "notifySubject": "Aviso de seguridad del autenticador de PrimeCare",
++    "notifyTitle": "Seguridad del autenticador",
++    "notifyBody": "{{message}} Si no solicitaste este cambio, contacta con {{support}}. Nunca envíes contraseñas, códigos de recuperación ni claves por correo.",
++    "notifyMessage": "Han cambiado los ajustes de recuperación o seguridad del autenticador.",
++    "supportContact": "el administrador autorizado de tu organización",
++  },
++};
+diff --git a/packages/primecare_ui/lib/src/features/auth/login_controller.dart b/packages/primecare_ui/lib/src/features/auth/login_controller.dart
+index 539b4c88..702889a3 100644
+--- a/packages/primecare_ui/lib/src/features/auth/login_controller.dart
++++ b/packages/primecare_ui/lib/src/features/auth/login_controller.dart
+@@ -72,7 +72,7 @@ class LoginController extends Notifier<LoginState> {
+           .read(authProvider.notifier)
+           .login(email, password, completeMfa: (challenge, verify) {
+             state = state.copyWith(password: '');
+-            return ref.read(mfaControllerProvider.notifier).request(challenge, verify);
++            return ref.read(mfaControllerProvider.notifier).request(challenge, verify.call, recover: verify.recover);
+           });
+ 
+       if (!success) {
+diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart b/packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart
+index 8fa25270..04162102 100644
+--- a/packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart
++++ b/packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart
+@@ -28,3 +28,4 @@ const nativeMfaText = <String, Map<String, String>>{
+     'loading': 'Verificando…',
+   },
+ };
++const nativeMfaChallengeLifetimeSeconds = 300;
+diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_controller.dart b/packages/primecare_ui/lib/src/features/auth/mfa_controller.dart
+index 6c61a7c3..6a2dc54f 100644
+--- a/packages/primecare_ui/lib/src/features/auth/mfa_controller.dart
++++ b/packages/primecare_ui/lib/src/features/auth/mfa_controller.dart
+@@ -1,5 +1,6 @@
+ import 'dart:async';
+ import 'package:primecare_ui/primecare_ui.dart';
++import 'mfa_catalog.g.dart';
+ 
+ /// Challenge/code are transient; neither is persisted or logged.
+ class MfaState {
+@@ -7,44 +8,84 @@ class MfaState {
+   final bool isLoading;
+   final bool failed;
+   final Map<String, dynamic>? challenge;
+-  const MfaState({this.code = '', this.isLoading = false, this.failed = false, this.challenge});
++  final String recoveryCode;
++  final bool recoveryMode, recoveryAvailable;
++  const MfaState({this.code = '', this.isLoading = false, this.failed = false, this.challenge,
++    this.recoveryCode = '', this.recoveryMode = false, this.recoveryAvailable = false});
+   bool get pending => challenge != null;
+ }
+ 
+ class MfaController extends Notifier<MfaState> {
+   Completer<void>? _prompt;
+   Future<bool> Function(String)? _verify;
++  Future<Map<String, dynamic>?> Function(String)? _recover;
+   int _revision = 0;
++  Timer? _expiry;
+   @override
+   MfaState build() {
+-    ref.onDispose(() { _revision++; _verify = null; final prompt = _prompt; if (prompt != null && !prompt.isCompleted) prompt.complete(); });
++    ref.onDispose(() { _revision++; _expiry?.cancel(); _verify = null; _recover = null; final prompt = _prompt; if (prompt != null && !prompt.isCompleted) prompt.complete(); });
+     return const MfaState();
+   }
+-  Future<void> request(Map<String, dynamic> challenge, Future<bool> Function(String) verify) {
++  Future<void> request(Map<String, dynamic> challenge, Future<bool> Function(String) verify,
++      {Future<Map<String, dynamic>?> Function(String)? recover}) {
+     cancel();
+-    final prompt = Completer<void>(); _prompt = prompt; _verify = verify;
+-    state = MfaState(challenge: Map<String, dynamic>.unmodifiable(challenge));
++    final prompt = Completer<void>(); _prompt = prompt; _verify = verify; _recover = recover;
++    state = MfaState(challenge: Map<String, dynamic>.unmodifiable(challenge),
++      recoveryAvailable: recover != null && challenge['purpose'] == 'verify');
++    _startExpiry();
+     return prompt.future;
+   }
++  void _startExpiry() {
++    _expiry?.cancel();
++    _expiry = Timer(const Duration(seconds: nativeMfaChallengeLifetimeSeconds), () {if (ref.mounted) cancel();});
++  }
+   void onCodeChanged(String value) {
+-    if (!state.pending || state.isLoading) return;
+-    state = MfaState(code: value, challenge: state.challenge);
++    if (!state.pending || state.isLoading || state.recoveryMode) return;
++    state = MfaState(code: value, challenge: state.challenge, recoveryAvailable: state.recoveryAvailable);
++  }
++  void showRecovery() {
++    if (!state.recoveryAvailable || state.isLoading) return;
++    state = MfaState(challenge: state.challenge, recoveryAvailable: true, recoveryMode: true);
++  }
++  void showAuthenticator() {
++    if (state.isLoading) return;
++    state = MfaState(challenge: state.challenge, recoveryAvailable: state.recoveryAvailable);
++  }
++  void onRecoveryCodeChanged(String value) {
++    if (!state.recoveryMode || state.isLoading) return;
++    state = MfaState(challenge: state.challenge, recoveryAvailable: state.recoveryAvailable,
++      recoveryMode: true, recoveryCode: value.trim().toUpperCase());
++  }
++  Future<void> recover() async {
++    final recover = _recover;
++    if (!state.recoveryMode || !state.recoveryAvailable || state.isLoading || recover == null) return;
++    final revision = _revision, challenge = state.challenge, savedCode = state.recoveryCode;
++    state = MfaState(challenge: challenge, recoveryAvailable: true, recoveryMode: true, isLoading: true);
++    Map<String, dynamic>? next;
++    if (RegExp(r'^[A-Z2-7]{26}$').hasMatch(savedCode)) {
++      try {next = await recover(savedCode);} catch (_) {}
++    }
++    if (!ref.mounted || revision != _revision) return;
++    state = next == null
++      ? MfaState(challenge: challenge, recoveryAvailable: true, recoveryMode: true, failed: true)
++      : MfaState(challenge: next);
++    if (next != null) _startExpiry();
+   }
+   Future<void> verify() async {
+     final verifier = _verify;
+-    if (state.isLoading || !state.pending || verifier == null) return;
++    if (state.isLoading || !state.pending || state.recoveryMode || verifier == null) return;
+     if (!RegExp(r'^[0-9]{6}$').hasMatch(state.code)) {
+-      state = MfaState(challenge: state.challenge, failed: true); return;
++      state = MfaState(challenge: state.challenge, recoveryAvailable: state.recoveryAvailable, failed: true); return;
+     }
+-    final revision = _revision, challenge = state.challenge, code = state.code;
+-    state = MfaState(challenge: challenge, isLoading: true);
++    final revision = _revision, challenge = state.challenge, code = state.code, recoveryAvailable = state.recoveryAvailable;
++    state = MfaState(challenge: challenge, recoveryAvailable: recoveryAvailable, isLoading: true);
+     var accepted = false;
+     try { accepted = await verifier(code); } catch (_) {}
+     if (!ref.mounted || revision != _revision) return;
+-    if (accepted) { cancel(); } else { state = MfaState(challenge: challenge, failed: true); }
++    if (accepted) { cancel(); } else { state = MfaState(challenge: challenge, recoveryAvailable: recoveryAvailable, failed: true); }
+   }
+   void cancel() {
+-    _revision++; _verify = null;
++    _revision++; _expiry?.cancel(); _verify = null; _recover = null;
+     final prompt = _prompt; _prompt = null;
+     if (ref.mounted) state = const MfaState();
+     if (prompt != null && !prompt.isCompleted) prompt.complete();
+diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_form.dart b/packages/primecare_ui/lib/src/features/auth/mfa_form.dart
+index c811452a..73f208d3 100644
+--- a/packages/primecare_ui/lib/src/features/auth/mfa_form.dart
++++ b/packages/primecare_ui/lib/src/features/auth/mfa_form.dart
+@@ -1,6 +1,7 @@
+ import 'package:primecare_ui/primecare_ui.dart';
+ import 'auth_experience.dart' show PrimeAuthTextField;
+ import 'mfa_catalog.g.dart';
++import 'mfa_management_form.dart';
+ 
+ /// Presentation of existing screen949 controls; verification lives in flutter_core.
+ class NativeMfaForm extends ConsumerWidget {
+@@ -10,6 +11,7 @@ class NativeMfaForm extends ConsumerWidget {
+     final state = ref.watch(mfaControllerProvider);
+     final controller = ref.read(mfaControllerProvider.notifier);
+     final text = nativeMfaText[Localizations.localeOf(context).languageCode] ?? nativeMfaText['en']!;
++    final lifecycle = mfaLifecycleLabels(context);
+     final theme = context.theme;
+     if (!state.pending) return const SizedBox.shrink();
+     return Cy(id: 'mfa-form', child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+@@ -22,16 +24,35 @@ class NativeMfaForm extends ConsumerWidget {
+           excludeSemantics: true,
+           child: SelectableText(state.challenge!['setupKey'] as String, style: theme.typography.bodyMedium))),
+       ],
++      if (state.challenge!['purpose'] == 'replace') ...[
++        SizedBox(height: theme.spacing.md), MfaReplacementKey(setupKey: state.challenge!['setupKey'] as String),
++      ],
+       SizedBox(height: theme.spacing.lg),
+-      PrimeAuthTextField(id: 'mfa-code', label: text['code']!, initialValue: state.code,
++      if (state.recoveryMode) ...[
++        PrimeAuthTextField(id: 'mfa-lifecycle-recoverycode', label: lifecycle['recoveryCode']!,
++          initialValue: state.recoveryCode, enabled: !state.isLoading, sensitive: true, autofocus: true,
++          onChanged: controller.onRecoveryCodeChanged, onSubmitted: (_) => controller.recover()),
++        SizedBox(height: theme.spacing.lg),
++        PrimeButton(label: lifecycle[state.isLoading ? 'working' : 'recover']!, onPressed: controller.recover,
++          isLoading: state.isLoading, isFullWidth: true, dataCy: 'mfa-lifecycle-recover'),
++        SizedBox(height: theme.spacing.md),
++        PrimeButton(label: lifecycle['cancel']!, onPressed: state.isLoading ? null : controller.showAuthenticator,
++          isFullWidth: true, dataCy: 'mfa-lifecycle-cancel'),
++      ] else ...[
++      PrimeAuthTextField(id: state.challenge!['purpose'] == 'replace' ? 'mfa-lifecycle-newcode' : 'mfa-code',
++        label: state.challenge!['purpose'] == 'replace' ? lifecycle['newCode']! : text['code']!, initialValue: state.code,
+         enabled: !state.isLoading, sensitive: true, autofocus: true, keyboardType: TextInputType.number,
+         autofillHints: const [AutofillHints.oneTimeCode],
+         onChanged: controller.onCodeChanged, onSubmitted: (_) => controller.verify()),
+-      if (state.failed) ...[SizedBox(height: theme.spacing.md),
+-        Cy(id: 'mfa-status', child: Semantics(liveRegion: true, child: Text(text['error']!, style: theme.typography.bodyMedium)))],
+       SizedBox(height: theme.spacing.lg),
+-      PrimeButton(label: text[state.isLoading ? 'loading' : 'submit']!, onPressed: controller.verify,
+-        isLoading: state.isLoading, isFullWidth: true, dataCy: 'mfa-submit'),
++      PrimeButton(label: state.challenge!['purpose'] == 'replace' ? lifecycle[state.isLoading ? 'working' : 'confirm']! : text[state.isLoading ? 'loading' : 'submit']!, onPressed: controller.verify,
++        isLoading: state.isLoading, isFullWidth: true, dataCy: state.challenge!['purpose'] == 'replace' ? 'mfa-lifecycle-confirm' : 'mfa-submit'),
++      if (state.recoveryAvailable) ...[SizedBox(height: theme.spacing.md),
++        PrimeButton(label: lifecycle['recovery']!, onPressed: state.isLoading ? null : controller.showRecovery,
++          isFullWidth: true, dataCy: 'mfa-lifecycle-recovery')],
++      ],
++      if (state.failed) ...[SizedBox(height: theme.spacing.md),
++        Cy(id: 'mfa-status', child: Semantics(liveRegion: true, child: Text(state.recoveryMode || state.challenge!['purpose'] == 'replace' ? lifecycle['error']! : text['error']!, style: theme.typography.bodyMedium)))],
+       SizedBox(height: theme.spacing.md),
+       PrimeButton(label: text['cancel']!, onPressed: state.isLoading ? null : controller.cancel,
+         isFullWidth: true, dataCy: 'mfa-cancel'),
+diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_management_controller.dart b/packages/primecare_ui/lib/src/features/auth/mfa_management_controller.dart
+new file mode 100644
+index 00000000..3b9bd031
+--- /dev/null
++++ b/packages/primecare_ui/lib/src/features/auth/mfa_management_controller.dart
+@@ -0,0 +1,78 @@
++import 'dart:async';
++import 'package:primecare_ui/primecare_ui.dart';
++import 'mfa_catalog.g.dart';
++
++class MfaManagementState {
++  final bool canManage, working, failed, finished;
++  final String password, factor, newCode;
++  final Map<String, dynamic>? replacement;
++  final List<String> recoveryCodes;
++  const MfaManagementState({this.canManage = false, this.working = false, this.failed = false,
++    this.finished = false, this.password = '', this.factor = '', this.newCode = '',
++    this.replacement, this.recoveryCodes = const []});
++  MfaManagementState inputs({String? password, String? factor, String? newCode}) =>
++    MfaManagementState(canManage: canManage, password: password ?? this.password,
++      factor: factor ?? this.factor, newCode: newCode ?? this.newCode, replacement: replacement,
++      recoveryCodes: recoveryCodes);
++}
++
++/// Self-only presentation orchestration. Core owns proof, endpoints and authority.
++class MfaManagementController extends Notifier<MfaManagementState> {
++  int _revision = 0;
++  Timer? _expiry;
++  @override
++  MfaManagementState build() {
++    ref.onDispose(() {_revision++; _expiry?.cancel();});
++    ref.listen(authProvider, (previous, next) {
++      if (previous?.userId != next.userId || previous?.role != next.role || !next.isAuthenticated) cancel();
++    });
++    return MfaManagementState(canManage: ref.read(authProvider.notifier).canManageMfa);
++  }
++  void onPasswordChanged(String value) {if (!state.working) state = state.inputs(password: value);}
++  void onFactorChanged(String value) {if (!state.working) state = state.inputs(factor: value);}
++  void onNewCodeChanged(String value) {if (!state.working) state = state.inputs(newCode: value);}
++  Future<void> issueCodes() => _submit(MfaManagementAction.recoveryCodes);
++  Future<void> replace() => _submit(MfaManagementAction.replace);
++  Future<void> _submit(MfaManagementAction action) async {
++    if (!state.canManage || state.working || state.replacement != null || state.recoveryCodes.isNotEmpty) return;
++    final password = state.password, factor = state.factor, revision = ++_revision;
++    if (password.isEmpty || !RegExp(r'^[0-9]{6}$').hasMatch(factor)) {
++      state = MfaManagementState(canManage: true, failed: true); return;
++    }
++    state = const MfaManagementState(canManage: true, working: true);
++    Map<String, dynamic>? result;
++    try {result = await ref.read(authProvider.notifier).manageMfa(action, password, factor);} catch (_) {}
++    if (!ref.mounted || revision != _revision) return;
++    state = result == null ? const MfaManagementState(canManage: true, failed: true)
++      : action == MfaManagementAction.recoveryCodes
++        ? MfaManagementState(canManage: true, recoveryCodes: List<String>.unmodifiable((result['recoveryCodes'] as List).cast<String>()))
++        : MfaManagementState(canManage: true, replacement: result);
++    if (state.replacement != null) {
++      _expiry?.cancel();
++      _expiry = Timer(const Duration(seconds: nativeMfaChallengeLifetimeSeconds), () {if (ref.mounted) cancel();});
++    }
++  }
++  Future<void> confirm() async {
++    final replacement = state.replacement;
++    if (!state.canManage || state.working || replacement == null) return;
++    final code = state.newCode, revision = ++_revision;
++    if (!RegExp(r'^[0-9]{6}$').hasMatch(code)) {
++      state = MfaManagementState(canManage: true, replacement: replacement, failed: true); return;
++    }
++    state = MfaManagementState(canManage: true, replacement: replacement, working: true);
++    var accepted = false;
++    try {accepted = await ref.read(authProvider.notifier).confirmManagedMfa(replacement['challenge'] as String, code);} catch (_) {}
++    if (!ref.mounted || revision != _revision) return;
++    if (accepted) _expiry?.cancel();
++    state = accepted ? const MfaManagementState(canManage: true, finished: true)
++      : MfaManagementState(canManage: true, replacement: replacement, failed: true);
++  }
++  void saved() {if (!state.working) state = MfaManagementState(canManage: state.canManage, finished: true);}
++  void cancel() {
++    _revision++; _expiry?.cancel();
++    if (ref.mounted) state = MfaManagementState(canManage: ref.read(authProvider.notifier).canManageMfa);
++  }
++}
++
++// Codes and setup keys disappear when the management page loses its listener.
++final mfaManagementProvider = NotifierProvider.autoDispose<MfaManagementController, MfaManagementState>(MfaManagementController.new);
+diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart b/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart
+new file mode 100644
+index 00000000..216e128b
+--- /dev/null
++++ b/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart
+@@ -0,0 +1,80 @@
++import 'package:primecare_ui/primecare_ui.dart';
++import 'auth_experience.dart' show PrimeAuthTextField;
++import 'auth_lifecycle_catalog.g.dart';
++import 'mfa_management_controller.dart';
++
++Map<String, String> mfaLifecycleLabels(BuildContext context) =>
++  authLifecycleText[Localizations.localeOf(context).languageCode] ?? authLifecycleText['en']!;
++
++/// Readonly accessible proof text remains transient and is never logged/stored.
++class MfaReplacementKey extends StatelessWidget {
++  final String setupKey;
++  const MfaReplacementKey({super.key, required this.setupKey});
++  @override
++  Widget build(BuildContext context) {
++    final theme = context.theme, text = mfaLifecycleLabels(context);
++    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
++      Text(text['newKey']!, style: theme.typography.bodyMedium), SizedBox(height: theme.spacing.md),
++      Cy(id: 'mfa-lifecycle-newkey', child: Semantics(value: setupKey, textField: true,
++        readOnly: true, excludeSemantics: true, child: SelectableText(setupKey, style: theme.typography.bodyMedium))),
++    ]);
++  }
++}
++
++class NativeMfaManagementForm extends ConsumerWidget {
++  const NativeMfaManagementForm({super.key});
++  @override
++  Widget build(BuildContext context, WidgetRef ref) {
++    final state = ref.watch(mfaManagementProvider), controller = ref.read(mfaManagementProvider.notifier);
++    final text = mfaLifecycleLabels(context), theme = context.theme;
++    final gap = SizedBox(height: theme.spacing.lg);
++    final children = <Widget>[];
++    if (!state.canManage) {
++      return Cy(id: 'mfa-lifecycle-error', child: Semantics(liveRegion: true,
++        child: Text(text['error']!, style: theme.typography.bodyMedium)));
++    }
++    children.add(Cy(id: 'mfa-lifecycle-title', child: Semantics(header: true, child: Text(text['title']!, style: theme.typography.h2))));
++    children.add(gap);
++    if (state.recoveryCodes.isNotEmpty) {
++      children.addAll([
++        Text(text['codes']!, style: theme.typography.bodyMedium), gap,
++        Cy(id: 'mfa-lifecycle-codes', child: Semantics(value: state.recoveryCodes.join('\n'),
++          textField: true, readOnly: true, excludeSemantics: true,
++          child: SelectableText(state.recoveryCodes.join('\n'), style: theme.typography.bodyMedium))), gap,
++        PrimeButton(label: text['saved']!, onPressed: controller.saved, isFullWidth: true, dataCy: 'mfa-lifecycle-saved'),
++      ]);
++    } else if (state.replacement != null) {
++      children.addAll([
++        MfaReplacementKey(setupKey: state.replacement!['setupKey'] as String), gap,
++        PrimeAuthTextField(id: 'mfa-lifecycle-newcode', label: text['newCode']!,
++          initialValue: state.newCode, onChanged: controller.onNewCodeChanged, sensitive: true,
++          enabled: !state.working, keyboardType: TextInputType.number, autofocus: true,
++          autofillHints: const [AutofillHints.oneTimeCode], onSubmitted: (_) => controller.confirm()), gap,
++        PrimeButton(label: text[state.working ? 'working' : 'confirm']!, onPressed: controller.confirm,
++          isLoading: state.working, isFullWidth: true, dataCy: 'mfa-lifecycle-confirm'), gap,
++        PrimeButton(label: text['cancel']!, onPressed: state.working ? null : controller.cancel,
++          isFullWidth: true, dataCy: 'mfa-lifecycle-cancel'),
++      ]);
++    } else if (state.finished) {
++      children.add(Cy(id: 'mfa-lifecycle-done', child: Semantics(liveRegion: true,
++        child: Text(text['done']!, style: theme.typography.bodyMedium))));
++    } else {
++      children.addAll([
++        PrimeAuthTextField(id: 'mfa-lifecycle-password', label: text['password']!,
++          initialValue: state.password, onChanged: controller.onPasswordChanged, password: true,
++          enabled: !state.working, autofillHints: const [AutofillHints.password]), gap,
++        PrimeAuthTextField(id: 'mfa-lifecycle-factor', label: text['factor']!,
++          initialValue: state.factor, onChanged: controller.onFactorChanged, sensitive: true,
++          enabled: !state.working, keyboardType: TextInputType.number,
++          autofillHints: const [AutofillHints.oneTimeCode]), gap,
++        PrimeButton(label: text[state.working ? 'working' : 'issue']!, onPressed: controller.issueCodes,
++          isLoading: state.working, isFullWidth: true, dataCy: 'mfa-lifecycle-issue'), gap,
++        PrimeButton(label: text['replace']!, onPressed: state.working ? null : controller.replace,
++          isFullWidth: true, dataCy: 'mfa-lifecycle-replace'),
++      ]);
++    }
++    if (state.failed) children.addAll([gap, Cy(id: 'mfa-lifecycle-error', child: Semantics(liveRegion: true,
++      child: Text(text['error']!, style: theme.typography.bodyMedium)))]);
++    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: children);
++  }
++}
+diff --git a/packages/primecare_ui/test/auth_mfa_lifecycle_test.dart b/packages/primecare_ui/test/auth_mfa_lifecycle_test.dart
+new file mode 100644
+index 00000000..427a786a
+--- /dev/null
++++ b/packages/primecare_ui/test/auth_mfa_lifecycle_test.dart
+@@ -0,0 +1,77 @@
++import 'dart:async';
++import 'package:flutter/material.dart';
++import 'package:flutter_test/flutter_test.dart';
++import 'package:shared_preferences/shared_preferences.dart';
++import 'package:primecare_ui/primecare_ui.dart';
++import 'package:primecare_ui/src/features/auth/mfa_management_controller.dart';
++import 'package:primecare_ui/src/features/auth/mfa_management_form.dart';
++import 'package:primecare_ui/src/features/auth/mfa_form.dart';
++import 'package:primecare_ui/src/features/auth/auth_lifecycle_catalog.g.dart';
++import 'package:primecare_ui/src/features/auth/mfa_catalog.g.dart';
++import 'auth_design_test.dart' show localized, GuestAuth;
++
++class ManagedPresentationAuth extends AuthNotifier {
++  Completer<Map<String,dynamic>?>? pending;
++  @override
++  AuthState build()=>AuthState(isInitialized:true,isAuthenticated:true,role:'code_admin',userId:'owner',token:List.filled(43,'s').join());
++  @override
++  Future<Map<String,dynamic>?> manageMfa(MfaManagementAction action,String password,String code)async{
++    if(pending!=null)return pending!.future;
++    return action==MfaManagementAction.recoveryCodes
++      ? {'status':'recovery_codes_issued','recoveryCodes':List.generate(10,(i)=>String.fromCharCode(65+i)+List.filled(25,'A').join())}
++      : {'status':'mfa_replacement_required','challenge':List.filled(43,'r').join(),'setupKey':List.filled(32,'B').join()};
++  }
++}
++void main(){
++  TestWidgetsFlutterBinding.ensureInitialized();
++  setUpAll(()async{SharedPreferences.setMockInitialValues({});await EasyLocalization.ensureInitialized();});
++  for(final locale in ['en','fr','es']){
++    testWidgets('MFA lifecycle fits 320px scaled text and saved-code acknowledgement clears secrets in $locale',(tester)async{
++      tester.view.physicalSize=const Size(320,1200);tester.view.devicePixelRatio=1;
++      addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
++      final c=ProviderContainer(overrides:[authProvider.overrideWith(ManagedPresentationAuth.new)]);addTearDown(c.dispose);
++      await tester.pumpWidget(UncontrolledProviderScope(container:c,child:localized(const Scaffold(body:SingleChildScrollView(child:MediaQuery(data:MediaQueryData(textScaler:TextScaler.linear(2)),child:NativeMfaManagementForm()))),language:locale)));
++      await tester.pumpAndSettle();expect(tester.takeException(),isNull);
++      expect(find.text(authLifecycleText[locale]!['title']!),findsOneWidget);
++      final controller=c.read(mfaManagementProvider.notifier);controller.onPasswordChanged('synthetic-password');controller.onFactorChanged('123456');
++      await controller.issueCodes();await tester.pumpAndSettle();expect(tester.takeException(),isNull);
++      expect(c.read(mfaManagementProvider).password,isEmpty);expect(c.read(mfaManagementProvider).factor,isEmpty);
++      expect(find.byType(SelectableText),findsOneWidget);expect(c.read(mfaManagementProvider).recoveryCodes,hasLength(10));
++      controller.saved();await tester.pumpAndSettle();expect(find.byType(SelectableText),findsNothing);
++      expect(c.read(mfaManagementProvider).recoveryCodes,isEmpty);expect(find.text(authLifecycleText[locale]!['done']!),findsOneWidget);
++      await tester.pumpWidget(const SizedBox.shrink());await tester.pump();
++    });
++  }
++  testWidgets('leaving management disposes saved codes and drops a late response',(tester)async{
++    final auth=ManagedPresentationAuth()..pending=Completer<Map<String,dynamic>?>();
++    final c=ProviderContainer(overrides:[authProvider.overrideWith(()=>auth)]);addTearDown(c.dispose);
++    await tester.pumpWidget(UncontrolledProviderScope(container:c,child:localized(const Scaffold(body:NativeMfaManagementForm()))));await tester.pumpAndSettle();
++    final controller=c.read(mfaManagementProvider.notifier);controller.onPasswordChanged('synthetic-password');controller.onFactorChanged('123456');
++    final pending=controller.issueCodes();await tester.pump();
++    await tester.pumpWidget(const SizedBox.shrink());await tester.pump();await c.pump();
++    auth.pending!.complete({'status':'recovery_codes_issued','recoveryCodes':List.filled(10,List.filled(26,'A').join())});
++    await pending;expect(tester.takeException(),isNull);
++    expect(c.read(mfaManagementProvider).recoveryCodes,isEmpty);
++  });
++  testWidgets('recovery clears entered codes and keeps replacement proof transient until a factor is verified',(tester)async{
++    final c=ProviderContainer(overrides:[authProvider.overrideWith(GuestAuth.new)]);addTearDown(c.dispose);
++    final controller=c.read(mfaControllerProvider.notifier);
++    final prompt=controller.request({'purpose':'verify','challenge':List.filled(43,'a').join()},(code)async=>false,
++      recover:(code)async=>{'purpose':'replace','status':'mfa_replacement_required','challenge':List.filled(43,'r').join(),'setupKey':List.filled(32,'B').join()});
++    await tester.pumpWidget(UncontrolledProviderScope(container:c,child:localized(const Scaffold(body:SingleChildScrollView(child:NativeMfaForm())))));await tester.pumpAndSettle();
++    controller.showRecovery();await tester.pumpAndSettle();controller.onRecoveryCodeChanged(List.filled(26,'A').join());
++    await controller.recover();await tester.pumpAndSettle();
++    expect(c.read(mfaControllerProvider).recoveryCode,isEmpty);expect(c.read(mfaControllerProvider).challenge?['purpose'],'replace');
++    expect(c.read(authProvider).isAuthenticated,false);expect(find.byType(SelectableText),findsOneWidget);
++    controller.cancel();await prompt;await tester.pumpAndSettle();expect(find.byType(SelectableText),findsNothing);
++  });
++  testWidgets('challenge expiry removes setup key code and pending login prompt',(tester)async{
++    final c=ProviderContainer(overrides:[authProvider.overrideWith(GuestAuth.new)]);addTearDown(c.dispose);
++    final controller=c.read(mfaControllerProvider.notifier);
++    final prompt=controller.request({'purpose':'enroll','challenge':List.filled(43,'a').join(),'setupKey':List.filled(32,'A').join()},(code)async=>false);
++    await tester.pumpWidget(UncontrolledProviderScope(container:c,child:localized(const Scaffold(body:SingleChildScrollView(child:NativeMfaForm())))));await tester.pumpAndSettle();
++    await tester.pump(const Duration(seconds:nativeMfaChallengeLifetimeSeconds+1));await prompt;await tester.pumpAndSettle();
++    expect(c.read(mfaControllerProvider).pending,false);expect(c.read(mfaControllerProvider).code,isEmpty);
++    expect(find.byType(SelectableText),findsNothing);
++  });
++}
+diff --git a/scripts/generate-cloudflare-worker-config.mjs b/scripts/generate-cloudflare-worker-config.mjs
+index 8f09a6e0..9612aa9a 100644
+--- a/scripts/generate-cloudflare-worker-config.mjs
++++ b/scripts/generate-cloudflare-worker-config.mjs
+@@ -28,6 +28,7 @@ for (const service of services) {
+     ...(service === 'auth' ? {ratelimits:[{name:'AUTH_SOURCE_LIMIT',namespace_id:sourcePolicy.namespaceId,
+       simple:{limit:sourcePolicy.maxAttempts,period:sourcePolicy.windowSeconds}},
+       {name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100402',simple:{limit:120,period:60}}]} : {}),
++    ...(service === 'auth' ? {triggers:{crons:['*/5 * * * *']}} : {}),
+     ...(service === 'provider' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100404',simple:{limit:120,period:60}}]} : {}),
+     ...(service === 'client' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100403',simple:{limit:120,period:60}}]} : {}),
+     ...(service === 'governance' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100401',
+diff --git a/scripts/generate-flutter-auth-lifecycle-catalog.py b/scripts/generate-flutter-auth-lifecycle-catalog.py
+new file mode 100644
+index 00000000..81fe3856
+--- /dev/null
++++ b/scripts/generate-flutter-auth-lifecycle-catalog.py
+@@ -0,0 +1,17 @@
++"""Generate native lifecycle labels from the registered shared surface catalog."""
++import json
++from pathlib import Path
++ROOT = Path(__file__).resolve().parents[1]
++source = json.loads((ROOT / 'packages/shared/src/auth-lifecycle.json').read_text())
++registered = json.loads((ROOT / 'tools/governance-production/auth-lifecycle-surface.json').read_text())
++if source != registered:
++    raise SystemExit('Shared lifecycle catalog differs from registered definition')
++def dart(value):
++    return json.dumps(value, ensure_ascii=False).replace('$', r'\$')
++output = '// Generated from registered auth lifecycle resources; do not edit.\nconst authLifecycleText = <String, Map<String, String>>{\n'
++for locale, values in source['locales'].items():
++    output += '  ' + dart(locale) + ': {\n'
++    output += ''.join('    ' + dart(key) + ': ' + dart(value) + ',\n' for key, value in values.items())
++    output += '  },\n'
++output += '};\n'
++(ROOT / 'packages/primecare_ui/lib/src/features/auth/auth_lifecycle_catalog.g.dart').write_text(output)
+diff --git a/scripts/generate-flutter-mfa-catalog.py b/scripts/generate-flutter-mfa-catalog.py
+index 7a481b7d..9d5e19d4 100644
+--- a/scripts/generate-flutter-mfa-catalog.py
++++ b/scripts/generate-flutter-mfa-catalog.py
+@@ -8,4 +8,5 @@ s='// Generated from packages/shared/src/auth-mfa.json; do not edit.\nconst nati
+ for locale,strings in d.items():
+  s+='  '+dart(locale)+': {\n'+''.join('    '+dart(k)+': '+dart(v)+',\n' for k,v in strings.items())+'  },\n'
+ s+='};\n'
++s+='const nativeMfaChallengeLifetimeSeconds = '+str(json.loads((root/'tools/governance-production/mfa-registration.json').read_text())['challenge']['expiresSeconds'])+';\n'
+ (root/'packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart').write_text(s)
+diff --git a/scripts/test-worker-inheritance.mjs b/scripts/test-worker-inheritance.mjs
+index 6baf4ea8..11e79ec1 100644
+--- a/scripts/test-worker-inheritance.mjs
++++ b/scripts/test-worker-inheritance.mjs
+@@ -40,6 +40,16 @@ test('unhandled gateway failures retain rejection semantics', async () => {
+   class Worker extends BaseWorker {async handle(){throw Error('binding unavailable');}}
+   await assert.rejects(workerHandler(new Worker()).fetch(new Request('https://fixture'),{}),/binding unavailable/);
+ });
++test('scheduled work inherits the shared lifecycle without retaining another environment', async () => {
++  const completed=[];
++  class Worker extends BaseWorker {
++    async handle(){return new Response('ok');}
++    async scheduled(_event,env){await Promise.resolve();completed.push(env.name);}
++  }
++  const {scheduled}=workerHandler(new Worker());
++  await Promise.all(['first','second'].map(name=>scheduled({}, {name})));
++  assert.deepEqual(completed,['first','second']);
++});
+ const noDatabase={name:'no-database',setup(builder){
+   builder.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));
+   builder.onLoad({filter:/.*/,namespace:'fixture'},()=>({loader:'js',contents:'export class Client {constructor(){throw Error("Unexpected database access")}}'}));

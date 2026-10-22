@@ -1,0 +1,28 @@
+{
+  "base": "300783ff9b07cbc08fe2f1efd2d3abc8dbe61aaa",
+  "sha256": "3a9b2f120892a3269a17e477785d82235da65e1a0c9116182fe83326039a6fac",
+  "paths": [
+    "cloudflare/workers/src/auth.ts",
+    "cloudflare/workers/src/core/base-worker.ts",
+    "cloudflare/workers/src/security/mfa-lifecycle.mjs",
+    "cloudflare/workers/src/service-application.ts",
+    "packages/flutter_core/lib/auth_service.dart",
+    "packages/flutter_core/lib/src/application/controllers/auth_notifier.dart",
+    "packages/flutter_core/lib/src/network/api_client.dart",
+    "packages/flutter_core/test/auth_mfa_management_test.dart",
+    "packages/flutter_core/test/auth_mfa_test.dart",
+    "packages/primecare_ui/lib/src/features/auth/auth_experience.dart",
+    "packages/primecare_ui/lib/src/features/auth/auth_lifecycle_catalog.g.dart",
+    "packages/primecare_ui/lib/src/features/auth/login_controller.dart",
+    "packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart",
+    "packages/primecare_ui/lib/src/features/auth/mfa_controller.dart",
+    "packages/primecare_ui/lib/src/features/auth/mfa_form.dart",
+    "packages/primecare_ui/lib/src/features/auth/mfa_management_controller.dart",
+    "packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart",
+    "packages/primecare_ui/test/auth_mfa_lifecycle_test.dart",
+    "scripts/generate-cloudflare-worker-config.mjs",
+    "scripts/generate-flutter-auth-lifecycle-catalog.py",
+    "scripts/generate-flutter-mfa-catalog.py",
+    "scripts/test-worker-inheritance.mjs"
+  ]
+}
