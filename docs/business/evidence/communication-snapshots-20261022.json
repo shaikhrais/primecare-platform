@@ -1,0 +1,65 @@
+{
+  "sourceCommit": "baf1a8771adbab2c0eee1a707285e87a8d3ff962",
+  "verificationRun": 39854992734,
+  "scope": "Shared communication input snapshots before asynchronous authorization",
+  "regressions": {
+    "previousSource": "5c83f773fb5e544ba7eb40cd2e2ec5a9b26e7fc0",
+    "previousSourceFailed": 3,
+    "fixedSourcePassed": 3,
+    "cases": [
+      "attachment list and retry fingerprint",
+      "upload byte copy before authorization",
+      "nested signal and retry fingerprint"
+    ]
+  },
+  "local": {
+    "nodePassed": 123,
+    "nodeSkipped": 1,
+    "nodeFailed": 0,
+    "skipReason": "Native PostgreSQL unavailable locally; verified in CI",
+    "strictTypeScript": "passed",
+    "metadataReportTestsPassed": 10,
+    "registeredApiCount": 7,
+    "generatedActionCount": 17
+  },
+  "ci": {
+    "nativeNodePassed": 125,
+    "nativeNodeFailed": 0,
+    "nativeNodeSkipped": 0,
+    "browserMediaPassed": 3,
+    "mediaArtifactId": 12459242458,
+    "dartAnalysis": "passed",
+    "dartHarness": "passed",
+    "flutter": "passed",
+    "inventory": "passed",
+    "flutterPassed": 543,
+    "metadataReportTestsPassed": 10,
+    "allFiveJobs": "success",
+    "registryArtifactId": 12458942760,
+    "jobs": {
+      "media": 120090783900,
+      "isolated": 120090784015,
+      "flutter-transport": 120090784075,
+      "inventory": 120090784169,
+      "dart-core": 120090784254
+    }
+  },
+  "onlyRemoteBranch": "main",
+  "roleGrantsChanged": false,
+  "activationChanged": false,
+  "allUserReleaseVerified": false,
+  "liveBusinessEmailSendReceiveVerified": false,
+  "remaining": [
+    "registered native case/contact/mailbox policies and grants",
+    "private image decoder/scanner/storage composition",
+    "communication worker and gateway mounting",
+    "shared user-facing screens",
+    "deployed user acceptance"
+  ],
+  "productionAudit": {
+    "sourceCommit": "baf1a8771adbab2c0eee1a707285e87a8d3ff962",
+    "matchingActiveRoleApiAndScreenGrants": 0,
+    "registeredApiCount": 7,
+    "writesAttempted": false
+  }
+}

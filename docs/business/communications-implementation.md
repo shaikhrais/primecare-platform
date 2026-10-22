@@ -427,3 +427,15 @@ The repository still lacks a registered native case/contact/mailbox policy sourc
 and live image-decoder/scanner/private-storage composition. Same-tenant defaults
 alone cannot substitute for those missing clinical/HR and mailbox relationships.
 The communication worker remains unmounted and user screens remain unfinished.
+
+
+[Run 39854992734](https://github.com/shaikhrais/primecare-platform/actions/runs/39854992734)
+passed all five jobs on source `baf1a8771adbab2c0eee1a707285e87a8d3ff962`:
+125 native/service/shared Node tests and three browser media tests (128 total,
+zero failed/skipped), 543 Flutter tests, ten metadata report tests, strict
+TypeScript, Dart analysis and the pure Dart harness. The three new mutation
+regressions passed using isolated native PostgreSQL, not only memory storage.
+Media artifact 12459242458 and registry artifact 12458942760 preserve the run.
+The fresh read-only audit still reports no matching grants for the seven registered
+communication APIs; all-user production rollout remains unverified. See
+[evidence/communication-snapshots-20261022.json](evidence/communication-snapshots-20261022.json).
