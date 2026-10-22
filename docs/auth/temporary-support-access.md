@@ -1,6 +1,6 @@
 # Temporary elevation and tenant support
 
-Status: requirements and contracts are defined; consult successful production registration, schema and acceptance receipts before treating any endpoint as available. No role grant, independent review or production readiness is implied by this design.
+Status: deployed scoped engineering is verified for source `116d1eb30108f4590493a3cf1a209d7d5312ac63`. The [EN/FR/ES browser/API/database/reload producer](https://github.com/shaikhrais/primecare-platform/actions/runs/39733869467) and [scoped production evidence recorder](https://github.com/shaikhrais/primecare-platform/actions/runs/39735678464) passed. No role grant, independent review approval or whole-platform production readiness is implied.
 
 Code Admin verifies the current password and a fresh, unreplayed authenticator code for one explicit action: `tenant_security_summary`. The server issues an opaque elevation ID bound to the verified user, home tenant and hashed current session. It expires within 900 seconds. The normal role and session lifetime do not change.
 
@@ -25,6 +25,8 @@ Each summary request rechecks the requesting session, current account status and
 Lock the actor before capability records, matching MFA/session mutation ordering. Fresh authenticator consumption and elevation issuance must commit with their audit. Approval, revocation and summary access must commit with their audit. Recheck actor and session inside the transaction. Use current database time for expiry and server-derived identity for all authority decisions. Role changes, disabling the actor, logout, password change, MFA replacement, session expiry or revocation must deny later use without relying on a UI timer.
 
 A rejected proof is bounded by the registered per-user proof limit. List and summary operations need bounded authenticated traffic limits. Denied requests must disclose no other tenant's records. The UI clears passwords, factors and transient capability IDs on cancellation, expiry, logout, actor replacement and disposal. Core services own endpoints, scope and authority validation; presentation renders the registered EN/FR/ES catalog.
+
+The tenant account view loads pending requests after verified session restoration. Actor replacement or sign-out clears proof state and discards queued or late reads. Core services and the server retain authority over every request.
 
 ## Required acceptance
 

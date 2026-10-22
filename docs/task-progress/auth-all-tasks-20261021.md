@@ -1,35 +1,45 @@
-# Auth completion: source integrated, release gates pending
+# Auth: scoped engineering verified; external acceptance pending
 
-The user requested completion of all auth tasks. Work remains main-only with expected-head publication. Source integration is not proof of deployed acceptance or independent approval.
+The user requested completion of auth work. Implementation is committed directly on main with expected-head updates. Runtime source is `116d1eb30108f4590493a3cf1a209d7d5312ac63`. Source integration, scoped automated evidence and independent approval are separate states.
 
-## Paused at user request — 2026-10-22
+## Verified engineering and deployment — 2026-10-22
 
-All implementation and diagnostic fixes are committed on main through `3bf9bd3d4ff2d4c228e2e7656bf8b2bccdb78313`. No new branch or pull request was created. The user requested a break and a committed checkpoint.
+- Recovery/replacement and temporary tenant support are integrated. Their four recovery APIs, seven elevation/support APIs and 43 controls were registered in pinned production governance before implementation. No role grant or owner-account assignment was added by registration or evidence recording.
+- Native PostgreSQL and Flutter verification/release [39732810463](https://github.com/shaikhrais/primecare-platform/actions/runs/39732810463) passed. This includes text/UUID identities, atomic single-use recovery, rollback, session revocation, lock-wait expiry, outbox leases, key rotation and scoped-evidence writer guards. Auth Worker unit/PostgreSQL run [39732810365](https://github.com/shaikhrais/primecare-platform/actions/runs/39732810365) also passed.
+- Tenant approval now loads pending requests after verified session restoration. A queued refresh is discarded on sign-out or actor replacement. Regression tests cover both transitions. All nine portal deployments of this shared UI fix (`f3dc3de067387576930d67bfcdf7e1ec3067bd64`) passed.
+- Browser verification synchronizes canvas scrolling before pointer interaction and confirms entered values once. Five deployed focus cases passed [39727599322](https://github.com/shaikhrais/primecare-platform/actions/runs/39727599322); the browser fixture rejects dropped input without silently retrying. Diagnostic runs earn no auth acceptance credit.
+- Native MFA baseline [39732810427](https://github.com/shaikhrais/primecare-platform/actions/runs/39732810427) passed EN320, FR768 and ES1440 with exact synthetic cleanup. Its six-control scoped recorder [39733513965](https://github.com/shaikhrais/primecare-platform/actions/runs/39733513965) passed.
+- The previous full lifecycle run [39730345167](https://github.com/shaikhrais/primecare-platform/actions/runs/39730345167) passed complete English and French journeys, including tenant approval, aggregate-only access and revocation. Spanish stopped before its first password exchange. That failed overall receipt was not recorded as complete. Remaining base controls now use synchronized clicks; final evidence must still pass every locale.
+- Broader automated, monorepo, Unified Dart, Auth Gateway and workflow-contract checks passed for the shared UI fix. The earlier isolated full API fixture completed 3741 tests; fixture counts remain separate from live completion evidence.
 
-Since the source integration, stale blocked-route fingerprints and technical traceability were refreshed without changing authority or completion counts. Offline diagnostics now handle attributed JSON imports correctly; all10 targeted Newman/diagnostic tests passed. The isolated full API fixture/regression command completed successfully with3741 tests; its reconstructed fixture counts are separate from the committed finite baseline and earn no live completion credit. The prior combined native/Flutter candidate passed464 tests and the release build; newer main CI, deployed lifecycle acceptance, actual binding proof, v2 selection and scoped production evidence still need their latest results checked before any completion claim. V1 remains selected and retained. Independent reviews and physical-device acceptance remain pending.
+## Actual v2 storage-key proof
 
-Resume from current remote main, inspect CI and deployment state first, and preserve the pinned production governance authority. Do not interpret this checkpoint or running CI as completed live auth acceptance.
+Canonical deployment policy selects `mfa-v2`, migrates from `mfa-v1` in bounded batches of 10, and retains both bindings for rollback. Release 39732810463 observed the actual scheduled report at `2026-10-22T06:25:36.127Z`:
 
-## Verified engineering
+| Evidence | Result |
+| --- | --- |
+| Public keyring source | `2b72992b936147a070d3096c8b99f5fca2129dcf4d5a4ce238ea47b237c31923` |
+| Actual binding round trip | Verified v1 → v2 → v1 |
+| Active key | `mfa-v2` |
+| Credentials rewrapped in observed batch | 1 |
+| Remaining v1 credentials | 0 |
+| Remaining v1 replacement envelopes | 0 |
+| Old binding deleted | No |
 
-- Existing web login, account management, owned-inbox password recovery and session controls previously passed live acceptance; their individual records retain the scoped evidence.
-- Native Flutter baseline fixes cover rejected-code clearing, focus restoration, seed semantics, cancellation, replay, malformed replies and cleanup of provisional authority. The gateway now allows the uncached bearer identity-confirmation preflight from trusted origins; release39710256085 passed live checks and denied foreign origins.
-- Combined candidate39708692059 passed339 core,121 presentation and4 clinic routing tests plus the release browser build. Candidate39712375505 attempt2 passed again, including native PostgreSQL text/UUID identities, concurrency, rollback, both lock-wait expiry cases, outbox leases and rotation reports. These are automated engineering checks, not independent reviews.
-- All four recovery/replacement APIs and seven elevation/support APIs were registered in pinned production governance before implementation. The lifecycle schema was applied by39698578870; privileged schema and later native validation passed39702804382,39704263356 and39705401276. Registration and schema pipelines did not assign accounts or grant roles.
-- Recovery/replacement now has native Flutter forms and core-owned authority handling, fresh password/factor proof, atomic single-use saved codes, five-minute replacement challenges, confirmation before factor replacement, session/code revocation and a durable localized notification queue. Temporary support requires fresh Code Admin proof, an originating session, a bounded aggregate-only scope, explicit tenant-admin approval and revocation, and transactional audit.
-- V2 encryption binding preparation39703637272 succeeded without exporting or changing v1. The source still selects v1. The scheduled drill verifies actual bindings in both directions; migration reports count every old credential and pending replacement envelope. No old key has been deleted.
-- Source fingerprints were refreshed without changing1063 unrelated unresolved operations or giving API implementation/retirement credit. The new scoped recorder requires complete EN320/FR768/ES1440 live browser/API/database/reload proof and exact synthetic cleanup. It cannot award review, physical-device, inbox-delivery or whole-platform readiness credit.
+Rewrap verifies that authenticator seed bytes are preserved. The report contains aggregate counts and public source identifiers, never key material or account identities. Pending live replacement proof is deferred; expired replacement cleanup is bounded. The old key is retained pending retirement/rollback review.
 
-## Release and acceptance still required
+## Final scoped acceptance — verified
 
-The former isolated patch is retained as historical candidate evidence. The manifest now binds exact promoted source hashes. Its workflow validates native PostgreSQL and Flutter source before the protected auth-only release, verifies pinned production contracts and exact schemas in rollback, preserves existing key bindings, and observes a source-matched scheduled cryptographic drill. Check the actual run before calling the release successful.
+The source-bound v2 producer [39733869467](https://github.com/shaikhrais/primecare-platform/actions/runs/39733869467) passed the complete browser/API/database/reload journeys in EN320, FR768 and ES1440. Every locale passed exact synthetic cleanup and persisted `mfa-v2` assertions for enrollment, factor replacement and lost-factor recovery. Scoped production recorder [39735678464](https://github.com/shaikhrais/primecare-platform/actions/runs/39735678464) succeeded at `2026-10-22T06:43:15Z` for source `116d1eb3`: 11 APIs and 43 controls, with independent approvals and whole-platform readiness explicitly false.
 
-Live baseline39711859484 confirmed fresh enrolled identity, then exposed a test reload racing its own logout request. The producer now requires successful server logout acknowledgement before reloading and still requires a401 server check afterward. No failed producer is accepted as complete evidence.
+Recovery requires a fresh password challenge and one saved code, then confirmation of a new factor before authority is retained. Saved-code hashes are single-use and context-bound. Replacement revokes old sessions/codes. Temporary support requires fresh Code Admin proof, an originating session, a 900-second aggregate-only scope, explicit target-tenant approval/revocation and transactional audit. It exposes no clinical records or impersonated session.
 
-The lifecycle producer runs only after a successful promoted-source release. It verifies saved-code display and hashing, replacement cancellation and confirmation, lost-factor recovery, revocation, explicit tenant approval, rejection of wrong approval passwords, aggregate-only responses, localized values, audits and reload. Its source-bound result must pass before the43 registered controls and11 APIs can receive scoped implementation evidence. Queue acceptance is not inbox-delivery proof.
+## Supporting isolated browser CI
 
-After that proof, select v2 through the canonical deployment policy, run the actual binding drill, observe zero old envelopes, and repeat recovery against v2. Retain v1 until its retirement conditions and rollback needs have been reviewed; it has not been removed.
+The triggered current-password browser job exposed an esbuild import-attribute identity being treated as a filename. Commit `04879917a486350c6df711fec700b171fd109975` shares the strict JSON-input path normalizer with offline diagnostics. All 10 diagnostic tests and the actual esbuild 0.27.2 attributed source-byte check passed locally. The [Chromium/Firefox/WebKit isolated password-browser rerun 39736485045](https://github.com/shaikhrais/primecare-platform/actions/runs/39736485045) passed in all three engines. This proof uses native disposable PostgreSQL and supplies no deployed or physical-device credit. Auth Worker text/UUID tests [39736485051](https://github.com/shaikhrais/primecare-platform/actions/runs/39736485051) and workflow-contract checks [39736485055](https://github.com/shaikhrais/primecare-platform/actions/runs/39736485055) also passed after this verification-only change.
 
-## External acceptance remains pending
+## External acceptance still pending
 
-Independent architecture, database, security, accessibility and localization reviews, plus real physical-device acceptance, remain required external gates. Automated checks and the owner's earlier Android login do not supply those approvals. The immutable requirement registration and review history remain preserved; source-bound evidence records supply scoped current engineering status without rewriting approvals.
+Independent architecture, database, security, accessibility and localization reviews, plus physical-device acceptance, remain external gates. Automated checks and the owner's earlier Android login do not supply those approvals. Security notices are durably queued or transport-acknowledged; inbox delivery is not claimed. V1 key retirement remains subject to its review and rollback conditions.
+
+The pinned PostgreSQL governance authority remains unchanged. The immutable requirement registration and pending review history are preserved; source-bound scoped engineering evidence does not award whole-platform production-readiness credit or resolve unrelated governance consumers.
