@@ -1,52 +1,59 @@
-"""Probe the existing login UI with a unique, deliberately nonexistent account."""
-import os
-import sys
-sys.path.insert(0,os.getcwd())
-from tools.deployment.flutter_browser import fill_flutter_field
+"""Compare browser login dispatch using unique nonexistent accounts only."""
 import json
+import os
+import re
 import secrets
+import sys
 import uuid
 from urllib.parse import urlsplit
+sys.path.insert(0, os.getcwd())
+from tools.deployment.flutter_browser import fill_flutter_field, click_flutter_control
 from playwright.sync_api import sync_playwright
 
-report = {'synthetic_nonexistent_account': True, 'email_requested': False, 'events': []}
-email = 'qa-no-account-' + uuid.uuid4().hex + '@example.test'
-password = secrets.token_urlsafe(24)
-def safe(error):
-    return str(error).replace(email, '[synthetic-email]').replace(password, '[synthetic-password]')[:600]
-def event(kind, request, status=None):
-    url = urlsplit(request.url)
-    if '/auth/' in url.path or request.resource_type in ('fetch', 'xhr'):
-        report['events'].append({'kind': kind, 'host': url.hostname, 'path': url.path, 'method': request.method, 'status': status})
-with sync_playwright() as p:
-    browser = p.chromium.launch()
-    page = browser.new_page(viewport={'width': 320, 'height': 1000}, locale='en')
-    page.on('request', lambda r: event('request', r))
-    page.on('response', lambda r: event('response', r.request, r.status))
-    page.on('requestfailed', lambda r: (event('request_failed', r), report.setdefault('network_failures', []).append(safe(r.failure))))
-    page.on('console', lambda m: report.setdefault('cors_errors', []).append(safe(m.text)) if 'CORS' in m.text or 'Cross-Origin' in m.text else None)
-    page.on('pageerror', lambda e: report.setdefault('page_errors', []).append(safe(e)))
+report = {'synthetic_nonexistent_account': True, 'acceptanceCredit': False, 'email_requested': False, 'cases': []}
+with sync_playwright() as pw:
+    browser = pw.chromium.launch()
     try:
-        page.goto('https://primecare-clinic.pages.dev/login?enable-semantics=true', wait_until='domcontentloaded')
-        field_email = page.get_by_role('textbox', name=__import__('re').compile(r'^login-email\b'))
-        field_password = page.get_by_role('textbox', name=__import__('re').compile(r'^login-password\b'))
-        fill_flutter_field(page, field_email, email)
-        fill_flutter_field(page, field_password, password)
-        report['input_lengths'] = [len(field_email.input_value()), len(field_password.input_value())]
-        report['button_semantics'] = page.locator('[role="button"]').evaluate_all('(els)=>els.map(e=>({label:e.getAttribute("aria-label"),text:e.textContent,disabled:e.getAttribute("aria-disabled")}))')
-        submit = page.locator('[aria-label="login-submit"][role="button"], [aria-label="login-submit"] [role="button"]')
-        report['matching_buttons'] = submit.count()
-        submit.click()
-        page.wait_for_timeout(5000)
-        report['after_click_notices'] = [s for s in ['Please enter both credentials.', 'Authentication failed. Please verify your credentials.', 'A connection error occurred. Please try again.'] if page.get_by_text(s, exact=True).count()]
-        report['click_events'] = len(report['events'])
-        if not report['events']:
-            field_password.press('Enter')
-            page.wait_for_timeout(5000)
-            report['after_enter_notices'] = [s for s in ['Please enter both credentials.', 'Authentication failed. Please verify your credentials.', 'A connection error occurred. Please try again.'] if page.get_by_text(s, exact=True).count()]
-        report['final_path'] = urlsplit(page.url).path
-    except Exception as e:
-        report['error'] = safe(e)
+        for locale, width in [('en', 320), ('fr', 768), ('es', 1440)]:
+            for mode in ['direct_click', 'settled_click']:
+                case = {'locale': locale, 'width': width, 'mode': mode, 'events': []}
+                report['cases'].append(case)
+                email, password = 'qa-no-account-' + uuid.uuid4().hex + '@example.test', secrets.token_urlsafe(24)
+                context = browser.new_context(viewport={'width': width, 'height': 1000}, locale=locale)
+                page = context.new_page()
+                def event(kind, request, status=None):
+                    location = urlsplit(request.url)
+                    if location.path == '/v1/auth/login':
+                        case['events'].append({'kind': kind, 'method': request.method, 'status': status})
+                page.on('request', lambda request: event('request', request))
+                page.on('response', lambda response: event('response', response.request, response.status))
+                try:
+                    case['stage'] = 'select language'
+                    page.goto('https://primecare-clinic.pages.dev/language?locale=' + locale + '&enable-semantics=true', wait_until='domcontentloaded')
+                    page.get_by_role('button', name={'en':'English','fr':'Français','es':'Español'}[locale], exact=True).click()
+                    page.goto('https://primecare-clinic.pages.dev/login?locale=' + locale + '&enable-semantics=true', wait_until='domcontentloaded')
+                    case['stage'] = 'enter email'
+                    email_field = page.get_by_role('textbox', name=re.compile(r'^login-email\b'))
+                    fill_flutter_field(page, email_field, email)
+                    case['stage'] = 'enter password'
+                    password_field = page.get_by_role('textbox', name=re.compile(r'^login-password\b'))
+                    fill_flutter_field(page, password_field, password)
+                    case['input_lengths'] = [len(email_field.input_value()), len(password_field.input_value())]
+                    control = page.locator('[aria-label="login-submit"][role="button"], [aria-label="login-submit"] [role="button"]')
+                    case['stage'] = 'submit login'
+                    with page.expect_response(lambda response: urlsplit(response.url).path == '/v1/auth/login' and response.request.method == 'POST') as response:
+                        if mode == 'settled_click':
+                            click_flutter_control(control)
+                        else:
+                            control.click()
+                    case['status'] = response.value.status
+                    case['rejected_nonexistent_account'] = response.value.status == 401
+                    case['stage'] = 'complete'
+                except Exception as error:
+                    case['failureKind'] = type(error).__name__ if type(error).__name__ in ['AssertionError','TimeoutError','Error'] else 'diagnostic_error'
+                    case['path'] = urlsplit(page.url).path
+                finally:
+                    context.close()
     finally:
         browser.close()
 print('LOGIN_UI_DIAGNOSIS ' + json.dumps(report))
