@@ -40,6 +40,10 @@ The triggered current-password browser job exposed an esbuild import-attribute i
 
 ## External acceptance still pending
 
-Independent architecture, database, security, accessibility and localization reviews, plus physical-device acceptance, remain external gates. Automated checks and the owner's earlier Android login do not supply those approvals. Security notices are durably queued or transport-acknowledged; inbox delivery is not claimed. V1 key retirement remains subject to its review and rollback conditions.
+Independent architecture, database, security, accessibility and localization reviews, plus physical-device acceptance, remain external gates. Automated checks and the owner's earlier Android login do not supply those approvals. Owned QA inbox batch delivery now passed for 15 security notices across EN/FR/ES; per-event provider-ID mapping and external mailbox-provider delivery are not claimed. V1 key retirement remains subject to its review and rollback conditions.
 
 The pinned PostgreSQL governance authority remains unchanged. The immutable requirement registration and pending review history are preserved; source-bound scoped engineering evidence does not award whole-platform production-readiness credit or resolve unrelated governance consumers.
+
+## Review follow-up completed — 2026-10-22
+
+The technical review and actual domain inbox check are recorded in [auth-review-20261022.md](../auth/auth-review-20261022.md). Native API/DB/scheduled-sender/receiving-Worker run [39772742647](https://github.com/shaikhrais/primecare-platform/actions/runs/39772742647) received five localized notices per language, with guarded account/tenant/mail cleanup and prior mail preserved. The browser helper now re-resolves a replaced semantics node before one click; five browser regressions passed. Final lifecycle/support producer [39774933735](https://github.com/shaikhrais/primecare-platform/actions/runs/39774933735), source `4ada3b87`, passed 103 checks and cleanup in each locale. Scoped recorder [39777265212](https://github.com/shaikhrais/primecare-platform/actions/runs/39777265212) passed. Earlier failed interaction receipts remain failures; independent approvals and whole-platform readiness remain false. No production auth API/UI behavior changed during this review.
