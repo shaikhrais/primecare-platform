@@ -11,7 +11,8 @@ void main() {
   setUpAll(() async { SharedPreferences.setMockInitialValues({}); await EasyLocalization.ensureInitialized(); });
   for (final language in ['en','fr','es']) {
     testWidgets('MFA setup fits small viewport in $language; wrong code clears, cancel removes challenge', (tester) async {
-      final semantics = tester.ensureSemantics();addTearDown(semantics.dispose);
+      final semantics = tester.ensureSemantics();
+      try {
       tester.view.physicalSize = const Size(320, 1200); tester.view.devicePixelRatio = 1;
       addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
       final container=ProviderContainer(overrides:[authProvider.overrideWith(GuestAuth.new)]);addTearDown(container.dispose);
@@ -37,6 +38,7 @@ void main() {
       expect(submitted, '123456');
       controller.cancel();await pending;await tester.pumpAndSettle();
       expect(container.read(mfaControllerProvider).challenge,isNull);expect(find.byType(TextFormField),findsNothing);
+      } finally { semantics.dispose(); }
     });
   }
   test('codes outside an active challenge are ignored', () {

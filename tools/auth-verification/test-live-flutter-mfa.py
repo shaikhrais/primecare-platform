@@ -138,7 +138,13 @@ def main():
                         step = 'render setup key semantics'
                         visible = page.locator('[aria-label^="mfa-seed"]')
                         visible.wait_for()
-                        rendered = visible.evaluate("(e, seed) => [e, ...e.querySelectorAll('*')].some(n => (n.getAttribute('aria-label') || '').includes(seed) || (n.getAttribute('aria-valuetext') || '').includes(seed) || (n.textContent || '').includes(seed) || n.value === seed)", seed)
+                        # Flutter may publish the input node before its value in
+                        # the next semantics frame. Wait for the exact key value.
+                        try:
+                            page.wait_for_function("seed => [...document.querySelectorAll('[aria-label^=\"mfa-seed\"]')].some(e => [e, ...e.querySelectorAll('*')].some(n => (n.getAttribute('aria-label') || '').includes(seed) || (n.getAttribute('aria-valuetext') || '').includes(seed) || (n.textContent || '').includes(seed) || n.value === seed))", arg=seed, timeout=15000)
+                            rendered = True
+                        except Exception:
+                            rendered = False
                         if not rendered:
                             # Diagnostic structure only; scrub the synthetic setup
                             # key and credentials before writing any evidence.
