@@ -77,6 +77,7 @@ test('two real Chromium peers exchange audio packets, mute and release tracks',a
   assert.equal(result.muted,true);assert.equal(result.unmuted,true);assert.equal(result.stopped,true);
   result.transport=transport;
   result.audioPassed=transport.every(peer=>peer.audioPacketsReceived>0);
+  result.browserVersion=browser.version();
   mkdirSync('test-results/business-communications-media',{recursive:true});
   writeFileSync('test-results/business-communications-media/audio-transport-test.json',JSON.stringify({synthetic:true,productUi:false,...result},null,2));
   // This records a transport test result, not a product UI or deployed Flutter screenshot.
