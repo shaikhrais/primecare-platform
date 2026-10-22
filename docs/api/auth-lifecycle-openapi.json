@@ -1,0 +1,2192 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare registered MFA lifecycle and temporary support contracts",
+    "version": "1.0.0",
+    "description": "Generated from pinned registration definitions. This file establishes no activation, role grants or independent approval."
+  },
+  "servers": [
+    {
+      "url": "https://primecare-api-gateway.itpro-mohammed.workers.dev"
+    }
+  ],
+  "paths": {
+    "/v1/auth/mfa/recovery-codes": {
+      "post": {
+        "operationId": "auth_mfa_lifecycle_codes",
+        "description": "Registered contract. Deployment and verification status are tracked separately. Permission: self_code_admin_mfa",
+        "x-permission-key": "self_code_admin_mfa",
+        "security": [
+          {
+            "sessionBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated operation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status",
+                    "recoveryCodes"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "recovery_codes_issued"
+                    },
+                    "recoveryCodes": {
+                      "type": "array",
+                      "minItems": 10,
+                      "maxItems": 10,
+                      "items": {
+                        "type": "string",
+                        "pattern": "^[A-Z2-7]{26}$"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": "recovery_codes_issued",
+                  "recoveryCodes": [
+                    "AAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "BAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "CAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "DAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "EAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "FAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "GAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "HAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "IAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "JAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, stale or rejected authority or proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor, scope or tenant not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Required authority, audit, database or cryptographic service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "password",
+                  "code"
+                ],
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Maximum 72 UTF-8 bytes"
+                  },
+                  "code": {
+                    "type": "string",
+                    "pattern": "^[0-9]{6}$"
+                  }
+                }
+              },
+              "example": {
+                "password": "[current password]",
+                "code": "123456"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa/replacement": {
+      "post": {
+        "operationId": "auth_mfa_lifecycle_replace",
+        "description": "Registered contract. Deployment and verification status are tracked separately. Permission: self_code_admin_mfa",
+        "x-permission-key": "self_code_admin_mfa",
+        "security": [
+          {
+            "sessionBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated operation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status",
+                    "challenge",
+                    "setupKey"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "mfa_replacement_required"
+                    },
+                    "challenge": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9_-]{43}$"
+                    },
+                    "setupKey": {
+                      "type": "string",
+                      "pattern": "^[A-Z2-7]{32}$"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "mfa_replacement_required",
+                  "challenge": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "setupKey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, stale or rejected authority or proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor, scope or tenant not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Required authority, audit, database or cryptographic service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "password",
+                  "code"
+                ],
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Maximum 72 UTF-8 bytes"
+                  },
+                  "code": {
+                    "type": "string",
+                    "pattern": "^[0-9]{6}$"
+                  }
+                }
+              },
+              "example": {
+                "password": "[current password]",
+                "code": "123456"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa/recovery": {
+      "post": {
+        "operationId": "auth_mfa_lifecycle_recover",
+        "description": "Registered contract. Deployment and verification status are tracked separately. Permission: password_verified_mfa_replacement_challenge",
+        "x-permission-key": "password_verified_mfa_replacement_challenge",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Validated operation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status",
+                    "challenge",
+                    "setupKey"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "mfa_replacement_required"
+                    },
+                    "challenge": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9_-]{43}$"
+                    },
+                    "setupKey": {
+                      "type": "string",
+                      "pattern": "^[A-Z2-7]{32}$"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "mfa_replacement_required",
+                  "challenge": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "setupKey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, stale or rejected authority or proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor, scope or tenant not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Required authority, audit, database or cryptographic service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "challenge",
+                  "recoveryCode"
+                ],
+                "properties": {
+                  "challenge": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_-]{43}$"
+                  },
+                  "recoveryCode": {
+                    "type": "string",
+                    "pattern": "^[A-Z2-7]{26}$"
+                  }
+                }
+              },
+              "example": {
+                "challenge": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "recoveryCode": "AAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa/replacement/confirm": {
+      "post": {
+        "operationId": "auth_mfa_lifecycle_confirm",
+        "description": "Registered contract. Deployment and verification status are tracked separately. Permission: password_verified_mfa_replacement_challenge",
+        "x-permission-key": "password_verified_mfa_replacement_challenge",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Validated operation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status",
+                    "token",
+                    "userId",
+                    "role"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "authenticated"
+                    },
+                    "token": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9_-]{43}$"
+                    },
+                    "userId": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "const": "code_admin"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "authenticated",
+                  "token": "example",
+                  "userId": "example",
+                  "role": "code_admin"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, stale or rejected authority or proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor, scope or tenant not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Required authority, audit, database or cryptographic service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "challenge",
+                  "code"
+                ],
+                "properties": {
+                  "challenge": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_-]{43}$"
+                  },
+                  "code": {
+                    "type": "string",
+                    "pattern": "^[0-9]{6}$"
+                  }
+                }
+              },
+              "example": {
+                "challenge": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "code": "123456"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa/elevation": {
+      "post": {
+        "operationId": "auth_elevation",
+        "description": "Registered contract. Deployment and verification status are tracked separately. Permission: self_code_admin_elevation",
+        "x-permission-key": "self_code_admin_elevation",
+        "security": [
+          {
+            "sessionBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated operation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status",
+                    "elevationId",
+                    "expiresAt",
+                    "scope"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "elevated"
+                    },
+                    "elevationId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "scope": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 1,
+                      "uniqueItems": true,
+                      "items": {
+                        "const": "tenant_security_summary"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": "elevated",
+                  "elevationId": "11111111-1111-4111-8111-111111111111",
+                  "expiresAt": "2026-10-22T12:15:00Z",
+                  "scope": [
+                    "tenant_security_summary"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, stale or rejected authority or proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor, scope or tenant not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Required authority, audit, database or cryptographic service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "password",
+                  "code",
+                  "reason",
+                  "scope",
+                  "seconds"
+                ],
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 72,
+                    "description": "Maximum 72 UTF-8 bytes; compare against current actor password"
+                  },
+                  "code": {
+                    "type": "string",
+                    "pattern": "^[0-9]{6}$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 500
+                  },
+                  "scope": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "const": "tenant_security_summary"
+                    }
+                  },
+                  "seconds": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 900
+                  }
+                }
+              },
+              "example": {
+                "password": "[current password]",
+                "code": "123456",
+                "reason": "Investigate tenant sign-in counts",
+                "scope": [
+                  "tenant_security_summary"
+                ],
+                "seconds": 900
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa/elevation/revoke": {
+      "post": {
+        "operationId": "auth_elevation_revoke",
+        "description": "Registered contract. Deployment and verification status are tracked separately. Permission: self_code_admin_elevation",
+        "x-permission-key": "self_code_admin_elevation",
+        "security": [
+          {
+            "sessionBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated operation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "revoked"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "revoked"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, stale or rejected authority or proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor, scope or tenant not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Required authority, audit, database or cryptographic service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "elevationId"
+                ],
+                "properties": {
+                  "elevationId": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              },
+              "example": {
+                "elevationId": "11111111-1111-4111-8111-111111111111"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa/support/request": {
+      "post": {
+        "operationId": "auth_support_request",
+        "description": "Registered contract. Deployment and verification status are tracked separately. Permission: elevated_code_admin_support_request",
+        "x-permission-key": "elevated_code_admin_support_request",
+        "security": [
+          {
+            "sessionBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated operation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "requestId",
+                    "requesterId",
+                    "tenantId",
+                    "ticket",
+                    "reason",
+                    "scope",
+                    "expiresAt",
+                    "state"
+                  ],
+                  "properties": {
+                    "requestId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "requesterId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "tenantId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "ticket": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 10,
+                      "maxLength": 500
+                    },
+                    "scope": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 1,
+                      "uniqueItems": true,
+                      "items": {
+                        "const": "tenant_security_summary"
+                      }
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "state": {
+                      "enum": [
+                        "pending",
+                        "approved",
+                        "revoked"
+                      ]
+                    }
+                  }
+                },
+                "example": {
+                  "requestId": "11111111-1111-4111-8111-111111111111",
+                  "requesterId": "11111111-1111-4111-8111-111111111111",
+                  "tenantId": "11111111-1111-4111-8111-111111111111",
+                  "ticket": "SUP-1234",
+                  "reason": "Investigate tenant sign-in counts",
+                  "scope": [
+                    "tenant_security_summary"
+                  ],
+                  "expiresAt": "2026-10-22T12:15:00Z",
+                  "state": "pending"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, stale or rejected authority or proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor, scope or tenant not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Required authority, audit, database or cryptographic service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "elevationId",
+                  "tenantId",
+                  "ticket",
+                  "reason",
+                  "scope",
+                  "seconds"
+                ],
+                "properties": {
+                  "elevationId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "tenantId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "ticket": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 500
+                  },
+                  "scope": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "const": "tenant_security_summary"
+                    }
+                  },
+                  "seconds": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 900
+                  }
+                }
+              },
+              "example": {
+                "elevationId": "11111111-1111-4111-8111-111111111111",
+                "tenantId": "11111111-1111-4111-8111-111111111111",
+                "ticket": "SUP-1234",
+                "reason": "Investigate tenant sign-in counts",
+                "scope": [
+                  "tenant_security_summary"
+                ],
+                "seconds": 900
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa/support/requests": {
+      "get": {
+        "operationId": "auth_support_requests",
+        "description": "Registered contract. Deployment and verification status are tracked separately. Permission: tenant_admin_support_approval",
+        "x-permission-key": "tenant_admin_support_approval",
+        "security": [
+          {
+            "sessionBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated operation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "requests"
+                  ],
+                  "properties": {
+                    "requests": {
+                      "type": "array",
+                      "maxItems": 50,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "requestId",
+                          "requesterId",
+                          "tenantId",
+                          "ticket",
+                          "reason",
+                          "scope",
+                          "expiresAt",
+                          "state"
+                        ],
+                        "properties": {
+                          "requestId": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "requesterId": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "tenantId": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "ticket": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 100
+                          },
+                          "reason": {
+                            "type": "string",
+                            "minLength": 10,
+                            "maxLength": 500
+                          },
+                          "scope": {
+                            "type": "array",
+                            "minItems": 1,
+                            "maxItems": 1,
+                            "uniqueItems": true,
+                            "items": {
+                              "const": "tenant_security_summary"
+                            }
+                          },
+                          "expiresAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "state": {
+                            "enum": [
+                              "pending",
+                              "approved",
+                              "revoked"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "requests": [
+                    {
+                      "requestId": "11111111-1111-4111-8111-111111111111",
+                      "requesterId": "11111111-1111-4111-8111-111111111111",
+                      "tenantId": "11111111-1111-4111-8111-111111111111",
+                      "ticket": "SUP-1234",
+                      "reason": "Investigate tenant sign-in counts",
+                      "scope": [
+                        "tenant_security_summary"
+                      ],
+                      "expiresAt": "2026-10-22T12:15:00Z",
+                      "state": "pending"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, stale or rejected authority or proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor, scope or tenant not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Required authority, audit, database or cryptographic service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa/support/approve": {
+      "post": {
+        "operationId": "auth_support_approve",
+        "description": "Registered contract. Deployment and verification status are tracked separately. Permission: tenant_admin_support_approval",
+        "x-permission-key": "tenant_admin_support_approval",
+        "security": [
+          {
+            "sessionBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated operation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status",
+                    "requestId",
+                    "expiresAt"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "approved"
+                    },
+                    "requestId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "approved",
+                  "requestId": "11111111-1111-4111-8111-111111111111",
+                  "expiresAt": "2026-10-22T12:15:00Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, stale or rejected authority or proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor, scope or tenant not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Required authority, audit, database or cryptographic service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "requestId",
+                  "password"
+                ],
+                "properties": {
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 72,
+                    "description": "Maximum 72 UTF-8 bytes; compare against current actor password"
+                  }
+                }
+              },
+              "example": {
+                "requestId": "11111111-1111-4111-8111-111111111111",
+                "password": "[current password]"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa/support/revoke": {
+      "post": {
+        "operationId": "auth_support_revoke",
+        "description": "Registered contract. Deployment and verification status are tracked separately. Permission: owned_or_tenant_admin_support_revocation",
+        "x-permission-key": "owned_or_tenant_admin_support_revocation",
+        "security": [
+          {
+            "sessionBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated operation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "revoked"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "revoked"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, stale or rejected authority or proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor, scope or tenant not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Required authority, audit, database or cryptographic service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "requestId",
+                  "password"
+                ],
+                "properties": {
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 72,
+                    "description": "Maximum 72 UTF-8 bytes; compare against current actor password"
+                  }
+                }
+              },
+              "example": {
+                "requestId": "11111111-1111-4111-8111-111111111111",
+                "password": "[current password]"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa/support/summary": {
+      "post": {
+        "operationId": "auth_support_summary",
+        "description": "Registered contract. Deployment and verification status are tracked separately. Permission: approved_tenant_security_summary",
+        "x-permission-key": "approved_tenant_security_summary",
+        "security": [
+          {
+            "sessionBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated operation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "tenantId",
+                    "activeAccounts",
+                    "activeSessions",
+                    "enrolledAuthenticators"
+                  ],
+                  "properties": {
+                    "tenantId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "activeAccounts": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "activeSessions": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "enrolledAuthenticators": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  }
+                },
+                "example": {
+                  "tenantId": "11111111-1111-4111-8111-111111111111",
+                  "activeAccounts": 0,
+                  "activeSessions": 0,
+                  "enrolledAuthenticators": 0
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, stale or rejected authority or proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor, scope or tenant not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Required authority, audit, database or cryptographic service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "requestId"
+                ],
+                "properties": {
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              },
+              "example": {
+                "requestId": "11111111-1111-4111-8111-111111111111"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sessionBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Existing 43-character opaque session. Management operations require an explicit Authorization header; cookie-only requests are rejected."
+      }
+    }
+  }
+}
