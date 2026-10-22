@@ -53,6 +53,8 @@ jobs:
           MFA_TEST_ID_TYPE=text node --test scripts/test-code-admin-lifecycle-postgres.mjs
           MFA_TEST_ID_TYPE=uuid node --test scripts/test-code-admin-lifecycle-postgres.mjs
           node --test scripts/test-code-admin-mfa-outbox-postgres.mjs
+          MFA_TEST_ID_TYPE=text node --test scripts/test-code-admin-mfa-postgres.mjs
+          MFA_TEST_ID_TYPE=uuid node --test scripts/test-code-admin-mfa-postgres.mjs
           node --test scripts/test-worker-inheritance.mjs
           node scripts/export-mfa-lifecycle-schema.mjs
       - uses: actions/upload-artifact@v4

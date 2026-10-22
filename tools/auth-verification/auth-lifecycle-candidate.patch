@@ -102,6 +102,69 @@ index 48f4c816..c873485c 100644
        await db.query('COMMIT'); return denied();
      }
      if (one(await db.query('UPDATE auth_mfa_credentials SET envelope=$2,last_counter=$3,enabled_at=NOW() WHERE user_id=$1 AND enabled=true RETURNING user_id', [user.id, JSON.stringify(pending.pending_envelope), counter])).user_id !== user.id) throw Error('Replacement credential update failed');
+diff --git a/cloudflare/workers/src/security/mfa.mjs b/cloudflare/workers/src/security/mfa.mjs
+index 2bcd7808..6495f5c2 100644
+--- a/cloudflare/workers/src/security/mfa.mjs
++++ b/cloudflare/workers/src/security/mfa.mjs
+@@ -1,33 +1,30 @@
+-import {sealMfaSeed,openMfaSeed,generateMfaSeed} from './mfa-secret.mjs';
++import {generateMfaSeed} from './mfa-secret.mjs';
++import {activeMfaKeyId,sealCurrentMfaSeed,openStoredMfaSeed} from './mfa-keyring.mjs';
+ import {matchTotp} from './totp.mjs';
+-const keyId='mfa-v1';
+ const encode=new TextEncoder();
+ export async function digest(value) {return [...new Uint8Array(await crypto.subtle.digest('SHA-256',encode.encode(value)))].map(x=>x.toString(16).padStart(2,'0')).join('');}
+ function token(){return btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(32)))).replaceAll('+','-').replaceAll('/','_').replaceAll('=','');}
+-function key(env){if(typeof env.MFA_ENCRYPTION_KEY!=='string'||!/^[a-f0-9]{64}$/.test(env.MFA_ENCRYPTION_KEY))throw Error('MFA unavailable');return Uint8Array.from(env.MFA_ENCRYPTION_KEY.match(/../g),x=>parseInt(x,16));}
+-function identity(user){if(typeof user.id!=='string'||!user.id||typeof user.tenant_id!=='string'||!user.tenant_id)throw Error('Invalid MFA identity');return {userId:user.id,tenantId:user.tenant_id,keyId};}
+ function base32(bytes){const alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';let result='',bits=0,value=0;for(const byte of bytes){value=(value<<8)|byte;bits+=8;while(bits>=5){bits-=5;result+=alphabet[(value>>>bits)&31];}}if(bits)result+=alphabet[(value<<(5-bits))&31];return result;}
+ async function audit(db,user,action){const id=crypto.randomUUID();const r=await db.query('INSERT INTO auth_mfa_audit(id,user_id,tenant_id,action) VALUES($1,$2,$3,$4) RETURNING id',[id,user.id,user.tenant_id,action]);if(r.rows.length!==1||r.rows[0].id!==id)throw Error('MFA audit unavailable');}
+ const denied={status:401,body:{error:'MFA verification failed'}};
+ /** Called only after password validation. All authority remains inside this transaction. */
+ export async function beginMfa(db,env,checked){
+- const encryptionKey=key(env); // fail before writes when server key is absent
++ activeMfaKeyId(env); // fail before writes when server key is absent
+  await db.query('BEGIN');
+  try {
+   const result=await db.query("SELECT id::text AS id,tenant_id::text AS tenant_id,roles,status,password_hash FROM users WHERE id::text=$1 FOR UPDATE",[String(checked.id)]);
+   const user=result.rows[0];
+   if(result.rows.length!==1||!user||user.password_hash!==checked.password_hash||user.roles!=='code_admin'||!['active','mfa_pending'].includes(user.status)) {await db.query('ROLLBACK');return denied;}
+-  const context=identity(user);
+   let credential=(await db.query('SELECT envelope,enabled,last_counter FROM auth_mfa_credentials WHERE user_id=$1 FOR UPDATE',[user.id])).rows[0];
+-  if(!credential){const envelope=await sealMfaSeed(generateMfaSeed(),encryptionKey,context);const r=await db.query('INSERT INTO auth_mfa_credentials(user_id,tenant_id,envelope) VALUES($1,$2,$3) RETURNING envelope,enabled,last_counter',[user.id,user.tenant_id,JSON.stringify(envelope)]);if(r.rows.length!==1)throw Error('MFA enrollment unavailable');credential=r.rows[0];}
++  if(!credential){const envelope=await sealCurrentMfaSeed(env,generateMfaSeed(),user);const r=await db.query('INSERT INTO auth_mfa_credentials(user_id,tenant_id,envelope) VALUES($1,$2,$3) RETURNING envelope,enabled,last_counter',[user.id,user.tenant_id,JSON.stringify(envelope)]);if(r.rows.length!==1)throw Error('MFA enrollment unavailable');credential=r.rows[0];}
+   else if(!credential.enabled){
+    // A new password exchange replaces an unconfirmed seed. A seed exposed during
+    // an abandoned setup must not survive a later password recovery/enrollment.
+-   const envelope=await sealMfaSeed(generateMfaSeed(),encryptionKey,context);
++   const envelope=await sealCurrentMfaSeed(env,generateMfaSeed(),user);
+    const r=await db.query('UPDATE auth_mfa_credentials SET envelope=$2,created_at=NOW() WHERE user_id=$1 AND enabled=false RETURNING envelope,enabled,last_counter',[user.id,JSON.stringify(envelope)]);
+    if(r.rows.length!==1)throw Error('MFA enrollment replacement unavailable');credential=r.rows[0];
+   }
+-  const seed=await openMfaSeed(credential.envelope,encryptionKey,context);
++  const seed=await openStoredMfaSeed(env,credential.envelope,user);
+   const challenge=token(),purpose=credential.enabled?'verify':'enroll';
+   // Only one password-verified challenge per user. New login invalidates old setup.
+   await db.query('DELETE FROM auth_mfa_challenges WHERE user_id=$1 OR expires_at<=NOW()',[user.id]);
+@@ -42,7 +39,8 @@ export async function beginMfa(db,env,checked){
+ export function validMfaRequest(body){return body&&typeof body==='object'&&!Array.isArray(body)&&Object.keys(body).sort().join(',')==='challenge,code'&&typeof body.challenge==='string'&&body.challenge.length===43&&/^[A-Za-z0-9_-]+$/.test(body.challenge)&&typeof body.code==='string'&&body.code.length===6&&/^[0-9]+$/.test(body.code);}
+ export async function finishMfa(db,env,body){
+  if(!validMfaRequest(body))return {status:400,body:{error:'Invalid MFA request'}};
+- const encryptionKey=key(env),hash=await digest(body.challenge);
++ activeMfaKeyId(env);
++ const hash=await digest(body.challenge);
+  // Read identity without locking, then lock user before challenge to match login's lock order.
+  const lookup=await db.query('SELECT user_id FROM auth_mfa_challenges WHERE token_hash=$1',[hash]);
+  if(lookup.rows.length!==1)return denied;
+@@ -56,7 +54,7 @@ export async function finishMfa(db,env,body){
+   const records=await db.query('SELECT tenant_id,envelope,enabled,last_counter FROM auth_mfa_credentials WHERE user_id=$1 FOR UPDATE',[user.id]);
+   const credential=records.rows[0];
+   if(records.rows.length!==1||credential.tenant_id!==user.tenant_id||credential.enabled!==(challenge.purpose==='verify')){await db.query('ROLLBACK');return denied;}
+-  const seed=await openMfaSeed(credential.envelope,encryptionKey,identity(user));
++  const seed=await openStoredMfaSeed(env,credential.envelope,user);
+   const counter=await matchTotp(seed,body.code,{seconds:Math.floor(Date.now()/1000),lastAcceptedCounter:Number(credential.last_counter)});
+   if(counter===null){const attempted=await db.query('UPDATE auth_mfa_challenges SET attempts=attempts+1 WHERE token_hash=$1 AND attempts<5 RETURNING attempts',[hash]);if(attempted.rows.length!==1)throw Error('Invalid MFA attempt result');await audit(db,user,'mfa_verification_failed');await db.query('COMMIT');return denied;}
+   const consumed=await db.query('UPDATE auth_mfa_credentials SET enabled=true,enabled_at=COALESCE(enabled_at,NOW()),last_counter=$2 WHERE user_id=$1 AND last_counter<$2 RETURNING user_id',[user.id,counter]);
 diff --git a/cloudflare/workers/src/service-application.ts b/cloudflare/workers/src/service-application.ts
 index 29d72fb4..cb5e0b98 100644
 --- a/cloudflare/workers/src/service-application.ts
@@ -1090,6 +1153,47 @@ index 7a481b7d..9d5e19d4 100644
  s+='};\n'
 +s+='const nativeMfaChallengeLifetimeSeconds = '+str(json.loads((root/'tools/governance-production/mfa-registration.json').read_text())['challenge']['expiresSeconds'])+';\n'
  (root/'packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart').write_text(s)
+diff --git a/scripts/test-code-admin-mfa-postgres.mjs b/scripts/test-code-admin-mfa-postgres.mjs
+index f8e33e9f..2924ce63 100644
+--- a/scripts/test-code-admin-mfa-postgres.mjs
++++ b/scripts/test-code-admin-mfa-postgres.mjs
+@@ -2,7 +2,7 @@ import {test,after} from 'node:test';
+ import assert from 'node:assert/strict';
+ import {readFileSync} from 'node:fs';
+ import {beginMfa,finishMfa,digest} from '../cloudflare/workers/src/security/mfa.mjs';
+-import {openMfaSeed} from '../cloudflare/workers/src/security/mfa-secret.mjs';
++import {openStoredMfaSeed} from '../cloudflare/workers/src/security/mfa-keyring.mjs';
+ import {totpAt} from '../cloudflare/workers/src/security/totp.mjs';
+ const env={MFA_ENCRYPTION_KEY:'a1'.repeat(32)},user={id:'11111111-1111-4111-8111-111111111111',tenant_id:'22222222-2222-4222-8222-222222222222',roles:'code_admin',status:'mfa_pending',password_hash:'synthetic-password-version'};
+ let db,client,schema='mfa_'+crypto.randomUUID().replaceAll('-','');
+@@ -15,7 +15,7 @@ await multi(`CREATE TABLE users(id ${idType} PRIMARY KEY,tenant_id ${idType},rol
+ await multi(readFileSync('packages/database/migrations/20261025_auth_mfa.sql','utf8'));
+ after(async()=>{if(client){await client.query('DROP SCHEMA '+schema+' CASCADE');await client.end();}else await db.close();});
+ async function reset(){await multi('TRUNCATE auth_mfa_audit,auth_mfa_challenges,auth_mfa_credentials,auth_sessions,users');await db.query('INSERT INTO users(id,tenant_id,roles,status,password_hash) VALUES($1,$2,$3,$4,$5)',Object.values(user));}
+-async function code(){const r=(await db.query('SELECT envelope FROM auth_mfa_credentials')).rows[0];const seed=await openMfaSeed(r.envelope,Uint8Array.from(env.MFA_ENCRYPTION_KEY.match(/../g),x=>parseInt(x,16)),{tenantId:user.tenant_id,userId:user.id,keyId:'mfa-v1'});return totpAt(seed,Math.floor(Date.now()/1000));}
++async function code(){const r=(await db.query('SELECT envelope FROM auth_mfa_credentials')).rows[0];const seed=await openStoredMfaSeed(env,r.envelope,user);return totpAt(seed,Math.floor(Date.now()/1000));}
+ async function count(table){return Number((await db.query('SELECT COUNT(*) AS n FROM '+table)).rows[0].n);}
+ test('enrollment grants no session until valid factor; activates pending user and persists audit',async()=>{
+  await reset();const started=await beginMfa(db,env,user);assert.equal(started.body.status,'mfa_required');assert.equal(started.body.purpose,'enroll');assert.match(started.body.setupKey,/^[A-Z2-7]{32}$/);assert.equal(started.body.token,undefined);assert.equal(await count('auth_sessions'),0);
+@@ -51,3 +51,18 @@ test('concurrent native requests consume the challenge and issue exactly one ses
+  await reset();const start=await beginMfa(db,env,user),valid=await code();const pg=await import('pg');const clients=[new pg.default.Client({connectionString:process.env.MFA_TEST_DATABASE_URL}),new pg.default.Client({connectionString:process.env.MFA_TEST_DATABASE_URL})];
+  try{for(const c of clients){await c.connect();await c.query('SET search_path TO '+schema);}const results=await Promise.all(clients.map(c=>finishMfa(c,env,{challenge:start.body.challenge,code:valid})));assert.deepEqual(results.map(x=>x.status).sort(),[200,401]);assert.equal(await count('auth_sessions'),1);assert.equal((await db.query("SELECT COUNT(*) AS n FROM auth_mfa_audit WHERE action='mfa_enrolled'")).rows[0].n,'1');}finally{await Promise.all(clients.map(c=>c.end()));}
+ });
++
++test('active v2 enrolls and verifies while dual-key server still reads existing v1 credentials',async()=>{
++ await reset();const legacy=await beginMfa(db,env,user);
++ const dual={...env,MFA_ENCRYPTION_KEY_V2:'b2'.repeat(32),MFA_ACTIVE_KEY_ID:'mfa-v2'};
++ assert.equal((await finishMfa(db,dual,{challenge:legacy.body.challenge,code:await code()})).status,200);
++ assert.equal((await db.query('SELECT envelope FROM auth_mfa_credentials')).rows[0].envelope.keyId,'mfa-v1');
++ await reset();const current=await beginMfa(db,dual,user);
++ const envelope=(await db.query('SELECT envelope FROM auth_mfa_credentials')).rows[0].envelope;
++ assert.equal(envelope.keyId,'mfa-v2');
++ const seed=await openStoredMfaSeed(dual,envelope,user);
++ const request={challenge:current.body.challenge,code:await totpAt(seed,Math.floor(Date.now()/1000))};
++ await assert.rejects(finishMfa(db,env,request));
++ assert.equal(await count('auth_sessions'),0);assert.equal(await count('auth_mfa_challenges'),1);
++ assert.equal((await finishMfa(db,dual,request)).status,200);
++});
 diff --git a/scripts/test-worker-inheritance.mjs b/scripts/test-worker-inheritance.mjs
 index 6baf4ea8..11e79ec1 100644
 --- a/scripts/test-worker-inheritance.mjs
