@@ -1,0 +1,33 @@
+{
+  "policy": {
+    "id": "communication-access-v1",
+    "version": 1,
+    "requirement": "One inherited communication core for every permitted user: same-tenant active-account general conversations; task conversations restricted to current task participants; explicit owned mailbox ownership and delegation; no implied clinical, HR, cross-tenant or external-contact access.",
+    "status": "registered-unimplemented",
+    "activationApproved": false,
+    "rules": {
+      "activeAccountEveryAction": true,
+      "sameTenantEveryAction": true,
+      "generalReference": "general",
+      "linkedReferenceTable": "business_work_aggregates",
+      "linkedReferenceKind": "workflow",
+      "linkedParticipantFields": ["originatorId", "ownerId", "reviewerId"],
+      "unknownReference": "deny",
+      "proposedMembers": "all-active-same-tenant-and-current-linked-participants",
+      "outboundRead": "owner-only",
+      "internalRecipient": "active-same-tenant-account-email",
+      "externalRecipient": "explicit-current-owned-mailbox-contact",
+      "inboundIdentity": "inbound-mail",
+      "inboundRead": "current-active-mailbox-owner-or-delegate",
+      "directoryId": "communication-mailboxes-v1",
+      "missingOrAmbiguousDirectory": "deny",
+      "endpointGrants": "separate-current-api-and-screen-grants-required"
+    }
+  },
+  "directory": {
+    "id": "communication-mailboxes-v1",
+    "version": 1,
+    "requirement": "Only provider-verified owned addresses may be provisioned here by a separate governed operation. Each entry requires id, tenantId, address, ownerId, delegateIds, recipientAddresses, active and ownershipVerified. Current active account membership is checked on every use. Empty means no inbound mailbox or external recipient access.",
+    "mailboxes": []
+  }
+}

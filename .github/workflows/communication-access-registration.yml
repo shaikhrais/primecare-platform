@@ -1,0 +1,64 @@
+name: Register shared communication access requirements without grants
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/communication-access-policy.json'
+      - 'tools/governance-production/communication_access_registration.py'
+      - 'tools/governance-production/test-communication-access-registration.py'
+      - '.github/workflows/communication-access-registration.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: communication-access-registration
+  cancel-in-progress: false
+jobs:
+  isolated:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: communication_fixture
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: communication_registration_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communication_fixture -d communication_registration_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Native access requirements, rollback, idempotence and grant preservation
+        env:
+          WORKFLOW_TEST_DATABASE_URL: postgres://communication_fixture:disposable-only@localhost:5432/communication_registration_test
+        run: python tools/governance-production/test-communication-access-registration.py
+  register:
+    needs: isolated
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/communication-registration" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/communication-registration/node_modules" node_modules
+      - name: Validate production transaction and rollback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_COMMUNICATION_ACCESS_REGISTRATION: '1'
+        run: python tools/governance-production/communication_access_registration.py --dry-run
+      - name: Register scoped access requirements and independently reread them
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_COMMUNICATION_ACCESS_REGISTRATION: '1'
+        run: python tools/governance-production/communication_access_registration.py --apply

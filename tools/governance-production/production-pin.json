@@ -507,5 +507,20 @@
     "roleGrants": false,
     "activation": false,
     "temporaryValidationTables": true
+  },
+  "communicationAccessRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_COMMUNICATION_ACCESS_REGISTRATION",
+    "tables": [
+      "platform_hierarchy_policy"
+    ],
+    "policyIds": [
+      "communication-access-v1",
+      "communication-mailboxes-v1"
+    ],
+    "definitionSha256": "782a5509eb3cd2b31f5d6198155c95e0bf16b52c5c947dbea40c21411a11cd7b",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "activation": false
   }
 }
