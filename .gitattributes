@@ -1,0 +1,2 @@
+# Unified patch context preserves source blank lines. Check applied source instead.
+tools/auth-verification/*.patch -whitespace
