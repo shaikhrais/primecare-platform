@@ -208,3 +208,20 @@ policy saw only null state on initial creation and could not inspect that case
 context. Existing tenant/type checks and member eligibility checks remain active.
 New tests deny another same-tenant mail reader/sender, an ungranted inbound reader
 and a restricted case at creation, and confirm missing mailbox adapters fail.
+
+Storage run [39815550245](https://github.com/shaikhrais/primecare-platform/actions/runs/39815550245)
+completed successfully on source `baa51588d9ee4d9628b0c6817159e272ca7fcf94`: eight
+isolated native cases passed, production registered table IDs1352/1353/1354 and
+16 columns, then completed DDL dry-run, apply and fresh-transaction validation
+in public. No production business records or role grants changed. The persisted
+design baseline remains unreviewed/application-unimplemented; native schema proof
+is recorded separately rather than inventing release approval.
+
+Core run [39816242789](https://github.com/shaikhrais/primecare-platform/actions/runs/39816242789)
+passed on source `813f4904b0c6dcfc82164a15feb3c3b4f01b9926`: 84 Node tests, 490
+Flutter tests, strict TypeScript, Dart checks, metadata audit and browser audio.
+The native service and HTTP tests use the production migration in isolated schemas.
+See [evidence/communication-storage-20261022.json](evidence/communication-storage-20261022.json).
+The storage registration/migration item is now complete; current session and
+permission adapters, provider integration, shared UI and live user acceptance
+remain open.
