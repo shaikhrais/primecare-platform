@@ -5,6 +5,8 @@ on:
     paths:
       - '.github/workflows/verify-business-communications.yml'
       - 'tools/governance-production/audit-business-communications.py'
+      - 'tools/governance-production/communication_contract_report.py'
+      - 'tools/governance-production/test-communication-contract-report.py'
       - 'packages/shared/src/communications/**'
       - 'cloudflare/workers/src/business-tasks/**'
       - 'scripts/test-business-communications.mjs'
@@ -66,6 +68,8 @@ jobs:
           pip install -r tools/governance-production/requirements.txt
           npm install --prefix "$RUNNER_TEMP/communications-reader" --ignore-scripts pg@8.16.3
           ln -s "$RUNNER_TEMP/communications-reader/node_modules" node_modules
+      - name: Test contract gap reporting without production credentials
+        run: python tools/governance-production/test-communication-contract-report.py
       - name: Read production registrations without business access
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
