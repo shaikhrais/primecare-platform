@@ -168,7 +168,9 @@ jobs:
           promoted=m.get('state')=='promoted'
           with open(os.environ['GITHUB_OUTPUT'],'a') as output:output.write('promoted='+str(promoted).lower()+'\n')
           PYCODE
-          test "$(git ls-remote origin refs/heads/main | cut -f1)" = "$GITHUB_SHA"
+          current_main="$(git ls-remote origin refs/heads/main | cut -f1)"
+          echo "Release source: $GITHUB_SHA; current main: $current_main"
+          test "$current_main" = "$GITHUB_SHA"
       - uses: actions/setup-node@v4
         if: steps.source.outputs.promoted == 'true'
         with: {node-version: '24'}
