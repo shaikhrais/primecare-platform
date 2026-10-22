@@ -40,10 +40,10 @@ class UiTests(unittest.TestCase):
  def test_exact_registration_idempotence_readback_and_grants(self):
   with self.store() as db:
    before=[db.execute('SELECT * FROM '+t).fetchall() for t in ['api_endpoints','api_permissions','role_screen_permissions','screen_api_links']]
-   result=register(db);self.assertEqual(result,register(db));self.assertTrue(readback(db));self.assertEqual(result['controlsPerScreen'],17);self.assertEqual(result['resources'],28)
+   result=register(db);self.assertEqual(result,register(db));self.assertTrue(readback(db));self.assertEqual(result['controlsPerScreen'],len(definition()['controls']));self.assertEqual(result['resources'],len(definition()['locales']['en']))
    self.assertEqual(before,[db.execute('SELECT * FROM '+t).fetchall() for t in ['api_endpoints','api_permissions','role_screen_permissions','screen_api_links']])
-   self.assertEqual(db.execute('SELECT COUNT(*) FROM screen_components').fetchone()[0],68)
-   self.assertEqual(db.execute('SELECT COUNT(*) FROM language_resource_values').fetchone()[0],84)
+   self.assertEqual(db.execute('SELECT COUNT(*) FROM screen_components').fetchone()[0],4*len(definition()['controls']))
+   self.assertEqual(db.execute('SELECT COUNT(*) FROM language_resource_values').fetchone()[0],3*len(definition()['locales']['en']))
  def test_partial_failure_rolls_back_all_controls(self):
   class Failure(CommunicationUiStore):
    count=0
