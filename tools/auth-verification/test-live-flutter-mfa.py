@@ -138,6 +138,11 @@ def main():
                         step = 'render setup key semantics'
                         visible = page.locator('[aria-label^="mfa-seed"]')
                         visible.wait_for()
+                        # Flutter exposes SelectableText through a readonly
+                        # textarea; its value is populated on focus activation.
+                        visible.click()
+                        expect(visible).to_be_focused()
+                        page.evaluate('() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))')
                         rendered = visible.evaluate("(e, seed) => [e, ...e.querySelectorAll('*')].some(n => (n.getAttribute('aria-label') || '').includes(seed) || (n.getAttribute('aria-valuetext') || '').includes(seed) || (n.textContent || '').includes(seed) || n.value === seed)", seed)
                         if not rendered:
                             # Diagnostic structure only; scrub the synthetic setup
