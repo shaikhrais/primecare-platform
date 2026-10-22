@@ -487,3 +487,24 @@ streams and preserves safe errors when cancellation fails. Three regressions fai
 against the preceding source and pass with this implementation. Local updated
 validation: 131 Node passes, two native-only skips, zero failures. Final native and
 cross-platform CI acceptance must reference the resulting source separately.
+
+
+Final acceptance for source `648fefc4e2f833b42c8ce5337888f4978e580e5b`:
+[run 39856924883](https://github.com/shaikhrais/primecare-platform/actions/runs/39856924883)
+passed all five jobs. Counts: 144 native/service/shared Node checks plus three
+actual browser/raster media checks (147 total, zero failures/skips), 543 Flutter
+tests, ten metadata-report tests, strict TypeScript, Dart analysis and pure Dart
+client execution. The native policy suite passed all 16 checks, including default
+runtime integration for messaging, pictures, calls and outgoing/incoming mail.
+Provider mail/image ports in that native integration remain explicitly synthetic.
+The separate media artifact is 12460231000; the read-only registry artifact is
+12460535536. The fresh production audit reports seven registered APIs and zero
+matching active-role API/screen grants. Registration run 39855660364 separately
+proved the two policy records and an empty owned-mailbox directory.
+
+See [evidence/communication-native-access-20261022.json](evidence/communication-native-access-20261022.json).
+This closes the missing native policy-adapter implementation; it does not close
+mailbox provisioning, live image services/TURN, endpoint grants/route mounting,
+shared user-facing screens or deployed end-to-end acceptance. No production
+business-process verification status, account assignment or live mail receipt is
+inferred from these checks.
