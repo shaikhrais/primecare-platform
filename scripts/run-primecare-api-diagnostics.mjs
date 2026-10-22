@@ -1,3 +1,4 @@
+import {esbuildInputPath as diagnosticInputPath} from './esbuild-input-path.mjs';
 import {isBodylessDiagnostic,BODYLESS_CONTRACTS} from './primecare-diagnostic-body-policy.mjs';
 /** Loopback-only Newman diagnostics against the actual bundled gateway/Workers. */
 import {createServer} from 'node:http';
@@ -38,14 +39,7 @@ export function safeCollection(collection,baseUrl){
  });
  return {info:{name:'PrimeCare offline diagnostic requests',schema:'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'},item};
 }
-/** esbuild decorates an attributed JSON input's identity; it is not a filename. */
-export function diagnosticInputPath(name,input){
- if(input.with===undefined)return name;
- if(!input.with||Object.keys(input.with).length!==1||input.with.type!=='json')throw Error('Unsupported diagnostic import attributes');
- const suffix=/ with \{ type: ['"]json['"] \}$/;
- if(!suffix.test(name))throw Error('Invalid attributed diagnostic input identity');
- return name.replace(suffix,'');
-}
+export {esbuildInputPath as diagnosticInputPath} from './esbuild-input-path.mjs';
 export async function startGateway(){
  const guard={databaseAttempts:0,externalNetworkAttempts:0,methodObservations:[]};
  const plugin={name:'deny-database-and-network',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'denied-pg'}));b.onLoad({filter:/.*/,namespace:'denied-pg'},()=>({contents:`export class Client { async connect(){globalThis.__primecareDiagnosticGuard.databaseAttempts++;const error=Error('OFFLINE_DATABASE_DISABLED');error.stack='OFFLINE_DATABASE_DISABLED';throw error;} async query(){globalThis.__primecareDiagnosticGuard.databaseAttempts++;const error=Error('OFFLINE_DATABASE_DISABLED');error.stack='OFFLINE_DATABASE_DISABLED';throw error;} async end(){} }`,loader:'js'}));}};
