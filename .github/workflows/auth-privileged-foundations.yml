@@ -6,6 +6,9 @@ on:
       - .github/workflows/auth-privileged-foundations.yml
       - packages/database/migrations/20261027_auth_privileged_access.sql
       - scripts/test-auth-privileged-schema.mjs
+      - scripts/privileged-schema-profile.mjs
+      - scripts/export-auth-privileged-schema.mjs
+      - scripts/apply-auth-privileged-schema.mjs
   workflow_dispatch:
 permissions:
   contents: read
@@ -33,4 +36,33 @@ jobs:
       - name: Verify bounded privilege schema rollback idempotency and constraints
         env:
           MFA_TEST_DATABASE_URL: postgresql://lifecycle:disposable-only@localhost:5432/lifecycle
-        run: node --test scripts/test-auth-privileged-schema.mjs
+        run: |
+          node --test scripts/test-auth-privileged-schema.mjs
+          node scripts/export-auth-privileged-schema.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-auth-privileged-schema
+          path: test-results/auth-privileged-schema
+  schema:
+    needs: foundation
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/download-artifact@v4
+        with:
+          name: native-auth-privileged-schema
+          path: test-results/auth-privileged-schema
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/lifecycle-schema" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/lifecycle-schema/node_modules" node_modules
+      - name: Validate exact native schema in rollback before applying empty privileged-access tables
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          APPLY_AUTH_PRIVILEGED_SCHEMA: '1'
+        run: |
+          node scripts/apply-auth-privileged-schema.mjs --dry-run
+          node scripts/apply-auth-privileged-schema.mjs --apply

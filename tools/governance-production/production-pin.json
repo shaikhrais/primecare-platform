@@ -420,5 +420,17 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "roleGrants": false
+  },
+  "authPrivilegedSchemaWriter": {
+    "optInVariable": "APPLY_AUTH_PRIVILEGED_SCHEMA",
+    "tables": [
+      "auth_privilege_elevations",
+      "auth_tenant_support_requests",
+      "auth_privileged_access_audit"
+    ],
+    "migrationSha256": "9f3b82a134c701786190551c19bb08f4d8088377d77b1a6789c0952527230a2e",
+    "governanceSchemaChanges": false,
+    "accountChanges": false,
+    "existingCredentialChanges": false
   }
 }
