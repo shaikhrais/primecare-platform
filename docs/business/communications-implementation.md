@@ -72,3 +72,22 @@ These scoped tests do not establish live messaging/picture/mail UI acceptance, p
 Map the existing messaging/email/task records to these contracts, complete the production-compatible registrations and required reviews, implement real policy/scanner/storage/native-mail adapters, configure the media relay, and connect registered Flutter forms/inboxes. Then execute real login → task handoff → message/picture → API → database → reload, two-user call and owned-mailbox send/receive with denied/cross-tenant/HR cases. Do not mark the existing messaging stubs functional until that journey passes.
 
 Technical references consulted: [WebRTC peer connections](https://webrtc.org/getting-started/peer-connections), [sharp constructor](https://sharp.pixelplumbing.com/api-constructor/), [sharp output metadata behavior](https://sharp.pixelplumbing.com/api-output/), [Cloudflare email handler](https://developers.cloudflare.com/email-service/api/route-emails/email-handler/) and [native email sending](https://developers.cloudflare.com/email-service/api/send-emails/workers-api/).
+
+### Authenticated Flutter transport checkpoint — 2026-10-22
+
+`DioCommunicationTransport` now implements the shared hub through inherited
+`CommunicationTransportBase` dispatch checks. Inject the existing authenticated
+Dio session and a contract map loaded from registered production metadata; this
+adapter intentionally supplies no new endpoint mappings or permissions. It sends
+JSON commands, GET read queries and actual multipart picture bytes. Missing
+contracts, identity overrides, unsafe absolute/redirect paths, GET mutations,
+non-success responses and malformed acknowledgements fail. It does not retry
+ambiguous email delivery or substitute demo responses.
+
+The new transport suite covers session reuse, command versions/keys, GET query
+encoding, copied multipart bytes, denied/unbound commands, unsafe route maps,
+malformed/error responses and single-attempt network failure. CI must pass before
+this checkpoint is counted as verified. This is an integration adapter, not a
+claim that unregistered production commands or Flutter screens are exposed.
+Production contract/policy registration, private storage/scanner bindings,
+mailbox routing, real call signaling/relay and user acceptance remain open.

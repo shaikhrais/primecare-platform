@@ -2,6 +2,7 @@
 library;
 
 export 'communications/communication_core.dart';
+export 'communications/dio_communication_transport.dart';
 
 export 'src/domain/models/base_entity.dart';
 export 'src/domain/models/base_response_envelope.dart';
