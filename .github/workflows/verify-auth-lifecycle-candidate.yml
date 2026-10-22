@@ -38,13 +38,14 @@ jobs:
           subprocess.run(['git','apply',str(p)],check=True)
           actual=set(subprocess.check_output(['git','ls-files','--modified','--others','--exclude-standard'],text=True).splitlines())
           assert actual==set(m['paths']), (actual,set(m['paths']))
+          subprocess.run(['git','diff','--check'],check=True)
           PYCODE
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
           npm install --prefix "$RUNNER_TEMP/lifecycle-foundation" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2 esbuild@0.25.12 typescript@5.9.3 @types/pg@8.15.5 @cloudflare/workers-types@4.20260403.1
           ln -s "$RUNNER_TEMP/lifecycle-foundation/node_modules" node_modules
-          node --test scripts/test-code-admin-keyring.mjs scripts/test-code-admin-recovery-codes.mjs
+          node --test scripts/test-code-admin-keyring.mjs scripts/test-code-admin-recovery-codes.mjs scripts/test-code-admin-key-rotation-drill.mjs scripts/test-mfa-keyring-tail.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
       - name: Require rollback and idempotency on native disposable PostgreSQL
         env:
@@ -59,6 +60,8 @@ jobs:
           node --test scripts/test-code-admin-mfa-outbox-postgres.mjs
           MFA_TEST_ID_TYPE=text node --test scripts/test-code-admin-mfa-postgres.mjs
           MFA_TEST_ID_TYPE=uuid node --test scripts/test-code-admin-mfa-postgres.mjs
+          MFA_TEST_ID_TYPE=text node --test scripts/test-code-admin-key-rotation-postgres.mjs
+          MFA_TEST_ID_TYPE=uuid node --test scripts/test-code-admin-key-rotation-postgres.mjs
           node --test scripts/test-auth-privileged-schema.mjs
           MFA_TEST_ID_TYPE=text node --test scripts/test-auth-privileged-postgres.mjs
           MFA_TEST_ID_TYPE=uuid node --test scripts/test-auth-privileged-postgres.mjs
@@ -84,6 +87,7 @@ jobs:
           subprocess.run(['git','apply',str(p)],check=True)
           actual=set(subprocess.check_output(['git','ls-files','--modified','--others','--exclude-standard'],text=True).splitlines())
           assert actual==set(m['paths']), (actual,set(m['paths']))
+          subprocess.run(['git','diff','--check'],check=True)
           PYCODE
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}

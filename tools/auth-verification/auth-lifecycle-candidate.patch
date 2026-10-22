@@ -1,5 +1,5 @@
 diff --git a/cloudflare/workers/src/auth.ts b/cloudflare/workers/src/auth.ts
-index d9fdaf21..57dae23f 100644
+index d9fdaf21..4962cc51 100644
 --- a/cloudflare/workers/src/auth.ts
 +++ b/cloudflare/workers/src/auth.ts
 @@ -1,4 +1,7 @@
@@ -15,7 +15,7 @@ index d9fdaf21..57dae23f 100644
  
  export interface Env extends SourceLimitEnv, MaintenanceEnv {
 -  DB_URL: string; SERVICE_NAME: string; MFA_ENCRYPTION_KEY?: string;
-+  DB_URL: string; SERVICE_NAME: string; MFA_ENCRYPTION_KEY?: string; MFA_ENCRYPTION_KEY_V2?: string; MFA_ACTIVE_KEY_ID?: string;
++  DB_URL: string; SERVICE_NAME: string; MFA_ENCRYPTION_KEY?: string; MFA_ENCRYPTION_KEY_V2?: string; MFA_ACTIVE_KEY_ID?: string; MFA_KEYRING_SOURCE_SHA256?: string; MFA_ROTATION_FROM_KEY_ID?: string;
    WORKSPACE_SOURCE_LIMIT?: {limit(options:{key:string}):Promise<{success:boolean}>};
  }
  type Json = Record<string, unknown>;
@@ -87,10 +87,42 @@ index 4a3ad117..edb4b57c 100644
    };
  }
 diff --git a/cloudflare/workers/src/security/mfa-elevation.mjs b/cloudflare/workers/src/security/mfa-elevation.mjs
-index e6137cc8..4512213a 100644
+index e6137cc8..cd324fd5 100644
 --- a/cloudflare/workers/src/security/mfa-elevation.mjs
 +++ b/cloudflare/workers/src/security/mfa-elevation.mjs
-@@ -58,11 +58,19 @@ function project(request){
+@@ -34,21 +34,25 @@ async function readRate(db,userId){
+  if(!Number.isInteger(result.attempts)||result.attempts<1||result.attempts>61)throw Error('Invalid privileged rate result');return result.attempts<=60;
+ }
+ async function elevation(db,elevationId){
+- const rows=(await db.query(`SELECT e.*,e.expires_at>NOW() AND e.revoked_at IS NULL AND EXISTS
++ const rows=(await db.query('SELECT * FROM auth_privilege_elevations WHERE id=$1 FOR UPDATE',[elevationId])).rows;
++ if(rows.length>1)throw Error('Ambiguous elevation');
++ const record=rows[0];if(!record)return null;
++ const checked=one(await db.query(`SELECT e.expires_at>clock_timestamp() AND e.revoked_at IS NULL AND EXISTS
+   (SELECT 1 FROM users u JOIN auth_sessions s ON s.user_id::text=u.id::text JOIN tenants t ON t.id::text=u.tenant_id::text
+    WHERE t.status='active' AND u.id::text=e.user_id AND u.tenant_id::text=e.tenant_id AND u.status='active' AND u.roles='code_admin'
+-   AND s.token_hash=e.session_hash AND s.expires_at>NOW()) AS live
+-  FROM auth_privilege_elevations e WHERE e.id=$1 FOR UPDATE OF e`,[elevationId])).rows;
+- if(rows.length>1)throw Error('Ambiguous elevation');return rows[0]??null;
++   AND s.token_hash=e.session_hash AND s.expires_at>clock_timestamp()) AS live
++  FROM auth_privilege_elevations e WHERE e.id=$1`,[elevationId]));
++ return {...record,live:checked.live};
+ }
++
+ const owns=(e,actor,sessionHash)=>e&&e.user_id===actor.id&&e.tenant_id===actor.tenant_id&&e.session_hash===sessionHash&&scope(e.scopes);
+ async function support(db,requestId){
+  const lookup=(await db.query('SELECT elevation_id FROM auth_tenant_support_requests WHERE id=$1',[requestId])).rows;
+  if(lookup.length!==1)return null;
+  const elevated=await elevation(db,lookup[0].elevation_id);
+- const rows=(await db.query('SELECT *,expires_at>NOW() AS fresh FROM auth_tenant_support_requests WHERE id=$1 FOR UPDATE',[requestId])).rows;
++ const rows=(await db.query('SELECT * FROM auth_tenant_support_requests WHERE id=$1 FOR UPDATE',[requestId])).rows;
+  if(rows.length!==1||!elevated||rows[0].elevation_id!==elevated.id)return null;
+- const request=rows[0];
++ const request={...rows[0],fresh:one(await db.query('SELECT expires_at>clock_timestamp() AS fresh FROM auth_tenant_support_requests WHERE id=$1',[requestId])).fresh};
+  if(request.requester_user_id!==elevated.user_id||request.requester_tenant_id!==elevated.tenant_id||request.requester_session_hash!==elevated.session_hash||!scope(request.scopes))throw Error('Inconsistent support binding');
+  return {request,elevated};
+ }
+@@ -58,11 +62,19 @@ function project(request){
  }
  async function targetActive(db,tenantId){return (await db.query("SELECT id::text AS id FROM tenants WHERE id::text=$1 AND status='active'",[tenantId])).rows.length===1;}
  
@@ -110,7 +142,7 @@ index e6137cc8..4512213a 100644
   const userId=await sessionLookup(db,sessionToken);if(!userId)return denied();
   const proving=['elevate','approveSupport','revokeSupport'].includes(operation);
   if(!(proving?await proofRate(db,userId):await readRate(db,userId)))return denied(429);
-@@ -70,10 +78,10 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+@@ -70,10 +82,10 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
   try{
    const actor=await lockedUser(db,userId);
    if(!actor||actor.status!=='active'||!await sessionCurrent(db,sessionToken,actor)){await db.query('ROLLBACK');return denied();}
@@ -124,7 +156,7 @@ index e6137cc8..4512213a 100644
    const sessionHash=await digest(sessionToken);
    let response;
    if(operation==='elevate'){
-@@ -86,12 +94,12 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+@@ -86,29 +98,29 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
     response={status:'elevated',elevationId,expiresAt:stamp(stored.expires_at),scope:body.scope};
    }else if(operation==='revokeElevation'){
     const elevated=await elevation(db,body.elevationId);
@@ -139,7 +171,11 @@ index e6137cc8..4512213a 100644
     const requestId=crypto.randomUUID();
     const request=one(await db.query("INSERT INTO auth_tenant_support_requests(id,elevation_id,requester_user_id,requester_tenant_id,requester_session_hash,target_tenant_id,ticket,reason,scopes,expires_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9::jsonb,LEAST($10,NOW()+$11*INTERVAL '1 second')) RETURNING *",[requestId,elevated.id,actor.id,actor.tenant_id,sessionHash,body.tenantId,body.ticket,body.reason,JSON.stringify(body.scope),elevated.expires_at,body.seconds]));
     if(request.id!==requestId)throw Error('Support request mismatch');await audit(db,actor,'support_requested',{elevationId:elevated.id,requestId,targetTenantId:body.tenantId});response=project(request);
-@@ -102,13 +110,13 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+   }else if(operation==='listSupport'){
+    const rows=(await db.query(`SELECT r.* FROM auth_tenant_support_requests r JOIN auth_privilege_elevations e ON e.id=r.elevation_id
+-    WHERE r.target_tenant_id=$1 AND r.state IN ('pending','approved') AND r.expires_at>NOW() AND e.expires_at>NOW() AND e.revoked_at IS NULL
++    WHERE r.target_tenant_id=$1 AND r.state IN ('pending','approved') AND r.expires_at>clock_timestamp() AND e.expires_at>clock_timestamp() AND e.revoked_at IS NULL
+     ORDER BY r.created_at DESC,r.id LIMIT 50`,[actor.tenant_id])).rows;
     if(rows.length>50)throw Error('Unbounded support result');response={requests:rows.map(project)};
    }else{
     const record=await support(db,body.requestId);
@@ -155,7 +191,7 @@ index e6137cc8..4512213a 100644
      const counts=one(await db.query(`SELECT
       (SELECT COUNT(*)::int FROM users WHERE tenant_id::text=$1 AND status='active') AS accounts,
       (SELECT COUNT(*)::int FROM auth_sessions s JOIN users u ON u.id::text=s.user_id::text WHERE u.tenant_id::text=$1 AND u.status='active' AND s.expires_at>NOW()) AS sessions,
-@@ -117,10 +125,10 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
+@@ -117,10 +129,10 @@ export async function privilegedAccess(db,env,sessionToken,body,operation,tenant
      await audit(db,actor,'security_summary_read',{elevationId:elevated.id,requestId:request.id,targetTenantId:request.target_tenant_id});
      response={tenantId:request.target_tenant_id,activeAccounts:counts.accounts,activeSessions:counts.sessions,enrolledAuthenticators:counts.factors};
     }else{
@@ -168,8 +204,87 @@ index e6137cc8..4512213a 100644
       if(request.state==='pending'){
        one(await db.query("UPDATE auth_tenant_support_requests SET state='approved',approved_by=$2,approved_at=NOW() WHERE id=$1 AND state='pending' RETURNING id",[request.id,actor.id]));
        await audit(db,actor,'support_approved',{elevationId:elevated.id,requestId:request.id,targetTenantId:request.target_tenant_id});
+diff --git a/cloudflare/workers/src/security/mfa-key-rotation.mjs b/cloudflare/workers/src/security/mfa-key-rotation.mjs
+index 40459f14..f6ae6977 100644
+--- a/cloudflare/workers/src/security/mfa-key-rotation.mjs
++++ b/cloudflare/workers/src/security/mfa-key-rotation.mjs
+@@ -56,3 +56,20 @@ function distinctKeys(env,fromKeyId,toKeyId) {
+   const before=mfaStorageKey(env,fromKeyId),after=mfaStorageKey(env,toKeyId);
+   if(before.every((value,index)=>value===after[index]))throw Error('MFA rotation requires distinct keys');
+ }
++
++/** Bounded migration observation. Expired pending factors are unusable and may
++ * be purged; counts include every remaining old envelope before retirement. */
++export async function runMfaKeyRotation(db,env,fromKeyId){
++ const toKeyId=activeMfaKeyId(env);
++ const changed=await rotateMfaStorageBatch(db,env,{fromKeyId,toKeyId,limit:10});
++ const removed=await db.query(`DELETE FROM auth_mfa_replacement_challenges WHERE token_hash IN
++   (SELECT token_hash FROM auth_mfa_replacement_challenges WHERE expires_at<=clock_timestamp() ORDER BY expires_at,token_hash LIMIT 50)
++   RETURNING token_hash`);
++ if(!Array.isArray(removed.rows)||removed.rows.length>50)throw Error('Invalid expired replacement cleanup');
++ const counts=(await db.query(`SELECT
++   (SELECT COUNT(*)::int FROM auth_mfa_credentials WHERE envelope->>'keyId'=$1) AS credentials,
++   (SELECT COUNT(*)::int FROM auth_mfa_replacement_challenges WHERE pending_envelope->>'keyId'=$1) AS replacements`,[fromKeyId])).rows;
++ if(counts.length!==1||!Object.values(counts[0]).every(value=>Number.isInteger(value)&&value>=0))throw Error('Invalid MFA migration counts');
++ return {fromKeyId,toKeyId,...changed,expiredReplacementChallengesRemoved:removed.rows.length,
++   remainingOldCredentials:counts[0].credentials,remainingOldReplacementEnvelopes:counts[0].replacements};
++}
+diff --git a/cloudflare/workers/src/security/mfa-keyring-policy.json b/cloudflare/workers/src/security/mfa-keyring-policy.json
+new file mode 100644
+index 00000000..2832636d
+--- /dev/null
++++ b/cloudflare/workers/src/security/mfa-keyring-policy.json
+@@ -0,0 +1,6 @@
++{
++  "version": 1,
++  "activeKeyId": "mfa-v1",
++  "migrateFromKeyId": null,
++  "maximumBatch": 10
++}
+diff --git a/cloudflare/workers/src/security/mfa-lifecycle.mjs b/cloudflare/workers/src/security/mfa-lifecycle.mjs
+index 324fea04..9380a3d2 100644
+--- a/cloudflare/workers/src/security/mfa-lifecycle.mjs
++++ b/cloudflare/workers/src/security/mfa-lifecycle.mjs
+@@ -49,7 +49,10 @@ async function sessionLookup(db, sessionToken) {
+ }
+ 
+ async function sessionCurrent(db, sessionToken, user) {
+-  return (await db.query('SELECT token_hash FROM auth_sessions WHERE token_hash=$1 AND user_id::text=$2 AND expires_at>NOW() FOR UPDATE', [await digest(sessionToken), user.id])).rows.length === 1;
++  const hash = await digest(sessionToken);
++  if ((await db.query('SELECT token_hash FROM auth_sessions WHERE token_hash=$1 AND user_id::text=$2 FOR UPDATE', [hash, user.id])).rows.length !== 1) return false;
++  // NOW() is fixed at BEGIN; evaluate expiry after any row-lock wait.
++  return (await db.query('SELECT token_hash FROM auth_sessions WHERE token_hash=$1 AND user_id::text=$2 AND expires_at>clock_timestamp()', [hash, user.id])).rows.length === 1;
+ }
+ 
+ async function freshFactor(db, env, user, password, code) {
+@@ -121,6 +124,7 @@ export async function manageMfaLifecycle(db, env, sessionToken, body, action, lo
+       response = await replacement(db, env, user, credential, 'current_factor');
+       await audit(db, user, 'authenticator_replacement_started');
+     }
++    if (!await sessionCurrent(db, sessionToken, user)) {await db.query('ROLLBACK'); return denied();}
+     await db.query('COMMIT'); return response;
+   } catch (error) {await db.query('ROLLBACK'); throw error;}
+ }
+@@ -134,7 +138,7 @@ export async function recoverMfaLifecycle(db, env, body, locale = 'en') {
+   await db.query('BEGIN');
+   try {
+     const user = await lockedUser(db, found[0].user_id);
+-    const rows = (await db.query('SELECT *,expires_at>NOW() AS fresh FROM auth_mfa_challenges WHERE token_hash=$1 FOR UPDATE', [hash])).rows;
++    const rows = (await db.query('SELECT *,expires_at>clock_timestamp() AS fresh FROM auth_mfa_challenges WHERE token_hash=$1 FOR UPDATE', [hash])).rows;
+     const challenge = rows[0];
+     if (!user || user.status !== 'active' || user.roles !== 'code_admin' || rows.length !== 1 || challenge.fresh !== true ||
+         challenge.attempts >= 5 || challenge.purpose !== 'verify' || challenge.role !== user.roles || challenge.tenant_id !== user.tenant_id ||
+@@ -166,7 +170,7 @@ export async function confirmMfaReplacement(db, env, body, locale = 'en') {
+   await db.query('BEGIN');
+   try {
+     const user = await lockedUser(db, found[0].user_id);
+-    const rows = (await db.query('SELECT *,expires_at>NOW() AS fresh FROM auth_mfa_replacement_challenges WHERE token_hash=$1 FOR UPDATE', [hash])).rows;
++    const rows = (await db.query('SELECT *,expires_at>clock_timestamp() AS fresh FROM auth_mfa_replacement_challenges WHERE token_hash=$1 FOR UPDATE', [hash])).rows;
+     const pending = rows[0];
+     if (!user || user.status !== 'active' || user.roles !== 'code_admin' || rows.length !== 1 || pending.fresh !== true || pending.attempts >= 5 ||
+         pending.tenant_id !== user.tenant_id || pending.password_version !== await digest(user.password_hash)) {await db.query('ROLLBACK'); return denied();}
 diff --git a/cloudflare/workers/src/security/mfa.mjs b/cloudflare/workers/src/security/mfa.mjs
-index 2bcd7808..6495f5c2 100644
+index 2bcd7808..30e363d6 100644
 --- a/cloudflare/workers/src/security/mfa.mjs
 +++ b/cloudflare/workers/src/security/mfa.mjs
 @@ -1,33 +1,30 @@
@@ -222,7 +337,14 @@ index 2bcd7808..6495f5c2 100644
   // Read identity without locking, then lock user before challenge to match login's lock order.
   const lookup=await db.query('SELECT user_id FROM auth_mfa_challenges WHERE token_hash=$1',[hash]);
   if(lookup.rows.length!==1)return denied;
-@@ -56,7 +54,7 @@ export async function finishMfa(db,env,body){
+@@ -50,13 +48,13 @@ export async function finishMfa(db,env,body){
+  try {
+   const users=await db.query("SELECT id::text AS id,tenant_id::text AS tenant_id,roles,status,password_hash FROM users WHERE id::text=$1 FOR UPDATE",[lookup.rows[0].user_id]);
+   const user=users.rows[0];
+-  const found=await db.query('SELECT *,expires_at>NOW() AS fresh FROM auth_mfa_challenges WHERE token_hash=$1 FOR UPDATE',[hash]);
++  const found=await db.query('SELECT *,expires_at>clock_timestamp() AS fresh FROM auth_mfa_challenges WHERE token_hash=$1 FOR UPDATE',[hash]);
+   const challenge=found.rows[0];
+   if(users.rows.length!==1||found.rows.length!==1||!challenge?.fresh||challenge.attempts>=5||!user||!['active','mfa_pending'].includes(user.status)||user.roles!==challenge.role||user.roles!=='code_admin'||user.tenant_id!==challenge.tenant_id||await digest(user.password_hash)!==challenge.password_version){await db.query('ROLLBACK');return denied;}
    const records=await db.query('SELECT tenant_id,envelope,enabled,last_counter FROM auth_mfa_credentials WHERE user_id=$1 FOR UPDATE',[user.id]);
    const credential=records.rows[0];
    if(records.rows.length!==1||credential.tenant_id!==user.tenant_id||credential.enabled!==(challenge.purpose==='verify')){await db.query('ROLLBACK');return denied;}
@@ -232,25 +354,50 @@ index 2bcd7808..6495f5c2 100644
    if(counter===null){const attempted=await db.query('UPDATE auth_mfa_challenges SET attempts=attempts+1 WHERE token_hash=$1 AND attempts<5 RETURNING attempts',[hash]);if(attempted.rows.length!==1)throw Error('Invalid MFA attempt result');await audit(db,user,'mfa_verification_failed');await db.query('COMMIT');return denied;}
    const consumed=await db.query('UPDATE auth_mfa_credentials SET enabled=true,enabled_at=COALESCE(enabled_at,NOW()),last_counter=$2 WHERE user_id=$1 AND last_counter<$2 RETURNING user_id',[user.id,counter]);
 diff --git a/cloudflare/workers/src/service-application.ts b/cloudflare/workers/src/service-application.ts
-index 29d72fb4..cb5e0b98 100644
+index 29d72fb4..6db2091e 100644
 --- a/cloudflare/workers/src/service-application.ts
 +++ b/cloudflare/workers/src/service-application.ts
-@@ -2,6 +2,9 @@ import {businessModules} from './business-modules';
+@@ -2,10 +2,19 @@ import {businessModules} from './business-modules';
  import {legacyDomain} from './legacy-domain';
  import {sourceLoginLimit} from './auth-source-limit';
  import { auth, withDb, type Env } from './auth';
 +import {sendEmail} from './email';
++import {activeMfaKeyId} from './security/mfa-keyring.mjs';
++import {verifyMfaKeyRotation,runMfaKeyRotation} from './security/mfa-key-rotation.mjs';
 +import {deliverMfaNotifications} from './security/mfa-notifications.mjs';
 +import lifecycle from '../../../packages/shared/src/auth-lifecycle.json';
  
  import {HandlerPipeline, type WorkerContext} from './runtime/handler-pipeline';
  import {WorkerApplication} from './runtime/worker-application';
-@@ -34,6 +37,18 @@ const pipeline = new HandlerPipeline<Env>([
+ 
++interface MfaRotationReport {
++  fromKeyId:string;toKeyId:string;rewrapped:number;expiredReplacementChallengesRemoved:number;
++  remainingOldCredentials:number;remainingOldReplacementEnvelopes:number;
++}
+ type ExistingHandler = (request: Request, env: Env, path: string, headers: HeadersInit) => Response | null | Promise<Response | null>;
+ const stage = (name: string, handler: ExistingHandler) => ({
+   name,
+@@ -34,6 +43,33 @@ const pipeline = new HandlerPipeline<Env>([
  
  /** Shared service implementation inherited by the existing Worker entry point. */
  export class ServiceApplication extends WorkerApplication<Env> {
 +  async scheduled(_controller: unknown, env: Env): Promise<void> {
 +    if (env.SERVICE_NAME !== 'auth') return;
++    if (env.MFA_ENCRYPTION_KEY_V2 !== undefined) {
++      const source=env.MFA_KEYRING_SOURCE_SHA256;let verified=false;
++      try {
++        if(!/^[a-f0-9]{64}$/.test(source??''))throw Error('Missing keyring source');
++        const drill=await verifyMfaKeyRotation(env,'mfa-v1','mfa-v2');
++        console.log('MFA_KEYRING_DRILL '+JSON.stringify({source,activeKeyId:activeMfaKeyId(env),...drill}));verified=true;
++      }catch {console.log('MFA_KEYRING_DRILL '+JSON.stringify({source,verified:false}));}
++      if(verified&&env.MFA_ROTATION_FROM_KEY_ID){
++        try {
++          const report=await withDb<MfaRotationReport>(env,db=>runMfaKeyRotation(db,env,env.MFA_ROTATION_FROM_KEY_ID));
++          console.log('MFA_KEY_ROTATION_REPORT '+JSON.stringify({source,verified:true,...report}));
++        }catch{console.log('MFA_KEY_ROTATION_REPORT '+JSON.stringify({source,verified:false}));}
++      }
++    }
++
 +    const report = await withDb(env, db => deliverMfaNotifications(db, async (notice: {id:string;recipient:string;locale:string}) => {
 +      const language = ['en','fr','es'].includes(notice.locale) ? notice.locale as 'en'|'fr'|'es' : 'en';
 +      const copy = lifecycle.locales[language];
@@ -585,72 +732,6 @@ index d3fd8236..1c3162e8 100644
      'register': '/v1/auth/register',
      'forgotPassword': '/v1/auth/forgot-password',
      'resetPassword': '/v1/auth/reset-password',
-diff --git a/packages/flutter_core/lib/src/security/security_interceptor.dart b/packages/flutter_core/lib/src/security/security_interceptor.dart
-index 8bf57980..8c601d70 100644
---- a/packages/flutter_core/lib/src/security/security_interceptor.dart
-+++ b/packages/flutter_core/lib/src/security/security_interceptor.dart
-@@ -119,9 +119,14 @@ class SecurityInterceptor extends Interceptor {
-     // A failed logout must not recursively call logout. Credential checks can
-     // return 401 without invalidating an existing session. A delayed response
-     // from an older token must not sign out a newer session.
--    final credentialCheck = path == '/v1/auth/login' ||
--        path == '/v1/auth/change-password' ||
--        path == '/v1/user/change-password';
-+    const credentialChecks = {
-+      '/v1/auth/login', '/v1/auth/change-password', '/v1/user/change-password',
-+      '/v1/auth/mfa', '/v1/auth/mfa/recovery-codes', '/v1/auth/mfa/replacement',
-+      '/v1/auth/mfa/recovery', '/v1/auth/mfa/replacement/confirm',
-+      '/v1/auth/mfa/elevation', '/v1/auth/mfa/support/approve',
-+      '/v1/auth/mfa/support/revoke',
-+    };
-+    final credentialCheck = credentialChecks.contains(path);
-     if (err.response?.statusCode == 401 &&
-         path != '/v1/auth/logout' &&
-         !credentialCheck &&
-diff --git a/packages/flutter_core/test/auth_interceptor_test.dart b/packages/flutter_core/test/auth_interceptor_test.dart
-new file mode 100644
-index 00000000..1c2fe373
---- /dev/null
-+++ b/packages/flutter_core/test/auth_interceptor_test.dart
-@@ -0,0 +1,38 @@
-+import 'package:dio/dio.dart';
-+import 'package:flutter_riverpod/flutter_riverpod.dart';
-+import 'package:flutter_test/flutter_test.dart';
-+import 'package:flutter_core/auth_service.dart';
-+import 'package:flutter_core/src/security/security_interceptor.dart';
-+
-+class InterceptorActor extends AuthNotifier {
-+  int signouts=0;
-+  String token=List.filled(43,'a').join();
-+  @override
-+  AuthState build()=>AuthState(isInitialized:true,isAuthenticated:true,userId:'synthetic-owner',role:'code_admin',token:token);
-+  @override
-+  Future<void> logout()async{signouts++;state=AuthState(isInitialized:true);}
-+  void replace(){token=List.filled(43,'b').join();state=AuthState(isInitialized:true,isAuthenticated:true,userId:'new-owner',role:'code_admin',token:token);}
-+}
-+void main(){
-+ TestWidgetsFlutterBinding.ensureInitialized();
-+ Future<int> rejected(String path,{int status=401,bool newerActor=false})async{
-+  final actor=InterceptorActor(),c=ProviderContainer(overrides:[authProvider.overrideWith(()=>actor)]);
-+  final transport=Dio(BaseOptions(baseUrl:'https://api.example.test'));
-+  try{
-+   c.read(authProvider);final interceptor=c.read(Provider((ref)=>SecurityInterceptor(ref)));
-+   final sentToken=actor.token;if(newerActor)actor.replace();
-+   transport.interceptors.add(InterceptorsWrapper(onRequest:(options,handler)=>handler.reject(DioException(requestOptions:options,type:DioExceptionType.badResponse,response:Response(requestOptions:options,statusCode:status,data:{'error':'Synthetic denial'})),true)));
-+   transport.interceptors.add(InterceptorsWrapper(onError:interceptor.onError));
-+   await expectLater(transport.post<dynamic>(path,options:Options(headers:{'Authorization':'Bearer $sentToken'})),throwsA(isA<DioException>()));
-+   if(actor.signouts==0)expect(c.read(authProvider).token,actor.token);
-+   return actor.signouts;
-+  }finally{transport.close(force:true);c.dispose();}
-+ }
-+ for(final path in ['/v1/auth/login','/v1/auth/mfa','/v1/auth/mfa/recovery-codes','/v1/auth/mfa/replacement','/v1/auth/mfa/recovery','/v1/auth/mfa/replacement/confirm','/v1/auth/mfa/elevation','/v1/auth/mfa/support/approve','/v1/auth/mfa/support/revoke','/api/auth/mfa/replacement/confirm?probe=1']){
-+  test('$path rejects proof without revoking existing owned session',()async{expect(await rejected(path),0);});
-+ }
-+ test('current-session identity denial still clears invalid authority',()async{expect(await rejected('/v1/auth/me'),1);});
-+ test('late identity denial cannot sign out a newer actor',()async{expect(await rejected('/v1/auth/me',newerActor:true),0);});
-+ test('logout denial does not recursively sign out again',()async{expect(await rejected('/v1/auth/logout'),0);});
-+ test('tenant support permission denial cannot revoke valid session',()async{expect(await rejected('/v1/auth/mfa/support/summary',status:403),0);});
-+}
 diff --git a/packages/flutter_core/test/auth_mfa_management_test.dart b/packages/flutter_core/test/auth_mfa_management_test.dart
 new file mode 100644
 index 00000000..57a566b4
@@ -1980,10 +2061,29 @@ index 00000000..f795414a
 +  });
 +}
 diff --git a/scripts/generate-cloudflare-worker-config.mjs b/scripts/generate-cloudflare-worker-config.mjs
-index 8f09a6e0..9612aa9a 100644
+index 8f09a6e0..929d27fd 100644
 --- a/scripts/generate-cloudflare-worker-config.mjs
 +++ b/scripts/generate-cloudflare-worker-config.mjs
-@@ -28,6 +28,7 @@ for (const service of services) {
+@@ -1,4 +1,5 @@
+ import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
++import {mfaKeyringSource} from './mfa-keyring-source.mjs';
+ 
+ const sourcePolicy = JSON.parse(readFileSync(new URL('../cloudflare/workers/src/auth-source-policy.json',import.meta.url),'utf8')).login;
+ const visionPolicy = JSON.parse(readFileSync(new URL('../cloudflare/workers/src/look/provider-policy.json',import.meta.url),'utf8'));
+@@ -6,6 +7,12 @@ const visionPolicy = JSON.parse(readFileSync(new URL('../cloudflare/workers/src/
+ const services = ['auth', 'client', 'provider', 'visit', 'notes', 'billing', 'scheduling',
+   'notification', 'verification', 'compliance', 'governance', 'franchise-reporting'];
+ const emailServices = new Set(['auth', 'governance']);
++const keyringPolicy=JSON.parse(readFileSync(new URL('../cloudflare/workers/src/security/mfa-keyring-policy.json',import.meta.url),'utf8'));
++if(keyringPolicy.version!==1||!['mfa-v1','mfa-v2'].includes(keyringPolicy.activeKeyId)||
++  keyringPolicy.migrateFromKeyId!==null&&(!['mfa-v1','mfa-v2'].includes(keyringPolicy.migrateFromKeyId)||keyringPolicy.migrateFromKeyId===keyringPolicy.activeKeyId)||keyringPolicy.maximumBatch!==10)throw Error('Invalid MFA keyring deployment policy');
++const keyringVars={MFA_ACTIVE_KEY_ID:keyringPolicy.activeKeyId,MFA_KEYRING_SOURCE_SHA256:mfaKeyringSource(),
++  ...(keyringPolicy.migrateFromKeyId?{MFA_ROTATION_FROM_KEY_ID:keyringPolicy.migrateFromKeyId}:{})};
++
+ const output = process.argv[2] || '.cloudflare-workers';
+ mkdirSync(output, { recursive: true });
+ if(process.env.LOOK_AI_SERVICE&&!/^[a-z0-9][a-z0-9-]{0,62}$/.test(process.env.LOOK_AI_SERVICE))throw Error('Invalid LOOK_AI_SERVICE');
+@@ -28,13 +35,14 @@ for (const service of services) {
      ...(service === 'auth' ? {ratelimits:[{name:'AUTH_SOURCE_LIMIT',namespace_id:sourcePolicy.namespaceId,
        simple:{limit:sourcePolicy.maxAttempts,period:sourcePolicy.windowSeconds}},
        {name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100402',simple:{limit:120,period:60}}]} : {}),
@@ -1991,6 +2091,14 @@ index 8f09a6e0..9612aa9a 100644
      ...(service === 'provider' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100404',simple:{limit:120,period:60}}]} : {}),
      ...(service === 'client' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100403',simple:{limit:120,period:60}}]} : {}),
      ...(service === 'governance' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100401',
+       simple:{limit:120,period:60}}]} : {}),
+     ...(service === 'governance' && process.env.LOOK_AI_SERVICE ? {services:[{binding:'LOOK_AI',service:process.env.LOOK_AI_SERVICE}]} : {}),
+     observability: { enabled: true },
+-    vars: { SERVICE_NAME: service, ...(emailServices.has(service) ? {EMAIL_FROM:'noreply@15minutes-email.com',EMAIL_ALLOWED_SENDER:'noreply@15minutes-email.com'} : {}) },
++    vars: { SERVICE_NAME: service, ...(service === 'auth' ? keyringVars : {}), ...(emailServices.has(service) ? {EMAIL_FROM:'noreply@15minutes-email.com',EMAIL_ALLOWED_SENDER:'noreply@15minutes-email.com'} : {}) },
+     ...(emailServices.has(service) ? {send_email:[{name:'EMAIL',allowed_sender_addresses:['noreply@15minutes-email.com']}]} : {}),
+   }, null, 2)}\n`);
+ }
 diff --git a/scripts/generate-flutter-auth-elevation-catalog.py b/scripts/generate-flutter-auth-elevation-catalog.py
 new file mode 100644
 index 00000000..d053f51e
@@ -2044,8 +2152,26 @@ index 7a481b7d..9d5e19d4 100644
  s+='};\n'
 +s+='const nativeMfaChallengeLifetimeSeconds = '+str(json.loads((root/'tools/governance-production/mfa-registration.json').read_text())['challenge']['expiresSeconds'])+';\n'
  (root/'packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart').write_text(s)
+diff --git a/scripts/mfa-keyring-source.mjs b/scripts/mfa-keyring-source.mjs
+new file mode 100644
+index 00000000..0a30e154
+--- /dev/null
++++ b/scripts/mfa-keyring-source.mjs
+@@ -0,0 +1,12 @@
++import {createHash} from 'node:crypto';
++import {readFileSync} from 'node:fs';
++const paths=[
++ 'cloudflare/workers/src/security/mfa-keyring.mjs','cloudflare/workers/src/security/mfa-key-rotation.mjs',
++ 'cloudflare/workers/src/security/mfa-secret.mjs','cloudflare/workers/src/security/totp.mjs',
++ 'cloudflare/workers/src/security/mfa-keyring-policy.json','cloudflare/workers/src/service-application.ts',
++ 'scripts/generate-cloudflare-worker-config.mjs','scripts/mfa-keyring-source.mjs',
++];
++/** Public source fingerprint only. Never read environment keys or account data. */
++export function mfaKeyringSource(){
++ const hash=createHash('sha256');for(const path of paths)hash.update(path).update('\0').update(readFileSync(new URL('../'+path,import.meta.url))).update('\0');return hash.digest('hex');
++}
 diff --git a/scripts/test-auth-privileged-postgres.mjs b/scripts/test-auth-privileged-postgres.mjs
-index 16558331..538dc47c 100644
+index 16558331..32120c4b 100644
 --- a/scripts/test-auth-privileged-postgres.mjs
 +++ b/scripts/test-auth-privileged-postgres.mjs
 @@ -69,7 +69,7 @@ test('fresh tenant password is required for approval and failure audits cannot g
@@ -2057,7 +2183,7 @@ index 16558331..538dc47c 100644
  });
  test('audit fault rolls back factor consumption and elevation creation; summary audit fault returns no data',async()=>{
   await reset();await multi("CREATE FUNCTION fail_privilege() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'synthetic audit fault'; END $$;CREATE TRIGGER fail_privilege BEFORE INSERT ON auth_privileged_access_audit FOR EACH ROW EXECUTE FUNCTION fail_privilege();");
-@@ -100,3 +100,13 @@ test('approval audit failure preserves pending request and missing MFA key canno
+@@ -100,3 +100,25 @@ test('approval audit failure preserves pending request and missing MFA key canno
   await reset();await assert.rejects(privilegedAccess(db,{},root.session,{password,code:await totpAt(seed,Math.floor(Date.now()/1000)),reason:'Investigate tenant sign-in counts',scope,seconds:900},'elevate'));
   assert.equal(await count('auth_privilege_elevations'),0);assert.equal(await count('auth_sessions'),4);
  });
@@ -2070,6 +2196,43 @@ index 16558331..538dc47c 100644
 + await assert.rejects(call(root,{requestId:r.requestId},'summary'));
 + assert.equal((await db.query('SELECT state FROM auth_tenant_support_requests WHERE id=$1',[r.requestId])).rows[0].state,'pending');
 + await multi('DROP TRIGGER fail_denial ON auth_privileged_access_audit;DROP FUNCTION fail_denial();');
++});
++test('a support request waiting on a row lock cannot outlive its real database deadline',{skip:!client},async()=>{
++ await reset();const {e,r}=await approved();
++ await db.query("UPDATE auth_privilege_elevations SET created_at=clock_timestamp()-INTERVAL '1 second',expires_at=clock_timestamp()+INTERVAL '1 second' WHERE id=$1",[e.elevationId]);
++ await db.query("UPDATE auth_tenant_support_requests SET created_at=clock_timestamp()-INTERVAL '1 second',expires_at=(SELECT expires_at FROM auth_privilege_elevations WHERE id=$2) WHERE id=$1",[r.requestId,e.elevationId]);
++ const pg=await import('pg'),blocker=new pg.default.Client({connectionString:process.env.MFA_TEST_DATABASE_URL});await blocker.connect();
++ try{
++  await blocker.query('SET search_path TO '+schema);await blocker.query('BEGIN');await blocker.query('SELECT id FROM auth_privilege_elevations WHERE id=$1 FOR UPDATE',[e.elevationId]);
++  const pending=call(root,{requestId:r.requestId},'summary');await blocker.query('SELECT pg_sleep(1.2)');await blocker.query('COMMIT');
++  const result=await pending;assert.equal(result.status,403);assert.equal(result.body.activeAccounts,undefined);
++  assert.equal((await db.query("SELECT COUNT(*)::int AS n FROM auth_privileged_access_audit WHERE action='security_summary_read'")).rows[0].n,0);
++ }finally{await blocker.query('ROLLBACK');await blocker.end();}
++});
+diff --git a/scripts/test-code-admin-key-rotation-postgres.mjs b/scripts/test-code-admin-key-rotation-postgres.mjs
+index f5027b60..af2dbc50 100644
+--- a/scripts/test-code-admin-key-rotation-postgres.mjs
++++ b/scripts/test-code-admin-key-rotation-postgres.mjs
+@@ -1,7 +1,7 @@
+ import {test,after} from 'node:test';
+ import assert from 'node:assert/strict';
+ import {readFileSync} from 'node:fs';
+-import {rotateMfaStorageBatch} from '../cloudflare/workers/src/security/mfa-key-rotation.mjs';
++import {rotateMfaStorageBatch,runMfaKeyRotation} from '../cloudflare/workers/src/security/mfa-key-rotation.mjs';
+ import {sealCurrentMfaSeed,openStoredMfaSeed} from '../cloudflare/workers/src/security/mfa-keyring.mjs';
+ import {generateMfaSeed} from '../cloudflare/workers/src/security/mfa-secret.mjs';
+ let db,client;
+@@ -56,3 +56,11 @@ test('parallel native rotation batches audit and rewrap each credential once',{s
+   assert.equal(Number((await db.query('SELECT COUNT(*) AS n FROM auth_mfa_lifecycle_audit')).rows[0].n),1);
+  }finally{await Promise.all(peers.map(peer=>peer.end()));}
+ });
++
++test('migration report purges only expired pending factors and counts every old envelope',async()=>{
++ await reset();const c=await credential();
++ await db.query("INSERT INTO auth_mfa_replacement_challenges(token_hash,user_id,tenant_id,password_version,original_envelope_hash,pending_envelope,proof_kind,expires_at) VALUES($1,$2,$3,'version','hash',$4,'current_factor',clock_timestamp()-INTERVAL '1 second')",['b'.repeat(64),user.id,user.tenant_id,JSON.stringify(c.envelope)]);
++ const report=await runMfaKeyRotation(db,dual,'mfa-v1');
++ assert.deepEqual(report,{fromKeyId:'mfa-v1',toKeyId:'mfa-v2',rewrapped:1,expiredReplacementChallengesRemoved:1,remainingOldCredentials:0,remainingOldReplacementEnvelopes:0});
++ assert.equal((await db.query('SELECT * FROM auth_mfa_replacement_challenges')).rows.length,0);
 +});
 diff --git a/scripts/test-code-admin-mfa-postgres.mjs b/scripts/test-code-admin-mfa-postgres.mjs
 index f8e33e9f..2924ce63 100644
@@ -2112,6 +2275,23 @@ index f8e33e9f..2924ce63 100644
 + assert.equal(await count('auth_sessions'),0);assert.equal(await count('auth_mfa_challenges'),1);
 + assert.equal((await finishMfa(db,dual,request)).status,200);
 +});
+diff --git a/scripts/test-mfa-keyring-tail.mjs b/scripts/test-mfa-keyring-tail.mjs
+new file mode 100644
+index 00000000..9b4c43a1
+--- /dev/null
++++ b/scripts/test-mfa-keyring-tail.mjs
+@@ -0,0 +1,11 @@
++import {test} from 'node:test';
++import assert from 'node:assert/strict';
++import {TailObjects,keyringEvidence} from '../tools/auth-verification/mfa-keyring-tail.mjs';
++const expected={source:'a'.repeat(64),activeKeyId:'mfa-v2',migrateFromKeyId:'mfa-v1'};
++const drill={source:expected.source,activeKeyId:'mfa-v2',fromKeyId:'mfa-v1',toKeyId:'mfa-v2',verified:true};
++const rotation={source:expected.source,verified:true,fromKeyId:'mfa-v1',toKeyId:'mfa-v2',rewrapped:1,expiredReplacementChallengesRemoved:0,remainingOldCredentials:0,remainingOldReplacementEnvelopes:0};
++const event=(body=drill,prefix='MFA_KEYRING_DRILL ')=>({scriptName:'primecare-auth-api',event:{cron:'*/5 * * * *'},outcome:'ok',logs:[{message:[prefix+JSON.stringify(body)]}]});
++test('chunked pretty JSON preserves escapes and concatenated scheduled objects',()=>{const actual=[],parser=new TailObjects(x=>actual.push(x));const values=[event(),{nested:{value:'a { \\" } b'}}];const input=values.map(v=>JSON.stringify(v,null,2)).join('\n');for(const ch of input)parser.push(ch);assert.deepEqual(actual,values);});
++test('proof accepts exact scheduled source and rejects stale or HTTP injected log text',()=>{assert.equal(keyringEvidence(event(),expected).length,1);for(const value of [{...event(),event:{request:{url:'https://example.invalid'}}},{...event(),scriptName:'other'},{...event(),outcome:'exception'},event({...drill,source:'b'.repeat(64)}),event({...drill,verified:false}),event({...drill,extra:'secret'}),event({...drill,activeKeyId:'mfa-v1'})])assert.deepEqual(keyringEvidence(value,expected),[]);});
++test('migration evidence is bounded exact and includes every remaining envelope',()=>{assert.deepEqual(keyringEvidence(event(rotation,'MFA_KEY_ROTATION_REPORT '),expected),[{kind:'rotation',...rotation}]);for(const body of [{...rotation,rewrapped:11},{...rotation,remainingOldCredentials:-1},{...rotation,remainingOldReplacementEnvelopes:0.5},{...rotation,toKeyId:'mfa-v1'},{...rotation,account:'secret'}])assert.deepEqual(keyringEvidence(event(body,'MFA_KEY_ROTATION_REPORT '),expected),[]);});
++test('bounded stream fails without emitting malformed or oversized raw content',()=>{assert.throws(()=>new TailObjects(()=>assert.fail()).push('{invalid}'),/Malformed/);assert.throws(()=>new TailObjects(()=>assert.fail()).push('{"x":"'+'x'.repeat(2*1024*1024)),/limit/);});
 diff --git a/scripts/test-worker-inheritance.mjs b/scripts/test-worker-inheritance.mjs
 index 6baf4ea8..659aab15 100644
 --- a/scripts/test-worker-inheritance.mjs
@@ -2161,3 +2341,68 @@ index 6baf4ea8..659aab15 100644
  const registryBuild=await build({entryPoints:['cloudflare/workers/src/business-modules.ts'],bundle:true,write:false,platform:'node',format:'esm',plugins:[noDatabase]});
  const {businessModules}=await import('data:text/javascript;base64,'+Buffer.from(registryBuild.outputFiles[0].text).toString('base64'));
  test('central module registry retains reviewed precedence and cannot mutate',()=>{
+diff --git a/tools/auth-verification/mfa-keyring-tail.mjs b/tools/auth-verification/mfa-keyring-tail.mjs
+new file mode 100644
+index 00000000..cd0eba76
+--- /dev/null
++++ b/tools/auth-verification/mfa-keyring-tail.mjs
+@@ -0,0 +1,59 @@
++import {spawn} from 'node:child_process';
++import {mkdirSync,readFileSync,writeFileSync} from 'node:fs';
++import {pathToFileURL} from 'node:url';
++import {mfaKeyringSource} from '../../scripts/mfa-keyring-source.mjs';
++
++// Wrangler emits pretty JSON objects. Retain one bounded event at a time and
++// never print raw events: unrelated logs can contain operational information.
++export class TailObjects {
++  constructor(accept){this.accept=accept;this.value='';this.depth=0;this.string=false;this.escape=false;}
++  push(chunk){
++    for(const ch of chunk){
++      if(!this.depth){if(ch!=='{')continue;this.depth=1;this.value='{';continue;}
++      this.value+=ch;if(this.value.length>2*1024*1024)throw Error('Tail event exceeds limit');
++      if(this.string){if(this.escape)this.escape=false;else if(ch==='\\')this.escape=true;else if(ch==='"')this.string=false;continue;}
++      if(ch==='"')this.string=true;else if(ch==='{')this.depth++;else if(ch==='}'&&!--this.depth){
++        const value=this.value;this.value='';let event;try{event=JSON.parse(value);}catch{throw Error('Malformed tail event');}this.accept(event);
++      }
++    }
++  }
++}
++const keys=(value,expected)=>value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).sort().join(',')===[...expected].sort().join(',');
++export function keyringEvidence(event,expected){
++  if(event?.scriptName!=='primecare-auth-api'||event?.event?.cron!=='*/5 * * * *'||event?.outcome!=='ok'||!Array.isArray(event.logs))return [];
++  const receipts=[];
++  for(const log of event.logs){
++    if(!Array.isArray(log.message))continue;
++    for(const message of log.message){
++      if(typeof message!=='string')continue;
++      const kind=message.startsWith('MFA_KEYRING_DRILL ')?'drill':message.startsWith('MFA_KEY_ROTATION_REPORT ')?'rotation':null;
++      if(!kind)continue;let body;try{body=JSON.parse(message.slice(message.indexOf(' ')+1));}catch{continue;}
++      if(body.source!==expected.source||body.verified!==true)continue;
++      if(kind==='drill'&&keys(body,['source','verified','activeKeyId','fromKeyId','toKeyId'])&&body.activeKeyId===expected.activeKeyId&&body.fromKeyId==='mfa-v1'&&body.toKeyId==='mfa-v2')receipts.push({kind,...body});
++      const counts=['rewrapped','expiredReplacementChallengesRemoved','remainingOldCredentials','remainingOldReplacementEnvelopes'];
++      if(kind==='rotation'&&keys(body,['source','verified','fromKeyId','toKeyId',...counts])&&body.fromKeyId===expected.migrateFromKeyId&&body.toKeyId===expected.activeKeyId&&counts.every(key=>Number.isSafeInteger(body[key])&&body[key]>=0)&&body.rewrapped<=10&&body.expiredReplacementChallengesRemoved<=50)receipts.push({kind,...body});
++    }
++  }
++  return receipts;
++}
++async function main(){
++  const bin=process.argv[2];if(!bin)throw Error('Wrangler CLI path required');
++  const policy=JSON.parse(readFileSync('cloudflare/workers/src/security/mfa-keyring-policy.json','utf8'));
++  const expected={source:mfaKeyringSource(),activeKeyId:policy.activeKeyId,migrateFromKeyId:policy.migrateFromKeyId};
++  let drill,rotation,settled=false;const output='test-results/mfa-keyring/receipt.json';mkdirSync('test-results/mfa-keyring',{recursive:true});
++  await new Promise((resolve,reject)=>{
++    const child=spawn(process.execPath,[bin,'tail','--config','.cloudflare-workers/auth.jsonc','--format','json','--sampling-rate','1'],{stdio:['ignore','pipe','ignore']});
++    const finish=(error)=>{if(settled)return;settled=true;clearTimeout(deadline);child.kill('SIGTERM');error?reject(error):resolve();};
++    const deadline=setTimeout(()=>finish(Error('No matching scheduled keyring proof before deadline')),14*60*1000);
++    const parser=new TailObjects(event=>{
++      for(const receipt of keyringEvidence(event,expected)){if(receipt.kind==='drill')drill=receipt;else rotation=receipt;}
++      if(drill&&(!expected.migrateFromKeyId||rotation&&rotation.remainingOldCredentials===0&&rotation.remainingOldReplacementEnvelopes===0)){
++        writeFileSync(output,JSON.stringify({source:process.env.GITHUB_SHA,...expected,observedAt:new Date().toISOString(),actualBindingDrill:drill,rotation:rotation??null,oldKeyDeleted:false,independentApprovals:false},null,2)+'\n');finish();
++      }
++    });
++    child.stdout.setEncoding('utf8');child.stdout.on('data',chunk=>{try{parser.push(chunk);}catch{finish(Error('Invalid keyring tail stream'));}});
++    child.on('error',()=>finish(Error('Unable to start keyring verification')));child.on('exit',()=>{if(!settled)finish(Error('Keyring tail ended without matching proof'));});
++  });
++  console.log('Verified scheduled keyring bindings and required migration counts; receipt saved.');
++}
++if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(()=>{console.error('MFA keyring live verification failed; no proof recorded.');process.exitCode=1;});

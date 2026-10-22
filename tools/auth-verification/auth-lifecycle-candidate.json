@@ -1,10 +1,13 @@
 {
-  "base": "7de9e8b24bff2367cac28bdbb9665da458753e2a",
-  "sha256": "d7361be90441481551aeab1dbdfd167702f444a22d64d262120ced0de1ee9891",
+  "base": "9a9c6ae69483fc31bf362c376efc5afec9dcbd46",
+  "sha256": "ffc9b65569bea7b59dc1d42e1c1f3b4f36ccb01aeac30fcbfd7967b135cbc7be",
   "paths": [
     "cloudflare/workers/src/auth.ts",
     "cloudflare/workers/src/core/base-worker.ts",
     "cloudflare/workers/src/security/mfa-elevation.mjs",
+    "cloudflare/workers/src/security/mfa-key-rotation.mjs",
+    "cloudflare/workers/src/security/mfa-keyring-policy.json",
+    "cloudflare/workers/src/security/mfa-lifecycle.mjs",
     "cloudflare/workers/src/security/mfa.mjs",
     "cloudflare/workers/src/service-application.ts",
     "packages/flutter_core/lib/auth_service.dart",
@@ -12,8 +15,6 @@
     "packages/flutter_core/lib/src/application/controllers/privileged_access_service.dart",
     "packages/flutter_core/lib/src/application/privileged_access_contract.g.dart",
     "packages/flutter_core/lib/src/network/api_client.dart",
-    "packages/flutter_core/lib/src/security/security_interceptor.dart",
-    "packages/flutter_core/test/auth_interceptor_test.dart",
     "packages/flutter_core/test/auth_mfa_management_test.dart",
     "packages/flutter_core/test/auth_mfa_test.dart",
     "packages/flutter_core/test/auth_privileged_access_test.dart",
@@ -35,8 +36,12 @@
     "scripts/generate-flutter-auth-elevation-catalog.py",
     "scripts/generate-flutter-auth-lifecycle-catalog.py",
     "scripts/generate-flutter-mfa-catalog.py",
+    "scripts/mfa-keyring-source.mjs",
     "scripts/test-auth-privileged-postgres.mjs",
+    "scripts/test-code-admin-key-rotation-postgres.mjs",
     "scripts/test-code-admin-mfa-postgres.mjs",
-    "scripts/test-worker-inheritance.mjs"
+    "scripts/test-mfa-keyring-tail.mjs",
+    "scripts/test-worker-inheritance.mjs",
+    "tools/auth-verification/mfa-keyring-tail.mjs"
   ]
 }
