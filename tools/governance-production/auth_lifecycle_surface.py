@@ -13,7 +13,8 @@ FILE = Path(__file__).with_name('auth-lifecycle-surface.json')
 def scope():
     return dict(optInVariable='GOVERNANCE_AUTH_LIFECYCLE_SURFACE_WRITES', tables=list(TABLES),
         screenId=949, endpointPrefix='/v1/auth/mfa/', definitionSha256=hashlib.sha256(FILE.read_bytes()).hexdigest(),
-        schemaChanges=False, businessDataWrites=False, roleGrants=False)
+        schemaChanges=False, businessDataWrites=False, roleGrants=False,
+        additionalScreenCode='AUTHENTICATED_ACCOUNT')
 
 
 def register(db):
@@ -53,7 +54,18 @@ def register(db):
                 file_path=d['file'], implementation_status='registered-unimplemented'))
         db.ensure('screen_required_elements', dict(screen_id=949, element_key='authLifecycle.' + key),
             dict(element_type=component, label='authLifecycle.' + key, test_id=identifier, required=1))
-    return dict(apiIds=ids, controls=len(d['controls']), roleGrants=0, accountChanges=0, activation=False)
+    entry = d['managementEntry']
+    account = db.execute('SELECT id,route_path,active FROM screens WHERE screen_code=?', (entry['screenCode'],)).fetchall()
+    if len(account) != 1 or account[0][1:] != (entry['route'], 1) or entry['role'] != 'code_admin' or entry['destination'] != '/mfa':
+        raise GovernanceReadError('Existing account entry and self-only MFA destination required')
+    if db.execute('SELECT active FROM primecare_ui_component_registry WHERE component_code=?', (entry['componentType'],)).fetchall() != [(1,)]:
+        raise GovernanceReadError('Existing PrimeCare entry component required')
+    db.ensure('screen_components', dict(screen_id=account[0][0], component_code=entry['componentCode']),
+        dict(component_name=entry['resourceKey'], component_type=entry['componentType'], data_cy=entry['dataCy'],
+            file_path=entry['file'], implementation_status='registered-unimplemented'))
+    db.ensure('screen_required_elements', dict(screen_id=account[0][0], element_key=entry['componentCode']),
+        dict(element_type=entry['componentType'], label=entry['resourceKey'], test_id=entry['dataCy'], required=1))
+    return dict(apiIds=ids, controls=len(d['controls']) + 1, roleGrants=0, accountChanges=0, activation=False)
 
 
 if __name__ == '__main__':

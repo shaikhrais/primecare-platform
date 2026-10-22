@@ -288,5 +288,16 @@
     "working": "prime_card"
   },
   "reviewStatus": "pending",
-  "permissionGrants": false
+  "permissionGrants": false,
+  "managementEntry": {
+    "screenCode": "AUTHENTICATED_ACCOUNT",
+    "route": "/success",
+    "destination": "/mfa",
+    "componentCode": "authLifecycle.manageEntry",
+    "dataCy": "mfa-lifecycle-manage",
+    "componentType": "prime_button",
+    "resourceKey": "authLifecycle.title",
+    "file": "packages/primecare_ui/lib/src/features/auth/auth_experience.dart",
+    "role": "code_admin"
+  }
 }

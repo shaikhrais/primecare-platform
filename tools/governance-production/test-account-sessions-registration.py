@@ -75,6 +75,16 @@ class AccountTests(unittest.TestCase):
             self.assertEqual(db.execute("SELECT COUNT(*) FROM language_resource_values WHERE reviewed<>0 OR approved<>0").fetchone()[0],0)
             self.assertEqual(db.execute("SELECT COUNT(*) FROM virtual_workflow_definitions WHERE verification_status='missing'").fetchone()[0],2)
             self.assertEqual(list(db.execute('SELECT api_path FROM virtual_workflow_steps ORDER BY flow_id')),[('/v1/user/sessions',),('/v1/user/sessions',)])
+    def test_another_registered_account_feature_does_not_change_owned_session_catalog(self):
+        with self.store() as db:
+            baseline=register(db,self.definition)
+        with psycopg.connect(URL,autocommit=True) as db:
+            db.execute('INSERT INTO '+self.table('screen_components')+" SELECT 999,999,screen_id,'authLifecycle.manageEntry','authLifecycle.title','prime_button','mfa-lifecycle-manage','packages/primecare_ui/lib/src/features/auth/auth_experience.dart','registered-unimplemented' FROM "+self.table('screen_components')+' ORDER BY id LIMIT 1')
+            before=db.execute('SELECT * FROM '+self.table('screen_components')+' WHERE id=999').fetchall()
+        with self.store() as db:
+            self.assertEqual(read_catalog(db,self.definition),baseline)
+        with psycopg.connect(URL,autocommit=True) as db:
+            self.assertEqual(db.execute('SELECT * FROM '+self.table('screen_components')+' WHERE id=999').fetchall(),before)
     def test_partial_failure_rolls_back_new_screen_resources_and_steps(self):
         class Failure(AccountRegistrationStore):
             calls=0

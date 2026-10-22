@@ -382,10 +382,11 @@
     ],
     "screenId": 949,
     "endpointPrefix": "/v1/auth/mfa/",
-    "definitionSha256": "6b9f1b2c3665fe92854763a254adab85680d5580e78af947554924179ce23b42",
+    "definitionSha256": "8d4d2fdd786a68d0fda7cf214c51251e244aabfe4b25f3c96c245f30d606d793",
     "schemaChanges": false,
     "businessDataWrites": false,
-    "roleGrants": false
+    "roleGrants": false,
+    "additionalScreenCode": "AUTHENTICATED_ACCOUNT"
   },
   "authLifecycleSchemaWriter": {
     "optInVariable": "APPLY_MFA_LIFECYCLE_SCHEMA",
