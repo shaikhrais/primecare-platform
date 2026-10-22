@@ -1,6 +1,6 @@
 # User information, task handoffs and business completion
 
-2026-10-22. Status: 15 candidate flow definitions and tested shared planning code. These are not 15 newly registered or verified production business processes. Reconcile against the existing live catalogue before inserting definitions; reuse existing process IDs when they match.
+2026-10-22. Status: 15 candidate definitions, shared planning code and internal workflow execution services with tests. See [communications implementation](communications-implementation.md) for code, persistence and communication boundaries. These are not 15 newly registered or verified production business processes. Reconcile against the existing live catalogue before inserting definitions; reuse existing process IDs when they match.
 
 ## Common user journey
 

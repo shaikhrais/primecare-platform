@@ -36,3 +36,37 @@ jobs:
           name: business-communications-registry
           path: test-results/business-communications
           retention-days: 90
+  isolated:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: communications_test
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: communications_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communications_test -d communications_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      BUSINESS_TEST_DATABASE_URL: postgres://communications_test:disposable-only@localhost:5432/communications_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/communications-tools" --ignore-scripts pg@8.16.3 playwright@1.60.0 sharp@0.34.5
+          ln -s "$RUNNER_TEMP/communications-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Shared business rules
+        run: node --test packages/shared/test/business-*.test.mjs
+      - name: All candidate workflow services and communications with native PostgreSQL
+        run: node --test scripts/test-business-communications.mjs
+      - name: Real raster processing and two-peer browser audio
+        run: node --test scripts/test-business-media.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: business-communications-media
+          path: test-results/business-communications-media
+          retention-days: 90
