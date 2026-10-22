@@ -138,7 +138,14 @@ def main():
                         step = 'render setup key semantics'
                         visible = page.locator('[aria-label^="mfa-seed"]')
                         visible.wait_for()
-                        must(seed in visible.evaluate("e => [e, ...e.querySelectorAll('[aria-label]')].map(n => n.getAttribute('aria-label') + ' ' + n.textContent).join(' ')"), 'setup key is rendered in Flutter semantics')
+                        rendered = visible.evaluate("(e, seed) => [e, ...e.querySelectorAll('*')].some(n => (n.getAttribute('aria-label') || '').includes(seed) || (n.getAttribute('aria-valuetext') || '').includes(seed) || (n.textContent || '').includes(seed) || n.value === seed)", seed)
+                        if not rendered:
+                            # Diagnostic structure only; scrub the synthetic setup
+                            # key and credentials before writing any evidence.
+                            diagnostic = page.locator('[aria-label]').evaluate_all("nodes => nodes.map(n => ({tag:n.tagName,role:n.getAttribute('role'),label:n.getAttribute('aria-label'),owns:n.getAttribute('aria-owns'),value:n.getAttribute('aria-valuetext')}))")
+                            safe = json.dumps(diagnostic).replace(seed, '[setup-key]').replace(email, '[synthetic-email]').replace(password, '[synthetic-password]')
+                            result['diagnosticSemantics'] = json.loads(safe)
+                        must(rendered, 'setup key is rendered in Flutter semantics')
                         step = 'deny wrong code'
                         counter = int(time.time()) // 30
                         wrong = next(str(n).zfill(6) for n in range(10) if str(n).zfill(6) not in [totp(seed, counter), totp(seed, counter - 1)])
