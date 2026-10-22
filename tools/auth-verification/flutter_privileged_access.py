@@ -13,7 +13,7 @@ from playwright.sync_api import expect
 from tools.deployment.flutter_browser import fill_flutter_field
 
 
-def verify_privileged(page, db, *, user, tenant, password, seed, token, locale, field, button, api, totp, must):
+def verify_privileged(page, db, *, user, tenant, password, seed, token, locale, field, button, api, totp, must, checkpoint):
     target, admin, member = [str(uuid.uuid4()) for _ in range(3)]
     slug = 'flutter-support-' + target
     email, admin_password = 'flutter-support-' + admin + '@example.invalid', secrets.token_urlsafe(30)
@@ -28,8 +28,10 @@ def verify_privileged(page, db, *, user, tenant, password, seed, token, locale, 
         return approval.locator('[aria-label="' + name + '"][role="button"], [aria-label="' + name + '"] [role="button"]')
 
     def response_click(surface, control, suffix, method='POST'):
+        checkpoint('support request ' + suffix)
         with surface.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/' + suffix) and r.request.method == method) as response:
             control.click()
+        checkpoint('support response ' + suffix, response.value.status)
         return response.value.status, response.value.json()
 
     try:
@@ -42,9 +44,13 @@ def verify_privileged(page, db, *, user, tenant, password, seed, token, locale, 
         accepted = int(db.execute('SELECT last_counter FROM auth_mfa_credentials WHERE user_id=%s', (user,)).fetchone()[0])
         while int(time.time()) // 30 <= accepted:
             page.wait_for_timeout(500)
+        checkpoint('open support management')
         button('mfa-lifecycle-manage').click()
+        checkpoint('enter support password')
         fill_flutter_field(page, field('mfa-elevation-password'), password)
+        checkpoint('enter support factor')
         fill_flutter_field(page, field('mfa-elevation-factor'), totp(seed, int(time.time()) // 30))
+        checkpoint('enter support reason')
         fill_flutter_field(page, field('mfa-elevation-reason'), 'Investigate synthetic tenant sign-in counts')
         status, elevated = response_click(page, button('mfa-elevation-elevate'), 'mfa/elevation')
         must(status == 200 and elevated.get('status') == 'elevated' and elevated.get('scope') == ['tenant_security_summary'] and 'token' not in elevated, 'fresh factor creates only scoped temporary elevation')

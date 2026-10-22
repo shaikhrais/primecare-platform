@@ -85,8 +85,15 @@ def main():
 
                     def must(condition, label):
                         if not condition:
+                            result['failedCheck'] = label
                             raise AssertionError(label)
                         result['checks'].append(label)
+
+                    def checkpoint(label, status=None):
+                        # Call sites use fixed stage labels and HTTP status only.
+                        result['activeStep'] = label
+                        if status is not None:
+                            result['httpStatus'] = int(status)
 
                     def field(name):
                         return page.get_by_role('textbox', name=re.compile('^' + re.escape(name) + r'\b'))
@@ -210,7 +217,7 @@ def main():
                             from flutter_privileged_access import verify_privileged
                             step = 'temporary elevation and explicit tenant support approval'
                             verify_privileged(page, db, user=user, tenant=tenant, password=password, seed=seed,
-                                token=token, locale=locale, field=field, button=button, api=api, totp=totp, must=must)
+                                token=token, locale=locale, field=field, button=button, api=api, totp=totp, must=must, checkpoint=checkpoint)
                         step = 'acknowledged final logout and signed-out reload'
                         page.get_by_role('button', name=labels[locale]['signout'], exact=True).wait_for(timeout=30000)
                         with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/logout') and r.request.method == 'POST') as ended:
@@ -222,9 +229,12 @@ def main():
                         must(api('/v1/auth/me', token=token)[0] == 401 and page.evaluate("localStorage.getItem('flutter.auth_token')") is None, 'signed-out reload has no local or server authority')
                         build()
                         result.pop('identityStatuses', None)
+                        result.pop('activeStep', None)
+                        result.pop('httpStatus', None)
                         result['passed'] = True
-                    except Exception:
+                    except Exception as failure:
                         result['failedStep'] = step
+                        result['failureKind'] = type(failure).__name__ if type(failure).__name__ in ['AssertionError', 'TimeoutError', 'Error'] else 'verification_error'
                         result['browserState'] = {
                             'path': __import__('urllib.parse', fromlist=['urlsplit']).urlsplit(page.url).path,
                             'hasStoredAuthority': page.evaluate("localStorage.getItem('flutter.auth_token') !== null"),
