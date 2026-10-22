@@ -1,3 +1,4 @@
+import {NativeBusinessMailTransport} from '../cloudflare/workers/src/business-tasks/native-mail.ts';
 import {test,after} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -143,7 +144,7 @@ test('call invitation, accepted recipient, decline, expiry and ending are state 
 
 let sends=0,transportFails=false;const sent=[];
 const mailboxes={async access(actor,mailboxId){if(mailboxId!=='owned'||![a.id,b.id].includes(actor.id))throw Error('Forbidden');},async resolve(to){return to==='owned@example.invalid'?{tenantId:a.tenantId,mailboxId:'owned'}:null;},async recipient(actor,to){if(to!=='recipient@example.invalid')throw Error('Unapproved recipient');}};
-const mail=new BusinessMailService(store,policy,mailboxes,{async send(message){sends++;sent.push(message);if(transportFails)throw Error('private-provider-detail');return {messageId:'synthetic-provider-'+sends};}},'sender@example.invalid',2048);
+const mail=new BusinessMailService(store,policy,mailboxes,new NativeBusinessMailTransport({async send(message){sends++;sent.push(message);if(transportFails)throw Error('private-provider-detail');return {messageId:'synthetic-provider-'+sends};}},'sender@example.invalid',16384),'sender@example.invalid',2048);
 test('one inherited core serves different permitted users across all four channels',async()=>{
  const core=new CommunicationCore(communication,mail);
  for(const channel of Object.values(core.channels))assert.ok(channel instanceof CommunicationChannelBase);
