@@ -559,3 +559,15 @@ rapid-write double-click handling, role-change disposal and selected-thread
 refresh without losing unsent picture references. The resulting source's CI
 acceptance is recorded separately below; earlier successful runs do not certify
 later edits or a deployed all-user release.
+
+
+Review of the new inbox UI exposed an existing server projection gap: direct
+reads hid call signaling from conversation members outside a call, but inbox
+records bypassed that filter. The service now uses one copying privateView helper
+on both surfaces. Two regressions fail against the previous source and pass after
+the fix; actual call parties retain their signals and projection does not mutate
+storage. The HTTP regression exercises the registered inbox route. Controller
+response validation also rejects malformed message objects before view casts.
+Updated local Node checks: 133 passes, two native-only skips, zero failures; strict
+TypeScript and production-readback binding checks pass. Final native/Flutter
+acceptance for these edits is recorded after the resulting source runs in CI.

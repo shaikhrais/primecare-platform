@@ -204,3 +204,10 @@ Known recipient account IDs are required until a governed contact picker exists.
 This messaging view does not yet expose the core's call/mail clients. Native media,
 mailbox/provider provisioning, activation/grants and deployed acceptance remain
 separate release work. All presentation implementation tags remain unverified.
+
+
+Call-party signal privacy is projected by the same service helper for conversation
+inbox and direct reads. Third conversation members receive no offer/answer/ICE
+signals through either surface. Projection copies records and cannot erase stored
+signals needed by the actual parties. Service and registered-HTTP regressions
+exercise both parties and a third member.

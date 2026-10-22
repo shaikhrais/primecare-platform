@@ -87,6 +87,16 @@ const communication=new CommunicationService(store,policy,pictures,limits,()=>cl
 test('missing communication bounds fail before accepting a conversation',()=>{
  assert.throws(()=>new CommunicationService(store,policy,pictures,{}),/configured limit/);
 });
+test('conversation inbox and direct reads both hide call signals from nonparties without mutating stored signals',async()=>{
+ const thread=id('private-inbox-call');let result=await communication.create(a,thread,'create',[a.id,b.id,c.id],'synthetic-task');
+ result=await communication.call(a,thread,'invite',result.version,'invite','private-call',b.id);
+ result=await communication.call(b,thread,'accept',result.version,'accept','private-call');
+ await communication.signal(a,thread,'offer',result.version,'private-call',{type:'offer',description:{type:'offer',sdp:'synthetic-private-offer'}});
+ assert.deepEqual((await communication.read(c,thread)).calls[0].signals,[]);
+ assert.deepEqual((await communication.inbox(c)).items.find(item=>item.id===thread).calls[0].signals,[]);
+ assert.equal((await communication.read(b,thread)).calls[0].signals[0].signal.description.sdp,'synthetic-private-offer');
+ assert.equal((await communication.inbox(a)).items.find(item=>item.id===thread).calls[0].signals.length,1);
+});
 test('task inbox and linked conversation remain scoped to actual task participants',async()=>{
  const task=id('linked');await workflow.create(a,task,'create','sales-target',a.id,b.id,due);
  const workspace=new BusinessWorkspaceService(workflow,communication);

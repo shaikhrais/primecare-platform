@@ -45,6 +45,18 @@ const request=(actor,path,body,method='POST')=>worker.fetch(new Request('https:/
 const command=async(actor,path,body,expected=200)=>{const response=await request(actor,path,body);assert.equal(response.status,expected,await response.clone().text());return response.json();};
 const thread='thread:'+crypto.randomUUID();
 
+test('registered inbox cannot bypass the direct-read call-party privacy projection',async()=>{
+ const id='private-inbox:'+crypto.randomUUID();
+ await command('a','/v1/messages',{action:'create',id,key:'create',members:['a','b','c'],businessReference:'synthetic-general'});
+ await command('a','/v1/messages/calls',{action:'invite',id,key:'invite',version:1,callId:'private-call',recipientId:'b'});
+ await command('b','/v1/messages/calls',{action:'accept',id,key:'accept',version:2,callId:'private-call'});
+ await command('a','/v1/messages/calls',{action:'signal',id,key:'offer',version:3,callId:'private-call',signal:{type:'offer',description:{type:'offer',sdp:'synthetic-private-offer'}}});
+ const nonparty=await (await request('c','/v1/messages/inbox',null,'GET')).json();
+ assert.deepEqual(nonparty.items.find(item=>item.id===id).calls[0].signals,[]);
+ const party=await (await request('b','/v1/messages/inbox',null,'GET')).json();
+ assert.equal(party.items.find(item=>item.id===id).calls[0].signals[0].signal.description.sdp,'synthetic-private-offer');
+});
+
 test('two shared audio sessions negotiate through registered HTTP, reload state and release on remote hangup',async()=>{
  const id='call-session:'+crypto.randomUUID(),callId='audio:'+crypto.randomUUID();
  await command('a','/v1/messages',{action:'create',id,key:'create',members:['a','b'],businessReference:'synthetic-general'});

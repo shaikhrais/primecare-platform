@@ -23,7 +23,8 @@ export class CommunicationService extends ScopedServiceBase {
  }
  async inbox(actor:Actor,limit=50) {
   await this.policy.assert(actor,'conversation.inbox',null);
-  return {items:await this.store.inbox(actor,'conversation',state=>this.authorize(actor,'conversation.read',state),limit)};
+  const records=await this.store.inbox(actor,'conversation',state=>this.authorize(actor,'conversation.read',state),limit);
+  return {items:records.map(state=>this.privateView(actor,state))};
  }
  async authorize(actor: Actor, action: string, state: RecordState | null) {
   if (!state || state.kind !== 'conversation' || !state.members.includes(actor.id)) throw Error('Not found');
@@ -135,7 +136,12 @@ export class CommunicationService extends ScopedServiceBase {
  }
  async read(actor: Actor, id: string) {
   const state=await this.store.read(actor,id,candidate => this.authorize(actor,'conversation.read',candidate));
-  state.calls=state.calls.map((call:any)=>[call.callerId,call.recipientId].includes(actor.id)?call:{...call,signals:[]});
-  return state;
+  return this.privateView(actor,state);
+ }
+ /** Apply the same call-party projection to every conversation read surface. */
+ private privateView(actor:Actor,state:RecordState){
+  const view=structuredClone(state);
+  view.calls=view.calls.map((call:any)=>[call.callerId,call.recipientId].includes(actor.id)?call:{...call,signals:[]});
+  return view;
  }
 }

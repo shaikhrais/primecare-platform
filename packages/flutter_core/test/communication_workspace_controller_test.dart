@@ -79,6 +79,12 @@ void main(){
  test('cross-session response scope is rejected before becoming visible',() async {
   transport.record['tenantId']='tenant-b';expect(await controller.openThread('thread'),false);expect(controller.thread,isNull);
  });
+ test('malformed message records are rejected before a widget can cast them',() async {
+  final good={'id':'one','authorId':'alice','text':'Valid','sequence':1,'pictureIds':<String>[]};
+  for(final malformed in ['not an object',{...good,'text':7},{...good,'authorId':null},{...good,'sequence':'1'},{...good,'pictureIds':[7]}]){
+   transport.record['messages']=[malformed];expect(await controller.openThread('thread'),false);expect(controller.thread,isNull);expect(controller.failureKey,'unavailable');
+  }
+ });
  test('bounded selected pictures attach only after a clean scoped response',() async {
   await controller.openThread('thread');
   expect(await controller.pickPicture(() async=>CommunicationPictureSelection(length:8,bytes:Stream.value(transport.png))),true);

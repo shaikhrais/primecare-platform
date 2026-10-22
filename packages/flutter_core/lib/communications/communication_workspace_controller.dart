@@ -102,6 +102,13 @@ final class CommunicationWorkspaceController extends CommunicationWorkspaceContr
  }
  Map<String,Object?> _record(Map<String,Object?> result,[String? id]) {
   if(result['id'] is! String||id!=null&&result['id']!=id||result['tenantId']!=tenantId||result['kind']!='conversation'||result['version'] is! int||(result['version'] as int)<1||result['members'] is! List||!(result['members'] as List).contains(userId)||result['messages'] is! List)throw const FormatException('Communication scope unavailable');
+  final members=result['members'] as List;
+  if(members.any((member)=>member is! String)||members.toSet().length!=members.length)throw const FormatException('Communication members unavailable');
+  final messages=result['messages'] as List;
+  for(var index=0;index<messages.length;index++){
+   final message=messages[index];
+   if(message is! Map||message['id'] is! String||message['authorId'] is! String||!members.contains(message['authorId'])||message['text'] is! String||message['sequence'] is! int||message['sequence']!=index+1||message['pictureIds'] is! List||(message['pictureIds'] as List).any((picture)=>picture is! String))throw const FormatException('Communication message unavailable');
+  }
   return _freeze(result) as Map<String,Object?>;
  }
  void _select(Map<String,Object?> value,{bool clearDraft=true}) {
