@@ -1,0 +1,47 @@
+{
+  "registration": {
+    "sourceCommit": "594b02b249742029940030d41aae33d2822d6109",
+    "runId": 39811946324,
+    "conclusion": "success",
+    "apiIds": {
+      "message.command": 710,
+      "message.inbox": 857,
+      "picture.upload": 16508,
+      "picture.open": 16509,
+      "audio.command": 16510,
+      "email.command": 16511
+    },
+    "screenLinks": 24,
+    "roleGrantsChanged": false,
+    "activation": false,
+    "businessDataWrites": false
+  },
+  "implementation": {
+    "sourceCommit": "f01d0efcbedfa36a0bb73847df7a002643a4ed74",
+    "runId": 39813474576,
+    "conclusion": "success",
+    "nodeTestsPassed": 81,
+    "nativePostgresHttpTestsPassed": 9,
+    "flutterTestsPassed": 490,
+    "contractReportTestsPassed": 7,
+    "strictTypeScriptPassed": true,
+    "dartAnalysisPassed": true,
+    "dartClientContractPassed": true,
+    "browserAudioTransportPassed": true,
+    "productionInventoryReadOnly": true,
+    "generatedActionBindings": 16
+  },
+  "liveEndUserCommunicationVerified": false,
+  "liveBusinessEmailVerified": false,
+  "independentReleaseApproval": false,
+  "remaining": [
+    "Register and migrate native business storage",
+    "Bind authenticated current API grants and case/mailbox policies",
+    "Deploy and mount handlers through the gateway",
+    "Bind private picture storage/scanner and operational retention",
+    "Bind native outbound mail and inbound mailbox routing",
+    "Integrate media signaling/relay and physical devices",
+    "Register and implement shared UI controls/resources",
+    "Complete authenticated UI/API/database/reload acceptance and independent review"
+  ]
+}

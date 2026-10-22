@@ -145,7 +145,7 @@ Nine HTTP tests cover message/inbox persistence and retries, identity/tenant
 rejection, endpoint denial, exact route/method/media handling, stream cancellation,
 picture attachment/download, call state/signaling, email acceptance/retry and
 response-schema failure. Local memory results are not production persistence
-proof; native PostgreSQL and Flutter CI must pass for this source checkpoint.
+proof; native PostgreSQL and Flutter CI passed for this source checkpoint in run39813474576.
 The picture scan/mail/auth callbacks in HTTP tests are explicit fixtures, not live
 providers. Actual raster processing and browser packets retain their separate tests.
 
@@ -153,3 +153,12 @@ Remaining live work includes registered business storage and its native migratio
 authenticated current API/case/mailbox policy bindings, handler deployment/routing,
 private storage/scanner, actual inbound mailbox integration, media signaling/relay,
 registered shared UI controls/resources and authenticated user acceptance.
+
+Final HTTP checkpoint: [run39813474576](https://github.com/shaikhrais/primecare-platform/actions/runs/39813474576)
+completed successfully on source `f01d0efcbedfa36a0bb73847df7a002643a4ed74`: 81 Node
+tests (including nine HTTP tests through native PostgreSQL), 490 Flutter tests,
+seven contract-report tests, strict TypeScript, Dart analysis/client checks and
+browser audio transport. Production inventory remained read-only. See
+[evidence/communication-http-20261022.json](evidence/communication-http-20261022.json).
+This supersedes the earlier missing-contract checkpoint for these six endpoints;
+the role grants, production adapter bindings and user acceptance remain pending.
