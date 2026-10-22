@@ -212,7 +212,12 @@
       "saved": "I saved my recovery codes",
       "error": "Unable to complete this request. Verify your password and code, or sign in again.",
       "done": "Authenticator security updated.",
-      "working": "Working…"
+      "working": "Working…",
+      "notifySubject": "PrimeCare authenticator security notice",
+      "notifyTitle": "Authenticator security",
+      "notifyBody": "{{message}} If you did not request this change, contact {{support}}. Never send passwords, recovery codes or authenticator keys by email.",
+      "notifyMessage": "Your authenticator recovery or security settings changed.",
+      "supportContact": "your organization’s authorized administrator"
     },
     "fr": {
       "title": "Gérer la sécurité de votre authentificateur",
@@ -231,7 +236,12 @@
       "saved": "J’ai enregistré mes codes de récupération",
       "error": "Impossible de terminer. Vérifiez votre mot de passe et votre code, ou reconnectez-vous.",
       "done": "Sécurité de l’authentificateur mise à jour.",
-      "working": "Traitement…"
+      "working": "Traitement…",
+      "notifySubject": "Avis de sécurité de votre authentificateur PrimeCare",
+      "notifyTitle": "Sécurité de l’authentificateur",
+      "notifyBody": "{{message}} Si vous n’avez pas demandé ce changement, contactez {{support}}. N’envoyez jamais de mots de passe, de codes de récupération ou de clés par courriel.",
+      "notifyMessage": "Vos paramètres de récupération ou de sécurité de l’authentificateur ont changé.",
+      "supportContact": "l’administrateur autorisé de votre organisation"
     },
     "es": {
       "title": "Gestionar la seguridad del autenticador",
@@ -250,7 +260,12 @@
       "saved": "He guardado mis códigos de recuperación",
       "error": "No se pudo completar la solicitud. Verifica la contraseña y el código, o inicia sesión de nuevo.",
       "done": "Seguridad del autenticador actualizada.",
-      "working": "Procesando…"
+      "working": "Procesando…",
+      "notifySubject": "Aviso de seguridad del autenticador de PrimeCare",
+      "notifyTitle": "Seguridad del autenticador",
+      "notifyBody": "{{message}} Si no solicitaste este cambio, contacta con {{support}}. Nunca envíes contraseñas, códigos de recuperación ni claves por correo.",
+      "notifyMessage": "Han cambiado los ajustes de recuperación o seguridad del autenticador.",
+      "supportContact": "el administrador autorizado de tu organización"
     }
   },
   "controls": {

@@ -382,7 +382,7 @@
     ],
     "screenId": 949,
     "endpointPrefix": "/v1/auth/mfa/",
-    "definitionSha256": "a742b14c592ea04a210d996b559f3a2446b483757990042018931509c11e43ec",
+    "definitionSha256": "6b9f1b2c3665fe92854763a254adab85680d5580e78af947554924179ce23b42",
     "schemaChanges": false,
     "businessDataWrites": false,
     "roleGrants": false
