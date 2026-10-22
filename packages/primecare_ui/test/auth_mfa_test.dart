@@ -11,6 +11,7 @@ void main() {
   setUpAll(() async { SharedPreferences.setMockInitialValues({}); await EasyLocalization.ensureInitialized(); });
   for (final language in ['en','fr','es']) {
     testWidgets('MFA setup fits small viewport in $language; wrong code clears, cancel removes challenge', (tester) async {
+      final semantics = tester.ensureSemantics();addTearDown(semantics.dispose);
       tester.view.physicalSize = const Size(320, 1200); tester.view.devicePixelRatio = 1;
       addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
       final container=ProviderContainer(overrides:[authProvider.overrideWith(GuestAuth.new)]);addTearDown(container.dispose);
@@ -20,6 +21,9 @@ void main() {
       await tester.pumpWidget(UncontrolledProviderScope(container:container,child:localized(Scaffold(body:SingleChildScrollView(child:MediaQuery(data:const MediaQueryData(textScaler:TextScaler.linear(2)),child:const NativeMfaForm()))),language:language)));
       await tester.pumpAndSettle();expect(tester.takeException(),isNull);
       expect(find.text(nativeMfaText[language]!['setup']!),findsOneWidget);
+      final seedControl=find.byWidgetPredicate((widget)=>widget is Cy && widget.id=='mfa-seed');
+      final seedSemantics=tester.getSemantics(seedControl).getSemanticsData();
+      expect(seedSemantics.label,'mfa-seed');expect(seedSemantics.value,List.filled(32,'A').join());
       final field=find.byType(TextFormField);expect(field,findsOneWidget);
       await tester.enterText(field,'123456');await controller.verify();await tester.pumpAndSettle();
       expect(submitted,'123456');expect(container.read(mfaControllerProvider).code,'');expect(container.read(mfaControllerProvider).failed,true);

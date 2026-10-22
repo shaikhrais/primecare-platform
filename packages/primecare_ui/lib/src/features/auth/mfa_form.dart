@@ -17,7 +17,10 @@ class NativeMfaForm extends ConsumerWidget {
       if (state.challenge!['purpose'] == 'enroll') ...[
         SizedBox(height: theme.spacing.md), Text(text['setup']!, style: theme.typography.bodyMedium),
         SizedBox(height: theme.spacing.md),
-        Cy(id: 'mfa-seed', child: SelectableText(state.challenge!['setupKey'] as String, style: theme.typography.bodyMedium)),
+        Cy(id: 'mfa-seed', child: Semantics(
+          value: state.challenge!['setupKey'] as String, textField: true, readOnly: true,
+          excludeSemantics: true,
+          child: SelectableText(state.challenge!['setupKey'] as String, style: theme.typography.bodyMedium))),
       ],
       SizedBox(height: theme.spacing.lg),
       PrimeAuthTextField(id: 'mfa-code', label: text['code']!, initialValue: state.code,
