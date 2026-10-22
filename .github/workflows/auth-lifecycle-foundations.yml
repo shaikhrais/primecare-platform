@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - .github/workflows/auth-lifecycle-foundations.yml
+      - .github/workflows/prepare-mfa-v2-key.yml
       - cloudflare/workers/src/security/mfa-key-rotation.mjs
       - scripts/test-code-admin-key-rotation-postgres.mjs
       - scripts/test-code-admin-key-rotation-drill.mjs
