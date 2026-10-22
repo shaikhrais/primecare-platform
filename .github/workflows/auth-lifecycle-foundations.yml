@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - .github/workflows/auth-lifecycle-foundations.yml
+      - cloudflare/workers/src/security/mfa-key-rotation.mjs
+      - scripts/test-code-admin-key-rotation-postgres.mjs
       - cloudflare/workers/src/security/mfa-keyring.mjs
       - cloudflare/workers/src/security/mfa-recovery-codes.mjs
       - cloudflare/workers/src/security/mfa-lifecycle.mjs
@@ -49,6 +51,8 @@ jobs:
         env:
           MFA_TEST_DATABASE_URL: postgresql://lifecycle:disposable-only@localhost:5432/lifecycle
         run: |
+          MFA_TEST_ID_TYPE=text node --test scripts/test-code-admin-key-rotation-postgres.mjs
+          MFA_TEST_ID_TYPE=uuid node --test scripts/test-code-admin-key-rotation-postgres.mjs
           MFA_TEST_ID_TYPE=text node --test scripts/test-code-admin-lifecycle-postgres.mjs
           MFA_TEST_ID_TYPE=uuid node --test scripts/test-code-admin-lifecycle-postgres.mjs
           node --test scripts/test-code-admin-mfa-outbox-postgres.mjs
