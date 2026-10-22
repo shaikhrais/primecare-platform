@@ -79,14 +79,14 @@ Technical references consulted: [WebRTC peer connections](https://webrtc.org/get
 `CommunicationTransportBase` dispatch checks. Inject the existing authenticated
 Dio session and a contract map loaded from registered production metadata; this
 adapter intentionally supplies no new endpoint mappings or permissions. It sends
-JSON commands, GET read queries and actual multipart picture bytes. Missing
+JSON commands, GET read queries and actual multipart picture bytes. Private picture downloads use bounded streams with configured byte limits, MIME/signature validation, declared-length checks and guaranteed subscription cleanup; binary data never becomes JSON or a public URL. Missing
 contracts, identity overrides, unsafe absolute/redirect paths, GET mutations,
 non-success responses and malformed acknowledgements fail. It does not retry
 ambiguous email delivery or substitute demo responses.
 
 The new transport suite covers session reuse, command versions/keys, GET query
 encoding, copied multipart bytes, denied/unbound commands, unsafe route maps,
-malformed/error responses and single-attempt network failure. CI must pass before
+malformed/error responses, single-attempt network failure and bounded private picture downloads (including oversized, mislabeled and truncated streams). CI must pass before
 this checkpoint is counted as verified. This is an integration adapter, not a
 claim that unregistered production commands or Flutter screens are exposed.
 Production contract/policy registration, private storage/scanner bindings,

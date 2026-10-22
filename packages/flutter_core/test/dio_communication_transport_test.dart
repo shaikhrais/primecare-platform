@@ -21,7 +21,7 @@ void main() {
   DioCommunicationTransport transport(String key, {String method = 'POST'}) =>
     DioCommunicationTransport(dio, {
       key: CommunicationRouteBinding(path: '/v1/messages', method: method),
-    });
+    }, maxPictureBytes: 1024);
 
   test('inherits dispatch, uses authenticated session, preserves key and version', () async {
     final hub = CommunicationHub(transport('message.send'));
@@ -88,7 +88,34 @@ void main() {
     }
     expect(requests.length, 6); // One attempt each, including ambiguous send failure.
   });
-  test('network failure propagates without retry', () async {
+  test('picture open reads a bounded private raster stream', () async {
+    final png = [137, 80, 78, 71, 13, 10, 26, 10];
+    dio.interceptors.clear();
+    dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
+      requests.add(options);
+      handler.resolve(Response(requestOptions: options, statusCode: 200,
+        headers: Headers.fromMap({'content-type': ['image/png'], 'content-length': ['8']}),
+        data: ResponseBody(Stream.value(Uint8List.fromList(png)), 200)));
+    }));
+    final result = await CommunicationHub(transport('picture.open', method: 'GET')).pictures.open('thread', 'picture');
+    expect(result['bytes'], png);
+    expect(result['mediaType'], 'image/png');
+    expect(requests.single.responseType, ResponseType.stream);
+  });
+  test('picture open rejects oversized, mislabeled and truncated streams', () async {
+    for (final variant in ['oversized', 'wrong-type', 'truncated']) {
+      dio.interceptors.clear();
+      dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
+        final bytes = variant == 'oversized' ? Uint8List(1025) : Uint8List.fromList([137, 80, 78, 71, 13, 10, 26, 10]);
+        handler.resolve(Response(requestOptions: options, statusCode: 200,
+          headers: Headers.fromMap({'content-type': [variant == 'wrong-type' ? 'image/svg+xml' : 'image/png'],
+            if (variant == 'truncated') 'content-length': ['9']}),
+          data: ResponseBody(Stream.value(bytes), 200)));
+      }));
+      await expectLater(CommunicationHub(transport('picture.open', method: 'GET')).pictures.open('thread', 'picture'), throwsStateError);
+    }
+  });
+  test('network failure propagates without retry' , () async {
     dio.interceptors.clear();
     dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
       requests.add(options);
