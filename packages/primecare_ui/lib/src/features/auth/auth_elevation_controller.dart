@@ -88,9 +88,16 @@ class TenantSupportController extends Notifier<TenantApprovalViewState> {
     final lifetime=ref;
     ref.onDispose((){_revision++;});
     ref.onCancel((){_revision++;scheduleMicrotask((){if(lifetime.mounted)lifetime.invalidateSelf();});});
-    ref.listen(authProvider,(previous,next){if(previous?.token!=next.token||previous?.userId!=next.userId||previous?.role!=next.role||previous?.tenantId!=next.tenantId||!next.isAuthenticated){_revision++;state=TenantApprovalViewState(canUse:ref.read(privilegedAccessServiceProvider).canApprove);}});
+    ref.listen(authProvider,(previous,next){
+      if(previous?.token!=next.token||previous?.userId!=next.userId||previous?.role!=next.role||previous?.tenantId!=next.tenantId||!next.isAuthenticated){
+        final revision=++_revision,allowed=ref.read(privilegedAccessServiceProvider).canApprove;
+        state=TenantApprovalViewState(canUse:allowed);
+        if(allowed)scheduleMicrotask((){if(lifetime.mounted&&revision==_revision)refresh();});
+      }
+    });
     final allowed=ref.read(privilegedAccessServiceProvider).canApprove;
-    if(allowed)scheduleMicrotask((){if(lifetime.mounted)refresh();});
+    final revision=_revision;
+    if(allowed)scheduleMicrotask((){if(lifetime.mounted&&revision==_revision)refresh();});
     return TenantApprovalViewState(canUse:allowed);
   }
   bool _live(int revision)=>ref.mounted&&revision==_revision;

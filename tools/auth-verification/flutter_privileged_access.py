@@ -80,9 +80,9 @@ def verify_privileged(page, db, *, user, tenant, password, seed, token, locale, 
         checkpoint('open tenant account approval controls')
         approval.goto(site + '/success?locale=' + locale + '&enable-semantics=true', wait_until='domcontentloaded')
         approve_id = 'mfa-elevation-approve-' + request_id
-        admin_button(approve_id).wait_for(timeout=30000)
         status, listed = response_click(approval, admin_button('mfa-elevation-refresh'), 'mfa/support/requests', method='GET')
         must(status == 200 and [r.get('requestId') for r in listed.get('requests',[])] == [request_id], 'tenant refresh lists only the exact scoped pending request')
+        admin_button(approve_id).wait_for(timeout=30000)
         fill_flutter_field(approval, admin_field('mfa-elevation-approvalpassword'), 'deliberately-wrong')
         status, _ = response_click(approval, admin_button(approve_id), 'mfa/support/approve')
         must(status == 401 and api('/v1/auth/me', token=admin_token)[0] == 200, 'wrong approval password denies grant while preserving valid administrator session')

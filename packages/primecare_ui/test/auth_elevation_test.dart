@@ -14,6 +14,12 @@ class SupportPresentationAuth extends AuthNotifier {
  @override
  AuthState build()=>AuthState(isInitialized:true,isAuthenticated:true,userId:id(1),role:'code_admin',token:List.filled(43,'a').join(),tenantId:id(11));
 }
+class RestoringSupportAuth extends AuthNotifier {
+ @override
+ AuthState build()=>AuthState(isInitialized:false);
+ void restore()=>state=AuthState(isInitialized:true,isAuthenticated:true,userId:id(2),role:'tenant_admin',token:List.filled(43,'b').join(),tenantId:id(12));
+ void signOut()=>state=AuthState(isInitialized:true);
+}
 class SupportPresentationService extends Fake implements PrivilegedAccessService {
  bool elevatedActor=true,approvingActor=false,approved=false,revoked=false;
  int lists=0;
@@ -48,6 +54,27 @@ void main(){
  setUpAll(()async{SharedPreferences.setMockInitialValues({});await EasyLocalization.ensureInitialized();});
  ProviderContainer fixture(SupportPresentationService service)=>ProviderContainer(overrides:[authProvider.overrideWith(SupportPresentationAuth.new),privilegedAccessServiceProvider.overrideWithValue(service)]);
  Widget screen(ProviderContainer c,Widget child,String locale)=>UncontrolledProviderScope(container:c,child:localized(Scaffold(body:SingleChildScrollView(child:MediaQuery(data:const MediaQueryData(textScaler:TextScaler.linear(2)),child:child))),language:locale));
+ testWidgets('restored tenant identity automatically loads pending approval requests',(tester)async{
+  final auth=RestoringSupportAuth(),service=SupportPresentationService()..elevatedActor=false;
+  final c=ProviderContainer(overrides:[authProvider.overrideWith(()=>auth),privilegedAccessServiceProvider.overrideWithValue(service)]);
+  try{
+   await tester.pumpWidget(screen(c,const NativeTenantSupportForm(),'en'));await tester.pumpAndSettle();
+   expect(service.lists,0);expect(c.read(tenantSupportProvider).canUse,false);
+   service.approvingActor=true;auth.restore();await tester.pumpAndSettle();
+   expect(service.lists,1);expect(c.read(tenantSupportProvider).requests.single.id,id(22));
+   expect(find.textContaining('SYN-1'),findsOneWidget);expect(tester.takeException(),isNull);
+  }finally{await tester.pumpWidget(const SizedBox.shrink());c.dispose();await tester.pump(Duration.zero);}
+ });
+ testWidgets('signout before restored approval refresh drops the queued read',(tester)async{
+  final auth=RestoringSupportAuth(),service=SupportPresentationService()..elevatedActor=false;
+  final c=ProviderContainer(overrides:[authProvider.overrideWith(()=>auth),privilegedAccessServiceProvider.overrideWithValue(service)]);
+  try{
+   await tester.pumpWidget(screen(c,const NativeTenantSupportForm(),'en'));await tester.pumpAndSettle();
+   service.approvingActor=true;auth.restore();service.approvingActor=false;auth.signOut();await tester.pumpAndSettle();
+   expect(service.lists,0);expect(c.read(tenantSupportProvider).canUse,false);expect(c.read(tenantSupportProvider).requests,isEmpty);
+   expect(tester.takeException(),isNull);
+  }finally{await tester.pumpWidget(const SizedBox.shrink());c.dispose();await tester.pump(Duration.zero);}
+ });
  for(final locale in ['en','fr','es']){
   testWidgets('localized temporary support fits scaled 320px and clears proof and revoked data in $locale',(tester)async{
    tester.view.physicalSize=const Size(320,1200);tester.view.devicePixelRatio=1;addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
