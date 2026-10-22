@@ -33,6 +33,9 @@ void main(){
   accepted();await model.refresh();expect(await model.connect('call'),true);expect(model.mediaState,'mediaConnected');model.toggleMute();expect(media!.muted,true);expect(model.mediaState,'mediaMuted');model.toggleMute();expect(media!.muted,false);
   final ended=model.act('end','call');expect(media!.closed,true);expect(await ended,true);expect(model.calls.single['status'],'ended');expect(media!.closes,1);
  });
+ test('background media denial clears private call presentation and closes resources',() async {
+  accepted();await model.connect('call');expect(model.calls,isNotEmpty);media!.onState('failed');expect(model.calls,isEmpty);expect(media!.closed,true);expect(model.mediaState,'mediaUnavailable');
+ });
  test('changing conversation releases the old microphone and clears call presentation',() async {
   accepted();await model.connect('call');model.selectThread('different');expect(media!.closed,true);expect(model.calls,isEmpty);expect(model.threadId,'different');
  });

@@ -23,7 +23,7 @@ export class FlutterBrowserAudioSession extends CommunicationResourceBase {
   this.session=new BrowserAudioSession({transport,userId,threadId,callId,onError:()=>{this.close();onState('failed');},media:{configuration:structuredClone(configuration),getUserMedia:constraints=>navigator.mediaDevices.getUserMedia(constraints),createPeer,onTrack:stream=>{
    if(this.closed)return;
    audio.srcObject=stream;
-   Promise.resolve(audio.play()).catch(()=>{if(!this.closed){this.close();onState('failed');}});
+   try{Promise.resolve(audio.play()).catch(()=>{if(!this.closed){this.close();onState('failed');}});}catch{this.close();onState('failed');}
   },onState:state=>{if(state==='closed')this.close();else if(!this.closed)onState(state);}}});
   this.registerCleanup(()=>this.session.close());
  }

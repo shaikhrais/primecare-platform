@@ -86,12 +86,13 @@ final class CommunicationCallController extends CommunicationCommandControllerBa
   _mediaState='mediaConnecting';
   final generation=_mediaGeneration;
   final session=await factory(hub:hub,userId:userId,tenantId:tenantId,threadId:id,callId:callId,onState:(state){
-   if(isDisposed)return;
+   if(isDisposed||generation!=_mediaGeneration)return;
+   if(state=='closed'||state=='failed'){_conversation=null;if(state=='failed')_closeMedia();}
    _mediaState=switch(state){'connected'=>'mediaConnected','closed'=>'mediaClosed','failed'=>'mediaUnavailable',_=>'mediaConnecting'};
    if(state=='closed'){_muted=false;}
    notifyListeners();
   });
-  if(isDisposed||id!=_threadId||generation!=_mediaGeneration){session.close();return (){};}
+  if(isDisposed||id!=_threadId||generation!=_mediaGeneration){session.close();throw StateError('Media context changed');}
   _media=session;
   try{await session.start();requireActive();final after=await _read(id);if(id!=_threadId||session.closed||!(after['calls'] as List<Map<String,Object?>>).any((c)=>c['id']==callId&&c['status']=='accepted'))throw const FormatException('Media unavailable');}
   catch(_){session.close();if(identical(_media,session))_media=null;rethrow;}

@@ -6,7 +6,7 @@ import 'package:flutter_core/communications/communication_core.dart';
 import 'package:flutter_core/communications/communication_media.dart';
 import 'package:flutter_core/communications/communication_browser_media.dart';
 @JS('globalThis.primecareFlutterAudio') external set _api(JSObject value);
-extension type _Harness(JSObject _) implements JSObject {
+extension type _Harness._(JSObject _) implements JSObject {
  external factory _Harness({required JSFunction start,required JSFunction mute,required JSFunction close});
 }
 final record=<String,Object?>{'id':'thread','tenantId':'tenant','kind':'conversation','version':3,'members':['alice','bob'],'calls':[<String,Object?>{'id':'call','callerId':'alice','recipientId':'bob','status':'accepted','signals':<Object?>[]}]};

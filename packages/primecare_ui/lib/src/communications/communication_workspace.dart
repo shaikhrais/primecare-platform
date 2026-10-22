@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_core/flutter_core.dart';
 import '../components/cy.dart';
 import '../components/prime_components.dart';
+import '../theme/prime_theme.dart';
 
 final communicationWorkspaceControllerProvider=Provider.autoDispose<CommunicationWorkspaceController?>((ref){
  // A role change invalidates presentation; it never grants a client-side right.
@@ -115,9 +116,9 @@ class _CommunicationWorkspaceViewState extends State<CommunicationWorkspaceView>
     const SizedBox(height:8),button('refresh',model.busy?null:()=>unawaited(model.loadInbox())),
     if(model.hasPendingCommand&&!model.busy)...[const SizedBox(height:8),Text(text('pending')),button('retry',_retry)],
    ]))),
+   LayoutBuilder(builder:(context,constraints)=>constraints.maxWidth>=800?Row(crossAxisAlignment:CrossAxisAlignment.start,children:[Expanded(child:_inbox()),const SizedBox(width:16),Expanded(child:_conversation())]):Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[_inbox(),_conversation()])),
    if(widget.callController case final CommunicationCallController calls)_CommunicationCallPanel(key:ObjectKey(calls),model:calls,language:widget.language),
    if(widget.mailController case final CommunicationMailController mail)_CommunicationMailPanel(key:ObjectKey(mail),model:mail,language:widget.language),
-   LayoutBuilder(builder:(context,constraints)=>constraints.maxWidth>=800?Row(crossAxisAlignment:CrossAxisAlignment.start,children:[Expanded(child:_inbox()),const SizedBox(width:16),Expanded(child:_conversation())]):Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[_inbox(),_conversation()])),
   ]))),
  ));
 }
@@ -149,22 +150,23 @@ class _CommunicationMailPanelState extends State<_CommunicationMailPanel> {
  CommunicationMailController get model=>widget.model;
  String text(String key)=>CommunicationWorkspaceCatalog.text(widget.language,key);
  String id(String key)=>CommunicationWorkspaceCatalog.id(key);
+ PrimeSpacing get spacing=>PrimeTheme.of(context).spacing;
  @override void dispose(){_mailbox.dispose();_to.dispose();_subject.dispose();_body.dispose();super.dispose();}
  void _clear(){_to.clear();_subject.clear();_body.clear();}
  Future<void> _queue() async {if(await model.queue(_to.text,_subject.text,_body.text)&&mounted)_clear();}
  Future<void> _retry() async {final queued=model.pendingAction=='queue';if(await model.retryPending()&&mounted&&queued)_clear();}
  Widget button(String key,VoidCallback? action,{String? testId})=>PrimeButton(label:text(key),onPressed:action,dataCy:testId??id(key));
- Widget field(String key,TextEditingController controller,{int lines=1})=>Padding(padding:const EdgeInsets.only(top:12),child:PrimeCareTextField(label:text(key),controller:controller,maxLines:lines,enabled:model.canMutate,dataCy:id(key)));
+ Widget field(String key,TextEditingController controller,{int lines=1})=>Padding(padding:EdgeInsets.only(top:spacing.md),child:PrimeCareTextField(label:text(key),controller:controller,maxLines:lines,enabled:model.canMutate,dataCy:id(key)));
  String status(Object? value)=>switch(value){'queued'=>'mailQueued','sending'=>'mailSending','accepted'=>'mailAccepted','unknown'=>'mailUnknown','quarantined'=>'mailQuarantined',_=>'unavailable'};
- @override Widget build(BuildContext context)=>ListenableBuilder(listenable:model,builder:(context,_)=>Cy(id:id('mail'),child:PrimeCareCard(color:Theme.of(context).colorScheme.surface,margin:const EdgeInsets.only(bottom:16),child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
+ @override Widget build(BuildContext context)=>ListenableBuilder(listenable:model,builder:(context,_)=>Cy(id:id('mail'),child:PrimeCareCard(color:Theme.of(context).colorScheme.surface,margin:EdgeInsets.only(bottom:spacing.cardGap),child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
   Text(text('mail'),style:Theme.of(context).textTheme.titleLarge),
   Cy(id:id('mailStatus'),child:Semantics(liveRegion:true,child:Text(text(model.busy?'loading':model.failureKey??'ready')))),
   if(model.hasPendingCommand)...[Text(text('mailPending')),button('mailRetry',model.busy?null:_retry)],
-  field('mailbox',_mailbox),const SizedBox(height:12),
-  Wrap(spacing:12,runSpacing:12,children:[button('mailInbound',model.busy?null:()=>unawaited(model.loadInbox(direction:'inbound',mailboxId:_mailbox.text))),button('mailOutbound',model.busy?null:()=>unawaited(model.loadInbox(direction:'outbound'))),button('mailRefresh',model.busy?null:()=>unawaited(model.refreshInbox()))]),
+  field('mailbox',_mailbox),SizedBox(height:spacing.md),
+  Wrap(spacing:spacing.md,runSpacing:spacing.md,children:[button('mailInbound',model.busy?null:()=>unawaited(model.loadInbox(direction:'inbound',mailboxId:_mailbox.text))),button('mailOutbound',model.busy?null:()=>unawaited(model.loadInbox(direction:'outbound'))),button('mailRefresh',model.busy?null:()=>unawaited(model.refreshInbox()))]),
   Cy(id:id('mailItems'),child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
    if(model.items.isEmpty)Text(text('mailEmpty')),
-   for(var index=0;index<model.items.length;index++)Padding(padding:const EdgeInsets.only(top:12),child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
+   for(var index=0;index<model.items.length;index++)Padding(padding:EdgeInsets.only(top:spacing.md),child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
     Text(model.items[index]['subject'] as String? ?? model.items[index]['id'] as String),Text(text(status(model.items[index]['status']))),button('mailOpen',model.busy?null:()=>unawaited(model.openMail(model.items[index]['id'] as String)),testId:'${id('mailOpen')}-$index'),
    ])),
    if(model.hasMore)button('mailMore',model.busy?null:()=>unawaited(model.loadMore())),
@@ -175,8 +177,8 @@ class _CommunicationMailPanelState extends State<_CommunicationMailPanel> {
    Text(text(status(mail['status']))),
    if(mail['text'] case final String body)Text(body),
   ])),
-  field('mailTo',_to),field('mailSubject',_subject),field('mailBody',_body,lines:5),const SizedBox(height:12),
-  Wrap(spacing:12,runSpacing:12,children:[button('mailQueue',model.canMutate?_queue:null),button('mailDeliver',model.canDeliver?()=>unawaited(model.deliver()):null)]),
+  field('mailTo',_to),field('mailSubject',_subject),field('mailBody',_body,lines:5),SizedBox(height:spacing.md),
+  Wrap(spacing:spacing.md,runSpacing:spacing.md,children:[button('mailQueue',model.canMutate?_queue:null),button('mailDeliver',model.canDeliver?()=>unawaited(model.deliver()):null)]),
  ]))));
 }
 class _CommunicationCallPanel extends StatefulWidget {
@@ -189,24 +191,25 @@ class _CommunicationCallPanelState extends State<_CommunicationCallPanel> {
  CommunicationCallController get model=>widget.model;
  String text(String key)=>CommunicationWorkspaceCatalog.text(widget.language,key);
  String id(String key)=>CommunicationWorkspaceCatalog.id(key);
+ PrimeSpacing get spacing=>PrimeTheme.of(context).spacing;
  @override void dispose(){_recipient.dispose();super.dispose();}
  Widget button(String key,VoidCallback? action,{String? testId})=>PrimeButton(label:text(key),onPressed:action,dataCy:testId??id(key));
  String status(Object? value)=>switch(value){'ringing'=>'callRinging','accepted'=>'callAccepted','declined'=>'callDeclined','ended'=>'callEnded','missed'=>'callExpired',_=>'unavailable'};
- @override Widget build(BuildContext context)=>ListenableBuilder(listenable:model,builder:(context,_)=>Cy(id:id('calls'),child:PrimeCareCard(color:Theme.of(context).colorScheme.surface,margin:const EdgeInsets.only(bottom:16),child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
+ @override Widget build(BuildContext context)=>ListenableBuilder(listenable:model,builder:(context,_)=>Cy(id:id('calls'),child:PrimeCareCard(color:Theme.of(context).colorScheme.surface,margin:EdgeInsets.only(bottom:spacing.cardGap),child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
   Text(text('calls'),style:Theme.of(context).textTheme.titleLarge),
   Cy(id:id('callStatus'),child:Semantics(liveRegion:true,child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(text(model.busy?'loading':model.failureKey??model.mediaState)),if(!model.mediaConfigured)Text(text('mediaUnavailable'))]))),
   if(model.hasPendingCommand)...[Text(text('callPending')),button('retry',model.busy?null:()=>unawaited(model.retryPending()),testId:'${id('retry')}-call')],
   if(model.calls.isEmpty)Text(text('callEmpty')),
-  for(var index=0;index<model.calls.length;index++)Padding(padding:const EdgeInsets.symmetric(vertical:12),child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
+  for(var index=0;index<model.calls.length;index++)Padding(padding:EdgeInsets.symmetric(vertical:spacing.md),child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
    Text(model.calls[index]['id'] as String),Text(text(status(model.calls[index]['status']))),
-   Wrap(spacing:12,runSpacing:12,children:[
+   Wrap(spacing:spacing.md,runSpacing:spacing.md,children:[
     button('callAccept',model.canAccept(model.calls[index])?()=>unawaited(model.act('accept',model.calls[index]['id'] as String)):null,testId:'${id('callAccept')}-$index'),
     button('callDecline',model.canAccept(model.calls[index])?()=>unawaited(model.act('decline',model.calls[index]['id'] as String)):null,testId:'${id('callDecline')}-$index'),
     button('callEnd',model.canEnd(model.calls[index])?()=>unawaited(model.act('end',model.calls[index]['id'] as String)):null,testId:'${id('callEnd')}-$index'),
     button('callConnect',model.canConnect(model.calls[index])?()=>unawaited(model.connect(model.calls[index]['id'] as String)):null,testId:'${id('callConnect')}-$index'),
    ]),
   ])),
-  PrimeCareTextField(label:text('callRecipient'),controller:_recipient,enabled:model.canInvite,dataCy:id('callRecipient')),const SizedBox(height:12),
-  Wrap(spacing:12,runSpacing:12,children:[button('callInvite',model.canInvite?()=>unawaited(model.invite(_recipient.text)):null),button('callRefresh',model.busy||model.threadId==null?null:()=>unawaited(model.refresh())),button('callMute',model.mediaActive&&!model.busy?model.toggleMute:null)]),
+  PrimeCareTextField(label:text('callRecipient'),controller:_recipient,enabled:model.canInvite,dataCy:id('callRecipient')),SizedBox(height:spacing.md),
+  Wrap(spacing:spacing.md,runSpacing:spacing.md,children:[button('callInvite',model.canInvite?()=>unawaited(model.invite(_recipient.text)):null),button('callRefresh',model.busy||model.threadId==null?null:()=>unawaited(model.refresh())),button('callMute',model.mediaActive&&!model.busy?model.toggleMute:null)]),
  ]))));
 }
