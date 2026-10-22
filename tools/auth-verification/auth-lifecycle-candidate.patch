@@ -323,6 +323,144 @@ index f0b01a75..66c68b84 100644
    Future<void> logout() async {
      ++_sessionRevision;
      final token = state.token;
+diff --git a/packages/flutter_core/lib/src/application/controllers/privileged_access_service.dart b/packages/flutter_core/lib/src/application/controllers/privileged_access_service.dart
+new file mode 100644
+index 00000000..7063663b
+--- /dev/null
++++ b/packages/flutter_core/lib/src/application/controllers/privileged_access_service.dart
+@@ -0,0 +1,114 @@
++import 'dart:convert';
++import 'package:flutter_riverpod/flutter_riverpod.dart';
++import 'package:flutter_core/auth_service.dart';
++import '../../network/api_client.dart';
++import '../privileged_access_contract.g.dart';
++
++class TemporaryElevation {
++  final String id;
++  final DateTime expiresAt;
++  const TemporaryElevation(this.id,this.expiresAt);
++}
++class TenantSupportRequest {
++  final String id,requesterId,tenantId,ticket,reason,status;
++  final DateTime expiresAt;
++  const TenantSupportRequest({required this.id,required this.requesterId,required this.tenantId,
++    required this.ticket,required this.reason,required this.status,required this.expiresAt});
++}
++class TenantSecuritySummary {
++  final String tenantId;
++  final int activeAccounts,activeSessions,enrolledAuthenticators;
++  const TenantSecuritySummary(this.tenantId,this.activeAccounts,this.activeSessions,this.enrolledAuthenticators);
++}
++
++/// References never replace session authority. The server rechecks every use.
++class PrivilegedAccessService {
++  final Ref _ref;
++  PrivilegedAccessService(this._ref);
++  bool get canElevate=>_actor()?.role=='code_admin';
++  bool get canApprove=>_actor()?.role=='tenant_admin';
++  AuthState? _actor(){
++    if(!_ref.mounted)return null;
++    final actor=_ref.read(authProvider);
++    return actor.isInitialized&&actor.isAuthenticated&&_id(actor.userId)&&_token(actor.token)?actor:null;
++  }
++  bool _current(AuthState actor){
++    if(!_ref.mounted)return false;
++    final current=_actor();
++    return current!=null&&current.userId==actor.userId&&current.token==actor.token&&current.role==actor.role&&current.tenantId==actor.tenantId;
++  }
++  static bool _id(Object? value)=>value is String&&RegExp(r'^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[1-5][a-fA-F0-9]{3}-[89abAB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$').hasMatch(value);
++  static bool _token(Object? value)=>value is String&&RegExp(r'^[A-Za-z0-9_-]{43}$').hasMatch(value);
++  static bool _text(Object? value,int min,int max)=>value is String&&value==value.trim()&&value.runes.length>=min&&value.runes.length<=max&&!RegExp(r'[\x00-\x1f\x7f]').hasMatch(value);
++  static bool _password(String value)=>value.isNotEmpty&&utf8.encode(value).length<=72;
++  static bool _scope(Object? value)=>value is List&&value.length==1&&value[0]==temporaryAccessAction;
++  static DateTime? _expiry(Object? value){
++    if(value is! String)return null;
++    final date=DateTime.tryParse(value),now=DateTime.now().toUtc();
++    if(date==null||!date.isUtc||date.toIso8601String()!=value||!date.isAfter(now)||date.isAfter(now.add(const Duration(seconds:temporaryAccessMaximumSeconds+30))))return null;
++    return date;
++  }
++  Future<Map<String,dynamic>?> _call(AuthState actor,String operation,Map<String,dynamic> body)async{
++    final api=_ref.read(apiClientProvider);String? unexpected;
++    try{
++      final response=operation=='listSupport'?await api.get(privilegedAccessEndpoints[operation]!)
++        :await api.post(privilegedAccessEndpoints[operation]!,body:body,headers:{'Authorization':'Bearer ${actor.token}'});
++      final data=response.data;
++      if(data is Map<String,dynamic>&&data['token'] is String&&(data['token'] as String).trim().isNotEmpty)unexpected=data['token'] as String;
++      if(!_current(actor)||response.statusCode!=200||unexpected!=null||data is! Map<String,dynamic>)return null;
++      return Map<String,dynamic>.unmodifiable(data);
++    }catch(_){return null;}
++    finally{if(unexpected!=null){try{await api.revokeSession(unexpected);}catch(_){}}}
++  }
++  Future<TemporaryElevation?> elevate(String password,String code,String reason)async{
++    final actor=_actor();reason=reason.trim();
++    if(actor==null||actor.role!='code_admin'||!_password(password)||!RegExp(r'^[0-9]{6}$').hasMatch(code)||!_text(reason,10,500))return null;
++    final data=await _call(actor,'elevate',{'password':password,'code':code,'reason':reason,'scope':[temporaryAccessAction],'seconds':temporaryAccessMaximumSeconds});
++    if(data==null||data.length!=4||data['status']!='elevated'||!_id(data['elevationId'])||!_scope(data['scope']))return null;
++    final expiry=_expiry(data['expiresAt']);return expiry==null?null:TemporaryElevation(data['elevationId'] as String,expiry);
++  }
++  Future<bool> revokeElevation(TemporaryElevation elevation)async{
++    final actor=_actor();if(actor==null||actor.role!='code_admin'||!_id(elevation.id))return false;
++    final data=await _call(actor,'revokeElevation',{'elevationId':elevation.id});return data?.length==1&&data?['status']=='revoked';
++  }
++  TenantSupportRequest? _request(Object? value,{String? tenantId,String? requesterId}){
++    if(value is! Map<String,dynamic>||value.length!=8||!_id(value['requestId'])||!_id(value['requesterId'])||!_id(value['tenantId'])||!_text(value['ticket'],1,100)||!_text(value['reason'],10,500)||!_scope(value['scope'])||!['pending','approved','revoked'].contains(value['state'])||tenantId!=null&&value['tenantId']!=tenantId||requesterId!=null&&value['requesterId']!=requesterId)return null;
++    final expiry=_expiry(value['expiresAt']);if(expiry==null)return null;
++    return TenantSupportRequest(id:value['requestId'] as String,requesterId:value['requesterId'] as String,tenantId:value['tenantId'] as String,ticket:value['ticket'] as String,reason:value['reason'] as String,status:value['state'] as String,expiresAt:expiry);
++  }
++  Future<TenantSupportRequest?> requestSupport(TemporaryElevation elevation,String tenantId,String ticket,String reason)async{
++    final actor=_actor();tenantId=tenantId.trim().toLowerCase();ticket=ticket.trim();reason=reason.trim();
++    if(actor==null||actor.role!='code_admin'||!_id(elevation.id)||!_id(tenantId)||!_text(ticket,1,100)||!_text(reason,10,500))return null;
++    final data=await _call(actor,'requestSupport',{'elevationId':elevation.id,'tenantId':tenantId,'ticket':ticket,'reason':reason,'scope':[temporaryAccessAction],'seconds':temporaryAccessMaximumSeconds});
++    final request=_request(data,tenantId:tenantId,requesterId:actor.userId);
++    if(request==null||request.status!='pending'||request.expiresAt.isAfter(elevation.expiresAt))return null;
++    return request;
++  }
++  Future<List<TenantSupportRequest>?> listRequests()async{
++    final actor=_actor();if(actor==null||actor.role!='tenant_admin')return null;
++    final data=await _call(actor,'listSupport',{}),knownTenant=actor.tenantId;
++    if(data==null||data.length!=1||data['requests'] is! List)return null;
++    final rows=data['requests'] as List;if(rows.length>50)return null;
++    final result=<TenantSupportRequest>[];
++    for(final row in rows){final request=_request(row,tenantId:knownTenant==null||knownTenant.isEmpty?null:knownTenant);if(request==null||request.requesterId==actor.userId||result.any((item)=>item.id==request.id))return null;result.add(request);}
++    return List<TenantSupportRequest>.unmodifiable(result);
++  }
++  Future<bool> approve(TenantSupportRequest request,String password)async{
++    final actor=_actor();if(actor==null||actor.role!='tenant_admin'||!_password(password)||!_id(request.id))return false;
++    final data=await _call(actor,'approveSupport',{'requestId':request.id,'password':password});
++    return data?.length==3&&data?['status']=='approved'&&data?['requestId']==request.id&&_expiry(data?['expiresAt'])?.isAtSameMomentAs(request.expiresAt)==true;
++  }
++  Future<bool> revokeSupport(TenantSupportRequest request,String password)async{
++    final actor=_actor();if(actor==null||!['code_admin','tenant_admin'].contains(actor.role)||!_password(password)||!_id(request.id))return false;
++    final data=await _call(actor,'revokeSupport',{'requestId':request.id,'password':password});return data?.length==1&&data?['status']=='revoked';
++  }
++  Future<TenantSecuritySummary?> summary(TenantSupportRequest request)async{
++    final actor=_actor();if(actor==null||actor.role!='code_admin'||!_id(request.id)||request.requesterId!=actor.userId)return null;
++    final data=await _call(actor,'summary',{'requestId':request.id});
++    if(data==null||data.length!=4||data['tenantId']!=request.tenantId)return null;
++    final values=[data['activeAccounts'],data['activeSessions'],data['enrolledAuthenticators']];
++    if(!values.every((value)=>value is int&&value>=0))return null;
++    return TenantSecuritySummary(request.tenantId,values[0] as int,values[1] as int,values[2] as int);
++  }
++}
++final privilegedAccessServiceProvider=Provider<PrivilegedAccessService>(PrivilegedAccessService.new);
+diff --git a/packages/flutter_core/lib/src/application/privileged_access_contract.g.dart b/packages/flutter_core/lib/src/application/privileged_access_contract.g.dart
+new file mode 100644
+index 00000000..d2ac69a8
+--- /dev/null
++++ b/packages/flutter_core/lib/src/application/privileged_access_contract.g.dart
+@@ -0,0 +1,12 @@
++// Generated from registered elevation contracts; do not edit.
++const temporaryAccessMaximumSeconds = 900;
++const temporaryAccessAction = "tenant_security_summary";
++const privilegedAccessEndpoints = <String, String>{
++  "elevate": "/v1/auth/mfa/elevation",
++  "revokeElevation": "/v1/auth/mfa/elevation/revoke",
++  "requestSupport": "/v1/auth/mfa/support/request",
++  "listSupport": "/v1/auth/mfa/support/requests",
++  "approveSupport": "/v1/auth/mfa/support/approve",
++  "revokeSupport": "/v1/auth/mfa/support/revoke",
++  "summary": "/v1/auth/mfa/support/summary",
++};
 diff --git a/packages/flutter_core/lib/src/network/api_client.dart b/packages/flutter_core/lib/src/network/api_client.dart
 index d3fd8236..1c3162e8 100644
 --- a/packages/flutter_core/lib/src/network/api_client.dart
@@ -506,6 +644,232 @@ index 440ee299..0d60d889 100644
 +    expect(await captured.recover(List.filled(26,'A').join()),isNull);expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
 +  });
  }
+diff --git a/packages/flutter_core/test/auth_privileged_access_test.dart b/packages/flutter_core/test/auth_privileged_access_test.dart
+new file mode 100644
+index 00000000..de95b092
+--- /dev/null
++++ b/packages/flutter_core/test/auth_privileged_access_test.dart
+@@ -0,0 +1,112 @@
++import 'dart:async';
++import 'package:flutter_test/flutter_test.dart';
++import 'package:flutter_riverpod/flutter_riverpod.dart';
++import 'package:shared_preferences/shared_preferences.dart';
++import 'package:flutter_core/auth_service.dart';
++import 'package:flutter_core/src/network/api_client.dart';
++import 'package:flutter_core/src/application/controllers/privileged_access_service.dart';
++
++String uid(int n)=>'${n.toString().padLeft(8,'0')}-1111-4111-8111-111111111111';
++final oldToken=List.filled(43,'a').join(),newToken=List.filled(43,'b').join();
++class PrivilegedActor extends AuthNotifier {
++  final String role;
++  PrivilegedActor([this.role='code_admin']);
++  @override
++  AuthState build()=>AuthState(isInitialized:true,isAuthenticated:true,userId:uid(role=='tenant_admin'?2:1),role:role,token:oldToken,tenantId:uid(11));
++  void replace()=>state=AuthState(isInitialized:true,isAuthenticated:true,userId:uid(3),role:'code_admin',token:newToken,tenantId:uid(13));
++}
++class PrivilegedApi extends Fake implements ApiClient {
++  final calls=<String>[],bodies=<Map<String,dynamic>>[],revoked=<String>[];
++  final deadline=DateTime.now().toUtc().add(const Duration(minutes:10));
++  Completer<ApiResponse>? pending;
++  Map<String,dynamic>? reply;
++  bool offline=false;
++  Map<String,dynamic> request()=>{'requestId':uid(22),'requesterId':uid(1),'tenantId':uid(11),'ticket':'SYN-1','reason':'Investigate tenant sign-in counts','scope':['tenant_security_summary'],'expiresAt':deadline.toIso8601String(),'state':'pending'};
++  @override
++  Future<ApiResponse> get(String path,{Map<String,dynamic>? queryParameters})async{
++    calls.add(path);if(offline)throw StateError('offline');if(pending!=null)return pending!.future;
++    return ApiResponse(statusCode:200,data:reply??{'requests':[request()]});
++  }
++  @override
++  Future<ApiResponse> post(String path,{dynamic body,Map<String,String>? headers})async{
++    calls.add(path);bodies.add(Map<String,dynamic>.from(body as Map));expect(headers?['Authorization'],'Bearer $oldToken');
++    if(offline)throw StateError('offline');if(pending!=null)return pending!.future;
++    final data=reply??(path.endsWith('/elevation')?{'status':'elevated','elevationId':uid(21),'expiresAt':deadline.toIso8601String(),'scope':['tenant_security_summary']}
++      :path.endsWith('/request')?request():path.endsWith('/summary')?{'tenantId':uid(11),'activeAccounts':2,'activeSessions':3,'enrolledAuthenticators':1}
++      :path.endsWith('/approve')?{'status':'approved','requestId':uid(22),'expiresAt':deadline.toIso8601String()}:{'status':'revoked'});
++    return ApiResponse(statusCode:200,data:data);
++  }
++  @override
++  Future<ApiResponse> revokeSession(String token)async{revoked.add(token);return ApiResponse(statusCode:200,data:{'status':'signed_out'});}
++}
++void main(){
++ TestWidgetsFlutterBinding.ensureInitialized();setUp(()=>SharedPreferences.setMockInitialValues({}));
++ ProviderContainer fixture(PrivilegedApi api,{PrivilegedActor? actor})=>ProviderContainer(overrides:[authProvider.overrideWith(()=>actor??PrivilegedActor()),apiClientProvider.overrideWithValue(api)]);
++ TemporaryElevation elevation(PrivilegedApi api)=>TemporaryElevation(uid(21),api.deadline);
++ TenantSupportRequest request(PrivilegedApi api)=>TenantSupportRequest(id:uid(22),requesterId:uid(1),tenantId:uid(11),ticket:'SYN-1',reason:'Investigate tenant sign-in counts',status:'pending',expiresAt:api.deadline);
++ test('fixed registered elevation scope never changes role session or local persistence',()async{
++  final api=PrivilegedApi(),c=fixture(api);addTearDown(c.dispose);final service=c.read(privilegedAccessServiceProvider);
++  final result=await service.elevate('synthetic-password','123456','Investigate tenant sign-in counts');
++  expect(result?.id,uid(21));expect(service.canElevate,true);expect(service.canApprove,false);
++  expect(api.bodies.single,{'password':'synthetic-password','code':'123456','reason':'Investigate tenant sign-in counts','scope':['tenant_security_summary'],'seconds':900});
++  expect(c.read(authProvider).token,oldToken);expect(c.read(authProvider).role,'code_admin');expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
++ });
++ test('malformed or overlong grant receipt and unexpected bearer authority fail closed',()async{
++  final api=PrivilegedApi(),c=fixture(api);addTearDown(c.dispose);final service=c.read(privilegedAccessServiceProvider);
++  for(final receipt in [
++   {'status':'elevated','elevationId':uid(21),'expiresAt':api.deadline.toIso8601String(),'scope':['clinical_records']},
++   {'status':'elevated','elevationId':uid(21),'expiresAt':DateTime.now().toUtc().add(const Duration(hours:1)).toIso8601String(),'scope':['tenant_security_summary']},
++   {'status':'elevated','elevationId':uid(21),'expiresAt':api.deadline.toIso8601String(),'scope':['tenant_security_summary'],'token':newToken},
++  ]){api.reply=receipt;expect(await service.elevate('synthetic-password','123456','Investigate tenant sign-in counts'),isNull);}
++  expect(api.revoked,[newToken]);expect(c.read(authProvider).token,oldToken);expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
++ });
++ test('support request validates tenant requester purpose and elevation deadline',()async{
++  final api=PrivilegedApi(),c=fixture(api);addTearDown(c.dispose);final service=c.read(privilegedAccessServiceProvider);
++  expect((await service.requestSupport(elevation(api),uid(11),'SYN-1','Investigate tenant sign-in counts'))?.id,uid(22));
++  for(final receipt in [{...api.request(),'tenantId':uid(12)},{...api.request(),'requesterId':uid(9)},{...api.request(),'state':'approved'},{...api.request(),'expiresAt':api.deadline.add(const Duration(seconds:1)).toIso8601String()}]){
++   api.reply=receipt;expect(await service.requestSupport(elevation(api),uid(11),'SYN-1','Investigate tenant sign-in counts'),isNull);
++  }
++  expect(c.read(authProvider).token,oldToken);
++ });
++ test('tenant approval list rejects foreign duplicate or personal account fields',()async{
++  final api=PrivilegedApi(),c=fixture(api,actor:PrivilegedActor('tenant_admin'));addTearDown(c.dispose);final service=c.read(privilegedAccessServiceProvider);
++  expect(service.canApprove,true);expect(service.canElevate,false);expect((await service.listRequests())?.length,1);
++  for(final rows in [[{...api.request(),'tenantId':uid(12)}],[api.request(),api.request()],[{...api.request(),'email':'private@example.invalid'}]]){
++   api.reply={'requests':rows};expect(await service.listRequests(),isNull);
++  }
++  expect(c.read(authProvider).role,'tenant_admin');
++ });
++ test('summary accepts only owned request aggregate counts for the expected tenant',()async{
++  final api=PrivilegedApi(),c=fixture(api);addTearDown(c.dispose);final service=c.read(privilegedAccessServiceProvider);
++  final result=await service.summary(request(api));expect(result?.activeAccounts,2);expect(result?.activeSessions,3);expect(result?.enrolledAuthenticators,1);
++  for(final receipt in [
++   {'tenantId':uid(12),'activeAccounts':2,'activeSessions':3,'enrolledAuthenticators':1},
++   {'tenantId':uid(11),'activeAccounts':-1,'activeSessions':3,'enrolledAuthenticators':1},
++   {'tenantId':uid(11),'activeAccounts':'2','activeSessions':3,'enrolledAuthenticators':1},
++   {'tenantId':uid(11),'activeAccounts':2,'activeSessions':3,'enrolledAuthenticators':1,'users':[]},
++  ]){api.reply=receipt;expect(await service.summary(request(api)),isNull);}
++  expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
++ });
++ test('tenant decisions require exact acknowledgements without extending approval expiry',()async{
++  final api=PrivilegedApi(),c=fixture(api,actor:PrivilegedActor('tenant_admin'));addTearDown(c.dispose);final service=c.read(privilegedAccessServiceProvider);
++  expect(await service.approve(request(api),'synthetic-password'),true);
++  api.reply={'status':'approved','requestId':uid(99),'expiresAt':api.deadline.toIso8601String()};expect(await service.approve(request(api),'synthetic-password'),false);
++  api.reply={'status':'approved','requestId':uid(22),'expiresAt':api.deadline.add(const Duration(seconds:1)).toIso8601String()};expect(await service.approve(request(api),'synthetic-password'),false);
++  api.reply={'status':'revoked'};expect(await service.revokeSupport(request(api),'synthetic-password'),true);
++  api.reply={'status':'success'};expect(await service.revokeSupport(request(api),'synthetic-password'),false);
++ });
++ test('late receipt after actor replacement is discarded and cannot overwrite newer authority',()async{
++  final actor=PrivilegedActor(),api=PrivilegedApi()..pending=Completer<ApiResponse>(),c=fixture(api,actor:actor);addTearDown(c.dispose);final service=c.read(privilegedAccessServiceProvider);
++  final pending=service.elevate('synthetic-password','123456','Investigate tenant sign-in counts');actor.replace();
++  api.pending!.complete(ApiResponse(statusCode:200,data:{'status':'elevated','elevationId':uid(21),'expiresAt':api.deadline.toIso8601String(),'scope':['tenant_security_summary']}));
++  expect(await pending,isNull);expect(c.read(authProvider).token,newToken);expect(c.read(authProvider).userId,uid(3));expect((await SharedPreferences.getInstance()).getKeys(),isEmpty);
++ });
++ test('ordinary actors malformed proof and offline responses cannot create capabilities',()async{
++  final api=PrivilegedApi(),c=fixture(api,actor:PrivilegedActor('rmt'));addTearDown(c.dispose);final service=c.read(privilegedAccessServiceProvider);
++  expect(await service.elevate('synthetic-password','123456','Investigate tenant sign-in counts'),isNull);expect(await service.listRequests(),isNull);expect(api.calls,isEmpty);
++  final allowed=fixture(api);addTearDown(allowed.dispose);final own=allowed.read(privilegedAccessServiceProvider);api.offline=true;
++  expect(await own.elevate('synthetic-password','123456','Investigate tenant sign-in counts'),isNull);
++  api.offline=false;api.reply={'status':'offline_fallback'};expect(await own.elevate('synthetic-password','123456','Investigate tenant sign-in counts'),isNull);
++  expect(allowed.read(authProvider).token,oldToken);
++ });
++}
+diff --git a/packages/primecare_ui/lib/src/features/auth/auth_elevation_catalog.g.dart b/packages/primecare_ui/lib/src/features/auth/auth_elevation_catalog.g.dart
+new file mode 100644
+index 00000000..6c2c35f9
+--- /dev/null
++++ b/packages/primecare_ui/lib/src/features/auth/auth_elevation_catalog.g.dart
+@@ -0,0 +1,102 @@
++// Generated from registered elevation resources; do not edit.
++const authElevationText = <String, Map<String, String>>{
++  "en": {
++    "title": "Temporary support access",
++    "password": "Current password",
++    "factor": "Authenticator code",
++    "reason": "Reason for access",
++    "elevate": "Verify for 15 minutes",
++    "revoke": "End temporary access",
++    "tenant": "Tenant ID",
++    "ticket": "Support ticket",
++    "request": "Request tenant approval",
++    "summary": "View security summary",
++    "cancelSupport": "Revoke support request",
++    "status": "Access status",
++    "approvalTitle": "Tenant support approvals",
++    "approvalPassword": "Current password",
++    "approvalRequests": "Requests for this tenant",
++    "approve": "Approve request",
++    "reject": "Revoke request",
++    "pending": "Waiting for tenant approval",
++    "approved": "Approved until expiry",
++    "expired": "Access expired or revoked",
++    "error": "The request could not be completed. Verify the details and try again.",
++    "working": "Working…",
++    "scope": "Scope: aggregate account, session and authenticator counts only.",
++    "privacy": "No clinical records, personal account details or impersonation. Tenant approval and current verified access are required for each use.",
++    "activeAccounts": "Active accounts: {count}",
++    "activeSessions": "Active sessions: {count}",
++    "enrolledAuthenticators": "Enrolled authenticators: {count}",
++    "expires": "Expires at {time}",
++    "requester": "Requested by Code Admin",
++    "refresh": "Refresh requests",
++    "none": "No current support requests.",
++  },
++  "fr": {
++    "title": "Accès temporaire au support",
++    "password": "Mot de passe actuel",
++    "factor": "Code de l’application d’authentification",
++    "reason": "Motif de l’accès",
++    "elevate": "Vérifier pour 15 minutes",
++    "revoke": "Terminer l’accès temporaire",
++    "tenant": "Identifiant du locataire",
++    "ticket": "Ticket de support",
++    "request": "Demander l’approbation du locataire",
++    "summary": "Voir le résumé de sécurité",
++    "cancelSupport": "Révoquer la demande de support",
++    "status": "État de l’accès",
++    "approvalTitle": "Approbations du support du locataire",
++    "approvalPassword": "Mot de passe actuel",
++    "approvalRequests": "Demandes pour ce locataire",
++    "approve": "Approuver la demande",
++    "reject": "Révoquer la demande",
++    "pending": "En attente de l’approbation du locataire",
++    "approved": "Approuvé jusqu’à expiration",
++    "expired": "Accès expiré ou révoqué",
++    "error": "La demande n’a pas pu être traitée. Vérifiez les informations et réessayez.",
++    "working": "Traitement…",
++    "scope": "Portée : nombres agrégés de comptes, sessions et applications d’authentification uniquement.",
++    "privacy": "Aucun dossier clinique, détail personnel de compte ni usurpation d’identité. L’approbation du locataire et un accès vérifié valide sont requis pour chaque utilisation.",
++    "activeAccounts": "Comptes actifs : {count}",
++    "activeSessions": "Sessions actives : {count}",
++    "enrolledAuthenticators": "Applications d’authentification inscrites : {count}",
++    "expires": "Expire le {time}",
++    "requester": "Demande de Code Admin",
++    "refresh": "Actualiser les demandes",
++    "none": "Aucune demande de support en cours.",
++  },
++  "es": {
++    "title": "Acceso temporal de soporte",
++    "password": "Contraseña actual",
++    "factor": "Código de autenticación",
++    "reason": "Motivo del acceso",
++    "elevate": "Verificar durante 15 minutos",
++    "revoke": "Finalizar acceso temporal",
++    "tenant": "ID del inquilino",
++    "ticket": "Ticket de soporte",
++    "request": "Solicitar aprobación del inquilino",
++    "summary": "Ver resumen de seguridad",
++    "cancelSupport": "Revocar solicitud de soporte",
++    "status": "Estado del acceso",
++    "approvalTitle": "Aprobaciones de soporte del inquilino",
++    "approvalPassword": "Contraseña actual",
++    "approvalRequests": "Solicitudes para este inquilino",
++    "approve": "Aprobar solicitud",
++    "reject": "Revocar solicitud",
++    "pending": "Esperando aprobación del inquilino",
++    "approved": "Aprobado hasta su vencimiento",
++    "expired": "Acceso vencido o revocado",
++    "error": "No se pudo completar la solicitud. Verifica los datos e inténtalo de nuevo.",
++    "working": "Procesando…",
++    "scope": "Alcance: solo recuentos agregados de cuentas, sesiones y autenticadores.",
++    "privacy": "Sin registros clínicos, datos personales de cuentas ni suplantación. Cada uso requiere aprobación del inquilino y acceso verificado vigente.",
++    "activeAccounts": "Cuentas activas: {count}",
++    "activeSessions": "Sesiones activas: {count}",
++    "enrolledAuthenticators": "Autenticadores registrados: {count}",
++    "expires": "Vence el {time}",
++    "requester": "Solicitado por Code Admin",
++    "refresh": "Actualizar solicitudes",
++    "none": "No hay solicitudes de soporte vigentes.",
++  },
++};
 diff --git a/packages/primecare_ui/lib/src/features/auth/auth_experience.dart b/packages/primecare_ui/lib/src/features/auth/auth_experience.dart
 index 9e96068d..5866f8f7 100644
 --- a/packages/primecare_ui/lib/src/features/auth/auth_experience.dart
@@ -1114,6 +1478,26 @@ index 8f09a6e0..9612aa9a 100644
      ...(service === 'provider' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100404',simple:{limit:120,period:60}}]} : {}),
      ...(service === 'client' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100403',simple:{limit:120,period:60}}]} : {}),
      ...(service === 'governance' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100401',
+diff --git a/scripts/generate-flutter-auth-elevation-catalog.py b/scripts/generate-flutter-auth-elevation-catalog.py
+new file mode 100644
+index 00000000..d053f51e
+--- /dev/null
++++ b/scripts/generate-flutter-auth-elevation-catalog.py
+@@ -0,0 +1,14 @@
++"""Generate native support resources and core constants from the registered surface."""
++import json
++from pathlib import Path
++ROOT=Path(__file__).resolve().parents[1]
++d=json.loads((ROOT/'packages/shared/src/auth-elevation.json').read_text())
++if d!=json.loads((ROOT/'tools/governance-production/auth-elevation-surface.json').read_text()):raise SystemExit('Shared elevation catalog differs from registered source')
++def dart(value):return json.dumps(value,ensure_ascii=False).replace('$',r'\$')
++s='// Generated from registered elevation resources; do not edit.\nconst authElevationText = <String, Map<String, String>>{\n'
++for locale,values in d['locales'].items():
++ s+='  '+dart(locale)+': {\n'+''.join('    '+dart(key)+': '+dart(value)+',\n' for key,value in values.items())+'  },\n'
++s+='};\n';(ROOT/'packages/primecare_ui/lib/src/features/auth/auth_elevation_catalog.g.dart').write_text(s)
++keys={'auth_elevation':'elevate','auth_elevation_revoke':'revokeElevation','auth_support_request':'requestSupport','auth_support_requests':'listSupport','auth_support_approve':'approveSupport','auth_support_revoke':'revokeSupport','auth_support_summary':'summary'}
++assert {e['code'] for e in d['endpoints']}==set(keys)
++s='// Generated from registered elevation contracts; do not edit.\nconst temporaryAccessMaximumSeconds = '+str(d['maximumSeconds'])+';\nconst temporaryAccessAction = '+dart(d['action'])+';\nconst privilegedAccessEndpoints = <String, String>{\n'+''.join('  '+dart(keys[e['code']])+': '+dart(e['route'])+',\n' for e in d['endpoints'])+'};\n';(ROOT/'packages/flutter_core/lib/src/application/privileged_access_contract.g.dart').write_text(s)
 diff --git a/scripts/generate-flutter-auth-lifecycle-catalog.py b/scripts/generate-flutter-auth-lifecycle-catalog.py
 new file mode 100644
 index 00000000..81fe3856

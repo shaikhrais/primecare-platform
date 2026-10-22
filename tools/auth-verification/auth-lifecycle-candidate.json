@@ -1,6 +1,6 @@
 {
   "base": "bf1184769fc41685139dec8f10c1904ebfac4d86",
-  "sha256": "5882afe13feac0dbcb71c1e5c6cb7a72a216ddccf815cd2ec186b90277fb2bcf",
+  "sha256": "4469e2924288160f09ca540a48eedfef2db086b514567bc2c9b1a256da76c668",
   "paths": [
     "cloudflare/workers/src/auth.ts",
     "cloudflare/workers/src/core/base-worker.ts",
@@ -24,6 +24,11 @@
     "scripts/generate-flutter-auth-lifecycle-catalog.py",
     "scripts/generate-flutter-mfa-catalog.py",
     "scripts/test-code-admin-mfa-postgres.mjs",
-    "scripts/test-worker-inheritance.mjs"
+    "scripts/test-worker-inheritance.mjs",
+    "scripts/generate-flutter-auth-elevation-catalog.py",
+    "packages/flutter_core/lib/src/application/privileged_access_contract.g.dart",
+    "packages/flutter_core/lib/src/application/controllers/privileged_access_service.dart",
+    "packages/flutter_core/test/auth_privileged_access_test.dart",
+    "packages/primecare_ui/lib/src/features/auth/auth_elevation_catalog.g.dart"
   ]
 }

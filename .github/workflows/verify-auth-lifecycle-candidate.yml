@@ -86,7 +86,8 @@ jobs:
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - name: Require reproducible registered MFA labels
         run: |
-          sha256sum packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart packages/primecare_ui/lib/src/features/auth/auth_lifecycle_catalog.g.dart > /tmp/candidate-catalogs.sha256
+          sha256sum packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart packages/primecare_ui/lib/src/features/auth/auth_lifecycle_catalog.g.dart packages/primecare_ui/lib/src/features/auth/auth_elevation_catalog.g.dart packages/flutter_core/lib/src/application/privileged_access_contract.g.dart > /tmp/candidate-catalogs.sha256
+          python scripts/generate-flutter-auth-elevation-catalog.py
           python scripts/generate-flutter-auth-lifecycle-catalog.py
           python scripts/generate-flutter-mfa-catalog.py
           sha256sum --check /tmp/candidate-catalogs.sha256
@@ -94,8 +95,8 @@ jobs:
         working-directory: packages/flutter_core
         run: |
           flutter pub get
-          flutter analyze --no-fatal-infos lib/auth_service.dart lib/src/application/controllers/auth_notifier.dart test/auth_mfa_test.dart test/auth_mfa_management_test.dart
-          flutter test --timeout 60s test/auth_mfa_test.dart test/auth_mfa_management_test.dart test/auth_session_test.dart test/auth_transport_test.dart test/auth_route_guard_test.dart
+          flutter analyze --no-fatal-infos lib/auth_service.dart lib/src/application/controllers/auth_notifier.dart lib/src/application/controllers/privileged_access_service.dart test/auth_mfa_test.dart test/auth_mfa_management_test.dart test/auth_privileged_access_test.dart
+          flutter test --timeout 60s test/auth_mfa_test.dart test/auth_mfa_management_test.dart test/auth_privileged_access_test.dart test/auth_session_test.dart test/auth_transport_test.dart test/auth_route_guard_test.dart
       - name: Localized Flutter presentation and previous auth regressions
         working-directory: packages/primecare_ui
         run: |
