@@ -59,56 +59,6 @@ index 4a3ad117..edb4b57c 100644
 +    scheduled: async (controller: unknown, env: Environment): Promise<void> => worker.scheduled(controller, env),
    };
  }
-diff --git a/cloudflare/workers/src/security/mfa-lifecycle.mjs b/cloudflare/workers/src/security/mfa-lifecycle.mjs
-index 48f4c816..324fea04 100644
---- a/cloudflare/workers/src/security/mfa-lifecycle.mjs
-+++ b/cloudflare/workers/src/security/mfa-lifecycle.mjs
-@@ -74,6 +74,11 @@ async function notification(db, user, event, locale) {
-   if (one(await db.query('INSERT INTO auth_mfa_notification_outbox(id,user_id,tenant_id,recipient,event,locale) VALUES($1,$2,$3,$4,$5,$6) RETURNING id', [id, user.id, user.tenant_id, user.email, event, localeValue(locale)])).id !== id) throw Error('MFA notification queue failed');
- }
- 
-+async function failedProof(db, user) {
-+  const id = crypto.randomUUID();
-+  if (one(await db.query("INSERT INTO auth_mfa_audit(id,user_id,tenant_id,action) VALUES($1,$2,$3,'mfa_verification_failed') RETURNING id", [id, user.id, user.tenant_id])).id !== id) throw Error('MFA failure audit failed');
-+}
-+
- async function replacement(db, env, user, credential, proofKind) {
-   const challenge = token(), seed = generateMfaSeed(), pending = await sealCurrentMfaSeed(env, seed, user);
-   await db.query('DELETE FROM auth_mfa_replacement_challenges WHERE user_id=$1', [user.id]);
-@@ -100,7 +105,7 @@ export async function manageMfaLifecycle(db, env, sessionToken, body, action, lo
-     if (!user || user.status !== 'active' || !await sessionCurrent(db, sessionToken, user)) {await db.query('ROLLBACK'); return denied();}
-     if (user.roles !== 'code_admin' || (tenantHint !== null && tenantHint !== user.tenant_id)) {await db.query('ROLLBACK'); return denied(403);}
-     const credential = await freshFactor(db, env, user, password, code);
--    if (!credential) {await db.query('ROLLBACK'); return denied();}
-+    if (!credential) {await failedProof(db, user); await db.query('COMMIT'); return denied();}
-     let response;
-     if (action === 'codes') {
-       const generated = await generateMfaRecoveryCodes(user);
-@@ -141,8 +146,7 @@ export async function recoverMfaLifecycle(db, env, body, locale = 'en') {
-     const consumed = codeHash ? (await db.query('UPDATE auth_mfa_recovery_codes SET consumed_at=NOW() WHERE code_hash=$1 AND user_id=$2 AND tenant_id=$3 AND consumed_at IS NULL RETURNING code_hash', [codeHash, user.id, user.tenant_id])).rows : [];
-     if (consumed.length !== 1) {
-       one(await db.query('UPDATE auth_mfa_challenges SET attempts=attempts+1 WHERE token_hash=$1 AND attempts<5 RETURNING attempts', [hash]));
--      const id = crypto.randomUUID();
--      if (one(await db.query("INSERT INTO auth_mfa_audit(id,user_id,tenant_id,action) VALUES($1,$2,$3,'mfa_verification_failed') RETURNING id", [id, user.id, user.tenant_id])).id !== id) throw Error('MFA failure audit failed');
-+      await failedProof(db, user);
-       await db.query('COMMIT'); return denied();
-     }
-     if (one(await db.query('DELETE FROM auth_mfa_challenges WHERE token_hash=$1 RETURNING token_hash', [hash])).token_hash !== hash) throw Error('Recovery challenge consumption failed');
-@@ -172,6 +176,7 @@ export async function confirmMfaReplacement(db, env, body, locale = 'en') {
-     const counter = await matchTotp(seed, code, {seconds: Math.floor(Date.now() / 1000), lastAcceptedCounter: -1});
-     if (counter === null) {
-       one(await db.query('UPDATE auth_mfa_replacement_challenges SET attempts=attempts+1 WHERE token_hash=$1 AND attempts<5 RETURNING attempts', [hash]));
-+      await failedProof(db, user);
-       await db.query('COMMIT'); return denied();
-     }
-     if (one(await db.query('UPDATE auth_mfa_credentials SET envelope=$2,last_counter=$3,enabled_at=NOW() WHERE user_id=$1 AND enabled=true RETURNING user_id', [user.id, JSON.stringify(pending.pending_envelope), counter])).user_id !== user.id) throw Error('Replacement credential update failed');
-@@ -187,3 +192,6 @@ export async function confirmMfaReplacement(db, env, body, locale = 'en') {
-     return {status: 200, body: {status: 'authenticated', token: issued, userId: user.id, role: user.roles}};
-   } catch (error) {await db.query('ROLLBACK'); throw error;}
- }
-+
-+// Shared internal proof primitives; no additional HTTP surface.
-+export {lockedUser,sessionLookup,sessionCurrent,proofRate,freshFactor,failedProof};
 diff --git a/cloudflare/workers/src/security/mfa.mjs b/cloudflare/workers/src/security/mfa.mjs
 index 2bcd7808..6495f5c2 100644
 --- a/cloudflare/workers/src/security/mfa.mjs
@@ -802,7 +752,7 @@ index 6c61a7c3..6a2dc54f 100644
      if (ref.mounted) state = const MfaState();
      if (prompt != null && !prompt.isCompleted) prompt.complete();
 diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_form.dart b/packages/primecare_ui/lib/src/features/auth/mfa_form.dart
-index cb7c6b7d..0733fd96 100644
+index 203a445d..c6278447 100644
 --- a/packages/primecare_ui/lib/src/features/auth/mfa_form.dart
 +++ b/packages/primecare_ui/lib/src/features/auth/mfa_form.dart
 @@ -1,6 +1,7 @@
@@ -864,10 +814,10 @@ index cb7c6b7d..0733fd96 100644
          isFullWidth: true, dataCy: 'mfa-cancel'),
 diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_management_controller.dart b/packages/primecare_ui/lib/src/features/auth/mfa_management_controller.dart
 new file mode 100644
-index 00000000..e83351b3
+index 00000000..9f81840d
 --- /dev/null
 +++ b/packages/primecare_ui/lib/src/features/auth/mfa_management_controller.dart
-@@ -0,0 +1,80 @@
+@@ -0,0 +1,89 @@
 +import 'dart:async';
 +import 'package:primecare_ui/primecare_ui.dart';
 +import 'mfa_catalog.g.dart';
@@ -894,7 +844,16 @@ index 00000000..e83351b3
 +  MfaManagementState build() {
 +    ref.onDispose(() {_revision++; _expiry?.cancel();});
 +    // No listener may retain one-time codes or accept a late proof response.
-+    ref.onCancel(() {ref.invalidateSelf();});
++    final lifetime = ref;
++    ref.onCancel(() {
++      final cancelledRevision = ++_revision;
++      _expiry?.cancel();
++      // Riverpod forbids provider mutations inside lifecycle callbacks. Stop
++      // late work synchronously, then discard cached proof outside the callback.
++      scheduleMicrotask(() {
++        if (lifetime.mounted && cancelledRevision == _revision) lifetime.invalidateSelf();
++      });
++    });
 +    ref.listen(authProvider, (previous, next) {
 +      if (previous?.userId != next.userId || previous?.role != next.role || !next.isAuthenticated) cancel();
 +    });
@@ -950,7 +909,7 @@ index 00000000..e83351b3
 +final mfaManagementProvider = NotifierProvider.autoDispose<MfaManagementController, MfaManagementState>(MfaManagementController.new);
 diff --git a/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart b/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart
 new file mode 100644
-index 00000000..c60b59c7
+index 00000000..f2a33aaf
 --- /dev/null
 +++ b/packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart
 @@ -0,0 +1,80 @@
@@ -971,7 +930,7 @@ index 00000000..c60b59c7
 +    final theme = context.theme, text = mfaLifecycleLabels(context);
 +    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
 +      Text(text['newKey']!, style: theme.typography.bodyMedium), SizedBox(height: theme.spacing.md),
-+      Cy(id: 'mfa-lifecycle-newkey', child: Semantics(label: setupKey,
++      Cy(id: 'mfa-lifecycle-newkey', child: Semantics(container: true, label: setupKey,
 +        excludeSemantics: true, child: SelectableText(setupKey, style: theme.typography.bodyMedium))),
 +    ]);
 +  }
@@ -994,7 +953,7 @@ index 00000000..c60b59c7
 +    if (state.recoveryCodes.isNotEmpty) {
 +      children.addAll([
 +        Text(text['codes']!, style: theme.typography.bodyMedium), gap,
-+        Cy(id: 'mfa-lifecycle-codes', child: Semantics(label: state.recoveryCodes.join('\n'),
++        Cy(id: 'mfa-lifecycle-codes', child: Semantics(container: true, label: state.recoveryCodes.join('\n'),
 +          excludeSemantics: true,
 +          child: SelectableText(state.recoveryCodes.join('\n'), style: theme.typography.bodyMedium))), gap,
 +        PrimeButton(label: text['saved']!, onPressed: controller.saved, isFullWidth: true, dataCy: 'mfa-lifecycle-saved'),

@@ -1,10 +1,9 @@
 {
-  "base": "75b9acd7dd13ad7e0fa7d0c34c4942bdf18d36ad",
-  "sha256": "e18ab10ca5eb349ae060d9ead12c13f8d8a255ac195309b48933fa3270e8949c",
+  "base": "bf1184769fc41685139dec8f10c1904ebfac4d86",
+  "sha256": "55f11f4426ea1066e77663d111272bd4c56907e79fc8db6e526d1e5ac0a74d41",
   "paths": [
     "cloudflare/workers/src/auth.ts",
     "cloudflare/workers/src/core/base-worker.ts",
-    "cloudflare/workers/src/security/mfa-lifecycle.mjs",
     "cloudflare/workers/src/security/mfa.mjs",
     "cloudflare/workers/src/service-application.ts",
     "packages/flutter_core/lib/auth_service.dart",
