@@ -50,12 +50,70 @@
   "role_grants_changed": false,
   "live_mail_sent": false,
   "live_person_called": false,
-  "ci": "not yet recorded",
+  "ci": {
+    "run": "https://github.com/shaikhrais/primecare-platform/actions/runs/39849759894",
+    "source_commit": "8c9a162129c9590bbaeb4f3b4bc03abb5a146fd9",
+    "jobs": {
+      "inventory": "success",
+      "isolated": "success",
+      "media": "success",
+      "dart-core": "success",
+      "flutter-transport": "success"
+    },
+    "native_node_tests": 116,
+    "media_tests": 3,
+    "node_total": 119,
+    "node_failed": 0,
+    "node_skipped": 0,
+    "flutter_tests": 490,
+    "contract_report_tests": 7,
+    "strict_typescript": "passed",
+    "dart_analysis_and_contract_harness": "passed",
+    "native_job": 120072460193,
+    "flutter_job": 120072460231,
+    "media_artifact": 12457580245,
+    "media": {
+      "synthetic": true,
+      "productUi": false,
+      "muted": true,
+      "unmuted": true,
+      "stopped": true,
+      "transport": [
+        {
+          "state": "connected",
+          "audioPacketsReceived": 2,
+          "signalingState": "stable",
+          "iceState": "connected",
+          "gatheringState": "complete",
+          "localType": "offer",
+          "remoteType": "answer",
+          "localAudio": true,
+          "remoteAudio": true,
+          "tracks": 1
+        },
+        {
+          "state": "connected",
+          "audioPacketsReceived": 2,
+          "signalingState": "stable",
+          "iceState": "connected",
+          "gatheringState": "complete",
+          "localType": "answer",
+          "remoteType": "offer",
+          "localAudio": true,
+          "remoteAudio": true,
+          "tracks": 1
+        }
+      ],
+      "audioPassed": true,
+      "browserVersion": "155.0.8059.39"
+    }
+  },
   "remaining": [
     "current case/contact/mailbox policy bindings",
     "private picture/scanner provider",
     "registered Flutter/native UI and media bridge",
     "gateway/provider deployment",
     "owned-user end-to-end acceptance"
-  ]
+  ],
+  "source_commit": "8c9a162129c9590bbaeb4f3b4bc03abb5a146fd9"
 }

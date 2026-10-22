@@ -292,3 +292,21 @@ Flutter/native UI/media bridge and owned-user deployed acceptance. No live mail
 was sent and no user was called by this checkpoint. Existing auth/QA mail workers
 are unchanged. The new session is reusable in permitted browser portals but is
 not a claim that existing Flutter messaging stubs now work.
+
+CI run [39849759894](https://github.com/shaikhrais/primecare-platform/actions/runs/39849759894)
+completed successfully on source `8c9a162129c9590bbaeb4f3b4bc03abb5a146fd9`. All
+five communication jobs passed: 116 Node tests with native PostgreSQL, three
+real-media tests (119 Node total, zero failures/skips), 490 Flutter transport
+regressions, seven contract-report tests, strict TypeScript, Dart analysis and
+the pure Dart channel harness. Production inventory was read-only. Native tests
+include proposed-mail policy rejection/retry, immutable inbound content and two
+accepted call sessions through the registered HTTP worker and PostgreSQL.
+
+Media artifact12457580245 records Chrome155.0.8059.39 with both peers Connected
+and two received audio packets per peer through the new session controller, plus
+passing mute/unmute, remote hang-up and track-release checks. This supersedes the
+local environment's zero-packet result for scoped CI transport acceptance; it
+does not establish live gateway, TURN, physical-device or Flutter-media acceptance.
+See [evidence/communication-session-20261022.json](evidence/communication-session-20261022.json).
+No business-mail delivery, deployed communication screen or all-user release is
+claimed. The concrete live policy/provider/UI gaps above remain open.
