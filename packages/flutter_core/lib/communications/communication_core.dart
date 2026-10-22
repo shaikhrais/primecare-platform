@@ -100,10 +100,15 @@ final class AudioChannelClient extends CommunicationChannelClient {
   Future<Map<String, Object?>> call(
     String action, String id, String key, int version, String callId, {
     String? recipientId,
-  }) => execute(action, {
+  }) {
+    if (!{'invite', 'accept', 'decline', 'end', 'expire'}.contains(action)) {
+      throw ArgumentError('Use the signal method for call signaling');
+    }
+    return execute(action, {
         'id': id, 'key': key, 'version': version, 'callId': callId,
         if (recipientId != null) 'recipientId': recipientId,
       });
+  }
 
   Future<Map<String, Object?>> signal(
     String id, String key, int version, String callId,

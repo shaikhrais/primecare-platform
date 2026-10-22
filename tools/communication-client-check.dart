@@ -40,6 +40,7 @@ Future<void> main() async {
   final before = transport.calls.length;
   await rejects(() async { await hub.messages.execute('read', {'id': 'thread', 'tenantId': 'other'}); });
   await rejects(() async { await hub.email.execute('receive', {'raw': 'forged'}); });
+  await rejects(() async { await hub.audio.call('signal', 'thread', 'signal', 2, 'call'); });
   check(transport.calls.length == before, 'Do not dispatch identity overrides or inbound mail');
   transport.denied = true;
   await rejects(() async { await hub.messages.read('thread'); });

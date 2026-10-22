@@ -21,6 +21,16 @@ test('denied microphone permission closes without attempting signaling',async()=
  const call=new BrowserAudioCall({sendSignal:async()=>assert.fail('No signaling'),getUserMedia:async()=>{throw Error('Permission denied');},createPeer:()=>assert.fail('No peer'),configuration:{iceServers:[]}});
  await assert.rejects(call.start(),/Permission denied/);assert.equal(call.closed,true);
 });
+test('bad remote signaling and terminal peer failures release microphone resources',async()=>{
+ let stops=0,peersClosed=0;
+ const peer={connectionState:'new',addTrack(){},close(){peersClosed++;},async setRemoteDescription(){throw Error('Invalid description');}};
+ const make=()=>new BrowserAudioCall({sendSignal:async()=>{},getUserMedia:async()=>({getTracks:()=>[{stop(){stops++;}}]}),createPeer:()=>peer,configuration:{iceServers:[]}});
+ const badSignal=make();await badSignal.start();
+ await assert.rejects(badSignal.receive({type:'answer',description:{type:'answer',sdp:'bad'}}),/Invalid description/);
+ assert.equal(stops,1);assert.equal(peersClosed,1);
+ const failedPeer=make();await failedPeer.start();peer.connectionState='failed';peer.onconnectionstatechange();
+ assert.equal(stops,2);assert.equal(peersClosed,2);assert.equal(failedPeer.closed,true);
+});
 test('binary stream base measures real bytes, cancels overflow and releases the reader',async()=>{
  const base=new BoundedBinaryAdapterBase(4);let cancelled=0;
  const stream=new ReadableStream({start(controller){controller.enqueue(new Uint8Array([1,2,3,4,5]));},cancel(){cancelled++;}});

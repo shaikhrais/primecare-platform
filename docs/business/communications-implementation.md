@@ -51,7 +51,13 @@ The production read-only inventory in run 39788128133 (source cf47f2c8) passed: 
 
 The corrected media artifact reports audioPassed=true with both real Chromium peers Connected and five received audio packets each, plus successful mute, unmute and track release. This uses synthetic microphones on a CI host; no person was called. It supersedes the earlier weak-wait false pass and establishes scoped audio transport evidence, while the local zero-packet result remains recorded above. It does not prove physical devices, internet TURN traversal, deployed signaling or Flutter integration. Machine-readable CI transport evidence is preserved at docs/business/evidence/communications-audio-20261022.json. No production approval or full end-user completion is claimed.
 
-## Remaining release work
+## Inherited core checkpoint
+
+[Run 39791814770](https://github.com/shaikhrais/primecare-platform/actions/runs/39791814770), source cc02d4e4d6c78827017d055da98c80242b1565ae, passed the production inventory, isolated PostgreSQL, browser-media and pure-Dart jobs. It passed 71 Node tests (23 shared, 13 email compatibility, 28 PostgreSQL service, 4 adapter-base and 3 media), strict TypeScript checking, Dart analysis with no issues and the Dart channel contract harness. This proves scoped reuse across the new base classes and composition roots; it does not register or deploy communication controls for every live role.
+
+Subsequent hardening releases microphones on invalid remote signaling or terminal peer failure and prevents the Dart call helper from sending a signal action without a signal body. Its new regression check passes locally; final CI evidence will be recorded after execution.
+
+## Remaining release work (unchanged by inheritance)
 
 Map the existing messaging/email/task records to these contracts, complete the production-compatible registrations and required reviews, implement real policy/scanner/storage/native-mail adapters, configure the media relay, and connect registered Flutter forms/inboxes. Then execute real login → task handoff → message/picture → API → database → reload, two-user call and owned-mailbox send/receive with denied/cross-tenant/HR cases. Do not mark the existing messaging stubs functional until that journey passes.
 

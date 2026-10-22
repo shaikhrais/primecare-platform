@@ -18,7 +18,7 @@ export class BrowserAudioCall extends CommunicationResourceBase {
    const peer=this.peer;this.registerCleanup(()=>{peer.onicecandidate=null;peer.ontrack=null;peer.onconnectionstatechange=null;peer.close();});
    this.peer.onicecandidate=event=>{if(event.candidate)this.sendSignal({type:'candidate',candidate:event.candidate.toJSON()}).catch(()=>this.close());};
    this.peer.ontrack=event=>this.onTrack(event.streams[0]);
-   this.peer.onconnectionstatechange=()=>this.onState(this.peer?.connectionState??'closed');
+   this.peer.onconnectionstatechange=()=>{const state=peer.connectionState;this.onState(state);if(state==='failed'||state==='closed')this.close();};
    for(const track of this.stream.getTracks())this.peer.addTrack(track,this.stream);
   } catch(error) {this.close();throw error;} finally {this.starting=false;}
  }
@@ -31,6 +31,7 @@ export class BrowserAudioCall extends CommunicationResourceBase {
  }
  async receive(signal) {
   if(!this.peer || this.closed)throw Error('Call not started');
+  try {
   if(!signal || !['offer','answer','candidate'].includes(signal.type))throw Error('Invalid signal');
   if(signal.type==='candidate') {
    if(!this.peer.remoteDescription) {if(this.pending.length>=128)throw Error('Candidate limit');this.pending.push(signal.candidate);}
@@ -44,6 +45,7 @@ export class BrowserAudioCall extends CommunicationResourceBase {
    const answer=await this.peer.createAnswer();await this.peer.setLocalDescription(answer);
    await this.sendSignal({type:'answer',description:this.peer.localDescription.toJSON()});
   }
+  } catch(error) {this.close();throw error;}
  }
  mute(muted) {if(typeof muted!=='boolean')throw Error('Invalid mute state');this.stream?.getAudioTracks().forEach(track=>{track.enabled=!muted;});}
  afterClose() {
