@@ -11,19 +11,23 @@ export class BoundedBinaryAdapterBase {
  }
  async readBoundedStream(stream,declaredSize) {
   if(!Number.isSafeInteger(declaredSize)||declaredSize<1||declaredSize>this.maxBytes)throw new CommunicationInputError('Message size not permitted');
-  const reader=stream.getReader();const chunks=[];let size=0;
+  const bytes=new Uint8Array(declaredSize);const reader=stream.getReader();let size=0;
   try {
    for(;;) {
     const {done,value}=await reader.read();if(done)break;
     if(!(value instanceof Uint8Array))throw new CommunicationInputError('Invalid message stream');
-    size+=value.length;
-    if(size>this.maxBytes){await reader.cancel();throw new CommunicationInputError('Message size not permitted');}
-    chunks.push(value);
+    if(size+value.length>this.maxBytes)throw new CommunicationInputError('Message size not permitted');
+    if(size+value.length>declaredSize)throw new CommunicationInputError('Message size mismatch');
+    // Producers may reuse a chunk buffer. Own its content before the next read.
+    // One declared-size allocation also bounds bookkeeping for tiny/empty chunks.
+    bytes.set(value,size);size+=value.length;
    }
+   if(size!==declaredSize)throw new CommunicationInputError('Message size mismatch');
+   return bytes;
+  }catch(error){
+   try{await reader.cancel();}catch{/* Preserve the original bounded-input error. */}
+   throw error;
   }finally{reader.releaseLock();}
-  if(size!==declaredSize)throw new CommunicationInputError('Message size mismatch');
-  const bytes=new Uint8Array(size);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.length;}
-  return bytes;
  }
 }
 

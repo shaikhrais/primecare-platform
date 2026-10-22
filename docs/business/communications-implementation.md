@@ -470,3 +470,20 @@ separate real browser/raster tests provide their own bounded acceptance. Current
 source CI results will be recorded after execution. This is not deployed all-user
 acceptance; provider configuration, mailbox provisioning, live grants/mounting and
 shared functional screens remain open.
+
+
+The first native runtime acceptance found a malformed test fixture (picture upload
+and download omitted their required action fields). The fixture was corrected on
+`dd6bbf9df4dd0a26f2e00233a95e1c4e4b834459`; registered contracts and production
+validation were preserved. Run 39856663423 passed the native policies/default
+runtime integration, including all four channels, plus media, metadata and Dart.
+The official-source research is recorded in
+[communications-research-20261022.md](communications-research-20261022.md).
+
+The research review also found and fixed inherited binary-reader ownership and
+memory-accounting weaknesses. The reader now copies producer chunks immediately
+into a declared-size buffer, rejects overflow before reading more, cancels invalid
+streams and preserves safe errors when cancellation fails. Three regressions fail
+against the preceding source and pass with this implementation. Local updated
+validation: 131 Node passes, two native-only skips, zero failures. Final native and
+cross-platform CI acceptance must reference the resulting source separately.

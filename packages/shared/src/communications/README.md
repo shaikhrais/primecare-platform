@@ -173,3 +173,10 @@ active-tenant checks are current, including retries and incoming email ingestion
 The registered policy is a requirement, not a release approval. Endpoint/API and
 screen grants remain separate. The worker remains unmounted pending providers,
 mailbox provisioning, shared screens and deployed acceptance.
+
+
+The inherited binary stream reader copies each chunk immediately into a single
+buffer bounded by the declared size. It retains no chunk list, so reused producer
+buffers and many empty chunks cannot change prior content or grow bookkeeping.
+It cancels invalid streams, rejects declared-size overflow immediately and preserves
+the original input error if provider cancellation itself fails.

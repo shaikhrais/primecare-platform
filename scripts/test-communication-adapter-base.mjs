@@ -39,3 +39,25 @@ test('binary stream base measures real bytes, cancels overflow and releases the 
  assert.throws(()=>base.validateBytes(new Uint8Array(5)),/size not permitted/);
  assert.throws(()=>new BoundedBinaryAdapterBase(0),/limit/);
 });
+test('binary stream base owns each reused producer buffer before the next read',async()=>{
+ const bytes=new Uint8Array(2);let index=0;
+ const stream=new ReadableStream({pull(controller){
+  if(index===2){controller.close();return;}
+  bytes.set(index++===0?[1,2]:[3,4]);controller.enqueue(bytes);
+ }},{highWaterMark:0});
+ assert.deepEqual(await new BoundedBinaryAdapterBase(4).readBoundedStream(stream,4),new Uint8Array([1,2,3,4]));assert.equal(stream.locked,false);
+});
+test('declared-size overflow cancels immediately and cannot expose cancellation errors',async()=>{
+ let reads=0,cancelled=0;
+ const stream=new ReadableStream({pull(controller){reads++;controller.enqueue(new Uint8Array([1,2,3,4]));},cancel(){cancelled++;throw Error('private provider detail');}},{highWaterMark:0});
+ await assert.rejects(new BoundedBinaryAdapterBase(8).readBoundedStream(stream,3),error=>error.message==='Message size mismatch');
+ assert.equal(reads,1);assert.equal(cancelled,1);assert.equal(stream.locked,false);
+});
+test('invalid stream chunks are cancelled and empty chunks do not change the content',async()=>{
+ let cancelled=0;
+ const invalid=new ReadableStream({start(controller){controller.enqueue('not binary');},cancel(){cancelled++;}});
+ await assert.rejects(new BoundedBinaryAdapterBase(4).readBoundedStream(invalid,1),/Invalid message stream/);assert.equal(cancelled,1);assert.equal(invalid.locked,false);
+ let remaining=1000;
+ const empty=new ReadableStream({pull(controller){if(remaining-->0)controller.enqueue(new Uint8Array());else if(remaining===-1)controller.enqueue(new Uint8Array([7]));else controller.close();}},{highWaterMark:0});
+ assert.deepEqual(await new BoundedBinaryAdapterBase(4).readBoundedStream(empty,1),new Uint8Array([7]));
+});
