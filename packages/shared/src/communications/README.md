@@ -121,3 +121,14 @@ reproduce17 Dart bindings from an independently read production snapshot.
 The shared failure classifier also covers the eight existing controller/generated
 communication paths. Their errors cannot become offline/demo success. This is
 failure handling, not backend aliases or functional status for placeholder UI.
+
+### Existing portal session connection
+
+Use `ref.read(apiClientProvider).communications(maxPictureBytes: approvedLimit)`
+to obtain all four inherited channel clients using the existing private Dio
+instance, current session/security interceptors and production-generated bindings.
+No portal needs to create or expose another Dio instance, copy tokens, hardcode a
+role or repeat endpoint maps. The factory adds no interceptor, login, grant, cache
+or retry. The explicit byte limit remains approved runtime configuration.
+Transport denial still throws instead of entering ApiClient demo/offline fallbacks.
+This binds the client layer; it does not make a placeholder screen functional.

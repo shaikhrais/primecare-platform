@@ -1,11 +1,15 @@
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/src/network/api_client.dart';
+import 'package:flutter_core/src/security/security_interceptor.dart';
 import 'package:flutter_core/communications/communication_core.dart';
 import 'package:flutter_core/communications/registered_communication_bindings.dart';
 import 'package:flutter_core/communications/dio_communication_transport.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   late Dio dio;
   late List<RequestOptions> requests;
   setUp(() {
@@ -19,6 +23,43 @@ void main() {
     }));
   });
   tearDown(() => dio.close(force: true));
+  test('ApiClient factory reuses the current transport/session for every channel', () async {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+    final client = container.read(Provider((ref) => ApiClient(ref, transport: dio)));
+    expect(dio.interceptors.whereType<SecurityInterceptor>(), hasLength(1));
+    final hub = client.communications(maxPictureBytes: 1024);
+    await hub.messages.read('thread');
+    dio.options.headers['Authorization'] = 'Bearer replacement-session';
+    await hub.email.inbox(direction: 'outbound');
+    await hub.audio.call('end', 'thread', 'end', 2, 'call');
+    await hub.pictures.upload('thread', Uint8List.fromList([137,80,78,71]), 'image/png');
+    expect(requests.length, 4);
+    expect(requests.first.headers['Authorization'], 'Bearer synthetic-session');
+    expect(requests.skip(1).every((request) => request.headers['Authorization'] == 'Bearer replacement-session'), isTrue);
+    expect(requests.map((request) => request.path), ['/v1/messages', '/v1/messages/email/inbox', '/v1/messages/calls', '/v1/messages/pictures']);
+    expect(dio.interceptors.whereType<SecurityInterceptor>(), hasLength(1));
+  });
+  test('ApiClient hub preserves denial and does not use the client demo fallback', () async {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+    final client = container.read(Provider((ref) => ApiClient(ref, transport: dio)));
+    // Replace only the synthetic transport boundary in this unit test.
+    dio.interceptors.clear();
+    dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
+      requests.add(options);
+      handler.resolve(Response(requestOptions: options, statusCode: 403, data: {'error':'forbidden'}));
+    }));
+    await expectLater(client.communications(maxPictureBytes: 1024).email.inbox(direction: 'outbound'), throwsA(anything));
+    expect(requests.length, 1);
+  });
+  test('ApiClient hub requires an explicit positive runtime picture limit', () {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+    final client = container.read(Provider((ref) => ApiClient(ref, transport: dio)));
+    expect(() => client.communications(maxPictureBytes: 0), throwsArgumentError);
+    expect(requests, isEmpty);
+  });
   DioCommunicationTransport transport(String key, {String method = 'POST'}) =>
     DioCommunicationTransport(dio, {
       key: CommunicationRouteBinding(path: '/v1/messages', method: method),

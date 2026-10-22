@@ -353,3 +353,28 @@ values, JSON/secret values, mailbox contents and object keys. Configuration name
 are evidence of configuration, not live channel acceptance. It makes no provider
 changes or mail sends and records missing credentials/read failures explicitly.
 Live provider/policy/UI integration and deployed acceptance remain separate work.
+
+The shared ApiClient now exposes a `communications(maxPictureBytes: ...)` factory
+for all portals. It reuses its existing private Dio/session/security middleware
+and the production-generated17 bindings, with no duplicate login or per-role
+implementation. Three tests check all four channel paths, replacement session
+headers, retained middleware, denial without fallback/retry and an explicit valid
+runtime picture limit. The factory still requires registered UI composition.
+
+Read-only CI source9868690f inspected the actual settings for the existing auth,
+governance, gateway and email-inbox Workers. Native EMAIL is configured on auth
+and governance. None of these four Workers has an R2 binding or named media/
+scanner/signaling binding. The existing receiving Worker has INBOX KV and an
+INBOX_ADDRESSES setting; this establishes configured QA reception infrastructure,
+not user-owned business mailbox routing. The report contains no setting or secret
+values, mailbox contents or private object keys. See
+[evidence/communication-providers-20261022.json](evidence/communication-providers-20261022.json).
+It does not prove that no such resource exists elsewhere in the account.
+
+The fresh production contract read-back also reports no matching active-role
+API-and-screen grants for any of the seven communication APIs. Registration
+intentionally changed none. The production handler remains unmounted. Current
+case/contact/mailbox policies, scoped grants, private scanner/storage binding,
+call relay/native media integration and actual registered Flutter controls remain
+release work; passing core/client tests must not be described as an all-user
+communication rollout or live business-mail send/receive acceptance.

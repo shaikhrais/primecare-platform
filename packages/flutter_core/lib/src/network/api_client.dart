@@ -5,7 +5,9 @@ import '../security/security_interceptor.dart';
 import '../services/device_manager.dart';
 import 'local_cache_service.dart';
 import 'package:flutter/foundation.dart';
-import '../../communications/communication_core.dart' show isCommunicationPath;
+import '../../communications/communication_core.dart' show isCommunicationPath, CommunicationHub;
+import '../../communications/dio_communication_transport.dart';
+import '../../communications/registered_communication_bindings.dart';
 /// A provider for the [ApiClient], ensuring a single instance is used across the app.
 final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient(ref);
@@ -15,6 +17,14 @@ final apiClientProvider = Provider<ApiClient>((ref) {
 class ApiClient {
   final Dio _dio;
   final Ref _ref;
+
+  /// Every portal reuses this client's current session and security middleware.
+  /// The byte limit must come from approved runtime configuration; no grants or
+  /// separate login, cache, role list or automatic mutation retry is introduced.
+  CommunicationHub communications({required int maxPictureBytes}) =>
+      CommunicationHub(DioCommunicationTransport(
+        _dio, registeredCommunicationBindings, maxPictureBytes: maxPictureBytes,
+      ));
 
   static final List<Map<String, dynamic>> _visitNotes = [
     {
