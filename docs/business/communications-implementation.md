@@ -43,6 +43,12 @@ Local results: 23 shared tests, 24 service tests with isolated memory storage, 1
 
 The production read-only inventory in run 39788128133 (source cf47f2c8) passed: 53 matching API records, 26 screens and 26 matching business-process definitions. This is a keyword-filtered inventory, not 53 communication features; it includes invoices and sales-call records. Forty-four API records have no permission key. Messaging-related screen records exist, but inspected Flutter service clients still return empty stub data. The matched /v1/governance/growth/calls endpoint records sales-call outcomes, not real-time media. Existing registrations do not establish a usable chat, picture, calling or business-mail contract. The audit changed no governance or business records.
 
+## Passing CI checkpoint
+
+[Run 39789682652](https://github.com/shaikhrais/primecare-platform/actions/runs/39789682652), source e83325951edfc516bb74247d0f27c6c9d488aff3, passed all three jobs. Its isolated native PostgreSQL job passed 23 shared-rule/planning tests, 13 existing email-compatibility tests and 25 workflow/communication/storage tests. The media job passed 3 tests. Total: 64 tests, zero failures or skips. Strict TypeScript checking also passed. The separate read-only production inventory passed again.
+
+The corrected media artifact reports audioPassed=true with both real Chromium peers Connected and five received audio packets each, plus successful mute, unmute and track release. This uses synthetic microphones on a CI host; no person was called. It supersedes the earlier weak-wait false pass and establishes scoped audio transport evidence, while the local zero-packet result remains recorded above. It does not prove physical devices, internet TURN traversal, deployed signaling or Flutter integration. Machine-readable CI transport evidence is preserved at docs/business/evidence/communications-audio-20261022.json. No production approval or full end-user completion is claimed.
+
 ## Remaining release work
 
 Map the existing messaging/email/task records to these contracts, complete the production-compatible registrations and required reviews, implement real policy/scanner/storage/native-mail adapters, configure the media relay, and connect registered Flutter forms/inboxes. Then execute real login → task handoff → message/picture → API → database → reload, two-user call and owned-mailbox send/receive with denied/cross-tenant/HR cases. Do not mark the existing messaging stubs functional until that journey passes.

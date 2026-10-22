@@ -1,0 +1,38 @@
+{
+  "synthetic": true,
+  "productUi": false,
+  "muted": true,
+  "unmuted": true,
+  "stopped": true,
+  "transport": [
+    {
+      "state": "connected",
+      "audioPacketsReceived": 5,
+      "signalingState": "stable",
+      "iceState": "connected",
+      "gatheringState": "complete",
+      "localType": "offer",
+      "remoteType": "answer",
+      "localAudio": true,
+      "remoteAudio": true,
+      "tracks": 1
+    },
+    {
+      "state": "connected",
+      "audioPacketsReceived": 5,
+      "signalingState": "stable",
+      "iceState": "connected",
+      "gatheringState": "complete",
+      "localType": "answer",
+      "remoteType": "offer",
+      "localAudio": true,
+      "remoteAudio": true,
+      "tracks": 1
+    }
+  ],
+  "audioPassed": true,
+  "sourceCommit": "e83325951edfc516bb74247d0f27c6c9d488aff3",
+  "runId": 39789682652,
+  "artifactId": 12430771695,
+  "fullPlatformAcceptance": false
+}
