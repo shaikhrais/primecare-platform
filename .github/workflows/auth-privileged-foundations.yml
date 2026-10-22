@@ -1,0 +1,36 @@
+name: Verify bounded privileged-access database foundations
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/auth-privileged-foundations.yml
+      - packages/database/migrations/20261027_auth_privileged_access.sql
+      - scripts/test-auth-privileged-schema.mjs
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: lifecycle
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: lifecycle
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U lifecycle" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/lifecycle-foundation" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2
+          ln -s "$RUNNER_TEMP/lifecycle-foundation/node_modules" node_modules
+          node --test scripts/test-code-admin-keyring.mjs scripts/test-code-admin-recovery-codes.mjs scripts/test-code-admin-key-rotation-drill.mjs
+      - name: Verify bounded privilege schema rollback idempotency and constraints
+        env:
+          MFA_TEST_DATABASE_URL: postgresql://lifecycle:disposable-only@localhost:5432/lifecycle
+        run: node --test scripts/test-auth-privileged-schema.mjs
