@@ -79,6 +79,8 @@ def main():
                     context = browser.new_context(viewport={'width': width, 'height': 1000}, locale=locale)
                     page = context.new_page()
                     created = False
+                    result['identityStatuses'] = []
+                    page.on('response', lambda r: result['identityStatuses'].append(r.status) if r.url.split('?')[0].endswith('/v1/auth/me') else None)
                     step = 'create isolated fixture'
 
                     def must(condition, label):
@@ -189,8 +191,13 @@ def main():
                         expect(field('mfa-code')).to_have_value('')
                         while int(time.time()) // 30 <= int(accepted):
                             page.wait_for_timeout(1000)
+                        step = 'fresh enrolled factor submission'
                         status, data = factor(totp(seed, int(time.time()) // 30))
                         must(status == 200, 'fresh enrolled factor accepted')
+                        step = 'fresh enrolled browser identity confirmation'
+                        page.wait_for_url(lambda u: '/success' == __import__('urllib.parse', fromlist=['urlsplit']).urlsplit(u).path, timeout=30000)
+                        page.wait_for_function("t => JSON.parse(localStorage.getItem('flutter.auth_token')) === t", arg=data['token'])
+                        must(api('/v1/auth/me', token=data['token'])[1].get('userId') == user, 'fresh enrolled session identity matches account')
                         token = data['token']
                         page.get_by_role('button', name=labels[locale]['signout'], exact=True).wait_for(timeout=30000)
                         page.get_by_role('button', name=labels[locale]['signout'], exact=True).click()
@@ -202,6 +209,13 @@ def main():
                         result['passed'] = True
                     except Exception:
                         result['failedStep'] = step
+                        result['browserState'] = {
+                            'path': __import__('urllib.parse', fromlist=['urlsplit']).urlsplit(page.url).path,
+                            'hasStoredAuthority': page.evaluate("localStorage.getItem('flutter.auth_token') !== null"),
+                            'factorPending': field('mfa-code').count() > 0,
+                            'loginVisible': field('login-email').count() > 0,
+                            'serverSessions': db.execute('SELECT COUNT(*) FROM auth_sessions WHERE user_id::text=%s', (user,)).fetchone()[0],
+                        }
                         # Upstream browser exceptions may include input values.
                         raise RuntimeError('Live Flutter MFA failed at: ' + step) from None
                     finally:
@@ -212,7 +226,7 @@ def main():
                                 must(db.execute('SELECT slug FROM tenants WHERE id::text=%s', (tenant,)).fetchall() == [(slug,)], 'cleanup tenant guard')
                                 for table in ['auth_sessions', 'auth_mfa_challenges', 'auth_mfa_credentials', 'auth_mfa_audit', 'auth_password_resets', 'auth_password_audit']:
                                     db.execute('DELETE FROM ' + table + ' WHERE user_id::text=%s', (user,))
-                                db.execute('DELETE FROM auth_rate_limits WHERE subject_hash=%s', (hashlib.sha256(('login:' + email).encode()).hexdigest(),))
+                                db.execute('DELETE FROM auth_rate_limits WHERE subject_hash =%s', (hashlib.sha256(('login:' + email).encode()).hexdigest(),))
                                 db.execute('DELETE FROM users WHERE id::text=%s AND email=%s AND tenant_id::text=%s', (user, email, tenant))
                                 db.execute('DELETE FROM tenants WHERE id::text=%s AND slug=%s', (tenant, slug))
                             result['cleanup'] = True

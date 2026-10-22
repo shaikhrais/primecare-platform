@@ -119,9 +119,14 @@ class SecurityInterceptor extends Interceptor {
     // A failed logout must not recursively call logout. Credential checks can
     // return 401 without invalidating an existing session. A delayed response
     // from an older token must not sign out a newer session.
-    final credentialCheck = path == '/v1/auth/login' ||
-        path == '/v1/auth/change-password' ||
-        path == '/v1/user/change-password';
+    const credentialChecks = {
+      '/v1/auth/login', '/v1/auth/change-password', '/v1/user/change-password',
+      '/v1/auth/mfa', '/v1/auth/mfa/recovery-codes', '/v1/auth/mfa/replacement',
+      '/v1/auth/mfa/recovery', '/v1/auth/mfa/replacement/confirm',
+      '/v1/auth/mfa/elevation', '/v1/auth/mfa/support/approve',
+      '/v1/auth/mfa/support/revoke',
+    };
+    final credentialCheck = credentialChecks.contains(path);
     if (err.response?.statusCode == 401 &&
         path != '/v1/auth/logout' &&
         !credentialCheck &&
