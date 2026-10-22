@@ -1,0 +1,80 @@
+name: Verify tenant onboarding and territory allocation
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/verify-tenant-onboarding.yml
+      - tools/governance-production/audit-tenant-territory-readiness.py
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tenant-onboarding-review
+  cancel-in-progress: false
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/tenant-reader" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/tenant-reader/node_modules" node_modules
+      - name: Read registered definitions and source bindings without business mutations
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/governance-production/audit-tenant-territory-readiness.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tenant-territory-production-registry
+          path: test-results/tenant-onboarding
+          retention-days: 90
+  isolated:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: onboarding_test
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: onboarding_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U onboarding_test -d onboarding_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PLATFORM_TEST_DATABASE_URL: postgres://onboarding_test:disposable-only@localhost:5432/onboarding_test
+      GROWTH_TEST_DATABASE_URL: postgres://onboarding_test:disposable-only@localhost:5432/onboarding_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/tenant-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3 esbuild@0.27.2 bcryptjs@3 playwright@1.60.0
+          ln -s "$RUNNER_TEMP/tenant-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Tenant creation admin accounts reference setup UUID identities and rollback
+        run: node --test scripts/test-platform-administration-postgres.mjs
+      - name: Territory sale allocation duplicate-sale races retries and existing client viewports
+        run: node --test scripts/test-territory-allocation.mjs
+      - name: Setup documents launch review renewals support and routing
+        run: node --test scripts/test-platform-bundle.mjs
+      - name: Tenant setup monitoring and tenant isolation
+        run: node --test scripts/test-tenant-operations.mjs
+      - name: Partner onboarding creates tenant administrator and follow-on operations
+        run: node --test scripts/test-growth-business.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tenant-territory-isolated-evidence
+          path: |
+            test-results/territories
+            test-results/platform-bundle
+            test-results/tenant-operations
+          retention-days: 90
