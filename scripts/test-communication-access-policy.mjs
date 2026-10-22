@@ -138,10 +138,10 @@ test('native current account, task, mailbox and registered HTTP integration',{sk
     const request=(user,path,input,method='POST')=>worker.fetch(new Request('https://fixture.invalid'+path,{method,headers:{authorization:'Bearer '+tokens[user],'content-type':'application/json'},...(method==='GET'?{}:{body:JSON.stringify(input)})}),{});
     const command=async(user,path,input,status=200,method='POST')=>{const response=await request(user,path,input,method);assert.equal(response.status,status,await response.clone().text());return response.json();};
     await command('alice','/v1/messages',{action:'create',id:'native-thread',key:'create',members:['alice','bob'],businessReference:'general'});
-    const form=new FormData();form.set('threadId','native-thread');form.set('mediaType','image/png');form.set('file',new Blob([png],{type:'image/png'}),'synthetic.png');
+    const form=new FormData();form.set('action','upload');form.set('threadId','native-thread');form.set('mediaType','image/png');form.set('file',new Blob([png],{type:'image/png'}),'synthetic.png');
     const uploaded=await worker.fetch(new Request('https://fixture.invalid/v1/messages/pictures',{method:'POST',headers:{authorization:'Bearer '+tokens.alice},body:form}),{});assert.equal(uploaded.status,200,await uploaded.clone().text());
-    const opened=await request('bob','/v1/messages/pictures?threadId=native-thread&pictureId=picture',null,'GET');assert.equal(opened.status,200);assert.deepEqual(new Uint8Array(await opened.arrayBuffer()),png);
-    assert.equal((await request('carol','/v1/messages/pictures?threadId=native-thread&pictureId=picture',null,'GET')).status,404);
+    const opened=await request('bob','/v1/messages/pictures?action=open&threadId=native-thread&pictureId=picture',null,'GET');assert.equal(opened.status,200);assert.deepEqual(new Uint8Array(await opened.arrayBuffer()),png);
+    assert.equal((await request('carol','/v1/messages/pictures?action=open&threadId=native-thread&pictureId=picture',null,'GET')).status,404);
     await command('alice','/v1/messages',{action:'send',id:'native-thread',key:'message',version:1,text:'Native shared core',pictureIds:['picture']});
     assert.equal((await command('bob','/v1/messages',{action:'read',id:'native-thread'})).messages[0].text,'Native shared core');
     await command('carol','/v1/messages',{action:'read',id:'native-thread'},404);
