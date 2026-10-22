@@ -138,11 +138,10 @@ def main():
                         step = 'render setup key semantics'
                         visible = page.locator('[aria-label^="mfa-seed"]')
                         visible.wait_for()
-                        # Require the exact visible static setup key in browser semantics.
-                        # Flutter may publish the input node before its value in
-                        # the next semantics frame. Wait for the exact key value.
+                        # Locator assertions pierce Flutter's semantics shadow
+                        # root and wait for its next accessibility frame.
                         try:
-                            page.wait_for_function("seed => [...document.querySelectorAll('[aria-label^=\"mfa-seed\"]')].some(e => [e, ...e.querySelectorAll('*')].some(n => (n.getAttribute('aria-label') || '').includes(seed) || (n.getAttribute('aria-valuetext') || '').includes(seed) || (n.textContent || '').includes(seed) || n.value === seed))", arg=seed, timeout=15000)
+                            expect(visible).to_contain_text(seed, timeout=15000)
                             rendered = True
                         except Exception:
                             rendered = False
