@@ -1195,7 +1195,7 @@ index f8e33e9f..2924ce63 100644
 + assert.equal((await finishMfa(db,dual,request)).status,200);
 +});
 diff --git a/scripts/test-worker-inheritance.mjs b/scripts/test-worker-inheritance.mjs
-index 6baf4ea8..11e79ec1 100644
+index 6baf4ea8..bf90f12d 100644
 --- a/scripts/test-worker-inheritance.mjs
 +++ b/scripts/test-worker-inheritance.mjs
 @@ -40,6 +40,16 @@ test('unhandled gateway failures retain rejection semantics', async () => {
@@ -1215,3 +1215,19 @@ index 6baf4ea8..11e79ec1 100644
  const noDatabase={name:'no-database',setup(builder){
    builder.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));
    builder.onLoad({filter:/.*/,namespace:'fixture'},()=>({loader:'js',contents:'export class Client {constructor(){throw Error("Unexpected database access")}}'}));
+@@ -58,6 +68,15 @@ for(const name of ['auth','client','provider','visit','notes','billing','schedul
+     assert.equal(denied.status,403);
+   });
+ }
++test('registered lifecycle routes reject wrong methods malformed bodies and cookie-only management before database access',async()=>{
++  for(const path of ['/mfa/recovery-codes','/mfa/replacement','/mfa/recovery','/mfa/replacement/confirm']) {
++    const method=await service.fetch(new Request('https://fixture'+path),{SERVICE_NAME:'auth'});
++    assert.equal(method.status,405);assert.equal(method.headers.get('allow'),'POST');assert.equal(method.headers.get('cache-control'),'no-store');
++    const managing=['/mfa/recovery-codes','/mfa/replacement'].includes(path);
++    const response=await service.fetch(new Request('https://fixture'+path,{method:'POST',headers:{cookie:'session_token='+'a'.repeat(43),'content-type':'application/json'},body:'{'}),{SERVICE_NAME:'auth'});
++    assert.equal(response.status,managing?401:400);assert.equal(response.headers.get('cache-control'),'no-store');
++  }
++});
+ const registryBuild=await build({entryPoints:['cloudflare/workers/src/business-modules.ts'],bundle:true,write:false,platform:'node',format:'esm',plugins:[noDatabase]});
+ const {businessModules}=await import('data:text/javascript;base64,'+Buffer.from(registryBuild.outputFiles[0].text).toString('base64'));
+ test('central module registry retains reviewed precedence and cannot mutate',()=>{
