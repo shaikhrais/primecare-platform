@@ -64,7 +64,7 @@ def read_catalog(db,d):
     rows=db.execute('SELECT id,app_id,role_id,route_path,actual_file_path,active FROM screens WHERE screen_code=?',(d['screenCode'],)).fetchall()
     if len(rows)!=1 or rows[0][1:]!=(1,None,'/success',d['file'],1):raise GovernanceReadError('Registered shared-account screen missing or changed')
     sid=rows[0][0]
-    actual=db.execute("SELECT component_code,component_type,data_cy,file_path FROM screen_components WHERE screen_id=? AND component_code LIKE 'accountSessions.%' ORDER BY component_code",(sid,)).fetchall()
+    actual=db.execute("SELECT component_code,component_type,data_cy,file_path FROM screen_components WHERE screen_id=? AND component_code LIKE ? ORDER BY component_code",(sid,'accountSessions.%')).fetchall()
     expected=sorted(('accountSessions.'+key,c['component'],c['testId'],d['panelFile']) for key,c in d['controls'].items())
     if actual!=expected:raise GovernanceReadError('Own-session controls differ from registration')
     if sorted(r[0] for r in db.execute('SELECT api_id FROM screen_api_links WHERE screen_id=?',(sid,)))!=sorted(d['apiIds'].values()):raise GovernanceReadError('Own-session API links differ from registration')
