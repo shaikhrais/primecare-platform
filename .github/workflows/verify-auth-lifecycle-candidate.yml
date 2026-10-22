@@ -29,6 +29,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify technical traceability and unchanged contract decisions
         run: |
+          python scripts/test-method-capture-blockers.py
           python scripts/build-technical-operation-register.py --check
           python scripts/check-technical-docs.py
           python scripts/generate-workflow-contract-plan.py --check
@@ -57,9 +58,9 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/lifecycle-foundation" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2 esbuild@0.25.12 typescript@5.9.3 @types/pg@8.15.5 @cloudflare/workers-types@4.20260403.1
+          npm install --prefix "$RUNNER_TEMP/lifecycle-foundation" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2 esbuild@0.25.12 newman@6.2.1 typescript@5.9.3 @types/pg@8.15.5 @cloudflare/workers-types@4.20260403.1
           ln -s "$RUNNER_TEMP/lifecycle-foundation/node_modules" node_modules
-          node --test scripts/test-code-admin-keyring.mjs scripts/test-code-admin-recovery-codes.mjs scripts/test-code-admin-key-rotation-drill.mjs scripts/test-mfa-keyring-tail.mjs scripts/test-auth-lifecycle-receipt.mjs
+          node --test scripts/test-code-admin-keyring.mjs scripts/test-code-admin-recovery-codes.mjs scripts/test-code-admin-key-rotation-drill.mjs scripts/test-mfa-keyring-tail.mjs scripts/test-auth-lifecycle-receipt.mjs scripts/test-primecare-api-diagnostics.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
       - name: Require rollback and idempotency on native disposable PostgreSQL
         env:
@@ -79,7 +80,7 @@ jobs:
           node --test scripts/test-auth-privileged-schema.mjs
           MFA_TEST_ID_TYPE=text node --test scripts/test-auth-privileged-postgres.mjs
           MFA_TEST_ID_TYPE=uuid node --test scripts/test-auth-privileged-postgres.mjs
-          node --test scripts/test-worker-inheritance.mjs
+          node --test scripts/test-worker-inheritance.mjs scripts/test-method-capture-blockers.mjs
           node --test scripts/test-auth-lifecycle-evidence-postgres.mjs
           node scripts/export-mfa-lifecycle-schema.mjs
           node scripts/export-auth-privileged-schema.mjs

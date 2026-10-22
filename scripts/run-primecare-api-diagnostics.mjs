@@ -38,11 +38,19 @@ export function safeCollection(collection,baseUrl){
  });
  return {info:{name:'PrimeCare offline diagnostic requests',schema:'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'},item};
 }
+/** esbuild decorates an attributed JSON input's identity; it is not a filename. */
+export function diagnosticInputPath(name,input){
+ if(input.with===undefined)return name;
+ if(!input.with||Object.keys(input.with).length!==1||input.with.type!=='json')throw Error('Unsupported diagnostic import attributes');
+ const suffix=/ with \{ type: ['"]json['"] \}$/;
+ if(!suffix.test(name))throw Error('Invalid attributed diagnostic input identity');
+ return name.replace(suffix,'');
+}
 export async function startGateway(){
  const guard={databaseAttempts:0,externalNetworkAttempts:0,methodObservations:[]};
  const plugin={name:'deny-database-and-network',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'denied-pg'}));b.onLoad({filter:/.*/,namespace:'denied-pg'},()=>({contents:`export class Client { async connect(){globalThis.__primecareDiagnosticGuard.databaseAttempts++;const error=Error('OFFLINE_DATABASE_DISABLED');error.stack='OFFLINE_DATABASE_DISABLED';throw error;} async query(){globalThis.__primecareDiagnosticGuard.databaseAttempts++;const error=Error('OFFLINE_DATABASE_DISABLED');error.stack='OFFLINE_DATABASE_DISABLED';throw error;} async end(){} }`,loader:'js'}));}};
  const output=await build({entryPoints:['cloudflare/workers/src/gateway.ts','cloudflare/workers/src/service.ts'],bundle:true,write:false,outdir:'diagnostics',platform:'node',format:'esm',plugins:[plugin],metafile:true,logLevel:'silent'});
- guard.sourceHashes=Object.fromEntries(Object.keys(output.metafile.inputs).filter(p=>!p.startsWith('denied-pg:')).map(p=>[p,sha256(readFileSync(p))]));
+ guard.sourceHashes=Object.fromEntries(Object.entries(output.metafile.inputs).filter(([name])=>!name.startsWith('denied-pg:')).map(([name,input])=>{const path=diagnosticInputPath(name,input);return [path,sha256(readFileSync(path))];}));
  const modules=await Promise.all(output.outputFiles.map(f=>import('data:text/javascript;base64,'+Buffer.from(f.text).toString('base64'))));
  const gateway=modules[output.outputFiles.findIndex(f=>f.path.endsWith('/gateway.js'))].default;
  const worker=modules[output.outputFiles.findIndex(f=>f.path.endsWith('/service.js'))].default;

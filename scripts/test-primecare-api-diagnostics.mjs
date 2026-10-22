@@ -1,6 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {safeCollection,classify,startGateway,diagnose,validateCoverage} from './run-primecare-api-diagnostics.mjs';
+import {readFileSync} from 'node:fs';
+import {safeCollection,classify,startGateway,diagnose,validateCoverage,diagnosticInputPath,sha256} from './run-primecare-api-diagnostics.mjs';
 const collection=apis=>({info:{name:'Fixture',schema:'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'},item:apis.map(api=>({name:api,request:{method:api.split(' ')[0],url:'https://production.invalid',header:[{key:'Authorization',value:'Bearer secret-should-not-exist'}],body:{mode:'raw',raw:'{"patient":"private"}'}},event:[{listen:'prerequest',script:{exec:['throw Error("must be removed")']}}]}))});
 test('sanitizer preserves operation method and dynamic identity while removing credentials/scripts/body',()=>{
  const safe=safeCollection(collection(['PATCH /v1/client/invoices/{invoiceId}']),'http://127.0.0.1:1234');
@@ -49,5 +50,18 @@ test('reviewed bodyless mutations reach auth; injected JSON bodies are rejected 
  const {loadNewman}=await import('./run-primecare-api-diagnostics.mjs');for(const i of safe.item)i.request.body={mode:'raw',raw:'{}'};
  const result=await new Promise((resolve,reject)=>loadNewman().run({collection:safe,reporters:[],ignoreRedirects:true,timeoutRequest:5000},(error,summary)=>error?reject(error):resolve(summary)));
  assert.deepEqual(result.run.executions.map(e=>e.response.code),[400,400,400]);assert.equal(fixture.guard.databaseAttempts,0);assert.equal(fixture.guard.externalNetworkAttempts,0);
+ }finally{await fixture.close();}
+});
+
+test('attributed esbuild JSON identities resolve to their real source path',()=>{
+ for(const quote of ["'",'"'])assert.equal(diagnosticInputPath('policy.json with { type: '+quote+'json'+quote+' }',{with:{type:'json'}}),'policy.json');
+ assert.equal(diagnosticInputPath("real filename with { type: 'json' }",{}),"real filename with { type: 'json' }");
+ for(const [name,input] of [['policy.json',{with:{type:'json'}}],["policy.json with { type: 'json' }",{with:{type:'json',other:'value'}}],['policy.json',{with:{type:'unknown'}}]])assert.throws(()=>diagnosticInputPath(name,input));
+});
+test('actual attributed policy stays bound to original bytes in offline diagnostic source evidence',async()=>{
+ const fixture=await startGateway();try{
+  const path='packages/shared/src/auth-elevation.json';assert.equal(fixture.guard.sourceHashes[path],sha256(readFileSync(path)));
+  assert.ok(Object.keys(fixture.guard.sourceHashes).every(name=>!name.includes(' with {')));
+  assert.equal(fixture.guard.databaseAttempts,0);assert.equal(fixture.guard.externalNetworkAttempts,0);
  }finally{await fixture.close();}
 });
