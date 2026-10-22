@@ -138,6 +138,7 @@ def main():
                         step = 'render setup key semantics'
                         visible = page.locator('[aria-label^="mfa-seed"]')
                         visible.wait_for()
+                        # Require the exact visible static setup key in browser semantics.
                         # Flutter may publish the input node before its value in
                         # the next semantics frame. Wait for the exact key value.
                         try:

@@ -18,7 +18,7 @@ class NativeMfaForm extends ConsumerWidget {
         SizedBox(height: theme.spacing.md), Text(text['setup']!, style: theme.typography.bodyMedium),
         SizedBox(height: theme.spacing.md),
         Cy(id: 'mfa-seed', child: Semantics(
-          value: state.challenge!['setupKey'] as String, textField: true, readOnly: true,
+          label: state.challenge!['setupKey'] as String,
           excludeSemantics: true,
           child: SelectableText(state.challenge!['setupKey'] as String, style: theme.typography.bodyMedium))),
       ],

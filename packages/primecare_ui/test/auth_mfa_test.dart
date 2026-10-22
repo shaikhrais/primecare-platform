@@ -24,7 +24,8 @@ void main() {
       expect(find.text(nativeMfaText[language]!['setup']!),findsOneWidget);
       final seedControl=find.byWidgetPredicate((widget)=>widget is Cy && widget.id=='mfa-seed');
       final seedSemantics=tester.getSemantics(seedControl).getSemanticsData();
-      expect(seedSemantics.label,'mfa-seed');expect(seedSemantics.value,List.filled(32,'A').join());
+      expect(seedSemantics.label.split('\n'),['mfa-seed',List.filled(32,'A').join()]);
+      expect(seedSemantics.value,isEmpty);
       final field=find.byType(TextFormField);expect(field,findsOneWidget);
       await tester.enterText(field,'123456');await controller.verify();await tester.pumpAndSettle();
       expect(submitted,'123456');expect(container.read(mfaControllerProvider).code,'');expect(container.read(mfaControllerProvider).failed,true);
