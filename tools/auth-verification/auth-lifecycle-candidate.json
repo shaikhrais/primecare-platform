@@ -53,7 +53,9 @@
     "tools/deployment/test_flutter_browser.py",
     ".github/workflows/verify-auth-notice-inbox.yml",
     "tools/auth-verification/security_notice_inbox.py",
-    "tools/auth-verification/test-security-notice-inbox.py"
+    "tools/auth-verification/test-security-notice-inbox.py",
+    "tools/auth-verification/test-live-security-notice-inbox.py",
+    "tools/auth-verification/test_live_security_totp.py"
   ],
   "state": "promoted",
   "sourceSha256": {
@@ -100,14 +102,16 @@
     "scripts/test-mfa-keyring-tail.mjs": "404edfa55890a9e8d0411f0915e4885beab5f1e39596b2c2b11fdeba90d6b638",
     "scripts/test-worker-inheritance.mjs": "0609eb79fa275179af04708e2b5c689d18dd19dd0314400a6bd5701c346ef292",
     "scripts/validate-auth-lifecycle-receipt.mjs": "eb981053e84f281e054e29dc67163b6ccc454c84b5e15b6ff2306ef6046bb889",
-    "tools/auth-verification/flutter_mfa_lifecycle.py": "57d357664dba3ca75a20542af75595b62c766314c050e49e16d6d2ac2cded8f7",
+    "tools/auth-verification/flutter_mfa_lifecycle.py": "47e1cc743f6b97d980a5fec48d819edc0afc67756405e7cb805a1a1a0d20cffa",
     "tools/auth-verification/flutter_privileged_access.py": "90f3bf17bc15b5844b07710d9a35871a0728fcb4194edc4139ac1ba96dbb8216",
     "tools/auth-verification/mfa-keyring-tail.mjs": "af6e7305019dfd5ff7c31650f99fd0406d6aa6f739040974aa52caff0187f5e0",
-    "tools/auth-verification/test-live-flutter-mfa.py": "025489fd075d2516a4b2121a33665b3a96c608faa3b58905b2f5e264180f07b6",
+    "tools/auth-verification/test-live-flutter-mfa.py": "88a4f7733a84aa31ba139db0dd5f8f810f5c1bec4a0b977c84c761dd9480e4e7",
     "tools/deployment/flutter_browser.py": "1beec02cd1e8b3e1ba09ac326dd35cad14577a85e1ea8efdd0e6ef5897418ce6",
     "tools/deployment/test_flutter_browser.py": "f014893d5d327f8d46fce9a2d63aeca2a90c4c2cd93bfe68e861bda31644c309",
-    ".github/workflows/verify-auth-notice-inbox.yml": "ba5d7de11e60387d1b5273a1118767372a8cf3e55b6a317e831499c83ee39902",
+    ".github/workflows/verify-auth-notice-inbox.yml": "2c4185025cd2a3897710cab19b9d4fe55cf32fa4b3e40a006bb0785faee8efa8",
     "tools/auth-verification/security_notice_inbox.py": "570483d3780a69148955ab512ffc2aabb85099f4ff2e54a8b52b461f576106c9",
-    "tools/auth-verification/test-security-notice-inbox.py": "fa5499b5f6dccc8600fcadf209b32b0af3ba1c320587a45f81042a213c635070"
+    "tools/auth-verification/test-security-notice-inbox.py": "fa5499b5f6dccc8600fcadf209b32b0af3ba1c320587a45f81042a213c635070",
+    "tools/auth-verification/test-live-security-notice-inbox.py": "b294dd0b450cd4cae3aaa3f12109a400135dd018af144d1ad03384263bfbd3d5",
+    "tools/auth-verification/test_live_security_totp.py": "b981e5037333752053706a89655f6d6fec8bde30ae0767364ebee98d1bc213c0"
   }
 }

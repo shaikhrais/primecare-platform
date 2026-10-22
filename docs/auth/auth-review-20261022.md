@@ -17,3 +17,11 @@ Evidence limitation: the native email adapter does not persist provider message 
 Five new MIME/cleanup tests, three existing owned-inbox tests, and 23 lifecycle receipt, secret storage and keyring-tail tests passed locally. Both changed Python modules compiled. Production runtime and registered API/UI definitions are unchanged.
 
 Independent reviews, physical-device acceptance and reviewed v1 retirement remain separate gates. No review status or production-readiness credit is changed by this document or optional inbox receipt.
+
+## Current review run and preserved failures
+
+Source `34f68661` passed native PostgreSQL foundation, Flutter regressions, workflow contracts, deployed key-binding/migration proof and the three-locale native MFA baseline. The extended browser producer failed before notification observation: first during initial logout, then after completing English replacement/recovery and reloading the recovered account. Synthetic identity/tenant cleanup passed. The parallel ordinary lifecycle producer also failed during the initial logout interaction. These failed receipts receive no acceptance credit.
+
+Targeted browser diagnostics now retain only fixed error categories, exact stages and a masked screenshot on the account success page when no setup-key or saved-code semantics exist. Password/editable fields are masked. No screenshot is taken of MFA proof screens. Public deployed sign-in and password-recovery screenshots were captured for user feedback.
+
+The email-delivery workflow now isolates the deployed API → PostgreSQL → scheduled sender → owned receiving Worker journey from the unresolved browser interaction. It creates the same guarded disposable QA identity, invokes the registered enrollment/recovery/replacement endpoints in each locale, then observes and cleans the five-notice batch. This supplies no browser acceptance credit and does not resolve the separately tracked browser failure. API/database/queue and actual inbox outcomes must still pass; no direct test-mail shortcut is used.

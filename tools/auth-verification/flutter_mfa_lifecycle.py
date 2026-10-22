@@ -10,7 +10,7 @@ from playwright.sync_api import expect
 from tools.deployment.flutter_browser import fill_flutter_field, click_flutter_control
 
 
-def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, button, api, totp, must, exchange):
+def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, button, api, totp, must, exchange, checkpoint=lambda label: None):
     def fresh_code(current_seed):
         accepted = int(db.execute('SELECT last_counter FROM auth_mfa_credentials WHERE user_id=%s', (user,)).fetchone()[0])
         while int(time.time()) // 30 <= accepted:
@@ -125,7 +125,9 @@ def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, bu
     must(db.execute("SELECT envelope->>'keyId' FROM auth_mfa_credentials WHERE user_id=%s", (user,)).fetchone()[0] == active_key, 'lost-factor recovery uses the selected server storage key')
     notices = db.execute('SELECT event,locale,state FROM auth_mfa_notification_outbox WHERE user_id=%s', (user,)).fetchall()
     must(len(notices) == 5 and all(row[2] in ['pending', 'sending', 'sent'] for row in notices), 'five lifecycle security notices durably queued or acknowledged')
+    checkpoint('recovered account reload')
     page.reload(wait_until='domcontentloaded')
+    checkpoint('recovered account management control after reload')
     button('mfa-lifecycle-manage').wait_for(timeout=30000)
     must(page.locator('[aria-label^="mfa-lifecycle-newkey"]').count() == 0, 'recovery reload preserves session without exposing setup key')
     return token, recovery['setupKey']

@@ -206,6 +206,7 @@ def main():
                         signout = page.get_by_role('button', name=labels[locale]['signout'], exact=True)
                         signout.wait_for(timeout=30000)
                         must(page.locator('[aria-label^="mfa-seed"]').count() == 0, 'reload retains session without displaying seed')
+                        checkpoint('initial signout control settling')
                         with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/logout') and r.request.method == 'POST') as ended:
                             click_flutter_control(signout)
                         must(ended.value.status == 200, 'server acknowledged initial signout')
@@ -233,7 +234,7 @@ def main():
                             step = 'MFA management replacement and lost-factor recovery'
                             token, seed = verify_lifecycle(page, db, user=user, tenant=tenant, password=password,
                                 seed=seed, token=token, field=field, button=button, api=api, totp=totp,
-                                must=must, exchange=exchange)
+                                must=must, exchange=exchange, checkpoint=checkpoint)
                             from flutter_privileged_access import verify_privileged
                             step = 'temporary elevation and explicit tenant support approval'
                             verify_privileged(page, db, user=user, tenant=tenant, password=password, seed=seed,
@@ -259,6 +260,13 @@ def main():
                     except Exception as failure:
                         result['failedStep'] = step
                         result['failureKind'] = type(failure).__name__ if type(failure).__name__ in ['AssertionError', 'TimeoutError', 'Error'] else 'verification_error'
+                        failure_text = str(failure)
+                        result['failureCategory'] = next((label for marker, label in [
+                            ('Flutter control position or focus did not settle', 'control-settle'),
+                            ('strict mode violation', 'ambiguous-locator'),
+                            ('not attached', 'detached-control'),
+                            ('Timeout', 'browser-timeout'),
+                        ] if marker in failure_text), 'unclassified')
                         result['browserState'] = {
                             'path': __import__('urllib.parse', fromlist=['urlsplit']).urlsplit(page.url).path,
                             'hasStoredAuthority': page.evaluate("localStorage.getItem('flutter.auth_token') !== null"),
@@ -266,6 +274,10 @@ def main():
                             'loginVisible': field('login-email').count() > 0,
                             'serverSessions': db.execute('SELECT COUNT(*) FROM auth_sessions WHERE user_id::text=%s', (user,)).fetchone()[0],
                         }
+                        if result['browserState']['path'] == '/success' and page.locator('[aria-label^="mfa-seed"], [aria-label^="mfa-lifecycle-newkey"], [aria-label^="mfa-lifecycle-codes"]').count() == 0:
+                            page.screenshot(path=str(OUT / ('failure-' + locale + '.png')),
+                                mask=[page.locator('input, textarea, [contenteditable]')])
+                            result['failureScreenshot'] = 'failure-' + locale + '.png'
                         # Upstream browser exceptions may include input values.
                         raise RuntimeError('Live Flutter MFA failed at: ' + step) from None
                     finally:
