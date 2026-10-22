@@ -761,3 +761,14 @@ Also ensure Flutter Web semantics are enabled so aria-label elements appear in t
 
 All URLs rendered or navigated to in the testing framework MUST append `enable-semantics=true` at the end (e.g., `https://primecare-clinic.pages.dev/dashboard?enable-semantics=true`).
 This ensures Flutter Web initializes the HTML Accessibility DOM tree for element identification and Selenium interaction across all screens and portals.
+
+# 24. Shared business communication core
+
+The user requires one inherited communication core for all permitted users and portals. Follow packages/shared/src/communications/README.md.
+
+- Server task, conversation and mail services inherit ScopedServiceBase. Message, picture, audio and email channels inherit CommunicationChannelBase and are composed by CommunicationCore.
+- Browser resource adapters inherit CommunicationResourceBase; binary adapters inherit BoundedBinaryAdapterBase. Dart channel clients inherit CommunicationChannelClient and are exposed through CommunicationHub in both Flutter core entry points.
+- Reuse these classes instead of copying a channel for each user, role or portal. Role differences belong in registered policies and configuration; inheritance never grants access.
+- Keep authenticated identity in transport/server context. Preserve tenant, conversation, case and mailbox restrictions, evidence and audit behavior, and authorized retries.
+- Registered messaging failures must remain errors; never replace them with demo or path-only cached conversation success.
+- Keep core, native PostgreSQL, real browser packet, Dart and Flutter transport checks current. Existing production registration and review gates remain required before live exposure.

@@ -1,0 +1,47 @@
+{
+  "synthetic": true,
+  "productUi": false,
+  "muted": true,
+  "unmuted": true,
+  "stopped": true,
+  "transport": [
+    {
+      "state": "connected",
+      "audioPacketsReceived": 2,
+      "signalingState": "stable",
+      "iceState": "connected",
+      "gatheringState": "complete",
+      "localType": "offer",
+      "remoteType": "answer",
+      "localAudio": true,
+      "remoteAudio": true,
+      "tracks": 1
+    },
+    {
+      "state": "connected",
+      "audioPacketsReceived": 2,
+      "signalingState": "stable",
+      "iceState": "connected",
+      "gatheringState": "complete",
+      "localType": "answer",
+      "remoteType": "offer",
+      "localAudio": true,
+      "remoteAudio": true,
+      "tracks": 1
+    }
+  ],
+  "audioPassed": true,
+  "browserVersion": "156.0.8078.47",
+  "sourceCommit": "fb6cbea995d36329f4e95cd4b6a46a08072d2be6",
+  "runId": 39794808175,
+  "artifactId": 12431549943,
+  "nodeTestsPassed": 72,
+  "flutterTestsPassed": 479,
+  "strictTypeScriptPassed": true,
+  "dartAnalysisPassed": true,
+  "dartClientContractPassed": true,
+  "productionInventoryReadOnly": true,
+  "liveEndUserCommunicationVerified": false,
+  "liveBusinessEmailVerified": false,
+  "independentReleaseApproval": false
+}

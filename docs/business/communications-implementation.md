@@ -57,7 +57,15 @@ The corrected media artifact reports audioPassed=true with both real Chromium pe
 
 [Run 39791814770](https://github.com/shaikhrais/primecare-platform/actions/runs/39791814770), source cc02d4e4d6c78827017d055da98c80242b1565ae, passed the production inventory, isolated PostgreSQL, browser-media and pure-Dart jobs. It passed 71 Node tests (23 shared, 13 email compatibility, 28 PostgreSQL service, 4 adapter-base and 3 media), strict TypeScript checking, Dart analysis with no issues and the Dart channel contract harness. This proves scoped reuse across the new base classes and composition roots; it does not register or deploy communication controls for every live role.
 
-Subsequent hardening releases microphones on invalid remote signaling or terminal peer failure and prevents the Dart call helper from sending a signal action without a signal body. Its new regression check passes locally; final CI evidence will be recorded after execution.
+Subsequent hardening releases microphones on invalid remote signaling or terminal peer failure, including display-callback errors, and prevents the Dart call helper from sending a signal action without a signal body.
+
+## Final inherited-core verification
+
+[Run 39794808175](https://github.com/shaikhrais/primecare-platform/actions/runs/39794808175), source fb6cbea995d36329f4e95cd4b6a46a08072d2be6, completed successfully in all five jobs. Results: 72 Node tests (23 shared/planning, 13 existing email compatibility, 28 native PostgreSQL service/storage, 5 shared-adapter and 3 real-media tests), 479 Flutter transport regression tests, strict TypeScript checking, Dart analysis with no issues, the Dart client contract harness and the read-only production inventory. There were no failed or skipped Node tests. The Flutter suite includes 12 new communication transport checks covering failures across all five HTTP methods plus denial and actual-success responses; the other checks are existing auth, profile, business-development and notification regressions.
+
+The streamlined media job used the runner's installed Chrome 156.0.8078.47. Both real peers reached Connected and received two audio packets each. Mute, unmute and track cleanup passed. This validates the inherited browser-resource implementation without another browser/system-package download. The evidence is preserved at docs/business/evidence/communication-core-20261022.json. The diagnostic screenshot is a test report, not a deployed PrimeCare screen.
+
+These scoped tests do not establish live messaging/picture/mail UI acceptance, production business-mail delivery, phone-network calling, TURN/internet traversal, physical-device media or independent release approval. The new core and hub are reusable for every permitted portal/user; actual live access still requires registered permission mappings and the adapters/screens described below. Parent repository instructions now explicitly preserve the shared inheritance requirement.
 
 ## Remaining release work (unchanged by inheritance)
 
