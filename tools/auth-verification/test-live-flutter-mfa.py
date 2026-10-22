@@ -152,6 +152,7 @@ def main():
                             safe = json.dumps(diagnostic).replace(seed, '[setup-key]').replace(email, '[synthetic-email]').replace(password, '[synthetic-password]')
                             result['diagnosticSemantics'] = json.loads(safe)
                         must(rendered, 'setup key is rendered in Flutter semantics')
+                        # Rejection must clear the actual accessible editing input.
                         step = 'deny wrong code'
                         counter = int(time.time()) // 30
                         wrong = next(str(n).zfill(6) for n in range(10) if str(n).zfill(6) not in [totp(seed, counter), totp(seed, counter - 1)])

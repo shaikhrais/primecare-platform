@@ -238,10 +238,13 @@ class PrimeAuthTextField extends StatefulWidget {
 class _PrimeAuthTextFieldState extends State<PrimeAuthTextField> {
   bool revealed = false;
   late final TextEditingController _controller;
+  late final FocusNode _focusNode;
+  int _inputRevision = 0;
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController(text: widget.initialValue);
+    _focusNode = FocusNode(debugLabel: widget.id);
   }
   @override
   void didUpdateWidget(covariant PrimeAuthTextField oldWidget) {
@@ -252,19 +255,28 @@ class _PrimeAuthTextFieldState extends State<PrimeAuthTextField> {
     if ((widget.initialValue != null || oldWidget.initialValue != null) &&
         _controller.text != (widget.initialValue ?? '')) {
       _controller.text = widget.initialValue ?? '';
+      if (_controller.text.isEmpty) _inputRevision++;
       revealed = false;
+    }
+    if (!oldWidget.enabled && widget.enabled && widget.autofocus) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && widget.enabled && widget.autofocus) _focusNode.requestFocus();
+      });
     }
   }
   @override
   void dispose() {
+    _focusNode.dispose();
     _controller.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    return Cy(id: widget.id, child: TextFormField(
-      controller: _controller, enabled: widget.enabled, autofocus: widget.autofocus,
+    // Replace the semantics input when controlled text is cleared. A disabled
+    // web editing element otherwise retains its last DOM value after blur.
+    return Cy(key: ValueKey('${widget.id}-$_inputRevision'), id: widget.id, child: TextFormField(
+      controller: _controller, focusNode: _focusNode, enabled: widget.enabled, autofocus: widget.autofocus,
       onChanged: widget.onChanged, onFieldSubmitted: widget.onSubmitted,
       obscureText: widget.password && !revealed, autocorrect: false,
       enableSuggestions: !widget.password && !widget.sensitive, keyboardType: widget.keyboardType,

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -58,4 +59,18 @@ void main() {
     await tester.pumpWidget(UncontrolledProviderScope(container:container,child:localized(const Scaffold(body:NativeMfaForm()))));await tester.pumpAndSettle();
     expect(find.byType(SelectableText),findsNothing);controller.onCodeChanged('123456');await controller.verify();await pending;await tester.pumpAndSettle();expect(container.read(mfaControllerProvider).pending,false);
   });
+  testWidgets('asynchronous factor rejection clears text and restores keyboard focus',(tester)async{
+    final c=ProviderContainer(overrides:[authProvider.overrideWith(GuestAuth.new)]);addTearDown(c.dispose);
+    final controller=c.read(mfaControllerProvider.notifier),reply=Completer<bool>();
+    final prompt=controller.request({'purpose':'verify','challenge':List.filled(43,'a').join()},(code)=>reply.future);
+    await tester.pumpWidget(UncontrolledProviderScope(container:c,child:localized(const Scaffold(body:NativeMfaForm()))));await tester.pumpAndSettle();
+    final field=find.byType(TextField);await tester.enterText(field,'123456');
+    final verifying=controller.verify();await tester.pump();expect(tester.widget<TextField>(field).enabled,false);
+    reply.complete(false);await verifying;await tester.pumpAndSettle();
+    expect(tester.widget<TextField>(field).controller!.text,isEmpty);
+    expect(tester.widget<TextField>(field).focusNode!.hasFocus,true);
+    expect(c.read(mfaControllerProvider).failed,true);
+    controller.cancel();await prompt;await tester.pumpAndSettle();
+  });
+
 }
