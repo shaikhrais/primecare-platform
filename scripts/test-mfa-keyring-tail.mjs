@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {TailObjects,keyringEvidence} from '../tools/auth-verification/mfa-keyring-tail.mjs';
+import {TailObjects,keyringEvidence,tailFailureKind} from '../tools/auth-verification/mfa-keyring-tail.mjs';
 const expected={source:'a'.repeat(64),activeKeyId:'mfa-v2',migrateFromKeyId:'mfa-v1'};
 const drill={source:expected.source,activeKeyId:'mfa-v2',fromKeyId:'mfa-v1',toKeyId:'mfa-v2',verified:true};
 const rotation={source:expected.source,verified:true,fromKeyId:'mfa-v1',toKeyId:'mfa-v2',rewrapped:1,expiredReplacementChallengesRemoved:0,remainingOldCredentials:0,remainingOldReplacementEnvelopes:0};
@@ -9,3 +9,5 @@ test('chunked pretty JSON preserves escapes and concatenated scheduled objects',
 test('proof accepts exact scheduled source and rejects stale or HTTP injected log text',()=>{assert.equal(keyringEvidence(event(),expected).length,1);for(const value of [{...event(),event:{request:{url:'https://example.invalid'}}},{...event(),scriptName:'other'},{...event(),outcome:'exception'},event({...drill,source:'b'.repeat(64)}),event({...drill,verified:false}),event({...drill,extra:'secret'}),event({...drill,activeKeyId:'mfa-v1'})])assert.deepEqual(keyringEvidence(value,expected),[]);});
 test('migration evidence is bounded exact and includes every remaining envelope',()=>{assert.deepEqual(keyringEvidence(event(rotation,'MFA_KEY_ROTATION_REPORT '),expected),[{kind:'rotation',...rotation}]);for(const body of [{...rotation,rewrapped:11},{...rotation,remainingOldCredentials:-1},{...rotation,remainingOldReplacementEnvelopes:0.5},{...rotation,toKeyId:'mfa-v1'},{...rotation,account:'secret'}])assert.deepEqual(keyringEvidence(event(body,'MFA_KEY_ROTATION_REPORT '),expected),[]);});
 test('bounded stream fails without emitting malformed or oversized raw content',()=>{assert.throws(()=>new TailObjects(()=>assert.fail()).push('{invalid}'),/Malformed/);assert.throws(()=>new TailObjects(()=>assert.fail()).push('{"x":"'+'x'.repeat(2*1024*1024)),/limit/);});
+
+test('CLI failures are classified without exposing raw logs credentials or account data',()=>{for(const [text,kind] of [["A sampling rate must be between 0 and 1. secret=private-value",'invalid_sampling_rate'],['Authentication error secret=private-value','tail_access_denied'],['Cannot find module /private/path','cli_entry_missing'],['Unknown argument --private-value','unsupported_cli_argument'],['fetch failed secret=private-value','tail_network_unavailable'],['raw private-value','tail_ended_without_proof']]){assert.equal(tailFailureKind(text),kind);assert.equal(tailFailureKind(text).includes('private-value'),false);}});

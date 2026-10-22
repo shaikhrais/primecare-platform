@@ -84,8 +84,8 @@
     "scripts/test-auth-privileged-postgres.mjs": "e22d222d7eb3c18f97211edd3641de93686adf68b6f18fd4ea9375ab9b187274",
     "scripts/test-code-admin-key-rotation-postgres.mjs": "04a954d4dad9f29d0602d83653523741078563ee36cc6be5314fc2cbe04ecdf6",
     "scripts/test-code-admin-mfa-postgres.mjs": "174275f959766e0be17bc281d6f894678c390ab0a173cae50b3f92fa8eab2b45",
-    "scripts/test-mfa-keyring-tail.mjs": "d8d66e6b2af16ad14c248752c6b30c41ac1c8a2ea0f562aaef2dbea786356f02",
+    "scripts/test-mfa-keyring-tail.mjs": "404edfa55890a9e8d0411f0915e4885beab5f1e39596b2c2b11fdeba90d6b638",
     "scripts/test-worker-inheritance.mjs": "0609eb79fa275179af04708e2b5c689d18dd19dd0314400a6bd5701c346ef292",
-    "tools/auth-verification/mfa-keyring-tail.mjs": "a0f6169e882a24a27584e693282813cb743a379b673127d037a33f0a1de673b8"
+    "tools/auth-verification/mfa-keyring-tail.mjs": "af6e7305019dfd5ff7c31650f99fd0406d6aa6f739040974aa52caff0187f5e0"
   }
 }
