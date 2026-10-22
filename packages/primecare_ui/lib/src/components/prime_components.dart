@@ -55,6 +55,7 @@ class PrimeCareTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
   final String? dataCy;
+  final bool enabled;
 
   const PrimeCareTextField({
     super.key,
@@ -66,6 +67,7 @@ class PrimeCareTextField extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.dataCy,
+    this.enabled = true,
   });
 
   @override
@@ -74,19 +76,20 @@ class PrimeCareTextField extends StatelessWidget {
     final widget = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: theme.typography.labelMedium),
+        Text(label, style: theme.typography.labelMedium.copyWith(color: Theme.of(context).colorScheme.onSurface)),
         const SizedBox(height: 8),
         TextFormField(
+          enabled: enabled,
           controller: controller,
           obscureText: isPassword,
           maxLines: maxLines,
           onChanged: onChanged,
           validator: validator,
-          style: theme.typography.bodyMedium,
+          style: theme.typography.bodyMedium.copyWith(color: Theme.of(context).colorScheme.onSurface),
           decoration: InputDecoration(
             hintText: hintText,
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Theme.of(context).colorScheme.surface,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 12,

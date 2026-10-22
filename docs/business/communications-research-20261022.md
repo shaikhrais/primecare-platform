@@ -24,3 +24,13 @@ that live providers, user screens or production route activation are complete.
 The hierarchy policy rows registered by run 39855660364 are requirements and an
 empty owned-mailbox directory. They do not create endpoint grants, verify domain
 ownership, provision a user mailbox or grant broad clinical/HR access.
+
+
+For the Flutter workspace, official [ChangeNotifier lifecycle documentation](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html)
+requires avoiding notifications after disposal. The shared controller commits only
+while active and clears state on disposal; session-dependent providers rebuild the
+view with a new controller. Official [file_selector documentation](https://pub.dev/packages/file_selector)
+informs the platform file-picker port; selection remains a hint, with actual byte
+bounds and raster validation in controller/server. Flutter [live-region semantics](https://api.flutter.dev/flutter/semantics/SemanticsProperties/liveRegion.html)
+inform status presentation. Tests cover these behaviors rather than inferring
+accessibility or deployed acceptance from a screenshot.

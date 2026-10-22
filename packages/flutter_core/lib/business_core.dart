@@ -2,6 +2,8 @@
 library;
 
 export 'communications/communication_core.dart';
+export 'communications/communication_workspace_controller.dart';
+export 'communications/communication_workspace_catalog.dart';
 export 'communications/dio_communication_transport.dart';
 export 'communications/registered_communication_bindings.dart';
 

@@ -13,6 +13,8 @@ export 'package:easy_localization/easy_localization.dart' hide TextDirection;
 
 export 'adapter_providers.dart';
 export 'communications/communication_core.dart';
+export 'communications/communication_workspace_controller.dart';
+export 'communications/communication_workspace_catalog.dart';
 export 'communications/dio_communication_transport.dart';
 export 'communications/registered_communication_bindings.dart';
 export 'src/models/dashboard_models.dart';

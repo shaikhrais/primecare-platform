@@ -27,6 +27,16 @@ on:
       - 'packages/flutter_core/test/communication_transport_failure_test.dart'
       - 'packages/flutter_core/test/dio_communication_transport_test.dart'
       - 'tools/communication-client-check.dart'
+      - 'tools/communication-ui-bindings.py'
+      - 'packages/flutter_core/test/communication_workspace_controller_test.dart'
+      - 'packages/flutter_core/test/fixtures/communication_workspace_transport.dart'
+      - 'packages/primecare_ui/lib/src/communications/**'
+      - 'packages/primecare_ui/lib/src/components/prime_components.dart'
+      - 'packages/primecare_ui/lib/src/screens/staff/communication/communication_screen.dart'
+      - 'packages/primecare_ui/lib/src/screens/common/patient_messages/patient_messages_screen.dart'
+      - 'packages/primecare_ui/lib/src/screens/psw/psw_messages/psw_messages_screen.dart'
+      - 'packages/primecare_ui/lib/src/screens/psw/messaging/messaging_screen.dart'
+      - 'packages/primecare_ui/test/communication_workspace_test.dart'
   workflow_dispatch:
 permissions:
   contents: read
@@ -42,7 +52,21 @@ jobs:
         working-directory: packages/flutter_core
       - name: Real communication transport failures and existing caller regressions
         working-directory: packages/flutter_core
-        run: flutter test test/dio_communication_transport_test.dart test/communication_transport_failure_test.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/provider_profile_test.dart
+        run: flutter test test/communication_workspace_controller_test.dart test/dio_communication_transport_test.dart test/communication_transport_failure_test.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/provider_profile_test.dart
+  flutter-workspace:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Verify production-readback workspace bindings
+        run: python3 tools/communication-ui-bindings.py
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - name: Shared messaging widgets, localization, lifecycle and existing component regressions
+        working-directory: packages/primecare_ui
+        run: flutter test test/communication_workspace_test.dart test/theme_consumers_test.dart test/auth_design_test.dart
   dart-core:
     runs-on: ubuntu-latest
     timeout-minutes: 8

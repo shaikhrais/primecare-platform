@@ -508,3 +508,42 @@ mailbox provisioning, live image services/TURN, endpoint grants/route mounting,
 shared user-facing screens or deployed end-to-end acceptance. No production
 business-process verification status, account assignment or live mail receipt is
 inferred from these checks.
+
+
+### Shared messaging workspace implementation (2026-10-22)
+
+Production registration source `b571a6a6eb4f857da8a31ff436e8ac6e60094020`
+passed six isolated PostgreSQL tests and native production rollback/apply/independent
+readback in run 39857952472. The readback covers 17 controls on each of four existing
+screens and 28 text resources in English, French and Spanish. No API contracts,
+routes, account data, grants or activation changed. The generated Dart catalog is
+bound to definition SHA-256 40013c8c3807ec9bd4bb80dbd6240c357880632fa055c6d67e86db85cf3cdb6e.
+
+After registration, the four public screen classes were changed to inherit one
+CommunicationScreenBase and render the same CommunicationWorkspaceView. Their
+legacy dashboard loaders are no longer used by these entry classes. One inherited
+controller lifecycle owns state, identity scope, command versions, file bounds and
+retry behavior through the existing authenticated channel clients. The view only
+presents inbox/open/create, message send/reload, read receipts, bounded picture
+selection, draft attachment removal and private preview. Recipient selection
+currently takes known account IDs; a governed contact picker remains future work.
+Calls and mail remain available in the shared core but are not presented by this
+first messaging view. No fake call or email controls were added.
+
+Uncertain writes retain their exact key/version/payload for explicit retry.
+Confirmed writes are re-read before the UI clears its draft. A later denied read
+cannot discard an earlier uncertain command. Session changes dispose the provider
+and replace the view; late responses cannot commit state. Selected file bytes are
+bounded while streaming, server-clean pictures alone become draft attachments,
+and previews are scoped, copied, resized and evicted from image cache on removal.
+The approved shared text field now supports disabling keyboard input during work
+and uses the current material surface/foreground for theme contrast.
+
+The new controller/widget tests cover successful actions, unknown results, current
+permission denial, scope mismatches, disposal, duplicate clicks, stream limits,
+localization, mobile large text and image presentation. These are scoped fixture
+checks; native HTTP/storage and real browser media suites provide separate proof.
+CI results for this source must be recorded after execution. Implementation tags
+remain unverified and productionReady false. Provider provisioning, route grants
+and mounting, contact discovery, call/mail views and deployed browser acceptance
+remain open; existing database registration is not a release approval.
