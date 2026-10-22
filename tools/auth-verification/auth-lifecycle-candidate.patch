@@ -1027,7 +1027,7 @@ index 00000000..216e128b
 +}
 diff --git a/packages/primecare_ui/test/auth_mfa_lifecycle_test.dart b/packages/primecare_ui/test/auth_mfa_lifecycle_test.dart
 new file mode 100644
-index 00000000..427a786a
+index 00000000..e40af333
 --- /dev/null
 +++ b/packages/primecare_ui/test/auth_mfa_lifecycle_test.dart
 @@ -0,0 +1,77 @@
@@ -1081,7 +1081,7 @@ index 00000000..427a786a
 +    await tester.pumpWidget(UncontrolledProviderScope(container:c,child:localized(const Scaffold(body:NativeMfaManagementForm()))));await tester.pumpAndSettle();
 +    final controller=c.read(mfaManagementProvider.notifier);controller.onPasswordChanged('synthetic-password');controller.onFactorChanged('123456');
 +    final pending=controller.issueCodes();await tester.pump();
-+    await tester.pumpWidget(const SizedBox.shrink());await tester.pump();await c.pump();
++    await tester.pumpWidget(const SizedBox.shrink());await tester.pump();await tester.runAsync(c.pump);
 +    auth.pending!.complete({'status':'recovery_codes_issued','recoveryCodes':List.filled(10,List.filled(26,'A').join())});
 +    await pending;expect(tester.takeException(),isNull);
 +    expect(c.read(mfaManagementProvider).recoveryCodes,isEmpty);
