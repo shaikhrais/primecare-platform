@@ -20,8 +20,10 @@ export class BrowserAudioCall {
  }
  async offer() {
   if(!this.peer || this.closed)throw Error('Call not started');
-  const offer=await this.peer.createOffer();await this.peer.setLocalDescription(offer);
-  await this.sendSignal({type:'offer',description:this.peer.localDescription.toJSON()});
+  try {
+   const offer=await this.peer.createOffer();await this.peer.setLocalDescription(offer);
+   await this.sendSignal({type:'offer',description:this.peer.localDescription.toJSON()});
+  } catch(error) {this.close();throw error;}
  }
  async receive(signal) {
   if(!this.peer || this.closed)throw Error('Call not started');

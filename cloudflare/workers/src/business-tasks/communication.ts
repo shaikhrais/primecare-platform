@@ -16,7 +16,9 @@ export class CommunicationService {
  readonly limits: CommunicationLimits;
  readonly now: () => number;
  constructor(store: AtomicStore, policy: AccessPolicy, pictures: PictureRepository, limits: CommunicationLimits, now = Date.now) {
-  for (const value of Object.values(limits)) if (!Number.isSafeInteger(value) || value < 1) throw Error('Invalid configured limit');
+  for (const field of ['maxMembers','maxMessages','maxText','maxPictureBytes','maxPictures','ringMilliseconds','maxSignalBytes'] as const) {
+   if (!limits || !Number.isSafeInteger(limits[field]) || limits[field] < 1) throw Error('Invalid configured limit');
+  }
   this.store=store;this.policy=policy;this.pictures=pictures;this.limits={...limits};this.now=now;
  }
  async authorize(actor: Actor, action: string, state: RecordState | null) {

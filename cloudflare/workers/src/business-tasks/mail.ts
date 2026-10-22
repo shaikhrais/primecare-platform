@@ -33,6 +33,7 @@ export class BusinessMailService {
    });
  }
  async deliver(actor:Actor,id:string,key:string,expectedVersion:number) {
+  required(key,190); // Leave room for the atomic receipt command suffix before attempting a send.
   const token=crypto.randomUUID();
   const claimed=await this.store.run({actor,id,key,expectedVersion,type:'mail.claim',payload:{}},
    async state=>{if(!state||state.kind!=='outbound_mail')throw Error('Not found');await this.policy.assert(actor,'mail.deliver',state);await this.mailboxes.recipient(actor,state.to);},
@@ -56,7 +57,7 @@ export class BusinessMailService {
   address(envelope.to);address(envelope.from);
   if(!(envelope.raw instanceof Uint8Array)||!envelope.raw.byteLength||envelope.raw.byteLength>this.maxBytes)throw Error('Invalid inbound size');
   const mailbox=await this.mailboxes.resolve(envelope.to.toLowerCase());if(!mailbox)throw Error('Unknown mailbox');
-  const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',envelope.raw)),byte=>byte.toString(16).padStart(2,'0')).join('');
+  const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new Uint8Array(envelope.raw))),byte=>byte.toString(16).padStart(2,'0')).join('');
   const id='mail:'+mailbox.mailboxId+':'+digest;
   const actor={id:'inbound-mail',tenantId:mailbox.tenantId};
   // The internal service identity still requires a registered permission policy.

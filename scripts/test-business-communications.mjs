@@ -81,6 +81,9 @@ const pictures={
 const limits={maxMembers:8,maxMessages:100,maxText:2000,maxPictureBytes:1024,maxPictures:3,ringMilliseconds:30000,maxSignalBytes:16384};
 let clock=100000;
 const communication=new CommunicationService(store,policy,pictures,limits,()=>clock);
+test('missing communication bounds fail before accepting a conversation',()=>{
+ assert.throws(()=>new CommunicationService(store,policy,pictures,{}),/configured limit/);
+});
 test('task inbox and linked conversation remain scoped to actual task participants',async()=>{
  const task=id('linked');await workflow.create(a,task,'create','sales-target',a.id,b.id,due);
  const workspace=new BusinessWorkspaceService(workflow,communication);

@@ -8,6 +8,8 @@ on:
       - 'packages/shared/src/communications/**'
       - 'cloudflare/workers/src/business-tasks/**'
       - 'scripts/test-business-communications.mjs'
+      - 'scripts/test-business-media.mjs'
+      - 'scripts/fixtures/business-*'
   workflow_dispatch:
 permissions:
   contents: read
@@ -55,14 +57,30 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/communications-tools" --ignore-scripts pg@8.16.3 playwright@1.60.0 sharp@0.34.5
+          npm install --prefix "$RUNNER_TEMP/communications-tools" --ignore-scripts pg@8.16.3 esbuild@0.27.2 typescript@5.9.3
           ln -s "$RUNNER_TEMP/communications-tools/node_modules" node_modules
-          node_modules/.bin/playwright install --with-deps chromium
       - name: Shared business rules
         run: node --test packages/shared/test/business-*.test.mjs
+      - name: Strict service types and existing email compatibility
+        run: |
+          node_modules/.bin/tsc --noEmit --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strict --skipLibCheck cloudflare/workers/src/business-tasks/*.ts
+          node --test scripts/test-email-runtime-validation.mjs
       - name: All candidate workflow services and communications with native PostgreSQL
         run: node --test scripts/test-business-communications.mjs
-      - name: Real raster processing and two-peer browser audio
+  media:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Install image and browser test packages
+        run: |
+          npm install --prefix "$RUNNER_TEMP/media-tools" --ignore-scripts playwright@1.60.0 sharp@0.34.5
+          ln -s "$RUNNER_TEMP/media-tools/node_modules" node_modules
+      - name: Install Chromium and operating system dependencies
+        run: node_modules/.bin/playwright install --with-deps chromium
+      - name: Decode real raster data, bound email streams and verify audio packets
         run: node --test scripts/test-business-media.mjs
       - uses: actions/upload-artifact@v4
         if: always()
