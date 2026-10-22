@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "requirement": "Shared inherited communication channels requested by user; register contracts before handlers and UI; no grants or activation.",
+  "requirement": "Shared inherited communication channels including discoverable received/sent mailbox summaries, current mailbox access and bounded deterministic pagination; register before implementation; no grants or activation.",
   "screens": {
     "234": "psw_messages",
     "331": "patient_messages",
@@ -719,6 +719,136 @@
           "id",
           "version"
         ],
+        "x-primecare-content-type": "application/json"
+      },
+      "contentType": "application/json"
+    },
+    {
+      "key": "email.inbox",
+      "method": "GET",
+      "path": "/v1/messages/email/inbox",
+      "request": {
+        "type": "object",
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "direction": {
+                "const": "inbound"
+              },
+              "limit": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "after": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "mailboxId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "direction",
+              "mailboxId"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "direction": {
+                "const": "outbound"
+              },
+              "limit": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "after": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "direction"
+            ]
+          }
+        ],
+        "x-primecare-content-type": "application/json"
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "kind": {
+                  "enum": [
+                    "inbound_mail",
+                    "outbound_mail"
+                  ]
+                },
+                "status": {
+                  "type": "string"
+                },
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                },
+                "subject": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "version",
+                "kind",
+                "status",
+                "from",
+                "to"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "nextAfter": {
+            "oneOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "nextAfter"
+        ],
+        "additionalProperties": false,
         "x-primecare-content-type": "application/json"
       },
       "contentType": "application/json"

@@ -310,3 +310,15 @@ does not establish live gateway, TURN, physical-device or Flutter-media acceptan
 See [evidence/communication-session-20261022.json](evidence/communication-session-20261022.json).
 No business-mail delivery, deployed communication screen or all-user release is
 claimed. The concrete live policy/provider/UI gaps above remain open.
+
+### Mailbox inbox contract — registration before implementation
+
+The existing queue/deliver/read operations cannot discover received mail IDs.
+The new `email.inbox` design registers one GET contract linked to the same four
+communication screens. Inbound listing requires an explicit mailbox ID; outbound
+listing always uses authenticated ownership. It returns at most100 metadata-only
+summaries and an opaque record-ID continuation (`after`/`nextAfter`) in deterministic
+ID order. It does not promise newest-first ordering or expose raw mail/body data.
+No caller can choose an actor or tenant. Existing endpoint identities and role
+grants are preserved. The native registrar must pass isolated tests and production
+dry-run/apply/read-back before this command is implemented or exposed.

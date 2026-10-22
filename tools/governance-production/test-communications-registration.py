@@ -49,12 +49,13 @@ class RegistrationTests(unittest.TestCase):
         with self.store() as db:
             before=[db.execute('SELECT * FROM '+table).fetchall() for table in ['api_permissions','role_screen_permissions']]
             first=register(db);self.assertEqual(first,register(db))
-            self.assertEqual(len(first['apiIds']),6);self.assertEqual(first['screenLinks'],24)
+            self.assertEqual(len(first['apiIds']),7);self.assertEqual(first['screenLinks'],28)
             self.assertEqual(first['roleGrants'],0);self.assertFalse(first['activation'])
             self.assertEqual(first['apiIds']['message.command'],710)
             self.assertEqual(first['apiIds']['message.inbox'],857)
+            self.assertEqual(db.execute('SELECT http_method,route_path FROM api_endpoints WHERE id=?',(first['apiIds']['email.inbox'],)).fetchall(),[('GET','/v1/messages/email/inbox')])
             self.assertEqual(before,[db.execute('SELECT * FROM '+table).fetchall() for table in ['api_permissions','role_screen_permissions']])
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM api_endpoints').fetchone()[0],6)
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM api_endpoints').fetchone()[0],7)
     def test_mid_registration_failure_rolls_back_updates_and_inserts(self):
         class Failure(CommunicationRegistrationStore):
             def insert_exact(self,table,values):
