@@ -534,6 +534,16 @@
       "component": "prime_button",
       "screen": "AUTHENTICATED_ACCOUNT",
       "file": "packages/primecare_ui/lib/src/features/auth/tenant_support_form.dart"
+    },
+    "summaryValues": {
+      "component": "prime_card",
+      "screen": "mfa",
+      "file": "packages/primecare_ui/lib/src/features/auth/auth_elevation_form.dart"
+    },
+    "refresh": {
+      "component": "prime_button",
+      "screen": "AUTHENTICATED_ACCOUNT",
+      "file": "packages/primecare_ui/lib/src/features/auth/tenant_support_form.dart"
     }
   },
   "locales": {
@@ -561,7 +571,14 @@
       "error": "The request could not be completed. Verify the details and try again.",
       "working": "Working…",
       "scope": "Scope: aggregate account, session and authenticator counts only.",
-      "privacy": "No clinical records, personal account details or impersonation. Tenant approval and current verified access are required for each use."
+      "privacy": "No clinical records, personal account details or impersonation. Tenant approval and current verified access are required for each use.",
+      "activeAccounts": "Active accounts: {count}",
+      "activeSessions": "Active sessions: {count}",
+      "enrolledAuthenticators": "Enrolled authenticators: {count}",
+      "expires": "Expires at {time}",
+      "requester": "Requested by Code Admin",
+      "refresh": "Refresh requests",
+      "none": "No current support requests."
     },
     "fr": {
       "title": "Accès temporaire au support",
@@ -587,7 +604,14 @@
       "error": "La demande n’a pas pu être traitée. Vérifiez les informations et réessayez.",
       "working": "Traitement…",
       "scope": "Portée : nombres agrégés de comptes, sessions et applications d’authentification uniquement.",
-      "privacy": "Aucun dossier clinique, détail personnel de compte ni usurpation d’identité. L’approbation du locataire et un accès vérifié valide sont requis pour chaque utilisation."
+      "privacy": "Aucun dossier clinique, détail personnel de compte ni usurpation d’identité. L’approbation du locataire et un accès vérifié valide sont requis pour chaque utilisation.",
+      "activeAccounts": "Comptes actifs : {count}",
+      "activeSessions": "Sessions actives : {count}",
+      "enrolledAuthenticators": "Applications d’authentification inscrites : {count}",
+      "expires": "Expire le {time}",
+      "requester": "Demande de Code Admin",
+      "refresh": "Actualiser les demandes",
+      "none": "Aucune demande de support en cours."
     },
     "es": {
       "title": "Acceso temporal de soporte",
@@ -613,7 +637,14 @@
       "error": "No se pudo completar la solicitud. Verifica los datos e inténtalo de nuevo.",
       "working": "Procesando…",
       "scope": "Alcance: solo recuentos agregados de cuentas, sesiones y autenticadores.",
-      "privacy": "Sin registros clínicos, datos personales de cuentas ni suplantación. Cada uso requiere aprobación del inquilino y acceso verificado vigente."
+      "privacy": "Sin registros clínicos, datos personales de cuentas ni suplantación. Cada uso requiere aprobación del inquilino y acceso verificado vigente.",
+      "activeAccounts": "Cuentas activas: {count}",
+      "activeSessions": "Sesiones activas: {count}",
+      "enrolledAuthenticators": "Autenticadores registrados: {count}",
+      "expires": "Vence el {time}",
+      "requester": "Solicitado por Code Admin",
+      "refresh": "Actualizar solicitudes",
+      "none": "No hay solicitudes de soporte vigentes."
     }
   }
 }

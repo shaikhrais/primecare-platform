@@ -416,7 +416,7 @@
     ],
     "accountScreenCode": "AUTHENTICATED_ACCOUNT",
     "endpointPrefix": "/v1/auth/mfa/",
-    "definitionSha256": "acd9c7c666076689e06659ea6361724df29fe2909c0ba60a7d16aa6d398d87d5",
+    "definitionSha256": "60fbbb141ccc35d1845ca2dd14edbd847c940c1ce7615c4e2d7dd180add3e538",
     "schemaChanges": false,
     "businessDataWrites": false,
     "roleGrants": false
