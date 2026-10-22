@@ -44,8 +44,8 @@ def main():
         with sync_playwright() as pw:
             browser = pw.chromium.launch()
             try:
-                for mode in ['click_helper', 'dom_focus', 'keyboard_tab']:
-                    case = {'mode': mode}
+                for iteration, mode in enumerate(['click_helper', 'pre_scroll_click', 'pre_scroll_click', 'dom_focus', 'keyboard_tab']):
+                    case = {'mode': mode, 'iteration': iteration}
                     report['cases'].append(case)
                     context = browser.new_context(viewport={'width': 320, 'height': 1000}, locale='en')
                     context.add_init_script("localStorage.setItem('flutter.auth_token'," + json.dumps(json.dumps(token)) + ");")
@@ -62,7 +62,11 @@ def main():
                         page.goto(live.SITE + '/success?locale=en&enable-semantics=true', wait_until='domcontentloaded')
                         page.locator('[aria-label="mfa-lifecycle-manage"][role="button"], [aria-label="mfa-lifecycle-manage"] [role="button"]').click()
                         target.wait_for()
-                        if mode == 'click_helper':
+                        if mode == 'pre_scroll_click':
+                            target.scroll_into_view_if_needed()
+                            page.wait_for_timeout(300)
+                            live.fill_flutter_field(page, target, password)
+                        elif mode == 'click_helper':
                             live.fill_flutter_field(page, target, password)
                         elif mode == 'dom_focus':
                             target.focus()
