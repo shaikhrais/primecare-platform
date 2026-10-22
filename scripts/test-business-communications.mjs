@@ -245,3 +245,37 @@ test('conversation creation authorizes proposed case and participants before per
 test('mailbox read policy cannot be omitted at service construction',()=>{
  assert.throws(()=>new BusinessMailService(store,policy,{resolve:mailboxes.resolve,recipient:mailboxes.recipient},{async send(){return {messageId:'fixture'};}},'sender@example.invalid',2048),/Mailbox policy/);
 });
+
+test('inherited creation policy inspects outbound recipient and inbound mailbox before persistence or retry',async()=>{
+ let denyMailbox=false;const seen=[];
+ const scoped={...policy,async assert(actor,action,state){
+  await policy.assert(actor,action,state);
+  if(state){seen.push({action,mailboxId:state.mailboxId,to:state.to});
+   if(action==='mail.queue'&&state.to==='recipient@example.invalid')throw Error('Forbidden');
+   if(action==='mail.receive'&&state.mailboxId==='owned'&&denyMailbox)throw Error('Forbidden');
+   // Mutation of an authorization snapshot must not change the saved proposal.
+   if(state.version===0)state.to='rewritten@example.invalid';
+  }
+ }};
+ const guarded=new BusinessMailService(store,scoped,mailboxes,mail.transport,'sender@example.invalid',2048);
+ const outgoing=id('denied-mail');await assert.rejects(guarded.queue(a,outgoing,'queue','recipient@example.invalid','subject','body'),/Forbidden/);
+ await assert.rejects(guarded.read(a,outgoing),/Not found/);
+ const envelope={from:'outside@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode('Synthetic '+crypto.randomUUID())};
+ const result=await guarded.receive(envelope);assert.equal((await guarded.read(b,result.id)).to,'owned@example.invalid');
+ denyMailbox=true;await assert.rejects(guarded.receive(envelope),/Forbidden/);
+ await assert.rejects(guarded.receive({...envelope,raw:new TextEncoder().encode('Denied '+crypto.randomUUID())}),/Forbidden/);
+ assert.ok(seen.some(value=>value.action==='mail.receive'&&value.mailboxId==='owned'));
+});
+
+test('inbound byte and envelope snapshot remains consistent across asynchronous mailbox lookup',async()=>{
+ let release;const ready=new Promise(resolve=>{release=resolve;});
+ const delayed={...mailboxes,async resolve(address){await ready;return mailboxes.resolve(address);}};
+ const guarded=new BusinessMailService(store,policy,delayed,mail.transport,'sender@example.invalid',2048);
+ const original='Synthetic immutable '+crypto.randomUUID();
+ const envelope={from:'outside@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode(original)};
+ const receiving=guarded.receive(envelope);envelope.raw.fill(0);envelope.from='changed@example.invalid';envelope.to='unknown@example.invalid';release();
+ const result=await receiving,record=await guarded.read(b,result.id);
+ assert.equal(Buffer.from(record.rawBase64,'base64').toString(),original);assert.equal(record.from,'outside@example.invalid');assert.equal(record.to,'owned@example.invalid');
+ const expected=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(original));
+ assert.equal(record.digest,Buffer.from(expected).toString('hex'));
+});

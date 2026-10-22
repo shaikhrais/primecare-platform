@@ -11,6 +11,7 @@ on:
       - 'cloudflare/workers/src/business-tasks/**'
       - 'scripts/test-business-communications.mjs'
       - 'scripts/test-communication-http.mjs'
+      - 'scripts/test-communication-audio-session.mjs'
       - 'tools/communication-route-bindings.py'
       - 'scripts/test-business-media.mjs'
       - 'scripts/test-communication-adapter-base.mjs'
@@ -117,7 +118,7 @@ jobs:
       - name: Registered HTTP contracts through native PostgreSQL
         run: node --test scripts/test-communication-http.mjs
       - name: Shared communication resource and byte-limit bases
-        run: node --test scripts/test-communication-adapter-base.mjs
+        run: node --test scripts/test-communication-adapter-base.mjs scripts/test-communication-audio-session.mjs
   media:
     runs-on: ubuntu-24.04
     timeout-minutes: 15

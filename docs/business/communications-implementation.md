@@ -249,3 +249,46 @@ The broader historical-fixture gate correctly flagged the new live permission re
 `PostgresCommunicationWorker<E>` extends `CommunicationHttpWorker<E>`. It creates the shared PostgreSQL store, inherited conversation/mail services, four channel core, current-session authenticator, current pinned-governance endpoint checker and native email transport once from explicit dependencies. Its trusted `email()` event delegates to the inherited bounded inbound adapter and the same mail service. Ordinary HTTP still has no inbound-ingestion action. A `.d.mts` contract describes the existing JavaScript inbound adapter without copying its implementation.
 
 Six composition checks passed locally, covering session and tenant denial before storage, explicit current endpoint denial, generic database failures, trusted-event byte rejection and required dependencies. These are isolated adapter checks, not live user acceptance. Deployment deliberately remains unmounted: current case/contact/mailbox policies, owned provider configuration, private picture decoding/scanning/storage, native call client integration and the shared registered UI still require completion.
+
+### Accepted-call session and creation-policy checkpoint — 2026-10-22
+
+`BrowserAudioSession` inherits `CommunicationResourceBase` and connects the
+existing browser media resource to an injected authenticated registered-channel
+transport. It checks acceptance before and after microphone permission,
+serializes current-version signaling, handles explicit transactional conflicts
+without retrying ambiguous transport errors, filters own signals, validates
+sequence continuity and releases resources on remote end or current-access denial.
+A local hang-up releases media before its single server end attempt. It adds no
+route, role copy, permission grant, Flutter bridge or live activation.
+
+Ten lifecycle tests cover denial, delayed permission, recipient answer, offer
+replay prevention, remote end, conflicts, ambiguous failure, malformed history,
+concurrent refresh, quiet local close and immediate hang-up cleanup. An additional
+registered HTTP test negotiates two sessions, reloads persisted signaling, ends
+the call and checks nonparticipant/cross-tenant denial. That test uses native
+PostgreSQL in CI and an explicit memory fixture locally. The real-browser test
+now exercises this session controller with synthetic microphones and an isolated
+signaling fixture instead of directly wiring peer callbacks.
+
+The inherited creation helper now makes a copied proposed conversation or mail
+record visible to policy before persistence and on receipt retries. This closes
+the missing initial mailbox/recipient context for inbound/outbound mail policies.
+Inbound bytes and envelope fields are copied before mailbox lookup; tests verify
+that later caller mutation cannot change quarantine content or its digest.
+Current outbound-owner and mailbox-read restrictions remain enforced.
+
+Local checks: 114 Node tests passed, one native database policy test skipped
+because no disposable PostgreSQL URL is available; seven contract-report tests,
+registered route parity and strict TypeScript checking passed. The media suite
+passed real raster and inbound-stream tests but failed packet acceptance: both
+peers negotiated stable offer/answer while ICE remained New with zero received
+packets in this workspace. Microphone cleanup passed. Installing local PostgreSQL
+was blocked by this workspace's package/user-switch restrictions. CI results must
+be recorded separately; local memory results do not earn native database credit.
+
+Release remains blocked by current case/contact/mailbox policy/provider bindings,
+private scanner/storage configuration, gateway mounting, the registered shared
+Flutter/native UI/media bridge and owned-user deployed acceptance. No live mail
+was sent and no user was called by this checkpoint. Existing auth/QA mail workers
+are unchanged. The new session is reusable in permitted browser portals but is
+not a claim that existing Flutter messaging stubs now work.

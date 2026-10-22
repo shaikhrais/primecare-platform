@@ -7,6 +7,7 @@ All portals and permitted users use the same core. There are no role-specific co
 | ScopedServiceBase | CommunicationService, BusinessMailService, BusinessWorkflowService | Validate actor, record type and tenant; always invoke current policy |
 | CommunicationChannelBase | MessageChannel, PictureChannel, AudioChannel, EmailChannel | One execute protocol, identity-context protection and channel dispatch |
 | CommunicationResourceBase | BrowserAudioCall | Idempotent cleanup, pending-microphone race cleanup, closed resource protection |
+| CommunicationResourceBase | BrowserAudioSession | Accepted-call checks, serialized current-version signaling, remote hang-up, polling and media cleanup |
 | BoundedBinaryAdapterBase | PrivatePictureRepository, InboundEmailAdapter | Bounded bytes and actual streamed size validation |
 | CommunicationChannelClient (Dart) | MessageChannelClient, PictureChannelClient, AudioChannelClient, EmailChannelClient | Shared request construction and authenticated transport dependency |
 
@@ -43,6 +44,43 @@ DioCommunicationTransport extends CommunicationTransportBase and maps the hub to
 CommunicationHub is exported by both flutter_core.dart and business_core.dart. The existing ApiClient also uses the shared isCommunicationPath classifier: registered messaging failures now bypass demo-data and path-only offline-success fallbacks for every HTTP method. This fixes existing transport behavior without pretending a missing server exists. The dio_communication_transport_test.dart suite exercises the inherited dispatcher and authenticated Dio multipart boundary. Communication transport failure tests exercise the actual Dio/ApiClient boundary, including real denial/success responses; the pure Dart harness checks the shared classifier and channel protocol.
 
 ## Extend and verify
+
+`BrowserAudioSession` connects the existing browser media adapter to the same
+authenticated `execute(channel, request)` transport used by the registered
+message/audio contracts. Supply the current authenticated user ID for local
+signal filtering, the thread/call IDs, media adapters and scoped ICE configuration.
+These IDs never grant server access. Invite and accept through the shared channel
+before `start()`. Both parties must still be current conversation participants.
+
+`start()` verifies the accepted call before requesting microphone access and
+again after permission resolves. It sends a caller offer or consumes the stored
+remote offer and sends a recipient answer. Refreshes are serialized, own signals
+are skipped, and sequence gaps/regression fail closed. Polling stops and media is
+released on remote termination, access denial or signaling failure. `hangUp()`
+releases local media immediately and makes one explicit server end attempt;
+`close()` is local cleanup only. Do not attach `hangUp()` to an unawaited unload
+promise or claim it confirms a remote end when transport fails.
+
+Outbound signaling is serialized. An explicit 409 rollback can reread the current
+version and try a new command key up to three attempts. Ambiguous network errors
+never retry. Already negotiated media cannot be resumed by replaying a stored
+offer after a browser reload; it requires a new accepted call. The session adds
+no public endpoint, credentials, permission grant or automatic call acceptance.
+It is a browser adapter, and still needs the registered Flutter/native bridge
+and configured relay before live portal/device acceptance.
+
+Run `scripts/test-communication-audio-session.mjs` for lifecycle/conflict/denial
+cases. `scripts/test-communication-http.mjs` connects two sessions through the
+registered handler and native PostgreSQL when configured. The media test runs
+real Chromium peers through these sessions with an explicit isolated signaling
+fixture. Neither fixture is a live user or production permission provider.
+
+The inherited `ScopedServiceBase.checkCreation` checks both the existing record
+and a copied proposed record before persistence, including idempotent retries.
+Conversation case policies and inbound/outbound mail policies can inspect the
+actual initial scope. Policy callbacks cannot modify the saved draft. Inbound
+envelope/bytes are copied before asynchronous mailbox lookup so the quarantine
+content and digest remain consistent.
 
 Add a channel by extending CommunicationChannelBase and delegating to the scoped service. Add a service by extending ScopedServiceBase, with mandatory real adapters. Derive binary and resource adapters from the matching bases. Derive Dart clients from CommunicationChannelClient so request/context protections stay inherited. Register new live entities and permission contracts before exposure. Never add a permissive production policy or treat a test fixture as a production adapter.
 

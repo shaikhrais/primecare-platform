@@ -34,6 +34,15 @@ export abstract class ScopedServiceBase {
   if(state&&(state.tenantId!==actor.tenantId||!kinds.includes(state.kind))||!state&&!creating)throw Error('Not found');
   await this.policy.assert(actor,action,state);
  }
+ /** Initial scope must be visible to current policy, including idempotent retries.
+  * A policy receives an isolated copy so it cannot rewrite the stored proposal.
+  */
+ protected async checkCreation(actor:Actor,action:string,state:RecordState|null,draft:RecordState,kinds:readonly string[],authorizeCurrent?:(state:RecordState|null)=>Promise<void>) {
+  assertActor(actor);
+  if(draft.tenantId!==actor.tenantId||!kinds.includes(draft.kind)||draft.version!==0||state&&(state.id!==draft.id||state.tenantId!==actor.tenantId||!kinds.includes(state.kind)))throw Error('Not found');
+  if(authorizeCurrent)await authorizeCurrent(state);else await this.checkAccess(actor,action,state,kinds,true);
+  await this.checkAccess(actor,action,structuredClone(draft),kinds);
+ }
 }
 
 /** Common channel protocol. Only authenticated server context supplies actor. */

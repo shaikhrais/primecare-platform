@@ -39,8 +39,9 @@ test('inbound handler bounds actual streamed bytes and propagates storage failur
 test('two real Chromium peers exchange audio packets, mute and release tracks',async()=>{
  const source=readFileSync('packages/shared/src/communications/audio-call.mjs');
  const base=readFileSync('packages/shared/src/communications/adapter-base.mjs');
+ const sessionSource=readFileSync('packages/shared/src/communications/audio-session.mjs');
  const server=createServer((request,response)=>{
-  const module=request.url.startsWith('/audio-call.mjs')?source:request.url.startsWith('/adapter-base.mjs')?base:null;
+  const module=request.url.startsWith('/audio-call.mjs')?source:request.url.startsWith('/adapter-base.mjs')?base:request.url.startsWith('/audio-session.mjs')?sessionSource:null;
   response.setHeader('Content-Type',module?'text/javascript':'text/html');
   response.end(module??'<!doctype html><title>Isolated audio transport test</title>');
  });
@@ -50,12 +51,25 @@ test('two real Chromium peers exchange audio packets, mute and release tracks',a
   browser=await chromium.launch({...(process.env.BUSINESS_TEST_CHROMIUM_EXECUTABLE?{executablePath:process.env.BUSINESS_TEST_CHROMIUM_EXECUTABLE}:{}),args:['--no-sandbox','--disable-dev-shm-usage','--use-fake-device-for-media-stream','--use-fake-ui-for-media-stream','--allow-loopback-in-peer-connection','--disable-features=WebRtcHideLocalIpsWithMdns']});
   const page=await browser.newPage();await page.goto('http://127.0.0.1:'+server.address().port+'/?enable-semantics=true');
   await page.evaluate(async()=>{
-   const {BrowserAudioCall}=await import('/audio-call.mjs');
-   const errors=[];const queue=[Promise.resolve(),Promise.resolve()];const peers=[];
-   const signal=recipient=>async message=>{queue[recipient]=queue[recipient].then(()=>peers[recipient].receive(message)).catch(error=>errors.push(error.message));};
-   for(let index=0;index<2;index++)peers.push(new BrowserAudioCall({sendSignal:signal(1-index),getUserMedia:constraints=>navigator.mediaDevices.getUserMedia(constraints),createPeer:configuration=>new RTCPeerConnection(configuration),configuration:{iceServers:[]}}));
-   await peers[0].start();await peers[1].start();await peers[0].offer();
-   window.fixture={peers,errors};
+   const {BrowserAudioSession}=await import('/audio-session.mjs');
+   const errors=[],sessions=[];
+   // Explicit isolated signaling fixture. Native registered HTTP and PostgreSQL
+   // behavior is covered separately in test-communication-http.mjs.
+   const record={id:'thread',kind:'conversation',version:3,members:['a','b'],calls:[{id:'call',callerId:'a',recipientId:'b',status:'accepted',signals:[]}]};
+   for(const userId of ['a','b']){
+    const transport={async execute(channel,input){
+     if(channel==='message')return structuredClone(record);
+     if(input.version!==record.version)throw Object.assign(Error('conflict'),{status:409});
+     record.version++;
+     if(input.action==='end')record.calls[0].status='ended';
+     else record.calls[0].signals.push({sequence:record.calls[0].signals.length+1,actorId:userId,signal:structuredClone(input.signal)});
+     return {id:record.id,version:record.version};
+    }};
+    sessions.push(new BrowserAudioSession({transport,userId,threadId:'thread',callId:'call',intervalMilliseconds:100,onError:error=>errors.push(error.message),media:{getUserMedia:constraints=>navigator.mediaDevices.getUserMedia(constraints),createPeer:configuration=>new RTCPeerConnection(configuration),configuration:{iceServers:[]}}}));
+   }
+   await sessions[0].start();await sessions[1].start();
+   const peers=sessions.map(session=>session.audio);
+   window.fixture={peers,errors,sessions};
   });
   let transport=[];
   const deadline=Date.now()+20000;
@@ -72,7 +86,7 @@ test('two real Chromium peers exchange audio packets, mute and release tracks',a
   const result=await page.evaluate(async()=>{
    const peers=window.fixture.peers;peers[0].mute(true);const muted=peers[0].stream.getAudioTracks().every(track=>!track.enabled);
    peers[0].mute(false);const unmuted=peers[0].stream.getAudioTracks().every(track=>track.enabled);
-   peers.forEach(peer=>peer.close());return {muted,unmuted,stopped:peers.every(peer=>peer.stream.getTracks().every(track=>track.readyState==='ended'))};
+   await window.fixture.sessions[0].hangUp();await window.fixture.sessions[1].refresh();return {muted,unmuted,stopped:peers.every(peer=>peer.stream.getTracks().every(track=>track.readyState==='ended'))};
   });
   assert.equal(result.muted,true);assert.equal(result.unmuted,true);assert.equal(result.stopped,true);
   result.transport=transport;

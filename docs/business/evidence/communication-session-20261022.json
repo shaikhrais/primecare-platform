@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-22",
+  "baseline_main": "1d51b9cec908ebb7224fc708c791bff200f439cb",
+  "scope": "inherited call session and proposed-mail creation policies",
+  "local_node": {
+    "passed": 114,
+    "failed": 0,
+    "skipped": 1,
+    "storage": "explicit isolated memory fixture; native acceptance requires CI"
+  },
+  "contract_report_tests": 7,
+  "strict_typescript": "passed",
+  "route_binding_parity": "passed",
+  "local_media": {
+    "synthetic": true,
+    "productUi": false,
+    "muted": true,
+    "unmuted": true,
+    "stopped": true,
+    "transport": [
+      {
+        "state": "new",
+        "audioPacketsReceived": 0,
+        "signalingState": "stable",
+        "iceState": "new",
+        "gatheringState": "complete",
+        "localType": "offer",
+        "remoteType": "answer",
+        "localAudio": true,
+        "remoteAudio": true,
+        "tracks": 1
+      },
+      {
+        "state": "new",
+        "audioPacketsReceived": 0,
+        "signalingState": "stable",
+        "iceState": "new",
+        "gatheringState": "complete",
+        "localType": "answer",
+        "remoteType": "offer",
+        "localAudio": true,
+        "remoteAudio": true,
+        "tracks": 1
+      }
+    ],
+    "audioPassed": false,
+    "browserVersion": "153.0.8010.0"
+  },
+  "production_activation": false,
+  "role_grants_changed": false,
+  "live_mail_sent": false,
+  "live_person_called": false,
+  "ci": "not yet recorded",
+  "remaining": [
+    "current case/contact/mailbox policy bindings",
+    "private picture/scanner provider",
+    "registered Flutter/native UI and media bridge",
+    "gateway/provider deployment",
+    "owned-user end-to-end acceptance"
+  ]
+}

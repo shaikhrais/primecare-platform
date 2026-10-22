@@ -13,6 +13,7 @@ import {BusinessMailService} from '../cloudflare/workers/src/business-tasks/mail
 import {CommunicationCore} from '../cloudflare/workers/src/business-tasks/channels.ts';
 import {PostgresAtomicStore} from '../cloudflare/workers/src/business-tasks/store.ts';
 import {MemoryAtomicStore} from './fixtures/business-memory-store.mjs';
+import {BrowserAudioSession} from '../packages/shared/src/communications/audio-session.mjs';
 const temp=await mkdtemp(join(tmpdir(),'communication-http-'));
 after(()=>rm(temp,{recursive:true,force:true}));
 await build({entryPoints:['cloudflare/workers/src/business-tasks/http.ts'],outfile:join(temp,'http.mjs'),bundle:true,platform:'node',format:'esm'});
@@ -44,12 +45,40 @@ const request=(actor,path,body,method='POST')=>worker.fetch(new Request('https:/
 const command=async(actor,path,body,expected=200)=>{const response=await request(actor,path,body);assert.equal(response.status,expected,await response.clone().text());return response.json();};
 const thread='thread:'+crypto.randomUUID();
 
+test('two shared audio sessions negotiate through registered HTTP, reload state and release on remote hangup',async()=>{
+ const id='call-session:'+crypto.randomUUID(),callId='audio:'+crypto.randomUUID();
+ await command('a','/v1/messages',{action:'create',id,key:'create',members:['a','b'],businessReference:'synthetic-general'});
+ await command('a','/v1/messages/calls',{action:'invite',id,key:'invite',version:1,callId,recipientId:'b'});
+ await command('b','/v1/messages/calls',{action:'accept',id,key:'accept',version:2,callId});
+ const sessions=[],stopped=[],remote=[];
+ for(const userId of ['a','b']){
+  const transport={async execute(channel,input){
+   const response=await request(userId,channel==='message'?'/v1/messages':'/v1/messages/calls',input);
+   const value=await response.json();if(!response.ok)throw Object.assign(Error(value.error),{status:response.status});return value;
+  }};
+  const peer={addTrack(){},close(){},remoteDescription:null,localDescription:null,
+   async createOffer(){return {type:'offer',sdp:'synthetic-offer'};},async createAnswer(){return {type:'answer',sdp:'synthetic-answer'};},
+   async setLocalDescription(value){this.localDescription={toJSON:()=>value};},
+   async setRemoteDescription(value){this.remoteDescription=value;remote.push({userId,type:value.type});},async addIceCandidate(){}};
+  sessions.push(new BrowserAudioSession({transport,userId,threadId:id,callId,intervalMilliseconds:10000,media:{configuration:{iceServers:[]},getUserMedia:async()=>({getTracks:()=>[{stop(){stopped.push(userId);}}]}),createPeer:()=>peer}}));
+ }
+ try{
+  await sessions[0].start();await sessions[1].start();await sessions[0].refresh();
+  assert.deepEqual(remote,[{userId:'b',type:'offer'},{userId:'a',type:'answer'}]);
+  const persisted=await command('b','/v1/messages',{action:'read',id});
+  assert.equal(persisted.calls[0].signals.length,2);assert.equal(persisted.calls[0].answered,true);
+  await sessions[0].hangUp();await sessions[1].refresh();assert.equal(sessions[1].closed,true);assert.deepEqual(stopped.sort(),['a','b']);
+  const reloaded=await command('b','/v1/messages',{action:'read',id});assert.equal(reloaded.calls[0].status,'ended');
+  await command('c','/v1/messages',{action:'read',id},404);await command('other','/v1/messages',{action:'read',id},404);
+ }finally{sessions.forEach(session=>session.close());}
+});
+
 test('registered HTTP message create, send, participant read and inbox persist',async()=>{
  await command('a','/v1/messages',{action:'create',id:thread,key:'create',members:['a','b'],businessReference:'synthetic-general'});
  const send={action:'send',id:thread,key:'send',version:1,text:'Synthetic message'};
  await command('a','/v1/messages',send);await command('a','/v1/messages',send);
  const record=await command('b','/v1/messages',{action:'read',id:thread});assert.equal(record.messages.length,1);assert.equal(record.messages[0].text,send.text);
- const inbox=await request('b','/v1/messages/inbox?limit=10',null,'GET');assert.equal(inbox.status,200);assert.equal((await inbox.json()).items[0].id,thread);
+ const inbox=await request('b','/v1/messages/inbox?limit=10',null,'GET');assert.equal(inbox.status,200);assert.ok((await inbox.json()).items.some(item=>item.id===thread));
  const outsider=await request('other','/v1/messages/inbox',null,'GET');assert.deepEqual((await outsider.json()).items,[]);
  await command('c','/v1/messages',{action:'read',id:thread},404);
  await command('other','/v1/messages',{action:'read',id:thread},404);

@@ -36,10 +36,11 @@ export class BusinessMailService extends ScopedServiceBase {
  async queue(actor:Actor,id:string,key:string,to:string,subject:string,text:string) {
   address(to);required(subject,200);
   if(typeof text!=='string'||!text.trim()||new TextEncoder().encode(text).byteLength>this.maxBytes)throw Error('Invalid mail body');
+  const draft={id,tenantId:actor.tenantId,version:0,kind:'outbound_mail',ownerId:actor.id,from:this.sender,to,subject,text,status:'queued'};
   return this.store.run({actor,id,key,expectedVersion:0,type:'mail.queue',payload:{to,subject,text}},
-   async state=>{await this.authorizeMail(actor,'mail.queue',state,true);await this.mailboxes.recipient(actor,to);},async state=>{
+   async state=>{await this.checkCreation(actor,'mail.queue',state,draft,['outbound_mail'],current=>this.authorizeMail(actor,'mail.queue',current,true));await this.mailboxes.recipient(actor,to);},async state=>{
     if(state)throw Error('Already exists');
-    return {state:{id,tenantId:actor.tenantId,version:0,kind:'outbound_mail',ownerId:actor.id,from:this.sender,to,subject,text,status:'queued'},event:'mail.queued'};
+    return {state:structuredClone(draft),event:'mail.queued'};
    });
  }
  async deliver(actor:Actor,id:string,key:string,expectedVersion:number) {
@@ -66,16 +67,19 @@ export class BusinessMailService extends ScopedServiceBase {
  async receive(envelope:{from:string;to:string;raw:Uint8Array}) {
   address(envelope.to);address(envelope.from);
   if(!(envelope.raw instanceof Uint8Array)||!envelope.raw.byteLength||envelope.raw.byteLength>this.maxBytes)throw Error('Invalid inbound size');
-  const mailbox=await this.mailboxes.resolve(envelope.to.toLowerCase());if(!mailbox)throw Error('Unknown mailbox');
-  const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new Uint8Array(envelope.raw))),byte=>byte.toString(16).padStart(2,'0')).join('');
+  const raw=new Uint8Array(envelope.raw),from=envelope.from,to=envelope.to.toLowerCase();
+  const mailbox=await this.mailboxes.resolve(to);if(!mailbox)throw Error('Unknown mailbox');
+  required(mailbox.tenantId);required(mailbox.mailboxId);
+  const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',raw)),byte=>byte.toString(16).padStart(2,'0')).join('');
   const id='mail:'+mailbox.mailboxId+':'+digest;
   const actor={id:'inbound-mail',tenantId:mailbox.tenantId};
+  let binary='';for(let i=0;i<raw.length;i+=8192)binary+=String.fromCharCode(...raw.subarray(i,i+8192));
+  const draft={id,tenantId:mailbox.tenantId,version:0,kind:'inbound_mail',mailboxId:mailbox.mailboxId,from,to,rawBase64:btoa(binary),digest,status:'quarantined',senderIdentityVerified:false};
   // The internal service identity still requires a registered permission policy.
-  return this.store.run({actor,id,key:digest,expectedVersion:0,type:'mail.receive',payload:{from:envelope.from,to:envelope.to.toLowerCase(),digest}},
-   state=>this.checkAccess(actor,'mail.receive',state,['inbound_mail'],true),async state=>{
+  return this.store.run({actor,id,key:digest,expectedVersion:0,type:'mail.receive',payload:{from,to,digest}},
+   state=>this.checkCreation(actor,'mail.receive',state,draft,['inbound_mail']),async state=>{
     if(state)throw Error('Already exists');
-    let binary='';for(let i=0;i<envelope.raw.length;i+=8192)binary+=String.fromCharCode(...envelope.raw.subarray(i,i+8192));
-    return {state:{id,tenantId:mailbox.tenantId,version:0,kind:'inbound_mail',mailboxId:mailbox.mailboxId,from:envelope.from,to:envelope.to.toLowerCase(),rawBase64:btoa(binary),digest,status:'quarantined',senderIdentityVerified:false},event:'mail.received'};
+    return {state:structuredClone(draft),event:'mail.received'};
    });
  }
 }

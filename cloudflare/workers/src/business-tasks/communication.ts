@@ -36,7 +36,7 @@ export class CommunicationService extends ScopedServiceBase {
   const memberIds=[...members];
   const draft={id,tenantId:actor.tenantId,version:0,kind:'conversation',members:memberIds,businessReference,messages:[],readThrough:{},calls:[]};
   return this.store.run({actor,id,key,expectedVersion:0,type:'conversation.create',payload:{members:memberIds,businessReference}},
-   async state => {await this.checkAccess(actor,'conversation.create',state,['conversation'],true);await this.policy.assert(actor,'conversation.create',structuredClone(draft));for(const member of memberIds) await this.policy.assignee(actor,member,'communication');},
+   async state => {await this.checkCreation(actor,'conversation.create',state,draft,['conversation']);for(const member of memberIds) await this.policy.assignee(actor,member,'communication');},
    async state => {
     if(state) throw Error('Already exists');
     return {state:structuredClone(draft),event:'conversation.created'};
