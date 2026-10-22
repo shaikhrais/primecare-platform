@@ -132,3 +132,13 @@ role or repeat endpoint maps. The factory adds no interceptor, login, grant, cac
 or retry. The explicit byte limit remains approved runtime configuration.
 Transport denial still throws instead of entering ApiClient demo/offline fallbacks.
 This binds the client layer; it does not make a placeholder screen functional.
+
+
+### Asynchronous input ownership
+
+CommunicationService snapshots attachment lists, upload bytes and nested call
+signals before asynchronous authorization. Callers retain ownership of their
+original inputs; changing them after invocation cannot change validated content,
+command fingerprints or saved communication records. Inbound email separately
+copies its raw bytes and envelope before mailbox resolution. Regression tests
+pause policy resolution to exercise these boundaries.

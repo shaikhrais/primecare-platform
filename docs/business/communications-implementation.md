@@ -404,3 +404,26 @@ The remaining provider, handler, shared-screen and deployed-user acceptance work
 is still open. Placeholder Flutter sections are not marked functional by this
 checkpoint; the new inherited clients and session factory are available for the
 registered composition once those release requirements are resolved.
+
+
+### Shared input snapshots (2026-10-22)
+
+CommunicationService now copies attachment IDs, picture bytes and nested call
+signals before asynchronous authorization/storage work. The validated content,
+idempotency payload and saved record therefore remain consistent when an in-process
+caller changes its original array, buffer or description while a policy awaits.
+This uses the existing inherited service and registered contracts; it adds no route,
+permission, database object or provider binding.
+
+Three adversarial regressions pause authorization, mutate the original input, and
+check the saved content. Attachment and signal retries also verify the original
+fingerprint remains reusable. All three fail against the previous source and pass
+with the fix. Local validation: 123 Node passes, one native PostgreSQL test skipped,
+strict TypeScript passes. Native database, media and Flutter CI results must be
+recorded separately after this source is pushed. Earlier source-specific acceptance
+results above do not certify this source or a deployed all-user release.
+
+The repository still lacks a registered native case/contact/mailbox policy source
+and live image-decoder/scanner/private-storage composition. Same-tenant defaults
+alone cannot substitute for those missing clinical/HR and mailbox relationships.
+The communication worker remains unmounted and user screens remain unfinished.

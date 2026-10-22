@@ -280,6 +280,54 @@ test('inbound byte and envelope snapshot remains consistent across asynchronous 
  assert.equal(record.digest,Buffer.from(expected).toString('hex'));
 });
 
+function delayedAuthorization(action) {
+ let release,entered;
+ const ready=new Promise(resolve=>{entered=resolve;});
+ const gate=new Promise(resolve=>{release=resolve;});
+ return {ready,release,policy:{...policy,async assert(actor,current,state){
+  await policy.assert(actor,current,state);
+  if(current===action){entered();await gate;}
+ }}};
+}
+test('attachment snapshot survives authorization waits and preserves retry fingerprints',async()=>{
+ const thread=id('attachment-snapshot');
+ const created=await communication.create(a,thread,'create',[a.id,b.id],'synthetic-task');
+ const picture=await communication.picture(a,thread,new Uint8Array([137,80,78,71,13,10,26,10,0]),'image/png');
+ const delay=delayedAuthorization('conversation.message');
+ const guarded=new CommunicationService(store,delay.policy,pictures,limits);
+ const attachments=[picture.id];
+ const sending=guarded.message(a,thread,'message',created.version,'Snapshot',attachments);
+ await delay.ready;attachments.splice(0,1,'unvalidated-picture');delay.release();
+ const result=await sending;
+ assert.deepEqual((await communication.read(b,thread)).messages[0].pictureIds,[picture.id]);
+ assert.deepEqual(await guarded.message(a,thread,'message',created.version,'Snapshot',[picture.id]),result);
+ await assert.rejects(guarded.message(a,thread,'message',created.version,'Snapshot',attachments),/Idempotency conflict/);
+});
+test('picture bytes are copied before any asynchronous authorization',async()=>{
+ const thread=id('picture-snapshot');await communication.create(a,thread,'create',[a.id,b.id],'synthetic-task');
+ const delay=delayedAuthorization('conversation.read');let processed;
+ const repository={...pictures,async prepare(actor,id,bytes,type){processed=[...bytes];return pictures.prepare(actor,id,bytes,type);}};
+ const guarded=new CommunicationService(store,delay.policy,repository,limits);
+ const bytes=new Uint8Array([137,80,78,71,13,10,26,10,7]),original=[...bytes];
+ const uploading=guarded.picture(a,thread,bytes,'image/png');
+ await delay.ready;bytes.fill(0);delay.release();await uploading;
+ assert.deepEqual(processed,original);
+});
+test('nested call signal snapshot survives authorization waits and preserves retry fingerprints',async()=>{
+ const thread=id('signal-snapshot');let result=await communication.create(a,thread,'create',[a.id,b.id],'synthetic-task');
+ result=await communication.call(a,thread,'invite',result.version,'invite','call',b.id);
+ result=await communication.call(b,thread,'accept',result.version,'accept','call');
+ const delay=delayedAuthorization('conversation.call');
+ const guarded=new CommunicationService(store,delay.policy,pictures,limits);
+ const signal={type:'offer',description:{type:'offer',sdp:'synthetic-original-sdp'}};
+ const original=structuredClone(signal),version=result.version;
+ const sending=guarded.signal(a,thread,'signal',version,'call',signal);
+ await delay.ready;signal.description.sdp='x'.repeat(limits.maxSignalBytes+1);delay.release();
+ result=await sending;
+ assert.deepEqual((await communication.read(b,thread)).calls[0].signals[0].signal,original);
+ assert.deepEqual(await guarded.signal(a,thread,'signal',version,'call',original),result);
+});
+
 test('sent mailbox paginates only authenticated ownership and returns metadata without bodies or receipts',async()=>{
  const sender={id:'inbox-sender',tenantId:a.tenantId};users.set(sender.id,sender);
  const ids=['c','a','b'].map(suffix=>'sent-'+suffix+'-'+crypto.randomUUID());

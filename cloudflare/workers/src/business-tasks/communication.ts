@@ -46,6 +46,8 @@ export class CommunicationService extends ScopedServiceBase {
   if (typeof text !== 'string' || text.length > this.limits.maxText || /[\u0000\u000b\u000c]/.test(text)) throw Error('Invalid message');
   if (!Array.isArray(pictureIds) || pictureIds.length > this.limits.maxPictures || new Set(pictureIds).size !== pictureIds.length || !text.trim() && !pictureIds.length) throw Error('Empty or invalid message');
   pictureIds.forEach(picture => required(picture));
+  // Keep validation, the idempotency fingerprint and persistence on one snapshot.
+  pictureIds=[...pictureIds];
   return this.store.run({actor,id,key,expectedVersion,type:'conversation.message',payload:{text,pictureIds}},
    state => this.authorize(actor,'conversation.message',state),async state => {
     if (state!.messages.length >= this.limits.maxMessages) throw Error('Conversation storage limit');
@@ -58,8 +60,8 @@ export class CommunicationService extends ScopedServiceBase {
    });
  }
  async picture(actor: Actor, id: string, bytes: Uint8Array, mediaType: string) {
-  await this.read(actor,id);
   if (!(bytes instanceof Uint8Array) || !bytes.length || bytes.length > this.limits.maxPictureBytes) throw Error('Invalid picture size');
+  bytes=new Uint8Array(bytes);
   const png = bytes.length >= 8 && [137,80,78,71,13,10,26,10].every((value,index) => bytes[index] === value);
   const jpeg = bytes.length >= 3 && bytes[0]===255 && bytes[1]===216 && bytes[2]===255;
   if (!(mediaType === 'image/png' && png || mediaType === 'image/jpeg' && jpeg)) throw Error('Invalid picture type');
@@ -114,6 +116,7 @@ export class CommunicationService extends ScopedServiceBase {
  async signal(actor: Actor, id: string, key: string, expectedVersion: number, callId: string, signal: {type:string;description?:{type:string;sdp:string};candidate?:Record<string,unknown>}) {
   required(callId);
   if(!signal||!['offer','answer','candidate'].includes(signal.type)||new TextEncoder().encode(JSON.stringify(signal)).length>this.limits.maxSignalBytes)throw Error('Invalid signal');
+  signal=structuredClone(signal);
   const keys=Object.keys(signal);
   if(signal.type==='candidate') {
    if(keys.some(key=>!['type','candidate'].includes(key))||!signal.candidate||typeof signal.candidate!=='object'||Array.isArray(signal.candidate)||typeof signal.candidate.candidate!=='string')throw Error('Invalid candidate');
