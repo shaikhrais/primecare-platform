@@ -83,9 +83,10 @@ jobs:
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - name: Require reproducible registered MFA labels
         run: |
+          sha256sum packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart packages/primecare_ui/lib/src/features/auth/auth_lifecycle_catalog.g.dart > /tmp/candidate-catalogs.sha256
           python scripts/generate-flutter-auth-lifecycle-catalog.py
           python scripts/generate-flutter-mfa-catalog.py
-          git diff --exit-code -- packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart
+          sha256sum --check /tmp/candidate-catalogs.sha256
       - name: Core MFA session boundary and previous session regressions
         working-directory: packages/flutter_core
         run: |
