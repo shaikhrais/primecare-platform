@@ -243,3 +243,9 @@ The broader historical-fixture gate correctly flagged the new live permission re
 ### Native business email transport
 
 `NativeBusinessMailTransport` implements the existing mail port for Cloudflare's configured native EMAIL binding. The inherited `BusinessMailService` still owns queue/claim/receipt state, ownership, mailbox access and ambiguous-send handling. The adapter fixes the configured sender, forwards only supported fields, bounds actual UTF-8 text plus rendered HTML, validates provider receipts and never retries or leaks provider errors. Five adapter checks passed locally. Existing mail service tests now compose this actual adapter with a synthetic native binding; native CI must pass before claiming that combined storage verification. No live message was sent and no mailbox or endpoint was activated.
+
+### Shared native worker composition
+
+`PostgresCommunicationWorker<E>` extends `CommunicationHttpWorker<E>`. It creates the shared PostgreSQL store, inherited conversation/mail services, four channel core, current-session authenticator, current pinned-governance endpoint checker and native email transport once from explicit dependencies. Its trusted `email()` event delegates to the inherited bounded inbound adapter and the same mail service. Ordinary HTTP still has no inbound-ingestion action. A `.d.mts` contract describes the existing JavaScript inbound adapter without copying its implementation.
+
+Six composition checks passed locally, covering session and tenant denial before storage, explicit current endpoint denial, generic database failures, trusted-event byte rejection and required dependencies. These are isolated adapter checks, not live user acceptance. Deployment deliberately remains unmounted: current case/contact/mailbox policies, owned provider configuration, private picture decoding/scanning/storage, native call client integration and the shared registered UI still require completion.

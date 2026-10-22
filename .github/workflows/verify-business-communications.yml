@@ -111,7 +111,7 @@ jobs:
       - name: Strict service types and existing email compatibility
         run: |
           node_modules/.bin/tsc --noEmit --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strict --skipLibCheck --resolveJsonModule cloudflare/workers/src/business-tasks/*.ts
-          node --test scripts/test-email-runtime-validation.mjs scripts/test-communication-session.mjs scripts/test-communication-endpoint-policy.mjs scripts/test-communication-native-mail.mjs
+          node --test scripts/test-email-runtime-validation.mjs scripts/test-communication-session.mjs scripts/test-communication-endpoint-policy.mjs scripts/test-communication-native-mail.mjs scripts/test-communication-runtime.mjs
       - name: All candidate workflow services and communications with native PostgreSQL
         run: node --test scripts/test-business-communications.mjs
       - name: Registered HTTP contracts through native PostgreSQL
