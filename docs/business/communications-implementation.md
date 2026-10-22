@@ -86,8 +86,7 @@ ambiguous email delivery or substitute demo responses.
 
 The new transport suite covers session reuse, command versions/keys, GET query
 encoding, copied multipart bytes, denied/unbound commands, unsafe route maps,
-malformed/error responses, single-attempt network failure and bounded private picture downloads (including oversized, mislabeled and truncated streams). CI must pass before
-this checkpoint is counted as verified. This is an integration adapter, not a
+malformed/error responses, single-attempt network failure and bounded private picture downloads (including oversized, mislabeled and truncated streams). CI run [39799606375](https://github.com/shaikhrais/primecare-platform/actions/runs/39799606375) passed on source `5bff14600d6d3d7246adf188ec7f4ea43196f58e`: 489 Flutter tests (10 adapter tests plus 479 regressions), 72 Node tests, strict TypeScript, Dart analysis and the pure Dart contract harness. The media artifact 12434907076 records Chrome 155.0.8059.39 and 4/5 received audio packets, mute/unmute and track cleanup. This is an integration adapter, not a
 claim that unregistered production commands or Flutter screens are exposed.
 Production contract/policy registration, private storage/scanner bindings,
 mailbox routing, real call signaling/relay and user acceptance remain open.
