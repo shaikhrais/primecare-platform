@@ -1,6 +1,6 @@
 # Business flags: sales, operations and people
 Date: 2026-10-22. Owner: business leadership; technical delivery: platform team.
-Status: requirements drafted; not production registered, implemented or deployed.
+Status: requirements drafted; shared domain base classes tested; live business-flag integrations not production registered, implemented or deployed.
 This is an internal business policy proposal, not a Google policy or a clinical triage protocol.
 
 ## Sell and measure the business
@@ -100,6 +100,6 @@ Production registration for this new framework has not been established. Prior t
 | Mobile, keyboard, screen reader and translations | Real current-client evidence with data/API persistence |
 
 ## Current delivery evidence
-Requirements document only. No new runtime API, screen, automatic escalation, message or business record was created.
+Shared domain classes now live in packages/shared/src/business/base.ts, with usage and extension guidance in that directory's README.md. GrowthAnalytics inherits existing campaign arithmetic from BusinessMetricsBase, preserving its public API. SalesTargetRule and IncidentFlagRule share the BusinessFlagRule contract; neither has a live evidence adapter yet. No new runtime API, screen, automatic escalation, message or business record was created.
 No completion, architecture approval, security approval or deployed screenshot is claimed.
 Next delivery step: production registration mapping and required reviews, followed by implementation and the acceptance scenarios above.
