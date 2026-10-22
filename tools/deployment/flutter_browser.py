@@ -12,7 +12,7 @@ def _settle_flutter_control(control, *, focused=False):
         const position = [box.x, box.y, box.width, box.height].join(',');
         if (!ready || position !== previous) settledAt = now;
         previous = position;
-        if (element.isConnected && ready && box.width > 0 && box.height > 0 && now - settledAt >= 250) return resolve();
+        if (element.isConnected && ready && box.width > 0 && box.height > 0 && now - settledAt >= (requireFocus ? 250 : 600)) return resolve();
         if (!element.isConnected || now >= deadline) return reject(new Error('Flutter control position or focus did not settle'));
         requestAnimationFrame(frame);
       }

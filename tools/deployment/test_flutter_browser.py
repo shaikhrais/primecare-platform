@@ -49,7 +49,7 @@ class FocusHandoffTests(unittest.TestCase):
               <input aria-label="fixture" onclick="
                 window.clicks=(window.clicks||0)+1;
                 if(performance.now()<window.readyAt)document.getElementById('other').focus()">
-              <script>window.readyAt=Infinity;window.addEventListener('scroll',()=>window.readyAt=performance.now()+160)</script>''')
+              <script>window.readyAt=Infinity;window.addEventListener('scroll',()=>window.readyAt=performance.now()+450)</script>''')
             field = page.get_by_label('fixture')
             fill_flutter_field(page, field, 'fixture-proof')
             expect(field).to_be_focused()
