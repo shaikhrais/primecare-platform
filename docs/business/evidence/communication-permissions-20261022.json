@@ -1,0 +1,18 @@
+{
+  "sourceCommit": "2f401fed2d041c92251c3825a4bde0be6d0bb58c",
+  "run": "https://github.com/shaikhrais/primecare-platform/actions/runs/39825070796",
+  "nativeJob": 119986089942,
+  "nativeJobConclusion": "success",
+  "nativePermissionSqlVerified": true,
+  "newSessionChecks": 5,
+  "newPermissionChecks": 6,
+  "permissionsChanged": false,
+  "liveFeatureVerified": false,
+  "remaining": [
+    "restricted-case/contact/mailbox policy composition",
+    "picture/call/email provider connections",
+    "gateway mounting",
+    "shared registered UI",
+    "owned-user end-to-end acceptance"
+  ]
+}

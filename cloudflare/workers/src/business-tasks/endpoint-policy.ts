@@ -28,7 +28,7 @@ export class PostgresCommunicationEndpointPolicy {
    const result=await client.query(`SELECT DISTINCT ${value('r','id')} AS role_id,${value('s','id')} AS screen_id
     FROM public.users u
     JOIN ${table('roles')} r ON ${value('r','role_code')}=u.roles::text AND ${value('r','active')}='1'
-    JOIN ${table('api_permissions')} ap ON ${value('ap','role_id')}=${value('r','id')} AND ${value('ap','can_access')}='1'
+    JOIN ${table('api_permissions')} ap ON ${value('ap','role_id')}=${value('r','id')} AND ${value('ap','can_access')}='1' AND ${value('ap','permission_key')}='role_screen_permissions'
     JOIN ${table('api_endpoints')} a ON ${value('a','id')}=${value('ap','api_id')}
     JOIN ${table('screen_api_links')} l ON ${value('l','api_id')}=${value('a','id')}
     JOIN ${table('screens')} s ON ${value('s','id')}=${value('l','screen_id')} AND ${value('s','active')}='1'

@@ -113,12 +113,20 @@ def apply(db,expected_digest,fail_after=None):
 
 def consumer_preflight(root):
     # Worker/Dart runtime paths must not consume this corrupt catalog table.
-    found=[]
+    found=[];reviewed=[]
+    review_path=root/'docs/business/evidence/communication-runtime-reader-review.json'
+    reviews=json.loads(review_path.read_text()) if review_path.is_file() else {}
     for area in ('cloudflare','services','packages','apps'):
         for p in (root/area).rglob('*'):
-            if p.is_file() and p.suffix in ('.py','.ts','.dart','.js','.mjs','.sql') and 'api_permissions' in p.read_text(errors='replace'):found.append(str(p.relative_to(root)))
+            if p.is_file() and p.suffix in ('.py','.ts','.dart','.js','.mjs','.sql') and 'api_permissions' in p.read_text(errors='replace'):
+                relative=str(p.relative_to(root));entry=reviews.get(relative,{})
+                if (relative=='cloudflare/workers/src/business-tasks/endpoint-policy.ts' and
+                    entry.get('sha256')==hashlib.sha256(p.read_bytes()).hexdigest() and
+                    entry.get('authority')=='pinned-production-postgresql' and entry.get('historicalCatalogAccess') is False):
+                    reviewed.append(relative)
+                else:found.append(relative)
     if found:raise ValueError('Runtime consumers require fail-closed review: '+str(found))
-    return {'runtimeReferences':[],'scope':['cloudflare','services','packages','apps'],'policy':'No runtime table consumer found; generated permission contracts remain independently enforced.'}
+    return {'runtimeReferences':reviewed,'scope':['cloudflare','services','packages','apps'],'policy':'Only exact source-hashed production readers are admitted; historical catalog consumers remain forbidden.'}
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--db',type=Path,required=True);parser.add_argument('--apply-digest');args=parser.parse_args()

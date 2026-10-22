@@ -1,0 +1,15 @@
+{
+  "cloudflare/workers/src/business-tasks/endpoint-policy.ts": {
+    "sha256": "8fbaca64995b1deef3ca857ee79c96c4a5288132436f53e9504ea6ddb63b2f38",
+    "authority": "pinned-production-postgresql",
+    "historicalCatalogAccess": false,
+    "basis": [
+      "Exact pinned manifest required",
+      "Explicit role_screen_permissions grant key excludes historical api_permission_* collision grants",
+      "Current API and screen grant required",
+      "Read-only transaction; no grants written"
+    ],
+    "nativeTest": "scripts/test-communication-endpoint-policy.mjs",
+    "activation": false
+  }
+}

@@ -65,4 +65,15 @@ class QuarantineTest(unittest.TestCase):
             root=Path(directory);(root/'services').mkdir();(root/'services'/'runtime.dart').write_text('SELECT * FROM api_permissions')
             with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
 
+    def test_exact_production_reader_review_and_source_drift(self):
+        import tempfile,json,hashlib
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);relative='cloudflare/workers/src/business-tasks/endpoint-policy.ts'
+            source=root/relative;source.parent.mkdir(parents=True);source.write_text('api_permissions production reader')
+            review=root/'docs/business/evidence/communication-runtime-reader-review.json';review.parent.mkdir(parents=True)
+            review.write_text(json.dumps({relative:{'sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'authority':'pinned-production-postgresql','historicalCatalogAccess':False}}))
+            self.assertEqual(m.consumer_preflight(root)['runtimeReferences'],[relative])
+            source.write_text(source.read_text()+' changed')
+            with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
+
 if __name__=='__main__':unittest.main()

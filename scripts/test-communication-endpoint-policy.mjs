@@ -39,12 +39,14 @@ test('native PostgreSQL evaluates tagged and native current grants',{skip:!proce
   await q('CREATE SCHEMA '+schema);ownsSchema=true;
   await q(`CREATE TABLE ${schema}.govt_source_manifest(manifest_sha256 text); INSERT INTO ${schema}.govt_source_manifest VALUES('${pin.manifestSha256}')`);
   await q("CREATE TABLE public.users(id text,tenant_id text,roles text,status text)");ownsUsers=true;await q("INSERT INTO public.users VALUES('fixture-user','fixture-tenant','fixture-role','active')");
-  const definitions={roles:'id text,role_code text,active text',api_permissions:'api_id text,role_id text,can_access text',api_endpoints:'id text,http_method text,route_path text,service_name text,auth_required text,permission_key jsonb',screen_api_links:'api_id text,screen_id text',screens:'id text,active text',role_screen_permissions:'role_id text,screen_id text,can_view text'};
+  const definitions={roles:'id text,role_code text,active text',api_permissions:'api_id text,role_id text,can_access text,permission_key text',api_endpoints:'id text,http_method text,route_path text,service_name text,auth_required text,permission_key jsonb',screen_api_links:'api_id text,screen_id text',screens:'id text,active text',role_screen_permissions:'role_id text,screen_id text,can_view text'};
   for(const [name,columns]of Object.entries(definitions))await q(`CREATE TABLE ${schema}.govt_${name}(${columns})`);
-  const inserts={roles:"'7','fixture-role','1'",api_permissions:"'710','7','1'",api_endpoints:`'710','POST','/v1/messages','governance','1','{"t":"text","v":"role_screen_permissions"}'::jsonb`,screen_api_links:"'710','234'",screens:"'234','1'",role_screen_permissions:"'7','234','1'"};
+  const inserts={roles:"'7','fixture-role','1'",api_permissions:"'710','7','1','role_screen_permissions'",api_endpoints:`'710','POST','/v1/messages','governance','1','{"t":"text","v":"role_screen_permissions"}'::jsonb`,screen_api_links:"'710','234'",screens:"'234','1'",role_screen_permissions:"'7','234','1'"};
   for(const [name,values]of Object.entries(inserts))await q(`INSERT INTO ${schema}.govt_${name} VALUES(${values})`);
   const policy=new PostgresCommunicationEndpointPolicy(pool);await policy.authorize(actor,710,request);
   await assert.rejects(policy.authorize({...actor,tenantId:'other'},710,request),/Forbidden/);
+  await q(`UPDATE ${schema}.govt_api_permissions SET permission_key='api_permission_collision'`);await assert.rejects(policy.authorize(actor,710,request),/Forbidden/);
+  await q(`UPDATE ${schema}.govt_api_permissions SET permission_key='role_screen_permissions'`);
   await q(`UPDATE ${schema}.govt_api_permissions SET can_access='0'`);await assert.rejects(policy.authorize(actor,710,request),/Forbidden/);
   await q(`UPDATE ${schema}.govt_api_permissions SET can_access='1'; UPDATE ${schema}.govt_role_screen_permissions SET can_view='0'`);await assert.rejects(policy.authorize(actor,710,request),/Forbidden/);
   await q(`UPDATE ${schema}.govt_role_screen_permissions SET can_view='1'; UPDATE ${schema}.govt_api_endpoints SET permission_key='{"t":"unknown","v":"role_screen_permissions"}'::jsonb`);await assert.rejects(policy.authorize(actor,710,request),/Forbidden/);
