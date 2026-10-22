@@ -15,6 +15,7 @@ import 'package:primecare_ui/src/screens/common/patient_messages/patient_message
 import 'package:primecare_ui/src/screens/psw/messaging/messaging_screen.dart';
 import 'package:primecare_ui/src/screens/psw/psw_messages/psw_messages_screen.dart';
 import '../../flutter_core/test/fixtures/communication_workspace_transport.dart';
+import '../../flutter_core/test/fixtures/communication_channels_transport.dart' show MediaFixture;
 
 class WorkspaceSessionFixture extends AuthNotifier {
  @override AuthState build()=>AuthState(isInitialized:true,isAuthenticated:true,userId:'alice',tenantId:'tenant-a',token:'synthetic-session-a');
@@ -35,18 +36,21 @@ void main(){
   expect(CommunicationScreenBase.implementationTags['productionReady'],false);
  });
  test('session-dependent provider disposes private state on account change and logout',() async {
+  MediaFixture? activeMedia;transport.record['calls']=[{'id':'call','callerId':'alice','recipientId':'bob','status':'accepted'}];
   final dio=Dio(BaseOptions(baseUrl:'https://synthetic.invalid'));
-  dio.interceptors.add(InterceptorsWrapper(onRequest:(options,handler)=>handler.resolve(Response(requestOptions:options,statusCode:200,data:{'items':[clone(transport.record)]}))));
-  final container=ProviderContainer(overrides:[authProvider.overrideWith(WorkspaceSessionFixture.new),apiClientProvider.overrideWith((ref)=>ApiClient(ref,transport:dio))]);
+  dio.interceptors.add(InterceptorsWrapper(onRequest:(options,handler)=>handler.resolve(Response(requestOptions:options,statusCode:200,data:options.path.endsWith('/inbox')?{'items':[clone(transport.record)]}:clone(transport.record)))));
+  final container=ProviderContainer(overrides:[authProvider.overrideWith(WorkspaceSessionFixture.new),apiClientProvider.overrideWith((ref)=>ApiClient(ref,transport:dio)),communicationMediaFactoryProvider.overrideWith((ref)=>({required hub,required userId,required tenantId,required threadId,required callId,required onState}) async {activeMedia=MediaFixture(onState);return activeMedia!;})]);
   final subscription=container.listen(communicationWorkspaceControllerProvider,(previous,next){},fireImmediately:true);
+  final mailSubscription=container.listen(communicationMailControllerProvider,(previous,next){},fireImmediately:true);
+  final callSubscription=container.listen(communicationCallControllerProvider,(previous,next){},fireImmediately:true);
   try{
-   final first=container.read(communicationWorkspaceControllerProvider)!;expect(await first.loadInbox(),true);expect(first.inbox,isNotEmpty);
+   final first=container.read(communicationWorkspaceControllerProvider)!;final firstMail=container.read(communicationMailControllerProvider)!;final firstCalls=container.read(communicationCallControllerProvider)!;expect(await first.loadInbox(),true);expect(first.inbox,isNotEmpty);await first.openThread('thread');await Future<void>.delayed(Duration.zero);expect(await firstCalls.connect('call'),true);expect(activeMedia!.closed,false);
    (container.read(authProvider.notifier) as WorkspaceSessionFixture).replace(AuthState(isInitialized:true,isAuthenticated:true,userId:'alice',tenantId:'tenant-a',token:'synthetic-session-a',role:'fixture-changed-role'));
-   final changedRole=container.read(communicationWorkspaceControllerProvider)!;expect(identical(first,changedRole),false);expect(first.isDisposed,true);expect(changedRole.inbox,isEmpty);
+   final changedRole=container.read(communicationWorkspaceControllerProvider)!;container.read(communicationMailControllerProvider);container.read(communicationCallControllerProvider);expect(identical(first,changedRole),false);expect(first.isDisposed,true);expect(firstMail.isDisposed,true);expect(firstCalls.isDisposed,true);expect(activeMedia!.closed,true);expect(changedRole.inbox,isEmpty);
    (container.read(authProvider.notifier) as WorkspaceSessionFixture).replace(AuthState(isInitialized:true,isAuthenticated:true,userId:'bob',tenantId:'tenant-b',token:'synthetic-session-b'));
-   final second=container.read(communicationWorkspaceControllerProvider)!;expect(identical(changedRole,second),false);expect(changedRole.isDisposed,true);expect(first.inbox,isEmpty);expect(second.userId,'bob');expect(second.tenantId,'tenant-b');
-   (container.read(authProvider.notifier) as WorkspaceSessionFixture).replace(AuthState(isInitialized:true));expect(container.read(communicationWorkspaceControllerProvider),isNull);expect(second.isDisposed,true);
-  }finally{subscription.close();container.dispose();dio.close(force:true);}
+   final second=container.read(communicationWorkspaceControllerProvider)!;expect(identical(changedRole,second),false);expect(changedRole.isDisposed,true);expect(first.inbox,isEmpty);expect(second.userId,'bob');expect(second.tenantId,'tenant-b');final secondMail=container.read(communicationMailControllerProvider)!;final secondCalls=container.read(communicationCallControllerProvider)!;expect(secondMail.userId,'bob');expect(secondCalls.tenantId,'tenant-b');
+   (container.read(authProvider.notifier) as WorkspaceSessionFixture).replace(AuthState(isInitialized:true));expect(container.read(communicationWorkspaceControllerProvider),isNull);expect(container.read(communicationMailControllerProvider),isNull);expect(container.read(communicationCallControllerProvider),isNull);expect(second.isDisposed,true);expect(secondMail.isDisposed,true);expect(secondCalls.isDisposed,true);
+  }finally{subscription.close();mailSubscription.close();callSubscription.close();container.dispose();dio.close(force:true);}
  });
  testWidgets('inbox open, send and reload render the actual returned message', (tester) async {
   await tester.pumpWidget(app());await tester.pumpAndSettle();
