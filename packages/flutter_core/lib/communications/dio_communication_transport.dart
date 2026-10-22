@@ -31,7 +31,7 @@ abstract base class CommunicationTransportBase implements CommunicationTransport
     'message': {'create', 'send', 'read', 'mark_read', 'inbox'},
     'picture': {'upload', 'open'},
     'audio': {'invite', 'accept', 'decline', 'end', 'expire', 'signal'},
-    'email': {'queue', 'deliver', 'read'},
+    'email': {'queue', 'deliver', 'read', 'inbox'},
   };
 
   @override

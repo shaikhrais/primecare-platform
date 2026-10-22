@@ -1,7 +1,7 @@
 {
   "authority": "pinned-production-postgresql",
-  "sourceCommit": "594b02b249742029940030d41aae33d2822d6109",
-  "registrationRun": 39811946324,
+  "sourceCommit": "4f5409621c097116b3c1953b3a7255e802579d76",
+  "registrationRun": 39850982551,
   "activation": false,
   "roleGrantsChanged": false,
   "apis": [
@@ -738,6 +738,140 @@
         "x-primecare-content-type": "application/json"
       },
       "operation": "email.command"
+    },
+    {
+      "id": 16512,
+      "method": "GET",
+      "path": "/v1/messages/email/inbox",
+      "status": "registered-unimplemented",
+      "permission": "role_screen_permissions",
+      "service": "governance",
+      "authRequired": 1,
+      "requestSchema": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "after": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "direction": {
+                "const": "inbound"
+              },
+              "limit": {
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "mailboxId": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "direction",
+              "mailboxId"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "after": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "direction": {
+                "const": "outbound"
+              },
+              "limit": {
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "direction"
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "responseSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "id": {
+                  "maxLength": 200,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "kind": {
+                  "enum": [
+                    "inbound_mail",
+                    "outbound_mail"
+                  ]
+                },
+                "status": {
+                  "type": "string"
+                },
+                "subject": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                },
+                "version": {
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "version",
+                "kind",
+                "status",
+                "from",
+                "to"
+              ],
+              "type": "object"
+            },
+            "maxItems": 100,
+            "type": "array"
+          },
+          "nextAfter": {
+            "oneOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "nextAfter"
+        ],
+        "type": "object",
+        "x-primecare-content-type": "application/json"
+      },
+      "operation": "email.inbox"
     }
   ]
 }

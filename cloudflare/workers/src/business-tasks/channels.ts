@@ -50,7 +50,8 @@ export class AudioChannel extends CommunicationChannelBase<AudioRequest,unknown>
  }
 }
 export type EmailRequest = {action:'queue';id:string;key:string;to:string;subject:string;text:string}
- | (Versioned & {action:'deliver'}) | {action:'read';id:string};
+ | (Versioned & {action:'deliver'}) | {action:'read';id:string}
+ | {action:'inbox';direction:'inbound'|'outbound';mailboxId?:string;limit?:number;after?:string};
 export class EmailChannel extends CommunicationChannelBase<EmailRequest,unknown> {
  readonly channel='email' as const;
  readonly service:BusinessMailService;
@@ -60,6 +61,7 @@ export class EmailChannel extends CommunicationChannelBase<EmailRequest,unknown>
    case 'queue':return this.service.queue(actor,request.id,request.key,request.to,request.subject,request.text);
    case 'deliver':return this.service.deliver(actor,request.id,request.key,request.version);
    case 'read':return this.service.read(actor,request.id);
+   case 'inbox':return this.service.inbox(actor,request.direction,request.mailboxId,request.limit,request.after);
    default:throw Error('Invalid email action');
   }
  }

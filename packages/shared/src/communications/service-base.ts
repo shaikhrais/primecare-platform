@@ -7,6 +7,7 @@ export interface AtomicStore {
  run(command:Command,authorize:(state:RecordState|null)=>Promise<void>,apply:(state:RecordState|null)=>Promise<Change>):Promise<any>;
  read(actor:Actor,id:string,authorize:(state:RecordState)=>Promise<void>):Promise<RecordState>;
  inbox(actor:Actor,kind:'workflow'|'conversation',authorize:(state:RecordState)=>Promise<void>,limit?:number):Promise<RecordState[]>;
+ mailInbox?(actor:Actor,direction:'inbound'|'outbound',mailboxId:string|undefined,authorize:(state:RecordState)=>Promise<void>,limit?:number,after?:string):Promise<{items:RecordState[];nextAfter:string|null}>;
 }
 export interface AccessPolicy {
  /** Resolve authenticated identity, current registered permissions and restricted-case scope. */

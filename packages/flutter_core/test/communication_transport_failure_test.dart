@@ -12,7 +12,12 @@ void main() {
     'PATCH': (client, path) => client.patch(path, body: {}),
     'DELETE': (client, path) => client.delete(path),
   };
-  for (final path in ['/v1/psw/messages', '/v1/messages/inbox']) {
+  for (final path in [
+    '/v1/psw/messages', '/v1/messages/inbox',
+    '/staff/communication', '/common/patient-messages', '/clinic/messaging',
+    '/offices/clinical/roles/psw/messages', '/v1/communication',
+    '/v1/messaging', '/v1/psw-messages', '/v1/patient-messages',
+  ]) {
     for (final method in methods.entries) {
       test('${method.key} $path never replaces a failed request with demo success', () async {
         final dio = Dio(BaseOptions(baseUrl: 'https://api.example.invalid'));

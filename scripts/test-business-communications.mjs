@@ -279,3 +279,47 @@ test('inbound byte and envelope snapshot remains consistent across asynchronous 
  const expected=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(original));
  assert.equal(record.digest,Buffer.from(expected).toString('hex'));
 });
+
+test('sent mailbox paginates only authenticated ownership and returns metadata without bodies or receipts',async()=>{
+ const sender={id:'inbox-sender',tenantId:a.tenantId};users.set(sender.id,sender);
+ const ids=['c','a','b'].map(suffix=>'sent-'+suffix+'-'+crypto.randomUUID());
+ for(const message of ids)await mail.queue(sender,message,'queue','recipient@example.invalid','Synthetic subject','Private body must not be listed');
+ const first=await mail.inbox(sender,'outbound',undefined,2);
+ assert.equal(first.items.length,2);assert.deepEqual(first.items.map(item=>item.id),[...ids].sort().slice(0,2));assert.equal(first.nextAfter,first.items[1].id);
+ const last=await mail.inbox(sender,'outbound',undefined,2,first.nextAfter);
+ assert.equal(last.items.length,1);assert.equal(last.nextAfter,null);assert.deepEqual([...first.items,...last.items].map(item=>item.id),[...ids].sort());
+ for(const summary of first.items){assert.equal(summary.kind,'outbound_mail');assert.equal(summary.subject,'Synthetic subject');for(const field of ['text','html','rawBase64','providerMessageId','tenantId','ownerId'])assert.equal(Object.hasOwn(summary,field),false);}
+ assert.equal((await mail.inbox(sender,'outbound',undefined,2,"zz' OR 1=1 --")).items.length,0);
+});
+
+test('received mailbox discovery enforces current access on every page and excludes other mailbox and tenant records',async()=>{
+ const mailboxId='mailbox-'+crypto.randomUUID();let blocked=false;
+ const boxes={...mailboxes,async resolve(address){return {tenantId:a.tenantId,mailboxId:address==='second@example.invalid'?'second':mailboxId};},async access(actor,selected){if(blocked||actor.id!==b.id||selected!==mailboxId)throw Error('Forbidden');}};
+ const scoped=new BusinessMailService(store,policy,boxes,mail.transport,'sender@example.invalid',2048);
+ const ids=[];
+ for(let i=0;i<3;i++){const result=await scoped.receive({from:'outside@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode('Private fixture '+crypto.randomUUID())});ids.push(result.id);}
+ await scoped.receive({from:'outside@example.invalid',to:'second@example.invalid',raw:new TextEncoder().encode('Other mailbox '+crypto.randomUUID())});
+ const first=await scoped.inbox(b,'inbound',mailboxId,2);assert.deepEqual(first.items.map(item=>item.id),ids.sort().slice(0,2));assert.ok(first.nextAfter);
+ assert.ok(!JSON.stringify(first).includes('rawBase64'));assert.ok(first.items.every(item=>item.status==='quarantined'));
+ const last=await scoped.inbox(b,'inbound',mailboxId,2,first.nextAfter);assert.equal(last.items.length,1);assert.equal(last.nextAfter,null);
+ await assert.rejects(scoped.inbox(a,'inbound',mailboxId),/Forbidden/);await assert.rejects(scoped.inbox(b,'inbound','second'),/Forbidden/);
+ const broadFixture=new BusinessMailService(store,policy,{...boxes,async access(){}},mail.transport,'sender@example.invalid',2048);
+ assert.deepEqual(await broadFixture.inbox(outsider,'inbound',mailboxId),{items:[],nextAfter:null});
+ blocked=true;await assert.rejects(scoped.inbox(b,'inbound',mailboxId,2,first.nextAfter),/Forbidden/);
+});
+
+test('mailbox scope rejection precedes storage and malformed paging cannot become an unbounded query',async()=>{
+ let queries=0;
+ const tracked={run:store.run.bind(store),read:store.read.bind(store),inbox:store.inbox.bind(store),async mailInbox(...args){queries++;return store.mailInbox(...args);}};
+ const scoped=new BusinessMailService(tracked,policy,mailboxes,mail.transport,'sender@example.invalid',2048);
+ await assert.rejects(scoped.inbox(c,'inbound','owned'),/Forbidden/);assert.equal(queries,0);
+ for(const args of [['all'],['inbound'],['outbound','owned'],['outbound',undefined,0],['outbound',undefined,101],['outbound',undefined,1,' ']])await assert.rejects(scoped.inbox(a,...args));
+ assert.equal(queries,0);
+});
+test('legacy atomic adapters retain queue/read support and cannot fabricate mailbox listing',async()=>{
+ const legacy={run:store.run.bind(store),read:store.read.bind(store),inbox:store.inbox.bind(store)};
+ const scoped=new BusinessMailService(legacy,policy,mailboxes,mail.transport,'sender@example.invalid',2048);
+ const message=id('legacy-mail');await scoped.queue(a,message,'queue','recipient@example.invalid','Legacy adapter','Fixture');
+ assert.equal((await scoped.read(a,message)).ownerId,a.id);
+ await assert.rejects(scoped.inbox(a,'outbound'),/Mailbox listing storage required/);
+});

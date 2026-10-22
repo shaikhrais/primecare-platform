@@ -322,3 +322,34 @@ ID order. It does not promise newest-first ordering or expose raw mail/body data
 No caller can choose an actor or tenant. Existing endpoint identities and role
 grants are preserved. The native registrar must pass isolated tests and production
 dry-run/apply/read-back before this command is implemented or exposed.
+
+Production registration run39850982551 passed six isolated native cases, the
+production rolled-back transaction, idempotent apply and independent read-back.
+API16512 is registered-unimplemented, linked with the same existing screens;
+there are seven communication APIs and28 links. No role grant, account, business
+record or activation flag was changed. The read-back is committed in the shared
+registered contract catalog, and17 Dart action bindings are reproducible from it.
+
+The implementation adds received/sent listing to the inherited email channel,
+mail service, native store and Dart client. The HTTP adapter now chooses its
+channel from the registered operation rather than path suffix guesses, allowing
+the registered nested email inbox route to reach the correct channel. Validation
+rejects owner/tenant overrides, duplicate fields, unbounded pages, and mailbox
+selection on sent mail. Current mailbox checks run before storage and on every
+returned header/sentinel. SQL projects metadata only, so large raw mail bodies
+are not loaded into a mailbox listing. Cursor order is ID order, not chronology.
+
+New service/HTTP checks cover discovery→authorized read, two-page continuation,
+headers without raw content/receipts, another mailbox, another owner, cross-tenant
+rows, revocation, denial before storage, cursor injection and legacy adapters.
+Flutter checks exercise the generated authenticated GET query and prevent an
+owner override. The actual legacy/generated communication failure paths now have
+regressions through all five ApiClient methods, preserving errors rather than
+synthetic success. The pure Dart harness covers the same registered inbox call.
+
+A read-only provider inventory reports only binding names/types for the four
+existing auth/governance/gateway/email-inbox Workers. It excludes all plain-text
+values, JSON/secret values, mailbox contents and object keys. Configuration names
+are evidence of configuration, not live channel acceptance. It makes no provider
+changes or mail sends and records missing credentials/read failures explicitly.
+Live provider/policy/UI integration and deployed acceptance remain separate work.

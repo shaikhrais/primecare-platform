@@ -63,6 +63,17 @@ export class BusinessMailService extends ScopedServiceBase {
   return this.read(actor,id);
  }
  async read(actor:Actor,id:string) {return this.store.read(actor,id,state=>this.authorizeMail(actor,'mail.read',state));}
+ async inbox(actor:Actor,direction:'inbound'|'outbound',mailboxId?:string,limit=50,after?:string) {
+  if(!['inbound','outbound'].includes(direction)||!Number.isSafeInteger(limit)||limit<1||limit>100||direction==='outbound'&&mailboxId!==undefined)throw Error('Invalid inbox');
+  if(direction==='inbound')required(mailboxId);if(after!==undefined)required(after);
+  // Supply the selected mailbox scope to current policy before any storage read.
+  const scope={id:mailboxId??actor.id,tenantId:actor.tenantId,version:0,kind:direction==='inbound'?'inbound_mail':'outbound_mail',ownerId:actor.id,...(mailboxId===undefined?{}:{mailboxId})};
+  await this.checkAccess(actor,'mail.inbox',scope,[scope.kind]);
+  if(direction==='inbound')await this.mailboxes.access(actor,mailboxId!);
+  if(typeof this.store.mailInbox!=='function')throw Error('Mailbox listing storage required');
+  const page=await this.store.mailInbox(actor,direction,mailboxId,state=>this.authorizeMail(actor,'mail.read',state),limit,after);
+  return {items:page.items.map(state=>({id:state.id,version:state.version,kind:state.kind,status:state.status,from:state.from,to:state.to,...(typeof state.subject==='string'?{subject:state.subject}:{})})),nextAfter:page.nextAfter};
+ }
  /** Trusted inbound worker boundary only. Raw content stays quarantined and never executes actions. */
  async receive(envelope:{from:string;to:string;raw:Uint8Array}) {
   address(envelope.to);address(envelope.from);

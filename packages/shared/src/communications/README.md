@@ -93,3 +93,31 @@ See [implementation and release gaps](../../../../docs/business/communications-i
 ### Native worker composition
 
 `cloudflare/workers/src/business-tasks/runtime.ts` exports `PostgresCommunicationWorker`, which inherits the registered HTTP worker and composes the shared store/services/channels with native PostgreSQL sessions, pinned current governance grants and the configured native EMAIL binding. Supply both database pools, current case and mailbox policies, a private decoding/scanning picture repository, a real JSON Schema validator and explicit byte/channel limits. Missing configuration fails closed. The trusted `email(message, env)` event uses the same inherited mail service through `InboundEmailAdapter`; it is never exposed as a user HTTP command. This composition is not currently mounted in the gateway.
+
+### Received and sent mailbox discovery
+
+Production registration run39850982551 added API16512 (`GET /v1/messages/email/inbox`)
+before implementation, preserving the other six identities and every role grant.
+The shared `EmailChannelClient.inbox` and server EmailChannel use the same inherited
+protocol. Supply `direction: inbound` and a configured mailbox ID, or `direction:
+outbound` with authenticated ownership only. Both accept an optional bounded
+`limit` (1–100, default50) and an `after` record ID; `nextAfter` is null on the last
+page. Ordering is deterministic record-ID order, not arrival time.
+
+The mail service checks current mailbox scope before listing and rechecks each
+record, including the pagination sentinel. PostgreSQL filters tenant, record kind
+and owner/mailbox before a bounded `limit+1` header-only projection. Neither raw
+mail, text/HTML bodies, provider receipts nor internal ownership fields appear in
+the returned summaries. Use authorized `email.read` for one discovered record.
+Inbound content remains quarantined with unverified sender identity. This does
+not parse or approve arbitrary MIME/attachments or create a deliverable mailbox.
+
+`AtomicStore.mailInbox` is an optional extension for compatibility with older
+workflow adapters. The registered new operation fails if an adapter lacks it;
+old queue/read operations continue to work. The native PostgreSQL implementation
+and isolated memory fixture implement the extension. All seven registered APIs
+reproduce17 Dart bindings from an independently read production snapshot.
+
+The shared failure classifier also covers the eight existing controller/generated
+communication paths. Their errors cannot become offline/demo success. This is
+failure handling, not backend aliases or functional status for placeholder UI.

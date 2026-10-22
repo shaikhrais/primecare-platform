@@ -34,4 +34,12 @@ export class MemoryAtomicStore {
   const states=[...this.states.values()].filter(state=>state.tenantId===actor.tenantId&&state.kind===kind&&(kind==='workflow'?[state.ownerId,state.reviewerId,state.originatorId].includes(actor.id):state.members.includes(actor.id))).sort((a,b)=>a.id.localeCompare(b.id)).slice(0,limit);
   for(const state of states)await authorize(state);return structuredClone(states);
  }
+ async mailInbox(actor,direction,mailboxId,authorize,limit=50,after) {
+  if(!['inbound','outbound'].includes(direction)||!Number.isSafeInteger(limit)||limit<1||limit>100||direction==='outbound'&&mailboxId!==undefined)throw Error('Invalid inbox');
+  const kind=direction==='inbound'?'inbound_mail':'outbound_mail';
+  const records=[...this.states.values()].filter(state=>state.tenantId===actor.tenantId&&state.kind===kind&&(direction==='inbound'?state.mailboxId===mailboxId:state.ownerId===actor.id)&&(!after||state.id>after)).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0).slice(0,limit+1);
+  const headers=records.map(state=>Object.fromEntries(['id','tenantId','version','kind','ownerId','mailboxId','status','from','to','subject'].filter(key=>Object.hasOwn(state,key)).map(key=>[key,structuredClone(state[key])])));
+  for(const state of headers)await authorize(state);
+  const items=headers.slice(0,limit);return {items,nextAfter:headers.length>limit?items.at(-1).id:null};
+ }
 }

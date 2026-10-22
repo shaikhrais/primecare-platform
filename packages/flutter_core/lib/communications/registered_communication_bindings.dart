@@ -1,4 +1,4 @@
-// Generated from pinned production read-back, registration run 39811946324.
+// Generated from pinned production read-back, registration run 39850982551.
 // Routing only: no role grants or live feature acceptance.
 import 'dio_communication_transport.dart';
 
@@ -19,4 +19,5 @@ final registeredCommunicationBindings = Map<String, CommunicationRouteBinding>.u
   'email.queue': CommunicationRouteBinding(path: '/v1/messages/email', method: 'POST'), // API16511
   'email.deliver': CommunicationRouteBinding(path: '/v1/messages/email', method: 'POST'), // API16511
   'email.read': CommunicationRouteBinding(path: '/v1/messages/email', method: 'POST'), // API16511
+  'email.inbox': CommunicationRouteBinding(path: '/v1/messages/email/inbox', method: 'GET', includeAction: false), // API16512
 });

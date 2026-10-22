@@ -11,6 +11,16 @@ bool isCommunicationPath(String value) {
     '/v1/user/messaging/threads',
     '/v1/staff/messages/hub',
     '/v1/client/family/message',
+    // Existing registered screens still have legacy controller/generated paths.
+    // Classifying their failures grants no alias or backend implementation.
+    '/staff/communication',
+    '/common/patient-messages',
+    '/clinic/messaging',
+    '/offices/clinical/roles/psw/messages',
+    '/v1/communication',
+    '/v1/messaging',
+    '/v1/psw-messages',
+    '/v1/patient-messages',
   };
   return roots.any((root) => path == root || path.startsWith('$root/'));
 }
@@ -138,7 +148,7 @@ final class AudioChannelClient extends CommunicationChannelClient {
 
 final class EmailChannelClient extends CommunicationChannelClient {
   EmailChannelClient(CommunicationTransport transport)
-      : super(transport, 'email', {'queue', 'deliver', 'read'});
+      : super(transport, 'email', {'queue', 'deliver', 'read', 'inbox'});
 
   Future<Map<String, Object?>> queue(
     String id, String key, String to, String subject, String text,
@@ -150,6 +160,26 @@ final class EmailChannelClient extends CommunicationChannelClient {
       execute('deliver', {'id': id, 'key': key, 'version': version});
 
   Future<Map<String, Object?>> read(String id) => execute('read', {'id': id});
+
+  Future<Map<String, Object?>> inbox({
+    required String direction,
+    String? mailboxId,
+    int limit = 50,
+    String? after,
+  }) {
+    if (!{'inbound', 'outbound'}.contains(direction) ||
+        (direction == 'inbound' && (mailboxId == null || mailboxId.trim().isEmpty)) ||
+        (direction == 'outbound' && mailboxId != null) || limit < 1 || limit > 100 ||
+        (after != null && after.trim().isEmpty)) {
+      throw ArgumentError('A bounded registered mailbox scope is required');
+    }
+    return execute('inbox', {
+      'direction': direction,
+      if (mailboxId != null) 'mailboxId': mailboxId,
+      'limit': limit,
+      if (after != null) 'after': after,
+    });
+  }
 }
 
 /// Inject the same authenticated transport in every portal and role.

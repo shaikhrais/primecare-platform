@@ -63,4 +63,23 @@ export class PostgresAtomicStore implements AtomicStore {
   for(const row of rows)await authorize(row.state);
   return rows.map((row:any)=>row.state);
  }
+ /** Deterministic ID pagination; bodies never cross this listing boundary. */
+ async mailInbox(actor:Actor,direction:'inbound'|'outbound',mailboxId:string|undefined,authorize:(state:RecordState)=>Promise<void>,limit=50,after?:string) {
+  required(actor.id);required(actor.tenantId);
+  if(!['inbound','outbound'].includes(direction)||!Number.isSafeInteger(limit)||limit<1||limit>100||direction==='outbound'&&mailboxId!==undefined)throw Error('Invalid inbox');
+  if(direction==='inbound')required(mailboxId);if(after!==undefined)required(after);
+  const rows=(await this.pool.query(`SELECT jsonb_build_object('id',id,'tenantId',tenant_id,
+   'version',state->'version','kind',state->'kind','ownerId',state->'ownerId',
+   'mailboxId',state->'mailboxId','status',state->'status','from',state->'from',
+   'to',state->'to','subject',state->'subject') AS state
+   FROM business_work_aggregates WHERE tenant_id=$1 AND state->>'kind'=$2
+   AND (($2='outbound_mail' AND state->>'ownerId'=$3)
+    OR ($2='inbound_mail' AND state->>'mailboxId'=$3))
+   AND ($4::text IS NULL OR id>$4) ORDER BY id LIMIT $5`,
+   [actor.tenantId,direction==='inbound'?'inbound_mail':'outbound_mail',direction==='inbound'?mailboxId:actor.id,after??null,limit+1])).rows;
+  // Check the sentinel too: a next-page indication cannot bypass current access.
+  for(const row of rows)await authorize(row.state);
+  const items=rows.slice(0,limit).map((row:any)=>row.state);
+  return {items,nextAfter:rows.length>limit?items.at(-1)!.id:null};
+ }
 }

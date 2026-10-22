@@ -30,13 +30,13 @@ if(process.env.BUSINESS_TEST_DATABASE_URL){
  after(async()=>{await pool.query('DROP SCHEMA '+schema+' CASCADE');await pool.end();});
 }else{store=new MemoryAtomicStore();console.log('HTTP: isolated memory fixture; native persistence acceptance requires CI');}
 const users=new Map(['a','b','c','denied','other'].map(id=>[id,{id,tenantId:id==='other'?'tenant-b':'tenant-a'}]));
-const policy={async assert(actor){if(!users.has(actor.id))throw Error('Forbidden');},async assignee(actor,id){if(users.get(id)?.tenantId!==actor.tenantId)throw Error('Forbidden');}};
+const policy={async assert(actor,action){if(actor.id==='inbound-mail'&&actor.tenantId==='tenant-a'&&action==='mail.receive')return;if(!users.has(actor.id))throw Error('Forbidden');},async assignee(actor,id){if(users.get(id)?.tenantId!==actor.tenantId)throw Error('Forbidden');}};
 const pictures=new Map();const png=Uint8Array.from([137,80,78,71,13,10,26,10]);
 const pictureAdapter={async prepare(actor,threadId,bytes,mediaType){const record={id:crypto.randomUUID(),tenantId:actor.tenantId,threadId,size:bytes.length,mediaType,status:'clean'};pictures.set(record.id,{record,bytes});return record;},async get(actor,id){const item=pictures.get(id);if(!item||item.record.tenantId!==actor.tenantId)throw Error('Picture unavailable');return item.record;},async open(actor,id){const item=pictures.get(id);return {body:item.bytes,size:item.bytes.length,httpMetadata:{contentType:'image/png'}};}};
 const limits={maxMembers:8,maxMessages:100,maxText:2000,maxPictureBytes:1024,maxPictures:3,ringMilliseconds:30000,maxSignalBytes:16384};
 const conversations=new CommunicationService(store,policy,pictureAdapter,limits);
 let nativeSends=0;
-const mail=new BusinessMailService(store,policy,{async access(){},async recipient(){},async resolve(){return {tenantId:'tenant-a',mailboxId:'fixture'};}},{async send(){nativeSends++;return {messageId:'synthetic-receipt'};}},'sender@example.invalid',4096);
+const mail=new BusinessMailService(store,policy,{async access(actor,id){if(actor.tenantId!=='tenant-a'||!['a','b'].includes(actor.id)||id!=='fixture')throw Error('Forbidden');},async recipient(){},async resolve(){return {tenantId:'tenant-a',mailboxId:'fixture'};}},{async send(){nativeSends++;return {messageId:'synthetic-receipt'};}},'sender@example.invalid',4096);
 const core=new CommunicationCore(conversations,mail);
 const worker=new CommunicationHttpWorker({core,validate,maxRequestBytes:4096,
  async authenticate(request){const actor=users.get(request.headers.get('authorization'));if(!actor)throw new CommunicationHttpError(401);return actor;},
@@ -130,6 +130,24 @@ test('email queue/deliver/read preserve native acceptance and duplicate-send gua
  await command('b','/v1/messages/email',{action:'read',id},404);
  const read=await command('a','/v1/messages/email',{action:'read',id});assert.equal(read.providerMessageId,'synthetic-receipt');
  await command('a','/v1/messages/email',{action:'receive',raw:'forged'},400);
+});
+test('registered received-mail inbox discovers IDs for authorized read and paginates without raw data',async()=>{
+ const received=[];
+ for(let i=0;i<3;i++)received.push((await mail.receive({from:'outside@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode('Private inbound fixture '+crypto.randomUUID())})).id);
+ const first=await request('b','/v1/messages/email/inbox?direction=inbound&mailboxId=fixture&limit=2',null,'GET');
+ assert.equal(first.status,200,await first.clone().text());assert.equal(first.headers.get('cache-control'),'private, no-store');
+ const page=await first.json();assert.deepEqual(page.items.map(item=>item.id),received.sort().slice(0,2));assert.ok(page.nextAfter);
+ assert.ok(page.items.every(item=>item.kind==='inbound_mail'&&item.status==='quarantined'));
+ for(const field of ['rawBase64','text','html','digest','mailboxId','tenantId'])assert.ok(!JSON.stringify(page).includes('"'+field+'"'));
+ const next=await request('b','/v1/messages/email/inbox?direction=inbound&mailboxId=fixture&limit=2&after='+encodeURIComponent(page.nextAfter),null,'GET');const last=await next.json();assert.equal(last.items.length,1);assert.equal(last.nextAfter,null);
+ const content=await command('b','/v1/messages/email',{action:'read',id:page.items[0].id});assert.ok(Buffer.from(content.rawBase64,'base64').toString().startsWith('Private inbound fixture '));
+ for(const actor of ['c','other','denied'])assert.equal((await request(actor,'/v1/messages/email/inbox?direction=inbound&mailboxId=fixture',null,'GET')).status,403);
+});
+test('registered sent-mail inbox never takes an owner override and validates query variants',async()=>{
+ const sent=await request('a','/v1/messages/email/inbox?direction=outbound',null,'GET');assert.equal(sent.status,200);
+ const page=await sent.json();assert.equal(page.items.length,1);assert.equal(page.items[0].kind,'outbound_mail');assert.equal(Object.hasOwn(page.items[0],'text'),false);assert.equal(Object.hasOwn(page.items[0],'providerMessageId'),false);
+ const other=await request('b','/v1/messages/email/inbox?direction=outbound',null,'GET');assert.deepEqual(await other.json(),{items:[],nextAfter:null});
+ for(const query of ['direction=inbound','direction=outbound&mailboxId=fixture','direction=outbound&actorId=a','direction=outbound&tenantId=tenant-a','direction=outbound&limit=101','direction=outbound&limit=2&limit=3','direction=all','direction=outbound&action=read'])assert.equal((await request('a','/v1/messages/email/inbox?'+query,null,'GET')).status,400,query);
 });
 test('invalid response schema returns unavailable without exposing provider details',async()=>{
  const invalid=new CommunicationHttpWorker({core,validate(schema,value){return schema.required?.includes('version')?false:validate(schema,value);},maxRequestBytes:4096,async authenticate(){return users.get('a');},async authorizeEndpoint(){}});

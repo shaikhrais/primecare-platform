@@ -16,7 +16,11 @@ type Dependencies<E>={
 export class CommunicationHttpError extends Error {
  constructor(readonly status:number){super('Communication request failed');}
 }
-const channelFor=(path:string)=>path.endsWith('/pictures')?'picture':path.endsWith('/calls')?'audio':path.endsWith('/email')?'email':'message';
+const channelFor=(operation:string)=>{
+ const channel=operation.split('.')[0];
+ if(!['message','picture','audio','email'].includes(channel))throw Error('Unknown registered channel');
+ return channel as keyof ChannelRequests;
+};
 const headers={'cache-control':'private, no-store','x-content-type-options':'nosniff'};
 
 /** Registered adapter only. Deployment still requires real auth, policy and storage. */
@@ -47,7 +51,7 @@ export class CommunicationHttpWorker<E> extends BaseWorker<E> {
   }
   const actor=await this.dependencies.authenticate(request,env);
   await this.dependencies.authorizeEndpoint(actor,contract.id,request,env);
-  const channel=channelFor(contract.path);
+  const channel=channelFor(contract.operation);
   let input:Record<string,unknown>=Object.create(null);let binary:Uint8Array|undefined;
   if(request.method==='GET'){
    if(request.body)throw new CommunicationHttpError(400);
@@ -69,7 +73,7 @@ export class CommunicationHttpWorker<E> extends BaseWorker<E> {
    }
   }
   if(!this.dependencies.validate(contract.requestSchema,input))throw new CommunicationHttpError(400);
-  if(contract.operation==='message.inbox')input={action:'inbox',...input};
+  if(contract.operation==='message.inbox'||contract.operation==='email.inbox')input={action:'inbox',...input};
   if(binary){const {file,...fields}=input;input={...fields,bytes:binary};}
   const result=await this.dependencies.core.execute(channel,actor,input as ChannelRequests[typeof channel]);
   if(contract.operation==='picture.open'){

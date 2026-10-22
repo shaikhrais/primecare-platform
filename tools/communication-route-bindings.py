@@ -28,7 +28,9 @@ for op in definition['operations']:
         ('existingId' in op and row['id']!=op['existingId'])):
         raise RuntimeError('Production communication contract differs from pinned registration')
     schemas=op['request'].get('oneOf',[op['request']])
-    actions=[schema.get('properties',{}).get('action',{}).get('const') for schema in schemas]
+    # Several query variants (e.g. inbound/outbound mailbox scopes) can share
+    # one action-less GET binding; duplicates across operations still fail.
+    actions=list(dict.fromkeys(schema.get('properties',{}).get('action',{}).get('const') for schema in schemas))
     for action in actions:
         key=op['key'] if action is None else op['key'].split('.')[0]+'.'+action
         if key in seen:raise RuntimeError('Duplicate channel action')

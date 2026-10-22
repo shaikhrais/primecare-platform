@@ -39,7 +39,30 @@ void main() {
     expect(requests.single.path, '/v1/messages/inbox');
     expect(requests.single.method, 'GET');
     expect(requests.single.queryParameters, {'limit': 10});
-    expect(registeredCommunicationBindings.length, 16);
+    expect(registeredCommunicationBindings.length, 17);
+  });
+  test('registered received mailbox query uses authenticated GET and a bounded continuation', () async {
+    final hub = CommunicationHub(DioCommunicationTransport(dio, registeredCommunicationBindings, maxPictureBytes: 1024));
+    await hub.email.inbox(direction: 'inbound', mailboxId: 'owned', limit: 10, after: 'mail:prior');
+    expect(requests.single.path, '/v1/messages/email/inbox');
+    expect(requests.single.method, 'GET');
+    expect(requests.single.data, isNull);
+    expect(requests.single.queryParameters, {'direction': 'inbound', 'mailboxId': 'owned', 'limit': 10, 'after': 'mail:prior'});
+    expect(requests.single.headers['Authorization'], 'Bearer synthetic-session');
+  });
+  test('sent mailbox cannot select another user or an inbound mailbox', () async {
+    final hub = CommunicationHub(DioCommunicationTransport(dio, registeredCommunicationBindings, maxPictureBytes: 1024));
+    await hub.email.inbox(direction: 'outbound');
+    expect(requests.single.queryParameters, {'direction': 'outbound', 'limit': 50});
+    for (final action in <Future<Object?> Function()>[
+      () async => hub.email.inbox(direction: 'inbound'),
+      () async => hub.email.inbox(direction: 'outbound', mailboxId: 'other'),
+      () async => hub.email.inbox(direction: 'outbound', limit: 101),
+      () async => hub.email.execute('inbox', {'direction': 'outbound', 'actorId': 'other'}),
+    ]) {
+      await expectLater(action(), throwsA(anything));
+    }
+    expect(requests.length, 1);
   });
   test('read sends fields as query and no body', () async {
     await CommunicationHub(transport('message.read', method: 'GET')).messages.read('thread');
