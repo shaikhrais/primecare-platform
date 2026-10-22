@@ -1,0 +1,39 @@
+name: Diagnose synthetic deployed support focus
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/diagnose-support-focus.yml, tools/auth-verification/diagnose-support-focus.py]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: auth-support-focus-diagnostic
+  cancel-in-progress: false
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install psycopg[binary]==3.2.13 bcrypt==4.3.0 playwright==1.58.0
+          python -m playwright install --with-deps chromium
+          pip install -r tools/governance-production/requirements.txt
+      - name: Verify pinned production governance authority
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/governance-production/verify-production-reader.py
+      - name: Diagnose only synthetic focus with exact fixture cleanup
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          DIAGNOSE_SUPPORT_FOCUS: '1'
+        run: python tools/auth-verification/diagnose-support-focus.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: synthetic-support-focus-diagnostic
+          path: test-results/support-focus
+          retention-days: 30
