@@ -71,8 +71,14 @@ def verify_privileged(page, db, *, user, tenant, password, seed, token, locale, 
         fill_flutter_field(approval, admin_field('login-password'), admin_password)
         status, logged = response_click(approval, admin_button('login-submit'), 'login')
         must(status == 200 and logged.get('role') == 'tenant_admin' and logged.get('userId') == admin, 'target tenant administrator signs in through deployed Flutter')
-        approval.wait_for_url(lambda u: '/success' in u, timeout=30000)
         admin_token = logged['token']
+        checkpoint('confirm tenant administrator session')
+        approval.wait_for_function("t => JSON.parse(localStorage.getItem('flutter.auth_token')) === t", arg=admin_token)
+        must(api('/v1/auth/me', token=admin_token)[1].get('userId') == admin, 'tenant administrator browser session matches current server identity')
+        # Tenant admins land on their governed role dashboard. Approval lives on
+        # the registered account page, so visit it after confirmed sign-in.
+        checkpoint('open tenant account approval controls')
+        approval.goto(site + '/success?locale=' + locale + '&enable-semantics=true', wait_until='domcontentloaded')
         approve_id = 'mfa-elevation-approve-' + request_id
         admin_button(approve_id).wait_for(timeout=30000)
         status, listed = response_click(approval, admin_button('mfa-elevation-refresh'), 'mfa/support/requests', method='GET')

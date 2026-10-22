@@ -90,7 +90,7 @@
     "scripts/test-mfa-keyring-tail.mjs": "404edfa55890a9e8d0411f0915e4885beab5f1e39596b2c2b11fdeba90d6b638",
     "scripts/test-worker-inheritance.mjs": "0609eb79fa275179af04708e2b5c689d18dd19dd0314400a6bd5701c346ef292",
     "tools/auth-verification/flutter_mfa_lifecycle.py": "f8cef4b623ea8c4981a54aa90a6b1bcddd739c61b61dde603549be286252ba49",
-    "tools/auth-verification/flutter_privileged_access.py": "fede61dbff8f871adc804d6e57c216f33178d2f62d49271e0a0f9901b0142776",
+    "tools/auth-verification/flutter_privileged_access.py": "97462bd78bf67e9f67838adba864d561169e1e1d4bc8dcc4398150706e5def1b",
     "tools/auth-verification/mfa-keyring-tail.mjs": "af6e7305019dfd5ff7c31650f99fd0406d6aa6f739040974aa52caff0187f5e0",
     "tools/auth-verification/test-live-flutter-mfa.py": "db73d34310d8cd4af361e5fbe34a3b970be23f611b1d56db5a1f05eb79a6c712"
   }
