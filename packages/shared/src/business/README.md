@@ -1,5 +1,7 @@
 # Shared business base classes
 
+Task handoffs use `BusinessTaskFlowBase` in `task-flow.ts`, with 15 candidate definitions in `task-flows.json`. See [user task flows](../../../../docs/business/user-task-flows.md) for responsibilities, required information, return-for-correction, review and completion. These candidates are not production registry records. Run `node --test packages/shared/test/business-*.test.mjs` for all shared business rules and candidate handoff checks.
+
 `base.ts` is the shared domain layer for sales, operations and restricted HR adapters. These classes create no routes, controls, grants, notifications or database records. New live integrations still require production governance registration. Policy: [business flags](../../../../docs/business/business-flags.md).
 
 | Class | Responsibility | Consumer |

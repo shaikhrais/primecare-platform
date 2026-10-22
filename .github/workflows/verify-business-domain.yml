@@ -1,0 +1,21 @@
+name: Verify shared business rules and candidate task flows
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/shared/src/business/**'
+      - 'packages/shared/test/business-*.test.mjs'
+      - '.github/workflows/verify-business-domain.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  domain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check shared rules and candidate handoffs without production access
+        run: node --test packages/shared/test/business-*.test.mjs

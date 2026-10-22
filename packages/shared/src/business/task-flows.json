@@ -1,0 +1,703 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate_unregistered",
+  "responsibilitiesAreNotPermissionGrants": true,
+  "flows": [
+    {
+      "id": "sales-target",
+      "title": "Approve manager target",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "sales-target-1",
+          "responsibility": "sales-lead",
+          "requiredEvidence": [
+            "period",
+            "metric",
+            "target",
+            "currency",
+            "milestones"
+          ],
+          "recipientResponsibility": "business-lead",
+          "independentReview": false
+        },
+        {
+          "id": "sales-target-2",
+          "responsibility": "business-lead",
+          "requiredEvidence": [
+            "approval",
+            "reference",
+            "target-version"
+          ],
+          "recipientResponsibility": "sales-lead",
+          "independentReview": false
+        },
+        {
+          "id": "sales-target-3",
+          "responsibility": "sales-lead",
+          "requiredEvidence": [
+            "acknowledgement",
+            "reference"
+          ],
+          "recipientResponsibility": "business-lead",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "sales-opportunity",
+      "title": "Enquiry to verified business close",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "sales-opportunity-1",
+          "responsibility": "sales-representative",
+          "requiredEvidence": [
+            "contact-reference",
+            "contact-basis",
+            "source",
+            "territory-interest",
+            "next-action"
+          ],
+          "recipientResponsibility": "sales-lead",
+          "independentReview": false
+        },
+        {
+          "id": "sales-opportunity-2",
+          "responsibility": "sales-lead",
+          "requiredEvidence": [
+            "qualification",
+            "outcome",
+            "assigned-manager"
+          ],
+          "recipientResponsibility": "sales-representative",
+          "independentReview": false
+        },
+        {
+          "id": "sales-opportunity-3",
+          "responsibility": "sales-representative",
+          "requiredEvidence": [
+            "proposal-reference",
+            "agreement-reference",
+            "value",
+            "currency",
+            "acceptance-date"
+          ],
+          "recipientResponsibility": "commercial-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "sales-opportunity-4",
+          "responsibility": "commercial-reviewer",
+          "requiredEvidence": [
+            "close-verification-reference",
+            "customer-reference",
+            "credit-allocation"
+          ],
+          "recipientResponsibility": "finance",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "tenant-territory-launch",
+      "title": "Closed business to tenant launch",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "tenant-territory-launch-1",
+          "responsibility": "commercial-reviewer",
+          "requiredEvidence": [
+            "verified-close-reference",
+            "business-identity",
+            "agreement-reference"
+          ],
+          "recipientResponsibility": "platform-administration",
+          "independentReview": false
+        },
+        {
+          "id": "tenant-territory-launch-2",
+          "responsibility": "platform-administration",
+          "requiredEvidence": [
+            "tenant-reference",
+            "administrator-reference"
+          ],
+          "recipientResponsibility": "territory-administration",
+          "independentReview": false
+        },
+        {
+          "id": "tenant-territory-launch-3",
+          "responsibility": "territory-administration",
+          "requiredEvidence": [
+            "allocation-reference",
+            "approved-services"
+          ],
+          "recipientResponsibility": "tenant-administration",
+          "independentReview": false
+        },
+        {
+          "id": "tenant-territory-launch-4",
+          "responsibility": "tenant-administration",
+          "requiredEvidence": [
+            "locations-reference",
+            "service-setup-reference",
+            "documents-reference"
+          ],
+          "recipientResponsibility": "launch-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "tenant-territory-launch-5",
+          "responsibility": "launch-reviewer",
+          "requiredEvidence": [
+            "launch-approval-reference",
+            "operations-handover-reference"
+          ],
+          "recipientResponsibility": "operations",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "client-service",
+      "title": "Client enquiry to service handover",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "client-service-1",
+          "responsibility": "intake",
+          "requiredEvidence": [
+            "client-reference",
+            "contact-basis",
+            "service-request",
+            "territory-reference"
+          ],
+          "recipientResponsibility": "care-supervisor",
+          "independentReview": false
+        },
+        {
+          "id": "client-service-2",
+          "responsibility": "care-supervisor",
+          "requiredEvidence": [
+            "assessment-reference",
+            "service-plan-reference",
+            "consent-reference"
+          ],
+          "recipientResponsibility": "scheduler",
+          "independentReview": false
+        },
+        {
+          "id": "client-service-3",
+          "responsibility": "scheduler",
+          "requiredEvidence": [
+            "staff-assignment-reference",
+            "visit-reference",
+            "handover-reference"
+          ],
+          "recipientResponsibility": "care-supervisor",
+          "independentReview": false
+        },
+        {
+          "id": "client-service-4",
+          "responsibility": "care-supervisor",
+          "requiredEvidence": [
+            "handover-verification-reference"
+          ],
+          "recipientResponsibility": "operations",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "service-delivery",
+      "title": "Assigned service to reviewed completion",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "service-delivery-1",
+          "responsibility": "scheduler",
+          "requiredEvidence": [
+            "visit-reference",
+            "approved-plan-reference",
+            "assigned-worker-reference"
+          ],
+          "recipientResponsibility": "care-worker",
+          "independentReview": false
+        },
+        {
+          "id": "service-delivery-2",
+          "responsibility": "care-worker",
+          "requiredEvidence": [
+            "service-record-reference",
+            "exception-reference"
+          ],
+          "recipientResponsibility": "care-supervisor",
+          "independentReview": false
+        },
+        {
+          "id": "service-delivery-3",
+          "responsibility": "care-supervisor",
+          "requiredEvidence": [
+            "completion-review-reference",
+            "follow-up-reference"
+          ],
+          "recipientResponsibility": "finance",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "finance-receipt",
+      "title": "Invoice to reconciled cash",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "finance-receipt-1",
+          "responsibility": "operations",
+          "requiredEvidence": [
+            "approved-service-or-agreement-reference",
+            "billing-basis-reference"
+          ],
+          "recipientResponsibility": "finance",
+          "independentReview": false
+        },
+        {
+          "id": "finance-receipt-2",
+          "responsibility": "finance",
+          "requiredEvidence": [
+            "invoice-reference",
+            "amount",
+            "currency",
+            "customer-reference"
+          ],
+          "recipientResponsibility": "finance-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "finance-receipt-3",
+          "responsibility": "finance-reviewer",
+          "requiredEvidence": [
+            "reconciliation-reference",
+            "payment-status",
+            "net-receipts-reference"
+          ],
+          "recipientResponsibility": "sales-lead",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "finance-reversal",
+      "title": "Refund or cancellation correction",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "finance-reversal-1",
+          "responsibility": "requester",
+          "requiredEvidence": [
+            "original-record-reference",
+            "request-reason",
+            "evidence-reference"
+          ],
+          "recipientResponsibility": "finance",
+          "independentReview": false
+        },
+        {
+          "id": "finance-reversal-2",
+          "responsibility": "finance",
+          "requiredEvidence": [
+            "decision-reference",
+            "adjustment-reference"
+          ],
+          "recipientResponsibility": "finance-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "finance-reversal-3",
+          "responsibility": "finance-reviewer",
+          "requiredEvidence": [
+            "reconciliation-reference",
+            "sales-credit-correction-reference"
+          ],
+          "recipientResponsibility": "requester",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "operations-incident",
+      "title": "Operational problem to verified recovery",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "operations-incident-1",
+          "responsibility": "reporter",
+          "requiredEvidence": [
+            "incident-reference",
+            "impact-reference",
+            "observed-at"
+          ],
+          "recipientResponsibility": "operations-lead",
+          "independentReview": false
+        },
+        {
+          "id": "operations-incident-2",
+          "responsibility": "operations-lead",
+          "requiredEvidence": [
+            "triage-reference",
+            "action-owner-reference",
+            "response-deadline"
+          ],
+          "recipientResponsibility": "action-owner",
+          "independentReview": false
+        },
+        {
+          "id": "operations-incident-3",
+          "responsibility": "action-owner",
+          "requiredEvidence": [
+            "recovery-evidence-reference",
+            "remaining-risk-reference"
+          ],
+          "recipientResponsibility": "operations-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "operations-incident-4",
+          "responsibility": "operations-reviewer",
+          "requiredEvidence": [
+            "resolution-verification-reference",
+            "follow-up-reference"
+          ],
+          "recipientResponsibility": "reporter",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "emergency",
+      "title": "Critical event and recovery",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "emergency-1",
+          "responsibility": "reporter",
+          "requiredEvidence": [
+            "event-reference",
+            "observed-at",
+            "immediate-action-reference"
+          ],
+          "recipientResponsibility": "emergency-lead",
+          "independentReview": false
+        },
+        {
+          "id": "emergency-2",
+          "responsibility": "emergency-lead",
+          "requiredEvidence": [
+            "acknowledgement-reference",
+            "containment-reference",
+            "response-owner-reference"
+          ],
+          "recipientResponsibility": "response-owner",
+          "independentReview": false
+        },
+        {
+          "id": "emergency-3",
+          "responsibility": "response-owner",
+          "requiredEvidence": [
+            "recovery-evidence-reference",
+            "remaining-risk-reference"
+          ],
+          "recipientResponsibility": "emergency-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "emergency-4",
+          "responsibility": "emergency-reviewer",
+          "requiredEvidence": [
+            "resolution-verification-reference",
+            "recurrence-action-reference"
+          ],
+          "recipientResponsibility": "reporter",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "hr-onboarding",
+      "title": "Staff registration to staffing readiness",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "hr-onboarding-1",
+          "responsibility": "hr-intake",
+          "requiredEvidence": [
+            "restricted-person-reference",
+            "requested-position",
+            "scope-reference"
+          ],
+          "recipientResponsibility": "hr-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "hr-onboarding-2",
+          "responsibility": "hr-reviewer",
+          "requiredEvidence": [
+            "identity-check-reference",
+            "credential-review-reference",
+            "training-reference"
+          ],
+          "recipientResponsibility": "staffing-lead",
+          "independentReview": false
+        },
+        {
+          "id": "hr-onboarding-3",
+          "responsibility": "staffing-lead",
+          "requiredEvidence": [
+            "readiness-review-reference",
+            "approved-scope-reference"
+          ],
+          "recipientResponsibility": "operations",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "hr-case",
+      "title": "Restricted HR concern to reviewed outcome",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "hr-case-1",
+          "responsibility": "reporter",
+          "requiredEvidence": [
+            "restricted-case-reference",
+            "safe-contact-reference"
+          ],
+          "recipientResponsibility": "hr-triage",
+          "independentReview": false
+        },
+        {
+          "id": "hr-case-2",
+          "responsibility": "hr-triage",
+          "requiredEvidence": [
+            "restricted-review-reference",
+            "assigned-reviewer-reference",
+            "deadline"
+          ],
+          "recipientResponsibility": "hr-case-owner",
+          "independentReview": false
+        },
+        {
+          "id": "hr-case-3",
+          "responsibility": "hr-case-owner",
+          "requiredEvidence": [
+            "restricted-outcome-reference",
+            "follow-up-reference"
+          ],
+          "recipientResponsibility": "hr-independent-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "hr-case-4",
+          "responsibility": "hr-independent-reviewer",
+          "requiredEvidence": [
+            "restricted-closure-reference",
+            "notification-decision-reference"
+          ],
+          "recipientResponsibility": "hr-triage",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "security-privacy",
+      "title": "Security or privacy incident",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "security-privacy-1",
+          "responsibility": "reporter",
+          "requiredEvidence": [
+            "restricted-incident-reference",
+            "observed-at",
+            "impact-reference"
+          ],
+          "recipientResponsibility": "security-privacy-lead",
+          "independentReview": false
+        },
+        {
+          "id": "security-privacy-2",
+          "responsibility": "security-privacy-lead",
+          "requiredEvidence": [
+            "containment-reference",
+            "response-owner-reference"
+          ],
+          "recipientResponsibility": "response-owner",
+          "independentReview": false
+        },
+        {
+          "id": "security-privacy-3",
+          "responsibility": "response-owner",
+          "requiredEvidence": [
+            "remediation-evidence-reference"
+          ],
+          "recipientResponsibility": "security-privacy-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "security-privacy-4",
+          "responsibility": "security-privacy-reviewer",
+          "requiredEvidence": [
+            "verification-reference",
+            "notification-decision-reference"
+          ],
+          "recipientResponsibility": "security-privacy-lead",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "compliance-renewal",
+      "title": "Document renewal or compliance gap",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "compliance-renewal-1",
+          "responsibility": "record-owner",
+          "requiredEvidence": [
+            "document-reference",
+            "expiry-date",
+            "requirement-reference"
+          ],
+          "recipientResponsibility": "compliance-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "compliance-renewal-2",
+          "responsibility": "compliance-reviewer",
+          "requiredEvidence": [
+            "gap-reference",
+            "corrective-action-reference"
+          ],
+          "recipientResponsibility": "record-owner",
+          "independentReview": false
+        },
+        {
+          "id": "compliance-renewal-3",
+          "responsibility": "record-owner",
+          "requiredEvidence": [
+            "replacement-evidence-reference"
+          ],
+          "recipientResponsibility": "compliance-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "compliance-renewal-4",
+          "responsibility": "compliance-reviewer",
+          "requiredEvidence": [
+            "verification-reference",
+            "next-review-date"
+          ],
+          "recipientResponsibility": "record-owner",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "complaint-renewal",
+      "title": "Complaint or renewal risk",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "complaint-renewal-1",
+          "responsibility": "service-team",
+          "requiredEvidence": [
+            "customer-reference",
+            "concern-reference",
+            "contact-basis"
+          ],
+          "recipientResponsibility": "quality-lead",
+          "independentReview": false
+        },
+        {
+          "id": "complaint-renewal-2",
+          "responsibility": "quality-lead",
+          "requiredEvidence": [
+            "investigation-reference",
+            "action-owner-reference"
+          ],
+          "recipientResponsibility": "action-owner",
+          "independentReview": false
+        },
+        {
+          "id": "complaint-renewal-3",
+          "responsibility": "action-owner",
+          "requiredEvidence": [
+            "corrective-action-evidence-reference"
+          ],
+          "recipientResponsibility": "quality-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "complaint-renewal-4",
+          "responsibility": "quality-reviewer",
+          "requiredEvidence": [
+            "resolution-reference",
+            "customer-response-reference",
+            "follow-up-date"
+          ],
+          "recipientResponsibility": "service-team",
+          "independentReview": true
+        }
+      ]
+    },
+    {
+      "id": "business-review",
+      "title": "Period close and corrective action",
+      "registrationStatus": "candidate_unregistered",
+      "steps": [
+        {
+          "id": "business-review-1",
+          "responsibility": "sales-lead",
+          "requiredEvidence": [
+            "approved-target-reference",
+            "eligible-actuals-reference",
+            "source-cutoff"
+          ],
+          "recipientResponsibility": "business-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "business-review-2",
+          "responsibility": "business-reviewer",
+          "requiredEvidence": [
+            "attainment-reference",
+            "flag-summary-reference",
+            "unknown-coverage-reference"
+          ],
+          "recipientResponsibility": "action-owner",
+          "independentReview": false
+        },
+        {
+          "id": "business-review-3",
+          "responsibility": "action-owner",
+          "requiredEvidence": [
+            "corrective-action-evidence-reference"
+          ],
+          "recipientResponsibility": "business-reviewer",
+          "independentReview": false
+        },
+        {
+          "id": "business-review-4",
+          "responsibility": "business-reviewer",
+          "requiredEvidence": [
+            "verification-reference",
+            "next-review-date"
+          ],
+          "recipientResponsibility": "sales-lead",
+          "independentReview": true
+        }
+      ]
+    }
+  ]
+}
