@@ -2,6 +2,14 @@
 
 The user requested completion of all auth tasks. Work remains main-only with expected-head publication. Source integration is not proof of deployed acceptance or independent approval.
 
+## Paused at user request — 2026-10-22
+
+All implementation and diagnostic fixes are committed on main through `3bf9bd3d4ff2d4c228e2e7656bf8b2bccdb78313`. No new branch or pull request was created. The user requested a break and a committed checkpoint.
+
+Since the source integration, stale blocked-route fingerprints and technical traceability were refreshed without changing authority or completion counts. Offline diagnostics now handle attributed JSON imports correctly; all10 targeted Newman/diagnostic tests passed. The isolated full API fixture/regression command completed successfully with3741 tests; its reconstructed fixture counts are separate from the committed finite baseline and earn no live completion credit. The prior combined native/Flutter candidate passed464 tests and the release build; newer main CI, deployed lifecycle acceptance, actual binding proof, v2 selection and scoped production evidence still need their latest results checked before any completion claim. V1 remains selected and retained. Independent reviews and physical-device acceptance remain pending.
+
+Resume from current remote main, inspect CI and deployment state first, and preserve the pinned production governance authority. Do not interpret this checkpoint or running CI as completed live auth acceptance.
+
 ## Verified engineering
 
 - Existing web login, account management, owned-inbox password recovery and session controls previously passed live acceptance; their individual records retain the scoped evidence.
