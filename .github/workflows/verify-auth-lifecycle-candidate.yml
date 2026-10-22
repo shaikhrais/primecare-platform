@@ -27,6 +27,13 @@ jobs:
         options: --health-cmd "pg_isready -U lifecycle" --health-interval 5s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
+      - name: Verify technical traceability and unchanged contract decisions
+        run: |
+          python scripts/build-technical-operation-register.py --check
+          python scripts/check-technical-docs.py
+          python scripts/generate-workflow-contract-plan.py --check
+          python scripts/primecare-contract-factory.py --check
+          python scripts/primecare-bulk-codegen.py --check
       - name: Verify exact candidate or promoted source
         run: |
           python - <<'PYCODE'
