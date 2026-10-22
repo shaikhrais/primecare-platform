@@ -1,6 +1,6 @@
 {
-  "base": "bf1184769fc41685139dec8f10c1904ebfac4d86",
-  "sha256": "4469e2924288160f09ca540a48eedfef2db086b514567bc2c9b1a256da76c668",
+  "base": "7de9e8b24bff2367cac28bdbb9665da458753e2a",
+  "sha256": "5eb7127113e5a03f7204ecf1781dfa6a8bb469a12615218860f6cb416b310b15",
   "paths": [
     "cloudflare/workers/src/auth.ts",
     "cloudflare/workers/src/core/base-worker.ts",
@@ -8,9 +8,15 @@
     "cloudflare/workers/src/service-application.ts",
     "packages/flutter_core/lib/auth_service.dart",
     "packages/flutter_core/lib/src/application/controllers/auth_notifier.dart",
+    "packages/flutter_core/lib/src/application/controllers/privileged_access_service.dart",
+    "packages/flutter_core/lib/src/application/privileged_access_contract.g.dart",
     "packages/flutter_core/lib/src/network/api_client.dart",
+    "packages/flutter_core/lib/src/security/security_interceptor.dart",
+    "packages/flutter_core/test/auth_interceptor_test.dart",
     "packages/flutter_core/test/auth_mfa_management_test.dart",
     "packages/flutter_core/test/auth_mfa_test.dart",
+    "packages/flutter_core/test/auth_privileged_access_test.dart",
+    "packages/primecare_ui/lib/src/features/auth/auth_elevation_catalog.g.dart",
     "packages/primecare_ui/lib/src/features/auth/auth_experience.dart",
     "packages/primecare_ui/lib/src/features/auth/auth_lifecycle_catalog.g.dart",
     "packages/primecare_ui/lib/src/features/auth/login_controller.dart",
@@ -21,14 +27,10 @@
     "packages/primecare_ui/lib/src/features/auth/mfa_management_form.dart",
     "packages/primecare_ui/test/auth_mfa_lifecycle_test.dart",
     "scripts/generate-cloudflare-worker-config.mjs",
+    "scripts/generate-flutter-auth-elevation-catalog.py",
     "scripts/generate-flutter-auth-lifecycle-catalog.py",
     "scripts/generate-flutter-mfa-catalog.py",
     "scripts/test-code-admin-mfa-postgres.mjs",
-    "scripts/test-worker-inheritance.mjs",
-    "scripts/generate-flutter-auth-elevation-catalog.py",
-    "packages/flutter_core/lib/src/application/privileged_access_contract.g.dart",
-    "packages/flutter_core/lib/src/application/controllers/privileged_access_service.dart",
-    "packages/flutter_core/test/auth_privileged_access_test.dart",
-    "packages/primecare_ui/lib/src/features/auth/auth_elevation_catalog.g.dart"
+    "scripts/test-worker-inheritance.mjs"
   ]
 }
