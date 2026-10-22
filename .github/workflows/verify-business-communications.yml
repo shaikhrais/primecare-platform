@@ -28,6 +28,16 @@ on:
       - 'packages/flutter_core/test/dio_communication_transport_test.dart'
       - 'tools/communication-client-check.dart'
       - 'tools/communication-ui-bindings.py'
+      - 'tools/communication-media-bundle.mjs'
+      - 'scripts/test-communication-flutter-browser.mjs'
+      - 'scripts/test-communication-flutter-bridge.mjs'
+      - 'packages/flutter_core/assets/communications/**'
+      - 'packages/flutter_core/pubspec.yaml'
+      - 'packages/flutter_core/test/communication_mail_controller_test.dart'
+      - 'packages/flutter_core/test/communication_call_controller_test.dart'
+      - 'packages/flutter_core/test/communication_browser_media_harness.dart'
+      - 'packages/flutter_core/test/fixtures/communication_channels_transport.dart'
+      - 'packages/primecare_ui/test/communication_channels_test.dart'
       - 'packages/flutter_core/test/communication_workspace_controller_test.dart'
       - 'packages/flutter_core/test/fixtures/communication_workspace_transport.dart'
       - 'packages/primecare_ui/lib/src/communications/**'
@@ -53,7 +63,7 @@ jobs:
         working-directory: packages/flutter_core
       - name: Real communication transport failures and existing caller regressions
         working-directory: packages/flutter_core
-        run: flutter test test/communication_workspace_controller_test.dart test/dio_communication_transport_test.dart test/communication_transport_failure_test.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/provider_profile_test.dart
+        run: flutter test test/communication_mail_controller_test.dart test/communication_call_controller_test.dart test/communication_workspace_controller_test.dart test/dio_communication_transport_test.dart test/communication_transport_failure_test.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/provider_profile_test.dart
   flutter-workspace:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -67,7 +77,35 @@ jobs:
         working-directory: packages/primecare_ui
       - name: Shared messaging widgets, localization, lifecycle and existing component regressions
         working-directory: packages/primecare_ui
-        run: flutter test test/communication_workspace_test.dart test/theme_consumers_test.dart test/auth_design_test.dart
+        run: flutter test test/communication_channels_test.dart test/communication_workspace_test.dart test/theme_consumers_test.dart test/auth_design_test.dart
+  flutter-browser-media:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/flutter-media-tools" --ignore-scripts playwright@1.60.0 esbuild@0.27.2
+          ln -s "$RUNNER_TEMP/flutter-media-tools/node_modules" node_modules
+          node tools/communication-media-bundle.mjs
+          mkdir -p test-results
+          cd packages/flutter_core
+          dart compile js test/communication_browser_media_harness.dart -o ../../test-results/communication-dart-browser.js
+      - name: Compiled Dart bridge, shared session and real audio packets
+        run: |
+          export BUSINESS_TEST_CHROMIUM_EXECUTABLE="$(command -v google-chrome)"
+          node --test scripts/test-communication-flutter-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: communication-flutter-browser
+          path: test-results/communication-flutter-browser
+          retention-days: 90
   dart-core:
     runs-on: ubuntu-latest
     timeout-minutes: 8
@@ -155,7 +193,7 @@ jobs:
       - name: Registered HTTP contracts through native PostgreSQL
         run: node --test scripts/test-communication-http.mjs
       - name: Shared communication resource and byte-limit bases
-        run: node --test scripts/test-communication-adapter-base.mjs scripts/test-communication-audio-session.mjs
+        run: node --test scripts/test-communication-adapter-base.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-flutter-bridge.mjs
   media:
     runs-on: ubuntu-24.04
     timeout-minutes: 15

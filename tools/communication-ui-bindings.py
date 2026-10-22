@@ -37,4 +37,4 @@ if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--generate',action='store_true');args=p.parse_args();content=render()
  if args.generate:TARGET.parent.mkdir(parents=True,exist_ok=True);TARGET.write_text(content)
  elif not TARGET.exists() or TARGET.read_text()!=content:raise SystemExit('Shared communication UI bindings differ from production-readback definition')
- print('Communication UI bindings: 4 existing screens, 17 controls, 3 locales; no activation')
+ print('Communication UI bindings: registered existing screens/controls, 3 locales; no activation')

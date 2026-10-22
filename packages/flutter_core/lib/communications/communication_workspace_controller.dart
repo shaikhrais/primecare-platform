@@ -12,7 +12,7 @@ final class CommunicationPictureSelection {
  final Stream<List<int>> bytes;
 }
 typedef CommunicationPicturePicker = Future<CommunicationPictureSelection?> Function();
-final class _InvalidCommunicationInput implements Exception {}
+final class CommunicationInputException implements Exception {}
 Object? _freeze(Object? value) {
  if(value is Map)return Map<String,Object?>.unmodifiable(value.map((key,value)=>MapEntry(key as String,_freeze(value))));
  if(value is List)return List<Object?>.unmodifiable(value.map(_freeze));
@@ -31,7 +31,7 @@ abstract class CommunicationWorkspaceControllerBase extends ChangeNotifier {
  @protected void clearPrivateState();
  @protected void operationFailed(Object error);
  @protected String classify(Object error) {
-  if(error is _InvalidCommunicationInput)return 'invalidInput';
+  if(error is CommunicationInputException)return 'invalidInput';
   final status=error is DioException?error.response?.statusCode:null;
   return switch(status){401=>'unauthenticated',403=>'forbidden',404=>'notFound',409=>'conflict',400||413||415=>'invalidInput',_=>'unavailable'};
  }
@@ -43,7 +43,7 @@ abstract class CommunicationWorkspaceControllerBase extends ChangeNotifier {
    final commit=await operation();if(_disposed)return false;
    commit();return true;
   }catch(error){
-   if(!_disposed){if(error is! _InvalidCommunicationInput)clearPrivateState();operationFailed(error);_failureKey=classify(error);}
+   if(!_disposed){if(error is! CommunicationInputException)clearPrivateState();operationFailed(error);_failureKey=classify(error);}
    return false;
   }finally{if(!_disposed){_busy=false;notifyListeners();}}
  }
@@ -97,7 +97,7 @@ final class CommunicationWorkspaceController extends CommunicationWorkspaceContr
  }
  String _text(String value,{int max=200}) {
   final result=value.trim();
-  if(result.isEmpty||result.length>max||RegExp(r'[\x00-\x1f\x7f]').hasMatch(result))throw _InvalidCommunicationInput();
+  if(result.isEmpty||result.length>max||RegExp(r'[\x00-\x1f\x7f]').hasMatch(result))throw CommunicationInputException();
   return result;
  }
  Map<String,Object?> _record(Map<String,Object?> result,[String? id]) {
@@ -150,16 +150,16 @@ final class CommunicationWorkspaceController extends CommunicationWorkspaceContr
  Future<bool> createConversation(String recipients,String reference)=>_mutation('create',(){
   final members=<String>[userId];
   for(final item in recipients.split(',')){if(item.trim().isEmpty)continue;final member=_text(item);if(!members.contains(member))members.add(member);}
-  if(members.length<2||members.length>CommunicationWorkspaceCatalog.limits['maxMembers']!)throw _InvalidCommunicationInput();
+  if(members.length<2||members.length>CommunicationWorkspaceCatalog.limits['maxMembers']!)throw CommunicationInputException();
   final ref=reference.trim().isEmpty?CommunicationWorkspaceCatalog.generalReference:_text(reference);
   return {'id':_key(),'key':_key(),'members':members,'businessReference':ref};
  });
  Future<bool> sendMessage(String value)=>_mutation('send',(){
-  final current=_thread;if(current==null||value.length>CommunicationWorkspaceCatalog.limits['maxText']!||value.trim().isEmpty&&_draftPictureIds.isEmpty||RegExp(r'[\x00\x0b\x0c]').hasMatch(value))throw _InvalidCommunicationInput();
+  final current=_thread;if(current==null||value.length>CommunicationWorkspaceCatalog.limits['maxText']!||value.trim().isEmpty&&_draftPictureIds.isEmpty||RegExp(r'[\x00\x0b\x0c]').hasMatch(value))throw CommunicationInputException();
   return {'id':current['id'],'key':_key(),'version':current['version'],'text':value,'pictureIds':List<String>.of(_draftPictureIds)};
  });
  Future<bool> markRead()=>_mutation('mark_read',(){
-  final current=_thread;if(current==null)throw _InvalidCommunicationInput();
+  final current=_thread;if(current==null)throw CommunicationInputException();
   final messages=current['messages'] as List;
   final sequence=messages.isEmpty?0:(messages.last as Map)['sequence'];
   if(sequence is! int||sequence<0)throw const FormatException('Invalid message sequence');
@@ -168,26 +168,26 @@ final class CommunicationWorkspaceController extends CommunicationWorkspaceContr
  Future<bool> retryPending(){final command=_pending;if(command==null)return Future.value(false);return run(()=>_executePending(command));}
  Future<bool> pickPicture(CommunicationPicturePicker picker)=>run(() async {
   final current=_thread;
-  if(current==null||_pending!=null||_draftPictureIds.length>=CommunicationWorkspaceCatalog.limits['maxPictures']!)throw _InvalidCommunicationInput();
+  if(current==null||_pending!=null||_draftPictureIds.length>=CommunicationWorkspaceCatalog.limits['maxPictures']!)throw CommunicationInputException();
   final selected=await picker();requireActive();if(selected==null)return (){};
   final maximum=CommunicationWorkspaceCatalog.limits['maxPictureBytes']!;
-  if(selected.length<1||selected.length>maximum)throw _InvalidCommunicationInput();
+  if(selected.length<1||selected.length>maximum)throw CommunicationInputException();
   final bytes=Uint8List(selected.length);var length=0;
   await for(final chunk in selected.bytes){
-   requireActive();if(length+chunk.length>bytes.length||chunk.any((n)=>n<0||n>255))throw _InvalidCommunicationInput();
+   requireActive();if(length+chunk.length>bytes.length||chunk.any((n)=>n<0||n>255))throw CommunicationInputException();
    bytes.setRange(length,length+chunk.length,chunk);length+=chunk.length;
   }
-  requireActive();if(length!=bytes.length)throw _InvalidCommunicationInput();
+  requireActive();if(length!=bytes.length)throw CommunicationInputException();
   final png=bytes.length>=8&&listEquals(bytes.take(8).toList(),[137,80,78,71,13,10,26,10]);
   final jpeg=bytes.length>=3&&bytes[0]==255&&bytes[1]==216&&bytes[2]==255;
-  if(!png&&!jpeg)throw _InvalidCommunicationInput();
+  if(!png&&!jpeg)throw CommunicationInputException();
   final record=await hub.pictures.upload(current['id'] as String,bytes,png?'image/png':'image/jpeg');requireActive();
   if(record['id'] is! String||record['tenantId']!=tenantId||record['threadId']!=current['id']||record['status']!='clean'||record['mediaType']!='image/png'||record['size'] is! int||(record['size'] as int)<1||(record['size'] as int)>maximum)throw const FormatException('Picture unavailable');
   return (){_draftPictureIds=List.unmodifiable({..._draftPictureIds,record['id'] as String});};
  });
  void removePicture(String id){if(!canMutate)return;_draftPictureIds=List.unmodifiable(_draftPictureIds.where((value)=>value!=id));notifyListeners();}
  Future<bool> openPicture(String id)=>run(() async {
-  final current=_thread;if(current==null)throw _InvalidCommunicationInput();
+  final current=_thread;if(current==null)throw CommunicationInputException();
   final response=await hub.pictures.open(current['id'] as String,_text(id));requireActive();final bytes=response['bytes'];
   if(bytes is! Uint8List||bytes.isEmpty||bytes.length>CommunicationWorkspaceCatalog.limits['maxPictureBytes']!||response['mediaType']!='image/png')throw const FormatException('Picture unavailable');
   final copy=Uint8List.fromList(bytes);return ()=>_preview=copy;

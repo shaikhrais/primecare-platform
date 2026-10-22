@@ -172,3 +172,9 @@ export 'stubs/url_strategy.dart';
 
 
 export 'src/repositories/own_notifications_repository.dart';
+
+export 'communications/communication_command_controller.dart';
+export 'communications/communication_mail_controller.dart';
+export 'communications/communication_call_controller.dart';
+export 'communications/communication_media.dart';
+export 'communications/communication_browser_media.dart';

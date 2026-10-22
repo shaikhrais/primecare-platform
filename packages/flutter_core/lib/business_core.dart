@@ -13,3 +13,9 @@ export 'src/infrastructure/repositories/base_api_repository.dart';
 export 'src/application/services/base_business_service.dart';
 export 'src/security/policies/base_permission_policy.dart';
 export 'src/security/policies/route_permission_policy.dart';
+
+export 'communications/communication_command_controller.dart';
+export 'communications/communication_mail_controller.dart';
+export 'communications/communication_call_controller.dart';
+export 'communications/communication_media.dart';
+export 'communications/communication_browser_media.dart';

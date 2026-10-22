@@ -60,6 +60,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/communications/audio-bridge.js
     - assets/translations/
     - assets/data/
     - assets/db/

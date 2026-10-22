@@ -34,3 +34,15 @@ informs the platform file-picker port; selection remains a hint, with actual byt
 bounds and raster validation in controller/server. Flutter [live-region semantics](https://api.flutter.dev/flutter/semantics/SemanticsProperties/liveRegion.html)
 inform status presentation. Tests cover these behaviors rather than inferring
 accessibility or deployed acceptance from a screenshot.
+
+## Call and email presentation follow-up
+
+Official sources rechecked on 2026-10-22:
+
+- https://developers.cloudflare.com/email-service/api/send-emails/workers-api/ (updated 2026-10-21): native `send_email` binding configuration and send result contract. A provider ID alone is not recipient delivery evidence; keep queue, sending, accepted and unknown visible separately.
+- https://developers.cloudflare.com/email-service/api/send-emails/rest-api/: REST results distinguish delivery, deferral and rejection. Do not substitute that richer REST contract for a Workers binding response.
+- https://developers.cloudflare.com/email-service/api/route-emails/email-handler/: receive through the trusted Worker email event, independent of user-facing channel dispatch. Incoming sender/content remains untrusted.
+- https://www.w3.org/TR/webrtc/ and https://www.w3.org/TR/mediacapture-streams/: microphone tracks and peer connections have separate lifetimes. Explicitly stop tracks, close peers and remove listeners/timers on denial, termination and account changes; late permission results still require cleanup.
+- https://dart.dev/interop/js-interop/usage: use typed JS interop extension types and explicit conversions for a small browser-only adapter. Keep the established browser session as the single signaling/media implementation rather than duplicating its state machine in Flutter.
+
+Implementation decisions: explicit queue then send; exact immutable retry keys for ambiguous mutations; received envelope/quarantine status only until trusted content processing exists; no raw MIME or HTML rendering; accepted-party-only microphone connection through the shared BrowserAudioSession; trusted media configuration injected by composition, no public relay credentials or permissive default.
