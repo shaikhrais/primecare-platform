@@ -6,6 +6,10 @@ on:
       - .github/workflows/auth-privileged-foundations.yml
       - packages/database/migrations/20261027_auth_privileged_access.sql
       - scripts/test-auth-privileged-schema.mjs
+      - scripts/test-auth-privileged-postgres.mjs
+      - cloudflare/workers/src/security/mfa-elevation.mjs
+      - cloudflare/workers/src/security/mfa-lifecycle.mjs
+      - packages/shared/src/auth-elevation.json
       - scripts/privileged-schema-profile.mjs
       - scripts/export-auth-privileged-schema.mjs
       - scripts/apply-auth-privileged-schema.mjs
@@ -38,6 +42,8 @@ jobs:
           MFA_TEST_DATABASE_URL: postgresql://lifecycle:disposable-only@localhost:5432/lifecycle
         run: |
           node --test scripts/test-auth-privileged-schema.mjs
+          MFA_TEST_ID_TYPE=text node --test scripts/test-auth-privileged-postgres.mjs
+          MFA_TEST_ID_TYPE=uuid node --test scripts/test-auth-privileged-postgres.mjs
           node scripts/export-auth-privileged-schema.mjs
       - uses: actions/upload-artifact@v4
         with:

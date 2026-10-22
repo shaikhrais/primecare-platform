@@ -74,6 +74,11 @@ async function notification(db, user, event, locale) {
   if (one(await db.query('INSERT INTO auth_mfa_notification_outbox(id,user_id,tenant_id,recipient,event,locale) VALUES($1,$2,$3,$4,$5,$6) RETURNING id', [id, user.id, user.tenant_id, user.email, event, localeValue(locale)])).id !== id) throw Error('MFA notification queue failed');
 }
 
+async function failedProof(db, user) {
+  const id = crypto.randomUUID();
+  if (one(await db.query("INSERT INTO auth_mfa_audit(id,user_id,tenant_id,action) VALUES($1,$2,$3,'mfa_verification_failed') RETURNING id", [id, user.id, user.tenant_id])).id !== id) throw Error('MFA failure audit failed');
+}
+
 async function replacement(db, env, user, credential, proofKind) {
   const challenge = token(), seed = generateMfaSeed(), pending = await sealCurrentMfaSeed(env, seed, user);
   await db.query('DELETE FROM auth_mfa_replacement_challenges WHERE user_id=$1', [user.id]);
@@ -100,7 +105,7 @@ export async function manageMfaLifecycle(db, env, sessionToken, body, action, lo
     if (!user || user.status !== 'active' || !await sessionCurrent(db, sessionToken, user)) {await db.query('ROLLBACK'); return denied();}
     if (user.roles !== 'code_admin' || (tenantHint !== null && tenantHint !== user.tenant_id)) {await db.query('ROLLBACK'); return denied(403);}
     const credential = await freshFactor(db, env, user, password, code);
-    if (!credential) {await db.query('ROLLBACK'); return denied();}
+    if (!credential) {await failedProof(db, user); await db.query('COMMIT'); return denied();}
     let response;
     if (action === 'codes') {
       const generated = await generateMfaRecoveryCodes(user);
@@ -141,8 +146,7 @@ export async function recoverMfaLifecycle(db, env, body, locale = 'en') {
     const consumed = codeHash ? (await db.query('UPDATE auth_mfa_recovery_codes SET consumed_at=NOW() WHERE code_hash=$1 AND user_id=$2 AND tenant_id=$3 AND consumed_at IS NULL RETURNING code_hash', [codeHash, user.id, user.tenant_id])).rows : [];
     if (consumed.length !== 1) {
       one(await db.query('UPDATE auth_mfa_challenges SET attempts=attempts+1 WHERE token_hash=$1 AND attempts<5 RETURNING attempts', [hash]));
-      const id = crypto.randomUUID();
-      if (one(await db.query("INSERT INTO auth_mfa_audit(id,user_id,tenant_id,action) VALUES($1,$2,$3,'mfa_verification_failed') RETURNING id", [id, user.id, user.tenant_id])).id !== id) throw Error('MFA failure audit failed');
+      await failedProof(db, user);
       await db.query('COMMIT'); return denied();
     }
     if (one(await db.query('DELETE FROM auth_mfa_challenges WHERE token_hash=$1 RETURNING token_hash', [hash])).token_hash !== hash) throw Error('Recovery challenge consumption failed');
@@ -172,6 +176,7 @@ export async function confirmMfaReplacement(db, env, body, locale = 'en') {
     const counter = await matchTotp(seed, code, {seconds: Math.floor(Date.now() / 1000), lastAcceptedCounter: -1});
     if (counter === null) {
       one(await db.query('UPDATE auth_mfa_replacement_challenges SET attempts=attempts+1 WHERE token_hash=$1 AND attempts<5 RETURNING attempts', [hash]));
+      await failedProof(db, user);
       await db.query('COMMIT'); return denied();
     }
     if (one(await db.query('UPDATE auth_mfa_credentials SET envelope=$2,last_counter=$3,enabled_at=NOW() WHERE user_id=$1 AND enabled=true RETURNING user_id', [user.id, JSON.stringify(pending.pending_envelope), counter])).user_id !== user.id) throw Error('Replacement credential update failed');
@@ -187,3 +192,6 @@ export async function confirmMfaReplacement(db, env, body, locale = 'en') {
     return {status: 200, body: {status: 'authenticated', token: issued, userId: user.id, role: user.roles}};
   } catch (error) {await db.query('ROLLBACK'); throw error;}
 }
+
+// Shared internal proof primitives; no additional HTTP surface.
+export {lockedUser,sessionLookup,sessionCurrent,proofRate,freshFactor,failedProof};

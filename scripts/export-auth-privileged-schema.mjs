@@ -4,6 +4,7 @@ import {createHash} from 'node:crypto';
 import {privilegedTables,privilegedSchemaProfile} from './privileged-schema-profile.mjs';
 if (!process.env.MFA_TEST_DATABASE_URL || !/^[a-f0-9]{40}$/.test(process.env.GITHUB_SHA ?? '')) throw Error('Native disposable producer required');
 const sql=readFileSync('packages/database/migrations/20261027_auth_privileged_access.sql','utf8');
+if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL||!['localhost','127.0.0.1'].includes(new URL(process.env.MFA_TEST_DATABASE_URL).hostname))throw Error('Disposable loopback producer required');
 const db=new pg.Client({connectionString:process.env.MFA_TEST_DATABASE_URL});await db.connect();
 const schema='mfa_schema_'+crypto.randomUUID().replaceAll('-','');
 try{
