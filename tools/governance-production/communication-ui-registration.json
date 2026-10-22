@@ -1,0 +1,214 @@
+{
+  "version": 1,
+  "namespace": "communicationWorkspace",
+  "screens": {
+    "234": "psw_messages",
+    "331": "patient_messages",
+    "559": "communication",
+    "578": "messaging"
+  },
+  "apiIds": [
+    710,
+    857,
+    16508,
+    16509
+  ],
+  "panelFile": "packages/primecare_ui/lib/src/communications/communication_workspace.dart",
+  "controllerFile": "packages/flutter_core/lib/communications/communication_workspace_controller.dart",
+  "controls": {
+    "root": {
+      "testId": "communication-workspace",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "status": {
+      "testId": "communication-status",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "refresh": {
+      "testId": "communication-refresh",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "inbox": {
+      "testId": "communication-inbox",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "openThread": {
+      "testId": "communication-thread-open",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "members": {
+      "testId": "communication-members",
+      "component": "prime_text_field",
+      "componentId": 3
+    },
+    "businessReference": {
+      "testId": "communication-reference",
+      "component": "prime_text_field",
+      "componentId": 3
+    },
+    "create": {
+      "testId": "communication-create",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "conversation": {
+      "testId": "communication-conversation",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "composer": {
+      "testId": "communication-composer",
+      "component": "prime_text_field",
+      "componentId": 3
+    },
+    "send": {
+      "testId": "communication-send",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "markRead": {
+      "testId": "communication-mark-read",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "picturePick": {
+      "testId": "communication-picture-pick",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "pictureRemove": {
+      "testId": "communication-picture-remove",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "pictureOpen": {
+      "testId": "communication-picture-open",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "attachments": {
+      "testId": "communication-attachments",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "retry": {
+      "testId": "communication-retry",
+      "component": "prime_button",
+      "componentId": 1
+    }
+  },
+  "locales": {
+    "en": {
+      "title": "Messages",
+      "refresh": "Refresh",
+      "inbox": "Conversations",
+      "emptyInbox": "No conversations available.",
+      "members": "Recipient account IDs, separated by commas",
+      "businessReference": "Task reference (leave blank for a general conversation)",
+      "create": "Start conversation",
+      "conversation": "Conversation",
+      "emptyConversation": "Choose a conversation or start a new one.",
+      "composer": "Message",
+      "send": "Send message",
+      "markRead": "Mark as read",
+      "picturePick": "Attach picture",
+      "pictureRemove": "Remove from draft",
+      "pictureOpen": "View picture",
+      "attachments": "Draft pictures",
+      "retry": "Retry the original action",
+      "pending": "The action may have completed. Retry the original action to confirm it safely.",
+      "loading": "Loading…",
+      "ready": "Up to date.",
+      "forbidden": "You do not have access to this communication.",
+      "unauthenticated": "Sign in to use messages.",
+      "notFound": "This conversation or picture is unavailable.",
+      "conflict": "The conversation changed. Refresh before trying again.",
+      "unavailable": "Communication is unavailable. Please try again.",
+      "invalidInput": "Check the recipients, message and picture limits.",
+      "uncertain": "The result could not be confirmed. Your message draft has been kept.",
+      "preview": "Picture preview"
+    },
+    "fr": {
+      "title": "Messages",
+      "refresh": "Actualiser",
+      "inbox": "Conversations",
+      "emptyInbox": "Aucune conversation disponible.",
+      "members": "Identifiants des destinataires, séparés par des virgules",
+      "businessReference": "Référence de tâche (vide pour une conversation générale)",
+      "create": "Démarrer une conversation",
+      "conversation": "Conversation",
+      "emptyConversation": "Choisissez une conversation ou démarrez-en une.",
+      "composer": "Message",
+      "send": "Envoyer le message",
+      "markRead": "Marquer comme lu",
+      "picturePick": "Joindre une image",
+      "pictureRemove": "Retirer du brouillon",
+      "pictureOpen": "Voir l’image",
+      "attachments": "Images du brouillon",
+      "retry": "Réessayer l’action initiale",
+      "pending": "L’action a peut-être abouti. Réessayez l’action initiale pour confirmer sans doublon.",
+      "loading": "Chargement…",
+      "ready": "À jour.",
+      "forbidden": "Vous n’avez pas accès à cette communication.",
+      "unauthenticated": "Connectez-vous pour utiliser les messages.",
+      "notFound": "Cette conversation ou image est indisponible.",
+      "conflict": "La conversation a changé. Actualisez avant de réessayer.",
+      "unavailable": "La communication est indisponible. Réessayez.",
+      "invalidInput": "Vérifiez les destinataires, le message et les limites des images.",
+      "uncertain": "Le résultat n’a pas pu être confirmé. Votre brouillon a été conservé.",
+      "preview": "Aperçu de l’image"
+    },
+    "es": {
+      "title": "Mensajes",
+      "refresh": "Actualizar",
+      "inbox": "Conversaciones",
+      "emptyInbox": "No hay conversaciones disponibles.",
+      "members": "Identificadores de destinatarios, separados por comas",
+      "businessReference": "Referencia de tarea (vacía para una conversación general)",
+      "create": "Iniciar conversación",
+      "conversation": "Conversación",
+      "emptyConversation": "Elija una conversación o inicie una nueva.",
+      "composer": "Mensaje",
+      "send": "Enviar mensaje",
+      "markRead": "Marcar como leído",
+      "picturePick": "Adjuntar imagen",
+      "pictureRemove": "Quitar del borrador",
+      "pictureOpen": "Ver imagen",
+      "attachments": "Imágenes del borrador",
+      "retry": "Reintentar la acción original",
+      "pending": "La acción puede haberse completado. Reintente la acción original para confirmar sin duplicados.",
+      "loading": "Cargando…",
+      "ready": "Actualizado.",
+      "forbidden": "No tiene acceso a esta comunicación.",
+      "unauthenticated": "Inicie sesión para usar los mensajes.",
+      "notFound": "Esta conversación o imagen no está disponible.",
+      "conflict": "La conversación cambió. Actualice antes de volver a intentarlo.",
+      "unavailable": "La comunicación no está disponible. Inténtelo de nuevo.",
+      "invalidInput": "Revise los destinatarios, el mensaje y los límites de imagen.",
+      "uncertain": "No se pudo confirmar el resultado. Se conservó el borrador.",
+      "preview": "Vista previa de la imagen"
+    }
+  },
+  "limits": {
+    "maxPictureBytes": 1048576,
+    "maxText": 2000,
+    "maxMembers": 8,
+    "maxPictures": 3,
+    "inboxLimit": 50
+  },
+  "rules": {
+    "generalReference": "general",
+    "mutations": "explicit-only-no-automatic-retry",
+    "uncertainMutation": "retain-exact-command-key-and-version-for-explicit-retry",
+    "sessionChange": "dispose-controller-and-clear-private-state",
+    "pictureRemoval": "draft-reference-only-no-server-object-deletion"
+  },
+  "implementationStatus": "registered-unimplemented",
+  "reviewApproved": false,
+  "productionReady": false
+}
