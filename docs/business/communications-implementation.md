@@ -378,3 +378,29 @@ case/contact/mailbox policies, scoped grants, private scanner/storage binding,
 call relay/native media integration and actual registered Flutter controls remain
 release work; passing core/client tests must not be described as an all-user
 communication rollout or live business-mail send/receive acceptance.
+
+### Verified inbox and shared-session checkpoint
+
+[Run39852753876](https://github.com/shaikhrais/primecare-platform/actions/runs/39852753876)
+passed all five jobs on source `203d42a59a3b08cb2134a4957fa726362ee95cbe`:122
+native Node tests plus three real-media tests (125 total, zero failed/skipped),
+543 Flutter regressions,10 metadata-report tests, strict TypeScript, Dart analysis
+and the pure Dart harness. The authenticated ApiClient factory checks passed.
+The native inbox tests exercised the production storage migration in isolated
+PostgreSQL schemas, including mailbox scope, ownership, pagination and private
+body exclusion. Media artifact12459000667 preserves the actual browser test.
+
+The fresh read-only production audit confirms all seven registered APIs and no
+matching active-role API/screen grants. The fresh four-Worker provider snapshot
+confirms native EMAIL on auth/governance and no R2 or named scanner/media/signaling
+bindings on those inspected Workers. It does not read credentials or messages,
+provision resources, change grants, call a person or send live business mail.
+See [evidence/communication-inbox-20261022.json](evidence/communication-inbox-20261022.json).
+
+This is scoped code/test acceptance, not all-user rollout. General recipient
+eligibility, clinical/HR case restrictions and mailbox ownership/delegation must
+have explicit registered requirements before live permission grants are written.
+The remaining provider, handler, shared-screen and deployed-user acceptance work
+is still open. Placeholder Flutter sections are not marked functional by this
+checkpoint; the new inherited clients and session factory are available for the
+registered composition once those release requirements are resolved.

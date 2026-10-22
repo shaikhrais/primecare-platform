@@ -1,0 +1,270 @@
+{
+  "date": "2026-10-22",
+  "sourceCommit": "203d42a59a3b08cb2134a4957fa726362ee95cbe",
+  "registration": {
+    "sourceCommit": "4f5409621c097116b3c1953b3a7255e802579d76",
+    "run": 39850982551,
+    "nativeRegistrationTests": 6,
+    "apiIds": [
+      710,
+      857,
+      16508,
+      16509,
+      16510,
+      16511,
+      16512
+    ],
+    "screenLinks": 28,
+    "roleGrantsChanged": false,
+    "businessRecordsWritten": false,
+    "activation": false
+  },
+  "verification": {
+    "run": "https://github.com/shaikhrais/primecare-platform/actions/runs/39852753876",
+    "jobs": [
+      {
+        "id": 120082970367,
+        "name": "dart-core",
+        "conclusion": "success"
+      },
+      {
+        "id": 120082970786,
+        "name": "isolated",
+        "conclusion": "success"
+      },
+      {
+        "id": 120082970837,
+        "name": "inventory",
+        "conclusion": "success"
+      },
+      {
+        "id": 120082970841,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120082971020,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      }
+    ],
+    "nativeNodeTests": 122,
+    "mediaNodeTests": 3,
+    "nodeTotal": 125,
+    "nodeFailures": 0,
+    "nodeSkipped": 0,
+    "flutterTests": 543,
+    "metadataTests": 10,
+    "strictTypeScript": "passed",
+    "dartAnalysisAndHarness": "passed",
+    "mediaArtifact": 12459000667
+  },
+  "liveProviderSnapshot": {
+    "sourceCommit": "203d42a59a3b08cb2134a4957fa726362ee95cbe",
+    "writesAttempted": false,
+    "readsMessages": false,
+    "credentialsConfigured": true,
+    "liveCommunicationVerified": false,
+    "workers": [
+      {
+        "script": "primecare-auth-api",
+        "httpStatus": 200,
+        "settingsRead": true,
+        "bindings": [
+          {
+            "name": "AUTH_SOURCE_LIMIT",
+            "type": "ratelimit"
+          },
+          {
+            "name": "CONFIG_ENCRYPTION_KEY",
+            "type": "secret_text"
+          },
+          {
+            "name": "DB_URL",
+            "type": "secret_text"
+          },
+          {
+            "name": "EMAIL",
+            "type": "send_email"
+          },
+          {
+            "name": "EMAIL_ALLOWED_SENDER",
+            "type": "plain_text"
+          },
+          {
+            "name": "EMAIL_FROM",
+            "type": "plain_text"
+          },
+          {
+            "name": "MFA_ACTIVE_KEY_ID",
+            "type": "plain_text"
+          },
+          {
+            "name": "MFA_ENCRYPTION_KEY",
+            "type": "secret_text"
+          },
+          {
+            "name": "MFA_ENCRYPTION_KEY_V2",
+            "type": "secret_text"
+          },
+          {
+            "name": "MFA_KEYRING_SOURCE_SHA256",
+            "type": "plain_text"
+          },
+          {
+            "name": "MFA_ROTATION_FROM_KEY_ID",
+            "type": "plain_text"
+          },
+          {
+            "name": "SERVICE_NAME",
+            "type": "plain_text"
+          },
+          {
+            "name": "WORKSPACE_SOURCE_LIMIT",
+            "type": "ratelimit"
+          }
+        ],
+        "nativeEmailBinding": true,
+        "r2BindingNames": [],
+        "mediaOrScannerNameHints": []
+      },
+      {
+        "script": "primecare-governance-api",
+        "httpStatus": 200,
+        "settingsRead": true,
+        "bindings": [
+          {
+            "name": "DB_URL",
+            "type": "secret_text"
+          },
+          {
+            "name": "EMAIL",
+            "type": "send_email"
+          },
+          {
+            "name": "EMAIL_ALLOWED_SENDER",
+            "type": "plain_text"
+          },
+          {
+            "name": "EMAIL_FROM",
+            "type": "plain_text"
+          },
+          {
+            "name": "SERVICE_NAME",
+            "type": "plain_text"
+          },
+          {
+            "name": "WORKSPACE_SOURCE_LIMIT",
+            "type": "ratelimit"
+          }
+        ],
+        "nativeEmailBinding": true,
+        "r2BindingNames": [],
+        "mediaOrScannerNameHints": []
+      },
+      {
+        "script": "primecare-api-gateway",
+        "httpStatus": 200,
+        "settingsRead": true,
+        "bindings": [
+          {
+            "name": "AUTH",
+            "type": "service",
+            "service": "primecare-auth-api"
+          },
+          {
+            "name": "BILLING",
+            "type": "service",
+            "service": "primecare-billing-api"
+          },
+          {
+            "name": "CLIENT",
+            "type": "service",
+            "service": "primecare-client-api"
+          },
+          {
+            "name": "COMPLIANCE",
+            "type": "service",
+            "service": "primecare-compliance-api"
+          },
+          {
+            "name": "FRANCHISE_REPORTING",
+            "type": "service",
+            "service": "primecare-franchise-reporting-api"
+          },
+          {
+            "name": "GOVERNANCE",
+            "type": "service",
+            "service": "primecare-governance-api"
+          },
+          {
+            "name": "JWT_SECRET",
+            "type": "secret_text"
+          },
+          {
+            "name": "NOTES",
+            "type": "service",
+            "service": "primecare-notes-api"
+          },
+          {
+            "name": "NOTIFICATION",
+            "type": "service",
+            "service": "primecare-notification-api"
+          },
+          {
+            "name": "PROVIDER",
+            "type": "service",
+            "service": "primecare-provider-api"
+          },
+          {
+            "name": "SCHEDULING",
+            "type": "service",
+            "service": "primecare-scheduling-api"
+          },
+          {
+            "name": "VERIFICATION",
+            "type": "service",
+            "service": "primecare-verification-api"
+          },
+          {
+            "name": "VISIT",
+            "type": "service",
+            "service": "primecare-visit-api"
+          }
+        ],
+        "nativeEmailBinding": false,
+        "r2BindingNames": [],
+        "mediaOrScannerNameHints": []
+      },
+      {
+        "script": "primecare-email-inbox",
+        "httpStatus": 200,
+        "settingsRead": true,
+        "bindings": [
+          {
+            "name": "INBOX",
+            "type": "kv_namespace"
+          },
+          {
+            "name": "INBOX_ADDRESSES",
+            "type": "plain_text"
+          }
+        ],
+        "nativeEmailBinding": false,
+        "r2BindingNames": [],
+        "mediaOrScannerNameHints": []
+      }
+    ]
+  },
+  "matchingCommunicationRoleGrants": 0,
+  "allUserReleaseVerified": false,
+  "liveBusinessEmailSendReceiveVerified": false,
+  "remaining": [
+    "define/register current general-contact, restricted-case and mailbox ownership/delegation rules",
+    "register exact scoped role/API grants",
+    "private picture decoding/scanning/storage service binding",
+    "live call relay and Flutter/native media bridge",
+    "shared registered communication controls and screen composition",
+    "mount handlers and verify deployed owned-user journeys"
+  ]
+}
