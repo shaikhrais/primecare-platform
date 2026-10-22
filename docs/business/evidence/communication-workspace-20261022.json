@@ -1,0 +1,141 @@
+{
+  "sourceCommit": "cc47f26969fb93762243edcf4ac30fbd9406f43a",
+  "scope": "Shared inherited text/picture workspace on four existing screens, controller lifecycle and server inbox call-party privacy",
+  "registration": {
+    "definitionSha256": "40013c8c3807ec9bd4bb80dbd6240c357880632fa055c6d67e86db85cf3cdb6e",
+    "screens": 4,
+    "controlsPerScreen": 17,
+    "resources": 28,
+    "locales": [
+      "en",
+      "es",
+      "fr"
+    ],
+    "permissionGrants": 0,
+    "activation": false,
+    "reviewApproved": false,
+    "independentReadback": true,
+    "sourceCommit": "b571a6a6eb4f857da8a31ff436e8ac6e60094020",
+    "runId": 39857952472,
+    "authority": "pinned-production-postgresql",
+    "isolatedTestsPassed": 6
+  },
+  "screens": {
+    "234": "psw_messages",
+    "331": "patient_messages",
+    "559": "communication",
+    "578": "messaging"
+  },
+  "baseClasses": [
+    "CommunicationScreenBase",
+    "CommunicationWorkspaceControllerBase",
+    "CommunicationChannelClient",
+    "ScopedServiceBase",
+    "CommunicationChannelBase"
+  ],
+  "presentation": [
+    "inbox/open/create conversation",
+    "send and reload messages",
+    "read receipts",
+    "bounded streamed picture selection",
+    "draft picture removal",
+    "private resized preview",
+    "en/fr/es text and responsive layouts"
+  ],
+  "controllerGuarantees": [
+    "no queued duplicate clicks",
+    "current local user/tenant response scope",
+    "exact mutation acknowledgement and reload",
+    "immutable original command retained after uncertainty",
+    "explicit same-key retry without duplicate send",
+    "later denied reads cannot discard uncertain commands",
+    "account/tenant/token/role invalidation clears private state",
+    "no late commits after disposal",
+    "refresh retains unsent attachment references",
+    "malformed message records fail before view casts"
+  ],
+  "privacyRegression": {
+    "previousSource": "d9538bd534f210eada2f769ea3c1bdeb7e1a21f1",
+    "previousSourceFailed": 2,
+    "fixedLocalPassed": 2,
+    "surfaces": [
+      "service inbox and direct reads",
+      "registered HTTP inbox"
+    ],
+    "nativeVerified": true
+  },
+  "local": {
+    "nodePassed": 133,
+    "nodeSkipped": 2,
+    "nodeFailed": 0,
+    "strictTypeScript": "passed",
+    "routeBindings": "passed",
+    "uiBindings": "passed",
+    "skipReason": "PostgreSQL unavailable locally; disposable native CI required"
+  },
+  "ci": {
+    "runId": 39860972782,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39860972782",
+    "status": "success",
+    "jobs": [
+      {
+        "id": 120111265891,
+        "name": "inventory",
+        "conclusion": "success"
+      },
+      {
+        "id": 120111266187,
+        "name": "dart-core",
+        "conclusion": "success"
+      },
+      {
+        "id": 120111266190,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120111266199,
+        "name": "flutter-workspace",
+        "conclusion": "success"
+      },
+      {
+        "id": 120111266426,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      },
+      {
+        "id": 120111266490,
+        "name": "isolated",
+        "conclusion": "success"
+      }
+    ],
+    "nodeServiceTestsPassed": 146,
+    "nodeMediaTestsPassed": 3,
+    "flutterCoreTransportTestsPassed": 564,
+    "flutterWorkspaceThemeAuthTestsPassed": 100,
+    "flutterTotalPassed": 664,
+    "metadataReportTestsPassed": 10,
+    "strictTypeScript": "passed",
+    "dartAnalysisAndCoreHarness": "passed",
+    "routeBindings": "passed",
+    "uiBindings": "passed",
+    "mediaArtifactId": 12460414270
+  },
+  "onlyRemoteBranch": "main",
+  "permissionsChanged": false,
+  "activationChanged": false,
+  "accountsChanged": false,
+  "allUserReleaseVerified": false,
+  "deployedBrowserToDatabaseVerified": false,
+  "liveBusinessEmailSendReceiveVerified": false,
+  "catalogVerificationChanged": false,
+  "remaining": [
+    "governed contact discovery instead of known recipient account IDs",
+    "call and email presentation using the existing shared core",
+    "provider-verified mailbox provisioning",
+    "real private image decoder/scanner/storage composition",
+    "live TURN credentials and restrictive-network media acceptance",
+    "explicit endpoint/screen grants and worker/gateway mounting",
+    "deployed browser-to-database acceptance and independent release reviews"
+  ]
+}
