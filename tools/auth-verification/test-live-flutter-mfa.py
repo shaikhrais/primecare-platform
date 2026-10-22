@@ -19,7 +19,7 @@ import psycopg
 from playwright.sync_api import sync_playwright, expect
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from tools.deployment.flutter_browser import fill_flutter_field
+from tools.deployment.flutter_browser import fill_flutter_field, click_flutter_control
 from tools.deployment.http_client import read_public_asset, VERIFIER_USER_AGENT
 
 SITE = 'https://primecare-clinic.pages.dev'
@@ -80,6 +80,10 @@ def main():
                     page = context.new_page()
                     created = False
                     result['identityStatuses'] = []
+                    result['loginTraffic'] = []
+                    page.on('request', lambda r: result['loginTraffic'].append({'event':'request','method':r.method}) if r.url.split('?')[0].endswith('/v1/auth/login') and len(result['loginTraffic']) < 50 else None)
+                    page.on('response', lambda r: result['loginTraffic'].append({'event':'response','status':r.status}) if r.url.split('?')[0].endswith('/v1/auth/login') and len(result['loginTraffic']) < 50 else None)
+                    page.on('requestfailed', lambda r: result['loginTraffic'].append({'event':'network-failed'}) if r.url.split('?')[0].endswith('/v1/auth/login') and len(result['loginTraffic']) < 50 else None)
                     page.on('response', lambda r: result['identityStatuses'].append(r.status) if r.url.split('?')[0].endswith('/v1/auth/me') else None)
                     step = 'create isolated fixture'
 
@@ -106,10 +110,13 @@ def main():
                             wait_until='domcontentloaded', timeout=60000)
 
                     def exchange():
+                        checkpoint('login email input')
                         fill_flutter_field(page, field('login-email'), email)
+                        checkpoint('login password input')
                         fill_flutter_field(page, field('login-password'), password)
+                        checkpoint('login submit')
                         with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/login') and r.request.method == 'POST') as response:
-                            button('login-submit').click()
+                            click_flutter_control(button('login-submit'))
                         must(response.value.status == 200, 'password exchange accepted')
                         challenge = response.value.json()
                         must(challenge.get('status') == 'mfa_required' and 'token' not in challenge, 'password exchange issues challenge only')
@@ -121,7 +128,7 @@ def main():
                     def factor(code):
                         fill_flutter_field(page, field('mfa-code'), code)
                         with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/mfa') and r.request.method == 'POST') as response:
-                            button('mfa-submit').click()
+                            click_flutter_control(button('mfa-submit'))
                         return response.value.status, response.value.json()
 
                     try:
@@ -131,11 +138,11 @@ def main():
                         created = True
                         step = 'select locale and cancel enrollment'
                         visit('/language')
-                        page.get_by_role('button', name={'en': 'English', 'fr': 'Français', 'es': 'Español'}[locale], exact=True).click()
+                        click_flutter_control(page.get_by_role('button', name={'en': 'English', 'fr': 'Français', 'es': 'Español'}[locale], exact=True))
                         visit('/login')
                         abandoned = exchange()
                         must(abandoned['purpose'] == 'enroll', 'new account requires enrollment')
-                        button('mfa-cancel').click()
+                        click_flutter_control(button('mfa-cancel'))
                         field('login-email').wait_for()
                         expect(field('login-password')).to_have_value('')
                         must(page.locator('[aria-label^="mfa-seed"]').count() == 0, 'cancel removes displayed setup key')
@@ -177,6 +184,9 @@ def main():
                         page.wait_for_function("t => JSON.parse(localStorage.getItem('flutter.auth_token')) === t", arg=token)
                         record = db.execute('SELECT u.status,c.enabled,c.envelope FROM users u JOIN auth_mfa_credentials c ON c.user_id=u.id::text WHERE u.id::text=%s', (user,)).fetchone()
                         must(record[0] == 'active' and record[1] and seed not in json.dumps(record[2]), 'activation and encrypted credential persisted')
+                        if os.environ.get('VERIFY_MFA_LIFECYCLE') == '1':
+                            active_key = json.loads(Path('cloudflare/workers/src/security/mfa-keyring-policy.json').read_text())['activeKeyId']
+                            must(record[2].get('keyId') == active_key, 'new enrollment uses the selected server storage key')
                         must(api('/v1/auth/me', token=token)[1].get('userId') == user, 'gateway identity matches synthetic account')
                         must(db.execute('SELECT COUNT(*) FROM auth_sessions WHERE user_id::text=%s AND token_hash=%s', (user, hashlib.sha256(token.encode()).hexdigest())).fetchone()[0] == 1, 'browser session matches hashed database record')
                         must(db.execute("SELECT COUNT(*) FROM auth_mfa_audit WHERE user_id=%s AND action='mfa_enrolled'", (user,)).fetchone()[0] == 1, 'enrollment audit committed')
@@ -187,7 +197,7 @@ def main():
                         signout.wait_for(timeout=30000)
                         must(page.locator('[aria-label^="mfa-seed"]').count() == 0, 'reload retains session without displaying seed')
                         with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/logout') and r.request.method == 'POST') as ended:
-                            signout.click()
+                            click_flutter_control(signout)
                         must(ended.value.status == 200, 'server acknowledged initial signout')
                         field('login-email').wait_for()
                         must(api('/v1/auth/me', token=token)[0] == 401, 'logout revokes server session')
@@ -221,7 +231,7 @@ def main():
                         step = 'acknowledged final logout and signed-out reload'
                         page.get_by_role('button', name=labels[locale]['signout'], exact=True).wait_for(timeout=30000)
                         with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/logout') and r.request.method == 'POST') as ended:
-                            page.get_by_role('button', name=labels[locale]['signout'], exact=True).click()
+                            click_flutter_control(page.get_by_role('button', name=labels[locale]['signout'], exact=True))
                         must(ended.value.status == 200, 'server acknowledged final signout')
                         field('login-email').wait_for()
                         page.reload(wait_until='domcontentloaded')
@@ -229,6 +239,7 @@ def main():
                         must(api('/v1/auth/me', token=token)[0] == 401 and page.evaluate("localStorage.getItem('flutter.auth_token')") is None, 'signed-out reload has no local or server authority')
                         build()
                         result.pop('identityStatuses', None)
+                        result.pop('loginTraffic', None)
                         result.pop('activeStep', None)
                         result.pop('httpStatus', None)
                         result['passed'] = True

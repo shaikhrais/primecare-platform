@@ -1,5 +1,8 @@
 import {validateFlutterMfaReceipt} from './validate-flutter-mfa-receipt.mjs';
 export const requiredAuthLifecycleChecks = [
+  "new enrollment uses the selected server storage key",
+  "replacement uses the selected server storage key",
+  "lost-factor recovery uses the selected server storage key",
   "ten unique saved recovery codes returned once",
   "saved codes persist only as unused context-bound hashes",
   "reload cannot redisplay saved codes",

@@ -5,8 +5,9 @@ import hashlib
 import json
 import re
 import time
+from pathlib import Path
 from playwright.sync_api import expect
-from tools.deployment.flutter_browser import fill_flutter_field
+from tools.deployment.flutter_browser import fill_flutter_field, click_flutter_control
 
 
 def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, button, api, totp, must, exchange):
@@ -20,7 +21,7 @@ def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, bu
         fill_flutter_field(page, field('mfa-lifecycle-password'), password)
         fill_flutter_field(page, field('mfa-lifecycle-factor'), fresh_code(current_seed))
         with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/mfa/' + action) and r.request.method == 'POST') as response:
-            button('mfa-lifecycle-issue' if action == 'recovery-codes' else 'mfa-lifecycle-replace').click()
+            click_flutter_control(button('mfa-lifecycle-issue' if action == 'recovery-codes' else 'mfa-lifecycle-replace'))
         must(response.value.status == 200, 'fresh owned proof accepted for ' + action)
         result = response.value.json()
         must('token' not in result, 'management response never grants session authority')
@@ -35,7 +36,7 @@ def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, bu
         stored = page.evaluate('JSON.stringify(localStorage)+JSON.stringify(sessionStorage)')
         must(all(value not in stored for value in values), 'lifecycle proof material is not persisted')
 
-    button('mfa-lifecycle-manage').click()
+    click_flutter_control(button('mfa-lifecycle-manage'))
     field('mfa-lifecycle-password').wait_for(timeout=30000)
     issued = proof(seed, 'recovery-codes')
     codes = issued.get('recoveryCodes')
@@ -44,7 +45,7 @@ def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, bu
     rows = db.execute('SELECT code_hash,consumed_at FROM auth_mfa_recovery_codes WHERE user_id=%s AND tenant_id=%s', (user, tenant)).fetchall()
     must(len(rows) == 10 and all(re.fullmatch('[a-f0-9]{64}', row[0]) and row[1] is None for row in rows) and all(value not in json.dumps(rows, default=str) for value in codes), 'saved codes persist only as unused context-bound hashes')
     transient(codes)
-    button('mfa-lifecycle-saved').click()
+    click_flutter_control(button('mfa-lifecycle-saved'))
     expect(page.locator('[aria-label^="mfa-lifecycle-codes"]')).to_have_count(0)
     page.reload(wait_until='domcontentloaded')
     field('mfa-lifecycle-password').wait_for(timeout=30000)
@@ -55,7 +56,7 @@ def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, bu
     must(abandoned.get('status') == 'mfa_replacement_required', 'replacement starts with limited challenge')
     rendered('mfa-lifecycle-newkey', [abandoned['setupKey']])
     transient([abandoned['setupKey'], abandoned['challenge']])
-    button('mfa-lifecycle-cancel').click()
+    click_flutter_control(button('mfa-lifecycle-cancel'))
     field('mfa-lifecycle-password').wait_for()
     must(db.execute('SELECT envelope FROM auth_mfa_credentials WHERE user_id=%s', (user,)).fetchone()[0] == before and api('/v1/auth/me', token=token)[0] == 200, 'cancel retains working factor and current server session')
     must(page.locator('[aria-label^="mfa-lifecycle-newkey"]').count() == 0, 'cancel removes replacement setup key')
@@ -66,12 +67,14 @@ def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, bu
     rendered('mfa-lifecycle-newkey', [replacement['setupKey']])
     fill_flutter_field(page, field('mfa-lifecycle-newcode'), totp(replacement['setupKey'], int(time.time()) // 30))
     with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/mfa/replacement/confirm') and r.request.method == 'POST') as response:
-        button('mfa-lifecycle-confirm').click()
+        click_flutter_control(button('mfa-lifecycle-confirm'))
     confirmed = response.value.json()
     must(response.value.status == 200 and confirmed.get('status') == 'authenticated', 'new authenticator confirmation replaces factor')
     old_token, token, seed = token, confirmed['token'], replacement['setupKey']
     page.wait_for_function("t => JSON.parse(localStorage.getItem('flutter.auth_token')) === t", arg=token)
     must(api('/v1/auth/me', token=old_token)[0] == 401 and api('/v1/auth/me', token=token)[1].get('userId') == user, 'replacement revokes old session and confirms new owned identity')
+    active_key = json.loads(Path('cloudflare/workers/src/security/mfa-keyring-policy.json').read_text())['activeKeyId']
+    must(db.execute("SELECT envelope->>'keyId' FROM auth_mfa_credentials WHERE user_id=%s", (user,)).fetchone()[0] == active_key, 'replacement uses the selected server storage key')
     must(db.execute('SELECT COUNT(*) FROM auth_sessions WHERE user_id::text=%s', (user,)).fetchone()[0] == 1 and db.execute('SELECT COUNT(*) FROM auth_mfa_recovery_codes WHERE user_id=%s', (user,)).fetchone()[0] == 0, 'replacement leaves one hashed session and invalidates previous saved codes')
     transient(codes + [seed, replacement['challenge']])
     page.reload(wait_until='domcontentloaded')
@@ -91,10 +94,10 @@ def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, bu
     field('login-email').wait_for(timeout=30000)
     login = exchange()
     must(login.get('purpose') == 'verify' and 'setupKey' not in login, 'lost-factor recovery begins with password-verified limited challenge')
-    button('mfa-lifecycle-recovery').click()
+    click_flutter_control(button('mfa-lifecycle-recovery'))
     fill_flutter_field(page, field('mfa-lifecycle-recoverycode'), saved)
     with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/mfa/recovery') and r.request.method == 'POST') as response:
-        button('mfa-lifecycle-recover').click()
+        click_flutter_control(button('mfa-lifecycle-recover'))
     recovery = response.value.json()
     must(response.value.status == 200 and recovery.get('status') == 'mfa_replacement_required' and 'token' not in recovery, 'saved code grants only a new-factor challenge')
     rendered('mfa-lifecycle-newkey', [recovery['setupKey']])
@@ -107,7 +110,7 @@ def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, bu
     def confirm(code):
         fill_flutter_field(page, field('mfa-lifecycle-newcode'), code)
         with page.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/mfa/replacement/confirm') and r.request.method == 'POST') as response:
-            button('mfa-lifecycle-confirm').click()
+            click_flutter_control(button('mfa-lifecycle-confirm'))
         return response.value.status, response.value.json()
     status, _ = confirm(wrong)
     must(status == 401, 'wrong recovered authenticator code grants no authority')
@@ -119,6 +122,7 @@ def verify_lifecycle(page, db, *, user, tenant, password, seed, token, field, bu
     page.wait_for_function("t => JSON.parse(localStorage.getItem('flutter.auth_token')) === t", arg=token)
     must(api('/v1/auth/me', token=token)[1].get('userId') == user and db.execute('SELECT COUNT(*) FROM auth_sessions WHERE user_id::text=%s AND token_hash=%s', (user, hashlib.sha256(token.encode()).hexdigest())).fetchone()[0] == 1, 'recovered browser authority matches owned hashed server session')
     must(db.execute('SELECT COUNT(*) FROM auth_mfa_recovery_codes WHERE user_id=%s', (user,)).fetchone()[0] == 0 and db.execute('SELECT COUNT(*) FROM auth_mfa_replacement_challenges WHERE user_id=%s', (user,)).fetchone()[0] == 0, 'confirmed recovery invalidates all saved codes and replacement challenges')
+    must(db.execute("SELECT envelope->>'keyId' FROM auth_mfa_credentials WHERE user_id=%s", (user,)).fetchone()[0] == active_key, 'lost-factor recovery uses the selected server storage key')
     notices = db.execute('SELECT event,locale,state FROM auth_mfa_notification_outbox WHERE user_id=%s', (user,)).fetchall()
     must(len(notices) == 5 and all(row[2] in ['pending', 'sending', 'sent'] for row in notices), 'five lifecycle security notices durably queued or acknowledged')
     page.reload(wait_until='domcontentloaded')

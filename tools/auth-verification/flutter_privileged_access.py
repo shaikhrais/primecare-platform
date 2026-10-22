@@ -28,6 +28,7 @@ def verify_privileged(page, db, *, user, tenant, password, seed, token, locale, 
         return approval.locator('[aria-label="' + name + '"][role="button"], [aria-label="' + name + '"] [role="button"]')
 
     def response_click(surface, control, suffix, method='POST'):
+        expect(control).to_be_enabled(timeout=15000)
         checkpoint('support request ' + suffix)
         with surface.expect_response(lambda r: r.url.split('?')[0].endswith('/v1/auth/' + suffix) and r.request.method == method) as response:
             click_flutter_control(control)
@@ -45,7 +46,7 @@ def verify_privileged(page, db, *, user, tenant, password, seed, token, locale, 
         while int(time.time()) // 30 <= accepted:
             page.wait_for_timeout(500)
         checkpoint('open support management')
-        button('mfa-lifecycle-manage').click()
+        click_flutter_control(button('mfa-lifecycle-manage'))
         checkpoint('enter support password')
         fill_flutter_field(page, field('mfa-elevation-password'), password)
         checkpoint('enter support factor')
@@ -65,7 +66,7 @@ def verify_privileged(page, db, *, user, tenant, password, seed, token, locale, 
 
         site = 'https://primecare-clinic.pages.dev'
         approval.goto(site + '/language?locale=' + locale + '&enable-semantics=true', wait_until='domcontentloaded')
-        approval.get_by_role('button', name={'en':'English','fr':'Français','es':'Español'}[locale], exact=True).click()
+        click_flutter_control(approval.get_by_role('button', name={'en':'English','fr':'Français','es':'Español'}[locale], exact=True))
         approval.goto(site + '/login?locale=' + locale + '&enable-semantics=true', wait_until='domcontentloaded')
         fill_flutter_field(approval, admin_field('login-email'), email)
         fill_flutter_field(approval, admin_field('login-password'), admin_password)
