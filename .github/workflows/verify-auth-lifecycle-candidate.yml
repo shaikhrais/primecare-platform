@@ -194,7 +194,7 @@ jobs:
           APPLY_MFA_LIFECYCLE_SCHEMA: '1'
           APPLY_AUTH_PRIVILEGED_SCHEMA: '1'
         run: |
-          npm install --prefix "$RUNNER_TEMP/auth-release" --ignore-scripts --no-audit --no-fund wrangler@4.68.1 pg@8.16.3
+          npm install --prefix "$RUNNER_TEMP/auth-release" --ignore-scripts --no-audit --no-fund wrangler@4.68.1 pg@8.16.3 bcryptjs@3.0.2
           ln -s "$RUNNER_TEMP/auth-release/node_modules" node_modules
           pip install -r tools/governance-production/requirements.txt
           python tools/governance-production/verify-production-reader.py
@@ -203,6 +203,7 @@ jobs:
           node scripts/apply-mfa-lifecycle-schema.mjs --dry-run
           node scripts/apply-auth-privileged-schema.mjs --dry-run
           node scripts/generate-cloudflare-worker-config.mjs
+          npx wrangler deploy --dry-run --config .cloudflare-workers/auth.jsonc --outdir "$RUNNER_TEMP/auth-release-bundle"
       - name: Preserve existing bindings and deploy only verified auth service
         if: steps.source.outputs.promoted == 'true'
         env:

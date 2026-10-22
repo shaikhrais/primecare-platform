@@ -22,8 +22,8 @@ try{
  const manifest=(await db.query(`SELECT manifest_sha256 FROM ${schema}.govt_source_manifest`)).rows;
  if(manifest.length!==1||manifest[0].manifest_sha256!==pin.manifestSha256)throw Error('Authority mismatch');
  await db.query(`LOCK TABLE ${schema}.govt_api_endpoints,${schema}.govt_screen_components,${schema}.govt_platform_hierarchy_policy IN SHARE ROW EXCLUSIVE MODE`);
- const account=(await db.query(`SELECT id,route_path,active FROM ${schema}.govt_screens WHERE screen_code='AUTHENTICATED_ACCOUNT'`)).rows;
- if(account.length!==1||account[0].route_path!=='/success'||account[0].active!==1)throw Error('Account surface mismatch');
+ const account=(await db.query(`SELECT id,route_path FROM ${schema}.govt_screens WHERE screen_code='AUTHENTICATED_ACCOUNT' AND active=1`)).rows;
+ if(account.length!==1||account[0].route_path!=='/success')throw Error('Account surface mismatch');
  stage='apis';
  let apis=0;
  for(const e of [...lifecycle.endpoints,...elevation.endpoints]){

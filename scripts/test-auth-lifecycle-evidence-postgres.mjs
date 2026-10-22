@@ -10,10 +10,10 @@ if(process.env.MFA_TEST_DATABASE_URL){if(!['localhost','127.0.0.1'].includes(new
 const multi=sql=>db.exec?db.exec(sql):db.query(sql);
 const pin={...JSON.parse(readFileSync('tools/governance-production/production-pin.json')),schema};
 await db.query('CREATE SCHEMA '+schema);await db.query('SET search_path TO '+schema);
-await multi(`CREATE TABLE govt_source_manifest(manifest_sha256 text);CREATE TABLE govt_screens(id integer,screen_code text,route_path text,active integer);
-CREATE TABLE govt_api_endpoints(id integer,endpoint_code text,route_path text,http_method text,permission_key text,auth_required integer,implementation_status text);
-CREATE TABLE govt_screen_components(screen_id integer,component_code text,file_path text,implementation_status text);
-CREATE TABLE govt_platform_hierarchy_policy(_primecare_import_row integer,id text,definition text,requirement text);`);
+await multi(`CREATE TABLE govt_source_manifest(manifest_sha256 text);CREATE TABLE govt_screens(id bigint,screen_code text,route_path text,active bigint);
+CREATE TABLE govt_api_endpoints(id bigint,endpoint_code text,route_path text,http_method text,permission_key text,auth_required bigint,implementation_status text);
+CREATE TABLE govt_screen_components(screen_id bigint,component_code text,file_path text,implementation_status text);
+CREATE TABLE govt_platform_hierarchy_policy(_primecare_import_row bigint,id text,definition text,requirement text);`);
 after(async()=>{await db.query('DROP SCHEMA '+schema+' CASCADE');if(client)await db.end();else await db.close();});
 const source='a'.repeat(40),producerRun='123';
 const receipt=()=>({source,bundleSha256:'b'.repeat(64),synthetic:true,ownerAccountTouched:false,independentApprovals:false,passed:true,results:[['en',320],['fr',768],['es',1440]].map(([locale,width])=>({locale,width,cleanup:true,passed:true,checks:[...requiredFlutterMfaChecks,...requiredAuthLifecycleChecks,'fresh owned proof accepted for recovery-codes','fresh owned proof accepted for replacement']}))});
@@ -32,3 +32,5 @@ test('scoped source-bound evidence updates exact APIs and controls idempotently 
 test('API or component drift rolls back earlier updates and inserts no evidence',async()=>{for(const change of ["UPDATE govt_api_endpoints SET permission_key='drift' WHERE id=11","DELETE FROM govt_screen_components WHERE component_code='authElevation.refresh'"]){await reset();await db.query(change);await assert.rejects(record(),new RegExp(change.startsWith('UPDATE')?'at apis':'at controls'));assert.equal(await implemented(),0);assert.equal(Number((await db.query("SELECT COUNT(*) AS n FROM govt_screen_components WHERE implementation_status='implemented-scoped-tested'")).rows[0].n),0);assert.equal(Number((await db.query('SELECT COUNT(*) AS n FROM govt_platform_hierarchy_policy')).rows[0].n),1);}});
 test('changed authority or writer scope and incomplete receipt cannot change tags',async()=>{await reset();await assert.rejects(record(receipt(),{...pin,authLifecycleEvidenceWriter:{...pin.authLifecycleEvidenceWriter,apiCount:12}}));const bad=receipt();bad.results[0].cleanup=false;await assert.rejects(record(bad));await db.query("UPDATE govt_source_manifest SET manifest_sha256='drift'");await assert.rejects(record());assert.equal(await implemented(),0);});
 test('existing immutable proof cannot be overwritten by another bundle or altered acceptance',async()=>{await reset();await record();const next=receipt();next.bundleSha256='c'.repeat(64);await assert.rejects(record(next),/at immutable-proof/);const row=(await db.query("SELECT definition FROM govt_platform_hierarchy_policy WHERE id LIKE 'auth-lifecycle-live-evidence-v1:%'")).rows[0];assert.equal(JSON.parse(row.definition).bundleSha256,'b'.repeat(64));assert.equal(JSON.parse(row.definition).productionReady,false);});
+
+test('inactive registered account surface rejects evidence before any implementation updates',async()=>{await reset();await db.query('UPDATE govt_screens SET active=0');await assert.rejects(record(),/at authority/);assert.equal(await implemented(),0);});
