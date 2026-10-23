@@ -557,3 +557,19 @@ be assigned by a voice extension; keep the existing in-app messaging and email
 channels separate. Actual account configuration, durable governed extension
 assignment/publication, registered webhook/token endpoints, SDK device integration
 and live phone acceptance are still required.
+
+
+`TwilioVoiceDevice` extends `CommunicationResourceBase` and owns an injected
+Twilio Voice SDK Device. `start()` waits for the SDK `registered` event, with a
+bounded timeout. Concurrent renewals share one authenticated request. A changed
+session generation or identity, failed renewal, SDK error, unregistration or token
+expiry destroys the device and disconnects calls. `close()` must be called by the
+host on logout, tenant switch and disposal; checking scope on asynchronous results
+is additional protection, not an authentication subscription. Token transport must
+request a fresh token through the registered authenticated server endpoint and
+must not cache or log it. The factory uses `new Device(token)` from the official
+SDK; no provider credential or SDK singleton belongs in the shared core.
+Incoming calls are rejected by default. An explicitly supplied host callback owns
+the authorized ringing UI; this adapter never automatically answers a call or
+exposes an outbound phone dialer. The adapter is unmounted. Port tests cover race
+and failure behavior; actual SDK/network/device acceptance remains required.

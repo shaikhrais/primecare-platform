@@ -159,3 +159,24 @@ The existing text, picture, audio and email core remains inherited. Twilio voice
 extensions do not route SMS/MMS. Production activation, role grants, mailbox
 ownership/routing, live scanner/storage and deployed communication acceptance
 remain separate release gates.
+
+
+### Verified continuation — 2026-10-23
+
+Main `c40604ac8` passed all ten communication CI jobs, including disposable
+PostgreSQL callback/extension tests, Worker runtime, Flutter transport/workspace
+and browser media checks. This supersedes the earlier local-only PostgreSQL
+status; it does not establish production acceptance.
+
+Added an unmounted inherited browser Voice SDK lifecycle adapter after reviewing
+[Twilio.Device documentation](https://www.twilio.com/docs/voice/sdks/javascript/twiliodevice).
+It waits for actual registration, renews tokens through authenticated host ports,
+checks session-generation and identity continuity, closes on expiry/failure, and
+owns SDK cleanup. Incoming calls default to rejection. Host logout/tenant-change
+handlers must call close immediately. Tests use a deterministic Device port;
+real SDK registration, permissions and phone calls remain unverified.
+
+The live number remains +1 647 930 2223 with the existing IVR configuration.
+Extension assignment is implemented but not applied to real users. Required
+production contract registration, credentials, endpoint mounts and authorized
+provider cutover remain outstanding. No live grants or provider settings change.
