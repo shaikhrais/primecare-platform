@@ -487,7 +487,8 @@
     "pictureRemoval": "draft-reference-only-no-server-object-deletion",
     "mailDelivery": "explicit-queue-then-deliver-accepted-is-not-delivered",
     "inboundMail": "bounded-unverified-plain-or-html-extracted-text-preview-quarantine-retained-no-markup-attachments-or-header-identity",
-    "audio": "accepted-party-only-explicit-microphone-connect-release-on-context-change"
+    "audio": "accepted-party-only-explicit-microphone-connect-release-on-context-change",
+    "htmlMailPreview": "callback-text-extraction-only-no-dom-no-network-plain-text-precedence-fail-closed-on-budget"
   },
   "implementationStatus": "registered-unimplemented",
   "reviewApproved": false,
