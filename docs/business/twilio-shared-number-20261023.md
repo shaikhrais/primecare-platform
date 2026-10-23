@@ -431,3 +431,34 @@ No live model, OTP, telephone, role grant, route mount, production migration,
 extension assignment or IVR change occurred. Native model-provider binding,
 registered host routes/policies, scoped business request APIs and live provider
 acceptance remain required.
+
+### Responses provider continuation
+
+Added the candidate `OpenAiRelayModel` and native Postgres/Relay composition using
+the official [Responses function calling protocol](https://developers.openai.com/api/docs/guides/function-calling).
+The configured server model receives bounded per-call user text and exactly two
+strict tools: propose an allowed task and attempt an existing proposal. It cannot
+verify identity or approve actions. Existing server task permissions, current OTP
+identity and independent app approval remain authoritative. No Vapi subscription
+is necessary for this direct ConversationRelay/Responses path.
+
+The provider requires a server API secret, explicit model and trusted registered
+task argument guide. It uses the fixed official endpoint, `store:false`, ordered
+output/tool-result replay and encrypted reasoning continuation. Limits, redacted
+failures, abort/closure and no automatic uncertain retries are tested. The native
+workerd socket test now includes the provider serializer with synthetic HTTP;
+the callback-task test now traverses that adapter and proves spoken yes leaves
+execution pending until independent approval. Additional tests cover forged
+approval/tools, parallel calls, injected identity fields, interrupted output,
+per-call isolation and byte limits.
+
+This supplies the previously missing model-provider implementation, not live
+configuration. Production contracts/policies, approved schema changes, secure
+bindings, model/privacy selection, task-guide/reference configuration and actual
+business API bindings remain unresolved. No live phone, OTP, model or SMTP request
+was made. No extensions assigned, IVR changed, or production route mounted.
+
+Local provider continuation validation: 171 Node Twilio/OTP/task/Relay tests,
+36 native Worker assertions and strict provider/integration declarations pass.
+No tests in that Node run were skipped. PostgreSQL and Flutter/browser regression
+results must come from the source-specific CI run, not these local provider tests.

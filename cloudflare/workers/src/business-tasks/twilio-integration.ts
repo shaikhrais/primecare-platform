@@ -1,3 +1,4 @@
+import {OpenAiRelayModel,type OpenAiRelayModelOptions} from '../../../../packages/shared/src/communications/openai-relay-model.mjs';
 import {TwilioRelaySocketAdapter,type TwilioRelayOptions} from '../../../../packages/shared/src/communications/twilio-relay-session.mjs';
 import {createVerifiedAgentCallGuard} from '../../../../packages/shared/src/communications/twilio-agent-start.mjs';
 import {PostgresRelaySessionClaims} from './relay-session-claims.ts';
@@ -146,4 +147,10 @@ export function createPostgresTwilioRelaySocket(dependencies:Pick<Parameters<typ
  const guard=createVerifiedAgentCallGuard({accountSid:c.accountSid,sharedNumber:c.sharedNumber,calls:createTwilioVoiceCallVerifier({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,httpClient:dependencies.httpClient}),identities:dependencies.identities,authorize:dependencies.authorize});
  return new TwilioRelaySocketAdapter({accountSid:c.accountSid,authToken:c.authToken,sharedNumber:c.sharedNumber,socketUrl:dependencies.socketUrl,signatureUrl:dependencies.signatureUrl,guard,
   tasks:dependencies.tasks,taskIds:dependencies.taskIds,claims:new PostgresRelaySessionClaims(dependencies.pool),createModel:dependencies.createModel});
+}
+
+/** Configured server-only Responses provider. Each accepted call gets isolated
+ * history. No automatic model selection, route mounting or secret provisioning. */
+export function createPostgresOpenAiTwilioRelaySocket(dependencies:Omit<Parameters<typeof createPostgresTwilioRelaySocket>[0],'createModel'> & {modelProvider:Omit<OpenAiRelayModelOptions,'taskIds'>}){
+ return createPostgresTwilioRelaySocket({...dependencies,createModel:async()=>new OpenAiRelayModel({...dependencies.modelProvider,taskIds:dependencies.taskIds})});
 }
