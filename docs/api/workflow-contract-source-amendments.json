@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "noActivation": true,
+  "implementationCredits": 0,
+  "retirementCredits": 0,
+  "reviewedAtCommit": "ee0beb60059a3f4dbf8c3beffc6f6afce2e0e903",
+  "scope": "Exact source amendments only. Historical hashes, pending operation identities/stages and authority decisions remain unchanged. Any extra source drift fails.",
+  "entries": [
+    {
+      "path": "cloudflare/workers/src/auth.ts",
+      "baselineCommit": "24e58d9b04a858322be21a4d5228af7afc44dd08",
+      "baselineSha256": "f9e5f3bb96581222a22ad75ee37703d4f2ef22c087d39265fa3852fcff82ba99",
+      "reviewedSha256": "30e292face0145cf7e2e274333f263802d5573708a0791e5369922c70b5a8e85",
+      "reason": "Bind authenticated identity to the native tenant and compare current role/tenant during session insert. Login and /me stay canonical; no refresh, switch-role, whoami, OAuth or impersonation implementation is added.",
+      "hunks": [
+        {
+          "before": "import {accountId} from './account-read-projection';\nimport {sourceLimitAllowed} from './source-limit-result';\nimport {authIdentity,mutatedAccount,privilegedActor} from './auth-projection';\nimport {selfRecords} from './self-records';\nimport {selfSessions,requestHasContent} from './self-sessions';\n",
+          "after": "import {accountId} from './account-read-projection';\nimport {sourceLimitAllowed} from './source-limit-result';\nimport {authSessionIdentity,mutatedAccount,privilegedActor} from './auth-projection';\nimport {selfRecords} from './self-records';\nimport {selfSessions,requestHasContent} from './self-sessions';\n"
+        },
+        {
+          "before": "      }\n      if(user.roles==='code_admin'){const result=await beginMfa(db,env,user);return json(result.body,result.status,headers);}\n      const identity = authIdentity(user);\n      const token = newToken();\n      // Revalidate the checked credential while locking the user until the insert\n",
+          "after": "      }\n      if(user.roles==='code_admin'){const result=await beginMfa(db,env,user);return json(result.body,result.status,headers);}\n      const identity = authSessionIdentity(user);\n      const token = newToken();\n      // Revalidate the checked credential while locking the user until the insert\n"
+        },
+        {
+          "before": "           SELECT $1, u.id, NOW() + INTERVAL '12 hours' FROM users u\n           WHERE u.id=$2 AND u.password_hash=$3 AND LOWER(u.status)='active'\n           FOR SHARE OF u RETURNING token_hash,user_id`,\n          [tokenHash, user.id, user.password_hash]);\n        if(resultRows(session.rows).length===0){await db.query('ROLLBACK');return json({error:'Invalid credentials'},401,headers);}\n        const stored=requiredRow(session.rows);\n",
+          "after": "           SELECT $1, u.id, NOW() + INTERVAL '12 hours' FROM users u\n           WHERE u.id=$2 AND u.password_hash=$3 AND LOWER(u.status)='active'\n           AND u.roles=$4 AND u.tenant_id IS NOT DISTINCT FROM $5\n           FOR SHARE OF u RETURNING token_hash,user_id`,\n          [tokenHash, user.id, user.password_hash,user.roles,user.tenant_id??null]);\n        if(resultRows(session.rows).length===0){await db.query('ROLLBACK');return json({error:'Invalid credentials'},401,headers);}\n        const stored=requiredRow(session.rows);\n"
+        },
+        {
+          "before": "        await db.query('COMMIT');\n      }catch(error){await db.query('ROLLBACK');throw error;}\n      return json({ userId: identity.userId, role: identity.roles, token, status: 'authenticated' }, 200, {\n        ...headers,\n        'set-cookie': `session_token=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=43200`,\n",
+          "after": "        await db.query('COMMIT');\n      }catch(error){await db.query('ROLLBACK');throw error;}\n      return json({ userId: identity.userId, role: identity.roles, ...(identity.tenantId?{tenantId:identity.tenantId}:{}), token, status: 'authenticated' }, 200, {\n        ...headers,\n        'set-cookie': `session_token=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=43200`,\n"
+        },
+        {
+          "before": "    return withDb(env, async (db) => {\n      const result = await db.query(\n        \"SELECT u.id, u.roles FROM auth_sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = $1 AND s.expires_at > NOW() AND LOWER(u.status) = 'active' LIMIT 1\",\n        [await sha256(token)]);\n      const user = optionalRow(result.rows);\n      return user\n        ? json({ ...authIdentity(user), status: 'authenticated' }, 200, { ...headers, 'cache-control': 'no-store' })\n        : json({ error: 'Invalid session' }, 401, headers);\n    });\n",
+          "after": "    return withDb(env, async (db) => {\n      const result = await db.query(\n        \"SELECT u.id, u.roles, u.tenant_id FROM auth_sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = $1 AND s.expires_at > NOW() AND LOWER(u.status) = 'active' LIMIT 1\",\n        [await sha256(token)]);\n      const user = optionalRow(result.rows);\n      return user\n        ? json({ ...authSessionIdentity(user), status: 'authenticated' }, 200, { ...headers, 'cache-control': 'no-store' })\n        : json({ error: 'Invalid session' }, 401, headers);\n    });\n"
+        }
+      ]
+    },
+    {
+      "path": "cloudflare/workers/src/gateway.ts",
+      "baselineCommit": "3c4252f8b4ce87696a3b7a6d495c4772e48b11c2",
+      "baselineSha256": "10a26892b2bc96b4d065178876ebde22841d3e256937f61b45ba58a1fbfd9530",
+      "reviewedSha256": "c77d195c80789fdd709b3d3157e3fa962c00371cfc312e21559640bb42eb1a5f",
+      "reason": "Add only the exact registered communication method/path dispatch before legacy routing. Wrong methods return 405; the target Worker still enforces native session and endpoint/resource policies. No wildcard or legacy workflow gains authority.",
+      "hunks": [
+        {
+          "before": "import {BaseWorker, workerHandler} from './core/base-worker';\nimport governedReadAliases from './governed-read-aliases.json';\ninterface Service { fetch(request: Request): Promise<Response> }\ninterface Env {\n",
+          "after": "import {BaseWorker, workerHandler} from './core/base-worker';\nimport governedReadAliases from './governed-read-aliases.json';\nimport communicationContracts from '../../../packages/shared/src/communications/registered-contracts.json';\ninterface Service { fetch(request: Request): Promise<Response> }\ninterface Env {\n"
+        },
+        {
+          "before": "  protected override async handle(request: Request, env: Env): Promise<Response> {\n    const url = new URL(request.url);\n    // Exact submission compatibility route; share canonical ownership and retry semantics.\n    if(url.pathname==='/v1/client/bookings/request'||['/v1/client/bookings/requests','/v1/client/bookings'].includes(url.pathname)&&request.method==='POST') {\n",
+          "after": "  protected override async handle(request: Request, env: Env): Promise<Response> {\n    const url = new URL(request.url);\n    // Registered communication routes retain their canonical path. The native\n    // service still enforces current session, API/screen and resource policies.\n    const communication=communicationContracts.apis.filter(api=>api.path===url.pathname);\n    if(communication.length){\n      if(!communication.some(api=>api.method===request.method))return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:[...new Set(communication.map(api=>api.method))].join(',')}}));\n      return withGatewayHeaders(request,await env.GOVERNANCE.fetch(request));\n    }\n    // Exact submission compatibility route; share canonical ownership and retry semantics.\n    if(url.pathname==='/v1/client/bookings/request'||['/v1/client/bookings/requests','/v1/client/bookings'].includes(url.pathname)&&request.method==='POST') {\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/src/network/api_client.dart",
+      "baselineCommit": "d34acfd8943ab2b3672d3ba7e9b0de18437454b0",
+      "baselineSha256": "875240f663bac238f612703954085d31a576f672cde7a3d3d85591a6476faebf",
+      "reviewedSha256": "70bac229f08a4fde57fa016ff1143065925e4a1360aafa8231a2e9f9d9d07999",
+      "reason": "Compose the existing inherited CommunicationHub on the current Dio client and registered bindings. No separate identity, fallback success, retry, role grant or pending workflow implementation is introduced.",
+      "hunks": [
+        {
+          "before": "import 'local_cache_service.dart';\nimport 'package:flutter/foundation.dart';\nimport '../../communications/communication_core.dart' show isCommunicationPath;\n/// A provider for the [ApiClient], ensuring a single instance is used across the app.\nfinal apiClientProvider = Provider<ApiClient>((ref) {\n",
+          "after": "import 'local_cache_service.dart';\nimport 'package:flutter/foundation.dart';\nimport '../../communications/communication_core.dart' show isCommunicationPath, CommunicationHub;\nimport '../../communications/dio_communication_transport.dart';\nimport '../../communications/registered_communication_bindings.dart';\n/// A provider for the [ApiClient], ensuring a single instance is used across the app.\nfinal apiClientProvider = Provider<ApiClient>((ref) {\n"
+        },
+        {
+          "before": "  final Dio _dio;\n  final Ref _ref;\n\n  static final List<Map<String, dynamic>> _visitNotes = [\n",
+          "after": "  final Dio _dio;\n  final Ref _ref;\n\n  /// Every portal reuses this client's current session and security middleware.\n  /// The byte limit must come from approved runtime configuration; no grants or\n  /// separate login, cache, role list or automatic mutation retry is introduced.\n  CommunicationHub communications({required int maxPictureBytes}) =>\n      CommunicationHub(DioCommunicationTransport(\n        _dio, registeredCommunicationBindings, maxPictureBytes: maxPictureBytes,\n      ));\n\n  static final List<Map<String, dynamic>> _visitNotes = [\n"
+        }
+      ]
+    },
+    {
+      "path": "scripts/register-method-capture-blockers.py",
+      "baselineCommit": "3bf9bd3d4ff2d4c228e2e7656bf8b2bccdb78313",
+      "baselineSha256": "8565871426bd7177acc3486e44746725aeb5a0a20ac0c8d0b7e607142e1f27d9",
+      "reviewedSha256": "3333b890ff66760be40005f169c828d1ce271175739c246ba54a3e0e419fa177",
+      "reason": "Update the reviewed gateway fingerprint and prove byte-for-byte recovery of the prior gateway by removing only its exact registered-communication amendment. Existing method/caller blocker dispositions remain unchanged.",
+      "hunks": [
+        {
+          "before": "       'db_query_time_ms': 0,\n       'optimization_status': 'pending'}}\nSOURCE_HASHES = {'cloudflare/workers/src/gateway.ts': '10a26892b2bc96b4d065178876ebde22841d3e256937f61b45ba58a1fbfd9530', 'cloudflare/workers/src/account-admin.ts': 'b108356241f0bc04b34ddbc04b36cd93551cb2dc1cdc4c9a9133c8ed906f02be', 'cloudflare/workers/src/client-self.ts': '61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5', 'cloudflare/workers/src/client-records-registry.json': '376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5', 'packages/domain/src/registries/FormRegistry/client-forms.ts': 'f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516', 'cloudflare/workers/src/core/base-worker.ts': 'bbecbff8fe9a4c8ca60635c7d825c2980855d768fc80a989741de1368034b18b', 'cloudflare/workers/src/service.ts': 'fa19183dee1ef774c35db7205c03d9ba24e508b09699e36a15bbaed8f832e37e', 'cloudflare/workers/src/business-modules.ts': '10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa', 'cloudflare/workers/src/runtime/worker-application.ts': 'd15343e639df5523847767854bdc535658b577120bd7f3b8b9cc9e229e8cd288', 'cloudflare/workers/src/runtime/handler-pipeline.ts': 'd5f3241e46fc9455df12c5c7c2ee674b2bcec723f6590c1ed56b38c8a42acd41', 'cloudflare/workers/src/service-application.ts': 'e0f3d90ded8dd222673c9a187b1630100aae083faf33bd58b64a6379e7d30d5c'}\n\ndef verify_sources(root=ROOT):\n",
+          "after": "       'db_query_time_ms': 0,\n       'optimization_status': 'pending'}}\nSOURCE_HASHES = {'cloudflare/workers/src/gateway.ts': 'c77d195c80789fdd709b3d3157e3fa962c00371cfc312e21559640bb42eb1a5f', 'cloudflare/workers/src/account-admin.ts': 'b108356241f0bc04b34ddbc04b36cd93551cb2dc1cdc4c9a9133c8ed906f02be', 'cloudflare/workers/src/client-self.ts': '61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5', 'cloudflare/workers/src/client-records-registry.json': '376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5', 'packages/domain/src/registries/FormRegistry/client-forms.ts': 'f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516', 'cloudflare/workers/src/core/base-worker.ts': 'bbecbff8fe9a4c8ca60635c7d825c2980855d768fc80a989741de1368034b18b', 'cloudflare/workers/src/service.ts': 'fa19183dee1ef774c35db7205c03d9ba24e508b09699e36a15bbaed8f832e37e', 'cloudflare/workers/src/business-modules.ts': '10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa', 'cloudflare/workers/src/runtime/worker-application.ts': 'd15343e639df5523847767854bdc535658b577120bd7f3b8b9cc9e229e8cd288', 'cloudflare/workers/src/runtime/handler-pipeline.ts': 'd5f3241e46fc9455df12c5c7c2ee674b2bcec723f6590c1ed56b38c8a42acd41', 'cloudflare/workers/src/service-application.ts': 'e0f3d90ded8dd222673c9a187b1630100aae083faf33bd58b64a6379e7d30d5c'}\n\ndef verify_sources(root=ROOT):\n"
+        },
+        {
+          "before": "        if not actual.is_file() or hashlib.sha256(actual.read_bytes()).hexdigest()!=expected:\n            raise ValueError('Reviewed method/caller evidence changed: '+path)\n    # This amendment only excludes the newly governed protected role from legacy\n    # CEO session administration. Preserve every method/caller byte outside it.\n",
+          "after": "        if not actual.is_file() or hashlib.sha256(actual.read_bytes()).hexdigest()!=expected:\n            raise ValueError('Reviewed method/caller evidence changed: '+path)\n    gateway=(root/'cloudflare/workers/src/gateway.ts').read_text()\n    communication_import=\"import communicationContracts from '../../../packages/shared/src/communications/registered-contracts.json';\\n\"\n    communication_amendment=\"    // Registered communication routes retain their canonical path. The native\\n    // service still enforces current session, API/screen and resource policies.\\n    const communication=communicationContracts.apis.filter(api=>api.path===url.pathname);\\n    if(communication.length){\\n      if(!communication.some(api=>api.method===request.method))return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:[...new Set(communication.map(api=>api.method))].join(',')}}));\\n      return withGatewayHeaders(request,await env.GOVERNANCE.fetch(request));\\n    }\\n\"\n    if gateway.count(communication_import)!=1 or gateway.count(communication_amendment)!=1 or hashlib.sha256(gateway.replace(communication_import,'').replace(communication_amendment,'').encode()).hexdigest()!='10a26892b2bc96b4d065178876ebde22841d3e256937f61b45ba58a1fbfd9530':\n        raise ValueError('Communication gateway amendment exceeded exact registered-route scope')\n    # This amendment only excludes the newly governed protected role from legacy\n    # CEO session administration. Preserve every method/caller byte outside it.\n"
+        }
+      ]
+    },
+    {
+      "path": "scripts/audit-api-reachability.mjs",
+      "baselineCommit": "3bf9bd3d4ff2d4c228e2e7656bf8b2bccdb78313",
+      "baselineSha256": "b0e47ca5a617db20d9998059dae80aafda45a6af0eebf94b6537eec5ae6dc8c3",
+      "reviewedSha256": "6c34cdeb9271beaa140dc90426a3dd5d8bf5480b49a4a1b0b632641a78edbf6a",
+      "reason": "Use the same reviewed gateway fingerprint as the method/caller registration audit. No allowlisted operation, handler equivalence or implementation-credit disposition changes.",
+      "hunks": [
+        {
+          "before": "// Exact reviewed declarations only. A 405 on a wildcard detail route is not a\n// workflow implementation, and a real feedback submission is not a read alias.\nexport const METHOD_BLOCKER_SOURCE_HASHES = {\"cloudflare/workers/src/gateway.ts\": \"10a26892b2bc96b4d065178876ebde22841d3e256937f61b45ba58a1fbfd9530\", \"cloudflare/workers/src/account-admin.ts\": \"b108356241f0bc04b34ddbc04b36cd93551cb2dc1cdc4c9a9133c8ed906f02be\", \"cloudflare/workers/src/client-self.ts\": \"61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5\", \"cloudflare/workers/src/client-records-registry.json\": \"376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5\", \"packages/domain/src/registries/FormRegistry/client-forms.ts\": \"f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516\", \"cloudflare/workers/src/core/base-worker.ts\": \"bbecbff8fe9a4c8ca60635c7d825c2980855d768fc80a989741de1368034b18b\", \"cloudflare/workers/src/service.ts\": \"fa19183dee1ef774c35db7205c03d9ba24e508b09699e36a15bbaed8f832e37e\", \"cloudflare/workers/src/business-modules.ts\": \"10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa\", \"cloudflare/workers/src/runtime/worker-application.ts\": \"d15343e639df5523847767854bdc535658b577120bd7f3b8b9cc9e229e8cd288\", \"cloudflare/workers/src/runtime/handler-pipeline.ts\": \"d5f3241e46fc9455df12c5c7c2ee674b2bcec723f6590c1ed56b38c8a42acd41\", \"cloudflare/workers/src/service-application.ts\": \"e0f3d90ded8dd222673c9a187b1630100aae083faf33bd58b64a6379e7d30d5c\"};\nexport function reviewedMethodBlocker(observation, sources) {\n if(!observation||typeof observation!=='object'||!sources||typeof sources!=='object'||!Array.isArray(observation.declarationIds)||!Array.isArray(observation.forwarded)||observation.forwarded.some(f=>!f||typeof f!=='object'))return null;\n",
+          "after": "// Exact reviewed declarations only. A 405 on a wildcard detail route is not a\n// workflow implementation, and a real feedback submission is not a read alias.\nexport const METHOD_BLOCKER_SOURCE_HASHES = {\"cloudflare/workers/src/gateway.ts\": \"c77d195c80789fdd709b3d3157e3fa962c00371cfc312e21559640bb42eb1a5f\", \"cloudflare/workers/src/account-admin.ts\": \"b108356241f0bc04b34ddbc04b36cd93551cb2dc1cdc4c9a9133c8ed906f02be\", \"cloudflare/workers/src/client-self.ts\": \"61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5\", \"cloudflare/workers/src/client-records-registry.json\": \"376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5\", \"packages/domain/src/registries/FormRegistry/client-forms.ts\": \"f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516\", \"cloudflare/workers/src/core/base-worker.ts\": \"bbecbff8fe9a4c8ca60635c7d825c2980855d768fc80a989741de1368034b18b\", \"cloudflare/workers/src/service.ts\": \"fa19183dee1ef774c35db7205c03d9ba24e508b09699e36a15bbaed8f832e37e\", \"cloudflare/workers/src/business-modules.ts\": \"10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa\", \"cloudflare/workers/src/runtime/worker-application.ts\": \"d15343e639df5523847767854bdc535658b577120bd7f3b8b9cc9e229e8cd288\", \"cloudflare/workers/src/runtime/handler-pipeline.ts\": \"d5f3241e46fc9455df12c5c7c2ee674b2bcec723f6590c1ed56b38c8a42acd41\", \"cloudflare/workers/src/service-application.ts\": \"e0f3d90ded8dd222673c9a187b1630100aae083faf33bd58b64a6379e7d30d5c\"};\nexport function reviewedMethodBlocker(observation, sources) {\n if(!observation||typeof observation!=='object'||!sources||typeof sources!=='object'||!Array.isArray(observation.declarationIds)||!Array.isArray(observation.forwarded)||observation.forwarded.some(f=>!f||typeof f!=='object'))return null;\n"
+        }
+      ]
+    }
+  ]
+}

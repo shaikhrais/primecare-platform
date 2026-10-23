@@ -40,6 +40,12 @@ jobs:
           node-version: '24'
       - run: python3 scripts/test-workflow-contract-plan.py
       - run: python3 scripts/generate-workflow-contract-plan.py --check
+      - name: Verify reviewed communication and method-caller scope
+        run: |
+          python3 scripts/test-method-capture-blockers.py
+          npm install --prefix "$RUNNER_TEMP/contract-source-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 bcryptjs@3.0.2
+          ln -s "$RUNNER_TEMP/contract-source-tools/node_modules" node_modules
+          node --test scripts/test-method-capture-blockers.mjs scripts/test-auth-session-tenant.mjs scripts/test-communication-gateway.mjs
       - run: python3 scripts/test-primecare-contract-factory.py
       - run: python3 scripts/primecare-contract-factory.py --check
       - run: python3 scripts/test-primecare-bulk-codegen.py

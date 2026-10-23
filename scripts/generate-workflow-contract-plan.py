@@ -13,6 +13,56 @@ def safe_path(value):
         raise ValueError('Invalid relative evidence path')
     return p
 
+def reviewed_amendments(root, hashes):
+    """Allow only inspected, reversible differences from historical evidence.
+
+    This does not refresh historical hashes or earn workflow/activation credit.
+    Each accepted current file must reconstruct its exact original bytes.
+    """
+    path=Path(root)/'docs/api/workflow-contract-source-amendments.json'
+    if not path.is_file():return {}
+    if not path.resolve().is_relative_to(Path(root).resolve()):
+        raise ValueError('Source amendment document escapes repository')
+    doc=json.loads(path.read_text())
+    keys={'version','noActivation','implementationCredits','retirementCredits','reviewedAtCommit','scope','entries'}
+    if (not isinstance(doc,dict) or set(doc)!=keys or type(doc['version']) is not int or doc['version']!=1
+        or doc['noActivation'] is not True or any(type(doc[k]) is not int or doc[k]!=0 for k in ['implementationCredits','retirementCredits'])
+        or not isinstance(doc['scope'],str) or not doc['scope'].strip() or not hex_digest(doc['reviewedAtCommit'],40)
+        or not isinstance(doc['entries'],list) or not 1<=len(doc['entries'])<=20):
+        raise ValueError('Invalid nonactivating source amendment document')
+    result={}
+    for entry in doc['entries']:
+        if not isinstance(entry,dict) or set(entry)!={'path','baselineCommit','baselineSha256','reviewedSha256','reason','hunks'}:
+            raise ValueError('Invalid source amendment entry')
+        filename=entry['path'];safe_path(filename)
+        if (filename not in hashes or filename in result or entry['baselineSha256']!=hashes[filename]
+            or not hex_digest(entry['baselineCommit'],40) or not hex_digest(entry['reviewedSha256'],64)
+            or entry['reviewedSha256']==entry['baselineSha256'] or not isinstance(entry['reason'],str)
+            or not entry['reason'].strip() or len(entry['reason'])>4000
+            or not isinstance(entry['hunks'],list) or not 1<=len(entry['hunks'])<=30):
+            raise ValueError('Unreviewed or duplicate source amendment')
+        for hunk in entry['hunks']:
+            if (not isinstance(hunk,dict) or set(hunk)!={'before','after'}
+                or any(not isinstance(hunk[k],str) or len(hunk[k])>250000 for k in ['before','after'])
+                or not hunk['after'] or hunk['before']==hunk['after']):
+                raise ValueError('Invalid reversible source amendment hunk')
+        result[filename]=entry
+    return result
+
+def hex_digest(value,length):
+    return isinstance(value,str) and len(value)==length and all(c in '0123456789abcdef' for c in value)
+
+def verify_amended_source(content,entry):
+    if hashlib.sha256(content).hexdigest()!=entry['reviewedSha256']:
+        raise ValueError('Reviewed source amendment changed: '+entry['path'])
+    original=content.decode('utf-8')
+    for hunk in reversed(entry['hunks']):
+        if original.count(hunk['after'])!=1:
+            raise ValueError('Ambiguous source amendment hunk: '+entry['path'])
+        original=original.replace(hunk['after'],hunk['before'],1)
+    if hashlib.sha256(original.encode('utf-8')).hexdigest()!=entry['baselineSha256']:
+        raise ValueError('Source amendment exceeds reviewed scope: '+entry['path'])
+
 def build(checklist, manifest, validate_sources=None):
     if manifest.get('version') != 1 or manifest.get('noActivation') is not True:
         raise ValueError('Contract planning must explicitly forbid activation')
@@ -35,6 +85,7 @@ def build(checklist, manifest, validate_sources=None):
     hashes = manifest.get('sourceHashes')
     if not isinstance(hashes,dict) or not hashes:
         raise ValueError('Source provenance hashes missing')
+    amendments=reviewed_amendments(validate_sources,hashes) if validate_sources is not None else {}
     for filename,digest in hashes.items():
         path = safe_path(filename)
         if not isinstance(digest,str) or len(digest)!=64 or any(c not in '0123456789abcdef' for c in digest):
@@ -43,7 +94,10 @@ def build(checklist, manifest, validate_sources=None):
             file = Path(validate_sources)/path
             if not file.resolve().is_relative_to(Path(validate_sources).resolve()):
                 raise ValueError('Source evidence escapes repository: '+filename)
-            if not file.is_file() or hashlib.sha256(file.read_bytes()).hexdigest()!=digest:
+            if not file.is_file():raise ValueError('Source evidence changed: '+filename)
+            content=file.read_bytes()
+            if filename in amendments:verify_amended_source(content,amendments[filename])
+            elif hashlib.sha256(content).hexdigest()!=digest:
                 raise ValueError('Source evidence changed: '+filename)
     reviews = manifest.get('reviews',[])
     candidates = {api:[] for api in pending}

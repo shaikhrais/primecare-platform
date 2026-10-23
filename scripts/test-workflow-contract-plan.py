@@ -61,4 +61,43 @@ class Tests(unittest.TestCase):
    self.assertEqual(out.read_text(),'stale')
  def test_markdown_explains_policies_and_zero_activation(self):
   text=m.render(m.build(self.c,self.manifest));self.assertIn('Define actor and response contract',text);self.assertIn('zero API',text);self.assertIn('No endpoints are activated',text)
+class SourceAmendmentTests(unittest.TestCase):
+ def setUp(self):
+  self.c,self.manifest=fixtures();self.old='evidence';self.new='reviewed evidence'
+  self.doc={'version':1,'noActivation':True,'implementationCredits':0,'retirementCredits':0,'reviewedAtCommit':'a'*40,'scope':'Only the inspected source change; no authority or operation status change.','entries':[{'path':'source.txt','baselineCommit':'b'*40,'baselineSha256':hashlib.sha256(self.old.encode()).hexdigest(),'reviewedSha256':hashlib.sha256(self.new.encode()).hexdigest(),'reason':'Inspected exact source change; existing unresolved operations remain unresolved.','hunks':[{'before':self.old,'after':self.new}]}]}
+ def write(self,root,doc=None,text=None):
+  root=Path(root);(root/'docs/api').mkdir(parents=True,exist_ok=True)
+  (root/'source.txt').write_text(self.new if text is None else text)
+  (root/'docs/api/workflow-contract-source-amendments.json').write_text(json.dumps(self.doc if doc is None else doc))
+ def test_exact_amendment_preserves_entire_plan_and_historical_hashes(self):
+  with tempfile.TemporaryDirectory() as root:
+   self.write(root);before=copy.deepcopy(self.manifest)
+   self.assertEqual(m.build(self.c,self.manifest,root),m.build(self.c,self.manifest))
+   self.assertEqual(self.manifest,before)
+ def test_extra_drift_reversion_and_deleted_source_remain_errors(self):
+  with tempfile.TemporaryDirectory() as root:
+   for text in [self.new+' extra unauthorized code',self.old,self.new+'\n']:
+    self.write(root,text=text)
+    with self.assertRaisesRegex(ValueError,'amendment changed'):m.build(self.c,self.manifest,root)
+   Path(root,'source.txt').unlink()
+   with self.assertRaisesRegex(ValueError,'Source evidence changed'):m.build(self.c,self.manifest,root)
+ def test_hash_update_without_exact_baseline_reconstruction_is_rejected(self):
+  with tempfile.TemporaryDirectory() as root:
+   doc=copy.deepcopy(self.doc);doc['entries'][0]['hunks'][0]['before']='not the reviewed baseline';self.write(root,doc)
+   with self.assertRaisesRegex(ValueError,'exceeds reviewed scope'):m.build(self.c,self.manifest,root)
+ def test_ambiguous_reverse_patch_cannot_choose_an_occurrence(self):
+  with tempfile.TemporaryDirectory() as root:
+   text='changed changed';doc=copy.deepcopy(self.doc);doc['entries'][0]['reviewedSha256']=hashlib.sha256(text.encode()).hexdigest();doc['entries'][0]['hunks']=[{'before':'evidence','after':'changed'}];self.write(root,doc,text)
+   with self.assertRaisesRegex(ValueError,'Ambiguous source amendment'):m.build(self.c,self.manifest,root)
+ def test_authority_flags_scope_duplicates_unknown_sources_and_malformed_hunks_are_rejected(self):
+  mutations=[lambda d:d.update(noActivation=False),lambda d:d.update(implementationCredits=1),lambda d:d.update(retirementCredits=1),lambda d:d.update(implementationCredits=False),lambda d:d.update(version=True),lambda d:d.update(activationEligible=True),lambda d:d.update(entries=[]),lambda d:d.update(reviewedAtCommit='not a commit'),lambda d:d['entries'].append(copy.deepcopy(d['entries'][0])),lambda d:d['entries'][0].update(path='../source.txt'),lambda d:d['entries'][0].update(path='unknown.txt'),lambda d:d['entries'][0].update(baselineSha256='0'*64),lambda d:d['entries'][0].update(reviewedSha256=d['entries'][0]['baselineSha256']),lambda d:d['entries'][0].update(reason=''),lambda d:d['entries'][0].update(hunks=[]),lambda d:d['entries'][0]['hunks'][0].update(after=''),lambda d:d['entries'][0]['hunks'][0].update(before=1)]
+  with tempfile.TemporaryDirectory() as root:
+   for mutate in mutations:
+    doc=copy.deepcopy(self.doc);mutate(doc);self.write(root,doc)
+    with self.assertRaises(ValueError):m.build(self.c,self.manifest,root)
+ def test_amendment_document_cannot_be_a_symlink_outside_repository(self):
+  with tempfile.TemporaryDirectory() as root,tempfile.TemporaryDirectory() as outside:
+   self.write(root);path=Path(root,'docs/api/workflow-contract-source-amendments.json');target=Path(outside,'amendments.json');target.write_text(path.read_text());path.unlink();path.symlink_to(target)
+   with self.assertRaisesRegex(ValueError,'document escapes'):m.build(self.c,self.manifest,root)
+
 if __name__=='__main__':unittest.main()
