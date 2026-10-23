@@ -1,0 +1,59 @@
+name: Register Twilio boundary contracts without activation
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/twilio-contracts-registration.json'
+      - 'tools/governance-production/twilio_contracts_registration.py'
+      - 'tools/governance-production/test-twilio-contracts-definition.py'
+      - 'tools/governance-production/test-twilio-contracts-registration.py'
+      - 'tools/governance-production/production-pin.json'
+      - '.github/workflows/twilio-contracts-registration.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: twilio-contracts-registration
+  cancel-in-progress: false
+jobs:
+  isolated:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: communication_fixture
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: communication_registration_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communication_fixture -d communication_registration_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt jsonschema==4.25.1
+      - name: Validate exact contracts and native transactional registration
+        env:
+          WORKFLOW_TEST_DATABASE_URL: postgres://communication_fixture:disposable-only@localhost:5432/communication_registration_test
+        run: |
+          python tools/governance-production/test-twilio-contracts-definition.py
+          python tools/governance-production/test-twilio-contracts-registration.py
+  register:
+    needs: isolated
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Validate, roll back, register and independently reread pinned contracts
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_TWILIO_CONTRACT_REGISTRATION: '1'
+        run: |
+          python tools/governance-production/twilio_contracts_registration.py --dry-run
+          python tools/governance-production/twilio_contracts_registration.py --apply

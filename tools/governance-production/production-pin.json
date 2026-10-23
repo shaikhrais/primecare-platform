@@ -587,5 +587,125 @@
     "permissionChanges": false,
     "providerWrites": false,
     "activation": false
+  },
+  "twilioContractRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_TWILIO_CONTRACT_REGISTRATION",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "extension.assign",
+        "method": "POST",
+        "path": "/v1/voice/extensions/assign"
+      },
+      {
+        "key": "extension.publish",
+        "method": "POST",
+        "path": "/v1/voice/extensions/publish"
+      },
+      {
+        "key": "otp.check",
+        "method": "POST",
+        "path": "/v1/voice/otp/check"
+      },
+      {
+        "key": "otp.start",
+        "method": "POST",
+        "path": "/v1/voice/otp/start"
+      },
+      {
+        "key": "sms.status",
+        "method": "POST",
+        "path": "/v1/twilio/sms/status"
+      },
+      {
+        "key": "task.approve",
+        "method": "POST",
+        "path": "/v1/voice/tasks/approve"
+      },
+      {
+        "key": "task.preview",
+        "method": "POST",
+        "path": "/v1/voice/tasks/preview"
+      },
+      {
+        "key": "token",
+        "method": "POST",
+        "path": "/v1/voice/token"
+      },
+      {
+        "key": "voice.agent",
+        "method": "POST",
+        "path": "/v1/twilio/voice/agent"
+      },
+      {
+        "key": "voice.agent_complete",
+        "method": "POST",
+        "path": "/v1/twilio/voice/agent-complete"
+      },
+      {
+        "key": "voice.connect",
+        "method": "POST",
+        "path": "/v1/twilio/voice/connect"
+      },
+      {
+        "key": "voice.dial_complete",
+        "method": "POST",
+        "path": "/v1/twilio/voice/dial-complete"
+      },
+      {
+        "key": "voice.gather",
+        "method": "POST",
+        "path": "/v1/twilio/voice/gather"
+      },
+      {
+        "key": "voice.incoming",
+        "method": "POST",
+        "path": "/v1/twilio/voice/incoming"
+      },
+      {
+        "key": "voice.pair",
+        "method": "POST",
+        "path": "/v1/twilio/voice/pair"
+      },
+      {
+        "key": "voice.record_action",
+        "method": "POST",
+        "path": "/v1/twilio/voice/record-action"
+      },
+      {
+        "key": "voice.recording_status",
+        "method": "POST",
+        "path": "/v1/twilio/voice/recording-status"
+      },
+      {
+        "key": "voice.relay",
+        "method": "GET",
+        "path": "/v1/twilio/voice/relay"
+      },
+      {
+        "key": "voice.wait",
+        "method": "POST",
+        "path": "/v1/twilio/voice/wait"
+      },
+      {
+        "key": "voicemail.audio",
+        "method": "POST",
+        "path": "/v1/voice/voicemail/audio"
+      },
+      {
+        "key": "voicemail.read",
+        "method": "POST",
+        "path": "/v1/voice/voicemail/read"
+      }
+    ],
+    "definitionSha256": "803ee241af0c61f5117578bc0e52f9413c10bea6e631c21acc584005ceea3bd7",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
   }
 }

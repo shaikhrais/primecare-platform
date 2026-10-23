@@ -1022,3 +1022,17 @@ in CI. Provider acceptance is synthetic in both. See the official
 for provider request/receipt and failure contracts; real inbox delivery remains a
 separate acceptance test. No new route, permission, schema or production binding
 is created by this change.
+
+### Voice boundary registration package
+
+The 21 native/provider contracts in
+`tools/governance-production/twilio-contracts-registration.json` cover the existing
+SDK token, extension, voicemail, OTP, app approval, TwiML, Relay and SMS-status
+ports. Their dedicated pinned PostgreSQL writer records only API metadata with
+`registered-unimplemented` status. It inserts no access grants, screen links,
+extension assignments or provider settings. The workflow requires native fixture
+tests before dry-run/registration and independently rereads complete production
+rows. Existing differing contracts are preserved and require reconciliation.
+See `docs/business/twilio-boundary-registration-20261023.md` for exact transport and
+identity boundaries. Registration is not mounting or live acceptance; the host
+still needs current policies, exact handlers, secure bindings and device tests.
