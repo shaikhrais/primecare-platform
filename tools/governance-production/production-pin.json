@@ -572,5 +572,20 @@
     "businessDataWrites": false,
     "permissionChanges": false,
     "activation": false
+  },
+  "twilioVoiceRequirementWriter": {
+    "optInVariable": "GOVERNANCE_TWILIO_REQUIREMENT_REGISTRATION",
+    "tables": [
+      "platform_hierarchy_policy"
+    ],
+    "policyIds": [
+      "communication-twilio-voice-v1"
+    ],
+    "definitionSha256": "1a1ad465e2f0bcc91d1d03240805f631219c50c3696009aa573ff417ba07ffe7",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
   }
 }
