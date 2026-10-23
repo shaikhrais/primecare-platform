@@ -1,0 +1,180 @@
+{
+  "sourceCommit": "3bd751e6b840d76315158ee2adf080ed80fe2cf9",
+  "scope": "Inherited browser audio lifecycle cancellation, late callback handling and unexpectedly ended microphone cleanup",
+  "classes": {
+    "BrowserAudioCall": "CommunicationResourceBase",
+    "BrowserAudioSession": "CommunicationResourceBase"
+  },
+  "registrationChanged": false,
+  "reason": "Repair existing audio resource lifecycle and context-disposal behavior; no new screen, endpoint, rule or grant",
+  "guarantees": [
+    "check open state after awaited SDP and ICE operations before subsequent work",
+    "ignore captured ICE, track and connection callbacks after close",
+    "contain synchronous and asynchronous ICE signaling errors",
+    "close local inherited call/session/timer on unexpected track ended event",
+    "reject already-ended tracks at startup",
+    "remove ended listeners and peer callbacks during cleanup",
+    "preserve explicit server hang-up behavior without new automatic mutations",
+    "regenerate packaged Flutter browser asset from shared source"
+  ],
+  "regressionProof": {
+    "previousSource": "dd631e98db603b8a7f28f1641d96fb46329b4bc8",
+    "previousSourceFailed": 9,
+    "fixedSourcePassed": 9,
+    "cases": [
+      "close during createOffer",
+      "close during offer setLocalDescription",
+      "close during setRemoteDescription",
+      "close during queued addIceCandidate",
+      "close during createAnswer",
+      "close during answer setLocalDescription",
+      "unexpected track ending",
+      "captured post-close media callbacks",
+      "synchronous ICE transport failure"
+    ],
+    "additionalChecks": [
+      "already-ended track startup",
+      "ended track closes inherited session/timer with no server mutation"
+    ]
+  },
+  "local": {
+    "nodePassed": 195,
+    "nodeSkipped": 2,
+    "nodeFailed": 0,
+    "skipReason": "Native PostgreSQL checks require disposable CI database",
+    "strictTypeScript": "passed",
+    "routeBindings": "passed",
+    "uiBindings": "passed",
+    "mediaBundle": "passed",
+    "diffCheck": "passed"
+  },
+  "ci": {
+    "runId": 39882144811,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39882144811",
+    "status": "success",
+    "jobs": [
+      {
+        "id": 120181749739,
+        "name": "flutter-workspace",
+        "conclusion": "success"
+      },
+      {
+        "id": 120181749812,
+        "name": "dart-core",
+        "conclusion": "success"
+      },
+      {
+        "id": 120181749881,
+        "name": "inventory",
+        "conclusion": "success"
+      },
+      {
+        "id": 120181749914,
+        "name": "isolated",
+        "conclusion": "success"
+      },
+      {
+        "id": 120181749976,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      },
+      {
+        "id": 120181749996,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120181750155,
+        "name": "flutter-browser-media",
+        "conclusion": "success"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 12470828201,
+        "name": "business-communications-media",
+        "sha256": "f6e4a595dcf97b9745925f8cd79ff354ed4d1f75342fc4e9bddaf6834efeba54"
+      },
+      {
+        "id": 12470619005,
+        "name": "communication-flutter-browser",
+        "sha256": "58d1c5c5905aa277aad798381c1362c2cd166b36ef9fdae22964eafbb0b53ff3"
+      },
+      {
+        "id": 12469999709,
+        "name": "business-communications-registry",
+        "sha256": "03cde3b74839feafb287fabaaad9c5684b7684ff76acee4f88455917ef85e009"
+      }
+    ],
+    "nodeServiceAndAdapterTestsPassed": 208,
+    "nodeMediaTestsPassed": 3,
+    "compiledDartBrowserTestsPassed": 1,
+    "nodeBrowserTotalPassed": 212,
+    "flutterCoreTransportTestsPassed": 594,
+    "flutterWorkspaceThemeAuthTestsPassed": 109,
+    "flutterTotalPassed": 703,
+    "metadataTestsPassed": 10,
+    "strictTypeScript": "passed",
+    "dartAnalysisAndCoreHarness": "passed",
+    "bindingsAndMediaBundle": "passed"
+  },
+  "browserArtifact": {
+    "artifactId": 12470619005,
+    "archiveDigestIndependentlyChecked": true,
+    "syntheticTransport": true,
+    "productUi": false,
+    "browser": "155.0.8059.39",
+    "packets": [
+      5,
+      5
+    ],
+    "muted": true,
+    "unmuted": true,
+    "tracksStopped": true,
+    "peersClosed": true,
+    "audioElementsRemoved": true
+  },
+  "mediaArtifact": {
+    "artifactId": 12470828201,
+    "archiveDigestIndependentlyChecked": true,
+    "packets": [
+      5,
+      6
+    ],
+    "muted": true,
+    "unmuted": true,
+    "stopped": true,
+    "synthetic": true,
+    "productUi": false
+  },
+  "registryArtifact": {
+    "artifactId": 12469999709,
+    "archiveDigestIndependentlyChecked": true,
+    "sourceIndependentlyChecked": true,
+    "authority": "pinned-production-postgresql",
+    "writesAttempted": false,
+    "registrationIsNotVerification": true,
+    "liveCommunicationVerified": false
+  },
+  "onlyRemoteBranch": "main",
+  "permissionsChanged": false,
+  "activationChanged": false,
+  "accountsChanged": false,
+  "catalogVerificationChanged": false,
+  "productionReady": false,
+  "limitations": [
+    "Already dispatched network operations cannot be recalled",
+    "Unexpected track cleanup is local; server hang-up still requires an explicit action",
+    "Lifecycle cancellation fixtures use synthetic peer/track ports; Chromium tests verify actual audio packets and cleanup, not physical microphone removal",
+    "No deployed browser-to-database or live provider acceptance claimed"
+  ],
+  "remaining": [
+    "governed contact/mailbox discovery",
+    "provider-verified live business mailbox provisioning and send/receive acceptance",
+    "real private scanner/decoder/storage composition and retention cleanup",
+    "fresh TURN configuration and restrictive-network/device acceptance",
+    "native audio adapters if required",
+    "current endpoint/screen grants and worker/gateway mounting",
+    "deployment and login-to-UI-to-API-to-database acceptance with release review"
+  ]
+}
