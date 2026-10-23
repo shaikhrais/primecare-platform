@@ -390,3 +390,20 @@ alpha/metadata checks. The full Flutter browser scenario now uses local Images/R
 instead of a map bucket and Sharp repository. These local emulators and synthetic
 scan decisions do not prove remote provider, production private bucket or live
 scanner acceptance. Existing grants, ownership, activation and release gates apply.
+
+### Inbound event and stream ownership
+
+`InboundEmailAdapter` snapshots the SMTP envelope, raw stream/size and bound
+rejection callback before its first suspension. MIME headers never choose an
+owned mailbox. Cloudflare's native envelope fields are readonly; this also keeps
+trusted host adapters with mutable event objects from changing that decision.
+The shared `BoundedBinaryAdapterBase` cancels unread invalid-size bodies and
+releases acquired readers after success or failure. It permits up to declared
+bytes plus 1,024 delivered chunks, bounding empty-chunk work while preserving
+fragmented byte streams. This is a read-count budget, not a wall-clock deadline.
+
+Malformed input is rejected with generic messages. Read/provider and persistence
+failures propagate, so they are not converted into permanent SMTP rejections or
+fake receipt success. Tests include native workerd streams with synthetic event
+and storage ports, plus the existing native PostgreSQL mailbox-policy scenario.
+These tests do not establish live SMTP delivery or production routing approval.

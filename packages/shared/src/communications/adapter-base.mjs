@@ -10,11 +10,21 @@ export class BoundedBinaryAdapterBase {
   if(!(bytes instanceof Uint8Array)||!bytes.length||bytes.length>this.maxBytes)throw new CommunicationInputError('Message size not permitted');
  }
  async readBoundedStream(stream,declaredSize) {
-  if(!Number.isSafeInteger(declaredSize)||declaredSize<1||declaredSize>this.maxBytes)throw new CommunicationInputError('Message size not permitted');
-  const bytes=new Uint8Array(declaredSize);const reader=stream.getReader();let size=0;
+  if(!Number.isSafeInteger(declaredSize)||declaredSize<1||declaredSize>this.maxBytes){
+   // No reader is owned yet. Stop an unread rejected body without replacing the
+   // public size error with provider cancellation details.
+   try{await stream?.cancel?.();}catch{}
+   throw new CommunicationInputError('Message size not permitted');
+  }
+  let reader;
+  try{reader=stream.getReader();}catch{throw new CommunicationInputError('Invalid message stream');}
+  const bytes=new Uint8Array(declaredSize);let size=0,reads=0;
   try {
    for(;;) {
     const {done,value}=await reader.read();if(done)break;
+    // Nonempty chunks are bounded by declared bytes. Also allow 1,024 empty
+    // chunks, then stop a producer that makes no bounded progress.
+    if(++reads>declaredSize+1024)throw new CommunicationInputError('Message stream limit exceeded');
     if(!(value instanceof Uint8Array))throw new CommunicationInputError('Invalid message stream');
     if(size+value.length>this.maxBytes)throw new CommunicationInputError('Message size not permitted');
     if(size+value.length>declaredSize)throw new CommunicationInputError('Message size mismatch');

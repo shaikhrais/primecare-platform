@@ -105,3 +105,29 @@ test('invalid stream chunks are cancelled and empty chunks do not change the con
  const empty=new ReadableStream({pull(controller){if(remaining-->0)controller.enqueue(new Uint8Array());else if(remaining===-1)controller.enqueue(new Uint8Array([7]));else controller.close();}},{highWaterMark:0});
  assert.deepEqual(await new BoundedBinaryAdapterBase(4).readBoundedStream(empty,1),new Uint8Array([7]));
 });
+test('invalid declared sizes cancel unread bodies without leaking provider failures',async()=>{
+ for(const declared of [0,-1,5,NaN,Infinity,'1']){
+  let cancelled=0,reads=0;
+  const stream=new ReadableStream({pull(){reads++;},cancel(){cancelled++;throw Error('private cancellation detail');}},{highWaterMark:0});
+  await assert.rejects(new BoundedBinaryAdapterBase(4).readBoundedStream(stream,declared),error=>error.message==='Message size not permitted');
+  assert.equal(cancelled,1);assert.equal(reads,0);assert.equal(stream.locked,false);
+ }
+});
+test('empty-chunk producers cannot exceed the declared-byte read budget',async()=>{
+ let reads=0,cancelled=0;
+ const stream=new ReadableStream({pull(c){reads++;if(reads<=1030)c.enqueue(new Uint8Array());else if(reads===1031)c.enqueue(new Uint8Array([7]));else c.close();},cancel(){cancelled++;}},{highWaterMark:0});
+ await assert.rejects(new BoundedBinaryAdapterBase(4).readBoundedStream(stream,1),/stream limit exceeded/);
+ assert.equal(reads,1026);assert.equal(cancelled,1);assert.equal(stream.locked,false);
+});
+test('the exact empty-chunk budget preserves a valid byte and releases its lock',async()=>{
+ let reads=0;
+ const stream=new ReadableStream({pull(c){if(reads++<1024)c.enqueue(new Uint8Array());else if(reads===1026)c.close();else c.enqueue(new Uint8Array([7]));}},{highWaterMark:0});
+ assert.deepEqual(await new BoundedBinaryAdapterBase(4).readBoundedStream(stream,1),new Uint8Array([7]));assert.equal(stream.locked,false);
+});
+test('missing or already locked streams fail generically without stealing a reader',async()=>{
+ const base=new BoundedBinaryAdapterBase(4);
+ for(const stream of [undefined,null,{}])await assert.rejects(base.readBoundedStream(stream,1),error=>error.message==='Invalid message stream');
+ const stream=new ReadableStream(),reader=stream.getReader();
+ await assert.rejects(base.readBoundedStream(stream,1),error=>error.message==='Invalid message stream');
+ assert.equal(stream.locked,true);await reader.cancel();reader.releaseLock();
+});

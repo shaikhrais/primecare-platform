@@ -7,10 +7,13 @@ export class InboundEmailAdapter extends BoundedBinaryAdapterBase {
   this.service=service;
  }
  async receive(message) {
+  // Bind the original SMTP envelope and rejection callback before reading can
+  // suspend. MIME headers never select the owned mailbox.
+  const {from,to,raw,rawSize}=message,reject=message.setReject.bind(message);
   let bytes;
-  try{bytes=await this.readBoundedStream(message.raw,message.rawSize);}
-  catch(error){if(error instanceof CommunicationInputError){message.setReject(error.message);return;}throw error;}
-  await this.service.receive({from:message.from,to:message.to,raw:bytes});
+  try{bytes=await this.readBoundedStream(raw,rawSize);}
+  catch(error){if(error instanceof CommunicationInputError){reject(error.message);return;}throw error;}
+  await this.service.receive({from,to,raw:bytes});
  }
 }
 export function createInboundEmailHandler(service,maximumBytes) {

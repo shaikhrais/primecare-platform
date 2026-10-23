@@ -22,6 +22,8 @@ on:
       - 'scripts/test-communication-validator-workerd.mjs'
       - 'scripts/test-business-media.mjs'
       - 'scripts/test-communication-adapter-base.mjs'
+      - 'scripts/test-communication-inbound-email.mjs'
+      - 'scripts/test-communication-inbound-workerd.mjs'
       - 'scripts/test-communication-pictures.mjs'
       - 'scripts/test-communication-workers-pictures.mjs'
       - 'scripts/test-communication-pictures-workerd.mjs'
@@ -203,7 +205,7 @@ jobs:
       - name: Registered HTTP contracts through native PostgreSQL
         run: node --test scripts/test-communication-http.mjs
       - name: Shared communication resource and byte-limit bases
-        run: node --test scripts/test-communication-adapter-base.mjs scripts/test-communication-pictures.mjs scripts/test-communication-workers-pictures.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-flutter-bridge.mjs
+        run: node --test scripts/test-communication-adapter-base.mjs scripts/test-communication-inbound-email.mjs scripts/test-communication-pictures.mjs scripts/test-communication-workers-pictures.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-flutter-bridge.mjs
   worker-pictures:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -235,11 +237,18 @@ jobs:
           node tools/communication-schema-validators.mjs
           node --test scripts/test-communication-schema-validator.mjs
           node scripts/test-communication-validator-workerd.mjs
+          node scripts/test-communication-inbound-workerd.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: communication-worker-validator
           path: test-results/communication-validator
+          retention-days: 90
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: communication-worker-inbound
+          path: test-results/communication-inbound
           retention-days: 90
   media:
     runs-on: ubuntu-24.04

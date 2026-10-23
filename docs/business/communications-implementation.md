@@ -796,3 +796,18 @@ repository CI or production acceptance has passed. Scanner/mail/microphone input
 are synthetic; local Images uses an offline codec and audio uses loopback. All
 production release gates above remain open; no grant, account, activation or
 workflow verification status changed.
+
+### Inbound event/stream integrity candidate — 2026-10-23
+
+Baseline `fc12b6daaec93bdecf3f4afff2a2d03f1876526d` is current main. The inherited
+inbound adapter now owns envelope fields and its rejection callback before raw
+reading suspends. The binary base cancels unread invalid-size bodies, rejects
+missing/locked streams generically and bounds delivered chunks independently of
+byte count. Provider reads and storage failures still propagate for retry.
+Four regressions fail against the previous implementation; all 43 local binary,
+inbound and picture adapter tests pass. Local TypeScript and schema generation
+could not run because the transient dependency cache is absent; CI must verify
+them. The native PostgreSQL scenario adds changing-event and oversized-body
+cleanup checks. Actual workerd streams use explicit synthetic event/storage
+ports. Source-specific CI is pending. No public route, permission, mailbox,
+account, activation or workflow verification status changes are introduced.

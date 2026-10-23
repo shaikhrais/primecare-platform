@@ -128,3 +128,17 @@ Node constructor while adding a native Workers codec. Both scans remain explicit
 mandatory ports. Own input/output and tenant scope before suspension; a scanner
 must not be able to mutate approved bytes. No new public API, metadata policy,
 role grant, account, storage resource or activation is introduced by this adapter.
+
+## Inbound event and stream lifecycle — 2026-10-23
+
+Primary sources rechecked:
+
+- https://developers.cloudflare.com/email-service/api/route-emails/email-handler/: `from` and `to` are the SMTP envelope, separate from MIME headers; rawSize accompanies the raw readable stream, and setReject marks input rejection. Native fields are readonly. Snapshotting them before suspension additionally protects mutable trusted host adapters, not a claim that Cloudflare allows changing its native recipient.
+- https://streams.spec.whatwg.org/: acquire a reader to lock a stream; cancel through that reader while it owns the lock, then release it. Cancel the stream directly when rejecting before acquisition. Cleanup must preserve the original failure.
+- https://developers.cloudflare.com/email-service/observability/local-development/routing/: local email events simulate routing; they are not evidence of remote SMTP or recipient delivery. Keep synthetic persistence/event ports explicit in workerd evidence.
+
+Application inference: actual byte bounds alone do not bound empty-chunk work.
+The inherited reader therefore limits delivered chunks to declared bytes plus
+1,024, preserving the existing 1,000-empty-chunk compatibility test. This does not
+set a read timeout or replace runtime resource limits. Preserve current mailbox
+authorization, quarantine, idempotency and transient-failure propagation.
