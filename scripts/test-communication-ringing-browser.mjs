@@ -17,6 +17,9 @@ test('real browser renders answer/decline/mute/hangup and handles caller cancell
   await page.getByRole('button',{name:'End call',exact:true}).click();assert.equal(await page.getByRole('status').textContent(),'Call ended');assert.equal(await page.evaluate(()=>call.ended),1);
   await page.evaluate(()=>setup());await page.getByRole('button',{name:'Decline',exact:true}).click();assert.equal(await page.evaluate(()=>call.rejected),1);assert.equal(await page.evaluate(()=>call.answered),0);
   await page.evaluate(()=>{setup();call.emit('cancel');});assert.equal(await page.getByRole('button',{name:'Answer',exact:true}).isDisabled(),true);
+  await page.evaluate(()=>{setup();call.emit('error');});assert.equal(await page.getByRole('status').textContent(),'Call ended');assert.equal(await page.evaluate(()=>call.rejected),1);assert.equal(await page.getByRole('button',{name:'Answer',exact:true}).isDisabled(),true);
+  await page.evaluate(()=>setup());await page.getByRole('button',{name:'Answer',exact:true}).click();await page.getByRole('status').filter({hasText:'Call connected'}).waitFor();
+  await page.evaluate(()=>call.emit('error'));assert.equal(await page.getByRole('status').textContent(),'Call ended');assert.equal(await page.evaluate(()=>call.ended),1);assert.equal(await page.getByRole('button',{name:'Mute',exact:true}).isDisabled(),true);
   await page.evaluate(()=>{setup();window.scope=null;});await page.getByRole('button',{name:'Answer',exact:true}).click();assert.equal(await page.evaluate(()=>call.answered),0);
   const lifecycle=await page.evaluate(async()=>{
    const {TwilioVoiceDevice}=await import('/twilio-device.mjs');const {CommunicationResourceBase}=await import('/adapter-base.mjs');
@@ -32,5 +35,15 @@ test('real browser renders answer/decline/mute/hangup and handles caller cancell
    return results;
   });
   assert.deepEqual(lifecycle,[{mode:'logout',panelClosed:true,deviceClosed:true,rejected:1,listeners:0},{mode:'scope',panelClosed:true,deviceClosed:true,rejected:1,listeners:0},{mode:'cancel',panelClosed:true,deviceClosed:false,rejected:0,listeners:0}]);
+  const outgoing=await page.evaluate(async()=>{
+   const {TwilioVoiceDevice}=await import('/twilio-device.mjs');
+   const emitter=()=>{const listeners=new Map();return {on(event,f){if(!listeners.has(event))listeners.set(event,new Set());listeners.get(event).add(f);},off(event,f){listeners.get(event)?.delete(f);},emit(event){for(const f of [...listeners.get(event)??[]])f();},count(){return [...listeners.values()].reduce((n,v)=>n+v.size,0);}};};
+   const calls=[],sdk={...emitter(),async register(){this.emit('registered');},updateToken(){},destroy(){},disconnectAll(){},async connect(){const call={...emitter(),ends:0,disconnect(){this.ends++;this.emit('disconnect');}};calls.push(call);return call;}};
+   const device=new TwilioVoiceDevice({createDevice:()=>sdk,currentScope:()=> 'current',fetchToken:async()=>({token:'fixture',identity:'fixture',ttlSeconds:300})});await device.start();
+   const first=await device.connect({callerExtension:'100001',targetExtension:'100002'});first.emit('error');
+   const next=await device.connect({callerExtension:'100001',targetExtension:'100003'});device.close();
+   return {oldEnds:first.ends,newEnds:next.ends,oldListeners:first.count(),newListeners:next.count(),closed:device.closed};
+  });
+  assert.deepEqual(outgoing,{oldEnds:1,newEnds:1,oldListeners:0,newListeners:0,closed:true});
  }finally{await browser?.close();await new Promise(r=>server.close(r));}
 });

@@ -10,9 +10,13 @@ export class TwilioRingingCall extends CommunicationResourceBase {
   this.#call=call;this.currentScope=currentScope;this.authorizeAnswer=authorizeAnswer;this.onChange=onChange;this.state='ringing';this.muted=false;
   this.#scope=currentScope();if(typeof this.#scope!=='string'||!this.#scope)throw Error('Current session required');
   this.registerCleanup(()=>{if(this.state==='ringing')call.reject();else if(this.state==='answering'){try{call.reject();}finally{call.disconnect();}}else if(this.state==='connected')call.disconnect();});
-  for(const event of ['cancel','disconnect','reject','error']){
+  for(const event of ['cancel','disconnect','reject']){
    const ended=()=>{this.state='ended';this.close();};call.on(event,ended);this.registerCleanup(()=>call.off(event,ended));
   }
+  // An error notification is not proof that SDK media has disconnected. Preserve
+  // the current state until cleanup rejects/ends the owned call. Listeners are
+  // removed first by the inherited reverse cleanup order, avoiding reentrant end events.
+  const failed=()=>this.close();call.on('error',failed);this.registerCleanup(()=>call.off('error',failed));
   const accepted=()=>{try{this.#current();if(this.state!=='answering')throw Error('Unexpected acceptance');this.#set('connected');}catch{try{call.disconnect();}finally{this.close();}}};
   call.on('accept',accepted);this.registerCleanup(()=>call.off('accept',accepted));
  }
@@ -26,7 +30,7 @@ export class TwilioRingingCall extends CommunicationResourceBase {
  decline(){this.#current();if(this.state!=='ringing')throw Error('Call unavailable');this.close();}
  hangup(){this.#current();if(!['answering','connected'].includes(this.state))throw Error('Call unavailable');this.close();}
  mute(value){this.#current();if(this.state!=='connected'||typeof value!=='boolean')throw Error('Call unavailable');this.#call.mute(value);this.muted=value;this.#set('connected');}
- afterClose(){this.#set('ended');}
+ afterClose(){try{this.#set('ended');}catch{/* Display failure must not escape SDK events or interrupt shutdown. */}}
 }
 /** Optional accessible DOM panel. No page/route activation or HTML interpolation. */
 export function mountTwilioCallPanel({element,call,currentScope,authorizeAnswer}){

@@ -19,3 +19,25 @@ test('closing or changing session while rendering answering prevents SDK accept'
   await assert.rejects(session.answer());assert.equal(accepts,0);assert.equal(session.closed,true);assert.equal(call.eventNames().length,0);
  }
 });
+test('SDK error while ringing rejects the offer and removes every owned listener',async()=>{
+ const f=fixture();assert.doesNotThrow(()=>f.call.emit('error',Error('private provider detail')));
+ assert.equal(f.session.closed,true);assert.equal(f.session.state,'ended');assert.equal(f.call.rejects,1);assert.equal(f.call.answers,0);assert.equal(f.call.eventNames().length,0);await assert.rejects(f.session.answer());
+});
+test('SDK error during authorization prevents late acceptance',async()=>{
+ let release;const f=fixture(()=>new Promise(resolve=>release=resolve));const pending=f.session.answer();
+ f.call.emit('error',Error('private'));release(true);await assert.rejects(pending,/Call unavailable/);assert.equal(f.call.answers,0);assert.equal(f.call.rejects,1);assert.equal(f.call.eventNames().length,0);
+});
+test('SDK error on a connected call disconnects media even when SDK emits no disconnect itself',async()=>{
+ const f=fixture();await f.session.answer();f.call.disconnect=()=>{f.call.ends++;f.call.emit('disconnect');};
+ f.call.emit('error',Error('private'));assert.equal(f.call.ends,1);assert.equal(f.session.state,'ended');assert.equal(f.session.closed,true);assert.equal(f.call.eventNames().length,0);f.session.close();assert.equal(f.call.ends,1);
+});
+test('SDK error during pending accept closes media and discards a late completion',async()=>{
+ let release;const f=fixture();f.call.accept=()=>new Promise(resolve=>release=resolve);const pending=f.session.answer();await new Promise(resolve=>setImmediate(resolve));
+ f.call.emit('error',Error('private'));assert.equal(f.session.closed,true);assert.equal(f.call.rejects,1);assert.equal(f.call.ends,1);release();await assert.rejects(pending,/Call unavailable/);assert.ok(f.call.ends>=1);assert.equal(f.call.eventNames().length,0);
+});
+test('display and SDK teardown exceptions cannot escape error notification or leave listeners attached',async()=>{
+ const call=new EventEmitter();let ends=0;
+ call.accept=()=>call.emit('accept');call.reject=()=>{};call.disconnect=()=>{ends++;throw Error('private teardown');};call.mute=()=>{};
+ const session=new TwilioRingingCall({call,currentScope:()=> 'current',authorizeAnswer:async()=>true,onChange:({state})=>{if(state==='ended')throw Error('private display');}});
+ await session.answer();assert.doesNotThrow(()=>call.emit('error',Error('provider')));assert.equal(ends,1);assert.equal(session.closed,true);assert.equal(session.state,'ended');assert.equal(call.eventNames().length,0);
+});

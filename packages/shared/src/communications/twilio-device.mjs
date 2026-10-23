@@ -107,10 +107,12 @@ export class TwilioVoiceDevice extends CommunicationResourceBase {
    if(this.closed||this.currentScope()!==this.#scope){try{call.disconnect();}finally{this.close();}throw Error('Voice call unavailable');}
    if(!call||typeof call.disconnect!=='function'||typeof call.on!=='function'||typeof call.off!=='function')throw Error('Voice call unavailable');
    this.#call=call;
-   const release=()=>{for(const event of ['disconnect','cancel','error'])call.off(event,release);if(this.#call===call)this.#call=null;};
-   for(const event of ['disconnect','cancel','error'])call.on(event,release);
+   const release=()=>{for(const event of ['disconnect','cancel'])call.off(event,release);call.off('error',failed);if(this.#call===call)this.#call=null;if(this.callCleanup===cleanup)this.callCleanup=null;};
+   const failed=()=>{release();try{call.disconnect();}catch{try{this.close();}catch{/* Device cleanup has run; contain display callback failures. */}}};
+   const cleanup=()=>{release();call.disconnect();};
+   for(const event of ['disconnect','cancel'])call.on(event,release);call.on('error',failed);
    // Resource owns at most one call; released calls remove their own listeners.
-   this.callCleanup=()=>{release();call.disconnect();};
+   this.callCleanup=cleanup;
    return call;
   }catch{this.close();throw Error('Voice call unavailable');}finally{this.#connecting=false;}
  }

@@ -75,6 +75,18 @@ test('late outgoing call after logout is disconnected and never returned',async(
  await resource.start();const connecting=resource.connect({callerExtension:'100001',targetExtension:'100002'});resource.close();
  let disconnected=0;pending.resolve({disconnect(){disconnected++;}});await assert.rejects(connecting);assert.equal(disconnected,1);
 });
+test('outgoing SDK error disconnects the old media before another extension call can replace it',async()=>{
+ const {resource,device}=setup(),calls=[];
+ device.connect=async()=>{const call=new EventEmitter();call.ends=0;call.disconnect=()=>{call.ends++;call.emit('disconnect');};calls.push(call);return call;};
+ await resource.start();const first=await resource.connect({callerExtension:'100001',targetExtension:'100002'});first.emit('error',Error('private provider detail'));
+ assert.equal(first.ends,1);assert.equal(first.eventNames().length,0);assert.equal(resource.closed,false);
+ const next=await resource.connect({callerExtension:'100001',targetExtension:'100003'});resource.close();assert.equal(next.ends,1);assert.equal(first.ends,1);assert.equal(next.eventNames().length,0);
+});
+test('outgoing error with failed SDK disconnect destroys the device and cannot escape a display failure',async()=>{
+ const {resource,device}=setup();const call=new EventEmitter();call.disconnect=()=>{throw Error('private disconnect');};device.connect=async()=>call;
+ await resource.start();await resource.connect({callerExtension:'100001',targetExtension:'100002'});resource.onState=()=>{throw Error('private display');};
+ assert.doesNotThrow(()=>call.emit('error',Error('private provider')));assert.equal(resource.closed,true);assert.equal(device.destroyed,1);assert.equal(device.disconnected,1);assert.equal(call.eventNames().length,0);
+});
 test('phone numbers, identical extensions and outgoing calls before registration are denied',async()=>{
  const {resource,device}=setup();let calls=0;device.connect=async()=>{calls++;};
  await assert.rejects(resource.connect({callerExtension:'100001',targetExtension:'100002'}));
