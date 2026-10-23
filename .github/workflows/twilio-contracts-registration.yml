@@ -62,7 +62,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/twilio-contract-reader" --ignore-scripts --no-audit --no-fund pg@8.16.3
           ln -s "$RUNNER_TEMP/twilio-contract-reader/node_modules" node_modules
       - name: Validate, roll back, register and independently reread pinned contracts
-        if: github.event_name != 'workflow_dispatch' || inputs.mode != 'verify'
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'register'
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           GOVERNANCE_WORKFLOW_WRITES: '1'
