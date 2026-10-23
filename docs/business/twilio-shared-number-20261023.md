@@ -401,3 +401,33 @@ registered agent/socket/completion contracts and policies, Relay onboarding,
 production bindings and live provider acceptance. The startup response confers no
 socket or task authority. No permission grants, live routes, verified contacts,
 user/reception extension assignments or shared-number IVR settings are changed.
+
+### Authenticated Relay socket continuation
+
+Implemented the missing candidate socket receiver, using shared inherited binary
+and resource bases and the shared canonical Call/broker guard. Reviewed official
+[Relay message protocol](https://www.twilio.com/docs/voice/conversationrelay/websocket-messages)
+and [webhook security](https://www.twilio.com/docs/usage/security). Upgrade signature
+validation uses a single pinned signing URL; deployment must prove its exact
+scheme/path convention, not try alternate URLs when validation fails.
+
+A native PostgreSQL one-use claim binds Call, provider Relay session, verified
+native identity and expiry. Closing does not reopen a claim. The candidate SQL is
+not applied to production. The receiver initializes a separate trusted model
+resource, handles setup/prompt/interruption/error/DTMF messages, bounds input and
+output, and owns timeouts and cleanup. Models receive no approval API. Allowed
+task proposals/execution delegate to the existing scoped server gate; only this
+socket's proposals can execute. Missing independent app confirmation has a typed
+pre-execution status, so spoken yes leaves the request awaiting app confirmation.
+A real callback-task composition test verifies that separation. Unknown execution
+results are not retried. In-flight business work may commit despite call closure.
+
+Local results: 159 Node Twilio/OTP/task/Relay checks, 28 existing native workerd
+assertions and seven additional actual workerd WebSocket assertions pass. Strict
+declaration/integration types pass. CI adds disposable PostgreSQL concurrent-claim,
+provider-session uniqueness, scope storage and no-reopen tests. PostgreSQL was not
+available locally; source-specific CI must supply that persistence evidence.
+No live model, OTP, telephone, role grant, route mount, production migration,
+extension assignment or IVR change occurred. Native model-provider binding,
+registered host routes/policies, scoped business request APIs and live provider
+acceptance remain required.

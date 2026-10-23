@@ -903,3 +903,49 @@ that WebSocket/LLM receiver, enroll contacts, mount endpoints or change the IVR.
 Live Relay onboarding, approved routes/policies, engine binding and telephone
 acceptance remain necessary. Run `scripts/test-communication-agent-start.mjs` and
 `scripts/test-communication-twilio-workerd.mjs` for synthetic-provider verification.
+
+### Authenticated Relay socket and call-bound model tools
+
+`TwilioRelaySocketAdapter` inherits the binary boundary; it validates one exact
+configured upgrade URL/signature using the official SDK. `signatureUrl` is pinned
+explicitly to the deployed provider signing convention (HTTPS upgrade URL or its
+WSS target), with no alternate-URL or trailing-slash fallback. Live handshake
+acceptance must verify that configuration before mounting. `TwilioRelaySession`
+inherits resource cleanup and can be created only through this signed boundary.
+It owns listeners, setup/expiry/turn/audit timers, model cleanup and interruption.
+
+The shared `createVerifiedAgentCallGuard` is used by startup and socket sessions.
+Setup checks provider account/destination/Call/Relay SIDs, current canonical Call,
+OTP/passkey broker and explicit native authorization. A mandatory atomic claim
+allows only one session per Call and one use of a provider session ID. Native
+`PostgresRelaySessionClaims` and its candidate migration preserve that claim even
+after disconnect. The host must apply an approved schema/retention/privilege policy;
+no memory claim implementation is a production fallback. Construction performs
+no migrations, grants, publication or mounting.
+
+`createPostgresTwilioRelaySocket` composes native claims and the official read-only
+Call verifier. Its mandatory model factory creates a separate model resource for
+the verified tenant/user/Call. Transcripts are untrusted text, not instructions or
+identity proof. Each turn receives only bounded text, an AbortSignal and two tools:
+propose an allowed task, or execute a proposal created in this session. Both tools
+close over the verified Call SID and delegate to the existing server task gate.
+There is no approve/OTP/contact/actor/tenant/URL tool. A typed missing-confirmation
+result keeps the proposal waiting for independent app approval; a spoken yes or
+DTMF cannot approve it. Uncertain execution is not automatically retried.
+
+Frames, accumulated prompts, model output, turns, proposals, tool calls and socket
+backpressure are bounded. Output is plain text without SSML; newline/tab spacing
+is normalized. Interrupt/closure abort the pending model turn and discard late
+speech/tools. A task already submitted to the business service may have committed;
+closing cannot undo it, and the existing durable task status must be reconciled.
+Native logout/call-transfer notifications must close the resource immediately;
+periodic and per-tool/output broker checks also enforce revocation. No automatic
+AI reconnect is permitted on the same Call. Zero ends Relay and uses the fixed
+signed Connect completion/reception path. No model-supplied forwarding URL is used.
+
+Node protocol, real task-gate composition, actual workerd WebSocketPair and native
+PostgreSQL one-use/concurrency tests are in the corresponding
+`test-communication-relay-*` scripts. Provider signatures, model and call/broker
+ports in those tests are synthetic. The receiver still needs registered routes,
+production migration/bindings, a real scoped LLM factory, Relay onboarding and
+live telephone/model/task acceptance; no configured model or live AI is claimed.

@@ -1,0 +1,9 @@
+import {BoundedBinaryAdapterBase,CommunicationResourceBase} from './adapter-base.mjs';
+import type {VoiceAgentIdentity,VerifiedAgentCallGuard} from './twilio-agent-start.mjs';
+export type RelayTools=Readonly<{propose(taskId:string,args:unknown):Promise<Readonly<{intentId:string;summary:string;digest:string;expiresAt:number;requiresConfirmation:true}>>;execute(intentId:string):Promise<Readonly<{status:'completed'|'awaiting_confirmation'}>>}>;
+export type RelayClaimInput={callSid:string;providerSessionId:string;identity:VoiceAgentIdentity;expiresAt:number};
+export type RelaySessionClaims={claim(input:RelayClaimInput):Promise<string|null>;finish(claimId:string):Promise<void>};
+export type RelaySocket={send(data:string):void;close(code:number,reason:string):void;accept?():void;bufferedAmount?:number;addEventListener(type:string,listener:(event:any)=>void):void;removeEventListener(type:string,listener:(event:any)=>void):void};
+export type TwilioRelayOptions={accountSid:string;authToken:string;sharedNumber:string;socketUrl:string;signatureUrl:string;guard:VerifiedAgentCallGuard;tasks:{propose(callSid:string,taskId:string,args:unknown):Promise<unknown>;execute(callSid:string,intentId:string):Promise<unknown>};taskIds:readonly string[];claims:RelaySessionClaims;createModel(context:Readonly<{callSid:string;userId:string;tenantId:string}>):Promise<{respond(input:{text:string;tools:RelayTools;signal:AbortSignal}):Promise<string>;close():void}>};
+export class TwilioRelaySession extends CommunicationResourceBase {private constructor();readonly state:string;refresh():Promise<VoiceAgentIdentity>;receive(raw:string):Promise<void>}
+export class TwilioRelaySocketAdapter extends BoundedBinaryAdapterBase {constructor(options:TwilioRelayOptions);open(request:Request,socket:RelaySocket):TwilioRelaySession}

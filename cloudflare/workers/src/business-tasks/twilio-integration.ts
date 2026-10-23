@@ -1,3 +1,6 @@
+import {TwilioRelaySocketAdapter,type TwilioRelayOptions} from '../../../../packages/shared/src/communications/twilio-relay-session.mjs';
+import {createVerifiedAgentCallGuard} from '../../../../packages/shared/src/communications/twilio-agent-start.mjs';
+import {PostgresRelaySessionClaims} from './relay-session-claims.ts';
 import {TwilioVerifiedAgentAdapter,type TwilioVerifiedAgentOptions} from '../../../../packages/shared/src/communications/twilio-agent-start.mjs';
 import {TwilioOtpPairingAdapter} from '../../../../packages/shared/src/communications/twilio-otp-pairing.mjs';
 import {VoiceOtpService,PostgresVoiceOtpRepository,PostgresVoiceOtpContactDirectory} from './voice-otp.ts';
@@ -131,4 +134,16 @@ export function createTwilioVerifiedAgentHandler(dependencies:Pick<Parameters<ty
  return new TwilioVerifiedAgentAdapter({accountSid:c.accountSid,authToken:c.authToken,sharedNumber:c.sharedNumber,maxWebhookBytes:c.maxWebhookBytes,
   agentUrl:dependencies.agentUrl,completeUrl:dependencies.completeUrl,receptionUrl:dependencies.receptionUrl,socketUrl:dependencies.socketUrl,greeting:dependencies.greeting,
   calls:createTwilioVoiceCallVerifier({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,httpClient:dependencies.httpClient}),identities:dependencies.identities,authorize:dependencies.authorize});
+}
+
+/** Candidate native socket composition. The host owns its registered upgrade
+ * route and tenant-scoped model factory. Never mount with a memory claims port. */
+export function createPostgresTwilioRelaySocket(dependencies:Pick<Parameters<typeof createTwilioCommunicationServices>[0],'pool'|'configuration'|'httpClient'> & {
+ identities:TwilioVerifiedAgentOptions['identities'];authorize:TwilioVerifiedAgentOptions['authorize'];
+ socketUrl:string;signatureUrl:string;tasks:VoiceTaskService;taskIds:TwilioRelayOptions['taskIds'];createModel:TwilioRelayOptions['createModel'];
+}){
+ const c=dependencies.configuration;
+ const guard=createVerifiedAgentCallGuard({accountSid:c.accountSid,sharedNumber:c.sharedNumber,calls:createTwilioVoiceCallVerifier({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,httpClient:dependencies.httpClient}),identities:dependencies.identities,authorize:dependencies.authorize});
+ return new TwilioRelaySocketAdapter({accountSid:c.accountSid,authToken:c.authToken,sharedNumber:c.sharedNumber,socketUrl:dependencies.socketUrl,signatureUrl:dependencies.signatureUrl,guard,
+  tasks:dependencies.tasks,taskIds:dependencies.taskIds,claims:new PostgresRelaySessionClaims(dependencies.pool),createModel:dependencies.createModel});
 }

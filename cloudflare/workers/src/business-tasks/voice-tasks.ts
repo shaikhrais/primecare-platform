@@ -1,6 +1,7 @@
 import {ScopedServiceBase,type AtomicStore,type AccessPolicy,type Actor} from '../../../../packages/shared/src/communications/service-base.ts';
 export type VerifiedVoiceIdentity={actor:Actor;sessionId:string;authentication:'otp'|'passkey';active:boolean;expiresAt:number};
 export type VoiceTaskIntent={id:string;callSid:string;actor:Actor;sessionId:string;taskId:string;taskVersion:number;args:Record<string,unknown>;summary:string;digest:string;expiresAt:number;status:'proposed'|'executing'|'completed'|'unknown'};
+export class VoiceTaskConfirmationRequiredError extends Error {readonly code='VOICE_TASK_CONFIRMATION_REQUIRED';constructor(){super('Explicit confirmation required');}}
 export interface VoiceTaskRepository {create(intent:VoiceTaskIntent):Promise<void>;read(id:string):Promise<VoiceTaskIntent|null>;claim(id:string,digest:string):Promise<boolean>;finish(id:string,status:'completed'|'unknown'):Promise<void>}
 export interface VoiceTaskTrust {
  /** Server auth broker only. Caller ID, model claims and voice similarity are not authentication. */
@@ -68,7 +69,7 @@ export class VoiceTaskService extends ScopedServiceBase {
   if(await digest({...intent,digest:'',status:'proposed'})!==intent.digest||canonical(task.validate(argumentsSnapshot(intent.args)))!==canonical(intent.args)||task.describe(structuredClone(intent.args))!==intent.summary)throw Error('Task proposal changed');
   const identity=await this.#identity(callSid);await this.#authorized(identity,intent,'voice.task.execute');
   const confirmation=await this.trust.consumeConfirmation({callSid,intentId:intent.id,digest:intent.digest,actor:identity.actor,sessionId:identity.sessionId});
-  if(!confirmation||confirmation.approved!==true||!['app','dtmf'].includes(confirmation.method)||!Number.isSafeInteger(confirmation.approvedAt)||confirmation.approvedAt>Date.now()||confirmation.approvedAt<Date.now()-60000)throw Error('Explicit confirmation required');
+  if(!confirmation||confirmation.approved!==true||!['app','dtmf'].includes(confirmation.method)||!Number.isSafeInteger(confirmation.approvedAt)||confirmation.approvedAt>Date.now()||confirmation.approvedAt<Date.now()-60000)throw new VoiceTaskConfirmationRequiredError();
   if(!await this.repository.claim(intent.id,intent.digest))throw Error('Task already attempted');
   try{
    await this.#authorized(await this.#identity(callSid),intent,'voice.task.execute');
