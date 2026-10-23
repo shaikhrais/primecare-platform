@@ -2,6 +2,50 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {CommunicationResourceBase,BoundedBinaryAdapterBase} from '../packages/shared/src/communications/adapter-base.mjs';
 import {BrowserAudioCall} from '../packages/shared/src/communications/audio-call.mjs';
+function audioFixture() {
+ const actions=[],signals=[],tracks=[new EventTarget(),new EventTarget()];let stopped=0,closed=0,delivered=0;
+ for(const track of tracks){track.stop=()=>{stopped++;};track.enabled=true;}
+ const peer={localDescription:null,remoteDescription:null,
+  addTrack(){},close(){closed++;},
+  async createOffer(){actions.push('createOffer');return {type:'offer',sdp:'fixture'};},
+  async createAnswer(){actions.push('createAnswer');return {type:'answer',sdp:'fixture'};},
+  async setLocalDescription(value){actions.push('setLocalDescription');this.localDescription={...value,toJSON:()=>value};},
+  async setRemoteDescription(value){actions.push('setRemoteDescription');this.remoteDescription=value;},
+  async addIceCandidate(){actions.push('addIceCandidate');}
+ };
+ const call=new BrowserAudioCall({sendSignal:async signal=>signals.push(signal),getUserMedia:async()=>({getTracks:()=>tracks,getAudioTracks:()=>tracks}),createPeer:()=>peer,configuration:{iceServers:[]},onTrack(){delivered++;}});
+ return {call,peer,tracks,actions,signals,stats:()=>({stopped,closed,delivered})};
+}
+for(const stage of ['createOffer','setLocalDescription','setRemoteDescription','addIceCandidate','createAnswer','answerLocalDescription'])test('closed audio cannot continue negotiation after '+stage,async()=>{
+ const f=audioFixture();await f.call.start();let release,entered;
+ const started=new Promise(resolve=>{entered=resolve;});const pending=new Promise(resolve=>{release=resolve;});
+ const method=stage==='answerLocalDescription'?'setLocalDescription':stage;
+ const original=f.peer[method].bind(f.peer);
+ f.peer[method]=async(...args)=>{const result=await original(...args);entered();await pending;return result;};
+ if(stage==='addIceCandidate')await f.call.receive({type:'candidate',candidate:{candidate:'queued'}});
+ const operation=['createOffer','setLocalDescription'].includes(stage)?f.call.offer():f.call.receive({type:'offer',description:{type:'offer',sdp:'fixture'}});
+ await started;f.call.close();const before=[...f.actions];release();
+ await assert.rejects(operation,/closed/);assert.deepEqual(f.actions,before);assert.deepEqual(f.signals,[]);assert.deepEqual(f.stats(),{stopped:2,closed:1,delivered:0});
+});
+test('unexpected microphone track ending closes every resource exactly once',async()=>{
+ const f=audioFixture();await f.call.start();f.tracks[0].dispatchEvent(new Event('ended'));
+ assert.equal(f.call.closed,true);assert.deepEqual(f.stats(),{stopped:2,closed:1,delivered:0});
+ f.tracks[1].dispatchEvent(new Event('ended'));f.call.close();assert.equal(f.stats().stopped,2);
+});
+test('already ended microphone tracks fail startup without creating signaling',async()=>{
+ const f=audioFixture();f.tracks[0].readyState='ended';
+ await assert.rejects(f.call.start(),/Microphone ended/);assert.deepEqual(f.signals,[]);assert.deepEqual(f.stats(),{stopped:2,closed:1,delivered:0});
+});
+test('captured late media callbacks cannot signal or attach audio after close',async()=>{
+ const f=audioFixture();await f.call.start();const candidate=f.peer.onicecandidate,track=f.peer.ontrack;
+ f.call.close();candidate({candidate:{toJSON:()=>({candidate:'late'})}});track({streams:[{}]});
+ await new Promise(resolve=>setImmediate(resolve));assert.deepEqual(f.signals,[]);assert.equal(f.stats().delivered,0);
+});
+test('synchronous candidate transport failure closes resources without an uncaught event error',async()=>{
+ const f=audioFixture();await f.call.start();f.call.sendSignal=()=>{throw Error('fixture failure');};
+ assert.doesNotThrow(()=>f.peer.onicecandidate({candidate:{toJSON:()=>({candidate:'fixture'})}}));
+ await new Promise(resolve=>setImmediate(resolve));assert.equal(f.call.closed,true);assert.equal(f.stats().stopped,2);
+});
 test('resource cleanup runs once and continues after an individual cleanup failure',()=>{
  const resource=new CommunicationResourceBase();let cleaned=0;
  resource.registerCleanup(()=>{cleaned++;});resource.registerCleanup(()=>{throw Error('fixture failure');});

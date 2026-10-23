@@ -16,17 +16,30 @@ export class BrowserAudioCall extends CommunicationResourceBase {
    this.assertOpen();
    this.peer=this.createPeer(this.configuration);
    const peer=this.peer;this.registerCleanup(()=>{peer.onicecandidate=null;peer.ontrack=null;peer.onconnectionstatechange=null;peer.close();});
-   this.peer.onicecandidate=event=>{if(event.candidate)this.sendSignal({type:'candidate',candidate:event.candidate.toJSON()}).catch(()=>this.close());};
-   this.peer.ontrack=event=>this.onTrack(event.streams[0]);
-   this.peer.onconnectionstatechange=()=>{const state=peer.connectionState;try{this.onState(state);}finally{if(state==='failed'||state==='closed')this.close();}};
-   for(const track of this.stream.getTracks())this.peer.addTrack(track,this.stream);
+   this.peer.onicecandidate=event=>{
+    if(this.closed||!event.candidate)return;
+    // Event callbacks must contain both synchronous and asynchronous port errors.
+    Promise.resolve().then(()=>{this.assertOpen();return this.sendSignal({type:'candidate',candidate:event.candidate.toJSON()});}).catch(()=>this.close());
+   };
+   this.peer.ontrack=event=>{if(!this.closed&&event.streams?.[0])this.onTrack(event.streams[0]);};
+   this.peer.onconnectionstatechange=()=>{if(this.closed)return;const state=peer.connectionState;try{this.onState(state);}finally{if(state==='failed'||state==='closed')this.close();}};
+   for(const track of this.stream.getTracks()){
+    if(track.readyState==='ended')throw Error('Microphone ended');
+    if(typeof track.addEventListener==='function'&&typeof track.removeEventListener==='function'){
+     const ended=()=>this.close();track.addEventListener('ended',ended);
+     this.registerCleanup(()=>track.removeEventListener('ended',ended));
+    }
+    this.peer.addTrack(track,this.stream);
+   }
   } catch(error) {this.close();throw error;} finally {this.starting=false;}
  }
  async offer() {
   if(!this.peer || this.closed)throw Error('Call not started');
   try {
-   const offer=await this.peer.createOffer();await this.peer.setLocalDescription(offer);
+   const offer=await this.peer.createOffer();this.assertOpen();
+   await this.peer.setLocalDescription(offer);this.assertOpen();
    await this.sendSignal({type:'offer',description:this.peer.localDescription.toJSON()});
+   this.assertOpen();
   } catch(error) {this.close();throw error;}
  }
  async receive(signal) {
@@ -35,15 +48,17 @@ export class BrowserAudioCall extends CommunicationResourceBase {
   if(!signal || !['offer','answer','candidate'].includes(signal.type))throw Error('Invalid signal');
   if(signal.type==='candidate') {
    if(!this.peer.remoteDescription) {if(this.pending.length>=128)throw Error('Candidate limit');this.pending.push(signal.candidate);}
-   else await this.peer.addIceCandidate(signal.candidate);
+   else {await this.peer.addIceCandidate(signal.candidate);this.assertOpen();}
    return;
   }
   if(signal.description?.type!==signal.type)throw Error('Invalid description');
-  await this.peer.setRemoteDescription(signal.description);
-  for(const candidate of this.pending)await this.peer.addIceCandidate(candidate);this.pending=[];
+  await this.peer.setRemoteDescription(signal.description);this.assertOpen();
+  for(const candidate of this.pending){await this.peer.addIceCandidate(candidate);this.assertOpen();}this.pending=[];
   if(signal.type==='offer') {
-   const answer=await this.peer.createAnswer();await this.peer.setLocalDescription(answer);
+   const answer=await this.peer.createAnswer();this.assertOpen();
+   await this.peer.setLocalDescription(answer);this.assertOpen();
    await this.sendSignal({type:'answer',description:this.peer.localDescription.toJSON()});
+   this.assertOpen();
   }
   } catch(error) {this.close();throw error;}
  }

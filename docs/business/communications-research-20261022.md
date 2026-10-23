@@ -76,3 +76,12 @@ Rechecked official sources:
 - https://sharp.pixelplumbing.com/api-input/ and https://sharp.pixelplumbing.com/api-output/: metadata inspection is separate from full decoding/output operations. Keep actual raster decoding, pixel limits, re-encoding and metadata stripping in the existing inherited adapter and preserve real-image tests.
 
 The repair does not add a new policy, endpoint or UI. It enforces existing `activeAccountEveryAction`, tenant and conversation scope at the final response boundary. A rejected body is canceled, without masking the original denial if cleanup fails. A final check cannot guarantee revocation after streaming has begun. Upload denial can leave an unattached private object; do not invent a delete operation or erase unrelated objects. Separate governed deployment/retention work remains necessary.
+
+## Audio operation cancellation and unexpected track ending
+
+Rechecked official W3C sources:
+
+- https://www.w3.org/TR/webrtc/: peer operations and close involve queued/asynchronous work and closed-state checks. Application continuations and signaling callbacks need their own resource-lifetime checks; stopping a peer does not cancel application promises already awaiting completion.
+- https://www.w3.org/TR/mediacapture-streams/: tracks can end when sources stop or permission is revoked. `stop()` explicitly ends a track without emitting an `ended` event. Listen for unexpected ending, remove listeners during disposal, and keep explicit track stopping in cleanup.
+
+Design: reuse the inherited resource base and add open-state checks after each awaited SDP/ICE stage, before further peer work or signaling. Ignore captured callbacks after close, and contain both synchronous and asynchronous candidate-port errors. An ended microphone closes the local audio/session and its timer without introducing an unregistered automatic server mutation. Reject an already-ended track at startup. These checks prevent newly created post-close work, not recall of network requests already dispatched. Keep the generated Dart browser asset tied to source and re-run actual Chromium packet/cleanup checks; synthetic lifecycle fixtures do not prove physical device or TURN-network acceptance.

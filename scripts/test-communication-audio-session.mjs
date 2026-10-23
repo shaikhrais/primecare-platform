@@ -89,3 +89,11 @@ test('explicit close during polling is quiet, while a live denial is reported on
  denied.session.transport.execute=async()=>{throw Error('revoked');};
  await assert.rejects(denied.session.refresh(),/revoked/);assert.deepEqual(errors,['revoked']);assert.equal(denied.stats().stops,1);
 });
+test('unexpected microphone ending closes the inherited session and timer without a server mutation',async()=>{
+ const f=fixture();const track=new EventTarget();let stopped=0;
+ track.stop=()=>{stopped++;};
+ f.session.audio.getUserMedia=async()=>({getTracks:()=>[track],getAudioTracks:()=>[track]});
+ await f.session.start();assert.ok(f.session.timer);const before=f.commands.length;
+ track.dispatchEvent(new Event('ended'));
+ assert.equal(f.session.closed,true);assert.equal(f.session.timer,null);assert.equal(f.session.audio.closed,true);assert.equal(stopped,1);assert.equal(f.stats().peerCloses,1);assert.equal(f.commands.length,before);
+});

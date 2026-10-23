@@ -300,3 +300,22 @@ composition and retention cleanup remain deployment concerns.
 
 Run `scripts/test-communication-pictures.mjs`, service/HTTP/native-policy suites
 and the real raster/browser checks in communication CI.
+
+### Audio cancellation and ended tracks
+
+`BrowserAudioCall` and `BrowserAudioSession` continue to inherit the same
+`CommunicationResourceBase`. Each awaited SDP/ICE stage checks that the resource
+is still open before proceeding; a late completion cannot start the next peer
+operation or create a new offer/answer signal after close. Captured late ICE,
+track and connection callbacks ignore closed resources. Candidate callback
+handling contains synchronous port/serialization errors as well as rejected
+promises, closing resources on failure.
+
+Unexpected browser microphone `ended` events close the local call and inherited
+session, removing the polling timer, peer handlers and track listeners. A track
+already ended at startup fails closed. Normal cleanup still explicitly stops
+tracks: the browser `stop()` API does not dispatch `ended`. This performs local
+cleanup only; it does not add an automatic server hang-up mutation. Explicit
+hang-up remains separate. Already dispatched network requests cannot be recalled.
+Regenerate/check `audio-bridge.js` with `tools/communication-media-bundle.mjs`
+and run adapter/session, compiled-Dart browser and real packet checks.
