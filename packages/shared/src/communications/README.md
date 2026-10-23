@@ -749,3 +749,28 @@ request-writing APIs, app routes/screens, provider authentication and live AI
 runtime remain required. Deterministic local tests and disposable PostgreSQL
 checks distinguish synthetic identity/request ports from real call/booking
 acceptance; no appointments or callback requests are created in production.
+
+### Twilio Verify provider port (server-only, candidate)
+
+`createTwilioVoiceOtpClient` uses the official REST SDK with a fixed server-selected
+verified account contact, configured Verify Service SID and SMS channel. It
+exposes only start and check, never service administration, custom-code setting,
+manual status approval, contact changes or arbitrary SDK options. Checks address
+the exact persisted Verification SID; response account/service/contact/channel/SID
+must match before only the authoritative approved status succeeds. Secrets and
+raw codes are never returned or included in errors. Uncertain sends are not
+retried automatically. The shared SID boundary also rejects trailing newline
+values instead of accepting JavaScript's end-anchor exception.
+
+This is a provider port, not an identity grant or complete OTP broker. The host
+must authorize/limit and durably claim each send, resolve current verified account
+contact, bind the exact returned SID to call/user/tenant/session, enforce attempt
+limits/expiry and contact/session revocation, and accept code entry through a
+registered secure flow outside the LLM. Do not construct this client from a caller
+or model-supplied number. Persist a verification receipt before checking; after a
+Worker restart, reconstruct the provider from the trusted record. Failures remain
+unverified. A correct code cannot approve an AI task; separate exact-action
+confirmation and current business permission remain mandatory. The provider's
+Verify TTL and country/channel settings need live setup; this module creates no
+Verify Service and sends nothing during construction. Tests use an isolated
+HTTP port with the real SDK serializer and native Worker runtime.

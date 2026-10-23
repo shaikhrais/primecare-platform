@@ -309,3 +309,21 @@ and passes the three selected request definitions through the durable gate using
 synthetic request APIs. No live AI assistant, OTP challenge, native permission,
 production migration, callback request, appointment change or IVR cutover is
 activated by these modules. Existing live deployment blockers remain explicit.
+
+### Verify provider continuation — 2026-10-23
+
+Reviewed the official [Verification Check reference](https://www.twilio.com/docs/verify/api/verification-check)
+and local Twilio SDK declarations. Added a narrow server-only SMS Verify port
+using configured API keys/service, current verified account contact and exact
+Verification SID. It validates receipt scope, accepts only approved status,
+forwards no model-selected destination/status/custom-code fields, redacts failures
+and disables automatic retry of uncertain sends. Added strict input-length checks
+for code/SID/secret/contact handling, including terminal-newline rejection.
+
+Local verification: 109 Twilio/task tests and 24 native Worker checks pass. New
+provider tests exercise the real SDK HTTP serializer with synthetic responses;
+no OTP was sent and no phone was authenticated. This is not yet the durable
+OTP-to-call/user/tenant broker. Production still requires that binding, send/attempt
+limits, expiry/revocation handling and registered secure code entry outside the
+LLM, plus the existing separate task confirmation and business API gates. No
+Verify Service, live AI agent, extension assignment or provider cutover occurred.

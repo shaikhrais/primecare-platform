@@ -1,0 +1,22 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {createTwilioVoiceOtpClient} from '../packages/shared/src/communications/twilio-verify.mjs';
+const accountSid='AC'+'a'.repeat(32),serviceSid='VA'+'b'.repeat(32),verificationSid='VE'+'c'.repeat(32),phone='+15550001000';
+const config={accountSid,serviceSid,apiKeySid:'SK'+'d'.repeat(32),apiKeySecret:'e'.repeat(32),contact:{phone,verified:true}};
+function fixture(){const calls=[];let status='pending',override={},error=false;const client=createTwilioVoiceOtpClient({...config,httpClient:{async request(options){calls.push(options);if(error)throw Error('PRIVATE OTP 123456 destination '+phone);return {statusCode:200,headers:{},body:JSON.stringify({sid:verificationSid,account_sid:accountSid,service_sid:serviceSid,to:phone,channel:'sms',status,valid:status==='approved',private_secret:'never return',...override})};}}});return {client,calls,setStatus:value=>status=value,change:value=>override=value,fail:()=>error=true};}
+test('official SDK sends only to fixed verified contact using configured Verify service',async()=>{
+ const f=fixture();assert.deepEqual(await f.client.start({to:'+15550009999',channel:'voice',customCode:'999999'}),{verificationSid,status:'pending'});
+ assert.equal(f.calls.length,1);assert.equal(f.calls[0].uri,`https://verify.twilio.com/v2/Services/${serviceSid}/Verifications`);assert.equal(f.calls[0].method,'post');assert.deepEqual(f.calls[0].data,{To:phone,Channel:'sms'});
+ assert.deepEqual(Object.keys(f.client).sort(),['check','start']);assert.equal(Object.isFrozen(f.client),true);
+});
+test('verification check sends only exact SID and code; only approved status succeeds',async()=>{
+ const f=fixture();assert.deepEqual(await f.client.check(verificationSid,'123456'),{approved:false});f.setStatus('approved');assert.deepEqual(await f.client.check(verificationSid,'123456'),{approved:true});
+ assert.equal(f.calls[0].uri,`https://verify.twilio.com/v2/Services/${serviceSid}/VerificationCheck`);assert.deepEqual(f.calls[0].data,{Code:'123456',VerificationSid:verificationSid});
+ for(const status of ['canceled','max_attempts_reached','deleted','failed','expired']){f.setStatus(status);assert.deepEqual(await f.client.check(verificationSid,'123456'),{approved:false});}
+});
+test('different account service contact channel or verification SID never authenticates',async()=>{
+ for(const change of [{account_sid:'AC'+'f'.repeat(32)},{service_sid:'VA'+'f'.repeat(32)},{to:'+15550009999'},{channel:'voice'},{sid:'VE'+'f'.repeat(32)},{status:'invented'}]){const f=fixture();f.setStatus('approved');f.change(change);await assert.rejects(f.client.check(verificationSid,'123456'),/^Error: OTP verification unavailable$/);}
+});
+test('invalid codes or SIDs are rejected before a provider request',async()=>{const f=fixture();for(const code of ['12345','1234567','１２３４５６','12345\n','123456\n',{status:'approved'}])await assert.rejects(f.client.check(verificationSid,code));await assert.rejects(f.client.check('../another-service','123456'));assert.equal(f.calls.length,0);});
+test('ambiguous send and check failures remain private and make one request without retry',async()=>{const f=fixture();f.fail();await assert.rejects(f.client.start(),/^Error: OTP send outcome unknown; do not resend automatically$/);assert.equal(f.calls.length,1);await assert.rejects(f.client.check(verificationSid,'123456'),/^Error: OTP verification unavailable$/);assert.equal(f.calls.length,2);});
+test('missing credentials unverified contact and unsupported code configuration fail closed',()=>{for(const change of [{apiKeySecret:''},{apiKeySecret:config.apiKeySecret+'\n'},{serviceSid:'bad'},{serviceSid:serviceSid+'\n'},{contact:{phone:phone+'\n',verified:true}},{contact:{phone,verified:false}},{contact:{phone:'1555',verified:true}},{codeLength:3},{codeLength:11}])assert.throws(()=>createTwilioVoiceOtpClient({...config,...change}));});
+test('contact mutation after construction cannot redirect a verification',async()=>{const contact={phone,verified:true},calls=[];const client=createTwilioVoiceOtpClient({...config,contact,httpClient:{async request(o){calls.push(o);return {statusCode:200,headers:{},body:JSON.stringify({sid:verificationSid,account_sid:accountSid,service_sid:serviceSid,to:phone,channel:'sms',status:'pending'})};}}});contact.phone='+15550009999';await client.start();assert.equal(calls[0].data.To,phone);});

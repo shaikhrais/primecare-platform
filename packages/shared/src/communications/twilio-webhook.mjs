@@ -1,6 +1,6 @@
 import {validateRequest} from 'twilio/lib/webhooks/webhooks.js';
 import {BoundedBinaryAdapterBase,CommunicationInputError} from './adapter-base.mjs';
-export const twilioSid=(prefix,value)=>typeof value==='string'&&new RegExp('^'+prefix+'[a-fA-F0-9]{32}$').test(value);
+export const twilioSid=(prefix,value)=>typeof value==='string'&&value.length===prefix.length+32&&new RegExp('^'+prefix+'[a-fA-F0-9]{32}$').test(value);
 export function twilioPublicUrl(value){
  if(typeof value!=='string')throw Error('Provider configuration required');
  const url=new URL(value);

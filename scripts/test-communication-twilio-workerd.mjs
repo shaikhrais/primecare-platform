@@ -20,10 +20,16 @@ import {twilioVoiceIdentity} from './packages/shared/src/communications/twilio-v
 import {TwilioVoicemailAdapter,createTwilioRecordingVerifier} from './packages/shared/src/communications/twilio-voicemail.mjs';
 import {VoiceTaskService,BoundVoiceApiTask} from './cloudflare/workers/src/business-tasks/voice-tasks.ts';
 import {PostgresVoiceTaskConfirmationService} from './cloudflare/workers/src/business-tasks/voice-confirmations.ts';
+import {createTwilioVoiceOtpClient} from './packages/shared/src/communications/twilio-verify.mjs';
 const config=${JSON.stringify(config)};
 export default {async fetch(request){
  let queries=0;const mode=request.headers.get('x-test-mode');
  const row={extension:'100001',tenantId:'tenant-a',userId:'user-a',published:true,active:true,tenantActive:true,userActive:true};
+ if(mode==='otp'){
+  let requests=0;const sid='VE'+'d'.repeat(32),serviceSid='VA'+'e'.repeat(32),phone='+15550001000';
+  const client=createTwilioVoiceOtpClient({accountSid:config.accountSid,apiKeySid:'SK'+'d'.repeat(32),apiKeySecret:'e'.repeat(32),serviceSid,contact:{phone,verified:true},httpClient:{async request(options){requests++;const checking=options.uri.endsWith('/VerificationCheck');if(checking&&options.data.VerificationSid!==sid)throw Error('SID');if(!checking&&(options.data.To!==phone||options.data.Channel!=='sms'))throw Error('contact');return {statusCode:200,headers:{},body:JSON.stringify({sid,account_sid:config.accountSid,service_sid:serviceSid,to:phone,channel:'sms',status:checking?'approved':'pending'})};}}});
+  const started=await client.start();const checked=await client.check(started.verificationSid,'123456');return Response.json({approved:checked.approved,requests});
+ }
  if(mode==='confirmation'){
   const actor={id:'fixture',tenantId:'tenant-a'},intentId='11111111-1111-4111-8111-111111111111',callSid='CA'+'c'.repeat(32),digest='a'.repeat(64);let approvedAt=null,expiresAt=null,consumed=false;
   const intent={id:intentId,callSid,actor,sessionId:'fixture-session',taskId:'fixture.update',taskVersion:1,args:{version:1},summary:'Update fixture version 1',digest,expiresAt:Date.now()+120000,status:'proposed'};
@@ -95,6 +101,7 @@ try{
  const taskResult=await(await send({mode:'voice-task'})).json();assert.equal(taskResult.executions,1);assert.equal(taskResult.status,'completed');checks++;
  assert.equal((await send({mode:'voice-task-denied'})).status,403);checks++;
  const confirmationResult=await(await send({mode:'confirmation'})).json();assert.equal(confirmationResult.first.method,'app');assert.equal(confirmationResult.second,null);checks++;
+ const otpResult=await(await send({mode:'otp'})).json();assert.equal(otpResult.approved,true);assert.equal(otpResult.requests,2);checks++;
  await mkdir('test-results/communication-twilio',{recursive:true});
  await writeFile('test-results/communication-twilio/workerd.json',JSON.stringify({sourceCommit:process.env.GITHUB_SHA,checks,passed:true,engine:'workerd',sdk:'twilio@6.2.0',compatibilityFlags:['nodejs_compat'],officialSignatureValidation:true,officialTwimlBuilder:true,directory:'synthetic',liveProviderVerified:false,numbersPurchased:0,extensionsAssigned:0,callsPlaced:0,production:false},null,2));
  console.log('WORKERD_COMMUNICATION_TWILIO_PASS '+checks);
