@@ -91,3 +91,23 @@ Design: reuse the inherited resource base and add open-state checks after each a
 Official Flutter documentation https://docs.flutter.dev/deployment/web recommends serving and validating an actual release web build. https://docs.flutter.dev/ui/accessibility/assistive-technologies and https://flutter.dev/blog/accessibility-in-flutter-on-the-web describe building the web semantics tree, including `SemanticsBinding.instance.ensureSemantics()`. The isolated host enables semantics and uses existing registered controls; browser navigation retains `enable-semantics=true`. Build self-hosted CanvasKit resources with `--no-web-resources-cdn`, keeping the compiled app on the loopback test server. These are acceptance-host choices, not a new production portal or replacement UI.
 
 Continue applying OWASP authorization guidance at the native server. Browser tokens come only from real credential login, tenant scope comes from native account records, and session reload must validate current server identity instead of trusting local preferences. Gateway forwarding is an exact registered-route mount and does not substitute for native endpoint/screen or resource policy. Provider fixtures must remain explicitly distinguishable from live mailbox/scanner/TURN acceptance.
+
+
+## Build-time communication schemas for Workers
+
+Official Ajv documentation https://ajv.js.org/standalone explains generating
+standalone validators at build time, avoiding runtime schema compilation and the
+Function constructor. It recommends bundling generated code to include only the
+small helper dependencies. The registered schemas are static build inputs; no
+user-supplied schema is compiled. Keep the same pinned Ajv/ajv-formats versions as
+the reference acceptance compiler, and preserve unknown-schema denial, format
+checks and non-mutating validation. Use an actual workerd test in addition to a
+VM with string code generation disabled. This is a runtime compatibility step,
+not production mounting or provider acceptance.
+
+The existing configured send_email binding was also checked against current
+Cloudflare documentation https://developers.cloudflare.com/email-service/api/send-emails/workers-api/.
+Structured message sending and a messageId acceptance result are supported; no
+transport signature change or live send was necessary for this step. The existing
+inbox Worker snapshot stores messages in its INBOX binding, while business inbound
+mail still requires governed owned-mailbox routing and runtime composition.

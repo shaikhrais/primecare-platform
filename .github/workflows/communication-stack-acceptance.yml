@@ -8,6 +8,7 @@ on:
       - 'scripts/test-communication-stack.mjs'
       - 'packages/primecare_ui/test/communication_stack_harness.dart'
       - 'tools/build-communication-stack.py'
+      - 'tools/communication-schema-validators.mjs'
       - 'cloudflare/workers/src/business-tasks/**'
       - 'packages/shared/src/communications/**'
       - 'packages/flutter_core/lib/src/communications/**'
@@ -52,6 +53,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/communication-stack-tools" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2 esbuild@0.27.2 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0 sharp@0.34.5 playwright@1.60.0
           ln -s "$RUNNER_TEMP/communication-stack-tools/node_modules" node_modules
           node --test scripts/test-auth-session-tenant.mjs scripts/test-communication-gateway.mjs scripts/test-auth-api.mjs
+          node tools/communication-schema-validators.mjs
           python3 tools/build-communication-stack.py
       - name: Real Flutter login, channels, database readback, reload and denied scope
         run: |

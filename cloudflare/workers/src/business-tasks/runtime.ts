@@ -1,3 +1,4 @@
+import {validateRegisteredCommunicationSchema} from './schema-validator.ts';
 import type {AccessPolicy} from './store.ts';
 import {PostgresAtomicStore} from './store.ts';
 import {CommunicationService,type PictureRepository,type CommunicationLimits} from './communication.ts';
@@ -27,7 +28,8 @@ export type CommunicationRuntimeDependencies={
  maxMailBytes:number;
  maxRenderedMailBytes:number;
  maxRequestBytes:number;
- validate:(schema:unknown,value:unknown)=>boolean;
+ /** Optional additional restriction; cannot bypass the registered validator. */
+ validate?:(schema:unknown,value:unknown)=>boolean;
 };
 /** One inherited composition for registered HTTP channels and trusted email events.
  * Deliberately unmounted until explicit endpoint grants and live provider/mailbox
@@ -37,6 +39,7 @@ export class PostgresCommunicationWorker<E> extends CommunicationHttpWorker<E> {
  readonly inbound:InboundEmailAdapter;
  constructor(dependencies:CommunicationRuntimeDependencies){
   if(typeof dependencies?.businessPool?.query!=='function'||typeof dependencies.businessPool.connect!=='function'||typeof dependencies.governancePool?.connect!=='function'||typeof dependencies.pictures?.prepare!=='function'||typeof dependencies.pictures.get!=='function'||typeof dependencies.pictures.open!=='function')throw Error('Native communication runtime adapters required');
+  if(dependencies.validate!==undefined&&typeof dependencies.validate!=='function')throw Error('Invalid additional communication validator');
   const store=new PostgresAtomicStore(dependencies.businessPool);
   const policy=dependencies.casePolicy===undefined?new PostgresCommunicationAccessPolicy(dependencies.businessPool):dependencies.casePolicy;
   const mailboxes=dependencies.mailboxes===undefined?new PostgresCommunicationMailboxPolicy(dependencies.businessPool):dependencies.mailboxes;
@@ -47,7 +50,7 @@ export class PostgresCommunicationWorker<E> extends CommunicationHttpWorker<E> {
   const permissions=new PostgresCommunicationEndpointPolicy(dependencies.governancePool);
   super({core:new CommunicationCore(service,mail),authenticate:request=>sessions.authenticate(request),
    authorizeEndpoint:(actor,id,request)=>permissions.authorize(actor,id,request),
-   validate:dependencies.validate,maxRequestBytes:dependencies.maxRequestBytes});
+   validate:(schema,value)=>validateRegisteredCommunicationSchema(schema,value)&&(dependencies.validate===undefined||dependencies.validate(schema,value)===true&&validateRegisteredCommunicationSchema(schema,value)),maxRequestBytes:dependencies.maxRequestBytes});
   this.inbound=new InboundEmailAdapter(mail,dependencies.maxMailBytes);
  }
  /** Email Routing event only; deliberately absent from ordinary user HTTP dispatch. */

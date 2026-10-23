@@ -348,3 +348,20 @@ browser adapter's native `candidate` event into that wire value and maps stored
 validates and persists the registered value. The unregistered `candidate` wire
 alias is rejected by HTTP schema validation. Candidate content, current-call
 membership, version checks and signal byte/count limits remain enforced.
+
+### Workers-compatible schema validation
+
+`tools/communication-schema-validators.mjs --generate` compiles all seven pinned
+registered API request/response schemas into a bundled standalone module. Normal
+check mode rejects drift; the route-binding provenance check must pass first.
+Ajv is a build dependency, not a runtime compiler. The native inherited runtime
+supplies the compiled validator by default and rejects unknown schema identities.
+An optional extra validator can restrict acceptance but cannot bypass the
+registered schemas; its output is revalidated after any synchronous mutation.
+
+The actual browser and native PostgreSQL acceptance hosts omit an injected
+compiler. Differential checks cover every registered request variant and response,
+including ICE wire values, email formatting, Unicode lengths and unchanged input.
+A VM forbidding string code generation checks the bundled module, and the
+`worker-validator` CI job additionally runs it in workerd. These checks do not
+activate production channels, create grants or verify external provider delivery.

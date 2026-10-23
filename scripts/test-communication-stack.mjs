@@ -55,8 +55,7 @@ try {
  const {auth}=require(join(temp,'auth.js')),{default:gateway}=require(join(temp,'gateway.js')),{PostgresCommunicationWorker}=require(join(temp,'runtime.js'));
  const objects=new Map();const bucket={async put(key,body,meta){objects.set(key,{body:new Uint8Array(body),size:body.length,...meta});},async head(key){return objects.get(key);},async get(key){return objects.get(key);}};
  const pictures=new PrivatePictureRepository({sharp,bucket,scan:async()=>true,maxPixels:4096,maxBytes:ui.limits.maxPictureBytes});let sends=0;
- const {default:Ajv}=await import('ajv'),{default:addFormats}=await import('ajv-formats');const ajv=new Ajv({strict:false});addFormats(ajv);ajv.addFormat('binary',()=>true);const validators=new Map();
- const runtime=new PostgresCommunicationWorker({businessPool:pool,governancePool:pool,pictures,limits:{maxMembers:8,maxMessages:100,maxText:2000,maxPictureBytes:ui.limits.maxPictureBytes,maxPictures:3,ringMilliseconds:30000,maxSignalBytes:16384},nativeEmail:{async send(){sends++;return {messageId:'synthetic-provider-acceptance'};}},sender:'owned@example.invalid',maxMailBytes:65536,maxRenderedMailBytes:131072,maxRequestBytes:2*1024*1024,validate(schema,value){if(!validators.has(schema))validators.set(schema,ajv.compile(schema));return validators.get(schema)(value);}});
+ const runtime=new PostgresCommunicationWorker({businessPool:pool,governancePool:pool,pictures,limits:{maxMembers:8,maxMessages:100,maxText:2000,maxPictureBytes:ui.limits.maxPictureBytes,maxPictures:3,ringMilliseconds:30000,maxSignalBytes:16384},nativeEmail:{async send(){sends++;return {messageId:'synthetic-provider-acceptance'};}},sender:'owned@example.invalid',maxMailBytes:65536,maxRenderedMailBytes:131072,maxRequestBytes:2*1024*1024});
  const env={AUTH:{fetch:r=>auth(r,{DB_URL:connection,SERVICE_NAME:'auth'},new URL(r.url).pathname,{})},GOVERNANCE:{fetch:r=>runtime.fetch(r,{})}};
  server=createServer(async(req,res)=>{
   try {

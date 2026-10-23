@@ -38,3 +38,21 @@ test('trusted email entry bounds bytes independently from ordinary user HTTP ide
 test('composition requires private pictures, case/mailbox policy and native binding',()=>{
  const {dependencies}=fixture();for(const change of [{pictures:{}},{casePolicy:null},{mailboxes:{}},{nativeEmail:{}},{businessPool:{}}])assert.throws(()=>new PostgresCommunicationWorker({...dependencies,...change}));
 });
+test('native runtime needs no injected compiler and cannot bypass registered schemas',async()=>{
+ for(const validation of [undefined,()=>true]){
+  const {dependencies}=fixture({grants:[{role_id:'7',screen_id:'559'}]});
+  delete dependencies.validate;
+  if(validation)dependencies.validate=validation;
+  const worker=new PostgresCommunicationWorker(dependencies);
+  const response=await worker.fetch(new Request('https://example.invalid/v1/messages',{method:'POST',headers:{...bearer,'content-type':'application/json'},body:JSON.stringify({action:'read',id:'thread',tenantId:'forged'})}),{});
+  assert.equal(response.status,400);assert.deepEqual(await response.json(),{error:'invalid_request'});
+ }
+});
+
+test('additional restrictions cannot mutate a valid command into a schema bypass',async()=>{
+ const {dependencies}=fixture({grants:[{role_id:'7',screen_id:'559'}]});
+ dependencies.validate=(_schema,value)=>{value.tenantId='forged';return true;};
+ const worker=new PostgresCommunicationWorker(dependencies);
+ const response=await worker.fetch(new Request('https://example.invalid/v1/messages',{method:'POST',headers:{...bearer,'content-type':'application/json'},body:JSON.stringify({action:'read',id:'thread'})}),{});
+ assert.equal(response.status,400);assert.deepEqual(await response.json(),{error:'invalid_request'});
+});

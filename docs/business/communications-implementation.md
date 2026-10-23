@@ -694,3 +694,24 @@ Application source `5c5ec7d7e1d327405f9b333594226f7765cc0efb` separately passed 
 Earlier harness candidates are retained as failures in `evidence/communication-stack-acceptance-20261022.json`. In particular, source `5c5ec7d7e1d327405f9b333594226f7765cc0efb` proved actual audio [10, 10] and peer closure but stopped on canvas-scroll focus; source `c40b9570d79f95e9c367430c5616c724a50d3711` proved UI outbound mail acceptance but its aria-label-only received-text assertion missed visible rendered text. The successful harness uses exact DOM input focus and checks rendered text or accessibility labels. No assertion for packets, native state, quarantine or denial was removed.
 
 This is isolated product UI acceptance, not deployed production or live email/TURN acceptance. The scanner, private bucket, provider acceptance and microphone input are synthetic ports; audio is loopback. Production runtime composition/mount, matching role API/screen grants, owned mailbox/activation and live provider acceptance, private storage/scanner composition, TURN/device acceptance, governed recipient discovery and deployed release acceptance remain open. The fresh production inventory still has no matching active grants for all seven communication APIs. No accounts, grants, activation or business-process verification statuses changed. Work remains on main only.
+
+
+### Next production integration prerequisite: standalone schema validation
+
+Inspection of current main `0c61c1c55c75279f795f7e47e69f605a17271ab8`
+confirmed the native communication runtime still needed an injected schema
+compiler. The browser acceptance host supplied runtime Ajv compilation. The
+native runtime now supplies build-time compiled registered validators, preserving
+all seven API schemas and formats. A supplied additional validator cannot replace
+or bypass the registered validation, including by mutating a command. Unknown
+schema identities fail closed. No schema registration, permission, account or
+activation changes are needed because the persisted contract is unchanged.
+
+The new native-runtime regression fails on the previous implementation. Local
+checks pass 178 tests with two native-only skips, strict TypeScript, all 14 compiled
+request/response validators, differential request-variant checks and a VM that
+forbids dynamic string compilation. PostgreSQL and actual Flutter acceptance now
+omit the injected compiler. Full source-specific CI, including actual workerd,
+is pending. This removes a runtime composition prerequisite; production mounting,
+mailbox ownership/provider routing, permissions, scanner/storage and TURN/device
+acceptance remain open.

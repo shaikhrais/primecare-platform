@@ -17,6 +17,9 @@ on:
       - 'scripts/test-communication-access-policy.mjs'
       - 'scripts/test-communication-audio-session.mjs'
       - 'tools/communication-route-bindings.py'
+      - 'tools/communication-schema-validators.mjs'
+      - 'scripts/test-communication-schema-validator.mjs'
+      - 'scripts/test-communication-validator-workerd.mjs'
       - 'scripts/test-business-media.mjs'
       - 'scripts/test-communication-adapter-base.mjs'
       - 'scripts/test-communication-pictures.mjs'
@@ -181,7 +184,10 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/communications-tools" --ignore-scripts pg@8.16.3 esbuild@0.27.2 typescript@5.9.3 @types/node@24.0.0 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0
           ln -s "$RUNNER_TEMP/communications-tools/node_modules" node_modules
       - name: Check production-generated shared route bindings
-        run: python3 tools/communication-route-bindings.py
+        run: |
+          python3 tools/communication-route-bindings.py
+          node tools/communication-schema-validators.mjs
+          node --test scripts/test-communication-schema-validator.mjs
       - name: Shared business rules
         run: node --test packages/shared/test/business-*.test.mjs
       - name: Strict service types and existing email compatibility
@@ -196,6 +202,25 @@ jobs:
         run: node --test scripts/test-communication-http.mjs
       - name: Shared communication resource and byte-limit bases
         run: node --test scripts/test-communication-adapter-base.mjs scripts/test-communication-pictures.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-flutter-bridge.mjs
+  worker-validator:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/validator-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 ajv@8.17.1 ajv-formats@3.0.1 miniflare@4.20260730.0
+          ln -s "$RUNNER_TEMP/validator-tools/node_modules" node_modules
+          node tools/communication-schema-validators.mjs
+          node --test scripts/test-communication-schema-validator.mjs
+          node scripts/test-communication-validator-workerd.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: communication-worker-validator
+          path: test-results/communication-validator
+          retention-days: 90
   media:
     runs-on: ubuntu-24.04
     timeout-minutes: 15

@@ -9,7 +9,7 @@ type Dependencies<E>={
  authenticate:(request:Request,env:E)=>Promise<Actor>;
  /** Must check the current registered API/screen grant, never the client role. */
  authorizeEndpoint:(actor:Actor,apiId:number,request:Request,env:E)=>Promise<void>;
- /** Production must inject its JSON Schema compiler; no permissive fallback. */
+ /** Required schema validator; native runtime supplies build-time compiled registered schemas. */
  validate:(schema:unknown,value:unknown)=>boolean;
  maxRequestBytes:number;
 };
