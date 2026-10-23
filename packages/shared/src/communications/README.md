@@ -829,3 +829,24 @@ All handlers/UI screens, verified-contact enrollment, production migrations,
 permissions, request-writing API bindings and AI runtime still require authorized
 registration/deployment and live acceptance. Callers without the app or verified
 contact must use reception; there is no voice-match or caller-ID fallback.
+
+### App call pairing panel
+
+`VoiceOtpAppSession` extends `CommunicationResourceBase`; `mountVoiceOtpPanel`
+provides an optional accessible DOM form for the same flow. The host supplies
+registered, authenticated and CSRF-protected `start`/`check` transport ports plus
+a current session generation. Logout closes the resource; every operation also
+checks that generation before and after transport I/O. The panel asks for the
+8-digit private call pairing code, then the 6-digit SMS OTP. Neither phone number,
+actor/tenant, native session hash, provider credential nor identity grant is an
+input to this component. Typed codes clear before transport and on close.
+
+A send/check is single flight. An uncertain or malformed result disables this
+flow and directs the caller to reception; no automatic resend occurs. A definite
+false check permits another manual code entry, subject to the existing server
+attempt cap. A verified UI label is display only: every AI tool still obtains
+identity from the durable server broker and needs separate exact task approval.
+This component adds no screen, route, grant, contact enrollment or AI activation.
+It still needs the approved native app bridge and registered endpoint binding.
+Run `scripts/test-communication-voice-otp-app.mjs` for lifecycle races and
+`test-communication-voice-otp-browser.mjs` for real browser form acceptance.
