@@ -91,6 +91,7 @@ def register(db):
    if normalized(rows[0][1:])!=[expected[k] for k in FIELDS]:raise GovernanceReadError('Existing voice contract preserved; reconciliation required')
    aid=rows[0][0]
   else:aid=db.insert_exact(expected)
+  if type(aid) is not int or aid<1 or aid in receipt.values() or db.execute('SELECT COUNT(*) FROM api_endpoints WHERE id=?',(aid,)).fetchone()[0]!=1:raise GovernanceReadError('Voice contract identity collision')
   receipt[op['key']]=aid
  return dict(apiIds=receipt,registered=len(receipt),roleGrants=0,extensionsAssigned=0,numbersPurchased=0,providerWrites=False,activation=False,definitionSha256=expected_scope()['definitionSha256'])
 
@@ -101,16 +102,31 @@ def transaction(mode):
   if mode=='--dry-run':db.db.rollback()
  return result
 
+def verify():
+ # Independent read-only adapter, never a registration-store fallback.
+ from production_reader import connect
+ pin=json.loads((ROOT/'tools/governance-production/production-pin.json').read_text())
+ if pin.get('twilioContractRegistrationWriter')!=expected_scope():raise GovernanceReadError('Pinned voice contract verification scope required')
+ d=definition();ids={}
+ with connect() as reader:
+  anchor=reader.execute('SELECT app_id FROM api_endpoints WHERE id=710').fetchall()
+  if len(anchor)!=1 or anchor[0][0] is None:raise GovernanceReadError('Voice verification anchor missing')
+  for op in d['operations']:
+   rows=reader.execute('SELECT id,'+','.join(FIELDS)+' FROM api_endpoints WHERE http_method=? AND route_path=?',(op['method'],op['path'])).fetchall()
+   if len(rows)!=1 or normalized(rows[0][1:])!=[values(d,op,anchor[0][0])[k] for k in FIELDS]:raise GovernanceReadError('Independent voice contract readback failed')
+   aid=rows[0][0]
+   if type(aid) is not int or aid<1 or aid in ids.values() or reader.execute('SELECT COUNT(*) FROM api_endpoints WHERE id=?',(aid,)).fetchall()!=[(1,)]:raise GovernanceReadError('Independent voice identity collision')
+   ids[op['key']]=aid
+ return dict(apiIds=ids,registered=len(ids),independentReadback=True,writesAttempted=False,roleGrants=0,extensionsAssigned=0,providerWrites=False,activation=False,definitionSha256=expected_scope()['definitionSha256'])
+
 def main():
- if sys.argv[1:] not in [['--dry-run'],['--apply']]:raise SystemExit('Explicit mode required')
- result=retry_transaction(lambda:transaction(sys.argv[1]))
- if sys.argv[1]=='--apply':
-  from production_reader import connect
-  with connect() as reader:
-   for op in definition()['operations']:
-    rows=reader.execute('SELECT id,'+','.join(FIELDS)+' FROM api_endpoints WHERE http_method=? AND route_path=?',(op['method'],op['path'])).fetchall()
-    anchor=reader.execute('SELECT app_id FROM api_endpoints WHERE id=710').fetchall()
-    if len(anchor)!=1 or len(rows)!=1 or rows[0][0]!=result['apiIds'][op['key']] or normalized(rows[0][1:])!=[values(definition(),op,anchor[0][0])[k] for k in FIELDS]:raise GovernanceReadError('Independent voice contract readback failed')
-  result['independentReadback']=True
+ if sys.argv[1:] not in [['--dry-run'],['--apply'],['--verify']]:raise SystemExit('Explicit mode required')
+ if sys.argv[1]=='--verify':result=verify()
+ else:
+  result=retry_transaction(lambda:transaction(sys.argv[1]))
+  if sys.argv[1]=='--apply':
+   checked=verify()
+   if checked['apiIds']!=result['apiIds']:raise GovernanceReadError('Voice contract identity changed after registration')
+   result['independentReadback']=True
  print('TWILIO_CONTRACT_REGISTRATION '+json.dumps(result))
 if __name__=='__main__':main()

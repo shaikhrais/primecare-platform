@@ -42,4 +42,31 @@ class DefinitionTests(unittest.TestCase):
  def test_no_model_confirmation_or_arbitrary_business_execution_endpoint(self):
   self.assertFalse(any(key in m.IDENTITIES for key in ['task.execute','task.propose','task.confirm_by_voice']))
   approve=next(o for o in self.doc['operations'] if o['key']=='task.approve');self.assertEqual(approve['authentication'],'native-session-csrf');self.assertEqual(approve['request']['required'],['intentId','digest'])
+class IndependentReadbackTests(unittest.TestCase):
+ def reader(self,mode=None):
+  doc=m.definition();operations={(op['method'],op['path']):(index+1000,op) for index,op in enumerate(doc['operations'])}
+  class Result:
+   def __init__(self,rows):self.rows=rows
+   def fetchall(self):return self.rows
+  class Reader:
+   calls=[]
+   def __enter__(self):return self
+   def __exit__(self,*args):return False
+   def execute(self,sql,args=()):
+    if not sql.startswith('SELECT '):raise AssertionError('Readback attempted a write')
+    self.calls.append(sql)
+    if sql=='SELECT app_id FROM api_endpoints WHERE id=710':return Result([] if mode=='anchor' else [(2,)])
+    if sql.startswith('SELECT COUNT(*)'):return Result([(2 if mode=='idcollision' else 1,)])
+    aid,op=operations[args];values=m.values(doc,op,2);row=(aid,*[values[k] for k in m.FIELDS])
+    if mode=='edited':row=(*row[:-1],'{"type":"null"}')
+    return Result([] if mode=='missing' else [row,row] if mode=='duplicate' else [row])
+  return Reader()
+ def test_independent_verification_only_reads_and_requires_every_exact_row(self):
+  reader=self.reader()
+  with patch('production_reader.connect',return_value=reader):receipt=m.verify()
+  self.assertEqual(receipt['registered'],21);self.assertTrue(receipt['independentReadback']);self.assertFalse(receipt['writesAttempted']);self.assertEqual(len(reader.calls),43)
+ def test_missing_duplicate_edited_rows_and_anchor_fail_readback(self):
+  for mode in ['anchor','missing','duplicate','edited','idcollision']:
+   with self.subTest(mode=mode),patch('production_reader.connect',return_value=self.reader(mode)),self.assertRaises(m.GovernanceReadError):m.verify()
+
 if __name__=='__main__':unittest.main()

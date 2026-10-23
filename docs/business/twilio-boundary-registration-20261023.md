@@ -54,17 +54,17 @@ an existing differing contract. A transaction failure rolls back all inserts.
 Only explicit transaction concurrency failures may retry with a fresh connection;
 there are no provider requests to retry.
 
-The workflow `twilio-contracts-registration.yml` first validates six definition
-checks and seven native PostgreSQL cases in a named disposable loopback database.
+The workflow `twilio-contracts-registration.yml` first validates eight definition/readback
+checks and eight native PostgreSQL cases in a named disposable loopback database.
 The native cases cover idempotence and concurrent registration across connections, rollback after partial
-insertion, preserved grants/links, edited contracts, duplicate identities, missing
+insertion, preserved grants/links, edited contracts, duplicate routes/API IDs, missing
 anchors and scope/opt-in denial. Production registration is dependent on that
 job. It performs a rollback-only dry run, commits the same idempotent registration,
 then uses an independent read-only connection to verify every complete row.
 The receipt reports metadata IDs and zero provider writes, purchased numbers,
 assigned extensions and activation. It contains no credentials, messages or audio.
 
-Local validation: six definition/schema checks and the existing 15 contract-plan
+Local validation: eight definition/schema/readback checks and the existing 15 contract-plan
 checks pass. A local PostgreSQL server is unavailable; the CI native job must
 supply the transactional evidence before its production job can run. These are
 registration tests, not live Twilio, SMTP or telephone acceptance.
@@ -79,3 +79,13 @@ not a public recording URL or unprotected audio attachment.
 
 Sources reviewed: the `twilio-webhook-architecture` skill, the official
 [webhook overview](https://www.twilio.com/docs/usage/webhooks), and official [secure webhook documentation](https://www.twilio.com/docs/usage/webhooks/webhooks-security).
+
+
+The independent reader requires Node and the pinned `pg` package as well as the
+Python writer dependencies. The workflow installs both. `--verify` opens only the
+independent read-only adapter and checks the full set without entering a writer
+transaction. A failed readback after registration does not prove rollback; always
+reconcile using read-only verification. The first run reached that stage without
+its Node dependency, so it was treated as potentially committed and unverified.
+The corrected workflow reruns idempotently and performs an additional read-only
+verification; no differing row is overwritten during recovery.
