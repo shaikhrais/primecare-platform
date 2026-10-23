@@ -809,5 +809,42 @@ inbound and picture adapter tests pass. Local TypeScript and schema generation
 could not run because the transient dependency cache is absent; CI must verify
 them. The native PostgreSQL scenario adds changing-event and oversized-body
 cleanup checks. Actual workerd streams use explicit synthetic event/storage
-ports. Source-specific CI is pending. No public route, permission, mailbox,
+ports. Source-specific CI is recorded below. No public route, permission, mailbox,
 account, activation or workflow verification status changes are introduced.
+
+### Verified inbound integrity checkpoint — 2026-10-23
+
+Final source `f6a03880a299b8e7be32fdbac58a1611ad42c3b6` passed all nine jobs in
+[run 39944616787](https://github.com/shaikhrais/primecare-platform/actions/runs/39944616787):
+769 Flutter tests and 237 Node/browser checks (233 shared/native/schema, three
+direct media and one compiled-Dart browser case). Actual workerd separately passed
+seven inbound stream assertions, nine picture assertions and eight validator
+assertions. Repeated Node cases in Worker jobs are not double-counted. Strict
+TypeScript, generated schema/UI bindings and native PostgreSQL checks passed.
+
+Both jobs in the actual Flutter-to-PostgreSQL
+[run 39944616585](https://github.com/shaikhrais/primecare-platform/actions/runs/39944616585)
+passed all 15 milestones. Both callers received [4, 3] audio packets and both peers
+closed. Both screenshots were visually reviewed. All eight artifact ZIP digests
+were independently verified. The native PostgreSQL scenario also proves that
+changing an event recipient while reading does not change the quarantined mailbox
+and oversized declarations cancel without reading or creating another message.
+
+An allocation-failure cleanup regression discovered during review fails against
+the intermediate 4cc48e346 source and passes in final source. The original four
+regressions fail against baseline fc12b6daa. Exact sources, negative-log hashes,
+jobs, artifact digests and limits are in
+`evidence/communication-inbound-integrity-20261023.json`.
+
+The separate contract-plan job in run 39944616834 still fails on existing source
+provenance: all five mismatched files are unchanged from baseline fc12b6daa. No
+unreviewed hashes were refreshed. Production runtime mounting, approved grants,
+owned-mailbox/provider routing, live scanning/storage, TURN/device and deployed
+acceptance remain open. Scanner, mail acceptance and microphone inputs are
+synthetic; native workerd intake uses synthetic event/persistence ports. The
+read-count budget is not a timeout, and this checkpoint proves no live SMTP
+delivery. No grant, account, activation or workflow verification status changed.
+The separate password Firefox job 120384093417 in run 39944616900 also failed
+before browser execution: its deployed theme metadata fetch returned HTML where
+JSON was expected. That workflow and its application files are unchanged by this
+communication work; the other matrix jobs were still running when observed.

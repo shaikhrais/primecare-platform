@@ -1,0 +1,273 @@
+{
+  "sourceCommit": "f6a03880a299b8e7be32fdbac58a1611ad42c3b6",
+  "branch": "main",
+  "additionalCiObservation": {"runId":39944616900,"jobId":120384093417,"job":"password (firefox)","conclusion":"failure","step":"Use explicit isolated metadata fixture without production credentials","reason":"Deployed theme fetch returned HTML where the unchanged password workflow expected JSON; SyntaxError before browser acceptance","otherMatrixJobs":"Still running when observed","applicationOrWorkflowFilesChangedByThisWork":false},
+  "scope": "Inherited inbound SMTP event ownership, bounded stream work and reader cleanup",
+  "production": false,
+  "productionReady": false,
+  "liveEmailVerified": false,
+  "registrationChanged": false,
+  "permissionChanges": false,
+  "accountChanges": false,
+  "activationChanged": false,
+  "inheritance": {
+    "binaryBase": "BoundedBinaryAdapterBase",
+    "inboundAdapter": "InboundEmailAdapter",
+    "mailService": "BusinessMailService extends ScopedServiceBase",
+    "roleSpecificCopies": false
+  },
+  "guarantees": [
+    "SMTP envelope and rejection callback captured before stream suspension",
+    "MIME headers never select an owned mailbox",
+    "Rejected invalid-size streams cancelled without reading or leaking provider details",
+    "Delivered chunks bounded by declared bytes plus 1024; existing fragmented stream behavior retained",
+    "Reader locks released on success, overflow, malformed chunks, read errors and allocation failure",
+    "Malformed input rejection remains separate from retryable provider and persistence failures",
+    "Native PostgreSQL integration preserves current mailbox policy and quarantine under changing event fields"
+  ],
+  "regressions": [
+    {
+      "previousSource": "fc12b6daaec93bdecf3f4afff2a2d03f1876526d",
+      "failedBefore": 4,
+      "passedAfter": 4,
+      "cases": [
+        "invalid declared sizes cancel unread bodies",
+        "empty-chunk work bound",
+        "SMTP envelope ownership before suspension",
+        "original bound rejection callback"
+      ],
+      "negativeLogSha256": "e3e7b3d081e3df6919f1b366965e1c21e8f012c77eb73e03b9af0e94dbf5d6fc"
+    },
+    {
+      "previousSource": "4cc48e34698ab8f25a32345d53ff537d742970a6",
+      "failedBefore": 1,
+      "passedAfter": 1,
+      "case": "allocation failure cancels and releases an acquired reader",
+      "negativeLogSha256": "b6382131c31cc4060af973a4a9cfdd03c77a7189f8ab31b272eb10f0d98e2a38"
+    }
+  ],
+  "local": {
+    "adapterPassed": 44,
+    "nativePolicyUnitPassed": 5,
+    "nativePostgresSkipped": 1,
+    "failed": 0,
+    "strictTypeScript": "Unavailable locally: transient dependency cache absent; passed in CI",
+    "generatedSchemaCheck": "Unavailable locally: transient dependency cache absent; passed in CI",
+    "generatedUiBindings": "passed"
+  },
+  "regressionCi": {
+    "runId": 39944616787,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39944616787",
+    "jobs": [
+      {
+        "id": 120384092402,
+        "name": "isolated",
+        "conclusion": "success"
+      },
+      {
+        "id": 120384092647,
+        "name": "inventory",
+        "conclusion": "success"
+      },
+      {
+        "id": 120384092701,
+        "name": "flutter-workspace",
+        "conclusion": "success"
+      },
+      {
+        "id": 120384092703,
+        "name": "dart-core",
+        "conclusion": "success"
+      },
+      {
+        "id": 120384092740,
+        "name": "worker-pictures",
+        "conclusion": "success"
+      },
+      {
+        "id": 120384092771,
+        "name": "worker-validator",
+        "conclusion": "success"
+      },
+      {
+        "id": 120384092847,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120384092867,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      },
+      {
+        "id": 120384093088,
+        "name": "flutter-browser-media",
+        "conclusion": "success"
+      }
+    ],
+    "flutterPassed": 769,
+    "nativeAndSchemaChecks": 233,
+    "nodeBrowserPassed": 237,
+    "directMediaChecks": 3,
+    "compiledDartBrowserChecks": 1,
+    "workerdInboundAssertions": 7,
+    "workerdPictureAssertions": 9,
+    "workerdValidatorAssertions": 8,
+    "workerNodeCasesRepeatExistingCases": true,
+    "compiledDartAudioPackets": [
+      5,
+      5
+    ],
+    "directMediaAudioPackets": [
+      2,
+      2
+    ],
+    "artifacts": [
+      {
+        "id": 12498020375,
+        "name": "communication-worker-validator",
+        "sha256": "ab044736912803f28e31a013f329cb39e57eaf811787d7371e03b9f897a788ad",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12498015451,
+        "name": "business-communications-media",
+        "sha256": "428b927333c89656511c14018919ed88468f99b862823811087d88a22fca0e95",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12498005405,
+        "name": "communication-worker-pictures",
+        "sha256": "823b670bd2cf2d9e9ebeb0d2a24c0e1abe5db865bb12858b1155ba79493a34bd",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12497870895,
+        "name": "communication-flutter-browser",
+        "sha256": "c81ec561da96364c3416aec153351a17db7cfba53921418db095537b33ac96b7",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12497825886,
+        "name": "communication-worker-inbound",
+        "sha256": "081a8fa4c18063eda5d556ed5e37ecf614fb12669c7fb0f48a749611be3b4486",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12497103987,
+        "name": "business-communications-registry",
+        "sha256": "8b8a94c74bfa6c0aa9aa3ff6689c48f11fc9f2b14a7eeb7ed0797620ea240376",
+        "digestIndependentlyVerified": true
+      }
+    ]
+  },
+  "syntheticPorts": [
+    "Inbound workerd event and persistence ports",
+    "Picture scanner",
+    "Mail provider acceptance",
+    "Microphone input"
+  ],
+  "audioNetwork": "loopback",
+  "localImageBindings": [
+    "Images",
+    "R2"
+  ],
+  "limitations": [
+    "Read-count budget is not a wall-clock timeout",
+    "Native Cloudflare envelope fields are readonly; mutation regressions protect mutable trusted host adapters",
+    "Workerd fixture is not live SMTP acceptance",
+    "Local Images uses an offline codec; remote production fidelity remains unverified"
+  ],
+  "unrelatedCiFailure": {
+    "runId": 39944616834,
+    "jobId": 120384091587,
+    "reason": "Existing contract-plan source provenance mismatch",
+    "unchangedFromBaseline": "fc12b6daaec93bdecf3f4afff2a2d03f1876526d",
+    "paths": [
+      "cloudflare/workers/src/auth.ts",
+      "cloudflare/workers/src/gateway.ts",
+      "packages/flutter_core/lib/src/network/api_client.dart",
+      "scripts/register-method-capture-blockers.py",
+      "scripts/audit-api-reachability.mjs"
+    ],
+    "response": "Preserved provenance; no unreviewed hash refresh"
+  },
+  "releaseBlockers": [
+    "Production runtime mount and dependency composition",
+    "Matching approved role API and screen grants",
+    "Governed owned mailboxes, activation and live send/receive provider routing/acceptance",
+    "Remote Images, private bucket and real scanner composition/acceptance",
+    "TURN and physical-device/restrictive-network acceptance",
+    "Governed recipient discovery and deployed release acceptance"
+  ],
+  "research": [
+    "https://developers.cloudflare.com/email-service/api/route-emails/email-handler/",
+    "https://streams.spec.whatwg.org/",
+    "https://developers.cloudflare.com/email-service/observability/local-development/routing/"
+  ],
+  "fullStackCi": {
+    "runId": 39944616585,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39944616585",
+    "jobs": [
+      {
+        "id": 120384091380,
+        "name": "browser-postgres",
+        "conclusion": "success"
+      },
+      {
+        "id": 120384091728,
+        "name": "current-contracts",
+        "conclusion": "success"
+      }
+    ],
+    "passed": true,
+    "milestones": {
+      "realCredentialLogin": true,
+      "uiMessageDatabaseReadback": true,
+      "sessionAndMessageReload": true,
+      "recipientRead": true,
+      "uiPicturePersisted": true,
+      "uiPrivatePictureRead": true,
+      "nativeSignalingAudioPackets": [
+        4,
+        3
+      ],
+      "callClosed": [
+        true,
+        true
+      ],
+      "uiMailQueueAndProviderAcceptance": true,
+      "uiReceivedMailPreview": true,
+      "crossTenantDenied": true,
+      "forgedTenantDenied": true,
+      "currentGrantRevocation": true,
+      "sessionRevocationReload": true,
+      "databaseEventsReadback": true
+    },
+    "authenticationFixture": false,
+    "communicationTransportFixture": false,
+    "injectedValidator": false,
+    "localBindings": [
+      "Images",
+      "R2"
+    ],
+    "screenshotsVisuallyReviewed": [
+      "alice-authenticated.png",
+      "bob-received-mail.png"
+    ],
+    "artifacts": [
+      {
+        "id": 12496978118,
+        "name": "communication-stack-contracts",
+        "sha256": "6ed272ac322e3c1a81b04b1ca0122df09251ee7b093d0c2f8f9815b7265988f9",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12496934493,
+        "name": "communication-stack-browser-postgres",
+        "sha256": "cf12561a8239aae3f858ae3dc93d9b1be4d8f9620a3c29114df0e4c9114ef560",
+        "digestIndependentlyVerified": true
+      }
+    ]
+  }
+}
