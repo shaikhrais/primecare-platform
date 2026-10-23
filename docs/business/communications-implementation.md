@@ -764,7 +764,35 @@ TypeScript and generated contract/UI checks pass. CI adds actual local workerd
 Images plus R2 integration, JPEG/PNG decode, alpha/metadata and rejection checks.
 The full actual Flutter browser-to-PostgreSQL scenario now uses these local
 bindings instead of the map bucket and Sharp repository. Source-specific CI is
-pending. Scanning and mail acceptance remain synthetic test ports. No schema,
+recorded in the verified checkpoint below. Scanning and mail acceptance remain synthetic test ports. No schema,
 permission, account or activation changed; production runtime mounting, approved
 grants/owned mailbox routing, remote image/scanner/storage acceptance, TURN and
 deployed/device acceptance remain open.
+
+### Verified Worker-native picture checkpoint — 2026-10-23
+
+Source `d3d929db378500948660a3b68cc82e8b7284f014` passed all nine jobs in
+[run 39891659425](https://github.com/shaikhrais/primecare-platform/actions/runs/39891659425):
+769 Flutter tests and 228 Node/browser checks (224 shared/native/schema, three
+media and one compiled-Dart browser case). Separate workerd checks passed nine
+Images/R2 assertions and eight validator assertions. Repeated Node cases in the
+Worker jobs are not counted twice. Actual raster decoding, metadata removal,
+transparency, scanner rejection and private reads passed with local bindings.
+
+Both jobs in the actual Flutter-to-PostgreSQL
+[run 39891659429](https://github.com/shaikhrais/primecare-platform/actions/runs/39891659429)
+passed. All 15 milestones passed with the new Images/R2 adapter, including private
+picture persistence/readback, sent/received email projections, permission denial
+and session reload/revocation. Audio packets were [10, 10], and both peers closed.
+Both screenshots were visually reviewed. All seven artifact ZIP digests were
+independently verified. Exact jobs, hashes, regression and release limitations
+are in `evidence/communication-worker-pictures-20261023.json`.
+
+The separate repository-wide contract-plan job in run 39891659423 failed on stale
+source provenance. All five mismatched source files are byte-for-byte unchanged
+from baseline c6df90fd8. This communication change does not refresh that evidence
+without a full contract review. Communication CI passing does not imply that all
+repository CI or production acceptance has passed. Scanner/mail/microphone inputs
+are synthetic; local Images uses an offline codec and audio uses loopback. All
+production release gates above remain open; no grant, account, activation or
+workflow verification status changed.

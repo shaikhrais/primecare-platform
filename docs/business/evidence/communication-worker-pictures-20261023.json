@@ -1,0 +1,248 @@
+{
+  "sourceCommit": "d3d929db378500948660a3b68cc82e8b7284f014",
+  "scope": "Inherited private picture storage/scan boundary with native Workers Images and R2-compatible codec",
+  "branch": "main",
+  "registrationChanged": false,
+  "permissionChanges": false,
+  "accountChanges": false,
+  "activationChanged": false,
+  "production": false,
+  "productionReady": false,
+  "liveProviderVerified": false,
+  "inheritance": {
+    "binaryBase": "BoundedBinaryAdapterBase",
+    "pictureBase": "PrivatePictureRepositoryBase",
+    "nodeCodec": "PrivatePictureRepository",
+    "workerCodec": "WorkersPrivatePictureRepository",
+    "authorization": "Existing inherited channel service authorizes before and after processing; codecs never grant access"
+  },
+  "guarantees": [
+    "Input and output scanner approvals are both mandatory",
+    "Private raw streams; no public image URLs",
+    "JPEG/PNG format, byte and pixel limits retained",
+    "Static PNG output with independent CRC-checked metadata filtering and transparency preservation",
+    "Caller data, tenant scope and scanner input/output ownership isolated across suspension",
+    "Existing private GET object validation and cancellation retained"
+  ],
+  "regression": {
+    "previousSource": "c6df90fd80c20fc73cc213c7fa9f6ec63d3277bd",
+    "failedBefore": 2,
+    "passedAfter": 2,
+    "cases": [
+      "preparation owns caller bytes and tenant scope across suspended codec work",
+      "scanning cannot rewrite bytes after approving either stage"
+    ],
+    "negativeLogSha256": "e33ed5788276f69d9a2fde7ef0b1d639df476c682946b2f3ab8b9588524b1cb0"
+  },
+  "local": {
+    "nodePassed": 188,
+    "nodeSkipped": 2,
+    "nodeFailed": 0,
+    "strictTypeScript": "passed",
+    "generatedValidatorCheck": "passed",
+    "generatedUiBindingsCheck": "passed",
+    "skipReason": "Native PostgreSQL-only cases run in CI"
+  },
+  "regressionCi": {
+    "runId": 39891659425,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39891659425",
+    "jobs": [
+      {
+        "id": 120212596122,
+        "name": "inventory",
+        "conclusion": "success"
+      },
+      {
+        "id": 120212596265,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      },
+      {
+        "id": 120212596286,
+        "name": "flutter-workspace",
+        "conclusion": "success"
+      },
+      {
+        "id": 120212596310,
+        "name": "worker-validator",
+        "conclusion": "success"
+      },
+      {
+        "id": 120212596327,
+        "name": "isolated",
+        "conclusion": "success"
+      },
+      {
+        "id": 120212596338,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120212596340,
+        "name": "flutter-browser-media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120212596360,
+        "name": "worker-pictures",
+        "conclusion": "success"
+      },
+      {
+        "id": 120212596416,
+        "name": "dart-core",
+        "conclusion": "success"
+      }
+    ],
+    "flutterPassed": 769,
+    "nativeAndSchemaChecks": 224,
+    "nodeBrowserPassed": 228,
+    "directMediaChecks": 3,
+    "compiledDartBrowserChecks": 1,
+    "workerdPictureAssertions": 9,
+    "workerdValidatorAssertions": 8,
+    "workerJobNodeCasesRepeatExistingCases": true,
+    "compiledDartAudioPackets": [
+      6,
+      6
+    ],
+    "directMediaAudioPackets": [
+      6,
+      5
+    ],
+    "artifacts": [
+      {
+        "id": 12475087176,
+        "name": "business-communications-media",
+        "sha256": "096280d21401e844e15526d25b25ac29903e4b301ce54736cbac009aa1042161",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12474679067,
+        "name": "communication-flutter-browser",
+        "sha256": "70e0fd9cb4e638aa559416541d83635621f0952de016e9c7474a4e47ede2e8f2",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12474468515,
+        "name": "communication-worker-pictures",
+        "sha256": "90e9a48aea6e2bd130d4546766eb58504c09ff203c5d0870f72173022c2cd760",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12474064281,
+        "name": "communication-worker-validator",
+        "sha256": "2565a9f8d772bd30d5969b25b97fa5158b8e38532be94b22a34155a45604fca2",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12473984722,
+        "name": "business-communications-registry",
+        "sha256": "b5fe566e7c175677abe32fb2f2a6446fe493e45b4f529f0fcbe0f764730d1153",
+        "digestIndependentlyVerified": true
+      }
+    ]
+  },
+  "fullStackCi": {
+    "runId": 39891659429,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39891659429",
+    "jobs": [
+      {
+        "id": 120212595990,
+        "name": "current-contracts",
+        "conclusion": "success"
+      },
+      {
+        "id": 120212596331,
+        "name": "browser-postgres",
+        "conclusion": "success"
+      }
+    ],
+    "passed": true,
+    "milestoneCount": 15,
+    "localBindings": [
+      "Images",
+      "R2"
+    ],
+    "authenticationFixture": false,
+    "communicationTransportFixture": false,
+    "injectedValidator": false,
+    "screenshotsVisuallyReviewed": [
+      "alice-authenticated.png",
+      "bob-received-mail.png"
+    ],
+    "artifacts": [
+      {
+        "id": 12475321388,
+        "name": "communication-stack-browser-postgres",
+        "sha256": "18077eca8b9c73508aa888d0dd2dbbd7bc6715be37cb1df6fa929e52f6f67e50",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12474637876,
+        "name": "communication-stack-contracts",
+        "sha256": "ba047886e2c3fedecdbad61dfa9a23ce552291462aa0e6d3c8f1001788b2f8a9",
+        "digestIndependentlyVerified": true
+      }
+    ],
+    "milestones": {
+      "realCredentialLogin": true,
+      "uiMessageDatabaseReadback": true,
+      "sessionAndMessageReload": true,
+      "recipientRead": true,
+      "uiPicturePersisted": true,
+      "uiPrivatePictureRead": true,
+      "nativeSignalingAudioPackets": [
+        10,
+        10
+      ],
+      "callClosed": [
+        true,
+        true
+      ],
+      "uiMailQueueAndProviderAcceptance": true,
+      "uiReceivedMailPreview": true,
+      "crossTenantDenied": true,
+      "forgedTenantDenied": true,
+      "currentGrantRevocation": true,
+      "sessionRevocationReload": true,
+      "databaseEventsReadback": true
+    }
+  },
+  "syntheticPorts": [
+    "Picture scanner",
+    "Mail provider acceptance",
+    "Microphone input"
+  ],
+  "audioNetwork": "loopback",
+  "localImagesFidelity": "Offline local Images codec; remote production provider behavior is not verified",
+  "unrelatedCiFailure": {
+    "runId": 39891659423,
+    "jobId": 120212596499,
+    "job": "contract-plan",
+    "reason": "Existing source provenance hash mismatch in docs/api/workflow-contract-reviews.json",
+    "unchangedFromBaseline": true,
+    "paths": [
+      "cloudflare/workers/src/auth.ts",
+      "cloudflare/workers/src/gateway.ts",
+      "packages/flutter_core/lib/src/network/api_client.dart",
+      "scripts/register-method-capture-blockers.py",
+      "scripts/audit-api-reachability.mjs"
+    ],
+    "response": "Preserved provenance rather than refreshing hashes without a full contract review"
+  },
+  "releaseBlockers": [
+    "Production runtime mount and dependency composition",
+    "Matching approved role API and screen grants",
+    "Governed owned mailboxes, activation and live send/receive provider routing/acceptance",
+    "Remote Images, private bucket and real scanner composition/acceptance",
+    "TURN and physical-device/restrictive-network acceptance",
+    "Governed recipient discovery and deployed release acceptance"
+  ],
+  "research": [
+    "https://developers.cloudflare.com/images/optimization/binding/",
+    "https://developers.cloudflare.com/images/optimization/features/#metadata",
+    "https://developers.cloudflare.com/images/get-started/limits/",
+    "https://www.w3.org/TR/png-3/",
+    "https://github.com/cloudflare/workers-sdk/blob/miniflare%404.20260730.0/packages/miniflare/src/plugins/images/index.ts"
+  ]
+}
