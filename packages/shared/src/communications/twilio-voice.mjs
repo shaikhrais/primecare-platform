@@ -1,6 +1,5 @@
-import {validateRequest} from 'twilio/lib/webhooks/webhooks.js';
 import VoiceResponse from 'twilio/lib/twiml/VoiceResponse.js';
-import {BoundedBinaryAdapterBase,CommunicationInputError} from './adapter-base.mjs';
+import {TwilioSignedFormAdapter,twilioPublicUrl as publicUrl} from './twilio-webhook.mjs';
 import requirement from '../../../../tools/governance-production/twilio-voice-requirement.json' with {type:'json'};
 
 const extensionPattern=/^[1-9][0-9]{5}$/;
@@ -11,23 +10,6 @@ const headers={'cache-control':'no-store','x-content-type-options':'nosniff'};
 const failure=status=>Response.json({error:status===503?'unavailable':'invalid_provider_request'},{status,headers});
 const xml=response=>new Response(response.toString(),{headers:{...headers,'content-type':'application/xml; charset=utf-8'}});
 function unavailable(){const response=new VoiceResponse();response.say('This extension is unavailable.');response.hangup();return xml(response);}
-function publicUrl(value){
- if(typeof value!=='string')throw Error('Twilio voice configuration required');
- const url=new URL(value);
- if(url.protocol!=='https:'||url.username||url.password||url.hash||url.href!==value)throw Error('Twilio voice configuration required');
- return url;
-}
-function form(bytes){
- const text=new TextDecoder('utf-8',{fatal:true}).decode(bytes),params=Object.create(null),parts=text.split('&');
- if(parts.length>128)throw new CommunicationInputError('Invalid provider form');
- const decode=value=>decodeURIComponent(value.replaceAll('+',' '));
- for(const part of parts){
-  const at=part.indexOf('='),key=decode(at<0?part:part.slice(0,at)),value=decode(at<0?'':part.slice(at+1));
-  if(!key||/[\u0000-\u001f\u007f]/.test(key))throw new CommunicationInputError('Invalid provider form');
-  if(Object.hasOwn(params,key))params[key]=Array.isArray(params[key])?[...params[key],value]:[params[key],value];else params[key]=value;
- }
- return params;
-}
 function destination(rows,extension){
  if(!Array.isArray(rows)||rows.length!==1)return null;
  const row=rows[0];
@@ -45,29 +27,17 @@ export async function twilioVoiceIdentity({tenantId,userId}){
 /** Internal provider adapter, not a mounted endpoint or a native-user channel.
  * Requires governed webhook/token mounting, extension publication and live acceptance.
  */
-export class TwilioVoiceExtensionAdapter extends BoundedBinaryAdapterBase {
+export class TwilioVoiceExtensionAdapter extends TwilioSignedFormAdapter {
  constructor({accountSid,authToken,sharedNumber,numberVerified,incomingUrl,gatherUrl,directory,maxWebhookBytes}){
-  super(maxWebhookBytes);
+  super({accountSid,authToken,webhookUrls:[incomingUrl,gatherUrl],maxWebhookBytes});
   const incoming=publicUrl(incomingUrl),gather=publicUrl(gatherUrl);
-  if(!sid('AC',accountSid)||typeof authToken!=='string'||!/^[a-fA-F0-9]{32}$/.test(authToken)||!e164(sharedNumber)||numberVerified!==true||incoming.origin!==gather.origin||incomingUrl===gatherUrl||typeof directory?.lookup!=='function'||requirement.rules.extensionDigits!==6)throw Error('Twilio voice configuration required');
+  if(!sid('AC',accountSid)||typeof authToken!=='string'||!/^[a-fA-F0-9]{32}$/.test(authToken)||!e164(sharedNumber)||numberVerified!==true||new URL(incoming).origin!==new URL(gather).origin||incomingUrl===gatherUrl||typeof directory?.lookup!=='function'||requirement.rules.extensionDigits!==6)throw Error('Twilio voice configuration required');
   Object.defineProperties(this,{configuration:{value:Object.freeze({accountSid,authToken,sharedNumber,incomingUrl,gatherUrl})},directory:{value:directory}});
  }
  async respond(request){
   const config=this.configuration;
-  const discard=async status=>{try{await request.body?.cancel();}catch{}return failure(status);};
-  if(request.method!=='POST'||![config.incomingUrl,config.gatherUrl].includes(request.url))return discard(404);
-  const type=request.headers.get('content-type')??'',encoding=request.headers.get('content-encoding');
-  if(!/^application\/x-www-form-urlencoded(?:\s*;\s*charset\s*=\s*(?:utf-8|"utf-8"))?\s*$/i.test(type)||encoding&&encoding!=='identity')return discard(415);
-  const signature=request.headers.get('x-twilio-signature');
-  if(typeof signature!=='string'||!signature||signature.length>100)return discard(403);
-  let params,bytes;
-  try{
-   const declared=request.headers.get('content-length');
-   if(declared!==null&&!/^[0-9]+$/.test(declared))return discard(400);
-   bytes=declared===null?await this.readBoundedBody(request.body):await this.readBoundedStream(request.body,Number(declared));
-  }catch(error){return failure(error instanceof CommunicationInputError?400:503);}
-  try{params=form(bytes);}catch{return failure(400);}
-  try{if(!validateRequest(config.authToken,signature,request.url,params))return failure(403);}catch{return failure(403);}
+  const checked=await this.validate(request);if(checked.response)return checked.response;
+  const params=checked.params;
   if(params.AccountSid!==config.accountSid||params.To!==config.sharedNumber||params.Direction!=='inbound'||!sid('CA',params.CallSid))return failure(403);
   if(request.url===config.incomingUrl){
    if(Object.hasOwn(params,'Digits'))return unavailable();

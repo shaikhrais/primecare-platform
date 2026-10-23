@@ -19,7 +19,11 @@ export async function fingerprint(command: Command) {
 /** Use only after registering the schema and its permissions. Pool is a native pg Pool. */
 export class PostgresAtomicStore implements AtomicStore {
  readonly pool: any;
- constructor(pool: any) { this.pool = pool; }
+ readonly tableFamily:'business_work'|'business_sms';
+ constructor(pool: any,tableFamily:'business_work'|'business_sms'='business_work') {
+  if(!['business_work','business_sms'].includes(tableFamily))throw Error('Invalid store family');
+  this.pool=pool;this.tableFamily=tableFamily;
+ }
  async run(command: Command, authorize: (state: RecordState | null) => Promise<void>, apply: (state: RecordState | null) => Promise<Change>) {
   commandValid(command);
   const db = await this.pool.connect();
@@ -27,11 +31,11 @@ export class PostgresAtomicStore implements AtomicStore {
    await db.query('BEGIN');
    // Serializes creation as well as mutations. Hash collisions only serialize unrelated work.
    await db.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [JSON.stringify([command.actor.tenantId,command.id])]);
-   const row = (await db.query('SELECT state FROM business_work_aggregates WHERE tenant_id=$1 AND id=$2 FOR UPDATE', [command.actor.tenantId,command.id])).rows[0];
+   const row = (await db.query(`SELECT state FROM ${this.tableFamily}_aggregates WHERE tenant_id=$1 AND id=$2 FOR UPDATE`, [command.actor.tenantId,command.id])).rows[0];
    const state = row?.state ?? null;
    await authorize(state);
    const hash = await fingerprint(command);
-   const previous = (await db.query('SELECT actor_id,fingerprint,result FROM business_work_commands WHERE tenant_id=$1 AND aggregate_id=$2 AND command_key=$3', [command.actor.tenantId,command.id,command.key])).rows[0];
+   const previous = (await db.query(`SELECT actor_id,fingerprint,result FROM ${this.tableFamily}_commands WHERE tenant_id=$1 AND aggregate_id=$2 AND command_key=$3`, [command.actor.tenantId,command.id,command.key])).rows[0];
    if (previous) {
     if (previous.actor_id !== command.actor.id || previous.fingerprint !== hash) throw Error('Idempotency conflict');
     await db.query('COMMIT'); return previous.result;
@@ -41,20 +45,21 @@ export class PostgresAtomicStore implements AtomicStore {
    if (change.state.id !== command.id || change.state.tenantId !== command.actor.tenantId) throw Error('Scope conflict');
    change.state.version = command.expectedVersion + 1;
    const result = change.result ?? {id: command.id, version: change.state.version};
-   await db.query('INSERT INTO business_work_aggregates(tenant_id,id,state) VALUES($1,$2,$3) ON CONFLICT(tenant_id,id) DO UPDATE SET state=EXCLUDED.state', [command.actor.tenantId,command.id,JSON.stringify(change.state)]);
-   await db.query('INSERT INTO business_work_events(tenant_id,aggregate_id,actor_id,event_type,version) VALUES($1,$2,$3,$4,$5)', [command.actor.tenantId,command.id,command.actor.id,change.event,change.state.version]);
-   await db.query('INSERT INTO business_work_commands(tenant_id,aggregate_id,command_key,actor_id,fingerprint,result) VALUES($1,$2,$3,$4,$5,$6)', [command.actor.tenantId,command.id,command.key,command.actor.id,hash,JSON.stringify(result)]);
+   await db.query(`INSERT INTO ${this.tableFamily}_aggregates(tenant_id,id,state) VALUES($1,$2,$3) ON CONFLICT(tenant_id,id) DO UPDATE SET state=EXCLUDED.state`, [command.actor.tenantId,command.id,JSON.stringify(change.state)]);
+   await db.query(`INSERT INTO ${this.tableFamily}_events(tenant_id,aggregate_id,actor_id,event_type,version) VALUES($1,$2,$3,$4,$5)`, [command.actor.tenantId,command.id,command.actor.id,change.event,change.state.version]);
+   await db.query(`INSERT INTO ${this.tableFamily}_commands(tenant_id,aggregate_id,command_key,actor_id,fingerprint,result) VALUES($1,$2,$3,$4,$5,$6)`, [command.actor.tenantId,command.id,command.key,command.actor.id,hash,JSON.stringify(result)]);
    await db.query('COMMIT'); return result;
   } catch (error) { await db.query('ROLLBACK'); throw error; }
   finally { db.release(); }
  }
  async read(actor: Actor, id: string, authorize: (state: RecordState) => Promise<void>) {
   required(id); required(actor.id); required(actor.tenantId);
-  const row = (await this.pool.query('SELECT state FROM business_work_aggregates WHERE tenant_id=$1 AND id=$2', [actor.tenantId,id])).rows[0];
+  const row = (await this.pool.query(`SELECT state FROM ${this.tableFamily}_aggregates WHERE tenant_id=$1 AND id=$2`, [actor.tenantId,id])).rows[0];
   if (!row) throw Error('Not found');
   await authorize(row.state); return row.state;
  }
  async inbox(actor: Actor, kind: 'workflow'|'conversation', authorize: (state: RecordState) => Promise<void>, limit=50) {
+  if(this.tableFamily!=='business_work')throw Error('Unsupported inbox family');
   required(actor.id);required(actor.tenantId);
   if(!['workflow','conversation'].includes(kind)||!Number.isSafeInteger(limit)||limit<1||limit>100)throw Error('Invalid inbox');
   const rows=(await this.pool.query(`SELECT state FROM business_work_aggregates WHERE tenant_id=$1 AND state->>'kind'=$2
@@ -65,6 +70,7 @@ export class PostgresAtomicStore implements AtomicStore {
  }
  /** Deterministic ID pagination; bodies never cross this listing boundary. */
  async mailInbox(actor:Actor,direction:'inbound'|'outbound',mailboxId:string|undefined,authorize:(state:RecordState)=>Promise<void>,limit=50,after?:string) {
+  if(this.tableFamily!=='business_work')throw Error('Unsupported inbox family');
   required(actor.id);required(actor.tenantId);
   if(!['inbound','outbound'].includes(direction)||!Number.isSafeInteger(limit)||limit<1||limit>100||direction==='outbound'&&mailboxId!==undefined)throw Error('Invalid inbox');
   if(direction==='inbound')required(mailboxId);if(after!==undefined)required(after);

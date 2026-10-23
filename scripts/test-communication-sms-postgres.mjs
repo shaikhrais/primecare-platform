@@ -1,0 +1,66 @@
+// Disposable local PostgreSQL only. Never reads production credentials or governance.
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {Pool} from 'pg';
+import {PostgresAtomicStore} from '../cloudflare/workers/src/business-tasks/store.ts';
+import {SmsNotificationService} from '../cloudflare/workers/src/business-tasks/sms.ts';
+import {PostgresSmsObservationStore} from '../cloudflare/workers/src/business-tasks/sms-observations.ts';
+import {PostgresVoiceDirectory,VoiceExtensionService} from '../cloudflare/workers/src/business-tasks/voice-directory.ts';
+const connectionString=process.env.TWILIO_SMS_TEST_DATABASE_URL;
+if(!connectionString)throw Error('Disposable local TWILIO_SMS_TEST_DATABASE_URL required');
+const url=new URL(connectionString);
+if(!['localhost','127.0.0.1','[::1]'].includes(url.hostname)||url.username!=='twilio_fixture'||url.pathname!=='/twilio_sms_test')throw Error('Only named disposable local SMS fixture permitted');
+const schema='sms_fixture_'+crypto.randomUUID().replaceAll('-','');
+const admin=new Pool({connectionString,max:1});await admin.query('CREATE SCHEMA '+schema);
+// One slot intentionally proves callback processing cannot hold a connection
+// while waiting for service.run() to acquire another from the same pool.
+const pool=new Pool({connectionString,max:1,connectionTimeoutMillis:3000,options:'-c search_path='+schema});
+try{
+ await pool.query((await readFile('packages/database/migrations/20261023_business_sms.sql','utf8')).replaceAll('public.',''));
+ const actor={id:'alice',tenantId:'tenant-a'},foreign={id:'alice',tenantId:'tenant-b'};
+ const config={sender:'+15550001000',accountSid:'AC'+'a'.repeat(32),messagingServiceSid:'MG'+'b'.repeat(32),maxTextBytes:6400},sid='SM'+'c'.repeat(32),to='+15550002000';
+ let sends=0,denied=false;
+ const policy={async assert(a,action,state){if(denied||!['alice','sms-provider'].includes(a.id)||state&&state.tenantId!==a.tenantId)throw Error('Denied');},async assignee(){throw Error('No grants');}};
+ const service=new SmsNotificationService(new PostgresAtomicStore(pool,'business_sms'),policy,{async recipient(){}},{async send(){sends++;return {messageSid:sid,status:'queued'};}},config);
+ const receiver=new PostgresSmsObservationStore(pool,service,'sms-provider');
+ const event={accountSid:config.accountSid,messagingServiceSid:config.messagingServiceSid,from:config.sender,to,messageSid:sid,status:'delivered',errorCode:null};
+ assert.equal(await receiver.record(event),'quarantined');
+ assert.equal((await pool.query('SELECT count(*)::int AS n FROM business_sms_callbacks WHERE processed=false')).rows[0].n,1);
+ await service.queue(actor,'notification-a','queue-a',to,'Fixture notification');
+ await Promise.allSettled([service.deliver(actor,'notification-a','deliver-a',1),service.deliver(actor,'notification-a','deliver-a',1)]);
+ assert.equal(sends,1);assert.equal((await service.read(actor,'notification-a')).status,'accepted');
+ await assert.rejects(service.read(foreign,'notification-a'));
+ assert.deepEqual(await receiver.reconcile(),{recorded:1,duplicate:0,quarantined:0});
+ assert.equal(await receiver.record(event),'duplicate');
+ assert.deepEqual((await service.read(actor,'notification-a')).delivery,{status:'delivered',delivered:true});
+ await receiver.record({...event,status:'sent'});
+ assert.deepEqual((await service.read(actor,'notification-a')).delivery,{status:'delivered',delivered:true});
+ await receiver.record({...event,status:'failed',errorCode:'30003'});
+ assert.equal((await service.read(actor,'notification-a')).delivery.status,'reconciliation_required');
+ await assert.rejects(receiver.record({...event,to:'+15550009999'}));
+ denied=true;await assert.rejects(receiver.record({...event,status:'undelivered'}));denied=false;
+ assert.equal((await pool.query("SELECT count(*)::int AS n FROM business_sms_callbacks WHERE processed=false")).rows[0].n,2);
+ await assert.rejects(pool.query("INSERT INTO business_sms_aggregates(tenant_id,id,state) VALUES('tenant-b','duplicate',$1)",[JSON.stringify({id:'duplicate',tenantId:'tenant-b',kind:'outbound_sms',version:1,accountSid:config.accountSid,providerMessageId:sid})]));
+ assert.throws(()=>new PostgresAtomicStore(pool,'forged;DROP TABLE data'));
+ await pool.query('CREATE TABLE tenants(id text PRIMARY KEY,status text);CREATE TABLE users(id text PRIMARY KEY,tenant_id text,status text);CREATE TABLE auth_sessions(token_hash text PRIMARY KEY,user_id text,expires_at timestamptz)');
+ await pool.query("INSERT INTO tenants VALUES('tenant-a','active'),('tenant-b','active');INSERT INTO users VALUES('alice','tenant-a','active'),('bob','tenant-b','active')");
+ await pool.query((await readFile('packages/database/migrations/20261023_voice_extensions.sql','utf8')).replaceAll('public.',''));
+ const directory=new PostgresVoiceDirectory(pool),voicePolicy={async assert(a,action,state){if(state.tenantId!==a.tenantId)throw Error('Denied');await pool.query('SELECT 1');},async assignee(a,id){const rows=(await pool.query('SELECT id FROM users WHERE id=$1 AND tenant_id=$2',[id,a.tenantId])).rows;if(rows.length!==1)throw Error('Denied');}};
+ const extensions=new VoiceExtensionService(new PostgresAtomicStore(pool,'business_sms'),voicePolicy,directory);
+ const assigned=await extensions.assign(actor,'alice');assert.match(assigned.extension,/^[1-9][0-9]{5}$/);assert.equal(assigned.published,false);
+ assert.equal((await extensions.assign(actor,'alice')).extension,assigned.extension);
+ assert.equal((await directory.destinations(actor,2))[0].published,false);
+ const published=await extensions.publish(actor,'alice',1,true);assert.equal(published.published,true);
+ await assert.rejects(extensions.publish(actor,'alice',1,false),/version conflict/);
+ await assert.rejects(extensions.assign(actor,'bob'));
+ const second=await extensions.assign({id:'bob',tenantId:'tenant-b'},'bob');assert.notEqual(second.extension,assigned.extension);
+ const hash='a'.repeat(64);await pool.query("INSERT INTO auth_sessions VALUES($1,'alice',NOW()+INTERVAL '5 minutes')",[hash]);
+ assert.equal((await directory.currentSession(hash)).tenantId,'tenant-a');
+ await pool.query("UPDATE users SET status='inactive' WHERE id='alice'");
+ assert.equal(await directory.currentSession(hash),null);assert.equal((await directory.lookup(assigned.extension,2))[0].userActive,false);
+ await assert.rejects(extensions.publish(actor,'alice',2,false));
+ console.log('VOICE_DIRECTORY_POSTGRES_PASS: unique unpublished assignments, versioned publication, current session/membership, tenant isolation and single-slot authorization');
+ console.log('SMS_POSTGRES_PASS: durable early callbacks, single-slot pool, concurrent claims, unique receipts, scoped reads, duplicate/order handling, policy denial and reconciliation; synthetic provider only');
+}finally{
+ await pool.end();await admin.query('DROP SCHEMA '+schema+' CASCADE');await admin.end();
+}

@@ -1,4 +1,4 @@
-import {BoundedBinaryAdapterBase} from './adapter-base.mjs';
+import {TwilioSignedFormAdapter} from './twilio-webhook.mjs';
 export type PublishedVoiceDestination={extension:string;tenantId:string;userId:string;published:boolean;active:boolean;tenantActive:boolean;userActive:boolean};
 export interface TwilioExtensionDirectory {
  /** Return up to two current matches; duplicates must never resolve to the first row. */
@@ -6,7 +6,7 @@ export interface TwilioExtensionDirectory {
 }
 export type TwilioVoiceOptions={accountSid:string;authToken:string;sharedNumber:string;numberVerified:true;incomingUrl:string;gatherUrl:string;directory:TwilioExtensionDirectory;maxWebhookBytes:number};
 export function twilioVoiceIdentity(scope:{tenantId:string;userId:string}):Promise<string>;
-export class TwilioVoiceExtensionAdapter extends BoundedBinaryAdapterBase {
+export class TwilioVoiceExtensionAdapter extends TwilioSignedFormAdapter {
  constructor(options:TwilioVoiceOptions);
  respond(request:Request):Promise<Response>;
 }
