@@ -339,3 +339,12 @@ extension. Legacy unscoped accounts remain unscoped. Flutter restoration uses
 current server scope and clears cached overrides; the client never grants access.
 The production governance service still requires explicit runtime composition,
 provider configuration and approved grants before activation.
+
+### Registered ICE signaling boundary
+
+The registered audio API uses `signal.type = ice`. BrowserAudioSession maps the
+browser adapter's native `candidate` event into that wire value and maps stored
+`ice` records back before calling the browser adapter. CommunicationService
+validates and persists the registered value. The unregistered `candidate` wire
+alias is rejected by HTTP schema validation. Candidate content, current-call
+membership, version checks and signal byte/count limits remain enforced.

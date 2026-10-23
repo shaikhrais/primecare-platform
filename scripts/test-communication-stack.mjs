@@ -121,6 +121,7 @@ try {
  const until=Date.now()+30000;let audio=[];do{audio=await Promise.all([packets(a.page),packets(b.page)]);if(audio.every(n=>n>0))break;await new Promise(resolve=>setTimeout(resolve,200));}while(Date.now()<until);
  assert.ok(audio.every(n=>n>0),'Positive packets through registered HTTP/PG signaling required');results.nativeSignalingAudioPackets=audio;
  const ended=a.page.waitForResponse(r=>r.url().endsWith('/v1/messages/calls')&&r.request().postDataJSON()?.action==='end');await tap(a.page,id('callEnd')+'-0');assert.equal((await ended).status(),200);await tap(b.page,id('callRefresh'));
+ await Promise.all([a.page,b.page].map(p=>p.waitForFunction(()=>window.stackPeers.length>0&&window.stackPeers.every(peer=>peer.connectionState==='closed'))));
  results.callClosed=await Promise.all([a.page,b.page].map(p=>p.evaluate(()=>window.stackPeers.every(peer=>peer.connectionState==='closed'))));assert.ok(results.callClosed.every(Boolean));
  await fill(a.page,id('mailTo'),'bob@example.invalid');await fill(a.page,id('mailSubject'),'Synthetic stack mail');await fill(a.page,id('mailBody'),'Mail through actual UI and database');
  const queued=a.page.waitForResponse(r=>r.url().endsWith('/v1/messages/email')&&r.request().postDataJSON()?.action==='queue');await tap(a.page,id('mailQueue'));assert.equal((await queued).status(),200);

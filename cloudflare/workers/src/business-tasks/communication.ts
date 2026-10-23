@@ -129,10 +129,10 @@ export class CommunicationService extends ScopedServiceBase {
  }
  async signal(actor: Actor, id: string, key: string, expectedVersion: number, callId: string, signal: {type:string;description?:{type:string;sdp:string};candidate?:Record<string,unknown>}) {
   required(callId);
-  if(!signal||!['offer','answer','candidate'].includes(signal.type)||new TextEncoder().encode(JSON.stringify(signal)).length>this.limits.maxSignalBytes)throw Error('Invalid signal');
+  if(!signal||!['offer','answer','ice'].includes(signal.type)||new TextEncoder().encode(JSON.stringify(signal)).length>this.limits.maxSignalBytes)throw Error('Invalid signal');
   signal=structuredClone(signal);
   const keys=Object.keys(signal);
-  if(signal.type==='candidate') {
+  if(signal.type==='ice') {
    if(keys.some(key=>!['type','candidate'].includes(key))||!signal.candidate||typeof signal.candidate!=='object'||Array.isArray(signal.candidate)||typeof signal.candidate.candidate!=='string')throw Error('Invalid candidate');
   } else if(keys.some(key=>!['type','description'].includes(key))||signal.description?.type!==signal.type||typeof signal.description.sdp!=='string'||!signal.description.sdp)throw Error('Invalid description');
   return this.store.run({actor,id,key,expectedVersion,type:'conversation.signal',payload:{callId,signal}},

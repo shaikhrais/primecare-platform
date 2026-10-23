@@ -261,7 +261,11 @@
         previous = entry.sequence;
         if (entry.sequence <= this.lastSequence) continue;
         this.assertOpen();
-        if (entry.actorId !== this.userId) await this.audio.receive(entry.signal);
+        if (entry.actorId !== this.userId) {
+          const signal = entry.signal;
+          if (!signal || !["offer", "answer", "ice"].includes(signal.type)) throw Error("Invalid call signaling");
+          await this.audio.receive(signal.type === "ice" ? { ...signal, type: "candidate" } : signal);
+        }
         this.lastSequence = entry.sequence;
       }
       if (previous < this.lastSequence) throw Error("Call signaling regressed");
@@ -281,7 +285,7 @@
           const { record, call } = await this.current();
           if (call.status !== "accepted") throw Error("Call not accepted");
           try {
-            return await this.transport.execute("audio", { action: "signal", id: this.threadId, key: this.key(), version: record.version, callId: this.callId, signal });
+            return await this.transport.execute("audio", { action: "signal", id: this.threadId, key: this.key(), version: record.version, callId: this.callId, signal: signal?.type === "candidate" ? { ...signal, type: "ice" } : signal });
           } catch (error) {
             if (error?.status !== 409 || attempt === 2) throw error;
           }

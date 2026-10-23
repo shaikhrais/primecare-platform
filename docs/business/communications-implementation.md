@@ -665,3 +665,19 @@ The shared auth boundary now returns native tenant scope for login, completed MF
 The new dedicated acceptance job compiles an actual Flutter host that reuses existing login and communication widgets, then exercises native credential sessions, gateway routing, policies and PostgreSQL with two Chromium contexts. It includes all four channels, real raster processing, actual audio packets via native HTTP/PG signaling, received HTML text projection, reload and denied access. Scanner/private bucket/mail acceptance are explicitly synthetic ports. Browser/full-stack results are pending. Production remains unmounted and lacks approved matching grants and verified provider configuration; isolated acceptance must not be recorded as deployed or live delivery verification.
 
 The first full-stack candidate `36b63f47acee06b36550e6a3df075ba7471cfd54` built the Flutter release host successfully but its server harness expected a flattened esbuild output path. Explicit named entry points now make output paths stable. Auth CI separately rejected the changed reviewed gateway hash. The exact communication import/block was reviewed: removing only that amendment restores the prior gateway SHA byte for byte. The guard retains every existing source check and additionally enforces that exact amendment; ten Python and the corresponding Node method-capture/prefix tests validate unchanged legacy dispositions. Neither initial failure is counted as full-stack success.
+
+
+The actual UI acceptance candidates next exposed Flutter semantics/focus timing
+in the harness. Focused keyboard entry and complete accessibility ID-line
+matching now exercise both native credential logins, message persistence/reload,
+recipient reads and private picture upload/download successfully. Candidate
+`c966b17ca6e4026e3d982847f9e45f3054875ca0`, run 39885522332, then failed its
+positive-audio-packet assertion: the registered API accepts `ice` but the shared
+session and service used `candidate`. Existing mocked negotiations did not emit
+ICE events and missed that boundary. Two new HTTP regressions fail before the
+repair. The inherited session now converts native browser candidates to the
+registered `ice` wire value and converts stored ICE back for the browser; the
+scoped service validates/persists `ice`. No registered schema or grant changes.
+The HTTP negotiation test now exchanges candidate events in both directions
+through real schema validation and checks persisted wire values. The packaged
+Flutter asset is regenerated. Full native/browser CI is pending this repair.

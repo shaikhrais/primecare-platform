@@ -57,12 +57,23 @@ test('registered inbox cannot bypass the direct-read call-party privacy projecti
  assert.equal(party.items.find(item=>item.id===id).calls[0].signals[0].signal.description.sdp,'synthetic-private-offer');
 });
 
+test('registered ICE wire signals persist and the unregistered candidate alias is denied',async()=>{
+ const id='ice-wire:'+crypto.randomUUID(),callId='ice:'+crypto.randomUUID();
+ await command('a','/v1/messages',{action:'create',id,key:'create',members:['a','b'],businessReference:'synthetic-general'});
+ await command('a','/v1/messages/calls',{action:'invite',id,key:'invite',version:1,callId,recipientId:'b'});
+ await command('b','/v1/messages/calls',{action:'accept',id,key:'accept',version:2,callId});
+ const candidate={candidate:'candidate:1 1 UDP 2122260223 127.0.0.1 50000 typ host',sdpMid:'0',sdpMLineIndex:0,usernameFragment:'synthetic'};
+ await command('a','/v1/messages/calls',{action:'signal',id,key:'ice',version:3,callId,signal:{type:'ice',candidate}});
+ await command('a','/v1/messages/calls',{action:'signal',id,key:'bad-alias',version:4,callId,signal:{type:'candidate',candidate}},400);
+ const record=await command('b','/v1/messages',{action:'read',id});assert.equal(record.version,4);assert.deepEqual(record.calls[0].signals[0].signal,{type:'ice',candidate});
+});
+
 test('two shared audio sessions negotiate through registered HTTP, reload state and release on remote hangup',async()=>{
  const id='call-session:'+crypto.randomUUID(),callId='audio:'+crypto.randomUUID();
  await command('a','/v1/messages',{action:'create',id,key:'create',members:['a','b'],businessReference:'synthetic-general'});
  await command('a','/v1/messages/calls',{action:'invite',id,key:'invite',version:1,callId,recipientId:'b'});
  await command('b','/v1/messages/calls',{action:'accept',id,key:'accept',version:2,callId});
- const sessions=[],stopped=[],remote=[];
+ const sessions=[],stopped=[],remote=[],remoteIce=[];
  for(const userId of ['a','b']){
   const transport={async execute(channel,input){
    const response=await request(userId,channel==='message'?'/v1/messages':'/v1/messages/calls',input);
@@ -71,7 +82,7 @@ test('two shared audio sessions negotiate through registered HTTP, reload state 
   const peer={addTrack(){},close(){},remoteDescription:null,localDescription:null,
    async createOffer(){return {type:'offer',sdp:'synthetic-offer'};},async createAnswer(){return {type:'answer',sdp:'synthetic-answer'};},
    async setLocalDescription(value){this.localDescription={toJSON:()=>value};},
-   async setRemoteDescription(value){this.remoteDescription=value;remote.push({userId,type:value.type});},async addIceCandidate(){}};
+   async setRemoteDescription(value){this.remoteDescription=value;remote.push({userId,type:value.type});},async addIceCandidate(candidate){remoteIce.push({userId,candidate});}};
   sessions.push(new BrowserAudioSession({transport,userId,threadId:id,callId,intervalMilliseconds:10000,media:{configuration:{iceServers:[]},getUserMedia:async()=>({getTracks:()=>[{stop(){stopped.push(userId);}}]}),createPeer:()=>peer}}));
  }
  try{
@@ -79,6 +90,11 @@ test('two shared audio sessions negotiate through registered HTTP, reload state 
   assert.deepEqual(remote,[{userId:'b',type:'offer'},{userId:'a',type:'answer'}]);
   const persisted=await command('b','/v1/messages',{action:'read',id});
   assert.equal(persisted.calls[0].signals.length,2);assert.equal(persisted.calls[0].answered,true);
+  const candidate={candidate:'candidate:2 1 UDP 2122260223 127.0.0.1 50001 typ host',sdpMid:'0',sdpMLineIndex:0};
+  for(const session of sessions){session.audio.peer.onicecandidate({candidate:{toJSON:()=>candidate}});await Promise.resolve();await session.writes;}
+  await sessions[0].refresh();await sessions[1].refresh();
+  assert.deepEqual(remoteIce,[{userId:'a',candidate},{userId:'b',candidate}]);
+  const iceRecord=await command('a','/v1/messages',{action:'read',id});assert.deepEqual(iceRecord.calls[0].signals.slice(2).map(entry=>entry.signal.type),['ice','ice']);
   await sessions[0].hangUp();await sessions[1].refresh();assert.equal(sessions[1].closed,true);assert.deepEqual(stopped.sort(),['a','b']);
   const reloaded=await command('b','/v1/messages',{action:'read',id});assert.equal(reloaded.calls[0].status,'ended');
   await command('c','/v1/messages',{action:'read',id},404);await command('other','/v1/messages',{action:'read',id},404);
