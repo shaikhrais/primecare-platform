@@ -5,7 +5,8 @@ export interface PictureRepository {
  /** Must decode, bound pixels, scan, strip metadata/re-encode and store privately before returning. */
  prepare(actor: Actor, threadId: string, bytes: Uint8Array, mediaType: string): Promise<{id:string;tenantId:string;threadId:string;mediaType:string;size:number;status:'clean'}>;
  get(actor: Actor, id: string): Promise<{id:string;tenantId:string;threadId:string;mediaType:string;size:number;status:string}>;
- open?(actor: Actor, id: string): Promise<unknown>;
+ /** Validate metadata on the actual returned object, including this conversation. */
+ open?(actor: Actor, id: string, threadId: string): Promise<unknown>;
 }
 export type CommunicationLimits = {maxMembers:number;maxMessages:number;maxText:number;maxPictureBytes:number;maxPictures:number;ringMilliseconds:number;maxSignalBytes:number};
 
@@ -61,6 +62,7 @@ export class CommunicationService extends ScopedServiceBase {
    });
  }
  async picture(actor: Actor, id: string, bytes: Uint8Array, mediaType: string) {
+  actor=Object.freeze({...actor});
   if (!(bytes instanceof Uint8Array) || !bytes.length || bytes.length > this.limits.maxPictureBytes) throw Error('Invalid picture size');
   bytes=new Uint8Array(bytes);
   const png = bytes.length >= 8 && [137,80,78,71,13,10,26,10].every((value,index) => bytes[index] === value);
@@ -70,13 +72,24 @@ export class CommunicationService extends ScopedServiceBase {
   await this.policy.assert(actor,'conversation.picture',conversation);
   const picture = await this.pictures.prepare(actor,id,bytes,mediaType);
   if (picture.tenantId !== actor.tenantId || picture.threadId !== id || picture.status !== 'clean' || !['image/png','image/jpeg'].includes(picture.mediaType) || !Number.isSafeInteger(picture.size) || picture.size < 1 || picture.size > this.limits.maxPictureBytes) throw Error('Picture processing failed');
+  await this.policy.assert(actor,'conversation.picture',await this.read(actor,id));
   return picture;
  }
  async openPicture(actor: Actor, id: string, pictureId: string) {
+  actor=Object.freeze({...actor});
   await this.read(actor,id);
   const picture=await this.pictures.get(actor,pictureId);
   if(picture.tenantId!==actor.tenantId||picture.threadId!==id||picture.status!=='clean'||!this.pictures.open)throw Error('Picture unavailable');
-  return this.pictures.open(actor,pictureId);
+  const object=await this.pictures.open(actor,pictureId,id);
+  try {
+   // Storage/scan work may suspend while an account or task relationship changes.
+   await this.read(actor,id);
+   return object;
+  }catch(error){
+   const body=(object as {body?:{cancel?:()=>Promise<void>}}|null)?.body;
+   try{if(typeof body?.cancel==='function')await body.cancel();}catch{/* Preserve current-access denial. */}
+   throw error;
+  }
  }
  async markRead(actor: Actor, id: string, key: string, expectedVersion: number, sequence: number) {
   return this.store.run({actor,id,key,expectedVersion,type:'conversation.read',payload:{sequence}},

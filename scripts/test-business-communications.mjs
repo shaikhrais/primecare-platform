@@ -120,6 +120,25 @@ test('messages, clean pictures and read receipts persist and deny nonparticipant
  await assert.rejects(communication.read(outsider,thread),/Not found/);
  await assert.rejects(communication.message(c,thread,'intruder',result.version,'private'),/Not found/);
 });
+test('picture upload rechecks current access after asynchronous processing',async()=>{
+ const thread=id('revoked-picture-upload');await communication.create(a,thread,'create',[a.id,b.id],'synthetic-task');let processed=0,revoked=false;
+ const scoped=new CommunicationService(store,{...policy,async assert(actor,action,state){if(revoked)throw Error('Forbidden');await policy.assert(actor,action,state);}},{...pictures,async prepare(...args){processed++;const record=await pictures.prepare(...args);revoked=true;return record;}},limits);
+ await assert.rejects(scoped.picture(a,thread,new Uint8Array([137,80,78,71,13,10,26,10]),'image/png'),/Forbidden/);assert.equal(processed,1);
+ assert.equal((await communication.read(a,thread)).messages.length,0);
+});
+test('picture download rechecks current access and cancels an opened body after revocation',async()=>{
+ const thread=id('revoked-picture-open');await communication.create(a,thread,'create',[a.id,b.id],'synthetic-task');let revoked=false,canceled=0;
+ const record={id:'picture',tenantId:a.tenantId,threadId:thread,mediaType:'image/png',size:8,status:'clean'};
+ const scoped=new CommunicationService(store,{...policy,async assert(actor,action,state){if(revoked)throw Error('Forbidden');await policy.assert(actor,action,state);}},{...pictures,async get(){return record;},async open(actor,pictureId,expectedThread){assert.equal(expectedThread,thread);assert.equal(pictureId,'picture');revoked=true;return {body:new ReadableStream({cancel(){canceled++;throw Error('PRIVATE cleanup detail');}})};}},limits);
+ await assert.rejects(scoped.openPicture(a,thread,'picture'),error=>error.message==='Forbidden');assert.equal(canceled,1);
+});
+test('picture download denial precedes storage and successful reads recheck scope',async()=>{
+ const thread=id('permitted-picture-open');await communication.create(a,thread,'create',[a.id,b.id],'synthetic-task');let opened=0;
+ const body={body:new Uint8Array([1])};
+ const scoped=new CommunicationService(store,policy,{...pictures,async get(){return {id:'picture',tenantId:a.tenantId,threadId:thread,mediaType:'image/png',size:1,status:'clean'};},async open(){opened++;return body;}},limits);
+ await assert.rejects(scoped.openPicture(c,thread,'picture'),/Not found/);assert.equal(opened,0);
+ assert.equal(await scoped.openPicture(b,thread,'picture'),body);assert.equal(opened,1);
+});
 test('picture gates reject SVG, mismatched types, oversized and cross-thread objects',async()=>{
  const thread=id('pictures');await communication.create(a,thread,'create',[a.id,b.id],'synthetic-task');
  const before=scans;

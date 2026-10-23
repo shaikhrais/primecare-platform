@@ -19,6 +19,7 @@ on:
       - 'tools/communication-route-bindings.py'
       - 'scripts/test-business-media.mjs'
       - 'scripts/test-communication-adapter-base.mjs'
+      - 'scripts/test-communication-pictures.mjs'
       - 'scripts/fixtures/business-*'
       - 'packages/database/migrations/20261022_business_communications.sql'
       - 'packages/flutter_core/lib/communications/**'
@@ -194,7 +195,7 @@ jobs:
       - name: Registered HTTP contracts through native PostgreSQL
         run: node --test scripts/test-communication-http.mjs
       - name: Shared communication resource and byte-limit bases
-        run: node --test scripts/test-communication-adapter-base.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-flutter-bridge.mjs
+        run: node --test scripts/test-communication-adapter-base.mjs scripts/test-communication-pictures.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-flutter-bridge.mjs
   media:
     runs-on: ubuntu-24.04
     timeout-minutes: 15

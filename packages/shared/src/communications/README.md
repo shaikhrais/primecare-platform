@@ -276,3 +276,27 @@ checks, Flutter mail-controller and channel-widget tests. Native PostgreSQL
 and the full default runtime path are exercised in communication CI. Live
 mailbox provisioning, endpoint grants/mounting and deployed acceptance remain
 separate and unverified.
+
+### Private picture object and access consistency
+
+`PrivatePictureRepository` continues to inherit `BoundedBinaryAdapterBase`.
+Its `open(actor, pictureId, threadId)` contract requires the expected conversation
+and validates the metadata of the actual downloaded object. A prior `head()`
+check cannot authorize a replacement object. Both metadata lookup and download
+require matching identity/tenant, clean PNG type, a nonempty conversation and a
+positive bounded size matching the storage object's size. Metadata projections
+are immutable and exclude extra provider fields. Rejected stream bodies are
+canceled; cleanup failures preserve the original denial.
+
+The inherited `CommunicationService` snapshots the actor and rechecks current
+conversation policy after upload processing and after opening the private body.
+Denied downloads cancel the opened stream before returning an error. This
+implements the existing current-active-account/task-scope policy without adding
+an API, screen, grant or role-specific path. It is a final check before response
+handoff, not continuous authorization after streaming begins. A denied upload
+may leave an unattached private processed object; no conversation message is
+created and no automatic deletion is attempted. Live private storage/scanner
+composition and retention cleanup remain deployment concerns.
+
+Run `scripts/test-communication-pictures.mjs`, service/HTTP/native-policy suites
+and the real raster/browser checks in communication CI.

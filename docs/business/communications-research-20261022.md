@@ -66,3 +66,13 @@ Official sources checked on 2026-10-22:
 - https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html recommends treating untrusted values as displayable text and avoiding HTML-rendering sinks. Continue using the existing Flutter Text presentation, even when decoded entities look like markup.
 
 Design decision: only attempt HTML extraction when the MIME parser supplies no text/plain body. An invalid or oversized plain-text body must not trigger an alternative-content bypass. Limit decoded HTML input, nesting, callback events and UTF-8 output. Keep text from a conservative set of formatting/structural elements; omit unknown/active/embedded subtrees, explicit hidden/aria-hidden subtrees, comments and attribute values. Preserve paragraph/table/list separators without including href, src, alt or form values. No network, browser document, script, CSS or attachment evaluation occurs. This is approximate text extraction, not visual fidelity: CSS visibility/layout is not evaluated, so text hidden by styles may appear as unverified text. Any failed budget discards the complete preview, including subject; never return partial output. Authorization before/after parsing and quarantine retention remain mandatory.
+
+## Picture access and storage consistency
+
+Rechecked official sources:
+
+- https://developers.cloudflare.com/r2/api/workers/workers-api-reference/: `head` and `get` are separate reads; GET returns its own object metadata and body. Validate the returned object itself, including the expected conversation, tenant, type and size. Do not trust metadata from a different read to authorize the downloaded object.
+- https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html: deny by default, authorize static resources and test permission failures. Apply the existing registered current account/task policy again after asynchronous scanner/storage work, before handing content back to HTTP.
+- https://sharp.pixelplumbing.com/api-input/ and https://sharp.pixelplumbing.com/api-output/: metadata inspection is separate from full decoding/output operations. Keep actual raster decoding, pixel limits, re-encoding and metadata stripping in the existing inherited adapter and preserve real-image tests.
+
+The repair does not add a new policy, endpoint or UI. It enforces existing `activeAccountEveryAction`, tenant and conversation scope at the final response boundary. A rejected body is canceled, without masking the original denial if cleanup fails. A final check cannot guarantee revocation after streaming has begun. Upload denial can leave an unattached private object; do not invent a delete operation or erase unrelated objects. Separate governed deployment/retention work remains necessary.

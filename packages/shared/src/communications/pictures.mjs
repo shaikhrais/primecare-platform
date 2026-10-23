@@ -3,7 +3,7 @@ import {BoundedBinaryAdapterBase} from './adapter-base.mjs';
 export class PrivatePictureRepository extends BoundedBinaryAdapterBase {
  constructor({sharp,bucket,scan,maxPixels,maxBytes}) {
   super(maxBytes);
-  if(typeof sharp!=='function'||typeof scan!=='function'||!bucket||!Number.isSafeInteger(maxPixels)||maxPixels<1||!Number.isSafeInteger(maxBytes)||maxBytes<1)throw Error('Picture adapters required');
+  if(typeof sharp!=='function'||typeof scan!=='function'||!bucket||['put','head','get'].some(method=>typeof bucket[method]!=='function')||!Number.isSafeInteger(maxPixels)||maxPixels<1||!Number.isSafeInteger(maxBytes)||maxBytes<1)throw Error('Picture adapters required');
   this.sharp=sharp;this.bucket=bucket;this.scan=scan;this.maxPixels=maxPixels;
  }
  async prepare(actor,threadId,bytes,mediaType) {
@@ -22,17 +22,28 @@ export class PrivatePictureRepository extends BoundedBinaryAdapterBase {
   await this.bucket.put('private-pictures/'+id,output,{httpMetadata:{contentType:'image/png'},customMetadata:{record:JSON.stringify(record)}});
   return record;
  }
- async get(actor,id) {
-  if(typeof id!=='string'||!/^[0-9a-f-]{36}$/.test(id))throw Error('Picture unavailable');
-  const object=await this.bucket.head('private-pictures/'+id);
+ validateId(id){if(typeof id!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id))throw Error('Picture unavailable');}
+ record(actor,id,object,threadId) {
   let record;try{record=JSON.parse(object?.customMetadata?.record);}catch{throw Error('Picture unavailable');}
-  if(!record||record.id!==id||record.tenantId!==actor.tenantId||record.status!=='clean')throw Error('Picture unavailable');
-  return record;
+  if(!record||record.id!==id||typeof actor?.tenantId!=='string'||!actor.tenantId||record.tenantId!==actor.tenantId||record.status!=='clean'||typeof record.threadId!=='string'||!record.threadId||threadId!==undefined&&record.threadId!==threadId||record.mediaType!=='image/png'||object.httpMetadata?.contentType!=='image/png'||!Number.isSafeInteger(record.size)||record.size<1||record.size>this.maxBytes||object.size!==record.size)throw Error('Picture unavailable');
+  return Object.freeze({id:record.id,tenantId:record.tenantId,threadId:record.threadId,mediaType:record.mediaType,size:record.size,status:record.status});
  }
- async open(actor,id) {
-  await this.get(actor,id);
+ async get(actor,id) {
+  this.validateId(id);
+  return this.record(actor,id,await this.bucket.head('private-pictures/'+id));
+ }
+ async open(actor,id,threadId) {
+  this.validateId(id);
+  if(typeof threadId!=='string'||!threadId)throw Error('Picture unavailable');
   const object=await this.bucket.get('private-pictures/'+id);
-  if(!object)throw Error('Picture unavailable');
-  return object;
+  try {
+   // Validate the downloaded object itself, never a previous HEAD snapshot.
+   this.record(actor,id,object,threadId);
+   if(!object.body)throw Error('Picture unavailable');
+   return object;
+  }catch(error){
+   try{if(typeof object?.body?.cancel==='function')await object.body.cancel();}catch{/* Preserve the authorization/validation error. */}
+   throw error;
+  }
  }
 }

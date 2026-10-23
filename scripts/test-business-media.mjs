@@ -9,14 +9,14 @@ import {createInboundEmailHandler} from '../packages/shared/src/communications/i
 
 test('real raster decoding strips metadata and rejects corrupt, oversized, unscanned and foreign images',async()=>{
  const objects=new Map();
- const bucket={async put(key,body,meta){objects.set(key,{body,...meta});},async head(key){return objects.get(key);},async get(key){return objects.get(key);}};
+ const bucket={async put(key,body,meta){objects.set(key,{body,size:body.length,...meta});},async head(key){return objects.get(key);},async get(key){return objects.get(key);}};
  let scans=0,clean=true;
  const repo=new PrivatePictureRepository({sharp,bucket,scan:async()=>{scans++;return clean;},maxPixels:4096,maxBytes:65536});
  const actor={id:'fixture',tenantId:'synthetic'};
  const bytes=await sharp({create:{width:16,height:16,channels:3,background:'#445566'}}).jpeg().withMetadata().toBuffer();
  const record=await repo.prepare(actor,'thread',bytes,'image/jpeg');
  assert.equal(scans,2);assert.equal(record.mediaType,'image/png');
- const stored=await repo.open(actor,record.id);const metadata=await sharp(stored.body).metadata();
+ const stored=await repo.open(actor,record.id,'thread');const metadata=await sharp(stored.body).metadata();
  assert.equal(metadata.exif,undefined);assert.equal(metadata.icc,undefined);assert.equal(metadata.width,16);
  await assert.rejects(repo.get({id:'other',tenantId:'foreign'},record.id),/unavailable/);
  await assert.rejects(repo.prepare(actor,'thread',new Uint8Array([137,80,78,71]),'image/png'));
