@@ -1,0 +1,179 @@
+{
+  "sourceCommit": "f5c755a7f90b898cd34b0588da0a8acc45d4ac64",
+  "scope": "Inherited bounded unverified received-email plain-text preview; removal of raw MIME from inbound service/HTTP reads",
+  "registration": {
+    "definitionSha256": "df5b0fde94ab204ba18d32e8ce2d5fa37a6e52e494c4f09d23fcb461e949826a",
+    "screens": 4,
+    "controlsPerScreen": 43,
+    "resources": 73,
+    "locales": [
+      "en",
+      "es",
+      "fr"
+    ],
+    "permissionGrants": 0,
+    "activation": false,
+    "reviewApproved": false,
+    "independentReadback": true,
+    "sourceCommit": "a9aefcefefde5f1e1580bcf496f15eaee2ac09a1",
+    "runId": 39875059914,
+    "authority": "pinned-production-postgresql",
+    "isolatedTestsPassed": 8
+  },
+  "parser": {
+    "package": "postal-mime",
+    "version": "4.1.2",
+    "baseClass": "BoundedBinaryAdapterBase",
+    "limits": {
+      "definitionSha256": "df5b0fde94ab204ba18d32e8ce2d5fa37a6e52e494c4f09d23fcb461e949826a",
+      "maxRawBytes": 65536,
+      "maxTextBytes": 65536,
+      "maxSubjectLength": 200,
+      "maxHeadersSize": 16384,
+      "maxNestingDepth": 12,
+      "maxPartCount": 64
+    },
+    "rfc822Attachments": true,
+    "maxRfc822NestingDepth": 0,
+    "maxForwardedAddresses": 0
+  },
+  "guarantees": [
+    "authorize current mailbox before parsing",
+    "recheck current mailbox after parsing",
+    "preserve envelope sender/tenant/mailbox scope",
+    "retain quarantine and senderIdentityVerified=false",
+    "no rawBase64, separate digest, HTML, attachments or header objects in inbound user responses",
+    "validate and snapshot all preview-port results",
+    "no partial preview on parse/size failure",
+    "client validates preview type, UTF-8 bound and optional subject",
+    "render Text only under localized unverified/quarantine warning",
+    "do not rewrite stored raw MIME, version or audit state on read"
+  ],
+  "regressionProof": {
+    "previousSource": "a9aefcefefde5f1e1580bcf496f15eaee2ac09a1",
+    "previousSourceFailed": 3,
+    "fixedSourcePassed": 3,
+    "cases": [
+      "raw MIME withholding",
+      "service plain-text projection with preserved identity/quarantine",
+      "registered HTTP preview read"
+    ]
+  },
+  "local": {
+    "nodePassed": 158,
+    "nodeSkipped": 2,
+    "nodeFailed": 0,
+    "skipReason": "Native PostgreSQL checks require disposable CI database",
+    "strictTypeScript": "passed",
+    "routeBindings": "passed",
+    "uiAndServerLimitBindings": "passed"
+  },
+  "ci": {
+    "runId": 39875792091,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39875792091",
+    "status": "success",
+    "jobs": [
+      {
+        "id": 120160955598,
+        "name": "flutter-workspace",
+        "conclusion": "success"
+      },
+      {
+        "id": 120160955909,
+        "name": "flutter-browser-media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120160955964,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120160955968,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      },
+      {
+        "id": 120160956000,
+        "name": "inventory",
+        "conclusion": "success"
+      },
+      {
+        "id": 120160956100,
+        "name": "dart-core",
+        "conclusion": "success"
+      },
+      {
+        "id": 120160956106,
+        "name": "isolated",
+        "conclusion": "success"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 12468188140,
+        "name": "business-communications-registry",
+        "sha256": "987bf27c0cee07647cfa2ec548cbdaa41b34b5fb12f429a284a40e322b61b729"
+      },
+      {
+        "id": 12467784361,
+        "name": "communication-flutter-browser",
+        "sha256": "519705fc6d097d33e77f664f211c183ae5539cc735786755b25e5fdb04376b42"
+      },
+      {
+        "id": 12467583383,
+        "name": "business-communications-media",
+        "sha256": "defe82d2ab5328a80cb11d0d938100156b448b7a3ea463410b0810d19f7c9496"
+      }
+    ],
+    "nodeServiceAndParserTestsPassed": 171,
+    "nodeMediaTestsPassed": 3,
+    "compiledDartBrowserTestsPassed": 1,
+    "nodeBrowserTotalPassed": 175,
+    "flutterCoreTransportTestsPassed": 594,
+    "flutterWorkspaceThemeAuthTestsPassed": 109,
+    "flutterTotalPassed": 703,
+    "metadataReportTestsPassed": 10,
+    "strictTypeScript": "passed",
+    "dartAnalysisAndCoreHarness": "passed",
+    "bindings": "passed"
+  },
+  "browserArtifact": {
+    "artifactId": 12467784361,
+    "archiveDigestIndependentlyChecked": true,
+    "syntheticTransport": true,
+    "productUi": false,
+    "browser": "155.0.8059.39",
+    "packets": [
+      6,
+      5
+    ],
+    "muted": true,
+    "unmuted": true,
+    "tracksStopped": true,
+    "peersClosed": true,
+    "audioElementsRemoved": true
+  },
+  "onlyRemoteBranch": "main",
+  "permissionsChanged": false,
+  "activationChanged": false,
+  "accountsChanged": false,
+  "catalogVerificationChanged": false,
+  "productionReady": false,
+  "liveBusinessEmailSendReceiveVerified": false,
+  "deployedBrowserToDatabaseVerified": false,
+  "limitations": [
+    "plain-text parts only; HTML-only/attachment-only messages have no preview",
+    "no attachment download or rendering",
+    "no sender authentication or quarantine release"
+  ],
+  "remaining": [
+    "governed contact/mailbox discovery",
+    "provider-verified live business mailbox provisioning and send/receive acceptance",
+    "real private scanner/decoder/storage composition",
+    "fresh TURN configuration and restrictive-network/device acceptance",
+    "native audio adapters if required",
+    "current endpoint/screen grants and worker/gateway mounting",
+    "deployment and login-to-UI-to-API-to-database acceptance with release review"
+  ]
+}
