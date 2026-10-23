@@ -9,6 +9,9 @@ on:
       - 'tools/governance-production/test-communication-contract-report.py'
       - 'tools/governance-production/communication_provider_inventory.py'
       - 'tools/governance-production/test-communication-provider-inventory.py'
+      - 'tools/governance-production/read-bridge.mjs'
+      - 'tools/governance-production/reader-errors.mjs'
+      - 'tools/governance-production/test-reader-errors.mjs'
       - 'packages/database/migrations/20261023_communication_voice_otp.sql'
       - 'packages/database/migrations/20261023_communication_voice_confirmations.sql'
       - 'packages/database/migrations/20261023_communication_voice_tasks.sql'
@@ -221,6 +224,7 @@ jobs:
           ln -s "$RUNNER_TEMP/communications-reader/node_modules" node_modules
       - name: Test contract gap reporting without production credentials
         run: |
+          node --test tools/governance-production/test-reader-errors.mjs
           python tools/governance-production/test-communication-contract-report.py
           python tools/governance-production/test-communication-provider-inventory.py
       - name: Read production registrations without business access

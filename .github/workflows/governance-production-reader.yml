@@ -2,7 +2,7 @@ name: Verify pinned production governance reader
 on:
   workflow_dispatch:
   push:
-    branches: [work/governance-production-cutover-20261019]
+    branches: [main]
     paths: [tools/governance-production/**, .github/workflows/governance-production-reader.yml]
   pull_request:
     paths: [tools/governance-production/**, .github/workflows/governance-production-reader.yml]
@@ -25,9 +25,11 @@ jobs:
           pip install -r tools/governance-production/requirements.txt
       - run: python tools/governance-production/test-ci-fixture.py
       - run: python tools/governance-production/test-production-reader.py
+      - run: node --test tools/governance-production/test-reader-errors.mjs
       - run: python tools/governance-production/test-export-parity.py
+      - run: python scripts/test-theme-manifest.py
   production:
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'workflow_dispatch'
     needs: test
     runs-on: ubuntu-latest
     environment: production
