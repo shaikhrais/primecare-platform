@@ -490,3 +490,23 @@ Local continuation validation: all 178 Node Twilio/OTP/task/provider/device test
 pass with zero skips, including 22 device lifecycle tests. Strict device/ringing
 declarations pass. Real browser execution is delegated to the existing CI browser
 job because this local environment does not have Playwright/Chromium installed.
+
+
+### Mail and voicemail-notification dispatch continuation
+
+Reviewed the official [Cloudflare email binding](https://developers.cloudflare.com/email-service/api/send-emails/workers-api/)
+and the Twilio reliability skill. Found a gap between mail claim-time recipient
+permission and the eventual provider submission. The shared inherited mail
+service now snapshots native actor scope, rechecks current recipient basis after
+claim/read, and then rechecks current delivery permission immediately before send.
+Voicemail email uses this same outbox, not a notification-only bypass.
+
+Four new domain regressions prove post-claim recipient revocation, delivery-grant
+revocation during recipient validation, actor snapshot consistency and competing
+single-send claims. A denied post-claim send invokes no provider and leaves its
+one-use durable claim in `sending`, requiring reconciliation, never automatic
+resend. Existing ambiguous transport failure behavior remains `unknown`.
+The local 52-case domain suite and strict mail types pass. The existing CI suite
+runs these same cases with native PostgreSQL; no local persistence or live mail
+credit is claimed. No production route, mailbox, extension, migration, provider
+binding or phone setting is changed.

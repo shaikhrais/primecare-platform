@@ -444,3 +444,22 @@ test('custom preview adapters cannot expose malformed content or private errors'
   const result=await guarded.read(b,received.id);assert.deepEqual(result.contentPreview,{status:'unavailable'});assert.equal(result.from,'envelope@example.invalid');assert.ok(!JSON.stringify(result).includes('PRIVATE'));
  }
 });
+
+test('email recipient revoked after claim prevents submission and cannot be resent',async()=>{
+ let checks=0,sends=0;const guarded=new BusinessMailService(store,policy,{...mailboxes,async recipient(actor,to){await mailboxes.recipient(actor,to);if(++checks===3)throw Error('Recipient revoked');}},{async send(){sends++;return {messageId:'fixture'};}},'sender@example.invalid',2048);
+ const message=id('mail-recipient-revoked');await guarded.queue(a,message,'queue','recipient@example.invalid','Fixture','Private fixture');
+ await assert.rejects(guarded.deliver(a,message,'deliver',1),/Recipient revoked/);assert.equal(sends,0);assert.equal((await guarded.read(a,message)).status,'sending');
+ assert.equal((await guarded.deliver(a,message,'deliver',1)).status,'sending');await assert.rejects(guarded.deliver(a,message,'different-key',2),/already attempted/);assert.equal(sends,0);
+});
+test('delivery permission revoked during the final recipient check blocks the provider',async()=>{
+ let checks=0,denied=false,sends=0;const guarded=new BusinessMailService(store,{...policy,async assert(actor,action,state){await policy.assert(actor,action,state);if(denied&&action==='mail.deliver')throw Error('Delivery revoked');}},{...mailboxes,async recipient(actor,to){await mailboxes.recipient(actor,to);if(++checks===3)denied=true;}},{async send(){sends++;return {messageId:'fixture'};}},'sender@example.invalid',2048);
+ const message=id('mail-grant-revoked');await guarded.queue(a,message,'queue','recipient@example.invalid','Fixture','Private fixture');await assert.rejects(guarded.deliver(a,message,'deliver',1),/Delivery revoked/);assert.equal(sends,0);assert.equal((await guarded.read(a,message)).status,'sending');
+});
+test('delivery captures the authenticated actor before asynchronous storage work',async()=>{
+ const mutable={...a},seen=[];let checks=0,sends=0;const guarded=new BusinessMailService(store,policy,{...mailboxes,async recipient(actor,to){seen.push({...actor});await mailboxes.recipient(actor,to);if(++checks===2){mutable.id=outsider.id;mutable.tenantId=outsider.tenantId;}}},{async send(){sends++;return {messageId:'fixture-actor-snapshot'};}},'sender@example.invalid',2048);
+ const message=id('mail-actor-snapshot');await guarded.queue(a,message,'queue','recipient@example.invalid','Fixture','Private fixture');const result=await guarded.deliver(mutable,message,'deliver',1);assert.equal(result.status,'accepted');assert.equal(sends,1);assert.ok(seen.every(actor=>actor.id===a.id&&actor.tenantId===a.tenantId));
+});
+test('two competing email claims submit once after fresh recipient authorization',async()=>{
+ let sends=0,checks=0;const guarded=new BusinessMailService(store,policy,{...mailboxes,async recipient(actor,to){checks++;await mailboxes.recipient(actor,to);}},{async send(){sends++;return {messageId:'fixture-single-send'};}},'sender@example.invalid',2048);
+ const message=id('mail-claim-race');await guarded.queue(a,message,'queue','recipient@example.invalid','Fixture','Private fixture');await Promise.allSettled(['first','second'].map(key=>guarded.deliver(a,message,key,1)));assert.equal(sends,1);assert.ok(checks>=3);assert.equal((await guarded.read(a,message)).status,'accepted');
+});

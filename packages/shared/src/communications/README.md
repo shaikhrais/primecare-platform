@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 17080)
-Total output lines: 991
-
 # Shared communication core
 
 All portals and permitted users use the same core. There are no role-specific copies, hardcoded privileged users or default grants. The authenticated transport supplies identity; request data cannot choose an actor, tenant or role. Production policy still decides who can contact whom and which restricted cases or mailboxes they can access.
@@ -413,7 +410,140 @@ These tests do not establish live SMTP delivery or production routing approval.
 
 ### Typed native Worker composition
 
-`cl…2080 tokens truncated…cannot use duplicate values. Exact configured URLs are used without trusting
+`cloudflare/workers/src/business-tasks/workers-runtime.ts` exports
+`WorkersCommunicationWorker`, derived from `PostgresCommunicationWorker`. Supply
+the existing database/email/limit dependencies plus `images`, `pictureBucket`,
+`scanPicture` and `maxPicturePixels`. The root constructs the native private
+picture repository with the same `limits.maxPictureBytes` used by the service.
+Missing capabilities fail at construction. A competing `pictures` override is
+rejected; use the existing parent composition for another trusted codec.
+
+```ts
+const worker = new WorkersCommunicationWorker({
+  ...nativeDependencies,
+  images: env.IMAGES,
+  pictureBucket: env.PRIVATE_PICTURES,
+  scanPicture: approvedScanner,
+  maxPicturePixels: configuredPixelLimit,
+});
+```
+
+This example names capabilities; it does not create a scanner, bucket, grant,
+mailbox or endpoint mount. The parent owns current sessions, endpoint/screen
+checks, scoped services, all four channels and trusted inbound email. Declaration
+files expose the actual binary/picture inheritance and narrow capability ports.
+The browser acceptance host uses this derived root with local Images/R2 and real
+disposable PostgreSQL. Separate workerd checks use synthetic database ports and
+actual local image/storage bindings. Existing production release gates apply.
+The complete Worker inherits the shared compression layer's Node built-ins; its
+pinned July test runtime explicitly enables `nodejs_compat`. The standalone
+validator and inbound adapter checks remain separate without that flag.
+
+### Twilio shared-number extension foundation
+
+### Twilio SMS notifications and delivery tracking
+
+`createTwilioCommunicationServices` composes the inherited voice/token services,
+`SmsNotificationService`, official SDK SMS transport, signed callback adapter and
+durable PostgreSQL observation store. It requires explicit policy, consent/contact
+policy, provider principal, live directories, verified sender and secure settings.
+It does not mount routes or activate any grant, number or schema.
+
+The SDK factory exposes only `messages.create`, uses server-side API-key auth,
+a ten-second timeout and no automatic retries. The transport fixes both the
+selected sender and Messaging Service and supplies an exact status callback.
+It treats ambiguous provider errors as unknown acceptance, never proof of failure
+or permission to resend. Recipient country must be resolved by the trusted
+recipient policy: the +1 prefix alone cannot distinguish Canada from the US.
+
+The SMS service extends `ScopedServiceBase`, authorizes queued drafts and current
+records, checks ownership and tenant scope, and uses an atomic one-attempt claim.
+Consent/opt-out is checked at queue, claim and just before sending. Retries of a
+claimed notification do not invoke the provider again. A denied final check can
+leave a claimed record requiring operational reconciliation, without sending.
+
+The callback and voice adapters share `TwilioSignedFormAdapter`, which inherits
+the binary limit/cleanup base. Signature validation includes all form parameters
+and the exact configured public URL. Provider body fields cannot choose a tenant.
+`PostgresSmsObservationStore` persists observations before acknowledging, resolves
+them by unique stored account/message receipt, and quarantines early callbacks.
+An approved worker must invoke reconciliation after send receipts are committed
+and periodically; this code does not create a scheduler. The internal principal
+requires `sms.status.receive` under current policy. Durable callback writes do
+not hold a pool connection while acquiring another through the scoped service.
+
+Repeated and late observations cannot downgrade delivery. Contradictory terminal
+states become `reconciliation_required`; SMS has no read confirmation here. Error
+codes are persisted without copying provider descriptions into responses.
+
+`20261023_business_sms.sql` is an unapplied schema candidate with separate SMS
+aggregate/command/event and callback tables and a unique provider receipt index.
+`PostgresAtomicStore` uses a validated table family for shared run/read primitives;
+its default business tables and existing inbox behavior are preserved. Register
+the exact schema/actions/endpoints in pinned production governance before use.
+
+Checks: 127 local Node tests and 14 workerd assertions passed; strict TypeScript
+checks passed. Official SMS request serialization uses a simulated HTTP port;
+no SMS or phone call was placed. The disposable PostgreSQL integration script
+and CI service are prepared but have not run locally because no disposable
+PostgreSQL server is available. This is not persistence or live-provider proof.
+
+### Voice implementation
+
+`PostgresVoiceDirectory` implements both incoming extension lookup and token
+directory ports against current native users, tenants and sessions. Token lookup
+accepts only a trusted server-side session hash, not a user ID or raw bearer token.
+`VoiceExtensionService` derives from `ScopedServiceBase`; assignment and
+publication use distinct mandatory policy actions and target eligibility checks.
+`createPostgresTwilioCommunicationServices` composes these native directory ports
+with the SMS/voice services without mounting any endpoint.
+
+The candidate `20261023_voice_extensions.sql` uses a global 100000–999999 sequence,
+unique extension and tenant/user keys, and versioned explicit publication.
+Assignments start unpublished; there is no reassignment or delete operation.
+Publication is concurrency-checked. Native directory membership is locked and
+rechecked during writes. Proposal authorization runs before acquiring the write
+connection, with version comparison afterward, so pool-backed policy reads do
+not wait on a connection held by the directory itself. Concurrent assignments
+may return a version conflict and consume an unused sequence value; a retry reads
+the committed mapping rather than reassigning it.
+
+Nine additional local tests cover authorization/publication and session input.
+Disposable PostgreSQL coverage includes global uniqueness, version conflicts,
+unpublished defaults, inactive users and a single-slot pool whose policy reads
+use the same pool. It is prepared but not yet executed. Existing native policy
+deliberately rejects all new Twilio actions until exact governed registration.
+
+`TwilioVoiceTokenService` in the Worker business-task layer extends
+`ScopedServiceBase`. It is an internal service, not a mounted endpoint. A trusted
+session directory supplies current identity and expiry; a destination directory
+must return exactly one current published tenant/user extension. Session,
+destination and mandatory `voice.token` policy are rechecked before returning
+the official SDK JWT. Tokens last at most 300 seconds and no longer than the
+remaining session lifetime. The signing key and TwiML App SID are server
+configuration; requests cannot select tenant, identity, app or lifetime.
+No key, directory, policy grant or public route is provisioned by this service.
+Its unit tests use synthetic credentials; they do not establish live calling.
+
+The user-requested requirement `communication-twilio-voice-v1` was registered in
+pinned production governance before implementation, with zero numbers, extension
+assignments or grants. `TwilioVoiceExtensionAdapter` inherits the same binary
+base and uses the official pinned `twilio@6.2.0` signature validator and TwiML
+builder. It is an internal provider adapter; no Twilio webhook is mounted.
+
+Supply a verified owned number, Account SID/Auth Token, exact HTTPS incoming and
+gather URLs, a byte limit and a trusted `directory.lookup(extension, 2)` port.
+The port must return current published tenant/user voice destinations, never an
+unscoped first-match search. Extensions are globally unique six-digit values
+100000–999999 behind the shared number. Unknown, duplicate, unpublished, inactive
+or changed destinations produce the same generic unavailable response. Tenant and
+user identities come exclusively from current directory matches, are copied
+before suspension and are rechecked before rendering Dial. SDK client identity
+is derived from both IDs using `twilioVoiceIdentity`.
+
+All form fields participate in official signature validation, including future
+fields and repeated values. Critical account/number/direction/extension fields
+cannot use duplicate values. Exact configured URLs are used without trusting
 forwarded-host headers. Form decoding rejects invalid UTF-8/percent sequences.
 The inherited reader supports both known and absent Content-Length while bounding
 real bytes, chunk count, allocation and cleanup. Directory/read infrastructure
@@ -865,3 +995,30 @@ change is performed. Configuring credentials/model/guide, registered host routes
 and policies, actual business APIs and live provider acceptance are still required.
 Protocol sources: [Responses function calling](https://developers.openai.com/api/docs/guides/function-calling)
 and [Responses creation](https://developers.openai.com/api/reference/resources/responses/methods/create).
+
+
+### Current email authorization at dispatch
+
+The inherited `BusinessMailService.deliver` snapshots the authenticated actor
+before any storage await. After its atomic one-use claim and current message read,
+it checks the recipient/contact basis again and then current `mail.deliver`
+permission immediately before invoking the provider. Claim-time permission does
+not authorize a later send after revocation. This shared service also carries
+voicemail notifications through `BusinessMailVoicemailNotifier`; there is no
+separate notification path that bypasses these checks.
+
+If the post-claim checks deny, no provider call occurs and the existing durable
+record stays `sending`. The claim is deliberately not reset to `queued`; retries
+cannot resend it. This status requires reconciliation and does not prove that a
+provider accepted or delivered mail. Network/provider failures after submission
+retain the existing `unknown` behavior. There is no automatic channel fallback or
+retry of ambiguous sends. A permission change after the final check cannot undo
+an already submitted provider request.
+
+The domain regression suite runs the same revocation, actor snapshot and
+concurrent-claim checks with the memory fixture locally and with native PostgreSQL
+in CI. Provider acceptance is synthetic in both. See the official
+[Cloudflare structured email binding](https://developers.cloudflare.com/email-service/api/send-emails/workers-api/)
+for provider request/receipt and failure contracts; real inbox delivery remains a
+separate acceptance test. No new route, permission, schema or production binding
+is created by this change.

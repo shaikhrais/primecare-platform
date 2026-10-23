@@ -48,6 +48,7 @@ export class BusinessMailService extends ScopedServiceBase {
    });
  }
  async deliver(actor:Actor,id:string,key:string,expectedVersion:number) {
+  actor=Object.freeze({id:actor.id,tenantId:actor.tenantId});
   required(key,190); // Leave room for the atomic receipt command suffix before attempting a send.
   const token=crypto.randomUUID();
   const claimed=await this.store.run({actor,id,key,expectedVersion,type:'mail.claim',payload:{}},
@@ -56,6 +57,11 @@ export class BusinessMailService extends ScopedServiceBase {
   // A retry must never resend an ambiguous native transport request.
   if(claimed.claimToken!==token)return this.read(actor,id);
   const message=await this.read(actor,id);
+  // Claim/read cross storage and policy awaits. Resolve the current recipient
+  // basis again, then current delivery permission before the irreversible send.
+  // A denial leaves the durable claim in sending: never reopen it or retry.
+  await this.mailboxes.recipient(actor,message.to);
+  await this.authorizeMail(actor,'mail.deliver',message);
   let receipt:string|null=null;
   try {
    const result=await this.transport.send({from:message.from,to:message.to,subject:message.subject,text:message.text,html:'<p>'+escape(message.text)+'</p>'});
