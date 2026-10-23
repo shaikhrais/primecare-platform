@@ -850,3 +850,29 @@ This component adds no screen, route, grant, contact enrollment or AI activation
 It still needs the approved native app bridge and registered endpoint binding.
 Run `scripts/test-communication-voice-otp-app.mjs` for lifecycle races and
 `test-communication-voice-otp-browser.mjs` for real browser form acceptance.
+
+### Exact AI task approval in the authenticated app
+
+`VoiceTaskApprovalSession` inherits `CommunicationResourceBase`. Its captured
+`preview(intentId)` and `approve(intentId, digest)` transport ports bind to the
+existing `PostgresVoiceTaskConfirmationService` through the host's registered,
+authenticated, CSRF-protected app boundary. Preview fetches the server summary
+and immutable digest. Approval sends only the displayed proposal ID/digest after
+an explicit user gesture; it does not execute the task. The voice task service
+independently rechecks identity/permissions and consumes approval once.
+
+`mountVoiceTaskApprovalPanel` is an optional read-back form, with host-provided
+localized copy and text-only rendering. No route, screen, permission or AI tool
+is registered. Cancel/logout clears the preview and releases event listeners;
+scope changes and expiry prevent approval, including changes during rendering
+and transport. Concurrent submission is rejected. An uncertain result disables
+resubmission and requires status reconciliation; no automatic retry occurs.
+Host logout/call termination must close the resource immediately. The timer
+clears an expired displayed proposal but is not a server authorization decision.
+The host must close/unmount the panel after successful approval or navigation.
+
+Run `scripts/test-communication-voice-task-approval.mjs` for state/transport
+checks and `scripts/test-communication-voice-task-approval-browser.mjs` for the
+real browser explicit-click, text rendering, cancel and logout scenario. These
+ports are synthetic tests; production route/UI binding and real task execution
+remain separate acceptance requirements.

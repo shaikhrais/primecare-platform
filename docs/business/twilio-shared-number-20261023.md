@@ -355,3 +355,23 @@ and business write APIs remain synthetic in those tests; live OTP delivery,
 pairing/OTP app screens, AI transport, verified-contact onboarding, governed route
 activation and telephone/email acceptance remain outstanding. The existing IVR
 and actual user extension assignments are unchanged.
+
+### App exact-task approval client — continuation
+
+Added `VoiceTaskApprovalSession`, derived from the shared communication resource
+base, and an optional localized, text-only read-back form. It uses the existing
+app confirmation preview/approve contract. Preview cannot execute a task; explicit
+approval submits only the displayed proposal ID/digest. The captured native app
+session must still match before/after I/O and immediately after display updates.
+Expiry, cancellation, logout and uncertain outcomes clear or disable the proposal;
+concurrent approval and automatic retries are rejected. The server remains the
+identity/permission/one-use execution authority.
+
+Local validation passes 81 resource/device/ringing/OTP/task/confirmation checks,
+including client-to-existing-server confirmation composition. CI adds strict
+declaration validation and a real browser form scenario for explicit click,
+text-only summary rendering, cancellation and logout. Source-specific browser
+results must be checked before claiming acceptance. These tests use synthetic
+transport/provider ports. No new production route, screen, permission, task API,
+extension publication, AI engine activation or provider cutover is performed.
+The selected number and live deployment dependencies above remain unchanged.
