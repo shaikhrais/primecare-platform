@@ -9,6 +9,7 @@ on:
       - 'tools/governance-production/test-communication-contract-report.py'
       - 'tools/governance-production/communication_provider_inventory.py'
       - 'tools/governance-production/test-communication-provider-inventory.py'
+      - 'packages/database/migrations/20261023_communication_voicemails.sql'
       - 'packages/shared/src/communications/**'
       - 'cloudflare/workers/src/business-tasks/**'
       - 'scripts/test-business-communications.mjs'
@@ -96,7 +97,7 @@ jobs:
           node_modules/.bin/tsc --noEmit --strict --target ES2022 --module esnext --moduleResolution bundler packages/shared/src/communications/twilio-voice.d.mts
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/twilio-integration.ts
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler packages/shared/src/communications/twilio-sms.d.mts
-          node --test scripts/test-communication-twilio.mjs scripts/test-communication-twilio-token.mjs scripts/test-communication-twilio-sms.mjs scripts/test-communication-twilio-device.mjs scripts/test-communication-twilio-connect.mjs
+          node --test scripts/test-communication-twilio.mjs scripts/test-communication-twilio-token.mjs scripts/test-communication-twilio-sms.mjs scripts/test-communication-twilio-device.mjs scripts/test-communication-twilio-connect.mjs scripts/test-communication-twilio-ringing.mjs scripts/test-communication-twilio-voicemail.mjs
           node --test scripts/test-communication-sms-service.mjs scripts/test-business-communications.mjs
           node --test scripts/test-communication-voice-directory.mjs
           node scripts/test-communication-twilio-workerd.mjs
@@ -317,7 +318,7 @@ jobs:
           "$browser_path" --version
           echo "BUSINESS_TEST_CHROMIUM_EXECUTABLE=$browser_path" >> "$GITHUB_ENV"
       - name: Decode real raster data, bound email streams and verify audio packets
-        run: node --test scripts/test-business-media.mjs
+        run: node --test scripts/test-business-media.mjs scripts/test-communication-ringing-browser.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

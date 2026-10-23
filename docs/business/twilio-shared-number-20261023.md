@@ -203,3 +203,38 @@ New action `voice.call.connect` remains unregistered/default-denied until produc
 contract registration. No Twilio or Cloudflare credentials are available in the
 execution runtime. The existing IVR remains in place pending deployed handler and
 live acceptance; do not point it at these unmounted modules.
+
+### Ring, answer and voicemail behavior — 2026-10-23
+
+| Caller action/outcome | Destination and behavior |
+| --- | --- |
+| Dial shared number and enter published extension | Resolve its current tenant/user; ring that identity's registered Voice SDK devices |
+| User has app open and registered | Show Incoming call with Answer and Decline; answer rechecks current permission, then enables voice; connected controls provide Mute and End Call |
+| Other users in same tenant | Do not ring unless they independently use the same assigned identity; extensions are user-specific |
+| Busy, offline, declined/no answer, or failed call | With opt-in voicemail configured, offer a message after the Dial result; actual decline status is determined by Twilio |
+| Caller leaves message | Record caller only after disclosure/beep, up to 120 seconds; pound finishes; silent recording does not email |
+| Completed recording becomes available | Verify signed callback and canonical recording; queue email to the original target user's active verified mailbox |
+| Email recipient opens link | Require sign-in as original owner in original tenant; check permission before and after private audio retrieval |
+
+Reviewed official [Dial action/status](https://www.twilio.com/docs/voice/twiml/dial),
+[Record action versus status callback](https://www.twilio.com/docs/voice/twiml/record)
+and [Call answer/reject events](https://www.twilio.com/docs/voice/sdks/javascript/twiliocall).
+Record action may precede audio availability; email therefore waits for completed
+recording-status and canonical metadata verification. Email uses an authenticated
+app link rather than a public recording URL or raw audio attachment.
+
+Added inherited ringing controller and accessible optional DOM panel; integrated
+resource ownership/busy handling with the existing device lifecycle. Added native
+voicemail ledger candidate migration, scoped capture/notification/read service,
+signed callbacks, canonical Recording verifier, bounded authenticated WAV adapter,
+existing-mail-outbox notifier and separate server composition. SDK connect can
+opt into the same fallback. All endpoint activation and new permissions remain
+default-denied. The panel and playback route are not yet installed into a live
+registered screen; users cannot receive this flow in production yet.
+
+Local Node and native Worker checks cover these paths; CI also runs a real Chrome
+answer panel and disposable PostgreSQL concurrency/ownership tests. These use
+synthetic Twilio call/recording and email ports. Live ringing, browser microphone
+permissions, simultaneous registrations, first answer across devices, voicemail
+storage/playback and actual email delivery still need deployed acceptance. The
+existing IVR and +1 647 930 2223 settings remain unchanged.

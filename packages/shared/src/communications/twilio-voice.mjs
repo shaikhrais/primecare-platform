@@ -28,11 +28,12 @@ export async function twilioVoiceIdentity({tenantId,userId}){
  * Requires governed webhook/token mounting, extension publication and live acceptance.
  */
 export class TwilioVoiceExtensionAdapter extends TwilioSignedFormAdapter {
- constructor({accountSid,authToken,sharedNumber,numberVerified,incomingUrl,gatherUrl,directory,maxWebhookBytes}){
+ constructor({accountSid,authToken,sharedNumber,numberVerified,incomingUrl,gatherUrl,directory,maxWebhookBytes,voicemail,dialCompleteUrl}){
   super({accountSid,authToken,webhookUrls:[incomingUrl,gatherUrl],maxWebhookBytes});
   const incoming=publicUrl(incomingUrl),gather=publicUrl(gatherUrl);
   if(!sid('AC',accountSid)||typeof authToken!=='string'||!/^[a-fA-F0-9]{32}$/.test(authToken)||!e164(sharedNumber)||numberVerified!==true||new URL(incoming).origin!==new URL(gather).origin||incomingUrl===gatherUrl||typeof directory?.lookup!=='function'||requirement.rules.extensionDigits!==6)throw Error('Twilio voice configuration required');
-  Object.defineProperties(this,{configuration:{value:Object.freeze({accountSid,authToken,sharedNumber,incomingUrl,gatherUrl})},directory:{value:directory}});
+  if((voicemail===undefined)!==(dialCompleteUrl===undefined)||voicemail!==undefined&&(typeof voicemail?.prepare!=='function'||new URL(publicUrl(dialCompleteUrl)).origin!==new URL(incoming).origin||[incomingUrl,gatherUrl].includes(dialCompleteUrl)))throw Error('Voicemail routing configuration required');
+  Object.defineProperties(this,{voicemail:{value:voicemail},configuration:{value:Object.freeze({accountSid,authToken,sharedNumber,incomingUrl,gatherUrl,dialCompleteUrl})},directory:{value:directory}});
  }
  async respond(request){
   const config=this.configuration;
@@ -49,7 +50,8 @@ export class TwilioVoiceExtensionAdapter extends TwilioSignedFormAdapter {
    const identity=await twilioVoiceIdentity(first);
    const current=destination(await this.directory.lookup(params.Digits,2),params.Digits);
    if(!current||current.tenantId!==first.tenantId||current.userId!==first.userId)return unavailable();
-   const response=new VoiceResponse();response.dial({callerId:config.sharedNumber,answerOnBridge:true,timeout:20}).client().identity(identity);response.hangup();return xml(response);
+   if(this.voicemail)await this.voicemail.prepare({callSid:params.CallSid,destination:current});
+   const response=new VoiceResponse();response.dial({callerId:config.sharedNumber,answerOnBridge:true,timeout:20,...(this.voicemail?{action:config.dialCompleteUrl,method:'POST'}:{})}).client().identity(identity);response.hangup();return xml(response);
   }catch{return failure(503);}
  }
 }

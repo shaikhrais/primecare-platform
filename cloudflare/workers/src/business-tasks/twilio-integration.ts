@@ -1,3 +1,5 @@
+import {VoicemailService,PostgresVoicemailRepository,BusinessMailVoicemailNotifier,type VoicemailPorts} from './voicemail.ts';
+import {TwilioVoicemailAdapter,TwilioVoicemailAudioAdapter,createTwilioRecordingVerifier} from '../../../../packages/shared/src/communications/twilio-voicemail.mjs';
 import {TwilioExtensionConnectService} from './twilio-connect.ts';
 import {TwilioExtensionConnectAdapter,createTwilioVoiceCallVerifier} from '../../../../packages/shared/src/communications/twilio-connect.mjs';
 import {PostgresAtomicStore} from './store.ts';
@@ -43,11 +45,31 @@ export function createPostgresTwilioCommunicationServices(dependencies:Omit<Para
 }
 
 /** Separate opt-in composition for the registered TwiML App URL. Never mounted here. */
-export function createPostgresTwilioExtensionConnectHandler(dependencies:Pick<Parameters<typeof createTwilioCommunicationServices>[0],'pool'|'policy'|'configuration'|'httpClient'> & {outgoingUrl:string}){
+export function createPostgresTwilioExtensionConnectHandler(dependencies:Pick<Parameters<typeof createTwilioCommunicationServices>[0],'pool'|'policy'|'configuration'|'httpClient'> & {outgoingUrl:string;voicemail?:VoicemailService;dialCompleteUrl?:string}){
  const c=dependencies.configuration;
+ if((dependencies.voicemail===undefined)!==(dependencies.dialCompleteUrl===undefined))throw Error('Voicemail composition required');
  const urls=[c.incomingUrl,c.gatherUrl,c.statusCallback,dependencies.outgoingUrl].map(value=>new URL(value));
  if(new Set(urls.map(value=>value.href)).size!==4||new Set(urls.map(value=>value.origin)).size!==1)throw Error('Distinct same-origin provider handlers required');
  const verifier=createTwilioVoiceCallVerifier({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,httpClient:dependencies.httpClient});
- const service=new TwilioExtensionConnectService(new PostgresAtomicStore(dependencies.pool,'business_sms'),dependencies.policy,new PostgresVoiceDirectory(dependencies.pool),verifier,c.accountSid);
- return new TwilioExtensionConnectAdapter({accountSid:c.accountSid,authToken:c.authToken,webhookUrl:dependencies.outgoingUrl,maxWebhookBytes:c.maxWebhookBytes,sharedNumber:c.sharedNumber,service});
+ const service=new TwilioExtensionConnectService(new PostgresAtomicStore(dependencies.pool,'business_sms'),dependencies.policy,new PostgresVoiceDirectory(dependencies.pool),verifier,c.accountSid,dependencies.voicemail);
+ return new TwilioExtensionConnectAdapter({accountSid:c.accountSid,authToken:c.authToken,webhookUrl:dependencies.outgoingUrl,maxWebhookBytes:c.maxWebhookBytes,sharedNumber:c.sharedNumber,service,dialCompleteUrl:dependencies.dialCompleteUrl});
+}
+
+/** Candidate voicemail composition. All mailbox, mail, credential and route
+ * bindings are server-owned. Constructing it performs no grants or route mounts.
+ */
+export function createPostgresTwilioVoicemailServices(dependencies:Pick<Parameters<typeof createTwilioCommunicationServices>[0],'pool'|'policy'|'configuration'|'httpClient'|'providerPrincipal'> & {
+ mail:ConstructorParameters<typeof BusinessMailVoicemailNotifier>[0];mailboxes:VoicemailPorts['mailboxes'];fetch:typeof fetch;
+ dialCompleteUrl:string;recordActionUrl:string;recordingStatusUrl:string;playbackBaseUrl:string;maxAudioBytes:number;
+}){
+ const c=dependencies.configuration;
+ const callbacks={dialCompleteUrl:dependencies.dialCompleteUrl,recordActionUrl:dependencies.recordActionUrl,recordingStatusUrl:dependencies.recordingStatusUrl};
+ const urls=[c.incomingUrl,c.gatherUrl,c.statusCallback,...Object.values(callbacks)].map(value=>new URL(value));
+ if(new Set(urls.map(u=>u.href)).size!==6||new Set(urls.map(u=>u.origin)).size!==1)throw Error('Distinct same-origin provider handlers required');
+ const directory=new PostgresVoiceDirectory(dependencies.pool),repository=new PostgresVoicemailRepository(dependencies.pool);
+ const voicemail=new VoicemailService(new PostgresAtomicStore(dependencies.pool,'business_sms'),dependencies.policy,repository,{directory,recordings:createTwilioRecordingVerifier({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,httpClient:dependencies.httpClient}),mailboxes:dependencies.mailboxes,notifications:new BusinessMailVoicemailNotifier(dependencies.mail)},{accountSid:c.accountSid,providerPrincipal:dependencies.providerPrincipal,playbackBaseUrl:dependencies.playbackBaseUrl});
+ const voice=new TwilioVoiceExtensionAdapter({accountSid:c.accountSid,authToken:c.authToken,sharedNumber:c.sharedNumber,numberVerified:c.numberVerified,incomingUrl:c.incomingUrl,gatherUrl:c.gatherUrl,directory,maxWebhookBytes:c.maxWebhookBytes,voicemail,dialCompleteUrl:dependencies.dialCompleteUrl});
+ const callbacksAdapter=new TwilioVoicemailAdapter({accountSid:c.accountSid,authToken:c.authToken,maxWebhookBytes:c.maxWebhookBytes,...callbacks,service:voicemail});
+ const audio=new TwilioVoicemailAudioAdapter({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,maxAudioBytes:dependencies.maxAudioBytes,fetch:dependencies.fetch});
+ return Object.freeze({voice,voicemail,callbacks:callbacksAdapter,audio});
 }

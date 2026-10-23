@@ -593,3 +593,68 @@ still owns answering/rejecting and must dispose this resource on auth changes.
 Tests cover the official REST request serializer, synthetic Call resources and
 native Worker execution. They do not place a call or prove production billing,
 permissions, device availability, provider webhooks or live phone acceptance.
+
+### Extension ringing and voicemail (candidate, unmounted)
+
+One published extension maps to one current tenant/user identity. The receiving
+user must sign in, register the Voice SDK Device, enable audio/microphone access,
+and keep a supported app/browser session available. The SDK rings registered
+instances of that identity, not everyone in the tenant. This implementation does
+not forward to a personal telephone or register native mobile push notifications.
+If several devices use the same identity, Twilio may ring those registrations;
+first-answer and cancellation across devices need live acceptance.
+
+`TwilioRingingCall` extends `CommunicationResourceBase`. It owns ringing,
+answering, connected and ended state, explicit authorized Answer, Decline, Mute
+and End Call actions, caller cancellation, and logout cleanup. The optional DOM
+panel uses text nodes and accessible status/buttons. Example host integration:
+
+```js
+const device = new TwilioVoiceDevice({
+  createDevice: token => new Device(token),
+  fetchToken, currentScope,
+  onIncoming: call => mountTwilioCallPanel({
+    element: incomingCallPanel, call, currentScope, authorizeAnswer,
+  }),
+});
+```
+
+All ports above must be real authenticated application bindings. `authorizeAnswer`
+is required and must recheck current permission through the server before accept;
+never substitute a default `true`. Return the panel resource so device disposal
+also closes the ringing/answered call. Host logout and tenant switch must close
+the device immediately. Device busy checks reject competing managed calls. Browser
+sound restrictions and background suspension can prevent ringing; the browser
+panel is not evidence of native mobile incoming-call support.
+
+Opt-in voicemail first persists the exact call/extension/tenant/user mapping,
+then adds a Dial action callback. Busy, no-answer and failed outcomes offer a
+recorded message after a disclosure and beep. Answered/completed/canceled calls
+hang up without recording. Record uses a separate finish action and completed
+recording-status callback, 120-second maximum, five-second silence timeout and
+pound to finish. Conversation audio is not recorded. Empty recordings do not email.
+Both phone-number inbound routing and SDK extension calls support the opt-in Dial
+callback. Keep it off until all contracts, storage and endpoint bindings exist.
+
+`VoicemailService` inherits `ScopedServiceBase`; its PostgreSQL repository stores
+immutable owner routing and one unique recording per call. Only a signed completed
+callback and canonical Recording resource matching account, call, source, duration
+and status can queue notification. Current directory/policy checks precede capture
+and notification. Mailbox resolution must return the destination user's current
+active verified address. `BusinessMailVoicemailNotifier` queues the existing
+inherited mail outbox with a stable recording key; queue acceptance is not email
+delivery. Retries must preserve that key. No callback-supplied address, tenant,
+user or RecordingUrl is trusted.
+
+Email contains a sign-in link to the owner's voicemail, not public audio or a
+Twilio credential. Registered playback handlers must call `voicemail.audio` with
+the authenticated server actor and `TwilioVoicemailAudioAdapter`; owner/tenant and
+permission are checked before and after the bounded private audio download. The
+adapter constructs the provider URL from SIDs, disallows redirects, bounds WAV
+bytes and keeps credentials server-side. The app playback endpoint and UI are
+not mounted by these modules. `createPostgresTwilioVoicemailServices` composes the
+candidate native services; mailbox and mail adapters remain mandatory host ports.
+No extension assignments, grants, migration application or live email sends occur
+on construction. Run Node tests, Worker checks, real-browser panel checks and the
+disposable PostgreSQL suite before release; then perform live device/phone/email
+acceptance.

@@ -17,10 +17,15 @@ import {TwilioSmsStatusAdapter,TwilioSmsTransport,smsDeliveryProjection} from '.
 import {TwilioExtensionConnectAdapter,createTwilioVoiceCallVerifier} from './packages/shared/src/communications/twilio-connect.mjs';
 import {TwilioExtensionConnectService} from './cloudflare/workers/src/business-tasks/twilio-connect.ts';
 import {twilioVoiceIdentity} from './packages/shared/src/communications/twilio-voice.mjs';
+import {TwilioVoicemailAdapter,createTwilioRecordingVerifier} from './packages/shared/src/communications/twilio-voicemail.mjs';
 const config=${JSON.stringify(config)};
 export default {async fetch(request){
  let queries=0;const mode=request.headers.get('x-test-mode');
  const row={extension:'100001',tenantId:'tenant-a',userId:'user-a',published:true,active:true,tenantActive:true,userActive:true};
+ if(mode==='voicemail'){
+  const recordings=createTwilioRecordingVerifier({accountSid:config.accountSid,apiKeySid:'SK'+'d'.repeat(32),apiKeySecret:'e'.repeat(32),httpClient:{async request(){return {statusCode:200,headers:{},body:JSON.stringify({sid:'RE'+'d'.repeat(32),account_sid:config.accountSid,call_sid:'CA'+'c'.repeat(32),status:'completed',source:'RecordVerb',duration:'15'})};}}});
+  return new TwilioVoicemailAdapter({...config,dialCompleteUrl:config.incomingUrl,recordActionUrl:config.gatherUrl,recordingStatusUrl:'https://fixture.invalid/record-status',service:{async fallback(callSid,status){return status==='no-answer';},async completed(input){const row=await recordings.fetch(input.recordingSid);if(row.callSid!==input.callSid||row.duration!==input.duration)throw Error('mismatch');}}}).respond(request);
+ }
  if(mode==='connect'||mode==='connect-denied'){
   const from='client:'+await twilioVoiceIdentity(row);
   const verifier=createTwilioVoiceCallVerifier({accountSid:config.accountSid,apiKeySid:'SK'+'d'.repeat(32),apiKeySecret:'e'.repeat(32),httpClient:{async request(){return {statusCode:200,headers:{},body:JSON.stringify({sid:'CA'+'c'.repeat(32),account_sid:config.accountSid,from,direction:'inbound',status:'in-progress'})};}}});
@@ -67,6 +72,10 @@ try{
  const connectParams={From:'client:'+await twilioVoiceIdentity({tenantId:'tenant-a',userId:'user-a'}),CallerExtension:'100001',TargetExtension:'100002'};
  const connected=await send({stage:'incoming',mode:'connect',params:connectParams});assert.equal(connected.status,200);assert.match(await connected.text(),/<Identity>primecare_[a-f0-9]{64}<\/Identity>/);checks++;
  assert.equal((await send({stage:'incoming',mode:'connect-denied',params:connectParams})).status,503);checks++;
+ const vm=await send({stage:'incoming',mode:'voicemail',params:{DialCallStatus:'no-answer'}});assert.equal(vm.status,200);assert.match(await vm.text(),/<Record[^>]*maxLength="120"/);checks++;
+ const answered=await send({stage:'incoming',mode:'voicemail',params:{DialCallStatus:'completed'}});assert.doesNotMatch(await answered.text(),/<Record/);checks++;
+ const vmUrl='https://fixture.invalid/record-status',vmParams={AccountSid:config.accountSid,CallSid:'CA'+'c'.repeat(32),RecordingSid:'RE'+'d'.repeat(32),RecordingDuration:'15',RecordingStatus:'completed'};
+ const savedVm=await runtime.dispatchFetch(vmUrl,{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','x-test-mode':'voicemail','x-twilio-signature':getExpectedTwilioSignature(config.authToken,vmUrl,vmParams)},body:new URLSearchParams(vmParams).toString()});assert.equal(savedVm.status,204);checks++;
  await mkdir('test-results/communication-twilio',{recursive:true});
  await writeFile('test-results/communication-twilio/workerd.json',JSON.stringify({sourceCommit:process.env.GITHUB_SHA,checks,passed:true,engine:'workerd',sdk:'twilio@6.2.0',compatibilityFlags:['nodejs_compat'],officialSignatureValidation:true,officialTwimlBuilder:true,directory:'synthetic',liveProviderVerified:false,numbersPurchased:0,extensionsAssigned:0,callsPlaced:0,production:false},null,2));
  console.log('WORKERD_COMMUNICATION_TWILIO_PASS '+checks);

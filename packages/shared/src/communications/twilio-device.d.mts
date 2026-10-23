@@ -1,3 +1,4 @@
+import type {RingingCallPort} from './twilio-ringing.mjs';
 import {CommunicationResourceBase} from './adapter-base.mjs';
 export interface VoiceSdkDevicePort {
  on(event:string,listener:(...args:any[])=>void):unknown;
@@ -15,7 +16,7 @@ export type VoiceDeviceOptions={
  /** Host session generation changes on logout, tenant switch and session replacement. */
  currentScope:()=>string|null;
  /** Default rejects. Never automatically answer; host owns authorized call UI. */
- onIncoming?:(call:{reject():unknown})=>unknown;
+ onIncoming?:(call:RingingCallPort)=>void|CommunicationResourceBase|Promise<void|CommunicationResourceBase>;
  onState?:(state:'idle'|'registering'|'registered'|'closed')=>void;
  registrationTimeoutMs?:number;
 };

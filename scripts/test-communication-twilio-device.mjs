@@ -80,3 +80,8 @@ test('phone numbers, identical extensions and outgoing calls before registration
  await resource.start();for(const targetExtension of ['+15550001000','100001','sip:user@example.com'])await assert.rejects(resource.connect({callerExtension:'100001',targetExtension}));
  assert.equal(calls,0);resource.close();
 });
+test('managed ringing session rejects competing calls and is disposed with the device',async()=>{
+ const managed=new CommunicationResourceBase();let offered=0;const {resource,device}=setup({onIncoming(){offered++;return managed;}});device.connect=async()=>{};await resource.start();let rejected=0;
+ device.emit('incoming',{reject(){rejected++;}});await new Promise(r=>setImmediate(r));device.emit('incoming',{reject(){rejected++;}});assert.equal(offered,1);assert.equal(rejected,1);
+ await assert.rejects(resource.connect({callerExtension:'100001',targetExtension:'100002'}));resource.close();assert.equal(managed.closed,true);
+});

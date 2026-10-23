@@ -6,6 +6,7 @@ import {PostgresAtomicStore} from '../cloudflare/workers/src/business-tasks/stor
 import {SmsNotificationService} from '../cloudflare/workers/src/business-tasks/sms.ts';
 import {PostgresSmsObservationStore} from '../cloudflare/workers/src/business-tasks/sms-observations.ts';
 import {PostgresVoiceDirectory,VoiceExtensionService} from '../cloudflare/workers/src/business-tasks/voice-directory.ts';
+import {VoicemailService,PostgresVoicemailRepository} from '../cloudflare/workers/src/business-tasks/voicemail.ts';
 const connectionString=process.env.TWILIO_SMS_TEST_DATABASE_URL;
 if(!connectionString)throw Error('Disposable local TWILIO_SMS_TEST_DATABASE_URL required');
 const url=new URL(connectionString);
@@ -59,6 +60,23 @@ try{
  await pool.query("UPDATE users SET status='inactive' WHERE id='alice'");
  assert.equal(await directory.currentSession(hash),null);assert.equal((await directory.lookup(assigned.extension,2))[0].userActive,false);
  await assert.rejects(extensions.publish(actor,'alice',2,false));
+
+ await pool.query((await readFile('packages/database/migrations/20261023_communication_voicemails.sql','utf8')));
+ await pool.query("UPDATE users SET status='active' WHERE id='alice'");
+ await pool.query('CREATE TABLE fixture_voicemail_notifications(key text PRIMARY KEY,email text NOT NULL)');
+ const vmCall='CA'+'1'.repeat(32),vmRecording='RE'+'2'.repeat(32),vmRepo=new PostgresVoicemailRepository(pool);
+ const vm=new VoicemailService(new PostgresAtomicStore(pool,'business_sms'),{async assert(a,action,state){if(a.tenantId!==state.tenantId)throw Error('Denied');await pool.query('SELECT 1');},async assignee(){throw Error('No grants');}},vmRepo,{directory,recordings:{async fetch(){return {sid:vmRecording,accountSid:config.accountSid,callSid:vmCall,status:'completed',source:'RecordVerb',duration:20};}},mailboxes:{async recipient(owner){assert.deepEqual(owner,{id:'alice',tenantId:'tenant-a'});return {email:'alice@example.com',verified:true,active:true};}},notifications:{async enqueue(n){const result=await pool.query('INSERT INTO fixture_voicemail_notifications VALUES($1,$2) ON CONFLICT(key) DO UPDATE SET key=EXCLUDED.key WHERE fixture_voicemail_notifications.email=EXCLUDED.email RETURNING key',[n.key,n.to]);assert.equal(result.rows.length,1);}}},{accountSid:config.accountSid,providerPrincipal:'voice-provider',playbackBaseUrl:'https://fixture.invalid/voicemail/'});
+ const vmDestination=(await directory.lookup(assigned.extension,2))[0];
+ await vm.prepare({callSid:vmCall,destination:vmDestination});await vm.prepare({callSid:vmCall,destination:vmDestination});
+ await assert.rejects(vmRepo.reserve({...await vmRepo.read(config.accountSid,vmCall),userId:'bob'}));
+ assert.equal(await vm.fallback(vmCall,'no-answer'),true);assert.equal(await vm.fallback(vmCall,'completed'),false);
+ await Promise.all([vm.completed({callSid:vmCall,recordingSid:vmRecording,duration:20}),vm.completed({callSid:vmCall,recordingSid:vmRecording,duration:20})]);
+ assert.equal((await pool.query('SELECT count(*)::int AS n FROM fixture_voicemail_notifications')).rows[0].n,1);
+ assert.equal((await pool.query('SELECT notification_queued FROM communication_voicemails')).rows[0].notification_queued,true);
+ await assert.rejects(vm.read({id:'bob',tenantId:'tenant-a'},vmRecording));await assert.rejects(vm.read(foreign,vmRecording));
+ assert.equal((await vm.read(actor,vmRecording)).recordingSid,vmRecording);
+ await assert.rejects(vmRepo.recording(await vmRepo.read(config.accountSid,vmCall),'RE'+'3'.repeat(32),20));
+ console.log('VOICEMAIL_POSTGRES_PASS: immutable owner routing, concurrent duplicate callbacks, unique recordings, durable notification key, owner-only read and single-slot pool; email transport synthetic');
  console.log('VOICE_DIRECTORY_POSTGRES_PASS: unique unpublished assignments, versioned publication, current session/membership, tenant isolation and single-slot authorization');
  console.log('SMS_POSTGRES_PASS: durable early callbacks, single-slot pool, concurrent claims, unique receipts, scoped reads, duplicate/order handling, policy denial and reconciliation; synthetic provider only');
 }finally{

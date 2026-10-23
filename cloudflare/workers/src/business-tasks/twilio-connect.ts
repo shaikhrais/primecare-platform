@@ -7,11 +7,12 @@ const extension=(value:unknown):value is string=>typeof value==='string'&&/^[1-9
  * actor/tenant overrides. Internal and unmounted until voice.call.connect is registered.
  */
 export class TwilioExtensionConnectService extends ScopedServiceBase {
+ readonly voicemail?:{prepare(input:{callSid:string;destination:PublishedVoiceDestination}):Promise<void>};
  readonly directory:TwilioExtensionDirectory;readonly verifier:VoiceCallVerifier;readonly accountSid:string;
- constructor(store:AtomicStore,policy:AccessPolicy,directory:TwilioExtensionDirectory,verifier:VoiceCallVerifier,accountSid:string){
+ constructor(store:AtomicStore,policy:AccessPolicy,directory:TwilioExtensionDirectory,verifier:VoiceCallVerifier,accountSid:string,voicemail?:TwilioExtensionConnectService['voicemail']){
   super(store,policy);
   if(typeof directory?.lookup!=='function'||typeof verifier?.fetch!=='function'||!/^AC[a-fA-F0-9]{32}$/.test(accountSid))throw Error('Voice connect ports required');
-  this.directory=directory;this.verifier=verifier;this.accountSid=accountSid;
+  this.directory=directory;this.verifier=verifier;this.accountSid=accountSid;this.voicemail=voicemail;
  }
  async #destination(value:string){
   const rows=await this.directory.lookup(value,2),row=rows[0];
@@ -36,6 +37,7 @@ export class TwilioExtensionConnectService extends ScopedServiceBase {
    const currentCaller=await this.#destination(callerExtension),currentTarget=await this.#destination(targetExtension);
    if(currentCaller.tenantId!==caller.tenantId||currentCaller.userId!==caller.userId||currentTarget.tenantId!==target.tenantId||currentTarget.userId!==target.userId)throw Error('Voice unavailable');
    await authorize(currentTarget);
+   if(this.voicemail)await this.voicemail.prepare({callSid,destination:currentTarget});
    return Object.freeze({identity:await twilioVoiceIdentity(currentTarget)});
   }catch{throw Error('Voice unavailable');}
  }
