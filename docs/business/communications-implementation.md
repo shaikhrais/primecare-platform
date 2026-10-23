@@ -859,11 +859,49 @@ bound. All four channels, session/grant policies, validation and inbound mail
 remain inherited. Missing capabilities and conflicting repository overrides fail
 at construction. Typed declarations now expose binary/picture inheritance.
 
-Six composition checks cover shared services, missing configuration, immutable
-bounds, inherited authorization, email cleanup and generic native-session errors.
+Six composition checks cover shared services, missing configuration, host limit
+snapshots, inherited authorization, email cleanup and generic native-session errors.
 The actual workerd picture scenario now constructs through the derived root and
 adds inherited authentication/grant/email-boundary assertions. Its database ports
 are synthetic. Full Flutter browser acceptance now uses the same derived root
 with actual disposable PostgreSQL and local Images/R2. Existing adapter checks
-pass locally; source-specific CI is pending. No public mount, schema, grant,
+pass locally; source-specific CI is recorded below. No public mount, schema, grant,
 account, mailbox, activation or workflow verification status changes are made.
+
+### Verified native Worker composition — 2026-10-23
+
+Source `67cfbc0e6ee469f204ad82a1cb90e995a9d1836f` passed all nine jobs in
+[run 39946925151](https://github.com/shaikhrais/primecare-platform/actions/runs/39946925151):
+769 Flutter tests, 239 shared/native/schema checks, three direct media checks and
+one compiled-Dart browser case (243 Node/browser checks total). Six new composition
+cases verify inheritance, shared services, startup configuration, copied bounds,
+current authorization, bounded email and generic session failures. Strict service
+types and generated bindings passed. Local strict checking also passed without
+skipping declaration validation.
+
+Actual workerd passed 13 picture/composition assertions with local Images/R2,
+seven inbound assertions and eight standalone-validator assertions (28 total).
+The complete root uses the shared compression layer's real Node built-ins with
+`nodejs_compat` on the pinned July runtime; there are no Node module mocks. The
+isolated root's database and scanner ports are synthetic. The separate validator
+and inbound tests retain their no-Node-compat configuration.
+
+Both jobs in
+[run 39946925065](https://github.com/shaikhrais/primecare-platform/actions/runs/39946925065)
+passed. The full actual Flutter-to-PostgreSQL test explicitly records
+`WorkersCommunicationWorker` and passed all 15 milestones, including private
+picture readback, sent/received mail views, denied scope, session reload and
+revocation. Audio packets were [11, 11], and both peers closed. Both screenshots
+were visually reviewed. All eight artifact ZIP digests were independently checked.
+Exact jobs, hashes, inherited structure and release limits are in
+`evidence/communication-workers-composition-20261023.json`.
+
+Fresh production metadata still lacks matching current grants for all seven
+communication APIs. Production mounting, approved database/provider/binding and
+compatibility configuration, mailbox activation/routing, live scanner/storage,
+TURN/device and deployed acceptance remain open. No production provider delivery
+is claimed. The separate contract-plan job in run 39946925107 still fails on five
+stale source hashes; all five source files are unchanged from baseline eba29ae2a.
+No unreviewed provenance, permission, account, activation or workflow verification
+status was changed. Passing communication CI does not mean all repository CI or
+production acceptance has passed.

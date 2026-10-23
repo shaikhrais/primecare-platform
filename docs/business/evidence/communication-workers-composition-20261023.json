@@ -1,0 +1,284 @@
+{
+  "sourceCommit": "67cfbc0e6ee469f204ad82a1cb90e995a9d1836f",
+  "baselineCommit": "eba29ae2af5d819b402a9b52d99079585c6659b6",
+  "branch": "main",
+  "scope": "Typed Worker-specific communication composition with inherited authorization, all channels and native private picture capabilities",
+  "production": false,
+  "productionReady": false,
+  "liveProviderVerified": false,
+  "registrationChanged": false,
+  "permissionChanges": false,
+  "accountChanges": false,
+  "activationChanged": false,
+  "inheritance": {
+    "runtime": [
+      "WorkersCommunicationWorker",
+      "PostgresCommunicationWorker",
+      "CommunicationHttpWorker",
+      "BaseWorker"
+    ],
+    "pictures": [
+      "WorkersPrivatePictureRepository",
+      "PrivatePictureRepositoryBase",
+      "BoundedBinaryAdapterBase"
+    ],
+    "serverServices": "Existing shared scoped services and four channel classes remain inherited",
+    "roleSpecificCopies": false
+  },
+  "guarantees": [
+    "Explicit Images, private bucket, scanner and pixel-limit capabilities",
+    "Native picture repository constructed with the service's configured byte bound",
+    "No competing pictures override or automatic scanner/storage fallback",
+    "Current session, endpoint/screen grants and native scope policies remain inherited",
+    "Input configuration mutation cannot diverge copied service and codec bounds",
+    "Trusted inbound email uses the same inherited bounded adapter",
+    "No production mounting, account/provider creation, role grants or live messages"
+  ],
+  "local": {
+    "adapterChecks": 44,
+    "runtimeChecks": 14,
+    "newCompositionChecks": 6,
+    "strictServiceTypeScript": "passed",
+    "declarationTypeScriptWithoutSkipLibCheck": "passed",
+    "generatedSchemaAndUiChecks": "passed",
+    "workerdAssertions": 28,
+    "workerdPictureAndCompositionAssertions": 13,
+    "workerdInboundAssertions": 7,
+    "workerdValidatorAssertions": 8,
+    "production": false
+  },
+  "regressionCi": {
+    "runId": 39946925151,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39946925151",
+    "jobs": [
+      {
+        "id": 120391735028,
+        "name": "inventory",
+        "conclusion": "success"
+      },
+      {
+        "id": 120391735240,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      },
+      {
+        "id": 120391735256,
+        "name": "flutter-browser-media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120391735263,
+        "name": "worker-validator",
+        "conclusion": "success"
+      },
+      {
+        "id": 120391735293,
+        "name": "flutter-workspace",
+        "conclusion": "success"
+      },
+      {
+        "id": 120391735313,
+        "name": "dart-core",
+        "conclusion": "success"
+      },
+      {
+        "id": 120391735359,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120391735382,
+        "name": "isolated",
+        "conclusion": "success"
+      },
+      {
+        "id": 120391735560,
+        "name": "worker-pictures",
+        "conclusion": "success"
+      }
+    ],
+    "flutterPassed": 769,
+    "nativeAndSchemaChecks": 239,
+    "nodeBrowserPassed": 243,
+    "directMediaChecks": 3,
+    "compiledDartBrowserChecks": 1,
+    "workerdPictureAndCompositionAssertions": 13,
+    "workerdInboundAssertions": 7,
+    "workerdValidatorAssertions": 8,
+    "workerNodeCasesRepeatExistingCases": true,
+    "compiledDartAudioPackets": [
+      5,
+      5
+    ],
+    "directMediaAudioPackets": [
+      6,
+      5
+    ],
+    "artifacts": [
+      {
+        "id": 12499115377,
+        "name": "business-communications-registry",
+        "sha256": "3bae7cb82618aa36745cb21442e855e92bec3cced070e75187d7a995ff964182",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12498552186,
+        "name": "communication-worker-validator",
+        "sha256": "e3a51f38330e6e0a9321219f7a1592c7ff66f5c9daf1b68179e4f1a48a514e9f",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12498133768,
+        "name": "communication-worker-inbound",
+        "sha256": "5f73837d8fbb94f5f98403c36d686d11870f0228f99ca78b130e31254ee7ab12",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12498099071,
+        "name": "business-communications-media",
+        "sha256": "50779423140787b6582d390218e17ce5317f9269396821646c20215332eaa1cf",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12498004461,
+        "name": "communication-worker-pictures",
+        "sha256": "226cbe537b8810de750a1a1132914114a3a5ab101b7a5ce57b4f978813dce184",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12497954389,
+        "name": "communication-flutter-browser",
+        "sha256": "7c20c59ddb9901ab8bb51999b202dbd2b52976a0000619db9212e306e9157d7f",
+        "digestIndependentlyVerified": true
+      }
+    ]
+  },
+  "fullStackCi": {
+    "runId": 39946925065,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39946925065",
+    "jobs": [
+      {
+        "id": 120391734525,
+        "name": "browser-postgres",
+        "conclusion": "success"
+      },
+      {
+        "id": 120391734704,
+        "name": "current-contracts",
+        "conclusion": "success"
+      }
+    ],
+    "passed": true,
+    "runtimeComposition": "WorkersCommunicationWorker",
+    "milestones": {
+      "realCredentialLogin": true,
+      "uiMessageDatabaseReadback": true,
+      "sessionAndMessageReload": true,
+      "recipientRead": true,
+      "uiPicturePersisted": true,
+      "uiPrivatePictureRead": true,
+      "nativeSignalingAudioPackets": [
+        11,
+        11
+      ],
+      "callClosed": [
+        true,
+        true
+      ],
+      "uiMailQueueAndProviderAcceptance": true,
+      "uiReceivedMailPreview": true,
+      "crossTenantDenied": true,
+      "forgedTenantDenied": true,
+      "currentGrantRevocation": true,
+      "sessionRevocationReload": true,
+      "databaseEventsReadback": true
+    },
+    "authenticationFixture": false,
+    "communicationTransportFixture": false,
+    "injectedValidator": false,
+    "localBindings": [
+      "Images",
+      "R2"
+    ],
+    "screenshotsVisuallyReviewed": [
+      "alice-authenticated.png",
+      "bob-received-mail.png"
+    ],
+    "artifacts": [
+      {
+        "id": 12498891335,
+        "name": "communication-stack-browser-postgres",
+        "sha256": "b6338ca1de512ffe697e418d0ca874db51e6f7f510cce3f62e587f58648fe04d",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12498776777,
+        "name": "communication-stack-contracts",
+        "sha256": "bd3d9f3baf790dfea8a5971f48062dde4737d64f3bc05c83f7a324624addfb27",
+        "digestIndependentlyVerified": true
+      }
+    ]
+  },
+  "workerdRuntime": {
+    "engine": "workerd",
+    "compatibilityDate": "2026-07-30",
+    "completeWorkerFlags": [
+      "nodejs_compat"
+    ],
+    "reason": "Inherited shared compression module imports native node:zlib and node:stream",
+    "nodeBuiltinMocks": false,
+    "databasePorts": "synthetic",
+    "imagesAndR2": "actual local bindings",
+    "standaloneValidatorAndInboundRequireNodeFlag": false
+  },
+  "productionReadback": {
+    "writesAttempted": false,
+    "communicationApisWithMissingMatchingCurrentGrants": [
+      710,
+      857,
+      16508,
+      16509,
+      16510,
+      16511,
+      16512
+    ],
+    "grantChanges": false
+  },
+  "syntheticPorts": [
+    "Picture scanner",
+    "Mail provider acceptance",
+    "Microphone input",
+    "Database ports in isolated workerd composition fixture"
+  ],
+  "audioNetwork": "loopback",
+  "unrelatedCiFailure": {
+    "runId": 39946925107,
+    "jobId": 120391734605,
+    "reason": "Existing contract-plan source provenance mismatch",
+    "sourcePathsUnchangedFromBaseline": true,
+    "paths": [
+      "cloudflare/workers/src/auth.ts",
+      "cloudflare/workers/src/gateway.ts",
+      "packages/flutter_core/lib/src/network/api_client.dart",
+      "scripts/register-method-capture-blockers.py",
+      "scripts/audit-api-reachability.mjs"
+    ],
+    "response": "Provenance preserved without unreviewed hash refresh"
+  },
+  "releaseBlockers": [
+    "Production route mount and approved native database/provider configuration",
+    "Matching approved role API and screen grants",
+    "Governed owned-mailbox activation, routing and live send/receive acceptance",
+    "Remote Images, private storage and real scanner acceptance",
+    "Supported compatibility flags/configuration on the actual mounted Worker",
+    "TURN, physical-device/restrictive-network and deployed release acceptance",
+    "Governed recipient discovery"
+  ],
+  "research": [
+    "https://developers.cloudflare.com/workers/runtime-apis/bindings/",
+    "https://developers.cloudflare.com/images/optimization/binding/",
+    "https://developers.cloudflare.com/r2/api/workers/workers-api-reference/",
+    "https://developers.cloudflare.com/workers/runtime-apis/nodejs/zlib/",
+    "https://developers.cloudflare.com/workers/configuration/compatibility-flags/"
+  ]
+}
