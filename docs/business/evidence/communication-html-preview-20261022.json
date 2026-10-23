@@ -1,0 +1,224 @@
+{
+  "sourceCommit": "2d5a879ed6f644ef8ad7b671a3a11f4dba9e6ccb",
+  "scope": "Bounded HTML-only received-email text extraction composed into shared inherited mail preview; no HTML rendering",
+  "registration": {
+    "definitionSha256": "40fe2f24456a0f5b7ebfe28df6b6b900acdfeb2fee9e95a20a4d74878b7b3354",
+    "screens": 4,
+    "controlsPerScreen": 43,
+    "resources": 73,
+    "locales": [
+      "en",
+      "es",
+      "fr"
+    ],
+    "permissionGrants": 0,
+    "activation": false,
+    "reviewApproved": false,
+    "independentReadback": true,
+    "sourceCommit": "edd1c38492208da35215f6eb63fbfc26987cb658",
+    "runId": 39879659458,
+    "authority": "pinned-production-postgresql",
+    "isolatedTestsPassed": 8
+  },
+  "parser": {
+    "mimePackage": "postal-mime",
+    "mimeVersion": "4.1.2",
+    "htmlPackage": "htmlparser2",
+    "htmlVersion": "12.0.0",
+    "htmlIntegrity": "sha512-Tz7u1i95/g2x2jz81+x0FBVhBhY5aRTvD3tXXdFaljuNdzDLJ8UGNRrTcj2cgQvAg3iW/h77Fz15nLW0L0CrZw==",
+    "htmlClass": "HtmlMailTextExtractor",
+    "baseClass": "BoundedBinaryAdapterBase",
+    "limits": {
+      "definitionSha256": "40fe2f24456a0f5b7ebfe28df6b6b900acdfeb2fee9e95a20a4d74878b7b3354",
+      "maxRawBytes": 65536,
+      "maxTextBytes": 65536,
+      "maxSubjectLength": 200,
+      "maxHeadersSize": 16384,
+      "maxNestingDepth": 12,
+      "maxPartCount": 64,
+      "maxHtmlBytes": 65536,
+      "maxHtmlDepth": 48,
+      "maxHtmlEvents": 8192
+    },
+    "rfc822Attachments": true,
+    "maxRfc822NestingDepth": 0,
+    "maxForwardedAddresses": 0
+  },
+  "guarantees": [
+    "authorize current mailbox before parsing",
+    "recheck current mailbox after parsing",
+    "preserve envelope sender/tenant/mailbox scope",
+    "retain quarantine and senderIdentityVerified=false",
+    "no rawBase64, separate digest, HTML, attachments or header objects in inbound user responses",
+    "validate and snapshot all preview-port results",
+    "no partial preview on parse/size failure",
+    "client validates preview type, UTF-8 bound and optional subject",
+    "render Text only under localized unverified/quarantine warning",
+    "do not rewrite stored raw MIME, version or audit state on read",
+    "plain-text precedence, including fail-closed invalid plain bodies",
+    "no browser document, fetches, CSS or script evaluation",
+    "unknown/active/embedded and explicit hidden/aria-hidden subtrees omitted",
+    "comments and attribute values excluded",
+    "HTML input, depth, callback events and UTF-8 output bounded"
+  ],
+  "regressionProof": {
+    "previousSource": "f5c755a7f90b898cd34b0588da0a8acc45d4ac64",
+    "previousSourceFailed": 2,
+    "fixedSourcePassed": 2,
+    "cases": [
+      "HTML-only service projection preserves envelope and quarantined raw bytes/version",
+      "registered HTTP received inbox/read returns extracted text"
+    ]
+  },
+  "local": {
+    "nodePassed": 174,
+    "nodeSkipped": 2,
+    "nodeFailed": 0,
+    "skipReason": "Native PostgreSQL checks require disposable CI database",
+    "strictTypeScript": "passed",
+    "routeBindings": "passed",
+    "uiAndServerLimitBindings": "passed",
+    "browserCompatibleBundle": "passed"
+  },
+  "ci": {
+    "runId": 39880247639,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39880247639",
+    "status": "success",
+    "jobs": [
+      {
+        "id": 120175635656,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      },
+      {
+        "id": 120175635801,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120175635812,
+        "name": "dart-core",
+        "conclusion": "success"
+      },
+      {
+        "id": 120175635832,
+        "name": "flutter-browser-media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120175635863,
+        "name": "isolated",
+        "conclusion": "success"
+      },
+      {
+        "id": 120175635900,
+        "name": "inventory",
+        "conclusion": "success"
+      },
+      {
+        "id": 120175635926,
+        "name": "flutter-workspace",
+        "conclusion": "success"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 12470336422,
+        "name": "communication-flutter-browser",
+        "sha256": "28a80add5c62157cce938e07277cb297553f48775e413c8807a5b2774a03bb44"
+      },
+      {
+        "id": 12470336235,
+        "name": "business-communications-media",
+        "sha256": "66a4a34629fd705aa663362e08c5136ef1e6e5faf39afc2f34411d85c2b66027"
+      },
+      {
+        "id": 12469929000,
+        "name": "business-communications-registry",
+        "sha256": "5b99180fc04ddda546ca4c0227d0c1e5cb14c5eb8e681be08ef728c0bf96deaa"
+      }
+    ],
+    "nodeServiceAndParserTestsPassed": 187,
+    "nodeMediaTestsPassed": 3,
+    "compiledDartBrowserTestsPassed": 1,
+    "nodeBrowserTotalPassed": 191,
+    "flutterCoreTransportTestsPassed": 594,
+    "flutterWorkspaceThemeAuthTestsPassed": 109,
+    "flutterTotalPassed": 703,
+    "metadataReportTestsPassed": 10,
+    "strictTypeScript": "passed",
+    "dartAnalysisAndCoreHarness": "passed",
+    "bindings": "passed"
+  },
+  "browserArtifact": {
+    "artifactId": 12470336422,
+    "archiveDigestIndependentlyChecked": true,
+    "syntheticTransport": true,
+    "productUi": false,
+    "browser": "155.0.8059.39",
+    "packets": [
+      3,
+      3
+    ],
+    "muted": true,
+    "unmuted": true,
+    "tracksStopped": true,
+    "peersClosed": true,
+    "audioElementsRemoved": true
+  },
+  "onlyRemoteBranch": "main",
+  "permissionsChanged": false,
+  "activationChanged": false,
+  "accountsChanged": false,
+  "catalogVerificationChanged": false,
+  "productionReady": false,
+  "liveBusinessEmailSendReceiveVerified": false,
+  "deployedBrowserToDatabaseVerified": false,
+  "limitations": [
+    "approximate text extraction; CSS visibility/layout not evaluated, so styled hidden text may appear as unverified text",
+    "unknown elements and embedded subtrees omitted; attachment-only or over-budget bodies have no preview",
+    "no attachment download or rendering",
+    "no sender authentication or quarantine release"
+  ],
+  "remaining": [
+    "governed contact/mailbox discovery",
+    "provider-verified live business mailbox provisioning and send/receive acceptance",
+    "real private scanner/decoder/storage composition",
+    "fresh TURN configuration and restrictive-network/device acceptance",
+    "native audio adapters if required",
+    "current endpoint/screen grants and worker/gateway mounting",
+    "deployment and login-to-UI-to-API-to-database acceptance with release review"
+  ],
+  "registrationNotes": [
+    {
+      "runId": 39879578610,
+      "sourceCommit": "f5a4769cc6288c7b08263edb66103fd1fcf619d1",
+      "result": "isolated scope-pin mismatch; production skipped"
+    },
+    {
+      "runId": 39879659458,
+      "result": "first production dry-run lock timeout; failed job retry passed dry-run/apply/independent readback"
+    }
+  ],
+  "mediaArtifact": {
+    "artifactId": 12470336235,
+    "archiveDigestIndependentlyChecked": true,
+    "packets": [
+      5,
+      5
+    ],
+    "muted": true,
+    "unmuted": true,
+    "stopped": true,
+    "synthetic": true,
+    "productUi": false
+  },
+  "registryArtifact": {
+    "artifactId": 12469929000,
+    "archiveDigestIndependentlyChecked": true,
+    "authority": "pinned-production-postgresql",
+    "writesAttempted": false,
+    "registrationIsNotVerification": true,
+    "liveCommunicationVerified": false
+  }
+}
