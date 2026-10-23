@@ -1,5 +1,5 @@
 """Register only the user-requested Twilio requirement; never provision telephony."""
-import hashlib,json,os,sys
+import hashlib,json,os,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools/workflow-verification'))
@@ -22,12 +22,23 @@ def register(store):
   values={'id':doc['id'],'definition':json.dumps(doc,sort_keys=True),'requirement':doc['requirement']}
   store.db.execute('INSERT INTO '+table+' (_primecare_import_row,id,definition,requirement) VALUES (%s,%s,%s,%s)',[ordinal,*[store._value('platform_hierarchy_policy',k,v) for k,v in values.items()]])
  return dict(policyId=doc['id'],registered=True,permissionGrants=0,extensionsAssigned=0,numbersPurchased=0,providerWrites=False,activation=False)
-def main():
- if sys.argv[1:] not in [['--dry-run'],['--apply']]:raise SystemExit('Explicit mode required')
+def retry_transaction(action):
+ for attempt in range(3):
+  try:return action()
+  except Exception as error:
+   # Retry only transaction-level concurrency failures, with a fresh connection.
+   # Scope, provenance, authentication and validation errors are never retried.
+   if getattr(error,'sqlstate',None) not in ['55P03','40001','40P01'] or attempt==2:raise
+   time.sleep(2*(attempt+1))
+def transaction(mode):
  with ProductionWorkflowStore() as store:
   result=register(store)
   if result!=register(store):raise GovernanceReadError('Non-idempotent Twilio requirement registration')
-  if sys.argv[1]=='--dry-run':store.db.rollback()
+  if mode=='--dry-run':store.db.rollback()
+ return result
+def main():
+ if sys.argv[1:] not in [['--dry-run'],['--apply']]:raise SystemExit('Explicit mode required')
+ result=retry_transaction(lambda:transaction(sys.argv[1]))
  if sys.argv[1]=='--apply':
   from production_reader import connect
   with connect() as reader:
