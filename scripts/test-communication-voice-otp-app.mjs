@@ -7,3 +7,12 @@ test('reject malformed codes and missing native app scope without invoking trans
 test('concurrent pairing sends once and uncertain send cannot be retried',async()=>{const f=fixture();let release;f.transport.start=()=>new Promise(r=>release=r);const pending=f.session.start('12345678');await assert.rejects(f.session.start('12345678'));release({verificationRequested:true});await pending;const g=fixture();g.transport.start=async()=>{throw Error('private provider details');};await assert.rejects(g.session.start('12345678'),/contact reception/);assert.equal(g.session.state,'unavailable');await assert.rejects(g.session.start('12345678'));});
 test('logout or scope change discards a delayed success',async()=>{for(const action of ['close','scope']){const f=fixture();await f.session.start('12345678');let release;f.transport.check=()=>new Promise(r=>release=r);const pending=f.session.check('123456');if(action==='close')f.session.close();else f.scope('different-session');release({verified:true});await assert.rejects(pending);assert.equal(f.session.state,'closed');assert.equal(f.session.closed,true);}});
 test('concurrent checks single flight and malformed response never verifies',async()=>{const f=fixture();await f.session.start('12345678');let release;f.transport.check=()=>new Promise(r=>release=r);const pending=f.session.check('123456');await assert.rejects(f.session.check('123456'));release({verified:'true'});await assert.rejects(pending);assert.equal(f.session.state,'unavailable');});
+test('render-time logout or scope change prevents OTP transport',async()=>{
+ for(const stage of ['sending','checking'])for(const change of ['close','scope']){
+  let scope='a',starts=0,checks=0,session;
+  session=new VoiceOtpAppSession({callSid,currentScope:()=>scope,transport:{start:async()=>{starts++;return {verificationRequested:true};},check:async()=>{checks++;return {verified:true};}},onChange:({state})=>{if(state===stage){if(change==='close')session.close();else scope='b';}}});
+  if(stage==='checking')await session.start('12345678');
+  await assert.rejects(stage==='sending'?session.start('12345678'):session.check('123456'));
+  assert.equal(starts,stage==='sending'?0:1);assert.equal(checks,0);assert.equal(session.closed,true);
+ }
+});

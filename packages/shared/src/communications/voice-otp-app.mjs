@@ -14,14 +14,14 @@ export class VoiceOtpAppSession extends CommunicationResourceBase {
  #set(state){this.state=state;this.onChange({state});}
  async start(pairingCode){
   this.#current();if(this.#busy||this.state!=='pairing')throw Error('Pairing unavailable');if(!digits(pairingCode,8))throw Error('Enter the eight digit pairing code');
-  this.#busy=true;this.#set('sending');
-  try{const result=await this.transport.start({callSid:this.callSid,pairingCode});this.#current();if(result?.verificationRequested!==true)throw Error('Invalid receipt');this.#set('code');}
+  this.#busy=true;
+  try{this.#set('sending');this.#current();const result=await this.transport.start({callSid:this.callSid,pairingCode});this.#current();if(result?.verificationRequested!==true)throw Error('Invalid receipt');this.#set('code');}
   catch{if(!this.closed)this.#set('unavailable');throw Error('Verification unavailable; contact reception');}finally{this.#busy=false;}
  }
  async check(code){
   this.#current();if(this.#busy||this.state!=='code')throw Error('Verification unavailable');if(!digits(code,6))throw Error('Enter the six digit SMS code');
-  this.#busy=true;this.#set('checking');
-  try{const result=await this.transport.check({callSid:this.callSid,code});this.#current();if(typeof result?.verified!=='boolean')throw Error('Invalid receipt');this.#set(result.verified?'verified':'code');return result.verified;}
+  this.#busy=true;
+  try{this.#set('checking');this.#current();const result=await this.transport.check({callSid:this.callSid,code});this.#current();if(typeof result?.verified!=='boolean')throw Error('Invalid receipt');this.#set(result.verified?'verified':'code');return result.verified;}
   catch{if(!this.closed)this.#set('unavailable');throw Error('Verification unavailable; contact reception');}finally{this.#busy=false;}
  }
  afterClose(){this.#set('closed');}
