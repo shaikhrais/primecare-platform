@@ -282,3 +282,30 @@ ports and tests are synthetic: production OTP-to-call binding, durable one-use
 confirmation capture, provider authentication, task catalogue registration and
 business API bindings remain required. No automatic business mutations, new
 roles/grants, OTP sends, AI agent creation or live provider cutover occurred.
+
+### Selected initial AI scope and durable approval — 2026-10-23
+
+The user chose **Callbacks and appointments** through the task-scope selector.
+Added concrete inherited definitions for receptionist callback requests, booking
+requests and reschedule requests. Inputs reject actor/tenant/contact/URL overrides
+and require current slot/appointment versions with explicit future UTC instants.
+Server summaries distinguish a request from a confirmed appointment. The existing
+client-self appointment endpoints are read interfaces; care schedule mutations
+are operations-restricted. Real client request-writing bindings therefore remain
+an explicit registration/implementation dependency, not an assumed existing API.
+
+Added native PostgreSQL app confirmation storage and a scoped preview/approve/
+one-use consume service. Exact actor/tenant/call/session/proposal/digest context,
+current verified identity and permission must match. Proof expires within one
+minute; repeated approval does not extend it. Consumed or stale proof cannot
+execute again. An authenticated app read-back/confirm endpoint is separate from
+the AI tool endpoint; the model cannot invoke approval or submit a raw OTP.
+The production identity broker still must perform real OTP/passkey verification
+and invalidate call bindings on native logout/session revocation.
+
+Local tests now include 102 Twilio/task/confirmation tests and 23 native Worker
+checks. CI adds disposable PostgreSQL proof-expiry/concurrency/revocation checks
+and passes the three selected request definitions through the durable gate using
+synthetic request APIs. No live AI assistant, OTP challenge, native permission,
+production migration, callback request, appointment change or IVR cutover is
+activated by these modules. Existing live deployment blockers remain explicit.

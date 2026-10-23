@@ -705,3 +705,47 @@ handler nor real business task registrations are installed by this code. An empt
 task catalogue enables nothing. All new task permissions remain default-denied.
 A host must authenticate the provider transport independently, and resolve these
 trust ports from server state rather than tool arguments before mounting.
+
+### Durable app approval and first reception tasks (candidate)
+
+The user selected callbacks and appointments as the first agent scope.
+`createReceptionAppointmentTasks` returns three `VoiceTaskBase` subclasses:
+`reception.callback.request`, `appointment.booking.request` and
+`appointment.reschedule.request`. They accept only typed reason/window or
+service/appointment/slot references, future exact UTC instants and expected
+versions. Model-supplied tenant/user/contact/URL/confirmation fields are rejected.
+The server summary says request and subject to availability; success is not a
+claim that an appointment is booked. A host must bind approved request services
+that independently check account contact, ownership, slot/time correspondence,
+current availability, version and idempotency atomically. No arbitrary HTTP
+adapter or operations-role impersonation is provided. Current client appointment
+APIs were inspected and are read interfaces; care scheduling mutations are
+operations-restricted. This code does not bypass those boundaries.
+
+`PostgresVoiceTaskConfirmationService` extends `ScopedServiceBase` and implements
+`VoiceTaskTrust` with a mandatory server OTP/passkey identity broker. `preview`
+returns the exact proposed summary/digest/expiry to the authenticated native app.
+`approve` requires that native owner, tenant, current call/session binding,
+`voice.task.confirm` permission and displayed digest. Approval lasts at most one
+minute and is consumed atomically once. Repeated approval preserves the original
+expiry. Expired/consumed proof requires a fresh proposal; it cannot be silently
+renewed. Consumption repeats current identity/policy checks and matches all
+call/session/user/tenant/proposal/digest fields against the proposal table. The
+existing task gate rechecks permission and claims one execution afterwards.
+
+Only a registered authenticated native app endpoint may expose preview/approve;
+its host must enforce native session authentication and CSRF. Never expose
+approve as a Vapi/Relay tool or derive the actor from agent JSON. Use an opaque
+server binding ID or token hash, never a raw bearer token, as sessionId. Native
+logout/revocation must invalidate the call identity broker binding. A transcript,
+caller ID or voice-match result never establishes that binding. No OTP code is
+accepted, stored or returned by the confirmation service.
+
+`createPostgresConfirmedVoiceTaskServices` composes the durable proof gate;
+`createPostgresReceptionAppointmentVoiceServices` adds the selected typed task
+catalogue with required business request ports. Candidate schema and all new
+permissions remain unregistered/default-denied. Production OTP issuance/binding,
+request-writing APIs, app routes/screens, provider authentication and live AI
+runtime remain required. Deterministic local tests and disposable PostgreSQL
+checks distinguish synthetic identity/request ports from real call/booking
+acceptance; no appointments or callback requests are created in production.

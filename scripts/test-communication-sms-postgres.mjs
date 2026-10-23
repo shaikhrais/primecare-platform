@@ -8,6 +8,8 @@ import {PostgresSmsObservationStore} from '../cloudflare/workers/src/business-ta
 import {PostgresVoiceDirectory,VoiceExtensionService} from '../cloudflare/workers/src/business-tasks/voice-directory.ts';
 import {VoicemailService,PostgresVoicemailRepository} from '../cloudflare/workers/src/business-tasks/voicemail.ts';
 import {VoiceTaskService,PostgresVoiceTaskRepository,BoundVoiceApiTask} from '../cloudflare/workers/src/business-tasks/voice-tasks.ts';
+import {PostgresVoiceTaskConfirmationService} from '../cloudflare/workers/src/business-tasks/voice-confirmations.ts';
+import {createReceptionAppointmentTasks} from '../cloudflare/workers/src/business-tasks/voice-reception-tasks.ts';
 const connectionString=process.env.TWILIO_SMS_TEST_DATABASE_URL;
 if(!connectionString)throw Error('Disposable local TWILIO_SMS_TEST_DATABASE_URL required');
 const url=new URL(connectionString);
@@ -90,6 +92,38 @@ try{
  await pool.query("UPDATE communication_voice_tasks SET intent=jsonb_set(intent,'{args,version}','2') WHERE id=$1",[secondProposal.intentId]);
  await assert.rejects(taskService.execute(vmCall,secondProposal.intentId),/proposal changed/);assert.equal(taskExecutions,1);
  console.log('VOICE_TASK_POSTGRES_PASS: durable proposal digest, current policy, concurrent single execution, stable idempotency key, argument-tamper rejection and replay denial; synthetic trust/task ports');
+
+ await pool.query((await readFile('packages/database/migrations/20261023_communication_voice_confirmations.sql','utf8')));
+ const confirmationIdentity={actor:{...actor},sessionId:'app-otp-session',authentication:'otp',active:true,expiresAt:Date.now()+300000};
+ const confirmationPolicy={async assert(a,action,state){assert.equal(a.tenantId,state.tenantId);await pool.query('SELECT 1');},async assignee(){throw Error('No grants');}};
+ const confirmations=new PostgresVoiceTaskConfirmationService(new PostgresAtomicStore(pool,'business_sms'),confirmationPolicy,pool,{async current(){return structuredClone(confirmationIdentity);}},taskRepository);
+ const appTasks=new VoiceTaskService(new PostgresAtomicStore(pool,'business_sms'),confirmationPolicy,taskRepository,confirmations,[new BoundVoiceApiTask('fixture.confirmed',1,{validate(args){assert.equal(args.version,1);return {version:1};},describe(){return 'Confirmed update of fixture version 1';},async execute(){taskExecutions++;}})]);
+ const appProposal=await appTasks.propose(vmCall,'fixture.confirmed',{version:1});
+ await assert.rejects(appTasks.execute(vmCall,appProposal.intentId),/confirmation/);
+ assert.equal((await confirmations.preview(actor,appProposal.intentId)).digest,appProposal.digest);
+ await assert.rejects(confirmations.approve(foreign,appProposal.intentId,appProposal.digest));
+ await assert.rejects(confirmations.approve(actor,appProposal.intentId,'0'.repeat(64)));
+ const approval=await confirmations.approve(actor,appProposal.intentId,appProposal.digest);
+ assert.equal((await confirmations.approve(actor,appProposal.intentId,appProposal.digest)).expiresAt,approval.expiresAt);
+ const confirmedResults=await Promise.allSettled([appTasks.execute(vmCall,appProposal.intentId),appTasks.execute(vmCall,appProposal.intentId)]);
+ assert.equal(confirmedResults.filter(r=>r.status==='fulfilled').length,1);assert.equal(taskExecutions,2);
+ assert.notEqual((await pool.query('SELECT consumed_at FROM communication_voice_confirmations WHERE intent_id=$1',[appProposal.intentId])).rows[0].consumed_at,null);
+ await assert.rejects(confirmations.approve(actor,appProposal.intentId,appProposal.digest));
+ const revokedProposal=await appTasks.propose(vmCall,'fixture.confirmed',{version:1});await confirmations.approve(actor,revokedProposal.intentId,revokedProposal.digest);
+ confirmationIdentity.active=false;await assert.rejects(appTasks.execute(vmCall,revokedProposal.intentId));assert.equal(taskExecutions,2);confirmationIdentity.active=true;
+ const expiredProposal=await appTasks.propose(vmCall,'fixture.confirmed',{version:1});await confirmations.approve(actor,expiredProposal.intentId,expiredProposal.digest);
+ const proofNow=Date.now();await pool.query('UPDATE communication_voice_confirmations SET approved_at=$2,expires_at=$3 WHERE intent_id=$1',[expiredProposal.intentId,proofNow-70000,proofNow-10000]);
+ await assert.rejects(appTasks.execute(vmCall,expiredProposal.intentId),/confirmation/);assert.equal(taskExecutions,2);
+ console.log('VOICE_CONFIRMATION_POSTGRES_PASS: exact native app preview/digest, stable approval expiry, atomic single consumption, cross-tenant/session/revocation and stale-proof denial; identity broker synthetic');
+
+ await pool.query('CREATE TABLE fixture_voice_reception_requests(key text PRIMARY KEY,kind text NOT NULL,args jsonb NOT NULL)');
+ const requestPort=kind=>async(a,args,key)=>{assert.deepEqual(a,actor);await pool.query('INSERT INTO fixture_voice_reception_requests VALUES($1,$2,$3)',[key,kind,JSON.stringify(args)]);};
+ const receptionTasks=createReceptionAppointmentTasks({requestCallback:requestPort('callback'),requestBooking:requestPort('booking'),requestReschedule:requestPort('reschedule')});
+ const receptionGate=new VoiceTaskService(new PostgresAtomicStore(pool,'business_sms'),confirmationPolicy,taskRepository,confirmations,receptionTasks);
+ const receptionArgs=[{reason:'appointment_help',windowStartsAt:'2099-01-01T15:00:00.000Z',windowEndsAt:'2099-01-01T16:00:00.000Z'},{serviceId:'massage',slotId:'slot-a',slotVersion:1,startsAt:'2099-01-01T15:00:00.000Z'},{appointmentId:'visit-a',expectedVersion:2,slotId:'slot-b',slotVersion:1,startsAt:'2099-01-01T15:00:00.000Z'}];
+ for(const [i,definition] of receptionTasks.entries()){const p=await receptionGate.propose(vmCall,definition.id,receptionArgs[i]);await confirmations.approve(actor,p.intentId,p.digest);await receptionGate.execute(vmCall,p.intentId);await assert.rejects(receptionGate.execute(vmCall,p.intentId));}
+ assert.equal((await pool.query('SELECT count(*)::int AS n FROM fixture_voice_reception_requests')).rows[0].n,3);
+ console.log('VOICE_RECEPTION_POSTGRES_PASS: selected callback/booking/reschedule request definitions through durable explicit app approval and one-attempt gateway; request APIs synthetic, no real appointments changed');
  console.log('VOICE_DIRECTORY_POSTGRES_PASS: unique unpublished assignments, versioned publication, current session/membership, tenant isolation and single-slot authorization');
  console.log('SMS_POSTGRES_PASS: durable early callbacks, single-slot pool, concurrent claims, unique receipts, scoped reads, duplicate/order handling, policy denial and reconciliation; synthetic provider only');
 }finally{

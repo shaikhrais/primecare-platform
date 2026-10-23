@@ -1,3 +1,5 @@
+import {createReceptionAppointmentTasks,type ReceptionAppointmentPorts} from './voice-reception-tasks.ts';
+import {PostgresVoiceTaskConfirmationService} from './voice-confirmations.ts';
 import {VoiceTaskService,PostgresVoiceTaskRepository,type VoiceTaskTrust,type VoiceTaskBase} from './voice-tasks.ts';
 import {VoicemailService,PostgresVoicemailRepository,BusinessMailVoicemailNotifier,type VoicemailPorts} from './voicemail.ts';
 import {TwilioVoicemailAdapter,TwilioVoicemailAudioAdapter,createTwilioRecordingVerifier} from '../../../../packages/shared/src/communications/twilio-voicemail.mjs';
@@ -80,4 +82,21 @@ export function createPostgresTwilioVoicemailServices(dependencies:Pick<Paramete
  */
 export function createPostgresVoiceTaskService(dependencies:{pool:any;policy:AccessPolicy;trust:VoiceTaskTrust;tasks:readonly VoiceTaskBase[]}){
  return new VoiceTaskService(new PostgresAtomicStore(dependencies.pool,'business_sms'),dependencies.policy,new PostgresVoiceTaskRepository(dependencies.pool),dependencies.trust,dependencies.tasks);
+}
+
+/** Native app approval plus task execution. identities must be a real server-side
+ * OTP/passkey broker; never derive verification from provider/LLM arguments.
+ */
+export function createPostgresConfirmedVoiceTaskServices(dependencies:{pool:any;policy:AccessPolicy;identities:ConstructorParameters<typeof PostgresVoiceTaskConfirmationService>[3];tasks:readonly VoiceTaskBase[]}){
+ const store=new PostgresAtomicStore(dependencies.pool,'business_sms'),repository=new PostgresVoiceTaskRepository(dependencies.pool);
+ const confirmations=new PostgresVoiceTaskConfirmationService(store,dependencies.policy,dependencies.pool,dependencies.identities,repository);
+ const tasks=new VoiceTaskService(store,dependencies.policy,repository,confirmations,dependencies.tasks);
+ return Object.freeze({tasks,confirmations});
+}
+
+/** User-selected initial scope: callbacks and appointment requests. Business write
+ * adapters and the verified identity broker are mandatory; nothing is mounted.
+ */
+export function createPostgresReceptionAppointmentVoiceServices(dependencies:Omit<Parameters<typeof createPostgresConfirmedVoiceTaskServices>[0],'tasks'> & {requests:ReceptionAppointmentPorts}){
+ return createPostgresConfirmedVoiceTaskServices({...dependencies,tasks:createReceptionAppointmentTasks(dependencies.requests)});
 }

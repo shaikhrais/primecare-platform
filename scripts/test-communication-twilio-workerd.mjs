@@ -19,10 +19,18 @@ import {TwilioExtensionConnectService} from './cloudflare/workers/src/business-t
 import {twilioVoiceIdentity} from './packages/shared/src/communications/twilio-voice.mjs';
 import {TwilioVoicemailAdapter,createTwilioRecordingVerifier} from './packages/shared/src/communications/twilio-voicemail.mjs';
 import {VoiceTaskService,BoundVoiceApiTask} from './cloudflare/workers/src/business-tasks/voice-tasks.ts';
+import {PostgresVoiceTaskConfirmationService} from './cloudflare/workers/src/business-tasks/voice-confirmations.ts';
 const config=${JSON.stringify(config)};
 export default {async fetch(request){
  let queries=0;const mode=request.headers.get('x-test-mode');
  const row={extension:'100001',tenantId:'tenant-a',userId:'user-a',published:true,active:true,tenantActive:true,userActive:true};
+ if(mode==='confirmation'){
+  const actor={id:'fixture',tenantId:'tenant-a'},intentId='11111111-1111-4111-8111-111111111111',callSid='CA'+'c'.repeat(32),digest='a'.repeat(64);let approvedAt=null,expiresAt=null,consumed=false;
+  const intent={id:intentId,callSid,actor,sessionId:'fixture-session',taskId:'fixture.update',taskVersion:1,args:{version:1},summary:'Update fixture version 1',digest,expiresAt:Date.now()+120000,status:'proposed'};
+  const service=new PostgresVoiceTaskConfirmationService({run(){throw Error('write');},read(){throw Error('read');},inbox(){throw Error('inbox');}},{async assert(){},async assignee(){throw Error('grant');}},{async query(sql,values){if(sql.startsWith('INSERT')){approvedAt=values[6];expiresAt=values[7];return {rows:[{intent_id:intentId,expires_at:expiresAt}]};}if(approvedAt!==null&&!consumed){consumed=true;return {rows:[{approved_at:approvedAt}]};}return {rows:[]};}},{async current(){return {actor,sessionId:'fixture-session',authentication:'otp',active:true,expiresAt:Date.now()+300000};}},{async read(){return intent;}});
+  const preview=await service.preview(actor,intentId);await service.approve(actor,intentId,preview.digest);const input={callSid,intentId,digest,actor,sessionId:'fixture-session'};
+  return Response.json({first:await service.consumeConfirmation(input),second:await service.consumeConfirmation(input)});
+ }
  if(mode==='voice-task'||mode==='voice-task-denied'){
   let saved=null,executions=0;
   const repository={async create(row){saved=structuredClone(row);},async read(){return structuredClone(saved);},async claim(){if(saved.status!=='proposed')return false;saved.status='executing';return true;},async finish(id,status){saved.status=status;}};
@@ -86,6 +94,7 @@ try{
  const reception=await send({mode:'reception',params:{Digits:'0'}});assert.equal(reception.status,200);assert.match(await reception.text(),/<Dial/);checks++;
  const taskResult=await(await send({mode:'voice-task'})).json();assert.equal(taskResult.executions,1);assert.equal(taskResult.status,'completed');checks++;
  assert.equal((await send({mode:'voice-task-denied'})).status,403);checks++;
+ const confirmationResult=await(await send({mode:'confirmation'})).json();assert.equal(confirmationResult.first.method,'app');assert.equal(confirmationResult.second,null);checks++;
  await mkdir('test-results/communication-twilio',{recursive:true});
  await writeFile('test-results/communication-twilio/workerd.json',JSON.stringify({sourceCommit:process.env.GITHUB_SHA,checks,passed:true,engine:'workerd',sdk:'twilio@6.2.0',compatibilityFlags:['nodejs_compat'],officialSignatureValidation:true,officialTwimlBuilder:true,directory:'synthetic',liveProviderVerified:false,numbersPurchased:0,extensionsAssigned:0,callsPlaced:0,production:false},null,2));
  console.log('WORKERD_COMMUNICATION_TWILIO_PASS '+checks);
