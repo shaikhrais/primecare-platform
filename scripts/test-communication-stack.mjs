@@ -79,7 +79,14 @@ try {
  // label. Match the complete ID line, never an arbitrary prefix or UI text.
  const control=(page,id)=>page.locator('xpath=//*[@aria-label="'+id+'" or starts-with(@aria-label,"'+id+'\n")]').first();
  const id=key=>ui.controls[key].testId;
- const fill=async(page,key,value)=>{const c=control(page,key);await c.waitFor();const tag=await c.evaluate(node=>node.tagName.toLowerCase());await (['input','textarea'].includes(tag)?c:c.locator('input,textarea')).fill(value);};
+ const frame=page=>page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+ const fill=async(page,key,value)=>{
+  const c=control(page,key);await c.waitFor();const tag=await c.evaluate(node=>node.tagName.toLowerCase());const input=['input','textarea'].includes(tag)?c:c.locator('input,textarea');
+  // Focus the Flutter editor before typing. Mutating its semantics proxy with
+  // fill() can race the focus transfer and leave controlled Dart state empty.
+  await input.click();await frame(page);await page.keyboard.press('ControlOrMeta+A');await page.keyboard.type(value,{delay:10});await page.keyboard.press('Tab');await frame(page);
+  assert.ok(await input.inputValue()===value,'Flutter input must retain the entered value: '+key);
+ };
  const tap=async(page,key)=>{const c=control(page,key);await c.waitFor();const role=await c.getAttribute('role');await (role==='button'?c:c.getByRole('button')).click();};
  const call=async(token,path,body)=>{const r=await fetch(origin+path,{method:body?'POST':'GET',headers:{authorization:'Bearer '+token,'content-type':'application/json'},...(body?{body:JSON.stringify(body)}:{})});return r;};
  async function login(email){
