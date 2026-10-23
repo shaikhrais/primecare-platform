@@ -1,24 +1,26 @@
-/** Node-side image adapter. Deployment must provide a scanner and private object storage. */
+/** Shared private storage/scan boundary. Derived codecs never grant access. */
 import {BoundedBinaryAdapterBase} from './adapter-base.mjs';
-export class PrivatePictureRepository extends BoundedBinaryAdapterBase {
- constructor({sharp,bucket,scan,maxPixels,maxBytes}) {
+export class PrivatePictureRepositoryBase extends BoundedBinaryAdapterBase {
+ constructor({bucket,scan,maxPixels,maxBytes}) {
   super(maxBytes);
-  if(typeof sharp!=='function'||typeof scan!=='function'||!bucket||['put','head','get'].some(method=>typeof bucket[method]!=='function')||!Number.isSafeInteger(maxPixels)||maxPixels<1||!Number.isSafeInteger(maxBytes)||maxBytes<1)throw Error('Picture adapters required');
-  this.sharp=sharp;this.bucket=bucket;this.scan=scan;this.maxPixels=maxPixels;
+  if(typeof scan!=='function'||!bucket||['put','head','get'].some(method=>typeof bucket[method]!=='function')||!Number.isSafeInteger(maxPixels)||maxPixels<1||!Number.isSafeInteger(maxBytes)||maxBytes<1)throw Error('Picture adapters required');
+  this.bucket=bucket;this.scan=scan;this.maxPixels=maxPixels;
  }
+ async inspect(_bytes,_mediaType){throw Error('Picture codec required');}
+ async encode(_bytes,_mediaType,_inspected){throw Error('Picture codec required');}
  async prepare(actor,threadId,bytes,mediaType) {
   this.validateBytes(bytes);
   if(!['image/png','image/jpeg'].includes(mediaType))throw Error('Invalid picture');
-  const image=this.sharp(bytes,{limitInputPixels:this.maxPixels,failOn:'warning',animated:false});
-  const metadata=await image.metadata();
-  if(!['png','jpeg'].includes(metadata.format)||mediaType!==('image/'+metadata.format)||!metadata.width||!metadata.height||metadata.width*metadata.height>this.maxPixels||(metadata.pages??1)>1)throw Error('Invalid raster');
-  if(await this.scan(bytes)!==true)throw Error('Picture scan failed');
-  // Do not call withMetadata/keepMetadata. Default output strips EXIF and other source metadata.
-  const output=await image.rotate().png().toBuffer();
-  if(output.length>this.maxBytes)throw Error('Processed picture exceeds limit');
-  if(await this.scan(output)!==true)throw Error('Picture scan failed');
+  if(typeof actor?.tenantId!=='string'||!actor.tenantId||typeof threadId!=='string'||!threadId)throw Error('Picture unavailable');
+  // Own scope and bytes before provider work suspends or a scanner handles them.
+  const tenantId=actor.tenantId;bytes=Uint8Array.from(bytes);
+  const inspected=await this.inspect(bytes,mediaType);
+  if(await this.scan(Uint8Array.from(bytes))!==true)throw Error('Picture scan failed');
+  const output=Uint8Array.from(await this.encode(bytes,mediaType,inspected));
+  this.validateBytes(output);
+  if(await this.scan(Uint8Array.from(output))!==true)throw Error('Picture scan failed');
   const id=crypto.randomUUID();
-  const record={id,tenantId:actor.tenantId,threadId,mediaType:'image/png',size:output.length,status:'clean'};
+  const record={id,tenantId,threadId,mediaType:'image/png',size:output.length,status:'clean'};
   await this.bucket.put('private-pictures/'+id,output,{httpMetadata:{contentType:'image/png'},customMetadata:{record:JSON.stringify(record)}});
   return record;
  }
@@ -45,5 +47,20 @@ export class PrivatePictureRepository extends BoundedBinaryAdapterBase {
    try{if(typeof object?.body?.cancel==='function')await object.body.cancel();}catch{/* Preserve the authorization/validation error. */}
    throw error;
   }
+ }
+}
+
+/** Existing Node codec, retaining its public constructor and private read behavior. */
+export class PrivatePictureRepository extends PrivatePictureRepositoryBase {
+ constructor(options){super(options);if(typeof options.sharp!=='function')throw Error('Picture adapters required');this.sharp=options.sharp;}
+ async inspect(bytes,mediaType){
+  const image=this.sharp(bytes,{limitInputPixels:this.maxPixels,failOn:'warning',animated:false});
+  const metadata=await image.metadata();
+  if(!['png','jpeg'].includes(metadata.format)||mediaType!==('image/'+metadata.format)||!metadata.width||!metadata.height||metadata.width*metadata.height>this.maxPixels||(metadata.pages??1)>1)throw Error('Invalid raster');
+  return image;
+ }
+ async encode(_bytes,_mediaType,image){
+  // Default output strips source metadata; do not keepMetadata/withMetadata.
+  return image.rotate().png().toBuffer();
  }
 }

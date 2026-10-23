@@ -23,6 +23,8 @@ on:
       - 'scripts/test-business-media.mjs'
       - 'scripts/test-communication-adapter-base.mjs'
       - 'scripts/test-communication-pictures.mjs'
+      - 'scripts/test-communication-workers-pictures.mjs'
+      - 'scripts/test-communication-pictures-workerd.mjs'
       - 'scripts/fixtures/business-*'
       - 'packages/database/migrations/20261022_business_communications.sql'
       - 'packages/flutter_core/lib/communications/**'
@@ -201,7 +203,25 @@ jobs:
       - name: Registered HTTP contracts through native PostgreSQL
         run: node --test scripts/test-communication-http.mjs
       - name: Shared communication resource and byte-limit bases
-        run: node --test scripts/test-communication-adapter-base.mjs scripts/test-communication-pictures.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-flutter-bridge.mjs
+        run: node --test scripts/test-communication-adapter-base.mjs scripts/test-communication-pictures.mjs scripts/test-communication-workers-pictures.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-flutter-bridge.mjs
+  worker-pictures:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/picture-worker-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 miniflare@4.20260730.0 sharp@0.34.5
+          ln -s "$RUNNER_TEMP/picture-worker-tools/node_modules" node_modules
+          node --test scripts/test-communication-pictures.mjs scripts/test-communication-workers-pictures.mjs
+          node scripts/test-communication-pictures-workerd.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: communication-worker-pictures
+          path: test-results/communication-worker-pictures
+          retention-days: 90
   worker-validator:
     runs-on: ubuntu-24.04
     timeout-minutes: 8

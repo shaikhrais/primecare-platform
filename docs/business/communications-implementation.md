@@ -746,3 +746,25 @@ This completes the standalone validation prerequisite. The production runtime
 remains unmounted; approved grants, owned mailbox/provider routing and acceptance,
 private scanner/storage, TURN/device and deployed release acceptance remain open.
 No account, permission, activation or workflow verification status changed.
+
+
+### Worker-native picture integration candidate
+
+Inspection of main `c6df90fd80c20fc73cc213c7fa9f6ec63d3277bd` confirmed picture
+processing depended on native Node Sharp. `PrivatePictureRepositoryBase` now owns
+the existing scan/storage/read boundary; the compatible Node codec and new
+Workers Images codec derive from it. The Workers codec uses private raw streams,
+strict byte/dimension checks, static PNG encoding and independent bounded,
+CRC-checked metadata filtering. Both scanner approvals are mandatory before put.
+Tenant scope, caller bytes and approved output are isolated across suspension.
+Two Node ownership regressions fail against the previous source and pass now.
+
+Local service/adapter checks pass 188 tests with two native-only skips; strict
+TypeScript and generated contract/UI checks pass. CI adds actual local workerd
+Images plus R2 integration, JPEG/PNG decode, alpha/metadata and rejection checks.
+The full actual Flutter browser-to-PostgreSQL scenario now uses these local
+bindings instead of the map bucket and Sharp repository. Source-specific CI is
+pending. Scanning and mail acceptance remain synthetic test ports. No schema,
+permission, account or activation changed; production runtime mounting, approved
+grants/owned mailbox routing, remote image/scanner/storage acceptance, TURN and
+deployed/device acceptance remain open.

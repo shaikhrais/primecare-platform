@@ -46,3 +46,17 @@ test('private picture records expose only a validated immutable projection',asyn
 test('incomplete bucket adapters cannot silently start picture storage',()=>{
  for(const method of ['head','get','put'])assert.throws(()=>repo({[method]:null}),/Picture adapters required/);
 });
+test('preparation owns caller bytes and tenant scope across suspended codec work',async()=>{
+ let release,entered,stored;const waiting=new Promise(r=>{release=r;}),ready=new Promise(r=>{entered=r;});
+ const source=new Uint8Array([1,2,3]),who={...actor};
+ const sharp=bytes=>({async metadata(){entered();await waiting;return {format:'png',width:1,height:1};},rotate(){return this;},png(){return this;},async toBuffer(){return Uint8Array.from(bytes);}});
+ const pictures=new PrivatePictureRepository({sharp,bucket:{async put(_key,body,metadata){stored={body,...metadata};},async head(){},async get(){}},scan:async()=>true,maxPixels:10,maxBytes:10});
+ const work=pictures.prepare(who,'thread',source,'image/png');await ready;source.fill(9);who.tenantId='foreign';release();
+ const result=await work;assert.equal(result.tenantId,'tenant');assert.deepEqual(stored.body,new Uint8Array([1,2,3]));assert.equal(JSON.parse(stored.customMetadata.record).tenantId,'tenant');
+});
+test('scanning cannot rewrite bytes after approving either stage',async()=>{
+ let stored,scans=0;const source=new Uint8Array([1,2,3]);
+ const sharp=bytes=>({async metadata(){return {format:'png',width:1,height:1};},rotate(){return this;},png(){return this;},async toBuffer(){return Uint8Array.from(bytes);}});
+ const pictures=new PrivatePictureRepository({sharp,bucket:{async put(_key,bytes){stored=Uint8Array.from(bytes);},async head(){},async get(){}},scan:async bytes=>{scans++;bytes.fill(0);return true;},maxPixels:10,maxBytes:10});
+ await pictures.prepare(actor,'thread',source,'image/png');assert.equal(scans,2);assert.deepEqual(stored,new Uint8Array([1,2,3]));assert.deepEqual(source,new Uint8Array([1,2,3]));
+});

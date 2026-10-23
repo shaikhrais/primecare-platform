@@ -365,3 +365,28 @@ including ICE wire values, email formatting, Unicode lengths and unchanged input
 A VM forbidding string code generation checks the bundled module, and the
 `worker-validator` CI job additionally runs it in workerd. These checks do not
 activate production channels, create grants or verify external provider delivery.
+
+### Shared Node and Workers picture codecs
+
+`PrivatePictureRepositoryBase` owns byte limits, scope snapshots, both mandatory
+scanner stages and private object storage/read validation. The existing
+`PrivatePictureRepository` constructor still accepts Sharp for Node. The derived
+`WorkersPrivatePictureRepository` accepts a native Images binding and an
+R2-compatible private bucket; it uses raw streams rather than public image URLs.
+Missing codecs, scanning or bucket methods fail closed. Neither adapter grants
+conversation access; the inherited service still authorizes before and after I/O.
+
+The Workers codec checks format, exact source byte size and bounded dimensions,
+then decodes/re-encodes through Images to static PNG. A bounded CRC-checked PNG
+container guard rejects animation, truncation, trailing bytes and unknown critical
+chunks. Encoded output retains only IHDR/PLTE/IDAT/IEND/tRNS, preserving pixel and
+transparency data while dropping text, EXIF and profiles. The guard is not a
+replacement decoder or malware scanner. Output is read into one bounded buffer;
+invalid/oversized streams are canceled. Callers and scanners receive isolated
+bytes, and tenant scope is captured before asynchronous work.
+
+CI adds actual local workerd Images/R2 integration, real JPEG/PNG decoding and
+alpha/metadata checks. The full Flutter browser scenario now uses local Images/R2
+instead of a map bucket and Sharp repository. These local emulators and synthetic
+scan decisions do not prove remote provider, production private bucket or live
+scanner acceptance. Existing grants, ownership, activation and release gates apply.

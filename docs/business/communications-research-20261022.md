@@ -111,3 +111,20 @@ Structured message sending and a messageId acceptance result are supported; no
 transport signature change or live send was necessary for this step. The existing
 inbox Worker snapshot stores messages in its INBOX binding, while business inbound
 mail still requires governed owned-mailbox routing and runtime composition.
+
+
+## Worker-native private picture processing
+
+Primary sources rechecked:
+
+- https://developers.cloudflare.com/images/optimization/binding/: Images accepts raw streams, provides info format/fileSize/dimensions and encodes a chosen format. Separate stream instances are necessary for inspection and transformation. Output can explicitly disable animation. No public source URL is required.
+- https://developers.cloudflare.com/images/optimization/features/#metadata: PNG output discards metadata; color profiles and EXIF orientation are applied by the provider. Private responses must retain the existing no-store HTTP behavior rather than copying public-cache examples.
+- https://developers.cloudflare.com/images/get-started/limits/: provider limits are larger than the existing registered upload bound; preserve the application byte/pixel limits rather than adopting provider maximums.
+- https://www.w3.org/TR/png-3/: PNG chunk framing and CRC cover type plus data; acTL/fcTL/fdAT identify animation. Keep critical pixel chunks and tRNS when independently removing ancillary metadata, and reject corruption instead of recomputing checksums for changed data. Container checks do not decode compressed pixels.
+- https://github.com/cloudflare/workers-sdk/blob/miniflare%404.20260730.0/packages/miniflare/src/plugins/images/index.ts: the pinned test runtime accepts an Images binding configuration. The local implementation uses its offline codec; remote fidelity and provider/scanner acceptance remain separate release checks.
+
+Implementation reuses a shared inherited picture storage/scan base, retaining the
+Node constructor while adding a native Workers codec. Both scans remain explicit
+mandatory ports. Own input/output and tenant scope before suspension; a scanner
+must not be able to mutate approved bytes. No new public API, metadata policy,
+role grant, account, storage resource or activation is introduced by this adapter.

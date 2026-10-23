@@ -1,6 +1,6 @@
 // Actual Flutter widgets -> credential login -> gateway -> native policies -> PG.
-// Loopback-only disposable acceptance; picture scanner/storage and mail are
-// explicitly synthetic ports. Never production delivery or TURN acceptance.
+// Loopback-only disposable acceptance with local Images/R2 bindings. Scanner
+// and mail acceptance are synthetic. Never production delivery/TURN acceptance.
 import assert from 'node:assert/strict';
 import {createServer} from 'node:http';
 import {readFile,mkdir,mkdtemp,writeFile,rm} from 'node:fs/promises';
@@ -13,7 +13,8 @@ import pg from 'pg';
 import bcrypt from 'bcryptjs';
 import sharp from 'sharp';
 import {chromium} from 'playwright';
-import {PrivatePictureRepository} from '../packages/shared/src/communications/pictures.mjs';
+import {Miniflare} from 'miniflare';
+import {WorkersPrivatePictureRepository} from '../packages/shared/src/communications/workers-pictures.mjs';
 
 const connection=process.env.COMMUNICATION_STACK_DATABASE_URL;
 if(!connection||process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL)throw Error('Disposable stack connection only; production credentials forbidden');
@@ -29,7 +30,7 @@ const contracts=JSON.parse(await readFile('packages/shared/src/communications/re
 const ui=JSON.parse(await readFile('tools/governance-production/communication-ui-registration.json'));
 const schema='"'+pin.schema+'"';const temp=await mkdtemp(join(tmpdir(),'communication-stack-'));
 const tenant=randomUUID(),otherTenant=randomUUID(),alice=randomUUID(),bob=randomUUID(),outsider=randomUUID();
-const password='Synthetic-'+randomUUID();const created=[],results={},requests=[];let ownsSchema=false,browser,server;
+const password='Synthetic-'+randomUUID();const created=[],results={},requests=[];let ownsSchema=false,browser,server,imageRuntime;
 const q=(sql,values)=>pool.query(sql,values);
 try {
  for(const name of ['users','tenants','auth_sessions','auth_rate_limits','business_work_aggregates','business_work_commands','business_work_events'])assert.equal((await q('SELECT to_regclass($1) AS relation',['public.'+name])).rows[0].relation,null,'Preserve existing data: '+name);
@@ -53,8 +54,9 @@ try {
  const require=createRequire(import.meta.url);
  for(const file of ['auth.js','gateway.js','runtime.js'])await writeFile(join(temp,file),(await readFile(join(temp,file),'utf8')).replaceAll('require("pg")','require('+JSON.stringify(require.resolve('pg'))+')'));
  const {auth}=require(join(temp,'auth.js')),{default:gateway}=require(join(temp,'gateway.js')),{PostgresCommunicationWorker}=require(join(temp,'runtime.js'));
- const objects=new Map();const bucket={async put(key,body,meta){objects.set(key,{body:new Uint8Array(body),size:body.length,...meta});},async head(key){return objects.get(key);},async get(key){return objects.get(key);}};
- const pictures=new PrivatePictureRepository({sharp,bucket,scan:async()=>true,maxPixels:4096,maxBytes:ui.limits.maxPictureBytes});let sends=0;
+ imageRuntime=new Miniflare({modules:true,script:'export default {fetch(){return new Response(null,{status:404});}}',compatibilityDate:'2026-07-30',images:{binding:'IMAGES'},r2Buckets:['PICTURES']});
+ const bindings=await imageRuntime.getBindings(),bucket=bindings.PICTURES;
+ const pictures=new WorkersPrivatePictureRepository({images:bindings.IMAGES,bucket,scan:async()=>true,maxPixels:4096,maxBytes:ui.limits.maxPictureBytes});let sends=0;
  const runtime=new PostgresCommunicationWorker({businessPool:pool,governancePool:pool,pictures,limits:{maxMembers:8,maxMessages:100,maxText:2000,maxPictureBytes:ui.limits.maxPictureBytes,maxPictures:3,ringMilliseconds:30000,maxSignalBytes:16384},nativeEmail:{async send(){sends++;return {messageId:'synthetic-provider-acceptance'};}},sender:'owned@example.invalid',maxMailBytes:65536,maxRenderedMailBytes:131072,maxRequestBytes:2*1024*1024});
  const env={AUTH:{fetch:r=>auth(r,{DB_URL:connection,SERVICE_NAME:'auth'},new URL(r.url).pathname,{})},GOVERNANCE:{fetch:r=>runtime.fetch(r,{})}};
  server=createServer(async(req,res)=>{
@@ -108,7 +110,7 @@ try {
  const image=await sharp({create:{width:16,height:16,channels:3,background:'#445566'}}).png().toBuffer();
  const uploadResponse=a.page.waitForResponse(r=>r.url().endsWith('/v1/messages/pictures')&&r.request().method()==='POST');
  const chooser=a.page.waitForEvent('filechooser');await tap(a.page,id('picturePick'));await (await chooser).setFiles({name:'synthetic.png',mimeType:'image/png',buffer:image});
- const uploaded=await uploadResponse;assert.equal(uploaded.status(),200);const picture=await uploaded.json();assert.equal(objects.size,1);
+ const uploaded=await uploadResponse;assert.equal(uploaded.status(),200);const picture=await uploaded.json();assert.equal((await bucket.list()).objects.length,1);
  await fill(a.page,id('composer'),'Picture from browser');const pictureSent=a.page.waitForResponse(r=>r.url().endsWith('/v1/messages')&&r.request().postDataJSON()?.action==='send');await tap(a.page,id('send'));assert.equal((await pictureSent).status(),200);
  stored=(await q('SELECT state FROM business_work_aggregates WHERE id=$1',[thread.id])).rows[0].state;assert.deepEqual(stored.messages.at(-1).pictureIds,[picture.id]);results.uiPicturePersisted=true;
  await tap(b.page,id('refresh'));await tap(b.page,id('openThread')+'-0');
@@ -146,7 +148,7 @@ try {
  }catch{}
  throw error;
 }finally{
- await writeFile(join(out,'results.json'),JSON.stringify({sourceCommit:process.env.GITHUB_SHA,passed:results.databaseEventsReadback===true,scope:'Actual Flutter UI, auth, gateway, native policies and disposable PostgreSQL',production:false,syntheticPorts:['mail acceptance','picture scanner','private object bucket','microphone input'],liveProviderVerified:false,results,requests},null,2));
- await browser?.close();if(server)await new Promise(resolve=>server.close(resolve));
+ await writeFile(join(out,'results.json'),JSON.stringify({sourceCommit:process.env.GITHUB_SHA,passed:results.databaseEventsReadback===true,scope:'Actual Flutter UI, auth, gateway, native policies and disposable PostgreSQL',production:false,syntheticPorts:['mail acceptance','picture scanner','microphone input'],localBindings:['Images','R2'],liveProviderVerified:false,results,requests},null,2));
+ await browser?.close();if(server)await new Promise(resolve=>server.close(resolve));await imageRuntime?.dispose();
  for(const name of created.reverse())await q('DROP TABLE public.'+name+' CASCADE');if(ownsSchema)await q('DROP SCHEMA '+schema+' CASCADE');await pool.end();await rm(temp,{recursive:true,force:true});
 }
