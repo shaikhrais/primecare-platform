@@ -52,7 +52,7 @@ class RegistrationTests(unittest.TestCase):
   with self.store() as db:self.assertEqual(db.execute('SELECT COUNT(*) FROM api_endpoints').fetchone()[0],4)
  def test_duplicate_api_id_cannot_inherit_another_contract_identity(self):
   with self.store() as db:first=m.register(db)
-  with psycopg.connect(URL,autocommit=True) as admin:admin.execute('UPDATE '+self.table('api_endpoints')+' SET id=710 WHERE id=%s',[first['apiIds']['token']])
+  with psycopg.connect(URL,autocommit=True) as admin:admin.execute('UPDATE '+self.table('api_endpoints')+' SET id=857 WHERE id=%s',[first['apiIds']['token']])
   with self.assertRaisesRegex(m.GovernanceReadError,'identity collision'):
    with self.store() as db:m.register(db)
  def test_opt_in_pin_and_arbitrary_insert_are_denied(self):
