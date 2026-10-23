@@ -905,3 +905,20 @@ stale source hashes; all five source files are unchanged from baseline eba29ae2a
 No unreviewed provenance, permission, account, activation or workflow verification
 status was changed. Passing communication CI does not mean all repository CI or
 production acceptance has passed.
+
+### Twilio shared-number adapter candidate — 2026-10-23
+
+The new requirement was registered before implementation in pinned production
+governance: run 39948749865 passed native rollback/idempotence/grant-preservation
+tests and independent production readback. The first attempt hit a lock timeout
+before committing; bounded whole-transaction retry was added and tested. No
+number, extension, grant or provider resource was created.
+
+`TwilioVoiceExtensionAdapter` inherits the binary boundary and uses the official
+Twilio 6.2.0 validator/TwiML builder. It supports bounded headerless or declared
+form bodies, exact configured URLs, all signature parameters, tenant-derived SDK
+identities and current published destination rechecks. Local unit and workerd
+checks pass. Source-specific CI is pending. It is an internal, unmounted adapter;
+real extension assignment, webhook/token contracts, SDK devices and live provider
+acceptance remain pending. Full setup details are in
+`twilio-shared-number-20261023.md`.

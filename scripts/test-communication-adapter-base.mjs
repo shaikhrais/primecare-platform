@@ -137,3 +137,21 @@ test('allocation failure also cancels and releases an acquired reader',async()=>
  await assert.rejects(new BoundedBinaryAdapterBase(Number.MAX_SAFE_INTEGER).readBoundedStream(stream,Number.MAX_SAFE_INTEGER),RangeError);
  assert.equal(cancelled,1);assert.equal(stream.locked,false);
 });
+test('unknown-length bodies copy reused chunks and release the reader',async()=>{
+ let index=0;const bytes=new Uint8Array(2);
+ const stream=new ReadableStream({pull(c){if(index===2){c.close();return;}bytes.set(index++===0?[1,2]:[3,4]);c.enqueue(bytes);}},{highWaterMark:0});
+ assert.deepEqual(await new BoundedBinaryAdapterBase(4).readBoundedBody(stream),new Uint8Array([1,2,3,4]));assert.equal(stream.locked,false);
+});
+test('unknown-length bodies cancel overflow and empty-chunk exhaustion',async()=>{
+ for(const empty of [false,true]){
+  let reads=0,cancelled=0;
+  const stream=new ReadableStream({pull(c){reads++;c.enqueue(empty?new Uint8Array():new Uint8Array(5));},cancel(){cancelled++;}},{highWaterMark:0});
+  await assert.rejects(new BoundedBinaryAdapterBase(4).readBoundedBody(stream),empty?/stream limit exceeded/:/size not permitted/);
+  assert.equal(reads,empty?1029:1);assert.equal(cancelled,1);assert.equal(stream.locked,false);
+ }
+});
+test('unknown-length empty and failed streams never become successful bodies',async()=>{
+ const empty=new ReadableStream({start(c){c.close();}});await assert.rejects(new BoundedBinaryAdapterBase(4).readBoundedBody(empty),/size not permitted/);assert.equal(empty.locked,false);
+ const failure=new TypeError('transient provider failure'),broken=new ReadableStream({pull(c){c.error(failure);}});
+ await assert.rejects(new BoundedBinaryAdapterBase(4).readBoundedBody(broken),error=>error===failure);assert.equal(broken.locked,false);
+});

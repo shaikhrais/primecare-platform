@@ -4,6 +4,7 @@ export class BoundedBinaryAdapterBase {
  readonly maxBytes:number;
  validateBytes(bytes:Uint8Array):void;
  readBoundedStream(stream:ReadableStream<Uint8Array>,declaredSize:number):Promise<Uint8Array>;
+ readBoundedBody(stream:ReadableStream<Uint8Array>):Promise<Uint8Array>;
 }
 export class CommunicationResourceBase {
  constructor();

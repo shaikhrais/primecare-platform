@@ -16,25 +16,31 @@ export class BoundedBinaryAdapterBase {
    try{await stream?.cancel?.();}catch{}
    throw new CommunicationInputError('Message size not permitted');
   }
+  return this.#readStream(stream,declaredSize);
+ }
+ /** HTTP streams may omit Content-Length; still own one bounded allocation. */
+ async readBoundedBody(stream){return this.#readStream(stream);}
+ async #readStream(stream,declaredSize) {
   let reader;
   try{reader=stream.getReader();}catch{throw new CommunicationInputError('Invalid message stream');}
   let size=0,reads=0;
   try {
-   const bytes=new Uint8Array(declaredSize);
+   const capacity=declaredSize??this.maxBytes,bytes=new Uint8Array(capacity);
    for(;;) {
     const {done,value}=await reader.read();if(done)break;
     // Nonempty chunks are bounded by declared bytes. Also allow 1,024 empty
     // chunks, then stop a producer that makes no bounded progress.
-    if(++reads>declaredSize+1024)throw new CommunicationInputError('Message stream limit exceeded');
+    if(++reads>capacity+1024)throw new CommunicationInputError('Message stream limit exceeded');
     if(!(value instanceof Uint8Array))throw new CommunicationInputError('Invalid message stream');
     if(size+value.length>this.maxBytes)throw new CommunicationInputError('Message size not permitted');
-    if(size+value.length>declaredSize)throw new CommunicationInputError('Message size mismatch');
+    if(declaredSize!==undefined&&size+value.length>declaredSize)throw new CommunicationInputError('Message size mismatch');
     // Producers may reuse a chunk buffer. Own its content before the next read.
     // One declared-size allocation also bounds bookkeeping for tiny/empty chunks.
     bytes.set(value,size);size+=value.length;
    }
-   if(size!==declaredSize)throw new CommunicationInputError('Message size mismatch');
-   return bytes;
+   if(declaredSize!==undefined&&size!==declaredSize)throw new CommunicationInputError('Message size mismatch');
+   if(!size)throw new CommunicationInputError('Message size not permitted');
+   return declaredSize===undefined?bytes.slice(0,size):bytes;
   }catch(error){
    try{await reader.cancel();}catch{/* Preserve the original bounded-input error. */}
    throw error;

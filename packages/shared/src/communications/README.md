@@ -438,3 +438,38 @@ actual local image/storage bindings. Existing production release gates apply.
 The complete Worker inherits the shared compression layer's Node built-ins; its
 pinned July test runtime explicitly enables `nodejs_compat`. The standalone
 validator and inbound adapter checks remain separate without that flag.
+
+### Twilio shared-number extension foundation
+
+The user-requested requirement `communication-twilio-voice-v1` was registered in
+pinned production governance before implementation, with zero numbers, extension
+assignments or grants. `TwilioVoiceExtensionAdapter` inherits the same binary
+base and uses the official pinned `twilio@6.2.0` signature validator and TwiML
+builder. It is an internal provider adapter; no Twilio webhook is mounted.
+
+Supply a verified owned number, Account SID/Auth Token, exact HTTPS incoming and
+gather URLs, a byte limit and a trusted `directory.lookup(extension, 2)` port.
+The port must return current published tenant/user voice destinations, never an
+unscoped first-match search. Extensions are globally unique six-digit values
+100000–999999 behind the shared number. Unknown, duplicate, unpublished, inactive
+or changed destinations produce the same generic unavailable response. Tenant and
+user identities come exclusively from current directory matches, are copied
+before suspension and are rechecked before rendering Dial. SDK client identity
+is derived from both IDs using `twilioVoiceIdentity`.
+
+All form fields participate in official signature validation, including future
+fields and repeated values. Critical account/number/direction/extension fields
+cannot use duplicate values. Exact configured URLs are used without trusting
+forwarded-host headers. Form decoding rejects invalid UTF-8/percent sequences.
+The inherited reader supports both known and absent Content-Length while bounding
+real bytes, chunk count, allocation and cleanup. Directory/read infrastructure
+failures remain generic unavailable responses.
+
+The result prompts with Gather and renders Dial/Client only: it does not make a
+REST call, forward to arbitrary phone numbers, record calls, buy a number, issue
+Voice SDK tokens, assign/publish extensions or grant application access. A phone
+extension is public voice routing, not an authentication secret. SMS/MMS cannot
+be assigned by a voice extension; keep the existing in-app messaging and email
+channels separate. Actual account configuration, durable governed extension
+assignment/publication, registered webhook/token endpoints, SDK device integration
+and live phone acceptance are still required.

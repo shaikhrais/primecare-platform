@@ -23,6 +23,9 @@ on:
       - 'scripts/test-business-media.mjs'
       - 'scripts/test-communication-adapter-base.mjs'
       - 'scripts/test-communication-workers-runtime.mjs'
+      - 'scripts/test-communication-twilio.mjs'
+      - 'scripts/test-communication-twilio-workerd.mjs'
+      - 'tools/governance-production/twilio-voice-requirement.json'
       - 'scripts/test-communication-inbound-email.mjs'
       - 'scripts/test-communication-inbound-workerd.mjs'
       - 'scripts/test-communication-pictures.mjs'
@@ -62,6 +65,25 @@ on:
 permissions:
   contents: read
 jobs:
+  twilio-voice:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/twilio-voice-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 miniflare@4.20260730.0 twilio@6.2.0 typescript@5.9.3 @types/node@24.0.0
+          ln -s "$RUNNER_TEMP/twilio-voice-tools/node_modules" node_modules
+          node_modules/.bin/tsc --noEmit --strict --target ES2022 --module esnext --moduleResolution bundler packages/shared/src/communications/twilio-voice.d.mts
+          node --test scripts/test-communication-twilio.mjs
+          node scripts/test-communication-twilio-workerd.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: communication-twilio-voice
+          path: test-results/communication-twilio
+          retention-days: 90
   flutter-transport:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
