@@ -474,7 +474,10 @@
     "maxMailPreviewBytes": 65536,
     "maxMailHeaderBytes": 16384,
     "maxMailNestingDepth": 12,
-    "maxMailParts": 64
+    "maxMailParts": 64,
+    "maxMailHtmlBytes": 65536,
+    "maxMailHtmlDepth": 48,
+    "maxMailHtmlEvents": 8192
   },
   "rules": {
     "generalReference": "general",
@@ -483,7 +486,7 @@
     "sessionChange": "dispose-controller-and-clear-private-state",
     "pictureRemoval": "draft-reference-only-no-server-object-deletion",
     "mailDelivery": "explicit-queue-then-deliver-accepted-is-not-delivered",
-    "inboundMail": "bounded-unverified-text-preview-quarantine-retained-no-html-attachments-or-header-identity",
+    "inboundMail": "bounded-unverified-plain-or-html-extracted-text-preview-quarantine-retained-no-markup-attachments-or-header-identity",
     "audio": "accepted-party-only-explicit-microphone-connect-release-on-context-change"
   },
   "implementationStatus": "registered-unimplemented",
