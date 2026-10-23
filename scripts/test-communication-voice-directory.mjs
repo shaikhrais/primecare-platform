@@ -45,5 +45,5 @@ test('invalid extension and lookup limit never reach database',async()=>{
 });
 test('current native policy cannot silently activate unregistered Twilio actions',async()=>{
  const policy=new PostgresCommunicationAccessPolicy({connect(){assert.fail('Unregistered action queried live storage');}});
- for(const action of ['sms.queue','sms.deliver','sms.status.receive','voice.token','voice.call.connect','voice.call.answer','voice.voicemail.capture','voice.voicemail.notify','voice.voicemail.read','voice.extension.assign','voice.extension.publish'])await assert.rejects(policy.assert(actor,action,null),/Forbidden/);
+ for(const action of ['sms.queue','sms.deliver','sms.status.receive','voice.token','voice.call.connect','voice.call.answer','voice.task.propose','voice.task.execute','voice.voicemail.capture','voice.voicemail.notify','voice.voicemail.read','voice.extension.assign','voice.extension.publish'])await assert.rejects(policy.assert(actor,action,null),/Forbidden/);
 });

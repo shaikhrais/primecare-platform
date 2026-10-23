@@ -238,3 +238,47 @@ synthetic Twilio call/recording and email ports. Live ringing, browser microphon
 permissions, simultaneous registrations, first answer across devices, voicemail
 storage/playback and actual email delivery still need deployed acceptance. The
 existing IVR and +1 647 930 2223 settings remain unchanged.
+
+### Reception fallback and AI task execution — 2026-10-23
+
+The opt-in initial prompt now asks for a known extension; otherwise press zero
+then pound or wait for reception. An empty, invalid or unknown extension resolves
+the explicitly configured published reception extension through the same native
+directory checks. With one shared number and no established tenant context this
+is platform reception. The caller cannot supply a tenant or reception identity.
+No real reception user/extension is assigned by this change.
+
+Reviewed official [Vapi tools](https://docs.vapi.ai/tools),
+[Vapi server authentication](https://docs.vapi.ai/server-url/server-authentication),
+[Twilio ConversationRelay](https://www.twilio.com/docs/voice/conversationrelay),
+[Relay handshake authentication](https://www.twilio.com/docs/voice/conversationrelay/onboarding),
+[Twilio Verify](https://www.twilio.com/docs/verify) and
+[NIST authentication guidance](https://pages.nist.gov/800-63-4/sp800-63b.html).
+Vapi can call a defined server function; ConversationRelay can connect managed
+speech to an application WebSocket/LLM server. Either can use the same task gate.
+Use one voice engine for a call. Reusing the existing Twilio setup favors Relay;
+reusing an existing Vapi assistant is another supported integration plan. Neither
+engine is configured/deployed by this change.
+
+Proposed task flow: resolve verified caller/account/tenant -> OTP/passkey step-up
+outside the LLM -> validate a registered task and exact arguments -> read back
+server summary -> consume independent app/DTMF confirmation -> recheck current
+permissions -> claim once -> run existing typed business API -> report outcome.
+Examples for future explicit task definitions: request a receptionist callback,
+book or reschedule an owned appointment, and send an already authorized
+notification. These are examples, not registered/active API integrations.
+
+Voice recognition can transcribe a request, but voice matching and caller ID are
+not authentication in this implementation. NIST SP 800-63B-4 explicitly excludes
+voice biometric comparison. A future specialized identity design would need its
+own review; it must not bypass OTP/passkey, permission or exact-action approval.
+Never expose OTPs or tokens to the model. Unknown task names, actor/tenant/URL
+injection, changed proposals, stale confirmation, expired identity and duplicate
+execution attempts fail closed.
+
+Added the inherited task gate, bound-task base, durable PostgreSQL candidate
+repository/migration and explicit separate native composition. Current trust
+ports and tests are synthetic: production OTP-to-call binding, durable one-use
+confirmation capture, provider authentication, task catalogue registration and
+business API bindings remain required. No automatic business mutations, new
+roles/grants, OTP sends, AI agent creation or live provider cutover occurred.

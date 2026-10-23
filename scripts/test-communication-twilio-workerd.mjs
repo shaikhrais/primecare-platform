@@ -18,10 +18,17 @@ import {TwilioExtensionConnectAdapter,createTwilioVoiceCallVerifier} from './pac
 import {TwilioExtensionConnectService} from './cloudflare/workers/src/business-tasks/twilio-connect.ts';
 import {twilioVoiceIdentity} from './packages/shared/src/communications/twilio-voice.mjs';
 import {TwilioVoicemailAdapter,createTwilioRecordingVerifier} from './packages/shared/src/communications/twilio-voicemail.mjs';
+import {VoiceTaskService,BoundVoiceApiTask} from './cloudflare/workers/src/business-tasks/voice-tasks.ts';
 const config=${JSON.stringify(config)};
 export default {async fetch(request){
  let queries=0;const mode=request.headers.get('x-test-mode');
  const row={extension:'100001',tenantId:'tenant-a',userId:'user-a',published:true,active:true,tenantActive:true,userActive:true};
+ if(mode==='voice-task'||mode==='voice-task-denied'){
+  let saved=null,executions=0;
+  const repository={async create(row){saved=structuredClone(row);},async read(){return structuredClone(saved);},async claim(){if(saved.status!=='proposed')return false;saved.status='executing';return true;},async finish(id,status){saved.status=status;}};
+  const service=new VoiceTaskService({run(){throw Error('write');},read(){throw Error('read');},inbox(){throw Error('inbox');}},{async assert(){},async assignee(){throw Error('grant');}},repository,{async current(){return {actor:{id:'fixture',tenantId:'tenant-a'},sessionId:'fixture-session',authentication:mode==='voice-task-denied'?'voice-match':'otp',active:true,expiresAt:Date.now()+300000};},async consumeConfirmation(){return {approved:true,method:'app',approvedAt:Date.now()};}},[new BoundVoiceApiTask('fixture.update',1,{validate(args){if(args.version!==1)throw Error('input');return {version:1};},describe(){return 'Update fixture version 1';},async execute(){executions++;}})]);
+  try{const proposal=await service.propose('CA'+'c'.repeat(32),'fixture.update',{version:1});await service.execute('CA'+'c'.repeat(32),proposal.intentId);return Response.json({executions,status:saved.status});}catch{return new Response(null,{status:403});}
+ }
  if(mode==='voicemail'){
   const recordings=createTwilioRecordingVerifier({accountSid:config.accountSid,apiKeySid:'SK'+'d'.repeat(32),apiKeySecret:'e'.repeat(32),httpClient:{async request(){return {statusCode:200,headers:{},body:JSON.stringify({sid:'RE'+'d'.repeat(32),account_sid:config.accountSid,call_sid:'CA'+'c'.repeat(32),status:'completed',source:'RecordVerb',duration:'15'})};}}});
   return new TwilioVoicemailAdapter({...config,dialCompleteUrl:config.incomingUrl,recordActionUrl:config.gatherUrl,recordingStatusUrl:'https://fixture.invalid/record-status',service:{async fallback(callSid,status){return status==='no-answer';},async completed(input){const row=await recordings.fetch(input.recordingSid);if(row.callSid!==input.callSid||row.duration!==input.duration)throw Error('mismatch');}}}).respond(request);
@@ -43,7 +50,7 @@ export default {async fetch(request){
   const service=new TwilioVoiceTokenService({run(){throw Error('write');},read(){throw Error('read');},inbox(){throw Error('inbox');}},{async assert(){if(mode==='token-denied')throw Error('denied');},async assignee(){throw Error('grant');}},{async currentSession(id){return {id,userId:row.userId,tenantId:row.tenantId,expiresAt:Date.now()+600000,active:true};},async destinations(){return [row];}},{accountSid:config.accountSid,apiKeySid:'SK'+'d'.repeat(32),apiKeySecret:'e'.repeat(32),applicationSid:'AP'+'f'.repeat(32),ttlSeconds:300});
   try{return Response.json(await service.issue('fixture-session'));}catch{return new Response(null,{status:403});}
  }
- const adapter=new TwilioVoiceExtensionAdapter({...config,directory:{async lookup(){queries++;if(mode==='unknown'||mode==='revoked'&&queries>1)return [];return mode==='duplicate'?[row,row]:[row];}}});
+ const adapter=new TwilioVoiceExtensionAdapter({...config,...(mode==='reception'?{receptionExtension:'100099'}:{}),directory:{async lookup(extension){queries++;if(mode==='reception')return extension==='100099'?[{...row,extension:'100099',userId:'receptionist'}]:[];if(mode==='unknown'||mode==='revoked'&&queries>1)return [];return mode==='duplicate'?[row,row]:[row];}}});
  const response=await adapter.respond(request);response.headers.set('x-test-queries',String(queries));return response;
 }};`,resolveDir:process.cwd()},bundle:true,format:'esm',platform:'neutral',mainFields:['module','main'],external:['node:*',...builtin],banner:{js:'import {createRequire} from "node:module";const require=createRequire("/worker.js");'},write:false});
 const runtime=new Miniflare({modules:true,script:bundle.outputFiles[0].text,compatibilityDate:'2026-07-30',compatibilityFlags:['nodejs_compat']});let checks=0;
@@ -76,6 +83,9 @@ try{
  const answered=await send({stage:'incoming',mode:'voicemail',params:{DialCallStatus:'completed'}});assert.doesNotMatch(await answered.text(),/<Record/);checks++;
  const vmUrl='https://fixture.invalid/record-status',vmParams={AccountSid:config.accountSid,CallSid:'CA'+'c'.repeat(32),RecordingSid:'RE'+'d'.repeat(32),RecordingDuration:'15',RecordingStatus:'completed'};
  const savedVm=await runtime.dispatchFetch(vmUrl,{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','x-test-mode':'voicemail','x-twilio-signature':getExpectedTwilioSignature(config.authToken,vmUrl,vmParams)},body:new URLSearchParams(vmParams).toString()});assert.equal(savedVm.status,204);checks++;
+ const reception=await send({mode:'reception',params:{Digits:'0'}});assert.equal(reception.status,200);assert.match(await reception.text(),/<Dial/);checks++;
+ const taskResult=await(await send({mode:'voice-task'})).json();assert.equal(taskResult.executions,1);assert.equal(taskResult.status,'completed');checks++;
+ assert.equal((await send({mode:'voice-task-denied'})).status,403);checks++;
  await mkdir('test-results/communication-twilio',{recursive:true});
  await writeFile('test-results/communication-twilio/workerd.json',JSON.stringify({sourceCommit:process.env.GITHUB_SHA,checks,passed:true,engine:'workerd',sdk:'twilio@6.2.0',compatibilityFlags:['nodejs_compat'],officialSignatureValidation:true,officialTwimlBuilder:true,directory:'synthetic',liveProviderVerified:false,numbersPurchased:0,extensionsAssigned:0,callsPlaced:0,production:false},null,2));
  console.log('WORKERD_COMMUNICATION_TWILIO_PASS '+checks);

@@ -28,12 +28,13 @@ export async function twilioVoiceIdentity({tenantId,userId}){
  * Requires governed webhook/token mounting, extension publication and live acceptance.
  */
 export class TwilioVoiceExtensionAdapter extends TwilioSignedFormAdapter {
- constructor({accountSid,authToken,sharedNumber,numberVerified,incomingUrl,gatherUrl,directory,maxWebhookBytes,voicemail,dialCompleteUrl}){
+ constructor({accountSid,authToken,sharedNumber,numberVerified,incomingUrl,gatherUrl,directory,maxWebhookBytes,voicemail,dialCompleteUrl,receptionExtension}){
   super({accountSid,authToken,webhookUrls:[incomingUrl,gatherUrl],maxWebhookBytes});
   const incoming=publicUrl(incomingUrl),gather=publicUrl(gatherUrl);
   if(!sid('AC',accountSid)||typeof authToken!=='string'||!/^[a-fA-F0-9]{32}$/.test(authToken)||!e164(sharedNumber)||numberVerified!==true||new URL(incoming).origin!==new URL(gather).origin||incomingUrl===gatherUrl||typeof directory?.lookup!=='function'||requirement.rules.extensionDigits!==6)throw Error('Twilio voice configuration required');
   if((voicemail===undefined)!==(dialCompleteUrl===undefined)||voicemail!==undefined&&(typeof voicemail?.prepare!=='function'||new URL(publicUrl(dialCompleteUrl)).origin!==new URL(incoming).origin||[incomingUrl,gatherUrl].includes(dialCompleteUrl)))throw Error('Voicemail routing configuration required');
-  Object.defineProperties(this,{voicemail:{value:voicemail},configuration:{value:Object.freeze({accountSid,authToken,sharedNumber,incomingUrl,gatherUrl,dialCompleteUrl})},directory:{value:directory}});
+  if(receptionExtension!==undefined&&!extensionPattern.test(receptionExtension))throw Error('Published reception extension required');
+  Object.defineProperties(this,{voicemail:{value:voicemail},configuration:{value:Object.freeze({accountSid,authToken,sharedNumber,incomingUrl,gatherUrl,dialCompleteUrl,receptionExtension})},directory:{value:directory}});
  }
  async respond(request){
   const config=this.configuration;
@@ -42,13 +43,17 @@ export class TwilioVoiceExtensionAdapter extends TwilioSignedFormAdapter {
   if(params.AccountSid!==config.accountSid||params.To!==config.sharedNumber||params.Direction!=='inbound'||!sid('CA',params.CallSid))return failure(403);
   if(request.url===config.incomingUrl){
    if(Object.hasOwn(params,'Digits'))return unavailable();
-   const response=new VoiceResponse();response.gather({input:'dtmf',numDigits:6,finishOnKey:'#',timeout:5,action:config.gatherUrl,method:'POST',actionOnEmptyResult:true}).say('Enter the six digit extension.');response.hangup();return xml(response);
+   const response=new VoiceResponse();response.gather({input:'dtmf',numDigits:6,finishOnKey:'#',timeout:5,action:config.gatherUrl,method:'POST',actionOnEmptyResult:true}).say(config.receptionExtension?'If you know the six digit extension, enter it now. Otherwise press zero followed by pound, or stay on the line for reception.':'Enter the six digit extension.');response.hangup();return xml(response);
   }
-  if(typeof params.Digits!=='string'||!extensionPattern.test(params.Digits))return unavailable();
+  if(params.Digits!==undefined&&typeof params.Digits!=='string')return unavailable();
+  if(!config.receptionExtension&&(typeof params.Digits!=='string'||!extensionPattern.test(params.Digits)))return unavailable();
   try{
-   const first=destination(await this.directory.lookup(params.Digits,2),params.Digits);if(!first)return unavailable();
+   let extension=typeof params.Digits==='string'&&extensionPattern.test(params.Digits)?params.Digits:config.receptionExtension;
+   let first=destination(await this.directory.lookup(extension,2),extension);
+   if(!first&&config.receptionExtension&&extension!==config.receptionExtension){extension=config.receptionExtension;first=destination(await this.directory.lookup(extension,2),extension);}
+   if(!first)return unavailable();
    const identity=await twilioVoiceIdentity(first);
-   const current=destination(await this.directory.lookup(params.Digits,2),params.Digits);
+   const current=destination(await this.directory.lookup(extension,2),extension);
    if(!current||current.tenantId!==first.tenantId||current.userId!==first.userId)return unavailable();
    if(this.voicemail)await this.voicemail.prepare({callSid:params.CallSid,destination:current});
    const response=new VoiceResponse();response.dial({callerId:config.sharedNumber,answerOnBridge:true,timeout:20,...(this.voicemail?{action:config.dialCompleteUrl,method:'POST'}:{})}).client().identity(identity);response.hangup();return xml(response);

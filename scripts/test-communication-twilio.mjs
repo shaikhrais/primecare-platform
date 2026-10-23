@@ -88,3 +88,19 @@ test('provider fields cannot choose tenant, user, arbitrary SDK client or teleph
  const response=await fixture().adapter.respond(request({params:{TenantId:'other',UserId:'other',Client:'forged',PhoneNumber:'+15550009999'}})),body=await response.text();
  assert.match(body,new RegExp('<Identity>'+await twilioVoiceIdentity(target)+'</Identity>'));assert.doesNotMatch(body,/forged|other|15550009999|<Number/);
 });
+test('configured reception handles no input, zero, invalid and unknown extensions without guessing tenant',async()=>{
+ const reception={...target,extension:'100099',tenantId:'platform-tenant',userId:'receptionist'};const lookups=[];
+ const adapter=new TwilioVoiceExtensionAdapter({...config,receptionExtension:reception.extension,directory:{async lookup(value){lookups.push(value);return value===target.extension?[target]:value===reception.extension?[reception]:[];}}});
+ const prompt=await(await adapter.respond(request({stage:'incoming'}))).text();assert.match(prompt,/If you know/);assert.match(prompt,/reception/);
+ for(const Digits of ['', '0','123','999999']){const result=await adapter.respond(request({params:{Digits,TenantId:'attacker',ReceptionExtension:'999998'}}));assert.equal(result.status,200);assert.match(await result.text(),new RegExp('<Identity>'+await twilioVoiceIdentity(reception)+'</Identity>'));}
+ assert.match(await(await adapter.respond(request({params:{Digits:target.extension}}))).text(),new RegExp('<Identity>'+await twilioVoiceIdentity(target)+'</Identity>'));
+ const duplicated=await adapter.respond(request({params:{Digits:['0','100001']}}));assert.doesNotMatch(await duplicated.text(),/<Dial/);
+ assert.ok(!lookups.includes('999998'));
+});
+test('reception must be uniquely published and current; no external-number fallback',async()=>{
+ for(const rows of [[],[{...target,extension:'100099',published:false}],[{...target,extension:'100099'},{...target,extension:'100099'}]]){
+  const adapter=new TwilioVoiceExtensionAdapter({...config,receptionExtension:'100099',directory:{async lookup(){return rows;}}});assert.doesNotMatch(await(await adapter.respond(request({params:{Digits:'0'}}))).text(),/<Dial/);
+ }
+ assert.throws(()=>new TwilioVoiceExtensionAdapter({...config,receptionExtension:'+15550009999',directory:{lookup:async()=>[]}}));
+ let count=0;const adapter=new TwilioVoiceExtensionAdapter({...config,receptionExtension:'100099',directory:{async lookup(){return ++count===1?[{...target,extension:'100099'}]:[];}}});assert.doesNotMatch(await(await adapter.respond(request({params:{Digits:'0'}}))).text(),/<Dial/);
+});

@@ -7,6 +7,7 @@ import {SmsNotificationService} from '../cloudflare/workers/src/business-tasks/s
 import {PostgresSmsObservationStore} from '../cloudflare/workers/src/business-tasks/sms-observations.ts';
 import {PostgresVoiceDirectory,VoiceExtensionService} from '../cloudflare/workers/src/business-tasks/voice-directory.ts';
 import {VoicemailService,PostgresVoicemailRepository} from '../cloudflare/workers/src/business-tasks/voicemail.ts';
+import {VoiceTaskService,PostgresVoiceTaskRepository,BoundVoiceApiTask} from '../cloudflare/workers/src/business-tasks/voice-tasks.ts';
 const connectionString=process.env.TWILIO_SMS_TEST_DATABASE_URL;
 if(!connectionString)throw Error('Disposable local TWILIO_SMS_TEST_DATABASE_URL required');
 const url=new URL(connectionString);
@@ -77,6 +78,18 @@ try{
  assert.equal((await vm.read(actor,vmRecording)).recordingSid,vmRecording);
  await assert.rejects(vmRepo.recording(await vmRepo.read(config.accountSid,vmCall),'RE'+'3'.repeat(32),20));
  console.log('VOICEMAIL_POSTGRES_PASS: immutable owner routing, concurrent duplicate callbacks, unique recordings, durable notification key, owner-only read and single-slot pool; email transport synthetic');
+
+ await pool.query((await readFile('packages/database/migrations/20261023_communication_voice_tasks.sql','utf8')));
+ let taskExecutions=0;const taskRepository=new PostgresVoiceTaskRepository(pool);
+ const taskService=new VoiceTaskService(new PostgresAtomicStore(pool,'business_sms'),{async assert(a,action,state){assert.equal(a.tenantId,state.tenantId);await pool.query('SELECT 1');},async assignee(){throw Error('No grants');}},taskRepository,{async current(){return {actor,sessionId:'fixture-otp-session',authentication:'otp',active:true,expiresAt:Date.now()+300000};},async consumeConfirmation(){return {approved:true,method:'app',approvedAt:Date.now()};}},[new BoundVoiceApiTask('fixture.update',1,{validate(args){if(Object.keys(args).join(',')!=='version'||args.version!==1)throw Error('Invalid task');return {version:1};},describe(){return 'Update fixture at version 1';},async execute(a,args,key){assert.deepEqual(a,actor);assert.match(key,/^voice-task:/);taskExecutions++;}})]);
+ const proposal=await taskService.propose(vmCall,'fixture.update',{version:1});
+ const taskResults=await Promise.allSettled([taskService.execute(vmCall,proposal.intentId),taskService.execute(vmCall,proposal.intentId)]);
+ assert.equal(taskResults.filter(r=>r.status==='fulfilled').length,1);assert.equal(taskExecutions,1);assert.equal((await taskRepository.read(proposal.intentId)).status,'completed');
+ await assert.rejects(taskService.execute(vmCall,proposal.intentId));assert.equal(taskExecutions,1);
+ const secondProposal=await taskService.propose(vmCall,'fixture.update',{version:1});
+ await pool.query("UPDATE communication_voice_tasks SET intent=jsonb_set(intent,'{args,version}','2') WHERE id=$1",[secondProposal.intentId]);
+ await assert.rejects(taskService.execute(vmCall,secondProposal.intentId),/proposal changed/);assert.equal(taskExecutions,1);
+ console.log('VOICE_TASK_POSTGRES_PASS: durable proposal digest, current policy, concurrent single execution, stable idempotency key, argument-tamper rejection and replay denial; synthetic trust/task ports');
  console.log('VOICE_DIRECTORY_POSTGRES_PASS: unique unpublished assignments, versioned publication, current session/membership, tenant isolation and single-slot authorization');
  console.log('SMS_POSTGRES_PASS: durable early callbacks, single-slot pool, concurrent claims, unique receipts, scoped reads, duplicate/order handling, policy denial and reconciliation; synthetic provider only');
 }finally{

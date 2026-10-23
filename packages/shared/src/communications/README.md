@@ -658,3 +658,50 @@ No extension assignments, grants, migration application or live email sends occu
 on construction. Run Node tests, Worker checks, real-browser panel checks and the
 disposable PostgreSQL suite before release; then perform live device/phone/email
 acceptance.
+
+### Reception and defined AI tasks (candidate, unmounted)
+
+An optional server-configured `receptionExtension` changes the initial prompt:
+enter a known six-digit extension, press zero then pound, or wait for reception.
+Empty/zero/invalid/unknown extensions resolve that reception extension through the
+same unique published current directory and revocation checks as ordinary users.
+Duplicate critical form fields cannot choose reception or another tenant. There
+is no hard-coded person, personal phone, inferred tenant or automatic assignment.
+A shared number without identified tenant context uses platform reception; a
+future tenant-specific reception selector must resolve tenant context explicitly.
+If reception is unavailable, do not silently route to a different tenant.
+
+`VoiceTaskService` extends `ScopedServiceBase`; `VoiceTaskBase` and
+`BoundVoiceApiTask` supply a reusable provider-neutral task boundary. Vapi function
+tools or a Twilio ConversationRelay server can propose only host-registered task
+IDs through this service. The model never selects actor/tenant/credentials or a
+URL, SQL statement, unrestricted API operation, or permission. Each task validates
+strict typed arguments, generates a deterministic summary, and binds an existing
+business service with its own ownership/version/permission checks.
+
+The server authentication broker must verify a caller through OTP sent to an
+already verified account contact or passkey in the signed-in app, then persist a
+call/session/user/tenant binding. Do not derive this from caller ID or voice
+similarity. The LLM must never receive an OTP, raw verification secret or auth
+credential. The current identity port accepts only fresh active OTP/passkey
+bindings, and is checked again just before execution. Identity verification alone
+does not approve an operation.
+
+The gateway persists an exact bounded proposal with SHA-256 digest, task version,
+call/session/user/tenant binding, server summary and expiry (at most two minutes).
+A separate trusted app-confirmation or signed DTMF-event store must atomically
+consume approval for that exact digest. A transcript, model argument `confirmed`,
+spoken yes interpreted by the LLM, or stale confirmation cannot satisfy this port.
+Execution revalidates the proposal, definition and current policy, atomically
+claims one attempt and calls the bound service using a stable idempotency key.
+Provider timeouts or crashes leave unknown/executing outcomes for reconciliation;
+no automatic repeat of a potentially completed task. Status/timestamps provide
+execution evidence without persisting private provider errors.
+
+`PostgresVoiceTaskRepository` and its candidate migration implement the durable
+proposal/claim boundary; `createPostgresVoiceTaskService` composes it. Neither the
+OTP broker, one-time confirmation store, Vapi webhook credentials, Relay WebSocket
+handler nor real business task registrations are installed by this code. An empty
+task catalogue enables nothing. All new task permissions remain default-denied.
+A host must authenticate the provider transport independently, and resolve these
+trust ports from server state rather than tool arguments before mounting.
