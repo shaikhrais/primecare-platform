@@ -89,3 +89,30 @@ reconcile using read-only verification. The first run reached that stage without
 its Node dependency, so it was treated as potentially committed and unverified.
 The corrected workflow reruns idempotently and performs an additional read-only
 verification; no differing row is overwritten during recovery.
+
+
+## Production blocker and recovery
+
+The corrected native CI run passed eight definition/readback tests and 28 native
+PostgreSQL tests (including eight new registration cases and the inherited native
+store suite). The production connection was then rejected by Prisma with
+`planLimitReached`. No independent production readback can be credited from that
+run. The earlier apply reached its post-commit readback before the missing-reader
+dependency failure, so its 21 metadata rows must be treated as potentially
+committed, not assumed rolled back. No differing records are overwritten.
+
+Pushes now run the isolated checks only; production reconciliation is an explicit
+workflow operation so new commits do not repeatedly attempt the restricted account.
+Restore access to the existing pinned production Prisma database account first.
+Then run the `Register Twilio boundary contracts without activation` workflow on
+`main`, choosing `verify`. That mode provides no writer opt-in variables and runs
+only the independent read-only check. It must verify every complete row and API
+ID before registration is credited. If metadata is missing, use the separately
+selected `register` mode to perform the tested dry-run/idempotent transaction and
+readback. An existing edited or colliding row requires reconciliation; do not
+reset or replace it. There is no alternate-database or SQLite fallback.
+
+Evidence: [native checks and restricted production attempt](https://github.com/shaikhrais/primecare-platform/actions/runs/40018192032).
+This blocker concerns production database access, not Twilio number provisioning.
+It does not establish live routes, grants, extension publication, phone ringing,
+SMTP delivery or model/task acceptance.

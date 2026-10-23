@@ -10,6 +10,12 @@ on:
       - 'tools/governance-production/production-pin.json'
       - '.github/workflows/twilio-contracts-registration.yml'
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Verify existing metadata without writes, or register exact contracts
+        type: choice
+        options: [verify, register]
+        default: verify
 permissions:
   contents: read
 concurrency:
@@ -40,6 +46,7 @@ jobs:
           python tools/governance-production/test-twilio-contracts-definition.py
           python tools/governance-production/test-twilio-contracts-registration.py
   register:
+    if: github.event_name == 'workflow_dispatch'
     needs: isolated
     environment: production
     runs-on: ubuntu-24.04
@@ -55,6 +62,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/twilio-contract-reader" --ignore-scripts --no-audit --no-fund pg@8.16.3
           ln -s "$RUNNER_TEMP/twilio-contract-reader/node_modules" node_modules
       - name: Validate, roll back, register and independently reread pinned contracts
+        if: github.event_name != 'workflow_dispatch' || inputs.mode != 'verify'
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           GOVERNANCE_WORKFLOW_WRITES: '1'
@@ -63,3 +71,8 @@ jobs:
           python tools/governance-production/twilio_contracts_registration.py --dry-run
           python tools/governance-production/twilio_contracts_registration.py --apply
           python tools/governance-production/twilio_contracts_registration.py --verify
+      - name: Independently verify existing metadata without writer opt-ins
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'verify'
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/governance-production/twilio_contracts_registration.py --verify
