@@ -75,9 +75,11 @@ try {
  });
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch({executablePath:process.env.BUSINESS_TEST_CHROMIUM_EXECUTABLE,args:['--no-sandbox','--disable-dev-shm-usage','--use-fake-device-for-media-stream','--use-fake-ui-for-media-stream','--autoplay-policy=no-user-gesture-required','--allow-loopback-in-peer-connection','--disable-features=WebRtcHideLocalIpsWithMdns']});
- const control=(page,id)=>page.locator('xpath=//*[@aria-label="'+id+'"]');
+ // Flutter can merge the registered wrapper label with its child's spoken
+ // label. Match the complete ID line, never an arbitrary prefix or UI text.
+ const control=(page,id)=>page.locator('xpath=//*[@aria-label="'+id+'" or starts-with(@aria-label,"'+id+'\n")]').first();
  const id=key=>ui.controls[key].testId;
- const fill=(page,key,value)=>control(page,key).locator('input,textarea').fill(value);
+ const fill=async(page,key,value)=>{const c=control(page,key);await c.waitFor();const tag=await c.evaluate(node=>node.tagName.toLowerCase());await (['input','textarea'].includes(tag)?c:c.locator('input,textarea')).fill(value);};
  const tap=async(page,key)=>{const c=control(page,key);await c.waitFor();const role=await c.getAttribute('role');await (role==='button'?c:c.getByRole('button')).click();};
  const call=async(token,path,body)=>{const r=await fetch(origin+path,{method:body?'POST':'GET',headers:{authorization:'Bearer '+token,'content-type':'application/json'},...(body?{body:JSON.stringify(body)}:{})});return r;};
  async function login(email){
@@ -129,7 +131,11 @@ try {
  results.databaseEventsReadback=true;
  console.log('COMMUNICATION_STACK_PASS '+JSON.stringify(results));
 }catch(error){
- let index=0;for(const context of browser?.contexts()??[])for(const page of context.pages())try{await page.screenshot({path:join(out,'failure-'+index+++'.png'),fullPage:true});}catch{}
+ let index=0;for(const context of browser?.contexts()??[])for(const page of context.pages())try{
+  await page.screenshot({path:join(out,'failure-'+index+'.png'),fullPage:true});
+  const semantics=await page.locator('[aria-label]').evaluateAll(nodes=>nodes.map(node=>({tag:node.tagName,role:node.getAttribute('role'),label:node.getAttribute('aria-label')})));
+  await writeFile(join(out,'semantics-'+index+++'.json'),JSON.stringify(semantics,null,2));
+ }catch{}
  throw error;
 }finally{
  await writeFile(join(out,'results.json'),JSON.stringify({sourceCommit:process.env.GITHUB_SHA,passed:results.databaseEventsReadback===true,scope:'Actual Flutter UI, auth, gateway, native policies and disposable PostgreSQL',production:false,syntheticPorts:['mail acceptance','picture scanner','private object bucket','microphone input'],liveProviderVerified:false,results,requests},null,2));
