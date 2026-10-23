@@ -56,3 +56,13 @@ Official sources rechecked for the follow-up:
 - https://developers.cloudflare.com/email-service/api/route-emails/email-handler/: the trusted email event supplies the envelope. Header addresses must not replace its tenant/mailbox scope.
 
 Design: authorize the stored mailbox record before parsing. Bound raw bytes, aggregate headers, MIME depth/part count, UTF-8 preview size and subject length. Return a dedicated unverified plain-text preview under the existing registered mail-read contract; withhold raw MIME, HTML, attachments, routing headers and digest from user responses. Keep quarantine and senderIdentityVerified=false. Parse/budget failures yield a generic preview-unavailable result and no partial content. Flutter renders Text only under the registered quarantine warning, with no embedded media, HTML renderer or automatic link navigation. Legacy stored mail is projected through the same boundary without rewriting the quarantined object.
+
+## HTML-only email text extraction
+
+Official sources checked on 2026-10-22:
+
+- https://github.com/fb55/htmlparser2 documents incremental callbacks, entity decoding, implied close events and the separate DOM-building API. The package metadata and npm integrity confirm version 12.0.0 requires Node >=20.19; the communication runtime/tests use Node 24. Pin 12.0.0 and use callbacks only, without a DOM tree.
+- https://github.com/fb55/htmlparser2/releases records HTML-mode changes in version 12.0.0. A forgiving parser is not a sender authenticator, HTML sanitizer or browser layout engine.
+- https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html recommends treating untrusted values as displayable text and avoiding HTML-rendering sinks. Continue using the existing Flutter Text presentation, even when decoded entities look like markup.
+
+Design decision: only attempt HTML extraction when the MIME parser supplies no text/plain body. An invalid or oversized plain-text body must not trigger an alternative-content bypass. Limit decoded HTML input, nesting, callback events and UTF-8 output. Keep text from a conservative set of formatting/structural elements; omit unknown/active/embedded subtrees, explicit hidden/aria-hidden subtrees, comments and attribute values. Preserve paragraph/table/list separators without including href, src, alt or form values. No network, browser document, script, CSS or attachment evaluation occurs. This is approximate text extraction, not visual fidelity: CSS visibility/layout is not evaluated, so text hidden by styles may appear as unverified text. Any failed budget discards the complete preview, including subject; never return partial output. Authorization before/after parsing and quarantine retention remain mandatory.

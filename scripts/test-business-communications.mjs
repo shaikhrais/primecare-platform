@@ -400,6 +400,17 @@ test('current mailbox denial and cross-tenant reads precede MIME parsing',async(
  await assert.rejects(guarded.read(c,received.id),/Forbidden/);await assert.rejects(guarded.read(outsider,received.id),/Not found/);assert.equal(parsed,0);
  assert.equal((await guarded.read(b,received.id)).contentPreview.status,'available');assert.equal(parsed,1);
 });
+test('received HTML-only mail projects text through inherited service without changing quarantine',async()=>{
+ const raw=new TextEncoder().encode('From: forged@example.invalid\r\nSubject: HTML fixture\r\nContent-Type: text/html; charset=utf-8\r\n\r\n<p>HTML café body</p><script>PRIVATE SCRIPT</script><img src="https://example.invalid/tracker">'+crypto.randomUUID());
+ const received=await mail.receive({from:'envelope@example.invalid',to:'owned@example.invalid',raw});
+ const before=await store.read(b,received.id,()=>{});const record=await mail.read(b,received.id);
+ assert.equal(record.contentPreview.status,'available');assert.ok(record.contentPreview.text.startsWith('HTML café body'));
+ assert.equal(record.contentPreview.subject,'HTML fixture');assert.equal(record.from,'envelope@example.invalid');assert.equal(record.status,'quarantined');assert.equal(record.senderIdentityVerified,false);assert.equal(record.version,1);
+ assert.ok(!JSON.stringify(record).includes('PRIVATE SCRIPT'));assert.ok(!JSON.stringify(record).includes('tracker'));
+ for(const field of ['rawBase64','digest','html','attachments','headers'])assert.equal(Object.hasOwn(record,field),false);
+ assert.deepEqual(await store.read(b,received.id,()=>{}),before);
+ await assert.rejects(mail.read(c,received.id),/Forbidden/);await assert.rejects(mail.read(outsider,received.id),/Not found/);
+});
 test('mailbox revocation during MIME parsing denies the completed preview',async()=>{
  let release,entered;const ready=new Promise(resolve=>{entered=resolve;});const wait=new Promise(resolve=>{release=resolve;});let revoked=false;
  const guarded=new BusinessMailService(store,policy,{...mailboxes,async access(actor,id){if(revoked)throw Error('Forbidden');return mailboxes.access(actor,id);}},mail.transport,'sender@example.invalid',2048,{async project(){entered();await wait;return {status:'available',text:'MUST NOT ESCAPE'};}});

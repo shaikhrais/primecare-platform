@@ -1,11 +1,12 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {InboundMailTextPreview} from '../packages/shared/src/communications/mail-preview.mjs';
+import {InboundMailTextPreview,HtmlMailTextExtractor} from '../packages/shared/src/communications/mail-preview.mjs';
 import {BoundedBinaryAdapterBase} from '../packages/shared/src/communications/adapter-base.mjs';
 import limits from '../packages/shared/src/communications/registered-mail-preview-limits.json' with {type:'json'};
 const encode=value=>Buffer.from(value,'utf8').toString('base64');
 const plain=(text,subject='Test')=>'From: forged@example.invalid\r\nSubject: '+subject+'\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\n\r\n'+text;
 const project=raw=>new InboundMailTextPreview(65536).project(encode(raw));
+const html=body=>'Content-Type: text/html; charset=utf-8\r\n\r\n'+body;
 function multipart(parts){return 'MIME-Version: 1.0\r\nContent-Type: multipart/mixed; boundary="outer"\r\n\r\n'+parts.map(part=>'--outer\r\n'+part+'\r\n').join('')+'--outer--\r\n';}
 test('bounded inherited parser decodes real UTF-8 text and encoded subject',async()=>{
  const parser=new InboundMailTextPreview(65536);assert.ok(parser instanceof BoundedBinaryAdapterBase);
@@ -18,9 +19,9 @@ test('real quoted-printable and base64 bodies decode to plain text',async()=>{
   assert.equal((await project(raw)).text.trim(),'café');
  }
 });
-test('HTML-only messages are withheld instead of forwarding markup or remote media',async()=>{
- const result=await project('Content-Type: text/html; charset=utf-8\r\n\r\n<p>Visible body</p><img src="https://example.invalid/tracker">');
- assert.deepEqual(result,{status:'unavailable'});
+test('HTML-only messages expose text without markup or remote media',async()=>{
+ const result=await project(html('<p>Visible body</p><img src="https://example.invalid/tracker" alt="PRIVATE ALT">'));
+ assert.deepEqual(result,{status:'available',text:'Visible body'});
 });
 test('binary attachments and attached messages never enter the preview',async()=>{
  const result=await project(multipart(['Content-Type: text/plain\r\n\r\nVisible main body','Content-Type: application/octet-stream\r\nContent-Disposition: attachment; filename="private.txt"\r\nContent-Transfer-Encoding: base64\r\n\r\n'+encode('PRIVATE ATTACHMENT'),'Content-Type: message/rfc822\r\n\r\nFrom: hidden@example.invalid\r\nSubject: ATTACHED SECRET\r\n\r\nPRIVATE NESTED BODY']));
@@ -73,4 +74,75 @@ test('only a snapshot of the allowed text/subject is returned; identity and prov
 test('invalid construction cannot silently disable byte limits or parser validation',()=>{
  for(const value of [0,-1,NaN,Infinity,'100',null])assert.throws(()=>new InboundMailTextPreview(value));
  assert.throws(()=>new InboundMailTextPreview(100,{parse:null}));
+});
+test('HTML extractor shares the bounded base and preserves paragraph, list and table separators',async()=>{
+ const parser=new HtmlMailTextExtractor(65536);assert.ok(parser instanceof BoundedBinaryAdapterBase);
+ assert.equal(parser.extract('<h1>Title</h1><p>Hello <b>café</b><br>Next</p><ul><li>One<li>Two</ul><table><tr><td>A<td>B</table>'),'Title\nHello café\nNext\nOne\nTwo\nA\nB');
+});
+test('active, unknown, foreign and embedded HTML subtrees are omitted completely',async()=>{
+ const tags=['head','script','style','template','noscript','iframe','object','svg','math','form','textarea','select','button','custom-element'];
+ const result=await project(html('<p>Before</p>'+tags.map(tag=>'<'+tag+'>PRIVATE '+tag+'<span>SECRET</span></'+tag+'>').join('')+'<p>After</p>'));
+ assert.deepEqual(result,{status:'available',text:'Before\nAfter'});
+});
+test('explicit hidden subtrees, comments and all attribute values are excluded',async()=>{
+ const result=await project(html('Before<span hidden="false">SECRET hidden</span><span ARIA-HIDDEN=" TRUE ">SECRET aria</span><!--SECRET comment--><a href="javascript:SECRET()" title="SECRET title">Link label</a><img alt="SECRET alt" src="https://example.invalid/SECRET">After'));
+ assert.deepEqual(result,{status:'available',text:'Before\nLink label\nAfter'});
+});
+test('entity decoding is single-pass displayable text including markup-shaped text',async()=>{
+ const result=await project(html('<p>Caf&eacute; &amp; &#128512; &lt;img src=x onerror=evil()&gt; &amp;lt;b&amp;gt;</p>'));
+ assert.deepEqual(result,{status:'available',text:'Café & 😀 <img src=x onerror=evil()> &lt;b&gt;'});
+});
+test('HTML processing has no browser document and never calls fetch for remote content',async t=>{
+ const fetch=t.mock.method(globalThis,'fetch',()=>assert.fail('No HTML fetch permitted'));
+ assert.equal(typeof globalThis.document,'undefined');
+ assert.deepEqual(await project(html('<link href="https://example.invalid/a"><p style="background:url(https://example.invalid/b)">Body</p><img src="https://example.invalid/c"><iframe src="https://example.invalid/d">secret</iframe>')),{status:'available',text:'Body'});
+ assert.equal(fetch.mock.callCount(),0);
+});
+test('real multipart alternatives prefer plain text even when HTML has another meaning',async()=>{
+ const raw=multipart(['Content-Type: text/plain\r\n\r\nPlain body','Content-Type: text/html\r\n\r\n<p>Different HTML body</p>']).replace('multipart/mixed','multipart/alternative');
+ assert.equal((await project(raw)).text.trim(),'Plain body');
+});
+test('invalid, empty or oversized plain text never falls back to alternate HTML',async()=>{
+ for(const text of ['',null,4,'bad\u0000text','é'.repeat(40000)]){
+  const parser=new InboundMailTextPreview(65536,{parse:async()=>({text,html:'<p>BYPASS</p>'})});
+  assert.deepEqual(await parser.project(encode('raw')),{status:'unavailable'});
+ }
+});
+test('decoded HTML input is separately bounded before parsing, including UTF-8 bytes',async()=>{
+ for(const body of ['x'.repeat(limits.maxHtmlBytes+1),'é'.repeat(limits.maxHtmlBytes/2+1)]){
+  const parser=new InboundMailTextPreview(65536,{parse:async()=>({html:body,subject:'PRIVATE partial'})});
+  assert.deepEqual(await parser.project(encode('raw')),{status:'unavailable'});
+ }
+});
+test('deep HTML fails closed without a partial preview or subject',async()=>{
+ const raw=html('<p>PRIVATE partial</p>'+'<div>'.repeat(limits.maxHtmlDepth+1)+'body'+'</div>'.repeat(limits.maxHtmlDepth+1));
+ assert.deepEqual(await project(raw),{status:'unavailable'});
+});
+test('wide HTML and excessive callbacks fail inside the raw byte budget',async()=>{
+ for(const body of ['<span>x</span>'.repeat(Math.ceil(limits.maxHtmlEvents/4)+1),'<!---->'.repeat(limits.maxHtmlEvents+1),'&amp;'.repeat(limits.maxHtmlEvents+1)]){
+  assert.ok(Buffer.byteLength(body)<limits.maxHtmlBytes);
+  assert.deepEqual(await project(html(body)),{status:'unavailable'});
+ }
+});
+test('attribute callbacks count toward the shared HTML event budget',async()=>{
+ const body='<p '+Array.from({length:limits.maxHtmlEvents},()=> 'x=""').join(' ')+'>PRIVATE partial</p>';
+ assert.ok(Buffer.byteLength(body)<limits.maxHtmlBytes);assert.deepEqual(await project(html(body)),{status:'unavailable'});
+});
+test('UTF-8 output has an independent bound and failed extraction returns no partial content',()=>{
+ const parser=new HtmlMailTextExtractor(65536,7);
+ assert.throws(()=>parser.extract('<p>éééé</p>'),/text budget/);
+ assert.equal(new HtmlMailTextExtractor(65536,10).extract('<p>éééé</p>'),'éééé');
+});
+test('HTML attachments never become a preview and empty or excluded-only HTML is unavailable',async()=>{
+ for(const raw of ['Content-Type: text/html\r\nContent-Disposition: attachment; filename="private.html"\r\n\r\n<p>SECRET</p>',html(''),html('<script>SECRET</script>'),html('<!--SECRET-->')])assert.deepEqual(await project(raw),{status:'unavailable'});
+});
+test('malformed HTML remains plain text and cannot promote attributes or excluded content',async()=>{
+ assert.deepEqual(await project(html('<p>One<p>Two<b> end')),{status:'available',text:'One\nTwo end'});
+ assert.deepEqual(await project(html('<p>Safe</p><script>PRIVATE <p>never closes')),{status:'available',text:'Safe'});
+});
+test('invalid HTML extractor configuration cannot remove limits',()=>{
+ for(const value of [0,-1,NaN,Infinity,'100',null]){
+  assert.throws(()=>new HtmlMailTextExtractor(value));assert.throws(()=>new HtmlMailTextExtractor(100,value));
+ }
+ for(const value of [null,4,[],{}])assert.throws(()=>new HtmlMailTextExtractor(100).extract(value));
 });

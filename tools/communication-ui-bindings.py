@@ -36,7 +36,7 @@ abstract final class CommunicationWorkspaceCatalog {
 def preview_limits():
  render() # Require the same independent production receipt before either output.
  d=json.loads(SOURCE.read_text());limits=d['limits']
- return json.dumps({'definitionSha256':hashlib.sha256(SOURCE.read_bytes()).hexdigest(),'maxRawBytes':limits['maxMailTextBytes'],'maxTextBytes':limits['maxMailPreviewBytes'],'maxSubjectLength':limits['maxMailSubject'],'maxHeadersSize':limits['maxMailHeaderBytes'],'maxNestingDepth':limits['maxMailNestingDepth'],'maxPartCount':limits['maxMailParts']},indent=2)+'\n'
+ return json.dumps({'definitionSha256':hashlib.sha256(SOURCE.read_bytes()).hexdigest(),'maxRawBytes':limits['maxMailTextBytes'],'maxTextBytes':limits['maxMailPreviewBytes'],'maxSubjectLength':limits['maxMailSubject'],'maxHeadersSize':limits['maxMailHeaderBytes'],'maxNestingDepth':limits['maxMailNestingDepth'],'maxPartCount':limits['maxMailParts'],'maxHtmlBytes':limits['maxMailHtmlBytes'],'maxHtmlDepth':limits['maxMailHtmlDepth'],'maxHtmlEvents':limits['maxMailHtmlEvents']},indent=2)+'\n'
 PREVIEW_TARGET=ROOT/'packages/shared/src/communications/registered-mail-preview-limits.json'
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--generate',action='store_true');args=p.parse_args();content=render()

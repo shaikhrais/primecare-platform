@@ -145,7 +145,7 @@ test('email queue/deliver/read preserve native acceptance and duplicate-send gua
 });
 test('registered received-mail inbox discovers IDs for authorized read and paginates without raw data',async()=>{
  const received=[];
- for(let i=0;i<3;i++)received.push((await mail.receive({from:'outside@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode('From: forged@example.invalid\r\nSubject: Synthetic unverified\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nPrivate inbound fixture '+crypto.randomUUID())})).id);
+ for(let i=0;i<3;i++)received.push((await mail.receive({from:'outside@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode('From: forged@example.invalid\r\nSubject: Synthetic unverified\r\nContent-Type: text/html; charset=utf-8\r\n\r\n<p>Private inbound fixture '+crypto.randomUUID()+'</p><img src="https://example.invalid/tracker">')})).id);
  const first=await request('b','/v1/messages/email/inbox?direction=inbound&mailboxId=fixture&limit=2',null,'GET');
  assert.equal(first.status,200,await first.clone().text());assert.equal(first.headers.get('cache-control'),'private, no-store');
  const page=await first.json();assert.deepEqual(page.items.map(item=>item.id),received.sort().slice(0,2));assert.ok(page.nextAfter);

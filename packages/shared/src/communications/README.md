@@ -248,9 +248,19 @@ transport fixture. It is not deployed end-to-end acceptance or a product screens
 postal-mime 4.1.2. Its limits are generated from the same independently read
 production registration as the Dart UI catalog. It caps raw parse bytes,
 aggregate headers, MIME nesting/parts, decoded UTF-8 text and subject length.
-Attached/nested messages are not expanded. HTML-only or attachment-only messages
-remain readable as envelopes with an unavailable-preview warning; the adapter
-provides text/plain parts, not an HTML renderer or attachment viewer.
+Attached/nested messages are not expanded. Plain-text parts take precedence,
+including when invalid or oversized: a rejected plain body never falls back to
+alternate HTML. HTML-only mail uses `HtmlMailTextExtractor`, another
+`BoundedBinaryAdapterBase` subclass, with pinned htmlparser2 12.0.0 callbacks.
+Generated limits cap decoded HTML bytes (65536), nesting (48), callback events
+(8192) and UTF-8 output. Formatting/structural elements provide text and block
+separators; unknown/active/embedded subtrees, explicit hidden/aria-hidden content,
+comments and attribute values are omitted. No document, network requests, CSS,
+script or URL execution occurs. This is approximate text extraction; CSS layout
+and visibility are not evaluated, so styled hidden text may appear as unverified
+text. Entity-decoded markup-shaped text is still rendered as Text only.
+Attachment-only, empty, excluded-only or over-budget mail retains an unavailable
+preview warning. Failed extraction returns no partial content or subject.
 
 `BusinessMailService.read` first authorizes the current stored mailbox record,
 then projects untrusted text, then rechecks current mailbox access. Every parser

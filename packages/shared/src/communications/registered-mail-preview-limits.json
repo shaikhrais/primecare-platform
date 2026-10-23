@@ -1,9 +1,12 @@
 {
-  "definitionSha256": "df5b0fde94ab204ba18d32e8ce2d5fa37a6e52e494c4f09d23fcb461e949826a",
+  "definitionSha256": "40fe2f24456a0f5b7ebfe28df6b6b900acdfeb2fee9e95a20a4d74878b7b3354",
   "maxRawBytes": 65536,
   "maxTextBytes": 65536,
   "maxSubjectLength": 200,
   "maxHeadersSize": 16384,
   "maxNestingDepth": 12,
-  "maxPartCount": 64
+  "maxPartCount": 64,
+  "maxHtmlBytes": 65536,
+  "maxHtmlDepth": 48,
+  "maxHtmlEvents": 8192
 }

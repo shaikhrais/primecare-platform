@@ -1,5 +1,5 @@
 {
-  "definitionSha256": "df5b0fde94ab204ba18d32e8ce2d5fa37a6e52e494c4f09d23fcb461e949826a",
+  "definitionSha256": "40fe2f24456a0f5b7ebfe28df6b6b900acdfeb2fee9e95a20a4d74878b7b3354",
   "screens": 4,
   "controlsPerScreen": 43,
   "resources": 73,
@@ -12,8 +12,8 @@
   "activation": false,
   "reviewApproved": false,
   "independentReadback": true,
-  "sourceCommit": "a9aefcefefde5f1e1580bcf496f15eaee2ac09a1",
-  "runId": 39875059914,
+  "sourceCommit": "edd1c38492208da35215f6eb63fbfc26987cb658",
+  "runId": 39879659458,
   "authority": "pinned-production-postgresql",
   "isolatedTestsPassed": 8
 }
