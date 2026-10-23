@@ -11,3 +11,11 @@ test('unexpected SDK acceptance disconnects and session change blocks mute',asyn
 test('logout during SDK accept disconnects late media instead of leaving it connected',async()=>{
  let resolve;const f=fixture();f.call.accept=()=>new Promise(r=>resolve=r);const pending=f.session.answer();await new Promise(r=>setImmediate(r));f.session.close();resolve();await assert.rejects(pending);assert.ok(f.call.ends>=1);assert.equal(f.session.state,'ended');
 });
+test('closing or changing session while rendering answering prevents SDK accept',async()=>{
+ for(const action of ['close','scope','cancel']){
+  let scope='a',session;const call=new EventEmitter();let accepts=0,ends=0;
+  call.accept=()=>{accepts++;};call.reject=()=>{};call.disconnect=()=>{ends++;};call.mute=()=>{};
+  session=new TwilioRingingCall({call,currentScope:()=>scope,authorizeAnswer:async()=>true,onChange:({state})=>{if(state==='answering'){if(action==='close')session.close();else if(action==='scope')scope='b';else call.emit('cancel');}}});
+  await assert.rejects(session.answer());assert.equal(accepts,0);assert.equal(session.closed,true);assert.equal(call.eventNames().length,0);
+ }
+});

@@ -20,7 +20,7 @@ export class TwilioRingingCall extends CommunicationResourceBase {
  #set(state){this.state=state;this.onChange({state,muted:this.muted});}
  async answer(){
   this.#current();if(this.state!=='ringing'||this.#pending)throw Error('Call unavailable');this.#pending=true;
-  try{if(await this.authorizeAnswer()!==true)throw Error('Answer denied');this.#current();if(this.state!=='ringing')throw Error('Call ended');this.#set('answering');await this.#call.accept();if(this.closed){this.#call.disconnect();throw Error('Call ended');}this.#current();}
+  try{if(await this.authorizeAnswer()!==true)throw Error('Answer denied');this.#current();if(this.state!=='ringing')throw Error('Call ended');this.#set('answering');this.#current();if(this.state!=='answering')throw Error('Call ended');await this.#call.accept();if(this.closed){this.#call.disconnect();throw Error('Call ended');}this.#current();}
   catch{this.close();throw Error('Call unavailable');}finally{this.#pending=false;}
  }
  decline(){this.#current();if(this.state!=='ringing')throw Error('Call unavailable');this.close();}
