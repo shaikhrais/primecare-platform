@@ -78,7 +78,7 @@ export interface SalesQualityPorts {
  scope(actor:Actor,callId:string):Promise<SalesCallScope>;
  rubric(actor:Actor,rubricId:string):Promise<SalesRubric>;
  /** Bounded canonical provider read. Must verify account, recording->call, transcript->recording and configured operator->rubric digest. */
- source(scope:SalesCallScope,rubricDigest:string):Promise<{transcript:SalesTranscript;points:PointAssessment[];operatorId:string;rubricDigest:string}>;
+ source(scope:SalesCallScope,rubricDigest:string):Promise<{transcript:SalesTranscript;points:PointAssessment[];operatorId:string;rubricDigest:string;provenance:{accountSid:string;serviceSid:string;recordingSid:string;operatorConfigDigest:string}}>;
  /** Host resolves existing registered actions; this candidate does not register or grant permissions. */
  actions:{analyze:string;read:string};
 }
@@ -91,7 +91,10 @@ export class SalesCallQualityService extends ScopedServiceBase {
   this.ports=Object.freeze({scope:ports.scope.bind(ports),rubric:ports.rubric.bind(ports),source:ports.source.bind(ports),actions:Object.freeze({...ports.actions})});
  }
  async #scope(actor:Actor,callId:string,action:string){
-  assertActor(actor);required(callId);const scope=structuredClone(await this.ports.scope(actor,callId));
+  assertActor(actor);required(callId);const row=structuredClone(await this.ports.scope(actor,callId));
+  if(!row)throw Error('Sales call unavailable');
+  // Project canonical scope fields; database/adapter extras cannot replace policy kind/id/version.
+  const scope:SalesCallScope={callId:row.callId,tenantId:row.tenantId,ownerId:row.ownerId,recordingSid:row.recordingSid,transcriptSid:row.transcriptSid,agentChannel:row.agentChannel,captureApproved:row.captureApproved};
   if(scope?.tenantId!==actor.tenantId||scope.callId!==callId||scope.captureApproved!==true||![1,2].includes(scope.agentChannel))throw Error('Sales call unavailable');
   required(scope.ownerId);
   await this.checkAccess(actor,action,{id:callId,kind:'sales_call_quality',version:0,...scope},['sales_call_quality']);return scope;
@@ -102,10 +105,14 @@ export class SalesCallQualityService extends ScopedServiceBase {
   if(rubric.id!==request.rubricId)throw Error('Sales rubric unavailable');
   const rubricDigest=await salesDigest(rubric),source=structuredClone(await this.ports.source(structuredClone(scope),rubricDigest));
   if(source.rubricDigest!==rubricDigest||source.transcript.id!==scope.transcriptSid)throw Error('Sales source changed');required(source.operatorId,100);
+  const p=source.provenance;
+  const sid=(prefix:string,value:unknown)=>typeof value==='string'&&value.length===34&&new RegExp('^'+prefix+'[0-9a-fA-F]{32}$').test(value);
+  if(!p||!sid('AC',p.accountSid)||!sid('GA',p.serviceSid)||!sid('RE',p.recordingSid)||p.recordingSid!==scope.recordingSid||!sid('LY',source.operatorId)||typeof p.operatorConfigDigest!=='string'||p.operatorConfigDigest.length!==64||!/^[a-f0-9]{64}$/.test(p.operatorConfigDigest))throw Error('Sales provenance unavailable');
+  const provenance={accountSid:p.accountSid,serviceSid:p.serviceSid,recordingSid:p.recordingSid,operatorConfigDigest:p.operatorConfigDigest,agentChannel:scope.agentChannel};
   const report=scoreSalesCall(rubric,source.transcript,source.points),transcriptDigest=await salesDigest(salesTranscript(source.transcript));
-  const draft:RecordState={id:request.id,kind:'sales_call_quality',version:0,tenantId:actor.tenantId,ownerId:scope.ownerId,callId:scope.callId,rubric,rubricDigest,transcriptDigest,operatorId:source.operatorId,report};
+  const draft:RecordState={id:request.id,kind:'sales_call_quality',version:0,tenantId:actor.tenantId,ownerId:scope.ownerId,callId:scope.callId,rubric,rubricDigest,transcriptDigest,operatorId:source.operatorId,provenance,report};
   const current=async()=>{const next=await this.#scope(actor,request.callId,this.ports.actions.analyze);if(JSON.stringify(next)!==JSON.stringify(scope)||await salesDigest(salesRubric(await this.ports.rubric(actor,request.rubricId)))!==rubricDigest)throw Error('Sales source changed');};
-  return this.store.run({actor,id:request.id,key:request.key,expectedVersion:0,type:'sales-quality.analyze',payload:{scope,rubricDigest,transcriptDigest,operatorId:source.operatorId,report}},
+  return this.store.run({actor,id:request.id,key:request.key,expectedVersion:0,type:'sales-quality.analyze',payload:{scope,rubricDigest,transcriptDigest,operatorId:source.operatorId,provenance,report}},
    state=>this.checkCreation(actor,this.ports.actions.analyze,state,draft,['sales_call_quality'],current),
    async()=>({state:structuredClone(draft),event:'sales-quality.analyzed',result:{id:request.id,version:1,report}}));
  }

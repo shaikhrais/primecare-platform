@@ -47,13 +47,13 @@ test('operator configuration is reproducible, bounded and treats transcript inst
 });
 
 function serviceFixture(store=new MemoryAtomicStore()){
- let current=structuredClone(scope),script=structuredClone(rubric),allowed=true,sourceReads=0,afterSource=()=>{};
+ let current=structuredClone(scope),script=structuredClone(rubric),allowed=true,sourceReads=0,afterSource=()=>{},sourceChange=()=>{};
  const policy={async assert(a,action,state){if(!allowed||a.tenantId!==state?.tenantId||state.ownerId!==a.id||!['fixture.analyze','fixture.read'].includes(action))throw Error('Denied');},async assignee(){throw Error('unused');}};
- const service=new SalesCallQualityService(store,policy,{async scope(){return structuredClone(current);},async rubric(){return structuredClone(script);},async source(s,digest){sourceReads++;afterSource();return {transcript:structuredClone(transcript),points:assessment(),operatorId:operatorSid,rubricDigest:digest};},actions:{analyze:'fixture.analyze',read:'fixture.read'}});
- return {store,service,get reads(){return sourceReads;},revoke(){allowed=false;},changeScope(fn){fn(current);},changeRubric(fn){fn(script);},afterSource(fn){afterSource=fn;}};
+ const service=new SalesCallQualityService(store,policy,{async scope(){return structuredClone(current);},async rubric(){return structuredClone(script);},async source(s,digest){sourceReads++;afterSource();const result={transcript:structuredClone(transcript),points:assessment(),operatorId:operatorSid,rubricDigest:digest,provenance:{accountSid,serviceSid,recordingSid,operatorConfigDigest:'a'.repeat(64)}};sourceChange(result);return result;},actions:{analyze:'fixture.analyze',read:'fixture.read'}});
+ return {store,service,get reads(){return sourceReads;},revoke(){allowed=false;},changeScope(fn){fn(current);},changeRubric(fn){fn(script);},afterSource(fn){afterSource=fn;},changeSource(fn){sourceChange=fn;}};
 }
 test('scoped service persists an auditable versioned report and retries idempotently',async()=>{
- const f=serviceFixture();assert.ok(f.service instanceof ScopedServiceBase);const first=await f.service.analyze(actor,request);assert.equal(first.report.coveragePercent,60);assert.deepEqual(await f.service.analyze(actor,request),first);assert.equal(f.store.events.length,1);const saved=await f.service.read(actor,request.id);assert.equal(saved.version,1);assert.equal(saved.rubricVersion,undefined);assert.equal(saved.rubric.version,1);assert.match(saved.transcriptDigest,/^[a-f0-9]{64}$/);assert.equal(saved.transcript,undefined);
+ const f=serviceFixture();assert.ok(f.service instanceof ScopedServiceBase);const first=await f.service.analyze(actor,request);assert.equal(first.report.coveragePercent,60);assert.deepEqual(await f.service.analyze(actor,request),first);assert.equal(f.store.events.length,1);const saved=await f.service.read(actor,request.id);assert.equal(saved.version,1);assert.equal(saved.rubricVersion,undefined);assert.equal(saved.rubric.version,1);assert.match(saved.transcriptDigest,/^[a-f0-9]{64}$/);assert.equal(saved.transcript,undefined);assert.deepEqual(saved.provenance,{accountSid,serviceSid,recordingSid,operatorConfigDigest:'a'.repeat(64),agentChannel:1});
  f.revoke();await assert.rejects(f.service.read(actor,request.id));await assert.rejects(f.service.analyze(actor,request));assert.equal(f.reads,2);
 });
 test('cross tenant, nonowner and missing capture approval fail before provider reads',async()=>{
@@ -66,10 +66,23 @@ test('revoked permission, ownership, consent or changed script during provider r
 test('caller mutations across async boundaries do not alter report scope or identifiers',async()=>{
  const f=serviceFixture(),a={...actor},r={...request};f.afterSource(()=>{a.tenantId='attacker';r.id='attacker';});const result=await f.service.analyze(a,r);assert.equal(result.id,request.id);assert.equal((await f.service.read(actor,request.id)).tenantId,actor.tenantId);
 });
+test('extra adapter fields cannot replace scope policy identity or report kind',async()=>{
+ const f=serviceFixture();f.changeScope(s=>{s.id='wrong';s.kind='conversation';s.version=99;});
+ await f.service.analyze(actor,request);const saved=await f.service.read(actor,request.id);assert.equal(saved.kind,'sales_call_quality');assert.equal(saved.version,1);
+});
+test('missing, mismatched or malformed provenance never enters the audit store',async()=>{
+ for(const mutate of [s=>delete s.provenance,s=>s.provenance.recordingSid=sid('RE','0'),s=>s.provenance.accountSid+='\n',s=>s.provenance.operatorConfigDigest+='\n',s=>s.operatorId='unbound-operator']){
+  const f=serviceFixture();f.changeSource(mutate);await assert.rejects(f.service.analyze(actor,request));assert.equal(f.store.events.length,0);
+ }
+});
+test('changed operator configuration cannot overwrite an existing report through retry',async()=>{
+ const f=serviceFixture();await f.service.analyze(actor,request);f.changeSource(s=>s.provenance.operatorConfigDigest='b'.repeat(64));
+ await assert.rejects(f.service.analyze(actor,request),/Idempotency conflict/);assert.equal(f.store.events.length,1);assert.equal((await f.service.read(actor,request.id)).provenance.operatorConfigDigest,'a'.repeat(64));
+});
 
 async function providerFixture(){
  const definition=await salesOperatorDefinition(rubric),calls=[];
- const rows={operator:{sid:operatorSid,account_sid:accountSid,config:definition.config},recording:{sid:recordingSid,account_sid:accountSid,call_sid:callId,status:'completed',channels:2},header:{sid:transcriptSid,account_sid:accountSid,service_sid:serviceSid,status:'completed',duration:100,channel:{media_properties:{source_sid:recordingSid}}},sentences:transcript.sentences.map((s,i)=>({sid:s.id,media_channel:1,sentence_index:i,transcript:s.text,start_time:String(s.start),end_time:String(s.end),confidence:String(s.confidence)})),results:[{operator_sid:operatorSid,transcript_sid:transcriptSid,operator_type:'json',json_results:{rubricDigest:definition.rubricDigest,points:assessment().map(p=>({...p,evidence:p.evidence.map(e=>({quote:e.quote}))}))}}]};
+ const rows={operator:{sid:operatorSid,account_sid:accountSid,config:definition.config},recording:{sid:recordingSid,account_sid:accountSid,call_sid:callId,status:'completed',channels:2,duration:'100',source:'DialVerb',conference_sid:null},header:{sid:transcriptSid,account_sid:accountSid,service_sid:serviceSid,status:'completed',duration:100,channel:{media_properties:{source_sid:recordingSid}}},sentences:transcript.sentences.map((s,i)=>({sid:s.id,media_channel:1,sentence_index:i,transcript:s.text,start_time:String(s.start),end_time:String(s.end),confidence:String(s.confidence)})),results:[{operator_sid:operatorSid,transcript_sid:transcriptSid,operator_type:'json',json_results:{rubricDigest:definition.rubricDigest,points:assessment().map(p=>({...p,evidence:p.evidence.map(e=>({quote:e.quote}))}))}}]};
  let failure=false;
  const source=createTwilioSalesQualitySource({accountSid,serviceSid,operatorSid,apiKeySid:sid('SK','1'),apiKeySecret:'2'.repeat(32),rubricDigest:definition.rubricDigest,operatorConfigDigest:definition.operatorConfigDigest,httpClient:{async request(options){
   calls.push(options);if(failure)throw Error('PRIVATE provider secret');
@@ -86,6 +99,21 @@ test('mismatched account, call, transcript, service, operator, rubric and config
 });
 test('unknown speaker, missing timestamps, ambiguous or invented quotes never earn points',async()=>{
  for(const mutate of [r=>r.sentences[0].media_channel=0,r=>r.sentences[0].start_time=null,r=>r.results[0].json_results.points[0].evidence[0].quote='invented',r=>r.sentences.push({...r.sentences[0],sid:sid('GX','a')}),r=>r.sentences[0].media_channel=2]){const f=await providerFixture();mutate(f.rows);await assert.rejects(f.source.read(scope,f.definition.rubricDigest));}
+});
+test('completed transcripts with missing or mismatched recording duration fail before sentence reads',async()=>{
+ for(const mutate of [r=>r.recording.duration=null,r=>r.recording.duration='0',r=>r.recording.duration='102',r=>r.header.duration=50,r=>r.header.duration=0,r=>r.header.duration=NaN]){
+  const f=await providerFixture();mutate(f.rows);await assert.rejects(f.source.read(scope,f.definition.rubricDigest));assert.equal(f.calls.length,3);
+ }
+ const f=await providerFixture();f.rows.recording.duration='101';const result=await f.source.read(scope,f.definition.rubricDigest);assert.equal(result.provenance.recordingSid,recordingSid);assert.equal(result.provenance.operatorConfigDigest,f.definition.operatorConfigDigest);
+});
+test('conference mixtures, voicemail and unsupported recording sources cannot be scored as two-party calls',async()=>{
+ for(const mutate of [r=>r.recording.conference_sid=sid('CF','0'),r=>r.recording.source='Conference',r=>r.recording.source='RecordVerb',r=>delete r.recording.source]){
+  const f=await providerFixture();mutate(f.rows);await assert.rejects(f.source.read(scope,f.definition.rubricDigest));assert.equal(f.calls.length,2);
+ }
+});
+test('source configuration rejects trailing newlines in secrets and digests',()=>{
+ const config={accountSid,serviceSid,operatorSid,apiKeySid:sid('SK','1'),apiKeySecret:'2'.repeat(32),rubricDigest:'3'.repeat(64),operatorConfigDigest:'4'.repeat(64)};
+ for(const field of ['apiKeySecret','rubricDigest','operatorConfigDigest'])assert.throws(()=>createTwilioSalesQualitySource({...config,[field]:config[field]+'\n'}));
 });
 test('bounded provider lists fail instead of silently scoring truncated data',async()=>{
  const f=await providerFixture();f.rows.sentences=Array(4001).fill(f.rows.sentences[0]);await assert.rejects(f.source.read(scope,f.definition.rubricDigest));
@@ -107,6 +135,7 @@ test('native PostgreSQL persists one report across concurrent workers and enforc
   const results=await Promise.all([a.service.analyze(actor,request),b.service.analyze(actor,request)]);assert.deepEqual(results[0],results[1]);assert.equal(results[0].report.coveragePercent,60);
   assert.equal((await first.query('SELECT count(*)::int AS n FROM business_sales_quality_events')).rows[0].n,1);
   assert.equal((await b.service.read(actor,request.id)).report.points[0].evidence[0].quote,transcript.sentences[0].text);
+  assert.deepEqual((await b.service.read(actor,request.id)).provenance,{accountSid,serviceSid,recordingSid,operatorConfigDigest:'a'.repeat(64),agentChannel:1});
   await assert.rejects(b.service.read({...actor,tenantId:'other-tenant'},request.id));
   await assert.rejects(b.service.analyze(actor,{...request,key:'different-command'}),/Version conflict/);
   b.revoke();await assert.rejects(b.service.analyze(actor,request));

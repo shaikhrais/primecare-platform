@@ -8,7 +8,7 @@ import {salesDigest} from './sales-call-quality.ts';
  * transcription creation, configuration changes, phone calls or model actions occur here.
  */
 export function createTwilioSalesQualitySource({accountSid,apiKeySid,apiKeySecret,serviceSid,operatorSid,rubricDigest,operatorConfigDigest,httpClient}){
- if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||!twilioSid('GA',serviceSid)||!twilioSid('LY',operatorSid)||typeof apiKeySecret!=='string'||!/^[a-fA-F0-9]{32}$/.test(apiKeySecret)||typeof rubricDigest!=='string'||!/^[a-f0-9]{64}$/.test(rubricDigest)||typeof operatorConfigDigest!=='string'||!/^[a-f0-9]{64}$/.test(operatorConfigDigest)||httpClient!==undefined&&typeof httpClient?.request!=='function')throw Error('Sales analysis configuration required');
+ if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||!twilioSid('GA',serviceSid)||!twilioSid('LY',operatorSid)||typeof apiKeySecret!=='string'||apiKeySecret.length!==32||!/^[a-fA-F0-9]{32}$/.test(apiKeySecret)||typeof rubricDigest!=='string'||rubricDigest.length!==64||!/^[a-f0-9]{64}$/.test(rubricDigest)||typeof operatorConfigDigest!=='string'||operatorConfigDigest.length!==64||!/^[a-f0-9]{64}$/.test(operatorConfigDigest)||httpClient!==undefined&&typeof httpClient?.request!=='function')throw Error('Sales analysis configuration required');
  const client=new Twilio(apiKeySid,apiKeySecret,{accountSid,autoRetry:false,maxRetries:0,timeout:10000,...(httpClient?{httpClient}:{})});
  function bounded(value,max){if(new TextEncoder().encode(JSON.stringify(value)).length>max)throw Error('Provider result bounds');return value;}
  function decimal(value){if(typeof value!=='number'&&(typeof value!=='string'||!/^\d+(?:\.\d+)?$/.test(value)))throw Error('Provider number invalid');const n=Number(value);if(!Number.isFinite(n))throw Error('Provider number invalid');return n;}
@@ -22,8 +22,13 @@ export function createTwilioSalesQualitySource({accountSid,apiKeySid,apiKeySecre
    if(operator.sid!==operatorSid||operator.accountSid!==accountSid||configHash!==operatorConfigDigest)throw Error('Operator configuration changed');
    const recording=await client.recordings(recordingSid).fetch();
    if(recording.sid!==recordingSid||recording.accountSid!==accountSid||recording.callSid!==callId||recording.status!=='completed'||recording.channels!==2)throw Error('Canonical recording required');
+   // Conference channel 2 mixes participants; it is not a reliable agent/customer channel.
+   if(recording.conferenceSid||!['DialVerb','OutboundAPI','StartCallRecordingAPI'].includes(recording.source))throw Error('Two-party call recording required');
    const transcript=client.intelligence.v2.transcripts(transcriptSid),header=await transcript.fetch();
    if(header.sid!==transcriptSid||header.accountSid!==accountSid||header.serviceSid!==serviceSid||header.status!=='completed'||header.channel?.media_properties?.source_sid!==recordingSid)throw Error('Canonical transcript required');
+   const duration=decimal(header.duration),recordingDuration=decimal(recording.duration);
+   // Metadata durations are seconds; allow one second for rounding, not a shortened recording.
+   if(duration<=0||recordingDuration<=0||duration>28800||recordingDuration>28800||Math.abs(duration-recordingDuration)>1)throw Error('Incomplete transcript duration');
    // Fetch one beyond each bound so SDK pagination cannot silently produce a partial score.
    const sentences=await transcript.sentences.list({limit:4001,pageSize:500,redacted:true});
    if(!sentences.length||sentences.length>4000)throw Error('Transcript bounds');bounded(sentences,1048576);
@@ -33,7 +38,6 @@ export function createTwilioSalesQualitySource({accountSid,apiKeySid,apiKeySecre
    if(matches.length!==1||matches[0].transcriptSid!==transcriptSid||matches[0].operatorType!=='json')throw Error('Pinned operator required');
    const output=matches[0].jsonResults;
    if(!output||typeof output!=='object'||Array.isArray(output)||output.rubricDigest!==rubricDigest||!Array.isArray(output.points))throw Error('Custom operator result unavailable');
-   const duration=decimal(header.duration);
    const points=output.points.map(p=>{
     if(!p||!Array.isArray(p.evidence)||p.evidence.length>5)throw Error('Invalid evidence');
     return {id:p.id,status:p.status,evidence:p.evidence.map(e=>{
@@ -42,7 +46,7 @@ export function createTwilioSalesQualitySource({accountSid,apiKeySid,apiKeySecre
      return {sentenceId:matches[0].sid,quote:e.quote};
     })};
    });
-   return structuredClone({operatorId:operatorSid,rubricDigest,points,transcript:{id:transcriptSid,complete:true,duration,sentences:sentences.map(s=>{
+   return structuredClone({operatorId:operatorSid,rubricDigest,provenance:{accountSid,serviceSid,recordingSid,operatorConfigDigest},points,transcript:{id:transcriptSid,complete:true,duration,sentences:sentences.map(s=>{
     if(!twilioSid('GX',s.sid)||![1,2].includes(s.mediaChannel))throw Error('Speaker mapping required');
     const confidence=s.confidence===null||s.confidence===undefined||s.confidence===''?null:decimal(s.confidence);
     return {id:s.sid,speaker:s.mediaChannel===agentChannel?'agent':'customer',text:s.transcript,start:decimal(s.startTime),end:decimal(s.endTime),confidence};
