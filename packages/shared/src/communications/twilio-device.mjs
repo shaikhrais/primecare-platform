@@ -5,7 +5,7 @@ import {CommunicationResourceBase} from './adapter-base.mjs';
  * A client scope key is lifecycle isolation, never server authorization.
  */
 export class TwilioVoiceDevice extends CommunicationResourceBase {
- #device; #scope; #identity; #refreshing; #abort=new AbortController(); #timer;
+ #device; #call; #connecting=false; #scope; #identity; #refreshing; #abort=new AbortController(); #timer;
  constructor({createDevice,fetchToken,currentScope,onIncoming=call=>call.reject(),onState=()=>{},registrationTimeoutMs=15000}) {
   super();
   if([createDevice,fetchToken,currentScope,onIncoming,onState].some(f=>typeof f!=='function')||!Number.isSafeInteger(registrationTimeoutMs)||registrationTimeoutMs<100||registrationTimeoutMs>60000)throw Error('Voice device ports required');
@@ -67,6 +67,24 @@ export class TwilioVoiceDevice extends CommunicationResourceBase {
    this.#current();
   }catch{this.close();throw Error('Voice device unavailable');}
  }
+ /** Calls only a six-digit extension; the server resolves and authorizes both ends. */
+ async connect({callerExtension,targetExtension}){
+  this.assertOpen();
+  if(this.state!=='registered'||this.#connecting||this.#call||![callerExtension,targetExtension].every(value=>typeof value==='string'&&/^[1-9][0-9]{5}$/.test(value))||callerExtension===targetExtension||typeof this.#device?.connect!=='function')throw Error('Voice call unavailable');
+  this.#current();this.#connecting=true;
+  try{
+   const call=await this.#device.connect({params:{CallerExtension:callerExtension,TargetExtension:targetExtension}});
+   // A call may arrive after logout already destroyed the Device.
+   if(this.closed||this.currentScope()!==this.#scope){try{call.disconnect();}finally{this.close();}throw Error('Voice call unavailable');}
+   if(!call||typeof call.disconnect!=='function'||typeof call.on!=='function'||typeof call.off!=='function')throw Error('Voice call unavailable');
+   this.#call=call;
+   const release=()=>{for(const event of ['disconnect','cancel','error'])call.off(event,release);if(this.#call===call)this.#call=null;};
+   for(const event of ['disconnect','cancel','error'])call.on(event,release);
+   // Resource owns at most one call; released calls remove their own listeners.
+   this.callCleanup=()=>{release();call.disconnect();};
+   return call;
+  }catch{this.close();throw Error('Voice call unavailable');}finally{this.#connecting=false;}
+ }
  refresh(){
   if(this.#refreshing)return this.#refreshing;
   this.#refreshing=(async()=>{
@@ -76,5 +94,5 @@ export class TwilioVoiceDevice extends CommunicationResourceBase {
   })().finally(()=>{this.#refreshing=null;});
   return this.#refreshing;
  }
- afterClose(){clearTimeout(this.#timer);this.#device=undefined;this.#identity=undefined;this.#state('closed');}
+ afterClose(){try{this.callCleanup?.();}catch{}this.callCleanup=null;clearTimeout(this.#timer);this.#device=undefined;this.#identity=undefined;this.#state('closed');}
 }

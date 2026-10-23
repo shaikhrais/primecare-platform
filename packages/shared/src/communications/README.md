@@ -573,3 +573,23 @@ Incoming calls are rejected by default. An explicitly supplied host callback own
 the authorized ringing UI; this adapter never automatically answers a call or
 exposes an outbound phone dialer. The adapter is unmounted. Port tests cover race
 and failure behavior; actual SDK/network/device acceptance remains required.
+
+`TwilioExtensionConnectService` extends `ScopedServiceBase` for same-tenant SDK
+extension calls. It fetches the canonical Call resource with an official read-only
+Twilio SDK port, checks account/SID/direction/live status and caller identity, then
+resolves both published destinations twice and checks current `voice.call.connect`
+permission twice. Provider form fields never become tenant or user authority.
+`TwilioExtensionConnectAdapter` inherits the signed bounded form boundary and
+renders only the authorized Client identity with the fixed shared caller number.
+`createPostgresTwilioExtensionConnectHandler` is an explicit separate composition
+root; no endpoint or permission is mounted or registered by constructing it.
+
+The browser resource's `connect({callerExtension,targetExtension})` passes only
+six-digit extensions to the SDK. It allows one pending/active outgoing call,
+removes ended-call listeners, and disconnects a late result after logout. The
+caller extension is a selector, not proof of caller identity. Server canonical
+Call verification and current native policy remain mandatory. Incoming host UI
+still owns answering/rejecting and must dispose this resource on auth changes.
+Tests cover the official REST request serializer, synthetic Call resources and
+native Worker execution. They do not place a call or prove production billing,
+permissions, device availability, provider webhooks or live phone acceptance.

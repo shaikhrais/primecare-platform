@@ -61,3 +61,22 @@ test('expiry closes device even without an SDK expiry notification',async t=>{
 test('renewal after close is rejected without requesting credentials',async()=>{
  const {resource,requests}=setup();await resource.start();resource.close();await assert.rejects(resource.refresh());assert.equal(requests(),1);
 });
+test('outgoing connects with extensions only, rejects concurrent calls and releases ended call',async()=>{
+ const {resource,device}=setup();const calls=[];device.connect=async options=>{calls.push(options);const call=new EventEmitter();call.disconnect=()=>{};return call;};
+ await resource.start();const call=await resource.connect({callerExtension:'100001',targetExtension:'100002'});
+ assert.deepEqual(calls,[{params:{CallerExtension:'100001',TargetExtension:'100002'}}]);
+ await assert.rejects(resource.connect({callerExtension:'100001',targetExtension:'100003'}));
+ call.emit('disconnect');assert.equal(call.eventNames().length,0);
+ await resource.connect({callerExtension:'100001',targetExtension:'100003'});resource.close();
+});
+test('late outgoing call after logout is disconnected and never returned',async()=>{
+ const pending=deferred();const {resource,device}=setup();device.connect=()=>pending.promise;
+ await resource.start();const connecting=resource.connect({callerExtension:'100001',targetExtension:'100002'});resource.close();
+ let disconnected=0;pending.resolve({disconnect(){disconnected++;}});await assert.rejects(connecting);assert.equal(disconnected,1);
+});
+test('phone numbers, identical extensions and outgoing calls before registration are denied',async()=>{
+ const {resource,device}=setup();let calls=0;device.connect=async()=>{calls++;};
+ await assert.rejects(resource.connect({callerExtension:'100001',targetExtension:'100002'}));
+ await resource.start();for(const targetExtension of ['+15550001000','100001','sip:user@example.com'])await assert.rejects(resource.connect({callerExtension:'100001',targetExtension}));
+ assert.equal(calls,0);resource.close();
+});

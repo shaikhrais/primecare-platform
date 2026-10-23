@@ -180,3 +180,26 @@ The live number remains +1 647 930 2223 with the existing IVR configuration.
 Extension assignment is implemented but not applied to real users. Required
 production contract registration, credentials, endpoint mounts and authorized
 provider cutover remain outstanding. No live grants or provider settings change.
+
+### SDK extension-call continuation — 2026-10-23
+
+Reviewed [Voice SDK server flow](https://www.twilio.com/docs/voice/sdks) and
+[custom call parameters](https://www.twilio.com/docs/voice/sdks/javascript/twiliocall).
+SDK outgoing calls require the TwiML App Voice URL to return separately authorized
+TwiML; a token's outgoing grant is not destination authorization.
+
+Added an internal inherited connect service and signed adapter for same-tenant,
+published extension destinations. The service verifies the canonical Call resource
+through the official SDK instead of trusting browser-provided From/tenant/user
+parameters, and repeats directory and policy checks. The browser lifecycle can
+now initiate an extension call with late-result cleanup. Arbitrary telephone and
+SIP forwarding remain unsupported. A separate native PostgreSQL composition root
+is available for a subsequently registered TwiML App handler URL.
+
+Local acceptance: 22 device/connect tests, strict TypeScript integration/declaration
+checks and 16 native Worker assertions passed. Tests use synthetic provider calls;
+no live calls, number changes, permission grants or extension assignments occurred.
+New action `voice.call.connect` remains unregistered/default-denied until production
+contract registration. No Twilio or Cloudflare credentials are available in the
+execution runtime. The existing IVR remains in place pending deployed handler and
+live acceptance; do not point it at these unmounted modules.

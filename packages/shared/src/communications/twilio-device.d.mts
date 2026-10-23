@@ -3,10 +3,12 @@ export interface VoiceSdkDevicePort {
  on(event:string,listener:(...args:any[])=>void):unknown;
  off(event:string,listener:(...args:any[])=>void):unknown;
  register():Promise<void>;
+ connect?(options:{params:{CallerExtension:string;TargetExtension:string}}):Promise<VoiceSdkCallPort>;
  updateToken(token:string):unknown;
  disconnectAll():unknown;
  destroy():unknown;
 }
+export interface VoiceSdkCallPort {disconnect():unknown;on(event:string,listener:()=>void):unknown;off(event:string,listener:()=>void):unknown}
 export type VoiceDeviceOptions={
  createDevice:(token:string)=>VoiceSdkDevicePort;
  fetchToken:(options:{signal:AbortSignal})=>Promise<{token:string;identity:string;ttlSeconds:number}>;
@@ -22,4 +24,5 @@ export class TwilioVoiceDevice extends CommunicationResourceBase {
  readonly state:'idle'|'registering'|'registered'|'closed';
  start():Promise<void>;
  refresh():Promise<void>;
+ connect(options:{callerExtension:string;targetExtension:string}):Promise<VoiceSdkCallPort>;
 }

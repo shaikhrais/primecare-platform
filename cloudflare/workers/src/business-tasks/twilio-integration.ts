@@ -1,3 +1,5 @@
+import {TwilioExtensionConnectService} from './twilio-connect.ts';
+import {TwilioExtensionConnectAdapter,createTwilioVoiceCallVerifier} from '../../../../packages/shared/src/communications/twilio-connect.mjs';
 import {PostgresAtomicStore} from './store.ts';
 import type {AccessPolicy} from '../../../../packages/shared/src/communications/service-base.ts';
 import {SmsNotificationService,type SmsRecipientPolicy} from './sms.ts';
@@ -38,4 +40,14 @@ export function createPostgresTwilioCommunicationServices(dependencies:Omit<Para
  const services=createTwilioCommunicationServices({...dependencies,voiceDirectory:directory,tokenDirectory:directory});
  const extensions=new VoiceExtensionService(new PostgresAtomicStore(dependencies.pool,'business_sms'),dependencies.policy,directory);
  return Object.freeze({...services,extensions});
+}
+
+/** Separate opt-in composition for the registered TwiML App URL. Never mounted here. */
+export function createPostgresTwilioExtensionConnectHandler(dependencies:Pick<Parameters<typeof createTwilioCommunicationServices>[0],'pool'|'policy'|'configuration'|'httpClient'> & {outgoingUrl:string}){
+ const c=dependencies.configuration;
+ const urls=[c.incomingUrl,c.gatherUrl,c.statusCallback,dependencies.outgoingUrl].map(value=>new URL(value));
+ if(new Set(urls.map(value=>value.href)).size!==4||new Set(urls.map(value=>value.origin)).size!==1)throw Error('Distinct same-origin provider handlers required');
+ const verifier=createTwilioVoiceCallVerifier({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,httpClient:dependencies.httpClient});
+ const service=new TwilioExtensionConnectService(new PostgresAtomicStore(dependencies.pool,'business_sms'),dependencies.policy,new PostgresVoiceDirectory(dependencies.pool),verifier,c.accountSid);
+ return new TwilioExtensionConnectAdapter({accountSid:c.accountSid,authToken:c.authToken,webhookUrl:dependencies.outgoingUrl,maxWebhookBytes:c.maxWebhookBytes,sharedNumber:c.sharedNumber,service});
 }

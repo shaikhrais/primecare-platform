@@ -7,16 +7,26 @@ import {Miniflare} from 'miniflare';
 import {build} from 'esbuild';
 import {getExpectedTwilioSignature} from 'twilio/lib/webhooks/webhooks.js';
 import jwt from 'jsonwebtoken';
+import {twilioVoiceIdentity} from '../packages/shared/src/communications/twilio-voice.mjs';
 const builtin=new Set(builtinModules.map(name=>name.replace(/^node:/,'')));
 const config={accountSid:'AC'+'a'.repeat(32),authToken:'b'.repeat(32),sharedNumber:'+15550001000',numberVerified:true,incomingUrl:'https://fixture.invalid/provider?stage=incoming',gatherUrl:'https://fixture.invalid/provider?stage=extension',maxWebhookBytes:4096};
 const bundle=await build({stdin:{contents:`
 import {TwilioVoiceExtensionAdapter} from './packages/shared/src/communications/twilio-voice.mjs';
 import {TwilioVoiceTokenService} from './cloudflare/workers/src/business-tasks/twilio-token.ts';
 import {TwilioSmsStatusAdapter,TwilioSmsTransport,smsDeliveryProjection} from './packages/shared/src/communications/twilio-sms.mjs';
+import {TwilioExtensionConnectAdapter,createTwilioVoiceCallVerifier} from './packages/shared/src/communications/twilio-connect.mjs';
+import {TwilioExtensionConnectService} from './cloudflare/workers/src/business-tasks/twilio-connect.ts';
+import {twilioVoiceIdentity} from './packages/shared/src/communications/twilio-voice.mjs';
 const config=${JSON.stringify(config)};
 export default {async fetch(request){
  let queries=0;const mode=request.headers.get('x-test-mode');
  const row={extension:'100001',tenantId:'tenant-a',userId:'user-a',published:true,active:true,tenantActive:true,userActive:true};
+ if(mode==='connect'||mode==='connect-denied'){
+  const from='client:'+await twilioVoiceIdentity(row);
+  const verifier=createTwilioVoiceCallVerifier({accountSid:config.accountSid,apiKeySid:'SK'+'d'.repeat(32),apiKeySecret:'e'.repeat(32),httpClient:{async request(){return {statusCode:200,headers:{},body:JSON.stringify({sid:'CA'+'c'.repeat(32),account_sid:config.accountSid,from,direction:'inbound',status:'in-progress'})};}}});
+  const service=new TwilioExtensionConnectService({run(){throw Error('write');},read(){throw Error('read');},inbox(){throw Error('inbox');}},{async assert(){if(mode==='connect-denied')throw Error('denied');},async assignee(){throw Error('grant');}},{async lookup(extension){return [{...row,extension,userId:extension==='100001'?'user-a':'user-b'}];}},verifier,config.accountSid);
+  return new TwilioExtensionConnectAdapter({...config,webhookUrl:config.incomingUrl,service}).respond(request);
+ }
  if(mode==='sms'||mode==='sms-store-error'){
   const adapter=new TwilioSmsStatusAdapter({...config,webhookUrl:config.incomingUrl,sender:config.sharedNumber,messagingServiceSid:'MG'+'a'.repeat(32),store:{async record(event){if(mode==='sms-store-error')throw Error('PRIVATE');if(Object.hasOwn(event,'TenantId'))throw Error('scope');return 'recorded';}}});return adapter.respond(request);
  }
@@ -54,6 +64,9 @@ try{
  assert.equal((await sms('sms','forged')).status,403);checks++;
  assert.equal((await sms('sms-store-error')).status,503);checks++;
  const smsSend=await (await send({mode:'sms-send'})).json();assert.equal(smsSend.receipt.status,'queued');assert.deepEqual(smsSend.projection,{status:'delivered',delivered:true});checks++;
+ const connectParams={From:'client:'+await twilioVoiceIdentity({tenantId:'tenant-a',userId:'user-a'}),CallerExtension:'100001',TargetExtension:'100002'};
+ const connected=await send({stage:'incoming',mode:'connect',params:connectParams});assert.equal(connected.status,200);assert.match(await connected.text(),/<Identity>primecare_[a-f0-9]{64}<\/Identity>/);checks++;
+ assert.equal((await send({stage:'incoming',mode:'connect-denied',params:connectParams})).status,503);checks++;
  await mkdir('test-results/communication-twilio',{recursive:true});
  await writeFile('test-results/communication-twilio/workerd.json',JSON.stringify({sourceCommit:process.env.GITHUB_SHA,checks,passed:true,engine:'workerd',sdk:'twilio@6.2.0',compatibilityFlags:['nodejs_compat'],officialSignatureValidation:true,officialTwimlBuilder:true,directory:'synthetic',liveProviderVerified:false,numbersPurchased:0,extensionsAssigned:0,callsPlaced:0,production:false},null,2));
  console.log('WORKERD_COMMUNICATION_TWILIO_PASS '+checks);
