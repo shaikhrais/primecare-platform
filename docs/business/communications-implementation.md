@@ -715,3 +715,34 @@ omit the injected compiler. Full source-specific CI, including actual workerd,
 is pending. This removes a runtime composition prerequisite; production mounting,
 mailbox ownership/provider routing, permissions, scanner/storage and TURN/device
 acceptance remain open.
+
+
+### Verified standalone validator checkpoint
+
+Source `c04ed1c4da1f78507b3bda91ae748d5b41ee4679` passed all eight jobs in
+[run 39889257682](https://github.com/shaikhrais/primecare-platform/actions/runs/39889257682):
+769 Flutter tests, 214 native/shared/schema checks, three direct media checks,
+and one compiled-Dart browser check (218 Node/browser checks total). The new
+workerd job separately passed eight validator assertions without a runtime
+compiler or Node compatibility flag. Its three Node schema cases repeat the
+same schema tests and are not double-counted. Generated-byte checks and strict
+TypeScript passed. Both UUID and text auth jobs passed unit tests, Worker type
+checking and native PostgreSQL session lifecycle in run 39889257540.
+
+The full actual Flutter browser-to-PostgreSQL scenario also passed in
+[run 39889257523](https://github.com/shaikhrais/primecare-platform/actions/runs/39889257523).
+It uses the default compiled validator, with no injected compiler. All 15
+milestones passed, including private picture readback, UI sent/received mail
+projection, preserved inbound quarantine, native permission denials and session
+revocation/reload. Both browsers received [8, 8] audio packets and both peers
+closed. Both screenshots were visually reviewed. Separate compiled-Dart and
+direct-media artifacts recorded [5, 5] packets each, with cleanup passing.
+
+All six ZIP digests (workerd, media, compiled Dart, production inventory, browser
+stack and current contracts) were independently checked. Exact source, jobs,
+artifacts, generated module SHA, regression failure and preserved release
+limitations are in `evidence/communication-worker-validator-20261022.json`.
+This completes the standalone validation prerequisite. The production runtime
+remains unmounted; approved grants, owned mailbox/provider routing and acceptance,
+private scanner/storage, TURN/device and deployed release acceptance remain open.
+No account, permission, activation or workflow verification status changed.

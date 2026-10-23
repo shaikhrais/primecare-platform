@@ -1,0 +1,224 @@
+{
+  "sourceCommit": "c04ed1c4da1f78507b3bda91ae748d5b41ee4679",
+  "scope": "Build-time registered communication request/response validation and inherited native runtime default",
+  "registrationChanged": false,
+  "permissionChanges": false,
+  "accountChanges": false,
+  "activationChanged": false,
+  "production": false,
+  "productionReady": false,
+  "liveProviderVerified": false,
+  "generated": {
+    "apiCount": 7,
+    "schemaCount": 14,
+    "moduleSha256": "be76c446b6c96dd982625a9dddebf2b622e019590ec31419d3ad3023d6b96c8f",
+    "generator": "tools/communication-schema-validators.mjs",
+    "provenanceCheck": "tools/communication-route-bindings.py",
+    "runtimeCompiler": false
+  },
+  "guarantees": [
+    "Unknown schema identities fail closed",
+    "Optional additional validator cannot bypass registered schemas, including synchronous invalid mutations",
+    "No runtime Ajv compilation or external validator dependencies",
+    "Reference parity for all request variants and response schemas",
+    "Email format, registered ice wire enum and Unicode string bounds retained",
+    "Actual native and browser acceptance omit an injected schema compiler"
+  ],
+  "regression": {
+    "previousSource": "0c61c1c55c75279f795f7e47e69f605a17271ab8",
+    "failedBefore": 1,
+    "passedAfter": 1,
+    "case": "native runtime accepts omission of compiler while denying forged identity fields",
+    "negativeLogSha256": "e5d87c8ea3521162d642103600a922d08cfa840d4f31e51ee59e374bf6dc18c0",
+    "additionalCase": "extra validator cannot mutate a valid read into a schema bypass"
+  },
+  "local": {
+    "nodePassed": 178,
+    "nodeSkipped": 2,
+    "nodeFailed": 0,
+    "strictTypeScript": "passed",
+    "generatedValidatorCheck": "passed",
+    "forbiddenStringCodeGenerationVm": "passed",
+    "skipReason": "Native PostgreSQL-only cases run in CI"
+  },
+  "regressionCi": {
+    "runId": 39889257682,
+    "jobs": [
+      {
+        "id": 120204786784,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      },
+      {
+        "id": 120204786974,
+        "name": "worker-validator",
+        "conclusion": "success"
+      },
+      {
+        "id": 120204786987,
+        "name": "isolated",
+        "conclusion": "success"
+      },
+      {
+        "id": 120204786992,
+        "name": "flutter-browser-media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120204787010,
+        "name": "flutter-workspace",
+        "conclusion": "success"
+      },
+      {
+        "id": 120204787034,
+        "name": "inventory",
+        "conclusion": "success"
+      },
+      {
+        "id": 120204787049,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120204787166,
+        "name": "dart-core",
+        "conclusion": "success"
+      }
+    ],
+    "flutterPassed": 769,
+    "nodeBrowserPassed": 218,
+    "nativeAndSchemaChecks": 214,
+    "workerdAssertions": 8,
+    "workerdNodeSchemaChecksRepeatTheSameThreeCases": true,
+    "artifacts": [
+      {
+        "id": 12474430317,
+        "name": "communication-flutter-browser",
+        "sha256": "a46335dbec5e67001b7013497693af877293464d441334829c6b6cb2557d9d79",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12474120974,
+        "name": "business-communications-media",
+        "sha256": "745b81b9c31e33f5b7da9e17591ac0f96eb8363687cdee15c6729ea3504edab2",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12473812036,
+        "name": "communication-worker-validator",
+        "sha256": "208bfcf3d2b0810482c245d9da97a7a9d70caf3cad7ce6956000306c90c54769",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12473634494,
+        "name": "business-communications-registry",
+        "sha256": "042697875dcdcc1d3a287946da93de4c3774cd0dc79a22444a94680af37a4c60",
+        "digestIndependentlyVerified": true
+      }
+    ],
+    "compiledDartAudioPackets": [
+      5,
+      5
+    ],
+    "directMediaAudioPackets": [
+      5,
+      5
+    ]
+  },
+  "releaseBlockers": [
+    "Production runtime mount and dependency composition",
+    "Matching approved role API and screen grants",
+    "Governed owned mailboxes, activation and live send/receive provider routing/acceptance",
+    "Private image storage/scanning composition",
+    "TURN and physical-device/restrictive-network acceptance",
+    "Governed recipient discovery and deployed release acceptance"
+  ],
+  "syntheticPorts": [
+    "Scanner",
+    "Private object bucket",
+    "Mail provider acceptance",
+    "Microphone input"
+  ],
+  "audioNetwork": "loopback",
+  "research": [
+    "https://ajv.js.org/standalone",
+    "https://developers.cloudflare.com/email-service/api/send-emails/workers-api/"
+  ],
+  "fullStackCi": {
+    "runId": 39889257523,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39889257523",
+    "jobs": [
+      {
+        "id": 120204786102,
+        "name": "current-contracts",
+        "conclusion": "success"
+      },
+      {
+        "id": 120204786359,
+        "name": "browser-postgres",
+        "conclusion": "success"
+      }
+    ],
+    "passed": true,
+    "milestones": {
+      "realCredentialLogin": true,
+      "uiMessageDatabaseReadback": true,
+      "sessionAndMessageReload": true,
+      "recipientRead": true,
+      "uiPicturePersisted": true,
+      "uiPrivatePictureRead": true,
+      "nativeSignalingAudioPackets": [
+        8,
+        8
+      ],
+      "callClosed": [
+        true,
+        true
+      ],
+      "uiMailQueueAndProviderAcceptance": true,
+      "uiReceivedMailPreview": true,
+      "crossTenantDenied": true,
+      "forgedTenantDenied": true,
+      "currentGrantRevocation": true,
+      "sessionRevocationReload": true,
+      "databaseEventsReadback": true
+    },
+    "authenticationFixture": false,
+    "communicationTransportFixture": false,
+    "injectedValidator": false,
+    "screenshotsVisuallyReviewed": [
+      "alice-authenticated.png",
+      "bob-received-mail.png"
+    ],
+    "artifacts": [
+      {
+        "id": 12474590022,
+        "name": "communication-stack-contracts",
+        "sha256": "03b9f1af4bd282e135eede7986c7a78db7aa2f7adae60a0aa8286fc45dc3d79f",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12474022588,
+        "name": "communication-stack-browser-postgres",
+        "sha256": "4ea2a7efa21cf8f3c04b5bc629b2df4f82fcab443413b253c66b92773dba59f3",
+        "digestIndependentlyVerified": true
+      }
+    ]
+  },
+  "authCi": {
+    "runId": 39889257540,
+    "jobs": [
+      {
+        "id": 120204786222,
+        "name": "auth (text)",
+        "conclusion": "success"
+      },
+      {
+        "id": 120204786435,
+        "name": "auth (uuid)",
+        "conclusion": "success"
+      }
+    ],
+    "scope": "Unit tests, Worker type checking and native PostgreSQL session lifecycle for both text and UUID identities"
+  }
+}
