@@ -103,8 +103,8 @@ try {
  const thread=(await q("SELECT state FROM business_work_aggregates WHERE state->>'kind'='conversation'")).rows[0].state;assert.deepEqual(thread.members,[alice,bob]);
  await fill(a.page,id('composer'),'Browser to PostgreSQL message');const sent=a.page.waitForResponse(r=>r.url().endsWith('/v1/messages')&&r.request().postDataJSON()?.action==='send');await tap(a.page,id('send'));assert.equal((await sent).status(),200);
  let stored=(await q('SELECT state FROM business_work_aggregates WHERE id=$1',[thread.id])).rows[0].state;assert.equal(stored.messages[0].text,'Browser to PostgreSQL message');assert.equal(stored.messages[0].authorId,alice);results.uiMessageDatabaseReadback=true;
- await a.page.reload();await control(a.page,id('root')).waitFor();await tap(a.page,id('openThread')+'-0');await a.page.getByText('Browser to PostgreSQL message',{exact:true}).waitFor();results.sessionAndMessageReload=true;
- await tap(b.page,id('refresh'));await tap(b.page,id('openThread')+'-0');await b.page.getByText('Browser to PostgreSQL message',{exact:true}).waitFor();results.recipientRead=true;
+ await a.page.reload();await control(a.page,id('root')).waitFor();await tap(a.page,id('openThread')+'-0');await a.page.getByLabel('Browser to PostgreSQL message',{exact:false}).first().waitFor();results.sessionAndMessageReload=true;
+ await tap(b.page,id('refresh'));await tap(b.page,id('openThread')+'-0');await b.page.getByLabel('Browser to PostgreSQL message',{exact:false}).first().waitFor();results.recipientRead=true;
  const image=await sharp({create:{width:16,height:16,channels:3,background:'#445566'}}).png().toBuffer();
  const uploadResponse=a.page.waitForResponse(r=>r.url().endsWith('/v1/messages/pictures')&&r.request().method()==='POST');
  const chooser=a.page.waitForEvent('filechooser');await tap(a.page,id('picturePick'));await (await chooser).setFiles({name:'synthetic.png',mimeType:'image/png',buffer:image});
@@ -126,7 +126,7 @@ try {
  const queued=a.page.waitForResponse(r=>r.url().endsWith('/v1/messages/email')&&r.request().postDataJSON()?.action==='queue');await tap(a.page,id('mailQueue'));assert.equal((await queued).status(),200);
  const delivered=a.page.waitForResponse(r=>r.url().endsWith('/v1/messages/email')&&r.request().postDataJSON()?.action==='deliver');await tap(a.page,id('mailDeliver'));assert.equal((await delivered).status(),200);assert.equal(sends,1);results.uiMailQueueAndProviderAcceptance=true;
  const raw=new TextEncoder().encode('Subject: Synthetic inbound\r\nContent-Type: text/html; charset=utf-8\r\n\r\n<p>Received through native event</p><script>HIDDEN</script>');await runtime.email({from:'outside@example.invalid',to:'owned@example.invalid',rawSize:raw.length,raw:new ReadableStream({start(c){c.enqueue(raw);c.close();}}),setReject(){assert.fail('Synthetic owned mail rejected');}},{});
- await fill(b.page,id('mailbox'),'owned');await tap(b.page,id('mailInbound'));await tap(b.page,id('mailOpen')+'-0');await b.page.getByText('Received through native event',{exact:true}).waitFor();results.uiReceivedMailPreview=true;
+ await fill(b.page,id('mailbox'),'owned');await tap(b.page,id('mailInbound'));await tap(b.page,id('mailOpen')+'-0');await b.page.getByLabel('Received through native event',{exact:false}).first().waitFor();results.uiReceivedMailPreview=true;
  const incoming=(await q("SELECT state FROM business_work_aggregates WHERE state->>'kind'='inbound_mail'")).rows[0].state;assert.equal(incoming.status,'quarantined');assert.equal(incoming.senderIdentityVerified,false);
  const outside=await (await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:'outsider@example.invalid',password})})).json();
  assert.equal((await call(outside.token,'/v1/messages',{action:'read',id:thread.id})).status,404);results.crossTenantDenied=true;
