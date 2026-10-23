@@ -128,7 +128,7 @@ try {
  const queued=a.page.waitForResponse(r=>r.url().endsWith('/v1/messages/email')&&r.request().postDataJSON()?.action==='queue');await tap(a.page,id('mailQueue'));assert.equal((await queued).status(),200);
  const delivered=a.page.waitForResponse(r=>r.url().endsWith('/v1/messages/email')&&r.request().postDataJSON()?.action==='deliver');await tap(a.page,id('mailDeliver'));assert.equal((await delivered).status(),200);assert.equal(sends,1);results.uiMailQueueAndProviderAcceptance=true;
  const raw=new TextEncoder().encode('Subject: Synthetic inbound\r\nContent-Type: text/html; charset=utf-8\r\n\r\n<p>Received through native event</p><script>HIDDEN</script>');await runtime.email({from:'outside@example.invalid',to:'owned@example.invalid',rawSize:raw.length,raw:new ReadableStream({start(c){c.enqueue(raw);c.close();}}),setReject(){assert.fail('Synthetic owned mail rejected');}},{});
- await fill(b.page,id('mailbox'),'owned');await tap(b.page,id('mailInbound'));await tap(b.page,id('mailOpen')+'-0');await b.page.getByLabel('Received through native event',{exact:false}).first().waitFor();results.uiReceivedMailPreview=true;
+ await fill(b.page,id('mailbox'),'owned');await tap(b.page,id('mailInbound'));await tap(b.page,id('mailOpen')+'-0');await b.page.getByLabel('Received through native event',{exact:false}).or(b.page.getByText('Received through native event',{exact:false})).first().waitFor();results.uiReceivedMailPreview=true;
  const incoming=(await q("SELECT state FROM business_work_aggregates WHERE state->>'kind'='inbound_mail'")).rows[0].state;assert.equal(incoming.status,'quarantined');assert.equal(incoming.senderIdentityVerified,false);
  const outside=await (await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:'outsider@example.invalid',password})})).json();
  assert.equal((await call(outside.token,'/v1/messages',{action:'read',id:thread.id})).status,404);results.crossTenantDenied=true;
@@ -142,7 +142,7 @@ try {
 }catch(error){
  let index=0;for(const context of browser?.contexts()??[])for(const page of context.pages())try{
   await page.screenshot({path:join(out,'failure-'+index+'.png'),fullPage:true});
-  const semantics=await page.locator('[aria-label]').evaluateAll(nodes=>nodes.map(node=>({tag:node.tagName,role:node.getAttribute('role'),label:node.getAttribute('aria-label')})));
+  const semantics=await page.locator('flt-semantics,[aria-label]').evaluateAll(nodes=>nodes.map(node=>({tag:node.tagName,role:node.getAttribute('role'),label:node.getAttribute('aria-label'),labelledBy:node.getAttribute('aria-labelledby'),text:node.tagName==='FLT-SEMANTICS'?node.textContent:null})));
   await writeFile(join(out,'semantics-'+index+++'.json'),JSON.stringify(semantics,null,2));
  }catch{}
  throw error;
