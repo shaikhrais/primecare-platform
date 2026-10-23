@@ -25,6 +25,8 @@ on:
       - 'scripts/test-communication-schema-validator.mjs'
       - 'scripts/test-communication-validator-workerd.mjs'
       - 'scripts/test-business-media.mjs'
+      - 'scripts/test-communication-ringing-browser.mjs'
+      - 'scripts/test-communication-twilio-*.mjs'
       - 'scripts/test-communication-adapter-base.mjs'
       - 'scripts/test-communication-workers-runtime.mjs'
       - 'scripts/test-communication-relay-session.mjs'
