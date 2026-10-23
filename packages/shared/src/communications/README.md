@@ -319,3 +319,23 @@ cleanup only; it does not add an automatic server hang-up mutation. Explicit
 hang-up remains separate. Already dispatched network requests cannot be recalled.
 Regenerate/check `audio-bridge.js` with `tools/communication-media-bundle.mjs`
 and run adapter/session, compiled-Dart browser and real packet checks.
+
+### Full browser stack acceptance
+
+`communication-stack-acceptance.yml` builds a disposable Flutter host around the
+existing `PrimeAuthExperience`, real `AuthNotifier`/`ApiClient` and existing
+`CommunicationScreen`. It does not inject authentication or communication
+transport success. The actual gateway forwards exact registered communication
+paths to the native runtime, which checks current PostgreSQL sessions, endpoint
+and screen grants, account/task/mailbox policy and versioned storage. The test
+uses a dedicated loopback database and refuses production credentials or existing
+tables. Picture raster decoding is real; scanner, private bucket and mail-provider
+acceptance ports are synthetic. Browser microphones are synthetic and no TURN
+relay is configured. This is isolated full-stack acceptance, not deployment.
+
+Auth login, completed MFA and current-session replies now include an optional
+validated server-resolved tenant claim under the independently registered response
+extension. Legacy unscoped accounts remain unscoped. Flutter restoration uses
+current server scope and clears cached overrides; the client never grants access.
+The production governance service still requires explicit runtime composition,
+provider configuration and approved grants before activation.

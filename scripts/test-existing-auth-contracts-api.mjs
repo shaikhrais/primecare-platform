@@ -38,7 +38,7 @@ const management={id:'target',role:'rmt',status:'inactive'};
 for(const method of ['GET','POST'])for(const credential of ['bearer','cookie'])test(method+' session identity through gateway with '+credential,async()=>{
  const headers=credential==='bearer'?{authorization:'Bearer '+token}:{cookie:'session_token='+token};
  const response=await call('/v1/auth/me?userId=another',method,method==='POST'?{userId:'another',roles:'admin'}:undefined,headers);
- assert.equal(response.status,200);assert.deepEqual(await response.json(),{userId:'actor',roles:'ceo',status:'authenticated'});assert.equal(response.headers.get('cache-control'),'no-store');
+ assert.equal(response.status,200);assert.deepEqual(await response.json(),{userId:'actor',roles:'ceo',tenantId:'tenant-a',status:'authenticated'});assert.equal(response.headers.get('cache-control'),'no-store');
  assert.equal(queries.length,1);assert.match(queries[0].sql,/expires_at > NOW\(\)/);assert.match(queries[0].sql,/LOWER\(u.status\) = 'active'/);
  assert.equal(spec.paths['/v1/auth/me'][method.toLowerCase()].security.length,2);
 });

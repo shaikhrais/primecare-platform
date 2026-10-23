@@ -239,8 +239,10 @@ class AuthNotifier extends Notifier<AuthState> {
       final data = response.data;
       final role = data is Map<String, dynamic> ? data['roles'] : null;
       final userId = data is Map<String, dynamic> ? data['userId'] : null;
+      final tenant = data is Map<String, dynamic> ? data['tenantId'] : null;
       if (!response.isSuccess || role is! String || role.isEmpty ||
-          userId is! String || userId.isEmpty) {
+          userId is! String || userId.isEmpty ||
+          tenant != null && (tenant is! String || !RegExp(r'^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$').hasMatch(tenant))) {
         await _persist((prefs) async {
           if (_isCurrent(revision)) await _clearSession(prefs);
         });
@@ -249,9 +251,15 @@ class AuthNotifier extends Notifier<AuthState> {
         authListenable.value = false;
         return;
       }
+      await _persist((prefs) async {
+        if (!_isCurrent(revision)) return;
+        if (tenant is String) { await prefs.setString('auth_tenant_id', tenant); }
+        else { await prefs.remove('auth_tenant_id'); }
+      });
+      if (!_isCurrent(revision)) return;
       state = AuthState(
         isAuthenticated: true, isInitialized: true, token: token,
-        role: role, userId: userId,
+        role: role, userId: userId, tenantId: tenant as String?,
         userName: prefs.getString('auth_username'),
         preferredLanguage: state.preferredLanguage ?? language,
       );
@@ -325,7 +333,7 @@ class AuthNotifier extends Notifier<AuthState> {
               final confirmation = await apiClient.confirmSession(provisional);
               final identity = confirmation.data;
               if (!promptOpen || !_isCurrent(revision) || !confirmation.isSuccess || identity is! Map<String, dynamic> ||
-                  identity['status'] != 'authenticated' || identity['roles'] != data['role'] || identity['userId'] != data['userId']) return false;
+                  identity['status'] != 'authenticated' || identity['roles'] != data['role'] || identity['userId'] != data['userId'] || identity['tenantId'] != data['tenantId']) return false;
               verified = Map<String, dynamic>.unmodifiable(data);
               return true;
             } catch (_) { return false; }
@@ -388,7 +396,7 @@ class AuthNotifier extends Notifier<AuthState> {
             final tenant = data['tenantId'];
             if (role is! String || role.trim().isEmpty ||
                 userId is! String || userId.trim().isEmpty ||
-                (tenant != null && tenant is! String)) {
+                (tenant != null && (tenant is! String || !RegExp(r'^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$').hasMatch(tenant)))) {
               return false;
             }
             final userName = email.trim();

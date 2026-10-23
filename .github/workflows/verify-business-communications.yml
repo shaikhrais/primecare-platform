@@ -65,7 +65,7 @@ jobs:
         working-directory: packages/flutter_core
       - name: Real communication transport failures and existing caller regressions
         working-directory: packages/flutter_core
-        run: flutter test test/communication_mail_controller_test.dart test/communication_call_controller_test.dart test/communication_workspace_controller_test.dart test/dio_communication_transport_test.dart test/communication_transport_failure_test.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/provider_profile_test.dart
+        run: flutter test test/communication_mail_controller_test.dart test/communication_call_controller_test.dart test/communication_workspace_controller_test.dart test/dio_communication_transport_test.dart test/communication_transport_failure_test.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/auth_session_test.dart test/auth_mfa_test.dart test/provider_profile_test.dart
   flutter-workspace:
     runs-on: ubuntu-24.04
     timeout-minutes: 15

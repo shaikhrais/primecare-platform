@@ -7,10 +7,54 @@ on:
       - 'tools/governance-production/read-auth-session-contracts.py'
       - 'scripts/test-communication-stack.mjs'
       - 'packages/primecare_ui/test/communication_stack_harness.dart'
+      - 'tools/build-communication-stack.py'
+      - 'cloudflare/workers/src/auth.ts'
+      - 'cloudflare/workers/src/auth-projection.ts'
+      - 'cloudflare/workers/src/security/mfa*.mjs'
+      - 'cloudflare/workers/src/gateway.ts'
+      - 'packages/flutter_core/lib/src/application/controllers/auth_notifier.dart'
+      - 'cloudflare/workers/src/auth-session-tenant*'
+      - 'scripts/test-auth-session-tenant.mjs'
+      - 'scripts/test-communication-gateway.mjs'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
+  browser-postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: communication_stack
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: communication_stack_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communication_stack -d communication_stack_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      COMMUNICATION_STACK_DATABASE_URL: postgres://communication_stack:disposable-only@127.0.0.1:5432/communication_stack_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/communication-stack-tools" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2 esbuild@0.27.2 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0 sharp@0.34.5 playwright@1.60.0
+          ln -s "$RUNNER_TEMP/communication-stack-tools/node_modules" node_modules
+          node --test scripts/test-auth-session-tenant.mjs scripts/test-communication-gateway.mjs scripts/test-auth-api.mjs
+          python3 tools/build-communication-stack.py
+      - name: Real Flutter login, channels, database readback, reload and denied scope
+        run: |
+          export BUSINESS_TEST_CHROMIUM_EXECUTABLE="$(command -v google-chrome)"
+          node scripts/test-communication-stack.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: communication-stack-browser-postgres
+          path: test-results/communication-stack-browser
+          retention-days: 90
   current-contracts:
     runs-on: ubuntu-24.04
     environment: production

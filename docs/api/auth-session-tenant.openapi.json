@@ -1,0 +1,277 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Current authenticated tenant identity response extension",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/auth/login": {
+      "post": {
+        "description": "Current independently registered optional native tenant claim. Grants and activation unchanged.",
+        "responses": {
+          "200": {
+            "description": "Authenticated operation response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "role": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "const": "authenticated"
+                        },
+                        "token": {
+                          "pattern": "^[A-Za-z0-9_-]{43}$",
+                          "type": "string"
+                        },
+                        "userId": {
+                          "type": "string"
+                        },
+                        "tenantId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$",
+                          "description": "Current server-resolved tenant. Omitted for legacy accounts without tenant scope; never taken from request headers or local preferences."
+                        }
+                      },
+                      "required": [
+                        "userId",
+                        "role",
+                        "token",
+                        "status"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "challenge": {
+                          "pattern": "^[A-Za-z0-9_-]{43}$",
+                          "type": "string"
+                        },
+                        "purpose": {
+                          "const": "enroll"
+                        },
+                        "setupKey": {
+                          "pattern": "^[A-Z2-7]{32}$",
+                          "type": "string"
+                        },
+                        "status": {
+                          "const": "mfa_required"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "challenge",
+                        "purpose",
+                        "setupKey"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "challenge": {
+                          "pattern": "^[A-Za-z0-9_-]{43}$",
+                          "type": "string"
+                        },
+                        "purpose": {
+                          "const": "verify"
+                        },
+                        "status": {
+                          "const": "mfa_required"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "challenge",
+                        "purpose"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/me": {
+      "post": {
+        "description": "Current independently registered optional native tenant claim. Grants and activation unchanged.",
+        "responses": {
+          "200": {
+            "description": "Authenticated operation response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "userId",
+                    "roles",
+                    "status"
+                  ],
+                  "properties": {
+                    "userId": {
+                      "type": "string"
+                    },
+                    "roles": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "const": "authenticated"
+                    },
+                    "tenantId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$",
+                      "description": "Current server-resolved tenant. Omitted for legacy accounts without tenant scope; never taken from request headers or local preferences."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "Current independently registered optional native tenant claim. Grants and activation unchanged.",
+        "responses": {
+          "200": {
+            "description": "Authenticated operation response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "userId",
+                    "roles",
+                    "status"
+                  ],
+                  "properties": {
+                    "userId": {
+                      "type": "string"
+                    },
+                    "roles": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "const": "authenticated"
+                    },
+                    "tenantId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$",
+                      "description": "Current server-resolved tenant. Omitted for legacy accounts without tenant scope; never taken from request headers or local preferences."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa": {
+      "post": {
+        "description": "Current independently registered optional native tenant claim. Grants and activation unchanged.",
+        "responses": {
+          "200": {
+            "description": "Authenticated operation response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "role": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "const": "authenticated"
+                    },
+                    "token": {
+                      "type": "string"
+                    },
+                    "userId": {
+                      "type": "string"
+                    },
+                    "tenantId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$",
+                      "description": "Current server-resolved tenant. Omitted for legacy accounts without tenant scope; never taken from request headers or local preferences."
+                    }
+                  },
+                  "required": [
+                    "token",
+                    "userId",
+                    "role",
+                    "status"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/mfa/replacement/confirm": {
+      "post": {
+        "description": "Current independently registered optional native tenant claim. Grants and activation unchanged.",
+        "responses": {
+          "200": {
+            "description": "Authenticated operation response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "role": {
+                      "const": "code_admin"
+                    },
+                    "status": {
+                      "const": "authenticated"
+                    },
+                    "token": {
+                      "pattern": "^[A-Za-z0-9_-]{43}$",
+                      "type": "string"
+                    },
+                    "userId": {
+                      "type": "string"
+                    },
+                    "tenantId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$",
+                      "description": "Current server-resolved tenant. Omitted for legacy accounts without tenant scope; never taken from request headers or local preferences."
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "token",
+                    "userId",
+                    "role"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import {optionalRow,scopedActor} from './database-results';
 import {accountId} from './account-read-projection';
+import {sessionTenant} from './auth-session-tenant.mjs';
 
 /** Validate claims before session issuance or serialization; never coerce values. */
 export function authIdentity(row: Record<string, unknown>) {
@@ -7,6 +8,8 @@ export function authIdentity(row: Record<string, unknown>) {
   if (typeof row.roles !== 'string' || !row.roles || row.roles.length > 200) throw Error('Invalid authentication role');
   return {userId, roles: row.roles};
 }
+/** Session-only projection; administrative actor projections remain unchanged. */
+export function authSessionIdentity(row:Record<string,unknown>){return {...authIdentity(row),...sessionTenant(row)};}
 
 /** A mutation must return its expected account, with only approved fields. */
 export function mutatedAccount(row: Record<string, unknown>, expected: {id: string; email?: string; role: string; status: string; tenantId: string}) {

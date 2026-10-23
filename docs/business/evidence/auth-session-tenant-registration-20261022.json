@@ -1,0 +1,21 @@
+{
+  "apiIds": [
+    2,
+    779,
+    16402,
+    16496,
+    16500
+  ],
+  "fields": [
+    "response_schema"
+  ],
+  "permissionChanges": false,
+  "accountChanges": false,
+  "activation": false,
+  "definitionSha256": "1d21ff11433e9e1d670262067cdb91db321125e1192d22e9a0165087cb61530b",
+  "independentReadback": true,
+  "sourceCommit": "270ef9eab079dc2038901cd445bf863d50a98c62",
+  "runId": 39883149093,
+  "isolatedTestsPassed": 6,
+  "authority": "pinned-production-postgresql"
+}

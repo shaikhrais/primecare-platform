@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import {sessionTenant} from '../auth-session-tenant.mjs';
 import {digest} from './mfa.mjs';
 import {generateMfaSeed} from './mfa-secret.mjs';
 import {activeMfaKeyId, openStoredMfaSeed, sealCurrentMfaSeed} from './mfa-keyring.mjs';
@@ -192,8 +193,9 @@ export async function confirmMfaReplacement(db, env, body, locale = 'en') {
     await notification(db, user, 'authenticator_replaced', locale);
     const issued = token(), issuedHash = await digest(issued);
     if (one(await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) SELECT $1,id,NOW()+INTERVAL '12 hours' FROM users WHERE id::text=$2 AND status='active' RETURNING token_hash", [issuedHash, user.id])).token_hash !== issuedHash) throw Error('Replacement session storage failed');
+    const scope=sessionTenant(user);
     await db.query('COMMIT');
-    return {status: 200, body: {status: 'authenticated', token: issued, userId: user.id, role: user.roles}};
+    return {status: 200, body: {status: 'authenticated', token: issued, userId: user.id, role: user.roles,...scope}};
   } catch (error) {await db.query('ROLLBACK'); throw error;}
 }
 

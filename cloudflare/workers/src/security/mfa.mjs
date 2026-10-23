@@ -1,6 +1,7 @@
 import {generateMfaSeed} from './mfa-secret.mjs';
 import {activeMfaKeyId,sealCurrentMfaSeed,openStoredMfaSeed} from './mfa-keyring.mjs';
 import {matchTotp} from './totp.mjs';
+import {sessionTenant} from '../auth-session-tenant.mjs';
 const encode=new TextEncoder();
 export async function digest(value) {return [...new Uint8Array(await crypto.subtle.digest('SHA-256',encode.encode(value)))].map(x=>x.toString(16).padStart(2,'0')).join('');}
 function token(){return btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(32)))).replaceAll('+','-').replaceAll('/','_').replaceAll('=','');}
@@ -66,6 +67,7 @@ export async function finishMfa(db,env,body){
   const session=token(),sessionHash=await digest(session);
   const stored=await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) SELECT $1,id,NOW()+INTERVAL '12 hours' FROM users WHERE id::text=$2 AND status='active' RETURNING token_hash",[sessionHash,user.id]);
   if(stored.rows.length!==1||stored.rows[0].token_hash!==sessionHash)throw Error('MFA session unavailable');
-  await db.query('COMMIT');return {status:200,body:{token:session,userId:user.id,role:user.roles,status:'authenticated'}};
+  const scope=sessionTenant(user);
+  await db.query('COMMIT');return {status:200,body:{token:session,userId:user.id,role:user.roles,...scope,status:'authenticated'}};
  }catch(error){await db.query('ROLLBACK');throw error;}
 }

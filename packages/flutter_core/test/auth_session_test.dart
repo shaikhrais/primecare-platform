@@ -73,6 +73,26 @@ ApiResponse loginReply(String token) => ApiResponse(statusCode: 200, data: {
 });
 
 void main() {
+  for(final tenant in <Object?>['server-tenant',null,42]) {
+    test('restored session uses current server tenant $tenant and clears cached overrides',() async {
+      SharedPreferences.setMockInitialValues({'auth_token':'old-token','auth_tenant_id':'forged-cache'});
+      final api=DeferredApi();final c=ProviderContainer(overrides:[apiClientProvider.overrideWithValue(api)]);addTearDown(c.dispose);
+      final ready=Completer<void>();final sub=c.listen(authProvider,(previous,next){if(next.isInitialized&&!ready.isCompleted)ready.complete();});addTearDown(sub.close);
+      await api.identityStarted.future;api.identity.complete(ApiResponse(statusCode:200,data:{'userId':'actor','roles':'fixture-role',if(tenant!=null)'tenantId':tenant}));
+      await ready.future.timeout(const Duration(seconds:3));final state=c.read(authProvider);final prefs=await SharedPreferences.getInstance();
+      if(tenant is int){expect(state.isAuthenticated,false);expect(prefs.getString('auth_token'),isNull);}
+      else{expect(state.isAuthenticated,true);expect(state.tenantId,tenant);}
+      expect(prefs.getString('auth_tenant_id'),tenant is String?tenant:null);
+    });
+  }
+  test('credential login retains validated server tenant and rejects a malformed claim',() async {
+    for(final tenant in <Object>['server-tenant',42]){
+      final api=DeferredApi();final c=ProviderContainer(overrides:[apiClientProvider.overrideWithValue(api),authProvider.overrideWith(FixtureAuth.new)]);
+      try{final login=c.read(authProvider.notifier).login('alice@example.invalid','synthetic-password');api.logins.single.complete(ApiResponse(statusCode:200,data:{'userId':'actor','role':'fixture-role','tenantId':tenant,'token':'new-token'}));
+       expect(await login,tenant is String);if(tenant is String)expect(c.read(authProvider).tenantId,tenant);else expect(api.revoked,['new-token']);
+      }finally{c.dispose();}
+    }
+  });
   TestWidgetsFlutterBinding.ensureInitialized();
   setUp(() {
     SharedPreferences.setMockInitialValues({});

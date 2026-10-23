@@ -1,5 +1,6 @@
 import {BaseWorker, workerHandler} from './core/base-worker';
 import governedReadAliases from './governed-read-aliases.json';
+import communicationContracts from '../../../packages/shared/src/communications/registered-contracts.json';
 interface Service { fetch(request: Request): Promise<Response> }
 interface Env {
   AUTH: Service; CLIENT: Service; PROVIDER: Service; VISIT: Service;
@@ -51,6 +52,13 @@ export class GatewayWorker extends BaseWorker<Env> {
 
   protected override async handle(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+    // Registered communication routes retain their canonical path. The native
+    // service still enforces current session, API/screen and resource policies.
+    const communication=communicationContracts.apis.filter(api=>api.path===url.pathname);
+    if(communication.length){
+      if(!communication.some(api=>api.method===request.method))return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:[...new Set(communication.map(api=>api.method))].join(',')}}));
+      return withGatewayHeaders(request,await env.GOVERNANCE.fetch(request));
+    }
     // Exact submission compatibility route; share canonical ownership and retry semantics.
     if(url.pathname==='/v1/client/bookings/request'||['/v1/client/bookings/requests','/v1/client/bookings'].includes(url.pathname)&&request.method==='POST') {
       if(request.method!=='POST')return withGatewayHeaders(request,new Response(JSON.stringify({error:'Method not allowed'}),{status:405,headers:{'content-type':'application/json','allow':'POST'}}));

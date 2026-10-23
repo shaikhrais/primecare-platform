@@ -110,7 +110,7 @@ for (const method of ['GET','POST']) {
   const response=await lookup();
   assert.equal(response.status,200);
   assert.equal(response.headers.get('cache-control'),'no-store');
-  assert.deepEqual(await response.json(),{userId:user.id,roles:user.roles,status:'authenticated'});
+  assert.deepEqual(await response.json(),{userId:user.id,roles:user.roles,tenantId:user.tenant_id,status:'authenticated'});
   const record=[...sessions.values()][0];record.expired=true;
   assert.equal((await lookup()).status,401);record.expired=false;
   user.status='inactive';assert.equal((await lookup()).status,401);user.status='active';
@@ -124,12 +124,25 @@ test('login stores a token hash and exposes only approved existing response fiel
   const response=await login(); assert.equal(response.status,200);
   const data=await response.json();
   assert.equal(data.role,'fixture-role'); assert.equal(data.userId,'fixture-user');
+  assert.equal(data.tenantId,'fixture-tenant');
   assert.match(data.token,/^[A-Za-z0-9_-]{43}$/);
   assert.equal(sessions.size,1); assert.ok(!sessions.has(data.token));
   assert.match([...sessions.keys()][0],/^[a-f0-9]{64}$/);
   assert.equal(data.password_hash,undefined);
   assert.match(response.headers.get('set-cookie'),/HttpOnly; Secure; SameSite=Lax/);
   assert.equal(response.headers.get('cache-control'),'no-store');
+});
+test('credential and current-session native tenant scope ignores client overrides',async()=>{
+ const req=request('/login','POST',{email:'fixture@example.invalid',password:'fixture-password',tenantId:'forged-body'});req.headers.set('x-tenant-id','forged-header');
+ const response=await auth(req,env,'/login',{});assert.equal(response.status,200);const data=await response.json();assert.equal(data.tenantId,user.tenant_id);
+ for(const method of ['GET','POST']){const identity=await auth(request('/me',method,undefined,data.token),env,'/me',{});assert.equal(identity.status,200);assert.equal((await identity.json()).tenantId,user.tenant_id);}
+});
+test('malformed native session tenant fails before credential session issuance',async()=>{
+ for(const tenant of [42,'bad/scope','',{}]){user.tenant_id=tenant;queries=[];const response=await login();assert.equal(response.status,503);assert.ok(!queries.some(q=>q.sql.startsWith('INSERT INTO auth_sessions')));}
+});
+test('legacy unscoped identity remains authenticatable without inventing tenant access',async()=>{
+ user.tenant_id=null;const response=await login();assert.equal(response.status,200);const data=await response.json();assert.equal(Object.hasOwn(data,'tenantId'),false);
+ const identity=await auth(request('/me','GET',undefined,data.token),env,'/me',{});assert.equal(Object.hasOwn(await identity.json(),'tenantId'),false);
 });
 test('session can be read, revoked, and then rejected',async()=>{
   const {token}=await (await login()).json();

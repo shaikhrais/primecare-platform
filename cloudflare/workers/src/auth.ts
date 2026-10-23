@@ -8,7 +8,7 @@ import {confirmedAudit} from './audit-confirmation';
 import {optionalRow,requiredRow,resultRows} from './database-results';
 import {accountId} from './account-read-projection';
 import {sourceLimitAllowed} from './source-limit-result';
-import {authIdentity,mutatedAccount,privilegedActor} from './auth-projection';
+import {authSessionIdentity,mutatedAccount,privilegedActor} from './auth-projection';
 import {selfRecords} from './self-records';
 import {selfSessions,requestHasContent} from './self-sessions';
 import {recoverPassword,resetPassword,validateRecovery} from './password-recovery';
@@ -354,7 +354,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         return json({ error: 'Invalid credentials' }, 401, headers);
       }
       if(user.roles==='code_admin'){const result=await beginMfa(db,env,user);return json(result.body,result.status,headers);}
-      const identity = authIdentity(user);
+      const identity = authSessionIdentity(user);
       const token = newToken();
       // Revalidate the checked credential while locking the user until the insert
       // commits. Password/status updates either win first (no session is issued),
@@ -366,14 +366,15 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
           `INSERT INTO auth_sessions (token_hash, user_id, expires_at)
            SELECT $1, u.id, NOW() + INTERVAL '12 hours' FROM users u
            WHERE u.id=$2 AND u.password_hash=$3 AND LOWER(u.status)='active'
+           AND u.roles=$4 AND u.tenant_id IS NOT DISTINCT FROM $5
            FOR SHARE OF u RETURNING token_hash,user_id`,
-          [tokenHash, user.id, user.password_hash]);
+          [tokenHash, user.id, user.password_hash,user.roles,user.tenant_id??null]);
         if(resultRows(session.rows).length===0){await db.query('ROLLBACK');return json({error:'Invalid credentials'},401,headers);}
         const stored=requiredRow(session.rows);
         if(stored.token_hash!==tokenHash || accountId(stored.user_id)!==identity.userId)throw Error('Invalid persisted session');
         await db.query('COMMIT');
       }catch(error){await db.query('ROLLBACK');throw error;}
-      return json({ userId: identity.userId, role: identity.roles, token, status: 'authenticated' }, 200, {
+      return json({ userId: identity.userId, role: identity.roles, ...(identity.tenantId?{tenantId:identity.tenantId}:{}), token, status: 'authenticated' }, 200, {
         ...headers,
         'set-cookie': `session_token=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=43200`,
         'cache-control': 'no-store',
@@ -387,11 +388,11 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     if (!token) return json({ error: 'No session' }, 401, headers);
     return withDb(env, async (db) => {
       const result = await db.query(
-        "SELECT u.id, u.roles FROM auth_sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = $1 AND s.expires_at > NOW() AND LOWER(u.status) = 'active' LIMIT 1",
+        "SELECT u.id, u.roles, u.tenant_id FROM auth_sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = $1 AND s.expires_at > NOW() AND LOWER(u.status) = 'active' LIMIT 1",
         [await sha256(token)]);
       const user = optionalRow(result.rows);
       return user
-        ? json({ ...authIdentity(user), status: 'authenticated' }, 200, { ...headers, 'cache-control': 'no-store' })
+        ? json({ ...authSessionIdentity(user), status: 'authenticated' }, 200, { ...headers, 'cache-control': 'no-store' })
         : json({ error: 'Invalid session' }, 401, headers);
     });
   }
