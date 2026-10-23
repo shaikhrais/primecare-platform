@@ -7,7 +7,7 @@ export function createTwilioVoiceCallVerifier({accountSid,apiKeySid,apiKeySecret
  const client=new Twilio(apiKeySid,apiKeySecret,{accountSid,autoRetry:false,maxRetries:0,timeout:10000,...(httpClient?{httpClient}:{})});
  return Object.freeze({async fetch(callSid){
   if(!twilioSid('CA',callSid))throw Error('Voice unavailable');
-  try{const row=await client.calls(callSid).fetch();return Object.freeze({sid:row.sid,accountSid:row.accountSid,from:row.from,direction:row.direction,status:row.status});}catch{throw Error('Voice unavailable');}
+  try{const row=await client.calls(callSid).fetch();return Object.freeze({sid:row.sid,accountSid:row.accountSid,from:row.from,...(typeof row.to==='string'?{to:row.to}:{}),direction:row.direction,status:row.status});}catch{throw Error('Voice unavailable');}
  }});
 }
 /** Exact signed TwiML App webhook; extensions only, never a phone/SIP dialer. */

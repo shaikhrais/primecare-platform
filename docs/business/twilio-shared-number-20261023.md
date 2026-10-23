@@ -327,3 +327,31 @@ OTP-to-call/user/tenant broker. Production still requires that binding, send/att
 limits, expiry/revocation handling and registered secure code entry outside the
 LLM, plus the existing separate task confirmation and business API gates. No
 Verify Service, live AI agent, extension assignment or provider cutover occurred.
+
+### Durable call identity implementation — 2026-10-23
+
+Implemented the app-linked OTP broker, native repository/contact reader and
+candidate schema. A signed provider flow privately issues a short-lived pairing
+code before AI streaming; the signed-in app pairs the call and requests SMS OTP
+to an approved current contact. Pairing hashes, atomic send/check claims,
+per-contact quotas, attempt caps, unique Verification SIDs and versioned contact
+checks are persisted. No raw pairing/OTP values are stored. A fresh call-limited
+grant is revalidated against current native session/contact/call/permission on
+all subsequent task boundaries. Separate exact-action app confirmation is still
+required before a callback or appointment request can execute.
+
+Added signed pairing/wait TwiML with fixed continuation and reception fallback.
+A canonical Call resource now supplies its destination for the shared-number
+check. This initial flow requires the native app; no anonymous voice-only account
+authentication or voice biometrics are enabled. Contact enrollment is a separate
+approved prerequisite and no real contact is enrolled by the migration.
+
+Local checks: 122 Node Twilio/auth/task tests, 26 native Worker checks and strict
+TypeScript integration pass. CI also runs real disposable PostgreSQL tests for
+pairing hash storage, concurrent sends/checks, three-send quota, five pairing
+attempts, duplicate Verification SID rejection, native session/contact/call
+revocation and a callback task through OTP plus durable app confirmation. Twilio
+and business write APIs remain synthetic in those tests; live OTP delivery,
+pairing/OTP app screens, AI transport, verified-contact onboarding, governed route
+activation and telephone/email acceptance remain outstanding. The existing IVR
+and actual user extension assignments are unchanged.

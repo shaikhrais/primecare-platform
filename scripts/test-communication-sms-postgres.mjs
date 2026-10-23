@@ -10,6 +10,7 @@ import {VoicemailService,PostgresVoicemailRepository} from '../cloudflare/worker
 import {VoiceTaskService,PostgresVoiceTaskRepository,BoundVoiceApiTask} from '../cloudflare/workers/src/business-tasks/voice-tasks.ts';
 import {PostgresVoiceTaskConfirmationService} from '../cloudflare/workers/src/business-tasks/voice-confirmations.ts';
 import {createReceptionAppointmentTasks} from '../cloudflare/workers/src/business-tasks/voice-reception-tasks.ts';
+import {VoiceOtpService,PostgresVoiceOtpRepository,PostgresVoiceOtpContactDirectory} from '../cloudflare/workers/src/business-tasks/voice-otp.ts';
 const connectionString=process.env.TWILIO_SMS_TEST_DATABASE_URL;
 if(!connectionString)throw Error('Disposable local TWILIO_SMS_TEST_DATABASE_URL required');
 const url=new URL(connectionString);
@@ -124,6 +125,35 @@ try{
  for(const [i,definition] of receptionTasks.entries()){const p=await receptionGate.propose(vmCall,definition.id,receptionArgs[i]);await confirmations.approve(actor,p.intentId,p.digest);await receptionGate.execute(vmCall,p.intentId);await assert.rejects(receptionGate.execute(vmCall,p.intentId));}
  assert.equal((await pool.query('SELECT count(*)::int AS n FROM fixture_voice_reception_requests')).rows[0].n,3);
  console.log('VOICE_RECEPTION_POSTGRES_PASS: selected callback/booking/reschedule request definitions through durable explicit app approval and one-attempt gateway; request APIs synthetic, no real appointments changed');
+
+ await pool.query((await readFile('packages/database/migrations/20261023_communication_voice_otp.sql','utf8')));
+ const otpHash='9'.repeat(64),nextOtpHash='8'.repeat(64),otpCall='CA'+'4'.repeat(32);
+ await pool.query("INSERT INTO auth_sessions VALUES($1,'alice',NOW()+INTERVAL '5 minutes')",[otpHash]);
+ await pool.query("INSERT INTO communication_voice_verified_contacts(tenant_id,user_id,phone,version,verified_at) VALUES('tenant-a','alice','+15550002000',1,now())");
+ const otpRepo=new PostgresVoiceOtpRepository(pool);let otpSends=0,otpCallEnded=false,otpFailSend=false,forcedVerificationSid=null;
+ const nativeOtp=new VoiceOtpService(new PostgresAtomicStore(pool,'business_sms'),confirmationPolicy,otpRepo,{sessions:directory,contacts:new PostgresVoiceOtpContactDirectory(pool),calls:{async fetch(sid){return {sid,accountSid:config.accountSid,from:'+15550009999',to:config.sender,direction:'inbound',status:otpCallEnded?'completed':'in-progress'};}},provider(contact){return {async start(){otpSends++;if(otpFailSend)throw Error('Synthetic uncertain SMS');return {verificationSid:forcedVerificationSid??'VE'+otpSends.toString(16).padStart(32,'0'),status:'pending'};},async check(sid,code){assert.match(sid,/^VE/);assert.equal(code,'123456');return {approved:true};}};}},{accountSid:config.accountSid,sharedNumber:config.sender});
+ const pairing=await nativeOtp.issue(otpCall);assert.match(pairing.pairingCode,/^[0-9]{8}$/);
+ assert.notEqual((await pool.query('SELECT pairing_hash FROM communication_voice_otp WHERE call_sid=$1',[otpCall])).rows[0].pairing_hash,pairing.pairingCode);
+ const starts=await Promise.allSettled([nativeOtp.start(otpHash,otpCall,pairing.pairingCode),nativeOtp.start(otpHash,otpCall,pairing.pairingCode)]);
+ assert.equal(starts.filter(r=>r.status==='fulfilled').length,1);assert.equal(otpSends,1);assert.equal(await nativeOtp.current(otpCall),null);
+ const checked=await Promise.allSettled([nativeOtp.check(otpHash,otpCall,'123456'),nativeOtp.check(otpHash,otpCall,'123456')]);assert.equal(checked.filter(r=>r.status==='fulfilled').length,1);
+ assert.deepEqual((await nativeOtp.current(otpCall)).actor,actor);
+ const otpConfirmations=new PostgresVoiceTaskConfirmationService(new PostgresAtomicStore(pool,'business_sms'),confirmationPolicy,pool,nativeOtp,taskRepository);
+ const otpTasks=new VoiceTaskService(new PostgresAtomicStore(pool,'business_sms'),confirmationPolicy,taskRepository,otpConfirmations,receptionTasks);
+ const otpProposal=await otpTasks.propose(otpCall,'reception.callback.request',receptionArgs[0]);await otpConfirmations.approve(actor,otpProposal.intentId,otpProposal.digest);await otpTasks.execute(otpCall,otpProposal.intentId);
+ assert.equal((await pool.query('SELECT count(*)::int AS n FROM fixture_voice_reception_requests')).rows[0].n,4);
+ otpCallEnded=true;assert.equal(await nativeOtp.current(otpCall),null);otpCallEnded=false;
+ await pool.query("UPDATE communication_voice_verified_contacts SET version=2 WHERE tenant_id='tenant-a' AND user_id='alice'");assert.equal(await nativeOtp.current(otpCall),null);
+ await pool.query('DELETE FROM auth_sessions WHERE token_hash=$1',[otpHash]);assert.equal(await nativeOtp.current(otpCall),null);
+ await pool.query("INSERT INTO auth_sessions VALUES($1,'alice',NOW()+INTERVAL '5 minutes')",[nextOtpHash]);
+ for(const digit of ['5','6']){const sid='CA'+digit.repeat(32),pair=await nativeOtp.issue(sid);await nativeOtp.start(nextOtpHash,sid,pair.pairingCode);}
+ const quotaCall='CA'+'7'.repeat(32),quotaPair=await nativeOtp.issue(quotaCall);await assert.rejects(nativeOtp.start(nextOtpHash,quotaCall,quotaPair.pairingCode));assert.equal(otpSends,3);assert.equal((await otpRepo.read(quotaCall)).state,'issued');
+ const bruteCall='CA'+'8'.repeat(32),brutePair=await nativeOtp.issue(bruteCall),wrongPin=brutePair.pairingCode==='00000000'?'11111111':'00000000';
+ for(let n=0;n<5;n++)await assert.rejects(nativeOtp.start(nextOtpHash,bruteCall,wrongPin));await assert.rejects(nativeOtp.start(nextOtpHash,bruteCall,brutePair.pairingCode));assert.equal((await pool.query('SELECT pairing_attempts FROM communication_voice_otp WHERE call_sid=$1',[bruteCall])).rows[0].pairing_attempts,5);
+ await pool.query("UPDATE communication_voice_verified_contacts SET phone='+15550003000',version=3 WHERE tenant_id='tenant-a' AND user_id='alice'");
+ const unknownCall='CA'+'9'.repeat(32),unknownPair=await nativeOtp.issue(unknownCall);otpFailSend=true;await assert.rejects(nativeOtp.start(nextOtpHash,unknownCall,unknownPair.pairingCode),/outcome unknown/);assert.equal((await otpRepo.read(unknownCall)).state,'unknown');otpFailSend=false;
+ const duplicateCall='CA'+'a'.repeat(32),duplicatePair=await nativeOtp.issue(duplicateCall);forcedVerificationSid='VE'+'1'.padStart(32,'0');await assert.rejects(nativeOtp.start(nextOtpHash,duplicateCall,duplicatePair.pairingCode),/outcome unknown/);assert.equal((await otpRepo.read(duplicateCall)).state,'unknown');assert.equal(await nativeOtp.current(duplicateCall),null);
+ console.log('VOICE_OTP_POSTGRES_PASS: hashed app-call pairing, atomic single send/check, per-contact quota, pairing attempt cap, unique verification SID, native session/contact/call revocation and confirmed callback task; Twilio provider synthetic');
  console.log('VOICE_DIRECTORY_POSTGRES_PASS: unique unpublished assignments, versioned publication, current session/membership, tenant isolation and single-slot authorization');
  console.log('SMS_POSTGRES_PASS: durable early callbacks, single-slot pool, concurrent claims, unique receipts, scoped reads, duplicate/order handling, policy denial and reconciliation; synthetic provider only');
 }finally{

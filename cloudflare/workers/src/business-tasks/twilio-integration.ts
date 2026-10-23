@@ -1,3 +1,6 @@
+import {TwilioOtpPairingAdapter} from '../../../../packages/shared/src/communications/twilio-otp-pairing.mjs';
+import {VoiceOtpService,PostgresVoiceOtpRepository,PostgresVoiceOtpContactDirectory} from './voice-otp.ts';
+import {createTwilioVoiceOtpClient} from '../../../../packages/shared/src/communications/twilio-verify.mjs';
 import {createReceptionAppointmentTasks,type ReceptionAppointmentPorts} from './voice-reception-tasks.ts';
 import {PostgresVoiceTaskConfirmationService} from './voice-confirmations.ts';
 import {VoiceTaskService,PostgresVoiceTaskRepository,type VoiceTaskTrust,type VoiceTaskBase} from './voice-tasks.ts';
@@ -99,4 +102,19 @@ export function createPostgresConfirmedVoiceTaskServices(dependencies:{pool:any;
  */
 export function createPostgresReceptionAppointmentVoiceServices(dependencies:Omit<Parameters<typeof createPostgresConfirmedVoiceTaskServices>[0],'tasks'> & {requests:ReceptionAppointmentPorts}){
  return createPostgresConfirmedVoiceTaskServices({...dependencies,tasks:createReceptionAppointmentTasks(dependencies.requests)});
+}
+
+/** App-linked OTP identity + explicit confirmation + selected request tasks.
+ * Pairing provider handlers, native app auth/CSRF, verified-contact onboarding and
+ * approved request API adapters must be registered before exposing any method.
+ */
+export function createPostgresOtpReceptionVoiceServices(dependencies:Pick<Parameters<typeof createTwilioCommunicationServices>[0],'pool'|'policy'|'configuration'|'httpClient'> & {verifyServiceSid:string;requests:ReceptionAppointmentPorts}){
+ const c=dependencies.configuration,directory=new PostgresVoiceDirectory(dependencies.pool);
+ const otp=new VoiceOtpService(new PostgresAtomicStore(dependencies.pool,'business_sms'),dependencies.policy,new PostgresVoiceOtpRepository(dependencies.pool),{sessions:directory,calls:createTwilioVoiceCallVerifier({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,httpClient:dependencies.httpClient}),contacts:new PostgresVoiceOtpContactDirectory(dependencies.pool),provider:contact=>createTwilioVoiceOtpClient({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,serviceSid:dependencies.verifyServiceSid,contact:{phone:contact.phone,verified:true},httpClient:dependencies.httpClient})},{accountSid:c.accountSid,sharedNumber:c.sharedNumber});
+ const services=createPostgresReceptionAppointmentVoiceServices({...dependencies,identities:otp});return Object.freeze({...services,otp});
+}
+
+export function createTwilioVoiceOtpPairingHandler(dependencies:{otp:VoiceOtpService;configuration:Parameters<typeof createTwilioCommunicationServices>[0]['configuration'];pairingUrl:string;waitUrl:string;agentUrl:string;receptionUrl:string}){
+ const c=dependencies.configuration;
+ return new TwilioOtpPairingAdapter({accountSid:c.accountSid,authToken:c.authToken,sharedNumber:c.sharedNumber,maxWebhookBytes:c.maxWebhookBytes,pairingUrl:dependencies.pairingUrl,waitUrl:dependencies.waitUrl,agentUrl:dependencies.agentUrl,receptionUrl:dependencies.receptionUrl,service:dependencies.otp});
 }

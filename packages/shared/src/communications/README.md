@@ -774,3 +774,58 @@ confirmation and current business permission remain mandatory. The provider's
 Verify TTL and country/channel settings need live setup; this module creates no
 Verify Service and sends nothing during construction. Tests use an isolated
 HTTP port with the real SDK serializer and native Worker runtime.
+
+### App-linked OTP identity broker (candidate, unmounted)
+
+`VoiceOtpService` extends `ScopedServiceBase` and supplies the missing durable
+OTP-to-call identity boundary. This initial flow requires the caller to sign in
+to the native app. A signed provider handler, before starting or resuming AI
+streaming, calls `issue` for a canonical live inbound call to the configured shared
+number. It privately speaks an eight-digit pairing code to that caller. Only its
+call-bound SHA-256 hash is stored, with a two-minute expiry and five pairing
+attempts. A lost initial prompt cannot recover the secret; restart with a new call
+or use reception. A pairing code is not an account authenticator by itself.
+
+The native app supplies its trusted server-side session token hash and the pairing
+code to start step-up. The service resolves the current native session and current
+verified account contact, checks `voice.otp.start` permission and the canonical
+Call resource, then atomically claims the pairing and a per-contact quota (three
+sends per ten minutes) before sending any SMS. No phone or actor is accepted from
+the caller/model. Send ambiguity is non-retryable. Verification SIDs are unique
+across bound calls; even a reused provider SID cannot authenticate two calls.
+
+Code entry stays in the registered secure native app flow, outside the LLM. The
+service claims one check at a time, caps checks at five, and rechecks native
+session/contact/call/policy before and after provider I/O. Approved codes create a
+fresh opaque grant ID valid for at most five minutes and no longer than the native
+session. Only that grant is exposed to the task trust boundary. On every later
+lookup, session membership/expiry, contact value/version/revocation, call status
+and `voice.otp.use` permission are checked again. Native session deletion/logout,
+contact changes, ended calls or permission denial invalidate use. Raw pairing
+codes, OTP values and bearer tokens are not stored in the broker tables or sent
+to an AI engine. Host auth routes must also suppress sensitive request logging.
+
+`PostgresVoiceOtpRepository` commits pairing/send quotas before external I/O and
+retains no SQL connection while waiting for Twilio. `PostgresVoiceOtpContactDirectory`
+reads approved contact enrollment records joined to current native user/tenant
+membership. No contact enrollment writer or production phone verification is
+provided here: approved onboarding must verify the account contact and increase
+its version for every change/revocation without reusing old versions. Candidate
+schema creates no contacts, permissions, sessions or live grants automatically.
+
+`TwilioOtpPairingAdapter` inherits the signed bounded form boundary. It uses only
+fixed same-origin pairing/wait/agent/reception URLs, pauses while the app verifies,
+then redirects only after server identity lookup. Timeout/failure goes to reception.
+It does not collect spoken codes, record audio or start an AI stream. The agent
+startup endpoint must independently recheck broker identity; knowing its URL is
+not authority. Native app start/check endpoints require current session auth,
+CSRF protection and endpoint-level rate limits. Provider pairing/polling endpoints
+require exact signature validation and current Call verification.
+
+`createPostgresOtpReceptionVoiceServices` composes the broker, existing Verify
+provider, native app confirmation and the selected callback/appointment request
+tasks. `createTwilioVoiceOtpPairingHandler` prepares the separate provider handler.
+All handlers/UI screens, verified-contact enrollment, production migrations,
+permissions, request-writing API bindings and AI runtime still require authorized
+registration/deployment and live acceptance. Callers without the app or verified
+contact must use reception; there is no voice-match or caller-ID fallback.
