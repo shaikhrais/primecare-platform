@@ -31,6 +31,8 @@ on:
       - 'scripts/test-communication-workers-runtime.mjs'
       - 'scripts/test-communication-relay-session.mjs'
       - 'scripts/test-communication-openai-relay.mjs'
+      - 'scripts/test-communication-sales-quality.mjs'
+      - 'packages/database/migrations/20261023_sales_call_quality.sql'
       - 'scripts/test-communication-relay-workerd.mjs'
       - 'scripts/test-communication-relay-postgres.mjs'
       - 'packages/database/migrations/20261023_communication_relay_sessions.sql'
@@ -111,6 +113,7 @@ jobs:
           ln -s "$RUNNER_TEMP/twilio-voice-tools/node_modules" node_modules
           node_modules/.bin/tsc --noEmit --strict --target ES2022 --module esnext --moduleResolution bundler packages/shared/src/communications/twilio-voice.d.mts
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/twilio-integration.ts
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions packages/shared/src/communications/sales-call-quality.ts packages/shared/src/communications/twilio-sales-quality.d.mts
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler packages/shared/src/communications/twilio-sms.d.mts packages/shared/src/communications/twilio-verify.d.mts packages/shared/src/communications/voice-task-approval.d.mts packages/shared/src/communications/twilio-agent-start.d.mts packages/shared/src/communications/twilio-relay-session.d.mts packages/shared/src/communications/openai-relay-model.d.mts packages/shared/src/communications/twilio-device.d.mts packages/shared/src/communications/twilio-ringing.d.mts
           node --test scripts/test-communication-twilio.mjs scripts/test-communication-twilio-token.mjs scripts/test-communication-twilio-sms.mjs scripts/test-communication-twilio-device.mjs scripts/test-communication-twilio-connect.mjs scripts/test-communication-twilio-ringing.mjs scripts/test-communication-twilio-voicemail.mjs scripts/test-communication-voice-tasks.mjs scripts/test-communication-voice-confirmations.mjs scripts/test-communication-voice-reception-tasks.mjs scripts/test-communication-twilio-verify.mjs scripts/test-communication-voice-otp.mjs scripts/test-communication-otp-pairing.mjs scripts/test-communication-voice-otp-app.mjs scripts/test-communication-voice-task-approval.mjs scripts/test-communication-agent-start.mjs scripts/test-communication-relay-session.mjs scripts/test-communication-openai-relay.mjs
           node --test scripts/test-communication-sms-service.mjs scripts/test-business-communications.mjs
@@ -123,6 +126,7 @@ jobs:
         run: |
           node scripts/test-communication-sms-postgres.mjs
           node --test scripts/test-communication-relay-postgres.mjs
+          node --test scripts/test-communication-sales-quality.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

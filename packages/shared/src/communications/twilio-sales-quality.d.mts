@@ -1,0 +1,2 @@
+import type {SalesCallScope,SalesQualityPorts} from './sales-call-quality.ts';
+export function createTwilioSalesQualitySource(config:{accountSid:string;apiKeySid:string;apiKeySecret:string;serviceSid:string;operatorSid:string;rubricDigest:string;operatorConfigDigest:string;httpClient?:{request(options:any):Promise<any>}}):{read(scope:SalesCallScope,expectedRubricDigest:string):ReturnType<SalesQualityPorts['source']>};

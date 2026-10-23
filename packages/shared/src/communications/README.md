@@ -1036,3 +1036,7 @@ rows. Existing differing contracts are preserved and require reconciliation.
 See `docs/business/twilio-boundary-registration-20261023.md` for exact transport and
 identity boundaries. Registration is not mounting or live acceptance; the host
 still needs current policies, exact handlers, secure bindings and device tests.
+
+## Sales script quality candidate
+
+`SalesCallQualityService` inherits `ScopedServiceBase` and evaluates a host-approved versioned script against canonical call transcripts. `scoreSalesCall` computes weighted coverage (six of ten equal points = 60%, nine = 90%) with exact agent sentence evidence, timestamps, critical misses and uncertain ranges. `salesOperatorDefinition` prepares bounded classic Twilio GenerativeJSON configuration; `createTwilioSalesQualitySource` uses official SDK read-only calls with account/recording/transcript/operator/config pinning. No route, role grant, recording or provider configuration is enabled. Candidate storage uses separate `business_sales_quality_*` tables after production registration; current production `planLimitReached` blocks live registration/activation. See [scope, scoring, wiring and validation](../../../../docs/business/sales-call-quality-20261023.md). Run `node --test scripts/test-communication-sales-quality.mjs`; native storage acceptance runs only against the disposable PostgreSQL fixture.
