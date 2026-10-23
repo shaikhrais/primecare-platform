@@ -1,0 +1,64 @@
+name: Register existing auth session tenant response contracts
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/auth-session-tenant-registration.yml'
+      - 'tools/governance-production/auth-session-tenant-contracts.json'
+      - 'tools/governance-production/auth_session_tenant_contracts.py'
+      - 'tools/governance-production/test-auth-session-tenant-contracts.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: auth-session-tenant-registration
+  cancel-in-progress: false
+jobs:
+  isolated:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: communication_fixture
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: communication_registration_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communication_fixture -d communication_registration_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Native contract, rollback, drift and grant-preservation tests
+        env:
+          WORKFLOW_TEST_DATABASE_URL: postgres://communication_fixture:disposable-only@localhost:5432/communication_registration_test
+        run: python3 tools/governance-production/test-auth-session-tenant-contracts.py
+  register:
+    needs: isolated
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/tenant-registration" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/tenant-registration/node_modules" node_modules
+      - name: Validate transaction and rollback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_AUTH_SESSION_TENANT_WRITES: '1'
+        run: python3 tools/governance-production/auth_session_tenant_contracts.py --dry-run
+      - name: Apply exact response extension and independently reread
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_AUTH_SESSION_TENANT_WRITES: '1'
+        run: python3 tools/governance-production/auth_session_tenant_contracts.py --apply

@@ -1,0 +1,265 @@
+{
+  "version": 1,
+  "requirement": "Authenticated communication requires server-resolved tenant identity on credential login, completed MFA and current-session restoration; missing legacy scope grants no communication access.",
+  "reviewedSource": "39882901243",
+  "contracts": [
+    {
+      "reviewed": {
+        "id": 2,
+        "http_method": "POST",
+        "route_path": "/v1/auth/login",
+        "service_name": "auth",
+        "auth_required": 0,
+        "permission_key": "public_password_exchange",
+        "response_schema": "{\"oneOf\": [{\"additionalProperties\": false, \"properties\": {\"role\": {\"type\": \"string\"}, \"status\": {\"const\": \"authenticated\"}, \"token\": {\"pattern\": \"^[A-Za-z0-9_-]{43}$\", \"type\": \"string\"}, \"userId\": {\"type\": \"string\"}}, \"required\": [\"userId\", \"role\", \"token\", \"status\"], \"type\": \"object\"}, {\"additionalProperties\": false, \"properties\": {\"challenge\": {\"pattern\": \"^[A-Za-z0-9_-]{43}$\", \"type\": \"string\"}, \"purpose\": {\"const\": \"enroll\"}, \"setupKey\": {\"pattern\": \"^[A-Z2-7]{32}$\", \"type\": \"string\"}, \"status\": {\"const\": \"mfa_required\"}}, \"required\": [\"status\", \"challenge\", \"purpose\", \"setupKey\"], \"type\": \"object\"}, {\"additionalProperties\": false, \"properties\": {\"challenge\": {\"pattern\": \"^[A-Za-z0-9_-]{43}$\", \"type\": \"string\"}, \"purpose\": {\"const\": \"verify\"}, \"status\": {\"const\": \"mfa_required\"}}, \"required\": [\"status\", \"challenge\", \"purpose\"], \"type\": \"object\"}]}"
+      },
+      "response": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "role": {
+                "type": "string"
+              },
+              "status": {
+                "const": "authenticated"
+              },
+              "token": {
+                "pattern": "^[A-Za-z0-9_-]{43}$",
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "tenantId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$",
+                "description": "Current server-resolved tenant. Omitted for legacy accounts without tenant scope; never taken from request headers or local preferences."
+              }
+            },
+            "required": [
+              "userId",
+              "role",
+              "token",
+              "status"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "challenge": {
+                "pattern": "^[A-Za-z0-9_-]{43}$",
+                "type": "string"
+              },
+              "purpose": {
+                "const": "enroll"
+              },
+              "setupKey": {
+                "pattern": "^[A-Z2-7]{32}$",
+                "type": "string"
+              },
+              "status": {
+                "const": "mfa_required"
+              }
+            },
+            "required": [
+              "status",
+              "challenge",
+              "purpose",
+              "setupKey"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "challenge": {
+                "pattern": "^[A-Za-z0-9_-]{43}$",
+                "type": "string"
+              },
+              "purpose": {
+                "const": "verify"
+              },
+              "status": {
+                "const": "mfa_required"
+              }
+            },
+            "required": [
+              "status",
+              "challenge",
+              "purpose"
+            ],
+            "type": "object"
+          }
+        ]
+      }
+    },
+    {
+      "reviewed": {
+        "id": 779,
+        "http_method": "POST",
+        "route_path": "/v1/auth/me",
+        "service_name": "PRISMA",
+        "auth_required": 1,
+        "permission_key": "authenticated_self_session",
+        "response_schema": "{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"userId\", \"roles\", \"status\"], \"properties\": {\"userId\": {\"type\": \"string\"}, \"roles\": {\"type\": \"string\"}, \"status\": {\"const\": \"authenticated\"}}}"
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "userId",
+          "roles",
+          "status"
+        ],
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "string"
+          },
+          "status": {
+            "const": "authenticated"
+          },
+          "tenantId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$",
+            "description": "Current server-resolved tenant. Omitted for legacy accounts without tenant scope; never taken from request headers or local preferences."
+          }
+        }
+      }
+    },
+    {
+      "reviewed": {
+        "id": 16402,
+        "http_method": "GET",
+        "route_path": "/v1/auth/me",
+        "service_name": null,
+        "auth_required": 1,
+        "permission_key": "authenticated_self_session",
+        "response_schema": "{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"userId\", \"roles\", \"status\"], \"properties\": {\"userId\": {\"type\": \"string\"}, \"roles\": {\"type\": \"string\"}, \"status\": {\"const\": \"authenticated\"}}}"
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "userId",
+          "roles",
+          "status"
+        ],
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "string"
+          },
+          "status": {
+            "const": "authenticated"
+          },
+          "tenantId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$",
+            "description": "Current server-resolved tenant. Omitted for legacy accounts without tenant scope; never taken from request headers or local preferences."
+          }
+        }
+      }
+    },
+    {
+      "reviewed": {
+        "id": 16496,
+        "http_method": "POST",
+        "route_path": "/v1/auth/mfa",
+        "service_name": "auth",
+        "auth_required": 0,
+        "permission_key": "password_verified_mfa_challenge",
+        "response_schema": "{\"additionalProperties\": false, \"properties\": {\"role\": {\"type\": \"string\"}, \"status\": {\"const\": \"authenticated\"}, \"token\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}}, \"required\": [\"token\", \"userId\", \"role\", \"status\"], \"type\": \"object\"}"
+      },
+      "response": {
+        "additionalProperties": false,
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "status": {
+            "const": "authenticated"
+          },
+          "token": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$",
+            "description": "Current server-resolved tenant. Omitted for legacy accounts without tenant scope; never taken from request headers or local preferences."
+          }
+        },
+        "required": [
+          "token",
+          "userId",
+          "role",
+          "status"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "reviewed": {
+        "id": 16500,
+        "http_method": "POST",
+        "route_path": "/v1/auth/mfa/replacement/confirm",
+        "service_name": "auth",
+        "auth_required": 0,
+        "permission_key": "password_verified_mfa_replacement_challenge",
+        "response_schema": "{\"additionalProperties\": false, \"properties\": {\"role\": {\"const\": \"code_admin\"}, \"status\": {\"const\": \"authenticated\"}, \"token\": {\"pattern\": \"^[A-Za-z0-9_-]{43}$\", \"type\": \"string\"}, \"userId\": {\"type\": \"string\"}}, \"required\": [\"status\", \"token\", \"userId\", \"role\"], \"type\": \"object\"}"
+      },
+      "response": {
+        "additionalProperties": false,
+        "properties": {
+          "role": {
+            "const": "code_admin"
+          },
+          "status": {
+            "const": "authenticated"
+          },
+          "token": {
+            "pattern": "^[A-Za-z0-9_-]{43}$",
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$",
+            "description": "Current server-resolved tenant. Omitted for legacy accounts without tenant scope; never taken from request headers or local preferences."
+          }
+        },
+        "required": [
+          "status",
+          "token",
+          "userId",
+          "role"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "permissionChanges": false,
+  "accountChanges": false,
+  "activation": false
+}
