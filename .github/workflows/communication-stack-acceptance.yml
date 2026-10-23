@@ -1,0 +1,36 @@
+name: Verify communication stack acceptance
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/communication-stack-acceptance.yml'
+      - 'tools/governance-production/read-auth-session-contracts.py'
+      - 'scripts/test-communication-stack.mjs'
+      - 'packages/primecare_ui/test/communication_stack_harness.dart'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  current-contracts:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/stack-reader" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/stack-reader/node_modules" node_modules
+      - name: Read pinned identity contracts without business data or writes
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python3 tools/governance-production/read-auth-session-contracts.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: communication-stack-contracts
+          path: test-results/communication-stack
+          retention-days: 90
