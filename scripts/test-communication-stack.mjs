@@ -84,7 +84,8 @@ try {
   const c=control(page,key);await c.waitFor();const tag=await c.evaluate(node=>node.tagName.toLowerCase());const input=['input','textarea'].includes(tag)?c:c.locator('input,textarea');
   // Focus the Flutter editor before typing. Mutating its semantics proxy with
   // fill() can race the focus transfer and leave controlled Dart state empty.
-  await input.click();await frame(page);await page.keyboard.press('ControlOrMeta+A');await page.keyboard.type(value,{delay:10});await page.keyboard.press('Tab');await frame(page);
+  // DOM focus also avoids stale canvas coordinates during Flutter scrolling.
+  await input.scrollIntoViewIfNeeded();await frame(page);await input.focus();await frame(page);await page.keyboard.press('ControlOrMeta+A');await page.keyboard.type(value,{delay:10});await page.keyboard.press('Tab');await frame(page);
   assert.ok(await input.inputValue()===value,'Flutter input must retain the entered value: '+key);
  };
  const tap=async(page,key)=>{const c=control(page,key);await c.waitFor();const role=await c.getAttribute('role');await (role==='button'?c:c.getByRole('button')).click();};
