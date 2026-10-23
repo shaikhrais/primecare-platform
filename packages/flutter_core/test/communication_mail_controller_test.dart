@@ -61,4 +61,26 @@ void main(){
   final waiting=Completer<Map<String,Object?>>();transport.deferred=waiting;final first=model.queue('recipient@example.invalid','Subject','Text');await Future<void>.delayed(Duration.zero);
   expect(await model.queue('recipient@example.invalid','Other','Other'),false);expect(transport.requests.length,1);waiting.completeError(denied(503));expect(await first,false);expect(model.hasPendingCommand,true);
  });
+ test('received text preview is bounded, immutable and never promotes sender identity',() async {
+  transport.received('received');transport.mail['received']!['contentPreview']={'status':'available','text':'Unverified body','subject':'Unverified subject'};
+  await model.loadInbox(direction:'inbound',mailboxId:'owned-box');expect(await model.openMail('received'),true);
+  expect(model.selected!['text'],'Unverified body');expect(model.selected!['subject'],'Unverified subject');expect(model.selected!['previewStatus'],'available');expect(model.selected!['status'],'quarantined');
+  expect(model.selected!.containsKey('senderIdentityVerified'),false);expect(model.selected!.containsKey('rawBase64'),false);expect(()=>model.selected!['text']='changed',throwsUnsupportedError);
+ });
+ test('legacy and unavailable preview responses retain only a safe quarantine envelope',() async {
+  transport.received('received');transport.mail['received']!['text']='UNAPPROVED RAW BODY';
+  await model.loadInbox(direction:'inbound',mailboxId:'owned-box');expect(await model.openMail('received'),true);expect(model.selected!['previewStatus'],'unavailable');expect(model.selected!.containsKey('text'),false);
+  transport.mail['received']!['contentPreview']={'status':'unavailable'};expect(await model.openMail('received'),true);expect(model.selected!.containsKey('text'),false);
+ });
+ test('malformed oversized or partial previews clear private view state',() async {
+  transport.received('received');
+  for(final preview in [<String,Object?>{'status':'wrong','text':'Private'},{'status':'available','text':7},{'status':'available','text':'é'*40000},{'status':'available','text':'Safe','subject':'x'*201},{'status':'unavailable','text':'Private partial'},{'status':'available','text':'Safe','html':'<script>private</script>'}]){
+   transport.mail['received']!['contentPreview']=preview;await model.loadInbox(direction:'inbound',mailboxId:'owned-box');expect(await model.openMail('received'),false);expect(model.selected,isNull);expect(model.items,isEmpty);
+  }
+ });
+ test('inbound verification flags cannot turn untrusted content into a trusted message',() async {
+  transport.received('received');transport.mail['received']!['senderIdentityVerified']=true;transport.mail['received']!['contentPreview']={'status':'available','text':'PRIVATE'};
+  await model.loadInbox(direction:'inbound',mailboxId:'owned-box');expect(await model.openMail('received'),false);expect(model.selected,isNull);
+ });
+
 }

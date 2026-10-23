@@ -13,6 +13,7 @@ on:
       - 'cloudflare/workers/src/business-tasks/**'
       - 'scripts/test-business-communications.mjs'
       - 'scripts/test-communication-http.mjs'
+      - 'scripts/test-communication-mail-preview.mjs'
       - 'scripts/test-communication-access-policy.mjs'
       - 'scripts/test-communication-audio-session.mjs'
       - 'tools/communication-route-bindings.py'
@@ -176,7 +177,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/communications-tools" --ignore-scripts pg@8.16.3 esbuild@0.27.2 typescript@5.9.3 @types/node@24.0.0 ajv@8.17.1 ajv-formats@3.0.1
+          npm install --prefix "$RUNNER_TEMP/communications-tools" --ignore-scripts pg@8.16.3 esbuild@0.27.2 typescript@5.9.3 @types/node@24.0.0 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2
           ln -s "$RUNNER_TEMP/communications-tools/node_modules" node_modules
       - name: Check production-generated shared route bindings
         run: python3 tools/communication-route-bindings.py
@@ -187,7 +188,7 @@ jobs:
           node_modules/.bin/tsc --noEmit --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strict --skipLibCheck --resolveJsonModule cloudflare/workers/src/business-tasks/*.ts
           node --test scripts/test-email-runtime-validation.mjs scripts/test-communication-session.mjs scripts/test-communication-endpoint-policy.mjs scripts/test-communication-native-mail.mjs scripts/test-communication-runtime.mjs
       - name: All candidate workflow services and communications with native PostgreSQL
-        run: node --test scripts/test-business-communications.mjs
+        run: node --test scripts/test-business-communications.mjs scripts/test-communication-mail-preview.mjs
       - name: Native current account, task, mailbox policies and default runtime integration
         run: node --test scripts/test-communication-access-policy.mjs
       - name: Registered HTTP contracts through native PostgreSQL

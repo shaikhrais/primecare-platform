@@ -1,4 +1,5 @@
 import {required, type Actor, type AtomicStore, type AccessPolicy} from './store.ts';
+import {InboundMailTextPreview,boundedMailPreview,type InboundMailPreviewPort} from '../../../../packages/shared/src/communications/mail-preview.mjs';
 import {ScopedServiceBase} from '../../../../packages/shared/src/communications/service-base.ts';
 
 export interface BusinessMailTransport {
@@ -21,11 +22,14 @@ const escape = (text:string) => text.replace(/[&<>"']/g, char => ({'&':'&amp;','
 /** No external sends occur unless a registered caller explicitly invokes deliver(). */
 export class BusinessMailService extends ScopedServiceBase {
  readonly mailboxes:MailboxPolicy;
+ readonly preview:InboundMailPreviewPort;
  readonly transport:BusinessMailTransport;readonly sender:string;readonly maxBytes:number;
- constructor(store:AtomicStore,policy:AccessPolicy,mailboxes:MailboxPolicy,transport:BusinessMailTransport,sender:string,maxBytes:number) {
+ constructor(store:AtomicStore,policy:AccessPolicy,mailboxes:MailboxPolicy,transport:BusinessMailTransport,sender:string,maxBytes:number,preview?:InboundMailPreviewPort) {
   super(store,policy);
   address(sender);if(!Number.isSafeInteger(maxBytes)||maxBytes<1)throw Error('Invalid mail limit');
   if(!mailboxes||typeof mailboxes.resolve!=='function'||typeof mailboxes.recipient!=='function'||typeof mailboxes.access!=='function')throw Error('Mailbox policy adapters required');
+  if(preview!==undefined&&typeof preview?.project!=='function')throw Error('Configured mail preview required');
+  this.preview=preview??new InboundMailTextPreview(maxBytes);
   this.mailboxes=mailboxes;this.transport=transport;this.sender=sender;this.maxBytes=maxBytes;
  }
  async authorizeMail(actor:Actor,action:string,state:import('./store.ts').RecordState|null,creating=false) {
@@ -62,7 +66,16 @@ export class BusinessMailService extends ScopedServiceBase {
    async state=>{if(state!.status!=='sending')throw Error('Mail state conflict');state!.status=receipt?'accepted':'unknown';state!.providerMessageId=receipt;return {state:state!,event:receipt?'mail.accepted':'mail.unknown'};});
   return this.read(actor,id);
  }
- async read(actor:Actor,id:string) {return this.store.read(actor,id,state=>this.authorizeMail(actor,'mail.read',state));}
+ async read(actor:Actor,id:string) {
+  const state=await this.store.read(actor,id,state=>this.authorizeMail(actor,'mail.read',state));
+  if(state.kind!=='inbound_mail')return state;
+  if(state.status!=='quarantined'||state.senderIdentityVerified!==false)throw Error('Inbound quarantine unavailable');
+  let contentPreview=boundedMailPreview(undefined,this.maxBytes);
+  try{contentPreview=boundedMailPreview(await this.preview.project(state.rawBase64),this.maxBytes);}catch{/* Keep the envelope available without leaking parser errors. */}
+  // Membership may be revoked during parsing: recheck before exposing content.
+  await this.authorizeMail(actor,'mail.read',state);
+  return {id:state.id,tenantId:state.tenantId,version:state.version,kind:state.kind,mailboxId:state.mailboxId,from:state.from,to:state.to,status:'quarantined',senderIdentityVerified:false,contentPreview};
+ }
  async inbox(actor:Actor,direction:'inbound'|'outbound',mailboxId?:string,limit=50,after?:string) {
   if(!['inbound','outbound'].includes(direction)||!Number.isSafeInteger(limit)||limit<1||limit>100||direction==='outbound'&&mailboxId!==undefined)throw Error('Invalid inbox');
   if(direction==='inbound')required(mailboxId);if(after!==undefined)required(after);

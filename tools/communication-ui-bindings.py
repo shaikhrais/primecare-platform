@@ -33,8 +33,15 @@ abstract final class CommunicationWorkspaceCatalog {
  static String text(String language, String key) => (_labels[language.split(RegExp('[-_]')).first] ?? _labels['en']!)[key] ?? (throw ArgumentError('Unregistered communication text'));
 }
 '''
+def preview_limits():
+ render() # Require the same independent production receipt before either output.
+ d=json.loads(SOURCE.read_text());limits=d['limits']
+ return json.dumps({'definitionSha256':hashlib.sha256(SOURCE.read_bytes()).hexdigest(),'maxRawBytes':limits['maxMailTextBytes'],'maxTextBytes':limits['maxMailPreviewBytes'],'maxSubjectLength':limits['maxMailSubject'],'maxHeadersSize':limits['maxMailHeaderBytes'],'maxNestingDepth':limits['maxMailNestingDepth'],'maxPartCount':limits['maxMailParts']},indent=2)+'\n'
+PREVIEW_TARGET=ROOT/'packages/shared/src/communications/registered-mail-preview-limits.json'
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--generate',action='store_true');args=p.parse_args();content=render()
  if args.generate:TARGET.parent.mkdir(parents=True,exist_ok=True);TARGET.write_text(content)
  elif not TARGET.exists() or TARGET.read_text()!=content:raise SystemExit('Shared communication UI bindings differ from production-readback definition')
+ if args.generate:PREVIEW_TARGET.write_text(preview_limits())
+ elif not PREVIEW_TARGET.exists() or PREVIEW_TARGET.read_text()!=preview_limits():raise SystemExit('Shared mail preview limits differ from production-readback definition')
  print('Communication UI bindings: registered existing screens/controls, 3 locales; no activation')

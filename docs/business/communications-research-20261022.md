@@ -46,3 +46,13 @@ Official sources rechecked on 2026-10-22:
 - https://dart.dev/interop/js-interop/usage: use typed JS interop extension types and explicit conversions for a small browser-only adapter. Keep the established browser session as the single signaling/media implementation rather than duplicating its state machine in Flutter.
 
 Implementation decisions: explicit queue then send; exact immutable retry keys for ambiguous mutations; received envelope/quarantine status only until trusted content processing exists; no raw MIME or HTML rendering; accepted-party-only microphone connection through the shared BrowserAudioSession; trusted media configuration injected by composition, no public relay credentials or permissive default.
+
+## Bounded received-email text preview
+
+Official sources rechecked for the follow-up:
+
+- https://github.com/postalsys/postal-mime and https://github.com/postalsys/postal-mime/releases/tag/v4.1.2: choose the pinned 4.1.2 parser, whose source provides aggregate header/part budgets and MIME nesting guards. Restrict nested messages to attachments; do not render or expose attachments.
+- https://postal-mime.postalsys.com/docs/guides/security/: decoded content is untrusted. A parser does not authenticate the sender or authorize a mailbox.
+- https://developers.cloudflare.com/email-service/api/route-emails/email-handler/: the trusted email event supplies the envelope. Header addresses must not replace its tenant/mailbox scope.
+
+Design: authorize the stored mailbox record before parsing. Bound raw bytes, aggregate headers, MIME depth/part count, UTF-8 preview size and subject length. Return a dedicated unverified plain-text preview under the existing registered mail-read contract; withhold raw MIME, HTML, attachments, routing headers and digest from user responses. Keep quarantine and senderIdentityVerified=false. Parse/budget failures yield a generic preview-unavailable result and no partial content. Flutter renders Text only under the registered quarantine warning, with no embedded media, HTML renderer or automatic link navigation. Legacy stored mail is projected through the same boundary without rewriting the quarantined object.

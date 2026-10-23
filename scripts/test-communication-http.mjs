@@ -145,14 +145,14 @@ test('email queue/deliver/read preserve native acceptance and duplicate-send gua
 });
 test('registered received-mail inbox discovers IDs for authorized read and paginates without raw data',async()=>{
  const received=[];
- for(let i=0;i<3;i++)received.push((await mail.receive({from:'outside@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode('Private inbound fixture '+crypto.randomUUID())})).id);
+ for(let i=0;i<3;i++)received.push((await mail.receive({from:'outside@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode('From: forged@example.invalid\r\nSubject: Synthetic unverified\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nPrivate inbound fixture '+crypto.randomUUID())})).id);
  const first=await request('b','/v1/messages/email/inbox?direction=inbound&mailboxId=fixture&limit=2',null,'GET');
  assert.equal(first.status,200,await first.clone().text());assert.equal(first.headers.get('cache-control'),'private, no-store');
  const page=await first.json();assert.deepEqual(page.items.map(item=>item.id),received.sort().slice(0,2));assert.ok(page.nextAfter);
  assert.ok(page.items.every(item=>item.kind==='inbound_mail'&&item.status==='quarantined'));
  for(const field of ['rawBase64','text','html','digest','mailboxId','tenantId'])assert.ok(!JSON.stringify(page).includes('"'+field+'"'));
  const next=await request('b','/v1/messages/email/inbox?direction=inbound&mailboxId=fixture&limit=2&after='+encodeURIComponent(page.nextAfter),null,'GET');const last=await next.json();assert.equal(last.items.length,1);assert.equal(last.nextAfter,null);
- const content=await command('b','/v1/messages/email',{action:'read',id:page.items[0].id});assert.ok(Buffer.from(content.rawBase64,'base64').toString().startsWith('Private inbound fixture '));
+ const content=await command('b','/v1/messages/email',{action:'read',id:page.items[0].id});assert.ok(content.contentPreview.text.startsWith('Private inbound fixture '));assert.equal(content.contentPreview.status,'available');assert.equal(content.from,'outside@example.invalid');assert.equal(content.senderIdentityVerified,false);for(const field of ['rawBase64','html','attachments','digest','headers'])assert.equal(Object.hasOwn(content,field),false);
  for(const actor of ['c','other','denied'])assert.equal((await request(actor,'/v1/messages/email/inbox?direction=inbound&mailboxId=fixture',null,'GET')).status,403);
 });
 test('registered sent-mail inbox never takes an owner override and validates query variants',async()=>{

@@ -51,4 +51,15 @@ void main(){
   await tester.pumpWidget(app(language:'fr-CA',scale:1.5));await tester.pumpAndSettle();expect(find.text('Courriel'),findsOneWidget);expect(find.text('Appels audio'),findsOneWidget);expect(tester.takeException(),isNull);
   expect(tester.widgetList<Semantics>(find.byType(Semantics)).where((s)=>s.properties.liveRegion==true).length,greaterThanOrEqualTo(3));
  });
+ testWidgets('unverified received text is rendered as Text under the quarantine warning, without remote images',(tester) async {
+  transport.received('received');transport.mail['received']!['contentPreview']={'status':'available','text':'Literal <img src="https://synthetic.invalid/tracker">','subject':'Unverified received subject'};
+  await tester.pumpWidget(app());await tester.pumpAndSettle();await tester.enterText(input('communication-mailbox'),'owned-box');await tap(tester,'communication-mail-inbound');await tap(tester,'communication-mail-open-0');
+  expect(find.text('Unverified text preview'),findsOneWidget);expect(find.text('Literal <img src="https://synthetic.invalid/tracker">'),findsOneWidget);expect(find.byType(Image),findsNothing);expect(find.textContaining('Received in quarantine.'),findsWidgets);expect(tester.takeException(),isNull);
+ });
+ testWidgets('unavailable preview never displays partial body or parser details',(tester) async {
+  transport.received('received');transport.mail['received']!['contentPreview']={'status':'unavailable'};transport.mail['received']!['text']='PRIVATE PARTIAL';
+  await tester.pumpWidget(app(language:'fr'));await tester.pumpAndSettle();await tester.enterText(input('communication-mailbox'),'owned-box');await tap(tester,'communication-mail-inbound');await tap(tester,'communication-mail-open-0');
+  expect(find.text('Aperçu du texte indisponible. Ce courriel reste en quarantaine.'),findsOneWidget);expect(find.textContaining('PRIVATE PARTIAL'),findsNothing);expect(tester.takeException(),isNull);
+ });
+
 }

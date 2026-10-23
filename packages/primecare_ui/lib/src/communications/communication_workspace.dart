@@ -175,6 +175,7 @@ class _CommunicationMailPanelState extends State<_CommunicationMailPanel> {
    Text(mail['id'] as String),Text(mail['from'] as String),Text(mail['to'] as String),
    if(mail['subject'] case final String subject)Text(subject),
    Text(text(status(mail['status']))),
+   if(mail['previewStatus'] case final String previewStatus)Text(text(previewStatus=='available'?'mailPreview':'mailPreviewUnavailable')),
    if(mail['text'] case final String body)Text(body),
   ])),
   field('mailTo',_to),field('mailSubject',_subject),field('mailBody',_body,lines:5),SizedBox(height:spacing.md),

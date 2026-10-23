@@ -222,7 +222,8 @@ test('inbound mail uses owned mailbox scope, deduplicates bytes and quarantines 
  const envelope={from:'spoofed@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode('From: forged@example.invalid\r\nSubject: test\r\n\r\nFixture '+crypto.randomUUID())};
  const received=await mail.receive(envelope);assert.deepEqual(await mail.receive(envelope),received);
  const record=await mail.read(b,received.id);assert.equal(record.status,'quarantined');assert.equal(record.senderIdentityVerified,false);
- assert.equal(Buffer.from(record.rawBase64,'base64').toString(),new TextDecoder().decode(envelope.raw));
+ assert.equal(Object.hasOwn(record,'rawBase64'),false);assert.equal(Object.hasOwn(record,'digest'),false);
+ const stored=await store.read(b,received.id,()=>{});assert.equal(Buffer.from(stored.rawBase64,'base64').toString(),new TextDecoder().decode(envelope.raw));
  await assert.rejects(mail.receive({...envelope,to:'unknown@example.invalid'}),/Unknown mailbox/);
  await assert.rejects(mail.receive({...envelope,raw:new Uint8Array(2049)}),/inbound size/);
  await assert.rejects(mail.read(outsider,received.id),/Not found/);
@@ -285,9 +286,9 @@ test('inbound byte and envelope snapshot remains consistent across asynchronous 
  const envelope={from:'outside@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode(original)};
  const receiving=guarded.receive(envelope);envelope.raw.fill(0);envelope.from='changed@example.invalid';envelope.to='unknown@example.invalid';release();
  const result=await receiving,record=await guarded.read(b,result.id);
- assert.equal(Buffer.from(record.rawBase64,'base64').toString(),original);assert.equal(record.from,'outside@example.invalid');assert.equal(record.to,'owned@example.invalid');
+ const stored=await store.read(b,result.id,()=>{});assert.equal(Buffer.from(stored.rawBase64,'base64').toString(),original);assert.equal(Object.hasOwn(record,'rawBase64'),false);assert.equal(record.from,'outside@example.invalid');assert.equal(record.to,'owned@example.invalid');
  const expected=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(original));
- assert.equal(record.digest,Buffer.from(expected).toString('hex'));
+ assert.equal(stored.digest,Buffer.from(expected).toString('hex'));assert.equal(Object.hasOwn(record,'digest'),false);
 });
 
 function delayedAuthorization(action) {
@@ -380,4 +381,36 @@ test('legacy atomic adapters retain queue/read support and cannot fabricate mail
  const message=id('legacy-mail');await scoped.queue(a,message,'queue','recipient@example.invalid','Legacy adapter','Fixture');
  assert.equal((await scoped.read(a,message)).ownerId,a.id);
  await assert.rejects(scoped.inbox(a,'outbound'),/Mailbox listing storage required/);
+});
+
+
+test('received text previews preserve envelope identity, quarantine bytes and version across reads',async()=>{
+ const raw=new TextEncoder().encode('From: forged@example.invalid\r\nSubject: =?UTF-8?B?Q2Fmw6k=?=\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nCafé body '+crypto.randomUUID());
+ const result=await mail.receive({from:'envelope@example.invalid',to:'owned@example.invalid',raw});
+ const before=await store.read(b,result.id,()=>{});const first=await mail.read(b,result.id),second=await mail.read(b,result.id);
+ assert.deepEqual(first,second);assert.equal(first.from,'envelope@example.invalid');assert.equal(first.senderIdentityVerified,false);assert.equal(first.status,'quarantined');assert.equal(first.version,1);assert.equal(first.contentPreview.status,'available');assert.equal(first.contentPreview.subject,'Café');assert.ok(first.contentPreview.text.startsWith('Café body'));
+ for(const field of ['rawBase64','digest','html','attachments','headers'])assert.equal(Object.hasOwn(first,field),false);
+ assert.deepEqual(await store.read(b,result.id,()=>{}),before);
+});
+test('current mailbox denial and cross-tenant reads precede MIME parsing',async()=>{
+ let parsed=0;
+ const preview={async project(){parsed++;return {status:'available',text:'Safe unverified text'};}};
+ const guarded=new BusinessMailService(store,policy,mailboxes,mail.transport,'sender@example.invalid',2048,preview);
+ const received=await guarded.receive({from:'envelope@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode('Synthetic content '+crypto.randomUUID())});
+ await assert.rejects(guarded.read(c,received.id),/Forbidden/);await assert.rejects(guarded.read(outsider,received.id),/Not found/);assert.equal(parsed,0);
+ assert.equal((await guarded.read(b,received.id)).contentPreview.status,'available');assert.equal(parsed,1);
+});
+test('mailbox revocation during MIME parsing denies the completed preview',async()=>{
+ let release,entered;const ready=new Promise(resolve=>{entered=resolve;});const wait=new Promise(resolve=>{release=resolve;});let revoked=false;
+ const guarded=new BusinessMailService(store,policy,{...mailboxes,async access(actor,id){if(revoked)throw Error('Forbidden');return mailboxes.access(actor,id);}},mail.transport,'sender@example.invalid',2048,{async project(){entered();await wait;return {status:'available',text:'MUST NOT ESCAPE'};}});
+ const received=await guarded.receive({from:'envelope@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode('Synthetic content '+crypto.randomUUID())});
+ const reading=guarded.read(b,received.id);await ready;revoked=true;release();await assert.rejects(reading,/Forbidden/);
+});
+
+test('custom preview adapters cannot expose malformed content or private errors',async()=>{
+ for(const preview of [{async project(){return {status:'available',text:'Safe',html:'PRIVATE MARKUP'};}},{async project(){throw Error('PRIVATE PARSER FAILURE');}}]){
+  const guarded=new BusinessMailService(store,policy,mailboxes,mail.transport,'sender@example.invalid',2048,preview);
+  const received=await guarded.receive({from:'envelope@example.invalid',to:'owned@example.invalid',raw:new TextEncoder().encode('Synthetic content '+crypto.randomUUID())});
+  const result=await guarded.read(b,received.id);assert.deepEqual(result.contentPreview,{status:'unavailable'});assert.equal(result.from,'envelope@example.invalid');assert.ok(!JSON.stringify(result).includes('PRIVATE'));
+ }
 });

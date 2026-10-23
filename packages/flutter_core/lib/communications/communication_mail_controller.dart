@@ -38,7 +38,24 @@ final class CommunicationMailController extends CommunicationCommandControllerBa
   if(kind=='outbound_mail'){
    if(value['ownerId']!=userId||value['text'] is! String||value['subject'] is! String||utf8.encode(value['text'] as String).length>CommunicationWorkspaceCatalog.limits['maxMailTextBytes']!||(value['subject'] as String).length>CommunicationWorkspaceCatalog.limits['maxMailSubject']!)throw const FormatException('Mail content unavailable');
   }else if(kind!='inbound_mail'||mailbox==null||value['mailboxId']!=mailbox){throw const FormatException('Mail scope unavailable');}
-  return Map.unmodifiable({..._summary(value,kind=='inbound_mail'?'inbound':'outbound'),if(kind=='outbound_mail')'text':value['text']});
+  final display=<String,Object?>{..._summary(value,kind=='inbound_mail'?'inbound':'outbound')};
+  if(kind=='outbound_mail'){display['text']=value['text'];}
+  else {
+   if(value['senderIdentityVerified']!=false)throw const FormatException('Inbound verification unavailable');
+   final preview=value['contentPreview'];
+   display['previewStatus']='unavailable';
+   if(preview!=null){
+    if(preview is! Map||preview.keys.any((key)=>!{'status','text','subject'}.contains(key))||!{'available','unavailable'}.contains(preview['status']))throw const FormatException('Mail preview unavailable');
+    if(preview['status']=='unavailable'){
+     if(preview.length!=1)throw const FormatException('Partial mail preview refused');
+    }else{
+     final text=preview['text'],subject=preview['subject'];
+     if(text is! String||text.trim().isEmpty||utf8.encode(text).length>CommunicationWorkspaceCatalog.limits['maxMailPreviewBytes']!||RegExp(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]').hasMatch(text)||subject!=null&&(subject is! String||subject.length>CommunicationWorkspaceCatalog.limits['maxMailSubject']!||RegExp(r'[\x00-\x1f\x7f]').hasMatch(subject)))throw const FormatException('Mail preview unavailable');
+     display['previewStatus']='available';display['text']=text;if(subject!=null)display['subject']=subject;
+    }
+   }
+  }
+  return Map.unmodifiable(display);
  }
  Future<bool> loadInbox({required String direction,String? mailboxId,bool more=false})=>run(() async {
   if(!{'inbound','outbound'}.contains(direction)||direction=='outbound'&&mailboxId!=null)throw CommunicationInputException();

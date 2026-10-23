@@ -220,8 +220,9 @@ The four `CommunicationScreenBase` entries compose the same inherited
 from `CommunicationCommandControllerBase` and `CommunicationWorkspaceControllerBase`.
 The mail controller implements explicit queue → deliver and exact-command
 confirmation; accepted and unknown never enable a replacement delivery. Inbound
-views display the authorized envelope and quarantine status only. Raw MIME and
-HTML are excluded from presentation state, including inbox summaries.
+views display the authorized envelope and a bounded unverified plain-text preview
+when available. Raw MIME, HTML and attachments are excluded from user responses
+and presentation state, including inbox summaries.
 
 Call actions refresh the current conversation/version and admit only actual
 parties. Media connection is a separate accepted-call action. Account/tenant,
@@ -239,3 +240,29 @@ add an endpoint. `node tools/communication-media-bundle.mjs` verifies the asset.
 CI compiles the Dart adapter and exercises two real Chromium peers, packet counts,
 mute/unmute, track/peer closure and audio-element removal using an isolated
 transport fixture. It is not deployed end-to-end acceptance or a product screenshot.
+
+
+### Received text projection
+
+`InboundMailTextPreview` inherits `BoundedBinaryAdapterBase` and uses pinned
+postal-mime 4.1.2. Its limits are generated from the same independently read
+production registration as the Dart UI catalog. It caps raw parse bytes,
+aggregate headers, MIME nesting/parts, decoded UTF-8 text and subject length.
+Attached/nested messages are not expanded. HTML-only or attachment-only messages
+remain readable as envelopes with an unavailable-preview warning; the adapter
+provides text/plain parts, not an HTML renderer or attachment viewer.
+
+`BusinessMailService.read` first authorizes the current stored mailbox record,
+then projects untrusted text, then rechecks current mailbox access. Every parser
+result is validated and copied at that boundary, including trusted injected ports.
+Only envelope identity, quarantine metadata and a bounded `contentPreview` are
+returned for inbound mail. Raw MIME and digest remain in quarantined storage;
+reads do not release quarantine, verify a sender, alter a record/version or send
+mail. Repeated reads and legacy records use the same projection. Client state
+validates the preview again and renders Text under the registered warning.
+
+Run `scripts/test-communication-mail-preview.mjs`, service/HTTP/native-policy
+checks, Flutter mail-controller and channel-widget tests. Native PostgreSQL
+and the full default runtime path are exercised in communication CI. Live
+mailbox provisioning, endpoint grants/mounting and deployed acceptance remain
+separate and unverified.
