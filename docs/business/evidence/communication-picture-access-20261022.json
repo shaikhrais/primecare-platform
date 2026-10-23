@@ -1,0 +1,170 @@
+{
+  "sourceCommit": "665ac10a6da353222e9be61a4de7eaae4a3ba7e6",
+  "scope": "Private picture actual-object validation, expected conversation binding and current-access rechecks after asynchronous picture work",
+  "baseClasses": {
+    "PrivatePictureRepository": "BoundedBinaryAdapterBase",
+    "CommunicationService": "ScopedServiceBase"
+  },
+  "existingPolicy": "communication-access-v1 activeAccountEveryAction/sameTenantEveryAction and current conversation/task scope",
+  "newRegistrationRequired": false,
+  "reason": "Repair existing registered picture operations; no new API, screen, rule or grant",
+  "guarantees": [
+    "validate downloaded object metadata instead of trusting a separate HEAD",
+    "bind downloads to expected tenant, picture identity and conversation",
+    "require clean PNG and positive bounded metadata/storage size match",
+    "immutable whitelisted metadata projection",
+    "cancel rejected bodies and preserve original denial on cleanup error",
+    "snapshot authenticated actor and recheck conversation access after upload processing and opening",
+    "no role-specific copies, access bypass or automatic object deletion"
+  ],
+  "regressionProof": {
+    "previousSource": "305990dc56990445e8527ebec7e5c43a6fa76154",
+    "previousSourceFailed": 4,
+    "fixedSourcePassed": 4,
+    "cases": [
+      "foreign/cross-thread replacement body denial",
+      "rejected-body cancellation",
+      "upload processing revocation",
+      "download-time revocation and cancellation"
+    ]
+  },
+  "local": {
+    "nodePassed": 184,
+    "nodeSkipped": 2,
+    "nodeFailed": 0,
+    "skipReason": "Native PostgreSQL checks run in disposable CI database",
+    "strictTypeScript": "passed",
+    "routeBindings": "passed",
+    "uiBindings": "passed",
+    "diffCheck": "passed"
+  },
+  "ci": {
+    "runId": 39881344497,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39881344497",
+    "status": "success",
+    "jobs": [
+      {
+        "id": 120179193835,
+        "name": "dart-core",
+        "conclusion": "success"
+      },
+      {
+        "id": 120179194063,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120179194104,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      },
+      {
+        "id": 120179194127,
+        "name": "flutter-workspace",
+        "conclusion": "success"
+      },
+      {
+        "id": 120179194171,
+        "name": "flutter-browser-media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120179194192,
+        "name": "inventory",
+        "conclusion": "success"
+      },
+      {
+        "id": 120179194201,
+        "name": "isolated",
+        "conclusion": "success"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 12470637619,
+        "name": "business-communications-media",
+        "sha256": "9cdd9145bf49b332862b160c7afd1df061881cc5823ac73bccc4cc82696a1022"
+      },
+      {
+        "id": 12470587896,
+        "name": "communication-flutter-browser",
+        "sha256": "d78b5d57a4c51c09e0893921db41e2c2b2d4962c88d85e41f75dda353a847705"
+      },
+      {
+        "id": 12470299166,
+        "name": "business-communications-registry",
+        "sha256": "0d9c9b28d25acd1dd0883f76b03de41e0019ea9d65fd115f30e84e5c19182f87"
+      }
+    ],
+    "nodeServiceAndAdapterTestsPassed": 197,
+    "nodeMediaTestsPassed": 3,
+    "compiledDartBrowserTestsPassed": 1,
+    "nodeBrowserTotalPassed": 201,
+    "flutterCoreTransportTestsPassed": 594,
+    "flutterWorkspaceThemeAuthTestsPassed": 109,
+    "flutterTotalPassed": 703,
+    "metadataTestsPassed": 10,
+    "strictTypeScript": "passed",
+    "dartAnalysisAndCoreHarness": "passed",
+    "bindings": "passed",
+    "nativeRuntimeRevocation": "Current account disabled inside object retrieval; registered HTTP returns 403 and stream is canceled"
+  },
+  "browserArtifact": {
+    "artifactId": 12470587896,
+    "archiveDigestIndependentlyChecked": true,
+    "syntheticTransport": true,
+    "productUi": false,
+    "browser": "155.0.8059.39",
+    "packets": [
+      5,
+      5
+    ],
+    "muted": true,
+    "unmuted": true,
+    "tracksStopped": true,
+    "peersClosed": true,
+    "audioElementsRemoved": true
+  },
+  "mediaArtifact": {
+    "artifactId": 12470637619,
+    "archiveDigestIndependentlyChecked": true,
+    "packets": [
+      3,
+      6
+    ],
+    "muted": true,
+    "unmuted": true,
+    "stopped": true,
+    "synthetic": true,
+    "productUi": false
+  },
+  "registryArtifact": {
+    "artifactId": 12470299166,
+    "archiveDigestIndependentlyChecked": true,
+    "authority": "pinned-production-postgresql",
+    "writesAttempted": false,
+    "registrationIsNotVerification": true,
+    "liveCommunicationVerified": false
+  },
+  "onlyRemoteBranch": "main",
+  "permissionsChanged": false,
+  "activationChanged": false,
+  "accountsChanged": false,
+  "catalogVerificationChanged": false,
+  "productionReady": false,
+  "limitations": [
+    "Final check is before response handoff; no continuous authorization once streaming starts",
+    "Denied upload can leave an unattached private processed object for governed retention cleanup",
+    "Storage/scanner ports in service/native HTTP tests are synthetic; media suite uses real raster decoding",
+    "No deployed browser-to-database or live provider acceptance claimed"
+  ],
+  "remaining": [
+    "governed contact/mailbox discovery",
+    "provider-verified live business mailbox provisioning and send/receive acceptance",
+    "real private scanner/decoder/storage composition and retention cleanup",
+    "fresh TURN configuration and restrictive-network/device acceptance",
+    "native audio adapters if required",
+    "current endpoint/screen grants and worker/gateway mounting",
+    "deployment and login-to-UI-to-API-to-database acceptance with release review"
+  ]
+}
