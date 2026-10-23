@@ -173,6 +173,7 @@
       this.intervalMilliseconds = intervalMilliseconds;
       this.onError = onError;
       this.key = key;
+      this.conflictWait = null;
       this.lastSequence = 0;
       this.writes = Promise.resolve();
       this.refreshing = null;
@@ -279,6 +280,21 @@
       });
       return result;
     }
+    /** Yield to the other peer's candidate burst before re-reading a conflicted
+     * aggregate. At most two waits; closure cancels the pending timer immediately. */
+    waitForConflict(attempt) {
+      this.assertOpen();
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+          this.conflictWait = null;
+          resolve();
+        }, 25 * (attempt + 1) + Math.floor(Math.random() * 25));
+        this.conflictWait = () => {
+          clearTimeout(timer);
+          reject(Error("Communication resource closed"));
+        };
+      });
+    }
     sendSignal(signal) {
       return this.enqueue(async () => {
         for (let attempt = 0; attempt < 3; attempt++) {
@@ -288,6 +304,7 @@
             return await this.transport.execute("audio", { action: "signal", id: this.threadId, key: this.key(), version: record.version, callId: this.callId, signal: signal?.type === "candidate" ? { ...signal, type: "ice" } : signal });
           } catch (error) {
             if (error?.status !== 409 || attempt === 2) throw error;
+            await this.waitForConflict(attempt);
           }
         }
       }).catch((error) => {
@@ -310,6 +327,8 @@
     afterClose() {
       clearTimeout(this.timer);
       this.timer = null;
+      this.conflictWait?.();
+      this.conflictWait = null;
     }
   };
 

@@ -922,3 +922,20 @@ checks pass. Source-specific CI is pending. It is an internal, unmounted adapter
 real extension assignment, webhook/token contracts, SDK devices and live provider
 acceptance remain pending. Full setup details are in
 `twilio-shared-number-20261023.md`.
+
+### Signaling contention continuation
+
+The broader Flutter/PostgreSQL run 39990910100 at source 0392fe569 failed its
+positive-packet assertion after three signaling HTTP 409 responses. Message,
+reload, recipient and private picture milestones passed before that failure.
+The existing immediate three-attempt retry can exhaust itself during the other
+peer's short candidate burst; a new isolated test reproduces that failure.
+The shared audio session now yields 25–74 ms with jitter between explicit
+conflict retries, still capped at three attempts. Closure cancels a pending wait.
+Network failures and uncertain success never retry. The Flutter asset is rebuilt
+from the shared source. Forty-four resource/session/Flutter-bridge checks pass,
+including the contention regression and cancellation without another write.
+The browser acceptance report now records packet counts, peer/ICE/track states
+and bounded synthetic signaling conflict diagnostics before asserting packets.
+Source-specific full browser/PostgreSQL acceptance remains required; a local
+regression pass is not evidence that the original CI failure has been resolved.

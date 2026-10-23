@@ -97,3 +97,12 @@ test('unexpected microphone ending closes the inherited session and timer withou
  track.dispatchEvent(new Event('ended'));
  assert.equal(f.session.closed,true);assert.equal(f.session.timer,null);assert.equal(f.session.audio.closed,true);assert.equal(stopped,1);assert.equal(f.stats().peerCloses,1);assert.equal(f.commands.length,before);
 });
+test('a short competing signal burst yields before retry instead of exhausting conflicts immediately',async()=>{
+ let contending=true,attempts=0;const release=setTimeout(()=>{contending=false;},10);
+ const f=fixture({execute(channel){if(channel==='audio'){attempts++;if(contending)throw Object.assign(Error('version conflict'),{status:409});}}});
+ try{await f.session.start();assert.ok(attempts>=2&&attempts<=3);assert.equal(f.session.closed,false);}finally{clearTimeout(release);f.session.close();}
+});
+test('closure cancels a conflict wait and cannot submit another signal',async()=>{
+ let attempts=0;const f=fixture({execute(channel){if(channel==='audio'){attempts++;throw Object.assign(Error('version conflict'),{status:409});}}});
+ const pending=f.session.start();await new Promise(resolve=>setImmediate(resolve));assert.equal(typeof f.session.conflictWait,'function');f.session.close();await assert.rejects(pending);assert.equal(attempts,1);assert.equal(f.session.conflictWait,null);assert.equal(f.stats().stops,1);
+});

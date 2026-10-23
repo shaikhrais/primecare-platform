@@ -11,7 +11,7 @@ export class BrowserAudioSession extends CommunicationResourceBase {
   if(typeof transport?.execute!=='function'||[userId,threadId,callId].some(value=>typeof value!=='string'||!value.trim())||!Number.isSafeInteger(intervalMilliseconds)||intervalMilliseconds<100||typeof key!=='function'||typeof onError!=='function')throw Error('Audio session adapters required');
   this.transport=transport;this.userId=userId;this.threadId=threadId;this.callId=callId;
   this.intervalMilliseconds=intervalMilliseconds;this.onError=onError;this.key=key;
-  this.lastSequence=0;this.writes=Promise.resolve();this.refreshing=null;this.started=false;this.starting=false;
+  this.conflictWait=null;this.lastSequence=0;this.writes=Promise.resolve();this.refreshing=null;this.started=false;this.starting=false;
   this.audio=new BrowserAudioCall({...media,sendSignal:signal=>this.sendSignal(signal),onState:state=>{
    try{media?.onState?.(state);}finally{if(state==='closed')this.close();}
   }});
@@ -84,6 +84,15 @@ export class BrowserAudioSession extends CommunicationResourceBase {
   // Retain ordering without hiding rejection from the caller.
   this.writes=result.catch(()=>{});return result;
  }
+ /** Yield to the other peer's candidate burst before re-reading a conflicted
+  * aggregate. At most two waits; closure cancels the pending timer immediately. */
+ waitForConflict(attempt) {
+  this.assertOpen();
+  return new Promise((resolve,reject)=>{
+   const timer=setTimeout(()=>{this.conflictWait=null;resolve();},25*(attempt+1)+Math.floor(Math.random()*25));
+   this.conflictWait=()=>{clearTimeout(timer);reject(Error('Communication resource closed'));};
+  });
+ }
  sendSignal(signal) {
   return this.enqueue(async()=>{
    for(let attempt=0;attempt<3;attempt++){
@@ -94,6 +103,7 @@ export class BrowserAudioSession extends CommunicationResourceBase {
      // Only an explicit transactional conflict may be retried. Network failures
      // and ambiguous success never trigger another command.
      if(error?.status!==409||attempt===2)throw error;
+     await this.waitForConflict(attempt);
     }
    }
   }).catch(error=>{if(!this.closed)this.fail(error);throw error;});
@@ -106,5 +116,5 @@ export class BrowserAudioSession extends CommunicationResourceBase {
   if(['ringing','accepted'].includes(call.status))await this.transport.execute('audio',{action:'end',id:this.threadId,key:this.key(),version:record.version,callId:this.callId});
  }
  mute(muted) {this.assertOpen();this.audio.mute(muted);}
- afterClose() {clearTimeout(this.timer);this.timer=null;}
+ afterClose() {clearTimeout(this.timer);this.timer=null;this.conflictWait?.();this.conflictWait=null;}
 }

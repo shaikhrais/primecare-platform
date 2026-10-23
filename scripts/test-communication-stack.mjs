@@ -65,7 +65,8 @@ try {
     const chunks=[];for await(const chunk of req)chunks.push(chunk);
     const body=Buffer.concat(chunks),headers=new Headers();for(const [key,value]of Object.entries(req.headers))if(typeof value==='string')headers.set(key,value);
     const response=await gateway.fetch(new Request('http://127.0.0.1'+req.url,{method:req.method,headers,...(body.length?{body}:{})}),env);
-    requests.push({path,method:req.method,status:response.status});res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));return;
+    let signaling;if(path==='/v1/messages/calls'&&body.length){try{const input=JSON.parse(body.toString('utf8'));signaling={action:input.action,version:input.version,signalType:input.signal?.type};}catch{}}
+    requests.push({path,method:req.method,status:response.status,...(signaling?{signaling}:{}),...(response.status===409?{conflict:await response.clone().text()}:{} )});res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));return;
    }
    const relative=decodeURIComponent(path).replace(/^\/+/,''),candidate=resolve(web,relative||'index.html');
    if(candidate!==web&&!candidate.startsWith(web+'/')){res.writeHead(404);res.end();return;}
@@ -120,6 +121,7 @@ try {
  await tap(a.page,id('callRefresh'));await tap(a.page,id('callConnect')+'-0');await tap(b.page,id('callConnect')+'-0');
  async function packets(page){return page.evaluate(async()=>{let n=0;for(const peer of window.stackPeers){const reports=await peer.getStats();for(const report of reports.values())if(report.type==='inbound-rtp'&&report.kind==='audio')n+=report.packetsReceived??0;}return n;});}
  const until=Date.now()+30000;let audio=[];do{audio=await Promise.all([packets(a.page),packets(b.page)]);if(audio.every(n=>n>0))break;await new Promise(resolve=>setTimeout(resolve,200));}while(Date.now()<until);
+ results.mediaDiagnostics={packets:audio,peers:await Promise.all([a.page,b.page].map(page=>page.evaluate(()=>window.stackPeers.map(peer=>({connectionState:peer.connectionState,iceConnectionState:peer.iceConnectionState,signalingState:peer.signalingState,iceGatheringState:peer.iceGatheringState,localTracks:peer.getSenders().map(sender=>({kind:sender.track?.kind,state:sender.track?.readyState,enabled:sender.track?.enabled}))})))))};
  assert.ok(audio.every(n=>n>0),'Positive packets through registered HTTP/PG signaling required');results.nativeSignalingAudioPackets=audio;
  const ended=a.page.waitForResponse(r=>r.url().endsWith('/v1/messages/calls')&&r.request().postDataJSON()?.action==='end');await tap(a.page,id('callEnd')+'-0');assert.equal((await ended).status(),200);await tap(b.page,id('callRefresh'));
  await Promise.all([a.page,b.page].map(p=>p.waitForFunction(()=>window.stackPeers.length>0&&window.stackPeers.every(peer=>peer.connectionState==='closed'))));
