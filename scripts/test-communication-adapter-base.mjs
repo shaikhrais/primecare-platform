@@ -131,3 +131,9 @@ test('missing or already locked streams fail generically without stealing a read
  await assert.rejects(base.readBoundedStream(stream,1),error=>error.message==='Invalid message stream');
  assert.equal(stream.locked,true);await reader.cancel();reader.releaseLock();
 });
+test('allocation failure also cancels and releases an acquired reader',async()=>{
+ let cancelled=0;
+ const stream=new ReadableStream({cancel(){cancelled++;}},{highWaterMark:0});
+ await assert.rejects(new BoundedBinaryAdapterBase(Number.MAX_SAFE_INTEGER).readBoundedStream(stream,Number.MAX_SAFE_INTEGER),RangeError);
+ assert.equal(cancelled,1);assert.equal(stream.locked,false);
+});

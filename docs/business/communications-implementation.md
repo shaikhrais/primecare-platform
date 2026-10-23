@@ -804,7 +804,7 @@ inbound adapter now owns envelope fields and its rejection callback before raw
 reading suspends. The binary base cancels unread invalid-size bodies, rejects
 missing/locked streams generically and bounds delivered chunks independently of
 byte count. Provider reads and storage failures still propagate for retry.
-Four regressions fail against the previous implementation; all 43 local binary,
+Four regressions fail against the previous implementation; all 44 local binary,
 inbound and picture adapter tests pass. Local TypeScript and schema generation
 could not run because the transient dependency cache is absent; CI must verify
 them. The native PostgreSQL scenario adds changing-event and oversized-body

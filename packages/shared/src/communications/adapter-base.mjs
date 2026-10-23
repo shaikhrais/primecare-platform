@@ -18,8 +18,9 @@ export class BoundedBinaryAdapterBase {
   }
   let reader;
   try{reader=stream.getReader();}catch{throw new CommunicationInputError('Invalid message stream');}
-  const bytes=new Uint8Array(declaredSize);let size=0,reads=0;
+  let size=0,reads=0;
   try {
+   const bytes=new Uint8Array(declaredSize);
    for(;;) {
     const {done,value}=await reader.read();if(done)break;
     // Nonempty chunks are bounded by declared bytes. Also allow 1,024 empty
