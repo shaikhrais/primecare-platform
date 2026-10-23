@@ -23,7 +23,7 @@ test('real browser renders answer/decline/mute/hangup and handles caller cancell
    const results=[];
    for(const mode of ['logout','scope','cancel']){
     let scope='session-a',resolve;const pending=new Promise(r=>resolve=r),listeners=new Map();
-    const sdk={on(event,f){if(!listeners.has(event))listeners.set(event,new Set());listeners.get(event).add(f);},off(event,f){listeners.get(event)?.delete(f);},emit(event){for(const f of [...listeners.get(event)??[]])f();},async register(){this.emit('registered');},updateToken(){},disconnectAll(){},destroy(){}};
+    const sdk={on(event,f){if(!listeners.has(event))listeners.set(event,new Set());listeners.get(event).add(f);},off(event,f){listeners.get(event)?.delete(f);},emit(event,...args){for(const f of [...listeners.get(event)??[]])f(...args);},async register(){this.emit('registered');},updateToken(){},disconnectAll(){},destroy(){}};
     let rejected=0;const callListeners=new Map(),call={on(event,f){if(!callListeners.has(event))callListeners.set(event,new Set());callListeners.get(event).add(f);},off(event,f){callListeners.get(event)?.delete(f);},emit(event){for(const f of [...callListeners.get(event)??[]])f();},reject(){rejected++;},disconnect(){}};
     const device=new TwilioVoiceDevice({createDevice:()=>sdk,fetchToken:async()=>({token:'fixture',identity:'fixture',ttlSeconds:300}),currentScope:()=>scope,onIncoming:()=>pending});await device.start();sdk.emit('incoming',call);
     if(mode==='logout')device.close();else if(mode==='scope')scope='other';else call.emit('cancel');
