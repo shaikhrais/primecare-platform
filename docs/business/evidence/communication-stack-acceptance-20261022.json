@@ -1,0 +1,297 @@
+{
+  "applicationSourceCommit": "5c5ec7d7e1d327405f9b333594226f7765cc0efb",
+  "scope": "Existing Flutter login and communication UI through credential authentication, exact gateway routes, native permissions and disposable PostgreSQL",
+  "production": false,
+  "liveProviderVerified": false,
+  "productionReady": false,
+  "changes": [
+    "Return registered native tenant scope in authenticated login, completed MFA and current-session responses",
+    "Restore Flutter tenant scope from the server and discard cached overrides",
+    "Forward exact registered communication routes/methods through the gateway",
+    "Convert browser-native candidate events at the inherited session boundary to the registered ice wire value; scoped service validates and persists ice",
+    "Exercise actual Flutter fields and buttons via semantics; do not replace channel or authentication transports"
+  ],
+  "registration": {
+    "receipt": "auth-session-tenant-registration-20261022.json",
+    "apiIds": [
+      2,
+      779,
+      16402,
+      16496,
+      16500
+    ],
+    "permissionChanges": false,
+    "accountChanges": false,
+    "activation": false
+  },
+  "inheritance": {
+    "CommunicationService": "ScopedServiceBase",
+    "BusinessMailService": "ScopedServiceBase",
+    "MessageChannel": "CommunicationChannelBase",
+    "PictureChannel": "CommunicationChannelBase",
+    "AudioChannel": "CommunicationChannelBase",
+    "EmailChannel": "CommunicationChannelBase",
+    "BrowserAudioSession": "CommunicationResourceBase",
+    "BrowserAudioCall": "CommunicationResourceBase",
+    "PrivatePictureRepository": "BoundedBinaryAdapterBase"
+  },
+  "regressions": {
+    "authAndGateway": {
+      "previousSource": "270ef9eab079dc2038901cd445bf863d50a98c62",
+      "failedBefore": 2,
+      "passedAfter": 2
+    },
+    "ice": {
+      "previousSource": "c966b17ca6e4026e3d982847f9e45f3054875ca0",
+      "failedBefore": 2,
+      "passedAfter": 2,
+      "cases": [
+        "registered ice signal persists and unregistered candidate alias is denied",
+        "two shared sessions exchange browser candidate events through registered HTTP schema and persist ice signals"
+      ],
+      "negativeLogSha256": "2ce63e729f0641b5ceb84e65444d2b1d701a5453a2e3c3f67b7ef1cdc7a0463b"
+    }
+  },
+  "localIce": {
+    "nodePassed": 173,
+    "nodeSkipped": 2,
+    "nodeFailed": 0,
+    "strictTypeScript": "passed",
+    "generatedRouteAndUiBindings": "passed",
+    "browserBundle": "passed",
+    "skipReason": "Native-only PostgreSQL checks run in CI"
+  },
+  "regressionCi": {
+    "runId": 39886052385,
+    "sourceCommit": "5c5ec7d7e1d327405f9b333594226f7765cc0efb",
+    "jobs": [
+      {
+        "id": 120194363906,
+        "name": "dart-core",
+        "conclusion": "success"
+      },
+      {
+        "id": 120194363983,
+        "name": "media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120194364059,
+        "name": "isolated",
+        "conclusion": "success"
+      },
+      {
+        "id": 120194364091,
+        "name": "flutter-transport",
+        "conclusion": "success"
+      },
+      {
+        "id": 120194364110,
+        "name": "flutter-workspace",
+        "conclusion": "success"
+      },
+      {
+        "id": 120194364133,
+        "name": "flutter-browser-media",
+        "conclusion": "success"
+      },
+      {
+        "id": 120194364194,
+        "name": "inventory",
+        "conclusion": "success"
+      }
+    ],
+    "flutterPassed": 769,
+    "nodeBrowserPassed": 213,
+    "nativeServiceChecks": 209,
+    "metadataTests": 10,
+    "artifacts": [
+      {
+        "id": 12472761186,
+        "name": "business-communications-media",
+        "sha256": "51bcfdc34364d86cd4f2a1d62d12b12f05e8d97a9fbb684b54c322385c57ef3c",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12472697156,
+        "name": "communication-flutter-browser",
+        "sha256": "38aed730a4cea8f9e2bd2d6db7d254e5739561956e3660bc2459539d784ebc61",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12472294588,
+        "name": "business-communications-registry",
+        "sha256": "e17f75c0a8b6651fb698dcfba97d9b0faa7b3f9ad8029bdfbb82b9cd65a13d62",
+        "digestIndependentlyVerified": true
+      }
+    ],
+    "compiledDartAudioPackets": [
+      6,
+      6
+    ],
+    "directBrowserMediaPackets": [
+      2,
+      2
+    ]
+  },
+  "failedAcceptanceAttempts": [
+    {
+      "source": "36b63f47acee06b36550e6a3df075ba7471cfd54",
+      "runId": 39883979442,
+      "reason": "esbuild output path mismatch"
+    },
+    {
+      "source": "5b09c5a459c09e1f45877533155a652b9736da59",
+      "runId": 39884336337,
+      "reason": "Flutter input semantics selector"
+    },
+    {
+      "source": "b0490b5ff32017bc818103a293004635ad6c6b6d",
+      "runId": 39884938560,
+      "reason": "Unfocused semantics fill lost password"
+    },
+    {
+      "source": "47df697fcfe75bf52cf0aaa9c0a5adcb5c53a751",
+      "runId": 39885391900,
+      "reason": "Canvas text exposed through accessibility labels"
+    },
+    {
+      "source": "c966b17ca6e4026e3d982847f9e45f3054875ca0",
+      "runId": 39885522332,
+      "reason": "Registered ice versus candidate protocol mismatch"
+    },
+    {
+      "source": "5c5ec7d7e1d327405f9b333594226f7765cc0efb",
+      "runId": 39886052579,
+      "reason": "Email focus after scroll",
+      "partialAudioPackets": [
+        10,
+        10
+      ],
+      "partialPeersClosed": [
+        true,
+        true
+      ]
+    },
+    {
+      "source": "c40b9570d79f95e9c367430c5616c724a50d3711",
+      "runId": 39886462965,
+      "reason": "Received mail screenshot showed text, but aria-label-only assertion missed rendered semantics",
+      "partialAudioPackets": [
+        4,
+        8
+      ],
+      "partialPeersClosed": [
+        true,
+        true
+      ],
+      "uiMailQueueAndSyntheticProviderAcceptance": true
+    }
+  ],
+  "releaseBlockers": [
+    "Production communication runtime composition/mount remains incomplete",
+    "Seven communication APIs still lack matching active role API and screen grants",
+    "Owned business mailbox directory is empty and activation remains unapproved",
+    "Live send/receive mailbox provider acceptance is unverified",
+    "Private picture storage/scanner composition is unverified; native Sharp is not a Cloudflare Worker composition",
+    "TURN and physical-device/restrictive-network acceptance are unverified",
+    "Governed recipient discovery and deployed browser-to-database release acceptance remain incomplete"
+  ],
+  "syntheticPorts": [
+    "mail provider acceptance",
+    "picture scanner",
+    "private object bucket",
+    "microphone input"
+  ],
+  "preserved": [
+    "No account or permission changes",
+    "No activation or business-process verification status changes",
+    "No operational SQLite authority",
+    "Main-only updates with expected-head checks"
+  ],
+  "authCi": {
+    "sourceCommit": "5c5ec7d7e1d327405f9b333594226f7765cc0efb",
+    "runId": 39886052499,
+    "jobs": [
+      {
+        "id": 120194364410,
+        "name": "auth (uuid)",
+        "conclusion": "success"
+      },
+      {
+        "id": 120194364628,
+        "name": "auth (text)",
+        "conclusion": "success"
+      }
+    ],
+    "scope": "Unit checks, strict Worker TypeScript and real PostgreSQL session lifecycle for UUID and text identity shapes"
+  },
+  "fullStackCi": {
+    "sourceCommit": "6ee2849ae697c114865d7528a1bc41c8894b1d6b",
+    "runId": 39887068934,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39887068934",
+    "passed": true,
+    "jobs": [
+      {
+        "id": 120197614444,
+        "name": "browser-postgres",
+        "conclusion": "success"
+      },
+      {
+        "id": 120197614741,
+        "name": "current-contracts",
+        "conclusion": "success"
+      }
+    ],
+    "milestones": {
+      "realCredentialLogin": true,
+      "uiMessageDatabaseReadback": true,
+      "sessionAndMessageReload": true,
+      "recipientRead": true,
+      "uiPicturePersisted": true,
+      "uiPrivatePictureRead": true,
+      "nativeSignalingAudioPackets": [
+        8,
+        8
+      ],
+      "callClosed": [
+        true,
+        true
+      ],
+      "uiMailQueueAndProviderAcceptance": true,
+      "uiReceivedMailPreview": true,
+      "crossTenantDenied": true,
+      "forgedTenantDenied": true,
+      "currentGrantRevocation": true,
+      "sessionRevocationReload": true,
+      "databaseEventsReadback": true
+    },
+    "artifacts": [
+      {
+        "id": 12473237342,
+        "name": "communication-stack-browser-postgres",
+        "sha256": "21cf5467fb9c46b25f19abb057f32dcce37b9268f4ea0835bc7434838025e042",
+        "digestIndependentlyVerified": true
+      },
+      {
+        "id": 12472334387,
+        "name": "communication-stack-contracts",
+        "sha256": "2bfd8a16c0b9cbb4cc9ae4be92c494435cd4e28e9d36f9e65cd808bf3b3ef8c3",
+        "digestIndependentlyVerified": true
+      }
+    ],
+    "screenshotsVisuallyReviewed": [
+      "alice-authenticated.png",
+      "bob-received-mail.png"
+    ],
+    "applicationChangesSinceRegressionSource": [],
+    "harnessChangesSinceRegressionSource": [
+      "Exact DOM focus after Flutter scrolling",
+      "Received text may be exposed through accessible labels or rendered text"
+    ],
+    "authenticationFixture": false,
+    "communicationTransportFixture": false,
+    "disposableDatabase": true,
+    "loopbackAudio": true
+  }
+}
