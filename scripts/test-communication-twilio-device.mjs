@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {EventEmitter} from 'node:events';
 import {TwilioVoiceDevice} from '../packages/shared/src/communications/twilio-device.mjs';
 import {CommunicationResourceBase} from '../packages/shared/src/communications/adapter-base.mjs';
+function incoming(reject=()=>{}){const call=new EventEmitter();call.reject=reject;call.disconnect=()=>{};return call;}
 const deferred=()=>{let resolve;const promise=new Promise(r=>resolve=r);return {promise,resolve};};
 class Device extends EventEmitter {
  destroyed=0;disconnected=0;updates=[];
@@ -47,8 +48,8 @@ test('SDK errors and unregistration close registration and active resources',asy
  for(const event of ['error','unregistered','destroyed']){const {resource,device}=setup();await resource.start();device.emit(event,Error('private'));assert.equal(resource.closed,true);}
 });
 test('incoming defaults to reject and tenant change rejects before host callback',async()=>{
- const first=setup();await first.resource.start();let rejected=0;first.device.emit('incoming',{reject(){rejected++;}});assert.equal(rejected,1);first.resource.close();
- let offered=0;const second=setup({onIncoming(){offered++;}});await second.resource.start();second.setScope('other');second.device.emit('incoming',{reject(){rejected++;}});assert.equal(offered,0);assert.equal(rejected,2);
+ const first=setup();await first.resource.start();let rejected=0;first.device.emit('incoming',incoming(()=>rejected++));assert.equal(rejected,1);first.resource.close();
+ let offered=0;const second=setup({onIncoming(){offered++;}});await second.resource.start();second.setScope('other');second.device.emit('incoming',incoming(()=>rejected++));assert.equal(offered,0);assert.equal(rejected,2);
 });
 test('registration failure and timeout release device and listeners',async()=>{
  for(const register of [async()=>{throw Error('private');},async()=>{}]){const {resource,device}=setup({registrationTimeoutMs:100});device.register=register;await assert.rejects(resource.start(),/^Error: Voice device unavailable$/);assert.equal(device.destroyed,1);assert.equal(device.eventNames().length,0);}
@@ -82,6 +83,38 @@ test('phone numbers, identical extensions and outgoing calls before registration
 });
 test('managed ringing session rejects competing calls and is disposed with the device',async()=>{
  const managed=new CommunicationResourceBase();let offered=0;const {resource,device}=setup({onIncoming(){offered++;return managed;}});device.connect=async()=>{};await resource.start();let rejected=0;
- device.emit('incoming',{reject(){rejected++;}});await new Promise(r=>setImmediate(r));device.emit('incoming',{reject(){rejected++;}});assert.equal(offered,1);assert.equal(rejected,1);
+ device.emit('incoming',incoming(()=>rejected++));await new Promise(r=>setImmediate(r));device.emit('incoming',incoming(()=>rejected++));assert.equal(offered,1);assert.equal(rejected,1);
  await assert.rejects(resource.connect({callerExtension:'100001',targetExtension:'100002'}));resource.close();assert.equal(managed.closed,true);
+});
+
+test('logout owns and rejects a pending incoming offer before host UI resolves',async()=>{
+ const pending=deferred();const {resource,device}=setup({onIncoming:()=>pending.promise});await resource.start();let rejected=0;
+ const call=incoming(()=>rejected++);device.emit('incoming',call);resource.close();assert.equal(rejected,1);assert.equal(call.eventNames().length,0);
+ const late=new CommunicationResourceBase();pending.resolve(late);await new Promise(r=>setImmediate(r));assert.equal(late.closed,true);assert.equal(rejected,1);
+});
+test('scope change during incoming UI creation closes both device and late panel',async()=>{
+ const pending=deferred(),late=new CommunicationResourceBase();const {resource,device,setScope}=setup({onIncoming:()=>pending.promise});await resource.start();let rejected=0;
+ device.emit('incoming',incoming(()=>rejected++));setScope('other');pending.resolve(late);await new Promise(r=>setImmediate(r));assert.ok(resource.closed);assert.ok(late.closed);assert.equal(rejected,1);
+});
+test('canceled pending offer cannot replace or close a newer managed call',async()=>{
+ const first=deferred(),second=new CommunicationResourceBase();let offered=0;const {resource,device}=setup({onIncoming:()=>++offered===1?first.promise:second});await resource.start();
+ const call=incoming();device.emit('incoming',call);call.emit('cancel');assert.equal(call.eventNames().length,0);device.emit('incoming',incoming());
+ const late=new CommunicationResourceBase();first.resolve(late);await new Promise(r=>setImmediate(r));assert.ok(late.closed);assert.equal(second.closed,false);assert.equal(resource.closed,false);
+ let rejected=0;device.emit('incoming',incoming(()=>rejected++));assert.equal(rejected,1);assert.equal(offered,2);resource.close();assert.ok(second.closed);
+});
+test('rejection of old UI promise leaves a newer incoming call available',async()=>{
+ let reject;const pending=new Promise((resolve,r)=>reject=r),second=new CommunicationResourceBase();let offered=0;const {resource,device}=setup({onIncoming:()=>++offered===1?pending:second});await resource.start();
+ const first=incoming();device.emit('incoming',first);first.emit('cancel');device.emit('incoming',incoming());reject(Error('private UI failure'));await new Promise(r=>setImmediate(r));assert.equal(resource.closed,false);assert.equal(second.closed,false);resource.close();
+});
+test('missing or failed incoming UI does not leave an unowned ringing call',async()=>{
+ for(const onIncoming of [()=>undefined,()=>{throw Error('private');},async()=>{throw Error('private');}]){
+  const {resource,device}=setup({onIncoming});await resource.start();let rejected=0;const call=incoming(()=>rejected++);device.emit('incoming',call);await new Promise(r=>setImmediate(r));assert.equal(rejected,1);assert.equal(call.eventNames().length,0);resource.close();
+ }
+});
+test('pending incoming call blocks outgoing connections and error disconnects accepted media',async()=>{
+ const pending=deferred();const {resource,device}=setup({onIncoming:()=>pending.promise});let outgoing=0;device.connect=async()=>{outgoing++;};await resource.start();const call=incoming();let disconnected=0;call.disconnect=()=>disconnected++;
+ device.emit('incoming',call);await assert.rejects(resource.connect({callerExtension:'100001',targetExtension:'100002'}));assert.equal(outgoing,0);call.emit('accept');call.emit('error',Error('private'));assert.equal(disconnected,1);assert.equal(call.eventNames().length,0);pending.resolve(new CommunicationResourceBase());await new Promise(r=>setImmediate(r));resource.close();
+});
+test('a canceled offer with a later UI failure does not unregister the device',async()=>{
+ let reject;const pending=new Promise((resolve,r)=>reject=r);const {resource,device}=setup({onIncoming:()=>pending});await resource.start();const call=incoming();device.emit('incoming',call);call.emit('cancel');reject(Error('late UI error'));await new Promise(r=>setImmediate(r));assert.equal(resource.closed,false);resource.close();
 });

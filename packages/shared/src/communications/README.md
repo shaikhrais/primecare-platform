@@ -493,7 +493,13 @@ All ports above must be real authenticated application bindings. `authorizeAnswe
 is required and must recheck current permission through the server before accept;
 never substitute a default `true`. Return the panel resource so device disposal
 also closes the ringing/answered call. Host logout and tenant switch must close
-the device immediately. Device busy checks reject competing managed calls. Browser
+the device immediately. Device busy checks reject competing managed calls. The device owns each raw
+incoming offer before host UI creation can suspend. Return the managed panel
+resource, synchronously or asynchronously; a void result rejects the unowned
+call. Closing during UI creation rejects immediately, and any late panel is
+closed. Scope is checked again before adopting a panel. Canceled offers release
+the busy slot; their delayed results/errors cannot replace or close a newer
+call. Caller cancellation by itself does not unregister the device. Browser
 sound restrictions and background suspension can prevent ringing; the browser
 panel is not evidence of native mobile incoming-call support.
 

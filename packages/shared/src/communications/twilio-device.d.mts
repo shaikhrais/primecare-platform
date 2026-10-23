@@ -15,7 +15,8 @@ export type VoiceDeviceOptions={
  fetchToken:(options:{signal:AbortSignal})=>Promise<{token:string;identity:string;ttlSeconds:number}>;
  /** Host session generation changes on logout, tenant switch and session replacement. */
  currentScope:()=>string|null;
- /** Default rejects. Never automatically answer; host owns authorized call UI. */
+ /** Default rejects. Return the owned panel resource (possibly asynchronously).
+  * A void result rejects the unowned call. Never automatically answer. */
  onIncoming?:(call:RingingCallPort)=>void|CommunicationResourceBase|Promise<void|CommunicationResourceBase>;
  onState?:(state:'idle'|'registering'|'registered'|'closed')=>void;
  registrationTimeoutMs?:number;

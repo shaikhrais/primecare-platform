@@ -462,3 +462,31 @@ Local provider continuation validation: 171 Node Twilio/OTP/task/Relay tests,
 36 native Worker assertions and strict provider/integration declarations pass.
 No tests in that Node run were skipped. PostgreSQL and Flutter/browser regression
 results must come from the source-specific CI run, not these local provider tests.
+
+
+### Incoming-call ownership continuation
+
+Reviewed the official [Voice SDK Call lifecycle](https://www.twilio.com/docs/voice/sdks/javascript/twiliocall)
+for accept, cancel, disconnect, reject and error handling. Found that asynchronous
+incoming UI construction left the raw call temporarily unowned: a late resource
+could be attached after a native session change, and canceled pending work could
+interfere with a newer call.
+
+The inherited device now immediately creates an inherited per-offer resource.
+It owns call listeners and rejection/disconnection until the host returns its
+managed call panel. Logout closes pending offers immediately. Late resources are
+closed after cancellation/logout/scope changes, never adopted into a newer offer.
+A void host result rejects the unowned call. Canceled offers free the busy slot;
+old UI failures do not unregister or close a newer call. No caller is automatically
+answered, and server answer authorization is unchanged.
+
+Seven additional Node regression cases cover these races and resource cleanup;
+actual browser tests additionally cover pending logout, scope change and caller
+cancellation. The browser test still uses synthetic SDK ports, not a live Twilio
+phone call. No production route, permission, extension, number setting, provider
+credential, mailbox or schema changes are made by this continuation.
+
+Local continuation validation: all 178 Node Twilio/OTP/task/provider/device tests
+pass with zero skips, including 22 device lifecycle tests. Strict device/ringing
+declarations pass. Real browser execution is delegated to the existing CI browser
+job because this local environment does not have Playwright/Chromium installed.

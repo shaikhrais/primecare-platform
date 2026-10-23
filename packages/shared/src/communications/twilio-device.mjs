@@ -1,12 +1,32 @@
 import {CommunicationResourceBase} from './adapter-base.mjs';
 
+/** Own an incoming call before asynchronous host UI construction completes.
+ * A late panel is disposed even after cancellation or a newer offer. */
+class IncomingVoiceOffer extends CommunicationResourceBase {
+ #session;#accepted=false;#ended=false;
+ constructor(call){
+  super();if(!call||['on','off','reject','disconnect'].some(key=>typeof call[key]!=='function'))throw Error('Incoming call required');
+  this.registerCleanup(()=>{if(this.#session)this.#session.close();else if(!this.#ended){if(this.#accepted)call.disconnect();else call.reject();}});
+  const accept=()=>{this.#accepted=true;};call.on('accept',accept);this.registerCleanup(()=>call.off('accept',accept));
+  for(const event of ['cancel','disconnect','reject','error']){
+   const end=()=>{this.#ended=event!=='error';this.close();};call.on(event,end);this.registerCleanup(()=>call.off(event,end));
+  }
+ }
+ get available(){return !this.closed&&!this.#session?.closed;}
+ adopt(session){
+  if(!session||typeof session.close!=='function'||typeof session.closed!=='boolean'){this.close();return;}
+  if(this.closed||session.closed){try{session.close();}finally{this.close();}return;}
+  this.#session=session;
+ }
+}
+
 /** Unmounted Voice SDK lifecycle. The host supplies authenticated token transport
  * and a session-generation key that changes on logout/tenant/session changes.
  * A client scope key is lifecycle isolation, never server authorization.
  */
 export class TwilioVoiceDevice extends CommunicationResourceBase {
- #device; #incomingSession; #incomingPending=false; #call; #connecting=false; #scope; #identity; #refreshing; #abort=new AbortController(); #timer;
- constructor({createDevice,fetchToken,currentScope,onIncoming=call=>call.reject(),onState=()=>{},registrationTimeoutMs=15000}) {
+ #device; #incomingSession; #call; #connecting=false; #scope; #identity; #refreshing; #abort=new AbortController(); #timer;
+ constructor({createDevice,fetchToken,currentScope,onIncoming=()=>{},onState=()=>{},registrationTimeoutMs=15000}) {
   super();
   if([createDevice,fetchToken,currentScope,onIncoming,onState].some(f=>typeof f!=='function')||!Number.isSafeInteger(registrationTimeoutMs)||registrationTimeoutMs<100||registrationTimeoutMs>60000)throw Error('Voice device ports required');
   this.createDevice=createDevice;this.fetchToken=fetchToken;this.currentScope=currentScope;
@@ -46,13 +66,21 @@ export class TwilioVoiceDevice extends CommunicationResourceBase {
    if(!device||['on','off','register','updateToken','destroy','disconnectAll'].some(key=>typeof device[key]!=='function'))throw Error('Voice SDK device required');
    this.#listen('tokenWillExpire',()=>{void this.refresh().catch(()=>{});});
    this.#listen('incoming',call=>{
+    let offer;
     try{this.#current();if(this.state!=='registered')throw Error('Voice unavailable');
-     // The host must close the resource on auth changes and separately authorize
-     // call actions. Never automatically answer a ringing call.
-     if(this.#connecting||this.#call||this.#incomingPending||this.#incomingSession&&!this.#incomingSession.closed){call.reject();return;}
-     this.#incomingPending=true;const result=this.onIncoming(call);
-     Promise.resolve(result).then(session=>{if(session&&typeof session.close==='function'){if(this.closed)session.close();else this.#incomingSession=session;}}).catch(()=>{try{call.reject();}finally{this.close();}}).finally(()=>{this.#incomingPending=false;});
-    }catch{try{call.reject();}finally{this.close();}}
+     // Own the raw call before host code can suspend, close or replace scope.
+     if(this.#connecting||this.#call||this.#incomingSession?.available){call.reject();return;}
+     this.#incomingSession?.close();offer=new IncomingVoiceOffer(call);this.#incomingSession=offer;
+     const complete=session=>{
+      // A late result belongs to this offer, never the next incoming call.
+      try{this.#current();}catch{offer.close();}
+      offer.adopt(session);
+     };
+     const result=this.onIncoming(call);
+     if(result&&typeof result.then==='function')Promise.resolve(result).then(complete).catch(()=>{
+      const active=this.#incomingSession===offer&&offer.available;offer.close();if(active)this.close();
+     });else complete(result);
+    }catch{try{if(offer)offer.close();else call.reject();}finally{this.close();}}
    });
    await new Promise((resolve,reject)=>{
     const timeout=setTimeout(()=>reject(Error('Voice registration timed out')),this.registrationTimeoutMs);
@@ -71,7 +99,7 @@ export class TwilioVoiceDevice extends CommunicationResourceBase {
  /** Calls only a six-digit extension; the server resolves and authorizes both ends. */
  async connect({callerExtension,targetExtension}){
   this.assertOpen();
-  if(this.state!=='registered'||this.#connecting||this.#call||this.#incomingPending||this.#incomingSession&&!this.#incomingSession.closed||![callerExtension,targetExtension].every(value=>typeof value==='string'&&/^[1-9][0-9]{5}$/.test(value))||callerExtension===targetExtension||typeof this.#device?.connect!=='function')throw Error('Voice call unavailable');
+  if(this.state!=='registered'||this.#connecting||this.#call||this.#incomingSession?.available||![callerExtension,targetExtension].every(value=>typeof value==='string'&&/^[1-9][0-9]{5}$/.test(value))||callerExtension===targetExtension||typeof this.#device?.connect!=='function')throw Error('Voice call unavailable');
   this.#current();this.#connecting=true;
   try{
    const call=await this.#device.connect({params:{CallerExtension:callerExtension,TargetExtension:targetExtension}});
