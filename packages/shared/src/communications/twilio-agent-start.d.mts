@@ -1,0 +1,4 @@
+import {TwilioSignedFormAdapter} from './twilio-webhook.mjs';
+export type VoiceAgentIdentity=Readonly<{actor:Readonly<{id:string;tenantId:string}>;sessionId:string;authentication:'otp'|'passkey';active:true;expiresAt:number}>;
+export type TwilioVerifiedAgentOptions={accountSid:string;authToken:string;sharedNumber:string;agentUrl:string;completeUrl:string;receptionUrl:string;socketUrl:string;greeting:string;maxWebhookBytes:number;calls:{fetch(callSid:string):Promise<{sid:string;accountSid:string;to?:string;direction:string;status:string}>};identities:{current(callSid:string):Promise<unknown>};authorize(identity:VoiceAgentIdentity,callSid:string):Promise<boolean>};
+export class TwilioVerifiedAgentAdapter extends TwilioSignedFormAdapter {constructor(options:TwilioVerifiedAgentOptions);respond(request:Request):Promise<Response>}

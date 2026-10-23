@@ -375,3 +375,29 @@ results must be checked before claiming acceptance. These tests use synthetic
 transport/provider ports. No new production route, screen, permission, task API,
 extension publication, AI engine activation or provider cutover is performed.
 The selected number and live deployment dependencies above remain unchanged.
+
+### Verified agent-start continuation
+
+The OTP pairing flow already redirected to a configured agent URL, but no adapter
+implemented its verified startup. Added an inherited signed agent-start/Connect
+completion adapter plus server composition. Official documentation reviewed:
+[ConversationRelay TwiML](https://www.twilio.com/docs/voice/twiml/connect/conversationrelay)
+and [onboarding/handshake authentication](https://www.twilio.com/docs/voice/conversationrelay/onboarding).
+Only a canonical live inbound Call on the selected configured number, current
+OTP/passkey broker identity and explicit host authorization can return Relay TwiML.
+Identity and Call are rechecked after authorization. Host-supplied disclosure is
+spoken first; no identity/OTP/session grant is included in XML parameters.
+
+The fixed same-host WSS target and same-origin callback/reception URLs reject
+credentials, query strings and fragments. Caller/model routing fields are ignored.
+Completion routes a still-live Call to fixed reception; ended calls hang up.
+Local verification passes nine Node tests, strict declaration/integration checks
+and 28 native Worker assertions. These use synthetic Call/broker/authorization
+ports; the composition test uses the official SDK HTTP serializer without placing
+calls. Source-specific CI remains required.
+
+Still missing: the independent authenticated WebSocket/LLM receiver and lifecycle,
+registered agent/socket/completion contracts and policies, Relay onboarding,
+production bindings and live provider acceptance. The startup response confers no
+socket or task authority. No permission grants, live routes, verified contacts,
+user/reception extension assignments or shared-number IVR settings are changed.

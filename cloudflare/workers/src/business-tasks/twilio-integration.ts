@@ -1,3 +1,4 @@
+import {TwilioVerifiedAgentAdapter,type TwilioVerifiedAgentOptions} from '../../../../packages/shared/src/communications/twilio-agent-start.mjs';
 import {TwilioOtpPairingAdapter} from '../../../../packages/shared/src/communications/twilio-otp-pairing.mjs';
 import {VoiceOtpService,PostgresVoiceOtpRepository,PostgresVoiceOtpContactDirectory} from './voice-otp.ts';
 import {createTwilioVoiceOtpClient} from '../../../../packages/shared/src/communications/twilio-verify.mjs';
@@ -117,4 +118,17 @@ export function createPostgresOtpReceptionVoiceServices(dependencies:Pick<Parame
 export function createTwilioVoiceOtpPairingHandler(dependencies:{otp:VoiceOtpService;configuration:Parameters<typeof createTwilioCommunicationServices>[0]['configuration'];pairingUrl:string;waitUrl:string;agentUrl:string;receptionUrl:string}){
  const c=dependencies.configuration;
  return new TwilioOtpPairingAdapter({accountSid:c.accountSid,authToken:c.authToken,sharedNumber:c.sharedNumber,maxWebhookBytes:c.maxWebhookBytes,pairingUrl:dependencies.pairingUrl,waitUrl:dependencies.waitUrl,agentUrl:dependencies.agentUrl,receptionUrl:dependencies.receptionUrl,service:dependencies.otp});
+}
+
+/** Separate signed agent-start/completion handlers. No route is mounted. The
+ * socket receiver must independently validate provider signature, canonical call,
+ * current broker identity and task authorization; TwiML is not an auth token. */
+export function createTwilioVerifiedAgentHandler(dependencies:Pick<Parameters<typeof createTwilioCommunicationServices>[0],'configuration'|'httpClient'> & {
+ identities:TwilioVerifiedAgentOptions['identities'];authorize:TwilioVerifiedAgentOptions['authorize'];
+ agentUrl:string;completeUrl:string;receptionUrl:string;socketUrl:string;greeting:string;
+}){
+ const c=dependencies.configuration;
+ return new TwilioVerifiedAgentAdapter({accountSid:c.accountSid,authToken:c.authToken,sharedNumber:c.sharedNumber,maxWebhookBytes:c.maxWebhookBytes,
+  agentUrl:dependencies.agentUrl,completeUrl:dependencies.completeUrl,receptionUrl:dependencies.receptionUrl,socketUrl:dependencies.socketUrl,greeting:dependencies.greeting,
+  calls:createTwilioVoiceCallVerifier({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,httpClient:dependencies.httpClient}),identities:dependencies.identities,authorize:dependencies.authorize});
 }

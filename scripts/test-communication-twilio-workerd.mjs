@@ -23,6 +23,7 @@ import {PostgresVoiceTaskConfirmationService} from './cloudflare/workers/src/bus
 import {createTwilioVoiceOtpClient} from './packages/shared/src/communications/twilio-verify.mjs';
 import {VoiceOtpService} from './cloudflare/workers/src/business-tasks/voice-otp.ts';
 import {TwilioOtpPairingAdapter} from './packages/shared/src/communications/twilio-otp-pairing.mjs';
+import {TwilioVerifiedAgentAdapter} from './packages/shared/src/communications/twilio-agent-start.mjs';
 const config=${JSON.stringify(config)};
 export default {async fetch(request){
  let queries=0;const mode=request.headers.get('x-test-mode');
@@ -33,6 +34,7 @@ export default {async fetch(request){
   const service=new VoiceOtpService({run(){throw Error('write');},read(){throw Error('read');},inbox(){throw Error('inbox');}},{async assert(){},async assignee(){throw Error('grant');}},repository,{sessions:{async currentSession(id){return active?{id,userId:'fixture',tenantId:'tenant-a',active:true,expiresAt:Date.now()+600000}:null;}},calls:{async fetch(sid){return {sid,accountSid:config.accountSid,from:'+15550009999',to:config.sharedNumber,direction:'inbound',status:'in-progress'};}},contacts:{async current(){return {phone:'+15550002000',version:1};}},provider(){return {async start(){sends++;return {verificationSid:'VE'+'d'.repeat(32),status:'pending'};},async check(){checks++;return {approved:true};}};}},{accountSid:config.accountSid,sharedNumber:config.sharedNumber});
   const pair=await service.issue(callSid);await service.start(hash,callSid,pair.pairingCode);const wasUnverified=await service.current(callSid)===null;await service.check(hash,callSid,'123456');const verified=!!await service.current(callSid);active=false;return Response.json({wasUnverified,verified,revoked:await service.current(callSid)===null,sends,checks});
  }
+ if(mode==='agent-start'||mode==='agent-denied')return new TwilioVerifiedAgentAdapter({...config,agentUrl:'https://fixture.invalid/agent',completeUrl:'https://fixture.invalid/agent-end',receptionUrl:'https://fixture.invalid/reception',socketUrl:'wss://fixture.invalid/agent-socket',greeting:'Automated assistant. Tasks require app approval.',calls:{async fetch(sid){return {sid,accountSid:config.accountSid,to:config.sharedNumber,direction:'inbound',status:'in-progress'};}},identities:{async current(){return {actor:{id:'fixture',tenantId:'tenant-a'},sessionId:'verified-session',authentication:'otp',active:true,expiresAt:Date.now()+120000};}},async authorize(){return mode==='agent-start';}}).respond(request);
  if(mode==='otp-pairing')return new TwilioOtpPairingAdapter({...config,pairingUrl:config.incomingUrl,waitUrl:config.gatherUrl,agentUrl:'https://fixture.invalid/agent',receptionUrl:'https://fixture.invalid/reception',service:{async issue(){return {pairingCode:'12345678',expiresAt:Date.now()+120000};},async current(){return null;},async pending(){return true;}}}).respond(request);
  if(mode==='otp'){
   let requests=0;const sid='VE'+'d'.repeat(32),serviceSid='VA'+'e'.repeat(32),phone='+15550001000';
@@ -113,6 +115,8 @@ try{
  const otpResult=await(await send({mode:'otp'})).json();assert.equal(otpResult.approved,true);assert.equal(otpResult.requests,2);checks++;
  const boundOtp=await(await send({mode:'otp-binding'})).json();assert.deepEqual(boundOtp,{wasUnverified:true,verified:true,revoked:true,sends:1,checks:1});checks++;
  const pairPrompt=await send({stage:'incoming',mode:'otp-pairing'});assert.equal(pairPrompt.status,200);assert.match(await pairPrompt.text(),/<Pause length="10"/);checks++;
+ const agentUrl='https://fixture.invalid/agent',agentParams={AccountSid:config.accountSid,CallSid:'CA'+'c'.repeat(32),To:config.sharedNumber,Direction:'inbound'};
+ for(const mode of ['agent-start','agent-denied']){const reply=await runtime.dispatchFetch(agentUrl,{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','x-test-mode':mode,'x-twilio-signature':getExpectedTwilioSignature(config.authToken,agentUrl,agentParams)},body:new URLSearchParams(agentParams).toString()});assert.equal(reply.status,200);const xml=await reply.text();if(mode==='agent-start')assert.match(xml,/<ConversationRelay url="wss:\/\/fixture.invalid\/agent-socket"/);else{assert.match(xml,/fixture.invalid\/reception/);assert.doesNotMatch(xml,/ConversationRelay/);}checks++;}
  await mkdir('test-results/communication-twilio',{recursive:true});
  await writeFile('test-results/communication-twilio/workerd.json',JSON.stringify({sourceCommit:process.env.GITHUB_SHA,checks,passed:true,engine:'workerd',sdk:'twilio@6.2.0',compatibilityFlags:['nodejs_compat'],officialSignatureValidation:true,officialTwimlBuilder:true,directory:'synthetic',liveProviderVerified:false,numbersPurchased:0,extensionsAssigned:0,callsPlaced:0,production:false},null,2));
  console.log('WORKERD_COMMUNICATION_TWILIO_PASS '+checks);

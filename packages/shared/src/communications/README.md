@@ -876,3 +876,30 @@ checks and `scripts/test-communication-voice-task-approval-browser.mjs` for the
 real browser explicit-click, text rendering, cancel and logout scenario. These
 ports are synthetic tests; production route/UI binding and real task execution
 remain separate acceptance requirements.
+
+### Verified voice-agent startup
+
+`TwilioVerifiedAgentAdapter` derives from `TwilioSignedFormAdapter`, reusing exact
+signature validation, bounded form reading and error redaction. It implements the
+previously missing agent-start continuation after app OTP pairing and a separate
+signed Connect completion callback. `createTwilioVerifiedAgentHandler` supplies
+the official read-only Call verifier; neither factory nor adapter mounts routes.
+
+The configured shared number must match the canonical live inbound Call. Startup
+requires a current broker identity using OTP/passkey plus an explicit server-owned
+authorization port. Canonical call and identity are checked again after that port.
+A changed session/account/tenant or denied identity sends the caller to fixed
+reception. The host supplies the AI disclosure/greeting. Fixed same-host WSS and
+same-origin HTTPS callbacks cannot contain credentials, queries or fragments;
+caller fields and model HandoffData cannot select routing or authorize tasks.
+A finished Call hangs up; a live Relay completion goes to reception.
+
+This TwiML response is not a socket credential. Before accepting model input/output,
+the separately registered socket receiver must validate Twilio's handshake signature,
+bind setup.callSid to the canonical Call and current broker, authorize access, and
+close on transfer/logout/revocation. Every proposed/executed task still uses the
+existing server task/confirmation gate. This module does not implement or activate
+that WebSocket/LLM receiver, enroll contacts, mount endpoints or change the IVR.
+Live Relay onboarding, approved routes/policies, engine binding and telephone
+acceptance remain necessary. Run `scripts/test-communication-agent-start.mjs` and
+`scripts/test-communication-twilio-workerd.mjs` for synthetic-provider verification.
