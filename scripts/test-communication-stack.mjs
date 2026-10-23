@@ -49,7 +49,7 @@ try {
  for(const [name,columns]of Object.entries(meta))await q(`CREATE TABLE ${schema}.govt_${name}(${columns})`);
  await q(`INSERT INTO ${schema}.govt_roles VALUES('7','fixture-role','1');INSERT INTO ${schema}.govt_screens VALUES('559','1');INSERT INTO ${schema}.govt_role_screen_permissions VALUES('7','559','1')`);
  for(const api of contracts.apis){await q(`INSERT INTO ${schema}.govt_api_endpoints VALUES($1,$2,$3,'governance','1','role_screen_permissions')`,[String(api.id),api.method,api.path]);await q(`INSERT INTO ${schema}.govt_api_permissions VALUES($1,'7','1','role_screen_permissions')`,[String(api.id)]);await q(`INSERT INTO ${schema}.govt_screen_api_links VALUES($1,'559')`,[String(api.id)]);}
- await build({entryPoints:['cloudflare/workers/src/auth.ts','cloudflare/workers/src/gateway.ts','cloudflare/workers/src/business-tasks/runtime.ts'],outdir:temp,bundle:true,platform:'node',format:'cjs',external:['pg']});
+ await build({entryPoints:{auth:'cloudflare/workers/src/auth.ts',gateway:'cloudflare/workers/src/gateway.ts',runtime:'cloudflare/workers/src/business-tasks/runtime.ts'},outdir:temp,bundle:true,platform:'node',format:'cjs',external:['pg']});
  const require=createRequire(import.meta.url);
  for(const file of ['auth.js','gateway.js','runtime.js'])await writeFile(join(temp,file),(await readFile(join(temp,file),'utf8')).replaceAll('require("pg")','require('+JSON.stringify(require.resolve('pg'))+')'));
  const {auth}=require(join(temp,'auth.js')),{default:gateway}=require(join(temp,'gateway.js')),{PostgresCommunicationWorker}=require(join(temp,'runtime.js'));
