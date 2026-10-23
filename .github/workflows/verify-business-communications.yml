@@ -22,6 +22,7 @@ on:
       - 'scripts/test-communication-validator-workerd.mjs'
       - 'scripts/test-business-media.mjs'
       - 'scripts/test-communication-adapter-base.mjs'
+      - 'scripts/test-communication-workers-runtime.mjs'
       - 'scripts/test-communication-inbound-email.mjs'
       - 'scripts/test-communication-inbound-workerd.mjs'
       - 'scripts/test-communication-pictures.mjs'
@@ -197,7 +198,7 @@ jobs:
       - name: Strict service types and existing email compatibility
         run: |
           node_modules/.bin/tsc --noEmit --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strict --skipLibCheck --resolveJsonModule cloudflare/workers/src/business-tasks/*.ts
-          node --test scripts/test-email-runtime-validation.mjs scripts/test-communication-session.mjs scripts/test-communication-endpoint-policy.mjs scripts/test-communication-native-mail.mjs scripts/test-communication-runtime.mjs
+          node --test scripts/test-email-runtime-validation.mjs scripts/test-communication-session.mjs scripts/test-communication-endpoint-policy.mjs scripts/test-communication-native-mail.mjs scripts/test-communication-runtime.mjs scripts/test-communication-workers-runtime.mjs
       - name: All candidate workflow services and communications with native PostgreSQL
         run: node --test scripts/test-business-communications.mjs scripts/test-communication-mail-preview.mjs
       - name: Native current account, task, mailbox policies and default runtime integration
@@ -214,7 +215,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/picture-worker-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 miniflare@4.20260730.0 sharp@0.34.5
+          npm install --prefix "$RUNNER_TEMP/picture-worker-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 miniflare@4.20260730.0 sharp@0.34.5 postal-mime@4.1.2 htmlparser2@12.0.0
           ln -s "$RUNNER_TEMP/picture-worker-tools/node_modules" node_modules
           node --test scripts/test-communication-pictures.mjs scripts/test-communication-workers-pictures.mjs
           node scripts/test-communication-pictures-workerd.mjs

@@ -142,3 +142,27 @@ The inherited reader therefore limits delivered chunks to declared bytes plus
 1,024, preserving the existing 1,000-empty-chunk compatibility test. This does not
 set a read timeout or replace runtime resource limits. Preserve current mailbox
 authorization, quarantine, idempotency and transient-failure propagation.
+
+## Native Worker capability composition — 2026-10-23
+
+Primary sources rechecked:
+
+- https://developers.cloudflare.com/workers/runtime-apis/bindings/: bindings are capabilities and can be passed explicitly for dependency injection/testing. Do not treat merely having a binding as user authorization or retain per-request user identity in an instance.
+- https://developers.cloudflare.com/images/optimization/binding/: raw streams allow private image processing without a public source URL. Preserve the narrower registered static JPEG/PNG contract and application bounds.
+- https://developers.cloudflare.com/r2/api/workers/workers-api-reference/: get returns object metadata together with the body. Keep the existing validation of the actual downloaded object, rather than trusting an earlier head snapshot.
+
+Implementation inference: a Worker-specific composition can inherit the existing
+authenticated PostgreSQL runtime while constructing the native picture codec
+once from explicit capabilities. Share one configured picture byte limit between
+service and codec, require scanning, and reject competing repository overrides.
+This reduces host assembly without inventing provider configuration, authorization
+or deployment readiness. Actual local bindings and remote provider acceptance
+remain different kinds of evidence.
+
+https://developers.cloudflare.com/workers/runtime-apis/nodejs/zlib/ and
+https://developers.cloudflare.com/workers/configuration/compatibility-flags/
+also confirm native Node compression/stream APIs require supported compatibility
+configuration. Bundling the complete inherited Worker exposes its shared
+compression imports; the pinned 2026-07-30 workerd test leaves `node:*` external
+and enables `nodejs_compat` rather than mocking those modules. This is separate
+from the existing compiler-free standalone-validator runtime check.

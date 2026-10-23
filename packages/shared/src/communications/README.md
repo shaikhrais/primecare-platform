@@ -407,3 +407,34 @@ failures propagate, so they are not converted into permanent SMTP rejections or
 fake receipt success. Tests include native workerd streams with synthetic event
 and storage ports, plus the existing native PostgreSQL mailbox-policy scenario.
 These tests do not establish live SMTP delivery or production routing approval.
+
+### Typed native Worker composition
+
+`cloudflare/workers/src/business-tasks/workers-runtime.ts` exports
+`WorkersCommunicationWorker`, derived from `PostgresCommunicationWorker`. Supply
+the existing database/email/limit dependencies plus `images`, `pictureBucket`,
+`scanPicture` and `maxPicturePixels`. The root constructs the native private
+picture repository with the same `limits.maxPictureBytes` used by the service.
+Missing capabilities fail at construction. A competing `pictures` override is
+rejected; use the existing parent composition for another trusted codec.
+
+```ts
+const worker = new WorkersCommunicationWorker({
+  ...nativeDependencies,
+  images: env.IMAGES,
+  pictureBucket: env.PRIVATE_PICTURES,
+  scanPicture: approvedScanner,
+  maxPicturePixels: configuredPixelLimit,
+});
+```
+
+This example names capabilities; it does not create a scanner, bucket, grant,
+mailbox or endpoint mount. The parent owns current sessions, endpoint/screen
+checks, scoped services, all four channels and trusted inbound email. Declaration
+files expose the actual binary/picture inheritance and narrow capability ports.
+The browser acceptance host uses this derived root with local Images/R2 and real
+disposable PostgreSQL. Separate workerd checks use synthetic database ports and
+actual local image/storage bindings. Existing production release gates apply.
+The complete Worker inherits the shared compression layer's Node built-ins; its
+pinned July test runtime explicitly enables `nodejs_compat`. The standalone
+validator and inbound adapter checks remain separate without that flag.

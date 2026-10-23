@@ -14,7 +14,6 @@ import bcrypt from 'bcryptjs';
 import sharp from 'sharp';
 import {chromium} from 'playwright';
 import {Miniflare} from 'miniflare';
-import {WorkersPrivatePictureRepository} from '../packages/shared/src/communications/workers-pictures.mjs';
 
 const connection=process.env.COMMUNICATION_STACK_DATABASE_URL;
 if(!connection||process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL)throw Error('Disposable stack connection only; production credentials forbidden');
@@ -50,14 +49,14 @@ try {
  for(const [name,columns]of Object.entries(meta))await q(`CREATE TABLE ${schema}.govt_${name}(${columns})`);
  await q(`INSERT INTO ${schema}.govt_roles VALUES('7','fixture-role','1');INSERT INTO ${schema}.govt_screens VALUES('559','1');INSERT INTO ${schema}.govt_role_screen_permissions VALUES('7','559','1')`);
  for(const api of contracts.apis){await q(`INSERT INTO ${schema}.govt_api_endpoints VALUES($1,$2,$3,'governance','1','role_screen_permissions')`,[String(api.id),api.method,api.path]);await q(`INSERT INTO ${schema}.govt_api_permissions VALUES($1,'7','1','role_screen_permissions')`,[String(api.id)]);await q(`INSERT INTO ${schema}.govt_screen_api_links VALUES($1,'559')`,[String(api.id)]);}
- await build({entryPoints:{auth:'cloudflare/workers/src/auth.ts',gateway:'cloudflare/workers/src/gateway.ts',runtime:'cloudflare/workers/src/business-tasks/runtime.ts'},outdir:temp,bundle:true,platform:'node',format:'cjs',external:['pg']});
+ await build({entryPoints:{auth:'cloudflare/workers/src/auth.ts',gateway:'cloudflare/workers/src/gateway.ts',runtime:'cloudflare/workers/src/business-tasks/workers-runtime.ts'},outdir:temp,bundle:true,platform:'node',format:'cjs',external:['pg']});
  const require=createRequire(import.meta.url);
  for(const file of ['auth.js','gateway.js','runtime.js'])await writeFile(join(temp,file),(await readFile(join(temp,file),'utf8')).replaceAll('require("pg")','require('+JSON.stringify(require.resolve('pg'))+')'));
- const {auth}=require(join(temp,'auth.js')),{default:gateway}=require(join(temp,'gateway.js')),{PostgresCommunicationWorker}=require(join(temp,'runtime.js'));
+ const {auth}=require(join(temp,'auth.js')),{default:gateway}=require(join(temp,'gateway.js')),{WorkersCommunicationWorker}=require(join(temp,'runtime.js'));
  imageRuntime=new Miniflare({modules:true,script:'export default {fetch(){return new Response(null,{status:404});}}',compatibilityDate:'2026-07-30',images:{binding:'IMAGES'},r2Buckets:['PICTURES']});
  const bindings=await imageRuntime.getBindings(),bucket=bindings.PICTURES;
- const pictures=new WorkersPrivatePictureRepository({images:bindings.IMAGES,bucket,scan:async()=>true,maxPixels:4096,maxBytes:ui.limits.maxPictureBytes});let sends=0;
- const runtime=new PostgresCommunicationWorker({businessPool:pool,governancePool:pool,pictures,limits:{maxMembers:8,maxMessages:100,maxText:2000,maxPictureBytes:ui.limits.maxPictureBytes,maxPictures:3,ringMilliseconds:30000,maxSignalBytes:16384},nativeEmail:{async send(){sends++;return {messageId:'synthetic-provider-acceptance'};}},sender:'owned@example.invalid',maxMailBytes:65536,maxRenderedMailBytes:131072,maxRequestBytes:2*1024*1024});
+ let sends=0;
+ const runtime=new WorkersCommunicationWorker({businessPool:pool,governancePool:pool,images:bindings.IMAGES,pictureBucket:bucket,scanPicture:async()=>true,maxPicturePixels:4096,limits:{maxMembers:8,maxMessages:100,maxText:2000,maxPictureBytes:ui.limits.maxPictureBytes,maxPictures:3,ringMilliseconds:30000,maxSignalBytes:16384},nativeEmail:{async send(){sends++;return {messageId:'synthetic-provider-acceptance'};}},sender:'owned@example.invalid',maxMailBytes:65536,maxRenderedMailBytes:131072,maxRequestBytes:2*1024*1024});
  const env={AUTH:{fetch:r=>auth(r,{DB_URL:connection,SERVICE_NAME:'auth'},new URL(r.url).pathname,{})},GOVERNANCE:{fetch:r=>runtime.fetch(r,{})}};
  server=createServer(async(req,res)=>{
   try {
@@ -148,7 +147,7 @@ try {
  }catch{}
  throw error;
 }finally{
- await writeFile(join(out,'results.json'),JSON.stringify({sourceCommit:process.env.GITHUB_SHA,passed:results.databaseEventsReadback===true,scope:'Actual Flutter UI, auth, gateway, native policies and disposable PostgreSQL',production:false,syntheticPorts:['mail acceptance','picture scanner','microphone input'],localBindings:['Images','R2'],liveProviderVerified:false,results,requests},null,2));
+ await writeFile(join(out,'results.json'),JSON.stringify({sourceCommit:process.env.GITHUB_SHA,passed:results.databaseEventsReadback===true,scope:'Actual Flutter UI, auth, gateway, native policies and disposable PostgreSQL',production:false,syntheticPorts:['mail acceptance','picture scanner','microphone input'],localBindings:['Images','R2'],runtimeComposition:'WorkersCommunicationWorker',liveProviderVerified:false,results,requests},null,2));
  await browser?.close();if(server)await new Promise(resolve=>server.close(resolve));await imageRuntime?.dispose();
  for(const name of created.reverse())await q('DROP TABLE public.'+name+' CASCADE');if(ownsSchema)await q('DROP SCHEMA '+schema+' CASCADE');await pool.end();await rm(temp,{recursive:true,force:true});
 }

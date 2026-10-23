@@ -848,3 +848,22 @@ The separate password Firefox job 120384093417 in run 39944616900 also failed
 before browser execution: its deployed theme metadata fetch returned HTML where
 JSON was expected. That workflow and its application files are unchanged by this
 communication work; the other matrix jobs were still running when observed.
+
+### Native Worker composition candidate — 2026-10-23
+
+Current main baseline is `eba29ae2af5d819b402a9b52d99079585c6659b6`.
+`WorkersCommunicationWorker` now inherits the registered PostgreSQL runtime and
+constructs the existing native picture codec from explicit Images/private bucket,
+scanner and pixel-limit ports. Both codec and scoped service use the same byte
+bound. All four channels, session/grant policies, validation and inbound mail
+remain inherited. Missing capabilities and conflicting repository overrides fail
+at construction. Typed declarations now expose binary/picture inheritance.
+
+Six composition checks cover shared services, missing configuration, immutable
+bounds, inherited authorization, email cleanup and generic native-session errors.
+The actual workerd picture scenario now constructs through the derived root and
+adds inherited authentication/grant/email-boundary assertions. Its database ports
+are synthetic. Full Flutter browser acceptance now uses the same derived root
+with actual disposable PostgreSQL and local Images/R2. Existing adapter checks
+pass locally; source-specific CI is pending. No public mount, schema, grant,
+account, mailbox, activation or workflow verification status changes are made.
