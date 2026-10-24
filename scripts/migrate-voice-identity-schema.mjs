@@ -72,6 +72,6 @@ async function main(){
   }finally{if(!committed)await db.query('ROLLBACK');db.release();}
  }catch{report.status='schema_migration_failed_preserving_existing_data';process.exitCode=1;}
  finally{await pool?.end();}
- await mkdir('test-results/voice-identity-schema',{recursive:true});await writeFile('test-results/voice-identity-schema/'+mode.slice(2)+'.json',JSON.stringify(report,null,2)+'\n');console.log('VOICE_IDENTITY_SCHEMA '+JSON.stringify(report));
+ await mkdir('test-results/voice-identity-schema',{recursive:true});await writeFile('test-results/voice-identity-schema/'+(fixture?'reference-report':mode.slice(2))+'.json',JSON.stringify(report,null,2)+'\n');console.log('VOICE_IDENTITY_SCHEMA '+JSON.stringify(report));
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)await main();
