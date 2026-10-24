@@ -37,8 +37,18 @@ export class TwilioExtensionConnectService extends ScopedServiceBase {
    const currentCaller=await this.#destination(callerExtension),currentTarget=await this.#destination(targetExtension);
    if(currentCaller.tenantId!==caller.tenantId||currentCaller.userId!==caller.userId||currentTarget.tenantId!==target.tenantId||currentTarget.userId!==target.userId)throw Error('Voice unavailable');
    await authorize(currentTarget);
-   if(this.voicemail)await this.voicemail.prepare({callSid,destination:currentTarget});
-   return Object.freeze({identity:await twilioVoiceIdentity(currentTarget)});
+   const identity=await twilioVoiceIdentity(currentTarget);
+   if(this.voicemail){
+    await this.voicemail.prepare({callSid,destination:currentTarget});
+    // The durable reservation is not authority to ring after deactivation,
+    // reassignment, call termination or policy revocation during storage I/O.
+    const latestCall=await this.verifier.fetch(callSid);
+    if(!latestCall||latestCall.sid!==callSid||latestCall.accountSid!==this.accountSid||latestCall.from!==from||latestCall.direction!=='inbound'||!['queued','ringing','in-progress'].includes(latestCall.status))throw Error('Voice unavailable');
+    const latestCaller=await this.#destination(callerExtension),latestTarget=await this.#destination(targetExtension);
+    if(latestCaller.tenantId!==caller.tenantId||latestCaller.userId!==caller.userId||latestTarget.tenantId!==target.tenantId||latestTarget.userId!==target.userId)throw Error('Voice unavailable');
+    await authorize(latestTarget);
+   }
+   return Object.freeze({identity});
   }catch{throw Error('Voice unavailable');}
  }
 }

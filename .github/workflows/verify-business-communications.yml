@@ -239,9 +239,12 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: python tools/governance-production/communication_provider_inventory.py
       - name: Independently verify all pinned Twilio contracts without registration writes
+        shell: bash
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
-        run: python tools/governance-production/twilio_contracts_registration.py --verify
+        run: |
+          mkdir -p test-results/business-communications
+          python tools/governance-production/twilio_contracts_registration.py --verify | tee test-results/business-communications/twilio-contract-readback.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -10,13 +10,13 @@ const caller={extension:'100001',tenantId:'tenant-a',userId:'alice',published:tr
 const target={...caller,extension:'100002',userId:'bob'};
 const from='client:'+await twilioVoiceIdentity(caller);
 const input={callSid,from,callerExtension:caller.extension,targetExtension:target.extension};
-function fixture(){
+function fixture(voicemail){
  let denied=false,lookups=0,checks=0;
  const rows=[{...caller},{...target}],call={sid:callSid,accountSid,from,direction:'inbound',status:'in-progress'};
  const policy={async assert(actor,action,state){checks++;assert.deepEqual(actor,{id:'alice',tenantId:'tenant-a'});assert.equal(action,'voice.call.connect');assert.equal(state.userId,'bob');if(denied)throw Error('private');},async assignee(){throw Error('unused');}};
  const directory={async lookup(value){lookups++;return rows.filter(r=>r.extension===value);}};
  const store={run(){throw Error('unused');},read(){throw Error('unused');},inbox(){throw Error('unused');}};
- const service=new TwilioExtensionConnectService(store,policy,directory,{async fetch(){return {...call};}},accountSid);
+ const service=new TwilioExtensionConnectService(store,policy,directory,{async fetch(){return {...call};}},accountSid,voicemail);
  return {service,rows,call,deny(){denied=true;},get checks(){return checks;},get lookups(){return lookups;},directory};
 }
 function request(params={},signature){
@@ -54,4 +54,19 @@ test('private provider and policy failures are generic unavailable responses',as
 test('official SDK verifier fetches only the canonical account Call resource',async()=>{
  const requests=[];const verifier=createTwilioVoiceCallVerifier({accountSid,apiKeySid:'SK'+'e'.repeat(32),apiKeySecret:'f'.repeat(32),httpClient:{async request(options){requests.push(options);return {statusCode:200,body:JSON.stringify({sid:callSid,account_sid:accountSid,from,direction:'inbound',status:'in-progress',private_note:'hidden'}),headers:{}};}}});
  assert.deepEqual(await verifier.fetch(callSid),{sid:callSid,accountSid,from,direction:'inbound',status:'in-progress'});assert.equal(requests.length,1);assert.equal(requests[0].method,'get');assert.equal(requests[0].uri,`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}.json`);await assert.rejects(verifier.fetch('../Accounts/other'));assert.equal(requests.length,1);
+});
+test('voicemail reservation cannot authorize a revoked or reassigned SDK destination',async()=>{
+ for(const mutate of [f=>f.rows[1].published=false,f=>f.rows[1].userId='charlie',
+  f=>f.rows[0].active=false,f=>f.rows[0].userId='mallory',f=>f.deny(),
+  f=>f.call.status='completed',f=>f.call.from='client:forged']){
+  let f,prepared=0;
+  f=fixture({async prepare(){prepared++;mutate(f);}});
+  await assert.rejects(f.service.connect(input),/^Error: Voice unavailable$/);
+  assert.equal(prepared,1);
+ }
+});
+test('unchanged voicemail route still connects after current call and permission rechecks',async()=>{
+ let prepared=0;const f=fixture({async prepare(value){prepared++;assert.equal(value.callSid,callSid);assert.equal(value.destination.userId,target.userId);}});
+ assert.deepEqual(await f.service.connect(input),{identity:await twilioVoiceIdentity(target)});
+ assert.equal(prepared,1);assert.equal(f.lookups,6);assert.equal(f.checks,3);
 });

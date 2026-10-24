@@ -1052,3 +1052,28 @@ Sales quality accepts only supported two-party call recordings; conference mixtu
 Unit regressions cover ringing, pending authorization, pending accept, connected errors, reentrant disconnect, throwing teardown/display callbacks, and an outgoing error followed by another call. Browser acceptance checks the call panel ends/disables controls and the next extension call owns independent cleanup. SDK events/transports are synthetic in these checks; they do not establish live Twilio calling or native mobile background ringing. Run `node --test scripts/test-communication-twilio-ringing.mjs scripts/test-communication-twilio-device.mjs scripts/test-communication-adapter-base.mjs` and the existing `scripts/test-communication-ringing-browser.mjs` Playwright suite. Existing production registration/activation blockers remain unchanged.
 
 Twilio documentation reviewed: [Call methods and events](https://www.twilio.com/docs/voice/sdks/javascript/twiliocall), particularly `disconnect()` (closes media), separate `error`/`disconnect` events, and `accept()`/`reject()` behavior. This implementation deliberately ends the owned call on an error; nonterminal connectivity/recovery notifications are not reclassified as errors here.
+
+### Current destination after voicemail reservation
+
+Inbound extension TwiML rechecks publication, active membership and unchanged
+tenant/user ownership after durable voicemail preparation completes. A changed
+destination hangs up generically without dialing or redirecting to a new owner.
+SDK extension calls additionally re-read the canonical live Call, both published
+destinations and the current connection policy after reservation. A denied or
+changed result returns a generic failure without a Dial response. Reservation
+is not permission to ring. Any already reserved voicemail remains subject to the
+existing fallback/capture/playback checks; this change performs no compensating
+delete or retry and cannot undo a provider request already submitted.
+
+The existing `TwilioSignedFormAdapter` and `ScopedServiceBase` inheritance remain
+the boundaries. No contract, role, grant, number, extension assignment or live
+activation changes. Regression tests reproduce revocation during reservation,
+target/caller reassignment, ended calls and current policy denial, and retain a
+successful unchanged route. Run `node --test scripts/test-communication-twilio.mjs
+scripts/test-communication-twilio-connect.mjs
+scripts/test-communication-twilio-voicemail.mjs` (41 tests). Provider/lookup/storage
+ports are synthetic in this suite; live phone acceptance is separate.
+
+The communication inventory artifact now retains the exact independent readback
+receipt for all 21 pinned Twilio contracts. Bash pipefail preserves verification
+failure through `tee`; writing a receipt never promotes runtime acceptance.

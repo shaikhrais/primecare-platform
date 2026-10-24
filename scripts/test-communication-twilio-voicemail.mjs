@@ -48,6 +48,17 @@ test('inbound extension saves exact destination before Dial action is enabled',a
  const adapter=new TwilioVoiceExtensionAdapter({accountSid,authToken,sharedNumber:'+15550001000',numberVerified:true,incomingUrl,gatherUrl,maxWebhookBytes:4096,directory:{async lookup(){return [destination];}},voicemail:{async prepare(r){prepared.push(r);}},dialCompleteUrl:urls.dialCompleteUrl});
  const response=await adapter.respond(request(gatherUrl,{To:'+15550001000',Direction:'inbound',Digits:'100001'}));assert.equal(response.status,200);assert.match(await response.text(),/action="https:\/\/fixture.invalid\/dial-complete"/);assert.equal(prepared[0].callSid,callSid);assert.equal(prepared[0].destination.userId,'alice');
 });
+test('inbound voicemail reservation cannot dial a destination revoked or reassigned while waiting',async()=>{
+ for(const change of [{published:false},{userId:'another'},{tenantId:'other'},
+  {active:false},{tenantActive:false},{userActive:false}]){
+  let row={...destination},prepared=0;
+  const incomingUrl='https://fixture.invalid/incoming',gatherUrl='https://fixture.invalid/gather';
+  const adapter=new TwilioVoiceExtensionAdapter({accountSid,authToken,sharedNumber:'+15550001000',numberVerified:true,incomingUrl,gatherUrl,maxWebhookBytes:4096,
+   directory:{async lookup(){return [row];}},voicemail:{async prepare(){prepared++;Object.assign(row,change);}},dialCompleteUrl:urls.dialCompleteUrl});
+  const response=await adapter.respond(request(gatherUrl,{To:'+15550001000',Direction:'inbound',Digits:destination.extension}));
+  assert.doesNotMatch(await response.text(),/<Dial|<Identity/);assert.equal(prepared,1);
+ }
+});
 test('official recording verifier uses fixed account Recording resource',async()=>{
  const calls=[];const verifier=createTwilioRecordingVerifier({accountSid,apiKeySid:'SK'+'e'.repeat(32),apiKeySecret:'f'.repeat(32),httpClient:{async request(options){calls.push(options);return {statusCode:200,headers:{},body:JSON.stringify({sid:recordingSid,account_sid:accountSid,call_sid:callSid,status:'completed',source:'RecordVerb',duration:'15'})};}}});assert.equal((await verifier.fetch(recordingSid)).duration,15);assert.equal(calls[0].uri,`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Recordings/${recordingSid}.json`);await assert.rejects(verifier.fetch('../evil'));
 });

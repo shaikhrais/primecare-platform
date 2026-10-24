@@ -55,7 +55,13 @@ export class TwilioVoiceExtensionAdapter extends TwilioSignedFormAdapter {
    const identity=await twilioVoiceIdentity(first);
    const current=destination(await this.directory.lookup(extension,2),extension);
    if(!current||current.tenantId!==first.tenantId||current.userId!==first.userId)return unavailable();
-   if(this.voicemail)await this.voicemail.prepare({callSid:params.CallSid,destination:current});
+   if(this.voicemail){
+    await this.voicemail.prepare({callSid:params.CallSid,destination:current});
+    // Reservation may suspend on storage. It cannot preserve an extension's
+    // publication or ownership after the directory changes during that wait.
+    const latest=destination(await this.directory.lookup(extension,2),extension);
+    if(!latest||latest.tenantId!==first.tenantId||latest.userId!==first.userId)return unavailable();
+   }
    const response=new VoiceResponse();response.dial({callerId:config.sharedNumber,answerOnBridge:true,timeout:20,...(this.voicemail?{action:config.dialCompleteUrl,method:'POST'}:{})}).client().identity(identity);response.hangup();return xml(response);
   }catch{return failure(503);}
  }
