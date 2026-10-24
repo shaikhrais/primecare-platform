@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/business_core.dart';
 import 'fixtures/voice_contact_transport.dart';
@@ -33,4 +34,9 @@ void main(){
   expect(isCommunicationPath('/v1/voice/contact/start'),true);expect(isCommunicationPath('/v1/voice/contact/check'),true);
   expect(()=>model.hub.voiceContacts.execute('start',{'actorId':'other'}),throwsArgumentError);
  });
+ test('an unmounted native endpoint displays enrollment uncertainty without another SMS',() async {
+  await model.refresh();final request=RequestOptions(path:'/v1/voice/contact/start');transport.sendError=DioException(requestOptions:request,response:Response(requestOptions:request,statusCode:404));
+  expect(await model.send('+14165550101'),false);expect(model.statusKey,'phoneUnknown');expect(model.canSend,false);expect(await model.send('+14165550101'),false);expect(transport.sends,1);
+ });
+
 }

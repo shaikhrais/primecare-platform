@@ -22,7 +22,7 @@ final class VoiceContactController extends CommunicationWorkspaceControllerBase 
  bool _exact(Map<String,Object?> value,Set<String> keys)=>value.length==keys.length&&keys.every(value.containsKey);
  @override void clearPrivateState(){_challenge=null;_expiresAt=null;_verified=null;_allowed=false;_loaded=false;}
  @override void operationFailed(Object error){if(error is! CommunicationInputException){_uncertain=true;_status='phoneUnknown';}}
- @override String classify(Object error)=>error is CommunicationInputException?'phoneInvalid':super.classify(error)=='unavailable'?'phoneUnknown':super.classify(error);
+ @override String classify(Object error){if(error is CommunicationInputException)return 'phoneInvalid';final kind=super.classify(error);return switch(kind){'unauthenticated'||'forbidden'=>kind,'invalidInput'=>'phoneInvalid',_=>'phoneUnknown'};}
  Future<bool> refresh()=>run(() async {
   final value=await hub.voiceContacts.status();
   if(!_exact(value,{'verified','enrollmentAllowed'})||value['verified'] is! bool||value['enrollmentAllowed'] is! bool||value['verified']==true&&value['enrollmentAllowed']==true)throw StateError('Invalid enrollment status');
@@ -41,7 +41,7 @@ final class VoiceContactController extends CommunicationWorkspaceControllerBase 
   });
  }
  Future<bool> check(String code){
-  if(!canCheck)return Future.value(false);
+  if(!canCheck){if(_challenge!=null&&(_expiresAt??0)<=DateTime.now().millisecondsSinceEpoch){clearPrivateState();_uncertain=true;showFailure('phoneUnknown');}return Future.value(false);}
   final id=_challenge!;
   return run(() async {
    if(code.length!=6||!RegExp(r'^[0-9]{6}$').hasMatch(code))throw CommunicationInputException();
