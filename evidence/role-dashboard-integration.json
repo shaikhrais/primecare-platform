@@ -1,0 +1,33 @@
+{
+  "sourceCommit": "38a95efcbcda3db62daeff5c6c2ec8529b2c1998",
+  "workflowRun": 40079268342,
+  "allJobsPassed": 12,
+  "integratedDashboardEntries": 113,
+  "replacedGeneratedTemplates": 110,
+  "catalogOwnerRoleCodes": 61,
+  "specializedImplementationsPreserved": [
+    "care_delivery",
+    "founder_growth_dashboard"
+  ],
+  "pythonChecks": 7,
+  "flutterWidgetTests": 232,
+  "nativePostgres": {
+    "catalogRolesChecked": 74,
+    "checks": 88,
+    "database": "loopback auth_test disposable fixture",
+    "production": false
+  },
+  "productionMetadata": {
+    "registeredIdentitiesVerified": 113,
+    "writesAttempted": false,
+    "grantsChanged": false,
+    "businessRecordsRead": false,
+    "domainWorkflowsVerified": false
+  },
+  "limitations": [
+    "Widget/API fixtures and native PostgreSQL are not deployed per-role credential/action acceptance.",
+    "Domain finance, recruitment, board and clinical workflows are not completed by the shared overview.",
+    "Twilio live routing and Gmail authorization remain separate activation work.",
+    "Live department creation requires an authorized PrimeCare session and intended tenant."
+  ]
+}

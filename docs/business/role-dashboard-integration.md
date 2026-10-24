@@ -67,3 +67,19 @@ implementation requirements. Recruiting, financial approvals, board decisions,
 live Twilio routing, Gmail authorization, clinical policy binding and department
 tenant selection remain separate work; shared dashboard integration does not
 activate them.
+
+## Final checked evidence
+
+Source `38a95efcbcda3db62daeff5c6c2ec8529b2c1998` passed all 12 jobs in
+[40079268342](https://github.com/shaikhrais/primecare-platform/actions/runs/40079268342).
+The workspace Flutter job passed 232 tests. Native PostgreSQL checked 74 roles
+from the union of overview permissions and screen view grants, passing 88 checks.
+The role list deliberately includes ordinary roles absent from the three special
+overview-permission entries. Each native fixture role must receive the exact
+permitted page set and scope, reject foreign pages/tenant headers, and avoid
+creating accounts, sessions or mutation-audit rows during dashboard reads.
+
+Independent pinned production readback verified all 113 dashboard IDs/codes/routes,
+with no metadata/grant writes or business-record reads. That readback does not
+certify production business workflows or replace current runtime authorization.
+See `evidence/role-dashboard-integration.json` for the source-specific receipt.
