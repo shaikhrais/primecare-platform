@@ -35,7 +35,9 @@ export class VapiManagementClient extends BoundedBinaryAdapterBase {
    if(!row||!uuid(row.id)||!uuid(row.orgId)||typeof row.type!=='string'||row.type.length>80)throw fail('invalid_provider_response');
    const name=row.function?.name??row.name??row.type;
    if(typeof name!=='string'||name.length>200||name.includes(this.#key))throw fail('invalid_provider_response');
-   return Object.freeze({id:row.id,orgId:row.orgId,type:row.type,name,endpointConfigured:!!(row.url||row.server?.url),credentialConfigured:!!(row.credentialId||row.server?.credentialId)});
+   const destination=row.url||row.server?.url;let endpointHost=null;
+   if(destination){try{endpointHost=new URL(destination).hostname;}catch{throw fail('invalid_provider_response');}}
+   return Object.freeze({id:row.id,orgId:row.orgId,type:row.type,name,endpointHost,method:typeof row.method==='string'?row.method:null,bodyFields:row.body?.properties&&typeof row.body.properties==='object'?Object.keys(row.body.properties).slice(0,100):[],endpointConfigured:!!(row.url||row.server?.url),credentialConfigured:!!(row.credentialId||row.server?.credentialId)});
   }));
  }
  async assistant(id){
