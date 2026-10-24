@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "requirement": "Register first-time verified account-phone enrollment for native signed-in users before implementation or activation. Start/check require a current session authenticated within five minutes, active user/tenant, exact registered API and linked-screen permissions, bounded explicit SMS request, durable per-user/per-phone quotas and exact server session binding. SMS code is entered only in the app, never an AI tool. Confirm only the exact enrolled number using Twilio Verify, preserve every existing or revoked contact, and prevent repeat sends or concurrent duplicate enrollment. No grants, phone enrollment, provider traffic, schema changes, UI or deployment are activated by registration.",
+  "implementationStatus": "registered-unimplemented",
+  "activation": false,
+  "service": "governance",
+  "anchorApiId": 710,
+  "operations": [
+    {
+      "key": "contact.status",
+      "method": "POST",
+      "path": "/v1/voice/contact/status",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [],
+        "properties": {}
+      },
+      "response": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "verified",
+              "enrollmentAllowed"
+            ],
+            "properties": {
+              "verified": {
+                "type": "boolean"
+              },
+              "enrollmentAllowed": {
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "error"
+            ],
+            "properties": {
+              "error": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "key": "contact.start",
+      "method": "POST",
+      "path": "/v1/voice/contact/start",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "phone",
+          "requestId"
+        ],
+        "properties": {
+          "phone": {
+            "type": "string",
+            "pattern": "^\\+[1-9][0-9]{6,14}$",
+            "maxLength": 16
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "response": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "challengeId",
+              "verificationRequested",
+              "expiresAt"
+            ],
+            "properties": {
+              "challengeId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "verificationRequested": {
+                "const": true
+              },
+              "expiresAt": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "error"
+            ],
+            "properties": {
+              "error": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "key": "contact.check",
+      "method": "POST",
+      "path": "/v1/voice/contact/check",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "challengeId",
+          "code"
+        ],
+        "properties": {
+          "challengeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[0-9]{6}$",
+            "minLength": 6,
+            "maxLength": 6
+          }
+        }
+      },
+      "response": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "verified"
+            ],
+            "properties": {
+              "verified": {
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "error"
+            ],
+            "properties": {
+              "error": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

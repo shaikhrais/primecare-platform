@@ -777,5 +777,35 @@
     "roleGrants": false,
     "providerWrites": false,
     "activation": false
+  },
+  "voiceContactRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_VOICE_CONTACT_REGISTRATION",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "contact.check",
+        "method": "POST",
+        "path": "/v1/voice/contact/check"
+      },
+      {
+        "key": "contact.start",
+        "method": "POST",
+        "path": "/v1/voice/contact/start"
+      },
+      {
+        "key": "contact.status",
+        "method": "POST",
+        "path": "/v1/voice/contact/status"
+      }
+    ],
+    "definitionSha256": "aebb153f3930af921396dcd3a9cc2802ea8ab39bb6f803fc2f633b68166e9722",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
   }
 }

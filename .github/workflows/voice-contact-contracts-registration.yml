@@ -1,0 +1,67 @@
+name: Register native voice contact enrollment contracts
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/voice-contact-contracts-registration.json'
+      - 'tools/governance-production/voice_contact_contracts_registration.py'
+      - 'tools/governance-production/test-voice-contact-contracts-definition.py'
+      - 'tools/governance-production/test-voice-contact-contracts-registration.py'
+      - '.github/workflows/voice-contact-contracts-registration.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: voice-contact-contracts-registration
+  cancel-in-progress: false
+jobs:
+  isolated:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: communication_fixture
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: communication_registration_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communication_fixture -d communication_registration_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt jsonschema==4.25.1
+      - name: Validate schemas and transactional metadata registration in isolated PostgreSQL
+        env:
+          WORKFLOW_TEST_DATABASE_URL: postgres://communication_fixture:disposable-only@localhost:5432/communication_registration_test
+        run: |
+          python tools/governance-production/test-voice-contact-contracts-definition.py
+          python tools/governance-production/test-voice-contact-contracts-registration.py
+  register:
+    needs: isolated
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/vapi-contract-reader" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/vapi-contract-reader/node_modules" node_modules
+      - name: Roll back dry run, register exact Vapi metadata, then independently read back
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_VOICE_CONTACT_REGISTRATION: '1'
+        run: |
+          python tools/governance-production/voice_contact_contracts_registration.py --dry-run
+          python tools/governance-production/voice_contact_contracts_registration.py --apply
+      - name: Verify with independent read-only adapter and no writer opt-ins
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/governance-production/voice_contact_contracts_registration.py --verify
