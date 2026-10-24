@@ -95,6 +95,9 @@ on:
       - 'packages/primecare_ui/lib/src/screens/psw/psw_messages/psw_messages_screen.dart'
       - 'packages/primecare_ui/lib/src/screens/psw/messaging/messaging_screen.dart'
       - 'packages/primecare_ui/test/communication_workspace_test.dart'
+      - 'packages/primecare_ui/test/communication_configuration_unavailable_test.dart'
+      - 'packages/primecare_ui/lib/src/features/generated_screens/cto_integrations.dart'
+      - 'packages/primecare_ui/lib/src/features/generated_screens/integration_health_monitor.dart'
   workflow_dispatch:
 permissions:
   contents: read
@@ -172,7 +175,7 @@ jobs:
         working-directory: packages/primecare_ui
       - name: Shared messaging widgets, localization, lifecycle and existing component regressions
         working-directory: packages/primecare_ui
-        run: flutter test test/communication_channels_test.dart test/communication_workspace_test.dart test/theme_consumers_test.dart test/auth_design_test.dart
+        run: flutter test test/communication_channels_test.dart test/communication_workspace_test.dart test/communication_configuration_unavailable_test.dart test/theme_consumers_test.dart test/auth_design_test.dart
   flutter-browser-media:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
