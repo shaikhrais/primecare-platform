@@ -204,7 +204,15 @@ reference of columns, constraints and indexes and tests privacy and transaction
 rollback. The protected production job checks source hashes and the pinned
 manifest, refuses partial or altered existing schemas, dry-runs with rollback,
 then creates only the exact five absent tables in one advisory-locked transaction.
-PUBLIC access is revoked on newly created tables and any non-owner ACL causes
-rollback. No contacts are enrolled, role grants changed, messages sent or business
+Default owner-only table access is verified; any non-owner ACL causes rollback. No contacts are enrolled, role grants changed, messages sent or business
 records written. A separate read-only transaction verifies the full schema, then
 rereads readiness. This does not activate the OTP runtime or app UI.
+
+Migration connection correction: Prisma documents db.prisma.io as the direct host
+for migrations and pooled.db.prisma.io for runtime traffic, with the same database
+credentials. The dedicated voice schema migration pins both hosts and the same
+postgres database and verifies the existing governance manifest before any DDL.
+It uses the direct host for dry-run/apply and the pooled host for independent
+read-only verification. No new credential, role grant or governance authority is
+introduced. New-table default owner-only ACLs are verified without GRANT/REVOKE.
+Source: https://www.prisma.io/docs/postgres/database/connecting-to-your-database

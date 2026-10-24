@@ -758,5 +758,24 @@
     "permissionChanges": false,
     "providerWrites": false,
     "activation": false
+  },
+  "voiceIdentitySchemaMigration": {
+    "runtimeHost": "pooled.db.prisma.io",
+    "directHost": "db.prisma.io",
+    "database": "postgres",
+    "credentialSource": "PRODUCTION_DATABASE_URL",
+    "optInVariable": "VOICE_IDENTITY_SCHEMA_APPLY",
+    "schema": "public",
+    "tables": [
+      "communication_voice_verified_contacts",
+      "communication_voice_otp",
+      "communication_voice_otp_limits",
+      "communication_voice_tasks",
+      "communication_voice_confirmations"
+    ],
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "providerWrites": false,
+    "activation": false
   }
 }

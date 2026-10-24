@@ -24,7 +24,8 @@ export async function createPrivateTables(db,input){
   const sql=source.sql.replace(/CREATE TABLE (communication_voice_[a-z_]+)/g,'CREATE TABLE public.$1').replace(/REFERENCES communication_voice_tasks/g,'REFERENCES public.communication_voice_tasks');
   await db.query(sql);
  }
- for(const name of names)await db.query('REVOKE ALL ON TABLE public.'+name+' FROM PUBLIC');
+ // New tables must already have owner-only default access. Unexpected ACLs
+ // cause rollback below; no provider-managed GRANT/REVOKE commands are needed.
 }
 export async function privateAcl(db){
  for(const name of names){const rows=(await db.query(`SELECT 1 FROM pg_class c CROSS JOIN LATERAL aclexplode(COALESCE(c.relacl,acldefault('r',c.relowner))) a WHERE c.oid=to_regclass($1) AND a.grantee<>c.relowner LIMIT 1`,['public.'+name])).rows;if(rows.length)throw Error('Unexpected table access preserved');}
@@ -47,7 +48,10 @@ async function main(){
    const url=new URL(process.env.PRODUCTION_DATABASE_URL??'');
    if(!['postgres:','postgresql:'].includes(url.protocol)||url.hostname!=='pooled.db.prisma.io'||url.pathname!=='/postgres'||!/^[a-z0-9_]+$/.test(pin.schema)||pin.sqliteFallback!==false)throw Error('Pinned target required');
    if(mode!=='--verify'&&process.env.VOICE_IDENTITY_SCHEMA_APPLY!=='1')throw Error('Migration opt-in required');
-   options={host:url.hostname,port:Number(url.port||5432),database:'postgres',user:decodeURIComponent(url.username),password:decodeURIComponent(url.password),ssl:{rejectUnauthorized:true}};
+   const targetHost=mode==='--verify'?url.hostname:'db.prisma.io';
+   if(pin.voiceIdentitySchemaMigration?.directHost!=='db.prisma.io'||pin.voiceIdentitySchemaMigration?.runtimeHost!==url.hostname||pin.voiceIdentitySchemaMigration?.database!=='postgres'||JSON.stringify(pin.voiceIdentitySchemaMigration?.tables)!==JSON.stringify(names))throw Error('Pinned migration target required');
+   report.connectionMode=mode==='--verify'?'pooled-read-only':'direct-migration';
+   options={host:targetHost,port:Number(url.port||5432),database:'postgres',user:decodeURIComponent(url.username),password:decodeURIComponent(url.password),ssl:{rejectUnauthorized:true}};
   }
   report.stage='reference-validation';
   const reference=fixture?null:JSON.parse(await readFile('test-results/voice-identity-schema/reference.json','utf8'));
@@ -66,6 +70,9 @@ async function main(){
    if(fixture&&present!==0)throw Error('Fresh isolated schema required');
    if(present===0){
     if(mode==='--verify')throw Error('Schema not deployed');
+    report.stage='schema-create-permission';
+    report.schemaCreateAllowed=(await db.query("SELECT has_schema_privilege(current_user,'public','CREATE') AS allowed")).rows[0]?.allowed===true;
+    if(!report.schemaCreateAllowed)throw Error('Migration role lacks schema CREATE');
     report.stage='schema-create';
     await createPrivateTables(db,input);report.schemaChanges=true;
    }
@@ -80,7 +87,7 @@ async function main(){
    else {await db.query('COMMIT');committed=true;}
    report.stage='complete';report.status=fixture?'reference_created':mode==='--apply'?'schema_applied_or_verified':mode==='--dry-run'?'dry_run_rolled_back':'schema_independently_verified';
   }finally{if(!committed)await db.query('ROLLBACK');db.release();}
- }catch(error){if(typeof error?.code==='string'&&/^[A-Z0-9]{5}$/.test(error.code))report.databaseErrorCode=error.code;const reasons=['Tested source reference required','Partial schema preserved','Existing schema differs; preserve and reconcile','Unexpected table access preserved','Manifest mismatch','Schema not deployed'];if(reasons.includes(error?.message))report.reason=error.message;report.status='schema_migration_failed_preserving_existing_data';process.exitCode=1;}
+ }catch(error){if(typeof error?.code==='string'&&/^[A-Z0-9]{5}$/.test(error.code))report.databaseErrorCode=error.code;const reasons=['Tested source reference required','Partial schema preserved','Existing schema differs; preserve and reconcile','Unexpected table access preserved','Manifest mismatch','Schema not deployed','Migration role lacks schema CREATE'];if(reasons.includes(error?.message))report.reason=error.message;report.status='schema_migration_failed_preserving_existing_data';process.exitCode=1;}
  finally{await pool?.end();}
  await mkdir('test-results/voice-identity-schema',{recursive:true});await writeFile('test-results/voice-identity-schema/'+(fixture?'reference-report':mode.slice(2))+'.json',JSON.stringify(report,null,2)+'\n');console.log('VOICE_IDENTITY_SCHEMA '+JSON.stringify(report));
 }
