@@ -7,7 +7,7 @@ import '../../communications/unavailable_configuration_screen.dart';
 // Preserve the compatibility provider, but never fabricate an API or success.
 final integration_health_monitorDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   throw UnimplementedGovernanceException('integration_health_monitor', 'provider configuration');
-});
+}, retry: (_, __) => null);
 
 class IntegrationHealthMonitorScreen extends UnavailableConfigurationScreen {
   const IntegrationHealthMonitorScreen({super.key}) : super(screenCode: 'integration_health_monitor');

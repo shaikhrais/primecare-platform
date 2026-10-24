@@ -15,7 +15,12 @@ void main() {
     final container = ProviderContainer();
     addTearDown(container.dispose);
     for (final provider in [cto_integrationsDataProvider, integration_health_monitorDataProvider]) {
-      await expectLater(container.read(provider.future), throwsA(isA<UnimplementedGovernanceException>()));
+      final subscription = container.listen(provider, (_, __) {});
+      try {
+        await expectLater(container.read(provider.future), throwsA(isA<UnimplementedGovernanceException>()));
+      } finally {
+        subscription.close();
+      }
     }
   });
 
@@ -26,7 +31,7 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
       final semantics = tester.ensureSemantics();
-      addTearDown(semantics.dispose);
+      try {
       for (final screen in [const CtoIntegrationsScreen(), const IntegrationHealthMonitorScreen()]) {
         expect(screen, isA<UnavailableConfigurationScreen>());
         await tester.pumpWidget(ProviderScope(child: PrimeTheme(data: const PrimeThemeData(),
@@ -41,6 +46,9 @@ void main() {
         expect(find.byType(ElevatedButton), findsNothing);
         expect(find.byType(TextField), findsNothing);
         expect(tester.takeException(), isNull);
+      }
+      } finally {
+        semantics.dispose();
       }
     });
   }

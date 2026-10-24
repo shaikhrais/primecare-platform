@@ -7,7 +7,7 @@ import '../../communications/unavailable_configuration_screen.dart';
 // Preserve the compatibility provider, but never fabricate an API or success.
 final cto_integrationsDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   throw UnimplementedGovernanceException('cto_integrations', 'provider configuration');
-});
+}, retry: (_, __) => null);
 
 class CtoIntegrationsScreen extends UnavailableConfigurationScreen {
   const CtoIntegrationsScreen({super.key}) : super(screenCode: 'cto_integrations');
