@@ -29,7 +29,7 @@ The voice-runtime-readiness workflow checks these exact deployment input names:
 | Storage | Names |
 | --- | --- |
 | Production secrets | PRODUCTION_DATABASE_URL, CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID |
-| Provider secrets | TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_API_KEY_SID, TWILIO_API_KEY_SECRET, TWILIO_VERIFY_SERVICE_SID, TWILIO_APPLICATION_SID |
+| Provider secrets | TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_API_KEY_SID, TWILIO_API_KEY_SECRET, TWILIO_VERIFY_SERVICE_SID, TWILIO_APPLICATION_SID, TWILIO_MESSAGING_SERVICE_SID |
 | Model secret | OPENAI_API_KEY |
 | Production variables | VOICE_MODEL, VOICE_ORIGIN |
 
@@ -46,6 +46,18 @@ complete host, test provider signatures and verified sessions through that host,
 then connect 2223 and test real calling, reception and voicemail. A successful
 request-task result is not a confirmed clinical booking.
 
-Local validation: 44 tests passed with no skips across voice runtime, configuration
-redaction, agent start, OpenAI relay and relay session suites. Strict TypeScript
-checking passed. GitHub CI and live phone verification are separate evidence.
+`createPostgresTwilioVoiceWorker` now composes that router with the existing
+PostgreSQL token/directory, private voicemail, signed OTP pairing, independently
+confirmed reception tasks and OpenAI relay factories. Signing URLs must equal
+the registered host paths. Host policies and task APIs remain mandatory. No
+production mount or key provisioning is performed by this composition.
+
+Local validation: 48 tests passed with no skips across voice runtime, complete
+composition, configuration redaction, agent start, OpenAI relay and relay session
+suites. Strict TypeScript checking passed. GitHub CI and live phone verification
+are separate evidence.
+
+The first configuration check (run 40110468098) found only the production database
+and Cloudflare inputs present. Twilio credentials, OpenAI key, model and origin
+were unavailable under the expected names. Do not claim endpoint readiness or
+replace the temporary message based on the passing runtime test job.
