@@ -49,7 +49,7 @@ try {
  const staff=await (await call('',tokens[1])).json();assert.equal(staff.overview.activeAccounts,1);assert.deepEqual(staff.inventory.map(p=>p.code),staff.screens.map(p=>p.code));passed++;
  // Resolve every catalog role from the native user row, never a caller-supplied
  // role/tenant. This fixture changes one synthetic account between read checks.
- const roles=Object.keys(registry.permissions),counts=async()=>Object.fromEntries(await Promise.all(
+ const roles=[...new Set([...Object.keys(registry.permissions),...registry.screens.flatMap(screen=>screen.grants.filter(grant=>grant.view===1).map(grant=>grant.role))])].sort(),counts=async()=>Object.fromEntries(await Promise.all(
   ['users','auth_sessions','auth_account_audit','tenant_configuration_audit'].map(async table=>[table,(await db.query(`SELECT COUNT(*)::int AS n FROM ${table}`)).rows[0].n])));
  const beforeRoleReads=await counts();
  try{
@@ -58,8 +58,9 @@ try {
    const read=await call();assert.equal(read.status,200,role);const current=await read.json();
    const expected=registry.screens.filter(s=>s.renderer!=='account'&&s.grants.some(g=>g.role===role&&g.view===1)).map(s=>s.code).sort();
    assert.equal(current.identity.role,role);assert.deepEqual(current.screens.map(s=>s.code).sort(),expected,role);
-   assert.equal(current.overview.scope,registry.permissions[role].organization?'organization':'personal');
-   assert.equal(current.overview.activeAccounts,registry.permissions[role].organization?2:1);
+   const organization=registry.permissions[role]?.organization===true;
+   assert.equal(current.overview.scope,organization?'organization':'personal');
+   assert.equal(current.overview.activeAccounts,organization?2:1);
    const forbidden=registry.screens.find(s=>s.renderer!=='account'&&!expected.includes(s.code));
    if(forbidden)assert.equal((await call('?screen='+encodeURIComponent(forbidden.code))).status,403,role+' foreign page');
    assert.equal((await call('',tokens[0],{'x-tenant-id':otherTenant})).status,403,role+' forged tenant');
