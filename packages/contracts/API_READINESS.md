@@ -1,5 +1,12 @@
 # Governed API inventory
 
+For the typed communication/voice subset, use
+[`communications.openapi.json`](communications.openapi.json) and
+[`COMMUNICATION_API.md`](COMMUNICATION_API.md). That separate contract covers
+28 exact registered operations with schemas, transport and security definitions.
+It does not certify deployment or provide unimplemented Vapi appointment tools.
+The inventory described below remains deliberately draft.
+
 Run `npm run api:spec` from the repository root to generate `openapi.json` and
 `api-readiness.json`. Python 3 and Node.js are required; no third-party Python
 dependencies are needed. The database is opened read-only.

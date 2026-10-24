@@ -29,7 +29,9 @@
     "pdm:pulse": "python scripts/pdm/pdm_engine.py && python scripts/pdm/pdm_advanced_report.py && tsx packages/database/pdm_cloud_sync.ts",
     "cypress:open": "cypress open --project .",
     "cypress:run": "cypress run --project .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "api:spec:communications": "node scripts/export-communication-openapi.mjs",
+    "api:check:communications": "node scripts/export-communication-openapi.mjs --check && node --test scripts/test-communication-openapi.mjs"
   },
   "dependencies": {
     "@fastify/busboy": "^3.2.0",

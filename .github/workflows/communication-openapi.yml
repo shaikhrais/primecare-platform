@@ -1,0 +1,28 @@
+name: Validate typed communication OpenAPI
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/communication-openapi.yml'
+      - 'scripts/export-communication-openapi.mjs'
+      - 'scripts/test-communication-openapi.mjs'
+      - 'packages/contracts/communications.openapi.json'
+      - 'packages/shared/src/communications/registered-contracts.json'
+      - 'tools/governance-production/twilio-contracts-registration.json'
+      - 'packages/shared/src/communications/voice-native-http.mjs'
+      - 'cloudflare/workers/src/business-tasks/http.ts'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/openapi-tools" --ignore-scripts --no-audit --no-fund ajv@8.17.1 @redocly/openapi-core@1.34.14
+          ln -s "$RUNNER_TEMP/openapi-tools/node_modules" node_modules
+      - run: node --test scripts/test-communication-openapi.mjs
