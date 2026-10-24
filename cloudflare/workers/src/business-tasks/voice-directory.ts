@@ -37,7 +37,7 @@ export class PostgresVoiceDirectory implements TwilioExtensionDirectory,VoiceTok
  readonly pool:any;
  constructor(pool:any){if(typeof pool?.query!=='function'||typeof pool?.connect!=='function')throw Error('Voice directory database required');this.pool=pool;}
  async lookup(extension:string,limit:2){
-  if(!/^[1-9][0-9]{5}$/.test(extension)||limit!==2)throw Error('Invalid voice lookup');
+  if(!/^[1-9][0-9]{3}$/.test(extension)||limit!==2)throw Error('Invalid voice lookup');
   return (await this.pool.query(select+' WHERE v.extension=$1 LIMIT 2',[extension])).rows.map(snapshot);
  }
  async destinations(actor:Actor,limit:2){
@@ -72,7 +72,7 @@ export class PostgresVoiceDirectory implements TwilioExtensionDirectory,VoiceTok
   const existing=(await this.pool.query(select+' WHERE v.tenant_id=$1 AND v.user_id=$2 LIMIT 2',[actor.tenantId,userId])).rows;
   if(existing.length>1)throw Error('Ambiguous voice destination');
   const extension=existing.length?existing[0].extension:String((await this.pool.query("SELECT nextval('communication_voice_extension_seq') AS extension")).rows[0].extension);
-  if(!/^[1-9][0-9]{5}$/.test(extension))throw Error('Voice extension capacity exhausted');
+  if(!/^[1-9][0-9]{3}$/.test(extension))throw Error('Voice extension capacity exhausted');
   const proposed:DirectoryRow=existing.length?snapshot(existing[0]):{extension,tenantId:actor.tenantId,userId,published:false,active:true,tenantActive:true,userActive:true,version:1};
   // Policy adapters may need their own pool connection. Authorize the exact
   // proposal before acquiring transaction locks, then compare its version.

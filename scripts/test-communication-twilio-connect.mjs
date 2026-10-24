@@ -6,8 +6,8 @@ import {TwilioExtensionConnectService} from '../cloudflare/workers/src/business-
 import {twilioVoiceIdentity} from '../packages/shared/src/communications/twilio-voice.mjs';
 import {ScopedServiceBase} from '../packages/shared/src/communications/service-base.ts';
 const accountSid='AC'+'a'.repeat(32),callSid='CA'+'b'.repeat(32),authToken='c'.repeat(32),webhookUrl='https://fixture.invalid/voice/connect';
-const caller={extension:'100001',tenantId:'tenant-a',userId:'alice',published:true,active:true,userActive:true,tenantActive:true};
-const target={...caller,extension:'100002',userId:'bob'};
+const caller={extension:'1001',tenantId:'tenant-a',userId:'alice',published:true,active:true,userActive:true,tenantActive:true};
+const target={...caller,extension:'1002',userId:'bob'};
 const from='client:'+await twilioVoiceIdentity(caller);
 const input={callSid,from,callerExtension:caller.extension,targetExtension:target.extension};
 function fixture(voicemail){
@@ -46,7 +46,7 @@ test('signed adapter emits only the authorized SDK identity and fixed caller num
 });
 test('invalid signatures and repeated critical fields never reach connection service',async()=>{
  let calls=0;const handler=adapter({async connect(){calls++;return {identity:await twilioVoiceIdentity(target)};}});
- for(const req of [request({},'invalid'),request({CallerExtension:['100001','100002']}),request({TargetExtension:'+15550009999'}),request({From:['spoof',from]}),request({CallSid:'bad'})])assert.equal((await handler.respond(req)).status,403);assert.equal(calls,0);
+ for(const req of [request({},'invalid'),request({CallerExtension:['1001','1002']}),request({TargetExtension:'+15550009999'}),request({From:['spoof',from]}),request({CallSid:'bad'})])assert.equal((await handler.respond(req)).status,403);assert.equal(calls,0);
 });
 test('private provider and policy failures are generic unavailable responses',async()=>{
  const response=await adapter({async connect(){throw Error('secret');}}).respond(request());assert.equal(response.status,503);assert.doesNotMatch(await response.text(),/secret/);

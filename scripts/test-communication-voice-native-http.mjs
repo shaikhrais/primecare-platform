@@ -7,13 +7,13 @@ import {createHash} from 'node:crypto';
 const origin='https://app.example.invalid',hash='a'.repeat(64),actor={id:'alice',tenantId:'tenant-a'};
 const nativeToken='f'.repeat(43);
 const callSid='CA'+'b'.repeat(32),recordingSid='RE'+'c'.repeat(32),intentId='12345678-1234-4234-8234-123456789abc',digest='d'.repeat(64);
-const extension={extension:'100002',tenantId:'tenant-a',userId:'bob',published:false,active:true,tenantActive:true,userActive:true,version:1};
+const extension={extension:'1002',tenantId:'tenant-a',userId:'bob',published:false,active:true,tenantActive:true,userActive:true,version:1};
 const wav=new Uint8Array(16);wav.set(new TextEncoder().encode('RIFF'));wav.set(new TextEncoder().encode('WAVE'),8);
 const commands=[['token','/v1/voice/token',{}],['extension.assign','/v1/voice/extensions/assign',{userId:'bob'}],['extension.publish','/v1/voice/extensions/publish',{userId:'bob',version:1,published:true}],['voicemail.read','/v1/voice/voicemail/read',{recordingSid}],['voicemail.audio','/v1/voice/voicemail/audio',{recordingSid}],['otp.start','/v1/voice/otp/start',{callSid,pairingCode:'12345678'}],['otp.check','/v1/voice/otp/check',{callSid,code:'123456'}],['task.preview','/v1/voice/tasks/preview',{intentId}],['task.approve','/v1/voice/tasks/approve',{intentId,digest}]];
 function fixture(){
  const calls=[],grants=[];let current={actor:{...actor},sessionHash:hash,expiresAt:Date.now()+60000},denied=false,afterService=()=>{};
  const invoke=(key,result)=>async(...args)=>{calls.push({key,args});afterService();return structuredClone(result);};
- const services={tokens:{issue:invoke('token',{token:'fixture-sdk-token',identity:'fixture-identity',ttlSeconds:60})},extensions:{assign:invoke('extension.assign',extension),publish:invoke('extension.publish',{...extension,published:true,version:2})},voicemail:{read:invoke('voicemail.read',{recordingSid,callSid,extension:'100002'}),audio:invoke('voicemail.audio',{bytes:wav,contentType:'audio/wav'})},audio:{async download(){throw Error('Service owns download');}},otp:{start:invoke('otp.start',{verificationRequested:true}),check:invoke('otp.check',{verified:true})},confirmations:{preview:invoke('task.preview',{intentId,summary:'Exact request',digest,expiresAt:Date.now()+60000}),approve:invoke('task.approve',{approved:true,expiresAt:Date.now()+60000})}};
+ const services={tokens:{issue:invoke('token',{token:'fixture-sdk-token',identity:'fixture-identity',ttlSeconds:60})},extensions:{assign:invoke('extension.assign',extension),publish:invoke('extension.publish',{...extension,published:true,version:2})},voicemail:{read:invoke('voicemail.read',{recordingSid,callSid,extension:'1002'}),audio:invoke('voicemail.audio',{bytes:wav,contentType:'audio/wav'})},audio:{async download(){throw Error('Service owns download');}},otp:{start:invoke('otp.start',{verificationRequested:true}),check:invoke('otp.check',{verified:true})},confirmations:{preview:invoke('task.preview',{intentId,summary:'Exact request',digest,expiresAt:Date.now()+60000}),approve:invoke('task.approve',{approved:true,expiresAt:Date.now()+60000})}};
  const options={origin,maxRequestBytes:2048,maxAudioBytes:1024,async authenticate(){if(!current)throw new NativeVoiceHttpError(401);return current;},async authorize(session,key){grants.push(key);if(denied)throw new NativeVoiceHttpError(403);},services};
  return {options,services,calls,grants,adapter:new NativeVoiceHttpAdapter(options),logout(){current=null;},change(){current.actor.id='mallory';},deny(){denied=true;},after(fn){afterService=fn;}};
 }
@@ -61,6 +61,10 @@ test('invalid private audio is a generic server failure, never a caller error or
   const f=fixture();f.services.voicemail.audio=async()=>result;const response=await new NativeVoiceHttpAdapter(f.options).respond(request(commands[4][1],commands[4][2]));assert.equal(response.status,503);assert.equal(response.headers.get('content-type'),'application/json');
  }
 });
+test('registered native response schemas reject a legacy six-digit assignment',async()=>{
+ const f=fixture();f.services.extensions.assign=async()=>({...extension,extension:'100001'});
+ const response=await new NativeVoiceHttpAdapter(f.options).respond(request(commands[1][1],commands[1][2]));assert.equal(response.status,503);assert.doesNotMatch(await response.text(),/100001/);
+});
 test('service JSON and audio buffers are owned before final authorization suspends',async()=>{
  for(const audio of [false,true]){const f=fixture();let reads=0;const bytes=wav.slice(),result={token:'original-token',identity:'original-user',ttlSeconds:60};
   f.services.tokens.issue=async()=>result;f.services.voicemail.audio=async()=>({bytes,contentType:'audio/wav'});
@@ -100,7 +104,7 @@ test('native HTTP token issuance reads current sessions and publication in dispo
  try{
   await admin.query('CREATE SCHEMA "'+schema+'"');pool=new pg.Pool({connectionString:process.env.TWILIO_SMS_TEST_DATABASE_URL,options:'-c search_path='+schema});
   await pool.query('CREATE TABLE tenants(id text PRIMARY KEY,status text);CREATE TABLE users(id text PRIMARY KEY,tenant_id text,status text);CREATE TABLE auth_sessions(token_hash text PRIMARY KEY,user_id text,expires_at timestamptz);CREATE TABLE communication_voice_extensions(extension text,tenant_id text,user_id text,published boolean,active boolean,version bigint)');
-  await pool.query("INSERT INTO tenants VALUES('tenant-a','active');INSERT INTO users VALUES('alice','tenant-a','active');INSERT INTO communication_voice_extensions VALUES('100002','tenant-a','alice',true,true,1)");
+  await pool.query("INSERT INTO tenants VALUES('tenant-a','active');INSERT INTO users VALUES('alice','tenant-a','active');INSERT INTO communication_voice_extensions VALUES('1002','tenant-a','alice',true,true,1)");
   await pool.query("INSERT INTO auth_sessions VALUES($1,'alice',NOW()+interval '5 minutes')",[createHash('sha256').update(nativeToken).digest('hex')]);
   const f=fixture();let allowed=true;
   const tokens=new TwilioVoiceTokenService({run(){throw Error('Unused');},read(){throw Error('Unused');},inbox(){throw Error('Unused');}},{async assert(){if(!allowed)throw Error('Denied');},async assignee(){throw Error('Unused');}},new PostgresVoiceDirectory(pool),{accountSid:'AC'+'a'.repeat(32),apiKeySid:'SK'+'b'.repeat(32),apiKeySecret:'c'.repeat(32),applicationSid:'AP'+'d'.repeat(32),ttlSeconds:60});

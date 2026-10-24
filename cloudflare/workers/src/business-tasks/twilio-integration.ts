@@ -47,7 +47,7 @@ export function createTwilioCommunicationServices(dependencies:{
  pool:any;policy:AccessPolicy;recipients:SmsRecipientPolicy;
  voiceDirectory:TwilioExtensionDirectory;tokenDirectory:VoiceTokenDirectory;
  providerPrincipal:string;
- configuration:{accountSid:string;authToken:string;apiKeySid:string;apiKeySecret:string;applicationSid:string;messagingServiceSid:string;sharedNumber:string;numberVerified:true;receptionExtension?:string;incomingUrl:string;gatherUrl:string;statusCallback:string;maxWebhookBytes:number;maxTextBytes:number;tokenTtlSeconds:number};
+ configuration:{accountSid:string;authToken:string;apiKeySid:string;apiKeySecret:string;applicationSid:string;messagingServiceSid:string;sharedNumber:string;numberVerified:true;receptionExtension?:string;aiPairingUrl?:string;incomingUrl:string;gatherUrl:string;statusCallback:string;maxWebhookBytes:number;maxTextBytes:number;tokenTtlSeconds:number};
  httpClient?:Parameters<typeof createTwilioSmsClient>[0]['httpClient'];
 }){
  const {configuration:c}=dependencies;
@@ -59,7 +59,7 @@ export function createTwilioCommunicationServices(dependencies:{
  const sms=new SmsNotificationService(store,dependencies.policy,dependencies.recipients,transport,{sender:c.sharedNumber,accountSid:c.accountSid,messagingServiceSid:c.messagingServiceSid,maxTextBytes:c.maxTextBytes});
  const observations=new PostgresSmsObservationStore(dependencies.pool,sms,dependencies.providerPrincipal);
  const smsStatus=new TwilioSmsStatusAdapter({accountSid:c.accountSid,authToken:c.authToken,webhookUrl:c.statusCallback,maxWebhookBytes:c.maxWebhookBytes,store:observations,messagingServiceSid:c.messagingServiceSid,sender:c.sharedNumber});
- const voice=new TwilioVoiceExtensionAdapter({accountSid:c.accountSid,authToken:c.authToken,sharedNumber:c.sharedNumber,numberVerified:c.numberVerified,receptionExtension:c.receptionExtension,incomingUrl:c.incomingUrl,gatherUrl:c.gatherUrl,directory:dependencies.voiceDirectory,maxWebhookBytes:c.maxWebhookBytes});
+ const voice=new TwilioVoiceExtensionAdapter({accountSid:c.accountSid,authToken:c.authToken,sharedNumber:c.sharedNumber,numberVerified:c.numberVerified,receptionExtension:c.receptionExtension,aiPairingUrl:c.aiPairingUrl,incomingUrl:c.incomingUrl,gatherUrl:c.gatherUrl,directory:dependencies.voiceDirectory,maxWebhookBytes:c.maxWebhookBytes});
  const voiceTokens=new TwilioVoiceTokenService(store,dependencies.policy,dependencies.tokenDirectory,{accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,applicationSid:c.applicationSid,ttlSeconds:c.tokenTtlSeconds});
  return Object.freeze({sms,smsStatus,observations,voice,voiceTokens});
 }
@@ -95,7 +95,7 @@ export function createPostgresTwilioVoicemailServices(dependencies:Pick<Paramete
  if(new Set(urls.map(u=>u.href)).size!==6||new Set(urls.map(u=>u.origin)).size!==1)throw Error('Distinct same-origin provider handlers required');
  const directory=new PostgresVoiceDirectory(dependencies.pool),repository=new PostgresVoicemailRepository(dependencies.pool);
  const voicemail=new VoicemailService(new PostgresAtomicStore(dependencies.pool,'business_sms'),dependencies.policy,repository,{directory,recordings:createTwilioRecordingVerifier({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,httpClient:dependencies.httpClient}),mailboxes:dependencies.mailboxes,notifications:new BusinessMailVoicemailNotifier(dependencies.mail)},{accountSid:c.accountSid,providerPrincipal:dependencies.providerPrincipal,playbackBaseUrl:dependencies.playbackBaseUrl});
- const voice=new TwilioVoiceExtensionAdapter({accountSid:c.accountSid,authToken:c.authToken,sharedNumber:c.sharedNumber,numberVerified:c.numberVerified,receptionExtension:c.receptionExtension,incomingUrl:c.incomingUrl,gatherUrl:c.gatherUrl,directory,maxWebhookBytes:c.maxWebhookBytes,voicemail,dialCompleteUrl:dependencies.dialCompleteUrl});
+ const voice=new TwilioVoiceExtensionAdapter({accountSid:c.accountSid,authToken:c.authToken,sharedNumber:c.sharedNumber,numberVerified:c.numberVerified,receptionExtension:c.receptionExtension,aiPairingUrl:c.aiPairingUrl,incomingUrl:c.incomingUrl,gatherUrl:c.gatherUrl,directory,maxWebhookBytes:c.maxWebhookBytes,voicemail,dialCompleteUrl:dependencies.dialCompleteUrl});
  const callbacksAdapter=new TwilioVoicemailAdapter({accountSid:c.accountSid,authToken:c.authToken,maxWebhookBytes:c.maxWebhookBytes,...callbacks,service:voicemail});
  const audio=new TwilioVoicemailAudioAdapter({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,maxAudioBytes:dependencies.maxAudioBytes,fetch:dependencies.fetch});
  return Object.freeze({voice,voicemail,callbacks:callbacksAdapter,audio});

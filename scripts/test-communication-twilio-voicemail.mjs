@@ -5,7 +5,7 @@ import {VoicemailService,BusinessMailVoicemailNotifier} from '../cloudflare/work
 import {TwilioVoiceExtensionAdapter} from '../packages/shared/src/communications/twilio-voice.mjs';
 const accountSid='AC'+'a'.repeat(32),authToken='b'.repeat(32),callSid='CA'+'c'.repeat(32),recordingSid='RE'+'d'.repeat(32);
 const urls={dialCompleteUrl:'https://fixture.invalid/dial-complete',recordActionUrl:'https://fixture.invalid/record-action',recordingStatusUrl:'https://fixture.invalid/record-status'};
-const destination={extension:'100001',tenantId:'tenant-a',userId:'alice',active:true,published:true,userActive:true,tenantActive:true};
+const destination={extension:'1001',tenantId:'tenant-a',userId:'alice',active:true,published:true,userActive:true,tenantActive:true};
 function fixture(){
  const routes=new Map(),notices=new Map();let denied=false;const row={...destination},recording={sid:recordingSid,accountSid,callSid,status:'completed',source:'RecordVerb',duration:15};
  const mailbox={email:'alice@example.com',verified:true,active:true};let record=null,queued=false;
@@ -46,7 +46,7 @@ test('owner-only playback repeats authorization after private download',async()=
 test('inbound extension saves exact destination before Dial action is enabled',async()=>{
  const prepared=[];const incomingUrl='https://fixture.invalid/incoming',gatherUrl='https://fixture.invalid/gather';
  const adapter=new TwilioVoiceExtensionAdapter({accountSid,authToken,sharedNumber:'+15550001000',numberVerified:true,incomingUrl,gatherUrl,maxWebhookBytes:4096,directory:{async lookup(){return [destination];}},voicemail:{async prepare(r){prepared.push(r);}},dialCompleteUrl:urls.dialCompleteUrl});
- const response=await adapter.respond(request(gatherUrl,{To:'+15550001000',Direction:'inbound',Digits:'100001'}));assert.equal(response.status,200);assert.match(await response.text(),/action="https:\/\/fixture.invalid\/dial-complete"/);assert.equal(prepared[0].callSid,callSid);assert.equal(prepared[0].destination.userId,'alice');
+ const response=await adapter.respond(request(gatherUrl,{To:'+15550001000',Direction:'inbound',Digits:'1001'}));assert.equal(response.status,200);assert.match(await response.text(),/action="https:\/\/fixture.invalid\/dial-complete"/);assert.equal(prepared[0].callSid,callSid);assert.equal(prepared[0].destination.userId,'alice');
 });
 test('inbound voicemail reservation cannot dial a destination revoked or reassigned while waiting',async()=>{
  for(const change of [{published:false},{userId:'another'},{tenantId:'other'},

@@ -4,7 +4,7 @@ import {VoiceExtensionService,PostgresVoiceDirectory} from '../cloudflare/worker
 import {ScopedServiceBase} from '../packages/shared/src/communications/service-base.ts';
 import {PostgresCommunicationAccessPolicy} from '../cloudflare/workers/src/business-tasks/access-policy.ts';
 const actor={id:'admin',tenantId:'tenant-a'},target='user-a';
-const row=()=>({extension:'100001',tenantId:actor.tenantId,userId:target,published:false,active:true,tenantActive:true,userActive:true,version:1});
+const row=()=>({extension:'1001',tenantId:actor.tenantId,userId:target,published:false,active:true,tenantActive:true,userActive:true,version:1});
 const atomic={run(){throw Error('Unused');},read(){throw Error('Unused');},inbox(){throw Error('Unused');}};
 function fixture({change={},authorize=async()=>{},assignee=async()=>{}}={}){
  const calls=[];let committed=false;
@@ -41,7 +41,7 @@ test('session lookup handles ambiguity and filters current active membership in 
 });
 test('invalid extension and lookup limit never reach database',async()=>{
  const directory=new PostgresVoiceDirectory({query(){assert.fail('Unexpected query');},connect(){}});
- await assert.rejects(directory.lookup('000000',2));await assert.rejects(directory.lookup('100001',1));await assert.rejects(directory.destinations({id:target,tenantId:'tenant-a'},1));
+ await assert.rejects(directory.lookup('000000',2));await assert.rejects(directory.lookup('1001',1));await assert.rejects(directory.destinations({id:target,tenantId:'tenant-a'},1));
 });
 test('current native policy cannot silently activate unregistered Twilio actions',async()=>{
  const policy=new PostgresCommunicationAccessPolicy({connect(){assert.fail('Unregistered action queried live storage');}});

@@ -581,7 +581,7 @@
     "policyIds": [
       "communication-twilio-voice-v1"
     ],
-    "definitionSha256": "1a1ad465e2f0bcc91d1d03240805f631219c50c3696009aa573ff417ba07ffe7",
+    "definitionSha256": "9ec23508a507bf9e33072609f8f3ed41be60737377b47eaf9c9169834a7949d9",
     "schemaChanges": false,
     "businessDataWrites": false,
     "permissionChanges": false,
@@ -701,7 +701,7 @@
         "path": "/v1/voice/voicemail/read"
       }
     ],
-    "definitionSha256": "803ee241af0c61f5117578bc0e52f9413c10bea6e631c21acc584005ceea3bd7",
+    "definitionSha256": "c9c89aaf0ecceaf675ba3cd00b7114ef27bfb17ba6e8a21522c1af45eba95a8b",
     "schemaChanges": false,
     "businessDataWrites": false,
     "permissionChanges": false,

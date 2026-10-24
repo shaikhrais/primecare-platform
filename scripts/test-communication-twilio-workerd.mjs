@@ -28,7 +28,7 @@ import {NativeVoiceHttpAdapter,NativeVoiceHttpError} from './packages/shared/src
 const config=${JSON.stringify(config)};
 export default {async fetch(request){
  let queries=0;const mode=request.headers.get('x-test-mode');
- const row={extension:'100001',tenantId:'tenant-a',userId:'user-a',published:true,active:true,tenantActive:true,userActive:true};
+ const row={extension:'1001',tenantId:'tenant-a',userId:'user-a',published:true,active:true,tenantActive:true,userActive:true};
  if(mode==='native-http'||mode==='native-http-denied'){
   const unused=async()=>{throw Error('Unused fixture service');};
   const token=new TwilioVoiceTokenService({run:unused,read:unused,inbox:unused},{async assert(){},assignee:unused},{async currentSession(id){return {id,userId:row.userId,tenantId:row.tenantId,expiresAt:Date.now()+600000,active:true};},async destinations(){return [row];}},{accountSid:config.accountSid,apiKeySid:'SK'+'d'.repeat(32),apiKeySecret:'e'.repeat(32),applicationSid:'AP'+'f'.repeat(32),ttlSeconds:300});
@@ -67,7 +67,7 @@ export default {async fetch(request){
  if(mode==='connect'||mode==='connect-denied'){
   const from='client:'+await twilioVoiceIdentity(row);
   const verifier=createTwilioVoiceCallVerifier({accountSid:config.accountSid,apiKeySid:'SK'+'d'.repeat(32),apiKeySecret:'e'.repeat(32),httpClient:{async request(){return {statusCode:200,headers:{},body:JSON.stringify({sid:'CA'+'c'.repeat(32),account_sid:config.accountSid,from,direction:'inbound',status:'in-progress'})};}}});
-  const service=new TwilioExtensionConnectService({run(){throw Error('write');},read(){throw Error('read');},inbox(){throw Error('inbox');}},{async assert(){if(mode==='connect-denied')throw Error('denied');},async assignee(){throw Error('grant');}},{async lookup(extension){return [{...row,extension,userId:extension==='100001'?'user-a':'user-b'}];}},verifier,config.accountSid);
+  const service=new TwilioExtensionConnectService({run(){throw Error('write');},read(){throw Error('read');},inbox(){throw Error('inbox');}},{async assert(){if(mode==='connect-denied')throw Error('denied');},async assignee(){throw Error('grant');}},{async lookup(extension){return [{...row,extension,userId:extension==='1001'?'user-a':'user-b'}];}},verifier,config.accountSid);
   return new TwilioExtensionConnectAdapter({...config,webhookUrl:config.incomingUrl,service}).respond(request);
  }
  if(mode==='sms'||mode==='sms-store-error'){
@@ -81,13 +81,13 @@ export default {async fetch(request){
   const service=new TwilioVoiceTokenService({run(){throw Error('write');},read(){throw Error('read');},inbox(){throw Error('inbox');}},{async assert(){if(mode==='token-denied')throw Error('denied');},async assignee(){throw Error('grant');}},{async currentSession(id){return {id,userId:row.userId,tenantId:row.tenantId,expiresAt:Date.now()+600000,active:true};},async destinations(){return [row];}},{accountSid:config.accountSid,apiKeySid:'SK'+'d'.repeat(32),apiKeySecret:'e'.repeat(32),applicationSid:'AP'+'f'.repeat(32),ttlSeconds:300});
   try{return Response.json(await service.issue('fixture-session'));}catch{return new Response(null,{status:403});}
  }
- const adapter=new TwilioVoiceExtensionAdapter({...config,...(mode==='reception'?{receptionExtension:'100099'}:{}),directory:{async lookup(extension){queries++;if(mode==='reception')return extension==='100099'?[{...row,extension:'100099',userId:'receptionist'}]:[];if(mode==='unknown'||mode==='revoked'&&queries>1)return [];return mode==='duplicate'?[row,row]:[row];}}});
+ const adapter=new TwilioVoiceExtensionAdapter({...config,...(['reception','ai-menu'].includes(mode)?{receptionExtension:'1099'}:{}),...(mode==='ai-menu'?{aiPairingUrl:'https://fixture.invalid/pair'}:{}),directory:{async lookup(extension){queries++;if(['reception','ai-menu'].includes(mode))return extension==='1099'?[{...row,extension:'1099',userId:'receptionist'}]:[];if(mode==='unknown'||mode==='revoked'&&queries>1)return [];return mode==='duplicate'?[row,row]:[row];}}});
  const response=await adapter.respond(request);response.headers.set('x-test-queries',String(queries));return response;
 }};`,resolveDir:process.cwd()},bundle:true,format:'esm',platform:'neutral',mainFields:['module','main'],external:['node:*',...builtin],banner:{js:'import {createRequire} from "node:module";const require=createRequire("/worker.js");'},write:false});
 const runtime=new Miniflare({modules:true,script:bundle.outputFiles[0].text,compatibilityDate:'2026-07-30',compatibilityFlags:['nodejs_compat']});let checks=0;
 async function send({stage='extension',params={},signature,mode,body}={}){
  const url=stage==='incoming'?config.incomingUrl:config.gatherUrl;
- const values={AccountSid:config.accountSid,CallSid:'CA'+'c'.repeat(32),To:config.sharedNumber,Direction:'inbound',...(stage==='extension'?{Digits:'100001'}:{}),...params};
+ const values={AccountSid:config.accountSid,CallSid:'CA'+'c'.repeat(32),To:config.sharedNumber,Direction:'inbound',...(stage==='extension'?{Digits:'1001'}:{}),...params};
  return runtime.dispatchFetch(url,{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','x-twilio-signature':signature??getExpectedTwilioSignature(config.authToken,url,values),...(mode?{'x-test-mode':mode}:{})},body:body??new URLSearchParams(values).toString()});
 }
 try{
@@ -111,7 +111,7 @@ try{
  assert.equal((await sms('sms','forged')).status,403);checks++;
  assert.equal((await sms('sms-store-error')).status,503);checks++;
  const smsSend=await (await send({mode:'sms-send'})).json();assert.equal(smsSend.receipt.status,'queued');assert.deepEqual(smsSend.projection,{status:'delivered',delivered:true});checks++;
- const connectParams={From:'client:'+await twilioVoiceIdentity({tenantId:'tenant-a',userId:'user-a'}),CallerExtension:'100001',TargetExtension:'100002'};
+ const connectParams={From:'client:'+await twilioVoiceIdentity({tenantId:'tenant-a',userId:'user-a'}),CallerExtension:'1001',TargetExtension:'1002'};
  const connected=await send({stage:'incoming',mode:'connect',params:connectParams});assert.equal(connected.status,200);assert.match(await connected.text(),/<Identity>primecare_[a-f0-9]{64}<\/Identity>/);checks++;
  assert.equal((await send({stage:'incoming',mode:'connect-denied',params:connectParams})).status,503);checks++;
  const vm=await send({stage:'incoming',mode:'voicemail',params:{DialCallStatus:'no-answer'}});assert.equal(vm.status,200);assert.match(await vm.text(),/<Record[^>]*maxLength="120"/);checks++;
@@ -119,6 +119,9 @@ try{
  const vmUrl='https://fixture.invalid/record-status',vmParams={AccountSid:config.accountSid,CallSid:'CA'+'c'.repeat(32),RecordingSid:'RE'+'d'.repeat(32),RecordingDuration:'15',RecordingStatus:'completed'};
  const savedVm=await runtime.dispatchFetch(vmUrl,{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','x-test-mode':'voicemail','x-twilio-signature':getExpectedTwilioSignature(config.authToken,vmUrl,vmParams)},body:new URLSearchParams(vmParams).toString()});assert.equal(savedVm.status,204);checks++;
  const reception=await send({mode:'reception',params:{Digits:'0'}});assert.equal(reception.status,200);assert.match(await reception.text(),/<Dial/);checks++;
+ const menuPrompt=await(await send({stage:'incoming',mode:'ai-menu'})).text();assert.match(menuPrompt,/numDigits="4"/);assert.match(menuPrompt,/one followed by pound/);checks++;
+ const aiMenu=await(await send({mode:'ai-menu',params:{Digits:'1'}})).text();assert.match(aiMenu,/<Redirect method="POST">https:\/\/fixture.invalid\/pair<\/Redirect>/);assert.doesNotMatch(aiMenu,/<Dial|ConversationRelay/);checks++;
+ assert.match(await(await send({mode:'ai-menu',params:{Digits:'0'}})).text(),/<Dial/);checks++;
  const taskResult=await(await send({mode:'voice-task'})).json();assert.equal(taskResult.executions,1);assert.equal(taskResult.status,'completed');checks++;
  assert.equal((await send({mode:'voice-task-denied'})).status,403);checks++;
  const confirmationResult=await(await send({mode:'confirmation'})).json();assert.equal(confirmationResult.first.method,'app');assert.equal(confirmationResult.second,null);checks++;

@@ -2,7 +2,7 @@ import {ScopedServiceBase,type AtomicStore,type AccessPolicy} from '../../../../
 import {twilioVoiceIdentity,type TwilioExtensionDirectory,type PublishedVoiceDestination} from '../../../../packages/shared/src/communications/twilio-voice.mjs';
 export type VerifiedSdkCall={sid:string;accountSid:string;from:string;to?:string;direction:string;status:string};
 export interface VoiceCallVerifier {fetch(callSid:string):Promise<VerifiedSdkCall>}
-const extension=(value:unknown):value is string=>typeof value==='string'&&/^[1-9][0-9]{5}$/.test(value);
+const extension=(value:unknown):value is string=>typeof value==='string'&&/^[1-9][0-9]{3}$/.test(value);
 /** Resolves provider-authenticated calls to current native identities, never browser
  * actor/tenant overrides. Internal and unmounted until voice.call.connect is registered.
  */

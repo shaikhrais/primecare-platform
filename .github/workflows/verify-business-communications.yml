@@ -28,6 +28,8 @@ on:
       - 'tools/communication-route-bindings.py'
       - 'tools/communication-schema-validators.mjs'
       - 'tools/voice-schema-validators.mjs'
+      - 'packages/database/migrations/20261024_four_digit_voice_extensions.sql'
+      - 'scripts/test-communication-four-digit-migration.mjs'
       - 'scripts/test-communication-voice-native-http.mjs'
       - 'scripts/test-communication-schema-validator.mjs'
       - 'scripts/test-communication-validator-workerd.mjs'
@@ -135,6 +137,7 @@ jobs:
           TWILIO_SMS_TEST_DATABASE_URL: postgres://twilio_fixture:fixture_only@127.0.0.1:5432/twilio_sms_test
         run: |
           node scripts/test-communication-sms-postgres.mjs
+          node --test scripts/test-communication-four-digit-migration.mjs
           node --test scripts/test-communication-voice-native-http.mjs
           node --test scripts/test-communication-relay-postgres.mjs
           node --test scripts/test-communication-sales-quality.mjs

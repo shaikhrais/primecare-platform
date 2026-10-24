@@ -498,7 +498,11 @@ publication use distinct mandatory policy actions and target eligibility checks.
 `createPostgresTwilioCommunicationServices` composes these native directory ports
 with the SMS/voice services without mounting any endpoint.
 
-The candidate `20261023_voice_extensions.sql` uses a global 100000–999999 sequence,
+The historical `20261023_voice_extensions.sql` initializes the former six-digit sequence.
+The follow-up candidate `20261024_four_digit_voice_extensions.sql` changes an empty
+legacy directory to a global 1000–9999 sequence and preserves an existing four-digit
+sequence without resetting it. It refuses legacy records or edited constraints.
+The directory retains
 unique extension and tenant/user keys, and versioned explicit publication.
 Assignments start unpublished; there is no reassignment or delete operation.
 Publication is concurrency-checked. Native directory membership is locked and
@@ -534,8 +538,8 @@ builder. It is an internal provider adapter; no Twilio webhook is mounted.
 Supply a verified owned number, Account SID/Auth Token, exact HTTPS incoming and
 gather URLs, a byte limit and a trusted `directory.lookup(extension, 2)` port.
 The port must return current published tenant/user voice destinations, never an
-unscoped first-match search. Extensions are globally unique six-digit values
-100000–999999 behind the shared number. Unknown, duplicate, unpublished, inactive
+unscoped first-match search. Extensions are globally unique four-digit values
+1000–9999 behind the shared number. Unknown, duplicate, unpublished, inactive
 or changed destinations produce the same generic unavailable response. Tenant and
 user identities come exclusively from current directory matches, are copied
 before suspension and are rechecked before rendering Dial. SDK client identity
@@ -585,7 +589,7 @@ renders only the authorized Client identity with the fixed shared caller number.
 root; no endpoint or permission is mounted or registered by constructing it.
 
 The browser resource's `connect({callerExtension,targetExtension})` passes only
-six-digit extensions to the SDK. It allows one pending/active outgoing call,
+four-digit extensions to the SDK. It allows one pending/active outgoing call,
 removes ended-call listeners, and disconnects a late result after logout. The
 caller extension is a selector, not proof of caller identity. Server canonical
 Call verification and current native policy remain mandatory. Incoming host UI
@@ -668,7 +672,7 @@ acceptance.
 ### Reception and defined AI tasks (candidate, unmounted)
 
 An optional server-configured `receptionExtension` changes the initial prompt:
-enter a known six-digit extension, press zero then pound, or wait for reception.
+enter a known four-digit extension, press zero then pound, or wait for reception.
 Empty/zero/invalid/unknown extensions resolve that reception extension through the
 same unique published current directory and revocation checks as ordinary users.
 Duplicate critical form fields cannot choose reception or another tenant. There

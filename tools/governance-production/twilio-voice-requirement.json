@@ -1,19 +1,19 @@
 {
   "id": "communication-twilio-voice-v1",
-  "version": 1,
-  "requirement": "Use one configured platform-owned Twilio voice number across tenants, with globally unique six-digit extensions resolving only to explicitly published active tenant/user voice destinations. Reuse the inherited communication core and binary adapter boundary. Do not buy numbers, publish user extensions, grant permissions, or mount unregistered endpoints during contract registration.",
+  "version": 2,
+  "requirement": "Use one configured platform-owned Twilio voice number across tenants, with globally unique four-digit extensions resolving only to explicitly published active tenant/user voice destinations. Reuse the inherited communication core and binary adapter boundary. Do not buy numbers, publish user extensions, grant permissions, or mount unregistered endpoints during contract registration. Use menu 0 for configured reception and menu 1 for the configured verified AI pairing flow; missing AI configuration falls back to reception or unavailable. Account tasks require current policy and exact independent confirmation.",
   "status": "registered-unimplemented",
   "activationApproved": false,
   "sharedNumber": null,
   "extensions": [],
   "rules": {
-    "extensionDigits": 6,
-    "extensionRange": "100000-999999",
+    "extensionDigits": 4,
+    "extensionRange": "1000-9999",
     "globalExtensionUniqueness": true,
     "tenantAndUserDerivedFromCurrentDirectory": true,
     "activeTenantAndUserEveryLookup": true,
     "explicitPublishedVoiceDestination": true,
-    "unknownAmbiguousOrRevokedDestination": "generic-unavailable-no-dial",
+    "unknownAmbiguousOrRevokedDestination": "configured-reception-otherwise-generic-unavailable-no-dial",
     "target": "tenant-scoped-voice-sdk-client-identity",
     "externalNumberForwarding": false,
     "automaticRecording": false,
@@ -21,7 +21,10 @@
     "webhookBody": "bounded-utf8-application-x-www-form-urlencoded",
     "voiceIdentity": "primecare_ plus SHA-256 of length-prefixed tenant and user identifiers",
     "tokenIssuance": "separate-registered-current-session-and-voice-permission-required",
-    "smsAndMms": "extensions-are-voice-only-no-implicit-sms-routing"
+    "smsAndMms": "extensions-are-voice-only-no-implicit-sms-routing",
+    "receptionMenuDigit": "0",
+    "aiMenuDigit": "1",
+    "aiEntry": "configured-verified-app-pairing-otherwise-reception"
   },
   "releaseGates": [
     "Twilio account and secure credentials configured",

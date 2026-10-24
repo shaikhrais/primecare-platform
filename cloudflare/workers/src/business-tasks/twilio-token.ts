@@ -32,7 +32,7 @@ export class TwilioVoiceTokenService extends ScopedServiceBase {
   const rows=await this.#directory.destinations(actor,2);
   if(!Array.isArray(rows)||rows.length!==1)throw denied();
   const row=rows[0];
-  if(!row||row.tenantId!==actor.tenantId||row.userId!==actor.id||typeof row.extension!=='string'||! /^[1-9][0-9]{5}$/.test(row.extension)||row.active!==true||row.published!==true||row.tenantActive!==true||row.userActive!==true)throw denied();
+  if(!row||row.tenantId!==actor.tenantId||row.userId!==actor.id||typeof row.extension!=='string'||! /^[1-9][0-9]{3}$/.test(row.extension)||row.active!==true||row.published!==true||row.tenantActive!==true||row.userActive!==true)throw denied();
   return Object.freeze({extension:row.extension,tenantId:row.tenantId,userId:row.userId});
  }
  async issue(sessionId:string){

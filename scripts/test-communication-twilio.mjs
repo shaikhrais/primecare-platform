@@ -4,11 +4,11 @@ import {getExpectedTwilioSignature} from 'twilio/lib/webhooks/webhooks.js';
 import {TwilioVoiceExtensionAdapter,twilioVoiceIdentity} from '../packages/shared/src/communications/twilio-voice.mjs';
 import {BoundedBinaryAdapterBase} from '../packages/shared/src/communications/adapter-base.mjs';
 const config={accountSid:'AC'+'a'.repeat(32),authToken:'b'.repeat(32),sharedNumber:'+15550001000',numberVerified:true,incomingUrl:'https://fixture.invalid/voice?stage=incoming',gatherUrl:'https://fixture.invalid/voice?stage=extension',maxWebhookBytes:4096};
-const target={extension:'100001',tenantId:'tenant-a',userId:'user-a',published:true,active:true,tenantActive:true,userActive:true};
+const target={extension:'1001',tenantId:'tenant-a',userId:'user-a',published:true,active:true,tenantActive:true,userActive:true};
 function fixture(lookup=async()=>[target]){const calls=[];return {calls,adapter:new TwilioVoiceExtensionAdapter({...config,directory:{async lookup(...args){calls.push(args);return lookup(...args);}}})};}
 function request({stage='gather',params={},url,signature,body,headers={},declared=false}={}){
  const address=url??(stage==='gather'?config.gatherUrl:config.incomingUrl);
- const values={AccountSid:config.accountSid,CallSid:'CA'+'c'.repeat(32),To:config.sharedNumber,Direction:'inbound',...(stage==='gather'?{Digits:'100001'}:{}),...params};
+ const values={AccountSid:config.accountSid,CallSid:'CA'+'c'.repeat(32),To:config.sharedNumber,Direction:'inbound',...(stage==='gather'?{Digits:'1001'}:{}),...params};
  const form=new URLSearchParams();for(const [key,value] of Object.entries(values))for(const item of Array.isArray(value)?value:[value])form.append(key,item);
  const raw=body??form.toString();return new Request(address,{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','x-twilio-signature':signature??getExpectedTwilioSignature(config.authToken,address,values),...(declared?{'content-length':String(new TextEncoder().encode(raw).length)}:{}),...headers},body:raw});
 }
@@ -18,12 +18,12 @@ test('Twilio adapter inherits binary bounds and rejects incomplete or unverified
 });
 test('valid initial webhook renders a finite DTMF gather using the official SDK',async()=>{
  const f=fixture(),response=await f.adapter.respond(request({stage:'incoming',declared:true})),xml=await response.text();
- assert.equal(response.status,200);assert.match(xml,/<Gather[^>]*input="dtmf"/);assert.match(xml,/numDigits="6"/);assert.match(xml,/actionOnEmptyResult="true"/);assert.match(xml,/stage=extension/);assert.match(xml,/<Hangup\/>/);assert.doesNotMatch(xml,/<Dial/);assert.deepEqual(f.calls,[]);assert.equal(response.headers.get('cache-control'),'no-store');
+ assert.equal(response.status,200);assert.match(xml,/<Gather[^>]*input="dtmf"/);assert.match(xml,/numDigits="4"/);assert.match(xml,/actionOnEmptyResult="true"/);assert.match(xml,/stage=extension/);assert.match(xml,/<Hangup\/>/);assert.doesNotMatch(xml,/<Dial/);assert.deepEqual(f.calls,[]);assert.equal(response.headers.get('cache-control'),'no-store');
 });
 test('valid extension resolves twice and dials only its tenant-derived SDK client',async()=>{
  const f=fixture(),response=await f.adapter.respond(request()),xml=await response.text();
  assert.equal(response.status,200);assert.match(xml,new RegExp('<Identity>'+await twilioVoiceIdentity(target)+'</Identity>'));
- assert.match(xml,/callerId="\+15550001000"/);assert.match(xml,/answerOnBridge="true"/);assert.doesNotMatch(xml,/<Number|record=|tenant-a|user-a/);assert.deepEqual(f.calls,[['100001',2],['100001',2]]);
+ assert.match(xml,/callerId="\+15550001000"/);assert.match(xml,/answerOnBridge="true"/);assert.doesNotMatch(xml,/<Number|record=|tenant-a|user-a/);assert.deepEqual(f.calls,[['1001',2],['1001',2]]);
 });
 test('same user in another tenant and different identifier boundaries produce distinct identities',async()=>{
  assert.notEqual(await twilioVoiceIdentity(target),await twilioVoiceIdentity({...target,tenantId:'tenant-b'}));
@@ -39,16 +39,16 @@ test('all future form parameters, including duplicate values, participate in sig
  assert.equal((await f.adapter.respond(new Request(signed.url,{method:'POST',headers:signed.headers,body}))).status,403);
 });
 test('duplicate critical fields cannot select an account, number or extension',async()=>{
- const f=fixture();for(const params of [{Digits:['100001','100002']},{AccountSid:[config.accountSid,config.accountSid]},{To:[config.sharedNumber,config.sharedNumber]}]){const response=await f.adapter.respond(request({params}));assert.doesNotMatch(await response.text(),/<Dial/);}assert.deepEqual(f.calls,[]);
+ const f=fixture();for(const params of [{Digits:['1001','1002']},{AccountSid:[config.accountSid,config.accountSid]},{To:[config.sharedNumber,config.sharedNumber]}]){const response=await f.adapter.respond(request({params}));assert.doesNotMatch(await response.text(),/<Dial/);}assert.deepEqual(f.calls,[]);
 });
 test('unknown, duplicate, unpublished, inactive and revoked destinations share a generic response',async()=>{
  let expected;
- for(const rows of [[],[target,target],[{...target,published:false}],[{...target,active:false}],[{...target,tenantActive:false}],[{...target,userActive:false}],[{...target,extension:'100002'}]]){
+ for(const rows of [[],[target,target],[{...target,published:false}],[{...target,active:false}],[{...target,tenantActive:false}],[{...target,userActive:false}],[{...target,extension:'1002'}]]){
   const response=await fixture(async()=>rows).adapter.respond(request()),body=await response.text();assert.equal(response.status,200);assert.doesNotMatch(body,/<Dial/);expected??=body;assert.equal(body,expected);
  }
 });
 test('empty, partial, injected and overlong extension input hangs up without lookup',async()=>{
- const f=fixture();for(const Digits of ['', '1','000000','100001#','100001<script>','1000010']){const response=await f.adapter.respond(request({params:{Digits}}));assert.doesNotMatch(await response.text(),/<Dial|<Gather/);}assert.deepEqual(f.calls,[]);
+ const f=fixture();for(const Digits of ['', '1','0000','1001#','1001<script>','10010']){const response=await f.adapter.respond(request({params:{Digits}}));assert.doesNotMatch(await response.text(),/<Dial|<Gather/);}assert.deepEqual(f.calls,[]);
 });
 test('current directory revocation or reassignment between lookups never redirects the caller',async()=>{
  for(const second of [[],[{...target,userId:'another'}],[{...target,tenantId:'other'}],[{...target,published:false}]]){
@@ -89,18 +89,35 @@ test('provider fields cannot choose tenant, user, arbitrary SDK client or teleph
  assert.match(body,new RegExp('<Identity>'+await twilioVoiceIdentity(target)+'</Identity>'));assert.doesNotMatch(body,/forged|other|15550009999|<Number/);
 });
 test('configured reception handles no input, zero, invalid and unknown extensions without guessing tenant',async()=>{
- const reception={...target,extension:'100099',tenantId:'platform-tenant',userId:'receptionist'};const lookups=[];
+ const reception={...target,extension:'1099',tenantId:'platform-tenant',userId:'receptionist'};const lookups=[];
  const adapter=new TwilioVoiceExtensionAdapter({...config,receptionExtension:reception.extension,directory:{async lookup(value){lookups.push(value);return value===target.extension?[target]:value===reception.extension?[reception]:[];}}});
  const prompt=await(await adapter.respond(request({stage:'incoming'}))).text();assert.match(prompt,/If you know/);assert.match(prompt,/reception/);
  for(const Digits of ['', '0','123','999999']){const result=await adapter.respond(request({params:{Digits,TenantId:'attacker',ReceptionExtension:'999998'}}));assert.equal(result.status,200);assert.match(await result.text(),new RegExp('<Identity>'+await twilioVoiceIdentity(reception)+'</Identity>'));}
  assert.match(await(await adapter.respond(request({params:{Digits:target.extension}}))).text(),new RegExp('<Identity>'+await twilioVoiceIdentity(target)+'</Identity>'));
- const duplicated=await adapter.respond(request({params:{Digits:['0','100001']}}));assert.doesNotMatch(await duplicated.text(),/<Dial/);
+ const duplicated=await adapter.respond(request({params:{Digits:['0','1001']}}));assert.doesNotMatch(await duplicated.text(),/<Dial/);
  assert.ok(!lookups.includes('999998'));
 });
+test('four-digit gather separates menu 0/1 from extensions beginning with 1',async()=>{
+ const reception={...target,extension:'1099',userId:'receptionist'},pair='https://fixture.invalid/v1/twilio/voice/pair',lookups=[];
+ const adapter=new TwilioVoiceExtensionAdapter({...config,receptionExtension:reception.extension,aiPairingUrl:pair,directory:{async lookup(value){lookups.push(value);return value===target.extension?[target]:value===reception.extension?[reception]:[];}}});
+ const prompt=await(await adapter.respond(request({stage:'incoming'}))).text();assert.match(prompt,/numDigits="4"/);assert.match(prompt,/four digit extension/);assert.match(prompt,/zero followed by pound/);assert.match(prompt,/one followed by pound/);
+ const ai=await(await adapter.respond(request({params:{Digits:'1',NextUrl:'https://attacker.invalid',TenantId:'forged'}}))).text();assert.match(ai,/<Redirect method="POST">https:\/\/fixture.invalid\/v1\/twilio\/voice\/pair<\/Redirect>/);assert.doesNotMatch(ai,/<Dial|ConversationRelay|attacker|forged/);assert.deepEqual(lookups,[]);
+ const direct=await(await adapter.respond(request({params:{Digits:'1001'}}))).text();assert.match(direct,new RegExp('<Identity>'+await twilioVoiceIdentity(target)+'</Identity>'));assert.doesNotMatch(direct,/<Redirect/);
+ const zero=await(await adapter.respond(request({params:{Digits:'0'}}))).text();assert.match(zero,new RegExp('<Identity>'+await twilioVoiceIdentity(reception)+'</Identity>'));
+});
+test('missing AI configuration uses reception while invalid AI destinations never configure',async()=>{
+ const reception={...target,extension:'1099',userId:'receptionist'};
+ const adapter=new TwilioVoiceExtensionAdapter({...config,receptionExtension:reception.extension,directory:{async lookup(){return [reception];}}});
+ const reply=await(await adapter.respond(request({params:{Digits:'1'}}))).text();assert.match(reply,/<Dial/);assert.doesNotMatch(reply,/ConversationRelay|<Redirect/);
+ for(const aiPairingUrl of ['http://fixture.invalid/pair','https://other.invalid/pair','https://user:password@fixture.invalid/pair',config.incomingUrl,config.gatherUrl])assert.throws(()=>new TwilioVoiceExtensionAdapter({...config,aiPairingUrl,directory:{lookup:async()=>[]}}));
+});
+test('legacy six-digit extensions cannot dial or invoke an AI handler',async()=>{
+ const f=fixture();assert.doesNotMatch(await(await f.adapter.respond(request({params:{Digits:'100001'}}))).text(),/<Dial|<Redirect/);assert.deepEqual(f.calls,[]);
+});
 test('reception must be uniquely published and current; no external-number fallback',async()=>{
- for(const rows of [[],[{...target,extension:'100099',published:false}],[{...target,extension:'100099'},{...target,extension:'100099'}]]){
-  const adapter=new TwilioVoiceExtensionAdapter({...config,receptionExtension:'100099',directory:{async lookup(){return rows;}}});assert.doesNotMatch(await(await adapter.respond(request({params:{Digits:'0'}}))).text(),/<Dial/);
+ for(const rows of [[],[{...target,extension:'1099',published:false}],[{...target,extension:'1099'},{...target,extension:'1099'}]]){
+  const adapter=new TwilioVoiceExtensionAdapter({...config,receptionExtension:'1099',directory:{async lookup(){return rows;}}});assert.doesNotMatch(await(await adapter.respond(request({params:{Digits:'0'}}))).text(),/<Dial/);
  }
  assert.throws(()=>new TwilioVoiceExtensionAdapter({...config,receptionExtension:'+15550009999',directory:{lookup:async()=>[]}}));
- let count=0;const adapter=new TwilioVoiceExtensionAdapter({...config,receptionExtension:'100099',directory:{async lookup(){return ++count===1?[{...target,extension:'100099'}]:[];}}});assert.doesNotMatch(await(await adapter.respond(request({params:{Digits:'0'}}))).text(),/<Dial/);
+ let count=0;const adapter=new TwilioVoiceExtensionAdapter({...config,receptionExtension:'1099',directory:{async lookup(){return ++count===1?[{...target,extension:'1099'}]:[];}}});assert.doesNotMatch(await(await adapter.respond(request({params:{Digits:'0'}}))).text(),/<Dial/);
 });

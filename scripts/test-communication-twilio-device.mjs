@@ -64,39 +64,39 @@ test('renewal after close is rejected without requesting credentials',async()=>{
 });
 test('outgoing connects with extensions only, rejects concurrent calls and releases ended call',async()=>{
  const {resource,device}=setup();const calls=[];device.connect=async options=>{calls.push(options);const call=new EventEmitter();call.disconnect=()=>{};return call;};
- await resource.start();const call=await resource.connect({callerExtension:'100001',targetExtension:'100002'});
- assert.deepEqual(calls,[{params:{CallerExtension:'100001',TargetExtension:'100002'}}]);
- await assert.rejects(resource.connect({callerExtension:'100001',targetExtension:'100003'}));
+ await resource.start();const call=await resource.connect({callerExtension:'1001',targetExtension:'1002'});
+ assert.deepEqual(calls,[{params:{CallerExtension:'1001',TargetExtension:'1002'}}]);
+ await assert.rejects(resource.connect({callerExtension:'1001',targetExtension:'1003'}));
  call.emit('disconnect');assert.equal(call.eventNames().length,0);
- await resource.connect({callerExtension:'100001',targetExtension:'100003'});resource.close();
+ await resource.connect({callerExtension:'1001',targetExtension:'1003'});resource.close();
 });
 test('late outgoing call after logout is disconnected and never returned',async()=>{
  const pending=deferred();const {resource,device}=setup();device.connect=()=>pending.promise;
- await resource.start();const connecting=resource.connect({callerExtension:'100001',targetExtension:'100002'});resource.close();
+ await resource.start();const connecting=resource.connect({callerExtension:'1001',targetExtension:'1002'});resource.close();
  let disconnected=0;pending.resolve({disconnect(){disconnected++;}});await assert.rejects(connecting);assert.equal(disconnected,1);
 });
 test('outgoing SDK error disconnects the old media before another extension call can replace it',async()=>{
  const {resource,device}=setup(),calls=[];
  device.connect=async()=>{const call=new EventEmitter();call.ends=0;call.disconnect=()=>{call.ends++;call.emit('disconnect');};calls.push(call);return call;};
- await resource.start();const first=await resource.connect({callerExtension:'100001',targetExtension:'100002'});first.emit('error',Error('private provider detail'));
+ await resource.start();const first=await resource.connect({callerExtension:'1001',targetExtension:'1002'});first.emit('error',Error('private provider detail'));
  assert.equal(first.ends,1);assert.equal(first.eventNames().length,0);assert.equal(resource.closed,false);
- const next=await resource.connect({callerExtension:'100001',targetExtension:'100003'});resource.close();assert.equal(next.ends,1);assert.equal(first.ends,1);assert.equal(next.eventNames().length,0);
+ const next=await resource.connect({callerExtension:'1001',targetExtension:'1003'});resource.close();assert.equal(next.ends,1);assert.equal(first.ends,1);assert.equal(next.eventNames().length,0);
 });
 test('outgoing error with failed SDK disconnect destroys the device and cannot escape a display failure',async()=>{
  const {resource,device}=setup();const call=new EventEmitter();call.disconnect=()=>{throw Error('private disconnect');};device.connect=async()=>call;
- await resource.start();await resource.connect({callerExtension:'100001',targetExtension:'100002'});resource.onState=()=>{throw Error('private display');};
+ await resource.start();await resource.connect({callerExtension:'1001',targetExtension:'1002'});resource.onState=()=>{throw Error('private display');};
  assert.doesNotThrow(()=>call.emit('error',Error('private provider')));assert.equal(resource.closed,true);assert.equal(device.destroyed,1);assert.equal(device.disconnected,1);assert.equal(call.eventNames().length,0);
 });
 test('phone numbers, identical extensions and outgoing calls before registration are denied',async()=>{
  const {resource,device}=setup();let calls=0;device.connect=async()=>{calls++;};
- await assert.rejects(resource.connect({callerExtension:'100001',targetExtension:'100002'}));
- await resource.start();for(const targetExtension of ['+15550001000','100001','sip:user@example.com'])await assert.rejects(resource.connect({callerExtension:'100001',targetExtension}));
+ await assert.rejects(resource.connect({callerExtension:'1001',targetExtension:'1002'}));
+ await resource.start();for(const targetExtension of ['+15550001000','1001','sip:user@example.com'])await assert.rejects(resource.connect({callerExtension:'1001',targetExtension}));
  assert.equal(calls,0);resource.close();
 });
 test('managed ringing session rejects competing calls and is disposed with the device',async()=>{
  const managed=new CommunicationResourceBase();let offered=0;const {resource,device}=setup({onIncoming(){offered++;return managed;}});device.connect=async()=>{};await resource.start();let rejected=0;
  device.emit('incoming',incoming(()=>rejected++));await new Promise(r=>setImmediate(r));device.emit('incoming',incoming(()=>rejected++));assert.equal(offered,1);assert.equal(rejected,1);
- await assert.rejects(resource.connect({callerExtension:'100001',targetExtension:'100002'}));resource.close();assert.equal(managed.closed,true);
+ await assert.rejects(resource.connect({callerExtension:'1001',targetExtension:'1002'}));resource.close();assert.equal(managed.closed,true);
 });
 
 test('logout owns and rejects a pending incoming offer before host UI resolves',async()=>{
@@ -125,7 +125,7 @@ test('missing or failed incoming UI does not leave an unowned ringing call',asyn
 });
 test('pending incoming call blocks outgoing connections and error disconnects accepted media',async()=>{
  const pending=deferred();const {resource,device}=setup({onIncoming:()=>pending.promise});let outgoing=0;device.connect=async()=>{outgoing++;};await resource.start();const call=incoming();let disconnected=0;call.disconnect=()=>disconnected++;
- device.emit('incoming',call);await assert.rejects(resource.connect({callerExtension:'100001',targetExtension:'100002'}));assert.equal(outgoing,0);call.emit('accept');call.emit('error',Error('private'));assert.equal(disconnected,1);assert.equal(call.eventNames().length,0);pending.resolve(new CommunicationResourceBase());await new Promise(r=>setImmediate(r));resource.close();
+ device.emit('incoming',call);await assert.rejects(resource.connect({callerExtension:'1001',targetExtension:'1002'}));assert.equal(outgoing,0);call.emit('accept');call.emit('error',Error('private'));assert.equal(disconnected,1);assert.equal(call.eventNames().length,0);pending.resolve(new CommunicationResourceBase());await new Promise(r=>setImmediate(r));resource.close();
 });
 test('a canceled offer with a later UI failure does not unregister the device',async()=>{
  let reject;const pending=new Promise((resolve,r)=>reject=r);const {resource,device}=setup({onIncoming:()=>pending});await resource.start();const call=incoming();device.emit('incoming',call);call.emit('cancel');reject(Error('late UI error'));await new Promise(r=>setImmediate(r));assert.equal(resource.closed,false);resource.close();

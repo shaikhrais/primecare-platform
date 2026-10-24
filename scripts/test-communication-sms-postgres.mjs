@@ -50,9 +50,11 @@ try{
  await pool.query('CREATE TABLE tenants(id text PRIMARY KEY,status text);CREATE TABLE users(id text PRIMARY KEY,tenant_id text,status text);CREATE TABLE auth_sessions(token_hash text PRIMARY KEY,user_id text,expires_at timestamptz)');
  await pool.query("INSERT INTO tenants VALUES('tenant-a','active'),('tenant-b','active');INSERT INTO users VALUES('alice','tenant-a','active'),('bob','tenant-b','active')");
  await pool.query((await readFile('packages/database/migrations/20261023_voice_extensions.sql','utf8')).replaceAll('public.',''));
+ await pool.query(await readFile('packages/database/migrations/20261023_communication_voicemails.sql','utf8'));
+ await pool.query(await readFile('packages/database/migrations/20261024_four_digit_voice_extensions.sql','utf8'));
  const directory=new PostgresVoiceDirectory(pool),voicePolicy={async assert(a,action,state){if(state.tenantId!==a.tenantId)throw Error('Denied');await pool.query('SELECT 1');},async assignee(a,id){const rows=(await pool.query('SELECT id FROM users WHERE id=$1 AND tenant_id=$2',[id,a.tenantId])).rows;if(rows.length!==1)throw Error('Denied');}};
  const extensions=new VoiceExtensionService(new PostgresAtomicStore(pool,'business_sms'),voicePolicy,directory);
- const assigned=await extensions.assign(actor,'alice');assert.match(assigned.extension,/^[1-9][0-9]{5}$/);assert.equal(assigned.published,false);
+ const assigned=await extensions.assign(actor,'alice');assert.match(assigned.extension,/^[1-9][0-9]{3}$/);assert.equal(assigned.published,false);
  assert.equal((await extensions.assign(actor,'alice')).extension,assigned.extension);
  assert.equal((await directory.destinations(actor,2))[0].published,false);
  const published=await extensions.publish(actor,'alice',1,true);assert.equal(published.published,true);
@@ -65,7 +67,6 @@ try{
  assert.equal(await directory.currentSession(hash),null);assert.equal((await directory.lookup(assigned.extension,2))[0].userActive,false);
  await assert.rejects(extensions.publish(actor,'alice',2,false));
 
- await pool.query((await readFile('packages/database/migrations/20261023_communication_voicemails.sql','utf8')));
  await pool.query("UPDATE users SET status='active' WHERE id='alice'");
  await pool.query('CREATE TABLE fixture_voicemail_notifications(key text PRIMARY KEY,email text NOT NULL)');
  const vmCall='CA'+'1'.repeat(32),vmRecording='RE'+'2'.repeat(32),vmRepo=new PostgresVoicemailRepository(pool);

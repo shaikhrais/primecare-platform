@@ -21,7 +21,7 @@ export class TwilioExtensionConnectAdapter extends TwilioSignedFormAdapter {
  async respond(request){
   const checked=await this.validate(request);if(checked.response)return checked.response;
   const p=checked.params;
-  if(!twilioSid('CA',p.CallSid)||typeof p.From!=='string'||!/^client:primecare_[a-f0-9]{64}$/.test(p.From)||p.Direction!=='inbound'||typeof p.CallerExtension!=='string'||! /^[1-9][0-9]{5}$/.test(p.CallerExtension)||typeof p.TargetExtension!=='string'||! /^[1-9][0-9]{5}$/.test(p.TargetExtension))return twilioFailure(403);
+  if(!twilioSid('CA',p.CallSid)||typeof p.From!=='string'||!/^client:primecare_[a-f0-9]{64}$/.test(p.From)||p.Direction!=='inbound'||typeof p.CallerExtension!=='string'||! /^[1-9][0-9]{3}$/.test(p.CallerExtension)||typeof p.TargetExtension!=='string'||! /^[1-9][0-9]{3}$/.test(p.TargetExtension))return twilioFailure(403);
   try{
    const result=await this.service.connect({callSid:p.CallSid,from:p.From,callerExtension:p.CallerExtension,targetExtension:p.TargetExtension});
    if(typeof result?.identity!=='string'||!/^primecare_[a-f0-9]{64}$/.test(result.identity))throw Error('Voice unavailable');

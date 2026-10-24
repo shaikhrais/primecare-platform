@@ -1,3 +1,7 @@
+> Extension-length update: the user selected four digits (1000–9999). See
+> `four-digit-voice-cutover-20261024.md` for the registered revision and safe
+> migration. Six-digit descriptions below document the earlier checkpoint.
+
 # Twilio boundary contract registration
 
 The user requested one shared number with globally unique six-digit extensions,

@@ -96,10 +96,10 @@ export class TwilioVoiceDevice extends CommunicationResourceBase {
    this.#current();
   }catch{this.close();throw Error('Voice device unavailable');}
  }
- /** Calls only a six-digit extension; the server resolves and authorizes both ends. */
+ /** Calls only a four-digit extension; the server resolves and authorizes both ends. */
  async connect({callerExtension,targetExtension}){
   this.assertOpen();
-  if(this.state!=='registered'||this.#connecting||this.#call||this.#incomingSession?.available||![callerExtension,targetExtension].every(value=>typeof value==='string'&&/^[1-9][0-9]{5}$/.test(value))||callerExtension===targetExtension||typeof this.#device?.connect!=='function')throw Error('Voice call unavailable');
+  if(this.state!=='registered'||this.#connecting||this.#call||this.#incomingSession?.available||![callerExtension,targetExtension].every(value=>typeof value==='string'&&/^[1-9][0-9]{3}$/.test(value))||callerExtension===targetExtension||typeof this.#device?.connect!=='function')throw Error('Voice call unavailable');
   this.#current();this.#connecting=true;
   try{
    const call=await this.#device.connect({params:{CallerExtension:callerExtension,TargetExtension:targetExtension}});

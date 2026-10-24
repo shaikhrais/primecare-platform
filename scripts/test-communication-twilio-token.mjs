@@ -7,7 +7,7 @@ import {twilioVoiceIdentity} from '../packages/shared/src/communications/twilio-
 const configuration={accountSid:'AC'+'a'.repeat(32),apiKeySid:'SK'+'b'.repeat(32),apiKeySecret:'c'.repeat(32),applicationSid:'AP'+'d'.repeat(32),ttlSeconds:300};
 const actor={id:'user-a',tenantId:'tenant-a'};
 const session=()=>({id:'session-a',userId:actor.id,tenantId:actor.tenantId,expiresAt:Date.now()+600000,active:true});
-const destination=()=>({extension:'100001',userId:actor.id,tenantId:actor.tenantId,published:true,active:true,tenantActive:true,userActive:true});
+const destination=()=>({extension:'1001',userId:actor.id,tenantId:actor.tenantId,published:true,active:true,tenantActive:true,userActive:true});
 const store={run(){assert.fail('No persistence writes');},read(){assert.fail('No unrelated reads');},inbox(){assert.fail('No inbox reads');}};
 function fixture({currentSession=async()=>session(),destinations=async()=>[destination()],authorize=async()=>{},config=configuration}={}){
  const calls=[];
@@ -47,7 +47,7 @@ test('session revocation and tenant switch during signing preparation deny issua
  }
 });
 test('destination revocation or extension reassignment on recheck denies issuance',async()=>{
- for(const rows of [[],[{...destination(),published:false}],[{...destination(),extension:'100002'}]]){
+ for(const rows of [[],[{...destination(),published:false}],[{...destination(),extension:'1002'}]]){
   let reads=0;await assert.rejects(fixture({destinations:async()=>++reads===1?[destination()]:rows}).service.issue('session-a'),/Voice unavailable/);
  }
 });
@@ -55,7 +55,7 @@ test('mutable directory rows cannot rewrite original session or destination snap
  const row=session();let reads=0;
  await assert.rejects(fixture({currentSession:async()=>{if(++reads>1)row.tenantId='other';return row;}}).service.issue('session-a'),/Voice unavailable/);
  const target=destination();reads=0;
- await assert.rejects(fixture({destinations:async()=>{if(++reads>1)target.extension='100002';return [target];}}).service.issue('session-a'),/Voice unavailable/);
+ await assert.rejects(fixture({destinations:async()=>{if(++reads>1)target.extension='1002';return [target];}}).service.issue('session-a'),/Voice unavailable/);
 });
 test('infrastructure errors are generic and expose no provider or database details',async()=>{
  await assert.rejects(fixture({destinations:async()=>{throw Error('PRIVATE DATABASE');}}).service.issue('session-a'),/^Error: Voice unavailable$/);
