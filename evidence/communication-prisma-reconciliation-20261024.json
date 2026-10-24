@@ -1,0 +1,44 @@
+{
+  "sourceCommit": "bf359a818ae53c1097f86abc941c5be191e4fae3",
+  "workflowRun": 40046406409,
+  "inventoryJob": 120729028781,
+  "independentProductionReadback": {
+    "contracts": 21,
+    "apiIdRange": [
+      16513,
+      16533
+    ],
+    "definitionSha256": "803ee241af0c61f5117578bc0e52f9413c10bea6e631c21acc584005ceea3bd7",
+    "writesAttempted": false,
+    "activation": false
+  },
+  "localChecks": {
+    "reportAndProvider": {
+      "passed": 13
+    },
+    "ringingDeviceResources": {
+      "passed": 63
+    },
+    "otpAndTaskApproval": {
+      "passed": 20
+    },
+    "salesAndReader": {
+      "passed": 28,
+      "skipped": 1,
+      "skipReason": "Native PostgreSQL test requires disposable database; CI native job passed."
+    },
+    "regressionAgainstPreviousSource": {
+      "exitCode": 1,
+      "failures": 15
+    }
+  },
+  "releaseLimits": [
+    "No live provider or route activation",
+    "Current screen/API grants incomplete",
+    "Owned mailbox and external routing not configured for communication runtime",
+    "Reception destination and per-user extension publication pending",
+    "Production scanner/storage and TURN/device acceptance pending",
+    "Native mobile background ringing pending",
+    "Actual business sales script and live transcript/operator configuration pending"
+  ]
+}

@@ -116,3 +116,22 @@ Evidence: [native checks and restricted production attempt](https://github.com/s
 This blocker concerns production database access, not Twilio number provisioning.
 It does not establish live routes, grants, extension publication, phone ringing,
 SMTP delivery or model/task acceptance.
+
+
+## Independent production reconciliation after Prisma upgrade
+
+At source `bf359a818ae53c1097f86abc941c5be191e4fae3`, communication CI run
+`40046406409`, inventory job `120729028781`, passed the existing independent
+`--verify` reader. All 21 complete rows matched their pinned definitions, with
+unique API IDs 16513–16533 and definition SHA256
+`803ee241af0c61f5117578bc0e52f9413c10bea6e631c21acc584005ceea3bd7`.
+The receipt states `independentReadback:true`, `writesAttempted:false`, zero
+grants/extensions/provider writes and `activation:false`. This supersedes the
+earlier plan-limit/readback blocker; no registration retry or grant change was
+needed. The pinned production database remains the sole live authority.
+
+Live mounting, current permissions and screen bindings, verified mailbox/provider
+routing, selected reception destination, explicit extension publication, model
+and transcription setup, mobile background ringing and real phone/email/device
+acceptance remain open. The generic inventory still reports these release gaps;
+recognizing XML/audio/no-content schemas does not remove access requirements.
