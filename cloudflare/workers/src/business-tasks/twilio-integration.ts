@@ -22,6 +22,22 @@ import {TwilioVoiceExtensionAdapter,type TwilioExtensionDirectory} from '../../.
 import {TwilioSmsTransport,TwilioSmsStatusAdapter} from '../../../../packages/shared/src/communications/twilio-sms.mjs';
 import {createTwilioSmsClient} from '../../../../packages/shared/src/communications/twilio-sms-client.mjs';
 import {PostgresVoiceDirectory,VoiceExtensionService} from './voice-directory.ts';
+import {NativeVoiceHttpAdapter,NativeVoiceHttpError,type NativeVoiceHttpOptions} from '../../../../packages/shared/src/communications/voice-native-http.mjs';
+import {tokenFrom,sha256} from '../session-token.ts';
+
+/** Native HTTP composition for the nine registered app contracts. Authentication
+ * comes from current native sessions/membership. The host must still supply its
+ * exact current endpoint/screen permission port; no default grant or mount. */
+export function createPostgresNativeVoiceHttpAdapter(dependencies:Omit<NativeVoiceHttpOptions,'authenticate'> & {pool:ConstructorParameters<typeof PostgresVoiceDirectory>[0]}){
+ const directory=new PostgresVoiceDirectory(dependencies.pool);
+ return new NativeVoiceHttpAdapter({...dependencies,authenticate:async request=>{
+  const token=tokenFrom(request);if(!token)throw new NativeVoiceHttpError(401);
+  const row=await directory.currentSession(await sha256(token));
+  if(!row)throw new NativeVoiceHttpError(401);
+  if(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==row.tenantId)throw new NativeVoiceHttpError(403);
+  return {actor:{id:row.userId,tenantId:row.tenantId},sessionHash:row.id,expiresAt:row.expiresAt};
+ }});
+}
 
 /** Server-only composition. Requires registered production contracts, schema,
  * policies, secure bindings and trusted directory adapters. Exposes no new route.

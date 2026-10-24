@@ -24,10 +24,16 @@ import {createTwilioVoiceOtpClient} from './packages/shared/src/communications/t
 import {VoiceOtpService} from './cloudflare/workers/src/business-tasks/voice-otp.ts';
 import {TwilioOtpPairingAdapter} from './packages/shared/src/communications/twilio-otp-pairing.mjs';
 import {TwilioVerifiedAgentAdapter} from './packages/shared/src/communications/twilio-agent-start.mjs';
+import {NativeVoiceHttpAdapter,NativeVoiceHttpError} from './packages/shared/src/communications/voice-native-http.mjs';
 const config=${JSON.stringify(config)};
 export default {async fetch(request){
  let queries=0;const mode=request.headers.get('x-test-mode');
  const row={extension:'100001',tenantId:'tenant-a',userId:'user-a',published:true,active:true,tenantActive:true,userActive:true};
+ if(mode==='native-http'||mode==='native-http-denied'){
+  const unused=async()=>{throw Error('Unused fixture service');};
+  const token=new TwilioVoiceTokenService({run:unused,read:unused,inbox:unused},{async assert(){},assignee:unused},{async currentSession(id){return {id,userId:row.userId,tenantId:row.tenantId,expiresAt:Date.now()+600000,active:true};},async destinations(){return [row];}},{accountSid:config.accountSid,apiKeySid:'SK'+'d'.repeat(32),apiKeySecret:'e'.repeat(32),applicationSid:'AP'+'f'.repeat(32),ttlSeconds:300});
+  return new NativeVoiceHttpAdapter({origin:'https://fixture.invalid',maxRequestBytes:4096,maxAudioBytes:1024,async authenticate(){return {actor:{id:row.userId,tenantId:row.tenantId},sessionHash:'a'.repeat(64),expiresAt:Date.now()+60000};},async authorize(){if(mode==='native-http-denied')throw new NativeVoiceHttpError(403);},services:{tokens:token,extensions:{assign:unused,publish:unused},voicemail:{read:unused,audio:unused},audio:{download:unused},otp:{start:unused,check:unused},confirmations:{preview:unused,approve:unused}}}).respond(request);
+ }
  if(mode==='otp-binding'){
   let row=null,active=true,sends=0,checks=0;const hash='a'.repeat(64),callSid='CA'+'c'.repeat(32);
   const repository={async issue(c,p,expiresAt){row={callSid:c,pairingHash:p,expiresAt,state:'issued'};},async begin(i){if(row.state!=='issued'||row.pairingHash!==i.pairingHash)return false;Object.assign(row,{state:'sending',nativeSessionHash:i.nativeSessionHash,userId:i.actor.id,tenantId:i.actor.tenantId,phone:i.contact.phone,contactVersion:i.contact.version});return true;},async sent(c,sid){row.state='pending';row.verificationSid=sid;},async unknown(){row.state='unknown';},async read(){return structuredClone(row);},async claimCheck(){if(row.state!=='pending')return false;row.state='checking';return true;},async checked(c,approved,grantId,expiresAt){row.state=approved?'verified':'pending';row.grantId=grantId;row.expiresAt=expiresAt;}};
@@ -85,6 +91,10 @@ async function send({stage='extension',params={},signature,mode,body}={}){
  return runtime.dispatchFetch(url,{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','x-twilio-signature':signature??getExpectedTwilioSignature(config.authToken,url,values),...(mode?{'x-test-mode':mode}:{})},body:body??new URLSearchParams(values).toString()});
 }
 try{
+ const nativeRequest=(mode,body='{}')=>runtime.dispatchFetch('https://fixture.invalid/v1/voice/token',{method:'POST',headers:{authorization:'Bearer '+'f'.repeat(43),'content-type':'application/json','x-test-mode':mode},body});
+ const nativeToken=await nativeRequest('native-http');assert.equal(nativeToken.status,200);const nativeClaims=jwt.verify((await nativeToken.json()).token,'e'.repeat(32),{algorithms:['HS256'],issuer:'SK'+'d'.repeat(32),subject:config.accountSid});assert.equal(nativeClaims.grants.voice.incoming.allow,true);checks++;
+ assert.equal((await nativeRequest('native-http','{"tenantId":"forged"}')).status,400);checks++;
+ assert.equal((await nativeRequest('native-http-denied')).status,403);checks++;
  const prompt=await send({stage:'incoming'});assert.equal(prompt.status,200);assert.match(await prompt.text(),/<Gather/);assert.equal(prompt.headers.get('x-test-queries'),'0');checks++;
  const dial=await send();assert.equal(dial.status,200);assert.match(await dial.text(),/<Identity>primecare_[a-f0-9]{64}<\/Identity>/);assert.equal(dial.headers.get('x-test-queries'),'2');checks++;
  const invalid=await send({signature:'invalid'});assert.equal(invalid.status,403);assert.equal(invalid.headers.get('x-test-queries'),'0');checks++;

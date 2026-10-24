@@ -27,6 +27,8 @@ on:
       - 'scripts/test-communication-audio-session.mjs'
       - 'tools/communication-route-bindings.py'
       - 'tools/communication-schema-validators.mjs'
+      - 'tools/voice-schema-validators.mjs'
+      - 'scripts/test-communication-voice-native-http.mjs'
       - 'scripts/test-communication-schema-validator.mjs'
       - 'scripts/test-communication-validator-workerd.mjs'
       - 'scripts/test-business-media.mjs'
@@ -114,8 +116,11 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/twilio-voice-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 miniflare@4.20260730.0 twilio@6.2.0 typescript@5.9.3 @types/node@24.0.0 pg@8.16.3 postal-mime@4.1.2 htmlparser2@12.0.0
+          npm install --prefix "$RUNNER_TEMP/twilio-voice-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 miniflare@4.20260730.0 twilio@6.2.0 typescript@5.9.3 @types/node@24.0.0 pg@8.16.3 postal-mime@4.1.2 htmlparser2@12.0.0 ajv@8.17.1
           ln -s "$RUNNER_TEMP/twilio-voice-tools/node_modules" node_modules
+          node tools/voice-schema-validators.mjs
+          node --test scripts/test-communication-voice-native-http.mjs
+          node_modules/.bin/tsc --noEmit --strict --target ES2022 --module esnext --moduleResolution bundler packages/shared/src/communications/voice-native-http.d.mts
           node_modules/.bin/tsc --noEmit --strict --target ES2022 --module esnext --moduleResolution bundler packages/shared/src/communications/twilio-voice.d.mts
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/twilio-integration.ts
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions packages/shared/src/communications/sales-call-quality.ts packages/shared/src/communications/twilio-sales-quality.d.mts
@@ -130,6 +135,7 @@ jobs:
           TWILIO_SMS_TEST_DATABASE_URL: postgres://twilio_fixture:fixture_only@127.0.0.1:5432/twilio_sms_test
         run: |
           node scripts/test-communication-sms-postgres.mjs
+          node --test scripts/test-communication-voice-native-http.mjs
           node --test scripts/test-communication-relay-postgres.mjs
           node --test scripts/test-communication-sales-quality.mjs
       - uses: actions/upload-artifact@v4

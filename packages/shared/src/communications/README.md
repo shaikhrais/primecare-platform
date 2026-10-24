@@ -1077,3 +1077,49 @@ ports are synthetic in this suite; live phone acceptance is separate.
 The communication inventory artifact now retains the exact independent readback
 receipt for all 21 pinned Twilio contracts. Bash pipefail preserves verification
 failure through `tee`; writing a receipt never promotes runtime acceptance.
+
+### Native voice HTTP service boundary
+
+`NativeVoiceHttpAdapter` extends `BoundedBinaryAdapterBase` and dispatches only
+the nine independently registered native app contracts from
+`twilio-contracts-registration.json`: SDK token, extension assignment/publication,
+private voicemail read/audio, OTP start/check and exact task preview/approval.
+The signed provider callbacks and Relay sockets are separate adapters. There is
+no AI tool for native approval and no new route, grant or publication here.
+
+`createPostgresNativeVoiceHttpAdapter` composes current native session lookup.
+The browser supplies only its bearer credential to the API. On the server, the
+shared token parser and hash function resolve `auth_sessions`, active users and
+active tenants. Request bodies never supply the authenticated actor, tenant,
+phone, roles or native session hash. A forged `x-tenant-id` is denied. The host
+must supply current exact endpoint/screen authorization and rate limits; no
+permissive production policy or guessed API ID is included. Cookie-only requests
+are rejected. Same-origin requests are supported; separately hosted portals need
+explicit exact HTTPS `appOrigins` and matching gateway CORS/preflight policy.
+Origin lists are captured, never selected by a caller or wildcard.
+
+Request parsing uses the inherited streamed byte/read bounds. Both request and
+JSON response schemas are compiled at build time by
+`tools/voice-schema-validators.mjs`; Worker requests never compile schemas or
+evaluate strings. The generated module is checked in CI. Private audio uses
+bounded copied WAV bytes with header validation and private/no-store responses.
+Current session, identity and endpoint permission are rechecked after body reads
+and after service work. A post-service denial suppresses sensitive output but
+does not undo an already committed mutation. All ambiguous failures remain
+generic failures, with no automatic resend/retry.
+
+Run `node --test scripts/test-communication-voice-native-http.mjs` (14 local
+cases plus a disposable PostgreSQL case when `TWILIO_SMS_TEST_DATABASE_URL` is
+set). Tests cover all nine dispatches, identity injection, CSRF/origin boundaries,
+binary/JSON limits, method/route isolation, revocation during reads/service work,
+response validation, native session resolution and private error suppression.
+The actual workerd suite also exercises real JWT issuance through this adapter,
+identity override denial and endpoint denial. Provider, specialized service and
+authorization ports remain explicit fixtures in those tests. The native database
+case uses the real token service/session directory with isolated grants; it does
+not verify production endpoint permissions.
+
+Production still requires exact host route mounting, approved current API/screen
+grants and voice action policies, applied business schema, mailbox/provider/model
+bindings, reception selection and extension publication, and live phone/email/
+device acceptance. This adapter removes the HTTP dispatch gap, not those gates.
