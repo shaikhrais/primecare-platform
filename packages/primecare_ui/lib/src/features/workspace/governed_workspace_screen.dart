@@ -6,14 +6,52 @@ import '../reports/admin_reports_panel.dart';
 
 /// Shared presentation of server-authorized governance pages and live telemetry.
 /// The server supplies navigation, labels, grants and organization scope.
-class GovernedWorkspaceScreen extends ConsumerStatefulWidget {
+abstract class GovernedWorkspaceEntry extends StatelessWidget {
+  final String route;
+  const GovernedWorkspaceEntry({super.key, required this.route});
+  @override
+  Widget build(BuildContext context) => GovernedWorkspaceScreen(route: route);
+}
+
+// Equality preserves the exact session boundary without exposing a bearer token
+// through Flutter's diagnostic key strings.
+class _WorkspaceIdentity {
+  final String user, tenant, token;
+  final String? role;
+  const _WorkspaceIdentity(this.user, this.tenant, this.token, this.role);
+  @override
+  bool operator ==(Object other) => other is _WorkspaceIdentity &&
+      user == other.user && tenant == other.tenant && token == other.token && role == other.role;
+  @override
+  int get hashCode => Object.hash(user, tenant, token, role);
+  @override
+  String toString() => 'WorkspaceIdentity(redacted)';
+}
+
+class GovernedWorkspaceScreen extends ConsumerWidget {
   final String route;
   const GovernedWorkspaceScreen({super.key, required this.route});
   @override
-  ConsumerState<GovernedWorkspaceScreen> createState() => _WorkspaceState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scope = ref.watch(authProvider.select((s) =>
+      (s.isAuthenticated, s.userId, s.tenantId, s.token, s.role)));
+    if (!scope.$1 || scope.$2 == null || scope.$2!.isEmpty ||
+        scope.$3 == null || scope.$3!.isEmpty || scope.$4 == null || scope.$4!.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    return _ScopedWorkspaceScreen(
+      key: ValueKey(_WorkspaceIdentity(scope.$2!, scope.$3!, scope.$4!, scope.$5)), route: route);
+  }
 }
 
-class _WorkspaceState extends ConsumerState<GovernedWorkspaceScreen> {
+class _ScopedWorkspaceScreen extends ConsumerStatefulWidget {
+  final String route;
+  const _ScopedWorkspaceScreen({super.key, required this.route});
+  @override
+  ConsumerState<_ScopedWorkspaceScreen> createState() => _WorkspaceState();
+}
+
+class _WorkspaceState extends ConsumerState<_ScopedWorkspaceScreen> {
   Map<String, dynamic>? _workspace;
   String? _error;
   bool _loading = false;
@@ -29,7 +67,7 @@ class _WorkspaceState extends ConsumerState<GovernedWorkspaceScreen> {
   @override
   void dispose() { _searchController.dispose(); super.dispose(); }
   @override
-  void didUpdateWidget(GovernedWorkspaceScreen oldWidget) {
+  void didUpdateWidget(_ScopedWorkspaceScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.route != widget.route) { _workspace = null; Future.microtask(_load); }
   }
