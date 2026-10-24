@@ -1,0 +1,28 @@
+{
+  "step": 3,
+  "status": "in_progress",
+  "callIntegrationCommit": "fa7f6d758f288d7deb5de67dd5d5f2ba01deb83c",
+  "integrationWorkflowRunId": 40137006645,
+  "integrationTestsPassed": 24,
+  "schemaWorkflowRunId": 40137830754,
+  "schemaDeployJobId": 121003170497,
+  "schemaCommit": "7effbedb69dde8ffda424d84d299df58090da4cc",
+  "schemaTablesVerified": 5,
+  "nativeSchemaTestsPassed": 4,
+  "schemaIndependentReadOnlyVerification": true,
+  "schemaPrivateOwnerOnlyAccess": true,
+  "activeVerifiedContactCount": 0,
+  "nativeOtpActiveGrantCount": 0,
+  "remaining": [
+    "verified_account_phone_enrollment",
+    "reviewed_native_otp_permissions_and_ui",
+    "private_pre_ai_pairing_delivery",
+    "otp_runtime_deployment",
+    "live_call_and_sms_otp_acceptance"
+  ],
+  "liveCallVerified": false,
+  "liveOtpVerified": false,
+  "smsSent": false,
+  "businessActionsEnabled": false,
+  "toolsAttached": false
+}

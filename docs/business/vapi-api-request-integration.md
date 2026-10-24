@@ -216,3 +216,18 @@ It uses the direct host for dry-run/apply and the pooled host for independent
 read-only verification. No new credential, role grant or governance authority is
 introduced. New-table default owner-only ACLs are verified without GRANT/REVOKE.
 Source: https://www.prisma.io/docs/postgres/database/connecting-to-your-database
+
+Step 3 schema evidence: workflow 40137830754, production job 121003170497,
+commit 7effbedb69dde8ffda424d84d299df58090da4cc completed successfully. The direct
+connection dry run rolled back, apply created all five tables, and an independent
+pooled read-only verification matched the tested columns/constraints/indexes and
+owner-only ACLs. Four native PostgreSQL schema tests passed. The 24 caller/OTP/task
+integration tests passed in workflow 40137006645. A positive live call or SMS OTP
+has not been tested. No additional secret was needed.
+
+The final production readiness readback confirms all five tables present and zero
+active verified voice contacts. Both native OTP endpoints are registered once but
+have zero active API/screen grants. Remaining Step 3 work is verified account-phone
+enrollment, reviewed native app permissions/UI, private pre-AI pairing delivery,
+and OTP runtime deployment. The Vapi task boundary remains deliberately closed;
+no business tools are attached and no live user identity has been granted.
