@@ -7,6 +7,7 @@ const config=JSON.parse(await readFile('cloudflare/workers/src/business-tasks/vo
 const bounded=new BoundedBinaryAdapterBase(131072);
 const report={sourceCommit:process.env.GITHUB_SHA,scope:'native-own-phone-enrollment-only',deployed:false,gatewayConnected:false,verifyServiceReadback:false,unauthenticatedDenied:false,unknownSessionDenied:false,foreignOriginDenied:false,corsVerified:false,liveSmsVerified:false,contactsEnrolled:0,providerWrites:false,businessActionsEnabled:false,toolsAttached:false,numberRoutingChanged:false};
 const required=name=>{const value=process.env[name];if(!value)throw Error('configuration_required');return value;};
+const servicesEqual=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
 function command(args,input){try{return execFileSync('node_modules/.bin/wrangler',args,{input,encoding:'utf8',stdio:['pipe','pipe','pipe'],maxBuffer:4194304});}catch(error){const code=/\[code: (\d+)\]/.exec(String(error?.stderr??''))?.[1];if(code)report.cloudflareErrorCode=Number(code);throw Error('cloudflare_cli_failed');}}
 function currentMain(){try{execFileSync('git',['fetch','origin','main'],{stdio:'pipe'});if(execFileSync('git',['rev-parse','FETCH_HEAD'],{encoding:'utf8'}).trim()!==process.env.GITHUB_SHA)throw Error();}catch{throw Error('stale_main_preserved');}}
@@ -45,12 +46,17 @@ try{
  report.stage='gateway-deploy';currentMain();
  const now=await cf('/workers/scripts/'+config.gatewayName+'/settings');if(JSON.stringify(now.bindings)!==JSON.stringify(gateway.bindings))throw Error('gateway_settings_changed_preserved');
  const gatewayConfig='.cloudflare-workers/voice-contact-gateway.jsonc';
- await writeFile(gatewayConfig,JSON.stringify({name:config.gatewayName,main:'../cloudflare/workers/src/gateway.ts',compatibility_date:config.compatibilityDate,compatibility_flags:['nodejs_compat'],workers_dev:true,observability:gateway.observability??{enabled:true},services:gatewayServices},null,2)+'\n');
+ await writeFile(gatewayConfig,JSON.stringify({name:config.gatewayName,main:'../cloudflare/workers/src/gateway.ts',compatibility_date:config.compatibilityDate,compatibility_flags:['nodejs_compat'],workers_dev:true,keep_vars:true,observability:gateway.observability??{enabled:true},services:gatewayServices},null,2)+'\n');
  if(!command(['deploy','--config',gatewayConfig]).includes(gatewayOrigin))throw Error('deployment_origin_mismatch');
  report.stage='gateway-http-verification';
  for(let i=0;i<5;i++){try{report.unauthenticatedDenied=(await probe(gatewayOrigin)).status===401;report.unknownSessionDenied=(await probe(gatewayOrigin,{authorization:fake})).status===401;report.foreignOriginDenied=(await probe(gatewayOrigin,{authorization:fake,origin:'https://foreign.invalid'})).status===403;const allowed=await probe(gatewayOrigin,{origin:config.appOrigins[0]});report.corsVerified=allowed.status===401&&allowed.origin===config.appOrigins[0];if(report.unauthenticatedDenied&&report.unknownSessionDenied&&report.foreignOriginDenied&&report.corsVerified)break;}catch{}if(i<4)await new Promise(r=>setTimeout(r,2000));}
  if(!report.unauthenticatedDenied||!report.unknownSessionDenied||!report.foreignOriginDenied||!report.corsVerified)throw Error('gateway_boundary_not_ready');
  const settings=await cf('/workers/scripts/'+config.gatewayName+'/settings');if(settings.bindings.filter(b=>b.name===config.gatewayBinding&&b.type==='service'&&b.service===config.workerName).length!==1)throw Error('gateway_boundary_not_ready');
+ nativeContactGatewayServices(settings,config);
+ const priorSecrets=gateway.bindings.filter(b=>b.type==='secret_text').map(b=>b.name);
+ report.gatewaySecretsPreserved=priorSecrets.every(name=>settings.bindings.filter(b=>b.name===name&&b.type==='secret_text').length===1);
+ report.gatewayServicesPreserved=servicesEqual(nativeContactGatewayServices(settings,config),gatewayServices);
+ if(!report.gatewaySecretsPreserved||!report.gatewayServicesPreserved)throw Error('gateway_boundary_not_ready');
  report.gatewayConnected=true;report.status='native_enrollment_boundary_deployed';report.stage='complete';
 }catch(error){const allowed=['configuration_required','native_schema_not_ready','stale_main_preserved','cloudflare_read_failed','registration_not_verified','cloudflare_subdomain_required','gateway_settings_changed_preserved','existing_worker_preserved','verify_service_not_ready','cloudflare_cli_failed','deployment_origin_mismatch','invalid_native_probe','native_boundary_not_ready','gateway_boundary_not_ready'];report.status=allowed.includes(error?.message)?error.message:'native_deployment_unavailable';process.exitCode=1;}
 await mkdir('test-results/voice-contact-native',{recursive:true});await writeFile('test-results/voice-contact-native/deployment.json',JSON.stringify(report,null,2)+'\n');console.log('VOICE_CONTACT_DEPLOYMENT '+JSON.stringify(report));

@@ -18,3 +18,7 @@ test('new native target is permitted, owned target retained, and unknown or conf
 test('future full-worker configuration retains the dedicated native gateway binding',()=>{
  const dir=mkdtempSync(join(tmpdir(),'contact-gateway-plan-'));try{execFileSync(process.execPath,['scripts/generate-cloudflare-worker-config.mjs',dir],{stdio:'pipe'});const generated=JSON.parse(readFileSync(join(dir,'gateway.jsonc')));assert.equal(generated.services.filter(b=>b.binding===config.gatewayBinding&&b.service===config.workerName).length,1);assert.equal(generated.services.length,13);}finally{rmSync(dir,{recursive:true,force:true});}
 });
+
+test('existing encrypted gateway JWT binding is preserved by platform retention without reading or recreating its value',()=>{
+ const before=current();before.bindings.push({name:'JWT_SECRET',type:'secret_text'});const snapshot=structuredClone(before);assert.equal(nativeContactGatewayServices(before,config).length,13);assert.deepEqual(before,snapshot);assert.equal('text' in before.bindings.at(-1),false);before.bindings.push({name:'JWT_SECRET',type:'secret_text'});assert.throws(()=>nativeContactGatewayServices(before,config),/preserved/);
+});
