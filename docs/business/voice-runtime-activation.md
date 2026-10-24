@@ -1,5 +1,29 @@
 # Voice runtime activation
 
+## Live activation checkpoint, 24 October 2026
+
+Commit `c3623bb89a970311040692e57f44b9f7f52725e5` adds the real Cloudflare
+WebSocketPair/101 host port. A Miniflare/workerd test verifies an actual upgrade,
+bidirectional messages and close. The focused suite passes 20 tests and strict
+TypeScript checking. This is runtime evidence, not a deployed endpoint.
+
+Actions run `40114638201`, provider job `120933397703`, makes read-only requests
+to the exact Twilio account's 2223 phone resource, Verify service and OpenAI models
+listing. Twilio API-key authentication, the Verify service and OpenAI key pass.
+Account Auth Token authentication is denied. Correct the encrypted
+`TWILIO_AUTH_TOKEN` input and rerun; never substitute an API-key secret for it or
+disable incoming signature checks. No credential values, provider bodies, calls,
+messages or model prompts are exported by this probe.
+
+The PrimeCare Verify service was created in the Console with six-digit codes,
+SMS/RCS and Standard Fraud Guard enabled. Its SID and the existing messaging
+service SID are saved in the production environment. No OTP delivery has yet
+been tested. The existing VOIP SaaS TwiML application still points to the old
+voipapp host; do not use its SID as proof that the PrimeCare voice host is ready.
+
+Remaining host/business-policy/API and app approval gates below still apply.
+Correct credentials alone do not resolve them or authorize a number cutover.
+
 The user saved the Twilio AI/ML agreement on 24 October 2026. The screenshot
 shows the agreement checked and the Console's Settings Updated acknowledgement.
 This clears that prerequisite, not the remaining deployment or acceptance gates.
