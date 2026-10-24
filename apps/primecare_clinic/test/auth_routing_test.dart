@@ -96,6 +96,7 @@ void main() {
     final router = container.read(appRouterProvider);
     final paths = router.configuration.routes.whereType<GoRoute>().map((route) => route.path);
     expect(paths, containsAll(SharedAuthRoutes.publicPaths));
+    expect(paths, contains('/platform/administration'));
     final route = router.configuration.routes.whereType<GoRoute>()
         .singleWhere((route) => route.path == CommonRoutes.login);
     late BuildContext context;

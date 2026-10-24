@@ -1,4 +1,5 @@
 import '../training/admin_training_launcher.dart';
+import '../platform/platform_master_screen.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'auth_design_tokens.dart';
@@ -142,6 +143,7 @@ class PrimeAuthExperience extends ConsumerWidget {
           Text(_copy(context, 'account'), style: theme.typography.labelBold),
           Text(auth.userName ?? '', style: theme.typography.bodyLarge), gap,
           const AdminTrainingLauncher(), gap,
+          const PlatformAdministrationLauncher(), gap,
           Text(_copy(context, 'role'), style: theme.typography.labelBold),
           Text(auth.role ?? '', style: theme.typography.bodyLarge), gap,
           if (ref.read(authProvider.notifier).canManageMfa)

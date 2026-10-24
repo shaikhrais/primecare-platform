@@ -24,6 +24,9 @@ class BusinessCache extends LocalCacheService {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   for (final path in [
+    '/v1/governance/platform',
+    '/v1/governance/platform/tenants/tenant-a/masters',
+    'https://api.example.test/v1/governance/platform/tenants/tenant-a/masters/',
     '/v1/clinical/dashboard',
     '/v1/clinical/dashboard?branch=selected',
     '/v1/business-development',

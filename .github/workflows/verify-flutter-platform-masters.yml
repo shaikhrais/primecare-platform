@@ -1,0 +1,89 @@
+name: Verify Flutter platform master workflow
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-flutter-platform-masters.yml'
+      - 'packages/flutter_core/lib/platform/**'
+      - 'packages/flutter_core/lib/src/network/api_client.dart'
+      - 'packages/flutter_core/lib/src/security/security_interceptor.dart'
+      - 'packages/flutter_core/test/platform_master_transport_test.dart'
+      - 'packages/flutter_core/test/business_development_transport_test.dart'
+      - 'packages/primecare_ui/lib/src/features/platform/**'
+      - 'packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart'
+      - 'packages/primecare_ui/lib/src/features/auth/auth_experience.dart'
+      - 'packages/primecare_ui/test/platform_master_test.dart'
+      - 'scripts/generate-platform-master-catalog.py'
+      - 'tools/governance-production/verify-platform-master-metadata.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  flutter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Require reproducible registered administration labels and identity
+        run: |
+          python scripts/generate-platform-master-catalog.py
+          git diff --exit-code -- packages/primecare_ui/lib/src/features/platform/platform_master_catalog.g.dart
+      - working-directory: packages/flutter_core
+        run: |
+          flutter pub get
+          flutter analyze --no-fatal-infos lib/platform/platform_master_repository.dart test/platform_master_transport_test.dart
+          flutter test test/platform_master_transport_test.dart test/business_development_transport_test.dart test/auth_interceptor_test.dart
+      - working-directory: packages/primecare_ui
+        run: |
+          flutter pub get
+          flutter analyze --no-fatal-infos lib/src/features/platform test/platform_master_test.dart
+          flutter test test/platform_master_test.dart test/governed_workspace_session_test.dart
+      - working-directory: apps/primecare_clinic
+        run: |
+          flutter pub get
+          flutter test test/auth_routing_test.dart
+          flutter build web --release --no-tree-shake-icons --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev
+  native-platform:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: platform, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: platform}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U platform" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/platform-native-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 pg@8.11.3 bcryptjs@3.0.2
+          ln -s "$RUNNER_TEMP/platform-native-tools/node_modules" node_modules
+          node --test scripts/test-platform-administration-postgres.mjs
+        env:
+          PLATFORM_TEST_DATABASE_URL: postgresql://platform:fixture-only@localhost:5432/platform
+  metadata:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/platform-reader-tools" --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s "$RUNNER_TEMP/platform-reader-tools/node_modules" node_modules
+      - run: python tools/governance-production/verify-platform-master-metadata.py
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: platform-master-metadata
+          path: test-results/platform-master-metadata
+          if-no-files-found: error
+          retention-days: 90

@@ -385,6 +385,7 @@ class ApiClient {
     final route = (Uri.tryParse(path)?.normalizePath().path ?? path)
         .replaceFirst(RegExp(r'/+$'), '');
     return isCommunicationPath(path) ||
+        route == '/v1/governance/platform' || route.startsWith('/v1/governance/platform/') ||
         route == '/v1/governance/reports' || route.startsWith('/v1/governance/reports/') ||
         route == '/v1/clinical/dashboard' ||
         route == '/v1/business-development' ||
@@ -483,6 +484,16 @@ class ApiClient {
         error: e.toString(),
       );
     }
+  }
+
+  /// A captured actor read for real workflows, never rebound to a later login.
+  Future<ApiResponse> getForSession(String path, String token) async {
+    if (!_isUncachedWorkflowPath(path)) throw ArgumentError('Registered uncached workflow required');
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(path,
+        options: Options(headers: {'Authorization': 'Bearer $token', 'Cache-Control': 'no-store'}));
+      return ApiResponse(data: response.data, statusCode: response.statusCode ?? 503);
+    } catch (error) { return _workflowFailure(error); }
   }
 
   /// Confirm a provisional MFA session without installing it as the active actor.

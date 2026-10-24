@@ -87,7 +87,13 @@ class SecurityInterceptor extends Interceptor {
     final authState = _ref.read(authProvider);
     final tenantId = authState.tenantId;
 
-    if (tenantId != null && tenantId.isNotEmpty) {
+    final route = options.uri.normalizePath().path;
+    final platformScope = route == '/v1/governance/platform' ||
+        route.startsWith('/v1/governance/platform/');
+    // Platform administration resolves both actor scope and selected tenant on
+    // the server and rejects tenant override headers. Preserve explicit caller
+    // headers so the server can reject them; do not inject an override ourselves.
+    if (!platformScope && tenantId != null && tenantId.isNotEmpty) {
       options.headers['X-Tenant-ID'] = tenantId;
     }
 

@@ -3,6 +3,8 @@ import 'package:flutter_core/flutter_core.dart';
 import 'package:go_router/go_router.dart';
 import 'login_view.dart';
 import '../maintenance/maintenance_configuration_screen.dart';
+import '../platform/platform_master_screen.dart';
+import '../platform/platform_master_catalog.g.dart';
 import '../workspace/governed_workspace_screen.dart';
 import '../workspace/workspace_routes_generated.dart';
 import 'auth_experience.dart';
@@ -67,6 +69,11 @@ class SharedAuthRouter {
           if (!session.isAuthenticated) return destination('/login?returnUrl=/maintenance/configuration');
           return ['ceo', 'maintenance'].contains(session.role) ? null : destination('/success');
         }
+        // This registered entry renders no tenant data until its API authorizes
+        // the current session. Do not infer platform access from a role name.
+        if (path == platformAdministrationRoute) {
+          return session.isAuthenticated ? null : destination('/login?returnUrl=$platformAdministrationRoute');
+        }
         if (session.isAuthenticated && landing) {
           final target = validateAppReturnUrl(
             state.uri.queryParameters['returnUrl'],
@@ -109,6 +116,7 @@ class SharedAuthRouter {
             : destination(result.redirectRoute ?? CommonRoutes.globalSettings);
       },
       publicRoutes: [
+        GoRoute(path: platformAdministrationRoute, builder: (context, state) => const AppShellBoundary(child: PlatformMasterScreen())),
         GoRoute(path: '/maintenance/configuration', builder: (context, state) => const AppShellBoundary(child: MaintenanceConfigurationScreen())),
         ...SharedAuthRoutes.routes(),
         ...SharedAuthRoutes.protectedRoutes(),
