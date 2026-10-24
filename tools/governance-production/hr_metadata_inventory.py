@@ -8,7 +8,7 @@ from domain_metadata_inventory import GovernedMetadataInventory
 
 class HrMetadataInventory(GovernedMetadataInventory):
     domain = 'human-resources'
-    pattern = re.compile(r'(^|[^a-z])hr([^a-z]|$)|human.?resources?|recruit|hiring|onboard|training|credential|knowledge|risk', re.I)
+    pattern = re.compile(r'(^|[^a-z])hr([^a-z]|$)|human.?resources?|recruit|hiring|onboard|training|credential|knowledge|risk|department|employee|workforce|applicant|interview|learning|induction|probation|payroll', re.I)
 
     def matches(self, value):
         return bool(self.pattern.search(str(value)))

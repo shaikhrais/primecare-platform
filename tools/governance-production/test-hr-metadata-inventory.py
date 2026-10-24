@@ -65,7 +65,8 @@ class Inventory(unittest.TestCase):
 
     def test_hr_is_a_token_not_a_thread_substring(self):
         inventory = HrMetadataInventory()
-        for value in ['hr_director', '/v1/hr/recruitment', 'human-resources', 'risk_dashboard', 'knowledge_base']:
+        for value in ['hr_director', '/v1/hr/recruitment', 'human-resources', 'risk_dashboard', 'knowledge_base',
+                      'department_management', '/v1/employees', 'interview_calendar', 'workforce_training']:
             self.assertTrue(inventory.matches(value))
         for value in ['thread', 'throughput', '/v1/messages']:
             self.assertFalse(inventory.matches(value))
