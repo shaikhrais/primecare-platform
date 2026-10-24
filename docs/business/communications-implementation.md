@@ -976,3 +976,46 @@ live SMTP, Twilio phone calls, TURN or mobile background ringing. Production
 permissions/screen bindings, owned mailboxes, provider setup, reception selection,
 extension publication, actual sales script and live/device acceptance remain
 open. No route, grant, extension assignment, number or provider was activated.
+
+
+### Registered native voice HTTP adapter verified
+
+Source `a6de5082a539195507317247370c7eca882f0fd2` adds
+`NativeVoiceHttpAdapter` through the shared bounded binary base and
+`createPostgresNativeVoiceHttpAdapter` for server-owned native session lookup.
+All nine registered native voice contracts dispatch to existing scoped services.
+Build-time compiled schemas, exact portal-origin configuration, bearer-only
+requests, immutable server identity, current endpoint authorization and bounded
+private WAV responses enforce the boundary. No browser SQL or database credential
+is introduced. Provider callbacks and AI task tools remain separate.
+
+The adapter checks current identity and permission before reading, before service
+execution and before returning sensitive output. Validated service objects/audio
+are copied before that final asynchronous check. The ownership regression fails
+on the initial `8ff46ad5768f966d54d2e9bf04aefd365b215702` implementation and passes
+on final source. A post-service denial cannot undo an existing mutation and never
+automatically resends an OTP, approval or extension command.
+
+All ten communication CI jobs passed in run `40048233138`; native voice job
+`120734726299` passed 16 HTTP cases including real disposable PostgreSQL session/
+token/publication acceptance with no skips, 188 existing voice/AI cases, 31 actual
+workerd assertions and all 24 sales-quality cases. The native HTTP database case
+uses real session/token services with explicit fixture endpoint policy; it does
+not prove production voice grants. Generated validator and strict type checks
+passed. The production inventory independently matched all 21 pinned Twilio
+contracts without writes, grants, publication or activation.
+
+Both jobs in full-stack run `40048233109` passed all 15 milestones through actual
+Flutter UI, API gateway, Worker and disposable PostgreSQL. Both peers received
+[11,11] audio packets and closed. Three downloaded ZIP digests were verified and
+both screenshots reviewed. Exact artifacts and scope are in
+`evidence/communication-native-voice-http-20261024.json`. All three password
+browser checks and workflow-contract review also passed on the same source.
+
+This closes the native HTTP dispatch implementation gap. It does not mount the
+production routes, invent missing screen/action grants, provision providers,
+choose reception or publish user extensions. Host permissions and service
+bindings, production schema, owned mailbox routing, actual sales script, live
+phone/email/AI/transcription and TURN/mobile background ringing acceptance remain
+open. Mail acceptance, picture scanning and microphone input remain synthetic in
+the full-stack test; local Images/R2 and loopback audio are not live-provider proof.

@@ -1,0 +1,80 @@
+{
+  "sourceCommit": "a6de5082a539195507317247370c7eca882f0fd2",
+  "feature": "Inherited native HTTP adapter for nine existing registered voice app contracts",
+  "architecture": {
+    "application": [
+      "browser",
+      "API gateway",
+      "API Worker",
+      "server-owned PostgreSQL"
+    ],
+    "databaseAssertions": "separate Node test runner",
+    "browserDatabaseConnection": false
+  },
+  "ci": {
+    "communicationRun": 40048233138,
+    "communicationJobsPassed": 10,
+    "stackRun": 40048233109,
+    "stackJobsPassed": 2,
+    "nativeVoiceJob": 120734726299,
+    "nativeHttpTestsPassed": 16,
+    "nativeHttpSkipped": 0,
+    "voiceAiTestsPassed": 188,
+    "workerdChecksPassed": 31,
+    "salesQualityTestsPassed": 24,
+    "fullStackMilestones": 15,
+    "audioPackets": [
+      11,
+      11
+    ],
+    "bothPeersClosed": true
+  },
+  "responseOwnershipRegression": {
+    "previousSource": "8ff46ad5768f966d54d2e9bf04aefd365b215702",
+    "previousSourceFailed": true,
+    "correctedSourcePassed": true
+  },
+  "productionContracts": {
+    "independentReadback": 21,
+    "writesAttempted": false,
+    "activation": false
+  },
+  "artifacts": [
+    {
+      "id": 12542325982,
+      "name": "business-communications-registry",
+      "sha256": "2b52d74e21f15e1a05282d6e3a568c568c4f9037abfabdfe0904a7cdbc5b654d",
+      "downloadDigestVerified": true
+    },
+    {
+      "id": 12542281103,
+      "name": "communication-twilio-voice",
+      "sha256": "344cd96920166ec866136a3e3463496ab4d92acc39592a4e5475456b239a9c53",
+      "downloadDigestVerified": true
+    },
+    {
+      "id": 12542141949,
+      "name": "communication-stack-browser-postgres",
+      "sha256": "fde1699ac50584c95146641050e43b8cb24926020ab6804ea19610bb4bf19186",
+      "downloadDigestVerified": true
+    }
+  ],
+  "screenshotsVisuallyReviewed": [
+    "alice-authenticated.png",
+    "bob-received-mail.png"
+  ],
+  "liveProviderVerified": false,
+  "syntheticPorts": [
+    "mail acceptance",
+    "picture scanner",
+    "microphone input",
+    "specialized HTTP service and endpoint-policy fixtures"
+  ],
+  "remaining": [
+    "Host route mount and exact current registered API/screen/action policy bindings",
+    "Production business schema and mailbox/provider configuration",
+    "Reception selection and explicit extension assignment/publication",
+    "Live Twilio/AI/transcription setup and actual sales script",
+    "Real phone/email/TURN/mobile device and background ringing acceptance"
+  ]
+}
