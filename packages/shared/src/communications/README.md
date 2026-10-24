@@ -1108,7 +1108,11 @@ and after service work. A post-service denial suppresses sensitive output but
 does not undo an already committed mutation. All ambiguous failures remain
 generic failures, with no automatic resend/retry.
 
-Run `node --test scripts/test-communication-voice-native-http.mjs` (14 local
+Validated service JSON and private audio bytes are copied before the final
+asynchronous identity/permission check. Service buffer reuse cannot rewrite the
+response during that wait; oversized audio is rejected before making the copy.
+
+Run `node --test scripts/test-communication-voice-native-http.mjs` (15 local
 cases plus a disposable PostgreSQL case when `TWILIO_SMS_TEST_DATABASE_URL` is
 set). Tests cover all nine dispatches, identity injection, CSRF/origin boundaries,
 binary/JSON limits, method/route isolation, revocation during reads/service work,

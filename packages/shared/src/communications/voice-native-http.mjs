@@ -79,16 +79,24 @@ export class NativeVoiceHttpAdapter extends BoundedBinaryAdapterBase {
    // Body reading can suspend. Recheck the same current identity and grant
    // immediately before service invocation; body fields never supply identity.
    await this.#current(request,op,session);
-   const result=await this.#dispatch[op.key](session,Object.freeze(input));
+   const raw=await this.#dispatch[op.key](session,Object.freeze(input));
+   // Own validated service output before current-session I/O suspends. A
+   // provider/service may reuse its object or audio buffer for another call.
+   let result;
+   if(op.key==='voicemail.audio'){
+    const bytes=raw?.bytes;try{this.#audio.validateBytes(bytes);}catch{throw Error('Invalid audio response');}
+    if(raw.contentType!=='audio/wav'||bytes.length<12||String.fromCharCode(...bytes.subarray(0,4))!=='RIFF'||String.fromCharCode(...bytes.subarray(8,12))!=='WAVE')throw Error('Invalid audio response');
+    result={bytes:bytes.slice()};
+   }else{
+    if(validators['voice'+op.index+'_response'](raw)!==true)throw Error('Invalid voice response');
+    result=structuredClone(raw);
+   }
    // Do not expose tokens or private audio after a session/grant changes.
    // A mutation may already have committed; failure never triggers a retry.
    await this.#current(request,op,session);
    if(op.key==='voicemail.audio'){
-    const bytes=result?.bytes;try{this.#audio.validateBytes(bytes);}catch{throw Error('Invalid audio response');}
-    if(result.contentType!=='audio/wav'||bytes.length<12||String.fromCharCode(...bytes.subarray(0,4))!=='RIFF'||String.fromCharCode(...bytes.subarray(8,12))!=='WAVE')throw Error('Invalid audio response');
-    return new Response(bytes.slice(),{headers:{...headers,'content-type':'audio/wav','content-length':String(bytes.length)}});
+    return new Response(result.bytes,{headers:{...headers,'content-type':'audio/wav','content-length':String(result.bytes.length)}});
    }
-   if(validators['voice'+op.index+'_response'](result)!==true)throw Error('Invalid voice response');
    return Response.json(result,{headers});
   }catch(error){
    const status=error instanceof NativeVoiceHttpError?error.status:error instanceof CommunicationInputError?400:503;

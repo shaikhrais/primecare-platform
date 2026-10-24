@@ -61,6 +61,14 @@ test('invalid private audio is a generic server failure, never a caller error or
   const f=fixture();f.services.voicemail.audio=async()=>result;const response=await new NativeVoiceHttpAdapter(f.options).respond(request(commands[4][1],commands[4][2]));assert.equal(response.status,503);assert.equal(response.headers.get('content-type'),'application/json');
  }
 });
+test('service JSON and audio buffers are owned before final authorization suspends',async()=>{
+ for(const audio of [false,true]){const f=fixture();let reads=0;const bytes=wav.slice(),result={token:'original-token',identity:'original-user',ttlSeconds:60};
+  f.services.tokens.issue=async()=>result;f.services.voicemail.audio=async()=>({bytes,contentType:'audio/wav'});
+  const adapter=new NativeVoiceHttpAdapter({...f.options,async authenticate(){if(++reads===3){result.token='another-call-token';result.identity='another-user';bytes.fill(0);}return {actor,sessionHash:hash,expiresAt:Date.now()+60000};}});
+  const response=await adapter.respond(audio?request(commands[4][1],commands[4][2]):request());assert.equal(response.status,200);
+  if(audio)assert.deepEqual(new Uint8Array(await response.arrayBuffer()),wav);else assert.deepEqual(await response.json(),{token:'original-token',identity:'original-user',ttlSeconds:60});
+ }
+});
 test('configuration requires current ports, secure origin and finite resource limits',()=>{
  for(const change of [{origin:'http://app.invalid'},{origin:origin+'/'},{maxRequestBytes:65537},{maxAudioBytes:11},{maxAudioBytes:33554433},{authenticate:null},{authorize:null},{services:{}},{appOrigins:['*']},{appOrigins:['http://app.invalid']},{appOrigins:[origin+'/path']}])assert.throws(()=>new NativeVoiceHttpAdapter({...fixture().options,...change}));
 });
