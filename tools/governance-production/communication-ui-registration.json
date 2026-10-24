@@ -233,6 +233,41 @@
       "testId": "communication-mail-detail",
       "component": "prime_card",
       "componentId": 2
+    },
+    "phoneVerification": {
+      "testId": "communication-phone-verification",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "phoneStatus": {
+      "testId": "communication-phone-status",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "phoneNumber": {
+      "testId": "communication-phone-number",
+      "component": "prime_text_field",
+      "componentId": 3
+    },
+    "phoneCode": {
+      "testId": "communication-phone-code",
+      "component": "prime_text_field",
+      "componentId": 3
+    },
+    "phoneSend": {
+      "testId": "communication-phone-send",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "phoneCheck": {
+      "testId": "communication-phone-check",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "phoneRefresh": {
+      "testId": "communication-phone-refresh",
+      "component": "prime_button",
+      "componentId": 1
     }
   },
   "locales": {
@@ -309,7 +344,20 @@
       "callPending": "The call action may have completed. Retry the original action to confirm it.",
       "callInvalid": "Choose a current conversation member and call.",
       "mailPreview": "Unverified text preview",
-      "mailPreviewUnavailable": "Text preview unavailable. This message remains quarantined."
+      "mailPreviewUnavailable": "Text preview unavailable. This message remains quarantined.",
+      "phoneVerification": "Verify your account phone",
+      "phoneNumber": "Your phone number, including country code",
+      "phoneCode": "Six-digit SMS code",
+      "phoneSend": "Send verification SMS",
+      "phoneCheck": "Verify phone",
+      "phoneRefresh": "Check verification status",
+      "phoneVerified": "Your account phone is verified.",
+      "phoneNotEnrolled": "Sign in again, then enter your own phone number to request a code.",
+      "phoneCodeSent": "Enter the code in this app. Never share it with the AI assistant.",
+      "phoneUnknown": "The result is uncertain. Check status; do not automatically request another SMS.",
+      "phoneEnrollmentUnavailable": "Phone enrollment is unavailable for this account.",
+      "phoneInvalid": "Enter a phone number with country code or a six-digit code.",
+      "phoneCodeRejected": "The code was not approved. Check the code and try again before it expires."
     },
     "fr": {
       "title": "Messages",
@@ -384,7 +432,20 @@
       "callPending": "L’action d’appel a peut-être abouti. Réessayez l’action initiale pour confirmer.",
       "callInvalid": "Choisissez un membre de la conversation et un appel.",
       "mailPreview": "Aperçu du texte non vérifié",
-      "mailPreviewUnavailable": "Aperçu du texte indisponible. Ce courriel reste en quarantaine."
+      "mailPreviewUnavailable": "Aperçu du texte indisponible. Ce courriel reste en quarantaine.",
+      "phoneVerification": "Vérifier le téléphone de votre compte",
+      "phoneNumber": "Votre numéro de téléphone avec indicatif du pays",
+      "phoneCode": "Code SMS à six chiffres",
+      "phoneSend": "Envoyer le SMS de vérification",
+      "phoneCheck": "Vérifier le téléphone",
+      "phoneRefresh": "Consulter la vérification",
+      "phoneVerified": "Le téléphone de votre compte est vérifié.",
+      "phoneNotEnrolled": "Reconnectez-vous, puis saisissez votre propre numéro pour demander un code.",
+      "phoneCodeSent": "Saisissez le code dans cette application. Ne le partagez jamais avec l’assistant IA.",
+      "phoneUnknown": "Le résultat est incertain. Consultez le statut ; ne demandez pas automatiquement un autre SMS.",
+      "phoneEnrollmentUnavailable": "La vérification du téléphone est indisponible pour ce compte.",
+      "phoneInvalid": "Saisissez un numéro avec indicatif du pays ou un code à six chiffres.",
+      "phoneCodeRejected": "Le code n’a pas été approuvé. Vérifiez-le et réessayez avant son expiration."
     },
     "es": {
       "title": "Mensajes",
@@ -459,7 +520,20 @@
       "callPending": "La acción de llamada puede haberse completado. Reintente la acción original para confirmar.",
       "callInvalid": "Elija un miembro de la conversación y una llamada.",
       "mailPreview": "Vista previa de texto no verificado",
-      "mailPreviewUnavailable": "Vista previa no disponible. El mensaje permanece en cuarentena."
+      "mailPreviewUnavailable": "Vista previa no disponible. El mensaje permanece en cuarentena.",
+      "phoneVerification": "Verificar el teléfono de su cuenta",
+      "phoneNumber": "Su número de teléfono con código de país",
+      "phoneCode": "Código SMS de seis dígitos",
+      "phoneSend": "Enviar SMS de verificación",
+      "phoneCheck": "Verificar teléfono",
+      "phoneRefresh": "Consultar verificación",
+      "phoneVerified": "El teléfono de su cuenta está verificado.",
+      "phoneNotEnrolled": "Inicie sesión de nuevo e introduzca su propio número para solicitar un código.",
+      "phoneCodeSent": "Introduzca el código en esta aplicación. Nunca lo comparta con el asistente de IA.",
+      "phoneUnknown": "El resultado es incierto. Consulte el estado; no solicite otro SMS automáticamente.",
+      "phoneEnrollmentUnavailable": "La verificación de teléfono no está disponible para esta cuenta.",
+      "phoneInvalid": "Introduzca un número con código de país o un código de seis dígitos.",
+      "phoneCodeRejected": "El código no fue aprobado. Revíselo e inténtelo de nuevo antes de que caduque."
     }
   },
   "limits": {
@@ -477,7 +551,9 @@
     "maxMailParts": 64,
     "maxMailHtmlBytes": 65536,
     "maxMailHtmlDepth": 48,
-    "maxMailHtmlEvents": 8192
+    "maxMailHtmlEvents": 8192,
+    "phoneMaxLength": 16,
+    "phoneCodeLength": 6
   },
   "rules": {
     "generalReference": "general",
@@ -488,7 +564,8 @@
     "mailDelivery": "explicit-queue-then-deliver-accepted-is-not-delivered",
     "inboundMail": "bounded-unverified-plain-or-html-extracted-text-preview-quarantine-retained-no-markup-attachments-or-header-identity",
     "audio": "accepted-party-only-explicit-microphone-connect-release-on-context-change",
-    "htmlMailPreview": "callback-text-extraction-only-no-dom-no-network-plain-text-precedence-fail-closed-on-budget"
+    "htmlMailPreview": "callback-text-extraction-only-no-dom-no-network-plain-text-precedence-fail-closed-on-budget",
+    "phoneEnrollment": "first-time-only-native-app-explicit-sms-no-code-to-ai-no-automatic-send-retry-clear-on-session-change"
   },
   "implementationStatus": "registered-unimplemented",
   "reviewApproved": false,
