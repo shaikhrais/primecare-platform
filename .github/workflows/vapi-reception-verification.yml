@@ -7,6 +7,9 @@ on:
       - 'packages/shared/src/communications/vapi-management.mjs'
       - 'scripts/test-vapi-management.mjs'
       - 'scripts/test-vapi-api-request.mjs'
+      - 'scripts/test-vapi-service-auth.mjs'
+      - 'packages/shared/src/communications/vapi-service-auth.mjs'
+      - 'packages/shared/src/communications/vapi-service-auth.d.mts'
       - 'packages/shared/src/communications/vapi-api-request.mjs'
       - 'packages/shared/src/communications/vapi-api-request.d.mts'
       - 'scripts/verify-vapi-reception.mjs'
@@ -30,7 +33,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
-      - run: node --test scripts/test-vapi-management.mjs scripts/test-vapi-api-request.mjs
+      - run: node --test scripts/test-vapi-management.mjs scripts/test-vapi-api-request.mjs scripts/test-vapi-service-auth.mjs
   provider:
     needs: tests
     runs-on: ubuntu-24.04

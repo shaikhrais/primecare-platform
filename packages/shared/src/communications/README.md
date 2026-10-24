@@ -1163,3 +1163,15 @@ recording verification denies notification rather than selecting the new owner.
 The voicemail suite covers mutable repository rows during recording verification
 and playback authorization. No HTTP contract, permission or provider setting is
 changed by this internal isolation fix.
+
+### Vapi tool service credential
+
+`createVapiToolCredentialVerifier` supplies the provider-only authentication port
+for VapiApiRequestAdapter. It accepts only the exact dedicated Bearer credential
+through the Authorization header, hashes it and compares fixed-length digests.
+It accepts no query/body/cookie credentials and never grants caller identity or
+task approval. The endpoint must also use the registered policy, rate limit,
+canonical call resolver and current OTP/passkey/app approval services. Provision
+the dedicated random secret in server storage and a reusable Vapi credential
+before deployment; do not reuse the Vapi management key. This helper alone does
+not deploy a route, provision a credential or attach a tool.
