@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "source": "f029fda98c6d1a3a79ecc513c4898e94a8e5ca62",
+  "reviewAmendmentSource": "1ef8f4b3b7b4ead1eb16a719f8e69ee2bcc44b4f",
+  "mainOnly": true,
+  "roleGrantsChanged": false,
+  "liveProviderWrites": false,
+  "liveDepartmentWrites": false,
+  "verification": {
+    "flutter": {
+      "run": 40083235517,
+      "job": 120840884932,
+      "status": "success",
+      "coreTests": 327,
+      "presentationTests": 105,
+      "clinicRoutingTests": 4,
+      "releaseBuild": true
+    },
+    "contractReview": {
+      "run": 40083516313,
+      "jobs": [
+        {
+          "id": 120841702931,
+          "status": "success"
+        },
+        {
+          "id": 120841703039,
+          "status": "success"
+        }
+      ],
+      "originalFailure": "Historical business-development dashboard source fingerprint changed during shared dashboard integration; fixed with exact reversible amendment, preserving baseline hash and zero completion credits."
+    },
+    "local": {
+      "salesQualityOtpAndTaskApproval": {
+        "passed": 37,
+        "skipped": 1,
+        "skipReason": "PostgreSQL fixture absent"
+      },
+      "gatewayTenantAndMethodCapture": {
+        "passed": 26,
+        "skipped": 0
+      },
+      "contractPlanPythonTests": 15,
+      "methodCapturePythonTests": 10,
+      "contractFactoryPythonTests": 15,
+      "bulkCodegenPythonTests": 7
+    }
+  },
+  "limitations": [
+    "All-role deployed business workflow acceptance is not established by shared dashboard integration.",
+    "Flutter platform administration route and code-admin capability binding remain unresolved.",
+    "No live HR departments, Twilio routing, extension assignments, Gmail authorization or clinical task activation verified.",
+    "Clinic deployment and aggregate auth/unified workflows were still running when this receipt was recorded."
+  ]
+}
