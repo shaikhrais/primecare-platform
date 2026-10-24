@@ -8,7 +8,8 @@ from communication_contract_report import assess_contracts
 
 root = Path(__file__).resolve().parents[2]
 terms = ['messag', 'communicat', 'email', 'attachment', 'voice', 'video', 'call', 'task',
-    'appointment', 'booking', 'cancel', 'reschedul']
+    'appointment', 'booking', 'cancel', 'reschedul',
+    'twilio', 'vapi', 'telephony', 'integration']
 def matches(value):
     return any(term in str(value).lower() for term in terms)
 
