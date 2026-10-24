@@ -1,0 +1,89 @@
+name: Deploy private voice identity schema
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/voice-identity-schema.yml'
+      - 'scripts/migrate-voice-identity-schema.mjs'
+      - 'scripts/test-voice-identity-schema.mjs'
+      - 'packages/database/migrations/20261023_communication_voice_otp.sql'
+      - 'packages/database/migrations/20261023_communication_voice_tasks.sql'
+      - 'packages/database/migrations/20261023_communication_voice_confirmations.sql'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: primecare-voice-identity-schema-production
+  cancel-in-progress: false
+jobs:
+  reference:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: voice_fixture
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: voice_identity_schema_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U voice_fixture -d voice_identity_schema_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      WORKFLOW_TEST_DATABASE_URL: postgres://voice_fixture:disposable-only@localhost:5432/voice_identity_schema_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/voice-schema-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/voice-schema-tools/node_modules" node_modules
+      - run: |
+          node scripts/migrate-voice-identity-schema.mjs --reference
+          node --test scripts/test-voice-identity-schema.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: voice-identity-schema-reference
+          path: test-results/voice-identity-schema/reference.json
+          retention-days: 30
+  deploy:
+    needs: reference
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/voice-schema-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/voice-schema-tools/node_modules" node_modules
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+      - uses: actions/download-artifact@v4
+        with:
+          name: voice-identity-schema-reference
+          path: test-results/voice-identity-schema
+      - name: Roll back a dry run then atomically apply only the exact empty voice tables
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          VOICE_IDENTITY_SCHEMA_APPLY: '1'
+        run: |
+          node scripts/migrate-voice-identity-schema.mjs --dry-run
+          node scripts/migrate-voice-identity-schema.mjs --apply
+      - name: Independently verify schema using a read-only transaction
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/migrate-voice-identity-schema.mjs --verify
+      - name: Reread identity readiness without traffic, contacts, grants or business writes
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
+        run: node scripts/verify-vapi-identity-readiness.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: voice-identity-schema-deployment
+          path: |
+            test-results/voice-identity-schema
+            test-results/vapi/identity-readiness.json
+          retention-days: 30

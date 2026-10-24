@@ -25,7 +25,7 @@ test('call changes or provider failures during lookup cannot return a stale posi
 });
 test('bad IDs, HTTP denials, oversized and malformed provider payloads fail without secret-bearing errors',async()=>{
  let calls=0;const c=new VapiCallReadClient({apiKey:key,async fetch(){calls++;throw Error(key);}});await assert.rejects(c.fetch('../call'),e=>e.code==='invalid_resource');assert.equal(calls,0);await assert.rejects(c.fetch(id),e=>!String(e).includes(key));
- for(const response of [()=>new Response(key,{status:401}),()=>new Response(key,{status:404}),()=>new Response('x'.repeat(524289)),()=>Response.json({...raw(),transport:{provider:{token:key}}}),()=>Response.json({...raw(),id:org})]){const reader=new VapiCallReadClient({apiKey:key,async fetch(){return response();}});await assert.rejects(reader.fetch(id),e=>!String(e).includes(key));}
+ for(const response of [()=>new Response(key,{status:401}),()=>new Response(key,{status:404}),()=>new Response('x'.repeat(524289)),()=>Response.json({...raw(),transport:{provider:{token:key}}}),()=>Response.json({...raw(),id:org}),()=>Response.json({...raw(),status:key}),()=>Response.json({...raw(),phoneCallProvider:key}),()=>Response.json({...raw(),transport:{provider:'twilio',conversationType:key}})]){const reader=new VapiCallReadClient({apiKey:key,async fetch(){return response();}});await assert.rejects(reader.fetch(id),e=>!String(e).includes(key));}
 });
 
 test('documented Twilio transport is authoritative when deprecated root provider fields are absent',async()=>{

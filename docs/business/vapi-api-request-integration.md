@@ -191,3 +191,20 @@ The live boundary stays closed. Still required: production schema/onboarding and
 native permission readiness, private pre-AI pairing-code delivery, the registered
 app pairing UI and runtime deployment. Do not route pairing or SMS codes through
 the LLM to work around an unconnected private delivery flow.
+
+The first live Step 3 audit (workflow 40136591877) confirmed that all five voice
+identity/task tables were absent and both registered native OTP operations had
+zero active API/screen grants. Existing users, tenants and auth_sessions tables
+were present. The nonexistent Vapi call was rejected by the provider. No SMS or
+business action was attempted; readiness was correctly reported blocked.
+
+The next schema migration uses the three existing reviewed voice OTP/task/
+confirmation SQL files. A disposable PostgreSQL job first creates a complete
+reference of columns, constraints and indexes and tests privacy and transaction
+rollback. The protected production job checks source hashes and the pinned
+manifest, refuses partial or altered existing schemas, dry-runs with rollback,
+then creates only the exact five absent tables in one advisory-locked transaction.
+PUBLIC access is revoked on newly created tables and any non-owner ACL causes
+rollback. No contacts are enrolled, role grants changed, messages sent or business
+records written. A separate read-only transaction verifies the full schema, then
+rereads readiness. This does not activate the OTP runtime or app UI.
