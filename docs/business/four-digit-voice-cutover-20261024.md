@@ -70,3 +70,10 @@ refuses unexpected edited constraints/ranges. It performs no truncation, deletio
 or reassignment. Its disposable PostgreSQL test checks legacy preservation,
 rollback, bounds, global uniqueness, exhaustion and idempotent sequence state.
 The historical migrations remain unchanged.
+
+The read-only communication inventory also includes appointment, booking,
+cancellation and rescheduling metadata so AI task bindings can be reviewed
+against the current production API/workflow definitions. This adds no business
+record reads, policy defaults or grants. In code, the existing client cancellation
+handler cancels pending booking requests only; it is not evidence of a confirmed
+appointment cancellation or fee policy. The AI must not treat these as equivalent.
