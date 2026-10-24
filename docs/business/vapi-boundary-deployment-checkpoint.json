@@ -1,0 +1,18 @@
+{
+  "workflowRunId": 40135032891,
+  "deployJobId": 120994718815,
+  "commit": "4589407ca269acd92033a0cf6f3ad403906b5520",
+  "phase": "authenticated-boundary-only",
+  "endpoint": "https://primecare-vapi-tools-api.itpro-mohammed.workers.dev/v1/vapi/voice/tasks",
+  "apiId": 16534,
+  "credentialId": "98673f20-f20e-4074-bc88-d2111319274c",
+  "credentialConfigured": true,
+  "deployed": true,
+  "unauthenticatedDenied": true,
+  "wrongCredentialDenied": true,
+  "authenticatedClosed": true,
+  "businessActionsEnabled": false,
+  "toolsAttached": false,
+  "liveCallVerified": false,
+  "status": "authenticated_boundary_verified"
+}

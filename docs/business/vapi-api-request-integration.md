@@ -103,8 +103,8 @@ The dry-run transaction was rolled back, apply returned independentReadback=true
 and a separate read-only process returned the same ID with writesAttempted=false.
 Four schema tests and 28 native PostgreSQL tests passed. roleGrants=0,
 providerWrites=false and activation=false. The dedicated provider-only credential
-verifier is also implemented; its three local checks pass. No credential has yet
-been provisioned or attached, and the endpoint remains undeployed.
+verifier is also implemented; its three local checks pass. At completion of Step 1, no credential had been provisioned or attached and the
+endpoint was undeployed. Step 2 evidence below supersedes that deployment status.
 
 Remaining sequence: (2) deploy the registered boundary with a dedicated reusable
 credential and canonical provider-call checks; (3) connect secure app pairing
@@ -145,3 +145,15 @@ successful boundary receipt does not mean canonical call mapping, OTP, app
 approval, business API execution or live phone acceptance works. Those remain
 subsequent integration steps. Official source package:
 https://github.com/VapiAI/server-sdk-typescript (npm version 3.0.0).
+
+Step 2 live evidence: workflow 40135032891, deploy job 120994718815, commit
+4589407ca269acd92033a0cf6f3ad403906b5520 succeeded. Endpoint:
+https://primecare-vapi-tools-api.itpro-mohammed.workers.dev/v1/vapi/voice/tasks
+API 16534 was independently reverified before deployment. Dedicated Vapi credential
+98673f20-f20e-4074-bc88-d2111319274c was created and its matching secret installed
+in the Worker. Missing/wrong credential HTTP probes returned 401; the correct
+credential reached the deliberately closed business phase with 503 Business tools
+are not enabled. All three live checks passed; 31 CI tests passed. Secret values
+were never printed or included in the artifact. businessActionsEnabled=false and
+toolsAttached=false. Caller verification, app approval and real business task
+composition remain Step 3 onward; the live assistant still has no business tools.
