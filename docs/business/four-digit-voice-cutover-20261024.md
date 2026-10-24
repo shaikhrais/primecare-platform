@@ -77,3 +77,53 @@ against the current production API/workflow definitions. This adds no business
 record reads, policy defaults or grants. In code, the existing client cancellation
 handler cancels pending booking requests only; it is not evidence of a confirmed
 appointment cancellation or fee policy. The AI must not treat these as equivalent.
+
+
+## Verified runtime checkpoint
+
+Runtime source `40a98c99d7fbe4f19817b120c3e87581cf9201aa` and corrected browser
+fixture `cae1f27070334dde0f8fb9b500d39e4c416d4568` passed all ten communication
+jobs in run `40050431745`: 191 voice/AI checks, 17 native HTTP checks with
+PostgreSQL, the real migration test, 34 workerd assertions and 24 sales QA checks.
+The initial browser failure used six-digit fixture values; the corrected fixture
+proves legacy inputs are rejected before creating an SDK call and retains media
+cleanup assertions. No application checks were removed.
+
+Both jobs in full-stack run `40050245695` passed all 15 milestones through Flutter
+UI -> API gateway -> Worker -> disposable PostgreSQL. Peers received [7,10] audio
+packets and both closed. Three artifact ZIP digests were checked and both
+screenshots visually reviewed. The final production registry artifact independently
+matched all 21 four-digit API schemas; no provider writes or activation occurred.
+Exact jobs, hashes, earlier failures and remaining release limits are recorded in
+`evidence/communication-four-digit-menu-20261024.json`. The business migration has
+not been applied to production; legacy records require explicit reconciliation.
+
+The broader source-triggered suite also exposed two separate governance failures:
+care browser setup reads a filename containing JSON import-attribute text, and
+account-session registration finds differing own-session API links. Their native
+tests passed; no existing API links/grants were overwritten to force green.
+Communication acceptance does not imply repository-wide CI success.
+
+## Agreed configuration and next AI bindings
+
+The selected outgoing address is `shkh.rais@gmail.com`; it needs a securely
+authorized Gmail account or a provider-approved sending identity before live
+sending. Do not impersonate a Gmail From address through an unrelated provider.
+Reception is a configurable published destination, not a guessed user. Sales
+rubrics are versioned/configurable with per-point weights, mandatory misses,
+evidence and uncertain-result review; a sample rubric is sufficient for tests.
+
+The existing AI task implementations support callback, booking-request and
+reschedule-request ports behind OTP/passkey and exact independent approval. The
+expanded live metadata inventory contains legacy generic booking placeholders
+and a separate sales/prospect-appointment status API. Those are not proof of a
+client/clinic appointment cancellation-fee policy. Pending booking-request
+cancellation, care-visit cancellation and sales-appointment cancellation must not
+be substituted for a clinic appointment cancellation. Bind the correct current
+API, ownership/version/availability rules and clinic policy before enabling that
+task; disclose any policy/fee consequence in the exact confirmation. Missing
+terms or permissions must hand off to reception rather than invent a free cancel.
+
+Useful later tasks include availability checks, appointment status, reminders and
+reception handoff when their registered APIs/knowledge and permissions are bound.
+These are proposed additions, not activated tools or completion claims.

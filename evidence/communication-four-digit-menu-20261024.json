@@ -1,0 +1,108 @@
+{
+  "runtimeCommit": "40a98c99d7fbe4f19817b120c3e87581cf9201aa",
+  "finalBrowserFixtureCommit": "cae1f27070334dde0f8fb9b500d39e4c416d4568",
+  "metadata": {
+    "commit": "d1395ed61885ec75adc0bdd58d758b3c5f4056a1",
+    "run": 40049674028,
+    "productionJob": 120739520564,
+    "extensionDigits": 4,
+    "policyVersion": 2,
+    "contracts": 21,
+    "independentReadback": true,
+    "assignmentsChanged": false,
+    "grantsChanged": false,
+    "providerWrites": false,
+    "activation": false
+  },
+  "routing": {
+    "extensionRange": "1000-9999",
+    "receptionDigit": "0",
+    "aiDigit": "1",
+    "aiEntry": "fixed same-origin verified pairing URL",
+    "fourDigitStartingWithOne": "remains a normal extension",
+    "missingAi": "configured reception or unavailable"
+  },
+  "ci": {
+    "communicationRun": 40050431745,
+    "jobsPassed": 10,
+    "voiceAiTestsPassed": 191,
+    "nativeHttpWithPostgresPassed": 17,
+    "migrationTestsPassed": 1,
+    "workerdChecksPassed": 34,
+    "salesQualityPassed": 24,
+    "stackRun": 40050245695,
+    "stackJobsPassed": 2,
+    "stackSource": "40a98c99d7fbe4f19817b120c3e87581cf9201aa",
+    "stackMilestones": 15,
+    "audioPackets": [
+      7,
+      10
+    ],
+    "bothPeersClosed": true
+  },
+  "artifacts": [
+    {
+      "name": "communication-stack-browser-postgres",
+      "id": 12543172391,
+      "digest": "194104d89047a477beb6a1d4a7c105719776d97c8c77234594d14ba682b84a89",
+      "downloadDigestVerified": true
+    },
+    {
+      "name": "business-communications-registry",
+      "id": 12542978403,
+      "digest": "15727829e1ebec62ad901950340d9138738b51ffe08d74a4a09c83f44aa000f2",
+      "downloadDigestVerified": true
+    },
+    {
+      "name": "communication-twilio-voice",
+      "id": 12542614768,
+      "digest": "b58d50f9b64e37408b4f86209560a9a6a1dcfd0d478dbba8ef22262eed84fdde",
+      "downloadDigestVerified": true
+    }
+  ],
+  "screenshotsVisuallyReviewed": [
+    "alice-authenticated.png",
+    "bob-received-mail.png"
+  ],
+  "priorFailures": [
+    {
+      "run": 40049540796,
+      "reason": "Unordered identity comparison after PostgreSQL updates",
+      "fixed": "Compare exact preserved fields ORDER BY id; production was skipped"
+    },
+    {
+      "run": 40050245659,
+      "job": 120741095968,
+      "reason": "Browser fixture still used six-digit extension inputs",
+      "fixed": "Four-digit browser calls plus explicit legacy-input denial passed in final CI"
+    }
+  ],
+  "separateGovernanceFailures": [
+    {
+      "run": 40050245673,
+      "job": 120741296402,
+      "reason": "Care browser test attempts to open auth-elevation.json with import-attribute text in the file path"
+    },
+    {
+      "run": 40050245670,
+      "job": 120741269122,
+      "reason": "Own-session API links differ from registration; no link deletion or grant change attempted"
+    }
+  ],
+  "architecture": "Browser -> API gateway -> API Worker -> PostgreSQL; separate test-runner database assertions",
+  "businessMigrationAppliedToProduction": false,
+  "liveProviderVerified": false,
+  "syntheticPorts": [
+    "mail acceptance",
+    "picture scanner",
+    "microphone input",
+    "voice provider and service fixture ports"
+  ],
+  "remaining": [
+    "Production business-schema cutover and current host/screen/action permissions",
+    "Reception destination, explicit user extension assignments/publication",
+    "Twilio/AI/transcription and Gmail OAuth configuration",
+    "Confirmed appointment reschedule/cancellation API and clinic-policy binding",
+    "Actual sales script/rubric configuration and live/device/TURN/background ringing acceptance"
+  ]
+}
