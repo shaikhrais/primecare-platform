@@ -1,0 +1,27 @@
+{
+  "source": "11de1297a1149b6ba86664571dc49dd361d4be64",
+  "runId": "40101538823",
+  "tenant": "PrimeCare Admin HQ",
+  "requestedRecords": 6,
+  "pendingCodes": [
+    "hr_workforce_admin"
+  ],
+  "departmentCreationComplete": false,
+  "verifiedRecords": 5,
+  "codes": [
+    "hr_learning",
+    "hr_onboarding",
+    "hr_operations",
+    "hr_people_support",
+    "hr_recruitment"
+  ],
+  "auditedCreates": 5,
+  "idempotentReceipts": 5,
+  "approvedActorMatched": true,
+  "writesAttempted": false,
+  "businessRecordsRead": true,
+  "readsRestrictedToRequestedDepartments": true,
+  "accountOrPermissionWrites": false,
+  "providerWrites": false,
+  "fullRecruitmentWorkflowVerified": false
+}

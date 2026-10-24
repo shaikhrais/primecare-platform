@@ -85,3 +85,33 @@ constraints and indexes, and checks the dry-run rollback or committed result in
 a new read-only transaction. It creates no accounts, permission grants or master
 records. Completion still requires its passing application receipt and live API
 creation/reload, not merely the presence of this workflow.
+
+## Checked live progress
+
+The interface source `eae81885f72fa439be2f751169efcd4359003767` passed 380 Flutter
+tests and its native PostgreSQL/production metadata checks in run 40092411726.
+The clinic deployment succeeded in run 40092411800. Storage foundations source
+`45ad9b5ba9f0d6a02fbb72a5db7c6064eb7e077a` passed native validation, production
+dry-run rollback and committed schema readback in run 40092949052. All four
+previously missing tables were created; accounts and grants were unchanged.
+
+The signed-in Code Admin created five reference departments through the live
+Flutter interface in PrimeCare Admin HQ: Human Resources Operations, Recruitment,
+Onboarding and Credentialing, Learning and Development, and People Support and
+Safety. Each displayed success only after API readback. The browser environment
+stopped while entering the Workforce Administration label, before submission.
+Its draft is not evidence of a saved sixth record.
+
+Independent read-only PostgreSQL run 40101538823, source
+`11de1297a1149b6ba86664571dc49dd361d4be64`, verified all five exact records,
+five matching creation audit entries, the approved actor and five idempotent
+receipts. Its query includes the sixth planned code, and requires it to remain
+absent while marked pending. The report explicitly retains
+`departmentCreationComplete=false` and `fullRecruitmentWorkflowVerified=false`.
+See `evidence/live-hr-department-readback.json` and the explicit requested,
+completed and pending scope in `evidence/hr-department-plan.json`.
+
+The recovered browser no longer has the previous sign-in session. Sign-in and
+the authorized UI submission of Workforce Administration remain necessary.
+Do not fill that gap with a direct SQL insert or mark the six-department plan,
+full recruitment workflow, provider activation or all role workflows complete.
