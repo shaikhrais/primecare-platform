@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'docs/business/hr-executive-operating-guide.md'
       - '.github/workflows/verify-business-communications.yml'
       - 'tools/governance-production/audit-business-communications.py'
       - 'tools/governance-production/communication_contract_report.py'

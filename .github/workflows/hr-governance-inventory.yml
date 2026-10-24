@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'docs/business/hr-executive-operating-guide.md'
       - 'tools/governance-production/domain_metadata_inventory.py'
       - 'tools/governance-production/hr_metadata_inventory.py'
       - 'tools/governance-production/test-hr-metadata-inventory.py'

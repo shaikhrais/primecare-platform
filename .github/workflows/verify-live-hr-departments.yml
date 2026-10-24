@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'docs/business/hr-executive-operating-guide.md'
       - '.github/workflows/verify-live-hr-departments.yml'
       - 'scripts/verify-live-hr-departments.mjs'
       - 'evidence/hr-department-plan.json'
