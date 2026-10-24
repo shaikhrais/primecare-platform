@@ -5,7 +5,11 @@ binary adapter. It reads saved assistant and phone projections without exposing
 embedded provider credentials. Synthetic chat refuses assistants with tools or
 server webhooks and never adds phone transport. The verification workflow reads
 `VAPI_PRIVATE_API_KEY` only from encrypted production secrets. This adapter does
-not expose an app endpoint, grant permissions, place calls or change routing.
+not expose an app endpoint, grant permissions or place calls. Explicit workflow
+dispatch can assign the pinned 4277 number after exact assistant and routing
+readback. The adapter rechecks scope, patches only assistantId, then reads back;
+changed routing or tool/webhook configuration denies the write. Provider updates
+have no CAS, so concurrent Console edits must be avoided during activation.
 
 All portals and permitted users use the same core. There are no role-specific copies, hardcoded privileged users or default grants. The authenticated transport supplies identity; request data cannot choose an actor, tenant or role. Production policy still decides who can contact whom and which restricted cases or mailboxes they can access.
 

@@ -1,54 +1,53 @@
 # Vapi activation checkpoint, 24 October 2026
 
-The user requested API-based management. `VapiManagementClient` now implements
-the official fixed-origin GET assistant/phone-number APIs and scoped synthetic
-POST chat tests. Six local tests pass, including credential redaction, payment
-errors, malformed IDs and denial of chat tests after tools/webhooks are attached.
-The provider workflow needs encrypted production secret `VAPI_PRIVATE_API_KEY`.
-Push checks read configuration and can initialize the exact verified receptionist's
-explicit ten-minute maximum duration. No phone routing is changed. Explicit dispatch can request four synthetic chat
-tests; returned text needs review and is never treated as live phone acceptance.
-No Vapi key was read, copied into code or obtained from browser session storage.
+Payment is cleared. API workflow run 40122697994, provider job 120970419890,
+succeeded with all saved-field checks and four synthetic text responses reviewed:
+AI identity disclosed; booking and extension transfer limitations stated; identity
+bypass refused. This is text behavior evidence, not live voice acceptance.
 
-Official documentation reviewed:
+The selected number is +1 289 799 4277, Vapi phone ID
+`3e9cee92-b463-47c8-9e1a-cdbf179cb675`. Its preserved original Inbound assistant
+is `da0cd4c3-3c4c-404d-946c-1001f0ecd0fe`. The tested PrimeCare Reception assistant
+is `5ae2ab0c-fad0-454c-8cf7-64b81c91c850`, published v3. API readback verifies
+prompt, greeting, audio recording disabled, no tools/webhook and 600-second maximum.
+
+## Controlled activation
+
+The verification workflow has an explicit `activate_reception` dispatch input.
+Push runs do not change routing. Activation runs four synthetic text checks, then
+re-reads the exact assistant/phone/org/configuration and only replaces assistantId.
+It accepts the expected original route or an already assigned PrimeCare route;
+unexpected routing, squads, workflows, servers or changed assistant fields block it.
+Independent readback must confirm the saved assignment. Ambiguous writes are never
+retried automatically. Vapi has no assumed compare-and-swap: avoid concurrent
+Console edits during activation. The old assistant is retained for recovery.
+
+The workflow artifact records whether routing changed, final route, provider
+checks and text responses. A route assignment does not prove an inbound call.
+The 2223 temporary unavailable route is outside this activation and is unchanged.
+
+## Remaining business integration
+
+No booking, cancellation, rescheduling, reception/extension transfer, voicemail,
+email, account lookup or OTP tool is attached. The prompt prohibits invented
+success or collection of personal information for unsupported actions. The current
+booking lifecycle API creates pending requests; it does not establish confirmed
+provider availability or appointment creation. Before adding Vapi tools, bind the
+registered authenticated APIs, real tenant/session context, app OTP pairing and
+independent approval, cancellation policies, idempotency and persisted readback.
+Do not expose OTP checking or approval as an AI-callable tool. No live call or
+business action has been verified through Vapi.
+
+## Implementation and official sources
+
+`VapiManagementClient` inherits BoundedBinaryAdapterBase, uses a fixed API origin,
+20-second timeout and bounded projections. Private provider objects may contain
+Twilio credentials and never escape. Secret `VAPI_PRIVATE_API_KEY` remains in the
+GitHub production environment. Ten local tests verify scope, credential redaction,
+no call transport, guarded assignment, idempotent readback and ambiguous failures.
+
 - https://docs.vapi.ai/api-reference/assistants/get
 - https://docs.vapi.ai/api-reference/assistants/update
 - https://docs.vapi.ai/api-reference/phone-numbers/update
 - https://docs.vapi.ai/chat/non-streaming
 - https://docs.vapi.ai/server-url/server-authentication
-
-The user selected existing Twilio number +1 289 799 4277 for Vapi instead of
-2223. Its Vapi number ID is `3e9cee92-b463-47c8-9e1a-cdbf179cb675`.
-The existing assigned assistant remains `Inbound`, ID
-`da0cd4c3-3c4c-404d-946c-1001f0ecd0fe`. No phone routing was changed.
-
-Created a separate assistant by duplicating Inbound, preserving the original:
-`PrimeCare Reception - 4277`, ID `5ae2ab0c-fad0-454c-8cf7-64b81c91c850`.
-Published version v3, named `PrimeCare general reception`, with 100% assistant
-version traffic. This version split does not assign a phone number. Dashboard
-readback still shows a draft indicator after reload; v3 and its traffic exist,
-but full published-field readback is still required before phone assignment.
-
-The new first message identifies the assistant as PrimeCare's automated AI
-receptionist. The prompt is preserved in `primecare-vapi-reception-prompt.txt`.
-No tools or webhook URL are attached. Booking, cancellation, rescheduling,
-reception/extension transfer, voicemail/email delivery, account lookup and OTP
-actions are not operational through Vapi. The prompt explicitly prohibits
-invented success, availability, clinic details, identity or approval. It does
-not collect personal information for unsupported tasks.
-
-Audio recording is disabled in the new configuration; logging and transcripts
-remain enabled. Inherited Mary's Dental voicemail/end-call messages were
-replaced with PrimeCare wording. No calls were placed.
-
-The actual Vapi Chat test is blocked: `Payment method required`. The dashboard
-says pay-as-you-go organizations need a card on file to use chat, even though
-7.08 credits are displayed. Only the configured greeting appeared; no model
-response was tested. The user must complete any billing entry in Vapi's own
-secure form. Do not claim live voice, chat, transfer or booking acceptance.
-
-Next: resolve the provider billing blocker, verify the published configuration,
-test greeting and unsupported-action behavior using synthetic data, assign 4277
-to the tested assistant, and verify an actual inbound call. Business tools need
-registered authenticated PrimeCare API adapters and server-side authorization
-before attachment. Keep the existing direct Twilio runtime code for later.

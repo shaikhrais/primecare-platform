@@ -32,3 +32,31 @@ test('duration repair patches only the verified assistant field and reads back; 
  const expected=await client.assistant(id);const saved=await client.setReceptionDuration(id,expected);assert.equal(saved.maxDurationSeconds,600);assert.equal(patches,1);
  await assert.rejects(client.setReceptionDuration(id,{...expected,orgId:id}),e=>e.code==='test_scope_changed');assert.equal(patches,1);
 });
+const phoneId='3e9cee92-b463-47c8-9e1a-cdbf179cb675',oldId='da0cd4c3-3c4c-404d-946c-1001f0ecd0fe';
+const phone={id:phoneId,orgId:org,number:'+12897994277',provider:'twilio',assistantId:oldId};
+test('reception assignment patches only assistantId, verifies persisted state and is idempotent',async()=>{
+ let current={...phone},patches=0;
+ const client=new VapiManagementClient({apiKey:key,async fetch(url,options){
+  if(url.endsWith('/assistant/'+id))return Response.json(assistant);
+  assert.equal(url,'https://api.vapi.ai/phone-number/'+phoneId);
+  if(options.method==='PATCH'){patches++;assert.deepEqual(JSON.parse(options.body),{assistantId:id});current={...current,assistantId:id};}
+  return Response.json({...current,twilioAuthToken:key});
+ }});
+ const expectedAssistant=await client.assistant(id),expectedPhone=await client.phoneNumber(phoneId);
+ const result=await client.assignReception(phoneId,expectedPhone,expectedAssistant);
+ assert.equal(result.changed,true);assert.equal(result.phone.assistantId,id);assert.ok(!JSON.stringify(result).includes(key));
+ assert.equal((await client.assignReception(phoneId,result.phone,expectedAssistant)).changed,false);assert.equal(patches,1);
+});
+test('changed routing, tenant, prompt, recording, tools and overrides deny assignment before any write',async()=>{
+ for(const [a,p] of [[assistant,{...phone,assistantId:org}],[assistant,{...phone,orgId:id}],[{...assistant,model:{messages:[{role:'system',content:'changed'}]}},phone],[{...assistant,artifactPlan:{recordingEnabled:true}},phone],[{...assistant,model:{...assistant.model,toolIds:['tool']}},phone],[assistant,{...phone,server:{url:'https://example.invalid'}}],[assistant,{...phone,squadId:org}],[assistant,{...phone,workflowId:org}]]){
+  let patches=0;const client=new VapiManagementClient({apiKey:key,async fetch(url,options){if(options.method==='PATCH')patches++;return Response.json(url.includes('/assistant/')?a:p);}});
+  const fixture=new VapiManagementClient({apiKey:key,async fetch(url){return Response.json(url.includes('/assistant/')?assistant:phone);}});
+  await assert.rejects(client.assignReception(phoneId,await fixture.phoneNumber(phoneId),await fixture.assistant(id)),e=>e.code==='test_scope_changed');assert.equal(patches,0);
+ }
+});
+test('ambiguous assignment failure is never retried and stale provider readback cannot report success',async()=>{
+ for(const mode of ['timeout','stale']){
+  let patches=0;const client=new VapiManagementClient({apiKey:key,async fetch(url,options){if(options.method==='PATCH'){patches++;if(mode==='timeout')throw Error('private failure');}return Response.json(url.includes('/assistant/')?assistant:phone);}});
+  await assert.rejects(client.assignReception(phoneId,await client.phoneNumber(phoneId),await client.assistant(id)));assert.equal(patches,1);
+ }
+});

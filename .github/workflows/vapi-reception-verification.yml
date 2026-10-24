@@ -14,6 +14,10 @@ on:
         description: Run four synthetic text tests (provider usage charges may apply; no calls or SMS)
         type: boolean
         default: false
+      activate_reception:
+        description: Assign only 4277 to the verified PrimeCare receptionist (also runs chat tests)
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
@@ -37,7 +41,8 @@ jobs:
         run: node scripts/verify-vapi-reception.mjs
         env:
           VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
-          VAPI_RUN_CHAT_TESTS: ${{ inputs.run_chat_tests && '1' || '0' }}
+          VAPI_ACTIVATE_RECEPTION: ${{ github.event_name == 'workflow_dispatch' && inputs.activate_reception && '1' || '0' }}
+          VAPI_RUN_CHAT_TESTS: ${{ (inputs.run_chat_tests || inputs.activate_reception) && '1' || '0' }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:

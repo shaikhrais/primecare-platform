@@ -5,7 +5,7 @@ export class VapiManagementError extends Error {
  constructor(code){super('Vapi management request unavailable');this.code=code;}
 }
 /** Server-only management port. Fixed provider origin, bounded private reads and
- * narrowly scoped synthetic chat tests; no phone routing, calls or SMS writes.
+ * narrowly scoped synthetic chat tests and guarded receptionist assignment; no calls or SMS writes.
  * Raw provider objects (which can contain Twilio credentials) never escape.
  */
 export class VapiManagementClient extends BoundedBinaryAdapterBase {
@@ -54,6 +54,24 @@ export class VapiManagementClient extends BoundedBinaryAdapterBase {
   const saved=await this.assistant(id);
   if(saved.orgId!==row.orgId||saved.maxDurationSeconds!==600||saved.name!==row.name||saved.prompt!==row.prompt||saved.firstMessage!==row.firstMessage||saved.toolCount!==0||saved.serverConfigured||!saved.recordingDisabled)throw fail('invalid_provider_response');
   return saved;
+ }
+ /** Assign only a caller-verified phone/assistant pair. Read both again before
+  * writing; refuse changed org, routing, prompt, tools or webhook. PATCH only
+  * assistantId once and independently read back. Provider offers no CAS: a
+  * concurrent dashboard edit can still race; never retry an ambiguous write. */
+ async assignReception(phoneId,expectedPhone,expectedAssistant){
+  if(!expectedAssistant||!uuid(expectedAssistant.id)||!expectedPhone)throw fail('test_scope_changed');
+  const assistant=await this.assistant(expectedAssistant.id);
+  const phone=await this.phoneNumber(phoneId);
+  const safeAssistant=row=>row.orgId===expectedAssistant.orgId&&row.name===expectedAssistant.name&&row.prompt===expectedAssistant.prompt&&row.firstMessage===expectedAssistant.firstMessage&&row.toolCount===0&&!row.serverConfigured&&row.recordingDisabled&&row.maxDurationSeconds===600;
+  const safePhone=row=>row.orgId===assistant.orgId&&row.orgId===expectedPhone.orgId&&row.number===expectedPhone.number&&row.provider==='twilio'&&expectedPhone.provider==='twilio'&&!row.squadConfigured&&!row.workflowConfigured&&!row.serverConfigured;
+  if(!safeAssistant(assistant)||!safePhone(phone)||phone.assistantId!==expectedPhone.assistantId)throw fail('test_scope_changed');
+  if(phone.assistantId===assistant.id)return Object.freeze({changed:false,phone});
+  await this.#request('/phone-number/'+phoneId,{assistantId:assistant.id},'PATCH');
+  const saved=await this.phoneNumber(phoneId);
+  const savedAssistant=await this.assistant(assistant.id);
+  if(!safePhone(saved)||saved.assistantId!==assistant.id||!safeAssistant(savedAssistant))throw fail('invalid_provider_response');
+  return Object.freeze({changed:true,phone:saved});
  }
  async syntheticChat(id,input){
   if(!uuid(id)||typeof input!=='string'||input.length<1||input.length>2000)throw fail('invalid_test');
