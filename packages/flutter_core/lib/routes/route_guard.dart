@@ -116,15 +116,19 @@ class RouteGuard {
   );
 
   static Map<String, List<String>> get defaultPermissions =>
-      _defaultRolePermissions;
+      Map.unmodifiable(_defaultRolePermissions.map(
+        (role, routes) => MapEntry(role, List<String>.unmodifiable(routes)),
+      ));
 
   /// Dynamically synchronizes permissions from the backend payload.
   static void synchronizePermissions(
     Map<String, List<String>> dynamicPermissions,
   ) {
-    if (dynamicPermissions.isNotEmpty) {
-      _rolePermissions = dynamicPermissions;
-    }
+    // An empty authoritative payload revokes the previous snapshot too.
+    // Copy both levels so a caller cannot mutate access after synchronization.
+    _rolePermissions = Map.unmodifiable(dynamicPermissions.map(
+      (role, routes) => MapEntry(role, List<String>.unmodifiable(routes)),
+    ));
   }
 
   /// Verify if the navigation to [requestedRoute] is allowed.
@@ -180,18 +184,10 @@ class RouteGuard {
         .replaceAll(' ', '_')
         .replaceAll('/', '_');
 
-    // Find the closest matching role prefix list
-    List<String> allowedPrefixes = [];
-    if (_rolePermissions.containsKey(normalizedRole)) {
-      allowedPrefixes = _rolePermissions[normalizedRole]!;
-    } else {
-      for (final role in _rolePermissions.keys) {
-        if (normalizedRole.contains(role)) {
-          allowedPrefixes = _rolePermissions[role]!;
-          break;
-        }
-      }
-    }
+    // Roles are identities, not substrings. An unregistered role such as
+    // code_admin must not inherit admin access; explicit server permissions
+    // can register it through synchronizePermissions.
+    final allowedPrefixes = _rolePermissions[normalizedRole] ?? const <String>[];
 
     // 3. Prevent Unauthorized Role Access
     if (allowedPrefixes.isEmpty) {
@@ -203,7 +199,11 @@ class RouteGuard {
     // 4. Validate bounds: Does the requested route fall within allowed prefixes?
     bool isAuthorizedForRoute = false;
     for (final prefix in allowedPrefixes) {
-      if (requestedRoute.startsWith(prefix)) {
+      final boundary = prefix.endsWith('/') && prefix != '/'
+          ? prefix.substring(0, prefix.length - 1)
+          : prefix;
+      if (requestedRoute == boundary ||
+          (boundary != '/' && requestedRoute.startsWith('$boundary/'))) {
         isAuthorizedForRoute = true;
         break;
       }
