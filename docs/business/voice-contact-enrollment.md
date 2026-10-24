@@ -123,3 +123,37 @@ The first browser/PostgreSQL run failed to observe positive inbound audio packet
 a single rerun of failed jobs passed without source changes (browser job
 121013498522). This preserves the initial failure as evidence of intermittent
 media-test behavior; it is not proof of a live telephone call or live enrollment.
+
+## Native app controls and permissions
+
+UI registration run 40141701875 independently verified seven new controls and
+13 new labels per locale (English/French/Spanish) on the four existing shared
+communication screens. The shared generated catalog now contains 50 controls and
+86 label keys. Source and receipt hashes must agree before generation.
+
+Access registration run 40141831495 independently verified 12 API/screen links
+and 12 grants for four active roles already permitted to view those screens.
+The writer never changes role-screen rights or unrelated API grants, preserves
+explicit native API denials, fails on edited/duplicate metadata and checks the
+full registered native endpoint identities. Native status/start/check enforce
+these current API and screen rights again at request time. No grant authenticates
+a caller, substitutes for recent login or approves an AI task.
+
+VoiceContactController inherits CommunicationWorkspaceControllerBase and uses
+VoiceContactChannelClient through the shared authenticated CommunicationHub.
+Routes are generated from pinned contracts and the independent access receipt;
+URLs and identity never come from presentation. POST transport removes the
+internal action field for these exact action-less registered contracts. Native
+phone failures cannot use the legacy demo/cache success fallback.
+
+The panel loads status only; SMS requires an explicit click. Pending enrollment
+prevents another send. Codes are obscured and cleared immediately on submission;
+phone/code inputs and controller state are cleared on disposal/session change.
+The controller suppresses late results, prevents double clicks, validates exact
+responses and cannot automatically retry an uncertain send or check. Status can
+resolve an already-committed verification; otherwise sign in again before a new
+attempt after the server-enforced cooldown. Only the app handles enrollment.
+
+Production native HTTP hosting and a real user-driven SMS acceptance test remain
+pending. Shared UI code and metadata registration do not make those endpoints
+live, verify a telephone call or enable Vapi business tools.

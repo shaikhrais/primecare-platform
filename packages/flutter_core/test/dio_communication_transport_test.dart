@@ -6,6 +6,7 @@ import 'package:flutter_core/src/network/api_client.dart';
 import 'package:flutter_core/src/security/security_interceptor.dart';
 import 'package:flutter_core/communications/communication_core.dart';
 import 'package:flutter_core/communications/registered_communication_bindings.dart';
+import 'package:flutter_core/communications/registered_voice_contact_bindings.dart';
 import 'package:flutter_core/communications/dio_communication_transport.dart';
 
 void main() {
@@ -197,4 +198,12 @@ void main() {
     await expectLater(CommunicationHub(transport('audio.accept')).audio.call('accept', 'thread', 'once', 1, 'call'), throwsA(isA<DioException>()));
     expect(requests.length, 1);
   });
+  test('native enrollment POST routes omit internal action and preserve current bearer without retry',() async {
+    final hub=CommunicationHub(DioCommunicationTransport(dio,registeredVoiceContactBindings,maxPictureBytes:1024));
+    await hub.voiceContacts.status();await hub.voiceContacts.start('+14165550101','11111111-1111-4111-8111-111111111111');await hub.voiceContacts.check('11111111-1111-4111-8111-111111111111','123456');
+    expect(requests.map((r)=>r.path),['/v1/voice/contact/status','/v1/voice/contact/start','/v1/voice/contact/check']);
+    expect(requests.first.data,isEmpty);expect(requests[1].data,{'phone':'+14165550101','requestId':'11111111-1111-4111-8111-111111111111'});expect(requests[2].data,{'challengeId':'11111111-1111-4111-8111-111111111111','code':'123456'});
+    expect(requests.every((r)=>r.headers['Authorization']=='Bearer synthetic-session'&&r.method=='POST'&&!r.followRedirects),true);
+  });
+
 }

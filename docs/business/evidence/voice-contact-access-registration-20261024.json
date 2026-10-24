@@ -1,0 +1,15 @@
+{
+  "definitionSha256": "a760338fa44edab2098e49792fc7487a090f08a7e0f34e7f27b46b468caf5206",
+  "screenLinks": 12,
+  "eligibleRoles": 4,
+  "explicitDenialsPreserved": 0,
+  "apiGrants": 12,
+  "businessDataWrites": false,
+  "providerWrites": false,
+  "activation": false,
+  "independentReadback": true,
+  "authority": "pinned-production-postgresql",
+  "sourceCommit": "a5cbdc6c4f0f08651ad36d85e68be4731cd3da76",
+  "runId": 40141831495,
+  "isolatedTestsPassed": 8
+}

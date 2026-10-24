@@ -3,7 +3,6 @@ on:
   push:
     branches: [main]
     paths:
-      - 'docs/business/hr-executive-operating-guide.md'
       - '.github/workflows/verify-business-communications.yml'
       - 'tools/governance-production/audit-business-communications.py'
       - 'tools/governance-production/communication_contract_report.py'
@@ -76,6 +75,10 @@ on:
       - 'packages/flutter_core/test/dio_communication_transport_test.dart'
       - 'tools/communication-client-check.dart'
       - 'tools/communication-ui-bindings.py'
+      - 'tools/voice-contact-client-bindings.py'
+      - 'packages/flutter_core/test/voice_contact_controller_test.dart'
+      - 'packages/flutter_core/test/fixtures/voice_contact_transport.dart'
+      - 'packages/primecare_ui/test/voice_contact_panel_test.dart'
       - 'tools/communication-media-bundle.mjs'
       - 'scripts/test-communication-flutter-browser.mjs'
       - 'scripts/test-communication-flutter-bridge.mjs'
@@ -227,7 +230,7 @@ jobs:
         working-directory: packages/flutter_core
       - name: Real communication transport failures and existing caller regressions
         working-directory: packages/flutter_core
-        run: flutter test test/communication_mail_controller_test.dart test/communication_call_controller_test.dart test/communication_workspace_controller_test.dart test/dio_communication_transport_test.dart test/communication_transport_failure_test.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/auth_session_test.dart test/auth_mfa_test.dart test/provider_profile_test.dart
+        run: flutter test test/voice_contact_controller_test.dart test/communication_mail_controller_test.dart test/communication_call_controller_test.dart test/communication_workspace_controller_test.dart test/dio_communication_transport_test.dart test/communication_transport_failure_test.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/auth_session_test.dart test/auth_mfa_test.dart test/provider_profile_test.dart
   flutter-workspace:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -236,12 +239,14 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - name: Verify production-readback workspace bindings
-        run: python3 tools/communication-ui-bindings.py
+        run: |
+          python3 tools/voice-contact-client-bindings.py
+          python3 tools/communication-ui-bindings.py
       - run: flutter pub get
         working-directory: packages/primecare_ui
       - name: Shared messaging widgets, localization, lifecycle and existing component regressions
         working-directory: packages/primecare_ui
-        run: flutter test test/communication_channels_test.dart test/communication_workspace_test.dart test/communication_configuration_unavailable_test.dart test/governed_workspace_session_test.dart test/theme_consumers_test.dart test/auth_design_test.dart
+        run: flutter test test/voice_contact_panel_test.dart test/communication_channels_test.dart test/communication_workspace_test.dart test/communication_configuration_unavailable_test.dart test/governed_workspace_session_test.dart test/theme_consumers_test.dart test/auth_design_test.dart
   flutter-browser-media:
     runs-on: ubuntu-24.04
     timeout-minutes: 15

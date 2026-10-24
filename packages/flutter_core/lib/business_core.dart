@@ -19,3 +19,5 @@ export 'communications/communication_mail_controller.dart';
 export 'communications/communication_call_controller.dart';
 export 'communications/communication_media.dart';
 export 'communications/communication_browser_media.dart';
+
+export 'communications/voice_contact_controller.dart';

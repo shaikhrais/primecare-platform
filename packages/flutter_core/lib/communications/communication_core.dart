@@ -7,6 +7,7 @@ bool isCommunicationPath(String value) {
       .replaceFirst(RegExp(r'/+$'), '');
   const roots = {
     '/v1/messages',
+    '/v1/voice/contact',
     '/v1/psw/messages',
     '/v1/user/messaging/threads',
     '/v1/staff/messages/hub',
@@ -182,16 +183,26 @@ final class EmailChannelClient extends CommunicationChannelClient {
   }
 }
 
+/// Native own-phone enrollment. No actor, tenant, verification flag or provider SID.
+final class VoiceContactChannelClient extends CommunicationChannelClient {
+ VoiceContactChannelClient(CommunicationTransport transport):super(transport,'voiceContact',{'status','start','check'});
+ Future<Map<String,Object?>> status()=>execute('status',{});
+ Future<Map<String,Object?>> start(String phone,String requestId)=>execute('start',{'phone':phone,'requestId':requestId});
+ Future<Map<String,Object?>> check(String challengeId,String code)=>execute('check',{'challengeId':challengeId,'code':code});
+}
+
 /// Inject the same authenticated transport in every portal and role.
 final class CommunicationHub {
   CommunicationHub(CommunicationTransport transport)
       : messages = MessageChannelClient(transport),
         pictures = PictureChannelClient(transport),
         audio = AudioChannelClient(transport),
-        email = EmailChannelClient(transport);
+        email = EmailChannelClient(transport),
+        voiceContacts = VoiceContactChannelClient(transport);
 
   final MessageChannelClient messages;
   final PictureChannelClient pictures;
   final AudioChannelClient audio;
   final EmailChannelClient email;
+  final VoiceContactChannelClient voiceContacts;
 }

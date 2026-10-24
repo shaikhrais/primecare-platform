@@ -1,8 +1,8 @@
 {
-  "definitionSha256": "40fe2f24456a0f5b7ebfe28df6b6b900acdfeb2fee9e95a20a4d74878b7b3354",
+  "definitionSha256": "637ea5f48ec8a28ea3d37a7556eedd4e8bc9aaf43e3e89bc91dde14f04bbbb14",
   "screens": 4,
-  "controlsPerScreen": 43,
-  "resources": 73,
+  "controlsPerScreen": 50,
+  "resources": 86,
   "locales": [
     "en",
     "es",
@@ -12,8 +12,8 @@
   "activation": false,
   "reviewApproved": false,
   "independentReadback": true,
-  "sourceCommit": "edd1c38492208da35215f6eb63fbfc26987cb658",
-  "runId": 39879659458,
+  "sourceCommit": "89d1044f86c6b0ae2340270ff71472f0c46a08b5",
+  "runId": 40141701875,
   "authority": "pinned-production-postgresql",
   "isolatedTestsPassed": 8
 }

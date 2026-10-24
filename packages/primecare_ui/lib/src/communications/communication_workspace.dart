@@ -18,6 +18,11 @@ final communicationWorkspaceControllerProvider=Provider.autoDispose<Communicatio
  ref.onDispose(controller.dispose);return controller;
 });
 
+final voiceContactControllerProvider=Provider.autoDispose<VoiceContactController?>((ref){
+ final workspace=ref.watch(communicationWorkspaceControllerProvider);if(workspace==null)return null;
+ final controller=VoiceContactController(hub:workspace.hub);ref.onDispose(controller.dispose);return controller;
+});
+
 /// Trusted host composition supplies a fresh configured platform media factory.
 /// No credentials, servers or grants are inferred by the screen.
 final communicationMediaFactoryProvider=Provider<CommunicationMediaFactory?>((ref)=>null);
@@ -43,18 +48,19 @@ abstract class CommunicationScreenBase extends ConsumerWidget {
   final language=Localizations.localeOf(context).languageCode;
   final controller=ref.watch(communicationWorkspaceControllerProvider);
   if(controller==null)return Scaffold(appBar:AppBar(title:Text(CommunicationWorkspaceCatalog.text(language,'title'))),body:Cy(id:CommunicationWorkspaceCatalog.id('status'),child:Text(CommunicationWorkspaceCatalog.text(language,'unauthenticated'))));
-  return CommunicationWorkspaceView(key:ObjectKey(controller),controller:controller,language:language,mailController:ref.watch(communicationMailControllerProvider),callController:ref.watch(communicationCallControllerProvider));
+  return CommunicationWorkspaceView(key:ObjectKey(controller),controller:controller,language:language,mailController:ref.watch(communicationMailControllerProvider),callController:ref.watch(communicationCallControllerProvider),contactController:ref.watch(voiceContactControllerProvider));
  }
 }
 
 /// Presentation only. Controller owns scope, versions, limits and pending commands.
 class CommunicationWorkspaceView extends StatefulWidget {
- const CommunicationWorkspaceView({super.key,required this.controller,this.language='en',this.picturePicker,this.mailController,this.callController});
+ const CommunicationWorkspaceView({super.key,required this.controller,this.language='en',this.picturePicker,this.mailController,this.callController,this.contactController});
  final CommunicationWorkspaceController controller;
  final String language;
  final CommunicationPicturePicker? picturePicker;
  final CommunicationMailController? mailController;
  final CommunicationCallController? callController;
+ final VoiceContactController? contactController;
  @override State<CommunicationWorkspaceView> createState()=>_CommunicationWorkspaceViewState();
 }
 class _CommunicationWorkspaceViewState extends State<CommunicationWorkspaceView> {
@@ -117,6 +123,7 @@ class _CommunicationWorkspaceViewState extends State<CommunicationWorkspaceView>
     if(model.hasPendingCommand&&!model.busy)...[const SizedBox(height:8),Text(text('pending')),button('retry',_retry)],
    ]))),
    LayoutBuilder(builder:(context,constraints)=>constraints.maxWidth>=800?Row(crossAxisAlignment:CrossAxisAlignment.start,children:[Expanded(child:_inbox()),const SizedBox(width:16),Expanded(child:_conversation())]):Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[_inbox(),_conversation()])),
+   if(widget.contactController case final VoiceContactController contact)VoiceContactVerificationPanel(key:ObjectKey(contact),model:contact,language:widget.language),
    if(widget.callController case final CommunicationCallController calls)_CommunicationCallPanel(key:ObjectKey(calls),model:calls,language:widget.language),
    if(widget.mailController case final CommunicationMailController mail)_CommunicationMailPanel(key:ObjectKey(mail),model:mail,language:widget.language),
   ]))),
@@ -212,5 +219,31 @@ class _CommunicationCallPanelState extends State<_CommunicationCallPanel> {
   ])),
   PrimeCareTextField(label:text('callRecipient'),controller:_recipient,enabled:model.canInvite,dataCy:id('callRecipient')),SizedBox(height:spacing.md),
   Wrap(spacing:spacing.md,runSpacing:spacing.md,children:[button('callInvite',model.canInvite?()=>unawaited(model.invite(_recipient.text)):null),button('callRefresh',model.busy||model.threadId==null?null:()=>unawaited(model.refresh())),button('callMute',model.mediaActive&&!model.busy?model.toggleMute:null)]),
+ ]))));
+}
+
+/// Registered presentation only: the controller owns validation and request state.
+class VoiceContactVerificationPanel extends StatefulWidget {
+ const VoiceContactVerificationPanel({super.key,required this.model,this.language='en'});
+ final VoiceContactController model;final String language;
+ @override State<VoiceContactVerificationPanel> createState()=>_VoiceContactVerificationPanelState();
+}
+class _VoiceContactVerificationPanelState extends State<VoiceContactVerificationPanel> {
+ final _phone=TextEditingController(),_code=TextEditingController();
+ String text(String key)=>CommunicationWorkspaceCatalog.text(widget.language,key);
+ String id(String key)=>CommunicationWorkspaceCatalog.id(key);
+ @override void initState(){super.initState();WidgetsBinding.instance.addPostFrameCallback((_){if(mounted)unawaited(widget.model.refresh());});}
+ @override void didUpdateWidget(covariant VoiceContactVerificationPanel oldWidget){super.didUpdateWidget(oldWidget);if(oldWidget.model!=widget.model){_phone.clear();_code.clear();WidgetsBinding.instance.addPostFrameCallback((_){if(mounted)unawaited(widget.model.refresh());});}}
+ @override void dispose(){_phone.clear();_code.clear();_phone.dispose();_code.dispose();super.dispose();}
+ void _send(){final value=_phone.text;_phone.clear();_code.clear();unawaited(widget.model.send(value));}
+ void _check(){final value=_code.text;_code.clear();unawaited(widget.model.check(value));}
+ @override Widget build(BuildContext context)=>ListenableBuilder(listenable:widget.model,builder:(context,_)=>Cy(id:id('phoneVerification'),child:PrimeCareCard(child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
+  Text(text('phoneVerification'),style:Theme.of(context).textTheme.titleLarge),
+  Cy(id:id('phoneStatus'),child:Semantics(liveRegion:true,child:Text(text(widget.model.statusKey)))),
+  PrimeCareTextField(label:text('phoneNumber'),controller:_phone,enabled:widget.model.canSend,dataCy:id('phoneNumber')),
+  PrimeButton(label:text('phoneSend'),onPressed:widget.model.canSend?_send:null,dataCy:id('phoneSend')),
+  PrimeCareTextField(label:text('phoneCode'),controller:_code,isPassword:true,enabled:widget.model.canCheck,dataCy:id('phoneCode')),
+  PrimeButton(label:text('phoneCheck'),onPressed:widget.model.canCheck?_check:null,dataCy:id('phoneCheck')),
+  PrimeButton(label:text('phoneRefresh'),onPressed:widget.model.busy?null:()=>unawaited(widget.model.refresh()),dataCy:id('phoneRefresh')),
  ]))));
 }

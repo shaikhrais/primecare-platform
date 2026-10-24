@@ -28,6 +28,7 @@ abstract base class CommunicationTransportBase implements CommunicationTransport
 
   final Map<String, CommunicationRouteBinding> bindings;
   static const actions = {
+    'voiceContact': {'status','start','check'},
     'message': {'create', 'send', 'read', 'mark_read', 'inbox'},
     'picture': {'upload', 'open'},
     'audio': {'invite', 'accept', 'decline', 'end', 'expire', 'signal'},
@@ -70,7 +71,7 @@ final class DioCommunicationTransport extends CommunicationTransportBase {
   Future<Map<String, Object?>> dispatch(CommunicationRouteBinding binding,
       String channel, Map<String, Object?> request) async {
     final binary = channel == 'picture' && request['action'] == 'open';
-    Object? body = request;
+    Object? body = {for(final entry in request.entries)if(binding.includeAction||entry.key!='action')entry.key:entry.value};
     if (channel == 'picture' && request['action'] == 'upload') {
       final bytes = request['bytes'];
       final mediaType = request['mediaType'];

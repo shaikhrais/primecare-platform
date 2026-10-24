@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import '../../communications/communication_core.dart' show isCommunicationPath, CommunicationHub;
 import '../../communications/dio_communication_transport.dart';
 import '../../communications/registered_communication_bindings.dart';
+import '../../communications/registered_voice_contact_bindings.dart';
 /// A provider for the [ApiClient], ensuring a single instance is used across the app.
 final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient(ref);
@@ -23,7 +24,7 @@ class ApiClient {
   /// separate login, cache, role list or automatic mutation retry is introduced.
   CommunicationHub communications({required int maxPictureBytes}) =>
       CommunicationHub(DioCommunicationTransport(
-        _dio, registeredCommunicationBindings, maxPictureBytes: maxPictureBytes,
+        _dio, {...registeredCommunicationBindings,...registeredVoiceContactBindings}, maxPictureBytes: maxPictureBytes,
       ));
 
   static final List<Map<String, dynamic>> _visitNotes = [
