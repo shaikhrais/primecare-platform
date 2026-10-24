@@ -60,3 +60,8 @@ test('ambiguous assignment failure is never retried and stale provider readback 
   await assert.rejects(client.assignReception(phoneId,await client.phoneNumber(phoneId),await client.assistant(id)));assert.equal(patches,1);
  }
 });
+test('reusable tool inventory projects IDs and flags without credential or endpoint data',async()=>{
+ const client=new VapiManagementClient({apiKey:key,async fetch(url){assert.equal(url,'https://api.vapi.ai/tool');return Response.json([{id,orgId:org,type:'apiRequest',name:'requestHelp',url:'https://private.invalid/path?secret='+key,headers:{authorization:key},credentialId:org,parameters:[{value:key}]}]);}});
+ const rows=await client.tools();assert.equal(rows.length,1);assert.equal(rows[0].endpointConfigured,true);assert.equal(rows[0].credentialConfigured,true);assert.ok(!JSON.stringify(rows).includes(key));assert.ok(!JSON.stringify(rows).includes('private.invalid'));
+ for(const rows of [{},[{id:'bad',orgId:org,type:'function'}],Array(201).fill({id,orgId:org,type:'endCall'})]){const malformed=new VapiManagementClient({apiKey:key,async fetch(){return Response.json(rows);}});await assert.rejects(malformed.tools(),e=>e.code==='invalid_provider_response');}
+});

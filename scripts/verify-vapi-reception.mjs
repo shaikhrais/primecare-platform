@@ -32,6 +32,7 @@ try{
   report.numberRoutingChanged=activation.changed;
   report.routing='primecare_reception';
  }
+ report.availableTools=await client.tools();
  report.status='configuration_verified';
 }catch(error){report.status=['configuration_required','payment_required','authentication_denied','resource_not_found','test_scope_changed','provider_unavailable','invalid_provider_response'].includes(error?.code)?error.code:'readback_failed';process.exitCode=1;}
 await mkdir('test-results/vapi',{recursive:true});

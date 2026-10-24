@@ -15,15 +15,28 @@ export class VapiManagementClient extends BoundedBinaryAdapterBase {
   if(typeof apiKey!=='string'||apiKey.length<16||apiKey.length>512||/\s/.test(apiKey)||typeof request!=='function')throw fail('configuration_required');
   this.#key=apiKey;this.#fetch=request;
  }
- async #request(path,body,method=body===undefined?'GET':'POST'){
+ async #request(path,body,method=body===undefined?'GET':'POST',allowList=false){
   try{
    const response=await this.#fetch('https://api.vapi.ai'+path,{method,redirect:'error',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body===undefined?{}:{'content-type':'application/json'})},...(body===undefined?{}:{body:JSON.stringify(body)})});
    if(!response.ok){try{await response.body?.cancel();}catch{}throw fail(response.status===402?'payment_required':[401,403].includes(response.status)?'authentication_denied':response.status===404?'resource_not_found':'provider_unavailable');}
    const bytes=await this.readBoundedBody(response.body);
    const data=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
-   if(!data||typeof data!=='object'||Array.isArray(data))throw fail('invalid_provider_response');
+   if(!data||typeof data!=='object'||Array.isArray(data)&&!allowList)throw fail('invalid_provider_response');
    return data;
   }catch(error){if(error instanceof VapiManagementError)throw error;throw fail('provider_unavailable');}
+ }
+ /** Read reusable tool inventory without exposing endpoint headers, credentials,
+  * server URLs, static parameters or provider payloads. Inventory is not approval
+  * to attach a tool: its backend, scope and behavior require separate verification. */
+ async tools(){
+  const rows=await this.#request('/tool',undefined,'GET',true);
+  if(!Array.isArray(rows)||rows.length>200)throw fail('invalid_provider_response');
+  return Object.freeze(rows.map(row=>{
+   if(!row||!uuid(row.id)||!uuid(row.orgId)||typeof row.type!=='string'||row.type.length>80)throw fail('invalid_provider_response');
+   const name=row.function?.name??row.name??row.type;
+   if(typeof name!=='string'||name.length>200||name.includes(this.#key))throw fail('invalid_provider_response');
+   return Object.freeze({id:row.id,orgId:row.orgId,type:row.type,name,endpointConfigured:!!(row.url||row.server?.url),credentialConfigured:!!(row.credentialId||row.server?.credentialId)});
+  }));
  }
  async assistant(id){
   if(!uuid(id))throw fail('invalid_resource');const row=await this.#request('/assistant/'+id);
