@@ -155,3 +155,31 @@ PostgreSQL with production-governed theme metadata, not deployed clinic booking
 or cancellation acceptance. Tracking honestly retains `implemented-unverified`
 for the broader care workflow. Compression and contract-review CI also succeeded
 on the same source. No live provider configuration was changed.
+
+### Authenticated provider inspection
+
+The user completed Twilio sign-in in the same browser. Account inventory confirms
+ownership of selected +1 647 930 2223 with voice, SMS and MMS enabled. This verifies
+ownership/capabilities, not PrimeCare live acceptance.
+
+The selected number uses published Studio flow `IVR`: a Tech Support greeting,
+thank-you message and external call destination. Its voice status callback points
+to the existing `voipapp-api` Worker. The `VOIP SaaS` TwiML voice request points to
+the existing `voipapp` Worker, not the PrimeCare native adapter. The number belongs
+to `Message Service`, which may override number-level messaging configuration.
+The TwiML application's messaging request/fallback/status fields were empty;
+that alone does not prove failure of its separate Messaging Service. Another
+owned number is configured to Vapi.
+
+No routing, application, messaging service, emergency configuration, credential,
+number or balance was changed. The external Tech Support destination is not an
+assumed PrimeCare reception user. Preserve current handlers until registered
+runtime mounts, grants, secrets, directory publication and replacement/rollback
+acceptance are complete.
+
+Run [40054742690](https://github.com/shaikhrais/primecare-platform/actions/runs/40054742690)
+passed all ten communication jobs on `92db720081b04e53edc57a311e73d8e5d44e9d46`,
+including 113 Flutter workspace tests. Both unavailable provider screens passed
+English, French and Spanish checks. Permanent unimplemented providers fail
+without automatic retry, and tests release provider/semantics lifecycles.
+This removes fabricated readiness; it does not activate provider administration.

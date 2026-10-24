@@ -1,0 +1,33 @@
+name: Verify HR governance inventory
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/domain_metadata_inventory.py'
+      - 'tools/governance-production/hr_metadata_inventory.py'
+      - 'tools/governance-production/test-hr-metadata-inventory.py'
+      - '.github/workflows/hr-governance-inventory.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python tools/governance-production/test-hr-metadata-inventory.py
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Read pinned HR metadata without applicants or employee records
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/governance-production/hr_metadata_inventory.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hr-governance-inventory
+          path: test-results/hr-governance
+          if-no-files-found: error
+          retention-days: 90
