@@ -157,3 +157,37 @@ are not enabled. All three live checks passed; 31 CI tests passed. Secret values
 were never printed or included in the artifact. businessActionsEnabled=false and
 toolsAttached=false. Caller verification, app approval and real business task
 composition remain Step 3 onward; the live assistant still has no business tools.
+
+## Step 3: caller identity integration, in progress
+
+VapiCallReadClient inherits the bounded adapter and implements only fixed-origin
+GET /call/:id. Its projection excludes customer contact details, transcripts,
+recordings, monitor URLs and transport call tokens. createVapiCanonicalCallDirectory
+maps an inbound in-progress Vapi voice call to its independently fetched Twilio
+CallSid, account, direction and destination 4277. It checks the exact configured
+Vapi org/assistant/number, matching transport/provider SIDs and a ten-minute call
+window. Vapi is reread after Twilio I/O. Every invocation rechecks providers; no
+positive result is cached. A short-lived call binding is not user authentication.
+Field definitions were checked in official @vapi-ai/server-sdk 3.0.0 Call and
+TwilioTransport types and https://docs.vapi.ai/api-reference/calls/get. The current
+Twilio transport is authoritative; deprecated root provider/SID fields are optional
+and, when present, must agree.
+
+The Vapi API Request adapter can use this directory for its required calls.current
+port. The inherited VoiceTaskService then resolves the existing VoiceOtpService
+identity by canonical Twilio CallSid and independently consumes exact app approval.
+A new integration test uses those actual services and the inherited callback task
+with isolated storage/provider fixtures. Before OTP it denies proposals, after OTP
+it still requires app approval, and after approval it invokes the callback request
+once. Logout, contact changes and either provider ending revoke access. OTP start,
+OTP check and approval are never exposed as AI commands.
+
+This is code integration, not live OTP activation. Production readiness is audited
+read-only against the pinned PostgreSQL manifest, required public voice tables,
+verified-contact count and explicit native OTP API/screen grants. A nonexistent
+Vapi call is probed to verify read access and denial. No customer records are
+returned and no SMS, call, table, grant, contact or business record is written.
+The live boundary stays closed. Still required: production schema/onboarding and
+native permission readiness, private pre-AI pairing-code delivery, the registered
+app pairing UI and runtime deployment. Do not route pairing or SMS codes through
+the LLM to work around an unconnected private delivery flow.

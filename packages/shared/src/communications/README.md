@@ -1182,3 +1182,13 @@ credential conflicts, and hands secret material only to a trusted installation
 callback. The public receipt includes no token. The dedicated VapiToolBoundaryWorker
 inherits BaseWorker and currently denies all business actions after provider auth;
 its guarded deployment and HTTP checks are in deploy-vapi-tool-boundary.yml.
+
+VapiCallReadClient is a separate read-only bounded provider port: no call writes,
+tool management or credential methods. createVapiCanonicalCallDirectory composes
+its sanitized lifecycle projection with the existing Twilio call verifier, rereads
+Vapi after Twilio I/O and returns only a short-lived canonical call binding. It
+never selects an actor or grants user access. VapiApiRequestAdapter can use this
+port while VoiceTaskService retains the VoiceOtpService trust broker and separate
+exact app approval. The OTP integration tests use real inherited services with
+isolated provider/storage fixtures; the production identity-readiness workflow
+performs read-only inventory and no traffic or activation.

@@ -1,0 +1,46 @@
+name: Verify Vapi caller identity integration
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/shared/src/communications/vapi-call-read.mjs'
+      - 'packages/shared/src/communications/vapi-call-read.d.mts'
+      - 'scripts/test-vapi-call-read.mjs'
+      - 'scripts/test-vapi-otp-task-integration.mjs'
+      - 'scripts/verify-vapi-identity-readiness.mjs'
+      - '.github/workflows/vapi-identity-readiness.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  integration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test scripts/test-vapi-call-read.mjs scripts/test-vapi-otp-task-integration.mjs scripts/test-communication-voice-otp.mjs scripts/test-vapi-api-request.mjs
+  readiness:
+    needs: integration
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/vapi-identity-reader" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/vapi-identity-reader/node_modules" node_modules
+      - name: Read pinned production readiness and reject a nonexistent provider call; no SMS or writes
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
+        run: node scripts/verify-vapi-identity-readiness.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vapi-identity-integration-readiness
+          path: test-results/vapi
+          retention-days: 30
