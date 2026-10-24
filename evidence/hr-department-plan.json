@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "tenantName": "PrimeCare Admin HQ",
+  "type": "department",
+  "records": [
+    {
+      "code": "hr_operations",
+      "label": "Human Resources Operations"
+    },
+    {
+      "code": "hr_recruitment",
+      "label": "Recruitment"
+    },
+    {
+      "code": "hr_onboarding",
+      "label": "Onboarding and Credentialing"
+    },
+    {
+      "code": "hr_learning",
+      "label": "Learning and Development"
+    },
+    {
+      "code": "hr_people_support",
+      "label": "People Support and Safety"
+    },
+    {
+      "code": "hr_workforce_admin",
+      "label": "Workforce Administration"
+    }
+  ],
+  "purpose": "User-requested HR reference departments; no hiring decisions, staff assignments, clinical policy or permissions.",
+  "expectedCreatedCodes": [
+    "hr_operations",
+    "hr_recruitment",
+    "hr_onboarding",
+    "hr_learning",
+    "hr_people_support"
+  ],
+  "pendingCodes": [
+    "hr_workforce_admin"
+  ],
+  "pendingReason": "Browser environment stopped before Workforce Administration was submitted; restored session requires sign-in."
+}
