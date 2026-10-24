@@ -1,0 +1,94 @@
+{
+  "status": "blocked",
+  "callAttempted": false,
+  "bookingCreated": false,
+  "phoneRoutingChanged": false,
+  "request": {
+    "number": "+16479302223",
+    "client": "client1",
+    "provider": "psw1",
+    "service": "PSW",
+    "localDate": "2026-10-26",
+    "localTime": "10:00",
+    "timeZone": "America/Toronto",
+    "startsAt": "2026-10-26T14:00:00Z",
+    "duration": null
+  },
+  "source": "4b190927598a367963f3216522e6c0a15fc3c3b3",
+  "scope": "Live telephone appointment acceptance; isolated checks are supporting evidence only",
+  "steps": [
+    {
+      "id": "call_ai_menu",
+      "status": "blocked",
+      "reason": "No connected call execution/conversation tool was available. Plugin discovery did not identify an actionable calling integration. No call was placed."
+    },
+    {
+      "id": "otp",
+      "status": "blocked",
+      "reason": "No live call/session binding or approved client verification exchange was initiated."
+    },
+    {
+      "id": "eligibility_availability_duration_policy",
+      "status": "blocked",
+      "reason": "Client/provider aliases have not been resolved in a live authorized booking session; service duration and current cancellation terms have not been obtained."
+    },
+    {
+      "id": "independent_app_confirmation",
+      "status": "blocked",
+      "reason": "No exact server-calculated booking proposal exists to confirm."
+    },
+    {
+      "id": "confirmed_booking_api",
+      "status": "blocked",
+      "reason": "Current voice task catalog exposes appointment.booking.request, not a confirmed booking. Correct existing booking/policy API binding remains required."
+    },
+    {
+      "id": "confirmation_delivery",
+      "status": "blocked",
+      "reason": "No booking exists; authorized live mailbox/provider delivery not established by fixture tests."
+    },
+    {
+      "id": "api_database_reload",
+      "status": "blocked",
+      "reason": "No saved appointment exists for readback. No production booking or database mutation attempted."
+    },
+    {
+      "id": "duplicate_retry",
+      "status": "blocked",
+      "reason": "No original live booking command exists; retry would not be a duplicate test."
+    },
+    {
+      "id": "reception_unknown_extension",
+      "status": "blocked",
+      "reason": "No telephone test conducted; preserve current routing. Prior authenticated inventory showed existing Tech Support Studio flow, not verified PrimeCare reception. That observation was not rechecked during this attempt."
+    },
+    {
+      "id": "unanswered_voicemail_notification",
+      "status": "blocked",
+      "reason": "No live unanswered call, recorded voicemail or authorized delivery receipt exists."
+    }
+  ],
+  "supportingEvidence": [
+    {
+      "status": "passed",
+      "kind": "isolated_ci",
+      "runId": 40103716538,
+      "jobsPassed": 12,
+      "jobsTotal": 12,
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/40103716538"
+    },
+    {
+      "status": "passed",
+      "kind": "isolated_browser_api_postgres_ci",
+      "runId": 40103716612,
+      "jobsPassed": 2,
+      "jobsTotal": 2,
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/40103716612"
+    }
+  ],
+  "limitations": [
+    "Supporting CI is not a live call, OTP or appointment acceptance result.",
+    "No new runtime failure was observed in this attempt; missing live capabilities are not marked passed.",
+    "Existing number routing is preserved. Do not cut over until registered mounts, current permissions, verified directory/reception, provider secrets and booking/policy bindings are ready."
+  ]
+}
