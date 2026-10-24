@@ -113,7 +113,7 @@ class _PlatformMasterScreenState extends ConsumerState<_ScopedPlatformMasterScre
             onChanged: state.isLoading || state.pending ? null : (value) {
               if (value != null) _controller.selectTenant(value);
             })), gap,
-          if (state.tenant != null)
+          if (state.tenant != null && (state.recordsLoaded || state.pending))
             _MasterForm(key: ValueKey((state.tenant, _controller.completedWrites)), controller: _controller), gap,
           Cy(id: 'platform-masters', child: Column(crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [for (final record in state.records) ...[
@@ -151,7 +151,7 @@ class _MasterFormState extends State<_MasterForm> {
       PrimeCareTextField(label: text('label'), controller: label, enabled: !state.isLoading && !state.pending, dataCy: 'platform-master-create-label'),
       SizedBox(height: theme.spacing.md),
       if (!state.pending) PrimeButton(label: text('create_master'), dataCy: 'platform-master-create-submit',
-        onPressed: state.isLoading ? null : () async {
+        onPressed: !widget.controller.canCreate ? null : () async {
           final result = await widget.controller.create(type ?? '', code.text, label.text);
           if (mounted && result) { code.clear(); label.clear(); }
         }),

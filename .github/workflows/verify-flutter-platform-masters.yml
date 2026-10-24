@@ -14,6 +14,7 @@ on:
       - 'packages/primecare_ui/lib/src/features/auth/auth_experience.dart'
       - 'packages/primecare_ui/test/platform_master_test.dart'
       - 'scripts/generate-platform-master-catalog.py'
+      - 'scripts/inspect-platform-master-schema.mjs'
       - 'tools/governance-production/verify-platform-master-metadata.py'
   workflow_dispatch:
 permissions:
@@ -79,6 +80,10 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/platform-reader-tools" --ignore-scripts --no-audit --no-fund pg@8.11.3
           ln -s "$RUNNER_TEMP/platform-reader-tools/node_modules" node_modules
       - run: python tools/governance-production/verify-platform-master-metadata.py
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      - name: Inspect business table schema without reading reference records
+        run: node scripts/inspect-platform-master-schema.mjs
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
       - uses: actions/upload-artifact@v4

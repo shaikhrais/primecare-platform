@@ -144,6 +144,23 @@ void main() {
     expect(controller.snapshot.notice, isNull); expect(controller.snapshot.pending, isTrue);
   });
 
+  test('failed tenant record read cannot enable or dispatch creation', () async {
+    var posts = 0;
+    final fixture = Fixture((options, handler) {
+      if (options.method == 'POST') { posts++; failure(options, handler, 503); }
+      else if (options.path == base) { success(options, handler, index()); }
+      else { failure(options, handler, 503); }
+    });
+    addTearDown(fixture.dispose);
+    final controller = PlatformMasterController(fixture.repository, isCurrent: () => true);
+    addTearDown(controller.dispose);
+    await controller.load(); await controller.selectTenant('tenant-a');
+    expect(controller.snapshot.index, isNotNull); expect(controller.snapshot.recordsLoaded, isFalse);
+    expect(controller.canCreate, isFalse);
+    expect(await controller.create('department', 'hr_recruitment', 'Recruitment'), isFalse);
+    expect(posts, 0);
+  });
+
   test('denied server access clears tenant data and redacts provider errors', () async {
     var denied = false;
     final fixture = Fixture((options, handler) {

@@ -8,14 +8,15 @@ class PlatformMasterState extends BaseWorkspaceState<PlatformMasterState> {
   final String? tenant, notice;
   final List<PlatformMaster> records;
   final bool pending;
+  final bool recordsLoaded;
   const PlatformMasterState({super.isLoading = false, super.error,
-    this.index, this.tenant, this.notice, this.records = const [], this.pending = false})
+    this.index, this.tenant, this.notice, this.records = const [], this.pending = false, this.recordsLoaded = false})
       : super(title: '', logs: const [], hasData: index != null);
   @override
   PlatformMasterState rebuild({required bool isLoading, required String? error,
       required String title, required List<String> logs, required bool hasData}) =>
     PlatformMasterState(isLoading: isLoading, error: error, index: index, tenant: tenant,
-      notice: notice, records: records, pending: pending);
+      notice: notice, records: records, pending: pending, recordsLoaded: recordsLoaded);
 }
 class _MasterCommand {
   final String tenant, key;
@@ -41,7 +42,8 @@ class PlatformMasterController extends BaseWorkspaceController<PlatformMasterSta
   }
   bool get _active => mounted && isCurrent();
   bool get _available => _active && !state.isLoading;
-  void _fail(Object error) {
+  bool get canCreate => _available && _pending == null && state.index != null && state.tenant != null && state.recordsLoaded;
+  void _fail(Object error, {bool readFailure = false}) {
     if (!_active) return;
     final status = error is PlatformAdministrationFailure ? error.status : 503;
     final pending = _pending;
@@ -51,20 +53,24 @@ class PlatformMasterController extends BaseWorkspaceController<PlatformMasterSta
     }
     state = PlatformMasterState(index: status == 401 || status == 403 ? null : state.index,
       tenant: status == 401 || status == 403 ? null : state.tenant,
-      error: 'request_failed', pending: _pending != null);
+      recordsLoaded: !readFailure && status != 401 && status != 403 && state.recordsLoaded,
+      records: readFailure || status == 401 || status == 403 ? const [] : state.records,
+      error: status >= 500 ? 'unavailable' : 'request_failed', pending: _pending != null);
   }
   Future<void> load() async {
     if (!_available) return;
     final tenant = state.tenant;
-    state = PlatformMasterState(isLoading: true, pending: _pending != null);
+    state = PlatformMasterState(index: state.index, tenant: tenant, records: state.records,
+      recordsLoaded: state.recordsLoaded, isLoading: true, pending: _pending != null);
     try {
       final index = await repository.index();
       if (!_active) return;
       final selected = index.tenants.any((t) => t.id == tenant) ? tenant : null;
       final records = selected == null ? <PlatformMaster>[] : await repository.records(index, selected);
       if (!_active) return;
-      state = PlatformMasterState(index: index, tenant: selected, records: records, pending: _pending != null);
-    } catch (error) { _fail(error); }
+      state = PlatformMasterState(index: index, tenant: selected, records: records,
+        recordsLoaded: selected != null, pending: _pending != null);
+    } catch (error) { _fail(error, readFailure: true); }
   }
   Future<void> selectTenant(String tenant) async {
     if (!_available || _pending != null || state.index == null) return;
@@ -77,11 +83,11 @@ class PlatformMasterController extends BaseWorkspaceController<PlatformMasterSta
     try {
       final records = await repository.records(index, tenant);
       if (!_active) return;
-      state = PlatformMasterState(index: index, tenant: tenant, records: records);
-    } catch (error) { _fail(error); }
+      state = PlatformMasterState(index: index, tenant: tenant, records: records, recordsLoaded: true);
+    } catch (error) { _fail(error, readFailure: true); }
   }
   Future<bool> create(String type, String code, String label) async {
-    if (!_available || _pending != null || state.index == null || state.tenant == null) return false;
+    if (!canCreate) return false;
     try {
       final fields = repository.command(state.index!, type, code, label);
       _pending = _MasterCommand(state.tenant!, _key(), fields);
@@ -94,7 +100,8 @@ class PlatformMasterController extends BaseWorkspaceController<PlatformMasterSta
   }
   Future<bool> _execute() async {
     final command = _pending!, index = state.index!;
-    state = PlatformMasterState(index: index, tenant: command.tenant, isLoading: true, pending: true);
+    state = PlatformMasterState(index: index, tenant: command.tenant, records: state.records,
+      recordsLoaded: state.recordsLoaded, isLoading: true, pending: true);
     try {
       final receipt = await repository.create(index, command.tenant, command.fields, command.key);
       if (!_active) return false;
@@ -105,7 +112,8 @@ class PlatformMasterController extends BaseWorkspaceController<PlatformMasterSta
       if (!records.any((record) => record.same(receipt))) throw const FormatException('Master readback mismatch');
       _pending = null;
       completedWrites++;
-      state = PlatformMasterState(index: index, tenant: command.tenant, records: records, notice: 'master_created');
+      state = PlatformMasterState(index: index, tenant: command.tenant, records: records,
+        recordsLoaded: true, notice: 'master_created');
       return true;
     } catch (error) { _fail(error); return false; }
   }

@@ -16,6 +16,9 @@ results. The backend retains current-role, tenant, status, rate, audit,
 transaction, uniqueness and idempotency checks. No production grants or business
 migrations are changed by this implementation.
 
+The selected tenant's reference list must load successfully before creation is
+enabled. A failed list read never establishes an empty list or permits a write.
+
 Global administration does not require a tenant claim in the client session
 projection. The API resolves the current native tenant itself; an absent or
 unauthorized native scope is still denied by the server and displays an error
