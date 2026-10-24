@@ -4,7 +4,7 @@ import {build} from 'esbuild';
 import bcrypt from 'bcryptjs';
 import assert from 'node:assert/strict';
 import {randomUUID,createHash} from 'node:crypto';
-import {mkdtemp} from 'node:fs/promises';
+import {mkdtemp,readFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createRequire} from 'node:module';
@@ -17,6 +17,7 @@ const db=new Client({connectionString:url.href});await db.connect();
 const tenant=randomUUID(),otherTenant=randomUUID();const ids=[randomUUID(),randomUUID(),randomUUID()];
 const tokens=['a'.repeat(43),'b'.repeat(43)];const hash=value=>createHash('sha256').update(value).digest('hex');
 const env={SERVICE_NAME:'governance',DB_URL:url.href};let passed=0;
+const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));
 const call=(query='',token=tokens[0],headers={},method='GET')=>workspace(new Request('https://test/workspace'+query,{method,headers:{authorization:'Bearer '+token,...headers}}),env,'/workspace',{});
 try {
  const password=await bcrypt.hash(randomUUID(),4);
@@ -46,6 +47,27 @@ try {
  assert.equal((await call('',tokens[0],{'x-tenant-id':otherTenant})).status,403);passed++;
  assert.equal((await call('?screen=ceo_dashboard',tokens[1])).status,403);passed++;
  const staff=await (await call('',tokens[1])).json();assert.equal(staff.overview.activeAccounts,1);assert.deepEqual(staff.inventory.map(p=>p.code),staff.screens.map(p=>p.code));passed++;
+ // Resolve every catalog role from the native user row, never a caller-supplied
+ // role/tenant. This fixture changes one synthetic account between read checks.
+ const roles=Object.keys(registry.permissions),counts=async()=>Object.fromEntries(await Promise.all(
+  ['users','auth_sessions','auth_account_audit','tenant_configuration_audit'].map(async table=>[table,(await db.query(`SELECT COUNT(*)::int AS n FROM ${table}`)).rows[0].n])));
+ const beforeRoleReads=await counts();
+ try{
+  for(const role of roles){
+   await db.query('UPDATE users SET roles=$1 WHERE id=$2',[role,ids[0]]);
+   const read=await call();assert.equal(read.status,200,role);const current=await read.json();
+   const expected=registry.screens.filter(s=>s.renderer!=='account'&&s.grants.some(g=>g.role===role&&g.view===1)).map(s=>s.code).sort();
+   assert.equal(current.identity.role,role);assert.deepEqual(current.screens.map(s=>s.code).sort(),expected,role);
+   assert.equal(current.overview.scope,registry.permissions[role].organization?'organization':'personal');
+   assert.equal(current.overview.activeAccounts,registry.permissions[role].organization?2:1);
+   const forbidden=registry.screens.find(s=>s.renderer!=='account'&&!expected.includes(s.code));
+   if(forbidden)assert.equal((await call('?screen='+encodeURIComponent(forbidden.code))).status,403,role+' foreign page');
+   assert.equal((await call('',tokens[0],{'x-tenant-id':otherTenant})).status,403,role+' forged tenant');
+   passed++;
+  }
+  assert.deepEqual(await counts(),beforeRoleReads,'workspace reads must not add accounts, sessions or mutation audits');
+ }finally{await db.query("UPDATE users SET roles='ceo' WHERE id=$1",[ids[0]]);}
+ console.log(JSON.stringify({workspaceCatalogRolesChecked:roles.length,source:'native-postgresql-fixture',production:false}));
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[ids[1]]);
  assert.equal((await call('',tokens[1])).status,401);passed++;
  await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 second' WHERE user_id=$1",[ids[0]]);

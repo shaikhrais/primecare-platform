@@ -102,6 +102,7 @@ on:
       - 'tools/test-integrate-role-dashboards.py'
       - 'tools/governance-production/verify-role-dashboard-metadata.py'
       - 'tools/governance-production/test-role-dashboard-metadata.py'
+      - 'scripts/test-workspace-postgres.mjs'
       - 'packages/primecare_ui/lib/src/features/generated_screens/*_dashboard.dart'
       - 'packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart'
       - 'packages/primecare_ui/lib/src/features/generated_screens/ceo_dashboard.dart'
@@ -113,6 +114,31 @@ on:
 permissions:
   contents: read
 jobs:
+  dashboard-postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: auth_test
+          POSTGRES_PASSWORD: disposable-ci-fixture
+          POSTGRES_DB: auth_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U auth_test -d auth_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      AUTH_TEST_DATABASE_URL: postgres://auth_test:disposable-ci-fixture@127.0.0.1:5432/auth_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/role-dashboard-tools --ignore-scripts --no-audit --no-fund pg@8.16.3 esbuild@0.27.2 bcryptjs@3.0.2
+          ln -s /tmp/role-dashboard-tools/node_modules node_modules
+      - name: Verify native auth fixture and every catalog role's workspace isolation
+        run: |
+          node scripts/test-auth-postgres.mjs
+          node scripts/test-workspace-postgres.mjs
   dashboard-registry:
     runs-on: ubuntu-24.04
     environment: production
