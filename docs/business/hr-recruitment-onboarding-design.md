@@ -175,3 +175,45 @@ idempotency, audit rollback, expired credentials, withdrawals, curriculum change
 due-date boundaries, ambiguous message acceptance, reload persistence,
 accessibility and localization. Generated layouts and inventory entries alone
 cannot establish completion.
+
+### Verified production discovery
+
+Run [40055570479](https://github.com/shaikhrais/primecare-platform/actions/runs/40055570479)
+passed on `33655824f55c95b3b588e17aa911b9d874c6e1b3`. Four fixture tests and the
+pinned production read passed. Artifact 12544634916 was downloaded and its SHA256
+independently verified:
+`c298a4a4aca0748b9a27df71deb5b25666b03252588cf403709854e38708c4b7`.
+Candidate inventory: 91 screens, 75 APIs and 16 business-process definitions;
+no grants or business records changed. The sole metadata-complete API in this
+selection is `/v1/auth/register`, not a recruitment CRUD contract. No HR dashboard
+or hiring workflow is established as live by these counts.
+
+Existing active roles include `hr_director` (27), `hr_hiring` (45),
+`training_director` (31) and `training_coordinator` (62). Existing surfaces include:
+
+| ID | Screen | Route |
+| --- | --- | --- |
+| 310 | hr_director_hiring_pipeline | /executive/hr-director-hiring-pipeline |
+| 490 | hiring_pipeline | /management/hiring-pipeline |
+| 491 | employee_records | /management/employee-records |
+| 520 | applicant_tracking | /staff/applicant-tracking |
+| 521 | interview_scheduling | /staff/interview-scheduling |
+| 468 | risk_management | /executive/risk-management |
+| 728 | risk_register | /offices/corporate/roles/compliance_manager/risk-register |
+
+The hiring/interview scan declarations such as API 1456
+`POST /v1/hr-hiring-interviews/compliance/scan` have no permission key in the audit;
+they are not substitute APIs for creating interviews or deciding employment.
+
+The existing `platform.create-department` workflow does identify a real department
+creation path: sign in, load `/v1/governance/platform`, select an authorized tenant,
+then `POST /v1/governance/platform/tenants/{tenantId}/masters` with type department,
+code and label. Source: `cloudflare/workers/src/platform-administration.ts`, which
+persists `platform_master_records` with audit and idempotency. Its workflow remains
+`not_run` in the catalog; live department creation still requires an authenticated
+authorized app session and the intended tenant. Do not replace it with guessed
+department routes or create department records in every tenant by default.
+
+The codebase also has `care.staff.onboard-and-clear` for independently verified
+clinical clearance. That is distinct from a full recruitment/employee onboarding
+program and cannot be used to fabricate credentials or unlock retraining locks.
