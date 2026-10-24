@@ -1,7 +1,8 @@
 // Disposable local PostgreSQL only. Never reads production credentials or governance.
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {Pool} from 'pg';
+import pg from 'pg';
+const {Pool}=pg;
 import {PostgresAtomicStore} from '../cloudflare/workers/src/business-tasks/store.ts';
 import {SmsNotificationService} from '../cloudflare/workers/src/business-tasks/sms.ts';
 import {PostgresSmsObservationStore} from '../cloudflare/workers/src/business-tasks/sms-observations.ts';

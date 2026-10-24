@@ -2,7 +2,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {Pool} from 'pg';
+import pg from 'pg';
+const {Pool}=pg;
 const connectionString=process.env.TWILIO_SMS_TEST_DATABASE_URL;
 test('four-digit migration preserves legacy records, sequence state and unknown constraints',{skip:!connectionString},async()=>{
  const u=new URL(connectionString);
