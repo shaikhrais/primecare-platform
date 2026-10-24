@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 import sys
+from api_documentation import document_sources, enrich, handbook, index_markdown
 sys.path.insert(0,str(ROOT/'tools/governance-production'))
 from connection import connect as governance_connect
 METHODS = {'get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace'}
@@ -43,7 +44,7 @@ def commentary(row, gaps):
     ])
 
 
-def build(records):
+def build(records, sources=None):
     spec = {
         'openapi': '3.1.0',
         'info': {
@@ -92,13 +93,16 @@ def build(records):
                 'responses': {'default': {'description': 'Response contract is not yet verified.'}},
             }
         findings.append({'endpoint_id': row['id'], 'method': method.upper(), 'path': path, 'gaps': gaps})
-    return spec, {
+    report = {
         'production_ready': False,
         'registered_endpoints': len(records),
         'exported_operations': sum(len(ops) for ops in spec['paths'].values()),
         'blocked_endpoints': len(findings),
         'findings': findings,
     }
+    if sources is not None:
+        report['documentation'] = enrich(spec, records, sources)
+    return spec, report
 
 
 def main():
@@ -114,22 +118,23 @@ def main():
         # Explicit allowlist: never export passwords, emails, DB URLs, or unrelated tables.
         records = list(db.execute('SELECT id, endpoint_code, route_path, http_method, '
                                   'auth_required, implementation_status, request_schema, '
-                                  'response_schema, permission_key, rate_limit_key '
+                                  'response_schema, permission_key, rate_limit_key, service_name '
                                   'FROM api_endpoints ORDER BY id'))
-    spec, report = build(records)
+    spec, report = build(records, document_sources())
+    pin = json.loads((ROOT / 'tools/governance-production/production-pin.json').read_text())
+    spec['x-governance-authority'] = {'schema': pin['schema'], 'manifestSha256': pin['manifestSha256'],
+                                    'registrationCount': len(records), 'readOnly': True}
     if not args.check:
         for path, value in ((args.output, spec), (args.report, report)):
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
-        handbook = ['# PrimeCare endpoint reference — DRAFT',
-                    'All operations below are registered, not verified implementations. '
-                    'Descriptions preserve missing requirements explicitly. No production requests are executed.']
-        for path, operations in spec['paths'].items():
-            for method, operation in operations.items():
-                handbook.append(f"# {operation['x-governance-id']}: {method.upper()} {path}\n\n" + operation['description'])
         args.handbook.parent.mkdir(parents=True, exist_ok=True)
-        args.handbook.write_text('\n\n'.join(handbook) + '\n', encoding='utf-8')
-    print(json.dumps({key: value for key, value in report.items() if key != 'findings'}))
+        args.handbook.write_text(handbook(spec, report['documentation'], report['findings']), encoding='utf-8')
+        (args.output.parent / 'API_DOCUMENTATION_INDEX.md').write_text(index_markdown(report['documentation']), encoding='utf-8')
+        (args.output.parent / 'api-documentation-coverage.json').write_text(json.dumps(report['documentation'], indent=2) + '\n', encoding='utf-8')
+    summary = {key: value for key, value in report.items() if key not in ['findings', 'documentation']}
+    summary['documentation'] = {key: value for key, value in report['documentation'].items() if key != 'operations'}
+    print(json.dumps(summary))
     return 1 if args.check else 0
 
 

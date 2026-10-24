@@ -1,0 +1,75 @@
+name: Document all production-governed API endpoints
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/document-all-api-endpoints.yml'
+      - 'scripts/api_documentation.py'
+      - 'scripts/export_governed_openapi.py'
+      - 'scripts/test-api-documentation.py'
+      - 'scripts/check-api-documentation.py'
+      - 'docs/api/*.openapi.json'
+      - 'packages/contracts/communications.openapi.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: document-all-production-api-endpoints
+  cancel-in-progress: false
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          python scripts/test_governed_openapi.py
+          python scripts/test-api-documentation.py
+  production:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 1}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install pinned production reader dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/api-documentation-tools" --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s "$RUNNER_TEMP/api-documentation-tools/node_modules" node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Read current production catalogue and generate endpoint comments
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python scripts/export_governed_openapi.py
+      - name: Verify complete endpoint documentation and source hashes
+        run: python scripts/check-api-documentation.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: complete-api-documentation
+          path: |
+            packages/contracts/openapi.json
+            packages/contracts/api-readiness.json
+            packages/contracts/ENDPOINT_REFERENCE.md
+            packages/contracts/API_DOCUMENTATION_INDEX.md
+            packages/contracts/api-documentation-coverage.json
+          retention-days: 30
+      - name: Save generated documentation directly on unchanged main
+        run: |
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
+          git add packages/contracts/openapi.json packages/contracts/api-readiness.json packages/contracts/ENDPOINT_REFERENCE.md packages/contracts/API_DOCUMENTATION_INDEX.md packages/contracts/api-documentation-coverage.json
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'docs(api): refresh all endpoint comments from production governance'
+            git push origin HEAD:main
+          fi

@@ -1,5 +1,31 @@
 # Governed API inventory
 
+## Complete endpoint comments
+
+`npm run api:spec` now refreshes the complete catalogue from the pinned production
+governance database and generates `ENDPOINT_REFERENCE.md`,
+`API_DOCUMENTATION_INDEX.md` and `api-documentation-coverage.json` alongside the
+OpenAPI inventory and readiness report. Production credentials are required;
+there is no fallback to an old operational SQLite database.
+
+Every exported endpoint receives purpose/behavior, authentication, request and
+response, tenant/persistence, rate/audit, verification and blocker comments.
+Exact method/path matches to repository OpenAPI documents add endpoint-specific
+input fields, required/optional flags, constraints, response fields/content types,
+declared security and linked source documents. Overlapping source versions remain
+visible and are not silently merged. Invalid or duplicate registrations appear
+in quarantine rather than receiving callable-operation documentation credit.
+
+The coverage report measures **comments and source references**, not implemented
+business functionality or production readiness. Unknown requirements stay explicit.
+Raw registry schema examples/defaults are never copied into endpoint comments.
+
+Validate generated coverage with `python3 scripts/check-api-documentation.py`.
+The `Document all production-governed API endpoints` workflow reads production
+metadata, validates all generated comments and saves only the five allowlisted
+documentation outputs directly to main with an unchanged-head check. It grants
+no roles, calls no business API and changes no governance rows.
+
 For the typed communication/voice subset, use
 [`communications.openapi.json`](communications.openapi.json) and
 [`COMMUNICATION_API.md`](COMMUNICATION_API.md). That separate contract covers
