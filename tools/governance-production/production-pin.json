@@ -808,5 +808,30 @@
     "permissionChanges": false,
     "providerWrites": false,
     "activation": false
+  },
+  "voiceContactAccessWriter": {
+    "optInVariable": "GOVERNANCE_VOICE_CONTACT_ACCESS",
+    "tables": [
+      "api_permissions",
+      "screen_api_links"
+    ],
+    "screenIds": [
+      234,
+      331,
+      559,
+      578
+    ],
+    "apiIds": [
+      16535,
+      16536,
+      16537
+    ],
+    "eligibility": "active-role-and-existing-communication-screen-can-view",
+    "existingDenials": "preserve",
+    "definitionSha256": "a760338fa44edab2098e49792fc7487a090f08a7e0f34e7f27b46b468caf5206",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "providerWrites": false,
+    "activation": false
   }
 }

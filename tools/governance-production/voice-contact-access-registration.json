@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "screens": {"234":"psw_messages","331":"patient_messages","559":"communication","578":"messaging"},
+  "apiIds": {"contact.status":16535,"contact.start":16536,"contact.check":16537},
+  "requirement": "Permit first-time native own-phone enrollment only for active registered roles already permitted to view an existing communication screen. Link the exact three native APIs to those four screens. Preserve existing explicit API denials and every unrelated grant. The service additionally requires the current same-user session, recent login and exact SMS check; this metadata never authenticates callers or grants AI tools.",
+  "eligibility": "active-role-and-existing-communication-screen-can-view",
+  "permission": "role_screen_permissions",
+  "existingDenials": "preserve",
+  "activation": false
+}
