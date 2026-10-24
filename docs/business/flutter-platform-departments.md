@@ -16,6 +16,12 @@ results. The backend retains current-role, tenant, status, rate, audit,
 transaction, uniqueness and idempotency checks. No production grants or business
 migrations are changed by this implementation.
 
+Global administration does not require a tenant claim in the client session
+projection. The API resolves the current native tenant itself; an absent or
+unauthorized native scope is still denied by the server and displays an error
+rather than an empty page. A nullable client tenant remains part of the local
+session-change boundary, so later tenant changes dispose the previous view.
+
 `PlatformMasterRepository` inherits `BaseApiRepository` and uses the existing API
 client. `PlatformMasterController` inherits `BaseWorkspaceController`. Requests
 follow Flutter → API gateway → governance Worker → PostgreSQL. The browser never

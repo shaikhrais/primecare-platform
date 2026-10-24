@@ -8,12 +8,16 @@ import 'package:primecare_ui/src/features/platform/platform_master_controller.da
 import 'package:primecare_ui/src/features/platform/platform_master_screen.dart';
 
 const base = PlatformMasterRepository.endpoint;
-AuthState session({String user = 'actor-a', String tenant = 'control', String token = 'token-a', String role = 'code_admin'}) =>
+AuthState session({String user = 'actor-a', String? tenant = 'control', String token = 'token-a', String role = 'code_admin'}) =>
   AuthState(isInitialized: true, isAuthenticated: true, userId: user, tenantId: tenant, token: token, role: role);
 class PlatformAuthFixture extends AuthNotifier {
   @override
   AuthState build() => session();
   void replace(AuthState value) { state = value; }
+}
+class PlatformGlobalAuthFixture extends PlatformAuthFixture {
+  @override
+  AuthState build() => session(tenant: null);
 }
 Map<String, dynamic> index({String actor = 'actor-a'}) => {
   'identity': {'userId': actor}, 'tenants': [{'id': 'tenant-a', 'name': 'Clinic A'}, {'id': 'tenant-b', 'name': 'Clinic B'}],
@@ -48,6 +52,28 @@ void failure(RequestOptions options, RequestInterceptorHandler handler, int stat
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  for (final denied in [false, true]) {
+    testWidgets('global administration delegates missing client tenant to server, denied=$denied', (tester) async {
+      var calls = 0;
+      final dio = Dio(BaseOptions(baseUrl: 'https://synthetic.invalid'));
+      dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
+        calls++; expect(options.path, base);
+        if (denied) { failure(options, handler, 403); }
+        else { success(options, handler, index()); }
+      }));
+      final container = ProviderContainer(overrides: [authProvider.overrideWith(PlatformGlobalAuthFixture.new),
+        apiClientProvider.overrideWith((ref) => ApiClient(ref, transport: dio))]);
+      addTearDown(() { dio.close(force: true); container.dispose(); });
+      await tester.pumpWidget(UncontrolledProviderScope(container: container,
+        child: PrimeTheme(data: const PrimeThemeData(), child: const MaterialApp(home: PlatformMasterScreen()))));
+      await tester.pumpAndSettle(); expect(calls, 1);
+      if (denied) {
+        expect(find.text('Request failed.'), findsOneWidget);
+        expect(find.byType(DropdownButtonFormField<String>), findsNothing);
+      } else { expect(find.byType(DropdownButtonFormField<String>), findsOneWidget); }
+      expect(tester.takeException(), isNull); await tester.pumpWidget(const SizedBox.shrink());
+    });
+  }
   test('server identity and selected tenant are validated before further I/O', () async {
     var calls = 0;
     final fixture = Fixture((options, handler) { calls++; success(options, handler, index()); });

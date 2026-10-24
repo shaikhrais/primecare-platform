@@ -13,7 +13,7 @@ String platformMasterText(BuildContext context, String key) {
 
 final platformAdministrationAccessProvider = FutureProvider.autoDispose<bool>((ref) async {
   final auth = ref.watch(authProvider);
-  if (!auth.isAuthenticated || auth.userId == null || auth.token == null || auth.tenantId == null) return false;
+  if (!auth.isAuthenticated || auth.userId == null || auth.token == null) return false;
   try {
     await PlatformMasterRepository(ref.read(apiClientProvider), actor: auth.userId!, token: auth.token!).index();
     return ref.mounted;
@@ -32,8 +32,8 @@ class PlatformAdministrationLauncher extends ConsumerWidget {
 }
 
 class _Identity {
-  final String user, tenant, token;
-  final String? role;
+  final String user, token;
+  final String? tenant, role;
   const _Identity(this.user, this.tenant, this.token, this.role);
   bool matches(AuthState auth) => auth.isAuthenticated && user == auth.userId &&
     tenant == auth.tenantId && token == auth.token && role == auth.role;
@@ -52,10 +52,10 @@ class PlatformMasterScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final auth = ref.watch(authProvider);
     if (!auth.isAuthenticated || auth.userId == null || auth.userId!.isEmpty ||
-        auth.tenantId == null || auth.tenantId!.isEmpty || auth.token == null || auth.token!.isEmpty) {
+        auth.token == null || auth.token!.isEmpty) {
       return const SizedBox.shrink();
     }
-    final identity = _Identity(auth.userId!, auth.tenantId!, auth.token!, auth.role);
+    final identity = _Identity(auth.userId!, auth.tenantId, auth.token!, auth.role);
     return _ScopedPlatformMasterScreen(key: ValueKey(identity), identity: identity);
   }
 }
