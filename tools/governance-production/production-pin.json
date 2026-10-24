@@ -771,7 +771,8 @@
       "communication_voice_otp",
       "communication_voice_otp_limits",
       "communication_voice_tasks",
-      "communication_voice_confirmations"
+      "communication_voice_confirmations",
+      "communication_voice_contact_challenges"
     ],
     "businessDataWrites": false,
     "roleGrants": false,

@@ -1192,3 +1192,13 @@ port while VoiceTaskService retains the VoiceOtpService trust broker and separat
 exact app approval. The OTP integration tests use real inherited services with
 isolated provider/storage fixtures; the production identity-readiness workflow
 performs read-only inventory and no traffic or activation.
+
+VoiceContactEnrollmentService inherits ScopedServiceBase and is native-app only.
+It requires current active user/tenant/session context and a login within five
+minutes before first-time phone verification. PostgresVoiceContactRepository owns
+atomic per-user/per-phone send limits, check claims and first-time-only contact
+insertion. Existing/revoked contacts are preserved. createTwilioContactEnrollmentClient
+is a separate fixed-destination Verify capability; createTwilioVoiceOtpClient still
+requires an already verified contact for call step-up. No code or password is
+persisted or returned. Native HTTP/UI permissions and deployment remain required;
+none of these methods is an AI tool. See the enrollment guide in docs/business.

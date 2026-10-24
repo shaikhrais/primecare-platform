@@ -18,9 +18,11 @@ try{
   const manifest=await db.query(`SELECT manifest_sha256 FROM "${pin.schema}"."govt_source_manifest"`);
   if(manifest.rows.length!==1||manifest.rows[0].manifest_sha256!==pin.manifestSha256)throw Error('Invalid authority');
   report.stage='database-inventory';
-  const names=['communication_voice_verified_contacts','communication_voice_otp','communication_voice_otp_limits','communication_voice_tasks','communication_voice_confirmations','users','tenants','auth_sessions'];
+  const names=['communication_voice_verified_contacts','communication_voice_otp','communication_voice_otp_limits','communication_voice_tasks','communication_voice_confirmations','communication_voice_contact_challenges','users','tenants','auth_sessions'];
   const tables={};for(const name of names)tables[name]=(await db.query('SELECT to_regclass($1) IS NOT NULL AS present',['public.'+name])).rows[0]?.present===true;
   report.tables=tables;
+  report.nativeSessionCreationTimeAvailable=(await db.query("SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='auth_sessions' AND column_name='created_at' AND data_type='timestamp with time zone') AS present")).rows[0]?.present===true;
+  if(!report.nativeSessionCreationTimeAvailable)report.blockers.push('missing_native_session_creation_time');
   for(const [name,present] of Object.entries(tables))if(!present)report.blockers.push('missing_table:'+name);
   if(tables.communication_voice_verified_contacts){
    const count=(await db.query('SELECT COUNT(*)::int AS count FROM public.communication_voice_verified_contacts WHERE revoked_at IS NULL')).rows[0]?.count;
@@ -48,7 +50,7 @@ try{
  try{await vapi.fetch('00000000-0000-4000-8000-000000000000');throw Error('Unknown call unexpectedly resolved');}catch(error){if(error?.code!=='resource_not_found')throw Error('Provider read check failed');report.unknownProviderCallRejected=true;}
  // These required connections are absent in the currently deployed boundary.
  // Keep blockers explicit rather than certifying deployment from fixture tests.
- report.blockers.push('private_pre_ai_pairing_delivery_not_connected','native_app_pairing_ui_not_connected','otp_runtime_not_deployed');
+ report.blockers.push('native_contact_enrollment_not_deployed','private_pre_ai_pairing_delivery_not_connected','native_app_pairing_ui_not_connected','otp_runtime_not_deployed');
  report.stage='complete';report.readinessMeasured=true;report.ready=false;report.status='identity_activation_blocked';
 }catch{report.status='identity_readiness_check_failed';process.exitCode=1;}
 finally{await pool?.end();}

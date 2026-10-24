@@ -9,6 +9,11 @@ on:
       - 'packages/database/migrations/20261023_communication_voice_otp.sql'
       - 'packages/database/migrations/20261023_communication_voice_tasks.sql'
       - 'packages/database/migrations/20261023_communication_voice_confirmations.sql'
+      - 'packages/database/migrations/20261024_communication_voice_contact_enrollment.sql'
+      - 'cloudflare/workers/src/business-tasks/voice-contact.ts'
+      - 'cloudflare/workers/src/business-tasks/voice-contact-postgres.ts'
+      - 'scripts/test-voice-contact-enrollment.mjs'
+      - 'packages/shared/src/communications/twilio-verify.mjs'
   workflow_dispatch:
 permissions:
   contents: read
@@ -35,11 +40,13 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/voice-schema-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          npm install --prefix "$RUNNER_TEMP/voice-schema-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3 twilio@6.2.0 typescript@5.9.3 @types/node@24.0.0
           ln -s "$RUNNER_TEMP/voice-schema-tools/node_modules" node_modules
       - run: |
           node scripts/migrate-voice-identity-schema.mjs --reference
           node --test scripts/test-voice-identity-schema.mjs
+          node --test scripts/test-voice-contact-enrollment.mjs scripts/test-communication-twilio-verify.mjs
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/voice-contact.ts cloudflare/workers/src/business-tasks/voice-contact-postgres.ts
       - uses: actions/upload-artifact@v4
         with:
           name: voice-identity-schema-reference

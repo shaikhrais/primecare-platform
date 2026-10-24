@@ -3,8 +3,8 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
 const {Pool}=pg;
-export const names=['communication_voice_verified_contacts','communication_voice_otp','communication_voice_otp_limits','communication_voice_tasks','communication_voice_confirmations'];
-const files=['20261023_communication_voice_otp.sql','20261023_communication_voice_tasks.sql','20261023_communication_voice_confirmations.sql'];
+export const names=['communication_voice_verified_contacts','communication_voice_otp','communication_voice_otp_limits','communication_voice_tasks','communication_voice_confirmations','communication_voice_contact_challenges'];
+const files=['20261023_communication_voice_otp.sql','20261023_communication_voice_tasks.sql','20261023_communication_voice_confirmations.sql','20261024_communication_voice_contact_enrollment.sql'];
 export async function sources(){const result=[];for(const name of files){const sql=await readFile('packages/database/migrations/'+name,'utf8');result.push({name,sql,sha256:createHash('sha256').update(sql).digest('hex')});}return result;}
 export async function snapshot(db){
  const shapes={};
@@ -66,15 +66,21 @@ async function main(){
    if(mode!=='--verify')await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',['primecare-voice-identity-schema-v1']);
    report.stage='schema-inventory';
    const before=await snapshot(db),present=names.filter(name=>before[name]!==null).length;
-   if(present!==0&&present!==names.length)throw Error('Partial schema preserved');
+   let selected=input;
+   if(present!==0&&present!==names.length){
+    // Only this reviewed additive revision may extend the already deployed five
+    // tables. Their complete fingerprints must match before creating table six.
+    if(present!==5||before.communication_voice_contact_challenges!==null||names.slice(0,5).some(name=>!before[name]||JSON.stringify(before[name])!==JSON.stringify(reference?.shapes?.[name])))throw Error('Partial schema preserved');
+    selected=input.filter(row=>row.name==='20261024_communication_voice_contact_enrollment.sql');report.existingBaselineVerified=true;
+   }
    if(fixture&&present!==0)throw Error('Fresh isolated schema required');
-   if(present===0){
+   if(present<names.length){
     if(mode==='--verify')throw Error('Schema not deployed');
     report.stage='schema-create-permission';
     report.schemaCreateAllowed=(await db.query("SELECT has_schema_privilege(current_user,'public','CREATE') AS allowed")).rows[0]?.allowed===true;
     if(!report.schemaCreateAllowed)throw Error('Migration role lacks schema CREATE');
     report.stage='schema-create';
-    await createPrivateTables(db,input);report.schemaChanges=true;
+    await createPrivateTables(db,selected);report.schemaChanges=true;
    }
    report.stage='schema-compare';
    const actual=await snapshot(db);
