@@ -1,0 +1,1034 @@
+{
+  "version": 1,
+  "policy": {
+    "id": "communication-twilio-voice-v1",
+    "version": 2,
+    "requirement": "Use one configured platform-owned Twilio voice number across tenants, with globally unique four-digit extensions resolving only to explicitly published active tenant/user voice destinations. Reuse the inherited communication core and binary adapter boundary. Do not buy numbers, publish user extensions, grant permissions, or mount unregistered endpoints during contract registration. Use menu 0 for configured reception and menu 1 for the configured verified AI pairing flow; missing AI configuration falls back to reception or unavailable. Account tasks require current policy and exact independent confirmation.",
+    "status": "registered-unimplemented",
+    "activationApproved": false,
+    "sharedNumber": null,
+    "extensions": [],
+    "rules": {
+      "extensionDigits": 4,
+      "extensionRange": "1000-9999",
+      "globalExtensionUniqueness": true,
+      "tenantAndUserDerivedFromCurrentDirectory": true,
+      "activeTenantAndUserEveryLookup": true,
+      "explicitPublishedVoiceDestination": true,
+      "unknownAmbiguousOrRevokedDestination": "configured-reception-otherwise-generic-unavailable-no-dial",
+      "target": "tenant-scoped-voice-sdk-client-identity",
+      "externalNumberForwarding": false,
+      "automaticRecording": false,
+      "webhookValidation": "official-sdk-with-auth-token-and-exact-configured-public-url-all-form-parameters",
+      "webhookBody": "bounded-utf8-application-x-www-form-urlencoded",
+      "voiceIdentity": "primecare_ plus SHA-256 of length-prefixed tenant and user identifiers",
+      "tokenIssuance": "separate-registered-current-session-and-voice-permission-required",
+      "smsAndMms": "extensions-are-voice-only-no-implicit-sms-routing",
+      "receptionMenuDigit": "0",
+      "aiMenuDigit": "1",
+      "aiEntry": "configured-verified-app-pairing-otherwise-reception"
+    },
+    "releaseGates": [
+      "Twilio account and secure credentials configured",
+      "Concrete shared number and recurring/usage charges approved before purchase",
+      "Governed extension assignment and publication with global uniqueness",
+      "Provider webhook and Voice SDK token contracts registered before mounting",
+      "Current tenant/user voice permissions and destination revocation checks",
+      "Live inbound/outbound provider and device acceptance"
+    ]
+  },
+  "contracts": {
+    "version": 1,
+    "requirement": "Register the user-requested shared-number extension, private voicemail, app-linked OTP and independently confirmed AI-task boundary contracts before mounting; no activation, numbers, grants or business data writes.",
+    "implementationStatus": "registered-unimplemented",
+    "activation": false,
+    "service": "governance",
+    "anchorApiId": 710,
+    "operations": [
+      {
+        "key": "token",
+        "method": "POST",
+        "path": "/v1/voice/token",
+        "authentication": "native-session-csrf",
+        "responseKind": "json",
+        "permission": "role_screen_permissions",
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {},
+          "required": []
+        },
+        "response": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "token": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 16384
+            },
+            "identity": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "ttlSeconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 300
+            }
+          },
+          "required": [
+            "token",
+            "identity",
+            "ttlSeconds"
+          ]
+        }
+      },
+      {
+        "key": "extension.assign",
+        "method": "POST",
+        "path": "/v1/voice/extensions/assign",
+        "authentication": "native-session-csrf",
+        "responseKind": "json",
+        "permission": "role_screen_permissions",
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "userId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          },
+          "required": [
+            "userId"
+          ]
+        },
+        "response": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "extension": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4,
+              "pattern": "^[1-9][0-9]{3}$"
+            },
+            "tenantId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            },
+            "userId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            },
+            "published": {
+              "type": "boolean"
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "tenantActive": {
+              "type": "boolean"
+            },
+            "userActive": {
+              "type": "boolean"
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740990
+            }
+          },
+          "required": [
+            "extension",
+            "tenantId",
+            "userId",
+            "published",
+            "active",
+            "tenantActive",
+            "userActive",
+            "version"
+          ]
+        }
+      },
+      {
+        "key": "extension.publish",
+        "method": "POST",
+        "path": "/v1/voice/extensions/publish",
+        "authentication": "native-session-csrf",
+        "responseKind": "json",
+        "permission": "role_screen_permissions",
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "userId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740990
+            },
+            "published": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "userId",
+            "version",
+            "published"
+          ]
+        },
+        "response": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "extension": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4,
+              "pattern": "^[1-9][0-9]{3}$"
+            },
+            "tenantId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            },
+            "userId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            },
+            "published": {
+              "type": "boolean"
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "tenantActive": {
+              "type": "boolean"
+            },
+            "userActive": {
+              "type": "boolean"
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740990
+            }
+          },
+          "required": [
+            "extension",
+            "tenantId",
+            "userId",
+            "published",
+            "active",
+            "tenantActive",
+            "userActive",
+            "version"
+          ]
+        }
+      },
+      {
+        "key": "voicemail.read",
+        "method": "POST",
+        "path": "/v1/voice/voicemail/read",
+        "authentication": "native-session-csrf",
+        "responseKind": "json",
+        "permission": "role_screen_permissions",
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "recordingSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^RE[a-fA-F0-9]{32}$"
+            }
+          },
+          "required": [
+            "recordingSid"
+          ]
+        },
+        "response": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "recordingSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^RE[a-fA-F0-9]{32}$"
+            },
+            "callSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            },
+            "extension": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4,
+              "pattern": "^[1-9][0-9]{3}$"
+            }
+          },
+          "required": [
+            "recordingSid",
+            "callSid",
+            "extension"
+          ]
+        }
+      },
+      {
+        "key": "voicemail.audio",
+        "method": "POST",
+        "path": "/v1/voice/voicemail/audio",
+        "authentication": "native-session-csrf",
+        "responseKind": "private-audio-wav",
+        "permission": "role_screen_permissions",
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "recordingSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^RE[a-fA-F0-9]{32}$"
+            }
+          },
+          "required": [
+            "recordingSid"
+          ]
+        },
+        "response": {
+          "type": "string",
+          "contentMediaType": "audio/wav"
+        }
+      },
+      {
+        "key": "otp.start",
+        "method": "POST",
+        "path": "/v1/voice/otp/start",
+        "authentication": "native-session-csrf",
+        "responseKind": "json",
+        "permission": "role_screen_permissions",
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "callSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            },
+            "pairingCode": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 8,
+              "pattern": "^[0-9]{8}$"
+            }
+          },
+          "required": [
+            "callSid",
+            "pairingCode"
+          ]
+        },
+        "response": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "verificationRequested": {
+              "const": true
+            }
+          },
+          "required": [
+            "verificationRequested"
+          ]
+        }
+      },
+      {
+        "key": "otp.check",
+        "method": "POST",
+        "path": "/v1/voice/otp/check",
+        "authentication": "native-session-csrf",
+        "responseKind": "json",
+        "permission": "role_screen_permissions",
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "callSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            },
+            "code": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 6,
+              "pattern": "^[0-9]{6}$"
+            }
+          },
+          "required": [
+            "callSid",
+            "code"
+          ]
+        },
+        "response": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "verified": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "verified"
+          ]
+        }
+      },
+      {
+        "key": "task.preview",
+        "method": "POST",
+        "path": "/v1/voice/tasks/preview",
+        "authentication": "native-session-csrf",
+        "responseKind": "json",
+        "permission": "role_screen_permissions",
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "intentId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 36,
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+            }
+          },
+          "required": [
+            "intentId"
+          ]
+        },
+        "response": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "intentId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 36,
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+            },
+            "summary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "digest": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "expiresAt": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "intentId",
+            "summary",
+            "digest",
+            "expiresAt"
+          ]
+        }
+      },
+      {
+        "key": "task.approve",
+        "method": "POST",
+        "path": "/v1/voice/tasks/approve",
+        "authentication": "native-session-csrf",
+        "responseKind": "json",
+        "permission": "role_screen_permissions",
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "intentId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 36,
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+            },
+            "digest": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "intentId",
+            "digest"
+          ]
+        },
+        "response": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "approved": {
+              "const": true
+            },
+            "expiresAt": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "approved",
+            "expiresAt"
+          ]
+        }
+      },
+      {
+        "key": "voice.incoming",
+        "method": "POST",
+        "path": "/v1/twilio/voice/incoming",
+        "authentication": "twilio-signed-form",
+        "responseKind": "twiml",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "properties": {
+            "AccountSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^AC[a-fA-F0-9]{32}$"
+            },
+            "CallSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            },
+            "To": {
+              "type": "string",
+              "pattern": "^\\+[1-9][0-9]{1,14}$",
+              "maxLength": 16
+            },
+            "Direction": {
+              "const": "inbound"
+            }
+          },
+          "required": [
+            "AccountSid",
+            "CallSid",
+            "To",
+            "Direction"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 8192
+          }
+        },
+        "response": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32768,
+          "contentMediaType": "application/xml"
+        }
+      },
+      {
+        "key": "voice.gather",
+        "method": "POST",
+        "path": "/v1/twilio/voice/gather",
+        "authentication": "twilio-signed-form",
+        "responseKind": "twiml",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "properties": {
+            "AccountSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^AC[a-fA-F0-9]{32}$"
+            },
+            "CallSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            },
+            "Digits": {
+              "type": "string",
+              "maxLength": 4
+            },
+            "To": {
+              "type": "string",
+              "pattern": "^\\+[1-9][0-9]{1,14}$",
+              "maxLength": 16
+            },
+            "Direction": {
+              "const": "inbound"
+            }
+          },
+          "required": [
+            "AccountSid",
+            "CallSid",
+            "To",
+            "Direction"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 8192
+          }
+        },
+        "response": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32768,
+          "contentMediaType": "application/xml"
+        }
+      },
+      {
+        "key": "voice.connect",
+        "method": "POST",
+        "path": "/v1/twilio/voice/connect",
+        "authentication": "twilio-signed-form",
+        "responseKind": "twiml",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "properties": {
+            "AccountSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^AC[a-fA-F0-9]{32}$"
+            },
+            "CallSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            },
+            "CallerExtension": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4,
+              "pattern": "^[1-9][0-9]{3}$"
+            },
+            "TargetExtension": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4,
+              "pattern": "^[1-9][0-9]{3}$"
+            },
+            "From": {
+              "type": "string",
+              "pattern": "^client:primecare_[a-f0-9]{64}$",
+              "maxLength": 80
+            },
+            "Direction": {
+              "const": "inbound"
+            }
+          },
+          "required": [
+            "AccountSid",
+            "CallSid",
+            "CallerExtension",
+            "TargetExtension",
+            "From",
+            "Direction"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 8192
+          }
+        },
+        "response": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32768,
+          "contentMediaType": "application/xml"
+        }
+      },
+      {
+        "key": "voice.dial_complete",
+        "method": "POST",
+        "path": "/v1/twilio/voice/dial-complete",
+        "authentication": "twilio-signed-form",
+        "responseKind": "twiml",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "properties": {
+            "AccountSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^AC[a-fA-F0-9]{32}$"
+            },
+            "CallSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            },
+            "DialCallStatus": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32
+            }
+          },
+          "required": [
+            "AccountSid",
+            "CallSid",
+            "DialCallStatus"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 8192
+          }
+        },
+        "response": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32768,
+          "contentMediaType": "application/xml"
+        }
+      },
+      {
+        "key": "voice.record_action",
+        "method": "POST",
+        "path": "/v1/twilio/voice/record-action",
+        "authentication": "twilio-signed-form",
+        "responseKind": "twiml",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "properties": {
+            "AccountSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^AC[a-fA-F0-9]{32}$"
+            },
+            "CallSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            }
+          },
+          "required": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 8192
+          }
+        },
+        "response": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32768,
+          "contentMediaType": "application/xml"
+        }
+      },
+      {
+        "key": "voice.recording_status",
+        "method": "POST",
+        "path": "/v1/twilio/voice/recording-status",
+        "authentication": "twilio-signed-form",
+        "responseKind": "no-content",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "properties": {
+            "AccountSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^AC[a-fA-F0-9]{32}$"
+            },
+            "CallSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            },
+            "RecordingSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^RE[a-fA-F0-9]{32}$"
+            },
+            "RecordingStatus": {
+              "const": "completed"
+            },
+            "RecordingDuration": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 3,
+              "pattern": "^(?:[0-9]|[1-9][0-9]|1[01][0-9]|120)$"
+            }
+          },
+          "required": [
+            "AccountSid",
+            "CallSid",
+            "RecordingSid",
+            "RecordingStatus",
+            "RecordingDuration"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 8192
+          }
+        },
+        "response": {
+          "type": "null"
+        }
+      },
+      {
+        "key": "voice.pair",
+        "method": "POST",
+        "path": "/v1/twilio/voice/pair",
+        "authentication": "twilio-signed-form",
+        "responseKind": "twiml",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "properties": {
+            "AccountSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^AC[a-fA-F0-9]{32}$"
+            },
+            "CallSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            }
+          },
+          "required": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 8192
+          }
+        },
+        "response": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32768,
+          "contentMediaType": "application/xml"
+        }
+      },
+      {
+        "key": "voice.wait",
+        "method": "POST",
+        "path": "/v1/twilio/voice/wait",
+        "authentication": "twilio-signed-form",
+        "responseKind": "twiml",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "properties": {
+            "AccountSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^AC[a-fA-F0-9]{32}$"
+            },
+            "CallSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            }
+          },
+          "required": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 8192
+          }
+        },
+        "response": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32768,
+          "contentMediaType": "application/xml"
+        }
+      },
+      {
+        "key": "voice.agent",
+        "method": "POST",
+        "path": "/v1/twilio/voice/agent",
+        "authentication": "twilio-signed-form",
+        "responseKind": "twiml",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "properties": {
+            "AccountSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^AC[a-fA-F0-9]{32}$"
+            },
+            "CallSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            }
+          },
+          "required": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 8192
+          }
+        },
+        "response": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32768,
+          "contentMediaType": "application/xml"
+        }
+      },
+      {
+        "key": "voice.agent_complete",
+        "method": "POST",
+        "path": "/v1/twilio/voice/agent-complete",
+        "authentication": "twilio-signed-form",
+        "responseKind": "twiml",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "properties": {
+            "AccountSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^AC[a-fA-F0-9]{32}$"
+            },
+            "CallSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^CA[a-fA-F0-9]{32}$"
+            }
+          },
+          "required": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 8192
+          }
+        },
+        "response": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32768,
+          "contentMediaType": "application/xml"
+        }
+      },
+      {
+        "key": "voice.relay",
+        "method": "GET",
+        "path": "/v1/twilio/voice/relay",
+        "authentication": "twilio-signed-websocket",
+        "responseKind": "websocket-upgrade",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {},
+          "required": []
+        },
+        "response": {
+          "type": "null"
+        }
+      },
+      {
+        "key": "sms.status",
+        "method": "POST",
+        "path": "/v1/twilio/sms/status",
+        "authentication": "twilio-signed-form",
+        "responseKind": "no-content",
+        "permission": "twilio.signature",
+        "request": {
+          "type": "object",
+          "properties": {
+            "AccountSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^AC[a-fA-F0-9]{32}$"
+            },
+            "MessageSid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 34,
+              "pattern": "^SM[a-fA-F0-9]{32}$"
+            },
+            "MessageStatus": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32
+            }
+          },
+          "required": [
+            "AccountSid",
+            "MessageSid",
+            "MessageStatus"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 8192
+          }
+        },
+        "response": {
+          "type": "null"
+        }
+      }
+    ]
+  }
+}

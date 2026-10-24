@@ -707,5 +707,23 @@
     "permissionChanges": false,
     "providerWrites": false,
     "activation": false
+  },
+  "fourDigitVoiceRevisionWriter": {
+    "optInVariable": "GOVERNANCE_FOUR_DIGIT_VOICE_REVISION",
+    "tables": [
+      "api_endpoints",
+      "platform_hierarchy_policy"
+    ],
+    "policyIds": [
+      "communication-twilio-voice-v1"
+    ],
+    "baselineRequirementSha256": "1a1ad465e2f0bcc91d1d03240805f631219c50c3696009aa573ff417ba07ffe7",
+    "baselineContractsSha256": "803ee241af0c61f5117578bc0e52f9413c10bea6e631c21acc584005ceea3bd7",
+    "revisionSha256": "48c4fdd012632f66f537290e985c1de664d9d03ba0439746be9a0be5f3659d0e",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
   }
 }
