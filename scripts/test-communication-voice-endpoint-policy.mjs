@@ -24,3 +24,8 @@ test('revoked, ambiguous and malformed grant results cannot authorize a voice op
 test('manifest and database failures roll back without manufacturing grants',async()=>{
  for(const options of [{manifest:'wrong'},{failure:true}]){const f=fixture(options);await assert.rejects(f.policy.authorize(session,'token',request('/v1/voice/token')));assert.equal(f.calls.at(-1).sql,'ROLLBACK');assert.ok(f.released());}
 });
+
+test('contact enrollment resolves VOICE contract identities and preserves exact native screen/API enforcement',async()=>{
+ const contacts=JSON.parse(readFileSync('tools/governance-production/voice-contact-contracts-registration.json'));
+ for(const op of contacts.operations){const f=fixture();await f.policy.authorize(session,op.key,request(op.path));assert.equal(f.calls.find(c=>c.sql.startsWith('SELECT DISTINCT')).values.at(-1),'VOICE_'+op.key.replaceAll('.','_').toUpperCase());const denied=fixture({grants:[]});await assert.rejects(denied.policy.authorize(session,op.key,request(op.path)),/Forbidden/);}
+});

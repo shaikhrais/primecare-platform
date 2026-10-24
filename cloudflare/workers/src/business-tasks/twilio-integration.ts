@@ -5,7 +5,9 @@ import {PostgresRelaySessionClaims} from './relay-session-claims.ts';
 import {TwilioVerifiedAgentAdapter,type TwilioVerifiedAgentOptions} from '../../../../packages/shared/src/communications/twilio-agent-start.mjs';
 import {TwilioOtpPairingAdapter} from '../../../../packages/shared/src/communications/twilio-otp-pairing.mjs';
 import {VoiceOtpService,PostgresVoiceOtpRepository,PostgresVoiceOtpContactDirectory} from './voice-otp.ts';
-import {createTwilioVoiceOtpClient} from '../../../../packages/shared/src/communications/twilio-verify.mjs';
+import {VoiceContactEnrollmentService} from './voice-contact.ts';
+import {PostgresVoiceContactSessions,PostgresVoiceContactRepository} from './voice-contact-postgres.ts';
+import {createTwilioVoiceOtpClient,createTwilioContactEnrollmentClient} from '../../../../packages/shared/src/communications/twilio-verify.mjs';
 import {createReceptionAppointmentTasks,type ReceptionAppointmentPorts} from './voice-reception-tasks.ts';
 import {PostgresVoiceTaskConfirmationService} from './voice-confirmations.ts';
 import {VoiceTaskService,PostgresVoiceTaskRepository,type VoiceTaskTrust,type VoiceTaskBase} from './voice-tasks.ts';
@@ -169,4 +171,12 @@ export function createPostgresTwilioRelaySocket(dependencies:Pick<Parameters<typ
  * history. No automatic model selection, route mounting or secret provisioning. */
 export function createPostgresOpenAiTwilioRelaySocket(dependencies:Omit<Parameters<typeof createPostgresTwilioRelaySocket>[0],'createModel'> & {modelProvider:Omit<OpenAiRelayModelOptions,'taskIds'>}){
  return createPostgresTwilioRelaySocket({...dependencies,createModel:async()=>new OpenAiRelayModel({...dependencies.modelProvider,taskIds:dependencies.taskIds})});
+}
+
+/** First-time native enrollment only. No provider call happens at construction.
+ * Policy, current PostgreSQL sessions and a dedicated Verify capability are required.
+ * This factory never mounts endpoints or grants permissions. */
+export function createPostgresVoiceContactEnrollmentService(d:Pick<Parameters<typeof createTwilioCommunicationServices>[0],'pool'|'policy'|'configuration'|'httpClient'> & {verifyServiceSid:string}){
+ const c=Object.freeze({...d.configuration}),serviceSid=d.verifyServiceSid,httpClient=d.httpClient;
+ return new VoiceContactEnrollmentService(new PostgresAtomicStore(d.pool,'business_sms'),d.policy,new PostgresVoiceContactRepository(d.pool),{sessions:new PostgresVoiceContactSessions(d.pool),provider:phone=>createTwilioContactEnrollmentClient({accountSid:c.accountSid,apiKeySid:c.apiKeySid,apiKeySecret:c.apiKeySecret,serviceSid,purpose:'first-time-contact-enrollment',phone,httpClient})});
 }

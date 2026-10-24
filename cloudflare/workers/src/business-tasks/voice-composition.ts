@@ -1,7 +1,7 @@
 import definition from '../../../../tools/governance-production/twilio-contracts-registration.json' with {type:'json'};
 import type {NativeVoiceHttpOptions} from '../../../../packages/shared/src/communications/voice-native-http.mjs';
 import {
- createPostgresTwilioCommunicationServices,createPostgresTwilioVoicemailServices,
+ createPostgresVoiceContactEnrollmentService,createPostgresTwilioCommunicationServices,createPostgresTwilioVoicemailServices,
  createPostgresTwilioExtensionConnectHandler,createPostgresOtpReceptionVoiceServices,
  createTwilioVoiceOtpPairingHandler,createTwilioVerifiedAgentHandler,
  createPostgresOpenAiTwilioRelaySocket,createPostgresNativeVoiceHttpAdapter,
@@ -45,6 +45,7 @@ export function createPostgresTwilioVoiceWorker<E>(d:PostgresVoiceWorkerDependen
   dialCompleteUrl:endpoint('voice.dial_complete'),recordActionUrl:endpoint('voice.record_action'),recordingStatusUrl:endpoint('voice.recording_status')});
  const connect=createPostgresTwilioExtensionConnectHandler({...common,outgoingUrl:endpoint('voice.connect'),voicemail:voicemail.voicemail,dialCompleteUrl:endpoint('voice.dial_complete')});
  const reception=createPostgresOtpReceptionVoiceServices(common);
+ const contacts=createPostgresVoiceContactEnrollmentService(common);
  const pairing=createTwilioVoiceOtpPairingHandler({...common,otp:reception.otp,pairingUrl:endpoint('voice.pair'),waitUrl:endpoint('voice.wait'),agentUrl:endpoint('voice.agent'),receptionUrl:endpoint('voice.gather')});
  const socketUrl=endpoint('voice.relay').replace(/^https:/,'wss:');
  const agent=createTwilioVerifiedAgentHandler({...common,identities:reception.otp,authorize:d.agentAuthorize,
@@ -57,8 +58,8 @@ export function createPostgresTwilioVoiceWorker<E>(d:PostgresVoiceWorkerDependen
   maxRequestBytes:configuration.maxWebhookBytes,maxAudioBytes:d.maxAudioBytes,authorize:async(session,key,request)=>{
    await endpoints.authorize(session,key,request);await d.nativeAuthorize?.(session,key,request);
   },
-  services:{tokens:communications.voiceTokens,extensions:communications.extensions,
+  services:{contacts,tokens:communications.voiceTokens,extensions:communications.extensions,
    voicemail:voicemail.voicemail,audio:voicemail.audio,otp:reception.otp,confirmations:reception.confirmations}});
- return new CommunicationVoiceWorker<E>(d.origin,{native,voice:voicemail.voice,connect,
+ return new CommunicationVoiceWorker<E>(d.origin,{native,contact:native,voice:voicemail.voice,connect,
   voicemail:voicemail.callbacks,pairing,agent,smsStatus:communications.smsStatus,relay,sockets:d.sockets});
 }

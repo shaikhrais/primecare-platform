@@ -45,3 +45,9 @@ test('unverified canonical caller returns to fixed reception without exposing ac
 test('wrong signing URLs fail before creating an adapter or contacting a provider',()=>{
  for(const key of ['incomingUrl','gatherUrl','statusCallback','aiPairingUrl']){const f=fixture();f.d.configuration[key]=origin+'/wrong';assert.throws(()=>createPostgresTwilioVoiceWorker(f.d),/registered host paths/);assert.deepEqual(f.queries,[]);assert.deepEqual(f.requests,[]);}
 });
+
+test('composed enrollment routes require native bearer before session queries or SMS provider access',async()=>{
+ const f=fixture(),w=createPostgresTwilioVoiceWorker(f.d);
+ for(const action of ['status','start','check'])assert.equal((await w.fetch(new Request(origin+'/v1/voice/contact/'+action,{method:'POST',headers:{'content-type':'application/json'},body:'{}'}),{})).status,401);
+ assert.deepEqual(f.requests,[]);assert.deepEqual(f.queries,[]);
+});

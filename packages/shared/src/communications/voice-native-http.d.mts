@@ -10,6 +10,8 @@ export type NativeVoiceHttpOptions={
  /** Current exact registered native API/screen grant plus any additional CSRF/rate-limit checks. No permissive default. */
  authorize(session:NativeVoiceSession,key:string,request:Request):Promise<void>;
  services:{
+  /** Optional first-time enrollment capability; absent routes return 404. */
+  contacts?:{status(sessionHash:string):Promise<unknown>;start(sessionHash:string,phone:string,requestId:string):Promise<unknown>;check(sessionHash:string,challengeId:string,code:string):Promise<unknown>};
   tokens:{issue(sessionHash:string):Promise<unknown>};
   extensions:{assign(actor:NativeVoiceActor,userId:string):Promise<unknown>;publish(actor:NativeVoiceActor,userId:string,version:number,published:boolean):Promise<unknown>};
   voicemail:{read(actor:NativeVoiceActor,recordingSid:string):Promise<unknown>;audio(actor:NativeVoiceActor,recordingSid:string,adapter:{download(sid:string):Promise<{bytes:Uint8Array;contentType:string}>}):Promise<{bytes:Uint8Array;contentType:string}>};

@@ -58,8 +58,16 @@ owner-only access. Any other partial or changed baseline is preserved and fails.
 No phone is seeded or marked verified by a migration. The PostgreSQL tests use
 isolated accounts and a mocked official Twilio SDK HTTP port, not real SMS.
 
-This backend is not mounted yet. Next: register the app controls and permission
-links, connect the native HTTP boundary, deploy, and verify a user-driven SMS flow.
+The inherited NativeVoiceHttpAdapter now supports the three contracts when an
+explicit contacts service is supplied. Without that capability they return 404.
+The PostgreSQL composition supplies the enrollment repository, recent-session
+directory and dedicated Verify adapter. The candidate voice worker dispatches
+these native routes separately from signed provider callbacks. Current endpoint
+policy requires the exact VOICE_CONTACT_* identity and existing API plus
+linked-screen grants; no grants are created by construction.
+
+This candidate is not deployed. Next: register the app controls and permission
+links, connect the app, deploy the native runtime, and verify a user-driven SMS flow.
 Do not attach enrollment or SMS checking to the Vapi assistant.
 
 ## Deployment evidence

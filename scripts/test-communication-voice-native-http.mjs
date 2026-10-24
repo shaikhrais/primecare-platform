@@ -116,3 +116,20 @@ test('native HTTP token issuance reads current sessions and publication in dispo
   await pool.query('DELETE FROM auth_sessions');assert.equal((await adapter.respond(request())).status,401);
  }finally{await pool?.end();try{await admin.query('DROP SCHEMA "'+schema+'" CASCADE');}finally{await admin.end();}}
 });
+
+const contactCommands=[['contact.status','/v1/voice/contact/status',{}, {verified:false,enrollmentAllowed:true}],['contact.start','/v1/voice/contact/start',{phone:'+14165550101',requestId:intentId},{challengeId:intentId,verificationRequested:true,expiresAt:Date.now()+60000}],['contact.check','/v1/voice/contact/check',{challengeId:intentId,code:'123456'},{verified:true}]];
+function contactsFixture(){const f=fixture();f.services.contacts={status:async(...args)=>{f.calls.push({key:'contact.status',args});return {verified:false,enrollmentAllowed:true};},start:async(...args)=>{f.calls.push({key:'contact.start',args});return contactCommands[1][3];},check:async(...args)=>{f.calls.push({key:'contact.check',args});return {verified:true};}};return {...f,adapter:new NativeVoiceHttpAdapter(f.options)};}
+test('enrollment capability dispatches three registered contracts with transport session and exact grants',async()=>{
+ for(const [key,path,input,output] of contactCommands){const f=contactsFixture();const r=await f.adapter.respond(request(path,input));assert.equal(r.status,200);assert.deepEqual(await r.json(),output);assert.deepEqual(f.grants,[key,key,key]);assert.equal(f.calls[0].args[0],hash);assert.equal(f.calls.length,1);assert.match(r.headers.get('cache-control'),/no-store/);}
+ const f=fixture();assert.equal((await f.adapter.respond(request(contactCommands[0][1]))).status,404);
+});
+test('enrollment rejects extra identity fields, invalid UUID/code/phone and unbounded bodies before dispatch',async()=>{
+ for(const [,path,input] of contactCommands)for(const field of ['actor','tenantId','sessionHash','verified','verificationSid']){const f=contactsFixture();assert.equal((await f.adapter.respond(request(path,{...input,[field]:'forged'}))).status,400);assert.equal(f.calls.length,0);}
+ for(const [path,input] of [[contactCommands[1][1],{phone:'+14165550101',requestId:'invalid'}],[contactCommands[1][1],{phone:'4165550101',requestId:intentId}],[contactCommands[2][1],{challengeId:intentId,code:'123456\n'}],[contactCommands[2][1],{challengeId:'invalid',code:'123456'}]]){const f=contactsFixture();assert.equal((await f.adapter.respond(request(path,input))).status,400);assert.equal(f.calls.length,0);}
+});
+test('enrollment denies ambient cookies, foreign origins and missing grants without provider work',async()=>{
+ for(const mode of ['cookie','origin','grant']){const f=contactsFixture();if(mode==='grant')f.deny();const headers={'content-type':'application/json',...(mode==='cookie'?{cookie:'session=fixture'}:{authorization:'Bearer fixture'}),...(mode==='origin'?{origin:'https://foreign.invalid'}:{})};const r=await f.adapter.respond(new Request(origin+contactCommands[1][1],{method:'POST',headers,body:JSON.stringify(contactCommands[1][2])}));assert.equal(r.status,mode==='cookie'?401:403);assert.equal(f.calls.length,0);}
+});
+test('enrollment suppresses responses after logout, malformed results and private provider errors without retry',async()=>{
+ for(const mode of ['logout','malformed','error']){const f=contactsFixture();let count=0;f.services.contacts.start=async()=>{count++;if(mode==='logout'){f.logout();return contactCommands[1][3];}if(mode==='malformed')return {error:'private'};throw Error('PRIVATE SMS SECRET');};const adapter=new NativeVoiceHttpAdapter(f.options);const r=await adapter.respond(request(contactCommands[1][1],contactCommands[1][2]));assert.equal(r.status,mode==='logout'?401:503);assert.doesNotMatch(await r.text(),/PRIVATE|SECRET|private|challengeId/);assert.equal(count,1);}
+});

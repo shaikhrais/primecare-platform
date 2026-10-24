@@ -64,3 +64,11 @@ test('missing dependencies fail at construction and adapter exceptions stay priv
  for(const url of ['http://fixture.invalid',origin+'/',origin+'?token=x','https://user:pass@fixture.invalid'])assert.throws(()=>new CommunicationVoiceWorker(url,fixture().ports));
  const f=fixture();f.ports.agent.respond=async()=>{throw Error('PRIVATE database URL');};const response=await f.worker().fetch(new Request(origin+'/v1/twilio/voice/agent',{method:'POST'}),{});assert.equal(response.status,503);assert.doesNotMatch(await response.text(),/PRIVATE|database/);
 });
+
+test('contact routes are absent without explicit capability and dispatch only to supplied native contact adapter',async()=>{
+ const f=fixture(),path='/v1/voice/contact/start';const req=()=>new Request(origin+path,{method:'POST',body:'{}'});
+ assert.equal((await f.worker().fetch(req(),{})).status,404);
+ f.ports.contact={async respond(request){assert.equal(new URL(request.url).pathname,path);return new Response('native-contact');}};
+ assert.equal(await (await f.worker().fetch(req(),{})).text(),'native-contact');assert.equal(f.seen.length,0);
+ assert.equal((await f.worker().fetch(new Request(origin+path),{})).status,405);
+});

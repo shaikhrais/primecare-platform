@@ -1,5 +1,6 @@
 import {BoundedBinaryAdapterBase,CommunicationInputError} from './adapter-base.mjs';
 import definition from '../../../../tools/governance-production/twilio-contracts-registration.json' with {type:'json'};
+import contacts from '../../../../tools/governance-production/voice-contact-contracts-registration.json' with {type:'json'};
 import validators from './voice-schema-validators.mjs';
 
 const contracts=definition.operations.filter(op=>op.authentication==='native-session-csrf')
@@ -21,12 +22,13 @@ function method(port,key){if(typeof port?.[key]!=='function')throw Error('Native
  * Construction does not mount routes, publish extensions or grant access.
  */
 export class NativeVoiceHttpAdapter extends BoundedBinaryAdapterBase {
- #origin;#appOrigins;#authenticate;#authorize;#dispatch;#audio;
+ #origin;#appOrigins;#authenticate;#authorize;#dispatch;#audio;#contracts;
  constructor({origin,appOrigins=[],maxRequestBytes,maxAudioBytes,authenticate,authorize,services}){
   super(maxRequestBytes);
   const url=new URL(origin);
   if(url.protocol!=='https:'||url.origin!==origin||url.username||url.password||maxRequestBytes>65536||!Number.isSafeInteger(maxAudioBytes)||maxAudioBytes<12||maxAudioBytes>33554432||typeof authenticate!=='function'||typeof authorize!=='function'||contracts.length!==9)throw Error('Native voice HTTP configuration required');
   if(!Array.isArray(appOrigins)||appOrigins.length>16||appOrigins.some(value=>{try{const u=new URL(value);return u.protocol!=='https:'||u.origin!==value;}catch{return true;}}))throw Error('Exact approved app origins required');
+  this.#contracts=Object.freeze([...contracts,...(services?.contacts===undefined?[]:contacts.operations.map((op,index)=>Object.freeze({key:op.key,path:op.path,method:op.method,index:index+9})))]);
   this.#origin=origin;this.#appOrigins=new Set([origin,...appOrigins]);this.#authenticate=authenticate;this.#authorize=authorize;this.#audio=new BoundedBinaryAdapterBase(maxAudioBytes);
   const token=method(services?.tokens,'issue'),assign=method(services?.extensions,'assign'),publish=method(services?.extensions,'publish');
   const read=method(services?.voicemail,'read'),audio=method(services?.voicemail,'audio');
@@ -34,7 +36,13 @@ export class NativeVoiceHttpAdapter extends BoundedBinaryAdapterBase {
   const preview=method(services?.confirmations,'preview'),approve=method(services?.confirmations,'approve');
   if(typeof services?.audio?.download!=='function')throw Error('Native voice audio adapter required');
   const audioPort=Object.freeze({download:services.audio.download.bind(services.audio)});
+  const contactDispatch={};
+  if(services?.contacts!==undefined){
+   const status=method(services.contacts,'status'),startContact=method(services.contacts,'start'),checkContact=method(services.contacts,'check');
+   Object.assign(contactDispatch,{'contact.status':s=>status(s.sessionHash),'contact.start':(s,p)=>startContact(s.sessionHash,p.phone,p.requestId),'contact.check':(s,p)=>checkContact(s.sessionHash,p.challengeId,p.code)});
+  }
   this.#dispatch=Object.freeze({
+   ...contactDispatch,
    token:(s,p)=>token(s.sessionHash),
    'extension.assign':(s,p)=>assign(s.actor,p.userId),
    'extension.publish':(s,p)=>publish(s.actor,p.userId,p.version,p.published),
@@ -45,7 +53,7 @@ export class NativeVoiceHttpAdapter extends BoundedBinaryAdapterBase {
    'task.preview':(s,p)=>preview(s.actor,p.intentId),
    'task.approve':(s,p)=>approve(s.actor,p.intentId,p.digest),
   });
-  for(const op of contracts)for(const kind of ['request','response'])if(typeof validators['voice'+op.index+'_'+kind]!=='function')throw Error('Native voice validator missing');
+  for(const op of this.#contracts)for(const kind of ['request','response'])if(typeof validators['voice'+op.index+'_'+kind]!=='function')throw Error('Native voice validator missing');
  }
  async #current(request,op,expected){
   const current=sessionSnapshot(await this.#authenticate(request));
@@ -57,7 +65,7 @@ export class NativeVoiceHttpAdapter extends BoundedBinaryAdapterBase {
  async respond(request){
   let consumed=false;
   try{
-   const url=new URL(request.url),op=contracts.find(c=>c.path===url.pathname);
+   const url=new URL(request.url),op=this.#contracts.find(c=>c.path===url.pathname);
    if(url.origin!==this.#origin||!op)return Response.json({error:'not_found'},{status:404,headers});
    if(request.method!==op.method)return Response.json({error:'method_not_allowed'},{status:405,headers:{...headers,allow:op.method}});
    if(url.search||url.hash)throw new CommunicationInputError('Invalid URL');
@@ -88,7 +96,7 @@ export class NativeVoiceHttpAdapter extends BoundedBinaryAdapterBase {
     if(raw.contentType!=='audio/wav'||bytes.length<12||String.fromCharCode(...bytes.subarray(0,4))!=='RIFF'||String.fromCharCode(...bytes.subarray(8,12))!=='WAVE')throw Error('Invalid audio response');
     result={bytes:bytes.slice()};
    }else{
-    if(validators['voice'+op.index+'_response'](raw)!==true)throw Error('Invalid voice response');
+    if(op.key.startsWith('contact.')&&Object.hasOwn(raw??{},'error')||validators['voice'+op.index+'_response'](raw)!==true)throw Error('Invalid voice response');
     result=structuredClone(raw);
    }
    // Do not expose tokens or private audio after a session/grant changes.

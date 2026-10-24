@@ -1202,3 +1202,10 @@ is a separate fixed-destination Verify capability; createTwilioVoiceOtpClient st
 requires an already verified contact for call step-up. No code or password is
 persisted or returned. Native HTTP/UI permissions and deployment remain required;
 none of these methods is an AI tool. See the enrollment guide in docs/business.
+
+Native phone enrollment uses the existing NativeVoiceHttpAdapter bounded bearer
+boundary through an explicit optional contacts capability. The status/start/check
+contracts are compiled into standalone validators at build time; request identity
+fields and malformed UUIDs/codes are rejected. Session and exact API/screen grants
+are rechecked around body and service I/O. Candidate PostgreSQL composition does
+not activate production routes, create grants or attach enrollment to an AI tool.

@@ -2,10 +2,11 @@ import {BaseWorker} from '../core/base-worker.ts';
 import definition from '../../../../tools/governance-production/twilio-contracts-registration.json' with {type:'json'};
 import type {RelaySocket} from '../../../../packages/shared/src/communications/twilio-relay-session.mjs';
 
+import contactDefinition from '../../../../tools/governance-production/voice-contact-contracts-registration.json' with {type:'json'};
 type HttpAdapter={respond(request:Request):Promise<Response>};
 type RelaySession={close():void};
 export type VoiceRuntimePorts={
- native:HttpAdapter; voice:HttpAdapter; connect:HttpAdapter; voicemail:HttpAdapter;
+ contact?:HttpAdapter; native:HttpAdapter; voice:HttpAdapter; connect:HttpAdapter; voicemail:HttpAdapter;
  pairing:HttpAdapter; agent:HttpAdapter; smsStatus:HttpAdapter;
  relay:{open(request:Request,socket:RelaySocket):RelaySession};
  sockets:{pair():{client:unknown;server:RelaySocket};upgrade(client:unknown):Response};
@@ -47,6 +48,13 @@ export class CommunicationVoiceWorker<E> extends BaseWorker<E> {
    handlers[op.key]=adapter.respond.bind(adapter);
   }
   if(routes.size!==21||!definition.operations.some(op=>op.key==='voice.relay'&&op.method==='GET')||typeof ports?.relay?.open!=='function'||typeof ports.sockets?.pair!=='function'||typeof ports.sockets?.upgrade!=='function')throw Error('Complete voice socket ports required');
+  if(ports.contact!==undefined){
+   if(typeof ports.contact.respond!=='function'||contactDefinition.operations.length!==3)throw Error('Complete contact adapter required');
+   for(const op of contactDefinition.operations){
+    if(routes.has(op.path)||op.authentication!=='native-session-csrf'||op.method!=='POST')throw Error('Contact runtime catalog mismatch');
+    routes.set(op.path,Object.freeze({method:op.method,key:op.key}));handlers[op.key]=ports.contact.respond.bind(ports.contact);
+   }
+  }
   this.routes=routes;this.handlers=Object.freeze(handlers);
   this.open=ports.relay.open.bind(ports.relay);this.pair=ports.sockets.pair.bind(ports.sockets);this.upgrade=ports.sockets.upgrade.bind(ports.sockets);
  }

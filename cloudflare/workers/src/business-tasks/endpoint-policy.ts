@@ -1,5 +1,6 @@
 import type {Actor} from './store.ts';
 import {assertActor} from '../../../../packages/shared/src/communications/service-base.ts';
+import contacts from '../../../../tools/governance-production/voice-contact-contracts-registration.json' with {type:'json'};
 import voice from '../../../../tools/governance-production/twilio-contracts-registration.json' with {type:'json'};
 import type {NativeVoiceSession} from '../../../../packages/shared/src/communications/voice-native-http.mjs';
 import catalog from '../../../../packages/shared/src/communications/registered-contracts.json' with {type:'json'};
@@ -61,9 +62,10 @@ export class PostgresCommunicationEndpointPolicy extends PostgresRegisteredCommu
  * routes never acquire user grants through this adapter. No role is hardcoded. */
 export class PostgresVoiceEndpointPolicy extends PostgresRegisteredCommunicationEndpointPolicy {
  async authorize(session:NativeVoiceSession,key:string,request:Request):Promise<void>{
-  const contract=voice.operations.find(op=>op.key===key);
+  const contact=contacts.operations.find(op=>op.key===key);
+  const contract=contact??voice.operations.find(op=>op.key===key);
   const url=new URL(request.url);
   if(!contract||contract.authentication!=='native-session-csrf'||contract.permission!=='role_screen_permissions'||contract.method!==request.method||contract.path!==url.pathname||url.search||url.hash||!request.headers.has('authorization')||request.headers.get('authorization')?.startsWith('Bearer ')!==true||! /^[a-f0-9]{64}$/.test(session?.sessionHash)||!Number.isSafeInteger(session.expiresAt)||session.expiresAt<=Date.now())throw Error('Forbidden');
-  return this.authorizeRegistered(session.actor,null,contract.method,contract.path,'TWILIO_'+key.replaceAll('.','_').toUpperCase());
+  return this.authorizeRegistered(session.actor,null,contract.method,contract.path,(contact?'VOICE_':'TWILIO_')+key.replaceAll('.','_').toUpperCase());
  }
 }

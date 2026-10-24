@@ -6,9 +6,11 @@ import standalone from 'ajv/dist/standalone/index.js';
 import {build} from 'esbuild';
 if(process.argv.slice(2).some(x=>x!=='--generate')||process.argv.length>3)throw Error('Explicit generation or check required');
 const definition=JSON.parse(readFileSync('tools/governance-production/twilio-contracts-registration.json','utf8'));
-const native=definition.operations.filter(op=>op.authentication==='native-session-csrf');
-if(native.length!==9)throw Error('Exact registered native voice contracts required');
+const contacts=JSON.parse(readFileSync('tools/governance-production/voice-contact-contracts-registration.json','utf8'));
+const native=[...definition.operations.filter(op=>op.authentication==='native-session-csrf'),...contacts.operations];
+if(native.length!==12)throw Error('Exact registered native voice contracts required');
 const ajv=new Ajv({strict:false,code:{source:true}}),exports={};
+ajv.addFormat('uuid',/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i);
 for(const [index,op] of native.entries())for(const kind of ['request','response']){
  const key='voice'+index+'_'+kind;ajv.addSchema(op[kind],key);exports[key]=key;
 }
