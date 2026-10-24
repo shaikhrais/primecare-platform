@@ -61,3 +61,21 @@ isolated accounts and a mocked official Twilio SDK HTTP port, not real SMS.
 This backend is not mounted yet. Next: register the app controls and permission
 links, connect the native HTTP boundary, deploy, and verify a user-driven SMS flow.
 Do not attach enrollment or SMS checking to the Vapi assistant.
+
+## Deployment evidence
+
+Source commit `5a9ca91f88ad33bf56bfb57d27f13dce4a621738` passed workflow
+[40140345889](https://github.com/shaikhrais/primecare-platform/actions/runs/40140345889).
+The reference job passed four native schema tests, six native enrollment tests,
+eight Verify adapter tests and strict TypeScript checking. The production job
+verified the existing baseline, rolled back its dry run, applied the additive
+migration and independently verified all six tables through a read-only pooled
+connection. It also verified that auth_sessions.created_at is available for
+recent-login enforcement. No contact was enrolled and no SMS was sent.
+
+Caller identity integration (40140345874), business communications services
+(40140345951) and communication acceptance (40140345948) also passed for this
+source commit. Readiness remains blocked: zero verified contacts, zero native
+OTP grants, no deployed contact enrollment boundary, no private pre-AI pairing
+delivery, no native pairing UI and no deployed OTP runtime. Vapi business tools
+remain unattached and business actions remain disabled.

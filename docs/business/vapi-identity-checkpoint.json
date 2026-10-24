@@ -4,17 +4,18 @@
   "callIntegrationCommit": "fa7f6d758f288d7deb5de67dd5d5f2ba01deb83c",
   "integrationWorkflowRunId": 40137006645,
   "integrationTestsPassed": 24,
-  "schemaWorkflowRunId": 40137830754,
-  "schemaDeployJobId": 121003170497,
-  "schemaCommit": "7effbedb69dde8ffda424d84d299df58090da4cc",
-  "schemaTablesVerified": 5,
+  "schemaWorkflowRunId": 40140345889,
+  "schemaDeployJobId": 121010893701,
+  "schemaCommit": "5a9ca91f88ad33bf56bfb57d27f13dce4a621738",
+  "schemaTablesVerified": 6,
   "nativeSchemaTestsPassed": 4,
   "schemaIndependentReadOnlyVerification": true,
   "schemaPrivateOwnerOnlyAccess": true,
   "activeVerifiedContactCount": 0,
   "nativeOtpActiveGrantCount": 0,
   "remaining": [
-    "verified_account_phone_enrollment",
+    "native_contact_enrollment_ui_permissions_and_deployment",
+    "user_driven_verified_account_phone_enrollment",
     "reviewed_native_otp_permissions_and_ui",
     "private_pre_ai_pairing_delivery",
     "otp_runtime_deployment",
@@ -24,5 +25,35 @@
   "liveOtpVerified": false,
   "smsSent": false,
   "businessActionsEnabled": false,
-  "toolsAttached": false
+  "toolsAttached": false,
+  "nativeSessionCreationTimeAvailable": true,
+  "contactContractWorkflowRunId": 40139738210,
+  "contactContractIds": [
+    16535,
+    16536,
+    16537
+  ],
+  "contactEnrollmentBackendImplemented": true,
+  "contactEnrollmentNativeTestsPassed": 6,
+  "verifyAdapterTestsPassed": 8,
+  "contactEnrollmentRuntimeDeployed": false,
+  "contactEnrollmentUiConnected": false,
+  "latestSourceChecks": [
+    {
+      "runId": 40140345874,
+      "conclusion": "success"
+    },
+    {
+      "runId": 40140345951,
+      "conclusion": "success"
+    },
+    {
+      "runId": 40140345889,
+      "conclusion": "success"
+    },
+    {
+      "runId": 40140345948,
+      "conclusion": "success"
+    }
+  ]
 }
