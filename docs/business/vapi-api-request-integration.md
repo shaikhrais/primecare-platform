@@ -96,3 +96,18 @@ The workflow first tests native PostgreSQL transaction rollback, concurrency,
 idempotency and preservation, then runs production dry-run/apply and separate
 read-only verification. Deployment and real credential/call bindings are the next
 step; metadata registration alone is not a working voice endpoint.
+
+Step 1 production evidence: workflow 40134257355, commit
+ada59cbc67cd7d8b77c492e07b037cd0d0373076, registered API ID 16534.
+The dry-run transaction was rolled back, apply returned independentReadback=true,
+and a separate read-only process returned the same ID with writesAttempted=false.
+Four schema tests and 28 native PostgreSQL tests passed. roleGrants=0,
+providerWrites=false and activation=false. The dedicated provider-only credential
+verifier is also implemented; its three local checks pass. No credential has yet
+been provisioned or attached, and the endpoint remains undeployed.
+
+Remaining sequence: (2) deploy the registered boundary with a dedicated reusable
+credential and canonical provider-call checks; (3) connect secure app pairing
+and exact approval; (4) bind real appointment request/availability/policy services;
+(5) attach the verified Vapi tools and run phone-to-API-to-database acceptance.
+Preserve the distinction between a pending booking request and an appointment.
