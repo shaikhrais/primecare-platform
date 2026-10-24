@@ -738,5 +738,25 @@
     "governanceSchemaChanges": false,
     "accountChanges": false,
     "roleGrants": false
+  },
+  "vapiContractRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_VAPI_CONTRACT_REGISTRATION",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "vapi.tasks",
+        "method": "POST",
+        "path": "/v1/vapi/voice/tasks"
+      }
+    ],
+    "definitionSha256": "25d2cd33a99d30a6488c235995271c781ec8ea9a1b98d1aeee6fff32f2a77a13",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
   }
 }

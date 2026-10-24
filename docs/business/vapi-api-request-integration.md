@@ -76,3 +76,23 @@ For API Request tools, body is the model input schema; Vapi derives its function
 arguments from body. credentialId supplies authentication. Static/Liquid headers
 are configured separately. Business rules, permission, approval, ownership and
 persisted readback remain on PrimeCare's API server.
+
+## Step 1: endpoint contract registration
+
+The exact proposed boundary is POST /v1/vapi/voice/tasks in the existing governance
+service. tools/governance-production/vapi-contracts-registration.json defines four
+strict request variants (callback, booking request, reschedule request, execute)
+and bounded responses. Model input cannot carry actor, tenant, session, approval,
+credential or destination overrides. The authentication contract requires a
+separate Vapi service credential plus canonical live-call validation; the existing
+task service additionally requires OTP/passkey identity and exact approval.
+
+The dedicated production writer inherits ProductionWorkflowStore, checks the
+pinned manifest and physical metadata schema, locks the endpoint table, inserts
+only this exact contract, and preserves existing or duplicate identities. It adds
+no roles, screen links, grants, business records, schema, provider tools or live
+routes. Registration remains registered-unimplemented and activation=false.
+The workflow first tests native PostgreSQL transaction rollback, concurrency,
+idempotency and preservation, then runs production dry-run/apply and separate
+read-only verification. Deployment and real credential/call bindings are the next
+step; metadata registration alone is not a working voice endpoint.

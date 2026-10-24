@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "requirement": "Vapi API Request tools may propose or execute allowlisted PrimeCare request tasks through a registered HTTPS boundary. Require a dedicated provider credential, rate limiting, canonical live Vapi/Twilio call mapping, durable request claims, current OTP/passkey app identity, tenant policy and exact independent app approval. Caller/model input cannot choose actor, tenant, credential, URL or approval. Completion of a request task is not confirmed appointment creation. Registration creates no grants, business records, provider tools or deployment.",
+  "implementationStatus": "registered-unimplemented",
+  "activation": false,
+  "service": "governance",
+  "anchorApiId": 710,
+  "operations": [
+    {
+      "key": "vapi.tasks",
+      "method": "POST",
+      "path": "/v1/vapi/voice/tasks",
+      "authentication": "vapi-service-credential-and-canonical-call",
+      "responseKind": "json",
+      "permission": "vapi.service.tasks",
+      "request": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action",
+              "taskId",
+              "args",
+              "requestId"
+            ],
+            "properties": {
+              "action": {
+                "const": "propose"
+              },
+              "taskId": {
+                "const": "reception.callback.request"
+              },
+              "args": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "reason",
+                  "windowStartsAt",
+                  "windowEndsAt"
+                ],
+                "properties": {
+                  "reason": {
+                    "type": "string",
+                    "enum": [
+                      "appointment_help",
+                      "general"
+                    ]
+                  },
+                  "windowStartsAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+                  },
+                  "windowEndsAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+                  }
+                }
+              },
+              "requestId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action",
+              "taskId",
+              "args",
+              "requestId"
+            ],
+            "properties": {
+              "action": {
+                "const": "propose"
+              },
+              "taskId": {
+                "const": "appointment.booking.request"
+              },
+              "args": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "serviceId",
+                  "slotId",
+                  "slotVersion",
+                  "startsAt"
+                ],
+                "properties": {
+                  "serviceId": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$",
+                    "maxLength": 100
+                  },
+                  "slotId": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$",
+                    "maxLength": 100
+                  },
+                  "slotVersion": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740990
+                  },
+                  "startsAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+                  }
+                }
+              },
+              "requestId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action",
+              "taskId",
+              "args",
+              "requestId"
+            ],
+            "properties": {
+              "action": {
+                "const": "propose"
+              },
+              "taskId": {
+                "const": "appointment.reschedule.request"
+              },
+              "args": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "appointmentId",
+                  "expectedVersion",
+                  "slotId",
+                  "slotVersion",
+                  "startsAt"
+                ],
+                "properties": {
+                  "appointmentId": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$",
+                    "maxLength": 100
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740990
+                  },
+                  "slotId": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$",
+                    "maxLength": 100
+                  },
+                  "slotVersion": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740990
+                  },
+                  "startsAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+                  }
+                }
+              },
+              "requestId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action",
+              "intentId",
+              "requestId"
+            ],
+            "properties": {
+              "action": {
+                "const": "execute"
+              },
+              "intentId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "requestId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "status",
+              "intentId",
+              "summary",
+              "expiresAt",
+              "requiresConfirmation"
+            ],
+            "properties": {
+              "status": {
+                "const": "awaiting_confirmation"
+              },
+              "intentId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "summary": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "expiresAt": {
+                "type": "integer"
+              },
+              "requiresConfirmation": {
+                "const": true
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "status",
+              "intentId",
+              "requiresConfirmation"
+            ],
+            "properties": {
+              "status": {
+                "const": "awaiting_confirmation"
+              },
+              "intentId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "requiresConfirmation": {
+                "const": true
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "status",
+              "intentId"
+            ],
+            "properties": {
+              "status": {
+                "const": "completed"
+              },
+              "intentId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "error"
+            ],
+            "properties": {
+              "error": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
