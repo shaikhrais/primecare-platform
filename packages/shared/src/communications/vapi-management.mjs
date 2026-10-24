@@ -18,7 +18,7 @@ export class VapiManagementClient extends BoundedBinaryAdapterBase {
  async #request(path,body,method=body===undefined?'GET':'POST',allowList=false){
   try{
    const response=await this.#fetch('https://api.vapi.ai'+path,{method,redirect:'error',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body===undefined?{}:{'content-type':'application/json'})},...(body===undefined?{}:{body:JSON.stringify(body)})});
-   if(!response.ok){try{await response.body?.cancel();}catch{}throw fail(response.status===402?'payment_required':[401,403].includes(response.status)?'authentication_denied':response.status===404?'resource_not_found':'provider_unavailable');}
+   if(!response.ok){try{await response.body?.cancel();}catch{}const error=fail(response.status===402?'payment_required':[401,403].includes(response.status)?'authentication_denied':response.status===404?'resource_not_found':'provider_unavailable');error.httpStatus=response.status;throw error;}
    const bytes=await this.readBoundedBody(response.body);
    const data=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
    if(!data||typeof data!=='object'||Array.isArray(data)&&!allowList)throw fail('invalid_provider_response');
@@ -39,6 +39,36 @@ export class VapiManagementClient extends BoundedBinaryAdapterBase {
    if(destination){try{endpointHost=new URL(destination).hostname;}catch{throw fail('invalid_provider_response');}}
    return Object.freeze({id:row.id,orgId:row.orgId,type:row.type,name,endpointHost,method:typeof row.method==='string'?row.method:null,bodyFields:row.body?.properties&&typeof row.body.properties==='object'?Object.keys(row.body.properties).slice(0,100):[],endpointConfigured:!!(row.url||row.server?.url),credentialConfigured:!!(row.credentialId||row.server?.credentialId)});
   }));
+ }
+ /** Provision/reuse one named provider-only credential in the verified org.
+  * Secret material is passed only to the trusted deployment callback, never
+  * returned in receipts or logs. Existing mismatched/redacted credentials are
+  * preserved; ambiguous creation/install failures are not retried automatically.
+  * Schema: official @vapi-ai/server-sdk 3.0.0 CustomCredential/Bearer plan. */
+ async installToolCredential(expectedAssistant,install){
+  if(!expectedAssistant||!uuid(expectedAssistant.id)||typeof install!=='function')throw fail('configuration_required');
+  const assistant=await this.assistant(expectedAssistant.id);
+  if(assistant.orgId!==expectedAssistant.orgId||assistant.name!==expectedAssistant.name||assistant.prompt!==expectedAssistant.prompt||assistant.firstMessage!==expectedAssistant.firstMessage||assistant.toolCount!==0||assistant.serverConfigured)throw fail('test_scope_changed');
+  const name='PrimeCare Tools API 16534';
+  const rows=await this.#request('/credential',undefined,'GET',true);
+  if(!Array.isArray(rows)||rows.length>200)throw fail('invalid_provider_response');
+  const matches=rows.filter(row=>row?.name===name);
+  if(matches.length>1)throw fail('test_scope_changed');
+  let row=matches[0],secret,created=false;
+  if(row){
+   if(row.provider!=='custom-credential'||row.orgId!==assistant.orgId||!uuid(row.id)||row.authenticationPlan?.type!=='bearer'||row.authenticationPlan.headerName!=='Authorization'||row.authenticationPlan.bearerPrefixEnabled!==true)throw fail('test_scope_changed');
+   secret=row.authenticationPlan.token;
+  }else{
+   const bytes=crypto.getRandomValues(new Uint8Array(32));
+   secret=btoa(String.fromCharCode(...bytes)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+   row=await this.#request('/credential',{provider:'custom-credential',name,authenticationPlan:{type:'bearer',token:secret,headerName:'Authorization',bearerPrefixEnabled:true}});created=true;
+  }
+  const valid=value=>value?.provider==='custom-credential'&&value.name===name&&value.orgId===assistant.orgId&&uuid(value.id)&&value.authenticationPlan?.type==='bearer'&&value.authenticationPlan.headerName==='Authorization'&&value.authenticationPlan.bearerPrefixEnabled===true;
+  if(!valid(row)||typeof secret!=='string'||! /^[A-Za-z0-9_-]{43,128}$/.test(secret)||secret===this.#key||row.authenticationPlan.token!==undefined&&row.authenticationPlan.token!==secret)throw fail('configuration_required');
+  try{await install(Object.freeze({credentialId:row.id,secret}));}catch{throw fail('provider_unavailable');}
+  const saved=await this.#request('/credential/'+row.id);
+  if(!valid(saved)||saved.id!==row.id||saved.authenticationPlan.token!==undefined&&saved.authenticationPlan.token!==secret)throw fail('invalid_provider_response');
+  return Object.freeze({credentialId:row.id,name,created,orgId:assistant.orgId});
  }
  async assistant(id){
   if(!uuid(id))throw fail('invalid_resource');const row=await this.#request('/assistant/'+id);

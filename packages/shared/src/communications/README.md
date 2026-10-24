@@ -1175,3 +1175,10 @@ canonical call resolver and current OTP/passkey/app approval services. Provision
 the dedicated random secret in server storage and a reusable Vapi credential
 before deployment; do not reuse the Vapi management key. This helper alone does
 not deploy a route, provision a credential or attach a tool.
+
+VapiManagementClient.installToolCredential is a server deployment port for the
+single PrimeCare tool credential. It verifies saved assistant scope, preserves
+credential conflicts, and hands secret material only to a trusted installation
+callback. The public receipt includes no token. The dedicated VapiToolBoundaryWorker
+inherits BaseWorker and currently denies all business actions after provider auth;
+its guarded deployment and HTTP checks are in deploy-vapi-tool-boundary.yml.

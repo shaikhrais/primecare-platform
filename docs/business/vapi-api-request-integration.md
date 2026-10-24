@@ -111,3 +111,37 @@ credential and canonical provider-call checks; (3) connect secure app pairing
 and exact approval; (4) bind real appointment request/availability/policy services;
 (5) attach the verified Vapi tools and run phone-to-API-to-database acceptance.
 Preserve the distinction between a pending booking request and an appointment.
+
+## Step 2: authenticated boundary deployment
+
+The dedicated `primecare-vapi-tools-api` Worker inherits BaseWorker and exposes
+only the registered POST /v1/vapi/voice/tasks operation. Its current release phase
+is explicitly boundary-only: missing/wrong service credentials return 401; valid
+credentials pass the configured Cloudflare rate limiter and receive 503 Business
+tools are not enabled. No request body, caller data or business task is read or
+executed. This verifies secure transport separately from caller identity/business
+readiness. No AI tool is attached by this deployment.
+
+The deployment workflow independently re-verifies production registration using
+read-only credentials and refuses stale main. It discovers the account's workers.dev
+subdomain through the Cloudflare API and preserves any unrecognized existing
+Worker. Only the dedicated target is published; existing governance/auth Workers
+are unchanged. The Worker has no database, Twilio or business-provider secrets.
+
+VapiManagementClient.installToolCredential creates or reuses only the exact
+PrimeCare Tools API 16534 credential in the verified assistant org. It uses the
+custom-credential bearer schema from official @vapi-ai/server-sdk 3.0.0
+(CreateCustomCredentialDto, BearerAuthenticationPlan). A newly generated 32-byte
+base64url token is passed only to Wrangler's secret stdin and Vapi's credential
+API. Reuse requires the exact org/provider/name/header/plan and readable token;
+conflicts, duplicates or redacted existing secrets stop without overwriting.
+Creation and installation are never automatically retried after ambiguity. No
+secret values are returned in receipts, logs, artifacts, source, CLI arguments
+or prompts. The credential is distinct from the Vapi management private key.
+
+The deployment receipt reports endpoint URL, registration ID, credential ID and
+separate unauthenticated/wrong-credential/authenticated-closed HTTP checks. A
+successful boundary receipt does not mean canonical call mapping, OTP, app
+approval, business API execution or live phone acceptance works. Those remain
+subsequent integration steps. Official source package:
+https://github.com/VapiAI/server-sdk-typescript (npm version 3.0.0).

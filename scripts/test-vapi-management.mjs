@@ -65,3 +65,24 @@ test('reusable tool inventory projects IDs and flags without credential or endpo
  const rows=await client.tools();assert.equal(rows.length,1);assert.equal(rows[0].endpointConfigured,true);assert.equal(rows[0].credentialConfigured,true);assert.ok(!JSON.stringify(rows).includes(key));assert.equal(rows[0].endpointHost,'private.invalid');assert.ok(!JSON.stringify(rows).includes('/path')); 
  for(const rows of [{},[{id:'bad',orgId:org,type:'function'}],Array(201).fill({id,orgId:org,type:'endCall'})]){const malformed=new VapiManagementClient({apiKey:key,async fetch(){return Response.json(rows);}});await assert.rejects(malformed.tools(),e=>e.code==='invalid_provider_response');}
 });
+test('dedicated credential provisioning installs only scoped secret and returns a secret-free receipt',async()=>{
+ let stored=null,creates=0,installs=0;
+ const client=new VapiManagementClient({apiKey:key,async fetch(url,options){
+  if(url.includes('/assistant/'))return Response.json(assistant);
+  if(url.endsWith('/credential')&&options.method==='GET')return Response.json(stored?[stored]:[]);
+  if(url.endsWith('/credential')&&options.method==='POST'){creates++;stored={...JSON.parse(options.body),id:org,orgId:assistant.orgId};}
+  return Response.json(stored);
+ }});
+ const expected=await client.assistant(id);
+ const install=async({credentialId,secret})=>{installs++;assert.equal(credentialId,org);assert.match(secret,/^[A-Za-z0-9_-]{43}$/);assert.notEqual(secret,key);};
+ const receipt=await client.installToolCredential(expected,install);assert.equal(receipt.created,true);assert.ok(!JSON.stringify(receipt).includes(stored.authenticationPlan.token));
+ assert.equal((await client.installToolCredential(expected,install)).created,false);assert.equal(creates,1);assert.equal(installs,2);
+});
+test('credential conflicts and ambiguous installs never overwrite credentials or expose private failures',async()=>{
+ for(const mode of ['duplicate','wrong-org','redacted','install-failure']){
+  let creates=0,installs=0;const credential={id:org,orgId:assistant.orgId,provider:'custom-credential',name:'PrimeCare Tools API 16534',authenticationPlan:{type:'bearer',token:'x'.repeat(43),headerName:'Authorization',bearerPrefixEnabled:true}};
+  if(mode==='wrong-org')credential.orgId=id;if(mode==='redacted')delete credential.authenticationPlan.token;
+  const client=new VapiManagementClient({apiKey:key,async fetch(url,options){if(url.includes('/assistant/'))return Response.json(assistant);if(options.method==='POST')creates++;return Response.json(mode==='duplicate'?[credential,credential]:[credential]);}});
+  await assert.rejects(client.installToolCredential(await client.assistant(id),async()=>{installs++;throw Error('private installation failure '+key);}),error=>!String(error).includes(key));assert.equal(creates,0);assert.equal(installs,mode==='install-failure'?1:0);
+ }
+});
