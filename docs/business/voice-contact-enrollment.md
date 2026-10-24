@@ -157,3 +157,33 @@ attempt after the server-enforced cooldown. Only the app handles enrollment.
 Production native HTTP hosting and a real user-driven SMS acceptance test remain
 pending. Shared UI code and metadata registration do not make those endpoints
 live, verify a telephone call or enable Vapi business tools.
+
+UI commit `f10dc524aa6fc31b949eb00d62b3263533ebcfdb` passed the Flutter client
+and widget jobs in communications workflow 40142142569: seven enrollment
+controller cases, the native POST-body transport case, and three panel cases
+cover explicit send/code clearing, uncertain-send status-only recovery, and
+three localized layouts at narrow width. Existing Flutter/browser-media jobs
+also passed. Browser-to-PostgreSQL communication regression 40142142514 passed.
+These synthetic tests do not establish live native enrollment acceptance.
+
+Follow-up commit `f4055fb2f9e26ff051ef575cde954d014a5a246d` keeps expired
+challenges and unmounted endpoints closed, with an additional unavailable-endpoint
+case. No authentication or provider routing was relaxed.
+
+The final client guard checks passed in workflow 40142379072, including eight
+enrollment controller cases and the exact native POST-body transport case.
+Access writer follow-up `f0aa598cd4c0dd7ac4391af7d4134635350e93cb` locks the
+source API and screen metadata as well as role and grant tables, preventing
+concurrent metadata edits during the grant transaction.
+
+Final communications workflow 40142379072 passed all 12 jobs for the client
+guard commit, including the Flutter widget and browser-media reruns. Final
+browser-to-PostgreSQL regression 40142379011 also passed. The strengthened
+access-registration isolated job passed nine native PostgreSQL cases, including
+a concurrent source-metadata write rejection test.
+
+Strengthened access-registration run 40142788938 completed its rollback dry run,
+apply and independent production readback successfully: the same 12 links and
+12 grants for four eligible roles, without business data writes, provider traffic
+or activation. Live native enrollment, SMS and caller-identity acceptance remain
+unverified until endpoint deployment and a real user-driven test.

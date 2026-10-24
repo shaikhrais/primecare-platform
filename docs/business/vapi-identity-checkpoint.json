@@ -14,7 +14,7 @@
   "activeVerifiedContactCount": 0,
   "nativeOtpActiveGrantCount": 0,
   "remaining": [
-    "native_contact_enrollment_ui_permissions_and_deployment",
+    "native_contact_enrollment_runtime_deployment",
     "user_driven_verified_account_phone_enrollment",
     "reviewed_native_otp_permissions_and_ui",
     "private_pre_ai_pairing_delivery",
@@ -37,7 +37,7 @@
   "contactEnrollmentNativeTestsPassed": 7,
   "verifyAdapterTestsPassed": 8,
   "contactEnrollmentRuntimeDeployed": false,
-  "contactEnrollmentUiConnected": false,
+  "contactEnrollmentUiConnected": true,
   "latestSourceChecks": [
     {
       "runId": 40140345874,
@@ -89,5 +89,31 @@
     "firstAttemptFailure": "positive_audio_packets_not_observed",
     "rerunBrowserPostgresJobId": 121013498522,
     "sourceChangedForRerun": false
-  }
+  },
+  "contactEnrollmentUiCommit": "f10dc524aa6fc31b949eb00d62b3263533ebcfdb",
+  "contactEnrollmentClientGuardCommit": "f4055fb2f9e26ff051ef575cde954d014a5a246d",
+  "contactEnrollmentUiImplemented": true,
+  "contactEnrollmentUiProductionAcceptanceVerified": false,
+  "contactEnrollmentUiRegistrationRunId": 40141701875,
+  "contactEnrollmentAccessRegistrationRunId": 40142788938,
+  "contactEnrollmentScreenLinks": 12,
+  "contactEnrollmentEligibleRoles": 4,
+  "contactEnrollmentApiGrants": 12,
+  "contactEnrollmentRoleScreenRightsChanged": false,
+  "contactEnrollmentExplicitDenialsOverridden": false,
+  "contactEnrollmentUiWorkflowRunId": 40142142569,
+  "contactEnrollmentUiControllerTestsPassed": 8,
+  "contactEnrollmentUiPanelTestsPassed": 3,
+  "contactEnrollmentNativePostBodyTestPassed": true,
+  "contactEnrollmentUiStackAcceptanceWorkflowRunId": 40142379011,
+  "contactEnrollmentUiStackAcceptance": "success",
+  "contactEnrollmentAccessTestsPassed": 9,
+  "contactEnrollmentUiRegistrationTestsPassed": 8,
+  "contactEnrollmentUiClientGuardWorkflowRunId": 40142379072,
+  "contactEnrollmentUiClientGuardTestStatus": "success",
+  "contactEnrollmentAccessSourceLockCommit": "f0aa598cd4c0dd7ac4391af7d4134635350e93cb",
+  "contactEnrollmentUiFinalWorkflowRunId": 40142379072,
+  "contactEnrollmentUiFinalJobsPassed": 12,
+  "contactEnrollmentAccessLockTestsPassed": 9,
+  "contactEnrollmentAccessIndependentReadback": true
 }
