@@ -34,10 +34,8 @@
     "hr_recruitment",
     "hr_onboarding",
     "hr_learning",
-    "hr_people_support"
-  ],
-  "pendingCodes": [
+    "hr_people_support",
     "hr_workforce_admin"
   ],
-  "pendingReason": "Browser environment stopped before Workforce Administration was submitted; restored session requires sign-in."
+  "pendingCodes": []
 }
