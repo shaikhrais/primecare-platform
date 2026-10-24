@@ -10,6 +10,9 @@ on:
       - 'scripts/voice-provider-preflight.mjs'
       - 'scripts/test-voice-provider-preflight.mjs'
       - 'scripts/test-communication-voice-cloudflare-sockets.mjs'
+      - 'cloudflare/workers/src/business-tasks/endpoint-policy.ts'
+      - 'scripts/test-communication-voice-endpoint-policy.mjs'
+      - 'scripts/test-communication-endpoint-policy.mjs'
       - 'scripts/test-communication-voice-runtime.mjs'
       - 'scripts/test-communication-voice-composition.mjs'
       - 'scripts/voice-deployment-configuration.mjs'
@@ -21,16 +24,29 @@ jobs:
   runtime:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: voice_test
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: voice_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U voice_test -d voice_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      BUSINESS_TEST_DATABASE_URL: postgres://voice_test:disposable-only@localhost:5432/voice_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/voice-runtime-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 twilio@6.2.0 typescript@5.9.3 @types/node@24.0.0 miniflare@4.20260426.0
+          npm install --prefix "$RUNNER_TEMP/voice-runtime-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 twilio@6.2.0 typescript@5.9.3 @types/node@24.0.0 miniflare@4.20260426.0 pg@8.11.3
           ln -s "$RUNNER_TEMP/voice-runtime-tools/node_modules" node_modules
       - name: Registered routing, real signatures, WebSocket ownership and configuration redaction
         run: |
-          node --test scripts/test-communication-voice-runtime.mjs scripts/test-communication-voice-composition.mjs scripts/test-voice-deployment-configuration.mjs scripts/test-voice-provider-preflight.mjs scripts/test-communication-voice-cloudflare-sockets.mjs
+          node --test scripts/test-communication-voice-runtime.mjs scripts/test-communication-voice-composition.mjs scripts/test-voice-deployment-configuration.mjs scripts/test-voice-provider-preflight.mjs scripts/test-communication-voice-cloudflare-sockets.mjs scripts/test-communication-endpoint-policy.mjs scripts/test-communication-voice-endpoint-policy.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/voice-runtime.ts cloudflare/workers/src/business-tasks/voice-composition.ts cloudflare/workers/src/business-tasks/voice-cloudflare-sockets.ts
   providers:
     needs: runtime

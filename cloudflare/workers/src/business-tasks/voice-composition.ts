@@ -7,6 +7,7 @@ import {
  createPostgresOpenAiTwilioRelaySocket,createPostgresNativeVoiceHttpAdapter,
 } from './twilio-integration.ts';
 import {CommunicationVoiceWorker,type VoiceRuntimePorts} from './voice-runtime.ts';
+import {PostgresVoiceEndpointPolicy} from './endpoint-policy.ts';
 
 type CommunicationDependencies=Parameters<typeof createPostgresTwilioCommunicationServices>[0];
 type VoicemailDependencies=Parameters<typeof createPostgresTwilioVoicemailServices>[0];
@@ -19,7 +20,8 @@ export type PostgresVoiceWorkerDependencies=CommunicationDependencies & {
  requests:OtpDependencies['requests'];
  mail:VoicemailDependencies['mail'];mailboxes:VoicemailDependencies['mailboxes'];
  playbackBaseUrl:string;maxAudioBytes:number;fetch:typeof fetch;
- nativeAuthorize:NativeVoiceHttpOptions['authorize'];appOrigins:readonly string[];
+ /** Optional additional restriction; cannot bypass current registered grants. */
+ nativeAuthorize?:NativeVoiceHttpOptions['authorize'];appOrigins:readonly string[];
  agentAuthorize:AgentDependencies['authorize'];greeting:string;
  modelProvider:ModelDependencies['modelProvider'];
  sockets:VoiceRuntimePorts['sockets'];
@@ -50,8 +52,11 @@ export function createPostgresTwilioVoiceWorker<E>(d:PostgresVoiceWorkerDependen
  const taskIds=['reception.callback.request','appointment.booking.request','appointment.reschedule.request'];
  const relay=createPostgresOpenAiTwilioRelaySocket({...common,identities:reception.otp,authorize:d.agentAuthorize,
   socketUrl,signatureUrl:socketUrl,tasks:reception.tasks,taskIds,modelProvider:d.modelProvider});
+ const endpoints=new PostgresVoiceEndpointPolicy(d.pool);
  const native=createPostgresNativeVoiceHttpAdapter({pool:d.pool,origin:d.origin,appOrigins:d.appOrigins,
-  maxRequestBytes:configuration.maxWebhookBytes,maxAudioBytes:d.maxAudioBytes,authorize:d.nativeAuthorize,
+  maxRequestBytes:configuration.maxWebhookBytes,maxAudioBytes:d.maxAudioBytes,authorize:async(session,key,request)=>{
+   await endpoints.authorize(session,key,request);await d.nativeAuthorize?.(session,key,request);
+  },
   services:{tokens:communications.voiceTokens,extensions:communications.extensions,
    voicemail:voicemail.voicemail,audio:voicemail.audio,otp:reception.otp,confirmations:reception.confirmations}});
  return new CommunicationVoiceWorker<E>(d.origin,{native,voice:voicemail.voice,connect,

@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {PostgresCommunicationEndpointPolicy} from '../cloudflare/workers/src/business-tasks/endpoint-policy.ts';
+import {PostgresCommunicationEndpointPolicy,PostgresVoiceEndpointPolicy} from '../cloudflare/workers/src/business-tasks/endpoint-policy.ts';
 const pin=JSON.parse(readFileSync('tools/governance-production/production-pin.json'));
 const actor={id:'fixture-user',tenantId:'fixture-tenant'};
 const request=new Request('https://example.invalid/v1/messages',{method:'POST'});
@@ -32,8 +32,8 @@ test('database failures roll back and release without turning into grants',async
 test('native PostgreSQL evaluates tagged and native current grants',{skip:!process.env.BUSINESS_TEST_DATABASE_URL},async()=>{
  assert.ok(!process.env.PRODUCTION_DATABASE_URL&&!process.env.GOVERNANCE_DATABASE_URL,'production credentials forbidden');
  const target=new URL(process.env.BUSINESS_TEST_DATABASE_URL);assert.ok(['localhost','127.0.0.1'].includes(target.hostname),'loopback fixture required');
- const {Pool}=await import('pg');const pool=new Pool({connectionString:process.env.BUSINESS_TEST_DATABASE_URL});
- let ownsSchema=false,ownsUsers=false;
+ const {default:pg}=await import('pg');const {Pool}=pg;const pool=new Pool({connectionString:process.env.BUSINESS_TEST_DATABASE_URL});
+ let ownsSchema=false,ownsUsers=false,ownsTenants=false;
  const q=sql=>pool.query(sql);const schema='"'+pin.schema+'"';
  try{
   await q('CREATE SCHEMA '+schema);ownsSchema=true;
@@ -50,5 +50,22 @@ test('native PostgreSQL evaluates tagged and native current grants',{skip:!proce
   await q(`UPDATE ${schema}.govt_api_permissions SET can_access='0'`);await assert.rejects(policy.authorize(actor,710,request),/Forbidden/);
   await q(`UPDATE ${schema}.govt_api_permissions SET can_access='1'; UPDATE ${schema}.govt_role_screen_permissions SET can_view='0'`);await assert.rejects(policy.authorize(actor,710,request),/Forbidden/);
   await q(`UPDATE ${schema}.govt_role_screen_permissions SET can_view='1'; UPDATE ${schema}.govt_api_endpoints SET permission_key='{"t":"unknown","v":"role_screen_permissions"}'::jsonb`);await assert.rejects(policy.authorize(actor,710,request),/Forbidden/);
- }finally{if(ownsSchema)await q('DROP SCHEMA '+schema+' CASCADE');if(ownsUsers)await q('DROP TABLE public.users');await pool.end();}
+  // Exercise the same SQL against native voice identities and current tenant state.
+  await q("CREATE TABLE public.tenants(id text,status text)");ownsTenants=true;
+  await q("INSERT INTO public.tenants VALUES('fixture-tenant','active')");
+  await q(`ALTER TABLE ${schema}.govt_api_endpoints ADD COLUMN endpoint_code text`);
+  await q(`INSERT INTO ${schema}.govt_api_endpoints VALUES('16520','POST','/v1/voice/token','governance','1','"role_screen_permissions"'::jsonb,'TWILIO_TOKEN')`);
+  await q(`INSERT INTO ${schema}.govt_api_permissions VALUES('16520','7','1','role_screen_permissions')`);
+  await q(`INSERT INTO ${schema}.govt_screen_api_links VALUES('16520','234')`);
+  const voice=new PostgresVoiceEndpointPolicy(pool),session={actor,sessionHash:'a'.repeat(64),expiresAt:Date.now()+300000};
+  const voiceRequest=new Request('https://example.invalid/v1/voice/token',{method:'POST',headers:{authorization:'Bearer fixture'}});
+  await voice.authorize(session,'token',voiceRequest);
+  await assert.rejects(voice.authorize({...session,actor:{...actor,tenantId:'other'}},'token',voiceRequest),/Forbidden/);
+  await q("UPDATE public.tenants SET status='inactive'");await assert.rejects(voice.authorize(session,'token',voiceRequest),/Forbidden/);
+  await q("UPDATE public.tenants SET status='active'");
+  await q(`UPDATE ${schema}.govt_api_permissions SET can_access='0' WHERE api_id='16520'`);await assert.rejects(voice.authorize(session,'token',voiceRequest),/Forbidden/);
+  await q(`UPDATE ${schema}.govt_api_permissions SET can_access='1' WHERE api_id='16520'`);
+  await q(`INSERT INTO ${schema}.govt_api_endpoints SELECT '16521',http_method,route_path,service_name,auth_required,permission_key,endpoint_code FROM ${schema}.govt_api_endpoints WHERE id='16520'`);
+  await assert.rejects(voice.authorize(session,'token',voiceRequest),/Forbidden/);
+ }finally{if(ownsSchema)await q('DROP SCHEMA '+schema+' CASCADE');if(ownsUsers)await q('DROP TABLE public.users');if(ownsTenants)await q('DROP TABLE public.tenants');await pool.end();}
 });

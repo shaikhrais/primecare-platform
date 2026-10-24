@@ -2,6 +2,22 @@
 
 ## Live activation checkpoint, 24 October 2026
 
+The corrected encrypted Account Auth Token passes in run `40114638201`, job
+`120939420904`: all four live provider checks now pass. Configuration job
+`120939421099` still reports missing `TWILIO_APPLICATION_SID`, `VOICE_MODEL` and
+`VOICE_ORIGIN`. Credentials are no longer the current blocker.
+
+The native voice composition now always invokes `PostgresVoiceEndpointPolicy`,
+inheriting the shared registered communication permission base. Any injected
+native authorization port can only add restrictions. All nine native voice
+operations resolve their exact registered method/path/code against current API
+and linked-screen grants, active tenant/user and the pinned manifest. Expired
+sessions, provider-signed operations and duplicate route registrations cannot
+authorize through this native adapter. This implements enforcement; it grants
+no roles and does not mount the endpoint. CI includes a disposable PostgreSQL
+check for cross-tenant denial, tenant deactivation, revocation and duplicate
+registrations. Production grants and business-task policies remain pending.
+
 Commit `c3623bb89a970311040692e57f44b9f7f52725e5` adds the real Cloudflare
 WebSocketPair/101 host port. A Miniflare/workerd test verifies an actual upgrade,
 bidirectional messages and close. The focused suite passes 20 tests and strict
