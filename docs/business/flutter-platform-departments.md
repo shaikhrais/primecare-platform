@@ -13,8 +13,8 @@ authorizes every read and mutation. No role-name substring, guessed grant or UI
 role check supplies authority. The repository validates the index actor, selected
 tenant membership, response shapes and exact creation receipt before displaying
 results. The backend retains current-role, tenant, status, rate, audit,
-transaction, uniqueness and idempotency checks. No production grants or business
-migrations are changed by this implementation.
+transaction, uniqueness and idempotency checks. No production grants are changed
+by this interface.
 
 The selected tenant's reference list must load successfully before creation is
 enabled. A failed list read never establishes an empty list or permits a write.
@@ -65,3 +65,23 @@ presentation and routing. These checks do not themselves create live HR
 departments or establish live Twilio/Gmail/clinical-task acceptance. Select the
 intended authorized tenant, check existing codes, create the requested reference
 records through the API and verify reload/audit before reporting live completion.
+
+## Production storage repair
+
+Live testing reached the tenant selector, then the Admin HQ list read failed.
+Read-only production schema inspection in run 40092411726 confirmed that all four
+platform administration tables were absent. No department write was attempted.
+The existing migration `20261011_platform_administration.sql` is the source for
+the repair; no substitute schema or guessed business records are introduced.
+
+The dedicated foundations workflow first validates native PostgreSQL schema
+profiles for all UUID/text parent identity combinations, dry-run rollback,
+idempotency, unique department codes and foreign keys. It also reruns the actual
+platform API persistence/authorization tests. Production application requires
+that same source-specific artifact, an exact migration digest/opt-in, the pinned
+governance manifest, screen 1269 and API identities 16434/16441/16442. It rejects
+partial or differing existing schemas, validates the complete resulting columns,
+constraints and indexes, and checks the dry-run rollback or committed result in
+a new read-only transaction. It creates no accounts, permission grants or master
+records. Completion still requires its passing application receipt and live API
+creation/reload, not merely the presence of this workflow.

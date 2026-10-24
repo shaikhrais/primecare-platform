@@ -725,5 +725,18 @@
     "permissionChanges": false,
     "providerWrites": false,
     "activation": false
+  },
+  "platformMasterSchemaWriter": {
+    "optInVariable": "APPLY_PLATFORM_MASTER_SCHEMA",
+    "tables": [
+      "platform_master_records",
+      "platform_administration_audit",
+      "platform_administration_requests",
+      "platform_administration_rate"
+    ],
+    "migrationSha256": "4ad365c8ea6e99a941eaa2624dcfcbd83902d147d1586aee976a5c0750895141",
+    "governanceSchemaChanges": false,
+    "accountChanges": false,
+    "roleGrants": false
   }
 }

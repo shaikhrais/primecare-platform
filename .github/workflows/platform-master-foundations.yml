@@ -1,0 +1,76 @@
+name: Provision registered platform master storage
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/platform-master-foundations.yml'
+      - 'scripts/platform-master-schema-profile.mjs'
+      - 'scripts/test-platform-master-schema-postgres.mjs'
+      - 'scripts/apply-platform-master-schema.mjs'
+      - 'packages/database/migrations/20261011_platform_administration.sql'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: platform-master-production-schema
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: platform, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: platform_schema_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U platform" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/platform-schema-native" --ignore-scripts --no-audit --no-fund pg@8.11.3 esbuild@0.27.2 bcryptjs@3.0.2
+          ln -s "$RUNNER_TEMP/platform-schema-native/node_modules" node_modules
+          node scripts/test-platform-master-schema-postgres.mjs
+          node --test scripts/test-platform-administration-postgres.mjs
+        env:
+          PLATFORM_SCHEMA_TEST_DATABASE_URL: postgresql://platform:fixture-only@localhost:5432/platform_schema_test
+          PLATFORM_TEST_DATABASE_URL: postgresql://platform:fixture-only@localhost:5432/platform_schema_test
+      - uses: actions/upload-artifact@v4
+        with:
+          name: platform-master-native-schema
+          path: test-results/platform-master-schema
+          if-no-files-found: error
+          retention-days: 90
+  provision:
+    needs: native
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/platform-schema-production" --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s "$RUNNER_TEMP/platform-schema-production/node_modules" node_modules
+      - uses: actions/download-artifact@v4
+        with:
+          name: platform-master-native-schema
+          path: test-results/platform-master-schema
+      - name: Validate exact registered schema and roll back the dry run
+        run: node scripts/apply-platform-master-schema.mjs --dry-run
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          APPLY_PLATFORM_MASTER_SCHEMA: '1'
+      - name: Add the registered missing tables and verify committed schema
+        run: node scripts/apply-platform-master-schema.mjs --apply
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          APPLY_PLATFORM_MASTER_SCHEMA: '1'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: platform-master-schema-application
+          path: test-results/platform-master-schema
+          retention-days: 90
