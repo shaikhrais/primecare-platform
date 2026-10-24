@@ -107,9 +107,12 @@ registered or connected, and no speculative execution route is included here.
 ## Vapi integration readiness
 
 The Vapi management API key and saved receptionist configuration have passed
-live API readback. Conversation testing returned `payment_required` in Actions
-run 40122697994. The verified assistant has no business tools or server webhook.
-4277 still uses the original inbound assistant; 2223 is unchanged.
+live API readback. Payment cleared and four synthetic text responses were reviewed in Actions
+run 40122697994. Run 40127778842 then assigned 4277 to the tested PrimeCare
+receptionist and independently verified the route. The assistant has no business
+tools or webhook; 2223 is unchanged. Internal VapiApiRequestAdapter now connects
+to VoiceTaskService in isolated integration tests, but its production endpoint,
+credential, canonical-call resolver and business ports remain unconnected.
 
 | Proposed capability | Current blocker |
 | --- | --- |

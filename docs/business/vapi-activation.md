@@ -11,6 +11,10 @@ is `da0cd4c3-3c4c-404d-946c-1001f0ecd0fe`. The tested PrimeCare Reception assist
 is `5ae2ab0c-fad0-454c-8cf7-64b81c91c850`, published v3. API readback verifies
 prompt, greeting, audio recording disabled, no tools/webhook and 600-second maximum.
 
+Activation succeeded in run 40127778842, provider job 120972859943:
+numberRoutingChanged=true, routing=primecare_reception. Four fresh text responses
+were reviewed. LiveCallVerified=false and businessActionsVerified=false.
+
 ## Controlled activation
 
 The verification workflow has an explicit `activate_reception` dispatch input.

@@ -11,6 +11,16 @@ readback. The adapter rechecks scope, patches only assistantId, then reads back;
 changed routing or tool/webhook configuration denies the write. Provider updates
 have no CAS, so concurrent Console edits must be avoided during activation.
 
+`VapiApiRequestAdapter` is an internal bounded transport for the dashboard API
+Request tool. It connects to the existing inherited VoiceTaskService and accepts
+only propose/execute commands. Provider credentials, registered policy, rate
+limits, canonical call resolution and durable duplicate claims are mandatory host
+ports. Model input cannot set actor, tenant or approval; OTP/passkey identity and
+exact independent approval remain in the existing task service. Six integration
+tests use that real service with isolated storage/trust fixtures. No new endpoint
+is mounted and no tool is attached until those production ports and registration
+are present. See docs/business/vapi-api-request-integration.md.
+
 All portals and permitted users use the same core. There are no role-specific copies, hardcoded privileged users or default grants. The authenticated transport supplies identity; request data cannot choose an actor, tenant or role. Production policy still decides who can contact whom and which restricted cases or mailboxes they can access.
 
 | Base | Derived code | Shared responsibility |

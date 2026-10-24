@@ -6,6 +6,9 @@ on:
       - '.github/workflows/vapi-reception-verification.yml'
       - 'packages/shared/src/communications/vapi-management.mjs'
       - 'scripts/test-vapi-management.mjs'
+      - 'scripts/test-vapi-api-request.mjs'
+      - 'packages/shared/src/communications/vapi-api-request.mjs'
+      - 'packages/shared/src/communications/vapi-api-request.d.mts'
       - 'scripts/verify-vapi-reception.mjs'
       - 'docs/business/primecare-vapi-reception-prompt.txt'
   workflow_dispatch:
@@ -27,7 +30,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
-      - run: node --test scripts/test-vapi-management.mjs
+      - run: node --test scripts/test-vapi-management.mjs scripts/test-vapi-api-request.mjs
   provider:
     needs: tests
     runs-on: ubuntu-24.04
