@@ -68,6 +68,13 @@ class AccessTests(unittest.TestCase):
    with self.assertRaises(m.GovernanceReadError):self.store()
   with self.store() as db:
    with self.assertRaises(m.GovernanceReadError):db.insert_exact('roles',{})
+ def test_source_contracts_and_screens_cannot_change_during_access_transaction(self):
+  with self.store() as db:
+   for table in ['api_endpoints','screens','roles','role_screen_permissions']:
+    with psycopg.connect(URL) as concurrent:
+     concurrent.execute("SET LOCAL lock_timeout='100ms'")
+     with self.assertRaises(psycopg.errors.LockNotAvailable):concurrent.execute('LOCK TABLE '+self.table(table)+' IN ROW EXCLUSIVE MODE')
+     concurrent.rollback()
  def test_verification_never_fills_missing_rows(self):
   with self.store() as db:
    with self.assertRaises(m.GovernanceReadError):m.register(db,False)

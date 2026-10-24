@@ -46,7 +46,7 @@ class VoiceContactAccessStore(ProductionWorkflowStore):
   try:
    if self.pin.get('voiceContactAccessWriter')!=expected_scope() or os.environ.get('GOVERNANCE_VOICE_CONTACT_ACCESS')!='1':raise GovernanceReadError('Exact pinned enrollment access opt-in required')
    # Freeze eligibility and targets for the transaction; no role/screen rights are written.
-   self.db.execute('LOCK TABLE '+','.join(self.table(t) for t in sorted(['roles','role_screen_permissions',*TABLES]))+' IN SHARE ROW EXCLUSIVE MODE')
+   self.db.execute('LOCK TABLE '+','.join(self.table(t) for t in sorted(['api_endpoints','screens','roles','role_screen_permissions',*TABLES]))+' IN SHARE ROW EXCLUSIVE MODE')
    for table in TABLES:
     meta=self.tables.get(table)
     if not meta or any(len(c['storage_types'])>1 for c in meta['columns']):raise GovernanceReadError('Access metadata manifest required')
