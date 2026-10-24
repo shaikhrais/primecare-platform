@@ -1,5 +1,21 @@
 # Vapi activation checkpoint, 24 October 2026
 
+The user requested API-based management. `VapiManagementClient` now implements
+the official fixed-origin GET assistant/phone-number APIs and scoped synthetic
+POST chat tests. Six local tests pass, including credential redaction, payment
+errors, malformed IDs and denial of chat tests after tools/webhooks are attached.
+The provider workflow needs encrypted production secret `VAPI_PRIVATE_API_KEY`.
+Push checks are read-only. Explicit dispatch can request four synthetic chat
+tests; returned text needs review and is never treated as live phone acceptance.
+No Vapi key was read, copied into code or obtained from browser session storage.
+
+Official documentation reviewed:
+- https://docs.vapi.ai/api-reference/assistants/get
+- https://docs.vapi.ai/api-reference/assistants/update
+- https://docs.vapi.ai/api-reference/phone-numbers/update
+- https://docs.vapi.ai/chat/non-streaming
+- https://docs.vapi.ai/server-url/server-authentication
+
 The user selected existing Twilio number +1 289 799 4277 for Vapi instead of
 2223. Its Vapi number ID is `3e9cee92-b463-47c8-9e1a-cdbf179cb675`.
 The existing assigned assistant remains `Inbound`, ID

@@ -1,0 +1,46 @@
+name: Verify Vapi receptionist through provider API
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/vapi-reception-verification.yml'
+      - 'packages/shared/src/communications/vapi-management.mjs'
+      - 'scripts/test-vapi-management.mjs'
+      - 'scripts/verify-vapi-reception.mjs'
+      - 'docs/business/primecare-vapi-reception-prompt.txt'
+  workflow_dispatch:
+    inputs:
+      run_chat_tests:
+        description: Run four synthetic text tests (provider usage charges may apply; no calls or SMS)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test scripts/test-vapi-management.mjs
+  provider:
+    needs: tests
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Read back assistant and phone routing without changing it
+        run: node scripts/verify-vapi-reception.mjs
+        env:
+          VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
+          VAPI_RUN_CHAT_TESTS: ${{ inputs.run_chat_tests && '1' || '0' }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vapi-reception-api-verification
+          path: test-results/vapi
+          retention-days: 30

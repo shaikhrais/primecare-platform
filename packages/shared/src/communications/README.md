@@ -1,5 +1,12 @@
 # Shared communication core
 
+Vapi provider management uses `VapiManagementClient`, inheriting the bounded
+binary adapter. It reads saved assistant and phone projections without exposing
+embedded provider credentials. Synthetic chat refuses assistants with tools or
+server webhooks and never adds phone transport. The verification workflow reads
+`VAPI_PRIVATE_API_KEY` only from encrypted production secrets. This adapter does
+not expose an app endpoint, grant permissions, place calls or change routing.
+
 All portals and permitted users use the same core. There are no role-specific copies, hardcoded privileged users or default grants. The authenticated transport supplies identity; request data cannot choose an actor, tenant or role. Production policy still decides who can contact whom and which restricted cases or mailboxes they can access.
 
 | Base | Derived code | Shared responsibility |
