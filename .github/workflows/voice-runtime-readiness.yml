@@ -6,6 +6,10 @@ on:
       - '.github/workflows/voice-runtime-readiness.yml'
       - 'cloudflare/workers/src/business-tasks/voice-runtime.ts'
       - 'cloudflare/workers/src/business-tasks/voice-composition.ts'
+      - 'cloudflare/workers/src/business-tasks/voice-cloudflare-sockets.ts'
+      - 'scripts/voice-provider-preflight.mjs'
+      - 'scripts/test-voice-provider-preflight.mjs'
+      - 'scripts/test-communication-voice-cloudflare-sockets.mjs'
       - 'scripts/test-communication-voice-runtime.mjs'
       - 'scripts/test-communication-voice-composition.mjs'
       - 'scripts/voice-deployment-configuration.mjs'
@@ -22,12 +26,36 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/voice-runtime-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 twilio@6.2.0 typescript@5.9.3 @types/node@24.0.0
+          npm install --prefix "$RUNNER_TEMP/voice-runtime-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 twilio@6.2.0 typescript@5.9.3 @types/node@24.0.0 miniflare@4.20260426.0
           ln -s "$RUNNER_TEMP/voice-runtime-tools/node_modules" node_modules
       - name: Registered routing, real signatures, WebSocket ownership and configuration redaction
         run: |
-          node --test scripts/test-communication-voice-runtime.mjs scripts/test-communication-voice-composition.mjs scripts/test-voice-deployment-configuration.mjs
-          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/voice-runtime.ts cloudflare/workers/src/business-tasks/voice-composition.ts
+          node --test scripts/test-communication-voice-runtime.mjs scripts/test-communication-voice-composition.mjs scripts/test-voice-deployment-configuration.mjs scripts/test-voice-provider-preflight.mjs scripts/test-communication-voice-cloudflare-sockets.mjs
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/voice-runtime.ts cloudflare/workers/src/business-tasks/voice-composition.ts cloudflare/workers/src/business-tasks/voice-cloudflare-sockets.ts
+  providers:
+    needs: runtime
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Validate provider credentials without traffic or response body logging
+        run: node scripts/voice-provider-preflight.mjs
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_API_KEY_SID: ${{ secrets.TWILIO_API_KEY_SID }}
+          TWILIO_API_KEY_SECRET: ${{ secrets.TWILIO_API_KEY_SECRET }}
+          TWILIO_VERIFY_SERVICE_SID: ${{ secrets.TWILIO_VERIFY_SERVICE_SID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: voice-provider-preflight
+          path: test-results/voice-runtime/provider-preflight.json
+          retention-days: 30
   configuration:
     needs: runtime
     runs-on: ubuntu-24.04
