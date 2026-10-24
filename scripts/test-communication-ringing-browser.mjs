@@ -40,10 +40,11 @@ test('real browser renders answer/decline/mute/hangup and handles caller cancell
    const emitter=()=>{const listeners=new Map();return {on(event,f){if(!listeners.has(event))listeners.set(event,new Set());listeners.get(event).add(f);},off(event,f){listeners.get(event)?.delete(f);},emit(event){for(const f of [...listeners.get(event)??[]])f();},count(){return [...listeners.values()].reduce((n,v)=>n+v.size,0);}};};
    const calls=[],sdk={...emitter(),async register(){this.emit('registered');},updateToken(){},destroy(){},disconnectAll(){},async connect(){const call={...emitter(),ends:0,disconnect(){this.ends++;this.emit('disconnect');}};calls.push(call);return call;}};
    const device=new TwilioVoiceDevice({createDevice:()=>sdk,currentScope:()=> 'current',fetchToken:async()=>({token:'fixture',identity:'fixture',ttlSeconds:300})});await device.start();
-   const first=await device.connect({callerExtension:'100001',targetExtension:'100002'});first.emit('error');
-   const next=await device.connect({callerExtension:'100001',targetExtension:'100003'});device.close();
-   return {oldEnds:first.ends,newEnds:next.ends,oldListeners:first.count(),newListeners:next.count(),closed:device.closed};
+   let legacyDenied=false;try{await device.connect({callerExtension:'100001',targetExtension:'100002'});}catch{legacyDenied=true;}
+   const first=await device.connect({callerExtension:'1001',targetExtension:'1002'});first.emit('error');
+   const next=await device.connect({callerExtension:'1001',targetExtension:'1003'});device.close();
+   return {legacyDenied,callsPlaced:calls.length,oldEnds:first.ends,newEnds:next.ends,oldListeners:first.count(),newListeners:next.count(),closed:device.closed};
   });
-  assert.deepEqual(outgoing,{oldEnds:1,newEnds:1,oldListeners:0,newListeners:0,closed:true});
+  assert.deepEqual(outgoing,{legacyDenied:true,callsPlaced:2,oldEnds:1,newEnds:1,oldListeners:0,newListeners:0,closed:true});
  }finally{await browser?.close();await new Promise(r=>server.close(r));}
 });
