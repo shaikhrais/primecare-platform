@@ -21,9 +21,9 @@ class RevisionTests(unittest.TestCase):
  def test_revision_is_idempotent_and_preserves_grants_ids_and_other_fields(self):
   with self.store() as db:
    before=[db.execute('SELECT * FROM '+t).fetchall() for t in ['api_permissions','role_screen_permissions','screen_api_links']]
-   ids=db.execute('SELECT id,route_path,implementation_status FROM api_endpoints').fetchall()
+   ids=db.execute('SELECT id,route_path,implementation_status FROM api_endpoints ORDER BY id').fetchall()
    first=m.revise(db);self.assertEqual(first,m.revise(db));m.verify_reader(db)
-   self.assertEqual(before,[db.execute('SELECT * FROM '+t).fetchall() for t in ['api_permissions','role_screen_permissions','screen_api_links']]);self.assertEqual(ids,db.execute('SELECT id,route_path,implementation_status FROM api_endpoints').fetchall())
+   self.assertEqual(before,[db.execute('SELECT * FROM '+t).fetchall() for t in ['api_permissions','role_screen_permissions','screen_api_links']]);self.assertEqual(ids,db.execute('SELECT id,route_path,implementation_status FROM api_endpoints ORDER BY id').fetchall())
    self.assertFalse(first['activation']);self.assertFalse(first['assignmentsChanged']);self.assertEqual(first['extensionDigits'],4)
   with self.store() as db:m.verify_reader(db)
  def test_explicit_rollback_preserves_all_six_digit_metadata(self):
