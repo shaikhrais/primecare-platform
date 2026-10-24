@@ -164,6 +164,17 @@ approved task and decision policies, private board material handling, current
 grants, localization and complete browser/API/database acceptance. The shared
 dashboard does not claim those domain workflows are finished.
 
+### Verification evidence
+
+Source `1a1d61a42e347092d1c49e8c20f2760fc3326b46` passed all ten communication CI
+jobs in [40056624268](https://github.com/shaikhrais/primecare-platform/actions/runs/40056624268).
+The Flutter workspace job 120760909250 passed 119 tests, including six new checks:
+common inherited CEO/HR entries; cached data reset and late-response denial for
+user, tenant, role and token changes; and denial of a page absent from the current
+server list. These are fixture-backed widget/transport checks, not deployed CEO
+financial or recruitment/board transaction acceptance. Broader monorepo build
+and non-blocking Dart aggregate runs were still in progress at this readback.
+
 References:
 
 - [Corporations Canada glossary: directors and officers](https://ised-isde.canada.ca/site/corporations-canada/en/glossary-canada-business-corporations-act)

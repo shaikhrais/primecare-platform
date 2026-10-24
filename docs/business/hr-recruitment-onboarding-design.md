@@ -1,7 +1,9 @@
 # HR operating design and implementation status
 
 Proposed operating design, researched 2026-10-23 America/Toronto. Department
-records and dashboards have not yet been created or activated. Initial jurisdiction
+records and domain recruitment/risk workflows have not yet been created or activated.
+The existing HR overview entries now use the shared authorized workspace API as
+described in the follow-up below. Initial jurisdiction
 assumption: Ontario; configure the employer, worker category and applicable policy.
 
 ## HR functions
@@ -217,3 +219,18 @@ department routes or create department records in every tenant by default.
 The codebase also has `care.staff.onboard-and-clear` for independently verified
 clinical clearance. That is distinct from a full recruitment/employee onboarding
 program and cannot be used to fabricate credentials or unlock retraining locks.
+
+### Shared dashboard implementation follow-up
+
+The HR Director and Hiring dashboard entries now inherit the same
+`GovernedWorkspaceEntry` as the CEO dashboard, replacing placeholder domain calls,
+fabricated success and no-op generated actions. They display only the current
+workspace API's permitted organization overview. This is a working code connection
+to the existing workspace API, not an applicant/offer/interview CRUD implementation.
+
+The shared renderer drops cached private state on a user, tenant, token or role
+change and ignores late responses after its old scope is disposed. Source
+`1a1d61a42e347092d1c49e8c20f2760fc3326b46` passed all ten communication jobs in
+[40056624268](https://github.com/shaikhrais/primecare-platform/actions/runs/40056624268),
+including 119 Flutter widget tests. Deployed HR acceptance, department tenant
+selection and the registered domain contracts/policies remain outstanding.
