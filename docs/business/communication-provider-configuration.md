@@ -121,6 +121,15 @@ absent. Registered Twilio handlers 16522–16533 remain marked
 `registered-unimplemented` in production metadata. Do not mark them live from
 isolated adapter tests.
 
+Source inspection also confirms unfinished configuration UI:
+`packages/primecare_ui/lib/src/features/generated_screens/cto_integrations.dart`
+has a synthetic success fallback, a hardcoded readiness badge and empty action
+callbacks. Its watched API result does not provide a working provider form.
+`packages/primecare_ui/lib/src/features/admin/integration_health_monitor/services/integration_health_monitor_api.dart`
+returns an empty map from a stub. These existing files are not provider activation
+evidence and must be replaced through the governed screen/API/permission flow
+before they are offered as a configuration interface.
+
 The care browser evidence collector is being corrected to use the existing shared
 esbuild input-path resolver. A JSON module imported both with and without an
 attribute has a decorated metafile identity; it must resolve to the underlying
