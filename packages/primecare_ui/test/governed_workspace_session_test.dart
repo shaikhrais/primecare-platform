@@ -11,6 +11,7 @@ import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.da
 import 'package:primecare_ui/src/features/generated_screens/ceo_dashboard.dart';
 import 'package:primecare_ui/src/features/generated_screens/hr_director_dashboard.dart';
 import 'package:primecare_ui/src/features/generated_screens/hr_hiring_dashboard.dart';
+import 'fixtures/role_dashboard_entries.dart';
 
 const route = '/offices/corporate/roles/ceo/dashboard';
 AuthState session({String user = 'alice', String tenant = 'tenant-a', String token = 'fixture-a', String role = 'ceo'}) =>
@@ -24,9 +25,11 @@ class WorkspaceAuthFixture extends AuthNotifier {
 void main() {
   final labels = (jsonDecode(File('lib/src/localization/screens/workspace.json').readAsStringSync())['locales']['en'] as Map)
       .map((key, value) => MapEntry('workspace.$key', value));
-  Map<String, dynamic> response(String name, {bool permitted = true}) => {
+  Map<String, dynamic> response(String name, {bool permitted = true, String pageRoute = route}) => {
     'identity': {'role': 'ceo'}, 'resources': labels,
-    'screens': permitted ? [{'code': 'ceo_dashboard', 'name': name, 'route': route, 'renderer': 'dashboard', 'sections': <Object>[]}] : <Object>[],
+    'screens': permitted ? [{'code': 'fixture_dashboard', 'name': name, 'route': pageRoute, 'renderer': 'dashboard', 'sections': <Object>[],
+      'requirements': {'business_purpose': 'Registered role duty', 'acceptance_criteria': 'Review the authoritative evidence'},
+      'blockers': ['Unfinished domain workflow']}] : <Object>[],
     'actions': <Object>[], 'inventory': <Object>[],
     'overview': {'activeAccounts': 1, 'activeSessions': 1, 'accountRoles': <Object>[], 'activity': <Object>[], 'metrics': <Object>[]},
   };
@@ -37,7 +40,7 @@ void main() {
     }
   });
 
-  Future<ProviderContainer> mount(WidgetTester tester, void Function(RequestOptions, RequestInterceptorHandler) handle) async {
+  Future<ProviderContainer> mount(WidgetTester tester, void Function(RequestOptions, RequestInterceptorHandler) handle, {Widget? screen}) async {
     final dio = Dio(BaseOptions(baseUrl: 'https://synthetic.invalid'));
     dio.interceptors.add(InterceptorsWrapper(onRequest: handle));
     final container = ProviderContainer(overrides: [
@@ -46,9 +49,31 @@ void main() {
     ]);
     addTearDown(container.dispose);
     await tester.pumpWidget(UncontrolledProviderScope(container: container, child: PrimeTheme(data: const PrimeThemeData(),
-      child: const MaterialApp(home: GovernedWorkspaceScreen(route: route)))));
+      child: MaterialApp(home: screen ?? const GovernedWorkspaceScreen(route: route)))));
     await tester.pumpAndSettle();
     return container;
+  }
+
+  for (var index = 0; index < registeredDashboardEntries.length; index++) {
+    final entry = registeredDashboardEntries[index];
+    final expectedRoute = registeredDashboardRoutes[index];
+    testWidgets('registered role dashboard $expectedRoute uses permitted API data and honest requirements', (tester) async {
+      var calls = 0;
+      expect(entry.route, expectedRoute);
+      await mount(tester, (options, handler) {
+        expect(options.path, '/v1/governance/workspace');
+        calls++;
+        handler.resolve(Response(requestOptions: options, statusCode: 200,
+          data: response('Current permitted dashboard', pageRoute: expectedRoute)));
+      }, screen: entry);
+      expect(calls, 1);
+      expect(find.text('Current permitted dashboard'), findsWidgets);
+      expect(find.text('Registered role duty'), findsOneWidget);
+      expect(find.text('Review the authoritative evidence'), findsOneWidget);
+      expect(find.text('Unfinished domain workflow'), findsOneWidget);
+      expect(find.text('100% READY'), findsNothing);
+      expect(tester.takeException(), isNull);
+    });
   }
 
   for (final change in ['user', 'tenant', 'role', 'token']) {

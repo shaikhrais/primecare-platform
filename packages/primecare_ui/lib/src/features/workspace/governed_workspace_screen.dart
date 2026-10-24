@@ -123,6 +123,20 @@ class _WorkspaceState extends ConsumerState<_ScopedWorkspaceScreen> {
       : ListView(padding: EdgeInsets.all(theme.spacing.lg), children: [
         Semantics(header: true, label: 'screen-${page['code']}', child: Text(page['name'].toString(), style: theme.typography.h1)),
         SizedBox(height: theme.spacing.md),
+        if (page['requirements'] is Map) _card(label('requirements'),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            for (final key in ['business_purpose', 'user_story'])
+              if ((page['requirements'] as Map)[key] is String && ((page['requirements'] as Map)[key] as String).trim().isNotEmpty)
+                Text((page['requirements'] as Map)[key] as String),
+            if ((page['requirements'] as Map)['acceptance_criteria'] is String &&
+                ((page['requirements'] as Map)['acceptance_criteria'] as String).trim().isNotEmpty) ...[
+              Text(label('acceptance'), style: theme.typography.h3),
+              Text((page['requirements'] as Map)['acceptance_criteria'] as String),
+            ],
+          ]), 'workspace-requirements'),
+        if (page['blockers'] is List && (page['blockers'] as List).whereType<String>().isNotEmpty)
+          _card(label('pending'), Column(crossAxisAlignment: CrossAxisAlignment.start,
+            children: [for (final blocker in (page['blockers'] as List).whereType<String>()) Text(blocker)]), 'workspace-pending'),
         _card(label('title'), Wrap(spacing: theme.spacing.lg, runSpacing: theme.spacing.md, children: [
           _metric(label('users'), overview['activeAccounts']),
           _metric(label('sessions'), overview['activeSessions']),

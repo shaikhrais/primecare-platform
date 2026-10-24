@@ -97,6 +97,12 @@ on:
       - 'packages/primecare_ui/test/communication_workspace_test.dart'
       - 'packages/primecare_ui/test/communication_configuration_unavailable_test.dart'
       - 'packages/primecare_ui/test/governed_workspace_session_test.dart'
+      - 'packages/primecare_ui/test/fixtures/role_dashboard_entries.dart'
+      - 'tools/integrate-role-dashboards.py'
+      - 'tools/test-integrate-role-dashboards.py'
+      - 'tools/governance-production/verify-role-dashboard-metadata.py'
+      - 'tools/governance-production/test-role-dashboard-metadata.py'
+      - 'packages/primecare_ui/lib/src/features/generated_screens/*_dashboard.dart'
       - 'packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart'
       - 'packages/primecare_ui/lib/src/features/generated_screens/ceo_dashboard.dart'
       - 'packages/primecare_ui/lib/src/features/generated_screens/hr_director_dashboard.dart'
@@ -107,6 +113,34 @@ on:
 permissions:
   contents: read
 jobs:
+  dashboard-registry:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          python tools/test-integrate-role-dashboards.py
+          python tools/governance-production/test-role-dashboard-metadata.py
+          python tools/integrate-role-dashboards.py --check
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/dashboard-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/dashboard-reader/node_modules node_modules
+      - name: Independently read pinned dashboard identities without grants or business data
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/governance-production/verify-role-dashboard-metadata.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: role-dashboard-registry
+          path: test-results/role-dashboard-registry
+          if-no-files-found: error
+          retention-days: 90
   twilio-voice:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
