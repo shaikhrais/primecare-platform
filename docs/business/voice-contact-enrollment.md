@@ -187,3 +187,42 @@ apply and independent production readback successfully: the same 12 links and
 12 grants for four eligible roles, without business data writes, provider traffic
 or activation. Live native enrollment, SMS and caller-identity acceptance remain
 unverified until endpoint deployment and a real user-driven test.
+
+## Native endpoint host
+
+The dedicated `primecare-voice-contact-api` Worker inherits BaseWorker and
+constructs the contact-only NativeVoiceContactHttpAdapter, which inherits the
+existing bounded NativeVoiceHttpAdapter. It has no placeholder call, extension,
+voicemail, AI task or authentication handler. The existing API gateway forwards
+only the three exact registered paths through its VOICE_CONTACT service binding.
+Future generated gateway configurations retain that binding.
+
+Each request resolves the current database session and checks registered API and
+linked-screen rights. PostgresVoiceContactAccessPolicy repeats exact own-contact
+authorization at service checkpoints around provider I/O. Pools are request-local
+and closed; the PostgreSQL URL is restricted to the pinned pooled host with TLS
+certificate verification. Database and Verify credentials stay in encrypted Worker
+secrets. Browsers send native requests through the API; they never connect to
+PostgreSQL or receive its credentials.
+
+The host requires bearer authentication, an approved exact app origin when
+present, source/session edge limits and existing durable user/phone quotas.
+Rejected bodies are canceled without being read. Public failures remain generic.
+Only the native send/check services can invoke the official Verify SDK, through
+TwilioVerifyFetchClient: fixed Verify service and two POST forms, bounded JSON,
+no redirects, arbitrary SDK options, automatic retries or provider error logs.
+
+Deployment independently reads contracts, grants and six-table readiness; it
+refuses stale main and preserves unexpected Worker/gateway bindings. It installs
+only database plus Verify credentials into the dedicated native host, reads the
+existing six-digit Verify service configuration without changing it, and checks
+direct and gateway denials with a fresh nonexistent session. No real code or SMS
+is part of deployment. A rejected nonexistent session confirms the native session
+query can run, but does not prove a real user's grants or SMS flow.
+
+Reference documentation checked for this implementation:
+- https://developers.cloudflare.com/workers/tutorials/postgres/
+- https://developers.cloudflare.com/workers/runtime-apis/bindings/service-bindings/
+- https://www.twilio.com/docs/verify/api/verification-check
+
+Successful publication and live SMS acceptance must be recorded separately below.

@@ -1,0 +1,117 @@
+name: Deploy native phone enrollment API
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/deploy-voice-contact-native.yml'
+      - 'cloudflare/workers/src/business-tasks/voice-contact-worker.ts'
+      - 'cloudflare/workers/src/business-tasks/voice-contact.ts'
+      - 'cloudflare/workers/src/business-tasks/voice-contact-postgres.ts'
+      - 'cloudflare/workers/src/business-tasks/endpoint-policy.ts'
+      - 'packages/shared/src/communications/twilio-verify.mjs'
+      - 'packages/shared/src/communications/voice-schema-validators.mjs'
+      - 'cloudflare/workers/src/business-tasks/voice-contact-native-policy.ts'
+      - 'cloudflare/workers/src/business-tasks/voice-contact-deployment.json'
+      - 'scripts/deploy-voice-contact-native.mjs'
+      - 'scripts/voice-contact-deployment-plan.mjs'
+      - 'scripts/test-voice-contact-deployment-plan.mjs'
+      - 'scripts/test-voice-contact-worker.mjs'
+      - 'scripts/test-voice-contact-workerd.mjs'
+      - 'packages/shared/src/communications/twilio-verify-fetch.mjs'
+      - 'packages/shared/src/communications/voice-native-http.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: primecare-native-contact-production
+  cancel-in-progress: false
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: voice_fixture
+          POSTGRES_PASSWORD: disposable-only
+          POSTGRES_DB: voice_identity_schema_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U voice_fixture -d voice_identity_schema_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      WORKFLOW_TEST_DATABASE_URL: postgres://voice_fixture:disposable-only@localhost:5432/voice_identity_schema_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/native-contact-tests" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 twilio@6.2.0 typescript@5.9.3 @types/node@24.0.0 esbuild@0.27.2 miniflare@4.20260730.0
+          ln -s "$RUNNER_TEMP/native-contact-tests/node_modules" node_modules
+      - name: Native database, inherited boundary, gateway routing, SDK fetch and workerd checks
+        run: |
+          node scripts/migrate-voice-identity-schema.mjs --reference
+          node --test scripts/test-voice-identity-schema.mjs
+          node --test scripts/test-voice-contact-enrollment.mjs scripts/test-communication-twilio-verify.mjs
+          node --test scripts/test-voice-contact-worker.mjs scripts/test-communication-gateway.mjs scripts/test-voice-contact-deployment-plan.mjs
+          node scripts/test-voice-contact-workerd.mjs
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/voice-contact-worker.ts packages/shared/src/communications/voice-native-http.d.mts packages/shared/src/communications/twilio-verify-fetch.d.mts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-contact-tests
+          path: test-results/voice-contact-native
+          retention-days: 30
+  deploy:
+    needs: tests
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install dependencies before supplying production credentials
+        run: |
+          npm install --prefix "$RUNNER_TEMP/native-contact-deploy" --ignore-scripts --no-audit --no-fund wrangler@4.68.1 pg@8.16.3 twilio@6.2.0
+          ln -s "$RUNNER_TEMP/native-contact-deploy/node_modules" node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Independently verify exact native contracts, current access and existing database schema without writes
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          mkdir -p test-results/voice-contact-native
+          python - <<'PY'
+          import sys,json,pathlib
+          sys.path.insert(0,'tools/governance-production')
+          import voice_contact_contracts_registration as contracts
+          import voice_contact_access_registration as access
+          from production_reader import connect
+          contract=contracts.verify()
+          with connect() as reader:permissions=access.register(reader,False)
+          permissions.update(independentReadback=True,writesAttempted=False)
+          pathlib.Path('test-results/voice-contact-native/registration.json').write_text(json.dumps({'contract':contract,'access':permissions},indent=2)+'\n')
+          print('Native enrollment registration independently verified; no writes')
+          PY
+          node scripts/verify-vapi-identity-readiness.mjs
+      - name: Deploy native enrollment and connect only its three gateway routes; read-only provider and HTTP checks
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY_SID: ${{ secrets.TWILIO_API_KEY_SID }}
+          TWILIO_API_KEY_SECRET: ${{ secrets.TWILIO_API_KEY_SECRET }}
+          TWILIO_VERIFY_SERVICE_SID: ${{ secrets.TWILIO_VERIFY_SERVICE_SID }}
+        run: node scripts/deploy-voice-contact-native.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-contact-deployment
+          path: |
+            test-results/voice-contact-native
+            test-results/vapi/identity-readiness.json
+          retention-days: 30

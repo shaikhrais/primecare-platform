@@ -16,3 +16,11 @@ test('unregistered communication paths and methods cannot use a broad prefix mou
  for(const path of ['/v1/messages/unknown','/v1/messagesExtra','/v1/messages/pictures/extra'])assert.equal((await gateway.fetch(new Request('https://api.example.invalid'+path),env)).status,404);
  for(const api of catalog.apis)assert.equal((await gateway.fetch(new Request('https://api.example.invalid'+api.path,{method:'DELETE'}),env)).status,405);
 });
+test('only the three native contact contracts reach the dedicated binding unchanged and fail closed without it',async()=>{
+ for(const action of ['status','start','check']){const path='/v1/voice/contact/'+action;let seen;
+  const original=new Request('https://api.example.invalid'+path,{method:'POST',headers:{authorization:'Bearer native','cf-connecting-ip':'192.0.2.1'},body:'{}'});
+  const response=await gateway.fetch(original,{VOICE_CONTACT:{async fetch(request){seen=request;return Response.json({error:'unauthorized'},{status:401});}},GOVERNANCE:{fetch:()=>assert.fail('Dedicated native service required')}});
+  assert.equal(response.status,401);assert.equal(seen,original);assert.equal((await gateway.fetch(new Request(original.url,{method:'POST',body:'{}'}),{})).status,503);assert.equal((await gateway.fetch(new Request(original.url),{})).status,405);
+ }
+ assert.equal((await gateway.fetch(new Request('https://api.example.invalid/v1/voice/contact/unknown'),{})).status,404);
+});

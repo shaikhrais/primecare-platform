@@ -1,0 +1,12 @@
+{
+ "workerName":"primecare-voice-contact-api",
+ "gatewayName":"primecare-api-gateway",
+ "gatewayBinding":"VOICE_CONTACT",
+ "owner":"primecare-native-contact-16535-16537",
+ "compatibilityDate":"2026-09-27",
+ "appOrigins":["https://primecare-clinic.pages.dev","https://primecare-client.pages.dev","https://primecare-corporate.pages.dev","https://primecare-franchise.pages.dev","https://primecare-support.pages.dev","https://primecare-governance.pages.dev","https://primecare-marketing.pages.dev","https://primecare-business-development.pages.dev"],
+ "maxRequestBytes":2048,
+ "rateLimit":30,
+ "ratePeriod":60,
+ "rateNamespace":"2026102402"
+}

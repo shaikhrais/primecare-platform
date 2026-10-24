@@ -1,9 +1,10 @@
 import {BaseWorker, workerHandler} from './core/base-worker';
 import governedReadAliases from './governed-read-aliases.json';
+import contactContracts from '../../../tools/governance-production/voice-contact-contracts-registration.json';
 import communicationContracts from '../../../packages/shared/src/communications/registered-contracts.json';
 interface Service { fetch(request: Request): Promise<Response> }
 interface Env {
-  AUTH: Service; CLIENT: Service; PROVIDER: Service; VISIT: Service;
+  VOICE_CONTACT?: Service; AUTH: Service; CLIENT: Service; PROVIDER: Service; VISIT: Service;
   NOTES: Service; BILLING: Service; SCHEDULING: Service; NOTIFICATION: Service;
   VERIFICATION: Service; COMPLIANCE: Service; GOVERNANCE: Service; FRANCHISE_REPORTING: Service;
 }
@@ -52,6 +53,12 @@ export class GatewayWorker extends BaseWorker<Env> {
 
   protected override async handle(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+    const contact=contactContracts.operations.find(op=>op.path===url.pathname);
+    if(contact){
+      if(request.method!==contact.method)return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:contact.method}}));
+      if(!env.VOICE_CONTACT)return withGatewayHeaders(request,Response.json({error:'voice_unavailable'},{status:503}));
+      return withGatewayHeaders(request,await env.VOICE_CONTACT.fetch(request));
+    }
     // Registered communication routes retain their canonical path. The native
     // service still enforces current session, API/screen and resource policies.
     const communication=communicationContracts.apis.filter(api=>api.path===url.pathname);

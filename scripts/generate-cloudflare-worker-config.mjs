@@ -54,7 +54,7 @@ writeFileSync(`${output}/gateway.jsonc`, `${JSON.stringify({
   compatibility_date: '2026-09-27',
   workers_dev: true,
   observability: { enabled: true },
-  services: services.map((service) => ({
+  services: [...services.map((service) => ({
     binding: service.replaceAll('-', '_').toUpperCase(), service: `primecare-${service}-api`,
-  })),
+  })),{binding:'VOICE_CONTACT',service:'primecare-voice-contact-api'}],
 }, null, 2)}\n`);
