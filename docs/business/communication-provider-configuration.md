@@ -137,3 +137,17 @@ file before hashing. A sole attributed import already has its actual filename.
 Three regression checks using the pinned real esbuild version passed for both
 forms and unsupported attributes. Full care browser acceptance requires its CI
 run; these regression checks alone do not establish appointment-policy binding.
+
+The corrected care acceptance subsequently passed in run
+[40054003788](https://github.com/shaikhrais/primecare-platform/actions/runs/40054003788),
+source `d256c19ea7be3e5909cf5a3d09ebb4dda50f3720`: native job
+120752794908 and browser/tracking job 120752989737 both succeeded. Browser receipt:
+`passed=true`, six language/viewport/timezone cases, eight API check groups,
+`wholeTaskVerified=false`. The auth readback now explicitly requires the seeded
+tenant ID in addition to user, roles and authenticated status. Evidence ZIP SHA256:
+`fb2e0cadaf15e2b629933222aa85c11bd46ae6b9af097b568a0614c8f9c8a557`.
+This is the real care availability renderer/handler against isolated embedded
+PostgreSQL with production-governed theme metadata, not deployed clinic booking
+or cancellation acceptance. Tracking honestly retains `implemented-unverified`
+for the broader care workflow. Compression and contract-review CI also succeeded
+on the same source. No live provider configuration was changed.
