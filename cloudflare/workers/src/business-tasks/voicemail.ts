@@ -1,6 +1,9 @@
 import {ScopedServiceBase,type AtomicStore,type AccessPolicy,type Actor} from '../../../../packages/shared/src/communications/service-base.ts';
 import type {PublishedVoiceDestination,TwilioExtensionDirectory} from '../../../../packages/shared/src/communications/twilio-voice.mjs';
 export type VoicemailRoute={accountSid:string;callSid:string;extension:string;tenantId:string;userId:string};
+// Repository adapters may reuse mutable row objects. Capture the approved scope
+// before directory, policy, recording or mailbox ports suspend execution.
+const snapshotRoute=(route:VoicemailRoute|null):Readonly<VoicemailRoute>|null=>route?Object.freeze({accountSid:route.accountSid,callSid:route.callSid,extension:route.extension,tenantId:route.tenantId,userId:route.userId}):null;
 export interface VoicemailRepository {
  find(accountSid:string,recordingSid:string):Promise<VoicemailRoute|null>;
  reserve(route:VoicemailRoute):Promise<void>;
@@ -38,13 +41,13 @@ export class VoicemailService extends ScopedServiceBase {
  }
  async fallback(callSid:string,status:string){
   if(!['busy','no-answer','failed'].includes(status))return false;
-  const route=await this.repository.read(this.config.accountSid,callSid);if(!route)return false;
+  const route=snapshotRoute(await this.repository.read(this.config.accountSid,callSid));if(!route)return false;
   await this.#current(route,'voice.voicemail.capture');return true;
  }
  async read(actor:Actor,recordingSid:string){
   actor=Object.freeze({id:actor.id,tenantId:actor.tenantId});
   if(!/^RE[a-fA-F0-9]{32}$/.test(recordingSid))throw Error('Voicemail unavailable');
-  const route=await this.repository.find(this.config.accountSid,recordingSid);
+  const route=snapshotRoute(await this.repository.find(this.config.accountSid,recordingSid));
   if(!route||route.tenantId!==actor.tenantId||route.userId!==actor.id)throw Error('Voicemail unavailable');
   await this.checkAccess(actor,'voice.voicemail.read',{id:'voicemail:'+route.callSid,tenantId:route.tenantId,kind:'voicemail',version:1,userId:route.userId},['voicemail']);
   return Object.freeze({recordingSid,callSid:route.callSid,extension:route.extension});
@@ -59,7 +62,7 @@ export class VoicemailService extends ScopedServiceBase {
  async completed(input:{callSid:string;recordingSid:string;duration:number}){
   const {callSid,recordingSid,duration}=input;
   if(!/^CA[a-fA-F0-9]{32}$/.test(callSid)||!/^RE[a-fA-F0-9]{32}$/.test(recordingSid)||!Number.isSafeInteger(duration)||duration<1||duration>120)throw Error('Voicemail unavailable');
-  const route=await this.repository.read(this.config.accountSid,callSid);if(!route)throw Error('Voicemail unavailable');
+  const route=snapshotRoute(await this.repository.read(this.config.accountSid,callSid));if(!route)throw Error('Voicemail unavailable');
   await this.#current(route,'voice.voicemail.notify');
   const recording=await this.ports.recordings.fetch(recordingSid);
   if(!recording||recording.sid!==recordingSid||recording.accountSid!==this.config.accountSid||recording.callSid!==callSid||recording.status!=='completed'||recording.source!=='RecordVerb'||recording.duration!==duration)throw Error('Voicemail unavailable');

@@ -70,3 +70,26 @@ test('private audio download bounds bytes, validates WAV and prohibits redirects
 });
 test('mail notifier reuses existing inherited outbox command identity',async()=>{const args=[];const notifier=new BusinessMailVoicemailNotifier({async queue(...values){args.push(values);}});await notifier.enqueue({actor:{id:'provider',tenantId:'tenant-a'},key:'vm-key',to:'alice@example.com',subject:'New voicemail',text:'Sign in'});assert.equal(args[0][1],'vm-key');assert.equal(args[0][2],'vm-key');});
 test('empty silent recording is acknowledged without email',async()=>{const f=fixture();const response=await f.adapter.respond(request(urls.recordingStatusUrl,{...complete,RecordingDuration:'0'}));assert.equal(response.status,204);assert.equal(f.notices.size,0);});
+test('mutable repository rows cannot rewrite voicemail ownership during recording verification',async()=>{
+ for(const reassignDirectory of [false,true]){
+  const f=fixture();await f.service.prepare({callSid,destination});
+  const mutable={...f.routes.get(callSid)};f.routes.set(callSid,mutable);
+  f.service.ports.recordings.fetch=async()=>{
+   Object.assign(mutable,{tenantId:'tenant-b',userId:'bob',extension:'2002'});
+   if(reassignDirectory)Object.assign(f.row,{tenantId:'tenant-b',userId:'bob',extension:'2002'});
+   return {...f.recording};
+  };
+  const recipients=[];
+  f.service.ports.mailboxes.recipient=async owner=>{recipients.push(owner);return {email:owner.id+'@example.com',verified:true,active:true};};
+  const response=await f.adapter.respond(request(urls.recordingStatusUrl,complete));
+  if(reassignDirectory){assert.equal(response.status,503);assert.equal(f.notices.size,0);assert.deepEqual(recipients,[]);}
+  else{assert.equal(response.status,204);assert.deepEqual(recipients,[{id:'alice',tenantId:'tenant-a'}]);assert.equal([...f.notices.values()][0].to,'alice@example.com');}
+ }
+});
+test('playback metadata retains the owner-checked route while access policy waits',async()=>{
+ const f=fixture();await f.service.prepare({callSid,destination});await f.service.completed({callSid,recordingSid,duration:15});
+ const mutable={...f.routes.get(callSid)};f.routes.set(callSid,mutable);
+ f.service.policy.assert=async()=>{Object.assign(mutable,{callSid:'CA'+'e'.repeat(32),extension:'2002',tenantId:'tenant-b',userId:'bob'});};
+ const result=await f.service.read({id:'alice',tenantId:'tenant-a'},recordingSid);
+ assert.deepEqual(result,{recordingSid,callSid,extension:'1001'});
+});
