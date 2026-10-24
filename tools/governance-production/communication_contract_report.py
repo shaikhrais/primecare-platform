@@ -12,6 +12,12 @@ def object_schema(value):
         return False
     if value.get('properties'):
         return True
+    # A deliberately closed, empty command (for example an SDK token request)
+    # is a complete contract. An unconstrained object is still a gap.
+    if (value.get('properties') == {} and value.get('additionalProperties') is False
+            and value.get('required', []) == []
+            and set(value) <= {'type', 'properties', 'additionalProperties', 'required'}):
+        return True
     alternatives=value.get('oneOf')
     return isinstance(alternatives,list) and bool(alternatives) and all(object_schema(branch) for branch in alternatives)
 
@@ -22,8 +28,22 @@ def response_schema(value):
     if isinstance(value,str):
         try:value=json.loads(value)
         except (ValueError,TypeError):return False
-    return (isinstance(value,dict) and value.get('type')=='string' and value.get('format')=='binary'
-        and value.get('contentMediaType') in ['image/png','image/jpeg'])
+    if not isinstance(value, dict):
+        return False
+    # Registered callbacks can intentionally have no response body. This only
+    # recognizes metadata; it does not prove HTTP status or provider acceptance.
+    if value == {'type': 'null'}:
+        return True
+    if value.get('type') != 'string':
+        return False
+    if value.get('contentMediaType') == 'application/xml':
+        minimum, maximum = value.get('minLength'), value.get('maxLength')
+        return (type(minimum) is int and type(maximum) is int
+            and 0 < minimum <= maximum <= 32768)
+    if value.get('contentMediaType') == 'audio/wav':
+        return True
+    return (value.get('format') == 'binary'
+        and value.get('contentMediaType') in ['image/png', 'image/jpeg'])
 
 
 def assess_contracts(apis, links, permissions, screen_grants, active_roles):

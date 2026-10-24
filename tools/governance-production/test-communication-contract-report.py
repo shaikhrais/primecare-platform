@@ -47,4 +47,38 @@ class Contracts(unittest.TestCase):
         self.report()
         self.assertEqual(before,[self.api,self.links,self.permissions,self.grants])
 
+    def test_closed_empty_command_is_not_an_unconstrained_object(self):
+        schema = dict(type='object', properties={}, additionalProperties=False, required=[])
+        self.assertTrue(object_schema(schema))
+        self.assertTrue(object_schema(__import__('json').dumps(schema)))
+        for change in [dict(additionalProperties=True), dict(required=['missing']),
+                       dict(minProperties=1), dict(patternProperties={'.*': {}})]:
+            self.assertFalse(object_schema(dict(schema, **change)))
+
+    def test_registered_voice_shapes_without_promoting_access(self):
+        import json
+        from pathlib import Path
+        definition = json.loads(Path(__file__).with_name('twilio-contracts-registration.json').read_text())
+        self.assertEqual(len(definition['operations']), 21)
+        for operation in definition['operations']:
+            with self.subTest(operation=operation['key']):
+                self.assertTrue(object_schema(operation['request']))
+                self.assertTrue(response_schema(operation['response']))
+                self.api.update(requestSchema=operation['request'], responseSchema=operation['response'])
+                report = assess_contracts([self.api], [], [], [], [1])[0]
+                self.assertEqual(report['metadataGaps'], ['screen_link_missing',
+                    'matching_active_role_api_and_screen_grants_missing'])
+                self.assertFalse(report['metadataComplete'])
+                self.assertFalse(report['runtimePolicyVerified'])
+                self.assertFalse(report['liveAcceptanceVerified'])
+
+    def test_unbounded_xml_and_unknown_response_types_remain_gaps(self):
+        for value in [dict(type='string'), dict(type='string', contentMediaType='text/html'),
+                      dict(type='string', contentMediaType='application/xml'),
+                      dict(type='null', properties={'x': {}})]:
+            self.assertFalse(response_schema(value))
+        for minimum, maximum in [(0, 100), (1, 32769), (10, 2), (True, 100), (1, '100')]:
+            self.assertFalse(response_schema(dict(type='string', contentMediaType='application/xml',
+                minLength=minimum, maxLength=maximum)))
+
 if __name__ == '__main__': unittest.main()

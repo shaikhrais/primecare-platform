@@ -9,6 +9,8 @@ on:
       - 'tools/governance-production/test-communication-contract-report.py'
       - 'tools/governance-production/communication_provider_inventory.py'
       - 'tools/governance-production/test-communication-provider-inventory.py'
+      - 'tools/governance-production/twilio_contracts_registration.py'
+      - 'tools/governance-production/twilio-contracts-registration.json'
       - 'tools/governance-production/read-bridge.mjs'
       - 'tools/governance-production/reader-errors.mjs'
       - 'tools/governance-production/test-reader-errors.mjs'
@@ -236,6 +238,10 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: python tools/governance-production/communication_provider_inventory.py
+      - name: Independently verify all pinned Twilio contracts without registration writes
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/governance-production/twilio_contracts_registration.py --verify
       - uses: actions/upload-artifact@v4
         if: always()
         with:

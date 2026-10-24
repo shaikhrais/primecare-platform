@@ -49,3 +49,26 @@ Run `node --test tools/governance-production/test-reader-errors.mjs`. Tests incl
 The revived legacy exporter-parity check also needs the scripts import path and the explicit compatibility amendment from commit `17a5cd8dd`: a governed token with no CSS variable name must not become a JSON `"null"` CSS key. The immutable legacy exporter is preserved. The comparison removes only that legacy key and generation timestamps, asserts the invalid key is absent in current exports, and compares every other field across all nine portals. Dedicated theme-manifest validation remains required; no generalized baseline refresh or ignored theme object is used.
 
 For a confirmed plan-limit restriction, Prisma documents that a Free-plan workspace may offer a one-time **Restore access for 24 hours** control; otherwise the account owner must resolve the plan/spending restriction or wait for the documented allowance reset. This code does not select a billing option. See [Prisma Postgres FAQ](https://www.prisma.io/docs/postgres/faq) and [billing/spending-limit documentation](https://www.prisma.io/docs/console/more/billing).
+
+## Communication inventory after access restoration
+
+The production inventory rerun at `2157ddc03ff9fda931d299f1333b906c714f0008`
+passed after the Prisma upgrade (run `40032868609`, job `120728422719`).
+It read the pinned production authority and deployed Worker binding names; it
+did not send mail, call a phone, change grants or activate a communication route.
+Twilio boundary rows were present, while matching native screen/API grants,
+screen links and production media/provider integration remained incomplete.
+The generic inventory is not a full-field comparison of those 21 rows.
+
+Communication CI now also invokes the existing independent Twilio `--verify`
+reader with no writer opt-ins. That check compares every pinned contract field
+and ID; failure stays a failure and never invokes registration. The dedicated
+registration workflow retains its explicit verify/register modes.
+
+The metadata report recognizes deliberately closed empty request objects,
+bounded XML responses, private WAV responses and explicit null callback responses.
+Unconstrained empty objects, unknown response media and unbounded XML remain
+gaps. This corrects JSON-only false negatives without changing any registry row,
+grant, route or acceptance flag. Ten report tests include all 21 actual Twilio
+definitions and prove that missing grants/screens still prevent completeness.
+Run `python3 tools/governance-production/test-communication-contract-report.py`.
