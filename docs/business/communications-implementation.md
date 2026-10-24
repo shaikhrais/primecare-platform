@@ -939,3 +939,40 @@ The browser acceptance report now records packet counts, peer/ICE/track states
 and bounded synthetic signaling conflict diagnostics before asserting packets.
 Source-specific full browser/PostgreSQL acceptance remains required; a local
 regression pass is not evidence that the original CI failure has been resolved.
+
+
+### API boundary and voicemail reservation verification — 2026-10-24
+
+Source `abe535e6d6a174dd29b565dbe62f8754222095c8` fixes stale extension
+routing after durable voicemail preparation. Inbound routing rechecks the same
+published owner; SDK routing also rechecks the current canonical Call, both
+destinations and connection policy before returning Dial. Three new tests failed
+on the previous implementation, and all 188 local voice/task checks now pass.
+A further 62 local resource/audio/sales checks pass, with one native-only skip.
+
+All ten communication CI jobs passed in run `40046901811`, including native
+PostgreSQL and 24 sales-quality checks without skips. Both jobs in full stack
+run `40046901899` passed all 15 milestones; actual browser peers received [9,10]
+audio packets and both closed. Registry and full-stack ZIP digests were checked
+and both screenshots visually reviewed. The registry ZIP retains the exact
+independent readback of all 21 production Twilio contracts, with no writes or
+activation. Exact artifact hashes are in
+`evidence/communication-voice-reservation-20261024.json`.
+
+**Architecture clarification:** “browser-to-PostgreSQL” names the scope of the
+end-to-end test, not a direct database connection. Flutter sends HTTP `/v1/...`
+requests to the gateway, which invokes the auth or communication API Worker.
+Only server code owns the PostgreSQL pool. The independent Node test runner
+reads the disposable database to verify API results and prepares synthetic
+revocation fixtures; browser code does not execute that SQL. The test’s recorded
+HTTP requests and gateway/service composition are in
+`scripts/test-communication-stack.mjs`; the Flutter host is
+`packages/primecare_ui/test/communication_stack_harness.dart`. Use “browser → API
+gateway → API Worker → PostgreSQL” when describing this verification.
+
+This remains isolated acceptance. Provider mail acceptance, scanning and
+microphone input are synthetic; local Images/R2 and loopback media do not prove
+live SMTP, Twilio phone calls, TURN or mobile background ringing. Production
+permissions/screen bindings, owned mailboxes, provider setup, reception selection,
+extension publication, actual sales script and live/device acceptance remain
+open. No route, grant, extension assignment, number or provider was activated.

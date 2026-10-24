@@ -1,0 +1,77 @@
+{
+  "sourceCommit": "abe535e6d6a174dd29b565dbe62f8754222095c8",
+  "architecture": {
+    "applicationPath": [
+      "Flutter browser",
+      "HTTP /v1 API",
+      "API gateway",
+      "auth or communication Worker",
+      "server-owned PostgreSQL pool"
+    ],
+    "databaseReadback": "Node test runner only; independent assertion after API/UI actions",
+    "browserDatabaseConnection": false,
+    "production": false
+  },
+  "change": "Recheck extension publication, ownership, canonical SDK Call and current policy after voicemail reservation before returning Dial",
+  "local": {
+    "voiceAndAiPassed": 188,
+    "audioResourcesAndSalesPassed": 62,
+    "skipped": 1,
+    "skip": "Native sales persistence requires disposable PostgreSQL; 24 sales checks passed in CI"
+  },
+  "ci": {
+    "communication": {
+      "run": 40046901811,
+      "jobsPassed": 10
+    },
+    "fullStack": {
+      "run": 40046901899,
+      "jobsPassed": 2,
+      "all15Milestones": true,
+      "audioPackets": [
+        9,
+        10
+      ],
+      "bothPeersClosed": true
+    },
+    "productionContracts": {
+      "count": 21,
+      "independentReadback": true,
+      "writesAttempted": false,
+      "activation": false
+    }
+  },
+  "artifacts": [
+    {
+      "id": 12541548360,
+      "name": "business-communications-registry",
+      "sha256": "47ff7e7d49c71a9e6a0395ea696651b6e6acac247fe5f17ad79b1bddfe6b69c9",
+      "downloadDigestVerified": true,
+      "contains": "twilio-contract-readback.log"
+    },
+    {
+      "id": 12541711842,
+      "name": "communication-stack-browser-postgres",
+      "sha256": "7279156253d3ad97cd883640976633895e66579dca5cd0b4d3dd9a3dc8c85abd",
+      "downloadDigestVerified": true,
+      "screenshotsVisuallyReviewed": [
+        "alice-authenticated.png",
+        "bob-received-mail.png"
+      ]
+    }
+  ],
+  "liveAcceptance": false,
+  "syntheticPorts": [
+    "mail provider acceptance",
+    "picture scanner",
+    "microphone input"
+  ],
+  "remaining": [
+    "Live permissions and screen bindings",
+    "Owned mailbox/provider routing",
+    "Reception destination and extension assignment/publication",
+    "Twilio/AI/transcription configuration and live phone/email acceptance",
+    "Mobile background ringing and TURN/device acceptance",
+    "Actual business sales rubric"
+  ]
+}
