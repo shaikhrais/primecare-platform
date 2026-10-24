@@ -100,3 +100,31 @@ not prove live carrier, Gmail or background mobile push behavior.
 Research and local recheck: 2026-10-23 America/Toronto. The existing OTP app,
 exact approval and inherited reception-task suites passed 19 tests with no skips.
 No provider activation or new settings UI was performed by this documentation change.
+
+### Verified registry follow-up
+
+Communication CI run [40052949826](https://github.com/shaikhrais/primecare-platform/actions/runs/40052949826)
+passed all ten jobs for source `fe4559f826725c9a19c142fa4856bc4637d45b55`.
+The read-only production audit found these active integration-related screens:
+
+| ID | Code | Registered route |
+| --- | --- | --- |
+| 751 | cto_integrations | /offices/corporate/roles/cto/integrations |
+| 915 | integration_health_monitor | /generated/integration-health-monitor |
+| 1020 | device_integration_hub | /generated/device-integration-hub |
+
+Their presence does not verify functional provider administration. Integration
+health API 845 has no permission key in the audit. Across the selected 101
+communication/integration/appointment contracts, none had complete metadata and
+matching grants; this count is not a claim that every service implementation is
+absent. Registered Twilio handlers 16522–16533 remain marked
+`registered-unimplemented` in production metadata. Do not mark them live from
+isolated adapter tests.
+
+The care browser evidence collector is being corrected to use the existing shared
+esbuild input-path resolver. A JSON module imported both with and without an
+attribute has a decorated metafile identity; it must resolve to the underlying
+file before hashing. A sole attributed import already has its actual filename.
+Three regression checks using the pinned real esbuild version passed for both
+forms and unsupported attributes. Full care browser acceptance requires its CI
+run; these regression checks alone do not establish appointment-policy binding.

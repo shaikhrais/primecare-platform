@@ -5,6 +5,8 @@ on:
       - 'tools/workflow-verification/**'
       - 'tools/governance-production/**'
       - 'scripts/test-care-availability-workflow.mjs'
+      - 'scripts/esbuild-input-path.mjs'
+      - 'scripts/test-esbuild-input-path.mjs'
       - '.github/workflows/workflow-production-store.yml'
   push:
     branches: [main]
@@ -13,6 +15,8 @@ on:
       - 'tools/workflow-verification/record_production_recovery.py'
       - 'tools/governance-production/production-pin.json'
       - 'scripts/test-care-availability-workflow.mjs'
+      - 'scripts/esbuild-input-path.mjs'
+      - 'scripts/test-esbuild-input-path.mjs'
       - '.github/workflows/workflow-production-store.yml'
 permissions:
   contents: read
@@ -41,9 +45,10 @@ jobs:
           node-version: '24'
       - run: |
           pip install -r tools/governance-production/requirements.txt
-          npm install --prefix /tmp/workflow-test-tools --ignore-scripts --no-audit --no-fund pg@8.11.3 @electric-sql/pglite@0.3.14
+          npm install --prefix /tmp/workflow-test-tools --ignore-scripts --no-audit --no-fund pg@8.11.3 @electric-sql/pglite@0.3.14 esbuild@0.27.2
           ln -s /tmp/workflow-test-tools/node_modules node_modules
       - run: |
+          node --test scripts/test-esbuild-input-path.mjs
           python tools/workflow-verification/test_execution.py
           python tools/workflow-verification/test_gates.py
           python tools/workflow-verification/test_production_store.py
