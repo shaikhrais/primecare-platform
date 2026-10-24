@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
-      - name: Read back assistant and phone routing without changing it
+      - name: Verify saved assistant and routing; initialize bounded call duration if missing
         run: node scripts/verify-vapi-reception.mjs
         env:
           VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}

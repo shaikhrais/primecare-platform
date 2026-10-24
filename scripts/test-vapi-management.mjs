@@ -26,3 +26,9 @@ test('wrong resource and tool output cannot masquerade as test success',async()=
  const wrong=new VapiManagementClient({apiKey:key,async fetch(){return Response.json({...assistant,id:org});}});await assert.rejects(wrong.assistant(id),e=>e.code==='invalid_provider_response');
  for(const output of [[{role:'tool',content:'booked'}],[{role:'assistant',content:key}]]){const client=new VapiManagementClient({apiKey:key,async fetch(url,options){return Response.json(options.method==='GET'?assistant:{assistantId:id,output});}});await assert.rejects(client.syntheticChat(id,'hello'),e=>e.code==='invalid_provider_response');}
 });
+test('duration repair patches only the verified assistant field and reads back; changed scope denies writes',async()=>{
+ let maximum,patches=0;
+ const client=new VapiManagementClient({apiKey:key,async fetch(url,options){assert.equal(url,'https://api.vapi.ai/assistant/'+id);if(options.method==='PATCH'){patches++;assert.deepEqual(JSON.parse(options.body),{maxDurationSeconds:600});maximum=600;}return Response.json({...assistant,maxDurationSeconds:maximum});}});
+ const expected=await client.assistant(id);const saved=await client.setReceptionDuration(id,expected);assert.equal(saved.maxDurationSeconds,600);assert.equal(patches,1);
+ await assert.rejects(client.setReceptionDuration(id,{...expected,orgId:id}),e=>e.code==='test_scope_changed');assert.equal(patches,1);
+});

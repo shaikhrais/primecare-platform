@@ -15,9 +15,9 @@ export class VapiManagementClient extends BoundedBinaryAdapterBase {
   if(typeof apiKey!=='string'||apiKey.length<16||apiKey.length>512||/\s/.test(apiKey)||typeof request!=='function')throw fail('configuration_required');
   this.#key=apiKey;this.#fetch=request;
  }
- async #request(path,body){
+ async #request(path,body,method=body===undefined?'GET':'POST'){
   try{
-   const response=await this.#fetch('https://api.vapi.ai'+path,{method:body===undefined?'GET':'POST',redirect:'error',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body===undefined?{}:{'content-type':'application/json'})},...(body===undefined?{}:{body:JSON.stringify(body)})});
+   const response=await this.#fetch('https://api.vapi.ai'+path,{method,redirect:'error',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body===undefined?{}:{'content-type':'application/json'})},...(body===undefined?{}:{body:JSON.stringify(body)})});
    if(!response.ok){try{await response.body?.cancel();}catch{}throw fail(response.status===402?'payment_required':[401,403].includes(response.status)?'authentication_denied':response.status===404?'resource_not_found':'provider_unavailable');}
    const bytes=await this.readBoundedBody(response.body);
    const data=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
@@ -43,6 +43,17 @@ export class VapiManagementClient extends BoundedBinaryAdapterBase {
   if(!uuid(id))throw fail('invalid_resource');const row=await this.#request('/phone-number/'+id);
   if(row.id!==id||!uuid(row.orgId)||typeof row.number!=='string'||!/^\+[1-9][0-9]{6,14}$/.test(row.number)||typeof row.provider!=='string'||row.assistantId!==undefined&&row.assistantId!==null&&!uuid(row.assistantId))throw fail('invalid_provider_response');
   return Object.freeze({id:row.id,orgId:row.orgId,number:row.number,provider:row.provider,assistantId:row.assistantId??null,squadConfigured:!!row.squadId,workflowConfigured:!!row.workflowId,serverConfigured:!!row.server?.url});
+ }
+ /** Only this bounded assistant setting can be changed. Recheck the exact saved
+  * assistant scope, patch one field once, then perform independent API readback.
+  * No provider CAS is assumed and no mutation is automatically retried. */
+ async setReceptionDuration(id,expected){
+  const row=await this.assistant(id);
+  if(!expected||row.orgId!==expected.orgId||row.name!==expected.name||row.prompt!==expected.prompt||row.firstMessage!==expected.firstMessage||row.toolCount!==0||row.serverConfigured||!row.recordingDisabled)throw fail('test_scope_changed');
+  await this.#request('/assistant/'+id,{maxDurationSeconds:600},'PATCH');
+  const saved=await this.assistant(id);
+  if(saved.orgId!==row.orgId||saved.maxDurationSeconds!==600||saved.name!==row.name||saved.prompt!==row.prompt||saved.firstMessage!==row.firstMessage||saved.toolCount!==0||saved.serverConfigured||!saved.recordingDisabled)throw fail('invalid_provider_response');
+  return saved;
  }
  async syntheticChat(id,input){
   if(!uuid(id)||typeof input!=='string'||input.length<1||input.length>2000)throw fail('invalid_test');

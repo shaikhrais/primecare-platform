@@ -5,7 +5,8 @@ the official fixed-origin GET assistant/phone-number APIs and scoped synthetic
 POST chat tests. Six local tests pass, including credential redaction, payment
 errors, malformed IDs and denial of chat tests after tools/webhooks are attached.
 The provider workflow needs encrypted production secret `VAPI_PRIVATE_API_KEY`.
-Push checks are read-only. Explicit dispatch can request four synthetic chat
+Push checks read configuration and can initialize the exact verified receptionist's
+explicit ten-minute maximum duration. No phone routing is changed. Explicit dispatch can request four synthetic chat
 tests; returned text needs review and is never treated as live phone acceptance.
 No Vapi key was read, copied into code or obtained from browser session storage.
 
