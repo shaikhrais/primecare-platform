@@ -1,0 +1,30 @@
+name: Inspect native contact gateway target without changes
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/voice-contact-target-inventory.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Read only binding identities; never print values, secrets or source
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          node --input-type=module <<'JS'
+          const account=process.env.CLOUDFLARE_ACCOUNT_ID,token=process.env.CLOUDFLARE_API_TOKEN;
+          if(!/^[a-f0-9]{32}$/i.test(account??'')||!token)throw Error('Configuration required');
+          const r=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-api-gateway/settings',{redirect:'error',signal:AbortSignal.timeout(15000),headers:{authorization:'Bearer '+token,accept:'application/json'}});
+          if(!r.ok){await r.body?.cancel();throw Error('Read failed');}
+          const d=await r.json();if(d.success!==true||!Array.isArray(d.result?.bindings))throw Error('Read failed');
+          const bindings=d.result.bindings.map(b=>({name:b.name,type:b.type,...(b.type==='service'?{service:b.service,environment:b.environment??null,entrypoint:b.entrypoint??null}:{})}));
+          console.log('VOICE_CONTACT_TARGET_INVENTORY '+JSON.stringify({worker:'primecare-api-gateway',bindings,settingsKeys:Object.keys(d.result).sort(),readOnly:true,providerWrites:false}));
+          JS
