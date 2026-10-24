@@ -6,7 +6,6 @@ import 'package:flutter_core/platform/platform_master_repository.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_controller.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_screen.dart';
-import 'package:primecare_ui/src/theme/prime_theme.dart';
 
 const base = PlatformMasterRepository.endpoint;
 AuthState session({String user = 'actor-a', String tenant = 'control', String token = 'token-a', String role = 'code_admin'}) =>
@@ -58,7 +57,8 @@ void main() {
     await expectLater(fixture.repository.records(authorized, 'foreign/escape'), throwsA(isA<PlatformAdministrationFailure>()));
     expect(calls, 1);
     expect(() => PlatformAdministrationIndex(index(actor: 'foreign'), 'actor-a'), throwsFormatException);
-    expect(() => PlatformAdministrationIndex({...index(), 'tenants': [index()['tenants'][0], index()['tenants'][0]]}, 'actor-a'), throwsFormatException);
+    final tenant = (index()['tenants'] as List).first;
+    expect(() => PlatformAdministrationIndex({...index(), 'tenants': [tenant, tenant]}, 'actor-a'), throwsFormatException);
   });
 
   for (final afterWrite in [false, true]) {
@@ -137,19 +137,22 @@ void main() {
 
   test('in-flight creation is single flight and disposal prevents late readback', () async {
     final deferred = Completer<void>();
+    final dispatched = Completer<void>();
     var posts = 0, reads = 0;
     final fixture = Fixture((options, handler) {
       if (options.path == base) { success(options, handler, index()); }
       else if (options.method == 'POST') {
         posts++;
+        if (!dispatched.isCompleted) dispatched.complete();
         deferred.future.then((_) => success(options, handler, {'record': record()}, 201));
       } else { reads++; success(options, handler, {'records': <Object>[], 'types': ['department']}); }
     });
     addTearDown(fixture.dispose);
     final controller = PlatformMasterController(fixture.repository, isCurrent: () => true);
+    addTearDown(() { controller.dispose(); if (!deferred.isCompleted) deferred.complete(); });
     await controller.load(); await controller.selectTenant('tenant-a');
     final pending = controller.create('department', 'hr_recruitment', 'Recruitment');
-    await Future<void>.delayed(Duration.zero);
+    await dispatched.future.timeout(const Duration(seconds: 5));
     expect(posts, 1); expect(await controller.create('department', 'hr_other', 'Other'), isFalse);
     expect(await controller.retryPending(), isFalse);
     controller.dispose(); deferred.complete(); expect(await pending, isFalse); expect(reads, 1);
