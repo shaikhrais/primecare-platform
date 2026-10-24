@@ -95,23 +95,23 @@ The clinic deployment succeeded in run 40092411800. Storage foundations source
 dry-run rollback and committed schema readback in run 40092949052. All four
 previously missing tables were created; accounts and grants were unchanged.
 
-The signed-in Code Admin created five reference departments through the live
+The signed-in Code Admin created all six reference departments through the live
 Flutter interface in PrimeCare Admin HQ: Human Resources Operations, Recruitment,
-Onboarding and Credentialing, Learning and Development, and People Support and
-Safety. Each displayed success only after API readback. The browser environment
-stopped while entering the Workforce Administration label, before submission.
-Its draft is not evidence of a saved sixth record.
+Onboarding and Credentialing, Learning and Development, People Support and Safety,
+and Workforce Administration. Each displayed success only after API readback.
+After the interrupted browser session was restored, the sixth record was checked
+for absence before submission. A full page reload retained all six records.
 
-Independent read-only PostgreSQL run 40101538823, source
-`11de1297a1149b6ba86664571dc49dd361d4be64`, verified all five exact records,
-five matching creation audit entries, the approved actor and five idempotent
-receipts. Its query includes the sixth planned code, and requires it to remain
-absent while marked pending. The report explicitly retains
-`departmentCreationComplete=false` and `fullRecruitmentWorkflowVerified=false`.
-See `evidence/live-hr-department-readback.json` and the explicit requested,
-completed and pending scope in `evidence/hr-department-plan.json`.
+Independent read-only PostgreSQL run 40101993428, source
+`7b8e6f5dc490a88805e843b3e87c61c52ccc6376`, verified all six exact records,
+six matching creation audit entries, the approved actor and six idempotent
+receipts. `departmentCreationComplete=true` refers only to the explicit six-record
+reference plan. The report retains `fullRecruitmentWorkflowVerified=false`.
+The earlier five-record checkpoint remains in Git history and run 40101538823.
 
-The recovered browser no longer has the previous sign-in session. Sign-in and
-the authorized UI submission of Workforce Administration remain necessary.
-Do not fill that gap with a direct SQL insert or mark the six-department plan,
-full recruitment workflow, provider activation or all role workflows complete.
+See `evidence/live-hr-department-readback.json`, the completed scope in
+`evidence/hr-department-plan.json`, and the persisted browser screenshot
+`evidence/screenshots/hr-departments-admin-hq.jpg`. The screenshot and API reload
+are supported by independent database/audit readback; a screenshot alone is not
+verification. No direct SQL insert was used to create departments. Recruitment,
+provider activation and acceptance for all role workflows remain separate work.

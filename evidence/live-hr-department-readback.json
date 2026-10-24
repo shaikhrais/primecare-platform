@@ -1,27 +1,31 @@
 {
-  "source": "11de1297a1149b6ba86664571dc49dd361d4be64",
-  "runId": "40101538823",
+  "source": "7b8e6f5dc490a88805e843b3e87c61c52ccc6376",
+  "runId": "40101993428",
   "tenant": "PrimeCare Admin HQ",
   "requestedRecords": 6,
-  "pendingCodes": [
-    "hr_workforce_admin"
-  ],
-  "departmentCreationComplete": false,
-  "verifiedRecords": 5,
+  "pendingCodes": [],
+  "departmentCreationComplete": true,
+  "verifiedRecords": 6,
   "codes": [
     "hr_learning",
     "hr_onboarding",
     "hr_operations",
     "hr_people_support",
-    "hr_recruitment"
+    "hr_recruitment",
+    "hr_workforce_admin"
   ],
-  "auditedCreates": 5,
-  "idempotentReceipts": 5,
+  "auditedCreates": 6,
+  "idempotentReceipts": 6,
   "approvedActorMatched": true,
   "writesAttempted": false,
   "businessRecordsRead": true,
   "readsRestrictedToRequestedDepartments": true,
   "accountOrPermissionWrites": false,
   "providerWrites": false,
-  "fullRecruitmentWorkflowVerified": false
+  "fullRecruitmentWorkflowVerified": false,
+  "browserReloadVerified": true,
+  "screenshot": {
+    "path": "evidence/screenshots/hr-departments-admin-hq.jpg",
+    "sha256": "6c03eebe42375b202eb69d8019db33a18194819f118260a2e1f0da31c0888565"
+  }
 }
