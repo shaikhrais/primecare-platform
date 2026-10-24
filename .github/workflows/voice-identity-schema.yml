@@ -13,6 +13,9 @@ on:
       - 'cloudflare/workers/src/business-tasks/voice-contact.ts'
       - 'cloudflare/workers/src/business-tasks/voice-contact-postgres.ts'
       - 'scripts/test-voice-contact-enrollment.mjs'
+      - 'packages/shared/src/communications/voice-native-http.mjs'
+      - 'packages/shared/src/communications/voice-schema-validators.mjs'
+      - 'cloudflare/workers/src/business-tasks/twilio-integration.ts'
       - 'packages/shared/src/communications/twilio-verify.mjs'
   workflow_dispatch:
 permissions:

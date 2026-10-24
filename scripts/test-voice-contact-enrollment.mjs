@@ -1,5 +1,7 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import pg from 'pg';
+import {createHash} from 'node:crypto';
+import {createPostgresNativeVoiceHttpAdapter} from '../cloudflare/workers/src/business-tasks/twilio-integration.ts';
 import {VoiceContactEnrollmentService} from '../cloudflare/workers/src/business-tasks/voice-contact.ts';
 import {PostgresVoiceContactRepository,PostgresVoiceContactSessions} from '../cloudflare/workers/src/business-tasks/voice-contact-postgres.ts';
 import {createTwilioContactEnrollmentClient} from '../packages/shared/src/communications/twilio-verify.mjs';
@@ -30,5 +32,18 @@ test('revoked/existing contacts are preserved, and ambiguous SMS send cannot res
 });
 test('logout during the provider check prevents persistence of a verified phone',async()=>{
  const challenge=await service.start(hash,phone,crypto.randomUUID());logoutDuringCheck=true;await assert.rejects(service.check(hash,challenge.challengeId,'123456'));assert.equal(checks,1);assert.equal((await pool.query('SELECT COUNT(*)::int AS count FROM public.communication_voice_verified_contacts')).rows[0].count,0);assert.equal((await pool.query('SELECT state FROM public.communication_voice_contact_challenges')).rows[0].state,'unknown');
+});
+test('native HTTP enrollment persists and rereads exact contact through current PostgreSQL session',async()=>{
+ const token='native-fixture-token',sessionHash=createHash('sha256').update(token).digest('hex');await pool.query('UPDATE public.auth_sessions SET token_hash=$1 WHERE token_hash=$2',[sessionHash,hash]);
+ const reject=async()=>{throw Error('Unused capability');},grants=[];
+ const adapter=createPostgresNativeVoiceHttpAdapter({pool,origin:'https://app.example.invalid',maxRequestBytes:2048,maxAudioBytes:1024,async authorize(session,key){assert.equal(session.sessionHash,sessionHash);grants.push(key);},services:{contacts:service,tokens:{issue:reject},extensions:{assign:reject,publish:reject},voicemail:{read:reject,audio:reject},audio:{download:reject},otp:{start:reject,check:reject},confirmations:{preview:reject,approve:reject}}});
+ const post=async(action,input)=>adapter.respond(new Request('https://app.example.invalid/v1/voice/contact/'+action,{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify(input)}));
+ const first=await post('status',{});assert.equal(first.status,200);assert.deepEqual(await first.json(),{verified:false,enrollmentAllowed:true});
+ const requestId=crypto.randomUUID(),started=await post('start',{phone,requestId});assert.equal(started.status,200);const challenge=await started.json();assert.equal(sends,1);
+ const replay=await post('start',{phone,requestId});assert.equal(replay.status,200);assert.deepEqual(await replay.json(),challenge);assert.equal(sends,1);
+ const checked=await post('check',{challengeId:challenge.challengeId,code:'123456'});assert.equal(checked.status,200);assert.deepEqual(await checked.json(),{verified:true});assert.equal(checks,1);
+ assert.deepEqual(await (await post('status',{})).json(),{verified:true,enrollmentAllowed:false});
+ assert.deepEqual((await pool.query('SELECT tenant_id,user_id,phone,version::int AS version FROM public.communication_voice_verified_contacts')).rows,[{tenant_id:actor.tenantId,user_id:actor.id,phone,version:1}]);
+ await pool.query('DELETE FROM public.auth_sessions WHERE token_hash=$1',[sessionHash]);assert.equal((await post('status',{})).status,401);assert.equal(sends,1);assert.ok(grants.includes('contact.check'));
 });
 test.after(async()=>{await pool.end();});
