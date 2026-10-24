@@ -394,7 +394,387 @@ scanner acceptance. Existing grants, ownership, activation and release gates app
 ### Inbound event and stream ownership
 
 `InboundEmailAdapter` snapshots the SMTP envelope, raw stream/size and bound
-rejection callback before its first suspension.…6245 tokens truncated…ncontact, bind the exact returned SID to call/user/tenant/session, enforce attempt
+rejection callback before its first suspension. MIME headers never choose an
+owned mailbox. Cloudflare's native envelope fields are readonly; this also keeps
+trusted host adapters with mutable event objects from changing that decision.
+The shared `BoundedBinaryAdapterBase` cancels unread invalid-size bodies and
+releases acquired readers after success or failure. It permits up to declared
+bytes plus 1,024 delivered chunks, bounding empty-chunk work while preserving
+fragmented byte streams. This is a read-count budget, not a wall-clock deadline.
+
+Malformed input is rejected with generic messages. Read/provider and persistence
+failures propagate, so they are not converted into permanent SMTP rejections or
+fake receipt success. Tests include native workerd streams with synthetic event
+and storage ports, plus the existing native PostgreSQL mailbox-policy scenario.
+These tests do not establish live SMTP delivery or production routing approval.
+
+### Typed native Worker composition
+
+`cloudflare/workers/src/business-tasks/workers-runtime.ts` exports
+`WorkersCommunicationWorker`, derived from `PostgresCommunicationWorker`. Supply
+the existing database/email/limit dependencies plus `images`, `pictureBucket`,
+`scanPicture` and `maxPicturePixels`. The root constructs the native private
+picture repository with the same `limits.maxPictureBytes` used by the service.
+Missing capabilities fail at construction. A competing `pictures` override is
+rejected; use the existing parent composition for another trusted codec.
+
+```ts
+const worker = new WorkersCommunicationWorker({
+  ...nativeDependencies,
+  images: env.IMAGES,
+  pictureBucket: env.PRIVATE_PICTURES,
+  scanPicture: approvedScanner,
+  maxPicturePixels: configuredPixelLimit,
+});
+```
+
+This example names capabilities; it does not create a scanner, bucket, grant,
+mailbox or endpoint mount. The parent owns current sessions, endpoint/screen
+checks, scoped services, all four channels and trusted inbound email. Declaration
+files expose the actual binary/picture inheritance and narrow capability ports.
+The browser acceptance host uses this derived root with local Images/R2 and real
+disposable PostgreSQL. Separate workerd checks use synthetic database ports and
+actual local image/storage bindings. Existing production release gates apply.
+The complete Worker inherits the shared compression layer's Node built-ins; its
+pinned July test runtime explicitly enables `nodejs_compat`. The standalone
+validator and inbound adapter checks remain separate without that flag.
+
+### Twilio shared-number extension foundation
+
+### Twilio SMS notifications and delivery tracking
+
+`createTwilioCommunicationServices` composes the inherited voice/token services,
+`SmsNotificationService`, official SDK SMS transport, signed callback adapter and
+durable PostgreSQL observation store. It requires explicit policy, consent/contact
+policy, provider principal, live directories, verified sender and secure settings.
+It does not mount routes or activate any grant, number or schema.
+
+The SDK factory exposes only `messages.create`, uses server-side API-key auth,
+a ten-second timeout and no automatic retries. The transport fixes both the
+selected sender and Messaging Service and supplies an exact status callback.
+It treats ambiguous provider errors as unknown acceptance, never proof of failure
+or permission to resend. Recipient country must be resolved by the trusted
+recipient policy: the +1 prefix alone cannot distinguish Canada from the US.
+
+The SMS service extends `ScopedServiceBase`, authorizes queued drafts and current
+records, checks ownership and tenant scope, and uses an atomic one-attempt claim.
+Consent/opt-out is checked at queue, claim and just before sending. Retries of a
+claimed notification do not invoke the provider again. A denied final check can
+leave a claimed record requiring operational reconciliation, without sending.
+
+The callback and voice adapters share `TwilioSignedFormAdapter`, which inherits
+the binary limit/cleanup base. Signature validation includes all form parameters
+and the exact configured public URL. Provider body fields cannot choose a tenant.
+`PostgresSmsObservationStore` persists observations before acknowledging, resolves
+them by unique stored account/message receipt, and quarantines early callbacks.
+An approved worker must invoke reconciliation after send receipts are committed
+and periodically; this code does not create a scheduler. The internal principal
+requires `sms.status.receive` under current policy. Durable callback writes do
+not hold a pool connection while acquiring another through the scoped service.
+
+Repeated and late observations cannot downgrade delivery. Contradictory terminal
+states become `reconciliation_required`; SMS has no read confirmation here. Error
+codes are persisted without copying provider descriptions into responses.
+
+`20261023_business_sms.sql` is an unapplied schema candidate with separate SMS
+aggregate/command/event and callback tables and a unique provider receipt index.
+`PostgresAtomicStore` uses a validated table family for shared run/read primitives;
+its default business tables and existing inbox behavior are preserved. Register
+the exact schema/actions/endpoints in pinned production governance before use.
+
+Checks: 127 local Node tests and 14 workerd assertions passed; strict TypeScript
+checks passed. Official SMS request serialization uses a simulated HTTP port;
+no SMS or phone call was placed. The disposable PostgreSQL integration script
+and CI service are prepared but have not run locally because no disposable
+PostgreSQL server is available. This is not persistence or live-provider proof.
+
+### Voice implementation
+
+`PostgresVoiceDirectory` implements both incoming extension lookup and token
+directory ports against current native users, tenants and sessions. Token lookup
+accepts only a trusted server-side session hash, not a user ID or raw bearer token.
+`VoiceExtensionService` derives from `ScopedServiceBase`; assignment and
+publication use distinct mandatory policy actions and target eligibility checks.
+`createPostgresTwilioCommunicationServices` composes these native directory ports
+with the SMS/voice services without mounting any endpoint.
+
+The historical `20261023_voice_extensions.sql` initializes the former six-digit sequence.
+The follow-up candidate `20261024_four_digit_voice_extensions.sql` changes an empty
+legacy directory to a global 1000–9999 sequence and preserves an existing four-digit
+sequence without resetting it. It refuses legacy records or edited constraints.
+The directory retains
+unique extension and tenant/user keys, and versioned explicit publication.
+Assignments start unpublished; there is no reassignment or delete operation.
+Publication is concurrency-checked. Native directory membership is locked and
+rechecked during writes. Proposal authorization runs before acquiring the write
+connection, with version comparison afterward, so pool-backed policy reads do
+not wait on a connection held by the directory itself. Concurrent assignments
+may return a version conflict and consume an unused sequence value; a retry reads
+the committed mapping rather than reassigning it.
+
+Nine additional local tests cover authorization/publication and session input.
+Disposable PostgreSQL coverage includes global uniqueness, version conflicts,
+unpublished defaults, inactive users and a single-slot pool whose policy reads
+use the same pool. It is prepared but not yet executed. Existing native policy
+deliberately rejects all new Twilio actions until exact governed registration.
+
+`TwilioVoiceTokenService` in the Worker business-task layer extends
+`ScopedServiceBase`. It is an internal service, not a mounted endpoint. A trusted
+session directory supplies current identity and expiry; a destination directory
+must return exactly one current published tenant/user extension. Session,
+destination and mandatory `voice.token` policy are rechecked before returning
+the official SDK JWT. Tokens last at most 300 seconds and no longer than the
+remaining session lifetime. The signing key and TwiML App SID are server
+configuration; requests cannot select tenant, identity, app or lifetime.
+No key, directory, policy grant or public route is provisioned by this service.
+Its unit tests use synthetic credentials; they do not establish live calling.
+
+The user-requested requirement `communication-twilio-voice-v1` was registered in
+pinned production governance before implementation, with zero numbers, extension
+assignments or grants. `TwilioVoiceExtensionAdapter` inherits the same binary
+base and uses the official pinned `twilio@6.2.0` signature validator and TwiML
+builder. It is an internal provider adapter; no Twilio webhook is mounted.
+
+Supply a verified owned number, Account SID/Auth Token, exact HTTPS incoming and
+gather URLs, a byte limit and a trusted `directory.lookup(extension, 2)` port.
+The port must return current published tenant/user voice destinations, never an
+unscoped first-match search. Extensions are globally unique four-digit values
+1000–9999 behind the shared number. Unknown, duplicate, unpublished, inactive
+or changed destinations produce the same generic unavailable response. Tenant and
+user identities come exclusively from current directory matches, are copied
+before suspension and are rechecked before rendering Dial. SDK client identity
+is derived from both IDs using `twilioVoiceIdentity`.
+
+All form fields participate in official signature validation, including future
+fields and repeated values. Critical account/number/direction/extension fields
+cannot use duplicate values. Exact configured URLs are used without trusting
+forwarded-host headers. Form decoding rejects invalid UTF-8/percent sequences.
+The inherited reader supports both known and absent Content-Length while bounding
+real bytes, chunk count, allocation and cleanup. Directory/read infrastructure
+failures remain generic unavailable responses.
+
+The result prompts with Gather and renders Dial/Client only: it does not make a
+REST call, forward to arbitrary phone numbers, record calls, buy a number, issue
+Voice SDK tokens, assign/publish extensions or grant application access. A phone
+extension is public voice routing, not an authentication secret. SMS/MMS cannot
+be assigned by a voice extension; keep the existing in-app messaging and email
+channels separate. Actual account configuration, durable governed extension
+assignment/publication, registered webhook/token endpoints, SDK device integration
+and live phone acceptance are still required.
+
+
+`TwilioVoiceDevice` extends `CommunicationResourceBase` and owns an injected
+Twilio Voice SDK Device. `start()` waits for the SDK `registered` event, with a
+bounded timeout. Concurrent renewals share one authenticated request. A changed
+session generation or identity, failed renewal, SDK error, unregistration or token
+expiry destroys the device and disconnects calls. `close()` must be called by the
+host on logout, tenant switch and disposal; checking scope on asynchronous results
+is additional protection, not an authentication subscription. Token transport must
+request a fresh token through the registered authenticated server endpoint and
+must not cache or log it. The factory uses `new Device(token)` from the official
+SDK; no provider credential or SDK singleton belongs in the shared core.
+Incoming calls are rejected by default. An explicitly supplied host callback owns
+the authorized ringing UI; this adapter never automatically answers a call or
+exposes an outbound phone dialer. The adapter is unmounted. Port tests cover race
+and failure behavior; actual SDK/network/device acceptance remains required.
+
+`TwilioExtensionConnectService` extends `ScopedServiceBase` for same-tenant SDK
+extension calls. It fetches the canonical Call resource with an official read-only
+Twilio SDK port, checks account/SID/direction/live status and caller identity, then
+resolves both published destinations twice and checks current `voice.call.connect`
+permission twice. Provider form fields never become tenant or user authority.
+`TwilioExtensionConnectAdapter` inherits the signed bounded form boundary and
+renders only the authorized Client identity with the fixed shared caller number.
+`createPostgresTwilioExtensionConnectHandler` is an explicit separate composition
+root; no endpoint or permission is mounted or registered by constructing it.
+
+The browser resource's `connect({callerExtension,targetExtension})` passes only
+four-digit extensions to the SDK. It allows one pending/active outgoing call,
+removes ended-call listeners, and disconnects a late result after logout. The
+caller extension is a selector, not proof of caller identity. Server canonical
+Call verification and current native policy remain mandatory. Incoming host UI
+still owns answering/rejecting and must dispose this resource on auth changes.
+Tests cover the official REST request serializer, synthetic Call resources and
+native Worker execution. They do not place a call or prove production billing,
+permissions, device availability, provider webhooks or live phone acceptance.
+
+### Extension ringing and voicemail (candidate, unmounted)
+
+One published extension maps to one current tenant/user identity. The receiving
+user must sign in, register the Voice SDK Device, enable audio/microphone access,
+and keep a supported app/browser session available. The SDK rings registered
+instances of that identity, not everyone in the tenant. This implementation does
+not forward to a personal telephone or register native mobile push notifications.
+If several devices use the same identity, Twilio may ring those registrations;
+first-answer and cancellation across devices need live acceptance.
+
+`TwilioRingingCall` extends `CommunicationResourceBase`. It owns ringing,
+answering, connected and ended state, explicit authorized Answer, Decline, Mute
+and End Call actions, caller cancellation, and logout cleanup. The optional DOM
+panel uses text nodes and accessible status/buttons. Example host integration:
+
+```js
+const device = new TwilioVoiceDevice({
+  createDevice: token => new Device(token),
+  fetchToken, currentScope,
+  onIncoming: call => mountTwilioCallPanel({
+    element: incomingCallPanel, call, currentScope, authorizeAnswer,
+  }),
+});
+```
+
+All ports above must be real authenticated application bindings. `authorizeAnswer`
+is required and must recheck current permission through the server before accept;
+never substitute a default `true`. Return the panel resource so device disposal
+also closes the ringing/answered call. Host logout and tenant switch must close
+the device immediately. Device busy checks reject competing managed calls. The device owns each raw
+incoming offer before host UI creation can suspend. Return the managed panel
+resource, synchronously or asynchronously; a void result rejects the unowned
+call. Closing during UI creation rejects immediately, and any late panel is
+closed. Scope is checked again before adopting a panel. Canceled offers release
+the busy slot; their delayed results/errors cannot replace or close a newer
+call. Caller cancellation by itself does not unregister the device. Browser
+sound restrictions and background suspension can prevent ringing; the browser
+panel is not evidence of native mobile incoming-call support.
+
+Opt-in voicemail first persists the exact call/extension/tenant/user mapping,
+then adds a Dial action callback. Busy, no-answer and failed outcomes offer a
+recorded message after a disclosure and beep. Answered/completed/canceled calls
+hang up without recording. Record uses a separate finish action and completed
+recording-status callback, 120-second maximum, five-second silence timeout and
+pound to finish. Conversation audio is not recorded. Empty recordings do not email.
+Both phone-number inbound routing and SDK extension calls support the opt-in Dial
+callback. Keep it off until all contracts, storage and endpoint bindings exist.
+
+`VoicemailService` inherits `ScopedServiceBase`; its PostgreSQL repository stores
+immutable owner routing and one unique recording per call. Only a signed completed
+callback and canonical Recording resource matching account, call, source, duration
+and status can queue notification. Current directory/policy checks precede capture
+and notification. Mailbox resolution must return the destination user's current
+active verified address. `BusinessMailVoicemailNotifier` queues the existing
+inherited mail outbox with a stable recording key; queue acceptance is not email
+delivery. Retries must preserve that key. No callback-supplied address, tenant,
+user or RecordingUrl is trusted.
+
+Email contains a sign-in link to the owner's voicemail, not public audio or a
+Twilio credential. Registered playback handlers must call `voicemail.audio` with
+the authenticated server actor and `TwilioVoicemailAudioAdapter`; owner/tenant and
+permission are checked before and after the bounded private audio download. The
+adapter constructs the provider URL from SIDs, disallows redirects, bounds WAV
+bytes and keeps credentials server-side. The app playback endpoint and UI are
+not mounted by these modules. `createPostgresTwilioVoicemailServices` composes the
+candidate native services; mailbox and mail adapters remain mandatory host ports.
+No extension assignments, grants, migration application or live email sends occur
+on construction. Run Node tests, Worker checks, real-browser panel checks and the
+disposable PostgreSQL suite before release; then perform live device/phone/email
+acceptance.
+
+### Reception and defined AI tasks (candidate, unmounted)
+
+An optional server-configured `receptionExtension` changes the initial prompt:
+enter a known four-digit extension, press zero then pound, or wait for reception.
+Empty/zero/invalid/unknown extensions resolve that reception extension through the
+same unique published current directory and revocation checks as ordinary users.
+Duplicate critical form fields cannot choose reception or another tenant. There
+is no hard-coded person, personal phone, inferred tenant or automatic assignment.
+A shared number without identified tenant context uses platform reception; a
+future tenant-specific reception selector must resolve tenant context explicitly.
+If reception is unavailable, do not silently route to a different tenant.
+
+`VoiceTaskService` extends `ScopedServiceBase`; `VoiceTaskBase` and
+`BoundVoiceApiTask` supply a reusable provider-neutral task boundary. Vapi function
+tools or a Twilio ConversationRelay server can propose only host-registered task
+IDs through this service. The model never selects actor/tenant/credentials or a
+URL, SQL statement, unrestricted API operation, or permission. Each task validates
+strict typed arguments, generates a deterministic summary, and binds an existing
+business service with its own ownership/version/permission checks.
+
+The server authentication broker must verify a caller through OTP sent to an
+already verified account contact or passkey in the signed-in app, then persist a
+call/session/user/tenant binding. Do not derive this from caller ID or voice
+similarity. The LLM must never receive an OTP, raw verification secret or auth
+credential. The current identity port accepts only fresh active OTP/passkey
+bindings, and is checked again just before execution. Identity verification alone
+does not approve an operation.
+
+The gateway persists an exact bounded proposal with SHA-256 digest, task version,
+call/session/user/tenant binding, server summary and expiry (at most two minutes).
+A separate trusted app-confirmation or signed DTMF-event store must atomically
+consume approval for that exact digest. A transcript, model argument `confirmed`,
+spoken yes interpreted by the LLM, or stale confirmation cannot satisfy this port.
+Execution revalidates the proposal, definition and current policy, atomically
+claims one attempt and calls the bound service using a stable idempotency key.
+Provider timeouts or crashes leave unknown/executing outcomes for reconciliation;
+no automatic repeat of a potentially completed task. Status/timestamps provide
+execution evidence without persisting private provider errors.
+
+`PostgresVoiceTaskRepository` and its candidate migration implement the durable
+proposal/claim boundary; `createPostgresVoiceTaskService` composes it. Neither the
+OTP broker, one-time confirmation store, Vapi webhook credentials, Relay WebSocket
+handler nor real business task registrations are installed by this code. An empty
+task catalogue enables nothing. All new task permissions remain default-denied.
+A host must authenticate the provider transport independently, and resolve these
+trust ports from server state rather than tool arguments before mounting.
+
+### Durable app approval and first reception tasks (candidate)
+
+The user selected callbacks and appointments as the first agent scope.
+`createReceptionAppointmentTasks` returns three `VoiceTaskBase` subclasses:
+`reception.callback.request`, `appointment.booking.request` and
+`appointment.reschedule.request`. They accept only typed reason/window or
+service/appointment/slot references, future exact UTC instants and expected
+versions. Model-supplied tenant/user/contact/URL/confirmation fields are rejected.
+The server summary says request and subject to availability; success is not a
+claim that an appointment is booked. A host must bind approved request services
+that independently check account contact, ownership, slot/time correspondence,
+current availability, version and idempotency atomically. No arbitrary HTTP
+adapter or operations-role impersonation is provided. Current client appointment
+APIs were inspected and are read interfaces; care scheduling mutations are
+operations-restricted. This code does not bypass those boundaries.
+
+`PostgresVoiceTaskConfirmationService` extends `ScopedServiceBase` and implements
+`VoiceTaskTrust` with a mandatory server OTP/passkey identity broker. `preview`
+returns the exact proposed summary/digest/expiry to the authenticated native app.
+`approve` requires that native owner, tenant, current call/session binding,
+`voice.task.confirm` permission and displayed digest. Approval lasts at most one
+minute and is consumed atomically once. Repeated approval preserves the original
+expiry. Expired/consumed proof requires a fresh proposal; it cannot be silently
+renewed. Consumption repeats current identity/policy checks and matches all
+call/session/user/tenant/proposal/digest fields against the proposal table. The
+existing task gate rechecks permission and claims one execution afterwards.
+
+Only a registered authenticated native app endpoint may expose preview/approve;
+its host must enforce native session authentication and CSRF. Never expose
+approve as a Vapi/Relay tool or derive the actor from agent JSON. Use an opaque
+server binding ID or token hash, never a raw bearer token, as sessionId. Native
+logout/revocation must invalidate the call identity broker binding. A transcript,
+caller ID or voice-match result never establishes that binding. No OTP code is
+accepted, stored or returned by the confirmation service.
+
+`createPostgresConfirmedVoiceTaskServices` composes the durable proof gate;
+`createPostgresReceptionAppointmentVoiceServices` adds the selected typed task
+catalogue with required business request ports. Candidate schema and all new
+permissions remain unregistered/default-denied. Production OTP issuance/binding,
+request-writing APIs, app routes/screens, provider authentication and live AI
+runtime remain required. Deterministic local tests and disposable PostgreSQL
+checks distinguish synthetic identity/request ports from real call/booking
+acceptance; no appointments or callback requests are created in production.
+
+### Twilio Verify provider port (server-only, candidate)
+
+`createTwilioVoiceOtpClient` uses the official REST SDK with a fixed server-selected
+verified account contact, configured Verify Service SID and SMS channel. It
+exposes only start and check, never service administration, custom-code setting,
+manual status approval, contact changes or arbitrary SDK options. Checks address
+the exact persisted Verification SID; response account/service/contact/channel/SID
+must match before only the authoritative approved status succeeds. Secrets and
+raw codes are never returned or included in errors. Uncertain sends are not
+retried automatically. The shared SID boundary also rejects trailing newline
+values instead of accepting JavaScript's end-anchor exception.
+
+This is a provider port, not an identity grant or complete OTP broker. The host
+must authorize/limit and durably claim each send, resolve current verified account
+contact, bind the exact returned SID to call/user/tenant/session, enforce attempt
 limits/expiry and contact/session revocation, and accept code entry through a
 registered secure flow outside the LLM. Do not construct this client from a caller
 or model-supplied number. Persist a verification receipt before checking; after a
