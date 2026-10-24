@@ -18,8 +18,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
       - run: python tools/governance-production/test-hr-metadata-inventory.py
       - run: pip install -r tools/governance-production/requirements.txt
+      - name: Install the existing native PostgreSQL reader bridge
+        run: |
+          npm install --prefix /tmp/hr-reader-tools --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/hr-reader-tools/node_modules node_modules
       - name: Read pinned HR metadata without applicants or employee records
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
