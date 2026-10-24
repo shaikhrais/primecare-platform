@@ -87,3 +87,39 @@ source commit. Readiness remains blocked: zero verified contacts, zero native
 OTP grants, no deployed contact enrollment boundary, no private pre-AI pairing
 delivery, no native pairing UI and no deployed OTP runtime. Vapi business tools
 remain unattached and business actions remain disabled.
+
+## Native API integration evidence
+
+Commit `14a02d36ba373da28b9b83c7ae03a28740d0f2f7` composes enrollment into
+the bounded native voice adapter and candidate PostgreSQL worker. Workflow
+[40140990383](https://github.com/shaikhrais/primecare-platform/actions/runs/40140990383)
+passed all twelve communications jobs, including native PostgreSQL HTTP tests,
+standalone validator regeneration, strict types, Flutter transport/workspace and
+browser media checks. Typed OpenAPI workflow 40140990329 passed.
+
+Voice runtime workflow 40140990303 passed routing tests and provider credential
+preflight, but its full Twilio deployment configuration check failed because
+TWILIO_APPLICATION_SID, VOICE_MODEL and VOICE_ORIGIN are absent. No defaults were
+invented or phone routing changed. That workflow failure remains a deployment
+blocker; passing candidate code checks does not make the native endpoint live.
+
+The HTTP-to-PostgreSQL acceptance test uses the real native session parser,
+current database session lookup, bounded HTTP adapter, enrollment service and
+repository, plus an isolated official SDK HTTP fixture. It verifies initial
+status, one SMS request, identical pending replay without another SMS, code
+approval, exact tenant/user/phone/version database readback, status reload and
+logout rejection. Its first fixture used a short token and correctly received
+401; commit `feb3abfd6fe82e20fe38e714398f0adac9de7373` corrected the fixture to
+the canonical 43-character token. Authentication was unchanged.
+
+Workflow [40141201020](https://github.com/shaikhrais/primecare-platform/actions/runs/40141201020)
+passed seven native enrollment tests, eight Verify adapter tests, four schema
+tests and strict TypeScript checks. Production separately verified all six
+existing tables without schema changes, contact writes, grants or provider
+traffic. Its readiness report still blocks live activation and tool attachment.
+
+Communication stack acceptance workflow 40140990412 also passed on attempt 2.
+The first browser/PostgreSQL run failed to observe positive inbound audio packets;
+a single rerun of failed jobs passed without source changes (browser job
+121013498522). This preserves the initial failure as evidence of intermittent
+media-test behavior; it is not proof of a live telephone call or live enrollment.

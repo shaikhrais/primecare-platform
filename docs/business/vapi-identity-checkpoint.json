@@ -4,9 +4,9 @@
   "callIntegrationCommit": "fa7f6d758f288d7deb5de67dd5d5f2ba01deb83c",
   "integrationWorkflowRunId": 40137006645,
   "integrationTestsPassed": 24,
-  "schemaWorkflowRunId": 40140345889,
-  "schemaDeployJobId": 121010893701,
-  "schemaCommit": "5a9ca91f88ad33bf56bfb57d27f13dce4a621738",
+  "schemaWorkflowRunId": 40141201020,
+  "schemaDeployJobId": 121013275163,
+  "schemaCommit": "feb3abfd6fe82e20fe38e714398f0adac9de7373",
   "schemaTablesVerified": 6,
   "nativeSchemaTestsPassed": 4,
   "schemaIndependentReadOnlyVerification": true,
@@ -34,7 +34,7 @@
     16537
   ],
   "contactEnrollmentBackendImplemented": true,
-  "contactEnrollmentNativeTestsPassed": 6,
+  "contactEnrollmentNativeTestsPassed": 7,
   "verifyAdapterTestsPassed": 8,
   "contactEnrollmentRuntimeDeployed": false,
   "contactEnrollmentUiConnected": false,
@@ -55,5 +55,39 @@
       "runId": 40140345948,
       "conclusion": "success"
     }
-  ]
+  ],
+  "contactEnrollmentNativeHttpImplemented": true,
+  "contactEnrollmentCompositionImplemented": true,
+  "contactEnrollmentApiCommit": "14a02d36ba373da28b9b83c7ae03a28740d0f2f7",
+  "contactEnrollmentHttpTestsCommit": "feb3abfd6fe82e20fe38e714398f0adac9de7373",
+  "nativeVoiceSchemaContractCount": 12,
+  "contactEnrollmentApiLocalChecksPassed": 39,
+  "contactEnrollmentApiLocalChecksSkipped": 1,
+  "twilioFullRuntimeConfiguration": {
+    "workflowRunId": 40140990303,
+    "runtimeTests": "success",
+    "providerCredentialPreflight": "success",
+    "configuration": "failure",
+    "missing": [
+      "TWILIO_APPLICATION_SID",
+      "VOICE_MODEL",
+      "VOICE_ORIGIN"
+    ],
+    "runtimeMounted": false,
+    "numberRoutingChanged": false
+  },
+  "contactEnrollmentHttpWorkflowRunId": 40141201020,
+  "contactEnrollmentHttpReferenceJobId": 121013130196,
+  "schemaChangesOnLatestVerification": false,
+  "contactEnrollmentCommunicationsWorkflowRunId": 40140990383,
+  "contactEnrollmentCommunicationsJobsPassed": 12,
+  "contactEnrollmentOpenApiWorkflowRunId": 40140990329,
+  "contactEnrollmentStackAcceptance": {
+    "workflowRunId": 40140990412,
+    "conclusion": "success",
+    "attempts": 2,
+    "firstAttemptFailure": "positive_audio_packets_not_observed",
+    "rerunBrowserPostgresJobId": 121013498522,
+    "sourceChangedForRerun": false
+  }
 }
