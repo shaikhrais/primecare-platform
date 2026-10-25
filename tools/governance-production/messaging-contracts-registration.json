@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "requirement": "Register the signed, bounded inbound SMS inbox contract before mounting. Preserve current routing and grants. Delivery signatures do not authenticate an account; linked AI processing remains disabled until verified ownership, current consent and durable outbox composition are present.",
+  "implementationStatus": "registered-unimplemented",
+  "activation": false,
+  "service": "governance",
+  "anchorApiId": 710,
+  "operations": [
+    {
+      "key": "sms.incoming",
+      "method": "POST",
+      "path": "/v1/twilio/sms/incoming",
+      "authentication": "twilio-signed-form",
+      "responseKind": "twiml",
+      "permission": "twilio.signature",
+      "request": {
+        "type": "object",
+        "properties": {
+          "AccountSid": {
+            "type": "string",
+            "pattern": "^AC[a-fA-F0-9]{32}$",
+            "maxLength": 34
+          },
+          "MessageSid": {
+            "type": "string",
+            "pattern": "^SM[a-fA-F0-9]{32}$",
+            "maxLength": 34
+          },
+          "From": {
+            "type": "string",
+            "pattern": "^\\+[1-9][0-9]{1,14}$",
+            "maxLength": 16
+          },
+          "To": {
+            "type": "string",
+            "pattern": "^\\+[1-9][0-9]{1,14}$",
+            "maxLength": 16
+          },
+          "Body": {
+            "type": "string",
+            "maxLength": 1600,
+            "pattern": "^[^\\u0000\\u000b\\u000c]*$"
+          },
+          "NumMedia": {
+            "enum": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10"
+            ]
+          },
+          "MessagingServiceSid": {
+            "type": "string",
+            "pattern": "^MG[a-fA-F0-9]{32}$",
+            "maxLength": 34
+          },
+          "OptOutType": {
+            "enum": [
+              "STOP",
+              "START",
+              "HELP"
+            ]
+          }
+        },
+        "required": [
+          "AccountSid",
+          "MessageSid",
+          "From",
+          "To",
+          "Body",
+          "NumMedia"
+        ],
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string",
+              "maxLength": 16384
+            },
+            {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 128,
+              "items": {
+                "type": "string",
+                "maxLength": 16384
+              }
+            }
+          ]
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "NumMedia": {
+                  "const": "0"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "Body": {
+                  "pattern": "\\S"
+                }
+              }
+            }
+          }
+        ],
+        "x-primecare-content-type": "application/x-www-form-urlencoded"
+      },
+      "response": {
+        "type": "string",
+        "const": "<Response/>",
+        "x-primecare-content-type": "text/xml"
+      }
+    }
+  ]
+}

@@ -856,5 +856,25 @@
     "roleScreenChanges": false,
     "existingDenials": "preserve",
     "activation": false
+  },
+  "messagingContractRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_MESSAGING_CONTRACT_REGISTRATION",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "sms.incoming",
+        "method": "POST",
+        "path": "/v1/twilio/sms/incoming"
+      }
+    ],
+    "definitionSha256": "142ac4d11e339fa9b60e5762c7512c165831e882a977ed5bd95d987cc85d229b",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
   }
 }
