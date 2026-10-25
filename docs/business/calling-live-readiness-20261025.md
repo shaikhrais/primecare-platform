@@ -69,3 +69,12 @@ diagnostic run 40214235703 identified the artifact collision; native PostgreSQL
 17.2 showed the intended table/sequence shape. The reference and status report
 now use different paths, with an explicit CI assertion that the reference holds
 the full native shape and sequence range. Schema comparison remains mandatory.
+
+Run 40214533198 independently verified and committed the private four-digit
+extension table and sequence, then deployed the owned calling Worker. TURN key
+creation succeeded but its response failed the overly narrow fixed-length check,
+so no gateway route or website activation occurred. Recovery is restricted to
+that exact unused first-provisioning source, with no gateway binding and no
+installed TURN secrets. It cannot replace a live or unrelated key. New key
+validation uses the existing bounded provider's accepted format; only field types
+and lengths enter diagnostics.

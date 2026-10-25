@@ -27,6 +27,7 @@ try{
   await cy(page,'login-email').fill(user.email);await cy(page,'login-password').fill(user.password);
   const responsePromise=page.waitForResponse(r=>r.url()===gateway+'/v1/auth/login'&&r.request().method()==='POST');await cy(page,'login-submit').click();const response=await responsePromise;assert.equal(response.status(),200);const auth=await response.json();
   if(auth.status==='mfa_required'){assert.equal(auth.purpose,'enroll');await cy(page,'mfa-form').waitFor();const key=await cy(page,'mfa-seed').textContent();assert.match(key,/^[A-Z2-7]{32}$/);await cy(page,'mfa-code').fill(await totpAt(decode32(key),Math.floor(Date.now()/1000)));await cy(page,'mfa-submit').click();}
+  await page.waitForURL(url=>url.pathname!=='/login',{timeout:45000});
   await page.waitForFunction(()=>/^[A-Za-z0-9_-]{43}$/.test(sessionStorage.getItem('primecare_session')??''),{},{timeout:45000});
   user.token=await page.evaluate(()=>sessionStorage.getItem('primecare_session'));
   const workspace=await fetch(gateway+'/v1/governance/workspace',{headers:{authorization:'Bearer '+user.token},signal:AbortSignal.timeout(30000)});assert.equal(workspace.status,200);const data=await workspace.json();assert.equal(data.identity.userId,user.id);const screen=data.screens.find(s=>['psw_messages','patient_messages','communication','messaging'].includes(s.code));assert.ok(screen,'Existing communication screen required');
@@ -44,11 +45,11 @@ try{
  await until(async()=>await cy(bob.page,'internal-call-answer').isEnabled());await cy(bob.page,'internal-call-answer').click();
  report.stage='relay-audio';
  const stats=page=>page.evaluate(async()=>{
-  const peer=window.__callPeers.at(-1);if(!peer)return {ready:false};
+  const peer=window.__callPeers.at(-1);if(!peer)return {ready:false,peerCreated:false};
   const all=await peer.getStats(),audio=[...all.values()].filter(s=>s.type==='inbound-rtp'&&(s.kind==='audio'||s.mediaType==='audio'));
   const pair=[...all.values()].find(s=>s.type==='candidate-pair'&&s.state==='succeeded'&&(s.nominated||s.selected));
   const local=pair&&all.get(pair.localCandidateId),remote=pair&&all.get(pair.remoteCandidateId);
-  return {ready:peer.connectionState==='connected'&&audio.some(s=>s.packetsReceived>10)&&local?.candidateType==='relay'&&remote?.candidateType==='relay',packets:audio.reduce((sum,s)=>sum+(s.packetsReceived??0),0),relay:local?.candidateType==='relay'&&remote?.candidateType==='relay'};
+  return {connectionState:peer.connectionState,iceState:peer.iceConnectionState,signalingState:peer.signalingState,ready:peer.connectionState==='connected'&&audio.some(s=>s.packetsReceived>10)&&local?.candidateType==='relay'&&remote?.candidateType==='relay',packets:audio.reduce((sum,s)=>sum+(s.packetsReceived??0),0),relay:local?.candidateType==='relay'&&remote?.candidateType==='relay'};
  });
  await until(async()=>{const both=await Promise.all([stats(alice.page),stats(bob.page)]);report.mediaSummary=both;return both.every(s=>s.ready);},90000);
  const before=await Promise.all([stats(alice.page),stats(bob.page)]);await new Promise(r=>setTimeout(r,1500));const after=await Promise.all([stats(alice.page),stats(bob.page)]);assert.ok(after.every((s,i)=>s.packets>before[i].packets));report.relayAudio=true;report.bidirectionalPacketGrowth=true;
