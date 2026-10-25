@@ -16,11 +16,16 @@ def expected_scope():
  d=definition()
  return dict(optInVariable='GOVERNANCE_COMMUNICATION_STORAGE_WRITES',tables=sorted(TABLES),definitionSha256=hashlib.sha256(DEFINITION.read_bytes()).hexdigest(),migrationSha256=d['migrationSha256'],businessTables=sorted(d['tables']),schemaChanges=False,businessDataWrites=False,roleGrants=False,activation=False)
 class CommunicationStorageStore(ProductionWorkflowStore):
+ definition_reader=staticmethod(definition)
+ migration_reader=staticmethod(migration_sql)
+ scope_reader=staticmethod(expected_scope)
+ pin_key='communicationStorageWriter'
+ opt_in='GOVERNANCE_COMMUNICATION_STORAGE_WRITES'
  def __init__(self,**kwargs):
   super().__init__(**kwargs)
   try:
-   if self.pin.get('communicationStorageWriter')!=expected_scope() or os.environ.get('GOVERNANCE_COMMUNICATION_STORAGE_WRITES')!='1':raise GovernanceReadError('Exact storage registration scope and opt-in required')
-   migration_sql()
+   if self.pin.get(self.pin_key)!=self.scope_reader() or os.environ.get(self.opt_in)!='1':raise GovernanceReadError('Exact storage registration scope and opt-in required')
+   self.migration_reader()
    self.db.execute('LOCK TABLE '+','.join(self.table(t) for t in sorted(TABLES))+' IN SHARE ROW EXCLUSIVE MODE')
    for table in TABLES:
     meta=self.tables.get(table)
@@ -31,7 +36,7 @@ class CommunicationStorageStore(ProductionWorkflowStore):
   except Exception:self.db.rollback();self.db.close();raise
  def ensure_exact(self,table,key,values,apply):
   if table not in TABLES:raise GovernanceReadError('Unrelated storage metadata refused')
-  d=definition()
+  d=self.definition_reader()
   if table=='db_schema_tables':
    if set(key)!={'table_name'} or key['table_name'] not in d['tables'] or values!={'app_id':self.app_id(),'table_type':'table','status':'registered-unimplemented'}:raise GovernanceReadError('Exact storage table design required')
   elif table=='db_schema_columns':
@@ -57,10 +62,10 @@ class CommunicationStorageStore(ProductionWorkflowStore):
   if len(rows)!=1 or rows[0][1:]!=('/v1/messages','governance',1,'role_screen_permissions'):raise GovernanceReadError('Registered communication API required')
   return rows[0][0]
  def baseline_values(self):
-  d=definition()
-  return dict(app_id=self.app_id(),baseline_sql=migration_sql(),migration_sources=json.dumps([d['migrationPath']]),schema_metadata=json.dumps(d,sort_keys=True),validation_evidence=json.dumps({'status':'registered-unimplemented','runtimeVerified':False,'reviewApproved':False},sort_keys=True),sha256=d['migrationSha256'])
+  d=self.definition_reader()
+  return dict(app_id=self.app_id(),baseline_sql=self.migration_reader(),migration_sources=json.dumps([d['migrationPath']]),schema_metadata=json.dumps(d,sort_keys=True),validation_evidence=json.dumps({'status':'registered-unimplemented','runtimeVerified':False,'reviewApproved':False},sort_keys=True),sha256=d['migrationSha256'])
 def register(db,apply=True):
- d=definition();ids={}
+ d=db.definition_reader();ids={}
  for name,columns in d['tables'].items():
   tid=db.ensure_exact('db_schema_tables',{'table_name':name},{'app_id':db.app_id(),'table_type':'table','status':'registered-unimplemented'},apply);ids[name]=tid
   for column in columns:db.ensure_exact('db_schema_columns',{'table_id':tid,'column_name':column['column_name']},{k:v for k,v in column.items() if k!='column_name'},apply)

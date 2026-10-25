@@ -1,0 +1,128 @@
+name: Register SMS link contracts and deploy private messaging storage
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/messaging-storage-production.yml'
+      - 'tools/governance-production/generate-messaging-storage.py'
+      - 'tools/governance-production/messaging-storage-registration.json'
+      - 'tools/governance-production/messaging_storage.py'
+      - 'tools/governance-production/test-messaging-storage.py'
+      - 'tools/governance-production/sms-link-contracts-registration.json'
+      - 'tools/governance-production/sms_link_contracts_registration.py'
+      - 'tools/governance-production/test-sms-link-contracts-*.py'
+      - 'scripts/migrate-messaging-storage.mjs'
+      - 'scripts/test-messaging-storage-schema.mjs'
+      - 'packages/database/migrations/20261025_communication_messaging_storage.sql'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: primecare-messaging-storage-production
+  cancel-in-progress: false
+jobs:
+  metadata:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: communication_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: communication_registration_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communication_fixture -d communication_registration_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      WORKFLOW_TEST_DATABASE_URL: postgres://communication_fixture:disposable-only@localhost:5432/communication_registration_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt jsonschema==4.25.1
+      - run: |
+          python tools/governance-production/generate-messaging-storage.py --check
+          python tools/governance-production/test-communication-storage.py
+          python tools/governance-production/test-messaging-storage.py
+          python tools/governance-production/test-sms-link-contracts-definition.py
+          python tools/governance-production/test-sms-link-contracts-registration.py
+  reference:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: twilio_fixture, POSTGRES_PASSWORD: fixture_only, POSTGRES_DB: twilio_sms_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U twilio_fixture -d twilio_sms_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      WORKFLOW_TEST_DATABASE_URL: postgres://twilio_fixture:fixture_only@localhost:5432/twilio_sms_test
+      TWILIO_SMS_TEST_DATABASE_URL: postgres://twilio_fixture:fixture_only@localhost:5432/twilio_sms_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/messaging-schema-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3 twilio@6.2.0
+          ln -s "$RUNNER_TEMP/messaging-schema-tools/node_modules" node_modules
+          node scripts/migrate-messaging-storage.mjs --reference
+          node --test scripts/test-messaging-storage-schema.mjs
+          node scripts/test-communication-messaging-postgres.mjs
+          node scripts/test-communication-sms-links-postgres.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: messaging-storage-schema-reference
+          path: test-results/messaging-storage-schema/reference.json
+  production:
+    needs: [metadata, reference]
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/messaging-schema-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/messaging-schema-tools/node_modules" node_modules
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+      - uses: actions/download-artifact@v4
+        with:
+          name: messaging-storage-schema-reference
+          path: test-results/messaging-storage-schema
+      - name: Register exact native API and storage metadata with dry runs and independent readback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_SMS_LINK_REGISTRATION: '1'
+          GOVERNANCE_MESSAGING_STORAGE_WRITES: '1'
+        run: |
+          set -o pipefail
+          mkdir -p test-results/messaging-storage-schema
+          python tools/governance-production/sms_link_contracts_registration.py --dry-run
+          python tools/governance-production/sms_link_contracts_registration.py --apply | tee test-results/messaging-storage-schema/api-registration.log
+          python tools/governance-production/messaging_storage.py --register-dry-run
+          python tools/governance-production/messaging_storage.py --register | tee test-results/messaging-storage-schema/storage-registration.log
+      - name: Independently verify registration without writer opt-ins
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python tools/governance-production/sms_link_contracts_registration.py --verify
+          python tools/governance-production/messaging_storage.py --verify
+      - name: Dry-run then apply exact empty private storage
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          MESSAGING_STORAGE_SCHEMA_APPLY: '1'
+        run: |
+          node scripts/migrate-messaging-storage.mjs --dry-run
+          node scripts/migrate-messaging-storage.mjs --apply
+      - name: Independently verify schema through pooled read-only connection
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/migrate-messaging-storage.mjs --verify
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: messaging-storage-production-evidence
+          path: test-results/messaging-storage-schema

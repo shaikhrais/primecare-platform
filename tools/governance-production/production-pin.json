@@ -876,5 +876,92 @@
     "permissionChanges": false,
     "providerWrites": false,
     "activation": false
+  },
+  "messagingStorageWriter": {
+    "optInVariable": "GOVERNANCE_MESSAGING_STORAGE_WRITES",
+    "tables": [
+      "database_rebuild_baselines",
+      "db_schema_columns",
+      "db_schema_tables"
+    ],
+    "definitionSha256": "220b2f84526de17913576b3967669714517b989b90abc679927e8aff501032b5",
+    "migrationSha256": "53ba30374bbd3a889b6738534b821a3596d7d0b1df7b843c3f470741f264296c",
+    "businessTables": [
+      "business_chat_aggregates",
+      "business_chat_commands",
+      "business_chat_events",
+      "business_sms_aggregates",
+      "business_sms_callbacks",
+      "business_sms_commands",
+      "business_sms_events",
+      "business_sms_inbox",
+      "business_work_aggregates",
+      "business_work_commands",
+      "business_work_events",
+      "communication_sms_consent",
+      "communication_sms_links"
+    ],
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "activation": false
+  },
+  "messagingStorageSchemaMigration": {
+    "runtimeHost": "pooled.db.prisma.io",
+    "directHost": "db.prisma.io",
+    "database": "postgres",
+    "credentialSource": "PRODUCTION_DATABASE_URL",
+    "optInVariable": "MESSAGING_STORAGE_SCHEMA_APPLY",
+    "schema": "public",
+    "tables": [
+      "business_work_aggregates",
+      "business_work_commands",
+      "business_work_events",
+      "business_sms_aggregates",
+      "business_sms_commands",
+      "business_sms_events",
+      "business_sms_callbacks",
+      "business_sms_inbox",
+      "business_chat_aggregates",
+      "business_chat_commands",
+      "business_chat_events",
+      "communication_sms_consent",
+      "communication_sms_links"
+    ],
+    "migrationSha256": "53ba30374bbd3a889b6738534b821a3596d7d0b1df7b843c3f470741f264296c",
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "providerWrites": false,
+    "activation": false
+  },
+  "smsLinkContractRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_SMS_LINK_REGISTRATION",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "link.bind",
+        "method": "POST",
+        "path": "/v1/messaging/sms/link/bind"
+      },
+      {
+        "key": "link.revoke",
+        "method": "POST",
+        "path": "/v1/messaging/sms/link/revoke"
+      },
+      {
+        "key": "link.status",
+        "method": "POST",
+        "path": "/v1/messaging/sms/link/status"
+      }
+    ],
+    "definitionSha256": "844f93fa805139cd6243a66b8975ca88f3b2cb930d510944273833e159145d3a",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
   }
 }

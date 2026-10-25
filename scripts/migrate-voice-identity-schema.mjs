@@ -6,9 +6,9 @@ const {Pool}=pg;
 export const names=['communication_voice_verified_contacts','communication_voice_otp','communication_voice_otp_limits','communication_voice_tasks','communication_voice_confirmations','communication_voice_contact_challenges'];
 const files=['20261023_communication_voice_otp.sql','20261023_communication_voice_tasks.sql','20261023_communication_voice_confirmations.sql','20261024_communication_voice_contact_enrollment.sql'];
 export async function sources(){const result=[];for(const name of files){const sql=await readFile('packages/database/migrations/'+name,'utf8');result.push({name,sql,sha256:createHash('sha256').update(sql).digest('hex')});}return result;}
-export async function snapshot(db){
+export async function snapshot(db,tableNames=names){
  const shapes={};
- for(const name of names){
+ for(const name of tableNames){
   const relation='public.'+name;
   if(!(await db.query('SELECT to_regclass($1) IS NOT NULL AS present',[relation])).rows[0]?.present){shapes[name]=null;continue;}
   const columns=(await db.query(`SELECT a.attname AS name,format_type(a.atttypid,a.atttypmod) AS type,a.attnotnull AS not_null,pg_get_expr(d.adbin,d.adrelid) AS default_value FROM pg_attribute a LEFT JOIN pg_attrdef d ON d.adrelid=a.attrelid AND d.adnum=a.attnum WHERE a.attrelid=to_regclass($1) AND a.attnum>0 AND NOT a.attisdropped ORDER BY a.attnum`,[relation])).rows;
@@ -27,8 +27,8 @@ export async function createPrivateTables(db,input){
  // New tables must already have owner-only default access. Unexpected ACLs
  // cause rollback below; no provider-managed GRANT/REVOKE commands are needed.
 }
-export async function privateAcl(db){
- for(const name of names){const rows=(await db.query(`SELECT 1 FROM pg_class c CROSS JOIN LATERAL aclexplode(COALESCE(c.relacl,acldefault('r',c.relowner))) a WHERE c.oid=to_regclass($1) AND a.grantee<>c.relowner LIMIT 1`,['public.'+name])).rows;if(rows.length)throw Error('Unexpected table access preserved');}
+export async function privateAcl(db,tableNames=names){
+ for(const name of tableNames){const rows=(await db.query(`SELECT 1 FROM pg_class c CROSS JOIN LATERAL aclexplode(COALESCE(c.relacl,acldefault('r',c.relowner))) a WHERE c.oid=to_regclass($1) AND a.grantee<>c.relowner LIMIT 1`,['public.'+name])).rows;if(rows.length)throw Error('Unexpected table access preserved');}
 }
 async function main(){
  const mode=process.argv[2],fixture=mode==='--reference';

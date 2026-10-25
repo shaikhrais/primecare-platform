@@ -1,0 +1,212 @@
+{
+  "version": 1,
+  "requirement": "Register owner-only native SMS link status, fresh-session explicit-consent binding and revocation contracts. Actor, tenant, phone, provider and session context come from trusted server state, not the body or AI. No grants, route mounting, phone routing changes or live traffic.",
+  "implementationStatus": "registered-unimplemented",
+  "activation": false,
+  "service": "governance",
+  "anchorApiId": 710,
+  "operations": [
+    {
+      "key": "link.status",
+      "method": "POST",
+      "path": "/v1/messaging/sms/link/status",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "properties": {
+          "conversationId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$",
+            "maxLength": 200,
+            "minLength": 1
+          }
+        },
+        "required": [
+          "conversationId"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "linked": {
+                "const": false
+              }
+            },
+            "required": [
+              "linked"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "linked": {
+                "const": true
+              },
+              "link": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$",
+                    "minLength": 36,
+                    "maxLength": 36
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740990
+                  },
+                  "conversationId": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$",
+                    "maxLength": 200,
+                    "minLength": 1
+                  },
+                  "channel": {
+                    "const": "sms"
+                  }
+                },
+                "required": [
+                  "id",
+                  "version",
+                  "conversationId",
+                  "channel"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "linked",
+              "link"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "link.bind",
+      "method": "POST",
+      "path": "/v1/messaging/sms/link/bind",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "conversationId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$",
+            "maxLength": 200,
+            "minLength": 1
+          },
+          "consent": {
+            "const": true
+          }
+        },
+        "required": [
+          "id",
+          "conversationId",
+          "consent"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "linked": {
+            "const": true
+          },
+          "link": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$",
+                "minLength": 36,
+                "maxLength": 36
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740990
+              },
+              "conversationId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              "channel": {
+                "const": "sms"
+              }
+            },
+            "required": [
+              "id",
+              "version",
+              "conversationId",
+              "channel"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "linked",
+          "link"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "key": "link.revoke",
+      "method": "POST",
+      "path": "/v1/messaging/sms/link/revoke",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$",
+            "minLength": 36,
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "revoked": {
+            "const": true
+          }
+        },
+        "required": [
+          "revoked"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

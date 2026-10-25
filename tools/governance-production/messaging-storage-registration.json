@@ -1,0 +1,928 @@
+{
+  "version": 1,
+  "baseline": "communication-messaging-storage-v1",
+  "sourceApiId": 710,
+  "migrationPath": "packages/database/migrations/20261025_communication_messaging_storage.sql",
+  "migrationSha256": "53ba30374bbd3a889b6738534b821a3596d7d0b1df7b843c3f470741f264296c",
+  "sourceHashes": {
+    "20261022_business_communications.sql": "1ecfad0a085a50d55e32bd424dee6f8d065b26fe78144165b48042a62aabc46b",
+    "20261023_business_sms.sql": "aaab88d5c18806c1022f17a351523b3b961d23fe8631aa58efb1deaf1aa27fb0",
+    "20261024_communication_sms_inbox.sql": "7bc9d48ee7e331505efe117db581b81515989ffd71373b4e80fabe76e1926e5b",
+    "20261024_communication_ai_turns.sql": "ffe1bcf7e4fe6f9f9aea4d32a6ab6ec0284c6e0c9212f19a4414d6a0ec7e17c4",
+    "20261024_communication_sms_links.sql": "150ba47089ea2d22553bd91c6961bb390fcb498840ef8755b0923309179fed9d"
+  },
+  "tables": {
+    "business_work_aggregates": [
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "state",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_work_commands": [
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_work_aggregates",
+        "foreign_column_name": "tenant_id"
+      },
+      {
+        "column_name": "aggregate_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_work_aggregates",
+        "foreign_column_name": "id"
+      },
+      {
+        "column_name": "command_key",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "actor_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "fingerprint",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "result",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_work_events": [
+      {
+        "column_name": "id",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_work_aggregates",
+        "foreign_column_name": "tenant_id"
+      },
+      {
+        "column_name": "aggregate_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_work_aggregates",
+        "foreign_column_name": "id"
+      },
+      {
+        "column_name": "actor_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "event_type",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "version",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "now()",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_sms_aggregates": [
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "state",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_sms_commands": [
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_sms_aggregates",
+        "foreign_column_name": "tenant_id"
+      },
+      {
+        "column_name": "aggregate_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_sms_aggregates",
+        "foreign_column_name": "id"
+      },
+      {
+        "column_name": "command_key",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "actor_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "fingerprint",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "result",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_sms_events": [
+      {
+        "column_name": "id",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_sms_aggregates",
+        "foreign_column_name": "tenant_id"
+      },
+      {
+        "column_name": "aggregate_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_sms_aggregates",
+        "foreign_column_name": "id"
+      },
+      {
+        "column_name": "actor_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "event_type",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "version",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "now()",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_sms_callbacks": [
+      {
+        "column_name": "digest",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "observation",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "processed",
+        "data_type": "boolean",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "false",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "received_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "now()",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_sms_inbox": [
+      {
+        "column_name": "account_sid",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "message_sid",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "fingerprint",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "event",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "disposition",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "duplicate_count",
+        "data_type": "int",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "0",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "received_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "now()",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_chat_aggregates": [
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "state",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_chat_commands": [
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_chat_aggregates",
+        "foreign_column_name": "tenant_id"
+      },
+      {
+        "column_name": "aggregate_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_chat_aggregates",
+        "foreign_column_name": "id"
+      },
+      {
+        "column_name": "command_key",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "actor_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "fingerprint",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "result",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "business_chat_events": [
+      {
+        "column_name": "id",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_chat_aggregates",
+        "foreign_column_name": "tenant_id"
+      },
+      {
+        "column_name": "aggregate_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "business_chat_aggregates",
+        "foreign_column_name": "id"
+      },
+      {
+        "column_name": "actor_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "event_type",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "version",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "now()",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "communication_sms_consent": [
+      {
+        "column_name": "account_sid",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "shared_number",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "phone",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "blocked",
+        "data_type": "boolean",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "version",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "updated_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "clock_timestamp()",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ],
+    "communication_sms_links": [
+      {
+        "column_name": "id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "communication_voice_verified_contacts",
+        "foreign_column_name": "tenant_id"
+      },
+      {
+        "column_name": "user_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "communication_voice_verified_contacts",
+        "foreign_column_name": "user_id"
+      },
+      {
+        "column_name": "conversation_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "account_sid",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "communication_sms_consent",
+        "foreign_column_name": "account_sid"
+      },
+      {
+        "column_name": "messaging_service_sid",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "shared_number",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "communication_sms_consent",
+        "foreign_column_name": "shared_number"
+      },
+      {
+        "column_name": "phone",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "communication_sms_consent",
+        "foreign_column_name": "phone"
+      },
+      {
+        "column_name": "contact_version",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "consent_version",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "version",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "1",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "consented_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "clock_timestamp()",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "revoked_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 1,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ]
+  },
+  "relationships": [
+    {
+      "fromTable": "business_work_commands",
+      "columns": [
+        "tenant_id",
+        "aggregate_id"
+      ],
+      "toTable": "business_work_aggregates",
+      "targetColumns": [
+        "tenant_id",
+        "id"
+      ]
+    },
+    {
+      "fromTable": "business_work_events",
+      "columns": [
+        "tenant_id",
+        "aggregate_id"
+      ],
+      "toTable": "business_work_aggregates",
+      "targetColumns": [
+        "tenant_id",
+        "id"
+      ]
+    },
+    {
+      "fromTable": "business_sms_commands",
+      "columns": [
+        "tenant_id",
+        "aggregate_id"
+      ],
+      "toTable": "business_sms_aggregates",
+      "targetColumns": [
+        "tenant_id",
+        "id"
+      ]
+    },
+    {
+      "fromTable": "business_sms_events",
+      "columns": [
+        "tenant_id",
+        "aggregate_id"
+      ],
+      "toTable": "business_sms_aggregates",
+      "targetColumns": [
+        "tenant_id",
+        "id"
+      ]
+    },
+    {
+      "fromTable": "business_chat_commands",
+      "columns": [
+        "tenant_id",
+        "aggregate_id"
+      ],
+      "toTable": "business_chat_aggregates",
+      "targetColumns": [
+        "tenant_id",
+        "id"
+      ]
+    },
+    {
+      "fromTable": "business_chat_events",
+      "columns": [
+        "tenant_id",
+        "aggregate_id"
+      ],
+      "toTable": "business_chat_aggregates",
+      "targetColumns": [
+        "tenant_id",
+        "id"
+      ]
+    },
+    {
+      "fromTable": "communication_sms_links",
+      "columns": [
+        "account_sid",
+        "shared_number",
+        "phone"
+      ],
+      "toTable": "communication_sms_consent",
+      "targetColumns": [
+        "account_sid",
+        "shared_number",
+        "phone"
+      ]
+    },
+    {
+      "fromTable": "communication_sms_links",
+      "columns": [
+        "tenant_id",
+        "user_id"
+      ],
+      "toTable": "communication_voice_verified_contacts",
+      "targetColumns": [
+        "tenant_id",
+        "user_id"
+      ]
+    }
+  ],
+  "generatedIdentity": {
+    "business_work_events.id": "always",
+    "business_sms_events.id": "always",
+    "business_chat_events.id": "always"
+  },
+  "scope": "Empty owner-private storage only. No user/contact/tenant rows, message content, role grants, routing or messaging activation."
+}
