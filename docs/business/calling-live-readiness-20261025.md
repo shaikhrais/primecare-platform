@@ -85,3 +85,11 @@ one-time envelope-level key, rejecting conflicting key fields. Tests cover both
 response layouts. Only the two exact failed, unbound, secretless setup sources
 qualify for unused-key recovery; any installed key or active gateway binding
 continues to block that path.
+
+Run 40215206231 exposed field names only: the actual creation envelope is
+result/success/errors/messages and the result contains uid/name/secret/created/
+modified. The one-time bearer is result.secret, unlike the published API schema's
+result.key. The adapter now accepts that observed field and rejects conflicting
+bearers. No key values have been logged or saved as artifacts. Recovery includes
+only the three measured failed provisioning checkpoints, all unbound and without
+installed TURN secrets.

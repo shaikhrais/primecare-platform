@@ -21,3 +21,9 @@ test('one-time TURN bearer is retained from either documented result or live env
  assert.equal(turnCreateResult({result,key}).key,key);assert.equal(turnCreateResult({result:{...result,key}}).key,key);
  assert.throws(()=>turnCreateResult({result:{...result,key},key:'different'}),/invalid_turn_key/);
 });
+
+test('observed Cloudflare result.secret bearer is accepted but conflicting secret and key are rejected',()=>{
+ const result={name:config.turnKeyName,uid:'a'.repeat(32),secret:'b'.repeat(64)};
+ assert.equal(validOwnedTurnKey(turnCreateResult({result}),config),true);
+ assert.throws(()=>turnCreateResult({result:{...result,key:'different'}}),/invalid_turn_key/);
+});

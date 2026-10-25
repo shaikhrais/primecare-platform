@@ -12,7 +12,7 @@ export function validOwnedTurnKey(key,config){
  return key?.name===config.turnKeyName&&typeof key.uid==='string'&&/^[A-Za-z0-9_-]{16,128}$/.test(key.uid)&&typeof key.key==='string'&&key.key.length>=16&&key.key.length<=512&&!/[^\x21-\x7e]/.test(key.key);
 }
 export function recoverableUnusedTurnKey({key,worker,gateway},config){
- return key?.name===config.turnKeyName&&typeof key.uid==='string'&&/^[A-Za-z0-9_-]{16,128}$/.test(key.uid)&&worker?.bindings?.some(b=>b.name==='INTERNAL_CALL_OWNER'&&b.text===config.owner)&&worker.bindings.some(b=>b.name==='INTERNAL_CALL_SOURCE'&&['b2b89613f2af779beb3b84ed9d513ff4b8741a6a','ae607bca0a1122c07f1efc88458351036ca4b9f7'].includes(b.text))&&!worker.bindings.some(b=>b.name==='TURN_KEY_TOKEN'||b.name==='TURN_KEY_ID')&&!gateway.bindings.some(b=>b.name===config.gatewayBinding);
+ return key?.name===config.turnKeyName&&typeof key.uid==='string'&&/^[A-Za-z0-9_-]{16,128}$/.test(key.uid)&&worker?.bindings?.some(b=>b.name==='INTERNAL_CALL_OWNER'&&b.text===config.owner)&&worker.bindings.some(b=>b.name==='INTERNAL_CALL_SOURCE'&&['b2b89613f2af779beb3b84ed9d513ff4b8741a6a','ae607bca0a1122c07f1efc88458351036ca4b9f7','c4789d2850198d25d02f9dade13cc12f8d835a09'].includes(b.text))&&!worker.bindings.some(b=>b.name==='TURN_KEY_TOKEN'||b.name==='TURN_KEY_ID')&&!gateway.bindings.some(b=>b.name===config.gatewayBinding);
 }
 
 /** Cloudflare deployments may return the one-time bearer alongside result.
@@ -20,6 +20,7 @@ export function recoverableUnusedTurnKey({key,worker,gateway},config){
 export function turnCreateResult(envelope){
  const result=envelope?.result;
  if(!result||typeof result!=='object'||Array.isArray(result))throw Error('invalid_turn_key');
- if(typeof result.key==='string'&&typeof envelope.key==='string'&&result.key!==envelope.key)throw Error('invalid_turn_key');
- return {...result,key:result.key??envelope.key};
+ const keys=[result.key,result.secret,envelope.key].filter(v=>v!==undefined);
+ if(keys.some(v=>typeof v!=='string')||new Set(keys).size>1)throw Error('invalid_turn_key');
+ return {...result,key:keys[0]};
 }
