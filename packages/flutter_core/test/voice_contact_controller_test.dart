@@ -7,6 +7,19 @@ void main(){
  late VoiceContactTransport transport;late VoiceContactController model;
  setUp((){transport=VoiceContactTransport();model=VoiceContactController(hub:CommunicationHub(transport),requestId:()=>VoiceContactTransport.challenge);});
  tearDown(()=>model.dispose());
+ test('a failed read-only initial status can recover without sending a verification',() async {
+  transport.statusError=StateError('Read unavailable');expect(await model.refresh(),false);
+  expect(model.canSend,false);expect(transport.sends,0);
+  transport.statusError=null;expect(await model.refresh(),true);expect(model.canSend,true);
+  expect(transport.sends,0);expect(await model.send('+14165550101'),true);expect(transport.sends,1);
+ });
+ test('a failed status after any send cannot enable a resend',() async {
+  await model.refresh();await model.send('+14165550101');
+  transport.statusError=StateError('Read unavailable');expect(await model.refresh(),false);
+  transport.statusError=null;await model.refresh();expect(model.canSend,false);
+  expect(await model.send('+14165550101'),false);expect(transport.sends,1);
+ });
+
  test('inherited controller uses three native actions and requires an explicit SMS request',() async {
   expect(model,isA<CommunicationWorkspaceControllerBase>());expect(model.canSend,false);await model.refresh();expect(transport.sends,0);expect(model.canSend,true);
   expect(await model.send('+14165550101'),true);expect(model.canSend,false);expect(model.canCheck,true);expect(await model.send('+14165550102'),false);expect(transport.sends,1);

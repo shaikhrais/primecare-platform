@@ -324,3 +324,26 @@ and per-request connection cleanup. Live deployment probes returned the expected
 401 responses and verified origin/CORS checks and preserved gateway bindings.
 No real SMS or phone enrollment occurred. The current API grants independently
 read back as five eligible roles and three explicit Code Admin contact grants.
+
+#### Authenticated production latency correction
+
+The b392 deployment rendered the phone panel, but the real authenticated status
+read exceeded the existing ten-second browser receive limit. This was not a live
+phone verification. A protected read-only diagnostic (40149228228) confirmed the
+active Code Admin account, active tenant and allowed current metadata. It read
+no sessions or contacts and sent no provider requests. The nullable-ID HTTP policy
+probe took 6,265 ms; the exact-ID service probe took 1,796 ms. Status repeats both
+HTTP and service checks, making the latency material despite passing anonymous
+boundary probes and small-fixture tests.
+
+The correction converts each required PostgreSQL field with `to_jsonb(column)`
+instead of repeatedly converting whole rows that also contain large API schemas.
+It also binds native contact HTTP authorization to the existing exact API IDs.
+Tagged and scalar metadata, explicit API AND screen rights, active account/tenant,
+manifest pinning and every before/after recheck retain their existing semantics.
+Server and browser timeout limits stay unchanged. Production timings and actual
+authenticated browser acceptance must be measured again after deployment.
+
+A failed initial read-only status can now recover after a successful explicit
+status refresh. Once a verification send has been attempted, any uncertain result
+still prevents a second send. Two controller regressions cover that distinction.

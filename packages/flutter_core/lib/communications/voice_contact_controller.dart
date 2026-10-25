@@ -13,7 +13,7 @@ final class VoiceContactController extends CommunicationWorkspaceControllerBase 
  bool? _verified;
  bool _allowed=false;
  String _status='phoneNotEnrolled';
- bool _loaded=false,_uncertain=false;
+ bool _loaded=false,_uncertain=false,_attemptedVerification=false;
  bool get verified=>_verified==true;
  bool get canSend=>!busy&&_loaded&&_allowed&&!verified&&!_uncertain&&_challenge==null;
  bool get canCheck=>!busy&&!_uncertain&&_challenge!=null&&(_expiresAt??0)>DateTime.now().millisecondsSinceEpoch;
@@ -21,7 +21,7 @@ final class VoiceContactController extends CommunicationWorkspaceControllerBase 
  static String _uuid(){final r=Random.secure(),b=List<int>.generate(16,(_)=>r.nextInt(256));b[6]=(b[6]&15)|64;b[8]=(b[8]&63)|128;final h=b.map((v)=>v.toRadixString(16).padLeft(2,'0')).join();return '${h.substring(0,8)}-${h.substring(8,12)}-${h.substring(12,16)}-${h.substring(16,20)}-${h.substring(20)}';}
  bool _exact(Map<String,Object?> value,Set<String> keys)=>value.length==keys.length&&keys.every(value.containsKey);
  @override void clearPrivateState(){_challenge=null;_expiresAt=null;_verified=null;_allowed=false;_loaded=false;}
- @override void operationFailed(Object error){if(error is! CommunicationInputException){_uncertain=true;_status='phoneUnknown';}}
+ @override void operationFailed(Object error){if(error is! CommunicationInputException){if(_attemptedVerification)_uncertain=true;_status='phoneUnknown';}}
  @override String classify(Object error){if(error is CommunicationInputException)return 'phoneInvalid';final kind=super.classify(error);return switch(kind){'unauthenticated'||'forbidden'=>kind,'invalidInput'=>'phoneInvalid',_=>'phoneUnknown'};}
  Future<bool> refresh()=>run(() async {
   final value=await hub.voiceContacts.status();
@@ -35,6 +35,7 @@ final class VoiceContactController extends CommunicationWorkspaceControllerBase 
   if(!canSend)return Future.value(false);
   return run(() async {
    if(phone.length>16||phone!=phone.trim()||!RegExp(r'^\+[1-9][0-9]{6,14}$').hasMatch(phone))throw CommunicationInputException();
+   _attemptedVerification=true; // A send may commit even if its receipt is lost.
    final value=await hub.voiceContacts.start(phone,_requestId()),expires=value['expiresAt'];
    if(!_exact(value,{'challengeId','verificationRequested','expiresAt'})||value['verificationRequested']!=true||value['challengeId'] is! String||(value['challengeId'] as String).length!=36||!RegExp(r'^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$').hasMatch(value['challengeId'] as String)||expires is! int||expires<=DateTime.now().millisecondsSinceEpoch||expires>DateTime.now().millisecondsSinceEpoch+120000)throw StateError('Invalid enrollment challenge');
    return (){_challenge=value['challengeId'] as String;_expiresAt=expires;_status='phoneCodeSent';};

@@ -69,3 +69,13 @@ test('native PostgreSQL evaluates tagged and native current grants',{skip:!proce
   await assert.rejects(voice.authorize(session,'token',voiceRequest),/Forbidden/);
  }finally{if(ownsSchema)await q('DROP SCHEMA '+schema+' CASCADE');if(ownsUsers)await q('DROP TABLE public.users');if(ownsTenants)await q('DROP TABLE public.tenants');await pool.end();}
 });
+
+test('native contact permission rechecks select the exact registered API and convert only individual fields',async()=>{
+ const calls=[];
+ const policy=new PostgresVoiceEndpointPolicy({async connect(){return {async query(sql,values){calls.push({sql,values});return {rows:sql.startsWith('SELECT manifest')?[{manifest_sha256:pin.manifestSha256}]:sql.startsWith('SELECT DISTINCT')?[{role_id:'7',screen_id:'1269',api_id:'16535'}]:[]};},release(){}};}});
+ await policy.authorize({actor,sessionHash:'a'.repeat(64),expiresAt:Date.now()+60000},'contact.status',new Request('https://example.invalid/v1/voice/contact/status',{method:'POST',headers:{authorization:'Bearer '+'b'.repeat(43)}}));
+ const query=calls.find(c=>c.sql.startsWith('SELECT DISTINCT'));
+ assert.equal(query.values[2],'16535');assert.equal(query.values[5],'VOICE_CONTACT_STATUS');
+ for(const alias of ['a','r','ap','s','sp','l'])assert.equal(query.sql.includes('to_jsonb('+alias+')->'),false);
+ assert.ok(query.sql.includes('to_jsonb(a."permission_key")'));assert.ok(query.sql.includes('jsonb_typeof'));
+});

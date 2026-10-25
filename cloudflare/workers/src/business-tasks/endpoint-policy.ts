@@ -1,6 +1,7 @@
 import type {Actor} from './store.ts';
 import {assertActor} from '../../../../packages/shared/src/communications/service-base.ts';
 import platformContact from '../../../../tools/governance-production/voice-contact-platform-registration.json' with {type:'json'};
+import contactAccess from '../../../../tools/governance-production/voice-contact-access-registration.json' with {type:'json'};
 import contacts from '../../../../tools/governance-production/voice-contact-contracts-registration.json' with {type:'json'};
 import voice from '../../../../tools/governance-production/twilio-contracts-registration.json' with {type:'json'};
 import type {NativeVoiceSession} from '../../../../packages/shared/src/communications/voice-native-http.mjs';
@@ -12,7 +13,9 @@ type Pool={connect():Promise<Client>};
 // Imported metadata contains both native scalars and explicitly tagged values.
 // Missing, wrong-type and unknown-tag values yield NULL and cannot grant access.
 const value=(alias:string,column:string)=>{
- const x=`to_jsonb(${alias})->'${column}'`;
+ // Convert only the required field. Serializing an entire API row repeatedly
+ // also serializes its large schemas, making current permission rechecks slow.
+ const x=`to_jsonb(${alias}."${column}")`;
  return `(CASE WHEN jsonb_typeof(${x}) IN ('string','number') THEN ${x}#>>'{}'
  WHEN jsonb_typeof(${x})='object' AND ${x}->>'t' IN ('text','integer') AND jsonb_typeof(${x}->'v')='string' THEN ${x}->>'v' ELSE NULL END)`;
 };
@@ -73,6 +76,6 @@ export class PostgresVoiceEndpointPolicy extends PostgresRegisteredCommunication
   const contract=contact??voice.operations.find(op=>op.key===key);
   const url=new URL(request.url);
   if(!contract||contract.authentication!=='native-session-csrf'||contract.permission!=='role_screen_permissions'||contract.method!==request.method||contract.path!==url.pathname||url.search||url.hash||!request.headers.has('authorization')||request.headers.get('authorization')?.startsWith('Bearer ')!==true||! /^[a-f0-9]{64}$/.test(session?.sessionHash)||!Number.isSafeInteger(session.expiresAt)||session.expiresAt<=Date.now())throw Error('Forbidden');
-  return this.authorizeRegistered(session.actor,null,contract.method,contract.path,(contact?'VOICE_':'TWILIO_')+key.replaceAll('.','_').toUpperCase());
+  return this.authorizeRegistered(session.actor,contact?contactAccess.apiIds[contact.key as keyof typeof contactAccess.apiIds]:null,contract.method,contract.path,(contact?'VOICE_':'TWILIO_')+key.replaceAll('.','_').toUpperCase());
  }
 }

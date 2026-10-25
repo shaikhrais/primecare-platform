@@ -156,12 +156,14 @@
     "sharedControls": 7,
     "independentReadback": true,
     "roleScreenRightsChanged": false,
-    "runtimeAcceptanceVerified": true,
+    "runtimeAcceptanceVerified": false,
     "uiProductionAcceptanceVerified": false,
     "liveSmsVerified": false,
     "runtimeSource": "b392bc2941a035345176913e280e9356a5253a76",
     "runtimeRunId": 40148207920,
     "nativeBoundaryVerified": true,
-    "authenticatedStatusReadVerified": false
+    "authenticatedStatusReadVerified": false,
+    "status": "authenticated_status_latency_correction_in_progress",
+    "policyDiagnosticRunId": 40149228228
   }
 }

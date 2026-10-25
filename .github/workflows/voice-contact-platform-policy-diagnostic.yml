@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/diagnose-voice-contact-platform-policy.mjs'
+      - 'cloudflare/workers/src/business-tasks/endpoint-policy.ts'
       - '.github/workflows/voice-contact-platform-policy-diagnostic.yml'
   workflow_dispatch:
 permissions:
