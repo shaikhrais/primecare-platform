@@ -43,6 +43,34 @@ try{
    LEFT JOIN ${table('role_screen_permissions')} sp ON ${value('sp','screen_id')}=${value('s','id')} AND ${value('sp','role_id')}=${value('r','id')}
    WHERE ${value('a','route_path')}=ANY($1::text[]) AND ${value('a','http_method')}='POST' AND ${value('a','service_name')}='governance' AND ${value('a','auth_required')}='1' AND ${value('a','permission_key')}='role_screen_permissions'
    GROUP BY ${value('a','route_path')}`, [['/v1/voice/otp/start','/v1/voice/otp/check','/v1/voice/contact/status','/v1/voice/contact/start','/v1/voice/contact/check']]);
+  // Read metadata only: no user, session, phone or message content is selected.
+  // Report exact portal/route ownership rather than treating OAuth consent as
+  // a communication permission editor or assuming an administrator bypass.
+  report.nativeContactRoleAccess=(await db.query(`SELECT
+   ${value('r','role_code')} AS role,
+   ${value('r','primary_app_code')} AS app,
+   ${value('r','primary_app_url')} AS origin,
+   ${value('r','post_login_route')} AS home,
+   ${value('s','id')} AS screen_id,
+   ${value('s','screen_code')} AS screen,
+   ${value('sp','can_view')} AS can_view
+   FROM ${table('roles')} r
+   LEFT JOIN ${table('role_screen_permissions')} sp ON ${value('sp','role_id')}=${value('r','id')}
+   LEFT JOIN ${table('screens')} s ON ${value('s','id')}=${value('sp','screen_id')} AND ${value('s','active')}='1'
+   WHERE ${value('r','active')}='1' AND (
+    ${value('r','role_code')}='code_admin' OR
+    (${value('s','id')} IN ('234','331','559','578') AND ${value('sp','can_view')}='1'))
+   ORDER BY ${value('r','role_code')},${value('s','id')}`)).rows;
+  report.nativeContactCodeAdminApiAccess=(await db.query(`SELECT
+   ${value('a','route_path')} AS path,
+   ${value('ap','can_access')} AS can_access,
+   ${value('ap','permission_key')} AS permission
+   FROM ${table('roles')} r
+   CROSS JOIN ${table('api_endpoints')} a
+   LEFT JOIN ${table('api_permissions')} ap ON ${value('ap','role_id')}=${value('r','id')} AND ${value('ap','api_id')}=${value('a','id')}
+   WHERE ${value('r','role_code')}='code_admin' AND ${value('r','active')}='1'
+    AND ${value('a','id')} IN ('16535','16536','16537')
+   ORDER BY ${value('a','route_path')}`)).rows;
   report.nativeOtpPermissions=grants.rows.filter(row=>row.path.startsWith('/v1/voice/otp/'));
   report.nativeContactPermissions=grants.rows.filter(row=>row.path.startsWith('/v1/voice/contact/'));
   for(const path of ['/v1/voice/contact/status','/v1/voice/contact/start','/v1/voice/contact/check']){const row=grants.rows.find(row=>row.path===path);if(!row||row.registration_count!==1||!Number.isSafeInteger(row.grant_count)||row.grant_count<1)report.blockers.push('native_contact_permission_not_ready:'+path);}
