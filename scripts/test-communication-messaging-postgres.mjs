@@ -1,0 +1,51 @@
+// Named disposable native PostgreSQL fixture only. Never loads production secrets.
+import assert from 'node:assert/strict';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import pg from 'pg';
+import {PostgresSmsInboundStore} from '../cloudflare/workers/src/business-tasks/sms-inbound.ts';
+import {PostgresAtomicStore} from '../cloudflare/workers/src/business-tasks/store.ts';
+import {MessagingAiReplyService} from '../packages/shared/src/communications/messaging-ai.ts';
+import {SmsNotificationService} from '../cloudflare/workers/src/business-tasks/sms.ts';
+import {TwilioSmsTransport} from '../packages/shared/src/communications/twilio-sms.mjs';
+const connectionString=process.env.TWILIO_SMS_TEST_DATABASE_URL;
+if(!connectionString)throw Error('Disposable TWILIO_SMS_TEST_DATABASE_URL required');
+const url=new URL(connectionString);
+if(!['localhost','127.0.0.1','[::1]'].includes(url.hostname)||url.username!=='twilio_fixture'||url.pathname!=='/twilio_sms_test')throw Error('Only named disposable local messaging fixture permitted');
+const schema='messaging_fixture_'+crypto.randomUUID().replaceAll('-','');
+const admin=new pg.Pool({connectionString,max:1});await admin.query('CREATE SCHEMA '+schema);
+const pool=new pg.Pool({connectionString,max:4,options:'-c search_path='+schema});
+let groups=0;
+try{
+ for(const name of ['20261023_business_sms.sql','20261024_communication_sms_inbox.sql','20261024_communication_ai_turns.sql'])await pool.query((await readFile('packages/database/migrations/'+name,'utf8')).replaceAll('public.',''));
+ const event={provider:'twilio',channel:'sms',accountSid:'AC'+'a'.repeat(32),messageSid:'SM'+'b'.repeat(32),messagingServiceSid:'MG'+'c'.repeat(32),from:'+15550002000',to:'+15550001000',text:'Hello',mediaCount:0,control:null};
+ const results=await Promise.all(Array.from({length:12},()=>new PostgresSmsInboundStore(pool).accept(event)));
+ assert.equal(results.filter(x=>x==='recorded').length,1);assert.equal(results.filter(x=>x==='duplicate').length,11);
+ const saved=(await pool.query('SELECT event,duplicate_count FROM business_sms_inbox WHERE account_sid=$1 AND message_sid=$2',[event.accountSid,event.messageSid])).rows[0];assert.deepEqual(saved.event,event);assert.equal(saved.duplicate_count,11);groups++;
+ await assert.rejects(new PostgresSmsInboundStore(pool).accept({...event,text:'Tampered duplicate'}),/persistence conflict/);
+ assert.equal((await pool.query('SELECT event FROM business_sms_inbox')).rows[0].event.text,'Hello');groups++;
+ assert.equal(await new PostgresSmsInboundStore(pool).accept({...event,accountSid:'AC'+'d'.repeat(32)}),'recorded');
+ for(const [change,disposition]of [[{messageSid:'SM'+'e'.repeat(32),control:'STOP'},'control'],[{messageSid:'SM'+'f'.repeat(32),mediaCount:1},'quarantined']]){
+  assert.equal(await new PostgresSmsInboundStore(pool).accept({...event,...change}),'quarantined');assert.equal((await pool.query('SELECT disposition FROM business_sms_inbox WHERE message_sid=$1',[change.messageSid])).rows[0].disposition,disposition);
+ }groups++;
+ const actor={id:'alice',tenantId:'fixture-a'};let denied=false,modelCalls=0,queues=0,sends=0;
+ const link={id:'link',version:1,actorId:actor.id,tenantId:actor.tenantId,conversationId:'thread',provider:'twilio',channel:'sms',address:event.from};
+ const policy={async assert(a){if(denied||a.id!==actor.id||a.tenantId!==actor.tenantId)throw Error('Denied');},async assignee(){throw Error('No grants');}};
+ const transport=new TwilioSmsTransport({client:{messages:{async create(input){sends++;return {sid:'SM'+'1'.repeat(32),accountSid:event.accountSid,messagingServiceSid:event.messagingServiceSid,from:event.to,to:input.to,status:'queued'};}}},accountSid:event.accountSid,messagingServiceSid:event.messagingServiceSid,sender:event.to,statusCallback:'https://fixture.invalid/status',maxTextBytes:6400});
+ const sms=new SmsNotificationService(new PostgresAtomicStore(pool,'business_sms'),policy,{async recipient(a,to){if(denied||to!==link.address||a.id!==link.actorId||a.tenantId!==link.tenantId)throw Error('Consent/link denied');}},transport,{sender:event.to,accountSid:event.accountSid,messagingServiceSid:event.messagingServiceSid,maxTextBytes:6400});
+ const ports={links:{async resolve(){return link;}},model:{async reply(){modelCalls++;return 'Reception can help.';}},outbox:{async queue(a,input){queues++;assert.deepEqual(input.link,link);await sms.queue(a,input.id,'ai-queue',input.link.address,input.text);const saved=await sms.read(a,input.id);assert.equal(saved.status,'queued');return {id:input.id,status:'queued'};}}};
+ const create=()=>new MessagingAiReplyService(new PostgresAtomicStore(pool,'business_chat'),policy,ports);
+ const input={conversationId:'thread',eventId:'native-event',text:'Hello'};
+ await Promise.all(Array.from({length:6},()=>create().queue(actor,input.eventId,'receive',input)));
+ await Promise.all(Array.from({length:6},()=>create().generate(actor,input.eventId,'generate',1)));assert.equal(modelCalls,1);
+ await Promise.all(Array.from({length:6},()=>create().queueReply(actor,input.eventId,'outbox',3)));assert.equal(queues,1);
+ const readback=(await pool.query('SELECT state FROM business_chat_aggregates WHERE tenant_id=$1 AND id=$2',[actor.tenantId,input.eventId])).rows[0].state;
+ assert.equal(readback.status,'queued');assert.equal(readback.version,5);assert.equal(readback.outboxId,'ai-reply:native-event');assert.equal((await create().read(actor,input.eventId)).reply,'Reception can help.');groups++;
+ const outbox=(await pool.query('SELECT state FROM business_sms_aggregates WHERE tenant_id=$1 AND id=$2',[actor.tenantId,readback.outboxId])).rows[0].state;
+ assert.equal(outbox.text,'Reception can help.');assert.equal(outbox.to,event.from);assert.equal(outbox.status,'queued');assert.equal(sends,0);
+ await Promise.all([sms.deliver(actor,outbox.id,'deliver',1),sms.deliver(actor,outbox.id,'deliver',1)]);assert.equal(sends,1);
+ assert.equal((await pool.query('SELECT state FROM business_sms_aggregates WHERE id=$1',[outbox.id])).rows[0].state.status,'accepted');groups++;
+ await assert.rejects(create().read({...actor,tenantId:'foreign'},input.eventId));denied=true;
+ await assert.rejects(create().queueReply(actor,input.eventId,'outbox',3),/Denied/);assert.equal(queues,1);groups++;
+ console.log('MESSAGING_NATIVE_POSTGRES '+JSON.stringify({groupsPassed:groups,independentDatabaseReadback:true,multipleConnections:true,liveProviderTraffic:false}));
+ await mkdir('test-results/messaging',{recursive:true});await writeFile('test-results/messaging/native.json',JSON.stringify({groupsPassed:groups,independentDatabaseReadback:true,multipleConnections:true,liveProviderTraffic:false},null,2)+'\n');
+}finally{await pool.end();await admin.query('DROP SCHEMA '+schema+' CASCADE');await admin.end();}

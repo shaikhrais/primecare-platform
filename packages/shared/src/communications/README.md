@@ -1,5 +1,54 @@
 # Shared communication core
 
+## Linked messaging AI lane
+
+`TwilioSmsInboundAdapter` extends the existing signed, bounded Twilio form
+adapter. It saves a normalized SMS in `PostgresSmsInboundStore` before returning
+empty TwiML. Provider account + MessageSid deduplication is durable across
+connections/restarts; conflicting payloads cannot overwrite the first event.
+No webhook field can assign a tenant, user or role. Control messages are stored
+outside the AI queue. MMS is quarantined without fetching attachment URLs;
+media ingestion remains pending its bounded private-picture composition.
+
+`MessagingAiReplyChannel` extends `CommunicationChannelBase`, and
+`MessagingAiReplyService` extends `ScopedServiceBase`. The same service accepts
+verified SMS, WhatsApp and Telegram link projections through mandatory trusted
+host ports. It rechecks policy and the full link/version at queue, generation,
+read and reply queueing, including duplicate retries. Inbound event ID is the
+turn ID; host consumers must derive it from provider account + immutable event
+ID and resolve account ownership independently. A phone number alone never
+authorizes a turn. Host linking must reject shared/ambiguous accounts.
+
+The service claims generation and outbox queueing durably before invoking external
+ports. Duplicate claims do not invoke them again; uncertain queue acceptance is
+left in `queueing` for explicit reconciliation using the deterministic outbox ID.
+A queue receipt is not proof of sending or delivery. Host outbox implementations
+must revalidate link and consent atomically with queueing and again before send.
+Production opt-out handling must suppress pending sends, not merely exclude STOP
+from model input. Host consumers must serialize conversation processing and keep
+pairing/OTP ceremonies outside model messages.
+
+`OpenAiMessageModel` extends `CommunicationResourceBase`. It uses bounded Responses
+API input/output, a fixed endpoint, configured service information, cancellation,
+no provider storage and no shared message history. Up to 16 independent requests
+can be in flight per resource. This initial model lane answers general service
+questions only: it exposes no tools and cannot execute account actions. Vapi's
+existing task boundary remains separate; verified proposals and confirmations
+must reach the shared task service rather than being inferred from AI text.
+
+These components are internal and are **not mounted or deployed**. New inbox/turn
+migrations, link/consent persistence, provider webhook contracts, current
+production permissions, dispatcher composition, outbox bindings and live receive/
+AI/send/delivery tests remain activation gates. No Flutter contract or screen is
+changed, and current phone routing is preserved. WhatsApp/Telegram transport
+configuration and Vapi task activation are not implied by the common service.
+
+Checks: `node --test scripts/test-communication-sms-inbound.mjs
+scripts/test-communication-messaging-ai.mjs scripts/test-communication-openai-message.mjs`.
+Native concurrency/readback checks: `node scripts/test-communication-messaging-postgres.mjs`
+with the named disposable `TWILIO_SMS_TEST_DATABASE_URL` fixture only. The existing
+communications CI runs these checks; it does not apply migrations to production.
+
 Vapi provider management uses `VapiManagementClient`, inheriting the bounded
 binary adapter. It reads saved assistant and phone projections without exposing
 embedded provider credentials. Synthetic chat refuses assistants with tools or

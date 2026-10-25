@@ -19,9 +19,9 @@ export async function fingerprint(command: Command) {
 /** Use only after registering the schema and its permissions. Pool is a native pg Pool. */
 export class PostgresAtomicStore implements AtomicStore {
  readonly pool: any;
- readonly tableFamily:'business_work'|'business_sms'|'business_sales_quality';
- constructor(pool: any,tableFamily:'business_work'|'business_sms'|'business_sales_quality'='business_work') {
-  if(!['business_work','business_sms','business_sales_quality'].includes(tableFamily))throw Error('Invalid store family');
+ readonly tableFamily:'business_work'|'business_sms'|'business_sales_quality'|'business_chat';
+ constructor(pool: any,tableFamily:'business_work'|'business_sms'|'business_sales_quality'|'business_chat'='business_work') {
+  if(!['business_work','business_sms','business_sales_quality','business_chat'].includes(tableFamily))throw Error('Invalid store family');
   this.pool=pool;this.tableFamily=tableFamily;
  }
  async run(command: Command, authorize: (state: RecordState | null) => Promise<void>, apply: (state: RecordState | null) => Promise<Change>) {

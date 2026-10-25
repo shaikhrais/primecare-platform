@@ -1,6 +1,7 @@
 # SMS, WhatsApp and Telegram integration
 
-Status: researched design; new channel task integrations are not deployed.
+Status: internal SMS inbox and shared text AI reply lane implemented; new channel
+task integrations are not deployed. See `messaging-ai-development-20261024.md`.
 User scope: users request and independently confirm authorized tasks within their
 messaging channel, without requiring an app screen for each task.
 
