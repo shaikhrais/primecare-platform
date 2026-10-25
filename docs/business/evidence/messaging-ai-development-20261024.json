@@ -1,0 +1,59 @@
+{
+  "implementationCommit": "86a967d32d7bed110b24437b69543b78974b8a66",
+  "localFocusedTests": {
+    "passed": 62,
+    "failed": 0,
+    "skipped": 0
+  },
+  "localCoreRegressionTests": {
+    "passed": 84,
+    "failed": 0,
+    "skipped": 0
+  },
+  "nativePostgres": {
+    "workflowRunId": 40156208195,
+    "jobId": 121058048068,
+    "groupsPassed": 6,
+    "independentDatabaseReadback": true,
+    "multipleConnections": true,
+    "syntheticProviderOnly": true
+  },
+  "productionInventory": {
+    "workflowRunId": 40156109009,
+    "jobId": 121057748494,
+    "authority": "pinned-production-postgresql",
+    "source": "eba122761ebffebe7591bba0645995b9b587443c",
+    "writesAttempted": false,
+    "smsApis": [
+      {
+        "id": 540,
+        "path": "/v1/manager/communications/sms",
+        "method": "POST",
+        "status": "active"
+      },
+      {
+        "id": 541,
+        "path": "/v1/manager/communications/sms/campaigns",
+        "method": "POST",
+        "status": "active"
+      },
+      {
+        "id": 542,
+        "path": "/v1/manager/communications/sms/logs",
+        "method": "POST",
+        "status": "active"
+      },
+      {
+        "id": 16533,
+        "path": "/v1/twilio/sms/status",
+        "method": "POST",
+        "status": "registered-unimplemented"
+      }
+    ],
+    "newSmsInboundRegistrationPresent": false
+  },
+  "liveMessagingVerified": false,
+  "productionMigrationsApplied": false,
+  "routingChanged": false,
+  "taskToolsEnabled": false
+}

@@ -25,14 +25,21 @@ unchanged. Model text cannot provide authentication or confirmation authority.
 
 ## Validation at implementation checkpoint
 
-60 focused local tests passed, zero failed/skipped, including existing SMS service,
+62 focused local tests passed, zero failed/skipped, including existing SMS service,
 transport and voice model regression checks. Strict types for the new service,
-declarations, repository and shared store passed. Native PostgreSQL acceptance is
-pending CI at this checkpoint: the local runtime has no PostgreSQL server. The
-native script requires an explicitly named disposable loopback fixture, never
-production credentials. It tests real multi-connection deduplication, independent
-database readback, inherited turn storage, real SMS outbox persistence, concurrent
-generation/queue/delivery claims and synthetic provider acceptance.
+declarations, repository and shared store passed. A further 84 local core/service/
+resource regression checks passed. Native PostgreSQL run `40156208195`, job
+`121058048068`, passed all six groups against functional source `86a967d3`:
+multi-connection deduplication, independent database readback, inherited turn
+storage, real SMS outbox persistence, concurrent generation/queue/delivery claims
+and synthetic provider acceptance. The first native run caught a JSONB object-key
+ordering bug in link comparison; the fix compares exact field values and retains
+denial for changed/missing/extra fields. No failed attempt is counted as passing.
+
+The native script requires an explicitly named disposable loopback fixture,
+never production credentials. The local runtime has no PostgreSQL server. The
+timeout regression additionally proves a model port that ignores cancellation
+cannot save a late answer or block a turn indefinitely.
 
 ## Activation still pending
 
@@ -40,6 +47,12 @@ No route was mounted, migration applied to production, permission granted, live
 message sent or phone routing changed. New internal service actions are not
 automatically registered APIs. Production governance remains the only live
 authority; no SQLite fallback or historical-count substitution is allowed.
+
+Fresh read-only production inventory in run `40156109009`, job `121057748494`,
+confirmed `/v1/twilio/sms/status` (16533), but no Twilio inbound SMS, WhatsApp or
+Telegram webhook in the communication catalogue. Existing manager SMS metadata
+is not an inbound contract. The read attempted no registration or permission
+writes. See `evidence/messaging-ai-development-20261024.json` for scoped evidence.
 
 Before activation, inventory current production contracts, then register the exact
 inbound webhook, link/consent and reply processing/storage contracts. Bind inbox

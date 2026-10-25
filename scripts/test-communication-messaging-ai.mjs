@@ -59,6 +59,16 @@ test('model failure and invalid output are terminal for automatic generation',as
   await assert.rejects(f.service.generate(actor,input.eventId,'retry',3),/already attempted/);assert.equal(f.outgoing.length,0);
  }
 });
+test('a model that ignores cancellation cannot persist a late response or block the turn forever',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
+ const f=fixture();let entered,release;
+ const started=new Promise(resolve=>entered=resolve),late=new Promise(resolve=>release=resolve);
+ f.ports.model.reply=async()=>{entered();return late;};
+ await f.service.queue(actor,input.eventId,'receive',input);
+ const pending=f.service.generate(actor,input.eventId,'generate',1);await started;t.mock.timers.tick(15001);
+ assert.equal((await pending).status,'generation_failed');release('Too late');await Promise.resolve();
+ assert.equal((await f.service.read(actor,input.eventId)).reply,null);assert.equal(f.outgoing.length,0);
+});
 test('link change after generation blocks outbox queue',async()=>{
  const f=fixture();await f.service.queue(actor,input.eventId,'receive',input);await f.service.generate(actor,input.eventId,'generate',1);f.changeLink();await assert.rejects(f.service.queueReply(actor,input.eventId,'send',3),/link changed/);assert.equal(f.outgoing.length,0);
 });
