@@ -1,0 +1,32 @@
+name: Diagnose native own-phone policy read performance
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/diagnose-voice-contact-platform-policy.mjs'
+      - '.github/workflows/voice-contact-platform-policy-diagnostic.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  read-only:
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/contact-policy-reader" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/contact-policy-reader/node_modules" node_modules
+      - name: Read exact Code Admin metadata and bounded policy timings without sessions, contacts or provider access
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/diagnose-voice-contact-platform-policy.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: voice-contact-policy-diagnostic
+          path: test-results/voice-contact-policy
+          retention-days: 30
