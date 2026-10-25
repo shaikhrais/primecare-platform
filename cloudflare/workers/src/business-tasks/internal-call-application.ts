@@ -1,15 +1,19 @@
-import {ScopedServiceBase,assertActor,type Actor,type AccessPolicy} from '../../../../packages/shared/src/communications/service-base.ts';
+import {ScopedServiceBase,assertActor,type Actor,type AccessPolicy,type AtomicStore} from '../../../../packages/shared/src/communications/service-base.ts';
 import {PostgresCommunicationAccessPolicy} from './access-policy.ts';
 import {InternalAppCallCore} from './internal-call-core.ts';
 import type {AppCallRelayPorts} from './internal-call-media.ts';
 type Pool=ConstructorParameters<typeof InternalAppCallCore>[0]['pool'];
 /** Additional directory/self-publication scope only. Conversation policy is
  * inherited unchanged; no new role, cross-tenant or model permissions. */
+export function internalCallDirectoryScope(actor:Actor,action:string,state:any){
+  assertActor(actor);const a={id:actor.id,tenantId:actor.tenantId},s=structuredClone(state);
+  if(!s||s.tenantId!==a.tenantId||s.userId!==a.id||s.kind!==(action==='internal.call.directory'?'call_directory':'voice_destination'))throw Error('Forbidden');
+ return a;
+}
 export class PostgresInternalCallPolicy extends PostgresCommunicationAccessPolicy {
  override async assert(actor:Actor,action:string,state:any){
   if(!['internal.call.directory','internal.call.extension'].includes(action))return super.assert(actor,action,state);
-  assertActor(actor);const a={id:actor.id,tenantId:actor.tenantId},s=structuredClone(state);
-  if(!s||s.tenantId!==a.tenantId||s.userId!==a.id||s.kind!==(action==='internal.call.directory'?'call_directory':'voice_destination'))throw Error('Forbidden');
+  const a=internalCallDirectoryScope(actor,action,state);
   await this.inspect(async db=>{await this.active(db,a);});
  }
 }
@@ -17,8 +21,8 @@ const unavailable=()=>Error('Call unavailable');
 const limits={maxMembers:2,maxMessages:100,ringMilliseconds:45000,maxSignalBytes:16384};
 export class InternalCallApplication extends ScopedServiceBase {
  readonly core:InternalAppCallCore;readonly pool:Pool;readonly transactionPool:Pool;
- constructor(pool:Pool,relay:AppCallRelayPorts,policy:AccessPolicy=new PostgresInternalCallPolicy(pool),transactionPool:Pool=pool){
-  const core=new InternalAppCallCore({pool,limits,policy,relay,transactionPool});super(core.calls.store,policy);this.core=core;this.pool=pool;this.transactionPool=transactionPool;
+ constructor(pool:Pool,relay:AppCallRelayPorts,policy:AccessPolicy=new PostgresInternalCallPolicy(pool),transactionPool:Pool=pool,store?:AtomicStore){
+  const core=new InternalAppCallCore({pool,limits,policy,relay,transactionPool,store});super(core.calls.store,policy);this.core=core;this.pool=pool;this.transactionPool=transactionPool;
  }
  private async directoryAccess(actor:Actor,action='internal.call.directory'){
   await this.checkAccess(actor,action,{id:'call-directory:'+actor.id,tenantId:actor.tenantId,kind:action==='internal.call.directory'?'call_directory':'voice_destination',version:1,userId:actor.id},[action==='internal.call.directory'?'call_directory':'voice_destination']);

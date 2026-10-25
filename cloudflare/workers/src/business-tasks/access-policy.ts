@@ -17,24 +17,10 @@ const metadata=(column:string)=>{
  return `(CASE WHEN jsonb_typeof(${x})='string' THEN ${x}#>>'{}' WHEN ${x}->>'t'='text' AND jsonb_typeof(${x}->'v')='string' THEN ${x}->>'v' ELSE NULL END)`;
 };
 
-/** Native adapters share current policy loading, account checks and mailbox scope.
- * This base grants no API/screen permission and never writes governance or content.
- */
-export abstract class PostgresCommunicationPolicyBase {
- readonly pool:Pool;
- constructor(pool:Pool){if(typeof pool?.connect!=='function')throw Error('Native policy database required');this.pool=pool;}
- protected async inspect<T>(work:(client:Client,mailboxes:Mailbox[])=>Promise<T>):Promise<T>{
-  const db=await this.pool.connect();
-  try{
-   await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
-   await db.query("SET LOCAL statement_timeout='10s'");
-   const manifest=await db.query(`SELECT manifest_sha256 FROM "${pin.schema}"."${pin.manifestTable}"`);
-   if(manifest.rows.length!==1||manifest.rows[0].manifest_sha256!==pin.manifestSha256)unavailable();
-   const docs=await db.query(`SELECT ${metadata('id')} AS id,${metadata('definition')} AS definition,${metadata('requirement')} AS requirement
-    FROM "${pin.schema}"."govt_platform_hierarchy_policy" p WHERE ${metadata('id')} IN ($1,$2)`,[definition.policy.id,definition.directory.id]);
-   if(docs.rows.length!==2)unavailable();
+export function validateCommunicationPolicyDocuments(documents:Record<string,any>[]):Mailbox[]{
+   if(documents.length!==2)unavailable();
    const parse=(id:string)=>{
-    const rows=docs.rows.filter(row=>row.id===id);
+    const rows=documents.filter(row=>row.id===id);
     if(rows.length!==1||typeof rows[0].definition!=='string'||rows[0].definition.length>1048576)unavailable();
     try{const doc=JSON.parse(rows[0].definition);if(doc.requirement!==rows[0].requirement)unavailable();return doc;}catch{unavailable();}
    };
@@ -51,7 +37,39 @@ export abstract class PostgresCommunicationPolicyBase {
     try{box.delegateIds.forEach((id:unknown)=>required(id));}catch{unavailable();}
     if(box.recipientAddresses.some((v:unknown)=>!email(v)||v!==v.toLowerCase()))unavailable();
    }
-   return await work(db,directory.mailboxes);
+ return directory.mailboxes;
+}
+export function communicationPolicyDocumentQuery(){return {text:`SELECT ${metadata('id')} AS id,${metadata('definition')} AS definition,${metadata('requirement')} AS requirement FROM \"${pin.schema}\".\"govt_platform_hierarchy_policy\" p WHERE ${metadata('id')} IN ($1,$2)`,values:[definition.policy.id,definition.directory.id]};}
+
+export const conversationActions=['conversation.create','conversation.inbox','conversation.read','conversation.message','conversation.picture','conversation.call'] as const;
+export function assertConversationShape(actor:Actor,state:RecordState){
+ if(state.tenantId!==actor.tenantId||state.kind!=='conversation'||!Array.isArray(state.members)||state.members.length<2||state.members.length>1000||new Set(state.members).size!==state.members.length||!state.members.includes(actor.id))denied();
+ state.members.forEach((member:unknown)=>required(member));required(state.businessReference);
+}
+export function assertConversationParticipants(actor:Actor,state:RecordState,members:string[],tasks:RecordState[]){
+ if(members.length!==state.members.length||new Set(members).size!==state.members.length)denied();
+ if(state.businessReference===definition.policy.rules.generalReference)return;
+ if(tasks.length!==1)denied();const task=tasks[0];if(task?.kind!=='workflow'||task.tenantId!==actor.tenantId||task.id!==state.businessReference)denied();
+ const participants=definition.policy.rules.linkedParticipantFields.map(field=>task[field]);if(participants.some(id=>typeof id!=='string')||state.members.some((id:string)=>!participants.includes(id)))denied();
+}
+
+/** Native adapters share current policy loading, account checks and mailbox scope.
+ * This base grants no API/screen permission and never writes governance or content.
+ */
+export abstract class PostgresCommunicationPolicyBase {
+ readonly pool:Pool;
+ constructor(pool:Pool){if(typeof pool?.connect!=='function')throw Error('Native policy database required');this.pool=pool;}
+ protected async inspect<T>(work:(client:Client,mailboxes:Mailbox[])=>Promise<T>):Promise<T>{
+  const db=await this.pool.connect();
+  try{
+   await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
+   await db.query("SET LOCAL statement_timeout='10s'");
+   const manifest=await db.query(`SELECT manifest_sha256 FROM "${pin.schema}"."${pin.manifestTable}"`);
+   if(manifest.rows.length!==1||manifest.rows[0].manifest_sha256!==pin.manifestSha256)unavailable();
+   const docs=await db.query(`SELECT ${metadata('id')} AS id,${metadata('definition')} AS definition,${metadata('requirement')} AS requirement
+    FROM "${pin.schema}"."govt_platform_hierarchy_policy" p WHERE ${metadata('id')} IN ($1,$2)`,[definition.policy.id,definition.directory.id]);
+   const boxes=validateCommunicationPolicyDocuments(docs.rows);
+   return await work(db,boxes);
   }finally{try{await db.query('ROLLBACK');}finally{db.release();}}
  }
  protected async active(db:Client,actor:Actor){
@@ -91,18 +109,11 @@ export class PostgresCommunicationAccessPolicy extends PostgresCommunicationPoli
    if(!state){if(!['conversation.create','conversation.inbox','mail.queue'].includes(action))denied();return;}
    if(state.tenantId!==actor.tenantId)denied();
    if(action.startsWith('conversation.')){
-    if(state.kind!=='conversation'||!Array.isArray(state.members)||state.members.length<2||state.members.length>1000||new Set(state.members).size!==state.members.length||!state.members.includes(actor.id))denied();
-    state.members.forEach((member:unknown)=>required(member));required(state.businessReference);
-    const members=await db.query(`SELECT u.id::text AS id FROM public.users u JOIN public.tenants t ON t.id=u.tenant_id
-     WHERE u.id::text=ANY($1::text[]) AND u.tenant_id::text=$2 AND LOWER(u.status)='active' AND LOWER(t.status)='active'`,[state.members,actor.tenantId]);
+    assertConversationShape(actor,state);
+    const members=await db.query(`SELECT u.id::text AS id FROM public.users u JOIN public.tenants t ON t.id=u.tenant_id WHERE u.id::text=ANY($1::text[]) AND u.tenant_id::text=$2 AND LOWER(u.status)='active' AND LOWER(t.status)='active'`,[state.members,actor.tenantId]);
     if(members.rows.length!==state.members.length||new Set(members.rows.map(row=>row.id)).size!==state.members.length)denied();
-    if(state.businessReference===definition.policy.rules.generalReference)return;
-    const linked=await db.query("SELECT state FROM public.business_work_aggregates WHERE tenant_id=$1 AND id=$2 AND state->>'kind'='workflow' LIMIT 2",[actor.tenantId,state.businessReference]);
-    if(linked.rows.length!==1)denied();
-    const task=linked.rows[0].state;
-    if(task?.kind!=='workflow'||task.tenantId!==actor.tenantId||task.id!==state.businessReference)denied();
-    const participants=definition.policy.rules.linkedParticipantFields.map(field=>task[field]);
-    if(participants.some(id=>typeof id!=='string')||state.members.some((id:string)=>!participants.includes(id)))denied();
+    const linked=state.businessReference===definition.policy.rules.generalReference?{rows:[]}:await db.query("SELECT state FROM public.business_work_aggregates WHERE tenant_id=$1 AND id=$2 AND state->>'kind'='workflow' LIMIT 2",[actor.tenantId,state.businessReference]);
+    assertConversationParticipants(actor,state,members.rows.map(row=>row.id),linked.rows.map(row=>row.state));
    }else if(state.kind==='outbound_mail'){
     if(state.ownerId!==actor.id)denied();
    }else if(state.kind==='inbound_mail'&&['mail.read','mail.inbox'].includes(action)){

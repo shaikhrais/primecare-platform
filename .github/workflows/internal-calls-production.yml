@@ -13,6 +13,8 @@ on:
       - 'scripts/*internal-call*'
       - 'packages/database/migrations/20261025_internal_call_extensions.sql'
       - 'packages/database/migrations/20261025_internal_call_permission_indexes.sql'
+      - 'packages/database/migrations/20261025_internal_call_context.sql'
+      - 'tools/internal-call-context-procedure.mjs'
       - 'cloudflare/workers/src/business-tasks/endpoint-policy.ts'
       - 'scripts/profile-calling-permissions.mjs'
       - 'packages/shared/src/communications/audio-session.mjs'
@@ -79,6 +81,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/call-tests" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 esbuild@0.27.2 ajv@8.17.1 twilio@6.2.0 miniflare@4.20260730.0
           ln -s "$RUNNER_TEMP/call-tests/node_modules" node_modules
           node tools/internal-call-schema-validators.mjs
+          node tools/internal-call-context-procedure.mjs
           node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-access-policy.mjs scripts/test-internal-call-deployment-plan.mjs scripts/test-internal-call-batched-peer.mjs scripts/test-internal-call-database.mjs scripts/test-internal-call-endpoint-policy.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-communication-gateway.mjs
           node scripts/test-internal-call-turn-workerd.mjs
           node scripts/test-internal-call-database-workerd.mjs
@@ -88,6 +91,7 @@ jobs:
           node scripts/test-internal-call-policy-projection.mjs || call_test_status=1
           BUSINESS_TEST_DATABASE_URL="$TWILIO_SMS_TEST_DATABASE_URL" node --test scripts/test-communication-endpoint-policy.mjs || call_test_status=1
           node scripts/test-internal-call-permission-indexes.mjs || call_test_status=1
+          node scripts/test-internal-call-context.mjs || call_test_status=1
           exit "$call_test_status"
       - uses: actions/upload-artifact@v4
         if: always()
@@ -199,6 +203,17 @@ jobs:
           node scripts/migrate-internal-call-permission-indexes.mjs --apply
           node scripts/migrate-internal-call-permission-indexes.mjs --verify
           node scripts/profile-calling-permissions.mjs --after-index
+      - name: Create and independently verify the owner-only call context procedure
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CALL_CONTEXT_APPLY: '1'
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          node tools/internal-call-context-procedure.mjs
+          node scripts/migrate-internal-call-context.mjs --dry-run
+          node scripts/migrate-internal-call-context.mjs --apply
+          node scripts/migrate-internal-call-context.mjs --verify
       - name: Deploy native calling, owned TURN key and exact gateway routes
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

@@ -5,14 +5,14 @@ import type {InternalCallApplication} from './internal-call-application.ts';
 import definition from '../../../../tools/governance-production/internal-call-contracts-registration.json' with {type:'json'};
 import validators from '../../../../packages/shared/src/communications/internal-call-schema-validators.mjs';
 const schemas=validators as Record<string,(value:unknown)=>boolean>,headers={'cache-control':'private, no-store','x-content-type-options':'nosniff'};
-export type InternalCallHttpPorts={origin:string;appOrigins:readonly string[];application:InternalCallApplication;authenticate(request:Request):Promise<Actor>;authorize(actor:Actor,key:string,request:Request):Promise<void>};
+export type InternalCallHttpPorts={origin:string;appOrigins:readonly string[];application:InternalCallApplication;current?(request:Request,key:string):Promise<Actor>;authenticate?(request:Request):Promise<Actor>;authorize?(actor:Actor,key:string,request:Request):Promise<void>};
 const origin=(v:string)=>{try{const u=new URL(v);return u.protocol==='https:'&&u.origin===v;}catch{return false;}};
 /** Native bearer-only call boundary, with current session/API/screen checks before
  * body access, before invocation, and before releasing private results. */
 export class InternalCallHttpAdapter extends BoundedBinaryAdapterBase {
  readonly ports:InternalCallHttpPorts;readonly origins:ReadonlySet<string>;
- constructor(ports:InternalCallHttpPorts){super(32768);if(!origin(ports.origin)||!ports.appOrigins.every(origin)||typeof ports.authenticate!=='function'||typeof ports.authorize!=='function'||typeof ports.application?.dial!=='function')throw Error('Call HTTP ports required');this.ports=ports;this.origins=new Set([ports.origin,...ports.appOrigins]);}
- private async current(request:Request,key:string,expected?:Actor){const current=await this.ports.authenticate(request);assertActor(current);const actor=Object.freeze({id:current.id,tenantId:current.tenantId});if(expected&&(expected.id!==actor.id||expected.tenantId!==actor.tenantId))throw new CommunicationSessionError(401);await this.ports.authorize(actor,key,request);return actor;}
+ constructor(ports:InternalCallHttpPorts){super(32768);if(!origin(ports.origin)||!ports.appOrigins.every(origin)||(typeof ports.current!=='function'&&(typeof ports.authenticate!=='function'||typeof ports.authorize!=='function'))||typeof ports.application?.dial!=='function')throw Error('Call HTTP ports required');this.ports=ports;this.origins=new Set([ports.origin,...ports.appOrigins]);}
+ private async current(request:Request,key:string,expected?:Actor){const current=this.ports.current?await this.ports.current(request,key):await this.ports.authenticate!(request);assertActor(current);const actor=Object.freeze({id:current.id,tenantId:current.tenantId});if(expected&&(expected.id!==actor.id||expected.tenantId!==actor.tenantId))throw new CommunicationSessionError(401);if(!this.ports.current)await this.ports.authorize!(actor,key,request);return actor;}
  async respond(request:Request){let consumed=false,authorized=false,phase='native_boundary';
   try{
    const url=new URL(request.url),index=definition.operations.findIndex(o=>o.path===url.pathname),op=definition.operations[index];

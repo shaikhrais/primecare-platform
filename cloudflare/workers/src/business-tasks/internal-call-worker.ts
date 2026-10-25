@@ -1,7 +1,6 @@
 import {Pool} from 'pg';
 import {BaseWorker,workerHandler} from '../core/base-worker.ts';
-import {PostgresCommunicationSession} from './session.ts';
-import {PostgresInternalCallEndpointPolicy} from './internal-call-endpoint-policy.ts';
+import {PostgresInternalCallContext,PostgresInternalCallContextPolicy,PostgresInternalCallContextStore} from './internal-call-context.ts';
 export {PostgresInternalCallEndpointPolicy} from './internal-call-endpoint-policy.ts';
 import {InternalCallApplication} from './internal-call-application.ts';
 import {InternalCallHttpAdapter} from './internal-call-http.ts';
@@ -30,9 +29,9 @@ export class InternalCallWorker extends BaseWorker<InternalCallEnvironment> {
   try{
    // Credentials are initialized lazily for media issuance, so directory/read
    // and explicit boundary denials remain observable while relay is unavailable.
-   const app=new InternalCallApplication(pool,{admit:async(actor,callId)=>(await env.CALL_RELAY_LIMIT.limit({key:actor.tenantId+':'+actor.id+':'+callId})).success===true,provider:{issue:async()=>{turn??=new CloudflareTurnProvider({keyId:env.TURN_KEY_ID,apiToken:env.TURN_KEY_TOKEN,ttlSeconds:1800,fetch:(resource,init)=>fetch(resource,init)});return turn.issue();}}},undefined,transactions);
-   const sessions=new PostgresCommunicationSession(pool),permissions=new PostgresInternalCallEndpointPolicy(pool);
-   const adapter=new InternalCallHttpAdapter({origin:url.origin,appOrigins:config.appOrigins,application:app,authenticate:req=>sessions.authenticate(req),authorize:(actor,key,req)=>permissions.authorize(actor,key,req)});
+   const context=new PostgresInternalCallContext(pool,request),policy=new PostgresInternalCallContextPolicy(pool,context),store=new PostgresInternalCallContextStore({query:pool.query,connect:transactions.connect},context);
+   const app=new InternalCallApplication(pool,{admit:async(actor,callId)=>(await env.CALL_RELAY_LIMIT.limit({key:actor.tenantId+':'+actor.id+':'+callId})).success===true,provider:{issue:async()=>{turn??=new CloudflareTurnProvider({keyId:env.TURN_KEY_ID,apiToken:env.TURN_KEY_TOKEN,ttlSeconds:1800,fetch:(resource,init)=>fetch(resource,init)});return turn.issue();}}},policy,transactions,store);
+   const adapter=new InternalCallHttpAdapter({origin:url.origin,appOrigins:config.appOrigins,application:app,current:(req,key)=>context.current(req,key)});
    const response=await adapter.respond(request);for(const [key,value]of Object.entries(headers))response.headers.set(key,value);if(response.ok)response.headers.set('server-timing',[...metrics].map(([key,value])=>key+';dur='+Math.round(value.milliseconds)+';desc="'+value.count+' queries; max '+Math.round(value.max)+'ms"').join(','));return response;
   }finally{turn?.close();await Promise.all([fastPool.end(),directPool.end()]);}
  }

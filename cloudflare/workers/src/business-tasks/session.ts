@@ -1,7 +1,7 @@
 import {tokenFrom,sha256} from '../session-token.ts';
 import type {Actor} from './store.ts';
 
-type SessionDatabase={query(sql:string,values:string[]):Promise<{rows:Record<string,unknown>[]}>};
+type SessionDatabase={query(sql:string,values:any[]):Promise<{rows:Record<string,unknown>[]}>};
 export class CommunicationSessionError extends Error {
  readonly status:401|403;
  constructor(status:401|403){super('Communication session denied');this.status=status;}
@@ -21,6 +21,9 @@ export class PostgresCommunicationSession {
   const {rows}=await this.database.query(`SELECT u.id::text AS id,u.tenant_id::text AS tenant_id
    FROM auth_sessions s JOIN users u ON u.id=s.user_id
    WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 2`,[await sha256(token)]);
+  return this.actorFromRows(rows,request);
+ }
+ protected actorFromRows(rows:Record<string,unknown>[],request:Request):Actor{
   if(!Array.isArray(rows)||rows.length!==1)throw new CommunicationSessionError(401);
   const {id,tenant_id}=rows[0];
   const valid=(value:unknown):value is string=>typeof value==='string'&&value.length<=200&&value.trim()===value&&value.length>0&&!/[\u0000-\u001f\u007f]/.test(value);

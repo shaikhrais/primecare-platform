@@ -1084,5 +1084,16 @@
     "existingData": "preserve",
     "governanceRowWrites": false,
     "permissionChanges": false
+  },
+  "internalCallContextProcedure": {
+    "signature": "public.primecare_call_context_v1(text,text,text,text,text,text[],text)",
+    "sourceSha256": "71ffadebff95f029a24bbb9474221123a37de66cebee1d7cc5ac884fed6ef2f3",
+    "runtimeHost": "pooled.db.prisma.io",
+    "directHost": "db.prisma.io",
+    "securityInvoker": true,
+    "ownerOnly": true,
+    "readOnly": true,
+    "governanceRowWrites": false,
+    "businessDataWrites": false
   }
 }
