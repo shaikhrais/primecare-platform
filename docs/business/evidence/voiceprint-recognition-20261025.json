@@ -1,0 +1,29 @@
+{
+  "sourceCommit": "24534cb19791da719f3138a92473a8addc134b76",
+  "workflowRun": 40198466844,
+  "workflowUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/40198466844",
+  "nativeJob": {"id": 121184334232, "name": "twilio-voice", "conclusion": "success"},
+  "workerValidationJob": {"id": 121184334308, "name": "worker-validator", "conclusion": "success"},
+  "newVoiceprintTestsPassed": 8,
+  "workerdChecksPassed": 7,
+  "strictTypeScriptPassed": true,
+  "nativePostgresReport": {
+    "groupsPassed": 8,
+    "independentDatabaseReadback": true,
+    "oneProviderRequestPerClaim": true,
+    "spoofedPositiveRejected": true,
+    "crossTenantDenied": true,
+    "revocationVerified": true,
+    "rawAudioPersisted": false,
+    "realBiometricAccuracyMeasured": false,
+    "liveProviderTraffic": false
+  },
+  "implemented": ["shared scoped recognition service and audio channel", "inherited Aculab biometric provider adapter", "consented independently authenticated enrollment", "speaker verification with PAD enabled", "local revocation and provider deletion reporting", "durable metadata and replay claims"],
+  "provider": "Aculab Voice Biometrics Users API",
+  "providerResponsesStubbedInTests": true,
+  "productionSchemaApplied": false,
+  "runtimeMounted": false,
+  "realVoiceprintEnrolled": false,
+  "biometricTaskAuthorizationActivated": false,
+  "nextDependency": "Enabled Aculab Voice Biometrics account, cloud ID, username and Voice Biometric User Group Key; trusted capture/proof/policy host bindings and real-speaker accuracy evaluation before live activation."
+}

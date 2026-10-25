@@ -58,3 +58,15 @@ Research sources:
 The current API documentation requires provider-side enablement. Older VoiceIt
 search results were not used as an integration contract after their documentation
 URL redirected to a different product site. No vendor account was purchased.
+
+## Verified runtime evidence
+
+Source `24534cb19791da719f3138a92473a8addc134b76`, communication CI run
+`40198466844`, job `121184334232` (`twilio-voice`) passed. Its actual workerd
+report is `WORKERD_VOICEPRINT_PASS 7`. Native PostgreSQL reported eight groups,
+independent database readback, one provider request per durable claim, positive
+spoof-result rejection, cross-tenant denial and revocation. Eight new provider/
+lifecycle unit tests passed in that job. Worker validation job `121184334308`
+also passed. Both provider traffic and biometric accuracy remain simulated and
+unmeasured respectively; no real enrollment or authentication was performed.
+Evidence: `evidence/voiceprint-recognition-20261025.json`.
