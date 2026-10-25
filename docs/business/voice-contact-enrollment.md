@@ -266,3 +266,16 @@ check in addition to this saved receipt, and separately inventories the three
 contact API grants. A deployment receipt alone cannot mark the boundary live.
 Real signed-in-user phone enrollment and SMS acceptance are still unverified.
 No contact was seeded, SMS sent, number routing changed or Vapi tool attached.
+
+Final independent readiness run 40146211159 passed 28 integration/readback
+cases. Its production reader rechecked all six voice tables, found exactly one
+registration and four current grants for each contact API, and freshly verified
+the deployed gateway/source/CORS/session-denial boundary. An additional public
+probe outside the deployment job also returned source-tagged 401 and approved
+CORS with no caching. The stale contact-deployment blocker is now removed.
+
+Remaining live blockers are zero verified account phones, missing native call-OTP
+grants, private pre-AI pairing delivery, native app pairing UI and OTP runtime
+deployment. The contact-verification panel is distinct from that call-pairing UI.
+The overall identity audit correctly remains blocked; neither a successful
+deployment nor a denied fake session authenticates a caller or enables tasks.

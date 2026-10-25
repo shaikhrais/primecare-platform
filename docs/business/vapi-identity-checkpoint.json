@@ -1,9 +1,9 @@
 {
   "step": 3,
   "status": "in_progress",
-  "callIntegrationCommit": "fa7f6d758f288d7deb5de67dd5d5f2ba01deb83c",
-  "integrationWorkflowRunId": 40137006645,
-  "integrationTestsPassed": 24,
+  "callIntegrationCommit": "15e02efd1ca381ae740e478084fcb5d1c9a4bae9",
+  "integrationWorkflowRunId": 40146211159,
+  "integrationTestsPassed": 28,
   "schemaWorkflowRunId": 40141201020,
   "schemaDeployJobId": 121013275163,
   "schemaCommit": "feb3abfd6fe82e20fe38e714398f0adac9de7373",
@@ -37,24 +37,6 @@
   "verifyAdapterTestsPassed": 8,
   "contactEnrollmentRuntimeDeployed": true,
   "contactEnrollmentUiConnected": true,
-  "latestSourceChecks": [
-    {
-      "runId": 40140345874,
-      "conclusion": "success"
-    },
-    {
-      "runId": 40140345951,
-      "conclusion": "success"
-    },
-    {
-      "runId": 40140345889,
-      "conclusion": "success"
-    },
-    {
-      "runId": 40140345948,
-      "conclusion": "success"
-    }
-  ],
   "contactEnrollmentNativeHttpImplemented": true,
   "contactEnrollmentCompositionImplemented": true,
   "contactEnrollmentApiCommit": "14a02d36ba373da28b9b83c7ae03a28740d0f2f7",
@@ -125,5 +107,42 @@
   "contactEnrollmentProviderConfigurationVerified": true,
   "contactEnrollmentGatewaySecretAndServicesPreserved": true,
   "contactEnrollmentLiveSmsVerified": false,
-  "contactEnrollmentAuthenticatedUserVerified": false
+  "contactEnrollmentAuthenticatedUserVerified": false,
+  "contactEnrollmentFreshReadbackRunId": 40146211159,
+  "contactEnrollmentFreshBoundaryVerified": true,
+  "contactEnrollmentFreshContactGrantCounts": {
+    "status": 4,
+    "start": 4,
+    "check": 4
+  },
+  "schemaPhaseSourceChecks": [
+    {
+      "runId": 40140345874,
+      "conclusion": "success"
+    },
+    {
+      "runId": 40140345951,
+      "conclusion": "success"
+    },
+    {
+      "runId": 40140345889,
+      "conclusion": "success"
+    },
+    {
+      "runId": 40140345948,
+      "conclusion": "success"
+    }
+  ],
+  "latestSourceChecks": [
+    {
+      "runId": 40145897181,
+      "scope": "native-enrollment-deployment",
+      "conclusion": "success"
+    },
+    {
+      "runId": 40146211159,
+      "scope": "caller-integration-and-live-native-readiness",
+      "conclusion": "success"
+    }
+  ]
 }

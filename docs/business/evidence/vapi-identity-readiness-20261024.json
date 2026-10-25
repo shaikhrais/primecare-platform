@@ -1,0 +1,73 @@
+{
+  "step": 3,
+  "readinessMeasured": true,
+  "liveCallVerified": false,
+  "liveOtpVerified": false,
+  "smsSent": false,
+  "businessActionsEnabled": false,
+  "toolsAttached": false,
+  "blockers": [
+    "no_verified_voice_contacts",
+    "native_permission_not_ready:/v1/voice/otp/start",
+    "native_permission_not_ready:/v1/voice/otp/check",
+    "private_pre_ai_pairing_delivery_not_connected",
+    "native_app_pairing_ui_not_connected",
+    "otp_runtime_not_deployed"
+  ],
+  "stage": "complete",
+  "tables": {
+    "communication_voice_verified_contacts": true,
+    "communication_voice_otp": true,
+    "communication_voice_otp_limits": true,
+    "communication_voice_tasks": true,
+    "communication_voice_confirmations": true,
+    "communication_voice_contact_challenges": true,
+    "users": true,
+    "tenants": true,
+    "auth_sessions": true
+  },
+  "nativeSessionCreationTimeAvailable": true,
+  "activeVerifiedContactCount": 0,
+  "nativeOtpPermissions": [
+    {
+      "path": "/v1/voice/otp/check",
+      "registration_count": 1,
+      "grant_count": 0
+    },
+    {
+      "path": "/v1/voice/otp/start",
+      "registration_count": 1,
+      "grant_count": 0
+    }
+  ],
+  "nativeContactPermissions": [
+    {
+      "path": "/v1/voice/contact/check",
+      "registration_count": 1,
+      "grant_count": 4
+    },
+    {
+      "path": "/v1/voice/contact/start",
+      "registration_count": 1,
+      "grant_count": 4
+    },
+    {
+      "path": "/v1/voice/contact/status",
+      "registration_count": 1,
+      "grant_count": 4
+    }
+  ],
+  "unknownProviderCallRejected": true,
+  "nativeContactBoundary": {
+    "deploymentRecorded": true,
+    "boundaryVerified": true,
+    "smsSent": false,
+    "authenticatedUserVerified": false,
+    "sourceCommit": "f9b0e8a7a0c9db4aca2e8c4140b26f0c92cb54f7"
+  },
+  "ready": false,
+  "status": "identity_activation_blocked",
+  "workflowRunId": 40146211159,
+  "sourceCommit": "15e02efd1ca381ae740e478084fcb5d1c9a4bae9",
+  "integrationTestsPassed": 28
+}
