@@ -98,5 +98,14 @@
   "phoneRoutingChanged": false,
   "nativeLinkEndpointsMounted": false,
   "workerActivated": false,
-  "liveMessagingVerified": false
+  "liveMessagingVerified": false,
+  "postDeploymentVerification": {
+    "sourceCommit": "20d96a22caed81caa853346fc2ac3ecd935a637a",
+    "communicationsWorkflowRunId": 40189799148,
+    "communicationsJobsPassed": 12,
+    "openApiWorkflowRunId": 40189799149,
+    "openApiChecksPassed": 8,
+    "completeApiDocumentationWorkflowRunId": 40189799208,
+    "completeApiDocumentationRefreshPassed": true
+  }
 }

@@ -69,3 +69,8 @@ filename collision were corrected without weakening the gate.
 Evidence: `evidence/messaging-storage-activation-20261025.json`. Worker composition,
 native owner runtime/access and signed receiver/dispatcher activation remain
 separate steps. These registrations do not expose endpoints or enable live SMS.
+
+Post-deployment source `20d96a22` passed all 12 communication CI jobs in run
+`40189799148` and all eight typed OpenAPI checks in run `40189799149`. Production
+API documentation refresh `40189799208` also passed and saved the current full
+catalogue to main. These remain scoped passes; live messaging is not activated.
