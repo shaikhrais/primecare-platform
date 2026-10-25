@@ -1,11 +1,11 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {internalCallDatabaseOptions,measuredCallDatabase} from '../cloudflare/workers/src/business-tasks/internal-call-database.ts';
 import {callDatabaseName,callDatabaseOrigin,assertCallDatabaseConfiguration} from './internal-call-deployment-plan.mjs';
-test('fresh database transport is bound to runtime fields and never accepts a raw fallback',()=>{
- const binding={host:'hyperdrive.local',port:5432,database:'postgres',user:'fixture',password:'fixture-only',connectionString:'postgres://fixture:fixture-only@hyperdrive.local:5432/postgres'};
- assert.equal(internalCallDatabaseOptions(binding).connectionString,binding.connectionString);
- const runtime={...binding,host:'a'.repeat(32)+'.hyperdrive.local',connectionString:'postgres://fixture:fixture-only@'+'a'.repeat(32)+'.hyperdrive.local:5432/postgres?sslmode=disable'};assert.equal(internalCallDatabaseOptions(runtime).connectionString,runtime.connectionString);
- for(const value of [undefined,{...binding,host:'foreign'},{...binding,password:'changed'},{...binding,database:'other'},{...binding,host:'public.example',connectionString:'postgres://fixture:fixture-only@public.example:5432/postgres?sslmode=disable'},{...binding,connectionString:binding.connectionString+'?sslmode=require'}])assert.throws(()=>internalCallDatabaseOptions(value),/required/);
+test('fresh transport uses trusted local tunnel fields, including opaque database IDs and reserved credentials',()=>{
+ const binding={host:'a'.repeat(32)+'.hyperdrive.local',port:5432,database:'opaque-local-database',user:'local-user',password:'p@ss#word/%',connectionString:'unused generated URL'};
+ const options=internalCallDatabaseOptions(binding);assert.equal(options.host,binding.host);assert.equal(options.database,binding.database);assert.equal(options.password,binding.password);assert.equal(options.ssl,false);assert.equal(options.connectionString,undefined);
+ assert.equal(internalCallDatabaseOptions({...binding,password:''}).password,'');
+ for(const value of [undefined,{...binding,host:'public.example'},{...binding,port:6543},{...binding,database:''},{...binding,user:null},{...binding,password:undefined}])assert.throws(()=>internalCallDatabaseOptions(value),/required/);
 });
 test('only an exact pinned cache-disabled owned configuration may be deployed',()=>{
  const origin=callDatabaseOrigin('postgres://fixture:fixture-only@pooled.db.prisma.io:5432/postgres?sslmode=require');

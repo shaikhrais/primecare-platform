@@ -3,19 +3,17 @@
 export type InternalCallDatabaseBinding={connectionString:string;host:string;port:number;database:string;user:string;password:string};
 export function internalCallDatabaseOptions(binding:InternalCallDatabaseBinding){
  const fail=(reason:string):never=>{throw Object.assign(Error('Fresh call database required'),{communicationHealth:'call_database_'+reason});};
- if(!binding||typeof binding.connectionString!=='string')return fail('missing');
- let url:URL;try{url=new URL(binding.connectionString);}catch{return fail('url');}
- if(!['postgres:','postgresql:'].includes(url.protocol))return fail('protocol');
- if(url.search!==''&&url.search!=='?sslmode=disable'||url.hash)return fail('tls');
- if(!/^([a-f0-9]{32}\.)?hyperdrive\.local$/.test(url.hostname)||url.hostname!==binding.host)return fail('host');
- if(Number(url.port||5432)!==binding.port)return fail('port');
- if(decodeURIComponent(url.pathname.slice(1))!==binding.database||binding.database!=='postgres')return fail('database');
- if(!binding.user||decodeURIComponent(url.username)!==binding.user)return fail('user');
- if(!binding.password||decodeURIComponent(url.password)!==binding.password)return fail('password');
- // workerd generates ?sslmode=disable for this in-process tunnel only.
- // The binding terminates locally within the Workers runtime. Hyperdrive's
- // origin connection uses verified TLS; no public plaintext DB URL is accepted.
- return {connectionString:binding.connectionString,max:4,connectionTimeoutMillis:5000,query_timeout:10000,idleTimeoutMillis:1000};
+ if(!binding||typeof binding.host!=='string')return fail('missing');
+ if(!/^([a-f0-9]{32}\.)?hyperdrive\.local$/.test(binding.host))return fail('host');
+ if(binding.port!==5432)return fail('port');
+ // These are local tunnel identifiers, not the pinned origin's credentials or
+ // database name. Only the deployment API describes the actual origin.
+ for(const field of ['database','user','password'] as const)if(typeof binding[field]!=='string'||binding[field].length>2048||binding[field].includes('\0'))return fail(field);
+ if(!binding.database||!binding.user)return fail('identity');
+ // Pass structured fields: workerd's generated URL can contain reserved
+ // credential characters. TLS is disabled only for this in-process tunnel;
+ // the independently verified Hyperdrive origin always uses verified TLS.
+ return {host:binding.host,port:binding.port,database:binding.database,user:binding.user,password:binding.password,ssl:false as const,max:4,connectionTimeoutMillis:5000,query_timeout:10000,idleTimeoutMillis:1000};
 }
 /** Request-local aggregate durations only. No SQL, parameters or identity is
  * retained. Measuring ports avoids changing pg's own internal callback methods. */
