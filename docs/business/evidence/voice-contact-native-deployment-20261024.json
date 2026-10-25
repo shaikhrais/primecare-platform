@@ -1,5 +1,5 @@
 {
-  "sourceCommit": "f9b0e8a7a0c9db4aca2e8c4140b26f0c92cb54f7",
+  "sourceCommit": "b392bc2941a035345176913e280e9356a5253a76",
   "scope": "native-own-phone-enrollment-only",
   "deployed": true,
   "gatewayConnected": true,
@@ -24,9 +24,6 @@
   "gatewaySecretsPreserved": true,
   "gatewayServicesPreserved": true,
   "status": "native_enrollment_boundary_deployed",
-  "workflowRunId": 40145897181,
-  "testsJobId": 121027065741,
-  "deployJobId": 121027206726,
-  "checksPassed": 46,
-  "authority": "deployed-cloudflare-and-independent-production-metadata-readback"
+  "workflowRunId": 40148207920,
+  "checksPassed": 47
 }

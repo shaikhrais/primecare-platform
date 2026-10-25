@@ -97,9 +97,9 @@
   "contactEnrollmentUiFinalJobsPassed": 12,
   "contactEnrollmentAccessLockTestsPassed": 9,
   "contactEnrollmentAccessIndependentReadback": true,
-  "contactEnrollmentNativeDeploymentSource": "f9b0e8a7a0c9db4aca2e8c4140b26f0c92cb54f7",
-  "contactEnrollmentNativeDeploymentRunId": 40145897181,
-  "contactEnrollmentNativeDeploymentChecksPassed": 46,
+  "contactEnrollmentNativeDeploymentSource": "b392bc2941a035345176913e280e9356a5253a76",
+  "contactEnrollmentNativeDeploymentRunId": 40148207920,
+  "contactEnrollmentNativeDeploymentChecksPassed": 47,
   "contactEnrollmentGatewayConnected": true,
   "contactEnrollmentLiveBoundaryVerified": true,
   "contactEnrollmentNativeOrigin": "https://primecare-voice-contact-api.itpro-mohammed.workers.dev",
@@ -111,9 +111,9 @@
   "contactEnrollmentFreshReadbackRunId": 40146211159,
   "contactEnrollmentFreshBoundaryVerified": true,
   "contactEnrollmentFreshContactGrantCounts": {
-    "status": 4,
-    "start": 4,
-    "check": 4
+    "status": 5,
+    "start": 5,
+    "check": 5
   },
   "schemaPhaseSourceChecks": [
     {
@@ -156,8 +156,12 @@
     "sharedControls": 7,
     "independentReadback": true,
     "roleScreenRightsChanged": false,
-    "runtimeAcceptanceVerified": false,
+    "runtimeAcceptanceVerified": true,
     "uiProductionAcceptanceVerified": false,
-    "liveSmsVerified": false
+    "liveSmsVerified": false,
+    "runtimeSource": "b392bc2941a035345176913e280e9356a5253a76",
+    "runtimeRunId": 40148207920,
+    "nativeBoundaryVerified": true,
+    "authenticatedStatusReadVerified": false
   }
 }

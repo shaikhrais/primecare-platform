@@ -315,3 +315,12 @@ native server still resolves the account's actual tenant and enforces all grants
 The platform regression covers an exact empty-body POST status read with no
 client tenant header and no messaging requests. Auth changes dispose the old
 controller and discard pending results.
+
+The platform-capable native Worker deployed successfully from
+b392bc2941a035345176913e280e9356a5253a76 in workflow 40148207920 after all 47
+checks passed, including native PostgreSQL explicit platform grants, revocation
+before SMS, original communication flow, logout, private own-contact persistence
+and per-request connection cleanup. Live deployment probes returned the expected
+401 responses and verified origin/CORS checks and preserved gateway bindings.
+No real SMS or phone enrollment occurred. The current API grants independently
+read back as five eligible roles and three explicit Code Admin contact grants.
