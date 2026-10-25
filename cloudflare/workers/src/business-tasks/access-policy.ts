@@ -13,7 +13,7 @@ const keys=(value:any,expected:string[])=>value&&typeof value==='object'&&!Array
 const email=(value:unknown):value is string=>typeof value==='string'&&value.length<=254&&/^[^\s<>@\u0000-\u001f\u007f]+@[^\s<>@\u0000-\u001f\u007f]+\.[^\s<>@\u0000-\u001f\u007f]+$/.test(value);
 const address=(value:string)=>{if(!email(value))denied();return value.toLowerCase();};
 const metadata=(column:string)=>{
- const x=`to_jsonb(p)->'${column}'`;
+ const x=`to_jsonb(p."${column}")`;
  return `(CASE WHEN jsonb_typeof(${x})='string' THEN ${x}#>>'{}' WHEN ${x}->>'t'='text' AND jsonb_typeof(${x}->'v')='string' THEN ${x}->>'v' ELSE NULL END)`;
 };
 

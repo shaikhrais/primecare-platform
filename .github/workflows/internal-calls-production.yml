@@ -17,6 +17,7 @@ on:
       - 'packages/shared/src/communications/cloudflare-turn.mjs'
       - 'scripts/test-communication-turn.mjs'
       - 'cloudflare/workers/src/gateway.ts'
+      - 'cloudflare/workers/src/business-tasks/access-policy.ts'
   workflow_dispatch:
 permissions:
   contents: read
@@ -75,11 +76,12 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/call-tests" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 esbuild@0.27.2 ajv@8.17.1 twilio@6.2.0 miniflare@4.20260730.0
           ln -s "$RUNNER_TEMP/call-tests/node_modules" node_modules
           node tools/internal-call-schema-validators.mjs
-          node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs scripts/test-communication-audio-session.mjs scripts/test-internal-call-deployment-plan.mjs scripts/test-internal-call-batched-peer.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-communication-gateway.mjs
+          node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-access-policy.mjs scripts/test-internal-call-deployment-plan.mjs scripts/test-internal-call-batched-peer.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-communication-gateway.mjs
           node scripts/test-internal-call-turn-workerd.mjs
           call_test_status=0
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/business-tasks/internal-call-worker.ts websites/typescript/src/internal-calls.ts || call_test_status=1
           node scripts/test-internal-call-http-postgres.mjs || call_test_status=1
+          node scripts/test-internal-call-policy-projection.mjs || call_test_status=1
           exit "$call_test_status"
       - uses: actions/upload-artifact@v4
         if: always()
@@ -207,7 +209,8 @@ jobs:
       - run: |
           npm install --prefix "$RUNNER_TEMP/call-live" --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@2.4.3 playwright@1.56.1
           ln -s "$RUNNER_TEMP/call-live/node_modules" node_modules
-          node_modules/.bin/playwright install --with-deps chromium
+          test -x /usr/bin/google-chrome
+          /usr/bin/google-chrome --version
           pip install -r tools/governance-production/requirements.txt
       - name: Select current existing role without granting permissions
         env:
@@ -219,6 +222,7 @@ jobs:
       - name: Verify real native login, relay audio, denial and cleanup with synthetic accounts
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CALL_BROWSER_EXECUTABLE: /usr/bin/google-chrome
         run: node scripts/diagnose-browser-calling.mjs
       - uses: actions/upload-artifact@v4
         if: always()

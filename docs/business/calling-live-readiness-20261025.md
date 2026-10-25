@@ -153,3 +153,14 @@ a brief batching interval instead of waiting on unreachable alternate paths.
 All timers/listeners remain owned and bounded; diagnostics contain only gathering
 outcome, candidate count and ICE error codes. A regression covers the usable-
 candidate path while alternate gathering remains pending.
+
+Live acceptance 40222981107/job121258369710 passed against deployed source
+4d726763 on Chrome155. Both call directions selected relay candidates and received
+growing audio packets; mute, end, private-scope denial, idempotent dial, server
+session revocation and synthetic cleanup passed. Initial setup measured 62,599ms.
+The policy source reader was serializing entire rows (including large unrelated
+definitions) to inspect each field. Projection now serializes only the requested
+column, preserving every current manifest/policy/identity check. Native tests
+cover native text, JSON strings and tagged text, as well as manifest/policy drift
+and unknown tags. The live job uses installed stable Chrome to avoid dependency
+download stalls. Idle/connecting status labels now follow actual state.
