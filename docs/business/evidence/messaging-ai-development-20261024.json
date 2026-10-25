@@ -11,8 +11,8 @@
     "skipped": 0
   },
   "nativePostgres": {
-    "workflowRunId": 40156208195,
-    "jobId": 121058048068,
+    "workflowRunId": 40156336392,
+    "jobId": 121058425111,
     "groupsPassed": 6,
     "independentDatabaseReadback": true,
     "multipleConnections": true,
@@ -55,5 +55,27 @@
   "liveMessagingVerified": false,
   "productionMigrationsApplied": false,
   "routingChanged": false,
-  "taskToolsEnabled": false
+  "taskToolsEnabled": false,
+  "verifiedSourceCommit": "1dea14eb462c0c48cf9504557b76169141b78913",
+  "broaderChecks": {
+    "workflowContractReview": {
+      "workflowRunId": 40156208265,
+      "jobId": 121058048250,
+      "status": "failure",
+      "reason": "Reviewed source amendment changed: cloudflare/workers/src/gateway.ts"
+    },
+    "authWorkerFixture": {
+      "workflowRunId": 40156108992,
+      "jobId": 121057748349,
+      "status": "failure",
+      "reason": "Runtime consumers require fail-closed review: cloudflare/workers/src/business-tasks/endpoint-policy.ts"
+    },
+    "affectedSourceFilesChangedByThisWork": false
+  },
+  "communicationsCi": {
+    "workflowRunId": 40156336392,
+    "sourceCommit": "1dea14eb462c0c48cf9504557b76169141b78913",
+    "jobsPassed": 12,
+    "jobsFailed": 0
+  }
 }

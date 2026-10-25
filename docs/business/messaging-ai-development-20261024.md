@@ -68,3 +68,21 @@ WhatsApp requires its approved sender/window/template adapter; Telegram requires
 its authenticated bot/private-chat adapter. Shared service tests are not live
 WhatsApp/Telegram verification. Vapi task activation remains separately gated by
 its verified caller, permissions, proposal/confirmation and saved result checks.
+
+## Broader CI gates
+
+The scoped communications workflow passed all 12 jobs on functional source
+`86a967d3` (run `40156208195`) and timeout-regression checkpoint `1dea14eb`
+(run `40156336392`). The latter also passed all six native PostgreSQL groups
+in job `121058425111`.
+The browser/PostgreSQL communication stack passed on initial source `eba12276`
+(run `40156109279`). These are scoped passes, not full release sign-off.
+
+Separate contract-review run `40156208265`, job `121058048250`, fails with
+`Reviewed source amendment changed: cloudflare/workers/src/gateway.ts`. Auth
+Worker run `40156108992`, job `121057748349`, fails with `Runtime consumers
+require fail-closed review: ['cloudflare/workers/src/business-tasks/endpoint-policy.ts']`.
+Both files are byte-unchanged between baseline `8dcf4100` and this work. No
+review hash was blindly refreshed, gate disabled, or deprecated SQLite governance
+file created locally to bypass those review requirements. They remain explicit
+broader release blockers for the respective review/fixture maintenance work.
