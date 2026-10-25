@@ -82,3 +82,20 @@ References:
 - https://webrtc.org/getting-started/peer-connections
 - https://developers.cloudflare.com/realtime/turn/generate-credentials/
 - https://www.twilio.com/docs/voice/sdks/javascript
+
+## Verified runtime evidence
+
+Source `ca1f4309c625566ac666cd5885bffeadc1f72250`, communication CI run
+`40209747935`, native job `121218240244` passed nine internal-call PostgreSQL
+groups. Independent readback confirmed the four-digit directory, one invitation
+per command, recipient-only answering, private signaling, scoped relay issuance
+and cross-tenant denial, with `twilioUsed:false`. Browser media job `121218240295`
+passed the actual two-Chromium-peer audio packet/mute/track-release test. Worker
+validation job `121218240263` passed. These are synthetic fixture users/media;
+`liveTurnTraversal:false` and `liveUserCallVerified:false` remain explicit.
+Evidence: `evidence/internal-calls-extensions-20261025.json`.
+
+Long-running live calls also need TURN credential renewal before expiry (and
+reapplying configuration to the peer connection). This host/client renewal wiring
+is part of the remaining media deployment work, not proven by local direct-peer
+audio tests.

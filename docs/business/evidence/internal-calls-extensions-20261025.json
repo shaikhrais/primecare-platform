@@ -1,0 +1,32 @@
+{
+  "sourceCommit": "ca1f4309c625566ac666cd5885bffeadc1f72250",
+  "workflowRun": 40209747935,
+  "workflowUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/40209747935",
+  "nativeJob": {"id": 121218240244, "name": "twilio-voice", "conclusion": "success"},
+  "browserMediaJob": {"id": 121218240295, "name": "media", "conclusion": "success"},
+  "workerValidationJob": {"id": 121218240263, "name": "worker-validator", "conclusion": "success"},
+  "newInternalCallTestsPassed": 7,
+  "newTurnTestsPassed": 3,
+  "strictTypeScriptPassed": true,
+  "callOnlyBundleHasNoTwilioSdk": true,
+  "realChromiumAudioPacketsMuteAndCleanupPassed": true,
+  "nativePostgresReport": {
+    "groupsPassed": 9,
+    "extensionDirectory": "communication_voice_extensions",
+    "extensionDigits": 4,
+    "oneInvitationPerCommand": true,
+    "recipientOnlyAnswer": true,
+    "privateSignaling": true,
+    "scopedRelayCredentials": true,
+    "liveTurnTraversal": false,
+    "independentDatabaseReadback": true,
+    "crossTenantDenied": true,
+    "twilioUsed": false,
+    "liveUserCallVerified": false
+  },
+  "productionExtensionsAssigned": false,
+  "newDialAndMediaEndpointsMounted": false,
+  "turnKeyProvisioned": false,
+  "phoneRoutingChanged": false,
+  "next": "Register extension dial and media credential contracts, mount call-first host/app flow with current access, configure TURN and renewal/notifications, then verify two real users across networks."
+}
