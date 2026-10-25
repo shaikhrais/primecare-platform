@@ -7,7 +7,7 @@ export function callDatabaseOrigin(connectionString){
  return {scheme:'postgres',host:u.hostname,port:5432,database:'postgres',user:decodeURIComponent(u.username),password:decodeURIComponent(u.password)};
 }
 export function assertCallDatabaseConfiguration(value,origin,boundId){
- if(!value||!/^[a-f0-9]{32}$/.test(value.id??'')||value.name!==callDatabaseName||value.caching?.disabled!==true||value.origin_connection_limit!==4||value.origin?.scheme!=='postgres'||value.origin.host!==origin.host||value.origin.port!==origin.port||value.origin.database!==origin.database||value.origin.user!==origin.user||value.mtls?.sslmode&&value.mtls.sslmode!=='require'||boundId&&boundId!==value.id)throw Error('existing_call_database_preserved');
+ if(!value||!/^[a-f0-9]{32}$/.test(value.id??'')||value.name!==callDatabaseName||value.caching?.disabled!==true||value.origin_connection_limit!==5||value.origin?.scheme!=='postgres'||value.origin.host!==origin.host||value.origin.port!==origin.port||value.origin.database!==origin.database||value.origin.user!==origin.user||value.mtls?.sslmode&&value.mtls.sslmode!=='require'||boundId&&boundId!==value.id)throw Error('existing_call_database_preserved');
  return value.id;
 }
 export function assertOwnedInternalCallTarget(settings,config){

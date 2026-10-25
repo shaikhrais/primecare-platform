@@ -8,9 +8,9 @@ test('fresh database transport is bound to runtime fields and never accepts a ra
 });
 test('only an exact pinned cache-disabled owned configuration may be deployed',()=>{
  const origin=callDatabaseOrigin('postgres://fixture:fixture-only@pooled.db.prisma.io:5432/postgres?sslmode=require');
- const configuration={id:'a'.repeat(32),name:callDatabaseName,origin:{...origin,password:undefined},caching:{disabled:true},origin_connection_limit:4,mtls:{sslmode:'require'}};
+ const configuration={id:'a'.repeat(32),name:callDatabaseName,origin:{...origin,password:undefined},caching:{disabled:true},origin_connection_limit:5,mtls:{sslmode:'require'}};
  assert.equal(assertCallDatabaseConfiguration(configuration,origin),configuration.id);
- for(const change of [v=>v.caching.disabled=false,v=>v.name='foreign',v=>v.origin.host='foreign',v=>v.origin.user='foreign',v=>v.origin.database='other',v=>v.origin_connection_limit=60,v=>v.mtls.sslmode='none']){const v=structuredClone(configuration);change(v);assert.throws(()=>assertCallDatabaseConfiguration(v,origin),/preserved/);}
+ for(const change of [v=>v.caching.disabled=false,v=>v.name='foreign',v=>v.origin.host='foreign',v=>v.origin.user='foreign',v=>v.origin.database='other',v=>v.origin_connection_limit=4,v=>v.origin_connection_limit=60,v=>v.mtls.sslmode='none']){const v=structuredClone(configuration);change(v);assert.throws(()=>assertCallDatabaseConfiguration(v,origin),/preserved/);}
  assert.throws(()=>assertCallDatabaseConfiguration(configuration,origin,'b'.repeat(32)),/preserved/);
  assert.throws(()=>callDatabaseOrigin('postgres://fixture:fixture-only@foreign/postgres'),/pinned/);
 });

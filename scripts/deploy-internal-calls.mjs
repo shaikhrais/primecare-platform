@@ -19,7 +19,7 @@ try{
  report.stage='fresh-database';const databaseOrigin=callDatabaseOrigin(required('PRODUCTION_DATABASE_URL'));
  const databases=await cf('/hyperdrive/configs'),named=databases.filter(d=>d.name===callDatabaseName),boundDatabase=existing?.bindings.find(b=>b.name==='CALL_DATABASE');
  if(named.length>1||boundDatabase&&!named.some(d=>d.id===boundDatabase.id))throw Error('existing_call_database_preserved');
- let database=named[0];if(!database){mainLease();database=await cf('/hyperdrive/configs',{body:{name:callDatabaseName,origin:databaseOrigin,caching:{disabled:true},origin_connection_limit:4,mtls:{sslmode:'require'}}});}
+ let database=named[0];if(!database){mainLease();database=await cf('/hyperdrive/configs',{body:{name:callDatabaseName,origin:databaseOrigin,caching:{disabled:true},origin_connection_limit:5,mtls:{sslmode:'require'}}});}
  const databaseId=assertCallDatabaseConfiguration(await cf('/hyperdrive/configs/'+database.id),databaseOrigin,boundDatabase?.id);report.freshDatabaseVerified=true;
  let keys=(await cf('/calls/turn_keys')).filter(k=>k.name===config.turnKeyName);if(keys.length>1)throw Error('owned_turn_key_ambiguous');
  if(keys.length===1&&recoverableUnusedTurnKey({key:keys[0],worker:existing,gateway},config)){mainLease();await cf('/calls/turn_keys/'+keys[0].uid,{method:'DELETE'});report.unusedFailedKeyReplaced=true;keys=[];}
