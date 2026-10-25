@@ -2,9 +2,16 @@
  * independently verifies the same pinned origin and disabled query caching. */
 export type InternalCallDatabaseBinding={connectionString:string;host:string;port:number;database:string;user:string;password:string};
 export function internalCallDatabaseOptions(binding:InternalCallDatabaseBinding){
- if(!binding||typeof binding.connectionString!=='string')throw Error('Fresh call database required');
- const url=new URL(binding.connectionString);
- if(!['postgres:','postgresql:'].includes(url.protocol)||(url.search!==''&&url.search!=='?sslmode=disable')||url.hash||!/^([a-f0-9]{32}\.)?hyperdrive\.local$/.test(url.hostname)||url.hostname!==binding.host||Number(url.port||5432)!==binding.port||decodeURIComponent(url.pathname.slice(1))!==binding.database||binding.database!=='postgres'||!binding.user||!binding.password||decodeURIComponent(url.username)!==binding.user||decodeURIComponent(url.password)!==binding.password)throw Error('Fresh call database required');
+ const fail=(reason:string):never=>{throw Object.assign(Error('Fresh call database required'),{communicationHealth:'call_database_'+reason});};
+ if(!binding||typeof binding.connectionString!=='string')return fail('missing');
+ let url:URL;try{url=new URL(binding.connectionString);}catch{return fail('url');}
+ if(!['postgres:','postgresql:'].includes(url.protocol))return fail('protocol');
+ if(url.search!==''&&url.search!=='?sslmode=disable'||url.hash)return fail('tls');
+ if(!/^([a-f0-9]{32}\.)?hyperdrive\.local$/.test(url.hostname)||url.hostname!==binding.host)return fail('host');
+ if(Number(url.port||5432)!==binding.port)return fail('port');
+ if(decodeURIComponent(url.pathname.slice(1))!==binding.database||binding.database!=='postgres')return fail('database');
+ if(!binding.user||decodeURIComponent(url.username)!==binding.user)return fail('user');
+ if(!binding.password||decodeURIComponent(url.password)!==binding.password)return fail('password');
  // workerd generates ?sslmode=disable for this in-process tunnel only.
  // The binding terminates locally within the Workers runtime. Hyperdrive's
  // origin connection uses verified TLS; no public plaintext DB URL is accepted.

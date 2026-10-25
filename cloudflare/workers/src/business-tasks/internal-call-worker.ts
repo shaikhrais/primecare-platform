@@ -39,6 +39,6 @@ export class InternalCallWorker extends BaseWorker<InternalCallEnvironment> {
    const response=await adapter.respond(request);for(const [key,value]of Object.entries(headers))response.headers.set(key,value);if(response.ok)response.headers.set('server-timing',[...metrics].map(([key,value])=>key+';dur='+Math.round(value.milliseconds)+';desc="'+value.count+' queries; max '+Math.round(value.max)+'ms"').join(','));return response;
   }finally{turn?.close();await Promise.all([fastPool.end(),directPool.end()]);}
  }
- protected override onError(){return Response.json({error:'unavailable'},{status:503,headers:{'cache-control':'no-store','x-content-type-options':'nosniff'}});}
+ protected override onError(error:unknown,_request:Request,env:InternalCallEnvironment){const health=(error as {communicationHealth?:string})?.communicationHealth;return Response.json({error:'unavailable'},{status:503,headers:{'cache-control':'no-store','x-content-type-options':'nosniff','x-primecare-calls-source':/^[a-f0-9]{40}$/.test(env.INTERNAL_CALL_SOURCE??'')?env.INTERNAL_CALL_SOURCE:'unconfigured','x-primecare-calls-health':typeof health==='string'&&/^call_database_[a-z_]{1,32}$/.test(health)?health:error instanceof TypeError?'runtime_type':'worker_failure'}});}
 }
 export default workerHandler(new InternalCallWorker());
