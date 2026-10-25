@@ -78,3 +78,10 @@ that exact unused first-provisioning source, with no gateway binding and no
 installed TURN secrets. It cannot replace a live or unrelated key. New key
 validation uses the existing bounded provider's accepted format; only field types
 and lengths enter diagnostics.
+
+Run 40214861994 proved the live response has a matching owned name and 32-character
+UID but no bearer in result.key. The provisioning boundary now also retains the
+one-time envelope-level key, rejecting conflicting key fields. Tests cover both
+response layouts. Only the two exact failed, unbound, secretless setup sources
+qualify for unused-key recovery; any installed key or active gateway binding
+continues to block that path.

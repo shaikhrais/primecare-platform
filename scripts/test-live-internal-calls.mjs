@@ -37,6 +37,7 @@ try{
   await until(async()=>{const d=await request(user,'directory',{});if(d.self?.published){user.extension=d.self.extension;return true;}return false;});
  }
  const [alice,bob,foreign]=users;report.liveBrowsers=true;report.nativeLogin=true;report.explicitExtensionPublication=true;report.noPrematureMicrophone=true;
+ await request(alice,'dial',{extension:foreign.extension,requestId:crypto.randomUUID()},404);
  report.stage='dial-and-answer';
  await cy(alice.page,'internal-call-extension').fill(bob.extension);
  const dialPromise=alice.page.waitForResponse(r=>r.url()===gateway+'/v1/calls/dial'&&r.request().method()==='POST');await cy(alice.page,'internal-call-dial').click();const dialResponse=await dialPromise;assert.equal(dialResponse.status(),200);const view=await dialResponse.json(),callId=view.calls.at(-1).id,dialBody=dialResponse.request().postDataJSON();
