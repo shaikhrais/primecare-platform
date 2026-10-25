@@ -8,7 +8,7 @@ type Sql={query(sql:string,values?:unknown[]):Promise<{rows:any[]}>};
 type Client=Sql&{release():void};
 type Pool=Sql&{connect():Promise<Client>};
 type Config={accountSid:string;messagingServiceSid:string;sharedNumber:string};
-type NativeContext={actor:Actor;sessionHash:string};
+export type NativeContext={actor:Actor;sessionHash:string};
 /** Construct policy on the owned native client, never recursively acquire the
  * same pool while a transaction/row lock is held. No default grants are supplied.
  */
@@ -22,12 +22,12 @@ function configSnapshot(c:Config):Readonly<Config>{
 }
 const lockKey=(c:Pick<Config,'accountSid'|'sharedNumber'>,address:string)=>JSON.stringify(['sms-consent',c.accountSid,c.sharedNumber,address]);
 async function lock(db:Sql,c:Pick<Config,'accountSid'|'sharedNumber'>,address:string){await db.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',[lockKey(c,address)]);}
-async function freshSession(db:Sql,context:NativeContext){
+async function freshSession(db:Sql,context:NativeContext,fresh=true){
  assertActor(context.actor);if(!/^[a-f0-9]{64}$/.test(context.sessionHash))throw denied();
  const rows=(await db.query(`SELECT s.token_hash FROM auth_sessions s JOIN users u ON u.id::text=s.user_id::text JOIN tenants t ON t.id::text=u.tenant_id::text
   WHERE s.token_hash=$1 AND u.id::text=$2 AND u.tenant_id::text=$3 AND LOWER(u.status)='active' AND LOWER(t.status)='active'
-  AND s.expires_at>clock_timestamp() AND s.created_at<=clock_timestamp() AND s.created_at>clock_timestamp()-INTERVAL '5 minutes'
-  FOR SHARE OF s,u,t`,[context.sessionHash,context.actor.id,context.actor.tenantId])).rows;
+  AND s.expires_at>clock_timestamp() AND s.created_at<=clock_timestamp() AND (NOT $4::boolean OR s.created_at>clock_timestamp()-INTERVAL '5 minutes')
+  FOR SHARE OF s,u,t`,[context.sessionHash,context.actor.id,context.actor.tenantId,fresh])).rows;
  if(rows.length!==1)throw denied();
 }
 function sameLink(a:MessagingLink,b:MessagingLink){
@@ -80,7 +80,9 @@ export class PostgresSmsMessagingRepository implements MessagingLinkPolicy {
    const result=await this.current(db,actor,input.conversationId,'messaging.link.bind');await db.query('COMMIT');return result;
   }catch(error){await db.query('ROLLBACK');throw error;}finally{db.release();}
  }
- private async current(db:Sql,actor:Actor,conversationId:string,action:string):Promise<MessagingLink>{
+ private async current(db:Sql,actor:Actor,conversationId:string,action:string):Promise<MessagingLink>;
+ private async current(db:Sql,actor:Actor,conversationId:string,action:string,allowMissing:true):Promise<MessagingLink|null>;
+ private async current(db:Sql,actor:Actor,conversationId:string,action:string,allowMissing=false):Promise<MessagingLink|null>{
   assertActor(actor);required(conversationId);const c=this.config;
   const rows=(await db.query(`SELECT l.id,l.version::float8 AS version,l.phone,w.state
    FROM communication_sms_links l JOIN communication_sms_consent s ON s.account_sid=l.account_sid AND s.shared_number=l.shared_number AND s.phone=l.phone
@@ -90,9 +92,21 @@ export class PostgresSmsMessagingRepository implements MessagingLinkPolicy {
    JOIN business_work_aggregates w ON w.tenant_id=l.tenant_id AND w.id=l.conversation_id AND w.state->>'kind'='conversation' AND w.state->'members' ? l.user_id
    WHERE l.tenant_id=$1 AND l.user_id=$2 AND l.conversation_id=$3 AND l.account_sid=$4 AND l.messaging_service_sid=$5 AND l.shared_number=$6
    AND l.revoked_at IS NULL AND NOT s.blocked AND s.version=l.consent_version LIMIT 2 FOR SHARE OF l,s,v,u,t,w`,[actor.tenantId,actor.id,conversationId,c.accountSid,c.messagingServiceSid,c.sharedNumber])).rows;
+  if(allowMissing&&rows.length===0)return null;
   if(rows.length!==1||!uuid(rows[0].id)||!Number.isSafeInteger(rows[0].version)||!phone(rows[0].phone))throw denied();
   await this.policy(db).assert(actor,action,rows[0].state);
   return Object.freeze({id:rows[0].id,version:rows[0].version,actorId:actor.id,tenantId:actor.tenantId,conversationId,provider:'twilio',channel:'sms',address:rows[0].phone});
+ }
+ /** Absence is returned only after current native session, membership and
+  * status permission succeed. Database/policy failures are never 'unlinked'. */
+ async status(context:NativeContext,conversationId:string):Promise<MessagingLink|null>{
+  context=contextSnapshot(context);required(conversationId);const db=await this.pool.connect();
+  try{
+   await db.query('BEGIN');await freshSession(db,context,false);
+   await this.policy(db).assert(context.actor,'messaging.link.status',await this.conversation(db,context.actor,conversationId));
+   const result=await this.current(db,context.actor,conversationId,'messaging.link.status',true);
+   await db.query('COMMIT');return result;
+  }catch(error){await db.query('ROLLBACK');throw error;}finally{db.release();}
  }
  async resolve(actor:Actor,conversationId:string):Promise<MessagingLink>{
   assertActor(actor);actor=Object.freeze({id:actor.id,tenantId:actor.tenantId});required(conversationId);

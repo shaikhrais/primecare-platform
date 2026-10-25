@@ -35,14 +35,19 @@ try{
   await pool.query('INSERT INTO communication_voice_verified_contacts(tenant_id,user_id,phone,version,verified_at) VALUES($1,$2,$3,1,now())',[a.tenantId,a.id,phone]);
   await pool.query('INSERT INTO business_work_aggregates(tenant_id,id,state) VALUES($1,$2,$3)',[a.tenantId,thread,JSON.stringify({id:thread,tenantId:a.tenantId,version:1,kind:'conversation',members:[a.id,'reception']})]);
  }
+ assert.equal(await repository.status(context,'thread-a'),null);
+ await assert.rejects(repository.status(bobContext,'thread-a'));
+ await assert.rejects(repository.status({...context,sessionHash:'c'.repeat(64)},'thread-a'));
+ denied=true;await assert.rejects(repository.status(context,'thread-a'),/Policy denied/);denied=false;groups++;
  const id=crypto.randomUUID(),input={id,conversationId:'thread-a',consent:true};
- const [first,retry]=await Promise.all([repository.bind(context,input),repository.bind(context,input)]);assert.deepEqual(first,retry);assert.equal(first.address,phone);assert.equal(first.actorId,actor.id);assert.equal((await repository.resolve(actor,'thread-a')).id,id);
+ const [first,retry]=await Promise.all([repository.bind(context,input),repository.bind(context,input)]);assert.deepEqual(first,retry);assert.equal((await repository.status(context,'thread-a')).id,id);assert.equal(first.address,phone);assert.equal(first.actorId,actor.id);assert.equal((await repository.resolve(actor,'thread-a')).id,id);
  assert.equal((await pool.query('SELECT count(*)::int AS n FROM communication_sms_links WHERE revoked_at IS NULL')).rows[0].n,1);groups++;
  await assert.rejects(repository.bind(bobContext,{id:crypto.randomUUID(),conversationId:'thread-b',consent:true}));
  for(const args of [{...input,phone:'+15550009999'},{...input,consent:false},{...input,tenantId:'forged'}])await assert.rejects(repository.bind(context,args));
  await assert.rejects(repository.bind({...context,actor:foreign},{...input,id:crypto.randomUUID()}));await assert.rejects(repository.resolve(bob,'thread-a'));await assert.rejects(repository.resolve(foreign,'thread-a'));groups++;
  await pool.query("UPDATE auth_sessions SET created_at=clock_timestamp()-INTERVAL '6 minutes' WHERE token_hash=$1",[context.sessionHash]);
  await assert.rejects(repository.bind(context,{...input,id:crypto.randomUUID()}));
+ assert.equal((await repository.status(context,'thread-a')).id,id);
  await pool.query('UPDATE auth_sessions SET created_at=clock_timestamp() WHERE token_hash=$1',[context.sessionHash]);
  denied=true;await assert.rejects(repository.bind(context,{...input,id:crypto.randomUUID()}),/Policy denied/);denied=false;
  assert.equal((await repository.resolve(actor,'thread-a')).id,id);groups++;
@@ -62,7 +67,7 @@ try{
  assert.deepEqual(order,['submission-started','submission-finished','stop-committed']);
  await assert.rejects(oldService.deliver(actor,'queued-before-stop','deliver',1));assert.equal(sends,0);
  const stopped=(await pool.query('SELECT blocked,version::float8 AS version FROM communication_sms_consent WHERE account_sid=$1',[config.accountSid])).rows[0];assert.equal(stopped.blocked,true);
- assert.ok((await pool.query('SELECT revoked_at FROM communication_sms_links WHERE id=$1',[id])).rows[0].revoked_at);groups++;
+ assert.ok((await pool.query('SELECT revoked_at FROM communication_sms_links WHERE id=$1',[id])).rows[0].revoked_at);assert.equal(await repository.status(context,'thread-a'),null);groups++;
  assert.equal(await inbox.accept(event('c','STOP')),'duplicate');assert.deepEqual((await pool.query('SELECT blocked,version::float8 AS version FROM communication_sms_consent WHERE account_sid=$1',[config.accountSid])).rows[0],stopped);
  await assert.rejects(repository.bind(context,{...input,id:crypto.randomUUID()}));
  assert.equal(await inbox.accept(event('d','START')),'quarantined');await assert.rejects(repository.resolve(actor,'thread-a'));
@@ -87,6 +92,6 @@ try{
   const l=await single.bind(context,{...input,id:crypto.randomUUID()});assert.equal((await single.resolve(actor,'thread-a')).id,l.id);
   assert.equal(await single.guardSend(l,async()=> 'single-slot-send'),'single-slot-send');
  }finally{await one.end();}groups++;
- const report={groupsPassed:groups,independentDatabaseReadback:true,queuedReplyBlockedAfterStop:true,startDidNotReviveOldReply:true,concurrentProviderSubmissionSerialized:true,singleSlotPoolVerified:true,liveProviderTraffic:false};
+ const report={groupsPassed:groups,independentDatabaseReadback:true,nativeStatusVerified:true,queuedReplyBlockedAfterStop:true,startDidNotReviveOldReply:true,concurrentProviderSubmissionSerialized:true,singleSlotPoolVerified:true,liveProviderTraffic:false};
  console.log('SMS_LINKS_NATIVE_POSTGRES '+JSON.stringify(report));await mkdir('test-results/messaging',{recursive:true});await writeFile('test-results/messaging/sms-links-native.json',JSON.stringify(report,null,2)+'\n');
 }finally{await pool.end();await admin.query('DROP SCHEMA '+schema+' CASCADE');await admin.end();}
