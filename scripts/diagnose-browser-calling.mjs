@@ -4,7 +4,7 @@ import {chromium} from 'playwright';import {mkdir,writeFile,readFile} from 'node
 const labels=JSON.parse(await readFile('tools/governance-production/internal-call-ui-registration.json','utf8')).locales.en,allowedLabels=new Set(Object.values(labels));
 const report={harnessSource:process.env.GITHUB_SHA,deployedSources:[],responses:[],failures:[],mediaResponses:[],reads:[],browserStates:[]};
 const launch=chromium.launch.bind(chromium);chromium.launch=async options=>{
- const browser=await launch(options),newContext=browser.newContext.bind(browser);let serial=0;
+ const browser=await launch({...options,...(process.env.CALL_BROWSER_EXECUTABLE?{executablePath:process.env.CALL_BROWSER_EXECUTABLE}:{})});report.browserVersion=browser.version();const newContext=browser.newContext.bind(browser);let serial=0;
  browser.newContext=async options=>{
   const context=await newContext(options),index=serial++,close=context.close.bind(context);
   context.on('page',page=>{

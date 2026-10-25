@@ -23,10 +23,12 @@ jobs:
       - run: |
           npm install --prefix "$RUNNER_TEMP/call-proof" --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@2.4.3 playwright@1.56.1
           ln -s "$RUNNER_TEMP/call-proof/node_modules" node_modules
-          node_modules/.bin/playwright install --with-deps chromium
+          test -x /usr/bin/google-chrome
+          /usr/bin/google-chrome --version
           pip install -r tools/governance-production/requirements.txt
       - env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CALL_BROWSER_EXECUTABLE: /usr/bin/google-chrome
         run: |
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
