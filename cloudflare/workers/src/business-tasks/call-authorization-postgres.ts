@@ -8,7 +8,8 @@ const authSelect=`SELECT call_sid AS "callSid",state,account_reference AS refere
  * Rechecks active native user/tenant, directory version and enrolled contact.
  * A selection grants nothing until the separate OTP check succeeds. */
 export class PostgresPhoneCallAccountDirectory {
- constructor(readonly pool:Sql){if(typeof pool?.query!=='function')throw Error('Account directory required');}
+ readonly pool:Sql;
+ constructor(pool:Sql){this.pool=pool;if(typeof pool?.query!=='function')throw Error('Account directory required');}
  async resolve(reference:string):Promise<CallAccount|null>{
   if(typeof reference!=='string'||!/^[1-9][0-9]{3}$/.test(reference))return null;
   const rows=(await this.pool.query(`SELECT e.extension,e.version::float8 AS directory_version,e.user_id,e.tenant_id,c.phone,c.version::float8 AS contact_version
@@ -23,7 +24,8 @@ export class PostgresPhoneCallAccountDirectory {
  }
 }
 export class PostgresPhoneCallGrantRepository implements PhoneCallGrantRepository {
- constructor(readonly pool:Pool){if(typeof pool?.query!=='function'||typeof pool?.connect!=='function')throw Error('Call grant database required');}
+ readonly pool:Pool;
+ constructor(pool:Pool){this.pool=pool;if(typeof pool?.query!=='function'||typeof pool?.connect!=='function')throw Error('Call grant database required');}
  async begin(row:PhoneCallGrant){
   row=structuredClone(row);const db=await this.pool.connect();try{
    await db.query('BEGIN');
@@ -47,7 +49,8 @@ const proofSelect=`SELECT call_sid AS "callSid",challenge_id::text AS "challenge
 const exactWhere=`call_sid=$1 AND challenge_id=$2 AND intent_id=$3 AND digest=$4 AND session_id=$5 AND user_id=$6 AND tenant_id=$7 AND expires_at>${now}`;
 const values=(p:SpokenConfirmation)=>[p.callSid,p.challengeId,p.intentId,p.digest,p.sessionId,p.userId,p.tenantId];
 export class PostgresSpokenConfirmationRepository implements SpokenConfirmationRepository {
- constructor(readonly pool:Sql){if(typeof pool?.query!=='function')throw Error('Spoken confirmation database required');}
+ readonly pool:Sql;
+ constructor(pool:Sql){this.pool=pool;if(typeof pool?.query!=='function')throw Error('Spoken confirmation database required');}
  async prepare(p:SpokenConfirmation){
   const result=await this.pool.query(`INSERT INTO communication_spoken_confirmations(call_sid,challenge_id,intent_id,digest,session_id,user_id,tenant_id,state,created_at,expires_at)
    SELECT $1,$2,$3,$4,$5,$6,$7,'prepared',$8,$9 FROM communication_voice_tasks t WHERE t.id=$3 AND t.digest=$4 AND t.status='proposed' AND (t.intent->>'expiresAt')::bigint>${now}

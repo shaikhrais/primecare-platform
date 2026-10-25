@@ -1,5 +1,6 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {fixture,actor,args,callSid,accountSid,sharedNumber} from './fixtures/business-phone-call.mjs';
+import {PhoneCallOperationCore} from '../cloudflare/workers/src/business-tasks/phone-call-core.ts';
 import {CallAuthorizationServiceBase} from '../cloudflare/workers/src/business-tasks/call-authorization.ts';
 import {VoiceTaskConfirmationServiceBase} from '../cloudflare/workers/src/business-tasks/voice-confirmations.ts';
 import {TwilioPhoneAuthorizationAdapter,TwilioSpokenConfirmationAdapter,TwilioPrivateCallAdapterBase} from '../packages/shared/src/communications/twilio-phone-authorization.mjs';
@@ -8,7 +9,7 @@ const base='https://fixture.invalid',config={accountSid,authToken:'d'.repeat(32)
 function request(url,changes={},signature){const p={AccountSid:accountSid,CallSid:callSid,Direction:'inbound',To:sharedNumber,...changes};return new Request(url,{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','x-twilio-signature':signature??getExpectedTwilioSignature(config.authToken,url,p)},body:new URLSearchParams(p)});}
 async function verified(f){await f.authorization.start(callSid,'4277');assert.deepEqual(await f.authorization.check(callSid,'123456'),{verified:true});}
 test('inherited phone-only services verify OTP and execute one exact spoken-confirmed booking',async()=>{
- const f=fixture();assert.ok(f.authorization instanceof CallAuthorizationServiceBase);assert.ok(f.confirmations instanceof VoiceTaskConfirmationServiceBase);
+ const f=fixture();assert.equal(typeof PhoneCallOperationCore,'function');assert.ok(f.authorization instanceof CallAuthorizationServiceBase);assert.ok(f.confirmations instanceof VoiceTaskConfirmationServiceBase);
  assert.equal(await f.authorization.current(callSid),null);await verified(f);assert.deepEqual((await f.authorization.current(callSid)).actor,actor);
  const p=await f.tasks.propose(callSid,'appointment.booking.request',args());await assert.rejects(f.tasks.execute(callSid,p.intentId));assert.equal(f.writes,0);
  const proof=await f.confirmations.prepare(callSid,p.intentId);assert.equal(proof.summary,p.summary);
