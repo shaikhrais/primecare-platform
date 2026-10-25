@@ -2,7 +2,7 @@
 
 Generated from the pinned production governance catalogue and exact repository documentation references. Comments cover every exported operation; missing business contracts remain explicit. This is documentation coverage, not implementation or production certification.
 
-Exported operations: 1265. Source-linked: 148. Registry-only with explicit gaps: 1117. Omitted/quarantined records: 1.
+Exported operations: 1270. Source-linked: 149. Registry-only with explicit gaps: 1121. Omitted/quarantined records: 1.
 
 ## Contents
 
@@ -672,9 +672,11 @@ Exported operations: 1265. Source-linked: 148. Registry-only with explicit gaps:
 
 - [treatment-plan](#family-treatment-plan) — 1 operations
 
-- [twilio](#family-twilio) — 12 operations
+- [twilio](#family-twilio) — 13 operations
 
 - [user](#family-user) — 8 operations
+
+- [vapi](#family-vapi) — 1 operations
 
 - [verification](#family-verification) — 2 operations
 
@@ -690,7 +692,7 @@ Exported operations: 1265. Source-linked: 148. Registry-only with explicit gaps:
 
 - [vitals-tracking](#family-vitals-tracking) — 1 operations
 
-- [voice](#family-voice) — 9 operations
+- [voice](#family-voice) — 12 operations
 
 - [volunteer](#family-volunteer) — 2 operations
 
@@ -63649,6 +63651,84 @@ No exact method-and-path documentation source was found. This is an explicit doc
 
 ## twilio
 
+<a id="api-16538"></a>
+
+### 16538: POST /v1/twilio/sms/incoming
+
+## Registered operation
+`POST /v1/twilio/sms/incoming`
+
+Governance ID: 16538. Registry code: `TWILIO_SMS_INCOMING`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `twilio.signature`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [packages/contracts/communications.openapi.json](../../packages/contracts/communications.openapi.json)
+
+**Purpose / behavior from source:** Verify the exact signed Twilio form and persist the inbound SMS before returning empty TwiML
+
+Verify the exact signed Twilio form and persist the inbound SMS before returning empty TwiML. Durable duplicates do not create a second AI turn. Control messages and unsupported media stay outside the AI queue. The provider signature does not authenticate a PrimeCare account; verified linking and current consent remain required for any reply. Registration does not mount or activate this route. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
+
+**Authentication declared in source:** twilioSignature
+
+**Request body — application/x-www-form-urlencoded:**
+- `AccountSid`: string, required, maxLength=34, pattern-constrained; see source
+- `MessageSid`: string, required, maxLength=34, pattern-constrained; see source
+- `From`: string, required, maxLength=16, pattern-constrained; see source
+- `To`: string, required, maxLength=16, pattern-constrained; see source
+- `Body`: string, required, maxLength=1600, pattern-constrained; see source
+- `NumMedia`: constrained value, required, 11 allowed values; see source
+- `MessagingServiceSid`: string, optional, maxLength=34, pattern-constrained; see source
+- `OptOutType`: constrained value, optional, 3 allowed values; see source
+
+**Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
+
+Content type `text/xml`:
+No object fields; schema type: string.
+
+**Response 400:** See source response reference.
+
+**Response 403:** See source response reference.
+
+**Response 404:** See source response reference.
+
+**Response 405:** See source response reference.
+
+**Response 415:** See source response reference.
+
+**Response 503:** See source response reference.
+
 <a id="api-16533"></a>
 
 ### 16533: POST /v1/twilio/sms/status
@@ -65137,6 +65217,52 @@ These are proposed checks, not passed tests.
 ## Endpoint-specific implementation references
 No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
 
+<a id="family-vapi"></a>
+
+## vapi
+
+<a id="api-16534"></a>
+
+### 16534: POST /v1/vapi/voice/tasks
+
+## Registered operation
+`POST /v1/vapi/voice/tasks`
+
+Governance ID: 16534. Registry code: `VAPI_VOICE_TASKS`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `vapi.service.tasks`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
 <a id="family-verification"></a>
 
 ## verification
@@ -65573,6 +65699,132 @@ No exact method-and-path documentation source was found. This is an explicit doc
 <a id="family-voice"></a>
 
 ## voice
+
+<a id="api-16537"></a>
+
+### 16537: POST /v1/voice/contact/check
+
+## Registered operation
+`POST /v1/voice/contact/check`
+
+Governance ID: 16537. Registry code: `VOICE_CONTACT_CHECK`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16536"></a>
+
+### 16536: POST /v1/voice/contact/start
+
+## Registered operation
+`POST /v1/voice/contact/start`
+
+Governance ID: 16536. Registry code: `VOICE_CONTACT_START`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16535"></a>
+
+### 16535: POST /v1/voice/contact/status
+
+## Registered operation
+`POST /v1/voice/contact/status`
+
+Governance ID: 16535. Registry code: `VOICE_CONTACT_STATUS`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
 
 <a id="api-16514"></a>
 

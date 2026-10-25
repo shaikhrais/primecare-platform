@@ -1,16 +1,16 @@
 {
-  "registeredRecords": 1266,
-  "documentedOperations": 1265,
-  "sourceLinkedOperations": 148,
+  "registeredRecords": 1271,
+  "documentedOperations": 1270,
+  "sourceLinkedOperations": 149,
   "multipleSourceOperations": 34,
-  "registryOnlyOperations": 1117,
+  "registryOnlyOperations": 1121,
   "omittedOrQuarantinedRecords": 1,
   "productionReady": false,
   "services": {
     "PRISMA": 1139,
     "auth": 27,
     "client": 2,
-    "governance": 96,
+    "governance": 101,
     "unassigned": 1
   },
   "operations": [
@@ -10130,6 +10130,46 @@
       "id": 16533,
       "method": "POST",
       "path": "/v1/twilio/sms/status",
+      "service": "governance",
+      "sourceCount": 1,
+      "status": "source-linked-needs-runtime-review"
+    },
+    {
+      "id": 16534,
+      "method": "POST",
+      "path": "/v1/vapi/voice/tasks",
+      "service": "governance",
+      "sourceCount": 0,
+      "status": "registry-only-explicit-gaps"
+    },
+    {
+      "id": 16535,
+      "method": "POST",
+      "path": "/v1/voice/contact/status",
+      "service": "governance",
+      "sourceCount": 0,
+      "status": "registry-only-explicit-gaps"
+    },
+    {
+      "id": 16536,
+      "method": "POST",
+      "path": "/v1/voice/contact/start",
+      "service": "governance",
+      "sourceCount": 0,
+      "status": "registry-only-explicit-gaps"
+    },
+    {
+      "id": 16537,
+      "method": "POST",
+      "path": "/v1/voice/contact/check",
+      "service": "governance",
+      "sourceCount": 0,
+      "status": "registry-only-explicit-gaps"
+    },
+    {
+      "id": 16538,
+      "method": "POST",
+      "path": "/v1/twilio/sms/incoming",
       "service": "governance",
       "sourceCount": 1,
       "status": "source-linked-needs-runtime-review"

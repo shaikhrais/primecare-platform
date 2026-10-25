@@ -13303,7 +13303,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -15436,7 +15436,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36410,7 +36410,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36439,7 +36439,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36470,7 +36470,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36501,7 +36501,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36532,7 +36532,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36563,7 +36563,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36594,7 +36594,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36625,7 +36625,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36656,7 +36656,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36687,7 +36687,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36718,7 +36718,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36749,7 +36749,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36780,7 +36780,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36811,7 +36811,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36842,7 +36842,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36873,7 +36873,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36904,7 +36904,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36935,7 +36935,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36966,7 +36966,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36997,7 +36997,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37028,7 +37028,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37059,7 +37059,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37090,7 +37090,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37121,7 +37121,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37152,7 +37152,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37183,7 +37183,142 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "af24ebd386b5677c2d93db2f153d80ebbc6e3eff8f390d23d236ca0ae7a4cab8"
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+          }
+        ],
+        "x-documentation-status": "source-linked-needs-runtime-review",
+        "x-documentation-complete": true
+      }
+    },
+    "/v1/vapi/voice/tasks": {
+      "post": {
+        "operationId": "governed_endpoint_16534",
+        "summary": "VAPI_VOICE_TASKS",
+        "description": "## Registered operation\n`POST /v1/vapi/voice/tasks`\n\nGovernance ID: 16534. Registry code: `VAPI_VOICE_TASKS`. Registry status: `registered-unimplemented` (not runtime evidence).\n\n## Purpose and behavior\nThe route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.\n\n## Authentication and permissions\nRegistered auth_required: `1`. Permission key: `vapi.service.tasks`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.\n\n## Request contract\nA schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.\n\n## Response contract\nA schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.\n\n## Persistence and tenant isolation\nDatabase mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.\n\n## Rate limiting and audit\nRate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.\n\n## Required verification\n- Approved successful journey and persistence/read-back where applicable.\n- Missing, expired and invalid credentials.\n- Forbidden roles and cross-tenant requests.\n- Invalid input, resource absence and database failure.\n- Rate limiting and audit event emission.\nThese are proposed checks, not passed tests.\n\n## Blocking findings\n- missing_rate_limit_key\n- runtime_security_persistence_and_tests_not_verified\n\n## Endpoint-specific implementation references\nNo exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.",
+        "tags": [
+          "vapi"
+        ],
+        "x-governance-id": 16534,
+        "x-governance-status": "registered-unimplemented",
+        "x-governance-auth-required": 1,
+        "x-contract-status": "blocked",
+        "x-gaps": [
+          "missing_rate_limit_key",
+          "runtime_security_persistence_and_tests_not_verified"
+        ],
+        "responses": {
+          "default": {
+            "description": "Response contract is not yet verified."
+          }
+        },
+        "x-documentation-sources": [],
+        "x-documentation-status": "registry-only-explicit-gaps",
+        "x-documentation-complete": true
+      }
+    },
+    "/v1/voice/contact/status": {
+      "post": {
+        "operationId": "governed_endpoint_16535",
+        "summary": "VOICE_CONTACT_STATUS",
+        "description": "## Registered operation\n`POST /v1/voice/contact/status`\n\nGovernance ID: 16535. Registry code: `VOICE_CONTACT_STATUS`. Registry status: `registered-unimplemented` (not runtime evidence).\n\n## Purpose and behavior\nThe route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.\n\n## Authentication and permissions\nRegistered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.\n\n## Request contract\nA schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.\n\n## Response contract\nA schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.\n\n## Persistence and tenant isolation\nDatabase mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.\n\n## Rate limiting and audit\nRate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.\n\n## Required verification\n- Approved successful journey and persistence/read-back where applicable.\n- Missing, expired and invalid credentials.\n- Forbidden roles and cross-tenant requests.\n- Invalid input, resource absence and database failure.\n- Rate limiting and audit event emission.\nThese are proposed checks, not passed tests.\n\n## Blocking findings\n- missing_rate_limit_key\n- runtime_security_persistence_and_tests_not_verified\n\n## Endpoint-specific implementation references\nNo exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.",
+        "tags": [
+          "voice"
+        ],
+        "x-governance-id": 16535,
+        "x-governance-status": "registered-unimplemented",
+        "x-governance-auth-required": 1,
+        "x-contract-status": "blocked",
+        "x-gaps": [
+          "missing_rate_limit_key",
+          "runtime_security_persistence_and_tests_not_verified"
+        ],
+        "responses": {
+          "default": {
+            "description": "Response contract is not yet verified."
+          }
+        },
+        "x-documentation-sources": [],
+        "x-documentation-status": "registry-only-explicit-gaps",
+        "x-documentation-complete": true
+      }
+    },
+    "/v1/voice/contact/start": {
+      "post": {
+        "operationId": "governed_endpoint_16536",
+        "summary": "VOICE_CONTACT_START",
+        "description": "## Registered operation\n`POST /v1/voice/contact/start`\n\nGovernance ID: 16536. Registry code: `VOICE_CONTACT_START`. Registry status: `registered-unimplemented` (not runtime evidence).\n\n## Purpose and behavior\nThe route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.\n\n## Authentication and permissions\nRegistered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.\n\n## Request contract\nA schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.\n\n## Response contract\nA schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.\n\n## Persistence and tenant isolation\nDatabase mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.\n\n## Rate limiting and audit\nRate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.\n\n## Required verification\n- Approved successful journey and persistence/read-back where applicable.\n- Missing, expired and invalid credentials.\n- Forbidden roles and cross-tenant requests.\n- Invalid input, resource absence and database failure.\n- Rate limiting and audit event emission.\nThese are proposed checks, not passed tests.\n\n## Blocking findings\n- missing_rate_limit_key\n- runtime_security_persistence_and_tests_not_verified\n\n## Endpoint-specific implementation references\nNo exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.",
+        "tags": [
+          "voice"
+        ],
+        "x-governance-id": 16536,
+        "x-governance-status": "registered-unimplemented",
+        "x-governance-auth-required": 1,
+        "x-contract-status": "blocked",
+        "x-gaps": [
+          "missing_rate_limit_key",
+          "runtime_security_persistence_and_tests_not_verified"
+        ],
+        "responses": {
+          "default": {
+            "description": "Response contract is not yet verified."
+          }
+        },
+        "x-documentation-sources": [],
+        "x-documentation-status": "registry-only-explicit-gaps",
+        "x-documentation-complete": true
+      }
+    },
+    "/v1/voice/contact/check": {
+      "post": {
+        "operationId": "governed_endpoint_16537",
+        "summary": "VOICE_CONTACT_CHECK",
+        "description": "## Registered operation\n`POST /v1/voice/contact/check`\n\nGovernance ID: 16537. Registry code: `VOICE_CONTACT_CHECK`. Registry status: `registered-unimplemented` (not runtime evidence).\n\n## Purpose and behavior\nThe route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.\n\n## Authentication and permissions\nRegistered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.\n\n## Request contract\nA schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.\n\n## Response contract\nA schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.\n\n## Persistence and tenant isolation\nDatabase mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.\n\n## Rate limiting and audit\nRate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.\n\n## Required verification\n- Approved successful journey and persistence/read-back where applicable.\n- Missing, expired and invalid credentials.\n- Forbidden roles and cross-tenant requests.\n- Invalid input, resource absence and database failure.\n- Rate limiting and audit event emission.\nThese are proposed checks, not passed tests.\n\n## Blocking findings\n- missing_rate_limit_key\n- runtime_security_persistence_and_tests_not_verified\n\n## Endpoint-specific implementation references\nNo exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.",
+        "tags": [
+          "voice"
+        ],
+        "x-governance-id": 16537,
+        "x-governance-status": "registered-unimplemented",
+        "x-governance-auth-required": 1,
+        "x-contract-status": "blocked",
+        "x-gaps": [
+          "missing_rate_limit_key",
+          "runtime_security_persistence_and_tests_not_verified"
+        ],
+        "responses": {
+          "default": {
+            "description": "Response contract is not yet verified."
+          }
+        },
+        "x-documentation-sources": [],
+        "x-documentation-status": "registry-only-explicit-gaps",
+        "x-documentation-complete": true
+      }
+    },
+    "/v1/twilio/sms/incoming": {
+      "post": {
+        "operationId": "governed_endpoint_16538",
+        "summary": "TWILIO_SMS_INCOMING",
+        "description": "## Registered operation\n`POST /v1/twilio/sms/incoming`\n\nGovernance ID: 16538. Registry code: `TWILIO_SMS_INCOMING`. Registry status: `registered-unimplemented` (not runtime evidence).\n\n## Purpose and behavior\nThe route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.\n\n## Authentication and permissions\nRegistered auth_required: `1`. Permission key: `twilio.signature`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.\n\n## Request contract\nA schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.\n\n## Response contract\nA schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.\n\n## Persistence and tenant isolation\nDatabase mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.\n\n## Rate limiting and audit\nRate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.\n\n## Required verification\n- Approved successful journey and persistence/read-back where applicable.\n- Missing, expired and invalid credentials.\n- Forbidden roles and cross-tenant requests.\n- Invalid input, resource absence and database failure.\n- Rate limiting and audit event emission.\nThese are proposed checks, not passed tests.\n\n## Blocking findings\n- missing_rate_limit_key\n- runtime_security_persistence_and_tests_not_verified\n\n## Endpoint-specific implementation references\n\nThe following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.\n\n### [packages/contracts/communications.openapi.json](../../packages/contracts/communications.openapi.json)\n\n**Purpose / behavior from source:** Verify the exact signed Twilio form and persist the inbound SMS before returning empty TwiML\n\nVerify the exact signed Twilio form and persist the inbound SMS before returning empty TwiML. Durable duplicates do not create a second AI turn. Control messages and unsupported media stay outside the AI queue. The provider signature does not authenticate a PrimeCare account; verified linking and current consent remain required for any reply. Registration does not mount or activate this route. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.\n\n**Authentication declared in source:** twilioSignature\n\n**Request body — application/x-www-form-urlencoded:**\n- `AccountSid`: string, required, maxLength=34, pattern-constrained; see source\n- `MessageSid`: string, required, maxLength=34, pattern-constrained; see source\n- `From`: string, required, maxLength=16, pattern-constrained; see source\n- `To`: string, required, maxLength=16, pattern-constrained; see source\n- `Body`: string, required, maxLength=1600, pattern-constrained; see source\n- `NumMedia`: constrained value, required, 11 allowed values; see source\n- `MessagingServiceSid`: string, optional, maxLength=34, pattern-constrained; see source\n- `OptOutType`: constrained value, optional, 3 allowed values; see source\n\n**Response 200:** Successful transport/service response; not evidence of a confirmed appointment.\n\nContent type `text/xml`:\nNo object fields; schema type: string.\n\n**Response 400:** See source response reference.\n\n**Response 403:** See source response reference.\n\n**Response 404:** See source response reference.\n\n**Response 405:** See source response reference.\n\n**Response 415:** See source response reference.\n\n**Response 503:** See source response reference.",
+        "tags": [
+          "twilio"
+        ],
+        "x-governance-id": 16538,
+        "x-governance-status": "registered-unimplemented",
+        "x-governance-auth-required": 1,
+        "x-contract-status": "blocked",
+        "x-gaps": [
+          "missing_rate_limit_key",
+          "runtime_security_persistence_and_tests_not_verified"
+        ],
+        "responses": {
+          "default": {
+            "description": "Response contract is not yet verified."
+          }
+        },
+        "x-documentation-sources": [
+          {
+            "file": "packages/contracts/communications.openapi.json",
+            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37194,7 +37329,7 @@
   "x-governance-authority": {
     "schema": "governance_68b0b02dd1215f58630d2c1a",
     "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
-    "registrationCount": 1266,
+    "registrationCount": 1271,
     "readOnly": true
   }
 }
