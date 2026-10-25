@@ -1,0 +1,28 @@
+{
+  "sourceCommit": "33a71b37e3aa736a01df36b458b3ad7968e274de",
+  "localFocusedTestsPassed": 37,
+  "localFocusedTestsFailed": 0,
+  "strictAdapterTypesPassed": true,
+  "nativeWorkflowRunId": 40158426495,
+  "nativeJobId": 121064667937,
+  "newNativePostgresGroupsPassed": 10,
+  "existingNativeMessagingGroupsPassed": 6,
+  "independentDatabaseReadback": true,
+  "queuedReplyBlockedAfterStop": true,
+  "startDidNotReviveOldReply": true,
+  "redundantStartPreservedCurrentLink": true,
+  "concurrentProviderSubmissionSerialized": true,
+  "singleSlotPoolVerified": true,
+  "communicationsCi": {"workflowRunId": 40158426495, "jobsPassed": 12, "jobsFailed": 0},
+  "initialCommunicationsCi": {
+    "sourceCommit": "40523846bf754bae8627f04db00be0769daf3c0d",
+    "workflowRunId": 40158240711,
+    "jobsPassed": 12
+  },
+  "productionSchemaApplied": false,
+  "nativeBindingEndpointsMounted": false,
+  "permissionsGranted": false,
+  "phoneRoutingChanged": false,
+  "liveProviderTraffic": false,
+  "liveMessagingVerified": false
+}

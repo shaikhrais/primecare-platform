@@ -30,11 +30,22 @@ The official SMS client's 10-second timeout/no-retry configuration is required
 for the guarded transport. Policy factories must query the owned native client
 instead of acquiring the same pool recursively.
 
-37 focused local checks passed initially, including the existing inbound inbox,
-SMS outbox and shared AI reply service. Strict adapter types passed. Native
-PostgreSQL concurrency, rollback, stale-link suppression, identity/membership and
-single-slot pool checks are wired into communications CI; record their actual
-result before claiming native acceptance.
+37 focused local checks passed, including the existing inbound inbox, SMS outbox
+and shared AI reply service. Strict adapter types passed. Source `33a71b37`, run
+`40158426495`, job `121064667937`, passed all ten new native PostgreSQL groups
+plus the six existing native messaging groups. The checks cover concurrency,
+rollback, queued replies blocked after STOP, no revival of old links/replies
+after START, identity/membership/contact changes and single-slot pools.
+
+A redundant START when already opted in preserves the current valid link; it
+does not advance the consent generation unnecessarily. A START after STOP still
+cannot revive the revoked link. The native suite asserts both behaviors.
+
+The first implementation checkpoint `40523846` also passed all 12 communication
+CI jobs in run `40158240711`; the updated source `33a71b37` passed all 12 in
+run `40158426495`. These are scoped checks, not live/provider or full
+release acceptance. Broader existing gateway/endpoint-policy review blockers
+remain documented in `messaging-ai-development-20261024.md`.
 
 Next activation work: register storage and native owner-only bind/revoke
 contracts, apply approved migrations through the pinned writer, compose the
