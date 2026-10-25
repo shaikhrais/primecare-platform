@@ -1,0 +1,139 @@
+{
+  "step": 3,
+  "readinessMeasured": true,
+  "liveCallVerified": false,
+  "liveOtpVerified": false,
+  "smsSent": false,
+  "businessActionsEnabled": false,
+  "toolsAttached": false,
+  "blockers": [
+    "no_verified_voice_contacts",
+    "native_permission_not_ready:/v1/voice/otp/start",
+    "native_permission_not_ready:/v1/voice/otp/check",
+    "private_pre_ai_pairing_delivery_not_connected",
+    "native_app_pairing_ui_not_connected",
+    "otp_runtime_not_deployed"
+  ],
+  "stage": "complete",
+  "tables": {
+    "communication_voice_verified_contacts": true,
+    "communication_voice_otp": true,
+    "communication_voice_otp_limits": true,
+    "communication_voice_tasks": true,
+    "communication_voice_confirmations": true,
+    "communication_voice_contact_challenges": true,
+    "users": true,
+    "tenants": true,
+    "auth_sessions": true
+  },
+  "nativeSessionCreationTimeAvailable": true,
+  "activeVerifiedContactCount": 0,
+  "nativeContactRoleAccess": [
+    {
+      "role": "caregiver",
+      "app": "clinic",
+      "origin": "https://primecare-clinic.pages.dev",
+      "home": "/offices/clinical/roles/caregiver/dashboard",
+      "screen_id": "578",
+      "screen": "messaging",
+      "can_view": "1"
+    },
+    {
+      "role": "code_admin",
+      "app": "go",
+      "origin": null,
+      "home": "/platform/administration",
+      "screen_id": "1269",
+      "screen": "PLATFORM_ADMINISTRATION",
+      "can_view": "1"
+    },
+    {
+      "role": "customer_support",
+      "app": "support",
+      "origin": "https://primecare-support.pages.dev",
+      "home": "/common/customer-support-analytics",
+      "screen_id": "559",
+      "screen": "communication",
+      "can_view": "1"
+    },
+    {
+      "role": "patient",
+      "app": "client",
+      "origin": "https://primecare-client.pages.dev",
+      "home": "/common/family-member-dashboard",
+      "screen_id": "331",
+      "screen": "patient_messages",
+      "can_view": "1"
+    },
+    {
+      "role": "psw",
+      "app": "clinic",
+      "origin": "https://primecare-clinic.pages.dev",
+      "home": "/care",
+      "screen_id": "234",
+      "screen": "psw_messages",
+      "can_view": "1"
+    }
+  ],
+  "nativeContactCodeAdminApiAccess": [
+    {
+      "path": "/v1/voice/contact/check",
+      "can_access": "1",
+      "permission": "role_screen_permissions"
+    },
+    {
+      "path": "/v1/voice/contact/start",
+      "can_access": "1",
+      "permission": "role_screen_permissions"
+    },
+    {
+      "path": "/v1/voice/contact/status",
+      "can_access": "1",
+      "permission": "role_screen_permissions"
+    }
+  ],
+  "nativeOtpPermissions": [
+    {
+      "path": "/v1/voice/otp/check",
+      "registration_count": 1,
+      "grant_count": 0
+    },
+    {
+      "path": "/v1/voice/otp/start",
+      "registration_count": 1,
+      "grant_count": 0
+    }
+  ],
+  "nativeContactPermissions": [
+    {
+      "path": "/v1/voice/contact/check",
+      "registration_count": 1,
+      "grant_count": 5
+    },
+    {
+      "path": "/v1/voice/contact/start",
+      "registration_count": 1,
+      "grant_count": 5
+    },
+    {
+      "path": "/v1/voice/contact/status",
+      "registration_count": 1,
+      "grant_count": 5
+    }
+  ],
+  "unknownProviderCallRejected": true,
+  "nativeContactBoundary": {
+    "deploymentRecorded": true,
+    "boundaryVerified": true,
+    "smsSent": false,
+    "authenticatedUserVerified": false,
+    "sourceCommit": "4c31727f2b7b1ccc52fa3690a8d8c35a97b21180"
+  },
+  "ready": false,
+  "status": "identity_activation_blocked",
+  "sourceCommit": "33a817f4b483e2ae96aa0a8a7eefce190adc1983",
+  "workflowRunId": 40153173060,
+  "integrationJobId": 121048796270,
+  "readinessJobId": 121048848118,
+  "isolatedTestsPassed": 33
+}

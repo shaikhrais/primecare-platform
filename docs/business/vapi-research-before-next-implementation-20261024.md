@@ -113,3 +113,23 @@ phone routing or provider tool attachment changes are needed for this constraint
 The unmounted call-OTP runtime and missing private pairing/native UI remain
 separate activation blockers. No live OTP, call authentication or business task
 is claimed by isolated tests.
+
+Validation of the matching constraint: 33 identity/provider/API tests and 37
+composition/approval/task tests passed locally, plus strict service TypeScript.
+The real workerd test passes 35 checks, including mismatched caller denial before
+SMS. The disposable PostgreSQL suite now checks the same denial before accepting
+the matching number; its CI result must be checked separately.
+
+Main commit 33a817f4b483e2ae96aa0a8a7eefce190adc1983 passed the 33-test identity
+job and read-only production readiness workflow 40153173060. The production
+reader confirms zero verified contacts and missing native OTP grants, pairing UI,
+private delivery and mounted OTP runtime. The deployed enrollment boundary still
+passes its independent denial/source checks. Evidence:
+evidence/voice-contact-task-identity-20261024.json.
+
+The first broad voice CI run exposed two old positive fixtures with mismatched
+caller numbers; fixtures were corrected and explicit mismatch assertions added.
+An unrelated contract-plan gate also fails on its already-stale gateway source
+amendment hash (the preceding main commit failed that gate too). No review hash
+is changed or bypassed by this work. Passing identity tests is not passing live
+activation or all repository checks.
