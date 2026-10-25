@@ -124,9 +124,11 @@ jobs:
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
           for writer in contracts access ui; do
-            python "tools/governance-production/internal_call_${writer}_registration.py" --dry-run
-            python "tools/governance-production/internal_call_${writer}_registration.py" --apply
-            python "tools/governance-production/internal_call_${writer}_registration.py" --verify
+            if ! python "tools/governance-production/internal_call_${writer}_registration.py" --verify; then
+              python "tools/governance-production/internal_call_${writer}_registration.py" --dry-run
+              python "tools/governance-production/internal_call_${writer}_registration.py" --apply
+              python "tools/governance-production/internal_call_${writer}_registration.py" --verify
+            fi
           done
           python - <<'PYCODE'
           import sys,json,pathlib
@@ -164,3 +166,34 @@ jobs:
     uses: ./.github/workflows/deploy-typescript-websites.yml
     with: {confirm: DEPLOY}
     secrets: inherit
+
+  live:
+    needs: websites
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/call-live" --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@2.4.3 playwright@1.56.1
+          ln -s "$RUNNER_TEMP/call-live/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+          pip install -r tools/governance-production/requirements.txt
+      - name: Select current existing role without granting permissions
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          python scripts/prepare-internal-call-live-identity.py
+      - name: Verify real native login, relay audio, denial and cleanup with synthetic accounts
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/test-live-internal-calls.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: internal-call-live-acceptance, path: test-results/internal-calls, retention-days: 30}

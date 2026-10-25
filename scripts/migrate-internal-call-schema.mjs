@@ -25,7 +25,9 @@ try{
   const acl=(await db.query("SELECT 1 FROM pg_class c CROSS JOIN LATERAL aclexplode(COALESCE(c.relacl,acldefault('S',c.relowner))) a WHERE c.oid=to_regclass($1) AND a.grantee<>c.relowner LIMIT 1",['public.'+sequence])).rows;if(acl.length)throw Error('sequence_acl_preserved');
   const reference={version:1,sourceSha256:sha,shapes,sequence:seq};
   if(fixture){await mkdir('test-results/internal-calls',{recursive:true});await writeFile('test-results/internal-calls/schema-reference.json',JSON.stringify(reference,null,2)+'\n');}
-  else if(JSON.stringify(reference)!==JSON.stringify(JSON.parse(await readFile('test-results/internal-calls/schema-reference.json','utf8'))))throw Error('existing_schema_preserved');
+  else {const expected=JSON.parse(await readFile('test-results/internal-calls/schema-reference.json','utf8'));if(JSON.stringify(reference)!==JSON.stringify(expected)){
+   const differences=[];function compare(a,b,path=''){if(JSON.stringify(a)===JSON.stringify(b))return;if(a&&b&&typeof a==='object'&&typeof b==='object'){for(const key of new Set([...Object.keys(a),...Object.keys(b)]))compare(a[key],b[key],path+'.'+key);}else differences.push({path,expected:a,actual:b});}compare(expected,reference);report.schemaDifferences=differences.slice(0,12);report.serverVersion=(await db.query('SHOW server_version')).rows[0].server_version;throw Error('existing_schema_preserved');
+  }}
   await db.query(mode==='--dry-run'?'ROLLBACK':'COMMIT');report.independentReadback=mode==='--verify';report.verified=true;
  }finally{await db.query('ROLLBACK').catch(()=>{});db.release();}
 }catch(e){report.verified=false;report.reason=['pinned_schema_required','pinned_target_required','partial_schema_preserved','schema_missing','existing_schema_preserved','manifest_mismatch','sequence_acl_preserved'].includes(e?.message)?e.message:'schema_setup_failed';if(/^[A-Z0-9]{5}$/.test(e?.code??''))report.databaseErrorCode=e.code;process.exitCode=1;}finally{await pool?.end();}

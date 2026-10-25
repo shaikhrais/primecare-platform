@@ -50,3 +50,12 @@ deploys the native Worker and its exact gateway binding, and publishes TypeScrip
 websites with microphone permission. Existing phone routing and all known service
 bindings/secrets are preserved. Live audio acceptance remains a separate required
 proof; successful deployment alone does not establish calling readiness.
+
+The next pipeline revision includes a live two-context Chromium proof against
+the actual website/gateway/native PostgreSQL. Synthetic users inherit only an
+existing role independently verified to have all five call permissions. Login
+uses the actual password/MFA UI; microphone access must wait for acceptance.
+Both peers must receive increasing audio RTP packets and select TURN relay
+candidates. The proof also exercises ambiguous dial retry, foreign-tenant denial,
+mute/unmute, server-side session revocation, end-call, and exact synthetic cleanup.
+No credentials, audio, SDP, IP addresses or user IDs are included in its receipt.

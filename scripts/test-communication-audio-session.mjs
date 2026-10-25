@@ -106,3 +106,22 @@ test('closure cancels a conflict wait and cannot submit another signal',async()=
  let attempts=0;const f=fixture({execute(channel){if(channel==='audio'){attempts++;throw Object.assign(Error('version conflict'),{status:409});}}});
  const pending=f.session.start();await new Promise(resolve=>setImmediate(resolve));assert.equal(typeof f.session.conflictWait,'function');f.session.close();await assert.rejects(pending);assert.equal(attempts,1);assert.equal(f.session.conflictWait,null);assert.equal(f.stats().stops,1);
 });
+
+test('fresh relay configuration precedes microphone and renewal preserves relay-only policy',async()=>{
+ const f=fixture(),configurations=[];let generation=0;
+ f.session.audio.configuration.iceTransportPolicy='relay';
+ f.session.configurationProvider=async()=>({iceServers:[{urls:['turn:turn.cloudflare.com:3478'],username:'generation-'+(++generation),credential:'fixture-only'}],expiresAt:Date.now()+300000});
+ try{
+  await f.session.start();assert.equal(f.stats().gets,1);assert.equal(f.session.audio.configuration.iceServers[0].username,'generation-1');
+  f.session.audio.peer.setConfiguration=value=>configurations.push(structuredClone(value));
+  await f.session.refreshConfiguration();assert.equal(configurations.length,1);assert.equal(configurations[0].iceTransportPolicy,'relay');assert.equal(configurations[0].iceServers[0].username,'generation-2');assert.ok(f.session.configurationTimer);
+ }finally{f.session.close();}assert.equal(f.session.configurationTimer,null);
+});
+test('expired relay credentials never reach microphone or signaling',async()=>{
+ const f=fixture();f.session.configurationProvider=async()=>({iceServers:[{urls:['turn:turn.cloudflare.com:3478']}],expiresAt:Date.now()-1000});
+ await assert.rejects(f.session.start(),/configuration unavailable/);assert.equal(f.stats().gets,0);assert.equal(f.commands.filter(c=>c.action==='signal').length,0);assert.equal(f.session.closed,true);
+});
+test('call ended during relay issuance cannot capture microphone or retain credentials',async()=>{
+ const f=fixture();f.session.configurationProvider=async()=>{f.record.calls[0].status='ended';return {iceServers:[{urls:['turn:turn.cloudflare.com:3478'],username:'fixture',credential:'fixture'}],expiresAt:Date.now()+300000};};
+ await assert.rejects(f.session.start(),/not accepted/);assert.equal(f.stats().gets,0);assert.equal(f.session.configurationTimer,null);assert.deepEqual(f.session.audio.configuration.iceServers,[]);
+});
