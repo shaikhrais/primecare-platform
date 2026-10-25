@@ -1,5 +1,5 @@
 import Twilio from 'twilio/lib/rest/Twilio.js';
-import {twilioSid} from './twilio-webhook.mjs';
+import {twilioSid,twilioApiKeySecret} from './twilio-webhook.mjs';
 import {salesDigest} from './sales-call-quality.ts';
 
 /** Read-only classic Intelligence adapter. Configured custom JSON operator must emit
@@ -8,7 +8,7 @@ import {salesDigest} from './sales-call-quality.ts';
  * transcription creation, configuration changes, phone calls or model actions occur here.
  */
 export function createTwilioSalesQualitySource({accountSid,apiKeySid,apiKeySecret,serviceSid,operatorSid,rubricDigest,operatorConfigDigest,httpClient}){
- if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||!twilioSid('GA',serviceSid)||!twilioSid('LY',operatorSid)||typeof apiKeySecret!=='string'||apiKeySecret.length!==32||!/^[a-fA-F0-9]{32}$/.test(apiKeySecret)||typeof rubricDigest!=='string'||rubricDigest.length!==64||!/^[a-f0-9]{64}$/.test(rubricDigest)||typeof operatorConfigDigest!=='string'||operatorConfigDigest.length!==64||!/^[a-f0-9]{64}$/.test(operatorConfigDigest)||httpClient!==undefined&&typeof httpClient?.request!=='function')throw Error('Sales analysis configuration required');
+ if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||!twilioSid('GA',serviceSid)||!twilioSid('LY',operatorSid)||!twilioApiKeySecret(apiKeySecret)||typeof rubricDigest!=='string'||rubricDigest.length!==64||!/^[a-f0-9]{64}$/.test(rubricDigest)||typeof operatorConfigDigest!=='string'||operatorConfigDigest.length!==64||!/^[a-f0-9]{64}$/.test(operatorConfigDigest)||httpClient!==undefined&&typeof httpClient?.request!=='function')throw Error('Sales analysis configuration required');
  const client=new Twilio(apiKeySid,apiKeySecret,{accountSid,autoRetry:false,maxRetries:0,timeout:10000,...(httpClient?{httpClient}:{})});
  function bounded(value,max){if(new TextEncoder().encode(JSON.stringify(value)).length>max)throw Error('Provider result bounds');return value;}
  function decimal(value){if(typeof value!=='number'&&(typeof value!=='string'||!/^\d+(?:\.\d+)?$/.test(value)))throw Error('Provider number invalid');const n=Number(value);if(!Number.isFinite(n))throw Error('Provider number invalid');return n;}

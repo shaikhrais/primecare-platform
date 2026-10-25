@@ -1,5 +1,5 @@
 import Twilio from 'twilio/lib/rest/Twilio.js';
-import {twilioSid} from './twilio-webhook.mjs';
+import {twilioSid,twilioApiKeySecret} from './twilio-webhook.mjs';
 /** Server-only provider port, not an authenticated caller/session broker.
  * The host must resolve this contact from current verified account records,
  * authorize/rate-limit and claim a durable send attempt before start(), then
@@ -7,7 +7,7 @@ import {twilioSid} from './twilio-webhook.mjs';
  * Never construct it from a model-supplied phone or expose it as an AI tool.
  */
 function createSmsVerificationPort({accountSid,apiKeySid,apiKeySecret,serviceSid,phone,codeLength=6,httpClient}){
- if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||!twilioSid('VA',serviceSid)||typeof apiKeySecret!=='string'||apiKeySecret.length!==32||!/^[a-fA-F0-9]{32}$/.test(apiKeySecret)||typeof phone!=='string'||phone.trim()!==phone||!/^\+[1-9][0-9]{1,14}$/.test(phone)||!Number.isSafeInteger(codeLength)||codeLength<4||codeLength>10||httpClient!==undefined&&typeof httpClient?.request!=='function')throw Error('OTP configuration required');
+ if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||!twilioSid('VA',serviceSid)||!twilioApiKeySecret(apiKeySecret)||typeof phone!=='string'||phone.trim()!==phone||!/^\+[1-9][0-9]{1,14}$/.test(phone)||!Number.isSafeInteger(codeLength)||codeLength<4||codeLength>10||httpClient!==undefined&&typeof httpClient?.request!=='function')throw Error('OTP configuration required');
  const client=new Twilio(apiKeySid,apiKeySecret,{accountSid,autoRetry:false,maxRetries:0,timeout:10000,...(httpClient?{httpClient}:{})});
  const service=client.verify.v2.services(serviceSid);
  function receipt(row,expectedSid){

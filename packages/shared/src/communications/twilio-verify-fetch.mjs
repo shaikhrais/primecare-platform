@@ -1,3 +1,4 @@
+import {twilioApiKeySecret} from './twilio-webhook.mjs';
 import {BoundedBinaryAdapterBase} from './adapter-base.mjs';
 /** Bounded Workers transport for the official Verify SDK. Fixed service, URL,
  * credentials and two POST forms only. No redirects, retries or provider logs. */
@@ -5,7 +6,7 @@ export class TwilioVerifyFetchClient extends BoundedBinaryAdapterBase {
  #service;#key;#secret;#fetch;
  constructor({serviceSid,apiKeySid,apiKeySecret,fetch:transport=globalThis.fetch}){
   super(16384);
-  if(!/^VA[a-f0-9]{32}$/i.test(serviceSid)||!/^SK[a-f0-9]{32}$/i.test(apiKeySid)||! /^[a-f0-9]{32}$/i.test(apiKeySecret)||typeof transport!=='function')throw Error('Verify transport configuration required');
+  if(!/^VA[a-f0-9]{32}$/i.test(serviceSid)||!/^SK[a-f0-9]{32}$/i.test(apiKeySid)||!twilioApiKeySecret(apiKeySecret)||typeof transport!=='function')throw Error('Verify transport configuration required');
   this.#service=serviceSid;this.#key=apiKeySid;this.#secret=apiKeySecret;this.#fetch=transport;
  }
  async request(options){

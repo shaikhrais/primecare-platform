@@ -1,9 +1,9 @@
 import Twilio from 'twilio/lib/rest/Twilio.js';
 import VoiceResponse from 'twilio/lib/twiml/VoiceResponse.js';
-import {TwilioSignedFormAdapter,twilioSid,twilioFailure,twilioPublicUrl} from './twilio-webhook.mjs';
+import {TwilioSignedFormAdapter,twilioSid,twilioApiKeySecret,twilioFailure,twilioPublicUrl} from './twilio-webhook.mjs';
 /** Read-only official SDK verifier. It cannot place calls or administer an account. */
 export function createTwilioVoiceCallVerifier({accountSid,apiKeySid,apiKeySecret,httpClient}){
- if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||typeof apiKeySecret!=='string'||!/^[a-fA-F0-9]{32}$/.test(apiKeySecret)||httpClient!==undefined&&typeof httpClient?.request!=='function')throw Error('Voice credentials required');
+ if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||!twilioApiKeySecret(apiKeySecret)||httpClient!==undefined&&typeof httpClient?.request!=='function')throw Error('Voice credentials required');
  const client=new Twilio(apiKeySid,apiKeySecret,{accountSid,autoRetry:false,maxRetries:0,timeout:10000,...(httpClient?{httpClient}:{})});
  return Object.freeze({async fetch(callSid){
   if(!twilioSid('CA',callSid))throw Error('Voice unavailable');

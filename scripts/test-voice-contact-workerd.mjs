@@ -3,7 +3,7 @@ import {builtinModules} from 'node:module';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {build} from 'esbuild';
 import {Miniflare} from 'miniflare';
-const account='AC'+'a'.repeat(32),key='SK'+'b'.repeat(32),secret='c'.repeat(32),service='VA'+'d'.repeat(32),sid='VE'+'e'.repeat(32);
+const account='AC'+'a'.repeat(32),key='SK'+'b'.repeat(32),secret='Gz9Q'.repeat(8),service='VA'+'d'.repeat(32),sid='VE'+'e'.repeat(32);
 const env={DB_URL:'synthetic-only',VOICE_CONTACT_ORIGIN:'https://fixture.invalid',VOICE_GATEWAY_ORIGIN:'https://gateway.invalid',VOICE_CONTACT_SOURCE:'a'.repeat(40),TWILIO_ACCOUNT_SID:account,TWILIO_API_KEY_SID:key,TWILIO_API_KEY_SECRET:secret,TWILIO_VERIFY_SERVICE_SID:service};
 const built=await build({stdin:{resolveDir:process.cwd(),contents:`
 import {VoiceContactEnrollmentWorker} from './cloudflare/workers/src/business-tasks/voice-contact-worker.ts';

@@ -2,6 +2,7 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {nativeContactGatewayServices,assertOwnedNativeContactTarget} from './voice-contact-deployment-plan.mjs';
+import {twilioApiKeySecret} from '../packages/shared/src/communications/twilio-webhook.mjs';
 import {BoundedBinaryAdapterBase} from '../packages/shared/src/communications/adapter-base.mjs';
 const config=JSON.parse(await readFile('cloudflare/workers/src/business-tasks/voice-contact-deployment.json','utf8'));
 const bounded=new BoundedBinaryAdapterBase(131072);
@@ -28,7 +29,7 @@ try{
  const existing=await cf('/workers/scripts/'+config.workerName+'/settings',true);assertOwnedNativeContactTarget(existing,config);
  report.stage='read-only-provider-preflight';
  const apiKey=required('TWILIO_API_KEY_SID'),secret=required('TWILIO_API_KEY_SECRET'),serviceSid=required('TWILIO_VERIFY_SERVICE_SID'),twilioAccount=required('TWILIO_ACCOUNT_SID');
- if(!/^SK[a-f0-9]{32}$/i.test(apiKey)||! /^[a-f0-9]{32}$/i.test(secret)||!/^VA[a-f0-9]{32}$/i.test(serviceSid)||!/^AC[a-f0-9]{32}$/i.test(twilioAccount))throw Error('configuration_required');
+ if(!/^SK[a-f0-9]{32}$/i.test(apiKey)||!twilioApiKeySecret(secret)||!/^VA[a-f0-9]{32}$/i.test(serviceSid)||!/^AC[a-f0-9]{32}$/i.test(twilioAccount))throw Error('configuration_required');
  const verify=await fetch('https://verify.twilio.com/v2/Services/'+serviceSid,{redirect:'error',signal:AbortSignal.timeout(15000),headers:{authorization:'Basic '+btoa(apiKey+':'+secret),accept:'application/json'}});
  if(verify.status!==200){await verify.body?.cancel();throw Error('verify_service_not_ready');}
  const details=JSON.parse(new TextDecoder().decode(await bounded.readBoundedBody(verify.body)));if(details.sid!==serviceSid||details.account_sid!==twilioAccount||details.code_length!==6)throw Error('verify_service_not_ready');report.verifyServiceReadback=true;

@@ -226,3 +226,13 @@ Reference documentation checked for this implementation:
 - https://www.twilio.com/docs/verify/api/verification-check
 
 Successful publication and live SMS acceptance must be recorded separately below.
+
+The shared Twilio credential check now treats API secrets as bounded opaque
+printable text, using twilioApiKeySecret across Verify, SMS, voice token/call,
+voicemail and sales-analysis adapters. API-key SID checks remain exact SK SIDs.
+The earlier hexadecimal-only secret check could block a valid configured credential
+before a provider request. Regression fixtures include non-hex secrets and
+continue to reject empty, short, oversized, whitespace and control-bearing
+values. No credential was read, logged, recreated or rotated to fix validation.
+See https://www.twilio.com/docs/iam/api-keys/key-resource-v1 for the credential
+resource and the distinction between the key SID and its secret.

@@ -1,3 +1,4 @@
+import {twilioApiKeySecret} from '../../../../packages/shared/src/communications/twilio-webhook.mjs';
 import AccessToken from 'twilio/lib/jwt/AccessToken.js';
 import {ScopedServiceBase, type AtomicStore, type AccessPolicy, type Actor} from '../../../../packages/shared/src/communications/service-base.ts';
 import {twilioVoiceIdentity} from '../../../../packages/shared/src/communications/twilio-voice.mjs';
@@ -20,7 +21,7 @@ export class TwilioVoiceTokenService extends ScopedServiceBase {
  #directory:VoiceTokenDirectory;
  constructor(store:AtomicStore,policy:AccessPolicy,directory:VoiceTokenDirectory,configuration:Configuration){
   super(store,policy);
-  if(!configuration||!sid('AC',configuration.accountSid)||!sid('SK',configuration.apiKeySid)||!sid('AP',configuration.applicationSid)||typeof configuration.apiKeySecret!=='string'||!/^[a-fA-F0-9]{32}$/.test(configuration.apiKeySecret)||!Number.isSafeInteger(configuration.ttlSeconds)||configuration.ttlSeconds<1||configuration.ttlSeconds>300||typeof directory?.currentSession!=='function'||typeof directory?.destinations!=='function')throw Error('Voice token configuration required');
+  if(!configuration||!sid('AC',configuration.accountSid)||!sid('SK',configuration.apiKeySid)||!sid('AP',configuration.applicationSid)||!twilioApiKeySecret(configuration.apiKeySecret)||!Number.isSafeInteger(configuration.ttlSeconds)||configuration.ttlSeconds<1||configuration.ttlSeconds>300||typeof directory?.currentSession!=='function'||typeof directory?.destinations!=='function')throw Error('Voice token configuration required');
   this.#configuration=Object.freeze({...configuration});this.#directory=directory;
  }
  async #session(id:string){

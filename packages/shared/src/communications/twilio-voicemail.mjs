@@ -1,10 +1,10 @@
 import {BoundedBinaryAdapterBase} from './adapter-base.mjs';
 import Twilio from 'twilio/lib/rest/Twilio.js';
 import VoiceResponse from 'twilio/lib/twiml/VoiceResponse.js';
-import {TwilioSignedFormAdapter,twilioPublicUrl,twilioSid,twilioFailure} from './twilio-webhook.mjs';
+import {TwilioSignedFormAdapter,twilioPublicUrl,twilioSid,twilioApiKeySecret,twilioFailure} from './twilio-webhook.mjs';
 const xml=response=>new Response(response.toString(),{headers:{'content-type':'application/xml; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff'}});
 export function createTwilioRecordingVerifier({accountSid,apiKeySid,apiKeySecret,httpClient}){
- if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||typeof apiKeySecret!=='string'||!/^[a-fA-F0-9]{32}$/.test(apiKeySecret)||httpClient!==undefined&&typeof httpClient?.request!=='function')throw Error('Recording credentials required');
+ if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||!twilioApiKeySecret(apiKeySecret)||httpClient!==undefined&&typeof httpClient?.request!=='function')throw Error('Recording credentials required');
  const client=new Twilio(apiKeySid,apiKeySecret,{accountSid,autoRetry:false,maxRetries:0,timeout:10000,...(httpClient?{httpClient}:{})});
  return Object.freeze({async fetch(sid){if(!twilioSid('RE',sid))throw Error('Recording unavailable');try{const row=await client.recordings(sid).fetch();return Object.freeze({sid:row.sid,accountSid:row.accountSid,callSid:row.callSid,status:row.status,source:row.source,duration:Number(row.duration)});}catch{throw Error('Recording unavailable');}}});
 }
@@ -49,7 +49,7 @@ export class TwilioVoicemailAudioAdapter extends BoundedBinaryAdapterBase {
  #account;#key;#secret;#fetch;
  constructor({accountSid,apiKeySid,apiKeySecret,maxAudioBytes,fetch:fetchPort}){
   super(maxAudioBytes);
-  if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||typeof apiKeySecret!=='string'||!/^[a-fA-F0-9]{32}$/.test(apiKeySecret)||typeof fetchPort!=='function'||maxAudioBytes>8*1024*1024)throw Error('Private voicemail audio configuration required');
+  if(!twilioSid('AC',accountSid)||!twilioSid('SK',apiKeySid)||!twilioApiKeySecret(apiKeySecret)||typeof fetchPort!=='function'||maxAudioBytes>8*1024*1024)throw Error('Private voicemail audio configuration required');
   this.#account=accountSid;this.#key=apiKeySid;this.#secret=apiKeySecret;this.#fetch=fetchPort;
  }
  async download(recordingSid){

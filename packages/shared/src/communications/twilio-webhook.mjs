@@ -1,6 +1,9 @@
 import {validateRequest} from 'twilio/lib/webhooks/webhooks.js';
 import {BoundedBinaryAdapterBase,CommunicationInputError} from './adapter-base.mjs';
 export const twilioSid=(prefix,value)=>typeof value==='string'&&value.length===prefix.length+32&&new RegExp('^'+prefix+'[a-fA-F0-9]{32}$').test(value);
+/** API secrets are opaque credentials, not hexadecimal SIDs. Bound printable
+ * secret text without guessing its alphabet; Twilio verifies the credential. */
+export const twilioApiKeySecret=value=>typeof value==='string'&&value.length>=16&&value.length<=512&&!/[^\x21-\x7e]/.test(value);
 export function twilioPublicUrl(value){
  if(typeof value!=='string')throw Error('Provider configuration required');
  const url=new URL(value);

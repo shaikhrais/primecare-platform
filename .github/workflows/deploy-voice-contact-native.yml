@@ -9,6 +9,8 @@ on:
       - 'cloudflare/workers/src/business-tasks/voice-contact-postgres.ts'
       - 'cloudflare/workers/src/business-tasks/endpoint-policy.ts'
       - 'packages/shared/src/communications/twilio-verify.mjs'
+      - 'packages/shared/src/communications/twilio-webhook.mjs'
+      - 'scripts/test-communication-twilio-credentials.mjs'
       - 'packages/shared/src/communications/voice-schema-validators.mjs'
       - 'cloudflare/workers/src/business-tasks/voice-contact-native-policy.ts'
       - 'cloudflare/workers/src/business-tasks/voice-contact-deployment.json'
@@ -51,7 +53,7 @@ jobs:
         run: |
           node scripts/migrate-voice-identity-schema.mjs --reference
           node --test scripts/test-voice-identity-schema.mjs
-          node --test scripts/test-voice-contact-enrollment.mjs scripts/test-communication-twilio-verify.mjs
+          node --test scripts/test-voice-contact-enrollment.mjs scripts/test-communication-twilio-verify.mjs scripts/test-communication-twilio-credentials.mjs
           node --test scripts/test-voice-contact-worker.mjs scripts/test-communication-gateway.mjs scripts/test-voice-contact-deployment-plan.mjs
           node scripts/test-voice-contact-workerd.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/voice-contact-worker.ts packages/shared/src/communications/voice-native-http.d.mts packages/shared/src/communications/twilio-verify-fetch.d.mts
