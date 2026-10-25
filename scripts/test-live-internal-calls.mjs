@@ -50,7 +50,7 @@ try{
   const all=await peer.getStats(),audio=[...all.values()].filter(s=>s.type==='inbound-rtp'&&(s.kind==='audio'||s.mediaType==='audio'));
   const pair=[...all.values()].find(s=>s.type==='candidate-pair'&&s.state==='succeeded'&&(s.nominated||s.selected));
   const local=pair&&all.get(pair.localCandidateId),remote=pair&&all.get(pair.remoteCandidateId);
-  return {connectionState:peer.connectionState,iceState:peer.iceConnectionState,signalingState:peer.signalingState,ready:peer.connectionState==='connected'&&audio.some(s=>s.packetsReceived>10)&&local?.candidateType==='relay'&&remote?.candidateType==='relay',packets:audio.reduce((sum,s)=>sum+(s.packetsReceived??0),0),relay:local?.candidateType==='relay'&&remote?.candidateType==='relay'};
+  return {gatherOutcome:peer.gatherOutcome,candidateCount:peer.candidateCount,iceErrors:peer.iceErrors,connectionState:peer.connectionState,iceState:peer.iceConnectionState,signalingState:peer.signalingState,ready:peer.connectionState==='connected'&&audio.some(s=>s.packetsReceived>10)&&local?.candidateType==='relay'&&remote?.candidateType==='relay',packets:audio.reduce((sum,s)=>sum+(s.packetsReceived??0),0),relay:local?.candidateType==='relay'&&remote?.candidateType==='relay'};
  });
  await until(async()=>{const both=await Promise.all([stats(alice.page),stats(bob.page)]);report.mediaSummary=both;return both.every(s=>s.ready);},180000);
  const before=await Promise.all([stats(alice.page),stats(bob.page)]);await new Promise(r=>setTimeout(r,1500));const after=await Promise.all([stats(alice.page),stats(bob.page)]);assert.ok(after.every((s,i)=>s.packets>before[i].packets));report.relayAudio=true;report.connectionMilliseconds=Date.now()-mediaStartedAt;report.bidirectionalPacketGrowth=true;

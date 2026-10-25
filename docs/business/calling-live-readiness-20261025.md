@@ -145,3 +145,11 @@ The native presence fixture caught PostgreSQL inferring an integer parameter fro
 the timestamp subtraction despite casts in other expressions. Every operational
 deadline subtraction now explicitly casts both operands to bigint; the fixture
 uses current epoch milliseconds and blocks deployment on any remaining overflow.
+
+The b537cea0 live test obtained scoped credentials and captured both microphones
+with no API failures, but peers closed before SDP exchange. Gathering now sends
+candidate-bearing SDP as soon as a usable relay candidate is available, allowing
+a brief batching interval instead of waiting on unreachable alternate paths.
+All timers/listeners remain owned and bounded; diagnostics contain only gathering
+outcome, candidate count and ICE error codes. A regression covers the usable-
+candidate path while alternate gathering remains pending.
