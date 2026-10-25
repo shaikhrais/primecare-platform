@@ -125,3 +125,19 @@ test('call ended during relay issuance cannot capture microphone or retain crede
  const f=fixture();f.session.configurationProvider=async()=>{f.record.calls[0].status='ended';return {iceServers:[{urls:['turn:turn.cloudflare.com:3478'],username:'fixture',credential:'fixture'}],expiresAt:Date.now()+300000};};
  await assert.rejects(f.session.start(),/not accepted/);assert.equal(f.stats().gets,0);assert.equal(f.session.configurationTimer,null);assert.deepEqual(f.session.audio.configuration.iceServers,[]);
 });
+test('signaling uses optimistic versions without an extra read and still closes on native denial',async()=>{
+ const f=fixture();try{await f.session.start();assert.equal(f.commands.filter(c=>c.action==='read').length,3);
+  const reads=f.commands.filter(c=>c.action==='read').length;await f.session.sendSignal({type:'candidate',candidate:{candidate:'fixture'}});assert.equal(f.commands.filter(c=>c.action==='read').length,reads);
+  f.session.transport.execute=async()=>{throw Object.assign(Error('native permission revoked'),{status:403});};
+  await assert.rejects(f.session.sendSignal({type:'candidate',candidate:{candidate:'fixture'}}),/native permission revoked/);assert.equal(f.session.closed,true);assert.equal(f.stats().stops,1);
+ }finally{f.session.close();}
+});
+test('an older overlapping read cannot regress a successful signal version',async()=>{
+ const f=fixture();try{await f.session.start();const execute=f.session.transport.execute;let stale=true;
+  f.session.transport.execute=async(channel,input)=>{if(stale&&channel==='message'){stale=false;return {...structuredClone(f.record),version:f.record.version-1};}return execute(channel,input);};
+  await f.session.current();await f.session.sendSignal({type:'candidate',candidate:{candidate:'fixture'}});assert.equal(f.session.closed,false);assert.equal(f.commands.filter(c=>c.action==='signal').length,2);
+ }finally{f.session.close();}
+});
+test('malformed acknowledgements close media without replaying an ambiguous write',async()=>{
+ let writes=0;const f=fixture({execute(channel){if(channel==='audio'){writes++;return {id:'other-thread',version:4};}}});await assert.rejects(f.session.start(),/Invalid signal acknowledgement/);assert.equal(writes,1);assert.equal(f.stats().stops,1);
+});

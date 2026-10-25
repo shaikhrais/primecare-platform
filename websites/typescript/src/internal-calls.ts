@@ -61,7 +61,7 @@ export class InternalCallsPanel extends CommunicationResourceBase {
  }
  private async callAction(action:string){
   const current=this.active;if(!current)return;if(action==='end'){this.session?.close();this.session=null;}
-  for(let attempt=0;attempt<2;attempt++){const view=await this.client.read(current.view.id) as View;try{const updated=await this.client.command({action,id:view.id,key:crypto.randomUUID(),version:view.version,callId:current.call.id}) as View;this.current();if(action==='accept'&&updated.id===view.id&&Number.isSafeInteger(updated.version)){this.active={view:{...view,version:updated.version},call:{...current.call,status:'accepted'}};await this.startMedia();}return;}catch(error){if(!(error instanceof InternalCallRequestError)||error.status!==409||attempt===1)throw error;}}
+  let view=current.view;for(let attempt=0;attempt<2;attempt++){try{const updated=await this.client.command({action,id:view.id,key:crypto.randomUUID(),version:view.version,callId:current.call.id}) as View;this.current();if(action==='accept'&&updated.id===view.id&&Number.isSafeInteger(updated.version)){this.active={view:{...view,version:updated.version},call:{...current.call,status:'accepted'}};await this.startMedia();}return;}catch(error){if(!(error instanceof InternalCallRequestError)||error.status!==409||attempt===1)throw error;view=await this.client.read(current.view.id) as View;}}
  }
  async startMedia(){
   if(this.closed||this.starting||this.session&&!this.session.closed||this.active?.call.status!=='accepted')return;const current=this.active;this.starting=true;this.message('accepted');this.attempted.add(current.call.id);

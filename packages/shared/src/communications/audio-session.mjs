@@ -13,7 +13,7 @@ export class BrowserAudioSession extends CommunicationResourceBase {
   this.configurationProvider=configurationProvider;this.configurationTimer=null;
   this.transport=transport;this.userId=userId;this.threadId=threadId;this.callId=callId;
   this.intervalMilliseconds=intervalMilliseconds;this.onError=onError;this.key=key;
-  this.conflictWait=null;this.lastSequence=0;this.writes=Promise.resolve();this.refreshing=null;this.started=false;this.starting=false;
+  this.conflictWait=null;this.signalVersion=0;this.lastSequence=0;this.writes=Promise.resolve();this.refreshing=null;this.started=false;this.starting=false;
   this.audio=new BrowserAudioCall({...media,sendSignal:signal=>this.sendSignal(signal),onState:state=>{
    try{media?.onState?.(state);}finally{if(state==='closed')this.close();}
   }});
@@ -23,7 +23,7 @@ export class BrowserAudioSession extends CommunicationResourceBase {
   this.assertOpen();
   const record=await this.transport.execute('message',{action:'read',id:this.threadId});
   this.assertOpen();
-  return this.validateCurrent(record);
+  const current=this.validateCurrent(record);this.signalVersion=Math.max(this.signalVersion,current.record.version);return current;
  }
  validateCurrent(record) {
   const call=Array.isArray(record?.calls)?record.calls.find(value=>value.id===this.callId):null;
@@ -114,9 +114,14 @@ export class BrowserAudioSession extends CommunicationResourceBase {
  sendSignal(signal) {
   return this.enqueue(async()=>{
    for(let attempt=0;attempt<3;attempt++){
-    const {record,call}=await this.current();if(call.status!=='accepted')throw Error('Call not accepted');
+    // The version is only a concurrency hint. The server still checks the
+    // current session, permissions and accepted call on every write.
+    if(!this.signalVersion||attempt>0){const {call}=await this.current();if(call.status!=='accepted')throw Error('Call not accepted');}
+    const version=this.signalVersion;
     try{
-     return await this.transport.execute('audio',{action:'signal',id:this.threadId,key:this.key(),version:record.version,callId:this.callId,signal:signal?.type==='candidate'?{...signal,type:'ice'}:signal});
+     const result=await this.transport.execute('audio',{action:'signal',id:this.threadId,key:this.key(),version,callId:this.callId,signal:signal?.type==='candidate'?{...signal,type:'ice'}:signal});
+     if(result?.id!==this.threadId||!Number.isSafeInteger(result.version)||result.version!==version+1)throw Error('Invalid signal acknowledgement');
+     this.signalVersion=Math.max(this.signalVersion,result.version);return result;
     }catch(error){
      // Only an explicit transactional conflict may be retried. Network failures
      // and ambiguous success never trigger another command.

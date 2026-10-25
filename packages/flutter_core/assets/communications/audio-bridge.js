@@ -184,6 +184,7 @@
       this.onError = onError;
       this.key = key;
       this.conflictWait = null;
+      this.signalVersion = 0;
       this.lastSequence = 0;
       this.writes = Promise.resolve();
       this.refreshing = null;
@@ -202,7 +203,9 @@
       this.assertOpen();
       const record = await this.transport.execute("message", { action: "read", id: this.threadId });
       this.assertOpen();
-      return this.validateCurrent(record);
+      const current = this.validateCurrent(record);
+      this.signalVersion = Math.max(this.signalVersion, current.record.version);
+      return current;
     }
     validateCurrent(record) {
       const call = Array.isArray(record?.calls) ? record.calls.find((value) => value.id === this.callId) : null;
@@ -333,10 +336,16 @@
     sendSignal(signal) {
       return this.enqueue(async () => {
         for (let attempt = 0; attempt < 3; attempt++) {
-          const { record, call } = await this.current();
-          if (call.status !== "accepted") throw Error("Call not accepted");
+          if (!this.signalVersion || attempt > 0) {
+            const { call } = await this.current();
+            if (call.status !== "accepted") throw Error("Call not accepted");
+          }
+          const version = this.signalVersion;
           try {
-            return await this.transport.execute("audio", { action: "signal", id: this.threadId, key: this.key(), version: record.version, callId: this.callId, signal: signal?.type === "candidate" ? { ...signal, type: "ice" } : signal });
+            const result = await this.transport.execute("audio", { action: "signal", id: this.threadId, key: this.key(), version, callId: this.callId, signal: signal?.type === "candidate" ? { ...signal, type: "ice" } : signal });
+            if (result?.id !== this.threadId || !Number.isSafeInteger(result.version) || result.version !== version + 1) throw Error("Invalid signal acknowledgement");
+            this.signalVersion = Math.max(this.signalVersion, result.version);
+            return result;
           } catch (error) {
             if (error?.status !== 409 || attempt === 2) throw error;
             await this.waitForConflict(attempt);
