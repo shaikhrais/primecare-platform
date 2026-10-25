@@ -1,0 +1,33 @@
+{
+  "sourceCommit": "06e4e5393703c65e4191ea133c6656e0d027222c",
+  "workflowRun": 40194949674,
+  "workflowUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/40194949674",
+  "nativeJob": {"id": 121173676036, "name": "twilio-voice", "conclusion": "success"},
+  "workerValidationJob": {"id": 121173675906, "name": "worker-validator", "conclusion": "success"},
+  "localFocusedTestsPassed": 35,
+  "additionalVapiReceptionTestsPassed": 14,
+  "newPhoneCallTestsPassed": 9,
+  "strictTypeScriptPassed": true,
+  "workerdChecksPassed": 12,
+  "nativePostgresReport": {
+    "groupsPassed": 8,
+    "phoneOnlyOtp": true,
+    "signedReadbackConfirmation": true,
+    "vapiAndTwilioSharedCore": true,
+    "independentDatabaseReadback": true,
+    "sharedContactAmbiguityDenied": true,
+    "concurrentExecutionOnce": true,
+    "liveProviderTraffic": false,
+    "realAppointmentBooked": false
+  },
+  "authentication": "registered-contact OTP via private keypad callback",
+  "confirmation": "exact appointment request readback followed by one-use signed speech or DTMF callback",
+  "voiceBiometricsUsed": false,
+  "nativeAppSessionRequiredForNewPhoneFlow": false,
+  "productionSchemaRegistered": false,
+  "productionSchemaApplied": false,
+  "runtimeMounted": false,
+  "phoneRoutingChanged": false,
+  "liveBookingActivated": false,
+  "next": "Register exact schema and signed callback contracts, deploy private host with real policy/Verify/booking ports, wire provider handoff/resume, then verify a real booking by API and database readback."
+}

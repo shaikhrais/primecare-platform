@@ -82,3 +82,16 @@ routing and the deployed unavailable Vapi tool boundary remain unchanged.
 References reviewed: Twilio Gather documentation (signed action callbacks,
 SpeechResult, DTMF and empty-result handling), Vapi call handling with Twilio,
 and the existing repository's provider identity/tool contracts.
+
+## Verified runtime evidence
+
+Source `06e4e5393703c65e4191ea133c6656e0d027222c`, communication CI run
+`40194949674`, job `121173676036` (`twilio-voice`) passed. Actual workerd reported
+`WORKERD_PHONE_CALL_PASS 12`; native PostgreSQL reported eight integration groups,
+phone-only OTP, signed readback confirmation, shared Vapi/Twilio core, independent
+database readback, shared-contact ambiguity denial and concurrent execution once.
+Worker validation job `121173675906` also passed. No real appointment or live
+provider traffic was involved. The first run caught Node's unsupported TypeScript
+constructor parameter-property syntax in the new repository; explicit fields and
+an early core-import regression check fixed it without weakening any gate.
+Evidence: `evidence/phone-call-authorization-20261025.json`.
