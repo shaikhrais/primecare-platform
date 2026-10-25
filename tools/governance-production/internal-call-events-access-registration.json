@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "screens": {
+    "234": "psw_messages",
+    "331": "patient_messages",
+    "559": "communication",
+    "578": "messaging"
+  },
+  "paths": [
+    "/v1/calls/events"
+  ],
+  "eligibility": "active-role-and-existing-command-api-and-communication-screen-can-view",
+  "permission": "role_screen_permissions",
+  "purpose": "Call invalidation WebSocket only; existing command and events grants rechecked, no private payloads",
+  "existingDenials": "preserve",
+  "roleScreenChanges": false,
+  "activation": false
+}

@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "requirement": "Authenticated first-frame WebSocket call invalidations only; no call bodies, SDP, credentials, actor overrides or call mutation frames. Current native session, existing call.command AND events API/screen grants required at authentication, heartbeat and each notification. PostgreSQL remains sole call and permission authority.",
+  "implementationStatus": "registered-unimplemented",
+  "activation": false,
+  "service": "governance",
+  "anchorApiId": 710,
+  "operations": [
+    {
+      "key": "call.events",
+      "method": "GET",
+      "path": "/v1/calls/events",
+      "authentication": "native-session-websocket-first-frame",
+      "responseKind": "websocket",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "userId"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "ready",
+              "changed",
+              "pong",
+              "signal"
+            ]
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

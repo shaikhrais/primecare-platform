@@ -18,6 +18,8 @@ on:
       - 'cloudflare/workers/src/business-tasks/endpoint-policy.ts'
       - 'scripts/profile-calling-permissions.mjs'
       - 'packages/shared/src/communications/audio-session.mjs'
+      - 'packages/shared/src/communications/call-events*'
+      - 'scripts/test-call-events-browser.mjs'
       - 'packages/shared/src/communications/audio-call.mjs'
       - 'packages/shared/src/communications/cloudflare-turn.mjs'
       - 'scripts/test-communication-turn.mjs'
@@ -60,6 +62,7 @@ jobs:
           python tools/governance-production/test-voice-contact-access-registration.py
           python tools/governance-production/test-communication-ui-registration.py
           python tools/governance-production/test-internal-call-registration.py
+          python tools/governance-production/test-internal-call-events.py
           python tools/governance-production/test-internal-call-access.py
           python tools/governance-production/test-internal-call-ui.py
   native:
@@ -83,6 +86,8 @@ jobs:
           node tools/internal-call-schema-validators.mjs
           node tools/internal-call-context-procedure.mjs
           node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-access-policy.mjs scripts/test-internal-call-deployment-plan.mjs scripts/test-internal-call-batched-peer.mjs scripts/test-internal-call-database.mjs scripts/test-internal-call-endpoint-policy.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-communication-gateway.mjs
+          node --test scripts/test-call-events-browser.mjs
+          node scripts/test-internal-call-events-workerd.mjs
           node scripts/test-internal-call-turn-workerd.mjs
           node scripts/test-internal-call-database-workerd.mjs
           call_test_status=0
@@ -157,11 +162,13 @@ jobs:
           GOVERNANCE_WORKFLOW_WRITES: '1'
           GOVERNANCE_INTERNAL_CALL_CONTRACTS: '1'
           GOVERNANCE_INTERNAL_CALL_ACCESS: '1'
+          GOVERNANCE_INTERNAL_CALL_EVENTS: '1'
+          GOVERNANCE_INTERNAL_CALL_EVENTS_ACCESS: '1'
           GOVERNANCE_INTERNAL_CALL_UI: '1'
         run: |
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
-          for writer in contracts access ui; do
+          for writer in contracts access ui events events_access; do
             if ! python "tools/governance-production/internal_call_${writer}_registration.py" --verify; then
               python "tools/governance-production/internal_call_${writer}_registration.py" --dry-run
               python "tools/governance-production/internal_call_${writer}_registration.py" --apply
@@ -174,9 +181,11 @@ jobs:
           import internal_call_contracts_registration as contracts
           import internal_call_access_registration as access
           import internal_call_ui_registration as ui
+          import internal_call_events_registration as events
+          import internal_call_events_access_registration as events_access
           from production_reader import connect
           with connect() as reader:ui.base.readback(ui.ReadView(reader))
-          receipt={'contract':contracts.verify(),'access':access.verify(),'ui':{'independentReadback':True,'writesAttempted':False,'definitionSha256':ui.expected_scope()['definitionSha256']}}
+          receipt={'events':events.verify(),'eventsAccess':events_access.verify(),'contract':contracts.verify(),'access':access.verify(),'ui':{'independentReadback':True,'writesAttempted':False,'definitionSha256':ui.expected_scope()['definitionSha256']}}
           pathlib.Path('test-results/internal-calls/registration.json').write_text(json.dumps(receipt,indent=2)+'\n')
           print('INTERNAL_CALL_REGISTRATION '+json.dumps(receipt))
           PYCODE

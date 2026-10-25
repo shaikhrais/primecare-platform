@@ -1,11 +1,21 @@
 {
- "workerName":"primecare-internal-calls-api",
- "gatewayName":"primecare-api-gateway",
- "gatewayBinding":"INTERNAL_CALLS",
- "owner":"primecare-internal-calls-v1",
- "turnKeyName":"primecare-internal-calls-v1",
- "compatibilityDate":"2026-09-27",
- "appOrigins":["https://primecare-clinic.pages.dev","https://primecare-client.pages.dev","https://primecare-corporate.pages.dev","https://primecare-franchise.pages.dev","https://primecare-support.pages.dev","https://primecare-governance.pages.dev","https://primecare-marketing.pages.dev","https://primecare-business-development.pages.dev"],
- "rateNamespace":"2026102503",
- "relayRateNamespace":"2026102504"
+  "workerName": "primecare-internal-calls-api",
+  "gatewayName": "primecare-api-gateway",
+  "gatewayBinding": "INTERNAL_CALLS",
+  "owner": "primecare-internal-calls-v1",
+  "turnKeyName": "primecare-internal-calls-v1",
+  "compatibilityDate": "2026-09-27",
+  "appOrigins": [
+    "https://primecare-clinic.pages.dev",
+    "https://primecare-client.pages.dev",
+    "https://primecare-corporate.pages.dev",
+    "https://primecare-franchise.pages.dev",
+    "https://primecare-support.pages.dev",
+    "https://primecare-governance.pages.dev",
+    "https://primecare-marketing.pages.dev",
+    "https://primecare-business-development.pages.dev"
+  ],
+  "rateNamespace": "2026102503",
+  "relayRateNamespace": "2026102504",
+  "eventsRateNamespace": "2026102505"
 }

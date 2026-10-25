@@ -1,5 +1,6 @@
 import {BaseWorker, workerHandler} from './core/base-worker';
 import governedReadAliases from './governed-read-aliases.json';
+import callEvents from '../../../tools/governance-production/internal-call-events-registration.json';
 import callContracts from '../../../tools/governance-production/internal-call-contracts-registration.json';
 import contactContracts from '../../../tools/governance-production/voice-contact-contracts-registration.json';
 import communicationContracts from '../../../packages/shared/src/communications/registered-contracts.json';
@@ -35,6 +36,7 @@ function corsHeaders(request: Request): Headers {
 }
 
 function withGatewayHeaders(request: Request, response: Response): Response {
+  if(response.status===101)return response;
   const headers = new Headers(response.headers);
   corsHeaders(request).forEach((value, key) => headers.set(key, value));
   headers.set('x-primecare-gateway', 'cloudflare-worker-typescript');
@@ -54,7 +56,7 @@ export class GatewayWorker extends BaseWorker<Env> {
 
   protected override async handle(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
-    const call=callContracts.operations.find(op=>op.path===url.pathname);
+    const call=[...callContracts.operations,...callEvents.operations].find(op=>op.path===url.pathname);
     if(call){
       if(request.method!==call.method)return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:call.method}}));
       if(!env.INTERNAL_CALLS)return withGatewayHeaders(request,Response.json({error:'calls_unavailable'},{status:503}));

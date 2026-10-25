@@ -17,6 +17,9 @@ try{
  for(const user of users){
   const context=await browser.newContext({permissions:['microphone'],viewport:{width:user.index===0?390:1280,height:900}});contexts.push(context);
   await context.addInitScript(()=>{
+   window.__callEventSockets=[];
+   const OriginalSocket=window.WebSocket;
+   window.WebSocket=class extends OriginalSocket{constructor(...args){super(...args);if(String(args[0]).includes('/v1/calls/events')){const record={ready:0,changed:0,signal:0,closed:[]};window.__callEventSockets.push(record);this.addEventListener('message',event=>{try{const type=JSON.parse(event.data).type;if(['ready','changed','signal'].includes(type))record[type]++;}catch{}});this.addEventListener('close',event=>record.closed.push(event.code));}}};
    window.__callPeers=[];window.__callTracks=[];
    const Original=window.RTCPeerConnection;
    window.RTCPeerConnection=class extends Original{constructor(...args){super(...args);window.__callPeers.push(this);}};
@@ -31,7 +34,7 @@ try{
   await page.waitForFunction(()=>/^[A-Za-z0-9_-]{43}$/.test(sessionStorage.getItem('primecare_session')??''),{},{timeout:45000});
   user.token=await page.evaluate(()=>sessionStorage.getItem('primecare_session'));
   const workspace=await fetch(gateway+'/v1/governance/workspace',{headers:{authorization:'Bearer '+user.token},signal:AbortSignal.timeout(30000)});assert.equal(workspace.status,200);const data=await workspace.json();assert.equal(data.identity.userId,user.id);const screen=data.screens.find(s=>['psw_messages','patient_messages','communication','messaging'].includes(s.code));assert.ok(screen,'Existing communication screen required');
-  const navigation=await page.goto(site+screen.route+'?view=calls&enable-semantics=true');assert.match(navigation.headers()['permissions-policy']??'',/microphone=\(self\)/);await cy(page,'internal-call-panel').waitFor({timeout:45000});
+  const navigation=await page.goto(site+screen.route+'?view=calls&enable-semantics=true');assert.match(navigation.headers()['permissions-policy']??'',/microphone=\(self\)/);await cy(page,'internal-call-panel').waitFor({timeout:45000});await page.waitForFunction(()=>document.querySelector('[data-cy=internal-call-panel]')?.getAttribute('data-push')==='connected',{},{timeout:30000});
   assert.equal(await page.evaluate(()=>window.__callTracks.length),0);
   await cy(page,'internal-call-enable').click();
   await until(async()=>{const d=await request(user,'directory',{});if(d.self?.published){user.extension=d.self.extension;return true;}return false;});
@@ -53,7 +56,7 @@ try{
   return {gatherOutcome:peer.gatherOutcome,candidateCount:peer.candidateCount,iceErrors:peer.iceErrors,connectionState:peer.connectionState,iceState:peer.iceConnectionState,signalingState:peer.signalingState,ready:peer.connectionState==='connected'&&audio.some(s=>s.packetsReceived>10)&&local?.candidateType==='relay'&&remote?.candidateType==='relay',packets:audio.reduce((sum,s)=>sum+(s.packetsReceived??0),0),relay:local?.candidateType==='relay'&&remote?.candidateType==='relay'};
  });
  await until(async()=>{const both=await Promise.all([stats(alice.page),stats(bob.page)]);report.mediaSummary=both;return both.every(s=>s.ready);},180000);report.connectionMilliseconds=Date.now()-mediaStartedAt;
- const before=await Promise.all([stats(alice.page),stats(bob.page)]);await new Promise(r=>setTimeout(r,1500));const after=await Promise.all([stats(alice.page),stats(bob.page)]);assert.ok(after.every((s,i)=>s.packets>before[i].packets));report.relayAudio=true;report.audioVerificationMilliseconds=Date.now()-mediaStartedAt;report.bidirectionalPacketGrowth=true;
+ const before=await Promise.all([stats(alice.page),stats(bob.page)]);await new Promise(r=>setTimeout(r,1500));const after=await Promise.all([stats(alice.page),stats(bob.page)]);assert.ok(after.every((s,i)=>s.packets>before[i].packets));report.callEventSummary=await Promise.all([alice.page,bob.page].map(page=>page.evaluate(()=>window.__callEventSockets)));assert.ok(report.callEventSummary.every(list=>list.some(s=>s.ready>0&&s.changed>0&&s.signal>0)));report.authenticatedPushVerified=true;report.relayAudio=true;report.audioVerificationMilliseconds=Date.now()-mediaStartedAt;report.bidirectionalPacketGrowth=true;
  const state=(await db.query('SELECT state FROM business_work_aggregates WHERE tenant_id=$1 AND id=$2',[alice.tenant,view.id])).rows[0].state;assert.equal(state.calls.find(c=>c.id===callId).status,'accepted');assert.ok(state.calls.find(c=>c.id===callId).signals.some(s=>s.signal.type==='offer'));assert.ok(state.calls.find(c=>c.id===callId).signals.some(s=>s.signal.type==='answer'));report.independentNativeReadback=true;
  await cy(alice.page,'internal-call-mute').click();assert.equal(await alice.page.evaluate(()=>window.__callTracks.filter(t=>t.readyState==='live').every(t=>!t.enabled)),true);await cy(alice.page,'internal-call-mute').click();report.muteVerified=true;
 

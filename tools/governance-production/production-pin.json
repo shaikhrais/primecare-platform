@@ -1097,5 +1097,49 @@
     "businessDataWrites": false,
     "productionStrategy": "single-parameterized-query",
     "productionFunctionCreation": "denied-by-hosted-database"
+  },
+  "internalCallEventsWriter": {
+    "optInVariable": "GOVERNANCE_INTERNAL_CALL_EVENTS",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "call.events",
+        "method": "GET",
+        "path": "/v1/calls/events"
+      }
+    ],
+    "definitionSha256": "7d277c97a3bcd8c0a71609ef329ed52c02672d69b47585535e27106730554684",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
+  },
+  "internalCallEventsAccessWriter": {
+    "optInVariable": "GOVERNANCE_INTERNAL_CALL_EVENTS_ACCESS",
+    "tables": [
+      "api_permissions",
+      "screen_api_links"
+    ],
+    "screenIds": [
+      234,
+      331,
+      559,
+      578
+    ],
+    "paths": [
+      "/v1/calls/events"
+    ],
+    "contractSha256": "7d277c97a3bcd8c0a71609ef329ed52c02672d69b47585535e27106730554684",
+    "definitionSha256": "61b89b6eadc00c7c8d020ba1aedd89917c1a35cdc0f32a272895b5a53f4890d0",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleScreenChanges": false,
+    "existingDenials": "preserve",
+    "providerWrites": false,
+    "activation": false
   }
 }
