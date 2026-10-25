@@ -1,13 +1,10 @@
 name: Profile native calling permission query
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/calling-permissions-profile.yml', 'scripts/profile-calling-permissions.mjs']
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: primecare-internal-calls-production
+  group: primecare-calling-permission-profile
   cancel-in-progress: false
 jobs:
   profile:

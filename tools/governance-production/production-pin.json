@@ -1067,5 +1067,22 @@
     "directHost": "db.prisma.io",
     "runtimeHost": "pooled.db.prisma.io",
     "existingData": "preserve"
+  },
+  "internalCallPermissionIndexes": {
+    "definitionSha256": "a4b4cbb8f563170fd8197ba079993d2ec400da8300416844b51b3ddf32eb1a6a",
+    "sourceSha256": "60631596bca9749dccd3245ac84315633b48e773dbabcb4b9be420d234ee6160",
+    "schema": "governance_68b0b02dd1215f58630d2c1a",
+    "runtimeHost": "pooled.db.prisma.io",
+    "directHost": "db.prisma.io",
+    "indexNames": [
+      "primecare_call_api_permission_lookup",
+      "primecare_call_screen_permission_lookup",
+      "primecare_call_screen_api_lookup",
+      "primecare_call_role_code_lookup",
+      "primecare_call_endpoint_route_lookup"
+    ],
+    "existingData": "preserve",
+    "governanceRowWrites": false,
+    "permissionChanges": false
   }
 }

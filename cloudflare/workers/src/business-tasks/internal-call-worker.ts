@@ -1,7 +1,8 @@
 import {Pool} from 'pg';
 import {BaseWorker,workerHandler} from '../core/base-worker.ts';
 import {PostgresCommunicationSession} from './session.ts';
-import {PostgresRegisteredCommunicationEndpointPolicy} from './endpoint-policy.ts';
+import {PostgresInternalCallEndpointPolicy} from './internal-call-endpoint-policy.ts';
+export {PostgresInternalCallEndpointPolicy} from './internal-call-endpoint-policy.ts';
 import {InternalCallApplication} from './internal-call-application.ts';
 import {InternalCallHttpAdapter} from './internal-call-http.ts';
 import {CloudflareTurnProvider} from '../../../../packages/shared/src/communications/cloudflare-turn.mjs';
@@ -10,12 +11,8 @@ import {internalCallDatabaseOptions,measuredCallDatabase,type InternalCallDataba
 import {sha256} from '../session-token.ts';
 import definition from '../../../../tools/governance-production/internal-call-contracts-registration.json' with {type:'json'};
 import config from './internal-call-deployment.json' with {type:'json'};
-import type {Actor} from '../../../../packages/shared/src/communications/service-base.ts';
 type Limit={limit(input:{key:string}):Promise<{success:boolean}>};
 export type InternalCallEnvironment={CALL_DATABASE:InternalCallDatabaseBinding;DB_URL:string;INTERNAL_CALL_SOURCE:string;INTERNAL_CALL_ORIGIN:string;INTERNAL_CALL_GATEWAY_ORIGIN:string;TURN_KEY_ID:string;TURN_KEY_TOKEN:string;INTERNAL_CALL_LIMIT:Limit;CALL_RELAY_LIMIT:Limit};
-export class PostgresInternalCallEndpointPolicy extends PostgresRegisteredCommunicationEndpointPolicy {
- async authorize(actor:Actor,key:string,request:Request){const op=definition.operations.find(o=>o.key===key);if(!op||op.path!==new URL(request.url).pathname||request.method!==op.method)throw Error('Forbidden');return this.authorizeRegistered(actor,null,op.method,op.path,'INTERNAL_'+key.replaceAll('.','_').toUpperCase());}
-}
 /** Real request-owned native host. No client role, tenant override, fake policy
  * or synthetic provider is installed in this composition. */
 export class InternalCallWorker extends BaseWorker<InternalCallEnvironment> {

@@ -2,6 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {PostgresCommunicationEndpointPolicy,PostgresVoiceEndpointPolicy} from '../cloudflare/workers/src/business-tasks/endpoint-policy.ts';
+import {PostgresInternalCallEndpointPolicy} from '../cloudflare/workers/src/business-tasks/internal-call-endpoint-policy.ts';
 const pin=JSON.parse(readFileSync('tools/governance-production/production-pin.json'));
 const actor={id:'fixture-user',tenantId:'fixture-tenant'};
 const request=new Request('https://example.invalid/v1/messages',{method:'POST'});
@@ -67,6 +68,12 @@ test('native PostgreSQL evaluates tagged and native current grants',{skip:!proce
   await q(`UPDATE ${schema}.govt_api_permissions SET can_access='1' WHERE api_id='16520'`);
   await q(`INSERT INTO ${schema}.govt_api_endpoints SELECT '16521',http_method,route_path,service_name,auth_required,permission_key,endpoint_code FROM ${schema}.govt_api_endpoints WHERE id='16520'`);
   await assert.rejects(voice.authorize(session,'token',voiceRequest),/Forbidden/);
+  await q(`INSERT INTO ${schema}.govt_api_endpoints VALUES('16545','POST','/v1/calls/command','governance','1','\"role_screen_permissions\"'::jsonb,'INTERNAL_CALL_COMMAND')`);
+  await q(`INSERT INTO ${schema}.govt_api_permissions VALUES('16545','7','1','role_screen_permissions')`);await q(`INSERT INTO ${schema}.govt_screen_api_links VALUES('16545','234')`);
+  const nativeTypes=JSON.parse(readFileSync('tools/governance-production/internal-call-permission-indexes.json')).columns;
+  for(const [table,columns]of Object.entries(nativeTypes))for(const [column,type]of Object.entries(columns))if(type==='bigint')await q(`ALTER TABLE ${schema}."${table}" ALTER COLUMN "${column}" TYPE bigint USING "${column}"::bigint`);
+  const calls=new PostgresInternalCallEndpointPolicy(pool),callRequest=new Request('https://example.invalid/v1/calls/command',{method:'POST'});await calls.authorize(actor,'call.command',callRequest);
+  await q(`UPDATE ${schema}.govt_api_permissions SET can_access='0' WHERE api_id='16545'`);await assert.rejects(calls.authorize(actor,'call.command',callRequest),/Forbidden/);
  }finally{if(ownsSchema)await q('DROP SCHEMA '+schema+' CASCADE');if(ownsUsers)await q('DROP TABLE public.users');if(ownsTenants)await q('DROP TABLE public.tenants');await pool.end();}
 });
 

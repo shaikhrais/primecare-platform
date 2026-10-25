@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "schema": "governance_68b0b02dd1215f58630d2c1a",
+  "existingData": "preserve",
+  "permissionChanges": false,
+  "columns": {
+    "govt_api_permissions": {
+      "role_id": "bigint",
+      "api_id": "bigint",
+      "can_access": "bigint"
+    },
+    "govt_role_screen_permissions": {
+      "role_id": "bigint",
+      "screen_id": "bigint",
+      "can_view": "bigint"
+    },
+    "govt_screen_api_links": {
+      "api_id": "bigint",
+      "screen_id": "bigint"
+    },
+    "govt_roles": {
+      "id": "bigint",
+      "role_code": "text",
+      "active": "bigint"
+    },
+    "govt_api_endpoints": {
+      "id": "bigint",
+      "http_method": "text",
+      "route_path": "text",
+      "service_name": "text"
+    },
+    "govt_screens": {
+      "id": "bigint",
+      "active": "bigint"
+    }
+  },
+  "indexes": [
+    {
+      "name": "primecare_call_api_permission_lookup",
+      "table": "govt_api_permissions",
+      "columns": [
+        "role_id",
+        "api_id"
+      ]
+    },
+    {
+      "name": "primecare_call_screen_permission_lookup",
+      "table": "govt_role_screen_permissions",
+      "columns": [
+        "role_id",
+        "screen_id"
+      ]
+    },
+    {
+      "name": "primecare_call_screen_api_lookup",
+      "table": "govt_screen_api_links",
+      "columns": [
+        "api_id",
+        "screen_id"
+      ]
+    },
+    {
+      "name": "primecare_call_role_code_lookup",
+      "table": "govt_roles",
+      "columns": [
+        "role_code"
+      ]
+    },
+    {
+      "name": "primecare_call_endpoint_route_lookup",
+      "table": "govt_api_endpoints",
+      "columns": [
+        "http_method",
+        "route_path",
+        "service_name"
+      ]
+    }
+  ]
+}

@@ -12,7 +12,7 @@ type Client={query(sql:string,values?:(string|null)[]):Promise<{rows:Record<stri
 type Pool={connect():Promise<Client>};
 // Imported metadata contains both native scalars and explicitly tagged values.
 // Missing, wrong-type and unknown-tag values yield NULL and cannot grant access.
-const value=(alias:string,column:string)=>{
+const legacyValue=(alias:string,column:string)=>{
  // Convert only the required field. Serializing an entire API row repeatedly
  // also serializes its large schemas, making current permission rechecks slow.
  const x=`to_jsonb(${alias}."${column}")`;
@@ -30,15 +30,17 @@ export function isPlatformOwnContactEndpoint(apiId:number|null,method:string,pat
 export abstract class PostgresRegisteredCommunicationEndpointPolicy {
  readonly pool:Pool;
  constructor(pool:Pool){if(typeof pool?.connect!=='function')throw Error('Governance pool required');this.pool=pool;}
+ protected metadataValue(alias:string,column:string){return legacyValue(alias,column);}
+ protected apiIdParameter(){return '$3';}
  protected async authorizeRegistered(actor:Actor,apiId:number|null,method:string,path:string,endpointCode:string|null=null):Promise<void>{
-  assertActor(actor);
+  assertActor(actor);const value=(alias:string,column:string)=>this.metadataValue(alias,column);
   const client=await this.pool.connect();
   try{
    await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
    await client.query("SET LOCAL statement_timeout='10s'");
    const manifest=await client.query(`SELECT manifest_sha256 FROM "${pin.schema}"."${pin.manifestTable}"`);
    if(manifest.rows.length!==1||manifest.rows[0].manifest_sha256!==pin.manifestSha256)throw Error('Governance manifest mismatch');
-   const result=await client.query(`SELECT DISTINCT ${value('r','id')} AS role_id,${value('s','id')} AS screen_id,${value('a','id')} AS api_id
+   const result=await client.query(`SELECT DISTINCT (${value('r','id')})::text AS role_id,(${value('s','id')})::text AS screen_id,(${value('a','id')})::text AS api_id
     FROM public.users u
     JOIN ${table('roles')} r ON ${value('r','role_code')}=u.roles::text AND ${value('r','active')}='1'
     JOIN ${table('api_permissions')} ap ON ${value('ap','role_id')}=${value('r','id')} AND ${value('ap','can_access')}='1' AND ${value('ap','permission_key')}='role_screen_permissions'
@@ -47,7 +49,7 @@ export abstract class PostgresRegisteredCommunicationEndpointPolicy {
     JOIN ${table('screens')} s ON ${value('s','id')}=${value('l','screen_id')} AND ${value('s','active')}='1'
     JOIN ${table('role_screen_permissions')} sp ON ${value('sp','screen_id')}=${value('s','id')} AND ${value('sp','role_id')}=${value('r','id')} AND ${value('sp','can_view')}='1'
     WHERE u.id::text=$1 AND u.tenant_id::text=$2 AND LOWER(u.status)='active'
-    AND ($3::text IS NULL OR ${value('a','id')}=$3) AND ${value('a','http_method')}=$4 AND ${value('a','route_path')}=$5
+    AND ($3::text IS NULL OR ${value('a','id')}=${this.apiIdParameter()}) AND ${value('a','http_method')}=$4 AND ${value('a','route_path')}=$5
     AND ${value('a','service_name')}='governance' AND ${value('a','auth_required')}='1'
     AND ${value('a','permission_key')}='role_screen_permissions'
     AND (${value('s','id')} IN ('234','331','559','578')${isPlatformOwnContactEndpoint(apiId,method,path,endpointCode)?` OR (${value('s','id')}='${platformContact.screenId}' AND ${value('a','id')}='${platformContact.apiIds[contacts.operations.findIndex(op=>op.method===method&&op.path===path)]}')`:''})
