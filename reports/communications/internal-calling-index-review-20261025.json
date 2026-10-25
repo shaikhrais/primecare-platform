@@ -1,0 +1,1813 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-25T22:35:22.345Z",
+  "decision": "No additional production indexes justified by the current query plans and data size.",
+  "indexesAdded": [],
+  "applicationDeploymentChanged": false,
+  "existingFivePermissionIndexesRetained": true,
+  "workflow": {
+    "runId": 40240760253,
+    "jobId": 121311829549,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/40240760253",
+    "conclusion": "success"
+  },
+  "evidence": {
+    "source": "cc473978194c2650d6531e902f6d78f837d3f888",
+    "readOnly": true,
+    "committedWrites": false,
+    "permissionChanges": false,
+    "indexesAdded": [],
+    "tables": [
+      {
+        "table": "users",
+        "rows": "69",
+        "indexes": [
+          {
+            "name": "users_email_key",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "email"
+            ],
+            "partial": false,
+            "expression": false
+          },
+          {
+            "name": "users_osm_id_key",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "osm_id"
+            ],
+            "partial": false,
+            "expression": false
+          },
+          {
+            "name": "users_pkey",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "id"
+            ],
+            "partial": false,
+            "expression": false
+          },
+          {
+            "name": "users_status_created_at_idx",
+            "valid": true,
+            "ready": true,
+            "unique": false,
+            "method": "btree",
+            "columns": [
+              "status",
+              "created_at"
+            ],
+            "partial": false,
+            "expression": false
+          },
+          {
+            "name": "users_tenant_id_idx",
+            "valid": true,
+            "ready": true,
+            "unique": false,
+            "method": "btree",
+            "columns": [
+              "tenant_id"
+            ],
+            "partial": false,
+            "expression": false
+          }
+        ]
+      },
+      {
+        "table": "tenants",
+        "rows": "5",
+        "indexes": [
+          {
+            "name": "tenants_pkey",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "id"
+            ],
+            "partial": false,
+            "expression": false
+          },
+          {
+            "name": "tenants_slug_key",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "slug"
+            ],
+            "partial": false,
+            "expression": false
+          }
+        ]
+      },
+      {
+        "table": "auth_sessions",
+        "rows": "6",
+        "indexes": [
+          {
+            "name": "auth_sessions_expires_at_idx",
+            "valid": true,
+            "ready": true,
+            "unique": false,
+            "method": "btree",
+            "columns": [
+              "expires_at"
+            ],
+            "partial": false,
+            "expression": false
+          },
+          {
+            "name": "auth_sessions_pkey",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "token_hash"
+            ],
+            "partial": false,
+            "expression": false
+          },
+          {
+            "name": "auth_sessions_user_id_idx",
+            "valid": true,
+            "ready": true,
+            "unique": false,
+            "method": "btree",
+            "columns": [
+              "user_id"
+            ],
+            "partial": false,
+            "expression": false
+          }
+        ]
+      },
+      {
+        "table": "business_work_aggregates",
+        "rows": "1",
+        "indexes": [
+          {
+            "name": "business_work_aggregates_pkey",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "tenant_id",
+              "id"
+            ],
+            "partial": false,
+            "expression": false
+          }
+        ]
+      },
+      {
+        "table": "business_work_commands",
+        "rows": "5",
+        "indexes": [
+          {
+            "name": "business_work_commands_pkey",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "tenant_id",
+              "aggregate_id",
+              "command_key"
+            ],
+            "partial": false,
+            "expression": false
+          }
+        ]
+      },
+      {
+        "table": "business_work_events",
+        "rows": "5",
+        "indexes": [
+          {
+            "name": "business_work_events_pkey",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "id"
+            ],
+            "partial": false,
+            "expression": false
+          },
+          {
+            "name": "business_work_events_tenant_id_aggregate_id_version_key",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "tenant_id",
+              "aggregate_id",
+              "version"
+            ],
+            "partial": false,
+            "expression": false
+          }
+        ]
+      },
+      {
+        "table": "communication_voice_extensions",
+        "rows": "3",
+        "indexes": [
+          {
+            "name": "communication_voice_extensions_pkey",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "extension"
+            ],
+            "partial": false,
+            "expression": false
+          },
+          {
+            "name": "communication_voice_extensions_tenant_id_user_id_key",
+            "valid": true,
+            "ready": true,
+            "unique": true,
+            "method": "btree",
+            "columns": [
+              "tenant_id",
+              "user_id"
+            ],
+            "partial": false,
+            "expression": false
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "name": "directory",
+        "roundTripMilliseconds": 94,
+        "planningMilliseconds": 0.243,
+        "executionMilliseconds": 0.157,
+        "plan": {
+          "Node Type": "Limit",
+          "Actual Rows": 0,
+          "Actual Loops": 1,
+          "Actual Total Time": 0.027,
+          "Shared Hit Blocks": 1,
+          "Shared Read Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Sort",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.026,
+              "Shared Hit Blocks": 1,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Nested Loop",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.011,
+                  "Shared Hit Blocks": 1,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Nested Loop",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.011,
+                      "Shared Hit Blocks": 1,
+                      "Shared Read Blocks": 0,
+                      "Plans": [
+                        {
+                          "Node Type": "Seq Scan",
+                          "Relation Name": "communication_voice_extensions",
+                          "Actual Rows": 0,
+                          "Actual Loops": 1,
+                          "Actual Total Time": 0.011,
+                          "Rows Removed by Filter": 3,
+                          "Shared Hit Blocks": 1,
+                          "Shared Read Blocks": 0
+                        },
+                        {
+                          "Node Type": "Seq Scan",
+                          "Relation Name": "users",
+                          "Actual Rows": 0,
+                          "Actual Loops": 0,
+                          "Actual Total Time": 0,
+                          "Rows Removed by Filter": 0,
+                          "Shared Hit Blocks": 0,
+                          "Shared Read Blocks": 0
+                        }
+                      ]
+                    },
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "tenants",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Rows Removed by Filter": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "inbox",
+        "roundTripMilliseconds": 105,
+        "planningMilliseconds": 0.274,
+        "executionMilliseconds": 0.222,
+        "plan": {
+          "Node Type": "Limit",
+          "Actual Rows": 0,
+          "Actual Loops": 1,
+          "Actual Total Time": 0.028,
+          "Shared Hit Blocks": 2,
+          "Shared Read Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Sort",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.027,
+              "Shared Hit Blocks": 2,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Seq Scan",
+                  "Relation Name": "business_work_aggregates",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.016,
+                  "Rows Removed by Filter": 1,
+                  "Shared Hit Blocks": 2,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Function Scan",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Rows Removed by Filter": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    },
+                    {
+                      "Node Type": "Aggregate",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0,
+                      "Plans": [
+                        {
+                          "Node Type": "Function Scan",
+                          "Actual Rows": 0,
+                          "Actual Loops": 0,
+                          "Actual Total Time": 0,
+                          "Shared Hit Blocks": 0,
+                          "Shared Read Blocks": 0
+                        }
+                      ]
+                    },
+                    {
+                      "Node Type": "Nested Loop",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0,
+                      "Plans": [
+                        {
+                          "Node Type": "Function Scan",
+                          "Actual Rows": 0,
+                          "Actual Loops": 0,
+                          "Actual Total Time": 0,
+                          "Shared Hit Blocks": 0,
+                          "Shared Read Blocks": 0
+                        },
+                        {
+                          "Node Type": "Materialize",
+                          "Actual Rows": 0,
+                          "Actual Loops": 0,
+                          "Actual Total Time": 0,
+                          "Shared Hit Blocks": 0,
+                          "Shared Read Blocks": 0,
+                          "Plans": [
+                            {
+                              "Node Type": "Nested Loop",
+                              "Actual Rows": 0,
+                              "Actual Loops": 0,
+                              "Actual Total Time": 0,
+                              "Shared Hit Blocks": 0,
+                              "Shared Read Blocks": 0,
+                              "Plans": [
+                                {
+                                  "Node Type": "Seq Scan",
+                                  "Relation Name": "users",
+                                  "Actual Rows": 0,
+                                  "Actual Loops": 0,
+                                  "Actual Total Time": 0,
+                                  "Rows Removed by Filter": 0,
+                                  "Shared Hit Blocks": 0,
+                                  "Shared Read Blocks": 0
+                                },
+                                {
+                                  "Node Type": "Seq Scan",
+                                  "Relation Name": "tenants",
+                                  "Actual Rows": 0,
+                                  "Actual Loops": 0,
+                                  "Actual Total Time": 0,
+                                  "Rows Removed by Filter": 0,
+                                  "Shared Hit Blocks": 0,
+                                  "Shared Read Blocks": 0
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "busy-check",
+        "roundTripMilliseconds": 86,
+        "planningMilliseconds": 0.112,
+        "executionMilliseconds": 0.194,
+        "plan": {
+          "Node Type": "Limit",
+          "Actual Rows": 0,
+          "Actual Loops": 1,
+          "Actual Total Time": 0.03,
+          "Shared Hit Blocks": 1,
+          "Shared Read Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Index Scan",
+              "Relation Name": "business_work_aggregates",
+              "Index Name": "business_work_aggregates_pkey",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.029,
+              "Rows Removed by Filter": 0,
+              "Shared Hit Blocks": 1,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Function Scan",
+                  "Actual Rows": 0,
+                  "Actual Loops": 0,
+                  "Actual Total Time": 0,
+                  "Rows Removed by Filter": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "extension-owner",
+        "roundTripMilliseconds": 88,
+        "planningMilliseconds": 0.125,
+        "executionMilliseconds": 0.151,
+        "plan": {
+          "Node Type": "Limit",
+          "Actual Rows": 0,
+          "Actual Loops": 1,
+          "Actual Total Time": 0.015,
+          "Shared Hit Blocks": 1,
+          "Shared Read Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Nested Loop",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.014,
+              "Shared Hit Blocks": 1,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Nested Loop",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.014,
+                  "Shared Hit Blocks": 1,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "communication_voice_extensions",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.013,
+                      "Rows Removed by Filter": 3,
+                      "Shared Hit Blocks": 1,
+                      "Shared Read Blocks": 0
+                    },
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "users",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Rows Removed by Filter": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Seq Scan",
+                  "Relation Name": "tenants",
+                  "Actual Rows": 0,
+                  "Actual Loops": 0,
+                  "Actual Total Time": 0,
+                  "Rows Removed by Filter": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "extension-number",
+        "roundTripMilliseconds": 94,
+        "planningMilliseconds": 0.301,
+        "executionMilliseconds": 0.176,
+        "plan": {
+          "Node Type": "Limit",
+          "Actual Rows": 0,
+          "Actual Loops": 1,
+          "Actual Total Time": 0.028,
+          "Shared Hit Blocks": 3,
+          "Shared Read Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Nested Loop",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.026,
+              "Shared Hit Blocks": 3,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Hash Join",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.026,
+                  "Shared Hit Blocks": 3,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "users",
+                      "Actual Rows": 1,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.009,
+                      "Shared Hit Blocks": 2,
+                      "Shared Read Blocks": 0
+                    },
+                    {
+                      "Node Type": "Hash",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.006,
+                      "Shared Hit Blocks": 1,
+                      "Shared Read Blocks": 0,
+                      "Plans": [
+                        {
+                          "Node Type": "Seq Scan",
+                          "Relation Name": "communication_voice_extensions",
+                          "Actual Rows": 0,
+                          "Actual Loops": 1,
+                          "Actual Total Time": 0.005,
+                          "Rows Removed by Filter": 3,
+                          "Shared Hit Blocks": 1,
+                          "Shared Read Blocks": 0
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Seq Scan",
+                  "Relation Name": "tenants",
+                  "Actual Rows": 0,
+                  "Actual Loops": 0,
+                  "Actual Total Time": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "call-state",
+        "roundTripMilliseconds": 82,
+        "planningMilliseconds": 0.058,
+        "executionMilliseconds": 0.151,
+        "plan": {
+          "Node Type": "Seq Scan",
+          "Relation Name": "business_work_aggregates",
+          "Actual Rows": 0,
+          "Actual Loops": 1,
+          "Actual Total Time": 0.016,
+          "Rows Removed by Filter": 1,
+          "Shared Hit Blocks": 2,
+          "Shared Read Blocks": 0
+        }
+      },
+      {
+        "name": "active-participants",
+        "roundTripMilliseconds": 86,
+        "planningMilliseconds": 0.101,
+        "executionMilliseconds": 0.176,
+        "plan": {
+          "Node Type": "Nested Loop",
+          "Actual Rows": 1,
+          "Actual Loops": 1,
+          "Actual Total Time": 0.047,
+          "Shared Hit Blocks": 4,
+          "Shared Read Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "users",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.039,
+              "Rows Removed by Filter": 68,
+              "Shared Hit Blocks": 3,
+              "Shared Read Blocks": 0
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "tenants",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.006,
+              "Rows Removed by Filter": 4,
+              "Shared Hit Blocks": 1,
+              "Shared Read Blocks": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "native-permission",
+        "roundTripMilliseconds": 227,
+        "planningMilliseconds": 77.901,
+        "executionMilliseconds": 1.149,
+        "plan": {
+          "Node Type": "Limit",
+          "Actual Rows": 0,
+          "Actual Loops": 1,
+          "Actual Total Time": 0.783,
+          "Shared Hit Blocks": 16,
+          "Shared Read Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Aggregate",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.067,
+              "Shared Hit Blocks": 4,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Index Only Scan",
+                  "Relation Name": "govt_api_endpoints",
+                  "Index Name": "primecare_call_endpoint_route_lookup",
+                  "Actual Rows": 1,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.063,
+                  "Shared Hit Blocks": 4,
+                  "Shared Read Blocks": 0
+                }
+              ]
+            },
+            {
+              "Node Type": "Unique",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.781,
+              "Shared Hit Blocks": 16,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Sort",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.78,
+                  "Shared Hit Blocks": 16,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Result",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.746,
+                      "Shared Hit Blocks": 16,
+                      "Shared Read Blocks": 0,
+                      "Plans": [
+                        {
+                          "Node Type": "Nested Loop",
+                          "Actual Rows": 0,
+                          "Actual Loops": 1,
+                          "Actual Total Time": 0.677,
+                          "Shared Hit Blocks": 12,
+                          "Shared Read Blocks": 0,
+                          "Plans": [
+                            {
+                              "Node Type": "Nested Loop",
+                              "Actual Rows": 0,
+                              "Actual Loops": 1,
+                              "Actual Total Time": 0.676,
+                              "Shared Hit Blocks": 12,
+                              "Shared Read Blocks": 0,
+                              "Plans": [
+                                {
+                                  "Node Type": "Nested Loop",
+                                  "Actual Rows": 0,
+                                  "Actual Loops": 1,
+                                  "Actual Total Time": 0.676,
+                                  "Shared Hit Blocks": 12,
+                                  "Shared Read Blocks": 0,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Nested Loop",
+                                      "Actual Rows": 0,
+                                      "Actual Loops": 1,
+                                      "Actual Total Time": 0.676,
+                                      "Shared Hit Blocks": 12,
+                                      "Shared Read Blocks": 0,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Nested Loop",
+                                          "Actual Rows": 0,
+                                          "Actual Loops": 1,
+                                          "Actual Total Time": 0.676,
+                                          "Shared Hit Blocks": 12,
+                                          "Shared Read Blocks": 0,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Nested Loop",
+                                              "Actual Rows": 1,
+                                              "Actual Loops": 1,
+                                              "Actual Total Time": 0.62,
+                                              "Shared Hit Blocks": 9,
+                                              "Shared Read Blocks": 0,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Nested Loop",
+                                                  "Actual Rows": 1,
+                                                  "Actual Loops": 1,
+                                                  "Actual Total Time": 0.566,
+                                                  "Shared Hit Blocks": 6,
+                                                  "Shared Read Blocks": 0,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Seq Scan",
+                                                      "Relation Name": "users",
+                                                      "Actual Rows": 1,
+                                                      "Actual Loops": 1,
+                                                      "Actual Total Time": 0.03,
+                                                      "Rows Removed by Filter": 68,
+                                                      "Shared Hit Blocks": 3,
+                                                      "Shared Read Blocks": 0
+                                                    },
+                                                    {
+                                                      "Node Type": "Seq Scan",
+                                                      "Relation Name": "govt_roles",
+                                                      "Actual Rows": 75,
+                                                      "Actual Loops": 1,
+                                                      "Actual Total Time": 0.531,
+                                                      "Rows Removed by Filter": 0,
+                                                      "Shared Hit Blocks": 3,
+                                                      "Shared Read Blocks": 0
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "Node Type": "Index Scan",
+                                                  "Relation Name": "govt_api_endpoints",
+                                                  "Index Name": "primecare_call_endpoint_route_lookup",
+                                                  "Actual Rows": 1,
+                                                  "Actual Loops": 1,
+                                                  "Actual Total Time": 0.053,
+                                                  "Rows Removed by Filter": 0,
+                                                  "Shared Hit Blocks": 3,
+                                                  "Shared Read Blocks": 0
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Node Type": "Index Scan",
+                                              "Relation Name": "govt_api_permissions",
+                                              "Index Name": "primecare_call_api_permission_lookup",
+                                              "Actual Rows": 0,
+                                              "Actual Loops": 1,
+                                              "Actual Total Time": 0.055,
+                                              "Rows Removed by Filter": 0,
+                                              "Shared Hit Blocks": 3,
+                                              "Shared Read Blocks": 0
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Node Type": "Index Only Scan",
+                                          "Relation Name": "govt_screen_api_links",
+                                          "Index Name": "primecare_call_screen_api_lookup",
+                                          "Actual Rows": 0,
+                                          "Actual Loops": 0,
+                                          "Actual Total Time": 0,
+                                          "Shared Hit Blocks": 0,
+                                          "Shared Read Blocks": 0
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Relation Name": "govt_role_screen_permissions",
+                                      "Index Name": "primecare_call_screen_permission_lookup",
+                                      "Actual Rows": 0,
+                                      "Actual Loops": 0,
+                                      "Actual Total Time": 0,
+                                      "Rows Removed by Filter": 0,
+                                      "Shared Hit Blocks": 0,
+                                      "Shared Read Blocks": 0
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Seq Scan",
+                                  "Relation Name": "govt_screens",
+                                  "Actual Rows": 0,
+                                  "Actual Loops": 0,
+                                  "Actual Total Time": 0,
+                                  "Rows Removed by Filter": 0,
+                                  "Shared Hit Blocks": 0,
+                                  "Shared Read Blocks": 0
+                                }
+                              ]
+                            },
+                            {
+                              "Node Type": "Seq Scan",
+                              "Relation Name": "tenants",
+                              "Actual Rows": 0,
+                              "Actual Loops": 0,
+                              "Actual Total Time": 0,
+                              "Rows Removed by Filter": 0,
+                              "Shared Hit Blocks": 0,
+                              "Shared Read Blocks": 0
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "context-missing-session",
+        "roundTripMilliseconds": 282,
+        "planningMilliseconds": 41.518,
+        "executionMilliseconds": 1.929,
+        "plan": {
+          "Node Type": "Result",
+          "Actual Rows": 1,
+          "Actual Loops": 1,
+          "Actual Total Time": 0.83,
+          "Shared Hit Blocks": 13,
+          "Shared Read Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Limit",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.016,
+              "Shared Hit Blocks": 1,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Values Scan",
+                  "Actual Rows": 1,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.004,
+                  "Rows Removed by Filter": 3,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                },
+                {
+                  "Node Type": "Result",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.015,
+                  "Shared Hit Blocks": 1,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Nested Loop",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.01,
+                      "Shared Hit Blocks": 1,
+                      "Shared Read Blocks": 0,
+                      "Plans": [
+                        {
+                          "Node Type": "Seq Scan",
+                          "Relation Name": "auth_sessions",
+                          "Actual Rows": 0,
+                          "Actual Loops": 1,
+                          "Actual Total Time": 0.009,
+                          "Rows Removed by Filter": 6,
+                          "Shared Hit Blocks": 1,
+                          "Shared Read Blocks": 0
+                        },
+                        {
+                          "Node Type": "Seq Scan",
+                          "Relation Name": "users",
+                          "Actual Rows": 0,
+                          "Actual Loops": 0,
+                          "Actual Total Time": 0,
+                          "Rows Removed by Filter": 0,
+                          "Shared Hit Blocks": 0,
+                          "Shared Read Blocks": 0
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Node Type": "Aggregate",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.005,
+              "Shared Hit Blocks": 0,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Aggregate",
+                  "Actual Rows": 1,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.001,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "CTE Scan",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Result",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.004,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Nested Loop",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0,
+                      "Plans": [
+                        {
+                          "Node Type": "CTE Scan",
+                          "Actual Rows": 0,
+                          "Actual Loops": 0,
+                          "Actual Total Time": 0,
+                          "Shared Hit Blocks": 0,
+                          "Shared Read Blocks": 0
+                        },
+                        {
+                          "Node Type": "Subquery Scan",
+                          "Actual Rows": 0,
+                          "Actual Loops": 0,
+                          "Actual Total Time": 0,
+                          "Shared Hit Blocks": 0,
+                          "Shared Read Blocks": 0,
+                          "Plans": [
+                            {
+                              "Node Type": "Limit",
+                              "Actual Rows": 0,
+                              "Actual Loops": 0,
+                              "Actual Total Time": 0,
+                              "Shared Hit Blocks": 0,
+                              "Shared Read Blocks": 0,
+                              "Plans": [
+                                {
+                                  "Node Type": "Aggregate",
+                                  "Actual Rows": 0,
+                                  "Actual Loops": 0,
+                                  "Actual Total Time": 0,
+                                  "Shared Hit Blocks": 0,
+                                  "Shared Read Blocks": 0,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Index Only Scan",
+                                      "Relation Name": "govt_api_endpoints",
+                                      "Index Name": "primecare_call_endpoint_route_lookup",
+                                      "Actual Rows": 0,
+                                      "Actual Loops": 0,
+                                      "Actual Total Time": 0,
+                                      "Shared Hit Blocks": 0,
+                                      "Shared Read Blocks": 0
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Unique",
+                                  "Actual Rows": 0,
+                                  "Actual Loops": 0,
+                                  "Actual Total Time": 0,
+                                  "Shared Hit Blocks": 0,
+                                  "Shared Read Blocks": 0,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Sort",
+                                      "Actual Rows": 0,
+                                      "Actual Loops": 0,
+                                      "Actual Total Time": 0,
+                                      "Shared Hit Blocks": 0,
+                                      "Shared Read Blocks": 0,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Result",
+                                          "Actual Rows": 0,
+                                          "Actual Loops": 0,
+                                          "Actual Total Time": 0,
+                                          "Shared Hit Blocks": 0,
+                                          "Shared Read Blocks": 0,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Nested Loop",
+                                              "Actual Rows": 0,
+                                              "Actual Loops": 0,
+                                              "Actual Total Time": 0,
+                                              "Shared Hit Blocks": 0,
+                                              "Shared Read Blocks": 0,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Nested Loop",
+                                                  "Actual Rows": 0,
+                                                  "Actual Loops": 0,
+                                                  "Actual Total Time": 0,
+                                                  "Shared Hit Blocks": 0,
+                                                  "Shared Read Blocks": 0,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Nested Loop",
+                                                      "Actual Rows": 0,
+                                                      "Actual Loops": 0,
+                                                      "Actual Total Time": 0,
+                                                      "Shared Hit Blocks": 0,
+                                                      "Shared Read Blocks": 0,
+                                                      "Plans": [
+                                                        {
+                                                          "Node Type": "Nested Loop",
+                                                          "Actual Rows": 0,
+                                                          "Actual Loops": 0,
+                                                          "Actual Total Time": 0,
+                                                          "Shared Hit Blocks": 0,
+                                                          "Shared Read Blocks": 0,
+                                                          "Plans": [
+                                                            {
+                                                              "Node Type": "Nested Loop",
+                                                              "Actual Rows": 0,
+                                                              "Actual Loops": 0,
+                                                              "Actual Total Time": 0,
+                                                              "Shared Hit Blocks": 0,
+                                                              "Shared Read Blocks": 0,
+                                                              "Plans": [
+                                                                {
+                                                                  "Node Type": "Nested Loop",
+                                                                  "Actual Rows": 0,
+                                                                  "Actual Loops": 0,
+                                                                  "Actual Total Time": 0,
+                                                                  "Shared Hit Blocks": 0,
+                                                                  "Shared Read Blocks": 0,
+                                                                  "Plans": [
+                                                                    {
+                                                                      "Node Type": "Nested Loop",
+                                                                      "Actual Rows": 0,
+                                                                      "Actual Loops": 0,
+                                                                      "Actual Total Time": 0,
+                                                                      "Shared Hit Blocks": 0,
+                                                                      "Shared Read Blocks": 0,
+                                                                      "Plans": [
+                                                                        {
+                                                                          "Node Type": "Seq Scan",
+                                                                          "Relation Name": "users",
+                                                                          "Actual Rows": 0,
+                                                                          "Actual Loops": 0,
+                                                                          "Actual Total Time": 0,
+                                                                          "Rows Removed by Filter": 0,
+                                                                          "Shared Hit Blocks": 0,
+                                                                          "Shared Read Blocks": 0
+                                                                        },
+                                                                        {
+                                                                          "Node Type": "Seq Scan",
+                                                                          "Relation Name": "govt_roles",
+                                                                          "Actual Rows": 0,
+                                                                          "Actual Loops": 0,
+                                                                          "Actual Total Time": 0,
+                                                                          "Rows Removed by Filter": 0,
+                                                                          "Shared Hit Blocks": 0,
+                                                                          "Shared Read Blocks": 0
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "Node Type": "Index Scan",
+                                                                      "Relation Name": "govt_api_endpoints",
+                                                                      "Index Name": "primecare_call_endpoint_route_lookup",
+                                                                      "Actual Rows": 0,
+                                                                      "Actual Loops": 0,
+                                                                      "Actual Total Time": 0,
+                                                                      "Rows Removed by Filter": 0,
+                                                                      "Shared Hit Blocks": 0,
+                                                                      "Shared Read Blocks": 0
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "Node Type": "Index Scan",
+                                                                  "Relation Name": "govt_api_permissions",
+                                                                  "Index Name": "primecare_call_api_permission_lookup",
+                                                                  "Actual Rows": 0,
+                                                                  "Actual Loops": 0,
+                                                                  "Actual Total Time": 0,
+                                                                  "Rows Removed by Filter": 0,
+                                                                  "Shared Hit Blocks": 0,
+                                                                  "Shared Read Blocks": 0
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "Node Type": "Index Only Scan",
+                                                              "Relation Name": "govt_screen_api_links",
+                                                              "Index Name": "primecare_call_screen_api_lookup",
+                                                              "Actual Rows": 0,
+                                                              "Actual Loops": 0,
+                                                              "Actual Total Time": 0,
+                                                              "Shared Hit Blocks": 0,
+                                                              "Shared Read Blocks": 0
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "Node Type": "Index Scan",
+                                                          "Relation Name": "govt_role_screen_permissions",
+                                                          "Index Name": "primecare_call_screen_permission_lookup",
+                                                          "Actual Rows": 0,
+                                                          "Actual Loops": 0,
+                                                          "Actual Total Time": 0,
+                                                          "Rows Removed by Filter": 0,
+                                                          "Shared Hit Blocks": 0,
+                                                          "Shared Read Blocks": 0
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Node Type": "Seq Scan",
+                                                      "Relation Name": "govt_screens",
+                                                      "Actual Rows": 0,
+                                                      "Actual Loops": 0,
+                                                      "Actual Total Time": 0,
+                                                      "Rows Removed by Filter": 0,
+                                                      "Shared Hit Blocks": 0,
+                                                      "Shared Read Blocks": 0
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Relation Name": "tenants",
+                                                  "Actual Rows": 0,
+                                                  "Actual Loops": 0,
+                                                  "Actual Total Time": 0,
+                                                  "Rows Removed by Filter": 0,
+                                                  "Shared Hit Blocks": 0,
+                                                  "Shared Read Blocks": 0
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Node Type": "Aggregate",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.018,
+              "Shared Hit Blocks": 1,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Seq Scan",
+                  "Relation Name": "govt_source_manifest",
+                  "Actual Rows": 1,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.008,
+                  "Shared Hit Blocks": 1,
+                  "Shared Read Blocks": 0
+                }
+              ]
+            },
+            {
+              "Node Type": "Result",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.007,
+              "Shared Hit Blocks": 0,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Aggregate",
+                  "Actual Rows": 1,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.001,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "CTE Scan",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "CTE Scan",
+                  "Actual Rows": 0,
+                  "Actual Loops": 0,
+                  "Actual Total Time": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                },
+                {
+                  "Node Type": "Aggregate",
+                  "Actual Rows": 0,
+                  "Actual Loops": 0,
+                  "Actual Total Time": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "CTE Scan",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    },
+                    {
+                      "Node Type": "Sort",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0,
+                      "Plans": [
+                        {
+                          "Node Type": "Function Scan",
+                          "Actual Rows": 0,
+                          "Actual Loops": 0,
+                          "Actual Total Time": 0,
+                          "Shared Hit Blocks": 0,
+                          "Shared Read Blocks": 0
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "CTE Scan",
+                  "Actual Rows": 0,
+                  "Actual Loops": 0,
+                  "Actual Total Time": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                },
+                {
+                  "Node Type": "CTE Scan",
+                  "Actual Rows": 0,
+                  "Actual Loops": 0,
+                  "Actual Total Time": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                },
+                {
+                  "Node Type": "CTE Scan",
+                  "Actual Rows": 0,
+                  "Actual Loops": 0,
+                  "Actual Total Time": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                }
+              ]
+            },
+            {
+              "Node Type": "Limit",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.007,
+              "Shared Hit Blocks": 2,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Nested Loop",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.006,
+                  "Shared Hit Blocks": 2,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "business_work_aggregates",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.006,
+                      "Rows Removed by Filter": 1,
+                      "Shared Hit Blocks": 2,
+                      "Shared Read Blocks": 0
+                    },
+                    {
+                      "Node Type": "CTE Scan",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Node Type": "Result",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.01,
+              "Shared Hit Blocks": 2,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Limit",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.008,
+                  "Shared Hit Blocks": 2,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "CTE Scan",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.007,
+                      "Shared Hit Blocks": 2,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "ProjectSet",
+                  "Actual Rows": 0,
+                  "Actual Loops": 0,
+                  "Actual Total Time": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Limit",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0,
+                      "Plans": [
+                        {
+                          "Node Type": "CTE Scan",
+                          "Actual Rows": 0,
+                          "Actual Loops": 0,
+                          "Actual Total Time": 0,
+                          "Shared Hit Blocks": 0,
+                          "Shared Read Blocks": 0
+                        }
+                      ]
+                    },
+                    {
+                      "Node Type": "Result",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Limit",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.001,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "CTE Scan",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Node Type": "Nested Loop",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.037,
+              "Shared Hit Blocks": 5,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "CTE Scan",
+                  "Actual Rows": 1,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.01,
+                  "Shared Hit Blocks": 2,
+                  "Shared Read Blocks": 0
+                },
+                {
+                  "Node Type": "Nested Loop",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.036,
+                  "Shared Hit Blocks": 5,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "users",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.036,
+                      "Rows Removed by Filter": 69,
+                      "Shared Hit Blocks": 5,
+                      "Shared Read Blocks": 0
+                    },
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "tenants",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Rows Removed by Filter": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "CTE Scan",
+                  "Actual Rows": 0,
+                  "Actual Loops": 0,
+                  "Actual Total Time": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                }
+              ]
+            },
+            {
+              "Node Type": "Limit",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.007,
+              "Shared Hit Blocks": 2,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "CTE Scan",
+                  "Actual Rows": 1,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.001,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                },
+                {
+                  "Node Type": "Nested Loop",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.006,
+                  "Shared Hit Blocks": 2,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "business_work_aggregates",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.006,
+                      "Rows Removed by Filter": 1,
+                      "Shared Hit Blocks": 2,
+                      "Shared Read Blocks": 0
+                    },
+                    {
+                      "Node Type": "CTE Scan",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "govt_platform_hierarchy_policy",
+              "Actual Rows": 2,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.63,
+              "Rows Removed by Filter": 13,
+              "Shared Hit Blocks": 4,
+              "Shared Read Blocks": 0
+            },
+            {
+              "Node Type": "Aggregate",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.018,
+              "Shared Hit Blocks": 1,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "CTE Scan",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.015,
+                  "Shared Hit Blocks": 1,
+                  "Shared Read Blocks": 0
+                }
+              ]
+            },
+            {
+              "Node Type": "CTE Scan",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.003,
+              "Shared Hit Blocks": 0,
+              "Shared Read Blocks": 0
+            },
+            {
+              "Node Type": "CTE Scan",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.019,
+              "Shared Hit Blocks": 1,
+              "Shared Read Blocks": 0
+            },
+            {
+              "Node Type": "Aggregate",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.682,
+              "Shared Hit Blocks": 4,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Sort",
+                  "Actual Rows": 2,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.671,
+                  "Shared Hit Blocks": 4,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "CTE Scan",
+                      "Actual Rows": 2,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.646,
+                      "Shared Hit Blocks": 4,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Node Type": "Nested Loop",
+              "Actual Rows": 0,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.007,
+              "Shared Hit Blocks": 0,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Nested Loop",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.006,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "CTE Scan",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.006,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    },
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "users",
+                      "Actual Rows": 0,
+                      "Actual Loops": 0,
+                      "Actual Total Time": 0,
+                      "Rows Removed by Filter": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Seq Scan",
+                  "Relation Name": "tenants",
+                  "Actual Rows": 0,
+                  "Actual Loops": 0,
+                  "Actual Total Time": 0,
+                  "Rows Removed by Filter": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                }
+              ]
+            },
+            {
+              "Node Type": "Aggregate",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.059,
+              "Shared Hit Blocks": 5,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Sort",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.058,
+                  "Shared Hit Blocks": 5,
+                  "Shared Read Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "CTE Scan",
+                      "Actual Rows": 0,
+                      "Actual Loops": 1,
+                      "Actual Total Time": 0.036,
+                      "Shared Hit Blocks": 5,
+                      "Shared Read Blocks": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Node Type": "Aggregate",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.001,
+              "Shared Hit Blocks": 0,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "CTE Scan",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0,
+                  "Shared Hit Blocks": 0,
+                  "Shared Read Blocks": 0
+                }
+              ]
+            },
+            {
+              "Node Type": "Aggregate",
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Actual Total Time": 0.007,
+              "Shared Hit Blocks": 2,
+              "Shared Read Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "CTE Scan",
+                  "Actual Rows": 0,
+                  "Actual Loops": 1,
+                  "Actual Total Time": 0.007,
+                  "Shared Hit Blocks": 2,
+                  "Shared Read Blocks": 0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "passed": true,
+    "contextScope": "Missing session only; permission and state components separately profiled with an existing active principal."
+  },
+  "interpretation": {
+    "queryExecutionMilliseconds": {
+      "min": 0.151,
+      "max": 1.929
+    },
+    "keyCoverage": [
+      "session token hash",
+      "user ID and tenant ID",
+      "extension number and tenant/user ownership",
+      "call tenant/ID",
+      "command tenant/call/idempotency key",
+      "event tenant/call/version"
+    ],
+    "remainingCosts": "Network round trips, query planning, inherited mutation transactions, and browser polling/signaling."
+  },
+  "limits": [
+    "One read-only profile at current production data size; not a load test.",
+    "Directory, inbox and call-state probes returned no matching calls for the sampled active principal.",
+    "Combined context was tested with a deliberately missing session, not a real session hash.",
+    "The sampled principal had no command endpoint grant; granted-path permission performance was separately proved in internal-calling-performance-20261025.json.",
+    "Reassess membership/inbox indexing when persistent call history or measured scan cost grows."
+  ]
+}

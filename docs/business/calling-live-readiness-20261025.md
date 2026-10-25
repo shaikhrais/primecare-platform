@@ -127,3 +127,23 @@ calling is not verified. The proof used synthetic microphone audio in real
 authenticated browser sessions against live infrastructure. Physical device
 acoustics, every browser/network combination, closed-app ringing, real-speaker
 biometrics and public telephone calling are not claimed by this evidence.
+
+## Additional index review
+
+A subsequent read-only production review inspected the existing indexes and nine
+query plans for directory, inbox, busy-call detection, extension ownership/number,
+call state, participants, native permissions and a deliberately missing session.
+The sampled SQL execution times were 0.151–1.929 ms. Existing indexes cover session
+hashes, user and tenant IDs, extension number/ownership, call tenant/ID, command
+idempotency and event versions. No additional index was justified or added.
+
+This reflects the current small data set, including one work aggregate and three
+extensions. Several probes returned no matching calls; the combined context used
+an invalid session, and the sampled principal lacked the command grant. This is
+not a large-history or full authorized-context load test. Previously verified
+permission indexes and the live calling implementation remain in place. Revisit
+membership/inbox indexing when retained call history or measured scan cost grows.
+
+[Read-only index review and query plans](../../reports/communications/internal-calling-index-review-20261025.json)
+record the observations and limitations. [Workflow 40240760253](https://github.com/shaikhrais/primecare-platform/actions/runs/40240760253)
+passed without changing data, grants, indexes or the deployed application.
