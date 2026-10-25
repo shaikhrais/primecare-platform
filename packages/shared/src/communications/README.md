@@ -2,6 +2,40 @@
 
 ## Linked messaging AI lane
 
+The native `PostgresSmsMessagingRepository` implements the mandatory link port.
+Its internal `bind` operation requires a fresh server-derived native session,
+explicit consent, active user/tenant, independent verified-contact version and
+current conversation membership/policy. The request cannot supply a phone,
+actor, tenant, role or provider configuration. A globally unique active provider
+address pair selects one account/conversation; ambiguous/shared-account binding
+is denied. The policy factory uses the owned native client so a single-slot pool
+cannot deadlock by recursively acquiring itself. These storage operations are
+not public APIs and have no automatically granted permissions.
+
+`PostgresSmsConsentInboxStore` extends the durable inbox repository. Its signed
+host must use this derived store when activating messaging: STOP, consent update,
+link revocation and inbox acceptance commit atomically before acknowledgement.
+Duplicate controls do not replay their effects. START removes provider blocking
+but does not restore a link. A new link requires explicit consent in a fresh
+native session; an old link/queued reply remains invalid after re-linking.
+
+`linkBoundSmsRecipientPolicy` composes the existing country/consent/quota policy
+with the exact link saved in the durable AI turn. `linkBoundSmsTransport` rechecks
+that binding under the same sender lock used by STOP/revoke/re-link immediately
+before provider submission. The existing inherited SMS outbox remains the only
+queue/claim/delivery implementation. Hosts must reconstruct these adapters from
+the persisted original turn/link, never from the current phone mapping or HTTP
+body. No new submission can begin under a revoked link after STOP commits; a
+submission already handed to the provider cannot be recalled. The guarded port
+must use the bounded official SMS client (10-second timeout, no retries), must
+not reacquire the held native pool, and must not perform an unbounded callback.
+
+The SMS link/consent migration is a candidate, not applied production DDL. Storage,
+native binding/revocation access contracts, dispatcher/outbox composition and live
+acceptance remain pending; these adapters do not activate API 16538 or change
+phone routing. Native checks: `node scripts/test-communication-sms-links-postgres.mjs`
+using the named disposable loopback SMS fixture only.
+
 `TwilioSmsInboundAdapter` extends the existing signed, bounded Twilio form
 adapter. It saves a normalized SMS in `PostgresSmsInboundStore` before returning
 empty TwiML. Provider account + MessageSid deduplication is durable across

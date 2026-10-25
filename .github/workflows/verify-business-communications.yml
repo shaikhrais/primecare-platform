@@ -55,6 +55,9 @@ on:
       - 'scripts/test-communication-twilio-sms.mjs'
       - 'scripts/test-communication-sms-service.mjs'
       - 'scripts/test-communication-sms-inbound.mjs'
+      - 'scripts/test-communication-sms-links.mjs'
+      - 'scripts/test-communication-sms-links-postgres.mjs'
+      - 'packages/database/migrations/20261024_communication_sms_links.sql'
       - 'scripts/test-communication-messaging-ai.mjs'
       - 'scripts/test-communication-openai-message.mjs'
       - 'scripts/test-communication-messaging-postgres.mjs'
@@ -208,6 +211,7 @@ jobs:
           node --test scripts/test-communication-twilio-credentials.mjs scripts/test-communication-twilio.mjs scripts/test-communication-twilio-token.mjs scripts/test-communication-twilio-sms.mjs scripts/test-communication-twilio-device.mjs scripts/test-communication-twilio-connect.mjs scripts/test-communication-twilio-ringing.mjs scripts/test-communication-twilio-voicemail.mjs scripts/test-communication-voice-tasks.mjs scripts/test-communication-voice-confirmations.mjs scripts/test-communication-voice-reception-tasks.mjs scripts/test-communication-twilio-verify.mjs scripts/test-communication-voice-otp.mjs scripts/test-communication-otp-pairing.mjs scripts/test-communication-voice-otp-app.mjs scripts/test-communication-voice-task-approval.mjs scripts/test-communication-agent-start.mjs scripts/test-communication-relay-session.mjs scripts/test-communication-openai-relay.mjs
           node --test scripts/test-communication-sms-service.mjs scripts/test-business-communications.mjs
           node --test scripts/test-communication-sms-inbound.mjs scripts/test-communication-messaging-ai.mjs scripts/test-communication-openai-message.mjs
+          node --test scripts/test-communication-sms-links.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions packages/shared/src/communications/messaging-ai.ts packages/shared/src/communications/twilio-sms-inbound.d.mts packages/shared/src/communications/openai-message-model.d.mts cloudflare/workers/src/business-tasks/sms-inbound.ts
           node --test scripts/test-communication-voice-directory.mjs
           node scripts/test-communication-twilio-workerd.mjs
@@ -218,6 +222,7 @@ jobs:
         run: |
           node scripts/test-communication-sms-postgres.mjs
           node scripts/test-communication-messaging-postgres.mjs
+          node scripts/test-communication-sms-links-postgres.mjs
           node --test scripts/test-communication-four-digit-migration.mjs
           node --test scripts/test-communication-voice-native-http.mjs
           node --test scripts/test-communication-relay-postgres.mjs
