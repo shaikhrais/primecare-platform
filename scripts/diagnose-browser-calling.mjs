@@ -1,0 +1,24 @@
+// Diagnostic wrapper around the existing live acceptance. It observes safe
+// protocol metadata only; it cannot modify auth, signaling, ICE or test results.
+import {chromium} from 'playwright';import {mkdir,writeFile,readFile} from 'node:fs/promises';
+const labels=JSON.parse(await readFile('tools/governance-production/internal-call-ui-registration.json','utf8')).locales.en,allowedLabels=new Set(Object.values(labels));
+const report={harnessSource:process.env.GITHUB_SHA,deployedSources:[],responses:[],failures:[],mediaResponses:[],reads:[],browserStates:[]};
+const launch=chromium.launch.bind(chromium);chromium.launch=async options=>{
+ const browser=await launch(options),newContext=browser.newContext.bind(browser);let serial=0;
+ browser.newContext=async options=>{
+  const context=await newContext(options),index=serial++,close=context.close.bind(context);
+  context.on('page',page=>{
+   page.on('response',async response=>{try{
+    const url=new URL(response.url());if(url.hostname!=='primecare-api-gateway.itpro-mohammed.workers.dev'||!/^\/v1\/calls\/(?:directory|extension|dial|command|media)$/.test(url.pathname))return;
+    const source=response.headers()['x-primecare-calls-source'];if(/^[a-f0-9]{40}$/.test(source??'')&&!report.deployedSources.includes(source))report.deployedSources.push(source);
+    let action;try{action=response.request().postDataJSON()?.action;}catch{}if(!['read','inbox','heartbeat','accept','decline','end','expire','signal'].includes(action))action=undefined;
+    const safe={browser:index,operation:url.pathname.split('/').at(-1),status:response.status(),...(action?{action}:{})};report.responses.push(safe);if(report.responses.length>80)report.responses.shift();
+    if(response.status()>=400){const body=await response.json().catch(()=>({}));const known=['unavailable','unauthorized','forbidden','not_found','invalid_request','conflict','rate_limited'];report.failures.push({...safe,...(known.includes(body.error)?{error:body.error}:{})});if(report.failures.length>80)report.failures.shift();}
+    if(safe.operation==='media')report.mediaResponses.push(safe);
+    if(action==='read'&&response.status()===200&&report.reads.length<12){const body=await response.json();report.reads.push({browser:index,kind:body.kind,integerVersion:Number.isSafeInteger(body.version),members:body.members?.length,calls:body.calls?.map(c=>({status:c.status,offered:c.offered,answered:c.answered,signals:c.signals?.length}))});}
+   }catch{}});
+  });
+  context.close=async(...args)=>{for(const page of context.pages()){try{const state=await page.evaluate(()=>({peers:window.__callPeers?.length,tracks:window.__callTracks?.length,status:document.querySelector('[data-cy=internal-call-status]')?.textContent}));report.browserStates.push({browser:index,...state,status:allowedLabels.has(state.status)?state.status:'redacted'});}catch{}}return close(...args);};return context;
+ };return browser;
+};
+try{await import('./test-live-internal-calls.mjs');}finally{await mkdir('test-results/internal-calls',{recursive:true});await writeFile('test-results/internal-calls/browser-diagnostic.json',JSON.stringify(report,null,2)+'\n');console.log('CALL_BROWSER_DIAGNOSTIC '+JSON.stringify(report));}
