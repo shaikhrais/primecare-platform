@@ -2,7 +2,7 @@
 
 Generated from the pinned production governance catalogue and exact repository documentation references. Comments cover every exported operation; missing business contracts remain explicit. This is documentation coverage, not implementation or production certification.
 
-Exported operations: 1270. Source-linked: 149. Registry-only with explicit gaps: 1121. Omitted/quarantined records: 1.
+Exported operations: 1273. Source-linked: 152. Registry-only with explicit gaps: 1121. Omitted/quarantined records: 1.
 
 ## Contents
 
@@ -366,7 +366,7 @@ Exported operations: 1270. Source-linked: 149. Registry-only with explicit gaps:
 
 - [messages](#family-messages) — 7 operations
 
-- [messaging](#family-messaging) — 1 operations
+- [messaging](#family-messaging) — 4 operations
 
 - [np](#family-np) — 2 operations
 
@@ -35177,6 +35177,247 @@ These are proposed checks, not passed tests.
 
 ## Endpoint-specific implementation references
 No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16540"></a>
+
+### 16540: POST /v1/messaging/sms/link/bind
+
+## Registered operation
+`POST /v1/messaging/sms/link/bind`
+
+Governance ID: 16540. Registry code: `SMS_LINK_BIND`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [packages/contracts/communications.openapi.json](../../packages/contracts/communications.openapi.json)
+
+**Purpose / behavior from source:** Bind an explicitly selected conversation with explicit consent, a native session created within five minutes, an independently verified contact and current owner permissions
+
+Bind an explicitly selected conversation with explicit consent, a native session created within five minutes, an independently verified contact and current owner permissions. Phone, actor, tenant and provider configuration are server-derived. A blocked sender or stale link cannot be revived by retrying a request. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
+
+**Authentication declared in source:** nativeSession
+
+**Parameters:**
+- `Origin` in header (optional)
+
+**Request body — application/json:**
+- `id`: string, required, minLength=36, maxLength=36, pattern-constrained; see source
+- `conversationId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
+- `consent`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
+
+Content type `application/json`:
+- `linked`: constrained value, required, fixed value; see source
+- `link`: object, required
+Additional properties are rejected for this shape.
+
+**Response 400:** See source response reference.
+
+**Response 401:** See source response reference.
+
+**Response 403:** See source response reference.
+
+**Response 404:** See source response reference.
+
+**Response 405:** See source response reference.
+
+**Response 415:** See source response reference.
+
+**Response 503:** See source response reference.
+
+<a id="api-16541"></a>
+
+### 16541: POST /v1/messaging/sms/link/revoke
+
+## Registered operation
+`POST /v1/messaging/sms/link/revoke`
+
+Governance ID: 16541. Registry code: `SMS_LINK_REVOKE`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [packages/contracts/communications.openapi.json](../../packages/contracts/communications.openapi.json)
+
+**Purpose / behavior from source:** Revoke the exact owner's SMS link using a fresh native session and current permission checks
+
+Revoke the exact owner's SMS link using a fresh native session and current permission checks. Queued replies bound to the old link become unavailable. Already submitted provider messages cannot be recalled. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
+
+**Authentication declared in source:** nativeSession
+
+**Parameters:**
+- `Origin` in header (optional)
+
+**Request body — application/json:**
+- `id`: string, required, minLength=36, maxLength=36, pattern-constrained; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
+
+Content type `application/json`:
+- `revoked`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 400:** See source response reference.
+
+**Response 401:** See source response reference.
+
+**Response 403:** See source response reference.
+
+**Response 404:** See source response reference.
+
+**Response 405:** See source response reference.
+
+**Response 415:** See source response reference.
+
+**Response 503:** See source response reference.
+
+<a id="api-16539"></a>
+
+### 16539: POST /v1/messaging/sms/link/status
+
+## Registered operation
+`POST /v1/messaging/sms/link/status`
+
+Governance ID: 16539. Registry code: `SMS_LINK_STATUS`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [packages/contracts/communications.openapi.json](../../packages/contracts/communications.openapi.json)
+
+**Purpose / behavior from source:** Read the current signed-in owner's SMS conversation-link status
+
+Read the current signed-in owner's SMS conversation-link status. Provider delivery or phone equality does not authenticate an account. The public result omits phone numbers, actor IDs and session handles. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
+
+**Authentication declared in source:** nativeSession
+
+**Parameters:**
+- `Origin` in header (optional)
+
+**Request body — application/json:**
+- `conversationId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
+
+Content type `application/json`:
+2 alternative input shapes; see source for conditional requirements.
+- variant 1: `linked`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+- variant 2: `linked`: constrained value, required, fixed value; see source
+- variant 2: `link`: object, required
+Additional properties are rejected for this shape.
+
+**Response 400:** See source response reference.
+
+**Response 401:** See source response reference.
+
+**Response 403:** See source response reference.
+
+**Response 404:** See source response reference.
+
+**Response 405:** See source response reference.
+
+**Response 415:** See source response reference.
+
+**Response 503:** See source response reference.
 
 <a id="family-np"></a>
 

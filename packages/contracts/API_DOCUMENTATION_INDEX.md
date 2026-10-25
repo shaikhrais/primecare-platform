@@ -1274,3 +1274,6 @@ Every listed operation has comments in ENDPOINT_REFERENCE.md. Source-linked mean
 | 16536 | POST | `/v1/voice/contact/start` | governance | 0 | [Comments](ENDPOINT_REFERENCE.md#api-16536) |
 | 16537 | POST | `/v1/voice/contact/check` | governance | 0 | [Comments](ENDPOINT_REFERENCE.md#api-16537) |
 | 16538 | POST | `/v1/twilio/sms/incoming` | governance | 1 | [Comments](ENDPOINT_REFERENCE.md#api-16538) |
+| 16539 | POST | `/v1/messaging/sms/link/status` | governance | 1 | [Comments](ENDPOINT_REFERENCE.md#api-16539) |
+| 16540 | POST | `/v1/messaging/sms/link/bind` | governance | 1 | [Comments](ENDPOINT_REFERENCE.md#api-16540) |
+| 16541 | POST | `/v1/messaging/sms/link/revoke` | governance | 1 | [Comments](ENDPOINT_REFERENCE.md#api-16541) |

@@ -13303,7 +13303,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -15436,7 +15436,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36410,7 +36410,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36439,7 +36439,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36470,7 +36470,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36501,7 +36501,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36532,7 +36532,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36563,7 +36563,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36594,7 +36594,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36625,7 +36625,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36656,7 +36656,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36687,7 +36687,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36718,7 +36718,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36749,7 +36749,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36780,7 +36780,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36811,7 +36811,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36842,7 +36842,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36873,7 +36873,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36904,7 +36904,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36935,7 +36935,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36966,7 +36966,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -36997,7 +36997,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37028,7 +37028,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37059,7 +37059,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37090,7 +37090,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37121,7 +37121,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37152,7 +37152,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37183,7 +37183,7 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37318,7 +37318,100 @@
         "x-documentation-sources": [
           {
             "file": "packages/contracts/communications.openapi.json",
-            "sha256": "8ec4e2e9c2c30c15b5943d9eb7d370b945398383da993b6d715a3323a2f6f200"
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
+          }
+        ],
+        "x-documentation-status": "source-linked-needs-runtime-review",
+        "x-documentation-complete": true
+      }
+    },
+    "/v1/messaging/sms/link/status": {
+      "post": {
+        "operationId": "governed_endpoint_16539",
+        "summary": "SMS_LINK_STATUS",
+        "description": "## Registered operation\n`POST /v1/messaging/sms/link/status`\n\nGovernance ID: 16539. Registry code: `SMS_LINK_STATUS`. Registry status: `registered-unimplemented` (not runtime evidence).\n\n## Purpose and behavior\nThe route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.\n\n## Authentication and permissions\nRegistered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.\n\n## Request contract\nA schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.\n\n## Response contract\nA schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.\n\n## Persistence and tenant isolation\nDatabase mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.\n\n## Rate limiting and audit\nRate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.\n\n## Required verification\n- Approved successful journey and persistence/read-back where applicable.\n- Missing, expired and invalid credentials.\n- Forbidden roles and cross-tenant requests.\n- Invalid input, resource absence and database failure.\n- Rate limiting and audit event emission.\nThese are proposed checks, not passed tests.\n\n## Blocking findings\n- missing_rate_limit_key\n- runtime_security_persistence_and_tests_not_verified\n\n## Endpoint-specific implementation references\n\nThe following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.\n\n### [packages/contracts/communications.openapi.json](../../packages/contracts/communications.openapi.json)\n\n**Purpose / behavior from source:** Read the current signed-in owner's SMS conversation-link status\n\nRead the current signed-in owner's SMS conversation-link status. Provider delivery or phone equality does not authenticate an account. The public result omits phone numbers, actor IDs and session handles. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.\n\n**Authentication declared in source:** nativeSession\n\n**Parameters:**\n- `Origin` in header (optional)\n\n**Request body — application/json:**\n- `conversationId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source\nAdditional properties are rejected for this shape.\n\n**Response 200:** Successful transport/service response; not evidence of a confirmed appointment.\n\nContent type `application/json`:\n2 alternative input shapes; see source for conditional requirements.\n- variant 1: `linked`: constrained value, required, fixed value; see source\nAdditional properties are rejected for this shape.\n- variant 2: `linked`: constrained value, required, fixed value; see source\n- variant 2: `link`: object, required\nAdditional properties are rejected for this shape.\n\n**Response 400:** See source response reference.\n\n**Response 401:** See source response reference.\n\n**Response 403:** See source response reference.\n\n**Response 404:** See source response reference.\n\n**Response 405:** See source response reference.\n\n**Response 415:** See source response reference.\n\n**Response 503:** See source response reference.",
+        "tags": [
+          "messaging"
+        ],
+        "x-governance-id": 16539,
+        "x-governance-status": "registered-unimplemented",
+        "x-governance-auth-required": 1,
+        "x-contract-status": "blocked",
+        "x-gaps": [
+          "missing_rate_limit_key",
+          "runtime_security_persistence_and_tests_not_verified"
+        ],
+        "responses": {
+          "default": {
+            "description": "Response contract is not yet verified."
+          }
+        },
+        "x-documentation-sources": [
+          {
+            "file": "packages/contracts/communications.openapi.json",
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
+          }
+        ],
+        "x-documentation-status": "source-linked-needs-runtime-review",
+        "x-documentation-complete": true
+      }
+    },
+    "/v1/messaging/sms/link/bind": {
+      "post": {
+        "operationId": "governed_endpoint_16540",
+        "summary": "SMS_LINK_BIND",
+        "description": "## Registered operation\n`POST /v1/messaging/sms/link/bind`\n\nGovernance ID: 16540. Registry code: `SMS_LINK_BIND`. Registry status: `registered-unimplemented` (not runtime evidence).\n\n## Purpose and behavior\nThe route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.\n\n## Authentication and permissions\nRegistered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.\n\n## Request contract\nA schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.\n\n## Response contract\nA schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.\n\n## Persistence and tenant isolation\nDatabase mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.\n\n## Rate limiting and audit\nRate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.\n\n## Required verification\n- Approved successful journey and persistence/read-back where applicable.\n- Missing, expired and invalid credentials.\n- Forbidden roles and cross-tenant requests.\n- Invalid input, resource absence and database failure.\n- Rate limiting and audit event emission.\nThese are proposed checks, not passed tests.\n\n## Blocking findings\n- missing_rate_limit_key\n- runtime_security_persistence_and_tests_not_verified\n\n## Endpoint-specific implementation references\n\nThe following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.\n\n### [packages/contracts/communications.openapi.json](../../packages/contracts/communications.openapi.json)\n\n**Purpose / behavior from source:** Bind an explicitly selected conversation with explicit consent, a native session created within five minutes, an independently verified contact and current owner permissions\n\nBind an explicitly selected conversation with explicit consent, a native session created within five minutes, an independently verified contact and current owner permissions. Phone, actor, tenant and provider configuration are server-derived. A blocked sender or stale link cannot be revived by retrying a request. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.\n\n**Authentication declared in source:** nativeSession\n\n**Parameters:**\n- `Origin` in header (optional)\n\n**Request body — application/json:**\n- `id`: string, required, minLength=36, maxLength=36, pattern-constrained; see source\n- `conversationId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source\n- `consent`: constrained value, required, fixed value; see source\nAdditional properties are rejected for this shape.\n\n**Response 200:** Successful transport/service response; not evidence of a confirmed appointment.\n\nContent type `application/json`:\n- `linked`: constrained value, required, fixed value; see source\n- `link`: object, required\nAdditional properties are rejected for this shape.\n\n**Response 400:** See source response reference.\n\n**Response 401:** See source response reference.\n\n**Response 403:** See source response reference.\n\n**Response 404:** See source response reference.\n\n**Response 405:** See source response reference.\n\n**Response 415:** See source response reference.\n\n**Response 503:** See source response reference.",
+        "tags": [
+          "messaging"
+        ],
+        "x-governance-id": 16540,
+        "x-governance-status": "registered-unimplemented",
+        "x-governance-auth-required": 1,
+        "x-contract-status": "blocked",
+        "x-gaps": [
+          "missing_rate_limit_key",
+          "runtime_security_persistence_and_tests_not_verified"
+        ],
+        "responses": {
+          "default": {
+            "description": "Response contract is not yet verified."
+          }
+        },
+        "x-documentation-sources": [
+          {
+            "file": "packages/contracts/communications.openapi.json",
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
+          }
+        ],
+        "x-documentation-status": "source-linked-needs-runtime-review",
+        "x-documentation-complete": true
+      }
+    },
+    "/v1/messaging/sms/link/revoke": {
+      "post": {
+        "operationId": "governed_endpoint_16541",
+        "summary": "SMS_LINK_REVOKE",
+        "description": "## Registered operation\n`POST /v1/messaging/sms/link/revoke`\n\nGovernance ID: 16541. Registry code: `SMS_LINK_REVOKE`. Registry status: `registered-unimplemented` (not runtime evidence).\n\n## Purpose and behavior\nThe route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.\n\n## Authentication and permissions\nRegistered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.\n\n## Request contract\nA schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.\n\n## Response contract\nA schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.\n\n## Persistence and tenant isolation\nDatabase mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.\n\n## Rate limiting and audit\nRate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.\n\n## Required verification\n- Approved successful journey and persistence/read-back where applicable.\n- Missing, expired and invalid credentials.\n- Forbidden roles and cross-tenant requests.\n- Invalid input, resource absence and database failure.\n- Rate limiting and audit event emission.\nThese are proposed checks, not passed tests.\n\n## Blocking findings\n- missing_rate_limit_key\n- runtime_security_persistence_and_tests_not_verified\n\n## Endpoint-specific implementation references\n\nThe following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.\n\n### [packages/contracts/communications.openapi.json](../../packages/contracts/communications.openapi.json)\n\n**Purpose / behavior from source:** Revoke the exact owner's SMS link using a fresh native session and current permission checks\n\nRevoke the exact owner's SMS link using a fresh native session and current permission checks. Queued replies bound to the old link become unavailable. Already submitted provider messages cannot be recalled. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.\n\n**Authentication declared in source:** nativeSession\n\n**Parameters:**\n- `Origin` in header (optional)\n\n**Request body — application/json:**\n- `id`: string, required, minLength=36, maxLength=36, pattern-constrained; see source\nAdditional properties are rejected for this shape.\n\n**Response 200:** Successful transport/service response; not evidence of a confirmed appointment.\n\nContent type `application/json`:\n- `revoked`: constrained value, required, fixed value; see source\nAdditional properties are rejected for this shape.\n\n**Response 400:** See source response reference.\n\n**Response 401:** See source response reference.\n\n**Response 403:** See source response reference.\n\n**Response 404:** See source response reference.\n\n**Response 405:** See source response reference.\n\n**Response 415:** See source response reference.\n\n**Response 503:** See source response reference.",
+        "tags": [
+          "messaging"
+        ],
+        "x-governance-id": 16541,
+        "x-governance-status": "registered-unimplemented",
+        "x-governance-auth-required": 1,
+        "x-contract-status": "blocked",
+        "x-gaps": [
+          "missing_rate_limit_key",
+          "runtime_security_persistence_and_tests_not_verified"
+        ],
+        "responses": {
+          "default": {
+            "description": "Response contract is not yet verified."
+          }
+        },
+        "x-documentation-sources": [
+          {
+            "file": "packages/contracts/communications.openapi.json",
+            "sha256": "dfd5cb748890ce48be1edc4939bfaa91f00cf206a9c7fd6b3d1ce436349efe27"
           }
         ],
         "x-documentation-status": "source-linked-needs-runtime-review",
@@ -37329,7 +37422,7 @@
   "x-governance-authority": {
     "schema": "governance_68b0b02dd1215f58630d2c1a",
     "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
-    "registrationCount": 1271,
+    "registrationCount": 1274,
     "readOnly": true
   }
 }

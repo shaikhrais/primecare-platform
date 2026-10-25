@@ -1,7 +1,7 @@
 {
-  "registeredRecords": 1271,
-  "documentedOperations": 1270,
-  "sourceLinkedOperations": 149,
+  "registeredRecords": 1274,
+  "documentedOperations": 1273,
+  "sourceLinkedOperations": 152,
   "multipleSourceOperations": 34,
   "registryOnlyOperations": 1121,
   "omittedOrQuarantinedRecords": 1,
@@ -10,7 +10,7 @@
     "PRISMA": 1139,
     "auth": 27,
     "client": 2,
-    "governance": 101,
+    "governance": 104,
     "unassigned": 1
   },
   "operations": [
@@ -10170,6 +10170,30 @@
       "id": 16538,
       "method": "POST",
       "path": "/v1/twilio/sms/incoming",
+      "service": "governance",
+      "sourceCount": 1,
+      "status": "source-linked-needs-runtime-review"
+    },
+    {
+      "id": 16539,
+      "method": "POST",
+      "path": "/v1/messaging/sms/link/status",
+      "service": "governance",
+      "sourceCount": 1,
+      "status": "source-linked-needs-runtime-review"
+    },
+    {
+      "id": 16540,
+      "method": "POST",
+      "path": "/v1/messaging/sms/link/bind",
+      "service": "governance",
+      "sourceCount": 1,
+      "status": "source-linked-needs-runtime-review"
+    },
+    {
+      "id": 16541,
+      "method": "POST",
+      "path": "/v1/messaging/sms/link/revoke",
       "service": "governance",
       "sourceCount": 1,
       "status": "source-linked-needs-runtime-review"
