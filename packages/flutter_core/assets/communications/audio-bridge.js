@@ -48,6 +48,13 @@
       this.onState = onState;
       this.pending = [];
     }
+    configure(configuration) {
+      this.assertOpen();
+      if (!configuration || !Array.isArray(configuration.iceServers)) throw Error("Configured media adapters required");
+      const next = structuredClone(configuration);
+      if (this.peer) this.peer.setConfiguration(next);
+      this.configuration = next;
+    }
     async start() {
       if (this.closed || this.starting || this.peer) throw Error("Call already started or closed");
       this.starting = true;
@@ -162,10 +169,13 @@
 
   // packages/shared/src/communications/audio-session.mjs
   var BrowserAudioSession = class extends CommunicationResourceBase {
-    constructor({ transport, userId, threadId, callId, media, intervalMilliseconds = 1e3, onError = () => {
+    constructor({ transport, userId, threadId, callId, media, configurationProvider, intervalMilliseconds = 1e3, onError = () => {
     }, key = () => crypto.randomUUID() }) {
       super();
       if (typeof transport?.execute !== "function" || [userId, threadId, callId].some((value) => typeof value !== "string" || !value.trim()) || !Number.isSafeInteger(intervalMilliseconds) || intervalMilliseconds < 100 || typeof key !== "function" || typeof onError !== "function") throw Error("Audio session adapters required");
+      if (configurationProvider !== void 0 && typeof configurationProvider !== "function") throw Error("Media configuration provider required");
+      this.configurationProvider = configurationProvider;
+      this.configurationTimer = null;
       this.transport = transport;
       this.userId = userId;
       this.threadId = threadId;
@@ -207,6 +217,7 @@
         const before = await this.current();
         if (before.call.status !== "accepted") throw Error("Call not accepted");
         if (before.call.callerId === this.userId && before.call.offered || before.call.recipientId === this.userId && before.call.answered) throw Error("Call media already negotiated");
+        await this.refreshConfiguration();
         await this.audio.start();
         const after = await this.current();
         if (after.call.status !== "accepted") throw Error("Call not accepted");
@@ -220,6 +231,25 @@
       } finally {
         this.starting = false;
       }
+    }
+    async refreshConfiguration() {
+      if (!this.configurationProvider) return;
+      this.assertOpen();
+      const before = await this.current();
+      if (before.call.status !== "accepted") throw Error("Call not accepted");
+      const result = structuredClone(await this.configurationProvider());
+      this.assertOpen();
+      if (!Array.isArray(result?.iceServers) || !result.iceServers.length || !Number.isSafeInteger(result.expiresAt) || result.expiresAt < Date.now() + 3e4 || result.expiresAt > Date.now() + 36e5) throw Error("Media configuration unavailable");
+      const after = await this.current();
+      if (after.call.status !== "accepted" || before.call.callerId !== after.call.callerId || before.call.recipientId !== after.call.recipientId) throw Error("Call not accepted");
+      this.audio.configure({ ...this.audio.configuration, iceServers: result.iceServers });
+      clearTimeout(this.configurationTimer);
+      this.configurationTimer = setTimeout(() => {
+        this.configurationTimer = null;
+        this.refreshConfiguration().catch((error) => {
+          if (!this.closed) this.fail(error);
+        });
+      }, Math.max(1e3, result.expiresAt - Date.now() - 6e4));
     }
     schedule() {
       if (this.closed || this.timer) return;
@@ -325,6 +355,8 @@
       this.audio.mute(muted);
     }
     afterClose() {
+      clearTimeout(this.configurationTimer);
+      this.configurationTimer = null;
       clearTimeout(this.timer);
       this.timer = null;
       this.conflictWait?.();

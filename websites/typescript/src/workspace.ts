@@ -52,6 +52,11 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     root.querySelector('button')?.addEventListener('click',()=>void renderWorkspace(root,gateway));return;
   }
   if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
+  const callScreens=data.screens.filter(s=>['psw_messages','patient_messages','communication','messaging'].includes(s.code));
+  if(new URLSearchParams(location.search).get('view')==='calls'&&callScreens.some(s=>s.route===location.pathname)){
+    const {renderInternalCalls}=await import('./internal-calls');
+    await renderInternalCalls(root,gateway,{userId:data.identity.userId,role:data.identity.role,home:data.landing??'/',navigation:data.screens.map(s=>`<a href="${escapeHtml(routeUrl(s.route))}">${escapeHtml(s.name)}</a>`).join('')});return;
+  }
   const reportPanels=new Map<string,HTMLElement>();
   if(data.identity.role==='platform_admin'&&location.pathname!=='/success'){location.assign(routeUrl('/platform/administration'));return;}
   if(['/','/dashboard'].includes(location.pathname)&&data.landing===careRegistry.route&&data.screens.some(s=>s.route===careRegistry.route)){location.assign(routeUrl(careRegistry.route));return;}
@@ -86,7 +91,9 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     const rows=data.inventory.filter(p=>(!pendingOnly||p.blockers.length>0)&&`${p.name} ${p.role} ${p.appCode} ${p.route}`.toLowerCase().includes(search.toLowerCase()));
     const countPages=Math.max(1,Math.ceil(rows.length/25));pageNumber=Math.min(pageNumber,countPages-1);
     const allowed=new Set(data.screens.map(p=>p.code));
-    const nav=(data.actions??[]).map(p=>`<a href="${escapeHtml(routeUrl(p.route))}">${escapeHtml(p.name)}</a>`).join('')+data.screens.map(s=>link(s).replace('<a ',`<a ${s.code===page?.code?'aria-current="page"':''} `)).join('');
+    const callEntry=callScreens[0];
+    const callLink=callEntry?`<a data-cy=internal-call-open href="${escapeHtml(routeUrl(callEntry.route))}&amp;view=calls">${escapeHtml(document.documentElement.lang==='fr'?'Appels':document.documentElement.lang==='es'?'Llamadas':'Calls')}</a>`:'';
+    const nav=callLink+(data.actions??[]).map(p=>`<a href="${escapeHtml(routeUrl(p.route))}">${escapeHtml(p.name)}</a>`).join('')+data.screens.map(s=>link(s).replace('<a ',`<a ${s.code===page?.code?'aria-current="page"':''} `)).join('');
     const cards=metric(t('users'),data.overview.activeAccounts)+metric(t('sessions'),data.overview.activeSessions)+metric(t('pages'),data.screens.length)+metric(t('pending'),pending.length);
     const sections=page?.sections.map(section=>{
       let body=`<p>${escapeHtml(section.purpose)}</p>`;

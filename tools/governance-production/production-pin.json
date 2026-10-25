@@ -963,5 +963,101 @@
     "permissionChanges": false,
     "providerWrites": false,
     "activation": false
+  },
+  "internalCallContractWriter": {
+    "optInVariable": "GOVERNANCE_INTERNAL_CALL_CONTRACTS",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "call.command",
+        "method": "POST",
+        "path": "/v1/calls/command"
+      },
+      {
+        "key": "call.dial",
+        "method": "POST",
+        "path": "/v1/calls/dial"
+      },
+      {
+        "key": "call.directory",
+        "method": "POST",
+        "path": "/v1/calls/directory"
+      },
+      {
+        "key": "call.extension",
+        "method": "POST",
+        "path": "/v1/calls/extension"
+      },
+      {
+        "key": "call.media",
+        "method": "POST",
+        "path": "/v1/calls/media"
+      }
+    ],
+    "definitionSha256": "fd8c390e458e1ba6dd0364e9ec0b378e9dd1c1bb9abcb86c93101bdb68616748",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
+  },
+  "internalCallAccessWriter": {
+    "optInVariable": "GOVERNANCE_INTERNAL_CALL_ACCESS",
+    "tables": [
+      "api_permissions",
+      "screen_api_links"
+    ],
+    "screenIds": [
+      234,
+      331,
+      559,
+      578
+    ],
+    "paths": [
+      "/v1/calls/directory",
+      "/v1/calls/extension",
+      "/v1/calls/dial",
+      "/v1/calls/command",
+      "/v1/calls/media"
+    ],
+    "contractSha256": "fd8c390e458e1ba6dd0364e9ec0b378e9dd1c1bb9abcb86c93101bdb68616748",
+    "definitionSha256": "3c8ff79e72b6867608d6b47202412de00956407ff2405efb777befdb8147329b",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleScreenChanges": false,
+    "existingDenials": "preserve",
+    "providerWrites": false,
+    "activation": false
+  },
+  "internalCallUiWriter": {
+    "optInVariable": "GOVERNANCE_INTERNAL_CALL_UI",
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values"
+    ],
+    "screenIds": [
+      234,
+      331,
+      559,
+      578
+    ],
+    "namespace": "internal_calls",
+    "paths": [
+      "/v1/calls/directory",
+      "/v1/calls/extension",
+      "/v1/calls/dial",
+      "/v1/calls/command",
+      "/v1/calls/media"
+    ],
+    "definitionSha256": "67c2e33b68f32d129a9720364eff79acee1b8715a918ee0ae200311370984f23",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "activation": false
   }
 }

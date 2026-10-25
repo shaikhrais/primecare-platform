@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "namespace": "internal_calls",
+  "screens": {
+    "234": "psw_messages",
+    "331": "patient_messages",
+    "559": "communication",
+    "578": "messaging"
+  },
+  "paths": [
+    "/v1/calls/directory",
+    "/v1/calls/extension",
+    "/v1/calls/dial",
+    "/v1/calls/command",
+    "/v1/calls/media"
+  ],
+  "panelFile": "websites/typescript/src/internal-calls.ts",
+  "controllerFile": "websites/typescript/src/internal-calls.ts",
+  "controls": {
+    "enable": {
+      "testId": "internal-call-enable",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "disable": {
+      "testId": "internal-call-disable",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "dial": {
+      "testId": "internal-call-dial",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "answer": {
+      "testId": "internal-call-answer",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "decline": {
+      "testId": "internal-call-decline",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "end": {
+      "testId": "internal-call-end",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "mute": {
+      "testId": "internal-call-mute",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "refresh": {
+      "testId": "internal-call-refresh",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "start": {
+      "testId": "internal-call-start",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "hear": {
+      "testId": "internal-call-hear",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "notifications": {
+      "testId": "internal-call-notifications",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "pending": {
+      "testId": "internal-call-pending",
+      "component": "prime_button",
+      "componentId": 1
+    },
+    "extension": {
+      "testId": "internal-call-extension",
+      "component": "prime_text_field",
+      "componentId": 3
+    },
+    "status": {
+      "testId": "internal-call-status",
+      "component": "prime_card",
+      "componentId": 2
+    },
+    "panel": {
+      "testId": "internal-call-panel",
+      "component": "prime_card",
+      "componentId": 2
+    }
+  },
+  "locales": {
+    "en": {
+      "title": "Calls",
+      "extension": "Extension",
+      "own": "Your extension",
+      "enable": "Enable incoming calls",
+      "disable": "Disable incoming calls",
+      "dial": "Call",
+      "answer": "Answer",
+      "decline": "Decline",
+      "end": "End call",
+      "mute": "Mute / unmute",
+      "refresh": "Refresh",
+      "start": "Connect audio",
+      "hear": "Play call audio",
+      "loading": "Loading calls…",
+      "ready": "Ready. Keep this page open to receive calls.",
+      "unavailable": "Calling is unavailable. Refresh to check your access and connection.",
+      "unknown": "The action may have completed. Refresh before trying again.",
+      "pending": "Retry the original call",
+      "empty": "No active call",
+      "ringing": "Ringing",
+      "accepted": "Connecting audio",
+      "connected": "Connected",
+      "closed": "Call ended",
+      "missed": "Missed call",
+      "permission": "Allow microphone access to speak.",
+      "directory": "Enabled extensions in your organization",
+      "notifications": "Enable call notifications",
+      "published": "Incoming calls enabled",
+      "unpublished": "Incoming calls disabled",
+      "login": "Sign in to call",
+      "back": "Back to workspace"
+    },
+    "fr": {
+      "title": "Appels",
+      "extension": "Poste",
+      "own": "Votre poste",
+      "enable": "Activer les appels entrants",
+      "disable": "Désactiver les appels entrants",
+      "dial": "Appeler",
+      "answer": "Répondre",
+      "decline": "Refuser",
+      "end": "Terminer",
+      "mute": "Activer / couper le microphone",
+      "refresh": "Actualiser",
+      "start": "Connecter le son",
+      "hear": "Écouter l’appel",
+      "loading": "Chargement des appels…",
+      "ready": "Prêt. Gardez cette page ouverte pour recevoir des appels.",
+      "unavailable": "Appels indisponibles. Actualisez pour vérifier votre accès et votre connexion.",
+      "unknown": "L’action a peut-être abouti. Actualisez avant de réessayer.",
+      "pending": "Réessayer l’appel initial",
+      "empty": "Aucun appel actif",
+      "ringing": "Sonnerie",
+      "accepted": "Connexion audio",
+      "connected": "Connecté",
+      "closed": "Appel terminé",
+      "missed": "Appel manqué",
+      "permission": "Autorisez le microphone pour parler.",
+      "directory": "Postes activés dans votre organisation",
+      "notifications": "Activer les notifications d’appel",
+      "published": "Appels entrants activés",
+      "unpublished": "Appels entrants désactivés",
+      "login": "Connectez-vous pour appeler",
+      "back": "Retour à l’espace de travail"
+    },
+    "es": {
+      "title": "Llamadas",
+      "extension": "Extensión",
+      "own": "Su extensión",
+      "enable": "Activar llamadas entrantes",
+      "disable": "Desactivar llamadas entrantes",
+      "dial": "Llamar",
+      "answer": "Contestar",
+      "decline": "Rechazar",
+      "end": "Finalizar llamada",
+      "mute": "Silenciar / activar micrófono",
+      "refresh": "Actualizar",
+      "start": "Conectar audio",
+      "hear": "Reproducir audio",
+      "loading": "Cargando llamadas…",
+      "ready": "Listo. Mantenga esta página abierta para recibir llamadas.",
+      "unavailable": "Llamadas no disponibles. Actualice para comprobar su acceso y conexión.",
+      "unknown": "La acción puede haberse completado. Actualice antes de reintentar.",
+      "pending": "Reintentar la llamada original",
+      "empty": "No hay llamada activa",
+      "ringing": "Sonando",
+      "accepted": "Conectando audio",
+      "connected": "Conectado",
+      "closed": "Llamada finalizada",
+      "missed": "Llamada perdida",
+      "permission": "Permita el acceso al micrófono para hablar.",
+      "directory": "Extensiones activadas en su organización",
+      "notifications": "Activar notificaciones de llamadas",
+      "published": "Llamadas entrantes activadas",
+      "unpublished": "Llamadas entrantes desactivadas",
+      "login": "Inicie sesión para llamar",
+      "back": "Volver al espacio de trabajo"
+    }
+  },
+  "implementationStatus": "registered-unimplemented",
+  "reviewApproved": false,
+  "productionReady": false
+}

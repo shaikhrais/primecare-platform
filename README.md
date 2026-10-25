@@ -1,5 +1,7 @@
 # PrimeCare Enterprise Platform
 
+Calling deployment is in progress: native authenticated call APIs, existing-screen TypeScript controls, busy-user protection, call leases, microphone policy and TURN renewal are being verified before live activation. See [calling readiness](docs/business/calling-live-readiness-20261025.md); this is not a live-ready claim.
+
 Calls-first checkpoint (25 October 2026): a shared provider-neutral call base now supports the existing messaging service and an internal extension dialer. `InternalAppCallCore` uses PostgreSQL extensions and WebRTC signaling without Twilio/email/image dependencies. Scoped Cloudflare TURN credentials are available through an optional server relay port. Public extension-dial/media registration, deployment and real-device/internet acceptance remain pending. See [internal calls and extensions](docs/business/internal-calls-extensions-20261025.md).
 
 Voiceprint recognition checkpoint (25 October 2026): the shared scoped voiceprint service/channel and inherited Aculab provider resource implement enrollment, speaker matching with presentation-attack rejection, and revocation/deletion reporting. Provider responses are stubbed in automated tests; live biometrics, real-speaker accuracy and appointment authorization by voiceprint remain unverified. See [voiceprint recognition](docs/business/voiceprint-recognition-20261025.md).

@@ -42,5 +42,5 @@ for (const project of projects) {
   cpSync(join(source, 'index.html'), join(target, 'index.html')); cpSync(join(dist, 'assets'), join(target, 'assets'), { recursive: true });
   cpSync(join(generated, project, 'portal.json'), join(target, 'portal.json'));
   writeFileSync(join(target, '_redirects'), '/* /index.html 200\n');
-  writeFileSync(join(target, '_headers'), '/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n');
+  writeFileSync(join(target, '_headers'), '/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(self), geolocation=()\n');
 }

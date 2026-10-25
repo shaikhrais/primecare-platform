@@ -7,6 +7,10 @@ export class BrowserAudioCall extends CommunicationResourceBase {
   this.sendSignal=sendSignal;this.getUserMedia=getUserMedia;this.createPeer=createPeer;
   this.configuration=configuration;this.onTrack=onTrack;this.onState=onState;this.pending=[];
  }
+ configure(configuration){
+  this.assertOpen();if(!configuration||!Array.isArray(configuration.iceServers))throw Error('Configured media adapters required');
+  const next=structuredClone(configuration);if(this.peer)this.peer.setConfiguration(next);this.configuration=next;
+ }
  async start() {
   if(this.closed || this.starting || this.peer) throw Error('Call already started or closed');
   this.starting=true;

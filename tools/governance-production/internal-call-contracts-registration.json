@@ -1,0 +1,1337 @@
+{
+  "version": 1,
+  "requirement": "Authenticated same-tenant internal app calling on the existing shared bases and four-digit PostgreSQL extension directory. Preserve current explicit API/screen denials, require active native users/tenants, exact scoped call participation, explicit self publication, bounded private signaling, one invitation per request, and accepted-call-only short-lived TURN credentials with quotas. No public telephone routing or AI task changes.",
+  "implementationStatus": "registered-unimplemented",
+  "activation": false,
+  "service": "governance",
+  "anchorApiId": 710,
+  "operations": [
+    {
+      "key": "call.directory",
+      "method": "POST",
+      "path": "/v1/calls/directory",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "properties": {
+          "after": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]{3}$"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "extension": {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]{3}$"
+                  },
+                  "userId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740990
+                  },
+                  "published": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "extension",
+                  "userId",
+                  "version",
+                  "published"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "userId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "properties": {
+                "extension": {
+                  "type": "string",
+                  "pattern": "^[1-9][0-9]{3}$"
+                },
+                "userId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740990
+                },
+                "published": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "extension",
+                "userId",
+                "version",
+                "published"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "nextAfter": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[1-9][0-9]{3}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "self",
+          "userId",
+          "items",
+          "nextAfter"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "key": "call.extension",
+      "method": "POST",
+      "path": "/v1/calls/extension",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "properties": {
+          "published": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "published"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "extension": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]{3}$"
+          },
+          "userId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740990
+          },
+          "published": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "extension",
+          "userId",
+          "version",
+          "published"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "key": "call.dial",
+      "method": "POST",
+      "path": "/v1/calls/dial",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "properties": {
+          "extension": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]{3}$"
+          },
+          "requestId": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+          }
+        },
+        "required": [
+          "extension",
+          "requestId"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+          },
+          "kind": {
+            "const": "conversation"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740990
+          },
+          "members": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+            }
+          },
+          "calls": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                },
+                "callerId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                },
+                "recipientId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                },
+                "status": {
+                  "enum": [
+                    "ringing",
+                    "accepted",
+                    "declined",
+                    "ended",
+                    "missed"
+                  ]
+                },
+                "expiresAt": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740990
+                },
+                "signals": {
+                  "type": "array",
+                  "maxItems": 100,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "sequence": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 9007199254740990
+                      },
+                      "actorId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200,
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                      },
+                      "signal": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "offer"
+                              },
+                              "description": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "const": "offer"
+                                  },
+                                  "sdp": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 16384
+                                  }
+                                },
+                                "required": [
+                                  "type",
+                                  "sdp"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "description"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "answer"
+                              },
+                              "description": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "const": "answer"
+                                  },
+                                  "sdp": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 16384
+                                  }
+                                },
+                                "required": [
+                                  "type",
+                                  "sdp"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "description"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "ice"
+                              },
+                              "candidate": {
+                                "type": "object",
+                                "properties": {
+                                  "candidate": {
+                                    "type": "string",
+                                    "maxLength": 2048
+                                  },
+                                  "sdpMid": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "maxLength": 100
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "sdpMLineIndex": {
+                                    "anyOf": [
+                                      {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 100
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "usernameFragment": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "maxLength": 200
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "candidate"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "candidate"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "sequence",
+                      "actorId",
+                      "signal"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "offered": {
+                  "type": "boolean"
+                },
+                "answered": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "callerId",
+                "recipientId",
+                "status",
+                "expiresAt",
+                "signals"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "version",
+          "members",
+          "calls"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "key": "call.command",
+      "method": "POST",
+      "path": "/v1/calls/command",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "const": "inbox"
+              }
+            },
+            "required": [
+              "action"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "const": "read"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+              }
+            },
+            "required": [
+              "action",
+              "id"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "enum": [
+                  "accept",
+                  "decline",
+                  "end",
+                  "expire"
+                ]
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+              },
+              "key": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740990
+              },
+              "callId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "const": "signal"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+              },
+              "key": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740990
+              },
+              "callId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+              },
+              "signal": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "offer"
+                      },
+                      "description": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "const": "offer"
+                          },
+                          "sdp": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 16384
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "sdp"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "description"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "answer"
+                      },
+                      "description": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "const": "answer"
+                          },
+                          "sdp": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 16384
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "sdp"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "description"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "ice"
+                      },
+                      "candidate": {
+                        "type": "object",
+                        "properties": {
+                          "candidate": {
+                            "type": "string",
+                            "maxLength": 2048
+                          },
+                          "sdpMid": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "maxLength": 100
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "sdpMLineIndex": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 100
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "usernameFragment": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "maxLength": 200
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "candidate"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "candidate"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "key",
+              "version",
+              "callId",
+              "signal"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "const": "heartbeat"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+              },
+              "callId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+              }
+            },
+            "required": [
+              "action",
+              "id",
+              "callId"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "response": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+              },
+              "kind": {
+                "const": "conversation"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740990
+              },
+              "members": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                }
+              },
+              "calls": {
+                "type": "array",
+                "maxItems": 100,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                    },
+                    "callerId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                    },
+                    "recipientId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                    },
+                    "status": {
+                      "enum": [
+                        "ringing",
+                        "accepted",
+                        "declined",
+                        "ended",
+                        "missed"
+                      ]
+                    },
+                    "expiresAt": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 9007199254740990
+                    },
+                    "signals": {
+                      "type": "array",
+                      "maxItems": 100,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "sequence": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 9007199254740990
+                          },
+                          "actorId": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                          },
+                          "signal": {
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "const": "offer"
+                                  },
+                                  "description": {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "const": "offer"
+                                      },
+                                      "sdp": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 16384
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "sdp"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "type",
+                                  "description"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "const": "answer"
+                                  },
+                                  "description": {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "const": "answer"
+                                      },
+                                      "sdp": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 16384
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "sdp"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "type",
+                                  "description"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "const": "ice"
+                                  },
+                                  "candidate": {
+                                    "type": "object",
+                                    "properties": {
+                                      "candidate": {
+                                        "type": "string",
+                                        "maxLength": 2048
+                                      },
+                                      "sdpMid": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string",
+                                            "maxLength": 100
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "sdpMLineIndex": {
+                                        "anyOf": [
+                                          {
+                                            "type": "integer",
+                                            "minimum": 0,
+                                            "maximum": 100
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "usernameFragment": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string",
+                                            "maxLength": 200
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "candidate"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "type",
+                                  "candidate"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "sequence",
+                          "actorId",
+                          "signal"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "offered": {
+                      "type": "boolean"
+                    },
+                    "answered": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "callerId",
+                    "recipientId",
+                    "status",
+                    "expiresAt",
+                    "signals"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "version",
+              "members",
+              "calls"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "maxItems": 100,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                    },
+                    "kind": {
+                      "const": "conversation"
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 9007199254740990
+                    },
+                    "members": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 2,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200,
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                      }
+                    },
+                    "calls": {
+                      "type": "array",
+                      "maxItems": 100,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                          },
+                          "callerId": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                          },
+                          "recipientId": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                          },
+                          "status": {
+                            "enum": [
+                              "ringing",
+                              "accepted",
+                              "declined",
+                              "ended",
+                              "missed"
+                            ]
+                          },
+                          "expiresAt": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 9007199254740990
+                          },
+                          "signals": {
+                            "type": "array",
+                            "maxItems": 100,
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "sequence": {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 9007199254740990
+                                },
+                                "actorId": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 200,
+                                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+                                },
+                                "signal": {
+                                  "oneOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "const": "offer"
+                                        },
+                                        "description": {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "const": "offer"
+                                            },
+                                            "sdp": {
+                                              "type": "string",
+                                              "minLength": 1,
+                                              "maxLength": 16384
+                                            }
+                                          },
+                                          "required": [
+                                            "type",
+                                            "sdp"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "type",
+                                        "description"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "const": "answer"
+                                        },
+                                        "description": {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "const": "answer"
+                                            },
+                                            "sdp": {
+                                              "type": "string",
+                                              "minLength": 1,
+                                              "maxLength": 16384
+                                            }
+                                          },
+                                          "required": [
+                                            "type",
+                                            "sdp"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "type",
+                                        "description"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "const": "ice"
+                                        },
+                                        "candidate": {
+                                          "type": "object",
+                                          "properties": {
+                                            "candidate": {
+                                              "type": "string",
+                                              "maxLength": 2048
+                                            },
+                                            "sdpMid": {
+                                              "anyOf": [
+                                                {
+                                                  "type": "string",
+                                                  "maxLength": 100
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            },
+                                            "sdpMLineIndex": {
+                                              "anyOf": [
+                                                {
+                                                  "type": "integer",
+                                                  "minimum": 0,
+                                                  "maximum": 100
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            },
+                                            "usernameFragment": {
+                                              "anyOf": [
+                                                {
+                                                  "type": "string",
+                                                  "maxLength": 200
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "candidate"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "type",
+                                        "candidate"
+                                      ],
+                                      "additionalProperties": false
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "sequence",
+                                "actorId",
+                                "signal"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "offered": {
+                            "type": "boolean"
+                          },
+                          "answered": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "callerId",
+                          "recipientId",
+                          "status",
+                          "expiresAt",
+                          "signals"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "kind",
+                    "version",
+                    "members",
+                    "calls"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "items"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740990
+              }
+            },
+            "required": [
+              "id",
+              "version"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "call.media",
+      "method": "POST",
+      "path": "/v1/calls/media",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+          },
+          "callId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$"
+          }
+        },
+        "required": [
+          "id",
+          "callId"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "iceServers": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "items": {
+              "type": "object",
+              "properties": {
+                "urls": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 12,
+                  "items": {
+                    "type": "string",
+                    "maxLength": 200
+                  }
+                },
+                "username": {
+                  "type": "string",
+                  "minLength": 16,
+                  "maxLength": 512
+                },
+                "credential": {
+                  "type": "string",
+                  "minLength": 16,
+                  "maxLength": 512
+                }
+              },
+              "required": [
+                "urls"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "expiresAt": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740990
+          }
+        },
+        "required": [
+          "iceServers",
+          "expiresAt"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

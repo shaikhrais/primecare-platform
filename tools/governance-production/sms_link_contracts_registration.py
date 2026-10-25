@@ -40,38 +40,18 @@ def normalized(row):
    except (ValueError,TypeError):raise GovernanceReadError('Edited SMS link schema preserved')
  return result
 
-class SmsLinkContractRegistrationStore(ProductionWorkflowStore):
- def __init__(self,**kwargs):
-  super().__init__(**kwargs)
-  try:
-   if self.pin.get('smsLinkContractRegistrationWriter')!=expected_scope() or os.environ.get('GOVERNANCE_SMS_LINK_REGISTRATION')!='1':raise GovernanceReadError('Exact pinned SMS link contract scope and opt-in required')
-   definition()
-   self.db.execute('LOCK TABLE '+self.table('api_endpoints')+' IN SHARE ROW EXCLUSIVE MODE')
-   meta=self.tables.get('api_endpoints')
-   if not meta or any(len(c['storage_types'])>1 for c in meta['columns']):raise GovernanceReadError('SMS link metadata schema required')
-   actual=dict(self.db.execute('SELECT column_name,data_type FROM information_schema.columns WHERE table_schema=%s AND table_name=%s',(self.pin['schema'],'govt_api_endpoints')).fetchall())
-   expected={'_primecare_import_row':'bigint',**{c['name']:{'integer':'bigint','text':'text','real':'double precision','blob':'bytea'}.get(c['storage_types'][0] if c['storage_types'] else None,'jsonb') for c in meta['columns']}}
-   if actual!=expected:raise GovernanceReadError('Physical SMS link metadata differs from manifest')
-  except Exception:
-   self.db.rollback();self.db.close();raise
- def insert_exact(self,entry):
-  d=definition();op=next((o for o in d['operations'] if (o['method'],o['path'])==(entry.get('http_method'),entry.get('route_path'))),None)
-  anchor=self.execute('SELECT app_id FROM api_endpoints WHERE id=710').fetchall()
-  if not op or len(anchor)!=1 or entry!=values(d,op,anchor[0][0]):raise GovernanceReadError('Only exact SMS link contracts may be inserted')
-  fields={c['name'] for c in self.tables['api_endpoints']['columns']}
-  if not set(entry)<=fields:raise GovernanceReadError('Unregistered SMS link metadata column')
-  entry=dict(entry);entry['id']=self.execute('SELECT COALESCE(MAX(id),0)+1 FROM api_endpoints').fetchone()[0]
-  entry['_primecare_import_row']=self.db.execute('SELECT COALESCE(MAX(_primecare_import_row),-1)+1 FROM '+self.table('api_endpoints')).fetchone()[0]
-  keys=list(entry)
-  self.db.execute('INSERT INTO '+self.table('api_endpoints')+'('+','.join(map(quote,keys))+') VALUES('+','.join(['%s']*len(keys))+')',[entry[k] if k=='_primecare_import_row' else self._value('api_endpoints',k,entry[k]) for k in keys])
-  return entry['id']
+from native_call_contracts import NativeCallContractRegistrationStore
+class SmsLinkContractRegistrationStore(NativeCallContractRegistrationStore):
+ definition_reader=staticmethod(lambda: definition())
+ scope_reader=staticmethod(lambda: expected_scope())
+ values_reader=staticmethod(lambda *args: values(*args))
 
 def register(db):
- d=definition();anchor=db.execute('SELECT app_id FROM api_endpoints WHERE id=710').fetchall()
+ d=db.definition_reader() if hasattr(db,'definition_reader') else definition();anchor=db.execute('SELECT app_id FROM api_endpoints WHERE id=710').fetchall()
  if len(anchor)!=1 or anchor[0][0] is None:raise GovernanceReadError('Existing communication application required')
  receipt={}
  for op in d['operations']:
-  expected=values(d,op,anchor[0][0]);rows=db.execute('SELECT id,'+','.join(FIELDS)+' FROM api_endpoints WHERE http_method=? AND route_path=?',(op['method'],op['path'])).fetchall()
+  expected=(db.values_reader if hasattr(db,'values_reader') else values)(d,op,anchor[0][0]);rows=db.execute('SELECT id,'+','.join(FIELDS)+' FROM api_endpoints WHERE http_method=? AND route_path=?',(op['method'],op['path'])).fetchall()
   if len(rows)>1:raise GovernanceReadError('Duplicate SMS link endpoint identity')
   if rows:
    if normalized(rows[0][1:])!=[expected[k] for k in FIELDS]:raise GovernanceReadError('Existing SMS link contract preserved; reconciliation required')
@@ -79,7 +59,7 @@ def register(db):
   else:aid=db.insert_exact(expected)
   if type(aid) is not int or aid<1 or aid in receipt.values() or db.execute('SELECT COUNT(*) FROM api_endpoints WHERE id=?',(aid,)).fetchone()[0]!=1:raise GovernanceReadError('SMS link contract identity collision')
   receipt[op['key']]=aid
- return dict(apiIds=receipt,registered=len(receipt),roleGrants=0,messagesSent=0,numbersPurchased=0,providerWrites=False,activation=False,definitionSha256=expected_scope()['definitionSha256'])
+ return dict(apiIds=receipt,registered=len(receipt),roleGrants=0,messagesSent=0,numbersPurchased=0,providerWrites=False,activation=False,definitionSha256=(db.scope_reader() if hasattr(db,'scope_reader') else expected_scope())['definitionSha256'])
 
 def transaction(mode):
  with SmsLinkContractRegistrationStore() as db:

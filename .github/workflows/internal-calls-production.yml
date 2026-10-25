@@ -1,0 +1,88 @@
+name: Prepare and verify native internal calling
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/internal-calls-production.yml'
+      - 'cloudflare/workers/src/business-tasks/internal-call-*'
+      - 'tools/governance-production/internal*call*'
+      - 'tools/governance-production/native_call_contracts.py'
+      - 'tools/governance-production/test-internal-call-*'
+      - 'websites/typescript/src/internal-call*'
+      - 'scripts/*internal-call*'
+      - 'packages/shared/src/communications/audio-session.mjs'
+      - 'packages/shared/src/communications/audio-call.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: primecare-internal-calls-production
+  cancel-in-progress: false
+jobs:
+  metadata:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: communication_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: communication_registration_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communication_fixture -d communication_registration_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      WORKFLOW_TEST_DATABASE_URL: postgres://communication_fixture:disposable-only@localhost:5432/communication_registration_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt jsonschema==4.25.1
+      - run: |
+          python tools/governance-production/test-sms-link-contracts-registration.py
+          python tools/governance-production/test-voice-contact-access-registration.py
+          python tools/governance-production/test-communication-ui-registration.py
+          python tools/governance-production/test-internal-call-registration.py
+          python tools/governance-production/test-internal-call-access.py
+          python tools/governance-production/test-internal-call-ui.py
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: twilio_fixture, POSTGRES_PASSWORD: fixture_only, POSTGRES_DB: twilio_sms_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U twilio_fixture -d twilio_sms_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      TWILIO_SMS_TEST_DATABASE_URL: postgres://twilio_fixture:fixture_only@localhost:5432/twilio_sms_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/call-tests" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 esbuild@0.27.2 ajv@8.17.1
+          ln -s "$RUNNER_TEMP/call-tests/node_modules" node_modules
+          node tools/internal-call-schema-validators.mjs
+          node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs scripts/test-communication-audio-session.mjs
+          node scripts/test-internal-call-http-postgres.mjs
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/business-tasks/internal-call-worker.ts websites/typescript/src/internal-calls.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: internal-call-native, path: test-results/internal-calls, retention-days: 30}
+  readiness:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/call-readiness" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/call-readiness/node_modules" node_modules
+      - env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: node scripts/inspect-internal-call-readiness.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: internal-call-readiness, path: test-results/internal-calls, retention-days: 30}

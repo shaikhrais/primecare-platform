@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "screens": {"234":"psw_messages","331":"patient_messages","559":"communication","578":"messaging"},
+  "paths": ["/v1/calls/directory","/v1/calls/extension","/v1/calls/dial","/v1/calls/command","/v1/calls/media"],
+  "eligibility": "active-role-and-existing-communication-screen-can-view",
+  "permission": "role_screen_permissions",
+  "purpose": "Signed-in same-tenant internal calls only; current actor, call participants and accepted-call relay quotas required",
+  "existingDenials": "preserve",
+  "roleScreenChanges": false,
+  "activation": false
+}

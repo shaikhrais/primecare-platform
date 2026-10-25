@@ -27,7 +27,7 @@ def validate(db):
  if set(langs)!=set(d['locales']) or any(set(labels)!=set(d['locales']['en']) for labels in d['locales'].values()):raise GovernanceReadError('Exact enabled communication locales required')
  return langs
 def plans(db):
- d=definition();langs=validate(db);result=[]
+ d=db.definition_for() if hasattr(db,'definition_for') else definition();langs=db.validate_for() if hasattr(db,'validate_for') else validate(db);result=[]
  for sid in map(int,d['screens']):
   for key,c in d['controls'].items():
    code=d['namespace']+'.'+key
@@ -39,7 +39,7 @@ def plans(db):
  return result,langs
 def scoped_rows(reader):
  """Read only the registered namespace, once per table and transaction."""
- d=definition();result={}
+ d=reader.definition_for() if hasattr(reader,'definition_for') else definition();result={}
  for table,column in [('screen_components','component_code'),('screen_required_elements','element_key')]:
   cols=[TABLES[table],'screen_id',column]+(['component_name','component_type','data_cy','file_path','implementation_status'] if table=='screen_components' else ['element_type','label','test_id','required'])
   values=reader.execute('SELECT '+','.join(cols)+' FROM '+table+' WHERE screen_id IN ('+','.join('?' for _ in d['screens'])+') AND '+column+' LIKE ?',(*map(int,d['screens']),d['namespace']+'.%')).fetchall()
@@ -53,10 +53,14 @@ def scoped_rows(reader):
  result['language_resource_values']=[dict(zip(cols,row)) for row in values]
  return result
 class CommunicationUiStore(ProductionWorkflowStore):
+ pin_key='communicationUiRegistrationWriter';opt_in='GOVERNANCE_COMMUNICATION_UI_REGISTRATION'
+ def definition_for(self):return definition()
+ def scope_for(self):return expected_scope()
+ def validate_for(self):return validate(self)
  def __init__(self,**kwargs):
   super().__init__(**kwargs)
   try:
-   if self.pin.get('communicationUiRegistrationWriter')!=expected_scope() or os.environ.get('GOVERNANCE_COMMUNICATION_UI_REGISTRATION')!='1':raise GovernanceReadError('Exact communication UI scope required')
+   if self.pin.get(self.pin_key)!=self.scope_for() or os.environ.get(self.opt_in)!='1':raise GovernanceReadError('Exact communication UI scope required')
    self.db.execute('LOCK TABLE '+','.join(self.table(t) for t in sorted(TABLES))+' IN SHARE ROW EXCLUSIVE MODE')
    for table in TABLES:
     meta=self.tables.get(table)
@@ -73,7 +77,7 @@ class CommunicationUiStore(ProductionWorkflowStore):
   except Exception:self.db.rollback();self.db.close();raise
  def ensure_exact(self,table,key,values,apply=True):
   if table not in TABLES:raise GovernanceReadError('Unrelated UI table refused')
-  d=definition();namespace=d['namespace']+'.'
+  d=self.definition_for();namespace=d['namespace']+'.'
   if table in ['screen_components','screen_required_elements']:
    column='component_code' if table=='screen_components' else 'element_key'
    code=key.get(column,'');control=d['controls'].get(code.removeprefix(namespace)) if code.startswith(namespace) else None
@@ -100,16 +104,16 @@ class CommunicationUiStore(ProductionWorkflowStore):
   return data[TABLES[table]]
 
 def register(db,apply=True):
- d=definition();rows,langs=plans(db);resources={}
+ d=db.definition_for() if hasattr(db,'definition_for') else definition();rows,langs=plans(db);resources={}
  for table,key,values in rows:
   identity=db.ensure_exact(table,key,values,apply)
   if table=='language_resources':resources[key['resource_key']]=identity
  for key in d['locales']['en']:
   rid=resources[d['namespace']+'.'+key]
   for locale,labels in d['locales'].items():db.ensure_exact('language_resource_values',{'resource_id':rid,'language_id':langs[locale]},{'translated_text':labels[key],'reviewed':0,'approved':0,'version':'communication-workspace-v1'},apply)
- return dict(definitionSha256=expected_scope()['definitionSha256'],screens=len(d['screens']),controlsPerScreen=len(d['controls']),resources=len(d['locales']['en']),locales=sorted(langs),permissionGrants=0,activation=False,reviewApproved=False)
+ return dict(definitionSha256=(db.scope_for() if hasattr(db,'scope_for') else expected_scope())['definitionSha256'],screens=len(d['screens']),controlsPerScreen=len(d['controls']),resources=len(d['locales']['en']),locales=sorted(langs),permissionGrants=0,activation=False,reviewApproved=False)
 def readback(reader):
- d=definition();rows,langs=plans(reader);snapshot=scoped_rows(reader);resources={}
+ d=reader.definition_for() if hasattr(reader,'definition_for') else definition();rows,langs=plans(reader);snapshot=scoped_rows(reader);resources={}
  for table,key,values in rows:
   actual=[row for row in snapshot[table] if all(row.get(k)==v for k,v in key.items())]
   if len(actual)!=1 or any(actual[0].get(k)!=v for k,v in values.items()):raise GovernanceReadError('Independent UI readback differs')

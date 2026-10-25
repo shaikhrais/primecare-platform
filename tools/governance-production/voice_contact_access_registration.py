@@ -41,10 +41,15 @@ def validate(db):
   if len(rows)!=1 or rows[0][0]!=d['apiIds'][op['key']] or contracts.normalized(rows[0][1:])!=[contracts.values(contracts.definition(),op,anchor[0][0])[k] for k in contracts.FIELDS]:raise GovernanceReadError('Exact registered enrollment API required')
  return eligible(db)
 class VoiceContactAccessStore(ProductionWorkflowStore):
+ pin_key='voiceContactAccessWriter';opt_in='GOVERNANCE_VOICE_CONTACT_ACCESS'
+ def definition_for(self):return definition()
+ def validate_for(self):return validate(self)
+ def scope_for(self):return expected_scope()
+ def purpose_for(self):return PURPOSE
  def __init__(self,**kwargs):
   super().__init__(**kwargs)
   try:
-   if self.pin.get('voiceContactAccessWriter')!=expected_scope() or os.environ.get('GOVERNANCE_VOICE_CONTACT_ACCESS')!='1':raise GovernanceReadError('Exact pinned enrollment access opt-in required')
+   if self.pin.get(self.pin_key)!=self.scope_for() or os.environ.get(self.opt_in)!='1':raise GovernanceReadError('Exact pinned enrollment access opt-in required')
    # Freeze eligibility and targets for the transaction; no role/screen rights are written.
    self.db.execute('LOCK TABLE '+','.join(self.table(t) for t in sorted(['api_endpoints','screens','roles','role_screen_permissions',*TABLES]))+' IN SHARE ROW EXCLUSIVE MODE')
    for table in TABLES:
@@ -55,24 +60,24 @@ class VoiceContactAccessStore(ProductionWorkflowStore):
     if actual!=expected:raise GovernanceReadError('Physical access metadata differs from manifest')
   except Exception:self.db.rollback();self.db.close();raise
  def insert_exact(self,table,entry):
-  d=definition()
+  d=self.definition_for()
   if table=='screen_api_links':
-   if set(entry)!={'screen_id','api_id','purpose'} or entry['screen_id'] not in map(int,d['screens']) or entry['api_id'] not in d['apiIds'].values() or entry['purpose']!=PURPOSE:raise GovernanceReadError('Exact native API link required')
+   if set(entry)!={'screen_id','api_id','purpose'} or entry['screen_id'] not in map(int,d['screens']) or entry['api_id'] not in d['apiIds'].values() or entry['purpose']!=self.purpose_for():raise GovernanceReadError('Exact native API link required')
   elif table=='api_permissions':
-   if set(entry)!={'role_id','api_id','permission_key','can_access'} or entry['role_id'] not in validate(self) or entry['api_id'] not in d['apiIds'].values() or entry['permission_key']!=d['permission'] or entry['can_access']!=1:raise GovernanceReadError('Existing screen access required for own-phone API grant')
+   if set(entry)!={'role_id','api_id','permission_key','can_access'} or entry['role_id'] not in self.validate_for() or entry['api_id'] not in d['apiIds'].values() or entry['permission_key']!=d['permission'] or entry['can_access']!=1:raise GovernanceReadError('Existing screen access required for own-phone API grant')
   else:raise GovernanceReadError('Unrelated access table refused')
   entry=dict(entry);entry['id']=self.execute('SELECT COALESCE(MAX(id),0)+1 FROM '+table).fetchone()[0];entry['_primecare_import_row']=self.db.execute('SELECT COALESCE(MAX(_primecare_import_row),-1)+1 FROM '+self.table(table)).fetchone()[0]
   if not set(entry)<={'_primecare_import_row',*[c['name'] for c in self.tables[table]['columns']]}:raise GovernanceReadError('Unregistered access field')
   keys=list(entry);self.db.execute('INSERT INTO '+self.table(table)+'('+','.join(map(quote,keys))+') VALUES('+','.join(['%s']*len(keys))+')',[entry[k] if k=='_primecare_import_row' else self._value(table,k,entry[k]) for k in keys])
 def register(db,apply=True):
- d=definition();roles=validate(db);denied=0
+ d=db.definition_for() if hasattr(db,'definition_for') else definition();roles=db.validate_for() if hasattr(db,'validate_for') else validate(db);denied=0
  for aid in d['apiIds'].values():
   for sid in map(int,d['screens']):
    rows=db.execute('SELECT id,purpose FROM screen_api_links WHERE screen_id=? AND api_id=?',(sid,aid)).fetchall()
-   if len(rows)>1 or rows and rows[0][1]!=PURPOSE:raise GovernanceReadError('Existing native API link preserved')
+   if len(rows)>1 or rows and rows[0][1]!=(db.purpose_for() if hasattr(db,'purpose_for') else PURPOSE):raise GovernanceReadError('Existing native API link preserved')
    if not rows:
     if not apply:raise GovernanceReadError('Native API link missing')
-    db.insert_exact('screen_api_links',dict(screen_id=sid,api_id=aid,purpose=PURPOSE))
+    db.insert_exact('screen_api_links',dict(screen_id=sid,api_id=aid,purpose=db.purpose_for() if hasattr(db,'purpose_for') else PURPOSE))
   for rid in roles:
    rows=db.execute('SELECT id,permission_key,can_access FROM api_permissions WHERE role_id=? AND api_id=?',(rid,aid)).fetchall()
    if len(rows)>1 or rows and (rows[0][1]!=d['permission'] or type(rows[0][2])is not int or rows[0][2] not in (0,1)):raise GovernanceReadError('Edited or ambiguous native API permission preserved')
@@ -80,7 +85,7 @@ def register(db,apply=True):
    if not rows:
     if not apply:raise GovernanceReadError('Native API permission missing')
     db.insert_exact('api_permissions',dict(role_id=rid,api_id=aid,permission_key=d['permission'],can_access=1))
- return dict(definitionSha256=expected_scope()['definitionSha256'],screenLinks=12,eligibleRoles=len(roles),explicitDenialsPreserved=denied,apiGrants=len(roles)*3-denied,businessDataWrites=False,providerWrites=False,activation=False)
+ return dict(definitionSha256=(db.scope_for() if hasattr(db,'scope_for') else expected_scope())['definitionSha256'],screenLinks=len(d['apiIds'])*len(d['screens']),eligibleRoles=len(roles),explicitDenialsPreserved=denied,apiGrants=len(roles)*len(d['apiIds'])-denied,businessDataWrites=False,providerWrites=False,activation=False)
 def main():
  if sys.argv[1:] not in [['--dry-run'],['--apply']]:raise SystemExit('Explicit mode required')
  with VoiceContactAccessStore() as db:
