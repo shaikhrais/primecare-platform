@@ -68,6 +68,7 @@ try{
  assert.equal(await inbox.accept(event('d','START')),'quarantined');await assert.rejects(repository.resolve(actor,'thread-a'));
  assert.equal(await inbox.accept(event('c','STOP')),'duplicate');assert.equal((await pool.query('SELECT blocked FROM communication_sms_consent WHERE account_sid=$1',[config.accountSid])).rows[0].blocked,false);groups++;
  const newId=crypto.randomUUID(),linked=await repository.bind(context,{...input,id:newId});assert.notEqual(linked.id,first.id);
+ assert.equal(await inbox.accept(event('f','START')),'quarantined');assert.deepEqual(await repository.resolve(actor,'thread-a'),linked);
  await assert.rejects(oldService.deliver(actor,'queued-before-stop','deliver-again',1));assert.equal(sends,0);
  const newService=makeService(linked);await newService.queue(actor,'new-reply','queue',phone,'Fresh explicit consent');
  await Promise.all([newService.deliver(actor,'new-reply','deliver',1),newService.deliver(actor,'new-reply','deliver',1)]);assert.equal(sends,1);

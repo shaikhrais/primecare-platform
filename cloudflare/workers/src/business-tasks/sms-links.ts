@@ -139,7 +139,9 @@ export class PostgresSmsConsentInboxStore extends PostgresSmsInboundStore {
    const result=await new PostgresSmsInboundStore(db).accept(e);
    if(result!=='duplicate'&&(e.control==='STOP'||e.control==='START')){
     await db.query(`INSERT INTO communication_sms_consent(account_sid,shared_number,phone,blocked,version) VALUES($1,$2,$3,$4,1)
-     ON CONFLICT(account_sid,shared_number,phone) DO UPDATE SET blocked=EXCLUDED.blocked,version=communication_sms_consent.version+1,updated_at=clock_timestamp()`,[e.accountSid,e.to,e.from,e.control==='STOP']);
+     ON CONFLICT(account_sid,shared_number,phone) DO UPDATE SET blocked=EXCLUDED.blocked,
+      version=CASE WHEN communication_sms_consent.blocked IS DISTINCT FROM EXCLUDED.blocked THEN communication_sms_consent.version+1 ELSE communication_sms_consent.version END,
+      updated_at=clock_timestamp()`,[e.accountSid,e.to,e.from,e.control==='STOP']);
     if(e.control==='STOP')await db.query('UPDATE communication_sms_links SET revoked_at=clock_timestamp(),version=version+1 WHERE account_sid=$1 AND shared_number=$2 AND phone=$3 AND revoked_at IS NULL',[e.accountSid,e.to,e.from]);
    }
    await db.query('COMMIT');return result;
