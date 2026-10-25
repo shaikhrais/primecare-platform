@@ -279,3 +279,31 @@ grants, private pre-AI pairing delivery, native app pairing UI and OTP runtime
 deployment. The contact-verification panel is distinct from that call-pairing UI.
 The overall identity audit correctly remains blocked; neither a successful
 deployment nor a denied fake session authenticates a caller or enables tasks.
+
+### Code Administrator self-service host — October 24, 2026
+
+A production metadata read (workflow 40147254855) confirmed that `code_admin`
+had only Platform Administration screen 1269 and no contact API permissions.
+The consent page is a separate unavailable OAuth feature, not an access editor.
+The existing communication screen permissions therefore correctly denied access;
+changing route guards or treating the role name as a bypass would be incorrect.
+
+The narrow platform registration (workflow 40147489642, source
+47c00addb376330a5d741cbf97b7e72e7d7a5101) passed seven native PostgreSQL tests,
+a production rollback rehearsal and independent committed readback. It added
+three contact-only API grants and links plus the existing seven shared phone
+controls to screen 1269. Existing explicit denials are preserved. No role-screen
+permissions, clinical messages, phone records, provider configuration or AI tools
+were changed. The stored receipt is
+`evidence/voice-contact-platform-registration-20261024.json`.
+
+The app uses the same `VoiceContactVerificationPanel`, inherited controller,
+native transport, localized catalog and session lifecycle as communication
+screens. It renders on the platform screen after the existing server capability
+read succeeds. The server accepts platform screen 1269 only for the exact three
+registered contact API IDs, POST paths and endpoint codes; messaging, call OTP
+and AI task permissions retain their existing screen restrictions. Current user,
+tenant, session, own-contact scope, recent login and SMS checks remain mandatory.
+
+The new source must pass deployment and Flutter acceptance before this host can
+be called live. Registration alone does not verify an account phone or a call.

@@ -6,6 +6,8 @@ import 'package:flutter_core/platform/platform_master_repository.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_controller.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_screen.dart';
+import 'package:primecare_ui/src/communications/communication_workspace.dart';
+import '../../flutter_core/test/fixtures/voice_contact_transport.dart';
 
 const base = PlatformMasterRepository.endpoint;
 AuthState session({String user = 'actor-a', String? tenant = 'control', String token = 'token-a', String role = 'code_admin'}) =>
@@ -52,6 +54,37 @@ void failure(RequestOptions options, RequestInterceptorHandler handler, int stat
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  testWidgets('registered platform screen reuses own-phone panel without loading clinical messaging', (tester) async {
+    final dio=Dio(BaseOptions(baseUrl:'https://synthetic.invalid'));
+    var masterReads=0;
+    dio.interceptors.add(InterceptorsWrapper(onRequest:(options,handler){
+      masterReads++;expect(options.path,base);success(options,handler,index());
+    }));
+    final transport=VoiceContactTransport();
+    late VoiceContactController phone;
+    final container=ProviderContainer(overrides:[
+      authProvider.overrideWith(PlatformAuthFixture.new),
+      apiClientProvider.overrideWith((ref)=>ApiClient(ref,transport:dio)),
+      voiceContactControllerProvider.overrideWith((ref){
+        ref.watch(authProvider);
+        phone=VoiceContactController(hub:CommunicationHub(transport));
+        ref.onDispose(phone.dispose);return phone;
+      }),
+    ]);
+    addTearDown((){dio.close(force:true);container.dispose();});
+    await tester.pumpWidget(UncontrolledProviderScope(container:container,
+      child:PrimeTheme(data:const PrimeThemeData(),child:const MaterialApp(home:PlatformMasterScreen()))));
+    await tester.pumpAndSettle();
+    expect(masterReads,1);expect(find.byType(VoiceContactVerificationPanel),findsOneWidget);
+    expect(transport.requests,[{'action':'status'}]);expect(transport.sends,0);
+    expect(phone.canSend,true);expect(find.byType(CommunicationWorkspaceView),findsNothing);
+    final old=phone;
+    (container.read(authProvider.notifier) as PlatformAuthFixture).replace(session(user:'actor-b'));
+    await tester.pumpAndSettle();expect(old.isDisposed,true);
+    expect(tester.takeException(),isNull);
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+
   for (final denied in [false, true]) {
     testWidgets('global administration delegates missing client tenant to server, denied=$denied', (tester) async {
       var calls = 0;
@@ -61,7 +94,7 @@ void main() {
         if (denied) { failure(options, handler, 403); }
         else { success(options, handler, index()); }
       }));
-      final container = ProviderContainer(overrides: [authProvider.overrideWith(PlatformGlobalAuthFixture.new),
+      final container = ProviderContainer(overrides: [voiceContactControllerProvider.overrideWith((ref)=>null),authProvider.overrideWith(PlatformGlobalAuthFixture.new),
         apiClientProvider.overrideWith((ref) => ApiClient(ref, transport: dio))]);
       addTearDown(() { dio.close(force: true); container.dispose(); });
       await tester.pumpWidget(UncontrolledProviderScope(container: container,
@@ -212,7 +245,7 @@ void main() {
         else if (calls == 2) { success(options, handler, {'records': [record(label: 'Private Alice')], 'types': ['department']}); }
         else { delayed.add((options, handler)); }
       }));
-      final container = ProviderContainer(overrides: [authProvider.overrideWith(PlatformAuthFixture.new),
+      final container = ProviderContainer(overrides: [voiceContactControllerProvider.overrideWith((ref)=>null),authProvider.overrideWith(PlatformAuthFixture.new),
         apiClientProvider.overrideWith((ref) => ApiClient(ref, transport: dio))]);
       addTearDown(() { dio.close(force: true); container.dispose(); });
       await tester.pumpWidget(UncontrolledProviderScope(container: container,
@@ -252,7 +285,7 @@ void main() {
           saved.add(record()); success(options, handler, {'record': record()}, 201);
         } else { success(options, handler, {'records': List.of(saved), 'types': ['department']}); }
       }));
-      final container = ProviderContainer(overrides: [authProvider.overrideWith(PlatformAuthFixture.new),
+      final container = ProviderContainer(overrides: [voiceContactControllerProvider.overrideWith((ref)=>null),authProvider.overrideWith(PlatformAuthFixture.new),
         apiClientProvider.overrideWith((ref) => ApiClient(ref, transport: dio))]);
       addTearDown(() { dio.close(force: true); container.dispose(); });
       await tester.pumpWidget(UncontrolledProviderScope(container: container,

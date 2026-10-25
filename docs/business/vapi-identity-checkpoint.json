@@ -144,5 +144,20 @@
       "scope": "caller-integration-and-live-native-readiness",
       "conclusion": "success"
     }
-  ]
+  ],
+  "contactEnrollmentPlatformHost": {
+    "metadataRegistered": true,
+    "screenId": 1269,
+    "role": "code_admin",
+    "registrationSource": "47c00addb376330a5d741cbf97b7e72e7d7a5101",
+    "registrationRunId": 40147489642,
+    "nativeRegistrationTestsPassed": 7,
+    "apiGrants": 3,
+    "sharedControls": 7,
+    "independentReadback": true,
+    "roleScreenRightsChanged": false,
+    "runtimeAcceptanceVerified": false,
+    "uiProductionAcceptanceVerified": false,
+    "liveSmsVerified": false
+  }
 }

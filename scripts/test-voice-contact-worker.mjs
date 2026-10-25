@@ -7,6 +7,7 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 const bundle=await build({entryPoints:['cloudflare/workers/src/business-tasks/voice-contact-worker.ts'],bundle:true,write:false,platform:'node',format:'cjs'});
 const dir=await mkdtemp(join(tmpdir(),'primecare-contact-')),file=join(dir,'host.cjs');await writeFile(file,bundle.outputFiles[0].text);const {VoiceContactEnrollmentWorker,nativeContactPostgresOptions,nativeContactFailureCategory}=createRequire(import.meta.url)(file);await rm(dir,{recursive:true,force:true});
+import {isPlatformOwnContactEndpoint} from '../cloudflare/workers/src/business-tasks/endpoint-policy.ts';
 import {PostgresVoiceContactAccessPolicy} from '../cloudflare/workers/src/business-tasks/voice-contact-native-policy.ts';
 import {NativeVoiceContactHttpAdapter,NativeVoiceHttpAdapter} from '../packages/shared/src/communications/voice-native-http.mjs';
 import {TwilioVerifyFetchClient} from '../packages/shared/src/communications/twilio-verify-fetch.mjs';
@@ -70,6 +71,22 @@ test('native host uses real PostgreSQL session and current grants through SDK fe
   const token='h'.repeat(43),sessionHash=createHash('sha256').update(token).digest('hex');await db.query("INSERT INTO public.tenants VALUES('host-tenant','active');INSERT INTO public.users(id,tenant_id,status,roles) VALUES('host-user','host-tenant','active','host_role')");await db.query("INSERT INTO public.auth_sessions(token_hash,user_id,expires_at) VALUES($1,'host-user',now()+INTERVAL '1 hour')",[sessionHash]);
   let closed=0,sends=0,checks=0;const host=new VoiceContactEnrollmentWorker({openPool:()=>({query:db.query.bind(db),connect:db.connect.bind(db),async end(){closed++;}}),async providerFetch(url,options){assert.equal(options.headers.authorization,'Basic '+btoa(key+':'+secret));const checking=url.endsWith('/VerificationCheck');if(checking)checks++;else sends++;return Response.json({sid:verification,account_sid:account,service_sid:service,to:'+14165550101',channel:'sms',status:checking?'approved':'pending'},{status:checking?200:201});}});
   const post=(action,input={})=>host.fetch(request('/v1/voice/contact/'+action,input,{authorization:'Bearer '+token}),env());
+  // A Code Administrator receives no implicit clinical screen access. Only
+  // explicit platform view + exact contact links + three API grants may work.
+  await db.query(`INSERT INTO ${schema}.govt_roles VALUES(9002,'code_admin',1);INSERT INTO ${schema}.govt_screens VALUES(1269,1);INSERT INTO ${schema}.govt_role_screen_permissions VALUES(9002,1269,1)`);
+  for(const id of [16535,16536,16537]){
+   await db.query(`INSERT INTO ${schema}.govt_screen_api_links VALUES(1269,$1)`,[id]);
+   await db.query(`INSERT INTO ${schema}.govt_api_permissions VALUES($1,$2,9002,1,'role_screen_permissions')`,[id+100,id]);
+  }
+  await db.query("UPDATE public.users SET roles='code_admin' WHERE id='host-user'");
+  assert.deepEqual(await (await post('status')).json(),{verified:false,enrollmentAllowed:true});
+  await db.query(`UPDATE ${schema}.govt_api_permissions SET can_access=0 WHERE role_id=9002 AND api_id=16536`);
+  assert.equal((await post('start',{phone:'+14165550101',requestId:crypto.randomUUID()})).status,403);assert.equal(sends,0);
+  await db.query(`UPDATE ${schema}.govt_api_permissions SET can_access=1 WHERE role_id=9002 AND api_id=16536`);
+  await db.query(`UPDATE ${schema}.govt_role_screen_permissions SET can_view=0 WHERE role_id=9002`);
+  assert.equal((await post('status')).status,403);
+  await db.query(`UPDATE ${schema}.govt_role_screen_permissions SET can_view=1 WHERE role_id=9002`);
+  await db.query("UPDATE public.users SET roles='host_role' WHERE id='host-user'");
   assert.deepEqual(await (await post('status')).json(),{verified:false,enrollmentAllowed:true});const requestId=crypto.randomUUID(),sent=await post('start',{phone:'+14165550101',requestId});assert.equal(sent.status,200);const challenge=await sent.json();assert.equal(sends,1);
   assert.deepEqual(await (await post('start',{phone:'+14165550101',requestId})).json(),challenge);assert.equal(sends,1);
   await db.query(`UPDATE ${schema}.govt_api_permissions SET can_access=0 WHERE api_id=16537`);assert.equal((await post('check',{challengeId:challenge.challengeId,code:'123456'})).status,403);assert.equal(checks,0);await db.query(`UPDATE ${schema}.govt_api_permissions SET can_access=1 WHERE api_id=16537`);
@@ -87,4 +104,13 @@ test('native PostgreSQL URL cannot redirect the database or weaken certificate v
 
 test('operational failure categories never expose private exception text or connection details',()=>{
  assert.equal(nativeContactFailureCategory({code:'42703',message:'PRIVATE COLUMN'}),'postgres_42703');assert.equal(nativeContactFailureCategory(new Error('Dynamic require of node:tls')),'runtime_module');assert.equal(nativeContactFailureCategory(new Error('PRIVATE PASSWORD AND DATABASE URL')),'host_unavailable');
+});
+
+test('platform administration is an eligible host only for exact own-contact contracts, never messaging, OTP or AI tasks',()=>{
+ for(const [i,action] of ['status','start','check'].entries()){
+  const path='/v1/voice/contact/'+action,code='VOICE_CONTACT_'+action.toUpperCase();
+  for(const id of [null,16535+i])assert.equal(isPlatformOwnContactEndpoint(id,'POST',path,code),true);
+  for(const args of [[710,'POST',path,code],[null,'GET',path,code],[null,'POST',path,null],[null,'POST',path,code+'X'],[null,'POST',path+'/',code]])assert.equal(isPlatformOwnContactEndpoint(...args),false);
+ }
+ for(const path of ['/v1/messages','/v1/voice/otp/start','/v1/vapi/voice/tasks'])assert.equal(isPlatformOwnContactEndpoint(null,'POST',path,'VOICE_CONTACT_START'),false);
 });

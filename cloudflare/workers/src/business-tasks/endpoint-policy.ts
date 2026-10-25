@@ -1,5 +1,6 @@
 import type {Actor} from './store.ts';
 import {assertActor} from '../../../../packages/shared/src/communications/service-base.ts';
+import platformContact from '../../../../tools/governance-production/voice-contact-platform-registration.json' with {type:'json'};
 import contacts from '../../../../tools/governance-production/voice-contact-contracts-registration.json' with {type:'json'};
 import voice from '../../../../tools/governance-production/twilio-contracts-registration.json' with {type:'json'};
 import type {NativeVoiceSession} from '../../../../packages/shared/src/communications/voice-native-http.mjs';
@@ -16,6 +17,12 @@ const value=(alias:string,column:string)=>{
  WHEN jsonb_typeof(${x})='object' AND ${x}->>'t' IN ('text','integer') AND jsonb_typeof(${x}->'v')='string' THEN ${x}->>'v' ELSE NULL END)`;
 };
 const table=(name:string)=>`"${pin.schema}"."govt_${name}"`;
+/** The platform host may authorize only the three exact self-contact APIs.
+ * This selects a registered screen, never a role or an access bypass. */
+export function isPlatformOwnContactEndpoint(apiId:number|null,method:string,path:string,endpointCode:string|null):boolean {
+ const index=contacts.operations.findIndex(op=>op.method===method&&op.path===path&&endpointCode==='VOICE_'+op.key.replaceAll('.','_').toUpperCase());
+ return index>=0&&(apiId===null||apiId===platformContact.apiIds[index]);
+}
 /** Current explicit API AND linked-screen grants. Does not confer case/mailbox access. */
 export abstract class PostgresRegisteredCommunicationEndpointPolicy {
  readonly pool:Pool;
@@ -40,7 +47,7 @@ export abstract class PostgresRegisteredCommunicationEndpointPolicy {
     AND ($3::text IS NULL OR ${value('a','id')}=$3) AND ${value('a','http_method')}=$4 AND ${value('a','route_path')}=$5
     AND ${value('a','service_name')}='governance' AND ${value('a','auth_required')}='1'
     AND ${value('a','permission_key')}='role_screen_permissions'
-    AND ${value('s','id')} IN ('234','331','559','578')
+    AND (${value('s','id')} IN ('234','331','559','578')${isPlatformOwnContactEndpoint(apiId,method,path,endpointCode)?` OR (${value('s','id')}='${platformContact.screenId}' AND ${value('a','id')}='${platformContact.apiIds[contacts.operations.findIndex(op=>op.method===method&&op.path===path)]}')`:''})
     ${endpointCode===null?'':`AND ${value('a','endpoint_code')}=$6 AND EXISTS (SELECT 1 FROM public.tenants t WHERE t.id=u.tenant_id AND LOWER(t.status)='active')
     AND (SELECT COUNT(*) FROM ${table('api_endpoints')} duplicate WHERE ${value('duplicate','http_method')}=$4 AND ${value('duplicate','route_path')}=$5 AND ${value('duplicate','service_name')}='governance')=1`} LIMIT 2`,
     [actor.id,actor.tenantId,apiId===null?null:String(apiId),method,path,...(endpointCode===null?[]:[endpointCode])]);

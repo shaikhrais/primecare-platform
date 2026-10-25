@@ -41,17 +41,21 @@ def plan(db):
   rows.append(('screen_required_elements',dict(screen_id=sid,element_key=code),dict(element_type=c['component'],label=code,test_id=c['testId'],required=1)))
  # Reuse already registered text, including statuses/errors. Do not duplicate or
  # overwrite translations and reviewer edits when adding a host screen.
+ languages=db.execute("SELECT language_code,language_id FROM languages WHERE language_code IN ('en','fr','es') AND enabled=1").fetchall()
+ if len(languages)!=3 or set(k for k,_ in languages)!={'en','fr','es'}:raise GovernanceReadError('Existing languages required')
+ resources=db.execute('SELECT resource_key,resource_id,active FROM language_resources WHERE resource_key LIKE ?',(u['namespace']+'.phone%',)).fetchall()
+ ids=[rid for _,rid,_ in resources]
+ if not ids:raise GovernanceReadError('Existing own-phone resources required')
+ texts=db.execute('SELECT resource_id,language_id,translated_text FROM language_resource_values WHERE resource_id IN ('+','.join('?' for _ in ids)+')',tuple(ids)).fetchall()
  for key in (k for k in u['locales']['en'] if k.startswith('phone')):
-  resources=db.execute('SELECT resource_id,active FROM language_resources WHERE resource_key=?',(u['namespace']+'.'+key,)).fetchall()
-  if len(resources)!=1 or resources[0][1]!=1:raise GovernanceReadError('Existing own-phone text required')
-  for lang in ['en','fr','es']:
-   langs=db.execute('SELECT language_id FROM languages WHERE language_code=? AND enabled=1',(lang,)).fetchall()
-   if len(langs)!=1:raise GovernanceReadError('Existing language required')
-   if db.execute('SELECT translated_text FROM language_resource_values WHERE resource_id=? AND language_id=?',(resources[0][0],langs[0][0])).fetchall()!=[(u['locales'][lang][key],)]:raise GovernanceReadError('Existing own-phone translation changed; preserve it')
+  found=[(rid,active) for code,rid,active in resources if code==u['namespace']+'.'+key]
+  if len(found)!=1 or found[0][1]!=1:raise GovernanceReadError('Existing own-phone text required')
+  for lang,lid in languages:
+   if [text for rid,language,text in texts if rid==found[0][0] and language==lid]!=[u['locales'][lang][key]]:raise GovernanceReadError('Existing own-phone translation changed; preserve it')
  return rows
 def reconcile(db,apply=True):
  denied=0
- for table,key,values in plan(db):
+ for table,key,values in (db._plan if isinstance(db,PlatformContactStore) else plan(db)):
   fields=list(values)
   found=db.execute('SELECT '+','.join(fields)+' FROM '+table+' WHERE '+' AND '.join(k+'=?' for k in key),tuple(key.values())).fetchall()
   if table=='api_permissions' and found==[('role_screen_permissions',0)]:denied+=1;continue

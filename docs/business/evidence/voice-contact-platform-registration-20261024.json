@@ -1,0 +1,17 @@
+{
+  "definitionSha256": "21f97c3cefdf496dfadc55cc5d205aa29ba8453c7e44c67cd23c93f417f5f001",
+  "screenId": 1269,
+  "screenLinks": 3,
+  "controls": 7,
+  "apiGrants": 3,
+  "explicitDenialsPreserved": 0,
+  "roleScreenChanges": false,
+  "businessDataWrites": false,
+  "providerWrites": false,
+  "activation": false,
+  "independentReadback": true,
+  "authority": "pinned-production-postgresql",
+  "sourceCommit": "47c00addb376330a5d741cbf97b7e72e7d7a5101",
+  "workflowRunId": 40147489642,
+  "nativeTestsPassed": 7
+}

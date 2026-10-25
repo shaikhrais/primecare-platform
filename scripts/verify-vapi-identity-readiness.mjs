@@ -39,7 +39,7 @@ try{
    LEFT JOIN ${table('api_permissions')} ap ON ${value('ap','api_id')}=${value('a','id')} AND ${value('ap','can_access')}='1' AND ${value('ap','permission_key')}='role_screen_permissions'
    LEFT JOIN ${table('roles')} r ON ${value('r','id')}=${value('ap','role_id')}
    LEFT JOIN ${table('screen_api_links')} l ON ${value('l','api_id')}=${value('a','id')}
-   LEFT JOIN ${table('screens')} s ON ${value('s','id')}=${value('l','screen_id')} AND ${value('s','id')} IN ('234','331','559','578')
+   LEFT JOIN ${table('screens')} s ON ${value('s','id')}=${value('l','screen_id')} AND (${value('s','id')} IN ('234','331','559','578') OR (${value('s','id')}='1269' AND ${value('a','id')} IN ('16535','16536','16537')))
    LEFT JOIN ${table('role_screen_permissions')} sp ON ${value('sp','screen_id')}=${value('s','id')} AND ${value('sp','role_id')}=${value('r','id')}
    WHERE ${value('a','route_path')}=ANY($1::text[]) AND ${value('a','http_method')}='POST' AND ${value('a','service_name')}='governance' AND ${value('a','auth_required')}='1' AND ${value('a','permission_key')}='role_screen_permissions'
    GROUP BY ${value('a','route_path')}`, [['/v1/voice/otp/start','/v1/voice/otp/check','/v1/voice/contact/status','/v1/voice/contact/start','/v1/voice/contact/check']]);

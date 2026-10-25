@@ -2,6 +2,7 @@ import 'package:flutter_core/platform/platform_master_repository.dart';
 import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
+import '../../communications/communication_workspace.dart';
 import 'platform_master_controller.dart';
 import 'platform_master_catalog.g.dart';
 
@@ -87,6 +88,11 @@ class _PlatformMasterScreenState extends ConsumerState<_ScopedPlatformMasterScre
     return Scaffold(appBar: AppBar(title: Text(text('masters'))), body: SafeArea(
       child: SingleChildScrollView(padding: EdgeInsets.all(theme.spacing.lg), child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        if (state.index != null)
+          if (ref.watch(voiceContactControllerProvider) case final VoiceContactController contact) ...[
+            VoiceContactVerificationPanel(key: ObjectKey(contact), model: contact,
+              language: Localizations.localeOf(context).languageCode), gap,
+          ],
         Text(text('master_scope'), style: theme.typography.bodyMedium), gap,
         Text(text('limit'), style: theme.typography.bodyMedium), gap,
         PrimeButton(label: text('account'), dataCy: 'platform-account-link',
