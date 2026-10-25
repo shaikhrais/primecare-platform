@@ -77,8 +77,10 @@ jobs:
           node tools/internal-call-schema-validators.mjs
           node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs scripts/test-communication-audio-session.mjs scripts/test-internal-call-deployment-plan.mjs scripts/test-internal-call-batched-peer.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-communication-gateway.mjs
           node scripts/test-internal-call-turn-workerd.mjs
-          node scripts/test-internal-call-http-postgres.mjs
-          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/business-tasks/internal-call-worker.ts websites/typescript/src/internal-calls.ts
+          call_test_status=0
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/business-tasks/internal-call-worker.ts websites/typescript/src/internal-calls.ts || call_test_status=1
+          node scripts/test-internal-call-http-postgres.mjs || call_test_status=1
+          exit "$call_test_status"
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: internal-call-native, path: test-results/internal-calls, retention-days: 30}
