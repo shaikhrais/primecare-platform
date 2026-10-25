@@ -9,6 +9,7 @@ on:
       - 'tools/governance-production/native_call_contracts.py'
       - 'tools/governance-production/test-internal-call-*'
       - 'websites/typescript/src/internal-call*'
+      - 'websites/typescript/src/infrastructure/webrtc/*'
       - 'scripts/*internal-call*'
       - 'packages/database/migrations/20261025_internal_call_extensions.sql'
       - 'packages/shared/src/communications/audio-session.mjs'
@@ -74,7 +75,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/call-tests" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 esbuild@0.27.2 ajv@8.17.1 twilio@6.2.0 miniflare@4.20260730.0
           ln -s "$RUNNER_TEMP/call-tests/node_modules" node_modules
           node tools/internal-call-schema-validators.mjs
-          node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs scripts/test-communication-audio-session.mjs scripts/test-internal-call-deployment-plan.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-communication-gateway.mjs
+          node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs scripts/test-communication-audio-session.mjs scripts/test-internal-call-deployment-plan.mjs scripts/test-internal-call-batched-peer.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-communication-gateway.mjs
           node scripts/test-internal-call-turn-workerd.mjs
           node scripts/test-internal-call-http-postgres.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/business-tasks/internal-call-worker.ts websites/typescript/src/internal-calls.ts

@@ -119,3 +119,24 @@ to accept only HTTP201, rejecting every redirect without following it or sending
 credentials onward. A real Workerd regression constructs the native Request,
 parses the provider stream, and verifies one-attempt redirect rejection.
 Reference: https://developers.cloudflare.com/workers/runtime-apis/request/
+
+Reverse-call review found deterministic pair conversations reused an actor-bound
+create idempotency key, so the other participant could hit an idempotency conflict.
+Call conversations now bind to tenant/caller/request UUID, giving every call one
+bounded session while preserving ambiguous retry identity across directory
+changes. Inbox selection prioritizes active calls, returns a bounded recent
+history, and excludes inactive-party histories before independently authorizing
+each returned record. Native tests cover reverse calls, 110 older histories, and
+inactive-party isolation. Live acceptance now requires relay audio in both call
+directions before revocation/end/cleanup can pass.
+
+The redirect fix allowed both browsers to obtain credentials and capture audio.
+The next live trace showed SDP writes contending with lease version updates and
+many per-candidate database RPCs. Presence now updates only its operational JSON
+lease under the native row lock, preserving semantic call versions and all
+current scope checks. The browser uses a derived RTCPeerConnection that waits for
+bounded ICE gathering and sends complete SDP through the inherited audio/session
+logic, avoiding trickle-candidate RPCs. No shared media authorization is replaced.
+Native scoped reads are reused when no expiry mutation occurs. Regression tests
+cover complete-SDP gating, cancellation, timeout, version-stable presence, reverse
+calling, active-inbox priority and inactive-party histories.

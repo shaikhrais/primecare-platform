@@ -40,11 +40,11 @@ try{
  await request(alice,'dial',{extension:foreign.extension,requestId:crypto.randomUUID()},404);
  report.stage='dial-and-answer';
  await cy(alice.page,'internal-call-extension').fill(bob.extension);
- const dialPromise=alice.page.waitForResponse(r=>r.url()===gateway+'/v1/calls/dial'&&r.request().method()==='POST');await cy(alice.page,'internal-call-dial').click();const dialResponse=await dialPromise;assert.equal(dialResponse.status(),200);const view=await dialResponse.json(),callId=view.calls.at(-1).id,dialBody=dialResponse.request().postDataJSON();
+ const dialPromise=alice.page.waitForResponse(r=>r.url()===gateway+'/v1/calls/dial'&&r.request().method()==='POST');await cy(alice.page,'internal-call-dial').click();const dialResponse=await dialPromise;assert.equal(dialResponse.status(),200);let view=await dialResponse.json(),callId=view.calls.at(-1).id;const dialBody=dialResponse.request().postDataJSON();
  const retry=await request(alice,'dial',dialBody);assert.equal(retry.calls.filter(c=>c.id===callId).length,1);
  await request(alice,'media',{id:view.id,callId},409);await request(foreign,'command',{action:'read',id:view.id},404);await request(foreign,'media',{id:view.id,callId},404);
  await until(async()=>await cy(bob.page,'internal-call-answer').isEnabled());await cy(bob.page,'internal-call-answer').click();
- report.stage='relay-audio';
+ report.stage='relay-audio';const mediaStartedAt=Date.now();
  const stats=page=>page.evaluate(async()=>{
   const peer=window.__callPeers.at(-1);if(!peer)return {ready:false,peerCreated:false};
   const all=await peer.getStats(),audio=[...all.values()].filter(s=>s.type==='inbound-rtp'&&(s.kind==='audio'||s.mediaType==='audio'));
@@ -52,10 +52,16 @@ try{
   const local=pair&&all.get(pair.localCandidateId),remote=pair&&all.get(pair.remoteCandidateId);
   return {connectionState:peer.connectionState,iceState:peer.iceConnectionState,signalingState:peer.signalingState,ready:peer.connectionState==='connected'&&audio.some(s=>s.packetsReceived>10)&&local?.candidateType==='relay'&&remote?.candidateType==='relay',packets:audio.reduce((sum,s)=>sum+(s.packetsReceived??0),0),relay:local?.candidateType==='relay'&&remote?.candidateType==='relay'};
  });
- await until(async()=>{const both=await Promise.all([stats(alice.page),stats(bob.page)]);report.mediaSummary=both;return both.every(s=>s.ready);},90000);
- const before=await Promise.all([stats(alice.page),stats(bob.page)]);await new Promise(r=>setTimeout(r,1500));const after=await Promise.all([stats(alice.page),stats(bob.page)]);assert.ok(after.every((s,i)=>s.packets>before[i].packets));report.relayAudio=true;report.bidirectionalPacketGrowth=true;
+ await until(async()=>{const both=await Promise.all([stats(alice.page),stats(bob.page)]);report.mediaSummary=both;return both.every(s=>s.ready);},180000);
+ const before=await Promise.all([stats(alice.page),stats(bob.page)]);await new Promise(r=>setTimeout(r,1500));const after=await Promise.all([stats(alice.page),stats(bob.page)]);assert.ok(after.every((s,i)=>s.packets>before[i].packets));report.relayAudio=true;report.connectionMilliseconds=Date.now()-mediaStartedAt;report.bidirectionalPacketGrowth=true;
  const state=(await db.query('SELECT state FROM business_work_aggregates WHERE tenant_id=$1 AND id=$2',[alice.tenant,view.id])).rows[0].state;assert.equal(state.calls.find(c=>c.id===callId).status,'accepted');assert.ok(state.calls.find(c=>c.id===callId).signals.some(s=>s.signal.type==='offer'));assert.ok(state.calls.find(c=>c.id===callId).signals.some(s=>s.signal.type==='answer'));report.independentNativeReadback=true;
  await cy(alice.page,'internal-call-mute').click();assert.equal(await alice.page.evaluate(()=>window.__callTracks.filter(t=>t.readyState==='live').every(t=>!t.enabled)),true);await cy(alice.page,'internal-call-mute').click();report.muteVerified=true;
+
+ report.stage='reverse-call';
+ const firstId=view.id,firstCallId=callId;
+ await cy(bob.page,'internal-call-end').click();await until(async()=>{const both=await Promise.all([alice.page,bob.page].map(page=>page.evaluate(()=>window.__callPeers.every(p=>p.connectionState==='closed')&&window.__callTracks.every(t=>t.readyState==='ended'))));const record=(await db.query('SELECT state FROM business_work_aggregates WHERE tenant_id=$1 AND id=$2',[alice.tenant,firstId])).rows[0].state;return both.every(Boolean)&&record.calls.find(c=>c.id===firstCallId).status==='ended';});
+ await cy(bob.page,'internal-call-extension').fill(alice.extension);const reverseResponse=bob.page.waitForResponse(r=>r.url()===gateway+'/v1/calls/dial'&&r.request().method()==='POST');await cy(bob.page,'internal-call-dial').click();const reverse=await reverseResponse;assert.equal(reverse.status(),200);view=await reverse.json();callId=view.calls.at(-1).id;assert.notEqual(view.id,firstId);assert.equal(view.calls.at(-1).callerId,bob.id);
+ await until(async()=>await cy(alice.page,'internal-call-answer').isEnabled());await cy(alice.page,'internal-call-answer').click();await until(async()=>{const both=await Promise.all([stats(alice.page),stats(bob.page)]);report.reverseMediaSummary=both;return both.every(s=>s.ready);},90000);report.reverseCallingVerified=true;
  report.stage='session-revocation';const logout=await fetch(gateway+'/v1/auth/logout',{method:'POST',headers:{authorization:'Bearer '+alice.token},signal:AbortSignal.timeout(20000)});assert.equal(logout.status,200);
  await until(()=>alice.page.evaluate(()=>window.__callPeers.every(p=>p.connectionState==='closed')&&window.__callTracks.every(t=>t.readyState==='ended')),30000);await request(alice,'directory',{},401);report.revokedSessionMediaReleased=true;
  // The still-authorized recipient ends the shared call through the actual UI.

@@ -1,3 +1,4 @@
+import {BatchedIcePeerConnection} from './infrastructure/webrtc/batched-peer';
 import {CommunicationResourceBase} from '../../../packages/shared/src/communications/adapter-base.mjs';
 import {BrowserAudioSession} from '../../../packages/shared/src/communications/audio-session.mjs';
 import {InternalCallClient,InternalCallRequestError} from './internal-call-client';
@@ -47,7 +48,7 @@ export class InternalCallsPanel extends CommunicationResourceBase {
  async refresh(){if(this.polling||this.closed)return;this.polling=true;try{
   this.current();const data=await this.client.command({action:'inbox'}) as {items:View[]};this.current();
   const all=data.items.flatMap(view=>view.calls.map(call=>({view,call}))),active=all.filter(x=>['ringing','accepted'].includes(x.call.status));this.active=active.find(x=>x.call.recipientId===this.userId)??active[0]??null;
-  this.root.querySelector('[data-cy=internal-call-history]')!.innerHTML=all.filter(x=>!['ringing','accepted'].includes(x.call.status)).slice(-20).reverse().map(x=>`<li>${escape(this.labels[x.call.status==='missed'?'missed':'closed'])}</li>`).join('');
+  this.root.querySelector('[data-cy=internal-call-history]')!.innerHTML=all.filter(x=>!['ringing','accepted'].includes(x.call.status)).sort((a,b)=>a.call.expiresAt-b.call.expiresAt).slice(-20).reverse().map(x=>`<li>${escape(this.labels[x.call.status==='missed'?'missed':'closed'])}</li>`).join('');
   if(this.session&&!this.session.closed&&this.active?.call.status==='accepted'&&Date.now()-this.lastHeartbeat>10000){this.lastHeartbeat=Date.now();try{await this.client.command({action:'heartbeat',id:this.active.view.id,callId:this.active.call.id});}catch(error){if(!(error instanceof InternalCallRequestError)||error.status!==409)throw error;}}
   if(this.pending&&all.some(x=>x.call.id==='call:'+this.pending!.requestId))this.pending=null;
   if(!this.active||this.session&&this.session.closed){this.session?.close();this.session=null;}this.draw();
@@ -64,7 +65,7 @@ export class InternalCallsPanel extends CommunicationResourceBase {
  }
  async startMedia(){
   if(this.closed||this.starting||this.session&&!this.session.closed||this.active?.call.status!=='accepted')return;const current=this.active;this.starting=true;this.attempted.add(current.call.id);
-  const session=new BrowserAudioSession({userId:this.userId,threadId:current.view.id,callId:current.call.id,transport:{execute:(_channel,input)=>this.client.command(input)},configurationProvider:async()=>await this.client.media(current.view.id,current.call.id) as any,intervalMilliseconds:1000,onError:()=>this.message('unavailable'),media:{configuration:{iceServers:[],iceTransportPolicy:'relay'},getUserMedia:c=>navigator.mediaDevices.getUserMedia(c),createPeer:c=>new RTCPeerConnection(c),onTrack:stream=>{this.audio.srcObject=stream;void this.audio.play().catch(()=>this.message('hear'));},onState:state=>{if(!this.closed){this.message(state==='connected'?'connected':state==='closed'?'closed':'accepted');this.draw();}}}});
+  const session=new BrowserAudioSession({userId:this.userId,threadId:current.view.id,callId:current.call.id,transport:{execute:(_channel,input)=>this.client.command(input)},configurationProvider:async()=>await this.client.media(current.view.id,current.call.id) as any,intervalMilliseconds:1000,onError:()=>this.message('unavailable'),media:{configuration:{iceServers:[],iceTransportPolicy:'relay'},getUserMedia:c=>navigator.mediaDevices.getUserMedia(c),createPeer:c=>new BatchedIcePeerConnection(c),onTrack:stream=>{this.audio.srcObject=stream;void this.audio.play().catch(()=>this.message('hear'));},onState:state=>{if(!this.closed){this.message(state==='connected'?'connected':state==='closed'?'closed':'accepted');this.draw();}}}});
   this.session=session;try{await session.start();this.current();}catch(error){session.close();if(this.session===session)this.session=null;this.message(error instanceof DOMException&&['NotAllowedError','SecurityError'].includes(error.name)?'permission':error instanceof InternalCallRequestError&&error.status===401?'login':'unavailable');}finally{this.starting=false;this.draw();}
  }
 }

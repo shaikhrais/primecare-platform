@@ -43,16 +43,11 @@ export class InternalCallApplication extends ScopedServiceBase {
   if(!state.id.startsWith('internal-call:')||state.members.length!==2||!state.members.includes(actor.id))throw unavailable();
   return {id:state.id,kind:'conversation',version:state.version,members:state.members,calls:state.calls.filter((c:any)=>[c.callerId,c.recipientId].includes(actor.id)).slice(-20).map((c:any)=>({id:c.id,callerId:c.callerId,recipientId:c.recipientId,status:c.status,expiresAt:c.expiresAt,signals:c.status==='accepted'?(c.signals??[]):[],...(c.offered===undefined?{}:{offered:c.offered}),...(c.answered===undefined?{}:{answered:c.answered})}))};
  }
- async read(actor:Actor,id:string){if(typeof id!=='string'||!id.startsWith('internal-call:'))throw unavailable();await this.sweep(actor,id);return this.view(await this.core.calls.read(actor,id),actor);}
+ async read(actor:Actor,id:string){if(typeof id!=='string'||!id.startsWith('internal-call:'))throw unavailable();return this.view(await this.sweep(actor,id),actor);}
  async inbox(actor:Actor){
   await this.policy.assert(actor,'conversation.inbox',null);
-  const rows=(await this.pool.query(`SELECT id FROM business_work_aggregates WHERE tenant_id=$1 AND id LIKE 'internal-call:%' AND state->>'kind'='conversation' AND state->'members' ? $2 ORDER BY id LIMIT 100`,[actor.tenantId,actor.id])).rows;const items=[];
-  for(const r of rows){await this.sweep(actor,r.id);let state=await this.core.calls.read(actor,r.id);let changes=false;
-   for(const c of state.calls)if(c.status==='ringing'&&c.expiresAt<=Date.now()&&[c.callerId,c.recipientId].includes(actor.id)){
-    try{await this.core.calls.call(actor,r.id,'expire:'+c.id,state.version,'expire',c.id);changes=true;break;}catch(error){if(!(error instanceof Error)||error.message!=='Version conflict')throw error;}
-   }
-   if(changes)state=await this.core.calls.read(actor,r.id);items.push(this.view(state,actor));
-  }
+  const rows=(await this.pool.query(`SELECT w.id FROM business_work_aggregates w WHERE w.tenant_id=$1 AND w.id LIKE 'internal-call:%' AND w.state->>'kind'='conversation' AND w.state->'members' ? $2 AND NOT EXISTS(SELECT 1 FROM jsonb_array_elements_text(w.state->'members') member WHERE NOT EXISTS(SELECT 1 FROM users u JOIN tenants t ON t.id=u.tenant_id WHERE u.id::text=member.value AND u.tenant_id::text=w.tenant_id AND LOWER(u.status)='active' AND LOWER(t.status)='active')) ORDER BY CASE WHEN EXISTS(SELECT 1 FROM jsonb_array_elements(w.state->'calls') c WHERE (c->>'status'='ringing' AND (c->>'expiresAt')::bigint>$3) OR (c->>'status'='accepted' AND LEAST(COALESCE((c->'lastSeen'->>(c->>'callerId'))::bigint,(c->>'expiresAt')::bigint),COALESCE((c->'lastSeen'->>(c->>'recipientId'))::bigint,(c->>'expiresAt')::bigint))>$3-90000)) THEN 0 ELSE 1 END,COALESCE((SELECT MAX((c->>'expiresAt')::bigint) FROM jsonb_array_elements(w.state->'calls') c),0) DESC,w.id LIMIT 25`,[actor.tenantId,actor.id,Date.now()])).rows;const items=[];
+  for(const r of rows)items.push(this.view(await this.sweep(actor,r.id),actor));
   return {items};
  }
  async dial(actor:Actor,extension:string,requestId:string){
@@ -66,9 +61,9 @@ export class InternalCallApplication extends ScopedServiceBase {
  private async dialLocked(actor:Actor,extension:string,requestId:string,lockedUserId:string,lockedVersion:number){
   if(typeof extension!=='string'||!/^[1-9][0-9]{3}$/.test(extension)||typeof requestId!=='string'||!/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/.test(requestId))throw unavailable();
   const targets=await this.core.directory.lookup(extension,2);if(targets.length!==1||targets[0].tenantId!==actor.tenantId||targets[0].userId!==lockedUserId||targets[0].version!==lockedVersion||targets[0].userId===actor.id||targets[0].published!==true||!targets[0].userId)throw unavailable();
-  const target=targets[0].userId,hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify([actor.tenantId,...[actor.id,target].sort()]))),id='internal-call:'+Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
+  const target=targets[0].userId,hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify([actor.tenantId,actor.id,requestId]))),id='internal-call:'+Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
   await this.core.calls.create(actor,id,'create',[actor.id,target].sort(),'general');
-  await this.sweep(actor,id);const state=await this.core.calls.read(actor,id),callId='call:'+requestId,old=state.calls.find((c:any)=>c.id===callId);
+  const state=await this.sweep(actor,id),callId='call:'+requestId,old=state.calls.find((c:any)=>c.id===callId);
   if(old){if(old.callerId!==actor.id||old.recipientId!==target)throw unavailable();return this.view(state,actor);}
   const busy=(await this.pool.query(`SELECT id FROM business_work_aggregates w WHERE tenant_id=$1 AND id LIKE 'internal-call:%' AND (state->'members' ? $2 OR state->'members' ? $3) AND EXISTS(SELECT 1 FROM jsonb_array_elements(state->'calls') c WHERE (c->>'status'='ringing' AND (c->>'expiresAt')::bigint>$4) OR (c->>'status'='accepted' AND LEAST(COALESCE((c->'lastSeen'->>(c->>'callerId'))::bigint,(c->>'expiresAt')::bigint),COALESCE((c->'lastSeen'->>(c->>'recipientId'))::bigint,(c->>'expiresAt')::bigint))>$4-90000)) LIMIT 1`,[actor.tenantId,actor.id,target,Date.now()])).rows;
   if(busy.length)throw Error('Call conflict');
@@ -77,20 +72,22 @@ export class InternalCallApplication extends ScopedServiceBase {
  private async sweep(actor:Actor,id:string){
   const state=await this.core.calls.read(actor,id),now=Date.now();
   const expired=state.calls.find((c:any)=>[c.callerId,c.recipientId].includes(actor.id)&&(c.status==='ringing'&&c.expiresAt<=now||c.status==='accepted'&&Math.min(c.lastSeen?.[c.callerId]??c.expiresAt,c.lastSeen?.[c.recipientId]??c.expiresAt)<now-90000));
-  if(expired)try{await this.core.calls.call(actor,id,'sweep:'+expired.id+':'+expired.status,state.version,expired.status==='ringing'?'expire':'end',expired.id);}catch(error){if(!(error instanceof Error)||!['Version conflict','Call conflict'].includes(error.message))throw error;}
+  if(!expired)return state;
+  try{await this.core.calls.call(actor,id,'sweep:'+expired.id+':'+expired.status,state.version,expired.status==='ringing'?'expire':'end',expired.id);}catch(error){if(!(error instanceof Error)||!['Version conflict','Call conflict'].includes(error.message))throw error;}
+  return this.core.calls.read(actor,id);
  }
  private async heartbeat(actor:Actor,id:string,callId:string){
-  const state=await this.core.calls.read(actor,id),call=state.calls.find((c:any)=>c.id===callId);
-  if(!call||call.status!=='accepted'||![call.callerId,call.recipientId].includes(actor.id))throw Error('Call not accepted');
-  const now=Date.now();if(Math.min(call.lastSeen?.[call.callerId]??call.expiresAt,call.lastSeen?.[call.recipientId]??call.expiresAt)<now-90000)throw Error('Call not accepted');
-  return this.store.run({actor,id,key:'heartbeat:'+callId+':'+actor.id+':'+Math.floor(now/10000),expectedVersion:state.version,type:'conversation.call.heartbeat',payload:{callId}},s=>this.core.calls.authorize(actor,'conversation.call',s),async s=>{
-   const c=s!.calls.find((x:any)=>x.id===callId);if(c.status!=='accepted')throw Error('Call not accepted');
-   c.lastSeen??={[c.callerId]:now,[c.recipientId]:now};c.lastSeen[actor.id]=now;return {state:s!,event:'conversation.call.heartbeat'};
-  });
+  if(typeof id!=='string'||!id.startsWith('internal-call:'))throw unavailable();
+  // Presence is an operational lease, not a semantic call command. Updating it
+  // under PostgreSQL's row lock must not invalidate an offer/answer version.
+  const state=await this.core.calls.read(actor,id);await this.core.calls.authorize(actor,'conversation.call',state);
+  const now=Date.now();
+  const rows=(await this.pool.query(`UPDATE business_work_aggregates w SET state=jsonb_set(w.state,'{calls}',(SELECT jsonb_agg(CASE WHEN c->>'id'=$4 THEN jsonb_set(c,'{lastSeen}',(CASE WHEN jsonb_typeof(c->'lastSeen')='object' THEN c->'lastSeen' ELSE jsonb_build_object(c->>'callerId',$5::bigint,c->>'recipientId',$5::bigint) END)||jsonb_build_object($3::text,GREATEST(COALESCE((c->'lastSeen'->>$3)::bigint,$5::bigint),$5::bigint))) ELSE c END ORDER BY n) FROM jsonb_array_elements(w.state->'calls') WITH ORDINALITY a(c,n))) WHERE w.tenant_id=$1 AND w.id=$2 AND w.state->>'kind'='conversation' AND w.state->'members' ? $3 AND EXISTS(SELECT 1 FROM users u JOIN tenants t ON t.id=u.tenant_id WHERE u.id::text=$3 AND u.tenant_id::text=$1 AND LOWER(u.status)='active' AND LOWER(t.status)='active') AND EXISTS(SELECT 1 FROM jsonb_array_elements(w.state->'calls') c WHERE c->>'id'=$4 AND c->>'status'='accepted' AND (c->>'callerId'=$3 OR c->>'recipientId'=$3) AND LEAST(COALESCE((c->'lastSeen'->>(c->>'callerId'))::bigint,(c->>'expiresAt')::bigint),COALESCE((c->'lastSeen'->>(c->>'recipientId'))::bigint,(c->>'expiresAt')::bigint))>=$5-90000) RETURNING (state->>'version')::text AS version`,[actor.tenantId,id,actor.id,callId,now])).rows;
+  if(rows.length!==1||!Number.isSafeInteger(Number(rows[0].version)))throw Error('Call not accepted');
+  return {id,version:Number(rows[0].version)};
  }
  async command(actor:Actor,input:any){
-  if(input.action==='inbox')return this.inbox(actor);if(input.action==='read')return this.read(actor,input.id);await this.read(actor,input.id);
-  if(input.action==='heartbeat')return this.heartbeat(actor,input.id,input.callId);
+  if(input.action==='inbox')return this.inbox(actor);if(input.action==='read')return this.read(actor,input.id);if(input.action==='heartbeat')return this.heartbeat(actor,input.id,input.callId);await this.read(actor,input.id);
   const result=await this.core.execute(actor,input);
   if(input.action==='accept')return this.heartbeat(actor,input.id,input.callId);
   return result;
