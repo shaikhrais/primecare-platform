@@ -6,7 +6,7 @@ import {mkdtemp,writeFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 const bundle=await build({entryPoints:['cloudflare/workers/src/business-tasks/voice-contact-worker.ts'],bundle:true,write:false,platform:'node',format:'cjs'});
-const dir=await mkdtemp(join(tmpdir(),'primecare-contact-')),file=join(dir,'host.cjs');await writeFile(file,bundle.outputFiles[0].text);const {VoiceContactEnrollmentWorker,nativeContactPostgresOptions}=createRequire(import.meta.url)(file);await rm(dir,{recursive:true,force:true});
+const dir=await mkdtemp(join(tmpdir(),'primecare-contact-')),file=join(dir,'host.cjs');await writeFile(file,bundle.outputFiles[0].text);const {VoiceContactEnrollmentWorker,nativeContactPostgresOptions,nativeContactFailureCategory}=createRequire(import.meta.url)(file);await rm(dir,{recursive:true,force:true});
 import {PostgresVoiceContactAccessPolicy} from '../cloudflare/workers/src/business-tasks/voice-contact-native-policy.ts';
 import {NativeVoiceContactHttpAdapter,NativeVoiceHttpAdapter} from '../packages/shared/src/communications/voice-native-http.mjs';
 import {TwilioVerifyFetchClient} from '../packages/shared/src/communications/twilio-verify-fetch.mjs';
@@ -83,4 +83,8 @@ test('native host uses real PostgreSQL session and current grants through SDK fe
 test('native PostgreSQL URL cannot redirect the database or weaken certificate verification',()=>{
  const options=nativeContactPostgresOptions('postgres://fixture:private@pooled.db.prisma.io/postgres?ssl=false&sslmode=no-verify');assert.equal(options.host,'pooled.db.prisma.io');assert.equal(options.database,'postgres');assert.deepEqual(options.ssl,{rejectUnauthorized:true});assert.equal('connectionString' in options,false);
  for(const url of ['postgres://fixture:private@foreign.invalid/postgres','postgres://fixture:private@db.prisma.io/postgres','postgres://fixture:private@pooled.db.prisma.io/other'])assert.throws(()=>nativeContactPostgresOptions(url),/Pinned/);
+});
+
+test('operational failure categories never expose private exception text or connection details',()=>{
+ assert.equal(nativeContactFailureCategory({code:'42703',message:'PRIVATE COLUMN'}),'postgres_42703');assert.equal(nativeContactFailureCategory(new Error('Dynamic require of node:tls')),'runtime_module');assert.equal(nativeContactFailureCategory(new Error('PRIVATE PASSWORD AND DATABASE URL')),'host_unavailable');
 });

@@ -21,6 +21,18 @@ export function nativeContactPostgresOptions(value:string){
 function openPool(value:string):NativePool{
  const pool=new Pool(nativeContactPostgresOptions(value));pool.on('error',()=>{});return pool;
 }
+/** Bounded operational category only; never expose error text, SQL, credentials,
+ * phone numbers or code values. Used only on unavailable responses. */
+export function nativeContactFailureCategory(error:unknown):string{
+ const value=error as {code?:unknown;message?:unknown};
+ if(typeof value?.code==='string'&&/^[0-9A-Z]{5}$/.test(value.code))return 'postgres_'+value.code;
+ if(['ENOTFOUND','ECONNREFUSED','ECONNRESET','ETIMEDOUT','UNABLE_TO_VERIFY_LEAF_SIGNATURE','SELF_SIGNED_CERT_IN_CHAIN','ERR_TLS_CERT_ALTNAME_INVALID'].includes(String(value?.code)))return 'database_connection';
+ const message=typeof value?.message==='string'?value.message:'';
+ if(message.includes('Dynamic require of'))return 'runtime_module';
+ if(message==='Pinned native database required')return 'database_configuration';
+ if(message==='Verify transport configuration required')return 'verify_configuration';
+ return 'host_unavailable';
+}
 const headers={'cache-control':'private, no-store','x-content-type-options':'nosniff'};
 /** Native endpoint host only. Per-request pool, current PostgreSQL sessions,
  * exact permissions, durable quotas, official Verify SDK and bounded fetch. */
@@ -35,23 +47,24 @@ export class VoiceContactEnrollmentWorker extends BaseWorker<VoiceContactEnviron
   if(url.search||url.hash)return deny(400,'invalid_voice_request');
   const origin=request.headers.get('origin');if(origin!==null&&!config.appOrigins.includes(origin)||origin===null&&request.headers.get('sec-fetch-site')==='cross-site')return deny(403,'forbidden');
   if(!request.headers.has('authorization')||!tokenFrom(request))return deny(401,'unauthorized');
-  if(!/^[a-f0-9]{40}$/.test(env.VOICE_CONTACT_SOURCE)||typeof env.VOICE_CONTACT_LIMIT?.limit!=='function')return deny(503,'voice_unavailable');
+  if(!/^[a-f0-9]{40}$/.test(env.VOICE_CONTACT_SOURCE)||typeof env.VOICE_CONTACT_LIMIT?.limit!=='function')return deny(503,'voice_unavailable',{'x-primecare-native-health':'runtime_configuration'});
   const hash=await sha256(tokenFrom(request)!);
-  const ip=request.headers.get('cf-connecting-ip');if(!ip||ip.length>64)return deny(503,'voice_unavailable');
+  const ip=request.headers.get('cf-connecting-ip');if(!ip||ip.length>64)return deny(503,'voice_unavailable',{'x-primecare-native-health':'missing_source_context'});
   for(const key of ['session:'+hash,'source:'+await sha256(ip)])if((await env.VOICE_CONTACT_LIMIT.limit({key})).success!==true)return deny(429,'rate_limited');
   const pool=(this.ports.openPool??openPool)(env.DB_URL);
+  let runtimeFailure:string|undefined;
   try{
    const sessions=new PostgresVoiceContactSessions(pool),permissions=new PostgresVoiceEndpointPolicy(pool);
    const provider=new TwilioVerifyFetchClient({serviceSid:env.TWILIO_VERIFY_SERVICE_SID,apiKeySid:env.TWILIO_API_KEY_SID,apiKeySecret:env.TWILIO_API_KEY_SECRET,fetch:this.ports.providerFetch});
    const service=new VoiceContactEnrollmentService(new PostgresAtomicStore(pool,'business_sms'),new PostgresVoiceContactAccessPolicy(pool),new PostgresVoiceContactRepository(pool),{sessions,provider:phone=>createTwilioContactEnrollmentClient({accountSid:env.TWILIO_ACCOUNT_SID,apiKeySid:env.TWILIO_API_KEY_SID,apiKeySecret:env.TWILIO_API_KEY_SECRET,serviceSid:env.TWILIO_VERIFY_SERVICE_SID,purpose:'first-time-contact-enrollment',phone,httpClient:provider})});
    const adapter=new NativeVoiceContactHttpAdapter({origin:url.origin,appOrigins:config.appOrigins,maxRequestBytes:config.maxRequestBytes,service,authenticate:async req=>{
-    const token=tokenFrom(req);if(!token)throw new NativeVoiceHttpError(401);const row=await sessions.currentSession(await sha256(token));
+    const token=tokenFrom(req);if(!token)throw new NativeVoiceHttpError(401);let row;try{row=await sessions.currentSession(await sha256(token));}catch(error){runtimeFailure=nativeContactFailureCategory(error);throw error;}
     if(!row)throw new NativeVoiceHttpError(401);if(req.headers.has('x-tenant-id')&&req.headers.get('x-tenant-id')!==row.tenantId)throw new NativeVoiceHttpError(403);
     return {actor:{id:row.userId,tenantId:row.tenantId},sessionHash:row.id,expiresAt:row.expiresAt};
    },authorize:async(session,key,req)=>{try{await permissions.authorize(session,key,req);}catch{throw new NativeVoiceHttpError(403);}}});
-   return this.#response(env,await adapter.respond(request));
+   const response=await adapter.respond(request);if(response.status===503&&runtimeFailure)response.headers.set('x-primecare-native-health',runtimeFailure);return this.#response(env,response);
   }finally{await pool.end();}
  }
- protected override async onError(_error:unknown,request:Request,env:VoiceContactEnvironment):Promise<Response>{try{await request.body?.cancel();}catch{}return this.#response(env,Response.json({error:'voice_unavailable'},{status:503,headers}));}
+ protected override async onError(error:unknown,request:Request,env:VoiceContactEnvironment):Promise<Response>{try{await request.body?.cancel();}catch{}return this.#response(env,Response.json({error:'voice_unavailable'},{status:503,headers:{...headers,'x-primecare-native-health':nativeContactFailureCategory(error)}}));}
 }
 export default workerHandler(new VoiceContactEnrollmentWorker());
