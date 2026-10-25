@@ -8,6 +8,7 @@ on:
       - 'cloudflare/workers/src/business-tasks/voice-contact.ts'
       - 'cloudflare/workers/src/business-tasks/voice-contact-postgres.ts'
       - 'cloudflare/workers/src/business-tasks/endpoint-policy.ts'
+      - 'tools/governance-production/voice-contact-platform-registration.json'
       - 'packages/shared/src/communications/twilio-verify.mjs'
       - 'packages/shared/src/communications/twilio-webhook.mjs'
       - 'scripts/test-communication-twilio-credentials.mjs'

@@ -54,6 +54,30 @@ void failure(RequestOptions options, RequestInterceptorHandler handler, int stat
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  testWidgets('global own-phone composition delegates tenant identity to native transport', (tester) async {
+    final paths=<String>[];
+    final dio=Dio(BaseOptions(baseUrl:'https://synthetic.invalid'));
+    dio.interceptors.add(InterceptorsWrapper(onRequest:(options,handler){
+      paths.add(options.path);
+      if(options.path==base){success(options,handler,index());return;}
+      expect(options.path,'/v1/voice/contact/status');expect(options.method,'POST');
+      expect(options.data,<String,Object?>{});
+      expect(options.headers.keys.any((k)=>k.toLowerCase()=='x-tenant-id'),false);
+      success(options,handler,{'verified':false,'enrollmentAllowed':true});
+    }));
+    final container=ProviderContainer(overrides:[authProvider.overrideWith(PlatformGlobalAuthFixture.new),
+      apiClientProvider.overrideWith((ref)=>ApiClient(ref,transport:dio))]);
+    addTearDown((){dio.close(force:true);container.dispose();});
+    await tester.pumpWidget(UncontrolledProviderScope(container:container,
+      child:PrimeTheme(data:const PrimeThemeData(),child:const MaterialApp(home:PlatformMasterScreen()))));
+    await tester.pumpAndSettle();
+    expect(find.byType(VoiceContactVerificationPanel),findsOneWidget);
+    expect(paths,[base,'/v1/voice/contact/status']);
+    expect(container.read(voiceContactControllerProvider)!.canSend,true);
+    expect(container.read(communicationWorkspaceControllerProvider),isNull);
+    expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox.shrink());
+  });
+
   testWidgets('registered platform screen reuses own-phone panel without loading clinical messaging', (tester) async {
     final dio=Dio(BaseOptions(baseUrl:'https://synthetic.invalid'));
     var masterReads=0;

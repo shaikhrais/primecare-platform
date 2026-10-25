@@ -307,3 +307,11 @@ tenant, session, own-contact scope, recent login and SMS checks remain mandatory
 
 The new source must pass deployment and Flutter acceptance before this host can
 be called live. Registration alone does not verify an account phone or a call.
+
+Global administration may omit a selected browser tenant. Own-phone composition
+therefore captures the current authenticated user/token and session generation
+without constructing a messaging workspace or requiring a client tenant. The
+native server still resolves the account's actual tenant and enforces all grants.
+The platform regression covers an exact empty-body POST status read with no
+client tenant header and no messaging requests. Auth changes dispose the old
+controller and discard pending results.

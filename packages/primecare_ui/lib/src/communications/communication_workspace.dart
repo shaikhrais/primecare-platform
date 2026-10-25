@@ -19,8 +19,12 @@ final communicationWorkspaceControllerProvider=Provider.autoDispose<Communicatio
 });
 
 final voiceContactControllerProvider=Provider.autoDispose<VoiceContactController?>((ref){
- final workspace=ref.watch(communicationWorkspaceControllerProvider);if(workspace==null)return null;
- final controller=VoiceContactController(hub:workspace.hub);ref.onDispose(controller.dispose);return controller;
+ // Own-phone identity belongs to the native server session. Global accounts
+ // need no client tenant selection and must not instantiate a message workspace.
+ final (signedIn,user,_,token,_)=ref.watch(authProvider.select((s)=>(s.isAuthenticated,s.userId,s.tenantId,s.token,s.role)));
+ if(!signedIn||user==null||user.isEmpty||token==null||token.isEmpty)return null;
+ final hub=ref.watch(apiClientProvider).communications(maxPictureBytes:CommunicationWorkspaceCatalog.limits['maxPictureBytes']!);
+ final controller=VoiceContactController(hub:hub);ref.onDispose(controller.dispose);return controller;
 });
 
 /// Trusted host composition supplies a fresh configured platform media factory.
