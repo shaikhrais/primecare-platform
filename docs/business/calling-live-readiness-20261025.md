@@ -5,9 +5,10 @@ access, within the same tenant. It uses WebRTC and Cloudflare TURN. Twilio is no
 required for this internal calling path.
 
 The live production test passed in both call directions, including a call back.
-The latest first connection took **21,059 ms**, improved from 43,102 ms in the
-preceding test. Calling works, but the one-second setup target remains unmet.
-Sequential database/network round trips remain the next bottleneck.
+The latest answer-to-audio connection took **11,043 ms**, improved from 21,059 ms
+in the preceding indexed-query test. The measurement starts at the Answer click
+and ends when both peers report connected relay audio. Calling works, but the
+one-second setup target remains unmet.
 
 ## Use calling
 
@@ -78,22 +79,50 @@ PostgreSQL origin. Advisory-lock transactions remain on the native connection.
 Neither roles nor authorization results are cached. Optimistic client versions
 are concurrency hints; every command still receives current server checks.
 
+## One database operation for current call context
+
+The inherited session, endpoint and call policies now share one generated,
+parameterized PostgreSQL query. It reads the current native session, manifest,
+API and linked-screen grants, scoped policy documents, active participants,
+linked task and selected call state in one database snapshot. It does not cache
+roles, grant decisions or session validity. Each authorization boundary obtains
+a fresh snapshot. An authorized store read consumes its own snapshot receipt
+once; commands and later reads cannot reuse it.
+
+The production credential returned SQLSTATE 42501 when creating the optional
+stored function, on both pinned database hosts. No function or extra grant was
+installed. Production therefore executes the same SQL directly as one query.
+The optional owner-only SECURITY INVOKER function was tested in disposable
+PostgreSQL, including dry run, independent readback, repeat application and
+preserving a conflicting function.
+
+A complete read request now typically uses four SQL statements instead of 26:
+three fresh HTTP authorization boundaries and one authorized state read. Media
+requests use eight instead of 56. Call mutations keep the inherited native
+transactions, advisory locks, version checks and command ledger.
+
+In the controlled live runs, mean read-request time fell from 1,352 to 574 ms;
+media requests from 3,003 to 1,040 ms; accept from 3,031 to 1,596 ms; and signal
+writes from 2,337 to 1,445 ms. These are observations from one synthetic-browser
+run per source, not a latency guarantee. Database/network latency, native write
+transactions and polling/signaling order remain measurable costs.
+
 ## Verification evidence
 
-- Deployed source: `63f7eafcd578b62c5e795e32c5cf8c0255559f91`.
-- [Production workflow 40234881025](https://github.com/shaikhrais/primecare-platform/actions/runs/40234881025): all 17 jobs passed, including metadata, native checks, deployment, nine website publications and live acceptance.
-- Native suite: 59 cases passed, one existing optional case skipped; 12 PostgreSQL HTTP groups passed, plus real Workerd request/redirect checks and native/tagged policy projection tests.
+- Deployed source: `be2e6fbec97dce110d3b053dc713ac64139f363a`.
+- [Production workflow 40238845542](https://github.com/shaikhrais/primecare-platform/actions/runs/40238845542): all 17 jobs passed, including metadata, native checks, deployment, nine website publications and live acceptance.
+- Native suite: 59 cases passed, one existing optional case skipped; 12 PostgreSQL HTTP groups passed, plus real Workerd request/redirect checks, native/tagged policy projection tests and the combined-query PostgreSQL flow with current revocation, participant, tenant, policy and duplicate-endpoint denials.
 - Chrome 155.0.8059.39: actual native login, explicit extension publication, no pre-acceptance microphone, increasing audio RTP packets and selected relay candidates on both peers.
 - Both call directions, call back, mute/unmute, hangup, idempotent dial, foreign-tenant denial, independent PostgreSQL readback and server-side session revocation cleanup passed.
 - All synthetic users, sessions, extensions and owned call/tenant records were removed. Receipts contain no bearer credentials, raw audio, SDP or IP addresses.
 
-[Current performance and live receipt](../../reports/communications/internal-calling-performance-20261025.json)
+[Current combined-query performance and live receipt](../../reports/communications/internal-calling-context-performance-20261025.json)
 records the source and job identities. This is functional execution evidence;
 independent governance review flags were not marked approved.
 
 ## Known limits
 
-Initial setup remains slow (21.1 seconds in the latest live test). One-second
+Initial setup remains slow (11.0 seconds after answering in the latest live test). One-second
 calling is not verified. The proof used synthetic microphone audio in real
 authenticated browser sessions against live infrastructure. Physical device
 acoustics, every browser/network combination, closed-app ringing, real-speaker

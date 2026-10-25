@@ -1,0 +1,438 @@
+{
+  "version": 1,
+  "status": "deployed-live-verified-one-second-target-unmet",
+  "verifiedAt": "2026-10-25T22:18:14.405Z",
+  "deploymentSource": "be2e6fbec97dce110d3b053dc713ac64139f363a",
+  "workflow": {
+    "runId": 40238845542,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/40238845542",
+    "jobs": [
+      {
+        "id": 121306098449,
+        "name": "native",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121306098545,
+        "name": "metadata",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121306098621,
+        "name": "account_catalog",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121306098650,
+        "name": "readiness",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121306604972,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121306896782,
+        "name": "websites / verify_gateway",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121306921355,
+        "name": "websites / build",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121307063988,
+        "name": "websites / deploy (primecare-client)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121307064047,
+        "name": "websites / deploy (primecare-clinic)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121307064084,
+        "name": "websites / deploy (primecare-business-development)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121307154045,
+        "name": "websites / deploy (primecare-corporate)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121307156786,
+        "name": "websites / deploy (primecare-franchise)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121307162033,
+        "name": "websites / deploy (primecare-marketing)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121307246493,
+        "name": "websites / deploy (primecare-support)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121307251693,
+        "name": "websites / deploy (primecare-governance)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121307264082,
+        "name": "websites / deploy (primecare-enterprise-blueprint)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121307369069,
+        "name": "live",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "strategy": {
+    "runtime": "single-parameterized-read-query",
+    "source": "packages/shared/src/communications/internal-call-context-query.mjs",
+    "generatedFromInheritedPermissionAndPolicySql": true,
+    "freshAtEveryBoundary": true,
+    "sessionOrRoleDecisionCache": false,
+    "callWrites": "inherited native transactions, advisory locks, versions and idempotency",
+    "productionFunctionCreated": false,
+    "optionalFunctionFixtureVerified": true,
+    "functionCreationDiagnostic": {
+      "source": "afe7b997879c26201c9b46431710df82ca37c7b2",
+      "committedWrites": false,
+      "grantsChanged": false,
+      "targets": [
+        {
+          "host": "pooled.db.prisma.io",
+          "phase": "create-function",
+          "privileges": {
+            "schema_create": true,
+            "sql_usage": true
+          },
+          "exists": false,
+          "sqlState": "42501",
+          "permissionError": "bounded_diagnostic_failed"
+        },
+        {
+          "host": "db.prisma.io",
+          "phase": "create-function",
+          "privileges": {
+            "schema_create": true,
+            "sql_usage": true
+          },
+          "exists": false,
+          "sqlState": "42501",
+          "permissionError": "bounded_diagnostic_failed"
+        }
+      ]
+    }
+  },
+  "native": {
+    "source": "be2e6fbec97dce110d3b053dc713ac64139f363a",
+    "nativePostgres": true,
+    "allFiveRegisteredEndpoints": true,
+    "oneQueryPerBoundary": true,
+    "oneQueryAuthorizedRead": true,
+    "currentRevocationsDenied": true,
+    "sessionExpiryDenied": true,
+    "foreignTenantDenied": true,
+    "inactiveParticipantDenied": true,
+    "manifestPolicyDriftDenied": true,
+    "duplicateEndpointDenied": true,
+    "inheritedPolicyParity": true,
+    "ownerOnlyReadOnlyFunction": true,
+    "conflictingFunctionPreserved": true,
+    "fullHttpDialAcceptMediaEnd": true,
+    "passed": true
+  },
+  "comparison": {
+    "baselineSource": "63f7eafcd578b62c5e795e32c5cf8c0255559f91",
+    "baselineRunId": 40234881025,
+    "metric": "Answer-button click to both browser peers reporting connected relay audio",
+    "baselineMilliseconds": 21059,
+    "currentMilliseconds": 11043,
+    "improvementPercent": 47.6,
+    "typicalSqlStatementsExcludingConnectionAcquisition": {
+      "callRead": {
+        "before": 26,
+        "after": 4
+      },
+      "media": {
+        "before": 56,
+        "after": 8
+      },
+      "authorizedStoreRead": {
+        "after": 1
+      }
+    },
+    "liveRpcObservations": {
+      "baseline": {
+        "directory": {
+          "samples": 6,
+          "meanMilliseconds": 1316,
+          "medianMilliseconds": 1361,
+          "p95Milliseconds": 1592
+        },
+        "command:inbox": {
+          "samples": 72,
+          "meanMilliseconds": 1492,
+          "medianMilliseconds": 1434,
+          "p95Milliseconds": 2629
+        },
+        "extension": {
+          "samples": 3,
+          "meanMilliseconds": 2929,
+          "medianMilliseconds": 2964,
+          "p95Milliseconds": 3072
+        },
+        "dial": {
+          "samples": 2,
+          "meanMilliseconds": 6548,
+          "medianMilliseconds": 7215,
+          "p95Milliseconds": 7215
+        },
+        "command:accept": {
+          "samples": 2,
+          "meanMilliseconds": 3031,
+          "medianMilliseconds": 3427,
+          "p95Milliseconds": 3427
+        },
+        "command:read": {
+          "samples": 34,
+          "meanMilliseconds": 1352,
+          "medianMilliseconds": 1333,
+          "p95Milliseconds": 2007
+        },
+        "command:heartbeat": {
+          "samples": 6,
+          "meanMilliseconds": 1706,
+          "medianMilliseconds": 1832,
+          "p95Milliseconds": 2140
+        },
+        "media": {
+          "samples": 4,
+          "meanMilliseconds": 3003,
+          "medianMilliseconds": 3559,
+          "p95Milliseconds": 4128
+        },
+        "command:signal": {
+          "samples": 4,
+          "meanMilliseconds": 2337,
+          "medianMilliseconds": 2146,
+          "p95Milliseconds": 3016
+        },
+        "command:end": {
+          "samples": 2,
+          "meanMilliseconds": 1869,
+          "medianMilliseconds": 2226,
+          "p95Milliseconds": 2226
+        }
+      },
+      "latest": {
+        "directory": {
+          "samples": 6,
+          "meanMilliseconds": 809,
+          "medianMilliseconds": 854,
+          "p95Milliseconds": 1390
+        },
+        "command:inbox": {
+          "samples": 58,
+          "meanMilliseconds": 673,
+          "medianMilliseconds": 618,
+          "p95Milliseconds": 1341
+        },
+        "extension": {
+          "samples": 3,
+          "meanMilliseconds": 2109,
+          "medianMilliseconds": 2111,
+          "p95Milliseconds": 2234
+        },
+        "dial": {
+          "samples": 2,
+          "meanMilliseconds": 3813,
+          "medianMilliseconds": 4245,
+          "p95Milliseconds": 4245
+        },
+        "command:accept": {
+          "samples": 2,
+          "meanMilliseconds": 1596,
+          "medianMilliseconds": 2065,
+          "p95Milliseconds": 2065
+        },
+        "command:read": {
+          "samples": 29,
+          "meanMilliseconds": 574,
+          "medianMilliseconds": 516,
+          "p95Milliseconds": 1088
+        },
+        "media": {
+          "samples": 4,
+          "meanMilliseconds": 1040,
+          "medianMilliseconds": 1044,
+          "p95Milliseconds": 1305
+        },
+        "command:heartbeat": {
+          "samples": 4,
+          "meanMilliseconds": 728,
+          "medianMilliseconds": 707,
+          "p95Milliseconds": 1029
+        },
+        "command:signal": {
+          "samples": 4,
+          "meanMilliseconds": 1445,
+          "medianMilliseconds": 1658,
+          "p95Milliseconds": 2370
+        },
+        "command:end": {
+          "samples": 2,
+          "meanMilliseconds": 889,
+          "medianMilliseconds": 909,
+          "p95Milliseconds": 909
+        }
+      }
+    },
+    "observationLimit": "One controlled live run per source with synthetic microphone audio; not an SLA or statistical benchmark."
+  },
+  "live": {
+    "source": "be2e6fbec97dce110d3b053dc713ac64139f363a",
+    "passed": true,
+    "synthetic": true,
+    "liveBrowsers": true,
+    "relayAudio": true,
+    "syntheticCleanup": true,
+    "stage": "complete",
+    "nativeLogin": true,
+    "explicitExtensionPublication": true,
+    "noPrematureMicrophone": true,
+    "mediaSummary": [
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 39,
+        "relay": true
+      },
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 39,
+        "relay": true
+      }
+    ],
+    "connectionMilliseconds": 11043,
+    "audioVerificationMilliseconds": 12547,
+    "bidirectionalPacketGrowth": true,
+    "independentNativeReadback": true,
+    "muteVerified": true,
+    "reverseMediaSummary": [
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 43,
+        "relay": true
+      },
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 44,
+        "relay": true
+      }
+    ],
+    "reverseCallingVerified": true,
+    "revokedSessionMediaReleased": true,
+    "endVerified": true,
+    "foreignTenantDenied": true,
+    "idempotentDial": true
+  },
+  "serverTimingSamples": {
+    "read": [
+      {
+        "browser": 1,
+        "operation": "command",
+        "timing": "context;dur=320;desc=\"4 queries; max 103ms\", cfExtPri"
+      },
+      {
+        "browser": 0,
+        "operation": "command",
+        "timing": "context;dur=559;desc=\"4 queries; max 150ms\", cfExtPri"
+      },
+      {
+        "browser": 1,
+        "operation": "command",
+        "timing": "context;dur=391;desc=\"4 queries; max 101ms\", cfExtPri"
+      }
+    ],
+    "media": [
+      {
+        "browser": 1,
+        "operation": "media",
+        "timing": "context;dur=803;desc=\"8 queries; max 136ms\", cfExtPri"
+      },
+      {
+        "browser": 0,
+        "operation": "media",
+        "timing": "context;dur=1208;desc=\"8 queries; max 246ms\", cfExtPri"
+      },
+      {
+        "browser": 1,
+        "operation": "media",
+        "timing": "context;dur=685;desc=\"8 queries; max 101ms\", cfExtPri"
+      },
+      {
+        "browser": 0,
+        "operation": "media",
+        "timing": "context;dur=838;desc=\"8 queries; max 119ms\", cfExtPri"
+      }
+    ]
+  },
+  "limits": {
+    "oneSecondVerified": false,
+    "physicalDeviceAcousticsVerified": false,
+    "closedAppRinging": false,
+    "publicPhoneOrVoiceprintReadinessClaimed": false,
+    "independentGovernanceReviewMarkedApproved": false,
+    "remaining": "Current database/network latency, native mutation transactions, and browser polling/signaling order."
+  }
+}
