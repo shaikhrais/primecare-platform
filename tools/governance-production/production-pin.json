@@ -1094,6 +1094,8 @@
     "ownerOnly": true,
     "readOnly": true,
     "governanceRowWrites": false,
-    "businessDataWrites": false
+    "businessDataWrites": false,
+    "productionStrategy": "single-parameterized-query",
+    "productionFunctionCreation": "denied-by-hosted-database"
   }
 }

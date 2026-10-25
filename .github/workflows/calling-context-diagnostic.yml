@@ -1,8 +1,5 @@
 name: Diagnose native call context database permissions
 on:
-  push:
-    branches: [main]
-    paths: ['scripts/diagnose-call-context.mjs', '.github/workflows/calling-context-diagnostic.yml']
   workflow_dispatch:
 permissions:
   contents: read

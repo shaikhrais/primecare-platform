@@ -6,6 +6,7 @@ import {validateCommunicationPolicyDocuments,conversationActions,assertConversat
 import {PostgresAtomicStore} from './store.ts';
 import {assertActor,required,type Actor,type RecordState} from '../../../../packages/shared/src/communications/service-base.ts';
 import definition from '../../../../tools/governance-production/internal-call-contracts-registration.json' with {type:'json'};
+import contextQuery from '../../../../packages/shared/src/communications/internal-call-context-query.mjs';
 import pin from '../../../../tools/governance-production/production-pin.json' with {type:'json'};
 type Snapshot={actor:Actor;policies:Record<string,any>[];activeActor:boolean;members:string[];records:RecordState[];linked:RecordState[]};
 type Database={query(sql:string,values?:any[]):Promise<{rows:Record<string,any>[]}>};
@@ -23,7 +24,7 @@ export class PostgresInternalCallContext extends PostgresCommunicationSession {
   const request=this.request,op=definition.operations.find(o=>o.path===new URL(request.url).pathname);
   if(!op||op.method!==request.method||key!==undefined&&op.key!==key)throw Error('Forbidden');
   const token=request.headers.has('authorization')?tokenFrom(request):null;if(!token)throw new CommunicationSessionError(401);
-  const {rows}=await this.database.query('SELECT public.primecare_call_context_v1($1,$2,$3,$4,$5,$6,$7) AS context',[await sha256(token),op.method,op.path,'INTERNAL_'+op.key.replaceAll('.','_').toUpperCase(),scope.id??null,scope.members??null,scope.reference??null]);
+  const {rows}=await this.database.query(contextQuery,[await sha256(token),op.method,op.path,'INTERNAL_'+op.key.replaceAll('.','_').toUpperCase(),scope.id??null,scope.members??null,scope.reference??null]);
   const c:any=rows.length===1?rows[0].context:null;
   if(!c||typeof c!=='object'||!Array.isArray(c.identity))throw Error('Communication policy unavailable');
   const actor=this.actorFromRows(c.identity,request);

@@ -203,17 +203,6 @@ jobs:
           node scripts/migrate-internal-call-permission-indexes.mjs --apply
           node scripts/migrate-internal-call-permission-indexes.mjs --verify
           node scripts/profile-calling-permissions.mjs --after-index
-      - name: Create and independently verify the owner-only call context procedure
-        env:
-          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
-          CALL_CONTEXT_APPLY: '1'
-        run: |
-          git fetch origin main
-          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
-          node tools/internal-call-context-procedure.mjs
-          node scripts/migrate-internal-call-context.mjs --dry-run
-          node scripts/migrate-internal-call-context.mjs --apply
-          node scripts/migrate-internal-call-context.mjs --verify
       - name: Deploy native calling, owned TURN key and exact gateway routes
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
