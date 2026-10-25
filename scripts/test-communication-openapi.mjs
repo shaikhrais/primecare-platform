@@ -7,17 +7,18 @@ import {buildCommunicationOpenApi,generateCommunicationOpenApi} from './export-c
 import {NativeVoiceHttpAdapter} from '../packages/shared/src/communications/voice-native-http.mjs';
 const voice=JSON.parse(await readFile('tools/governance-production/twilio-contracts-registration.json','utf8'));
 const messaging=JSON.parse(await readFile('packages/shared/src/communications/registered-contracts.json','utf8'));
-const spec=buildCommunicationOpenApi(voice,messaging),ajv=new Ajv({strict:false});
+const inbound=JSON.parse(await readFile('tools/governance-production/messaging-contracts-registration.json','utf8'));
+const spec=buildCommunicationOpenApi(voice,messaging,inbound),ajv=new Ajv({strict:false});
 const schema=ref=>spec.components.schemas[ref.$ref.split('/').at(-1)];
 test('OpenAPI 3.1 structure is valid and checked-in output is reproducible',async()=>{
  const config=await createConfig({rules:{struct:'error','no-unresolved-refs':'error'}});
  const problems=await lintFromString({source:JSON.stringify(spec),absoluteRef:'communications.openapi.json',config});
  assert.deepEqual(problems,[]);await generateCommunicationOpenApi(true);
 });
-test('all 28 exact registered method/path pairs have unique IDs and explicit security',()=>{
- const expected=[...voice.operations.map(o=>[o.path,o.method.toLowerCase()]),...messaging.apis.map(o=>[o.path,o.method.toLowerCase()])];
+test('all 29 exact registered method/path pairs have unique IDs and explicit security',()=>{
+ const expected=[...[...voice.operations,...inbound.operations].map(o=>[o.path,o.method.toLowerCase()]),...messaging.apis.map(o=>[o.path,o.method.toLowerCase()])];
  const actual=Object.entries(spec.paths).flatMap(([path,methods])=>Object.keys(methods).map(method=>[path,method]));
- assert.deepEqual(actual.sort(),expected.sort());const ids=actual.map(([p,m])=>spec.paths[p][m].operationId);assert.equal(new Set(ids).size,28);
+ assert.deepEqual(actual.sort(),expected.sort());const ids=actual.map(([p,m])=>spec.paths[p][m].operationId);assert.equal(new Set(ids).size,29);
  for(const [path,method]of actual){const op=spec.paths[path][method];assert.equal(op.security.length,1);assert.equal(op['x-vapi-exposable'],false);assert.ok(Object.keys(op.responses).length>1);}
  assert.equal(spec['x-production-ready'],false);assert.equal(spec.servers[0].variables.deploymentHost.default,'example.invalid');
 });
@@ -47,4 +48,11 @@ test('published native response and error schemas validate actual adapter respon
 test('documentation has no invented Vapi execution or approval bypass route',()=>{
  assert.ok(!Object.keys(spec.paths).some(path=>path.includes('/vapi/')||path.includes('/execute')));
  for(const path of ['/v1/voice/otp/start','/v1/voice/otp/check','/v1/voice/tasks/approve'])assert.deepEqual(spec.paths[path].post.security,[{nativeSession:[]}]);
+});
+test('inbound SMS documents the exact signed form and empty XML receipt without app-session authority',()=>{
+ const source=inbound.operations[0],op=spec.paths[source.path].post;
+ assert.deepEqual(op.security,[{twilioSignature:[]}]);assert.deepEqual(schema(op.requestBody.content['application/x-www-form-urlencoded'].schema),source.request);
+ assert.equal(ajv.validate(schema(op.responses['200'].content['text/xml'].schema),'<Response/>'),true);
+ assert.equal(ajv.validate(schema(op.responses['200'].content['text/xml'].schema),{message:'sent'}),false);
+ const changed=structuredClone(inbound);changed.operations[0].authentication='none';assert.throws(()=>buildCommunicationOpenApi(voice,messaging,changed),/Exact inbound SMS scope/);
 });

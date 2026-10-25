@@ -9,7 +9,8 @@
   "x-source-authority": "pinned-production-postgresql-registration-snapshots",
   "x-source-sha256": {
     "voice": "5a8d4cfd6c55dcbcece7a71f33271ebd0c318b9d8047430eca4fd3a2bf9bf4d5",
-    "messaging": "821e9c2e9e36bb887b9100e44076ea3a420821b3781171f6a4e850151a07e2d8"
+    "messaging": "821e9c2e9e36bb887b9100e44076ea3a420821b3781171f6a4e850151a07e2d8",
+    "inbound": "435e1166a307f3560cc451cf3db9f7915c35e0f7f31d5659665c8b742505458f"
   },
   "servers": [
     {
@@ -1460,6 +1461,67 @@
         }
       }
     },
+    "/v1/twilio/sms/incoming": {
+      "post": {
+        "operationId": "voice_sms_incoming",
+        "summary": "Verify the exact signed Twilio form and persist the inbound SMS before returning empty TwiML",
+        "description": "Verify the exact signed Twilio form and persist the inbound SMS before returning empty TwiML. Durable duplicates do not create a second AI turn. Control messages and unsupported media stay outside the AI queue. The provider signature does not authenticate a PrimeCare account; verified linking and current consent remain required for any reply. Registration does not mount or activate this route. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.",
+        "tags": [
+          "Twilio provider"
+        ],
+        "security": [
+          {
+            "twilioSignature": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful transport/service response; not evidence of a confirmed appointment.",
+            "content": {
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoiceSmsIncomingResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "x-registration-key": "sms.incoming",
+        "x-registration-status": "registered-unimplemented",
+        "x-runtime-source": "cloudflare/workers/src/business-tasks/voice-composition.ts",
+        "x-permission-key": "twilio.signature",
+        "x-vapi-exposable": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/VoiceSmsIncomingRequest"
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/messages": {
       "post": {
         "operationId": "communication_message_command",
@@ -2887,6 +2949,112 @@
       },
       "VoiceSmsStatusResponse": {
         "type": "null"
+      },
+      "VoiceSmsIncomingRequest": {
+        "type": "object",
+        "properties": {
+          "AccountSid": {
+            "type": "string",
+            "pattern": "^AC[a-fA-F0-9]{32}$",
+            "maxLength": 34
+          },
+          "MessageSid": {
+            "type": "string",
+            "pattern": "^SM[a-fA-F0-9]{32}$",
+            "maxLength": 34
+          },
+          "From": {
+            "type": "string",
+            "pattern": "^\\+[1-9][0-9]{1,14}$",
+            "maxLength": 16
+          },
+          "To": {
+            "type": "string",
+            "pattern": "^\\+[1-9][0-9]{1,14}$",
+            "maxLength": 16
+          },
+          "Body": {
+            "type": "string",
+            "maxLength": 1600,
+            "pattern": "^[^\\u0000\\u000b\\u000c]*$"
+          },
+          "NumMedia": {
+            "enum": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10"
+            ]
+          },
+          "MessagingServiceSid": {
+            "type": "string",
+            "pattern": "^MG[a-fA-F0-9]{32}$",
+            "maxLength": 34
+          },
+          "OptOutType": {
+            "enum": [
+              "STOP",
+              "START",
+              "HELP"
+            ]
+          }
+        },
+        "required": [
+          "AccountSid",
+          "MessageSid",
+          "From",
+          "To",
+          "Body",
+          "NumMedia"
+        ],
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string",
+              "maxLength": 16384
+            },
+            {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 128,
+              "items": {
+                "type": "string",
+                "maxLength": 16384
+              }
+            }
+          ]
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "NumMedia": {
+                  "const": "0"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "Body": {
+                  "pattern": "\\S"
+                }
+              }
+            }
+          }
+        ],
+        "x-primecare-content-type": "application/x-www-form-urlencoded"
+      },
+      "VoiceSmsIncomingResponse": {
+        "type": "string",
+        "const": "<Response/>",
+        "x-primecare-content-type": "text/xml"
       },
       "CommunicationMessageCommandRequest": {
         "oneOf": [

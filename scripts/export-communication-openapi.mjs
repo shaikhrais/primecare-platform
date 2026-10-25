@@ -29,15 +29,17 @@ const behavior={
  'voice.agent_complete':'Return from the verified AI connection through its registered completion handler.',
  'voice.relay':'Upgrade the exact signed WebSocket request. The relay rechecks canonical call, OTP identity, durable session claim and task authorization; no caller-selected actor or tenant is trusted.',
  'sms.status':'Persist, deduplicate or quarantine signed delivery observations before returning 204. Delivery callbacks are not SMS read receipts.',
+ 'sms.incoming':'Verify the exact signed Twilio form and persist the inbound SMS before returning empty TwiML. Durable duplicates do not create a second AI turn. Control messages and unsupported media stay outside the AI queue. The provider signature does not authenticate a PrimeCare account; verified linking and current consent remain required for any reply. Registration does not mount or activate this route.',
 };
 const schemaName=key=>key.split(/[._]/).map(s=>s[0].toUpperCase()+s.slice(1)).join('');
 const jsonContent=schema=>({'application/json':{schema}});
 const ref=name=>({$ref:'#/components/schemas/'+name});
 const digest=value=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
-export function buildCommunicationOpenApi(voice,messaging){
+export function buildCommunicationOpenApi(voice,messaging,inbound){
  if(voice.service!=='governance'||voice.activation!==false||voice.operations.length!==21||messaging.activation!==false||messaging.apis.length!==7)throw Error('Exact registered communication scope required');
+ if(inbound&&(inbound.service!=='governance'||inbound.activation!==false||inbound.operations?.length!==1||inbound.operations[0].key!=='sms.incoming'||inbound.operations[0].method!=='POST'||inbound.operations[0].path!=='/v1/twilio/sms/incoming'||inbound.operations[0].authentication!=='twilio-signed-form'||inbound.operations[0].permission!=='twilio.signature'||inbound.operations[0].responseKind!=='twiml'))throw Error('Exact inbound SMS scope required');
  const spec={openapi:'3.1.0',info:{title:'PrimeCare communication API implementation contract',version:'1.0.0',description:'Typed registered contracts and implemented transport behavior. This document is not proof of deployment, grants, business-tool connectivity or live acceptance. All examples are synthetic. Replace the invalid deployment host only after deployment verification.'},
-  'x-production-ready':false,'x-source-authority':'pinned-production-postgresql-registration-snapshots','x-source-sha256':{voice:digest(voice),messaging:digest(messaging)},
+  'x-production-ready':false,'x-source-authority':'pinned-production-postgresql-registration-snapshots','x-source-sha256':{voice:digest(voice),messaging:digest(messaging),...(inbound?{inbound:digest(inbound)}:{})},
   servers:[{url:'https://{deploymentHost}',description:'Deployment required; no live server is asserted.',variables:{deploymentHost:{default:'example.invalid',description:'Exact independently verified API host. Do not enter provider credentials or secrets here.'}}}],
   tags:[{name:'Voice app'},{name:'Twilio provider'},{name:'Communication'}],paths:{},components:{securitySchemes:{
    nativeSession:{type:'http',scheme:'bearer',description:'Opaque current PrimeCare session token, not a JWT or Vapi management key. Voice APIs reject cookie-only access. Identity and tenant come from the server session.'},
@@ -48,7 +50,7 @@ export function buildCommunicationOpenApi(voice,messaging){
  const errors={400:'Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.',401:'Missing, invalid or expired native session.',403:'Signature, origin, permission, current identity or resource scope denied.',404:'Unregistered route, wrong origin, or scoped resource unavailable.',405:'Wrong HTTP method. Inspect Allow header.',409:'Version, state or idempotency conflict. Do not retry mutations automatically.',413:'Host request or media byte limit exceeded.',415:'Unsupported content type or encoding.',426:'WebSocket Upgrade required.',503:'Dependency or validation failure. A mutation may already have committed; reconcile before retry.'};
  for(const [status,description] of Object.entries(errors))spec.components.responses['Error'+status]={description,content:jsonContent(ref('TransportError'))};
  const add=(path,method,operation)=>{if(spec.paths[path]?.[method])throw Error('Duplicate registered operation');(spec.paths[path]??={})[method]=operation;};
- for(const source of voice.operations){
+ for(const source of [...voice.operations,...(inbound?.operations??[])]){
   const native=source.authentication==='native-session-csrf',socket=source.responseKind==='websocket-upgrade';
   const name='Voice'+schemaName(source.key),requestName=name+'Request',responseName=name+'Response';
   spec.components.schemas[requestName]=structuredClone(source.request);
@@ -64,7 +66,7 @@ export function buildCommunicationOpenApi(voice,messaging){
    op.requestBody={required:true,content:{[media]:{schema:ref(requestName),...(requestExamples[source.key]?{example:requestExamples[source.key]}:{})}}};
    if(source.responseKind==='no-content')op.responses['204']={description:'Callback durably accepted; no response body.'};
    else {
-    const contentType=source.responseKind==='twiml'?'application/xml':source.responseKind==='private-audio-wav'?'audio/wav':'application/json';
+    const contentType=source.key==='sms.incoming'?'text/xml':source.responseKind==='twiml'?'application/xml':source.responseKind==='private-audio-wav'?'audio/wav':'application/json';
     op.responses['200']={description:source.responseKind==='private-audio-wav'?'Private bounded RIFF/WAVE audio; never a public Twilio recording URL.':'Successful transport/service response; not evidence of a confirmed appointment.',content:{[contentType]:{schema:ref(responseName)}}};
    }
   }
@@ -99,9 +101,10 @@ export function buildCommunicationOpenApi(voice,messaging){
 export async function generateCommunicationOpenApi(check=false){
  const voice=JSON.parse(await readFile('tools/governance-production/twilio-contracts-registration.json','utf8'));
  const messaging=JSON.parse(await readFile('packages/shared/src/communications/registered-contracts.json','utf8'));
- const output=JSON.stringify(buildCommunicationOpenApi(voice,messaging),null,2)+'\n',path='packages/contracts/communications.openapi.json';
+ const inbound=JSON.parse(await readFile('tools/governance-production/messaging-contracts-registration.json','utf8'));
+ const spec=buildCommunicationOpenApi(voice,messaging,inbound),output=JSON.stringify(spec,null,2)+'\n',path='packages/contracts/communications.openapi.json';
  if(check){if(await readFile(path,'utf8')!==output)throw Error('Communication OpenAPI differs; regenerate explicitly');}else await writeFile(path,output);
- return {operations:28,productionReady:false};
+ return {operations:Object.values(spec.paths).reduce((count,methods)=>count+Object.keys(methods).length,0),productionReady:false};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  if(process.argv.slice(2).some(arg=>arg!=='--check'))throw Error('Only --check is supported');

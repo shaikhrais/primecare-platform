@@ -1,8 +1,8 @@
 # PrimeCare communication API
 
 The typed OpenAPI 3.1 contract is [communications.openapi.json](communications.openapi.json).
-It documents 28 existing registered operations: seven messaging/media/email
-operations, nine authenticated voice app operations and twelve signed Twilio
+It documents 29 registered operations: seven messaging/media/email
+operations, nine authenticated voice app operations and thirteen signed Twilio
 provider operations. It is generated from the registered schema snapshots;
 documentation does not create endpoints, permissions or a production deployment.
 
@@ -60,6 +60,7 @@ for a caller to change an account. Never expose private management keys to the U
 | Provider pairing | POST `/v1/twilio/voice/pair`, `/wait` | Signed call pairing and verification continuation |
 | Provider AI | POST `/v1/twilio/voice/agent`, `/agent-complete`; GET `/relay` | Verified agent start/completion and signed WebSocket upgrade |
 | SMS callback | POST `/v1/twilio/sms/status` | Durable signed delivery observations |
+| SMS inbox | POST `/v1/twilio/sms/incoming` | Signed, bounded inbound receipt; empty XML after durable inbox acceptance. Account-linked AI replies require separate runtime composition. |
 
 The JSON specification contains full paths, request/response fields, constraints,
 content types and security for every operation. Examples are synthetic and are
@@ -77,6 +78,10 @@ not usable tokens, contacts, call records or approval evidence.
   `x-query-schema` preserves this cross-parameter rule.
 - Twilio forms use bounded UTF-8 `application/x-www-form-urlencoded` bodies.
   Selected callbacks return 204 without a response body; TwiML returns XML.
+- Inbound SMS returns `text/xml` with exactly `<Response/>`. Provider receipt
+  authentication does not identify a PrimeCare user or tenant. Current linked
+  account/consent checks and durable reply processing remain separate; a webhook
+  receipt is not proof that an AI reply was generated, sent or delivered.
 - The signed relay GET upgrades to HTTP 101 without an ordinary JSON body.
   Relay messages are WebSocket frames, not HTTP request/response operations.
 

@@ -23,7 +23,21 @@ custom fields do not select a PrimeCare account. Critical duplicate parameters
 are invalid. Body, SID, phone, media-count and opt-out values are bounded. Media
 messages and STOP/START/HELP controls do not enter the ordinary AI reply queue.
 
-Registration status and API ID must be recorded from the completed protected
-workflow, never inferred from this definition. Handler deployment and all live
-traffic remain pending verified account linking, persistent consent/opt-out
-suppression, the inbox dispatcher and bound outbox/current-policy composition.
+## Verified registration
+
+Protected workflow `40156862426`, source `96fc783d`, registered `sms.incoming`
+as API **16538**. Job `121059986613` passed four definition/schema checks and
+28 native PostgreSQL registration/store checks. Job `121060109417` rolled back
+the production dry run, applied the exact metadata, verified idempotency and
+performed independent readback with writer opt-ins removed. The independently
+read response reports `registered=1`, `roleGrants=0`, `messagesSent=0`,
+`providerWrites=false` and `activation=false`.
+
+The typed communication OpenAPI now includes 29 operations and documents the
+exact form, signature security, empty `text/xml` receipt and error responses.
+Seven local schema/structure/reproduction tests passed; this is documentation
+validation, not a live messaging acceptance test.
+
+Handler deployment and live traffic remain pending verified account linking,
+persistent consent/opt-out suppression, the inbox dispatcher and bound
+outbox/current-policy composition. No runtime or phone routing was changed.

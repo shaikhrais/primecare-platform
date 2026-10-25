@@ -86,3 +86,18 @@ Both files are byte-unchanged between baseline `8dcf4100` and this work. No
 review hash was blindly refreshed, gate disabled, or deprecated SQLite governance
 file created locally to bypass those review requirements. They remain explicit
 broader release blockers for the respective review/fixture maintenance work.
+
+## Next milestone completed: inbound SMS contract
+
+Source `96fc783d`, protected run `40156862426`, independently registered
+`POST /v1/twilio/sms/incoming` as API **16538** in pinned production PostgreSQL.
+Four schema and 28 native registration/store checks passed. No role grants,
+provider changes, schema migrations, live messages or activation occurred.
+The typed communication OpenAPI was extended to 29 operations with seven local
+validation checks passing. See `messaging-inbound-contract-registration.md` and
+`evidence/messaging-inbound-contract-registration-20261024.json`.
+
+Next: bind verified account ownership/conversation selection to persistent
+message-channel links and current consent/opt-out state. No incoming phone number
+may automatically choose an account/tenant. STOP must suppress already queued
+replies, and account/contact/link changes must invalidate stale reply work.
