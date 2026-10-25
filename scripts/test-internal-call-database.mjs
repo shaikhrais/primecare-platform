@@ -4,7 +4,8 @@ import {callDatabaseName,callDatabaseOrigin,assertCallDatabaseConfiguration} fro
 test('fresh database transport is bound to runtime fields and never accepts a raw fallback',()=>{
  const binding={host:'hyperdrive.local',port:5432,database:'postgres',user:'fixture',password:'fixture-only',connectionString:'postgres://fixture:fixture-only@hyperdrive.local:5432/postgres'};
  assert.equal(internalCallDatabaseOptions(binding).connectionString,binding.connectionString);
- for(const value of [undefined,{...binding,host:'foreign'},{...binding,password:'changed'},{...binding,database:'other'},{...binding,connectionString:binding.connectionString+'?sslmode=disable'}])assert.throws(()=>internalCallDatabaseOptions(value),/required/);
+ const runtime={...binding,host:'a'.repeat(32)+'.hyperdrive.local',connectionString:'postgres://fixture:fixture-only@'+'a'.repeat(32)+'.hyperdrive.local:5432/postgres?sslmode=disable'};assert.equal(internalCallDatabaseOptions(runtime).connectionString,runtime.connectionString);
+ for(const value of [undefined,{...binding,host:'foreign'},{...binding,password:'changed'},{...binding,database:'other'},{...binding,host:'public.example',connectionString:'postgres://fixture:fixture-only@public.example:5432/postgres?sslmode=disable'},{...binding,connectionString:binding.connectionString+'?sslmode=require'}])assert.throws(()=>internalCallDatabaseOptions(value),/required/);
 });
 test('only an exact pinned cache-disabled owned configuration may be deployed',()=>{
  const origin=callDatabaseOrigin('postgres://fixture:fixture-only@pooled.db.prisma.io:5432/postgres?sslmode=require');

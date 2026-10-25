@@ -4,7 +4,8 @@ export type InternalCallDatabaseBinding={connectionString:string;host:string;por
 export function internalCallDatabaseOptions(binding:InternalCallDatabaseBinding){
  if(!binding||typeof binding.connectionString!=='string')throw Error('Fresh call database required');
  const url=new URL(binding.connectionString);
- if(!['postgres:','postgresql:'].includes(url.protocol)||url.search||url.hash||url.hostname!==binding.host||Number(url.port||5432)!==binding.port||decodeURIComponent(url.pathname.slice(1))!==binding.database||binding.database!=='postgres'||!binding.user||!binding.password||decodeURIComponent(url.username)!==binding.user||decodeURIComponent(url.password)!==binding.password)throw Error('Fresh call database required');
+ if(!['postgres:','postgresql:'].includes(url.protocol)||(url.search!==''&&url.search!=='?sslmode=disable')||url.hash||!/^([a-f0-9]{32}\.)?hyperdrive\.local$/.test(url.hostname)||url.hostname!==binding.host||Number(url.port||5432)!==binding.port||decodeURIComponent(url.pathname.slice(1))!==binding.database||binding.database!=='postgres'||!binding.user||!binding.password||decodeURIComponent(url.username)!==binding.user||decodeURIComponent(url.password)!==binding.password)throw Error('Fresh call database required');
+ // workerd generates ?sslmode=disable for this in-process tunnel only.
  // The binding terminates locally within the Workers runtime. Hyperdrive's
  // origin connection uses verified TLS; no public plaintext DB URL is accepted.
  return {connectionString:binding.connectionString,max:4,connectionTimeoutMillis:5000,query_timeout:10000,idleTimeoutMillis:1000};
