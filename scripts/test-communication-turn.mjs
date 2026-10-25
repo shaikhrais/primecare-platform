@@ -9,3 +9,8 @@ test('relay credentials are issued only to accepted call parties and withheld if
  service=new InternalCallMediaService(store,policy,{maxMembers:3,maxMessages:20,ringMilliseconds:30000,maxSignalBytes:4096},{async admit(){return quota;},provider:{async issue(){issued++;if(endDuring){const row=await service.read(a,'thread');await service.call(a,'thread','end',row.version,'end','call');}return {iceServers,expiresAt:Date.now()+300000};}}});
  await service.create(a,'thread','create',['alice','bob','charlie'],'synthetic-case');await service.call(a,'thread','invite',1,'invite','call','bob');await assert.rejects(service.configuration(a,'thread','call'));assert.equal(issued,0);await service.call(b,'thread','accept',2,'accept','call');await assert.rejects(service.configuration(c,'thread','call'));assert.equal(issued,0);quota=false;await assert.rejects(service.configuration(a,'thread','call'));assert.equal(issued,0);quota=true;assert.deepEqual((await service.configuration(a,'thread','call')).iceServers,iceServers);endDuring=true;await assert.rejects(service.configuration(a,'thread','call'));assert.equal((await service.read(a,'thread')).calls[0].status,'ended');
 });
+
+test('provider health classifies failure without retaining provider response or credentials',async()=>{
+ const p=new CloudflareTurnProvider({...config,fetch:async()=>Response.json({error:config.apiToken},{status:401})});
+ try{await assert.rejects(p.issue(),e=>e.message==='Call relay unavailable'&&e.communicationHealth==='relay_http_401'&&!JSON.stringify(e).includes(config.apiToken));}finally{p.close();}
+});

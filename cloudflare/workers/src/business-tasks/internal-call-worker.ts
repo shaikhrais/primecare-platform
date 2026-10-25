@@ -32,7 +32,7 @@ export class InternalCallWorker extends BaseWorker<InternalCallEnvironment> {
   try{
    // Credentials are initialized lazily for media issuance, so directory/read
    // and explicit boundary denials remain observable while relay is unavailable.
-   const app=new InternalCallApplication(pool,{admit:async(actor,callId)=>(await env.CALL_RELAY_LIMIT.limit({key:actor.tenantId+':'+actor.id+':'+callId})).success===true,provider:{issue:async()=>{turn??=new CloudflareTurnProvider({keyId:env.TURN_KEY_ID,apiToken:env.TURN_KEY_TOKEN,ttlSeconds:1800});return turn.issue();}}});
+   const app=new InternalCallApplication(pool,{admit:async(actor,callId)=>(await env.CALL_RELAY_LIMIT.limit({key:actor.tenantId+':'+actor.id+':'+callId})).success===true,provider:{issue:async()=>{turn??=new CloudflareTurnProvider({keyId:env.TURN_KEY_ID,apiToken:env.TURN_KEY_TOKEN,ttlSeconds:1800,fetch:(resource,init)=>fetch(resource,init)});return turn.issue();}}});
    const sessions=new PostgresCommunicationSession(pool),permissions=new PostgresInternalCallEndpointPolicy(pool);
    const adapter=new InternalCallHttpAdapter({origin:url.origin,appOrigins:config.appOrigins,application:app,authenticate:req=>sessions.authenticate(req),authorize:(actor,key,req)=>permissions.authorize(actor,key,req)});
    const response=await adapter.respond(request);for(const [key,value]of Object.entries(headers))response.headers.set(key,value);return response;

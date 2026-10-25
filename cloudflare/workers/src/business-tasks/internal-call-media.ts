@@ -11,7 +11,7 @@ export class InternalCallMediaService extends ConversationCallServiceBase {
  private async accepted(actor:Actor,id:string,callId:string){const state=await this.read(actor,id);await this.authorize(actor,'conversation.call',state);const call=state.calls.find((c:any)=>c.id===callId);if(!call||call.status!=='accepted'||![call.callerId,call.recipientId].includes(actor.id))throw Error('Call not accepted');return {callerId:call.callerId,recipientId:call.recipientId};}
  async configuration(actor:Actor,id:string,callId:string){
   assertActor(actor);actor=Object.freeze({id:actor.id,tenantId:actor.tenantId});required(id);required(callId);const before=await this.accepted(actor,id,callId);
-  if(await this.relay.admit(actor,callId)!==true)throw Error('Call relay unavailable');
+  if(await this.relay.admit(actor,callId)!==true)throw Object.assign(Error('Call relay unavailable'),{communicationHealth:'relay_quota'});
   const result=structuredClone(await this.relay.provider.issue()),after=await this.accepted(actor,id,callId);
   if(before.callerId!==after.callerId||before.recipientId!==after.recipientId||!Number.isSafeInteger(result?.expiresAt)||result.expiresAt<Date.now()+30000||result.expiresAt>Date.now()+3600000||!Array.isArray(result.iceServers)||!result.iceServers.length)throw Error('Call relay unavailable');return result;
  }

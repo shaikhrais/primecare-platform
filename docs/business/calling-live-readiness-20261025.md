@@ -103,3 +103,11 @@ links. The fix scopes that readback to exact session API IDs, matching its exist
 component namespace ownership. Tests preserve unrelated links and still reject
 missing or duplicate session links; endpoint identity/authentication/permissions
 are unchanged.
+
+The first live proof verified native login/publication/dial/answer/denial but
+reported no peer creation. Its independent diagnostic run 40217140939 measured
+both accepted participants receiving HTTP503 from call.media, with valid native
+call reads and no microphone captured. All synthetic data was cleaned up. The
+next revision binds the Worker fetch port explicitly and adds bounded health
+categories to authenticated media failures, without provider bodies or secrets.
+The UI now distinguishes service failure from microphone permission denial.

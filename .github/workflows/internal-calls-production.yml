@@ -212,7 +212,7 @@ jobs:
       - name: Verify real native login, relay audio, denial and cleanup with synthetic accounts
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
-        run: node scripts/test-live-internal-calls.mjs
+        run: node scripts/diagnose-browser-calling.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: internal-call-live-acceptance, path: test-results/internal-calls, retention-days: 30}
