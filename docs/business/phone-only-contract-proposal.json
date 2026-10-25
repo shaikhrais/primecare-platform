@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "status": "design-draft-not-registered",
+  "activation": false,
+  "requirement": "Phone-only authentication and task confirmation without a native app session",
+  "sourceReferences": [
+    "https://www.twilio.com/docs/voice/twiml/gather",
+    "https://docs.vapi.ai/documentation/assistants/conversation-behavior/keypad-input-settings",
+    "https://docs.vapi.ai/calls/call-handling-with-vapi-and-twilio"
+  ],
+  "authentication": {
+    "provider": "Twilio",
+    "signature": "Validate X-Twilio-Signature over configured HTTPS public URL including exact challenge query and all form fields",
+    "independentReadback": "Account SID, Call SID, inbound direction, destination, active call and registered caller contact must match canonical provider read",
+    "nativeSessionRequired": false,
+    "callerIdAuthenticates": false,
+    "vapiToolAllowed": false
+  },
+  "transport": {
+    "method": "POST",
+    "contentType": "application/x-www-form-urlencoded",
+    "responseContentType": "application/xml; charset=utf-8",
+    "cacheControl": "no-store",
+    "maxRequestBytes": 4096,
+    "logging": "No raw form fields, OTPs, challenge tokens or phone numbers",
+    "callbackQuery": "challenge: opaque random token; server stores its hash only; signature includes exact query; reject extra query keys",
+    "providerFields": "Validate required identity fields and retain all submitted fields for signature verification; never treat arbitrary extra fields as authority"
+  },
+  "operations": [
+    {
+      "key": "phone.start",
+      "proposedPath": "/v1/voice/phone/start",
+      "digits": "1",
+      "purpose": "signed caller number selects only one eligible verified account; explicit SMS request consent",
+      "registered": false
+    },
+    {
+      "key": "phone.check",
+      "proposedPath": "/v1/voice/phone/check",
+      "digits": "six decimal digits",
+      "purpose": "check the already claimed Verify challenge; never accept a new destination",
+      "registered": false
+    },
+    {
+      "key": "phone.confirmation.prompt",
+      "proposedPath": "/v1/voice/phone/confirmation/prompt",
+      "digits": null,
+      "purpose": "read exact stored task summary before collecting confirmation",
+      "registered": false
+    },
+    {
+      "key": "phone.confirmation.check",
+      "proposedPath": "/v1/voice/phone/confirmation/check",
+      "digits": "1 or 2",
+      "purpose": "atomically approve the bound digest once or cancel; never execute directly from digits",
+      "registered": false
+    }
+  ],
+  "challengeBinding": [
+    "callSid",
+    "accountSid",
+    "userId",
+    "tenantId",
+    "verifiedContactVersion",
+    "purpose",
+    "expiresAt",
+    "state",
+    "attempts",
+    "taskIntentId (confirmation only)",
+    "taskDigest (confirmation only)",
+    "voiceIdentityGrantId (confirmation only)"
+  ],
+  "lifecycle": {
+    "otp": "consent -> durable send claim/quota -> Verify pending -> single check claim -> verified call grant or bounded retry/terminal unknown",
+    "approval": "server task proposal -> independent fixed summary playback -> one-use DTMF response -> durable digest-bound approval -> separate once-only task execution",
+    "revokeOn": [
+      "call end",
+      "call transfer",
+      "account or tenant inactive",
+      "contact changed or revoked",
+      "grant expiry",
+      "permission revoked"
+    ],
+    "ambiguousPhone": "No account-name disclosure or automatic account selection; receptionist fallback until a separate account-disambiguation policy is implemented",
+    "unknownProviderOutcome": "No automatic resend or task retry"
+  },
+  "activationGates": [
+    "pinned production metadata registration and independent readback",
+    "phone-scoped identity storage and current-permission enforcement",
+    "secure collector excludes AI media and recordings",
+    "Twilio/Vapi canonical call mapping survives controlled handoff",
+    "signed single-use task approval and database/API result readback",
+    "live controlled acceptance on intended number"
+  ]
+}
