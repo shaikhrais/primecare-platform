@@ -6,6 +6,7 @@ const requestExamples={
  'voicemail.read':{recordingSid:'RE'+'a'.repeat(32)},'voicemail.audio':{recordingSid:'RE'+'a'.repeat(32)},
  'otp.start':{callSid:'CA'+'a'.repeat(32),pairingCode:'12345678'},'otp.check':{callSid:'CA'+'a'.repeat(32),code:'123456'},
  'task.preview':{intentId:'11111111-1111-4111-8111-111111111111'},'task.approve':{intentId:'11111111-1111-4111-8111-111111111111',digest:'a'.repeat(64)},
+ 'link.status':{conversationId:'example-thread'},'link.bind':{id:'11111111-1111-4111-8111-111111111111',conversationId:'example-thread',consent:true},'link.revoke':{id:'11111111-1111-4111-8111-111111111111'},
 };
 const behavior={
  token:'Issue a short-lived Voice SDK token for the current published destination. Token issuance does not assign an extension or grant permission.',
@@ -30,18 +31,22 @@ const behavior={
  'voice.relay':'Upgrade the exact signed WebSocket request. The relay rechecks canonical call, OTP identity, durable session claim and task authorization; no caller-selected actor or tenant is trusted.',
  'sms.status':'Persist, deduplicate or quarantine signed delivery observations before returning 204. Delivery callbacks are not SMS read receipts.',
  'sms.incoming':'Verify the exact signed Twilio form and persist the inbound SMS before returning empty TwiML. Durable duplicates do not create a second AI turn. Control messages and unsupported media stay outside the AI queue. The provider signature does not authenticate a PrimeCare account; verified linking and current consent remain required for any reply. Registration does not mount or activate this route.',
+ 'link.status':'Read the current signed-in owner\'s SMS conversation-link status. Provider delivery or phone equality does not authenticate an account. The public result omits phone numbers, actor IDs and session handles.',
+ 'link.bind':'Bind an explicitly selected conversation with explicit consent, a native session created within five minutes, an independently verified contact and current owner permissions. Phone, actor, tenant and provider configuration are server-derived. A blocked sender or stale link cannot be revived by retrying a request.',
+ 'link.revoke':'Revoke the exact owner\'s SMS link using a fresh native session and current permission checks. Queued replies bound to the old link become unavailable. Already submitted provider messages cannot be recalled.',
 };
 const schemaName=key=>key.split(/[._]/).map(s=>s[0].toUpperCase()+s.slice(1)).join('');
 const jsonContent=schema=>({'application/json':{schema}});
 const ref=name=>({$ref:'#/components/schemas/'+name});
 const digest=value=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
-export function buildCommunicationOpenApi(voice,messaging,inbound){
+export function buildCommunicationOpenApi(voice,messaging,inbound,nativeLinks){
  if(voice.service!=='governance'||voice.activation!==false||voice.operations.length!==21||messaging.activation!==false||messaging.apis.length!==7)throw Error('Exact registered communication scope required');
  if(inbound&&(inbound.service!=='governance'||inbound.activation!==false||inbound.operations?.length!==1||inbound.operations[0].key!=='sms.incoming'||inbound.operations[0].method!=='POST'||inbound.operations[0].path!=='/v1/twilio/sms/incoming'||inbound.operations[0].authentication!=='twilio-signed-form'||inbound.operations[0].permission!=='twilio.signature'||inbound.operations[0].responseKind!=='twiml'))throw Error('Exact inbound SMS scope required');
+ if(nativeLinks&&(nativeLinks.service!=='governance'||nativeLinks.activation!==false||nativeLinks.operations?.length!==3||new Set(nativeLinks.operations.map(o=>o.key)).size!==3||nativeLinks.operations.some(o=>!['link.status','link.bind','link.revoke'].includes(o.key)||o.path!=='/v1/messaging/sms/link/'+o.key.split('.')[1]||o.method!=='POST'||o.authentication!=='native-session-csrf'||o.permission!=='role_screen_permissions'||o.responseKind!=='json')))throw Error('Exact native SMS link scope required');
  const spec={openapi:'3.1.0',info:{title:'PrimeCare communication API implementation contract',version:'1.0.0',description:'Typed registered contracts and implemented transport behavior. This document is not proof of deployment, grants, business-tool connectivity or live acceptance. All examples are synthetic. Replace the invalid deployment host only after deployment verification.'},
-  'x-production-ready':false,'x-source-authority':'pinned-production-postgresql-registration-snapshots','x-source-sha256':{voice:digest(voice),messaging:digest(messaging),...(inbound?{inbound:digest(inbound)}:{})},
+  'x-production-ready':false,'x-source-authority':'pinned-production-postgresql-registration-snapshots','x-source-sha256':{voice:digest(voice),messaging:digest(messaging),...(inbound?{inbound:digest(inbound)}:{}),...(nativeLinks?{nativeLinks:digest(nativeLinks)}:{})},
   servers:[{url:'https://{deploymentHost}',description:'Deployment required; no live server is asserted.',variables:{deploymentHost:{default:'example.invalid',description:'Exact independently verified API host. Do not enter provider credentials or secrets here.'}}}],
-  tags:[{name:'Voice app'},{name:'Twilio provider'},{name:'Communication'}],paths:{},components:{securitySchemes:{
+  tags:[{name:'Voice app'},{name:'Twilio provider'},{name:'Communication'},{name:'SMS account links'}],paths:{},components:{securitySchemes:{
    nativeSession:{type:'http',scheme:'bearer',description:'Opaque current PrimeCare session token, not a JWT or Vapi management key. Voice APIs reject cookie-only access. Identity and tenant come from the server session.'},
    twilioSignature:{type:'apiKey',in:'header',name:'X-Twilio-Signature',description:'Twilio-generated signature verified with the server Auth Token and exact configured public URL. Never send the Auth Token in this header. WebSocket signatures use the configured WSS URL.'},
   },schemas:{},responses:{}}};
@@ -50,13 +55,15 @@ export function buildCommunicationOpenApi(voice,messaging,inbound){
  const errors={400:'Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.',401:'Missing, invalid or expired native session.',403:'Signature, origin, permission, current identity or resource scope denied.',404:'Unregistered route, wrong origin, or scoped resource unavailable.',405:'Wrong HTTP method. Inspect Allow header.',409:'Version, state or idempotency conflict. Do not retry mutations automatically.',413:'Host request or media byte limit exceeded.',415:'Unsupported content type or encoding.',426:'WebSocket Upgrade required.',503:'Dependency or validation failure. A mutation may already have committed; reconcile before retry.'};
  for(const [status,description] of Object.entries(errors))spec.components.responses['Error'+status]={description,content:jsonContent(ref('TransportError'))};
  const add=(path,method,operation)=>{if(spec.paths[path]?.[method])throw Error('Duplicate registered operation');(spec.paths[path]??={})[method]=operation;};
- for(const source of [...voice.operations,...(inbound?.operations??[])]){
+ for(const source of [...voice.operations,...(inbound?.operations??[]),...(nativeLinks?.operations??[])]){
   const native=source.authentication==='native-session-csrf',socket=source.responseKind==='websocket-upgrade';
-  const name='Voice'+schemaName(source.key),requestName=name+'Request',responseName=name+'Response';
+  const smsLink=source.key.startsWith('link.');
+  const name=(smsLink?'Sms':'Voice')+schemaName(source.key),requestName=name+'Request',responseName=name+'Response';
   spec.components.schemas[requestName]=structuredClone(source.request);
   spec.components.schemas[responseName]=structuredClone(source.response);
-  const op={operationId:'voice_'+source.key.replaceAll('.','_'),summary:behavior[source.key]?.split('.')[0]??source.key,description:(behavior[source.key]??source.key)+' This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.',tags:[native?'Voice app':'Twilio provider'],
-   security:[{[native?'nativeSession':'twilioSignature']:[]}],parameters:[],responses:{},'x-registration-key':source.key,'x-registration-status':voice.implementationStatus,'x-runtime-source':'cloudflare/workers/src/business-tasks/voice-composition.ts','x-permission-key':source.permission,'x-vapi-exposable':false};
+  const op={operationId:(smsLink?'sms_':'voice_')+source.key.replaceAll('.','_'),summary:behavior[source.key]?.split('.')[0]??source.key,description:(behavior[source.key]??source.key)+' This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.',tags:[smsLink?'SMS account links':native?'Voice app':'Twilio provider'],
+   security:[{[native?'nativeSession':'twilioSignature']:[]}],parameters:[],responses:{},'x-registration-key':source.key,'x-registration-status':voice.implementationStatus,'x-runtime-source':smsLink?'cloudflare/workers/src/business-tasks/sms-links.ts':source.key==='sms.incoming'?'packages/shared/src/communications/twilio-sms-inbound.mjs':'cloudflare/workers/src/business-tasks/voice-composition.ts','x-permission-key':source.permission,'x-vapi-exposable':false};
+  if(smsLink)op['x-fresh-native-session-required']=source.key!=='link.status';
   if(native)op.parameters.push({name:'Origin',in:'header',required:false,schema:{type:'string',format:'uri'},description:'If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.'});
   if(socket){
    op.parameters.push({name:'Upgrade',in:'header',required:true,schema:{type:'string',const:'websocket'}});
@@ -102,7 +109,8 @@ export async function generateCommunicationOpenApi(check=false){
  const voice=JSON.parse(await readFile('tools/governance-production/twilio-contracts-registration.json','utf8'));
  const messaging=JSON.parse(await readFile('packages/shared/src/communications/registered-contracts.json','utf8'));
  const inbound=JSON.parse(await readFile('tools/governance-production/messaging-contracts-registration.json','utf8'));
- const spec=buildCommunicationOpenApi(voice,messaging,inbound),output=JSON.stringify(spec,null,2)+'\n',path='packages/contracts/communications.openapi.json';
+ const nativeLinks=JSON.parse(await readFile('tools/governance-production/sms-link-contracts-registration.json','utf8'));
+ const spec=buildCommunicationOpenApi(voice,messaging,inbound,nativeLinks),output=JSON.stringify(spec,null,2)+'\n',path='packages/contracts/communications.openapi.json';
  if(check){if(await readFile(path,'utf8')!==output)throw Error('Communication OpenAPI differs; regenerate explicitly');}else await writeFile(path,output);
  return {operations:Object.values(spec.paths).reduce((count,methods)=>count+Object.keys(methods).length,0),productionReady:false};
 }

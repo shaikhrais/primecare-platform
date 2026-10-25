@@ -1,6 +1,11 @@
 # SMS account links and consent checkpoint
 
-Internal native adapters now bind the existing shared AI reply service and SMS
+Update, 25 October: storage is deployed and independently verified in production
+run `40189337571` (13 tables, 78 columns; ten tables created and three preserved).
+Native link contracts 16539–16541 are registered. Runtime/access and worker
+activation remain pending. See `messaging-storage-activation-20261025.md`.
+
+At the original implementation checkpoint, internal native adapters bind the existing shared AI reply service and SMS
 outbox to a durable verified account/conversation link. No new public route,
 permission, production table, seeded contact or live message is introduced.
 
@@ -47,8 +52,7 @@ run `40158426495`. These are scoped checks, not live/provider or full
 release acceptance. Broader existing gateway/endpoint-policy review blockers
 remain documented in `messaging-ai-development-20261024.md`.
 
-Next activation work: register storage and native owner-only bind/revoke
-contracts, apply approved migrations through the pinned writer, compose the
+Next activation work after the 25 October storage/contract deployment: compose the
 signed receiver with `PostgresSmsConsentInboxStore`, durably dispatch inbox work,
 bind delivery to the original saved turn/link, and prove a real receive/AI/reply/
 delivery sequence. Signed provider delivery is not independent account proof.

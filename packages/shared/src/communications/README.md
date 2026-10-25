@@ -30,10 +30,12 @@ submission already handed to the provider cannot be recalled. The guarded port
 must use the bounded official SMS client (10-second timeout, no retries), must
 not reacquire the held native pool, and must not perform an unbounded callback.
 
-The SMS link/consent migration is a candidate, not applied production DDL. Storage,
-native binding/revocation access contracts, dispatcher/outbox composition and live
-acceptance remain pending; these adapters do not activate API 16538 or change
-phone routing. Native checks: `node scripts/test-communication-sms-links-postgres.mjs`
+The 13-table messaging storage design is registered and deployed, with 78 columns
+independently verified in production run `40189337571`. Ten missing tables were
+created and the three existing shared tables preserved. Native link contracts
+16539–16541 are registered. Native runtime/access activation, dispatcher/outbox
+composition and live acceptance remain pending; these adapters do not activate
+API 16538 or change phone routing. Native checks: `node scripts/test-communication-sms-links-postgres.mjs`
 using the named disposable loopback SMS fixture only.
 
 `TwilioSmsInboundAdapter` extends the existing signed, bounded Twilio form
@@ -70,9 +72,9 @@ questions only: it exposes no tools and cannot execute account actions. Vapi's
 existing task boundary remains separate; verified proposals and confirmations
 must reach the shared task service rather than being inferred from AI text.
 
-These components are internal and are **not mounted or deployed**. New inbox/turn
-migrations, link/consent persistence, provider webhook contracts, current
-production permissions, dispatcher composition, outbox bindings and live receive/
+The runtime components remain internal and **not mounted or activated**. Their
+inbox/turn/link/consent storage is deployed; current production permissions,
+dispatcher composition, original-link outbox bindings and live receive/
 AI/send/delivery tests remain activation gates. No Flutter contract or screen is
 changed, and current phone routing is preserved. WhatsApp/Telegram transport
 configuration and Vapi task activation are not implied by the common service.

@@ -101,3 +101,16 @@ Next: bind verified account ownership/conversation selection to persistent
 message-channel links and current consent/opt-out state. No incoming phone number
 may automatically choose an account/tenant. STOP must suppress already queued
 replies, and account/contact/link changes must invalidate stale reply work.
+
+## 25 October: production storage and native contracts verified
+
+Protected run `40189337571`, source `c1baa6c8`, registered 13 storage tables/78
+columns and native link APIs 16539–16541. It created ten missing owner-private
+tables, preserved the existing three, and independently verified the complete
+schema through a fresh read-only connection. No grants, account/contact/message
+records, provider configuration or phone routing changed. The typed core
+communication OpenAPI now contains 32 operations. See
+`messaging-storage-activation-20261025.md` for exact tests and evidence.
+
+Next: native owner runtime/access composition and signed inbox/dispatcher/outbox
+wiring, then live acceptance. Storage deployment alone does not activate replies.

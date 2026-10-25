@@ -1,8 +1,8 @@
 # PrimeCare communication API
 
 The typed OpenAPI 3.1 contract is [communications.openapi.json](communications.openapi.json).
-It documents 29 registered operations: seven messaging/media/email
-operations, nine authenticated voice app operations and thirteen signed Twilio
+It documents 32 registered operations: seven messaging/media/email
+operations, twelve authenticated native app operations and thirteen signed Twilio
 provider operations. It is generated from the registered schema snapshots;
 documentation does not create endpoints, permissions or a production deployment.
 
@@ -61,6 +61,7 @@ for a caller to change an account. Never expose private management keys to the U
 | Provider AI | POST `/v1/twilio/voice/agent`, `/agent-complete`; GET `/relay` | Verified agent start/completion and signed WebSocket upgrade |
 | SMS callback | POST `/v1/twilio/sms/status` | Durable signed delivery observations |
 | SMS inbox | POST `/v1/twilio/sms/incoming` | Signed, bounded inbound receipt; empty XML after durable inbox acceptance. Account-linked AI replies require separate runtime composition. |
+| SMS account links | POST `/v1/messaging/sms/link/status`, `/bind`, `/revoke` | Native owner-only status, fresh-session explicit-consent binding and revocation; registered APIs 16539–16541, runtime/access activation pending |
 
 The JSON specification contains full paths, request/response fields, constraints,
 content types and security for every operation. Examples are synthetic and are

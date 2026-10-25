@@ -8,22 +8,23 @@ import {NativeVoiceHttpAdapter} from '../packages/shared/src/communications/voic
 const voice=JSON.parse(await readFile('tools/governance-production/twilio-contracts-registration.json','utf8'));
 const messaging=JSON.parse(await readFile('packages/shared/src/communications/registered-contracts.json','utf8'));
 const inbound=JSON.parse(await readFile('tools/governance-production/messaging-contracts-registration.json','utf8'));
-const spec=buildCommunicationOpenApi(voice,messaging,inbound),ajv=new Ajv({strict:false});
+const nativeLinks=JSON.parse(await readFile('tools/governance-production/sms-link-contracts-registration.json','utf8'));
+const spec=buildCommunicationOpenApi(voice,messaging,inbound,nativeLinks),ajv=new Ajv({strict:false});
 const schema=ref=>spec.components.schemas[ref.$ref.split('/').at(-1)];
 test('OpenAPI 3.1 structure is valid and checked-in output is reproducible',async()=>{
  const config=await createConfig({rules:{struct:'error','no-unresolved-refs':'error'}});
  const problems=await lintFromString({source:JSON.stringify(spec),absoluteRef:'communications.openapi.json',config});
  assert.deepEqual(problems,[]);await generateCommunicationOpenApi(true);
 });
-test('all 29 exact registered method/path pairs have unique IDs and explicit security',()=>{
- const expected=[...[...voice.operations,...inbound.operations].map(o=>[o.path,o.method.toLowerCase()]),...messaging.apis.map(o=>[o.path,o.method.toLowerCase()])];
+test('all 32 exact registered method/path pairs have unique IDs and explicit security',()=>{
+ const expected=[...[...voice.operations,...inbound.operations,...nativeLinks.operations].map(o=>[o.path,o.method.toLowerCase()]),...messaging.apis.map(o=>[o.path,o.method.toLowerCase()])];
  const actual=Object.entries(spec.paths).flatMap(([path,methods])=>Object.keys(methods).map(method=>[path,method]));
- assert.deepEqual(actual.sort(),expected.sort());const ids=actual.map(([p,m])=>spec.paths[p][m].operationId);assert.equal(new Set(ids).size,29);
+ assert.deepEqual(actual.sort(),expected.sort());const ids=actual.map(([p,m])=>spec.paths[p][m].operationId);assert.equal(new Set(ids).size,32);
  for(const [path,method]of actual){const op=spec.paths[path][method];assert.equal(op.security.length,1);assert.equal(op['x-vapi-exposable'],false);assert.ok(Object.keys(op.responses).length>1);}
  assert.equal(spec['x-production-ready'],false);assert.equal(spec.servers[0].variables.deploymentHost.default,'example.invalid');
 });
 test('every registered voice schema is preserved exactly and every native example validates',()=>{
- for(const source of voice.operations){const op=spec.paths[source.path][source.method.toLowerCase()];if(op.requestBody){const media=source.authentication==='native-session-csrf'?'application/json':'application/x-www-form-urlencoded';const content=op.requestBody.content[media];assert.deepEqual(schema(content.schema),source.request);if(source.authentication==='native-session-csrf'){const validate=ajv.compile(source.request);assert.equal(validate(content.example),true,JSON.stringify(validate.errors));const forged={...content.example,tenantId:'other'};assert.equal(validate(forged),false);}}}
+ for(const source of [...voice.operations,...nativeLinks.operations]){const op=spec.paths[source.path][source.method.toLowerCase()];if(op.requestBody){const media=source.authentication==='native-session-csrf'?'application/json':'application/x-www-form-urlencoded';const content=op.requestBody.content[media];assert.deepEqual(schema(content.schema),source.request);if(source.authentication==='native-session-csrf'){const validate=ajv.compile(source.request);assert.equal(validate(content.example),true,JSON.stringify(validate.errors));const forged={...content.example,tenantId:'other'};assert.equal(validate(forged),false);}}}
 });
 test('query, multipart, binary and websocket operations have distinct valid transport contracts',()=>{
  for(const source of messaging.apis){const op=spec.paths[source.path][source.method.toLowerCase()];if(source.method==='GET'){assert.equal(op.requestBody,undefined);const variants=source.requestSchema.oneOf??[source.requestSchema];assert.deepEqual(op.parameters.map(p=>p.name).sort(),[...new Set(variants.flatMap(v=>Object.keys(v.properties)))].sort());assert.deepEqual(schema(op['x-query-schema']),source.requestSchema);}}
@@ -55,4 +56,11 @@ test('inbound SMS documents the exact signed form and empty XML receipt without 
  assert.equal(ajv.validate(schema(op.responses['200'].content['text/xml'].schema),'<Response/>'),true);
  assert.equal(ajv.validate(schema(op.responses['200'].content['text/xml'].schema),{message:'sent'}),false);
  const changed=structuredClone(inbound);changed.operations[0].authentication='none';assert.throws(()=>buildCommunicationOpenApi(voice,messaging,changed),/Exact inbound SMS scope/);
+});
+test('SMS link mutations remain native-only, require fresh sessions and cannot accept model-selected identity',()=>{
+ for(const source of nativeLinks.operations){
+  const op=spec.paths[source.path].post;assert.deepEqual(op.security,[{nativeSession:[]}]);assert.equal(op['x-vapi-exposable'],false);assert.equal(op['x-fresh-native-session-required'],source.key!=='link.status');
+  for(const field of ['phone','actor','tenantId','provider','sessionHash'])assert.equal(ajv.validate(source.request,{...op.requestBody.content['application/json'].example,[field]:'forged'}),false);
+ }
+ const changed=structuredClone(nativeLinks);changed.operations[0].authentication='none';assert.throws(()=>buildCommunicationOpenApi(voice,messaging,inbound,changed),/Exact native SMS link scope/);
 });

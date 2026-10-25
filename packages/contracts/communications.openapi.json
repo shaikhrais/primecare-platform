@@ -10,7 +10,8 @@
   "x-source-sha256": {
     "voice": "5a8d4cfd6c55dcbcece7a71f33271ebd0c318b9d8047430eca4fd3a2bf9bf4d5",
     "messaging": "821e9c2e9e36bb887b9100e44076ea3a420821b3781171f6a4e850151a07e2d8",
-    "inbound": "435e1166a307f3560cc451cf3db9f7915c35e0f7f31d5659665c8b742505458f"
+    "inbound": "435e1166a307f3560cc451cf3db9f7915c35e0f7f31d5659665c8b742505458f",
+    "nativeLinks": "f11183ad3acc25d88d6143a8df46feb1d8a9b08bb425afaaee1a7bdec7dba2da"
   },
   "servers": [
     {
@@ -33,6 +34,9 @@
     },
     {
       "name": "Communication"
+    },
+    {
+      "name": "SMS account links"
     }
   ],
   "paths": {
@@ -1507,7 +1511,7 @@
         },
         "x-registration-key": "sms.incoming",
         "x-registration-status": "registered-unimplemented",
-        "x-runtime-source": "cloudflare/workers/src/business-tasks/voice-composition.ts",
+        "x-runtime-source": "packages/shared/src/communications/twilio-sms-inbound.mjs",
         "x-permission-key": "twilio.signature",
         "x-vapi-exposable": false,
         "requestBody": {
@@ -1520,6 +1524,248 @@
             }
           }
         }
+      }
+    },
+    "/v1/messaging/sms/link/status": {
+      "post": {
+        "operationId": "sms_link_status",
+        "summary": "Read the current signed-in owner's SMS conversation-link status",
+        "description": "Read the current signed-in owner's SMS conversation-link status. Provider delivery or phone equality does not authenticate an account. The public result omits phone numbers, actor IDs and session handles. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.",
+        "tags": [
+          "SMS account links"
+        ],
+        "security": [
+          {
+            "nativeSession": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful transport/service response; not evidence of a confirmed appointment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmsLinkStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "x-registration-key": "link.status",
+        "x-registration-status": "registered-unimplemented",
+        "x-runtime-source": "cloudflare/workers/src/business-tasks/sms-links.ts",
+        "x-permission-key": "role_screen_permissions",
+        "x-vapi-exposable": false,
+        "x-fresh-native-session-required": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsLinkStatusRequest"
+              },
+              "example": {
+                "conversationId": "example-thread"
+              }
+            }
+          }
+        },
+        "x-retry-policy": "No automatic mutation retries. Session/grant may change after a write; reconcile state through an authorized read."
+      }
+    },
+    "/v1/messaging/sms/link/bind": {
+      "post": {
+        "operationId": "sms_link_bind",
+        "summary": "Bind an explicitly selected conversation with explicit consent, a native session created within five minutes, an independently verified contact and current owner permissions",
+        "description": "Bind an explicitly selected conversation with explicit consent, a native session created within five minutes, an independently verified contact and current owner permissions. Phone, actor, tenant and provider configuration are server-derived. A blocked sender or stale link cannot be revived by retrying a request. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.",
+        "tags": [
+          "SMS account links"
+        ],
+        "security": [
+          {
+            "nativeSession": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful transport/service response; not evidence of a confirmed appointment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmsLinkBindResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "x-registration-key": "link.bind",
+        "x-registration-status": "registered-unimplemented",
+        "x-runtime-source": "cloudflare/workers/src/business-tasks/sms-links.ts",
+        "x-permission-key": "role_screen_permissions",
+        "x-vapi-exposable": false,
+        "x-fresh-native-session-required": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsLinkBindRequest"
+              },
+              "example": {
+                "id": "11111111-1111-4111-8111-111111111111",
+                "conversationId": "example-thread",
+                "consent": true
+              }
+            }
+          }
+        },
+        "x-retry-policy": "No automatic mutation retries. Session/grant may change after a write; reconcile state through an authorized read."
+      }
+    },
+    "/v1/messaging/sms/link/revoke": {
+      "post": {
+        "operationId": "sms_link_revoke",
+        "summary": "Revoke the exact owner's SMS link using a fresh native session and current permission checks",
+        "description": "Revoke the exact owner's SMS link using a fresh native session and current permission checks. Queued replies bound to the old link become unavailable. Already submitted provider messages cannot be recalled. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.",
+        "tags": [
+          "SMS account links"
+        ],
+        "security": [
+          {
+            "nativeSession": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful transport/service response; not evidence of a confirmed appointment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmsLinkRevokeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "x-registration-key": "link.revoke",
+        "x-registration-status": "registered-unimplemented",
+        "x-runtime-source": "cloudflare/workers/src/business-tasks/sms-links.ts",
+        "x-permission-key": "role_screen_permissions",
+        "x-vapi-exposable": false,
+        "x-fresh-native-session-required": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsLinkRevokeRequest"
+              },
+              "example": {
+                "id": "11111111-1111-4111-8111-111111111111"
+              }
+            }
+          }
+        },
+        "x-retry-policy": "No automatic mutation retries. Session/grant may change after a write; reconcile state through an authorized read."
       }
     },
     "/v1/messages": {
@@ -3055,6 +3301,184 @@
         "type": "string",
         "const": "<Response/>",
         "x-primecare-content-type": "text/xml"
+      },
+      "SmsLinkStatusRequest": {
+        "type": "object",
+        "properties": {
+          "conversationId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$",
+            "maxLength": 200,
+            "minLength": 1
+          }
+        },
+        "required": [
+          "conversationId"
+        ],
+        "additionalProperties": false
+      },
+      "SmsLinkStatusResponse": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "linked": {
+                "const": false
+              }
+            },
+            "required": [
+              "linked"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "linked": {
+                "const": true
+              },
+              "link": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$",
+                    "minLength": 36,
+                    "maxLength": 36
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740990
+                  },
+                  "conversationId": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$",
+                    "maxLength": 200,
+                    "minLength": 1
+                  },
+                  "channel": {
+                    "const": "sms"
+                  }
+                },
+                "required": [
+                  "id",
+                  "version",
+                  "conversationId",
+                  "channel"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "linked",
+              "link"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "SmsLinkBindRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "conversationId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$",
+            "maxLength": 200,
+            "minLength": 1
+          },
+          "consent": {
+            "const": true
+          }
+        },
+        "required": [
+          "id",
+          "conversationId",
+          "consent"
+        ],
+        "additionalProperties": false
+      },
+      "SmsLinkBindResponse": {
+        "type": "object",
+        "properties": {
+          "linked": {
+            "const": true
+          },
+          "link": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$",
+                "minLength": 36,
+                "maxLength": 36
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740990
+              },
+              "conversationId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_:.-]{0,199}$",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              "channel": {
+                "const": "sms"
+              }
+            },
+            "required": [
+              "id",
+              "version",
+              "conversationId",
+              "channel"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "linked",
+          "link"
+        ],
+        "additionalProperties": false
+      },
+      "SmsLinkRevokeRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$",
+            "minLength": 36,
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "SmsLinkRevokeResponse": {
+        "type": "object",
+        "properties": {
+          "revoked": {
+            "const": true
+          }
+        },
+        "required": [
+          "revoked"
+        ],
+        "additionalProperties": false
       },
       "CommunicationMessageCommandRequest": {
         "oneOf": [

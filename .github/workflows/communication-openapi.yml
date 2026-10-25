@@ -10,6 +10,7 @@ on:
       - 'packages/shared/src/communications/registered-contracts.json'
       - 'tools/governance-production/twilio-contracts-registration.json'
       - 'tools/governance-production/messaging-contracts-registration.json'
+      - 'tools/governance-production/sms-link-contracts-registration.json'
       - 'packages/shared/src/communications/voice-native-http.mjs'
       - 'cloudflare/workers/src/business-tasks/http.ts'
   workflow_dispatch:

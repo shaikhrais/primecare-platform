@@ -1,0 +1,102 @@
+{
+  "sourceCommit": "c1baa6c8bfad3e97d07e706dfb01ea9dd1a61d91",
+  "workflowRunId": 40189337571,
+  "jobs": {
+    "metadata": 121156789488,
+    "reference": 121156789356,
+    "production": 121157044884
+  },
+  "tests": {
+    "oldStorage": 8,
+    "newMetadata": 6,
+    "nativeContractSchemas": 4,
+    "apiAndStore": 28,
+    "nativeSchema": 6,
+    "existingMessagingGroups": 6,
+    "linkConsentGroups": 10,
+    "localOpenApi": 8
+  },
+  "apiRegistration": {
+    "apiIds": {
+      "link.status": 16539,
+      "link.bind": 16540,
+      "link.revoke": 16541
+    },
+    "registered": 3,
+    "roleGrants": 0,
+    "messagesSent": 0,
+    "numbersPurchased": 0,
+    "providerWrites": false,
+    "activation": false,
+    "definitionSha256": "844f93fa805139cd6243a66b8975ca88f3b2cb930d510944273833e159145d3a",
+    "independentReadback": true
+  },
+  "storageRegistration": {
+    "tableIds": {
+      "business_work_aggregates": 1352,
+      "business_work_commands": 1353,
+      "business_work_events": 1354,
+      "business_sms_aggregates": 1355,
+      "business_sms_commands": 1356,
+      "business_sms_events": 1357,
+      "business_sms_callbacks": 1358,
+      "business_sms_inbox": 1359,
+      "business_chat_aggregates": 1360,
+      "business_chat_commands": 1361,
+      "business_chat_events": 1362,
+      "communication_sms_consent": 1363,
+      "communication_sms_links": 1364
+    },
+    "columns": 78,
+    "baseline": "communication-messaging-storage-v1",
+    "roleGrants": 0,
+    "businessDataWrites": false,
+    "activation": false,
+    "independentReadback": true
+  },
+  "schemaApply": {
+    "mode": "--apply",
+    "businessDataWrites": false,
+    "roleGrants": 0,
+    "providerWrites": false,
+    "activation": false,
+    "committedSchemaChanges": true,
+    "stage": "schema-verification",
+    "tablesExisting": 3,
+    "tablesMissing": [
+      "business_sms_aggregates",
+      "business_sms_commands",
+      "business_sms_events",
+      "business_sms_callbacks",
+      "business_sms_inbox",
+      "business_chat_aggregates",
+      "business_chat_commands",
+      "business_chat_events",
+      "communication_sms_consent",
+      "communication_sms_links"
+    ],
+    "tablesVerified": 13,
+    "columnsVerified": 78,
+    "ownerOnlyAccessVerified": true,
+    "status": "schema_applied_or_verified"
+  },
+  "independentSchemaVerification": {
+    "mode": "--verify",
+    "businessDataWrites": false,
+    "roleGrants": 0,
+    "providerWrites": false,
+    "activation": false,
+    "committedSchemaChanges": false,
+    "stage": "schema-verification",
+    "tablesExisting": 13,
+    "tablesMissing": [],
+    "tablesVerified": 13,
+    "columnsVerified": 78,
+    "ownerOnlyAccessVerified": true,
+    "status": "schema_independently_verified"
+  },
+  "phoneRoutingChanged": false,
+  "nativeLinkEndpointsMounted": false,
+  "workerActivated": false,
+  "liveMessagingVerified": false
+}

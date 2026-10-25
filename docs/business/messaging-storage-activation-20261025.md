@@ -40,6 +40,32 @@ checks and the existing messaging/link integration suites. It then registers
 metadata, independently reads it back, rolls back a schema dry run, applies exact
 missing tables and verifies through a fresh pooled read-only transaction.
 
-The completed workflow's actual IDs, table counts and verification evidence must
-be recorded before claiming this milestone deployed. Worker composition, native
-owner access and signed receiver/dispatcher activation remain separate steps.
+## Verified production result
+
+Source `c1baa6c8`, protected run `40189337571`, completed all three jobs. The
+metadata job `121156789488` passed eight existing storage regression tests, six
+new inherited metadata tests, four native link schema tests and 28 API/store
+tests. Reference job `121156789356` passed six native schema tests, six existing
+messaging integration groups and ten link/consent groups. The typed 32-operation
+OpenAPI also passes eight local checks.
+
+Production job `121157044884` independently registered the storage design
+(table IDs 1352–1364, 78 columns) and these native APIs:
+
+| API | Operation |
+| --- | --- |
+| 16539 | `/v1/messaging/sms/link/status` |
+| 16540 | `/v1/messaging/sms/link/bind` |
+| 16541 | `/v1/messaging/sms/link/revoke` |
+
+After a rolled-back dry run, ten missing messaging tables were created. All three
+existing shared tables were preserved. A fresh pooled read-only transaction then
+verified all 13 table fingerprints, 78 columns and owner-only access, with no
+missing tables. No grants, user/contact/message records, provider configuration
+or phone routing were changed. Failed earlier reference attempts were blocked
+before production: PostgreSQL integer type normalization and a reference/report
+filename collision were corrected without weakening the gate.
+
+Evidence: `evidence/messaging-storage-activation-20261025.json`. Worker composition,
+native owner runtime/access and signed receiver/dispatcher activation remain
+separate steps. These registrations do not expose endpoints or enable live SMS.
