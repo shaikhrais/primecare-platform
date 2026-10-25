@@ -1,9 +1,20 @@
 import {nativeContactGatewayServices} from './voice-contact-deployment-plan.mjs';
 export const internalCallGatewayServices=nativeContactGatewayServices;
+export const callDatabaseName='primecare-internal-calls-fresh-v1';
+export function callDatabaseOrigin(connectionString){
+ const u=new URL(connectionString);
+ if(!['postgres:','postgresql:'].includes(u.protocol)||u.hostname!=='pooled.db.prisma.io'||u.port&&u.port!=='5432'||u.pathname!=='/postgres'||!u.username||!u.password)throw Error('pinned_call_database_required');
+ return {scheme:'postgres',host:u.hostname,port:5432,database:'postgres',user:decodeURIComponent(u.username),password:decodeURIComponent(u.password)};
+}
+export function assertCallDatabaseConfiguration(value,origin,boundId){
+ if(!value||!/^[a-f0-9]{32}$/.test(value.id??'')||value.name!==callDatabaseName||value.caching?.disabled!==true||value.origin_connection_limit!==4||value.origin?.scheme!=='postgres'||value.origin.host!==origin.host||value.origin.port!==origin.port||value.origin.database!==origin.database||value.origin.user!==origin.user||value.mtls?.sslmode&&value.mtls.sslmode!=='require'||boundId&&boundId!==value.id)throw Error('existing_call_database_preserved');
+ return value.id;
+}
 export function assertOwnedInternalCallTarget(settings,config){
  if(settings===null)return;
- const allowed=['INTERNAL_CALL_OWNER','INTERNAL_CALL_SOURCE','INTERNAL_CALL_ORIGIN','INTERNAL_CALL_GATEWAY_ORIGIN','TURN_KEY_ID','TURN_KEY_TOKEN','DB_URL','INTERNAL_CALL_LIMIT','CALL_RELAY_LIMIT'];
+ const allowed=['INTERNAL_CALL_OWNER','INTERNAL_CALL_SOURCE','INTERNAL_CALL_ORIGIN','INTERNAL_CALL_GATEWAY_ORIGIN','TURN_KEY_ID','TURN_KEY_TOKEN','DB_URL','INTERNAL_CALL_LIMIT','CALL_RELAY_LIMIT','CALL_DATABASE'];
  if(!Array.isArray(settings?.bindings)||settings.bindings.find(b=>b.name==='INTERNAL_CALL_OWNER')?.text!==config.owner||settings.bindings.some(b=>!allowed.includes(b.name))||new Set(settings.bindings.map(b=>b.name)).size!==settings.bindings.length)throw Error('existing_worker_preserved');
+ const database=settings.bindings.find(b=>b.name==='CALL_DATABASE');if(database&&(database.type!=='hyperdrive'||!/^[a-f0-9]{32}$/.test(database.id??'')))throw Error('existing_worker_preserved');
 }
 
 /** Provider-compatible bounded fields; the API documentation's fixed key length

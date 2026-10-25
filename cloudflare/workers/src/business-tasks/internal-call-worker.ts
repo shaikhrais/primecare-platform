@@ -6,12 +6,13 @@ import {InternalCallApplication} from './internal-call-application.ts';
 import {InternalCallHttpAdapter} from './internal-call-http.ts';
 import {CloudflareTurnProvider} from '../../../../packages/shared/src/communications/cloudflare-turn.mjs';
 import {nativePostgresOptions} from './native-postgres.ts';
+import {internalCallDatabaseOptions,measuredCallDatabase,type InternalCallDatabaseBinding} from './internal-call-database.ts';
 import {sha256} from '../session-token.ts';
 import definition from '../../../../tools/governance-production/internal-call-contracts-registration.json' with {type:'json'};
 import config from './internal-call-deployment.json' with {type:'json'};
 import type {Actor} from '../../../../packages/shared/src/communications/service-base.ts';
 type Limit={limit(input:{key:string}):Promise<{success:boolean}>};
-export type InternalCallEnvironment={DB_URL:string;INTERNAL_CALL_SOURCE:string;INTERNAL_CALL_ORIGIN:string;INTERNAL_CALL_GATEWAY_ORIGIN:string;TURN_KEY_ID:string;TURN_KEY_TOKEN:string;INTERNAL_CALL_LIMIT:Limit;CALL_RELAY_LIMIT:Limit};
+export type InternalCallEnvironment={CALL_DATABASE:InternalCallDatabaseBinding;DB_URL:string;INTERNAL_CALL_SOURCE:string;INTERNAL_CALL_ORIGIN:string;INTERNAL_CALL_GATEWAY_ORIGIN:string;TURN_KEY_ID:string;TURN_KEY_TOKEN:string;INTERNAL_CALL_LIMIT:Limit;CALL_RELAY_LIMIT:Limit};
 export class PostgresInternalCallEndpointPolicy extends PostgresRegisteredCommunicationEndpointPolicy {
  async authorize(actor:Actor,key:string,request:Request){const op=definition.operations.find(o=>o.key===key);if(!op||op.path!==new URL(request.url).pathname||request.method!==op.method)throw Error('Forbidden');return this.authorizeRegistered(actor,null,op.method,op.path,'INTERNAL_'+key.replaceAll('.','_').toUpperCase());}
 }
@@ -28,15 +29,15 @@ export class InternalCallWorker extends BaseWorker<InternalCallEnvironment> {
   if(!/^[a-f0-9]{40}$/.test(env.INTERNAL_CALL_SOURCE??'')||typeof env.INTERNAL_CALL_LIMIT?.limit!=='function'||typeof env.CALL_RELAY_LIMIT?.limit!=='function')return fail(503,'unavailable');
   const ip=request.headers.get('cf-connecting-ip');if(!ip||ip.length>64)return fail(503,'unavailable');
   for(const key of ['source:'+await sha256(ip),'session:'+await sha256(request.headers.get('authorization')!)])if((await env.INTERNAL_CALL_LIMIT.limit({key})).success!==true)return fail(429,'rate_limited');
-  const pool=new Pool(nativePostgresOptions(env.DB_URL));pool.on('error',()=>{});let turn:CloudflareTurnProvider|undefined;
+  const options=internalCallDatabaseOptions(env.CALL_DATABASE),directPool=new Pool(nativePostgresOptions(env.DB_URL)),fastPool=new Pool(options);directPool.on('error',()=>{});fastPool.on('error',()=>{});const metrics=new Map<string,{count:number;milliseconds:number;max:number}>(),pool=measuredCallDatabase(fastPool,metrics),transactions=measuredCallDatabase(directPool,metrics);let turn:CloudflareTurnProvider|undefined;
   try{
    // Credentials are initialized lazily for media issuance, so directory/read
    // and explicit boundary denials remain observable while relay is unavailable.
-   const app=new InternalCallApplication(pool,{admit:async(actor,callId)=>(await env.CALL_RELAY_LIMIT.limit({key:actor.tenantId+':'+actor.id+':'+callId})).success===true,provider:{issue:async()=>{turn??=new CloudflareTurnProvider({keyId:env.TURN_KEY_ID,apiToken:env.TURN_KEY_TOKEN,ttlSeconds:1800,fetch:(resource,init)=>fetch(resource,init)});return turn.issue();}}});
+   const app=new InternalCallApplication(pool,{admit:async(actor,callId)=>(await env.CALL_RELAY_LIMIT.limit({key:actor.tenantId+':'+actor.id+':'+callId})).success===true,provider:{issue:async()=>{turn??=new CloudflareTurnProvider({keyId:env.TURN_KEY_ID,apiToken:env.TURN_KEY_TOKEN,ttlSeconds:1800,fetch:(resource,init)=>fetch(resource,init)});return turn.issue();}}},undefined,transactions);
    const sessions=new PostgresCommunicationSession(pool),permissions=new PostgresInternalCallEndpointPolicy(pool);
    const adapter=new InternalCallHttpAdapter({origin:url.origin,appOrigins:config.appOrigins,application:app,authenticate:req=>sessions.authenticate(req),authorize:(actor,key,req)=>permissions.authorize(actor,key,req)});
-   const response=await adapter.respond(request);for(const [key,value]of Object.entries(headers))response.headers.set(key,value);return response;
-  }finally{turn?.close();await pool.end();}
+   const response=await adapter.respond(request);for(const [key,value]of Object.entries(headers))response.headers.set(key,value);if(response.ok)response.headers.set('server-timing',[...metrics].map(([key,value])=>key+';dur='+Math.round(value.milliseconds)+';desc="'+value.count+' queries; max '+Math.round(value.max)+'ms"').join(','));return response;
+  }finally{turn?.close();await Promise.all([fastPool.end(),directPool.end()]);}
  }
  protected override onError(){return Response.json({error:'unavailable'},{status:503,headers:{'cache-control':'no-store','x-content-type-options':'nosniff'}});}
 }

@@ -16,9 +16,9 @@ export class PostgresInternalCallPolicy extends PostgresCommunicationAccessPolic
 const unavailable=()=>Error('Call unavailable');
 const limits={maxMembers:2,maxMessages:100,ringMilliseconds:45000,maxSignalBytes:16384};
 export class InternalCallApplication extends ScopedServiceBase {
- readonly core:InternalAppCallCore;readonly pool:Pool;
- constructor(pool:Pool,relay:AppCallRelayPorts,policy:AccessPolicy=new PostgresInternalCallPolicy(pool)){
-  const core=new InternalAppCallCore({pool,limits,policy,relay});super(core.calls.store,policy);this.core=core;this.pool=pool;
+ readonly core:InternalAppCallCore;readonly pool:Pool;readonly transactionPool:Pool;
+ constructor(pool:Pool,relay:AppCallRelayPorts,policy:AccessPolicy=new PostgresInternalCallPolicy(pool),transactionPool:Pool=pool){
+  const core=new InternalAppCallCore({pool,limits,policy,relay,transactionPool});super(core.calls.store,policy);this.core=core;this.pool=pool;this.transactionPool=transactionPool;
  }
  private async directoryAccess(actor:Actor,action='internal.call.directory'){
   await this.checkAccess(actor,action,{id:'call-directory:'+actor.id,tenantId:actor.tenantId,kind:action==='internal.call.directory'?'call_directory':'voice_destination',version:1,userId:actor.id},[action==='internal.call.directory'?'call_directory':'voice_destination']);
@@ -52,7 +52,7 @@ export class InternalCallApplication extends ScopedServiceBase {
  }
  async dial(actor:Actor,extension:string,requestId:string){
   const rows=await this.core.directory.lookup(extension,2);if(rows.length!==1||rows[0].tenantId!==actor.tenantId||!rows[0].userId)throw unavailable();
-  const db=await this.pool.connect();try{
+  const db=await this.transactionPool.connect();try{
    await db.query('BEGIN');await db.query("SET LOCAL lock_timeout='5s'");await db.query("SET LOCAL idle_in_transaction_session_timeout='60s'");
    for(const userId of [...new Set([actor.id,rows[0].userId])].sort())await db.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',[JSON.stringify(['internal-call-busy',actor.tenantId,userId])]);
    const result=await this.dialLocked(actor,extension,requestId,rows[0].userId,rows[0].version);await db.query('COMMIT');return result;
