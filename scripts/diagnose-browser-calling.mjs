@@ -2,12 +2,15 @@
 // protocol metadata only; it cannot modify auth, signaling, ICE or test results.
 import {chromium} from 'playwright';import {mkdir,writeFile,readFile} from 'node:fs/promises';
 const labels=JSON.parse(await readFile('tools/governance-production/internal-call-ui-registration.json','utf8')).locales.en,allowedLabels=new Set(Object.values(labels));
-const report={harnessSource:process.env.GITHUB_SHA,deployedSources:[],responses:[],failures:[],mediaResponses:[],reads:[],browserStates:[]};
+const report={harnessSource:process.env.GITHUB_SHA,deployedSources:[],responses:[],failures:[],mediaResponses:[],reads:[],browserStates:[],requestTimings:[]};
 const launch=chromium.launch.bind(chromium);chromium.launch=async options=>{
  const browser=await launch({...options,...(process.env.CALL_BROWSER_EXECUTABLE?{executablePath:process.env.CALL_BROWSER_EXECUTABLE}:{})});report.browserVersion=browser.version();const newContext=browser.newContext.bind(browser);let serial=0;
  browser.newContext=async options=>{
   const context=await newContext(options),index=serial++,close=context.close.bind(context);
   context.on('page',page=>{
+   const begins=new WeakMap();
+   page.on('request',request=>begins.set(request,Date.now()));
+   page.on('requestfinished',request=>{try{const url=new URL(request.url());if(url.hostname!=='primecare-api-gateway.itpro-mohammed.workers.dev'||!/^\/v1\/calls\/(?:directory|extension|dial|command|media)$/.test(url.pathname))return;let action;try{action=request.postDataJSON()?.action;}catch{}const timing=request.timing(),start=begins.get(request);report.requestTimings.push({browser:index,operation:url.pathname.split('/').at(-1),...(['read','inbox','heartbeat','accept','decline','end','expire','signal'].includes(action)?{action}:{}),startedAt:start,elapsedMilliseconds:start?Date.now()-start:null,serverWaitMilliseconds:timing.responseStart>=0&&timing.requestStart>=0?Math.round(timing.responseStart-timing.requestStart):null});if(report.requestTimings.length>500)report.requestTimings.shift();}catch{}});
    page.on('response',async response=>{try{
     const url=new URL(response.url());if(url.hostname!=='primecare-api-gateway.itpro-mohammed.workers.dev'||!/^\/v1\/calls\/(?:directory|extension|dial|command|media)$/.test(url.pathname))return;
     const source=response.headers()['x-primecare-calls-source'];if(/^[a-f0-9]{40}$/.test(source??'')&&!report.deployedSources.includes(source))report.deployedSources.push(source);
