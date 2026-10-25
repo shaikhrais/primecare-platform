@@ -29,7 +29,7 @@ def generated():
     if not isinstance(col,exp.ColumnDef):continue
     constraints=[c.kind for c in col.constraints];pk=col.name in primary or any(isinstance(c,exp.PrimaryKeyColumnConstraint) for c in constraints)
     nullable=not pk and not any(isinstance(c,exp.NotNullColumnConstraint) for c in constraints)
-    dtype=col.kind.sql(dialect='postgres').lower();dtype={'timestamptz':'timestamp with time zone'}.get(dtype,dtype)
+    dtype=col.kind.sql(dialect='postgres').lower();dtype={'timestamptz':'timestamp with time zone','int':'integer'}.get(dtype,dtype)
     default=None
     for constraint in constraints:
      if isinstance(constraint,exp.DefaultColumnConstraint):

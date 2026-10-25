@@ -884,7 +884,7 @@
       "db_schema_columns",
       "db_schema_tables"
     ],
-    "definitionSha256": "220b2f84526de17913576b3967669714517b989b90abc679927e8aff501032b5",
+    "definitionSha256": "bf49142e5f491ce737adc0fa0550ad318747776b86384e2b026495f347581075",
     "migrationSha256": "53ba30374bbd3a889b6738534b821a3596d7d0b1df7b843c3f470741f264296c",
     "businessTables": [
       "business_chat_aggregates",
