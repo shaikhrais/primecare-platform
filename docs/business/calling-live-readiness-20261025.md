@@ -111,3 +111,11 @@ call reads and no microphone captured. All synthetic data was cleaned up. The
 next revision binds the Worker fetch port explicitly and adds bounded health
 categories to authenticated media failures, without provider bodies or secrets.
 The UI now distinguishes service failure from microphone permission denial.
+
+The Worker health narrowed the media503 to relay_request. Cloudflare's current
+Request documentation explicitly states redirect:error is not implemented in
+Workers and throws TypeError. The provider now uses redirect:manual and continues
+to accept only HTTP201, rejecting every redirect without following it or sending
+credentials onward. A real Workerd regression constructs the native Request,
+parses the provider stream, and verifies one-attempt redirect rejection.
+Reference: https://developers.cloudflare.com/workers/runtime-apis/request/

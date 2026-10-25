@@ -14,7 +14,7 @@ export class CloudflareTurnProvider extends CommunicationResourceBase {
  async issue(){
   this.assertOpen();if(this.#active.size>=16)throw fail('relay_request');const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000),started=Date.now();this.#active.add(controller);let stage='relay_request';
   try{
-   const response=await this.#fetch('https://rtc.live.cloudflare.com/v1/turn/keys/'+this.#id+'/credentials/generate-ice-servers',{method:'POST',redirect:'error',headers:{authorization:'Bearer '+this.#token,'content-type':'application/json',accept:'application/json'},body:JSON.stringify({ttl:this.#ttl}),signal:controller.signal});
+   const response=await this.#fetch('https://rtc.live.cloudflare.com/v1/turn/keys/'+this.#id+'/credentials/generate-ice-servers',{method:'POST',redirect:'manual',headers:{authorization:'Bearer '+this.#token,'content-type':'application/json',accept:'application/json'},body:JSON.stringify({ttl:this.#ttl}),signal:controller.signal});
    stage=response.status===201?'relay_body':'relay_http_'+response.status;
    if(response.status!==201||controller.signal.aborted){try{await response.body?.cancel();}catch{}throw fail(stage);}
    if(response.headers.get('content-type')?.split(';')[0].trim().toLowerCase()!=='application/json')throw fail(stage);
