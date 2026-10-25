@@ -7,7 +7,7 @@ const json=(body,status=200)=>Response.json(body,{status,headers:{'cache-control
  * validation, canonical provider-call verification and durable replay claims.
  * current() must independently verify the live provider call and canonical Twilio
  * call, returning the pinned scope below. Header/caller/model claims are not proof.
- * VoiceTaskService still resolves OTP/passkey identity and consumes app approval.
+ * VoiceTaskService resolves OTP/passkey identity and consumes the configured trusted app or dedicated signed call confirmation.
  */
 export class VapiApiRequestAdapter extends BoundedBinaryAdapterBase {
  #options;

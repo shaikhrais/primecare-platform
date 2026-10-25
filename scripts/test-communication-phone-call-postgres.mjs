@@ -1,0 +1,50 @@
+// Disposable native PostgreSQL only. No production credentials or provider traffic.
+import assert from 'node:assert/strict';import {readFile,mkdir,writeFile} from 'node:fs/promises';import pg from 'pg';
+import {PhoneCallOperationCore} from '../cloudflare/workers/src/business-tasks/phone-call-core.ts';
+import {PostgresPhoneCallAccountDirectory,PostgresPhoneCallGrantRepository} from '../cloudflare/workers/src/business-tasks/call-authorization-postgres.ts';
+import {fixture,actor,args,callSid,accountSid,sharedNumber,phone} from './fixtures/business-phone-call.mjs';
+import {getExpectedTwilioSignature} from 'twilio/lib/webhooks/webhooks.js';
+const connectionString=process.env.TWILIO_SMS_TEST_DATABASE_URL;if(!connectionString)throw Error('Disposable TWILIO_SMS_TEST_DATABASE_URL required');
+const url=new URL(connectionString);if(!['localhost','127.0.0.1','[::1]'].includes(url.hostname)||url.username!=='twilio_fixture'||url.pathname!=='/twilio_sms_test')throw Error('Only named disposable local fixture permitted');
+const schema='phone_call_fixture_'+crypto.randomUUID().replaceAll('-',''),admin=new pg.Pool({connectionString,max:1});await admin.query('CREATE SCHEMA '+schema);
+const pool=new pg.Pool({connectionString,max:5,options:'-c search_path='+schema});let groups=0;
+const origin='https://fixture.invalid',authToken='d'.repeat(32),startUrl=origin+'/auth',checkUrl=origin+'/check',readbackUrl=origin+'/readback',decisionUrl=origin+'/decision';
+function signed(target,changes={}){const p={AccountSid:accountSid,CallSid:callSid,To:sharedNumber,Direction:'inbound',...changes};return new Request(target,{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','x-twilio-signature':getExpectedTwilioSignature(authToken,target,p)},body:new URLSearchParams(p)});}
+try{
+ for(const file of ['20261023_communication_voice_otp.sql','20261023_communication_voice_tasks.sql','20261025_communication_phone_authorization.sql'])await pool.query((await readFile('packages/database/migrations/'+file,'utf8')).replaceAll('public.',''));
+ await pool.query(`CREATE TABLE tenants(id text PRIMARY KEY,status text NOT NULL);CREATE TABLE users(id text PRIMARY KEY,tenant_id text NOT NULL,status text NOT NULL);
+  CREATE TABLE communication_voice_extensions(extension text PRIMARY KEY,tenant_id text NOT NULL,user_id text NOT NULL,active boolean NOT NULL,version bigint NOT NULL);
+  CREATE TABLE fixture_booking_requests(idempotency_key text PRIMARY KEY,user_id text NOT NULL,tenant_id text NOT NULL,input jsonb NOT NULL);
+  INSERT INTO tenants VALUES('tenant-a','active'),('tenant-b','active');INSERT INTO users VALUES('alice','tenant-a','active'),('bob','tenant-b','active');
+  INSERT INTO communication_voice_extensions VALUES('4277','tenant-a','alice',true,1),('4278','tenant-b','bob',true,1);`);
+ await pool.query("INSERT INTO communication_voice_verified_contacts VALUES('tenant-a','alice',$1,1,now(),NULL),('tenant-b','bob','+15550003000',1,now(),NULL)",[phone]);
+ const f=fixture(),core=new PhoneCallOperationCore({store:f.store,policy:f.policy,pool,config:{accountSid,sharedNumber},calls:f.authPorts.calls,provider:f.authPorts.provider,async requestBooking(a,input,key){assert.deepEqual(a,actor);await pool.query('INSERT INTO fixture_booking_requests VALUES($1,$2,$3,$4)',[key,a.id,a.tenantId,JSON.stringify(input)]);}});
+ const auth=core.twilioAuthorization({authToken,maxWebhookBytes:4096,startUrl,checkUrl,receptionUrl:origin+'/reception',resumeUrl:origin+'/resume'});
+ assert.match(await(await auth.respond(signed(startUrl,{Digits:'4277'}))).text(),/numDigits="6"/);assert.equal(await core.authorization.current(callSid),null);
+ assert.match(await(await auth.respond(signed(checkUrl,{Digits:'123456'}))).text(),/resume/);assert.deepEqual((await core.authorization.current(callSid)).actor,actor);groups++;
+ const ids=Array.from({length:4},()=>crypto.randomUUID()),seen=new Set(),toolUrl=origin+'/tools';
+ const adapter=core.vapi({url:toolUrl,orgId:ids[0],assistantId:ids[1],phoneNumberId:ids[2],async authenticate(){return true;},async authorize(){return true;},async admit(){return true;},calls:{async current(id){return {vapiCallId:id,callSid,orgId:ids[0],assistantId:ids[1],phoneNumberId:ids[2],active:true,expiresAt:Date.now()+60000};}},claims:{async claim(input){if(seen.has(input.requestId))return false;seen.add(input.requestId);return true;}}});
+ const tool=body=>adapter.respond(new Request(toolUrl,{method:'POST',headers:{'content-type':'application/json','x-primecare-vapi-call-id':ids[3]},body:JSON.stringify(body)}));
+ const proposal=await(await tool({action:'propose',taskId:'appointment.booking.request',args:args(),requestId:crypto.randomUUID()})).json();assert.equal(proposal.status,'awaiting_confirmation');assert.equal(await core.pendingIntent(callSid),proposal.intentId);
+ const speak=core.twilioConfirmation({authToken,maxWebhookBytes:4096,readbackUrl,decisionUrl,receptionUrl:origin+'/reception',resumeUrl:origin+'/resume'});
+ const xml=await(await speak.respond(signed(readbackUrl))).text();assert.ok(xml.indexOf('</Say>')<xml.indexOf('<Gather'));const proof=(await pool.query('SELECT challenge_id,state FROM communication_spoken_confirmations')).rows[0];assert.equal(proof.state,'prepared');
+ const callback=decisionUrl+'?challenge='+proof.challenge_id;assert.match(await(await speak.respond(signed(callback,{SpeechResult:'confirm appointment'}))).text(),/resume/);
+ const execute={action:'execute',intentId:proposal.intentId,requestId:crypto.randomUUID()};assert.equal((await(await tool(execute)).json()).status,'completed');
+ const saved=(await pool.query('SELECT * FROM fixture_booking_requests')).rows;assert.equal(saved.length,1);assert.equal(saved[0].user_id,actor.id);assert.equal(saved[0].tenant_id,actor.tenantId);assert.equal(saved[0].idempotency_key,'voice-task:'+proposal.intentId);
+ assert.equal((await pool.query('SELECT state FROM communication_spoken_confirmations')).rows[0].state,'consumed');assert.equal((await pool.query('SELECT status FROM communication_voice_tasks')).rows[0].status,'completed');
+ assert.equal((await tool(execute)).status,409);await tool({...execute,requestId:crypto.randomUUID()});assert.equal((await pool.query('SELECT count(*)::int AS n FROM fixture_booking_requests')).rows[0].n,1);groups++;
+ const dir=new PostgresPhoneCallAccountDirectory(pool);
+ for(const [change,restore] of [["UPDATE users SET status='inactive' WHERE id='alice'","UPDATE users SET status='active' WHERE id='alice'"],["UPDATE tenants SET status='inactive' WHERE id='tenant-a'","UPDATE tenants SET status='active' WHERE id='tenant-a'"],["UPDATE communication_voice_verified_contacts SET revoked_at=now() WHERE user_id='alice'","UPDATE communication_voice_verified_contacts SET revoked_at=NULL WHERE user_id='alice'"]]){await pool.query(change);assert.equal(await core.authorization.current(callSid),null);await pool.query(restore);}groups++;
+ await pool.query("UPDATE communication_voice_verified_contacts SET phone=$1 WHERE user_id='bob'",[phone]);assert.equal(await dir.resolve('4277'),null);assert.equal(await dir.resolve('4278'),null);assert.equal(await core.authorization.current(callSid),null);await pool.query("UPDATE communication_voice_verified_contacts SET phone='+15550003000' WHERE user_id='bob'");groups++;
+ const grants=new PostgresPhoneCallGrantRepository(pool),original=await grants.read(callSid),second='CA'+'e'.repeat(32),third='CA'+'f'.repeat(32),fourth='CA'+'1'.repeat(32);
+ await grants.begin({...original,callSid:second,state:'sending'});await grants.sent(second,'VE'+'e'.repeat(32));
+ assert.equal((await Promise.all(Array.from({length:8},()=>grants.claimCheck(second)))).filter(Boolean).length,1);
+ await grants.checked(second,false,crypto.randomUUID(),Date.now()+60000);for(let i=1;i<5;i++){assert.equal(await grants.claimCheck(second),true);await grants.checked(second,false,crypto.randomUUID(),Date.now()+60000);}assert.equal(await grants.claimCheck(second),false);groups++;
+ await grants.begin({...original,callSid:third,state:'sending'});await assert.rejects(grants.begin({...original,callSid:fourth,state:'sending'}),/quota/);assert.equal(await grants.read(fourth),null);assert.equal((await pool.query('SELECT sends FROM communication_voice_otp_limits WHERE phone=$1',[phone])).rows[0].sends,3);groups++;
+ const pending=await core.tasks.propose(callSid,'appointment.booking.request',args()),challenge=await core.confirmations.prepare(callSid,pending.intentId);
+ const decisions=await Promise.allSettled([core.confirmations.accept(callSid,challenge.challengeId,{digits:'1'}),core.confirmations.accept(callSid,challenge.challengeId,{speech:'confirm appointment'})]);assert.equal(decisions.filter(r=>r.status==='fulfilled').length,1);
+ const execution=await Promise.allSettled([core.tasks.execute(callSid,pending.intentId),core.tasks.execute(callSid,pending.intentId)]);assert.equal(execution.filter(r=>r.status==='fulfilled').length,1);assert.equal((await pool.query('SELECT count(*)::int AS n FROM fixture_booking_requests')).rows[0].n,2);groups++;
+ const raw=(await pool.query('SELECT row_to_json(a) AS data FROM communication_phone_authorizations a WHERE call_sid=$1',[callSid])).rows[0].data;assert.ok(!JSON.stringify(raw).includes('123456'));groups++;
+ const report={groupsPassed:groups,phoneOnlyOtp:true,signedReadbackConfirmation:true,vapiAndTwilioSharedCore:true,independentDatabaseReadback:true,sharedContactAmbiguityDenied:true,concurrentExecutionOnce:true,liveProviderTraffic:false,realAppointmentBooked:false};
+ console.log('PHONE_CALL_NATIVE_POSTGRES '+JSON.stringify(report));await mkdir('test-results/phone-call',{recursive:true});await writeFile('test-results/phone-call/native.json',JSON.stringify(report,null,2)+'\n');
+}finally{await pool.end();await admin.query('DROP SCHEMA '+schema+' CASCADE');await admin.end();}

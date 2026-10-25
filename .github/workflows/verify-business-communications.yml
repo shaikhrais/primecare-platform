@@ -55,6 +55,10 @@ on:
       - 'scripts/test-communication-twilio-sms.mjs'
       - 'scripts/test-communication-sms-service.mjs'
       - 'scripts/test-communication-sms-inbound.mjs'
+      - 'scripts/test-communication-phone-call.mjs'
+      - 'scripts/test-communication-phone-call-postgres.mjs'
+      - 'scripts/test-communication-phone-call-workerd.mjs'
+      - 'packages/database/migrations/20261025_communication_phone_authorization.sql'
       - 'scripts/test-communication-sms-link-native.mjs'
       - 'tools/sms-link-schema-validators.mjs'
       - 'tools/governance-production/sms-link-contracts-registration.json'
@@ -215,12 +219,15 @@ jobs:
           node --test scripts/test-communication-sms-service.mjs scripts/test-business-communications.mjs
           node --test scripts/test-communication-sms-inbound.mjs scripts/test-communication-messaging-ai.mjs scripts/test-communication-openai-message.mjs
           node tools/sms-link-schema-validators.mjs
+          node --test scripts/test-communication-phone-call.mjs
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/phone-call-core.ts
           node --test scripts/test-communication-sms-link-native.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule cloudflare/workers/src/business-tasks/sms-link-http.ts
           node --test scripts/test-communication-sms-links.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions packages/shared/src/communications/messaging-ai.ts packages/shared/src/communications/twilio-sms-inbound.d.mts packages/shared/src/communications/openai-message-model.d.mts cloudflare/workers/src/business-tasks/sms-inbound.ts
           node --test scripts/test-communication-voice-directory.mjs
           node scripts/test-communication-twilio-workerd.mjs
+          node scripts/test-communication-phone-call-workerd.mjs
           node scripts/test-communication-relay-workerd.mjs
       - name: Verify SMS against disposable PostgreSQL
         env:
@@ -229,6 +236,7 @@ jobs:
           node scripts/test-communication-sms-postgres.mjs
           node scripts/test-communication-messaging-postgres.mjs
           node scripts/test-communication-sms-links-postgres.mjs
+          node scripts/test-communication-phone-call-postgres.mjs
           node --test scripts/test-communication-four-digit-migration.mjs
           node --test scripts/test-communication-voice-native-http.mjs
           node --test scripts/test-communication-relay-postgres.mjs
@@ -237,7 +245,9 @@ jobs:
         if: always()
         with:
           name: communication-twilio-voice
-          path: test-results/communication-twilio
+          path: |
+            test-results/communication-twilio
+            test-results/phone-call
           retention-days: 90
   flutter-transport:
     runs-on: ubuntu-24.04

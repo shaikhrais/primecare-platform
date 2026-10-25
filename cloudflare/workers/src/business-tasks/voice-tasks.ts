@@ -6,10 +6,10 @@ export interface VoiceTaskRepository {create(intent:VoiceTaskIntent):Promise<voi
 export interface VoiceTaskTrust {
  /** Server auth broker only. Caller ID, model claims and voice similarity are not authentication. */
  current(callSid:string):Promise<VerifiedVoiceIdentity|null>;
- /** Trusted authenticated app confirmation or signed DTMF event, bound to this exact digest.
-  * Atomically consumes one approval. Never implement this from a transcript/LLM argument.
+ /** Trusted app confirmation or dedicated signed provider speech/DTMF callback, bound to this exact digest.
+  * Atomically consumes one approval. Never implement this from an AI transcript/tool argument; signed-speech requires the dedicated readback challenge callback.
   */
- consumeConfirmation(input:{callSid:string;intentId:string;digest:string;actor:Actor;sessionId:string}):Promise<{approved:boolean;method:'app'|'dtmf';approvedAt:number}|null>;
+ consumeConfirmation(input:{callSid:string;intentId:string;digest:string;actor:Actor;sessionId:string}):Promise<{approved:boolean;method:'app'|'dtmf'|'signed-speech';approvedAt:number}|null>;
 }
 /** Task implementations bind existing typed services, never model-selected URLs. */
 export abstract class VoiceTaskBase {
@@ -69,7 +69,7 @@ export class VoiceTaskService extends ScopedServiceBase {
   if(await digest({...intent,digest:'',status:'proposed'})!==intent.digest||canonical(task.validate(argumentsSnapshot(intent.args)))!==canonical(intent.args)||task.describe(structuredClone(intent.args))!==intent.summary)throw Error('Task proposal changed');
   const identity=await this.#identity(callSid);await this.#authorized(identity,intent,'voice.task.execute');
   const confirmation=await this.trust.consumeConfirmation({callSid,intentId:intent.id,digest:intent.digest,actor:identity.actor,sessionId:identity.sessionId});
-  if(!confirmation||confirmation.approved!==true||!['app','dtmf'].includes(confirmation.method)||!Number.isSafeInteger(confirmation.approvedAt)||confirmation.approvedAt>Date.now()||confirmation.approvedAt<Date.now()-60000)throw new VoiceTaskConfirmationRequiredError();
+  if(!confirmation||confirmation.approved!==true||!['app','dtmf','signed-speech'].includes(confirmation.method)||!Number.isSafeInteger(confirmation.approvedAt)||confirmation.approvedAt>Date.now()||confirmation.approvedAt<Date.now()-60000)throw new VoiceTaskConfirmationRequiredError();
   if(!await this.repository.claim(intent.id,intent.digest))throw Error('Task already attempted');
   try{
    await this.#authorized(await this.#identity(callSid),intent,'voice.task.execute');
