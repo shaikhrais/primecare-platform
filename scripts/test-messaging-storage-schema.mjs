@@ -7,6 +7,7 @@ const url=new URL(process.env.WORKFLOW_TEST_DATABASE_URL??'');
 if(!['localhost','127.0.0.1'].includes(url.hostname)||url.username!=='twilio_fixture'||url.pathname!=='/twilio_sms_test'||process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL)throw Error('Named disposable PostgreSQL required');
 const pool=new pg.Pool({connectionString:url.href,max:1}),input=await sources();
 const reference=JSON.parse(await readFile('test-results/messaging-storage-schema/reference.json','utf8'));
+assert.equal(Object.keys(reference.shapes??{}).length,13,'The immutable tested reference must contain all 13 schema fingerprints');
 async function rollback(run){const db=await pool.connect();try{await db.query('BEGIN');await db.query('SET LOCAL search_path=pg_catalog,public');return await run(db);}finally{await db.query('ROLLBACK');db.release();}}
 test('all 13 native table fingerprints, 78 columns and private access match the registered design',async()=>{
  await rollback(async db=>{assert.deepEqual(await snapshot(db,input.names),reference.shapes);await validateMetadataShape(db,input.definition);await privateAcl(db,input.names);});

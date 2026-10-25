@@ -109,6 +109,6 @@ async function main(){
   }finally{if(!completed)await db.query('ROLLBACK');db.release();}
  }catch(error){report.status='schema_blocked_preserving_existing_data';if(typeof error?.code==='string'&&/^[A-Z0-9]{5}$/.test(error.code))report.databaseErrorCode=error.code;const allowed=['Committed storage registration required','Committed storage metadata differs','Manifest mismatch','Native identity prerequisite missing','Verified contact schema missing','Verified contact schema differs','Messaging schema not deployed','Unexpected table access preserved','Unexpected sequence access preserved','Tested messaging reference required'];if(allowed.includes(error?.message))report.reason=error.message;if(error?.code==='ERR_ASSERTION'){report.reason='Existing or generated schema differs from tested reference';const table=error.message?.match(/Native column design differs from registered metadata: ([a-z0-9_]+)/)?.[1];if(table)report.mismatchedTable=table;}process.exitCode=1;
  }finally{await pool?.end();}
- await mkdir(output,{recursive:true});await writeFile(output+'/'+mode.slice(2)+'.json',JSON.stringify(report,null,2)+'\n');console.log('MESSAGING_STORAGE_SCHEMA '+JSON.stringify(report));
+ await mkdir(output,{recursive:true});await writeFile(output+'/'+(fixture?'reference-report':mode.slice(2))+'.json',JSON.stringify(report,null,2)+'\n');console.log('MESSAGING_STORAGE_SCHEMA '+JSON.stringify(report));
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)await main();
