@@ -217,7 +217,7 @@
         const before = await this.current();
         if (before.call.status !== "accepted") throw Error("Call not accepted");
         if (before.call.callerId === this.userId && before.call.offered || before.call.recipientId === this.userId && before.call.answered) throw Error("Call media already negotiated");
-        await this.refreshConfiguration();
+        await this.#applyConfiguration(before);
         await this.audio.start();
         const after = await this.current();
         if (after.call.status !== "accepted") throw Error("Call not accepted");
@@ -236,6 +236,11 @@
       if (!this.configurationProvider) return;
       this.assertOpen();
       const before = await this.current();
+      return this.#applyConfiguration(before);
+    }
+    async #applyConfiguration(before) {
+      if (!this.configurationProvider) return;
+      this.assertOpen();
       if (before.call.status !== "accepted") throw Error("Call not accepted");
       const result = structuredClone(await this.configurationProvider());
       this.assertOpen();

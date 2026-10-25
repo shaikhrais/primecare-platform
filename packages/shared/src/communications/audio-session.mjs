@@ -37,7 +37,9 @@ export class BrowserAudioSession extends CommunicationResourceBase {
    const before=await this.current();if(before.call.status!=='accepted')throw Error('Call not accepted');
    // A reloaded caller cannot replay an offer whose original peer was lost.
    if(before.call.callerId===this.userId&&before.call.offered||before.call.recipientId===this.userId&&before.call.answered)throw Error('Call media already negotiated');
-   await this.refreshConfiguration();
+   // Reuse the check just completed, with no intervening await. The provider
+   // result is still followed by a fresh accepted-call read before microphone.
+   await this.#applyConfiguration(before);
    await this.audio.start();
    const after=await this.current();if(after.call.status!=='accepted')throw Error('Call not accepted');
    this.started=true;
@@ -47,7 +49,11 @@ export class BrowserAudioSession extends CommunicationResourceBase {
  }
  async refreshConfiguration(){
   if(!this.configurationProvider)return;this.assertOpen();
-  const before=await this.current();if(before.call.status!=='accepted')throw Error('Call not accepted');
+  const before=await this.current();return this.#applyConfiguration(before);
+ }
+ async #applyConfiguration(before){
+  if(!this.configurationProvider)return;this.assertOpen();
+  if(before.call.status!=='accepted')throw Error('Call not accepted');
   const result=structuredClone(await this.configurationProvider());this.assertOpen();
   if(!Array.isArray(result?.iceServers)||!result.iceServers.length||!Number.isSafeInteger(result.expiresAt)||result.expiresAt<Date.now()+30000||result.expiresAt>Date.now()+3600000)throw Error('Media configuration unavailable');
   const after=await this.current();if(after.call.status!=='accepted'||before.call.callerId!==after.call.callerId||before.call.recipientId!==after.call.recipientId)throw Error('Call not accepted');

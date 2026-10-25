@@ -43,8 +43,8 @@ try{
  const dialPromise=alice.page.waitForResponse(r=>r.url()===gateway+'/v1/calls/dial'&&r.request().method()==='POST');await cy(alice.page,'internal-call-dial').click();const dialResponse=await dialPromise;assert.equal(dialResponse.status(),200);let view=await dialResponse.json(),callId=view.calls.at(-1).id;const dialBody=dialResponse.request().postDataJSON();
  const retry=await request(alice,'dial',dialBody);assert.equal(retry.calls.filter(c=>c.id===callId).length,1);
  await request(alice,'media',{id:view.id,callId},409);await request(foreign,'command',{action:'read',id:view.id},404);await request(foreign,'media',{id:view.id,callId},404);
- await until(async()=>await cy(bob.page,'internal-call-answer').isEnabled());await cy(bob.page,'internal-call-answer').click();
- report.stage='relay-audio';const mediaStartedAt=Date.now();
+ await until(async()=>await cy(bob.page,'internal-call-answer').isEnabled());const mediaStartedAt=Date.now();await cy(bob.page,'internal-call-answer').click();
+ report.stage='relay-audio';
  const stats=page=>page.evaluate(async()=>{
   const peer=window.__callPeers.at(-1);if(!peer)return {ready:false,peerCreated:false};
   const all=await peer.getStats(),audio=[...all.values()].filter(s=>s.type==='inbound-rtp'&&(s.kind==='audio'||s.mediaType==='audio'));
@@ -52,8 +52,8 @@ try{
   const local=pair&&all.get(pair.localCandidateId),remote=pair&&all.get(pair.remoteCandidateId);
   return {gatherOutcome:peer.gatherOutcome,candidateCount:peer.candidateCount,iceErrors:peer.iceErrors,connectionState:peer.connectionState,iceState:peer.iceConnectionState,signalingState:peer.signalingState,ready:peer.connectionState==='connected'&&audio.some(s=>s.packetsReceived>10)&&local?.candidateType==='relay'&&remote?.candidateType==='relay',packets:audio.reduce((sum,s)=>sum+(s.packetsReceived??0),0),relay:local?.candidateType==='relay'&&remote?.candidateType==='relay'};
  });
- await until(async()=>{const both=await Promise.all([stats(alice.page),stats(bob.page)]);report.mediaSummary=both;return both.every(s=>s.ready);},180000);
- const before=await Promise.all([stats(alice.page),stats(bob.page)]);await new Promise(r=>setTimeout(r,1500));const after=await Promise.all([stats(alice.page),stats(bob.page)]);assert.ok(after.every((s,i)=>s.packets>before[i].packets));report.relayAudio=true;report.connectionMilliseconds=Date.now()-mediaStartedAt;report.bidirectionalPacketGrowth=true;
+ await until(async()=>{const both=await Promise.all([stats(alice.page),stats(bob.page)]);report.mediaSummary=both;return both.every(s=>s.ready);},180000);report.connectionMilliseconds=Date.now()-mediaStartedAt;
+ const before=await Promise.all([stats(alice.page),stats(bob.page)]);await new Promise(r=>setTimeout(r,1500));const after=await Promise.all([stats(alice.page),stats(bob.page)]);assert.ok(after.every((s,i)=>s.packets>before[i].packets));report.relayAudio=true;report.audioVerificationMilliseconds=Date.now()-mediaStartedAt;report.bidirectionalPacketGrowth=true;
  const state=(await db.query('SELECT state FROM business_work_aggregates WHERE tenant_id=$1 AND id=$2',[alice.tenant,view.id])).rows[0].state;assert.equal(state.calls.find(c=>c.id===callId).status,'accepted');assert.ok(state.calls.find(c=>c.id===callId).signals.some(s=>s.signal.type==='offer'));assert.ok(state.calls.find(c=>c.id===callId).signals.some(s=>s.signal.type==='answer'));report.independentNativeReadback=true;
  await cy(alice.page,'internal-call-mute').click();assert.equal(await alice.page.evaluate(()=>window.__callTracks.filter(t=>t.readyState==='live').every(t=>!t.enabled)),true);await cy(alice.page,'internal-call-mute').click();report.muteVerified=true;
 
