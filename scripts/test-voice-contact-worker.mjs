@@ -81,7 +81,7 @@ test('native host uses real PostgreSQL session and current grants through SDK fe
 });
 
 test('native PostgreSQL URL cannot redirect the database or weaken certificate verification',()=>{
- const options=nativeContactPostgresOptions('postgres://fixture:private@pooled.db.prisma.io/postgres?ssl=false&sslmode=no-verify');assert.equal(options.host,'pooled.db.prisma.io');assert.equal(options.database,'postgres');assert.deepEqual(options.ssl,{rejectUnauthorized:true});assert.equal('connectionString' in options,false);
+ const options=nativeContactPostgresOptions('postgres://fixture:private@pooled.db.prisma.io/postgres?ssl=false&sslmode=no-verify');assert.equal(options.host,'pooled.db.prisma.io');assert.equal(options.database,'postgres');assert.deepEqual(options.ssl,{rejectUnauthorized:true});assert.equal('connectionString' in options,false);assert.equal('statement_timeout' in options,false);assert.equal(options.query_timeout,10000);
  for(const url of ['postgres://fixture:private@foreign.invalid/postgres','postgres://fixture:private@db.prisma.io/postgres','postgres://fixture:private@pooled.db.prisma.io/other'])assert.throws(()=>nativeContactPostgresOptions(url),/Pinned/);
 });
 
