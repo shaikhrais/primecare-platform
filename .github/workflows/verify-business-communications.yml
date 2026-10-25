@@ -55,6 +55,9 @@ on:
       - 'scripts/test-communication-twilio-sms.mjs'
       - 'scripts/test-communication-sms-service.mjs'
       - 'scripts/test-communication-sms-inbound.mjs'
+      - 'scripts/test-communication-turn.mjs'
+      - 'scripts/test-communication-internal-calls.mjs'
+      - 'scripts/test-communication-internal-calls-postgres.mjs'
       - 'scripts/test-communication-voiceprint.mjs'
       - 'scripts/test-communication-voiceprint-postgres.mjs'
       - 'scripts/test-communication-voiceprint-workerd.mjs'
@@ -223,6 +226,8 @@ jobs:
           node --test scripts/test-communication-sms-service.mjs scripts/test-business-communications.mjs
           node --test scripts/test-communication-sms-inbound.mjs scripts/test-communication-messaging-ai.mjs scripts/test-communication-openai-message.mjs
           node tools/sms-link-schema-validators.mjs
+          node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule cloudflare/workers/src/business-tasks/internal-call-core.ts
           node --test scripts/test-communication-voiceprint.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions packages/shared/src/communications/voiceprint-recognition.ts
           node --test scripts/test-communication-phone-call.mjs
@@ -245,6 +250,7 @@ jobs:
           node scripts/test-communication-sms-links-postgres.mjs
           node scripts/test-communication-phone-call-postgres.mjs
           node scripts/test-communication-voiceprint-postgres.mjs
+          node scripts/test-communication-internal-calls-postgres.mjs
           node --test scripts/test-communication-four-digit-migration.mjs
           node --test scripts/test-communication-voice-native-http.mjs
           node --test scripts/test-communication-relay-postgres.mjs
@@ -257,6 +263,7 @@ jobs:
             test-results/communication-twilio
             test-results/phone-call
             test-results/voiceprint
+            test-results/internal-calls
           retention-days: 90
   flutter-transport:
     runs-on: ubuntu-24.04
