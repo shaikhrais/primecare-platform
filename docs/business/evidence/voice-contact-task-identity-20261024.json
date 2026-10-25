@@ -135,5 +135,91 @@
   "workflowRunId": 40153173060,
   "integrationJobId": 121048796270,
   "readinessJobId": 121048848118,
-  "isolatedTestsPassed": 33
+  "isolatedTestsPassed": 33,
+  "contactNumberValidation": {
+    "fixtureSourceCommit": "1bc84a63f0ff76531d470a8c2624ab36af709c4b",
+    "communicationsRunId": 40153436273,
+    "jobs": [
+      {
+        "id": 121049599675,
+        "name": "inventory",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121049599844,
+        "name": "dashboard-postgres",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121049599868,
+        "name": "isolated",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121049599890,
+        "name": "media",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121049599900,
+        "name": "worker-pictures",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121049599920,
+        "name": "dashboard-registry",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121049599938,
+        "name": "flutter-browser-media",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121049599944,
+        "name": "dart-core",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121049599955,
+        "name": "worker-validator",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121049599959,
+        "name": "twilio-voice",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121049599967,
+        "name": "flutter-transport",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121049600034,
+        "name": "flutter-workspace",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "additionalLocalApprovalTaskTestsPassed": 37,
+    "strictTypesPassed": true,
+    "workerdChecksPassed": 35,
+    "nativePostgresOtpPassed": true,
+    "provider": "synthetic",
+    "liveOtpVerified": false,
+    "deployed": false,
+    "existingContractReviewGate": "fails_on_gateway_source_amendment_hash_already_failed_on_parent_main"
+  }
 }
