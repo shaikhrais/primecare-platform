@@ -1,5 +1,6 @@
 import pg from 'pg';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {verifyNativeContactDeployment} from './voice-contact-deployment-readback.mjs';
 import {VapiCallReadClient} from '../packages/shared/src/communications/vapi-call-read.mjs';
 const {Pool}=pg;
 const report={step:3,readinessMeasured:false,liveCallVerified:false,liveOtpVerified:false,smsSent:false,businessActionsEnabled:false,toolsAttached:false,blockers:[]};
@@ -41,16 +42,20 @@ try{
    LEFT JOIN ${table('screens')} s ON ${value('s','id')}=${value('l','screen_id')} AND ${value('s','id')} IN ('234','331','559','578')
    LEFT JOIN ${table('role_screen_permissions')} sp ON ${value('sp','screen_id')}=${value('s','id')} AND ${value('sp','role_id')}=${value('r','id')}
    WHERE ${value('a','route_path')}=ANY($1::text[]) AND ${value('a','http_method')}='POST' AND ${value('a','service_name')}='governance' AND ${value('a','auth_required')}='1' AND ${value('a','permission_key')}='role_screen_permissions'
-   GROUP BY ${value('a','route_path')}`, [['/v1/voice/otp/start','/v1/voice/otp/check']]);
-  report.nativeOtpPermissions=grants.rows;
+   GROUP BY ${value('a','route_path')}`, [['/v1/voice/otp/start','/v1/voice/otp/check','/v1/voice/contact/status','/v1/voice/contact/start','/v1/voice/contact/check']]);
+  report.nativeOtpPermissions=grants.rows.filter(row=>row.path.startsWith('/v1/voice/otp/'));
+  report.nativeContactPermissions=grants.rows.filter(row=>row.path.startsWith('/v1/voice/contact/'));
+  for(const path of ['/v1/voice/contact/status','/v1/voice/contact/start','/v1/voice/contact/check']){const row=grants.rows.find(row=>row.path===path);if(!row||row.registration_count!==1||!Number.isSafeInteger(row.grant_count)||row.grant_count<1)report.blockers.push('native_contact_permission_not_ready:'+path);}
   for(const path of ['/v1/voice/otp/start','/v1/voice/otp/check']){const row=grants.rows.find(row=>row.path===path);if(!row||row.registration_count!==1||!Number.isSafeInteger(row.grant_count)||row.grant_count<1)report.blockers.push('native_permission_not_ready:'+path);}
  }finally{try{await db.query('ROLLBACK');}finally{db.release();}}
  report.stage='provider-negative-check';
  const vapi=new VapiCallReadClient({apiKey:process.env.VAPI_PRIVATE_API_KEY});
  try{await vapi.fetch('00000000-0000-4000-8000-000000000000');throw Error('Unknown call unexpectedly resolved');}catch(error){if(error?.code!=='resource_not_found')throw Error('Provider read check failed');report.unknownProviderCallRejected=true;}
- // These required connections are absent in the currently deployed boundary.
- // Keep blockers explicit rather than certifying deployment from fixture tests.
- report.blockers.push('native_contact_enrollment_not_deployed','private_pre_ai_pairing_delivery_not_connected','native_app_pairing_ui_not_connected','otp_runtime_not_deployed');
+ // Require fresh live denial/readback in addition to the saved deployment receipt.
+ let nativeReceipt;try{nativeReceipt=JSON.parse(await readFile('docs/business/evidence/voice-contact-native-deployment-20261024.json','utf8'));}catch{}
+ report.nativeContactBoundary=await verifyNativeContactDeployment(nativeReceipt);
+ if(!report.nativeContactBoundary.boundaryVerified)report.blockers.push(report.nativeContactBoundary.deploymentRecorded?'native_contact_enrollment_boundary_not_verified':'native_contact_enrollment_not_deployed');
+ report.blockers.push('private_pre_ai_pairing_delivery_not_connected','native_app_pairing_ui_not_connected','otp_runtime_not_deployed');
  report.stage='complete';report.readinessMeasured=true;report.ready=false;report.status='identity_activation_blocked';
 }catch{report.status='identity_readiness_check_failed';process.exitCode=1;}
 finally{await pool?.end();}

@@ -1,0 +1,32 @@
+{
+  "sourceCommit": "f9b0e8a7a0c9db4aca2e8c4140b26f0c92cb54f7",
+  "scope": "native-own-phone-enrollment-only",
+  "deployed": true,
+  "gatewayConnected": true,
+  "verifyServiceReadback": true,
+  "unauthenticatedDenied": true,
+  "unknownSessionDenied": true,
+  "foreignOriginDenied": true,
+  "corsVerified": true,
+  "liveSmsVerified": false,
+  "contactsEnrolled": 0,
+  "providerWrites": false,
+  "businessActionsEnabled": false,
+  "toolsAttached": false,
+  "numberRoutingChanged": false,
+  "stage": "complete",
+  "nativeOrigin": "https://primecare-voice-contact-api.itpro-mohammed.workers.dev",
+  "gatewayOrigin": "https://primecare-api-gateway.itpro-mohammed.workers.dev",
+  "nativeProbe": {
+    "anonymousStatus": 401,
+    "sessionStatus": 401
+  },
+  "gatewaySecretsPreserved": true,
+  "gatewayServicesPreserved": true,
+  "status": "native_enrollment_boundary_deployed",
+  "workflowRunId": 40145897181,
+  "testsJobId": 121027065741,
+  "deployJobId": 121027206726,
+  "checksPassed": 46,
+  "authority": "deployed-cloudflare-and-independent-production-metadata-readback"
+}

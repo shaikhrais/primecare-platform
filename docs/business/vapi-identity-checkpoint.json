@@ -14,7 +14,6 @@
   "activeVerifiedContactCount": 0,
   "nativeOtpActiveGrantCount": 0,
   "remaining": [
-    "native_contact_enrollment_runtime_deployment",
     "user_driven_verified_account_phone_enrollment",
     "reviewed_native_otp_permissions_and_ui",
     "private_pre_ai_pairing_delivery",
@@ -36,7 +35,7 @@
   "contactEnrollmentBackendImplemented": true,
   "contactEnrollmentNativeTestsPassed": 7,
   "verifyAdapterTestsPassed": 8,
-  "contactEnrollmentRuntimeDeployed": false,
+  "contactEnrollmentRuntimeDeployed": true,
   "contactEnrollmentUiConnected": true,
   "latestSourceChecks": [
     {
@@ -115,5 +114,16 @@
   "contactEnrollmentUiFinalWorkflowRunId": 40142379072,
   "contactEnrollmentUiFinalJobsPassed": 12,
   "contactEnrollmentAccessLockTestsPassed": 9,
-  "contactEnrollmentAccessIndependentReadback": true
+  "contactEnrollmentAccessIndependentReadback": true,
+  "contactEnrollmentNativeDeploymentSource": "f9b0e8a7a0c9db4aca2e8c4140b26f0c92cb54f7",
+  "contactEnrollmentNativeDeploymentRunId": 40145897181,
+  "contactEnrollmentNativeDeploymentChecksPassed": 46,
+  "contactEnrollmentGatewayConnected": true,
+  "contactEnrollmentLiveBoundaryVerified": true,
+  "contactEnrollmentNativeOrigin": "https://primecare-voice-contact-api.itpro-mohammed.workers.dev",
+  "contactEnrollmentGatewayOrigin": "https://primecare-api-gateway.itpro-mohammed.workers.dev",
+  "contactEnrollmentProviderConfigurationVerified": true,
+  "contactEnrollmentGatewaySecretAndServicesPreserved": true,
+  "contactEnrollmentLiveSmsVerified": false,
+  "contactEnrollmentAuthenticatedUserVerified": false
 }

@@ -236,3 +236,33 @@ continue to reject empty, short, oversized, whitespace and control-bearing
 values. No credential was read, logged, recreated or rotated to fix validation.
 See https://www.twilio.com/docs/iam/api-keys/key-resource-v1 for the credential
 resource and the distinction between the key SID and its secret.
+
+## Publication and live boundary evidence
+
+Workflow [40145897181](https://github.com/shaikhrais/primecare-platform/actions/runs/40145897181)
+published source `f9b0e8a7a0c9db4aca2e8c4140b26f0c92cb54f7` after all 46
+checks passed: four schema cases, 18 enrollment/Verify/credential cases, 19
+host/gateway/preservation cases and five actual workerd checks. Strict types
+also passed. The native PostgreSQL fixture exercised actual current role/screen
+grants, a revoked API permission, exact own-phone persistence/readback and logout.
+
+The deployed service is https://primecare-voice-contact-api.itpro-mohammed.workers.dev.
+The app uses the existing gateway https://primecare-api-gateway.itpro-mohammed.workers.dev
+and its three registered POST routes. Live source-tagged probes independently
+verified anonymous and nonexistent-session 401 responses, foreign-origin 403,
+approved-origin CORS and unchanged existing gateway service/secret bindings.
+The fixed six-digit Verify service was read back without provider writes.
+
+Earlier publication attempts stopped before gateway changes: a missing audit
+credential binding, preservation of the existing gateway JWT secret, an overly
+strict API-secret alphabet check and the native readiness check. The final host
+uses client-side database timeouts because Prisma's pooled proxy rejects the
+connection-startup statement timeout. TLS certificate verification stays enabled.
+Deployment probes use a descriptive client identity; safe bounded failure
+categories expose no private error text, SQL, phone, code or credential values.
+
+The readiness audit now requires a fresh read-only source/CORS/nonexistent-session
+check in addition to this saved receipt, and separately inventories the three
+contact API grants. A deployment receipt alone cannot mark the boundary live.
+Real signed-in-user phone enrollment and SMS acceptance are still unverified.
+No contact was seeded, SMS sent, number routing changed or Vapi tool attached.
