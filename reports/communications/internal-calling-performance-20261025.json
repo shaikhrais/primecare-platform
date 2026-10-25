@@ -1,0 +1,297 @@
+{
+  "version": 1,
+  "status": "permission_indexes_and_typed_calling_policy_verified",
+  "verifiedAt": "2026-10-25T21:28:36.331Z",
+  "deploymentSource": "63f7eafcd578b62c5e795e32c5cf8c0255559f91",
+  "workflow": {
+    "runId": 40234881025,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/40234881025",
+    "jobs": [
+      {
+        "id": 121294257622,
+        "name": "metadata",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121294257719,
+        "name": "native",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121294257812,
+        "name": "readiness",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121294257867,
+        "name": "account_catalog",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121294659827,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121294977937,
+        "name": "websites / verify_gateway",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121295002330,
+        "name": "websites / build",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121295251622,
+        "name": "websites / deploy (primecare-client)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121295251632,
+        "name": "websites / deploy (primecare-business-development)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121295251678,
+        "name": "websites / deploy (primecare-clinic)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121295339868,
+        "name": "websites / deploy (primecare-corporate)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121295350881,
+        "name": "websites / deploy (primecare-franchise)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121295367663,
+        "name": "websites / deploy (primecare-marketing)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121295445962,
+        "name": "websites / deploy (primecare-support)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121295458517,
+        "name": "websites / deploy (primecare-governance)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121295464815,
+        "name": "websites / deploy (primecare-enterprise-blueprint)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121295588203,
+        "name": "live",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "indexApply": {
+    "source": "63f7eafcd578b62c5e795e32c5cf8c0255559f91",
+    "mode": "--apply",
+    "created": [
+      "primecare_call_api_permission_lookup",
+      "primecare_call_screen_permission_lookup",
+      "primecare_call_screen_api_lookup",
+      "primecare_call_role_code_lookup",
+      "primecare_call_endpoint_route_lookup"
+    ],
+    "reused": [],
+    "governanceRowWrites": false,
+    "permissionChanges": false,
+    "businessDataWrites": false,
+    "verified": true,
+    "wouldCreate": [
+      "primecare_call_api_permission_lookup",
+      "primecare_call_screen_permission_lookup",
+      "primecare_call_screen_api_lookup",
+      "primecare_call_role_code_lookup",
+      "primecare_call_endpoint_route_lookup"
+    ],
+    "independentReadback": false,
+    "definitionSha256": "a4b4cbb8f563170fd8197ba079993d2ec400da8300416844b51b3ddf32eb1a6a"
+  },
+  "indexVerify": {
+    "source": "63f7eafcd578b62c5e795e32c5cf8c0255559f91",
+    "mode": "--verify",
+    "created": [],
+    "reused": [
+      {
+        "requested": "primecare_call_api_permission_lookup",
+        "index": "primecare_call_api_permission_lookup",
+        "table": "govt_api_permissions"
+      },
+      {
+        "requested": "primecare_call_screen_permission_lookup",
+        "index": "primecare_call_screen_permission_lookup",
+        "table": "govt_role_screen_permissions"
+      },
+      {
+        "requested": "primecare_call_screen_api_lookup",
+        "index": "primecare_call_screen_api_lookup",
+        "table": "govt_screen_api_links"
+      },
+      {
+        "requested": "primecare_call_role_code_lookup",
+        "index": "primecare_call_role_code_lookup",
+        "table": "govt_roles"
+      },
+      {
+        "requested": "primecare_call_endpoint_route_lookup",
+        "index": "primecare_call_endpoint_route_lookup",
+        "table": "govt_api_endpoints"
+      }
+    ],
+    "governanceRowWrites": false,
+    "permissionChanges": false,
+    "businessDataWrites": false,
+    "verified": true,
+    "wouldCreate": [],
+    "independentReadback": true,
+    "definitionSha256": "a4b4cbb8f563170fd8197ba079993d2ec400da8300416844b51b3ddf32eb1a6a"
+  },
+  "queryExecution": {
+    "beforeIndexes": [
+      {
+        "mode": "default",
+        "milliseconds": 233.879
+      },
+      {
+        "mode": "jit-off",
+        "milliseconds": 232.527
+      },
+      {
+        "mode": "native-scalars",
+        "milliseconds": 56.533
+      }
+    ],
+    "afterIndexes": [
+      {
+        "mode": "default",
+        "milliseconds": 233.509
+      },
+      {
+        "mode": "jit-off",
+        "milliseconds": 233.094
+      },
+      {
+        "mode": "native-scalars",
+        "milliseconds": 1.095
+      }
+    ],
+    "indexesUsed": [
+      "primecare_call_endpoint_route_lookup",
+      "primecare_call_api_permission_lookup",
+      "primecare_call_screen_api_lookup",
+      "primecare_call_screen_permission_lookup"
+    ],
+    "permissionIndexUsed": true,
+    "sameNativeDecision": true,
+    "foreignTenantDenied": true,
+    "missingUserDenied": true,
+    "inactiveUserDenied": true,
+    "syntheticRollback": true
+  },
+  "live": {
+    "source": "63f7eafcd578b62c5e795e32c5cf8c0255559f91",
+    "passed": true,
+    "synthetic": true,
+    "liveBrowsers": true,
+    "relayAudio": true,
+    "syntheticCleanup": true,
+    "stage": "complete",
+    "nativeLogin": true,
+    "explicitExtensionPublication": true,
+    "noPrematureMicrophone": true,
+    "mediaSummary": [
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 15,
+        "relay": true
+      },
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 15,
+        "relay": true
+      }
+    ],
+    "connectionMilliseconds": 21059,
+    "audioVerificationMilliseconds": 22564,
+    "bidirectionalPacketGrowth": true,
+    "independentNativeReadback": true,
+    "muteVerified": true,
+    "reverseMediaSummary": [
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 26,
+        "relay": true
+      },
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 26,
+        "relay": true
+      }
+    ],
+    "reverseCallingVerified": true,
+    "revokedSessionMediaReleased": true,
+    "endVerified": true,
+    "foreignTenantDenied": true,
+    "idempotentDial": true
+  },
+  "limits": {
+    "oneSecondCallingVerified": false,
+    "backgroundClosedAppRingingVerified": false,
+    "physicalDeviceAcousticsVerified": false,
+    "publicPhoneRoutingChanged": false,
+    "independentGovernanceReviewFlagsApproved": false
+  }
+}

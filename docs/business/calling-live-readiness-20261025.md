@@ -5,8 +5,9 @@ access, within the same tenant. It uses WebRTC and Cloudflare TURN. Twilio is no
 required for this internal calling path.
 
 The live production test passed in both call directions, including a call back.
-The first connection in the final test took **52,951 ms**. Calling works, but
-initial connection setup is still slow and needs further performance work.
+The latest first connection took **21,059 ms**, improved from 43,102 ms in the
+preceding test. Calling works, but the one-second setup target remains unmet.
+Sequential database/network round trips remain the next bottleneck.
 
 ## Use calling
 
@@ -56,23 +57,44 @@ existing API gateway. All prior known service/secret bindings and public phone
 routing were preserved. This release does not activate Vapi/PSTN appointment
 operations or establish voiceprint accuracy.
 
+## Permission-query performance
+
+Five nonunique production indexes were built concurrently on native governance
+API permissions, screen permissions, screen/API links, role codes and endpoint
+routes. Existing rows, grants and public telephone routing were preserved.
+The calling policy inherits every current authorization check, while preserving
+native bigint/text fields in indexed joins instead of converting them to JSON.
+
+Actual PostgreSQL query plans measured the legacy query at 233.509 ms and the
+indexed native query at 1.095 ms. The planner used the permission, screen-link,
+screen-permission and endpoint-route indexes. Native authorization decisions
+matched; foreign tenants, missing users and inactive users were denied. The
+rollback-only profiling identities were removed without issuing sessions.
+The index fixture preserved 80,000 rows, reused an existing equivalent index,
+rejected conflicting index definitions and verified repeatable application.
+
+The read transport uses cache-disabled Hyperdrive against the same pinned native
+PostgreSQL origin. Advisory-lock transactions remain on the native connection.
+Neither roles nor authorization results are cached. Optimistic client versions
+are concurrency hints; every command still receives current server checks.
+
 ## Verification evidence
 
-- Deployed source: `f9129710664697903cbeb2a783485bd19905c76e`.
-- [Production workflow 40224041770](https://github.com/shaikhrais/primecare-platform/actions/runs/40224041770): all 17 jobs passed, including metadata, native checks, deployment, nine website publications and live acceptance.
-- Native suite: 52 cases passed, one existing optional case skipped; 11 PostgreSQL HTTP groups passed, plus real Workerd request/redirect checks and native/tagged policy projection tests.
+- Deployed source: `63f7eafcd578b62c5e795e32c5cf8c0255559f91`.
+- [Production workflow 40234881025](https://github.com/shaikhrais/primecare-platform/actions/runs/40234881025): all 17 jobs passed, including metadata, native checks, deployment, nine website publications and live acceptance.
+- Native suite: 59 cases passed, one existing optional case skipped; 12 PostgreSQL HTTP groups passed, plus real Workerd request/redirect checks and native/tagged policy projection tests.
 - Chrome 155.0.8059.39: actual native login, explicit extension publication, no pre-acceptance microphone, increasing audio RTP packets and selected relay candidates on both peers.
 - Both call directions, call back, mute/unmute, hangup, idempotent dial, foreign-tenant denial, independent PostgreSQL readback and server-side session revocation cleanup passed.
 - All synthetic users, sessions, extensions and owned call/tenant records were removed. Receipts contain no bearer credentials, raw audio, SDP or IP addresses.
 
-[Machine-readable receipt](../../reports/communications/internal-calling-live-20261025.json)
+[Current performance and live receipt](../../reports/communications/internal-calling-performance-20261025.json)
 records the source and job identities. This is functional execution evidence;
 independent governance review flags were not marked approved.
 
 ## Known limits
 
-Initial setup remains slow (about 53 seconds in the final live test, improved
-from about 63 seconds). The proof used synthetic microphone audio in real
+Initial setup remains slow (21.1 seconds in the latest live test). One-second
+calling is not verified. The proof used synthetic microphone audio in real
 authenticated browser sessions against live infrastructure. Physical device
 acoustics, every browser/network combination, closed-app ringing, real-speaker
 biometrics and public telephone calling are not claimed by this evidence.
