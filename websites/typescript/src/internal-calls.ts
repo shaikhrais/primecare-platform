@@ -42,7 +42,7 @@ export class InternalCallsPanel extends CommunicationResourceBase {
  }
  private async operation(work:()=>Promise<void>){if(this.busy||this.closed)return;this.busy=true;this.draw();try{this.current();await work();this.current();await this.refresh();}catch(error){this.session?.close();this.message(error instanceof InternalCallRequestError&&error.status===401?'login':this.pending?'unknown':'unavailable');}finally{this.busy=false;this.draw();}}
  async refreshDirectory(){const data=await this.client.directory() as any;this.current();if(data.userId!==this.userId)throw Error('Wrong session');this.self=data.self;this.directory=data.items;this.draw();}
- async start(){await this.refreshDirectory();await this.refresh();this.schedule();}
+ async start(){try{await this.refreshDirectory();await this.refresh();}finally{this.schedule();}}
  private schedule(){if(this.closed||this.timer)return;this.timer=setTimeout(()=>{this.timer=null;this.refresh().catch(()=>{}).finally(()=>this.schedule());},2000);}
  async refresh(){if(this.polling||this.closed)return;this.polling=true;try{
   this.current();const data=await this.client.command({action:'inbox'}) as {items:View[]};this.current();

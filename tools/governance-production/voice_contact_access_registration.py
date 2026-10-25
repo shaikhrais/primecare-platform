@@ -15,8 +15,8 @@ def definition():
  return d
 def expected_scope():
  d=definition();return dict(optInVariable='GOVERNANCE_VOICE_CONTACT_ACCESS',tables=sorted(TABLES),screenIds=sorted(map(int,d['screens'])),apiIds=sorted(d['apiIds'].values()),eligibility=d['eligibility'],existingDenials='preserve',definitionSha256=hashlib.sha256(FILE.read_bytes()).hexdigest(),schemaChanges=False,businessDataWrites=False,providerWrites=False,activation=False)
-def eligible(db):
- d=definition()
+def eligible(db,d=None):
+ d=definition() if d is None else d
  roles=db.execute('SELECT id,active FROM roles').fetchall();active=set()
  for rid,enabled in roles:
   if type(rid)is not int or type(enabled)is not int or enabled not in (0,1):raise GovernanceReadError('Malformed registered role')

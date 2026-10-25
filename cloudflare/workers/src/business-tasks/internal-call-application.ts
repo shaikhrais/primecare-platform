@@ -60,12 +60,12 @@ export class InternalCallApplication extends ScopedServiceBase {
   const db=await this.pool.connect();try{
    await db.query('BEGIN');await db.query("SET LOCAL lock_timeout='5s'");await db.query("SET LOCAL idle_in_transaction_session_timeout='60s'");
    for(const userId of [...new Set([actor.id,rows[0].userId])].sort())await db.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',[JSON.stringify(['internal-call-busy',actor.tenantId,userId])]);
-   const result=await this.dialLocked(actor,extension,requestId);await db.query('COMMIT');return result;
+   const result=await this.dialLocked(actor,extension,requestId,rows[0].userId,rows[0].version);await db.query('COMMIT');return result;
   }catch(error){await db.query('ROLLBACK');throw error;}finally{db.release();}
  }
- private async dialLocked(actor:Actor,extension:string,requestId:string){
+ private async dialLocked(actor:Actor,extension:string,requestId:string,lockedUserId:string,lockedVersion:number){
   if(typeof extension!=='string'||!/^[1-9][0-9]{3}$/.test(extension)||typeof requestId!=='string'||!/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/.test(requestId))throw unavailable();
-  const targets=await this.core.directory.lookup(extension,2);if(targets.length!==1||targets[0].tenantId!==actor.tenantId||targets[0].userId===actor.id||targets[0].published!==true||!targets[0].userId)throw unavailable();
+  const targets=await this.core.directory.lookup(extension,2);if(targets.length!==1||targets[0].tenantId!==actor.tenantId||targets[0].userId!==lockedUserId||targets[0].version!==lockedVersion||targets[0].userId===actor.id||targets[0].published!==true||!targets[0].userId)throw unavailable();
   const target=targets[0].userId,hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify([actor.tenantId,...[actor.id,target].sort()]))),id='internal-call:'+Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
   await this.core.calls.create(actor,id,'create',[actor.id,target].sort(),'general');
   await this.sweep(actor,id);const state=await this.core.calls.read(actor,id),callId='call:'+requestId,old=state.calls.find((c:any)=>c.id===callId);
