@@ -1,0 +1,26 @@
+name: Inspect production calling index needs
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/profile-call-indexes.mjs', '.github/workflows/calling-index-profile.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  profile:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/call-index-profile" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/call-index-profile/node_modules" node_modules
+      - env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/profile-call-indexes.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: production-call-index-profile, path: test-results/internal-calls/call-index-profile.json, retention-days: 30}
