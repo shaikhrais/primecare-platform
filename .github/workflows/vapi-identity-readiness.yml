@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'cloudflare/workers/src/business-tasks/voice-otp.ts'
+      - 'scripts/test-communication-voice-otp.mjs'
       - 'packages/shared/src/communications/vapi-call-read.mjs'
       - 'packages/shared/src/communications/vapi-call-read.d.mts'
       - 'scripts/test-vapi-call-read.mjs'

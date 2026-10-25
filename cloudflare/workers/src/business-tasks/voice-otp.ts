@@ -26,9 +26,15 @@ export class VoiceOtpService extends ScopedServiceBase {
   super(store,policy);if(!sid('AC',config.accountSid)||typeof config.sharedNumber!=='string'||config.sharedNumber.trim()!==config.sharedNumber||!/^\+[1-9][0-9]{1,14}$/.test(config.sharedNumber)||typeof ports?.sessions?.currentSession!=='function'||typeof ports?.calls?.fetch!=='function'||typeof ports?.contacts?.current!=='function'||typeof ports?.provider!=='function'||['issue','begin','sent','unknown','read','claimCheck','checked'].some(k=>typeof (repository as any)?.[k]!=='function'))throw Error('Call OTP ports required');
   this.repository=repository;this.ports=ports;this.config=Object.freeze({...config});
  }
- async #live(callSid:string){
+ async #live(callSid:string,contact?:VoiceOtpContact){
   if(!sid('CA',callSid))throw Error('Call verification unavailable');const call=await this.ports.calls.fetch(callSid);
   if(!call||call.sid!==callSid||call.accountSid!==this.config.accountSid||call.direction!=='inbound'||call.to!==this.config.sharedNumber||!['ringing','in-progress'].includes(call.status))throw Error('Call verification unavailable');
+  // A provider-read number is a matching constraint, never authentication.
+  // Do not reverse-lookup users or infer a tenant from caller ID. The current
+  // native session selects the account, including accounts sharing a number.
+  // Hidden, SIP/client and differently formatted numbers need reception rather
+  // than guessing a country code or accepting a model-supplied replacement.
+  if(contact&&call.from!==contact.phone)throw Error('Call verification unavailable');
  }
  async #session(hash:string){
   if(typeof hash!=='string'||hash.length!==64||! /^[a-f0-9]{64}$/.test(hash))throw Error('Current app session required');
@@ -45,7 +51,7 @@ export class VoiceOtpService extends ScopedServiceBase {
  async issue(callSid:string){await this.#live(callSid);const pin=pairingPin(),expiresAt=Date.now()+120000;await this.repository.issue(callSid,await pairingHash(callSid,pin),expiresAt);return {pairingCode:pin,expiresAt};}
  async start(nativeSessionHash:string,callSid:string,pin:string){
   if(typeof pin!=='string'||pin.length!==8||! /^[0-9]{8}$/.test(pin))throw Error('Call verification unavailable');
-  const session=await this.#session(nativeSessionHash),contact=await this.#contact(session.actor);await this.#live(callSid);await this.#authorize(session.actor,callSid,'voice.otp.start');
+  const session=await this.#session(nativeSessionHash),contact=await this.#contact(session.actor);await this.#live(callSid,contact);await this.#authorize(session.actor,callSid,'voice.otp.start');
   let claimed=false;try{claimed=await this.repository.begin({callSid,pairingHash:await pairingHash(callSid,pin),nativeSessionHash,actor:session.actor,contact});}catch{throw Error('Call verification unavailable');}
   if(!claimed)throw Error('Pairing unavailable');
   try{
@@ -60,7 +66,7 @@ export class VoiceOtpService extends ScopedServiceBase {
   if(!row||row.callSid!==callSid||row.state!==state||row.nativeSessionHash!==hash||row.userId!==session.actor.id||row.tenantId!==session.actor.tenantId||row.expiresAt<=Date.now())throw Error('Call verification unavailable');
   const snapshot=Object.freeze({...row}),contact=await this.#contact(session.actor);
   if(contact.phone!==snapshot.phone||contact.version!==snapshot.contactVersion)throw Error('Account contact changed');
-  await this.#live(callSid);await this.#authorize(session.actor,callSid,action);
+  await this.#live(callSid,contact);await this.#authorize(session.actor,callSid,action);
   const latest=await this.#session(hash),latestContact=await this.#contact(latest.actor);
   if(latest.actor.id!==session.actor.id||latest.actor.tenantId!==session.actor.tenantId||latestContact.phone!==snapshot.phone||latestContact.version!==snapshot.contactVersion||snapshot.expiresAt<=Date.now())throw Error('Call verification unavailable');
   return {session:latest,row:snapshot,contact:latestContact};

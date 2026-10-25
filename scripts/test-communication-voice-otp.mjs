@@ -2,7 +2,7 @@ import {test} from 'node:test';import assert from 'node:assert/strict';
 import {VoiceOtpService} from '../cloudflare/workers/src/business-tasks/voice-otp.ts';
 import {ScopedServiceBase} from '../packages/shared/src/communications/service-base.ts';
 const accountSid='AC'+'a'.repeat(32),callSid='CA'+'b'.repeat(32),verificationSid='VE'+'c'.repeat(32),sharedNumber='+15550001000',hash='d'.repeat(64);
-function fixture(){let saved=null,sends=0,checks=0,active=true,contact={phone:'+15550002000',version:1},approved=true,sendFailure=false,denied=false;const call={sid:callSid,accountSid,from:'+15550009999',to:sharedNumber,direction:'inbound',status:'in-progress'};const actor={id:'alice',tenantId:'tenant-a'};
+function fixture(){let saved=null,sends=0,checks=0,active=true,contact={phone:'+15550002000',version:1},approved=true,sendFailure=false,denied=false;const call={sid:callSid,accountSid,from:contact.phone,to:sharedNumber,direction:'inbound',status:'in-progress'};const actor={id:'alice',tenantId:'tenant-a'};
  const repository={async issue(c,h,expiresAt){if(saved)throw Error('Duplicate');saved={callSid:c,pairingHash:h,expiresAt,state:'issued',pairingAttempts:0,checkAttempts:0};},async begin(i){if(saved.state!=='issued'||++saved.pairingAttempts>5||i.pairingHash!==saved.pairingHash)return false;Object.assign(saved,{state:'sending',nativeSessionHash:i.nativeSessionHash,userId:i.actor.id,tenantId:i.actor.tenantId,phone:i.contact.phone,contactVersion:i.contact.version});return true;},async sent(c,sid){saved.state='pending';saved.verificationSid=sid;},async unknown(){saved.state='unknown';saved.grantId=null;},async read(){return saved?structuredClone(saved):null;},async claimCheck(){if(saved.state!=='pending'||saved.checkAttempts>=5)return false;saved.state='checking';saved.checkAttempts++;return true;},async checked(c,ok,grantId,expiresAt){saved.state=ok?'verified':'pending';if(ok){saved.grantId=grantId;saved.expiresAt=expiresAt;}}};
  const ports={sessions:{async currentSession(id){return active?{id,userId:actor.id,tenantId:actor.tenantId,active:true,expiresAt:Date.now()+600000}:null;}},calls:{async fetch(){return {...call};}},contacts:{async current(a){assert.deepEqual(a,actor);return contact?{...contact}:null;}},provider(c){assert.equal(c.phone,'+15550002000');return {async start(){sends++;if(sendFailure)throw Error('private');return {verificationSid,status:'pending'};},async check(sid,code){checks++;assert.equal(sid,verificationSid);assert.equal(code,'123456');return {approved};}};}};
  const service=new VoiceOtpService({run(){throw Error('unused');},read(){throw Error('unused');},inbox(){throw Error('unused');}},{async assert(a,action,state){if(denied||a.tenantId!==state.tenantId)throw Error('Denied');},async assignee(){throw Error('unused');}},repository,ports,{accountSid,sharedNumber});
@@ -17,3 +17,40 @@ test('false code approval stays unverified and five checks exhaust attempts',asy
 test('logout contact change call end and permission revocation invalidate an established grant',async()=>{for(const mutate of [f=>f.logout(),f=>f.changeContact(),f=>f.call.status='completed',f=>f.deny()]){const f=fixture();await started(f);await f.service.check(hash,callSid,'123456');assert.ok(await f.service.current(callSid));mutate(f);assert.equal(await f.service.current(callSid),null);}});
 test('session/contact revoked during provider I/O cannot install a grant',async()=>{const f=fixture();await started(f);const provider=f.ports.provider;f.ports.provider=c=>{const p=provider(c);return {...p,async check(...args){const r=await p.check(...args);f.logout();return r;}};};await assert.rejects(f.service.check(hash,callSid,'123456'));assert.equal(f.row.state,'unknown');assert.equal(await f.service.current(callSid),null);});
 test('uncertain SMS send is non-retryable and never creates a trusted identity',async()=>{const f=fixture(),pair=await f.service.issue(callSid);f.failSend();await assert.rejects(f.service.start(hash,callSid,pair.pairingCode),/outcome unknown/);await assert.rejects(f.service.start(hash,callSid,pair.pairingCode));assert.equal(f.sends,1);assert.equal(await f.service.current(callSid),null);});
+
+// Contact matching narrows the caller; OTP and native account remain authority.
+test('unmatched, hidden and noncanonical caller numbers fail before SMS or pairing claim',async()=>{
+ for(const number of ['+15550009999','anonymous','client:alice','15550002000',' +15550002000',undefined]){
+  const f=fixture(),pair=await f.service.issue(callSid);f.call.from=number;
+  await assert.rejects(f.service.start(hash,callSid,pair.pairingCode),/Call verification unavailable/);
+  assert.equal(f.sends,0);assert.equal(f.row.state,'issued');assert.equal(await f.service.current(callSid),null);
+ }
+});
+test('matching caller ID cannot bypass pairing, OTP, or the signed-in account',async()=>{
+ const f=fixture();await started(f);assert.equal(await f.service.current(callSid),null);
+ f.badCode();assert.deepEqual(await f.service.check(hash,callSid,'123456'),{verified:false});
+ assert.equal(await f.service.current(callSid),null);f.logout();
+ await assert.rejects(f.service.check(hash,callSid,'123456'));assert.equal(f.checks,1);
+});
+test('caller number changing after send or during OTP check cannot install a grant',async()=>{
+ for(const duringCheck of [false,true]){
+  const f=fixture();await started(f);
+  if(duringCheck){const provider=f.ports.provider;f.ports.provider=c=>{const p=provider(c);return {...p,async check(...args){const receipt=await p.check(...args);f.call.from='+15550009999';return receipt;}};};}
+  else f.call.from='+15550009999';
+  await assert.rejects(f.service.check(hash,callSid,'123456'));
+  assert.equal(f.checks,duringCheck?1:0);assert.equal(await f.service.current(callSid),null);
+ }
+});
+test('provider number changing after verification revokes task identity',async()=>{
+ const f=fixture();await started(f);await f.service.check(hash,callSid,'123456');
+ assert.ok(await f.service.current(callSid));f.call.from='+15550009999';
+ assert.equal(await f.service.current(callSid),null);
+});
+
+test('a shared contact number never transfers an OTP grant to another user or tenant',async()=>{
+ for(const key of ['id','tenantId']){
+  const f=fixture();await started(f);await f.service.check(hash,callSid,'123456');
+  assert.ok(await f.service.current(callSid));f.actor[key]='other-account';
+  assert.equal(await f.service.current(callSid),null);
+ }
+});

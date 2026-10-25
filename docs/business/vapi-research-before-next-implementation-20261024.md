@@ -81,3 +81,35 @@ For each next step: read primary documentation, inspect existing metadata and
 code, present the design and gaps, then implement and validate against explicit
 acceptance criteria. No new production code or tool attachment was performed
 following the user's research-first instruction.
+
+## Approved contact-number matching implementation
+
+The user approved using the registered contact number with OTP and independent
+task confirmation. The existing native session selects the user and tenant;
+there is no public phone-to-user lookup and no automatic selection among accounts
+sharing a number. The current verified contact record is the SMS destination.
+
+The inherited VoiceOtpService now additionally compares the independently fetched
+Twilio call's From number with that contact before claiming a verification send,
+before/after checking OTP, and at each use of the resulting task identity. Exact
+canonical E.164 equality is required; hidden, client/SIP, malformed and different
+numbers fail closed. This first path requires calling from the registered number.
+It does not implement calling from a different phone or a reception transfer.
+
+Caller-number equality is a restriction, not identity proof. Private call pairing,
+OTP, current native account/session, tenant rights and independent exact task
+approval remain mandatory. Matching caller ID cannot bypass any of them. A
+shared contact number does not transfer a grant to another native user or tenant.
+
+Primary sources reviewed before implementation:
+- https://www.twilio.com/docs/voice/api/call-resource (provider call fields)
+- https://www.twilio.com/docs/verify/api/verification-check (token validation)
+- https://docs.vapi.ai/tools/static-variables-and-aliases/how-variables-work
+  (signaling variables versus model-generated input)
+
+This is an additional server-side constraint within the existing registered OTP
+operations, not a new endpoint or permission. No schema, metadata, credentials,
+phone routing or provider tool attachment changes are needed for this constraint.
+The unmounted call-OTP runtime and missing private pairing/native UI remain
+separate activation blockers. No live OTP, call authentication or business task
+is claimed by isolated tests.
