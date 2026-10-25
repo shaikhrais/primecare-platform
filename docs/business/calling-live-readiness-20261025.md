@@ -140,3 +140,8 @@ logic, avoiding trickle-candidate RPCs. No shared media authorization is replace
 Native scoped reads are reused when no expiry mutation occurs. Regression tests
 cover complete-SDP gating, cancellation, timeout, version-stable presence, reverse
 calling, active-inbox priority and inactive-party histories.
+
+The native presence fixture caught PostgreSQL inferring an integer parameter from
+the timestamp subtraction despite casts in other expressions. Every operational
+deadline subtraction now explicitly casts both operands to bigint; the fixture
+uses current epoch milliseconds and blocks deployment on any remaining overflow.
