@@ -34,3 +34,19 @@ Remaining work before completion:
 
 Files have been prepared locally; latest checkpoint and CI IDs will be recorded
 when saved. Preserve existing public phone routing and native contact Worker.
+
+## Production activation pipeline
+
+Source 19cefeb6 passed the native HTTP fixture, all metadata regression groups
+and read-only production readiness. Production inventory measured no extension
+table, no internal-call Worker and no owned TURN key. The new additive schema
+migration creates only the four-digit directory/sequence and compares the full
+native shape and private ACL against a PostgreSQL fixture reference. Existing
+assignments, unexpected constraints and partial schemas are preserved.
+
+The protected workflow now registers/readbacks five contracts and existing-screen
+access/UI metadata, verifies the schema, provisions only the owned TURN key,
+deploys the native Worker and its exact gateway binding, and publishes TypeScript
+websites with microphone permission. Existing phone routing and all known service
+bindings/secrets are preserved. Live audio acceptance remains a separate required
+proof; successful deployment alone does not establish calling readiness.

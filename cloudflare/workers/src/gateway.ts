@@ -1,10 +1,11 @@
 import {BaseWorker, workerHandler} from './core/base-worker';
 import governedReadAliases from './governed-read-aliases.json';
+import callContracts from '../../../tools/governance-production/internal-call-contracts-registration.json';
 import contactContracts from '../../../tools/governance-production/voice-contact-contracts-registration.json';
 import communicationContracts from '../../../packages/shared/src/communications/registered-contracts.json';
 interface Service { fetch(request: Request): Promise<Response> }
 interface Env {
-  VOICE_CONTACT?: Service; AUTH: Service; CLIENT: Service; PROVIDER: Service; VISIT: Service;
+  INTERNAL_CALLS?: Service; VOICE_CONTACT?: Service; AUTH: Service; CLIENT: Service; PROVIDER: Service; VISIT: Service;
   NOTES: Service; BILLING: Service; SCHEDULING: Service; NOTIFICATION: Service;
   VERIFICATION: Service; COMPLIANCE: Service; GOVERNANCE: Service; FRANCHISE_REPORTING: Service;
 }
@@ -53,6 +54,12 @@ export class GatewayWorker extends BaseWorker<Env> {
 
   protected override async handle(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+    const call=callContracts.operations.find(op=>op.path===url.pathname);
+    if(call){
+      if(request.method!==call.method)return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:call.method}}));
+      if(!env.INTERNAL_CALLS)return withGatewayHeaders(request,Response.json({error:'calls_unavailable'},{status:503}));
+      return withGatewayHeaders(request,await env.INTERNAL_CALLS.fetch(request));
+    }
     const contact=contactContracts.operations.find(op=>op.path===url.pathname);
     if(contact){
       if(request.method!==contact.method)return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:contact.method}}));

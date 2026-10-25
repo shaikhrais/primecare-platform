@@ -10,6 +10,7 @@ on:
       - 'tools/governance-production/test-internal-call-*'
       - 'websites/typescript/src/internal-call*'
       - 'scripts/*internal-call*'
+      - 'packages/database/migrations/20261025_internal_call_extensions.sql'
       - 'packages/shared/src/communications/audio-session.mjs'
       - 'packages/shared/src/communications/audio-call.mjs'
   workflow_dispatch:
@@ -35,6 +36,14 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: pip install -r tools/governance-production/requirements.txt jsonschema==4.25.1
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/call-schema" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/call-schema/node_modules" node_modules
+          node scripts/migrate-internal-call-schema.mjs --reference
+      - uses: actions/upload-artifact@v4
+        with: {name: internal-call-schema-reference, path: test-results/internal-calls/schema-reference.json, retention-days: 30}
       - run: |
           python tools/governance-production/test-sms-link-contracts-registration.py
           python tools/governance-production/test-voice-contact-access-registration.py
@@ -61,7 +70,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/call-tests" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 esbuild@0.27.2 ajv@8.17.1 twilio@6.2.0
           ln -s "$RUNNER_TEMP/call-tests/node_modules" node_modules
           node tools/internal-call-schema-validators.mjs
-          node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs scripts/test-communication-audio-session.mjs
+          node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs scripts/test-communication-audio-session.mjs scripts/test-internal-call-deployment-plan.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-communication-gateway.mjs
           node scripts/test-internal-call-http-postgres.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/business-tasks/internal-call-worker.ts websites/typescript/src/internal-calls.ts
       - uses: actions/upload-artifact@v4
@@ -86,3 +95,72 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: internal-call-readiness, path: test-results/internal-calls, retention-days: 30}
+
+  deploy:
+    needs: [metadata, native]
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/call-deploy" --ignore-scripts --no-audit --no-fund pg@8.16.3 wrangler@4.68.1
+          ln -s "$RUNNER_TEMP/call-deploy/node_modules" node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - uses: actions/download-artifact@v4
+        with: {name: internal-call-schema-reference, path: test-results/internal-calls}
+      - name: Register exact native contracts, existing-screen access and shared call controls
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_INTERNAL_CALL_CONTRACTS: '1'
+          GOVERNANCE_INTERNAL_CALL_ACCESS: '1'
+          GOVERNANCE_INTERNAL_CALL_UI: '1'
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          for writer in contracts access ui; do
+            python "tools/governance-production/internal_call_${writer}_registration.py" --dry-run
+            python "tools/governance-production/internal_call_${writer}_registration.py" --apply
+            python "tools/governance-production/internal_call_${writer}_registration.py" --verify
+          done
+          python - <<'PYCODE'
+          import sys,json,pathlib
+          sys.path.insert(0,'tools/governance-production')
+          import internal_call_contracts_registration as contracts
+          import internal_call_access_registration as access
+          import internal_call_ui_registration as ui
+          from production_reader import connect
+          with connect() as reader:ui.base.readback(ui.ReadView(reader))
+          receipt={'contract':contracts.verify(),'access':access.verify(),'ui':{'independentReadback':True,'writesAttempted':False,'definitionSha256':ui.expected_scope()['definitionSha256']}}
+          pathlib.Path('test-results/internal-calls/registration.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          print('INTERNAL_CALL_REGISTRATION '+json.dumps(receipt))
+          PYCODE
+      - name: Add or independently verify exact private four-digit extension schema
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          INTERNAL_CALL_SCHEMA_APPLY: '1'
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          node scripts/migrate-internal-call-schema.mjs --dry-run
+          node scripts/migrate-internal-call-schema.mjs --apply
+          node scripts/migrate-internal-call-schema.mjs --verify
+      - name: Deploy native calling, owned TURN key and exact gateway routes
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/deploy-internal-calls.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: internal-call-deployment, path: test-results/internal-calls, retention-days: 30}
+  websites:
+    needs: deploy
+    uses: ./.github/workflows/deploy-typescript-websites.yml
+    with: {confirm: DEPLOY}
+    secrets: inherit

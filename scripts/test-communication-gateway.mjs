@@ -24,3 +24,15 @@ test('only the three native contact contracts reach the dedicated binding unchan
  }
  assert.equal((await gateway.fetch(new Request('https://api.example.invalid/v1/voice/contact/unknown'),{})).status,404);
 });
+
+test('only five exact registered internal calling routes reach their binding unchanged',async()=>{
+ const definition=JSON.parse(readFileSync('tools/governance-production/internal-call-contracts-registration.json','utf8'));
+ for(const op of definition.operations){
+  let seen;const env={INTERNAL_CALLS:{fetch:async request=>{seen=request;return Response.json({error:'unauthorized'},{status:401});}}};
+  const request=new Request('https://gateway.example'+op.path,{method:op.method,headers:{authorization:'Bearer native-session','content-type':'application/json'},body:'{}'});
+  const response=await gateway.fetch(request,env);assert.equal(response.status,401);assert.equal(new URL(seen.url).pathname,op.path);assert.equal(seen.headers.get('authorization'),'Bearer native-session');
+  assert.equal((await gateway.fetch(new Request(request.url),env)).status,405);
+  assert.equal((await gateway.fetch(request,{})).status,503);
+ }
+ assert.equal((await gateway.fetch(new Request('https://gateway.example/v1/calls/unknown',{method:'POST'}),{})).status,404);
+});

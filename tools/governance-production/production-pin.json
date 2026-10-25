@@ -1059,5 +1059,13 @@
     "businessDataWrites": false,
     "permissionChanges": false,
     "activation": false
+  },
+  "internalCallSchemaMigration": {
+    "sourceSha256": "105883dd0a8279c7c3b5986b6de1c748bb6cdb4b6866d298e4fb0049d41923ba",
+    "table": "communication_voice_extensions",
+    "sequence": "communication_voice_extension_seq",
+    "directHost": "db.prisma.io",
+    "runtimeHost": "pooled.db.prisma.io",
+    "existingData": "preserve"
   }
 }
