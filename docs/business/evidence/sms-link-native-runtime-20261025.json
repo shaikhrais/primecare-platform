@@ -1,0 +1,27 @@
+{
+  "sourceCommit": "38a159d9914751ea30539111cc2cced2a7f33d78",
+  "workflowRun": 40192486708,
+  "workflowUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/40192486708",
+  "nativeJob": {"id": 121166258085, "name": "twilio-voice", "conclusion": "success"},
+  "workerValidationJob": {"id": 121166258111, "name": "worker-validator", "conclusion": "success"},
+  "newNativeBoundaryTestsPassed": 10,
+  "localFocusedTestsPassed": 37,
+  "strictTypeScriptPassed": true,
+  "compiledRegisteredContracts": 3,
+  "workerBundleBytes": 44073,
+  "nativePostgresReport": {
+    "groupsPassed": 11,
+    "independentDatabaseReadback": true,
+    "nativeStatusVerified": true,
+    "queuedReplyBlockedAfterStop": true,
+    "startDidNotReviveOldReply": true,
+    "concurrentProviderSubmissionSerialized": true,
+    "singleSlotPoolVerified": true,
+    "liveProviderTraffic": false
+  },
+  "runtimeMounted": false,
+  "accessGranted": false,
+  "phoneRoutingChanged": false,
+  "liveMessagingActivated": false,
+  "next": "Compose real native session and registered API/action policy ports into the runtime host; verify owner access, deploy workers, then perform live end-to-end SMS readback."
+}

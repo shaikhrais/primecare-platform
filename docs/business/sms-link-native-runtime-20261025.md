@@ -40,3 +40,12 @@ owner access verification, worker deployment, durable inbound dispatcher and
 original-link-bound outbox composition, then live SMS receive/reply/delivery
 readback. No runtime/API mount, role grant, provider write, phone routing change
 or live messaging activation was performed by this checkpoint.
+
+Verified source `38a159d9914751ea30539111cc2cced2a7f33d78`: communication CI
+run `40192486708`, job `121166258085` (`twilio-voice`) passed. Its native database
+report records 11 SMS link groups, `nativeStatusVerified:true`, independent
+readback, STOP/START old-reply blocking, concurrent submission serialization and
+single-slot pool verification. All ten new native boundary tests and deterministic
+validators passed in that job. Worker validation job `121166258111` also passed.
+These checks used disposable PostgreSQL and no live provider traffic. Evidence:
+`evidence/sms-link-native-runtime-20261025.json`.
