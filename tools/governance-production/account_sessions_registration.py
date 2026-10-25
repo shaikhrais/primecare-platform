@@ -67,7 +67,12 @@ def read_catalog(db,d):
     actual=db.execute("SELECT component_code,component_type,data_cy,file_path FROM screen_components WHERE screen_id=? AND component_code LIKE ? ORDER BY component_code",(sid,'accountSessions.%')).fetchall()
     expected=sorted(('accountSessions.'+key,c['component'],c['testId'],d['panelFile']) for key,c in d['controls'].items())
     if actual!=expected:raise GovernanceReadError('Own-session controls differ from registration')
-    if sorted(r[0] for r in db.execute('SELECT api_id FROM screen_api_links WHERE screen_id=?',(sid,)))!=sorted(d['apiIds'].values()):raise GovernanceReadError('Own-session API links differ from registration')
+    # The authenticated account is a shared host. As with accountSessions.*
+    # components above, validate this feature's exact API ownership without
+    # claiming every other registered account feature's links.
+    owned=sorted(d['apiIds'].values())
+    links=db.execute('SELECT api_id FROM screen_api_links WHERE screen_id=? AND api_id IN ('+','.join('?' for _ in owned)+')',(sid,*owned))
+    if sorted(r[0] for r in links)!=owned:raise GovernanceReadError('Own-session API links differ from registration')
     locales={l:{} for l in ['en','fr','es']}
     for key,locale,text in db.execute("SELECT r.resource_key,l.language_code,v.translated_text FROM language_resources r JOIN language_resource_values v USING(resource_id) JOIN languages l USING(language_id) WHERE r.context='accountSessions' AND r.active=1"):
         if locale in locales:

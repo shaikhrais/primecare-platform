@@ -93,3 +93,13 @@ result.key. The adapter now accepts that observed field and rejects conflicting
 bearers. No key values have been logged or saved as artifacts. Recovery includes
 only the three measured failed provisioning checkpoints, all unbound and without
 installed TURN secrets.
+
+Run 40215527904/source 34f16a65 successfully deployed the native Worker, issued real
+TURN credentials, connected the exact five gateway routes, preserved all prior
+service/secret bindings, and verified unauthorized/unknown-session/foreign-origin
+denials. Website publication then stopped at a pre-existing shared-account
+catalog assumption: session ownership was compared with all account feature API
+links. The fix scopes that readback to exact session API IDs, matching its existing
+component namespace ownership. Tests preserve unrelated links and still reject
+missing or duplicate session links; endpoint identity/authentication/permissions
+are unchanged.

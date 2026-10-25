@@ -85,6 +85,25 @@ class AccountTests(unittest.TestCase):
             self.assertEqual(read_catalog(db,self.definition),baseline)
         with psycopg.connect(URL,autocommit=True) as db:
             self.assertEqual(db.execute('SELECT * FROM '+self.table('screen_components')+' WHERE id=999').fetchall(),before)
+    def test_other_account_api_links_do_not_claim_or_modify_session_owned_links(self):
+        with self.store() as db:baseline=register(db,self.definition)
+        sid=baseline['screenId']
+        with psycopg.connect(URL,autocommit=True) as db:
+            db.execute('INSERT INTO '+self.table('api_endpoints')+" VALUES(1000,17000,'/v1/user/other-registered-feature','POST','auth',1,'{}','{}','otherFeature','authenticated_self_session')")
+            db.execute('INSERT INTO '+self.table('screen_api_links')+" VALUES(1000,1000,%s,17000,'Other registered account feature')",(sid,))
+            before=db.execute('SELECT * FROM '+self.table('screen_api_links')+' WHERE api_id=17000').fetchall()
+        with self.store() as db:self.assertEqual(read_catalog(db,self.definition),baseline)
+        with psycopg.connect(URL,autocommit=True) as db:
+            self.assertEqual(db.execute('SELECT * FROM '+self.table('screen_api_links')+' WHERE api_id=17000').fetchall(),before)
+            db.execute('DELETE FROM '+self.table('screen_api_links')+' WHERE screen_id=%s AND api_id=16425',(sid,))
+        with self.assertRaises(GovernanceReadError):
+            with self.store() as db:read_catalog(db,self.definition)
+    def test_duplicate_session_api_link_is_still_rejected(self):
+        with self.store() as db:baseline=register(db,self.definition)
+        with psycopg.connect(URL,autocommit=True) as db:
+            db.execute('INSERT INTO '+self.table('screen_api_links')+' SELECT 1001,1001,screen_id,api_id,purpose FROM '+self.table('screen_api_links')+' WHERE screen_id=%s AND api_id=16425',(baseline['screenId'],))
+        with self.assertRaises(GovernanceReadError):
+            with self.store() as db:read_catalog(db,self.definition)
     def test_partial_failure_rolls_back_new_screen_resources_and_steps(self):
         class Failure(AccountRegistrationStore):
             calls=0

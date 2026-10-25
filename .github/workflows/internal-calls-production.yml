@@ -97,8 +97,26 @@ jobs:
         if: always()
         with: {name: internal-call-readiness, path: test-results/internal-calls, retention-days: 30}
 
+  account_catalog:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: recovery_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: recovery_metadata_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U recovery_fixture -d recovery_metadata_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      WORKFLOW_TEST_DATABASE_URL: postgres://recovery_fixture:disposable-only@localhost:5432/recovery_metadata_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          python tools/governance-production/test-account-sessions-registration.py
   deploy:
-    needs: [metadata, native]
+    needs: [metadata, native, account_catalog]
     runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 18
