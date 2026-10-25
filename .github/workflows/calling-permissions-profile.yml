@@ -1,0 +1,36 @@
+name: Profile native calling permission query
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/calling-permissions-profile.yml', 'scripts/profile-calling-permissions.mjs']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: primecare-internal-calls-production
+  cancel-in-progress: false
+jobs:
+  profile:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/call-profile" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/call-profile/node_modules" node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          python scripts/prepare-internal-call-live-identity.py
+          node scripts/profile-calling-permissions.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: calling-permission-query-profile, path: test-results/internal-calls, retention-days: 30}
