@@ -37,7 +37,10 @@ export class MessagingAiReplyService extends ScopedServiceBase {
   if(state?.ownerId!==actor.id)throw Error('Not found');
   await this.checkAccess(actor,action,state,['messaging_ai_turn']);
   const current=linkSnapshot(actor,state.conversationId,await this.links.resolve(actor,state.conversationId));
-  if(JSON.stringify(current)!==JSON.stringify(state.link))throw Error('Channel link changed');
+  // JSONB reorders keys. Compare the exact projection by values, never by JSON
+  // serialization order; missing/extra fields must still fail closed.
+  const keys=Object.keys(current) as (keyof MessagingLink)[];
+  if(!state.link||Object.keys(state.link).length!==keys.length||keys.some(key=>current[key]!==state.link[key]))throw Error('Channel link changed');
  }
  async queue(actor:Actor,id:string,key:string,input:TurnInput){
   if(!input||Object.keys(input).some(k=>!['conversationId','eventId','text'].includes(k)))throw Error('Invalid reply input');

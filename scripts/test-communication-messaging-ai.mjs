@@ -13,6 +13,13 @@ function fixture(){
  return {service,channel,ports,calls,outgoing,store,revoke(){denied=true;},changeLink(){linkVersion++;},link};
 }
 const input={conversationId:'thread',eventId:'provider-event',text:'Can reception help?'};
+test('link comparison survives JSONB key ordering but still rejects extra or changed fields',async()=>{
+ const f=fixture();await f.service.queue(actor,input.eventId,'receive',input);
+ const saved=[...f.store.states.values()][0];saved.link=Object.fromEntries(Object.entries(saved.link).reverse());
+ assert.equal((await f.service.read(actor,input.eventId)).status,'pending');
+ saved.link.extra='forged';await assert.rejects(f.service.read(actor,input.eventId),/link changed/);delete saved.link.extra;
+ saved.link.address='+15550009999';await assert.rejects(f.service.read(actor,input.eventId),/link changed/);
+});
 test('shared inherited channel queues, generates and queues a reply with server-resolved address',async()=>{
  const f=fixture();assert.ok(f.service instanceof ScopedServiceBase);assert.ok(f.channel instanceof CommunicationChannelBase);
  await f.channel.execute(actor,{action:'queue',id:input.eventId,key:'receive',input});
