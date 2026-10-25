@@ -833,5 +833,28 @@
     "businessDataWrites": false,
     "providerWrites": false,
     "activation": false
+  },
+  "voiceContactPlatformWriter": {
+    "optInVariable": "GOVERNANCE_VOICE_CONTACT_PLATFORM",
+    "tables": [
+      "api_permissions",
+      "screen_api_links",
+      "screen_components",
+      "screen_required_elements"
+    ],
+    "screenId": 1269,
+    "roleCode": "code_admin",
+    "apiIds": [
+      16535,
+      16536,
+      16537
+    ],
+    "definitionSha256": "21f97c3cefdf496dfadc55cc5d205aa29ba8453c7e44c67cd23c93f417f5f001",
+    "uiDefinitionSha256": "637ea5f48ec8a28ea3d37a7556eedd4e8bc9aaf43e3e89bc91dde14f04bbbb14",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleScreenChanges": false,
+    "existingDenials": "preserve",
+    "activation": false
   }
 }

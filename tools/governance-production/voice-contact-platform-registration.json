@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "requirement": "Allow the user-approved Code Administrator to verify only their own account phone from existing Platform Administration, using the shared inherited verification panel. Do not grant clinical messaging, other account access, caller identity or AI task execution.",
+  "roleCode": "code_admin",
+  "screenId": 1269,
+  "screenCode": "PLATFORM_ADMINISTRATION",
+  "apiIds": [16535, 16536, 16537],
+  "controls": ["phoneVerification", "phoneStatus", "phoneNumber", "phoneSend", "phoneCode", "phoneCheck", "phoneRefresh"],
+  "existingDenials": "preserve",
+  "roleScreenChanges": false,
+  "activation": false
+}
