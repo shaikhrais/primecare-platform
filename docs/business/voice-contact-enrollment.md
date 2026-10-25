@@ -347,3 +347,21 @@ authenticated browser acceptance must be measured again after deployment.
 A failed initial read-only status can now recover after a successful explicit
 status refresh. Once a verification send has been attempted, any uncertain result
 still prevents a second send. Two controller regressions cover that distinction.
+
+Final code rollout source 4c31727f2b7b1ccc52fa3690a8d8c35a97b21180 passed native
+47 checks (40149479318), all 12 communications jobs (40149479367), and both
+browser/API/database stack jobs (40149479379). Clinic deployment 40149479467
+verified its published Flutter source stamp. The production policy probes
+(40149479445) measured 504 ms and 327 ms, down from 6,265 ms and 1,796 ms in the
+before run; these are measured wall times, including network and transaction
+setup, not a controlled CPU benchmark.
+
+The signed-in Code Admin browser loaded Platform Administration and completed
+native status: the registered phone field and SMS button enabled, the SMS-code
+field stayed disabled, and the status instructed a fresh sign-in before requesting
+a code. This proves deployed panel rendering and an authenticated status read.
+It does not prove SMS delivery, an approved code, contact persistence or caller
+identity. No real phone or code was entered and no SMS was sent.
+
+User direction after this rollout: research and explain the design before any
+further implementation. See `vapi-research-before-next-implementation-20261024.md`.

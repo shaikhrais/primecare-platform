@@ -1,0 +1,78 @@
+{
+  "scope": "read-only-code-admin-contact-policy",
+  "authenticatedUserVerified": false,
+  "smsSent": false,
+  "providerWrites": false,
+  "businessDataWrites": false,
+  "permissionWrites": false,
+  "events": [
+    {
+      "stage": "begin",
+      "milliseconds": 21,
+      "rows": 0
+    },
+    {
+      "stage": "timeout",
+      "milliseconds": 21,
+      "rows": 0
+    },
+    {
+      "stage": "manifest",
+      "milliseconds": 21,
+      "rows": 1
+    },
+    {
+      "stage": "permission",
+      "milliseconds": 420,
+      "rows": 1
+    },
+    {
+      "stage": "rollback",
+      "milliseconds": 21,
+      "rows": 0
+    },
+    {
+      "stage": "begin",
+      "milliseconds": 20,
+      "rows": 0
+    },
+    {
+      "stage": "timeout",
+      "milliseconds": 21,
+      "rows": 0
+    },
+    {
+      "stage": "manifest",
+      "milliseconds": 22,
+      "rows": 1
+    },
+    {
+      "stage": "permission",
+      "milliseconds": 243,
+      "rows": 1
+    },
+    {
+      "stage": "rollback",
+      "milliseconds": 21,
+      "rows": 0
+    }
+  ],
+  "accountCount": 1,
+  "activeAccount": true,
+  "activeTenant": true,
+  "probes": [
+    {
+      "kind": "http-metadata",
+      "allowed": true,
+      "milliseconds": 504
+    },
+    {
+      "kind": "service-metadata",
+      "allowed": true,
+      "milliseconds": 327
+    }
+  ],
+  "complete": true,
+  "workflowRunId": 40149479445,
+  "sourceCommit": "4c31727f2b7b1ccc52fa3690a8d8c35a97b21180"
+}

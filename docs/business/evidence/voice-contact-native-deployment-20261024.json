@@ -1,5 +1,5 @@
 {
-  "sourceCommit": "b392bc2941a035345176913e280e9356a5253a76",
+  "sourceCommit": "4c31727f2b7b1ccc52fa3690a8d8c35a97b21180",
   "scope": "native-own-phone-enrollment-only",
   "deployed": true,
   "gatewayConnected": true,
@@ -24,6 +24,6 @@
   "gatewaySecretsPreserved": true,
   "gatewayServicesPreserved": true,
   "status": "native_enrollment_boundary_deployed",
-  "workflowRunId": 40148207920,
+  "workflowRunId": 40149479318,
   "checksPassed": 47
 }
