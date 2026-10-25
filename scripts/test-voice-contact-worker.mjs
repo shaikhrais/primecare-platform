@@ -6,7 +6,7 @@ import {mkdtemp,writeFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 const bundle=await build({entryPoints:['cloudflare/workers/src/business-tasks/voice-contact-worker.ts'],bundle:true,write:false,platform:'node',format:'cjs'});
-const dir=await mkdtemp(join(tmpdir(),'primecare-contact-')),file=join(dir,'host.cjs');await writeFile(file,bundle.outputFiles[0].text);const {VoiceContactEnrollmentWorker}=createRequire(import.meta.url)(file);await rm(dir,{recursive:true,force:true});
+const dir=await mkdtemp(join(tmpdir(),'primecare-contact-')),file=join(dir,'host.cjs');await writeFile(file,bundle.outputFiles[0].text);const {VoiceContactEnrollmentWorker,nativeContactPostgresOptions}=createRequire(import.meta.url)(file);await rm(dir,{recursive:true,force:true});
 import {PostgresVoiceContactAccessPolicy} from '../cloudflare/workers/src/business-tasks/voice-contact-native-policy.ts';
 import {NativeVoiceContactHttpAdapter,NativeVoiceHttpAdapter} from '../packages/shared/src/communications/voice-native-http.mjs';
 import {TwilioVerifyFetchClient} from '../packages/shared/src/communications/twilio-verify-fetch.mjs';
@@ -78,4 +78,9 @@ test('native host uses real PostgreSQL session and current grants through SDK fe
   await db.query(`UPDATE ${schema}.govt_role_screen_permissions SET can_view=0`);assert.equal((await post('status')).status,403);await db.query(`UPDATE ${schema}.govt_role_screen_permissions SET can_view=1`);assert.deepEqual(await (await post('status')).json(),{verified:true,enrollmentAllowed:false});
   await db.query('DELETE FROM public.auth_sessions WHERE token_hash=$1',[sessionHash]);assert.equal((await post('status')).status,401);assert.equal(sends,1);assert.equal(checks,1);assert.equal(closed,8);
  }finally{await db.end();}
+});
+
+test('native PostgreSQL URL cannot redirect the database or weaken certificate verification',()=>{
+ const options=nativeContactPostgresOptions('postgres://fixture:private@pooled.db.prisma.io/postgres?ssl=false&sslmode=no-verify');assert.equal(options.host,'pooled.db.prisma.io');assert.equal(options.database,'postgres');assert.deepEqual(options.ssl,{rejectUnauthorized:true});assert.equal('connectionString' in options,false);
+ for(const url of ['postgres://fixture:private@foreign.invalid/postgres','postgres://fixture:private@db.prisma.io/postgres','postgres://fixture:private@pooled.db.prisma.io/other'])assert.throws(()=>nativeContactPostgresOptions(url),/Pinned/);
 });
