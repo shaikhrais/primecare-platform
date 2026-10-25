@@ -59,3 +59,13 @@ Both peers must receive increasing audio RTP packets and select TURN relay
 candidates. The proof also exercises ambiguous dial retry, foreign-tenant denial,
 mute/unmute, server-side session revocation, end-call, and exact synthetic cleanup.
 No credentials, audio, SDP, IP addresses or user IDs are included in its receipt.
+
+Production registration completed in run 40213655463: APIs 16542–16546,
+20 existing-screen links and 20 grants across the four existing eligible roles,
+60 shared controls and en/es/fr resources. Independent readers verified all three.
+Schema dry-runs rolled back: the generated schema reference was accidentally
+overwritten by the migration's status report under the same filename. The
+diagnostic run 40214235703 identified the artifact collision; native PostgreSQL
+17.2 showed the intended table/sequence shape. The reference and status report
+now use different paths, with an explicit CI assertion that the reference holds
+the full native shape and sequence range. Schema comparison remains mandatory.

@@ -22,7 +22,7 @@ export class InternalCallsPanel extends CommunicationResourceBase {
   const click=(event:Event)=>{const element=(event.target as Element).closest<HTMLButtonElement>('[data-call]');if(!element)return;const action=element.dataset.call!;if(action==='dial')return;
    event.preventDefault();if(action==='hear'){void this.audio.play().catch(()=>this.message('permission'));return;}if(action==='mute'){if(this.session&&!this.session.closed){this.muted=!this.muted;this.session.mute(this.muted);element.setAttribute('aria-pressed',String(this.muted));}return;}
    if(action==='notifications'){if('Notification'in window)void Notification.requestPermission();return;}
-   if(action==='refresh'){void this.refresh();return;}if(action==='start'){this.attempted.delete(this.active?.call.id??'');void this.startMedia();return;}
+   if(action==='refresh'){void this.operation(async()=>{await this.refreshDirectory();});return;}if(action==='start'){this.attempted.delete(this.active?.call.id??'');void this.startMedia();return;}
    void this.operation(async()=>{if(action==='enable'||action==='disable'){this.self=await this.client.extension(action==='enable');await this.refreshDirectory();}else if(action==='pending'&&this.pending)await this.place(this.pending.extension);else if(['answer','decline','end'].includes(action))await this.callAction(action==='answer'?'accept':action);});
   };
   const form=root.querySelector<HTMLFormElement>('[data-cy=internal-call-dial-form]')!,submit=(event:Event)=>{event.preventDefault();const extension=String(new FormData(form).get('extension')??'');if(/^[1-9][0-9]{3}$/.test(extension))void this.operation(()=>this.place(extension));};

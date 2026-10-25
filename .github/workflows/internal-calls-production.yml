@@ -42,6 +42,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/call-schema" --ignore-scripts --no-audit --no-fund pg@8.16.3
           ln -s "$RUNNER_TEMP/call-schema/node_modules" node_modules
           node scripts/migrate-internal-call-schema.mjs --reference
+          node --input-type=module -e "import fs from 'node:fs';import assert from 'node:assert/strict';const r=JSON.parse(fs.readFileSync('test-results/internal-calls/schema-reference.json'));assert.equal(r.version,1);assert.ok(r.shapes.communication_voice_extensions);assert.equal(r.sequence[0].seqmin,'1000');assert.equal(r.sequence[0].seqmax,'9999');"
       - uses: actions/upload-artifact@v4
         with: {name: internal-call-schema-reference, path: test-results/internal-calls/schema-reference.json, retention-days: 30}
       - run: |

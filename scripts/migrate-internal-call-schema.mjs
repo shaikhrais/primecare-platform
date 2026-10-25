@@ -31,4 +31,4 @@ try{
   await db.query(mode==='--dry-run'?'ROLLBACK':'COMMIT');report.independentReadback=mode==='--verify';report.verified=true;
  }finally{await db.query('ROLLBACK').catch(()=>{});db.release();}
 }catch(e){report.verified=false;report.reason=['pinned_schema_required','pinned_target_required','partial_schema_preserved','schema_missing','existing_schema_preserved','manifest_mismatch','sequence_acl_preserved'].includes(e?.message)?e.message:'schema_setup_failed';if(/^[A-Z0-9]{5}$/.test(e?.code??''))report.databaseErrorCode=e.code;process.exitCode=1;}finally{await pool?.end();}
-await mkdir('test-results/internal-calls',{recursive:true});await writeFile('test-results/internal-calls/schema-'+mode.slice(2)+'.json',JSON.stringify(report,null,2)+'\n');console.log('INTERNAL_CALL_SCHEMA '+JSON.stringify(report));
+await mkdir('test-results/internal-calls',{recursive:true});await writeFile('test-results/internal-calls/schema-'+(fixture?'reference-report':mode.slice(2))+'.json',JSON.stringify(report,null,2)+'\n');console.log('INTERNAL_CALL_SCHEMA '+JSON.stringify(report));
