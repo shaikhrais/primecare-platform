@@ -14,7 +14,7 @@ import {GrowthClient} from './client';
 import {esc,growthForms,formValues,due,money,type T} from './forms';
 export async function renderGrowth(root:HTMLElement,gateway:string){
  const token=sessionStorage.getItem('primecare_session');if(!token){location.assign('/login?enable-semantics=true');return;}
- const client=new GrowthClient(gateway,token);let report:any=null,reportPeriod:any=null,marketingStatement:any=null,marketingMonth:string|undefined=undefined;let data:any,locale:'en'|'fr'|'es'='en',offset=0,filters:Record<string,string>={},notice='',busy=false;
+ const client=new GrowthClient(gateway,token);let report:any=null,reportPeriod:any=null,marketingStatement:any=null,marketingMonth:string|undefined=undefined;let data:any,locale:'en'|'fr'|'es'=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en',offset=0,filters:Record<string,string>={},notice='',busy=false;
  const t:T=key=>esc((registry.locales as Record<string,Record<string,string>>)[locale][key]??registry.locales.en[key as keyof typeof registry.locales.en]??key);
  const moneyText=(n:unknown)=>new Intl.NumberFormat(locale,{style:'currency',currency:'CAD'}).format(Number(n)/100);
  const metric=(label:string,value:unknown,glyph:'people'|'clock'|'wallet',id:string)=>`<article class="metric growth-metric"><span class="growth-metric-icon">${icon(glyph,'metric-'+id)}</span><div><span>${label}</span><strong>${esc(value)}</strong></div></article>`;
