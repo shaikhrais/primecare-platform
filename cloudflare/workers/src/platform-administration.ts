@@ -1,3 +1,4 @@
+import {vapiAdministration} from './vapi-administration';
 import {createTenantRecord} from '../../../packages/shared/src/tenant-creation.mjs';
 import {platformBundle} from './platform-bundle/service';
 import {bundleAccess} from '../../../packages/shared/src/platform-bundle/contract';
@@ -48,6 +49,7 @@ export function platformCommand(path:string,method:string,body:Record<string,unk
 /** Platform provisioning is separate from all tenant roles and clinical workflows. */
 export async function platformAdministration(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null> {
  if(env.SERVICE_NAME!=='governance'||!(path==='/platform'||path.startsWith('/platform/')))return null;
+ const vapi=await vapiAdministration(request,env,path,headers);if(vapi)return vapi;
  const bundle=await platformBundle(request,env,path,headers);if(bundle)return bundle;
  const operations=await tenantOperations(request,env,path,headers);if(operations)return operations;
  const territory=await territoryAdministration(request,env,path,headers);if(territory)return territory;
@@ -92,3 +94,4 @@ export async function platformAdministration(request:Request,env:Env,path:string
   });
  }catch(error){if(error instanceof Failure)return json({error:error.message},error.status,safe);if((error as {code?:string}).code==='23505')return json({error:'Record already exists'},409,safe);return json({error:'Platform administration unavailable'},503,safe);}
 }
+

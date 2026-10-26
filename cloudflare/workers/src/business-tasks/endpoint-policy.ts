@@ -1,3 +1,4 @@
+import vapiAdmin from '../../../../packages/shared/src/communications/vapi-admin-contract.json' with {type:'json'};
 import externalCalls from '../../../../tools/governance-production/external-call-registration.json' with {type:'json'};
 import type {Actor} from './store.ts';
 import {assertActor} from '../../../../packages/shared/src/communications/service-base.ts';
@@ -33,6 +34,7 @@ export function isPlatformExternalCallEndpoint(apiId:number|null,method:string,p
  const op=externalCalls.operations.find(o=>o.authentication==='native-session-csrf'&&o.method===method&&o.path===path);
  return !!op&&endpointCode==='EXTERNAL_'+op.key.replaceAll('.','_').toUpperCase();
 }
+export function isPlatformVapiAdminEndpoint(method:string,path:string,code:string|null){return vapiAdmin.operations.some(o=>o.method===method&&o.path===path&&o.code===code);}
 export function registeredPermissionQuery(actor:Actor,apiId:number|null,method:string,path:string,endpointCode:string|null,value=registeredMetadataValue,idParameter='$3',allowedRoles:readonly string[]|null=null){
  assertActor(actor);if(allowedRoles&&(!allowedRoles.length||allowedRoles.some(r=>! /^[a-z][a-z0-9_]{0,79}$/.test(r))))throw Error('Invalid role policy');return {text:`SELECT DISTINCT (${value('r','id')})::text AS role_id,(${value('s','id')})::text AS screen_id,(${value('a','id')})::text AS api_id
     FROM public.users u
@@ -46,7 +48,7 @@ export function registeredPermissionQuery(actor:Actor,apiId:number|null,method:s
     AND ($3::text IS NULL OR ${value('a','id')}=${idParameter}) AND ${value('a','http_method')}=$4 AND ${value('a','route_path')}=$5
     AND ${value('a','service_name')}='governance' AND ${value('a','auth_required')}='1'
     AND ${value('a','permission_key')}='role_screen_permissions'
-    AND (${value('s','id')} IN ('234','331','559','578')${isPlatformOwnContactEndpoint(apiId,method,path,endpointCode)?` OR (${value('s','id')}='${platformContact.screenId}' AND ${value('a','id')}='${platformContact.apiIds[contacts.operations.findIndex(op=>op.method===method&&op.path===path)]}')`:''}${isPlatformExternalCallEndpoint(apiId,method,path,endpointCode)?` OR ${value('s','id')}='1269'`:''})${allowedRoles?`\n    AND u.roles::text IN (${allowedRoles.map(r=>"'"+r+"'").join(',')})`:''}
+    AND (${value('s','id')} IN ('234','331','559','578')${isPlatformOwnContactEndpoint(apiId,method,path,endpointCode)?` OR (${value('s','id')}='${platformContact.screenId}' AND ${value('a','id')}='${platformContact.apiIds[contacts.operations.findIndex(op=>op.method===method&&op.path===path)]}')`:''}${isPlatformExternalCallEndpoint(apiId,method,path,endpointCode)?` OR ${value('s','id')}='1269'`:''}${isPlatformVapiAdminEndpoint(method,path,endpointCode)?` OR (${value('s','id')}='1269' AND u.roles::text='code_admin')`:''})${allowedRoles?`\n    AND u.roles::text IN (${allowedRoles.map(r=>"'"+r+"'").join(',')})`:''}
     ${endpointCode===null?'':`AND ${value('a','endpoint_code')}=$6 AND EXISTS (SELECT 1 FROM public.tenants t WHERE t.id=u.tenant_id AND LOWER(t.status)='active')
     AND (SELECT COUNT(*) FROM ${table('api_endpoints')} duplicate WHERE ${value('duplicate','http_method')}=$4 AND ${value('duplicate','route_path')}=$5 AND ${value('duplicate','service_name')}='governance')=1`} LIMIT 2`,values:[actor.id,actor.tenantId,apiId===null?null:String(apiId),method,path,...(endpointCode===null?[]:[endpointCode])]};
 }
@@ -95,3 +97,4 @@ export class PostgresVoiceEndpointPolicy extends PostgresRegisteredCommunication
   return this.authorizeRegistered(session.actor,contact?contactAccess.apiIds[contact.key as keyof typeof contactAccess.apiIds]:null,contract.method,contract.path,(contact?'VOICE_':'TWILIO_')+key.replaceAll('.','_').toUpperCase());
  }
 }
+

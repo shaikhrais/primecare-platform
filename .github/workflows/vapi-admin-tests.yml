@@ -1,0 +1,29 @@
+name: Vapi management UI and API checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/shared/src/communications/vapi-admin*'
+      - 'websites/typescript/src/vapi-admin.ts'
+      - 'websites/typescript/src/platform-admin.ts'
+      - 'cloudflare/workers/src/vapi-administration.ts'
+      - 'cloudflare/workers/src/business-tasks/endpoint-policy.ts'
+      - 'scripts/test-vapi-admin*'
+      - '.github/workflows/vapi-admin-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  management:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test scripts/test-vapi-admin.mjs scripts/test-vapi-management.mjs
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/test-vapi-admin-browser.mjs
+      - name: Check UI types
+        run: npx -p typescript tsc --noEmit --strict --target es2022 --module esnext --lib es2022,dom,dom.iterable websites/typescript/src/vapi-admin.ts

@@ -1,0 +1,11 @@
+{
+  "status": "candidate-unregistered",
+  "screenId": 1269,
+  "role": "code_admin",
+  "operations": [
+    {"method":"GET","path":"/v1/governance/platform/vapi/inventory","code":"VAPI_ADMIN_INVENTORY"},
+    {"method":"POST","path":"/v1/governance/platform/vapi/assistants","code":"VAPI_ADMIN_ASSISTANTS"},
+    {"method":"POST","path":"/v1/governance/platform/vapi/tools","code":"VAPI_ADMIN_TOOLS"},
+    {"method":"POST","path":"/v1/governance/platform/vapi/attachment","code":"VAPI_ADMIN_ATTACHMENT"}
+  ]
+}
