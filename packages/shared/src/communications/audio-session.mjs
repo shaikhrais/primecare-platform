@@ -6,11 +6,11 @@ import {BrowserAudioCall} from './audio-call.mjs';
  * No routes, credentials, role grants or timers survive close().
  */
 export class BrowserAudioSession extends CommunicationResourceBase {
- constructor({transport,userId,threadId,callId,media,configurationProvider,preparationProvider,preparationReader,preparationSignaler,onTiming=()=>{},intervalMilliseconds=1000,onError=()=>{},key=()=>crypto.randomUUID()}) {
+ constructor({transport,userId,threadId,callId,media,configurationProvider,preparationProvider,preparationReader,preparationSignaler,onAccepted=()=>{},onTiming=()=>{},intervalMilliseconds=1000,onError=()=>{},key=()=>crypto.randomUUID()}) {
   super();
   if(typeof transport?.execute!=='function'||[userId,threadId,callId].some(value=>typeof value!=='string'||!value.trim())||!Number.isSafeInteger(intervalMilliseconds)||intervalMilliseconds<100||typeof key!=='function'||typeof onError!=='function')throw Error('Audio session adapters required');
   if(configurationProvider!==undefined&&typeof configurationProvider!=='function')throw Error('Media configuration provider required');
-  this.preparationSignaler=preparationSignaler;this.negotiating=false;this.preparationReader=preparationReader;this.onTiming=onTiming;this.preparationProvider=preparationProvider;this.preparedUntil=0;this.preparing=null;
+  this.onAccepted=onAccepted;this.preparationSignaler=preparationSignaler;this.negotiating=false;this.preparationReader=preparationReader;this.onTiming=onTiming;this.preparationProvider=preparationProvider;this.preparedUntil=0;this.preparing=null;
   this.configurationProvider=configurationProvider;this.configurationTimer=null;
   this.transport=transport;this.userId=userId;this.threadId=threadId;this.callId=callId;
   this.intervalMilliseconds=intervalMilliseconds;this.onError=onError;this.key=key;
@@ -90,7 +90,8 @@ export class BrowserAudioSession extends CommunicationResourceBase {
   return this.refreshing;
  }
  async refreshOnce() {
-  const {call}=await this.current();
+  const {record,call}=await this.current();
+  if(this.negotiating&&call.status==='accepted'&&!this.started&&!this.starting)Promise.resolve().then(()=>{this.assertOpen();return this.onAccepted({record,call});}).catch(error=>{if(!this.closed)this.fail(error);});
   if(call.status!=='accepted'&&!(this.negotiating&&call.status==='ringing')){this.close();return;}
   if(!this.started&&!this.negotiating)return;
   const signals=call.signals??[];

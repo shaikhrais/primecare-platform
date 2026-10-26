@@ -107,7 +107,7 @@
     activate() {
       this.assertOpen();
       this.activated = true;
-      this.stream?.getAudioTracks().forEach((track) => {
+      this.stream?.getTracks().forEach((track) => {
         track.enabled = true;
       });
       if (this.remoteStream) this.onTrack(this.remoteStream);
@@ -214,12 +214,14 @@
 
   // packages/shared/src/communications/audio-session.mjs
   var BrowserAudioSession = class extends CommunicationResourceBase {
-    constructor({ transport, userId, threadId, callId, media, configurationProvider, preparationProvider, preparationReader, preparationSignaler, onTiming = () => {
+    constructor({ transport, userId, threadId, callId, media, configurationProvider, preparationProvider, preparationReader, preparationSignaler, onAccepted = () => {
+    }, onTiming = () => {
     }, intervalMilliseconds = 1e3, onError = () => {
     }, key = () => crypto.randomUUID() }) {
       super();
       if (typeof transport?.execute !== "function" || [userId, threadId, callId].some((value) => typeof value !== "string" || !value.trim()) || !Number.isSafeInteger(intervalMilliseconds) || intervalMilliseconds < 100 || typeof key !== "function" || typeof onError !== "function") throw Error("Audio session adapters required");
       if (configurationProvider !== void 0 && typeof configurationProvider !== "function") throw Error("Media configuration provider required");
+      this.onAccepted = onAccepted;
       this.preparationSignaler = preparationSignaler;
       this.negotiating = false;
       this.preparationReader = preparationReader;
@@ -396,7 +398,13 @@
       return this.refreshing;
     }
     async refreshOnce() {
-      const { call } = await this.current();
+      const { record, call } = await this.current();
+      if (this.negotiating && call.status === "accepted" && !this.started && !this.starting) Promise.resolve().then(() => {
+        this.assertOpen();
+        return this.onAccepted({ record, call });
+      }).catch((error) => {
+        if (!this.closed) this.fail(error);
+      });
       if (call.status !== "accepted" && !(this.negotiating && call.status === "ringing")) {
         this.close();
         return;

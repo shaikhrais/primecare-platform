@@ -26,7 +26,7 @@ export class BrowserAudioCall extends CommunicationResourceBase {
   this.mark('peer_prepared');
  }
  prepareTransport(){this.assertOpen();if(!this.peer)this.prepare();if(this.transceiver)throw Error('Transport already prepared');this.transceiver=this.peer.addTransceiver('audio',{direction:'sendrecv'});}
- activate(){this.assertOpen();this.activated=true;this.stream?.getAudioTracks().forEach(track=>{track.enabled=true;});if(this.remoteStream)this.onTrack(this.remoteStream);}
+ activate(){this.assertOpen();this.activated=true;this.stream?.getTracks().forEach(track=>{track.enabled=true;});if(this.remoteStream)this.onTrack(this.remoteStream);}
  async start(deferActivation=false) {
   if(this.closed || this.starting || this.stream) throw Error('Call already started or closed');
   this.starting=true;
