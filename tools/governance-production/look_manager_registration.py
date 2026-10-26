@@ -51,16 +51,24 @@ def register(store):
    access=rows('SELECT can_access,permission_key FROM api_permissions WHERE role_id=? AND api_id=?',(rid,aid))
    if not access:insert('api_permissions',dict(id=next_id('api_permissions'),role_id=rid,api_id=aid,can_access=1,permission_key=d['permission']))
    elif access!=[(1,d['permission'])]:raise GovernanceReadError('Existing Look API grant differs')
+ resources={}
+ for resource,key in rows("SELECT resource_id,resource_key FROM language_resources WHERE resource_key LIKE 'look.%'"):
+  if key in resources:raise GovernanceReadError('Duplicate Look translation key')
+  resources[key]=resource
+ translations={}
+ for resource,language,text in rows("SELECT r.resource_id,v.language_id,v.translated_text FROM language_resources r JOIN language_resource_values v ON r.resource_id=v.resource_id WHERE r.resource_key LIKE 'look.%'"):
+  if (resource,language) in translations:raise GovernanceReadError('Duplicate Look translation')
+  translations[(resource,language)]=text
  for lang,values in registry['locales'].items():
   lid=one('SELECT language_id FROM languages WHERE language_code=?',(lang,))
   for key,text in values.items():
-   code='look.'+key;found=rows('SELECT resource_id FROM language_resources WHERE resource_key=?',(code,))
+   code='look.'+key;found=resources.get(code)
    if not found:
-    resource=next_id('language_resources','resource_id');insert('language_resources',dict(resource_id=resource,resource_key=code,resource_group='look',description='Look Manager visual review',context='look',active=1))
-   else:resource=one('SELECT resource_id FROM language_resources WHERE resource_key=?',(code,))
-   old=rows('SELECT translated_text FROM language_resource_values WHERE resource_id=? AND language_id=?',(resource,lid))
-   if not old:insert('language_resource_values',dict(resource_id=resource,language_id=lid,translated_text=text,reviewed=0,approved=0,version='look-v2'))
-   elif old!=[(text,)]:raise GovernanceReadError('Existing Look translation differs')
+    resource=next_id('language_resources','resource_id');insert('language_resources',dict(resource_id=resource,resource_key=code,resource_group='look',description='Look Manager visual review',context='look',active=1));resources[code]=resource
+   else:resource=found
+   old=translations.get((resource,lid))
+   if old is None:insert('language_resource_values',dict(resource_id=resource,language_id=lid,translated_text=text,reviewed=0,approved=0,version='look-v2'));translations[(resource,lid)]=text
+   elif old!=text:raise GovernanceReadError('Existing Look translation differs')
  return dict(screenId=screen,apiIds=api_ids,roles=list(roles),productionAuthority=True,accountAssignments=0,humanApprovals=0)
 def main():
  if sys.argv[1:] not in [['--apply'],['--dry-run']]:raise SystemExit('Explicit --apply or --dry-run required')
