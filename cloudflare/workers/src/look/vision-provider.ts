@@ -60,7 +60,7 @@ export async function reviewImage(job:Job,env:Env,transport:typeof fetch=fetch,t
    input:[{role:'user',content:[{type:'input_text',text:JSON.stringify({context:job.context,criteria:registry.criteria,minimumAverage:registry.minimumAverage,minimumCriterion:registry.minimumCriterion})},{type:'input_image',image_url:'data:image/png;base64,'+job.image,detail:'high'}]}],
    text:{format:{type:'json_schema',name:'visual_review',strict:true,schema:reviewSchema}}
   })});
-  if(!response.ok)throw Error('provider_failed');
+  if(!response.ok){await response.body?.cancel();throw Error('provider_http_'+response.status);}
   const data=await readJson(response,policy.maxResponseBytes);
   if(data.status!=='completed'||data.error||data.incomplete_details||!string(data.model,100)||!Array.isArray(data.output))throw Error('incomplete_response');
   const messages=data.output.filter((o:any)=>o.type==='message');
@@ -86,7 +86,7 @@ export class VisionReviewJob extends BaseWorker<Env>{
   const old=await this.state.storage.transaction(async tx=>{const previous=await tx.get<Receipt>('job');if(previous)return previous;await tx.put('job',{fingerprint,claimedAt} satisfies Receipt);return undefined;});
   if(old){if(old.fingerprint!==fingerprint)return json({error:'job_conflict'},409);return old.status&&old.body?json(old.body,old.status):json({error:'vision_outcome_unknown'},503);}
   let status=200,body:Record<string,unknown>;
-  try{body=await reviewImage(job,env);}catch{status=502;body={error:'vision_review_failed'};}
+  try{body=await reviewImage(job,env);}catch(error){status=502;const reason=(error as Error).message;body={error:'vision_review_failed',reason:/^(provider_http_[0-9]{3}|provider_timeout|incomplete_response|invalid_response|invalid_message|vision_not_configured)$/.test(reason)?reason:'provider_result_invalid'};}
   await this.state.storage.put('job',{fingerprint,claimedAt,status,body} satisfies Receipt);
   return json(body,status);
  }
@@ -103,3 +103,4 @@ class VisionProvider extends BaseWorker<Env>{
  protected onError(error:unknown):Response{return error instanceof LookFailure?json({error:'invalid_vision_request'},error.status):json({error:'vision_unavailable'},503);}
 }
 export default workerHandler(new VisionProvider());
+

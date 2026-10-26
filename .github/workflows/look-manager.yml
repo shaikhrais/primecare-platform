@@ -33,6 +33,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: npm ci --ignore-scripts
+      - run: npm install --no-save --ignore-scripts bcryptjs@3.0.2
       - run: npx playwright install chromium
       - run: node --test scripts/test-look-manager.mjs scripts/test-look-vision-provider.mjs
         env:
@@ -65,6 +66,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: npm ci --ignore-scripts
+      - run: npm install --no-save --ignore-scripts bcryptjs@3.0.2
       - run: pip install -r tools/governance-production/requirements.txt
       - name: Register exact Look Manager screen, APIs and administrator permissions
         run: python3 tools/governance-production/look_manager_registration.py --apply
