@@ -82,11 +82,14 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/call-tests" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 esbuild@0.27.2 ajv@8.17.1 twilio@6.2.0 miniflare@4.20260730.0
+          npm install --prefix "$RUNNER_TEMP/call-tests" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 esbuild@0.27.2 ajv@8.17.1 twilio@6.2.0 miniflare@4.20260730.0 playwright@1.56.1
           ln -s "$RUNNER_TEMP/call-tests/node_modules" node_modules
           node tools/internal-call-schema-validators.mjs
           node tools/internal-call-context-procedure.mjs
           node --test scripts/test-communication-internal-calls.mjs scripts/test-communication-turn.mjs scripts/test-communication-audio-session.mjs scripts/test-communication-access-policy.mjs scripts/test-internal-call-deployment-plan.mjs scripts/test-internal-call-batched-peer.mjs scripts/test-internal-call-database.mjs scripts/test-internal-call-endpoint-policy.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-communication-gateway.mjs
+          test -x /usr/bin/google-chrome
+          CALL_BROWSER_EXECUTABLE=/usr/bin/google-chrome node scripts/test-internal-call-preconnection-browser.mjs
+          node --test scripts/test-communication-adapter-base.mjs scripts/test-communication-flutter-bridge.mjs
           node --test scripts/test-call-events-browser.mjs
           node scripts/test-internal-call-events-workerd.mjs
           node scripts/test-internal-call-turn-workerd.mjs

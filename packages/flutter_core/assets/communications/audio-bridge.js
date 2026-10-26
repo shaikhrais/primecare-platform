@@ -98,11 +98,12 @@
       };
       this.mark("peer_prepared");
     }
-    prepareTransport() {
+    prepareTransport(offerer = true) {
       this.assertOpen();
       if (!this.peer) this.prepare();
-      if (this.transceiver) throw Error("Transport already prepared");
-      this.transceiver = this.peer.addTransceiver("audio", { direction: "sendrecv" });
+      if (this.transportPrepared) throw Error("Transport already prepared");
+      this.transportPrepared = true;
+      if (offerer) this.transceiver = this.peer.addTransceiver("audio", { direction: "sendrecv" });
     }
     activate() {
       this.assertOpen();
@@ -178,6 +179,12 @@
         if (signal.description?.type !== signal.type) throw Error("Invalid description");
         await this.peer.setRemoteDescription(signal.description);
         this.assertOpen();
+        if (signal.type === "offer" && this.transportPrepared) {
+          const audio = this.peer.getTransceivers().filter((t) => t.mid !== null && !t.stopped && t.receiver.track.kind === "audio");
+          if (audio.length !== 1) throw Error("Invalid audio transport");
+          this.transceiver = audio[0];
+          this.transceiver.direction = "sendrecv";
+        }
         for (const candidate of this.pending) {
           await this.peer.addIceCandidate(candidate);
           this.assertOpen();
@@ -290,7 +297,7 @@
         this.audio.prepare();
         this.preparedUntil = configuration.expiresAt;
         if (this.preparationSignaler) {
-          this.audio.prepareTransport();
+          this.audio.prepareTransport(after.call.callerId === this.userId);
           this.negotiating = true;
           if (after.call.callerId === this.userId) {
             if (after.call.offered) throw Error("Call media already negotiated");
@@ -337,6 +344,7 @@
         this.audio.activate();
         this.mark("microphone_activated");
         this.started = true;
+        if (this.audio.peer.connectionState === "connected") this.audio.onState("connected");
         if (after.call.callerId === this.userId && !this.negotiating) await this.audio.offer();
         await this.refresh();
         this.schedule();

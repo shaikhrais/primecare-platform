@@ -39,7 +39,7 @@ export class BrowserAudioSession extends CommunicationResourceBase {
    if(!Array.isArray(configuration?.iceServers)||!configuration.iceServers.length||!Number.isSafeInteger(configuration.expiresAt)||configuration.expiresAt<Date.now()+30000||configuration.expiresAt>Date.now()+1800000)throw Error('Media preparation unavailable');
    const after=await this.current();if(!['ringing','accepted'].includes(after.call.status)||after.call.callerId!==before.call.callerId||after.call.recipientId!==before.call.recipientId)throw Error('Call not accepted');
    this.audio.configure({...this.audio.configuration,iceServers:configuration.iceServers,iceCandidatePoolSize:1});this.audio.prepare();this.preparedUntil=configuration.expiresAt;
-   if(this.preparationSignaler){this.audio.prepareTransport();this.negotiating=true;if(after.call.callerId===this.userId){if(after.call.offered)throw Error('Call media already negotiated');await this.audio.offer();}await this.refresh();this.schedule();}
+   if(this.preparationSignaler){this.audio.prepareTransport(after.call.callerId===this.userId);this.negotiating=true;if(after.call.callerId===this.userId){if(after.call.offered)throw Error('Call media already negotiated');await this.audio.offer();}await this.refresh();this.schedule();}
    this.mark('prepare_ready');
   })();try{await this.preparing;}catch(error){this.close();throw error;}finally{this.preparing=null;}
  }
@@ -57,7 +57,7 @@ export class BrowserAudioSession extends CommunicationResourceBase {
    else {clearTimeout(this.configurationTimer);this.configurationTimer=setTimeout(()=>{this.refreshConfiguration().catch(error=>{if(!this.closed)this.fail(error);});},Math.max(1000,this.preparedUntil-Date.now()-60000));}
    await this.audio.start(true);
    const after=await this.current();this.mark('microphone_acceptance_checked');if(after.call.status!=='accepted')throw Error('Call not accepted');
-   this.audio.activate();this.mark('microphone_activated');this.started=true;
+   this.audio.activate();this.mark('microphone_activated');this.started=true;if(this.audio.peer.connectionState==='connected')this.audio.onState('connected');
    if(after.call.callerId===this.userId&&!this.negotiating)await this.audio.offer();
    await this.refresh();this.schedule();
   }catch(error){this.close();throw error;}finally{this.starting=false;}

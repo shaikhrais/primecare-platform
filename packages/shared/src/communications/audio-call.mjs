@@ -25,7 +25,7 @@ export class BrowserAudioCall extends CommunicationResourceBase {
   this.peer.onconnectionstatechange=()=>{if(this.closed)return;const state=peer.connectionState;this.mark('peer_'+state);try{this.onState(state);}finally{if(state==='failed'||state==='closed')this.close();}};
   this.mark('peer_prepared');
  }
- prepareTransport(){this.assertOpen();if(!this.peer)this.prepare();if(this.transceiver)throw Error('Transport already prepared');this.transceiver=this.peer.addTransceiver('audio',{direction:'sendrecv'});}
+ prepareTransport(offerer=true){this.assertOpen();if(!this.peer)this.prepare();if(this.transportPrepared)throw Error('Transport already prepared');this.transportPrepared=true;if(offerer)this.transceiver=this.peer.addTransceiver('audio',{direction:'sendrecv'});}
  activate(){this.assertOpen();this.activated=true;this.stream?.getTracks().forEach(track=>{track.enabled=true;});if(this.remoteStream)this.onTrack(this.remoteStream);}
  async start(deferActivation=false) {
   if(this.closed || this.starting || this.stream) throw Error('Call already started or closed');
@@ -68,6 +68,12 @@ export class BrowserAudioCall extends CommunicationResourceBase {
   }
   if(signal.description?.type!==signal.type)throw Error('Invalid description');
   await this.peer.setRemoteDescription(signal.description);this.assertOpen();
+  if(signal.type==='offer'&&this.transportPrepared){
+   // An addTransceiver-created answerer sender cannot be associated by the
+   // remote offer. Reuse the offered media section, without acquiring a track.
+   const audio=this.peer.getTransceivers().filter(t=>t.mid!==null&&!t.stopped&&t.receiver.track.kind==='audio');
+   if(audio.length!==1)throw Error('Invalid audio transport');this.transceiver=audio[0];this.transceiver.direction='sendrecv';
+  }
   for(const candidate of this.pending){await this.peer.addIceCandidate(candidate);this.assertOpen();}this.pending=[];
   if(signal.type==='offer') {
    this.mark('answer_start');const answer=await this.peer.createAnswer();this.assertOpen();
