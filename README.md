@@ -159,3 +159,10 @@ are staff-only; clients, patients and guests cannot dial even if an accidental
 API grant is present. Current clinical messaging rights are not expanded. Tests
 include a synthetic production Code Admin login/MFA and dial-pad visibility;
 automation never places a real phone call.
+
+The master/staff-calling change is deployed from
+`fe0d3928bd050d39fc4a9ed421280875e41164a4`: all 15 external-call jobs and
+17 internal-call regression jobs passed. Synthetic production Code Admin login
+with MFA verified **Platform Administration → Calls** and an enabled dial pad,
+with zero real phone calls. See the [guide](docs/business/master-tenant-staff-calling-20261026.md)
+and [receipts](reports/communications/master-tenant-staff-calling-20261026.json).

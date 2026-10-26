@@ -1,0 +1,489 @@
+{
+  "status": "deployed-code-admin-staff-phone-calls-and-master-tenant",
+  "deploymentSource": "fe0d3928bd050d39fc4a9ed421280875e41164a4",
+  "productionReadback": {
+    "masterTenantBound": true,
+    "codeAdminLinked": true,
+    "childTenants": 4,
+    "futureTenantsAutomaticallyLinked": true,
+    "nativeForeignKeys": true,
+    "tenantDataScopeChanged": false,
+    "accountChanges": 0,
+    "verified": true,
+    "source": "fe0d3928bd050d39fc4a9ed421280875e41164a4"
+  },
+  "access": {
+    "definitionSha256": "4819a0737c56bd204fb5586404ecd34db9cc36efadbd08d0b7dc9853be8cb22a",
+    "screenLinks": 15,
+    "eligibleRoles": 8,
+    "explicitDenialsPreserved": 0,
+    "apiGrants": 24,
+    "businessDataWrites": false,
+    "providerWrites": false,
+    "activation": false,
+    "independentReadback": true
+  },
+  "deployment": {
+    "source": "fe0d3928bd050d39fc4a9ed421280875e41164a4",
+    "deployed": true,
+    "gatewayConnected": true,
+    "phoneRoutingChanged": false,
+    "livePhoneCallVerified": false,
+    "callsPlaced": 0,
+    "origin": "https://primecare-external-calls-api.itpro-mohammed.workers.dev",
+    "gatewayOrigin": "https://primecare-api-gateway.itpro-mohammed.workers.dev",
+    "stage": "complete",
+    "callerIdOwned": true,
+    "applicationReady": true
+  },
+  "externalWorkflow": {
+    "id": 40332200589,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/40332200589",
+    "jobs": [
+      {
+        "id": 121606516059,
+        "name": "native",
+        "conclusion": "success"
+      },
+      {
+        "id": 121606516342,
+        "name": "metadata",
+        "conclusion": "success"
+      },
+      {
+        "id": 121606919801,
+        "name": "deploy",
+        "conclusion": "success"
+      },
+      {
+        "id": 121607641105,
+        "name": "websites / verify_gateway",
+        "conclusion": "success"
+      },
+      {
+        "id": 121608050406,
+        "name": "websites / build",
+        "conclusion": "success"
+      },
+      {
+        "id": 121608429052,
+        "name": "websites / deploy (primecare-client)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121608429088,
+        "name": "websites / deploy (primecare-business-development)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121608429236,
+        "name": "websites / deploy (primecare-clinic)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121608650540,
+        "name": "websites / deploy (primecare-corporate)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121608652492,
+        "name": "websites / deploy (primecare-franchise)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121608673455,
+        "name": "websites / deploy (primecare-marketing)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121608878567,
+        "name": "websites / deploy (primecare-support)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121608906312,
+        "name": "websites / deploy (primecare-governance)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121608974960,
+        "name": "websites / deploy (primecare-enterprise-blueprint)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121609226055,
+        "name": "live_ready",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "internalRegression": {
+    "id": 40332200572,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/40332200572",
+    "jobs": [
+      {
+        "id": 121604226545,
+        "name": "native",
+        "conclusion": "success"
+      },
+      {
+        "id": 121604226802,
+        "name": "metadata",
+        "conclusion": "success"
+      },
+      {
+        "id": 121604226815,
+        "name": "account_catalog",
+        "conclusion": "success"
+      },
+      {
+        "id": 121604227046,
+        "name": "readiness",
+        "conclusion": "success"
+      },
+      {
+        "id": 121605303521,
+        "name": "deploy",
+        "conclusion": "success"
+      },
+      {
+        "id": 121606806546,
+        "name": "websites / verify_gateway",
+        "conclusion": "success"
+      },
+      {
+        "id": 121606875140,
+        "name": "websites / build",
+        "conclusion": "success"
+      },
+      {
+        "id": 121607219335,
+        "name": "websites / deploy (primecare-clinic)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121607219431,
+        "name": "websites / deploy (primecare-client)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121607219575,
+        "name": "websites / deploy (primecare-business-development)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121607460595,
+        "name": "websites / deploy (primecare-corporate)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121607466009,
+        "name": "websites / deploy (primecare-franchise)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121607471502,
+        "name": "websites / deploy (primecare-marketing)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121607704834,
+        "name": "websites / deploy (primecare-support)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121607708783,
+        "name": "websites / deploy (primecare-governance)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121607739923,
+        "name": "websites / deploy (primecare-enterprise-blueprint)",
+        "conclusion": "success"
+      },
+      {
+        "id": 121608003177,
+        "name": "live",
+        "conclusion": "success"
+      }
+    ],
+    "receipt": {
+      "source": "fe0d3928bd050d39fc4a9ed421280875e41164a4",
+      "passed": true,
+      "synthetic": true,
+      "liveBrowsers": true,
+      "relayAudio": true,
+      "syntheticCleanup": true,
+      "stage": "complete",
+      "nativeLogin": true,
+      "explicitExtensionPublication": true,
+      "noPrematureMicrophone": true,
+      "bothPreparedWithoutMicrophone": true,
+      "bothConnectedBeforeAnswerWithoutMicrophone": true,
+      "mediaSummary": [
+        {
+          "gatherOutcome": "complete",
+          "candidateCount": 6,
+          "iceErrors": [],
+          "connectionState": "connected",
+          "iceState": "connected",
+          "signalingState": "stable",
+          "ready": true,
+          "packets": 99,
+          "relay": true
+        },
+        {
+          "gatherOutcome": "complete",
+          "candidateCount": 6,
+          "iceErrors": [],
+          "connectionState": "connected",
+          "iceState": "connected",
+          "signalingState": "stable",
+          "ready": true,
+          "packets": 39,
+          "relay": true
+        }
+      ],
+      "connectionMilliseconds": 5050,
+      "mediaStageTimings": [
+        [
+          {
+            "stage": "prepare_start",
+            "millisecondsFromAnswerEstimate": -15279
+          },
+          {
+            "stage": "peer_prepared",
+            "millisecondsFromAnswerEstimate": -8041
+          },
+          {
+            "stage": "offer_start",
+            "millisecondsFromAnswerEstimate": -8037
+          },
+          {
+            "stage": "offer_gather_start",
+            "millisecondsFromAnswerEstimate": -8034
+          },
+          {
+            "stage": "offer_ice_ready",
+            "millisecondsFromAnswerEstimate": -7914
+          },
+          {
+            "stage": "offer_committed",
+            "millisecondsFromAnswerEstimate": -4426
+          },
+          {
+            "stage": "prepare_ready",
+            "millisecondsFromAnswerEstimate": -4002
+          },
+          {
+            "stage": "peer_connecting",
+            "millisecondsFromAnswerEstimate": -1040
+          },
+          {
+            "stage": "peer_connected",
+            "millisecondsFromAnswerEstimate": -990
+          },
+          {
+            "stage": "prepare_connected",
+            "millisecondsFromAnswerEstimate": -990
+          },
+          {
+            "stage": "start",
+            "millisecondsFromAnswerEstimate": 3200
+          },
+          {
+            "stage": "acceptance_checked",
+            "millisecondsFromAnswerEstimate": 4248
+          },
+          {
+            "stage": "microphone_request",
+            "millisecondsFromAnswerEstimate": 4249
+          },
+          {
+            "stage": "microphone_acquired",
+            "millisecondsFromAnswerEstimate": 4252
+          },
+          {
+            "stage": "microphone_acceptance_checked",
+            "millisecondsFromAnswerEstimate": 4794
+          },
+          {
+            "stage": "microphone_activated",
+            "millisecondsFromAnswerEstimate": 4794
+          }
+        ],
+        [
+          {
+            "stage": "prepare_start",
+            "millisecondsFromAnswerEstimate": -15109
+          },
+          {
+            "stage": "peer_prepared",
+            "millisecondsFromAnswerEstimate": -7910
+          },
+          {
+            "stage": "prepare_ready",
+            "millisecondsFromAnswerEstimate": -7164
+          },
+          {
+            "stage": "answer_start",
+            "millisecondsFromAnswerEstimate": -4124
+          },
+          {
+            "stage": "answer_gather_start",
+            "millisecondsFromAnswerEstimate": -4123
+          },
+          {
+            "stage": "peer_connecting",
+            "millisecondsFromAnswerEstimate": -4035
+          },
+          {
+            "stage": "answer_ice_ready",
+            "millisecondsFromAnswerEstimate": -3992
+          },
+          {
+            "stage": "peer_connected",
+            "millisecondsFromAnswerEstimate": -1000
+          },
+          {
+            "stage": "prepare_connected",
+            "millisecondsFromAnswerEstimate": -1000
+          },
+          {
+            "stage": "answer_committed",
+            "millisecondsFromAnswerEstimate": -917
+          },
+          {
+            "stage": "start",
+            "millisecondsFromAnswerEstimate": 2457
+          },
+          {
+            "stage": "acceptance_checked",
+            "millisecondsFromAnswerEstimate": 3025
+          },
+          {
+            "stage": "microphone_request",
+            "millisecondsFromAnswerEstimate": 3025
+          },
+          {
+            "stage": "microphone_acquired",
+            "millisecondsFromAnswerEstimate": 3063
+          },
+          {
+            "stage": "microphone_acceptance_checked",
+            "millisecondsFromAnswerEstimate": 3813
+          },
+          {
+            "stage": "microphone_activated",
+            "millisecondsFromAnswerEstimate": 3814
+          }
+        ]
+      ],
+      "callEventSummary": [
+        [
+          {
+            "ready": 1,
+            "changed": 3,
+            "signal": 1,
+            "closed": []
+          }
+        ],
+        [
+          {
+            "ready": 1,
+            "changed": 3,
+            "signal": 1,
+            "closed": []
+          }
+        ]
+      ],
+      "authenticatedPushVerified": true,
+      "audioVerificationMilliseconds": 6558,
+      "bidirectionalPacketGrowth": true,
+      "independentNativeReadback": true,
+      "muteVerified": true,
+      "reverseMediaSummary": [
+        {
+          "gatherOutcome": "usable",
+          "candidateCount": 5,
+          "iceErrors": [],
+          "connectionState": "connected",
+          "iceState": "connected",
+          "signalingState": "stable",
+          "ready": true,
+          "packets": 51,
+          "relay": true
+        },
+        {
+          "gatherOutcome": "complete",
+          "candidateCount": 6,
+          "iceErrors": [],
+          "connectionState": "connected",
+          "iceState": "connected",
+          "signalingState": "stable",
+          "ready": true,
+          "packets": 52,
+          "relay": true
+        }
+      ],
+      "reverseCallingVerified": true,
+      "revokedSessionMediaReleased": true,
+      "endVerified": true,
+      "foreignTenantDenied": true,
+      "idempotentDial": true
+    }
+  },
+  "liveReadiness": [
+    {
+      "source": "fe0d3928bd050d39fc4a9ed421280875e41164a4",
+      "passed": true,
+      "callsPlaced": 0,
+      "livePhoneCallVerified": false,
+      "syntheticCleanup": true,
+      "nativeLogin": true,
+      "mfa": false,
+      "staffApiAuthorized": true,
+      "codeAdminPlatformCalls": false,
+      "dialPadVisible": true,
+      "noAutomaticProviderTraffic": true
+    },
+    {
+      "source": "fe0d3928bd050d39fc4a9ed421280875e41164a4",
+      "passed": true,
+      "callsPlaced": 0,
+      "livePhoneCallVerified": false,
+      "syntheticCleanup": true,
+      "nativeLogin": true,
+      "mfa": true,
+      "staffApiAuthorized": true,
+      "codeAdminPlatformCalls": true,
+      "dialPadVisible": true,
+      "noAutomaticProviderTraffic": true
+    }
+  ],
+  "checks": {
+    "metadataTestsPassed": 5,
+    "serviceGatewayPlanTestsPassed": 17,
+    "nativePostgres": true,
+    "codeAdminPlatformGrant": true,
+    "patientDeniedDespiteAccidentalGrant": true,
+    "hierarchyNativeIdentityTypes": [
+      "text",
+      "uuid"
+    ],
+    "futureTenantsLinked": true,
+    "editedTriggersAndDenialsPreserved": true,
+    "sharedInternalSqlCompatible": true
+  },
+  "boundaries": {
+    "staffPhoneDialingOnly": true,
+    "masterDoesNotWidenTenantDataScope": true,
+    "accountAssignmentsChanged": 0,
+    "providerPhoneRoutingChanged": false,
+    "callsPlaced": 0,
+    "realPstnAudioVerified": false,
+    "physicalAndroidInstallationIssueResolved": false,
+    "scopedChecksOnly": true,
+    "independentApprovalFlagsUnchanged": true
+  }
+}
