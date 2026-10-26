@@ -215,3 +215,9 @@ call. Call, microphone, mute and end controls stay in the dock's fixed footer.
 The body scrolls on small screens and small keyboard viewports. No number or
 tone history is stored. Existing auth, native contracts and caller identity
 remain unchanged.
+
+The floating dialer is deployed from `f568f17c97ae1e95dcaf2cc6d05f58a4d7c8760d`.
+All 15 external deployment and 17 internal regression jobs passed, including
+live staff and Code Admin/MFA mobile collapse/reopen checks. See the
+[dialer guide](docs/business/floating-dialer-20261026.md) and
+[receipts](reports/communications/floating-dialer-20261026.json).

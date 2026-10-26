@@ -1,0 +1,208 @@
+{
+  "source": "f568f17c97ae1e95dcaf2cc6d05f58a4d7c8760d",
+  "externalRun": 40347040727,
+  "internalRun": 40347040719,
+  "externalJobs": [
+    {
+      "id": 121656616251,
+      "name": "native",
+      "conclusion": "success"
+    },
+    {
+      "id": 121656616741,
+      "name": "metadata",
+      "conclusion": "success"
+    },
+    {
+      "id": 121657073936,
+      "name": "deploy",
+      "conclusion": "success"
+    },
+    {
+      "id": 121657787540,
+      "name": "websites / verify_gateway",
+      "conclusion": "success"
+    },
+    {
+      "id": 121657851974,
+      "name": "websites / build",
+      "conclusion": "success"
+    },
+    {
+      "id": 121658692635,
+      "name": "websites / deploy (primecare-client)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121658692733,
+      "name": "websites / deploy (primecare-clinic)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121658692998,
+      "name": "websites / deploy (primecare-business-development)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121658971226,
+      "name": "websites / deploy (primecare-corporate)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121658978452,
+      "name": "websites / deploy (primecare-franchise)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121659024006,
+      "name": "websites / deploy (primecare-marketing)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121659342746,
+      "name": "websites / deploy (primecare-support)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121659376882,
+      "name": "websites / deploy (primecare-governance)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121659377065,
+      "name": "websites / deploy (primecare-enterprise-blueprint)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121659663495,
+      "name": "live_ready",
+      "conclusion": "success"
+    }
+  ],
+  "internalJobs": [
+    {
+      "id": 121656622453,
+      "name": "account_catalog",
+      "conclusion": "success"
+    },
+    {
+      "id": 121656622979,
+      "name": "readiness",
+      "conclusion": "success"
+    },
+    {
+      "id": 121656623008,
+      "name": "native",
+      "conclusion": "success"
+    },
+    {
+      "id": 121656623088,
+      "name": "metadata",
+      "conclusion": "success"
+    },
+    {
+      "id": 121657827978,
+      "name": "deploy",
+      "conclusion": "success"
+    },
+    {
+      "id": 121659177398,
+      "name": "websites / verify_gateway",
+      "conclusion": "success"
+    },
+    {
+      "id": 121659733213,
+      "name": "websites / build",
+      "conclusion": "success"
+    },
+    {
+      "id": 121660190761,
+      "name": "websites / deploy (primecare-business-development)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121660190863,
+      "name": "websites / deploy (primecare-clinic)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121660190958,
+      "name": "websites / deploy (primecare-client)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121660436621,
+      "name": "websites / deploy (primecare-corporate)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121660448845,
+      "name": "websites / deploy (primecare-franchise)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121660475907,
+      "name": "websites / deploy (primecare-marketing)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121660684543,
+      "name": "websites / deploy (primecare-support)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121660713779,
+      "name": "websites / deploy (primecare-governance)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121660772373,
+      "name": "websites / deploy (primecare-enterprise-blueprint)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121661052698,
+      "name": "live",
+      "conclusion": "success"
+    }
+  ],
+  "live": [
+    {
+      "source": "f568f17c97ae1e95dcaf2cc6d05f58a4d7c8760d",
+      "passed": true,
+      "callsPlaced": 0,
+      "livePhoneCallVerified": false,
+      "syntheticCleanup": true,
+      "pwaManifestAndInstallControl": true,
+      "serviceWorkerRegistered": true,
+      "microphoneControlVisible": true,
+      "floatingDialerMobileBounds": true,
+      "collapseAndReopen": true,
+      "nativeLogin": true,
+      "mfa": false,
+      "staffApiAuthorized": true,
+      "codeAdminPlatformCalls": false,
+      "dialPadVisible": true,
+      "noAutomaticProviderTraffic": true
+    },
+    {
+      "source": "f568f17c97ae1e95dcaf2cc6d05f58a4d7c8760d",
+      "passed": true,
+      "callsPlaced": 0,
+      "livePhoneCallVerified": false,
+      "syntheticCleanup": true,
+      "pwaManifestAndInstallControl": true,
+      "serviceWorkerRegistered": true,
+      "microphoneControlVisible": true,
+      "floatingDialerMobileBounds": true,
+      "collapseAndReopen": true,
+      "nativeLogin": true,
+      "mfa": true,
+      "staffApiAuthorized": true,
+      "codeAdminPlatformCalls": true,
+      "dialPadVisible": true,
+      "noAutomaticProviderTraffic": true
+    }
+  ],
+  "realPhoneCallVerified": false
+}
