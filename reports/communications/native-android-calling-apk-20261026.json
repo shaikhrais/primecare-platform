@@ -1,0 +1,56 @@
+{
+  "status": "native-android-calling-test-apk-built",
+  "source": "c25f9f428646b86f5247b84d885870b177c7ad3d",
+  "workflowRun": 40322198541,
+  "workflowUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/40322198541",
+  "buildJob": 121569666420,
+  "conclusion": "success",
+  "artifactId": 12650240189,
+  "testReportArtifactId": 12650105405,
+  "package": "ca.primecare.calls.test",
+  "version": "0.2-native-test",
+  "minimumAndroidApi": 26,
+  "targetAndroidApi": 35,
+  "voiceSdk": "com.twilio:voice-android:6.10.5",
+  "apk": "PrimeCare-Calls-native-test.apk",
+  "apkBytes": 42240334,
+  "apkSha256": "9246b71cc7bd14572496664c9161fd929874d92b2436be4b0fa717927d2ac863",
+  "checks": {
+    "robolectricTests": 10,
+    "failures": 0,
+    "ignored": 0,
+    "assembleDebug": true,
+    "lintDebug": true,
+    "apkSignatureV2": true,
+    "packageAndLauncher": true,
+    "nativeArm64TwilioLibrary": true,
+    "browserDependencyAbsent": true,
+    "downloadHashAndSource": true
+  },
+  "features": [
+    "Native Android sign-in and MFA",
+    "Current registered calling APIs and session permissions",
+    "Explicit user-initiated native SDK call with opaque ticket only",
+    "Microphone permission before media",
+    "Mute, speaker and hangup",
+    "User-started microphone foreground service and End notification",
+    "Current-grant watchdog and cleanup retry"
+  ],
+  "testBoundaries": {
+    "httpAndProviderPortsStubbed": true,
+    "realPstnCallsPlaced": 0,
+    "physicalHandsetInstallVerified": false,
+    "realPstnAudioVerified": false,
+    "lockedScreenOnHandsetVerified": false
+  },
+  "limits": {
+    "testDebugSigning": true,
+    "chromeRequired": false,
+    "webViewUsed": false,
+    "incomingPush": false,
+    "bluetoothRouteControl": false,
+    "internalExtensionMedia": false,
+    "androidTelecomIntegration": false
+  },
+  "supersedes": "android-calling-apk-20261026.json"
+}
