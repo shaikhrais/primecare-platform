@@ -1,0 +1,127 @@
+{
+  "created": "2026-10-26",
+  "agents": [
+    {
+      "key": "reception",
+      "name": "PrimeCare Reception Desk",
+      "id": "9ba3014c-cfaa-4607-997c-b5347212be54",
+      "defaultTools": [
+        "endCall"
+      ],
+      "requiredCapabilities": [
+        "Service catalogue",
+        "Extension / reception transfer",
+        "Callback request"
+      ]
+    },
+    {
+      "key": "new_enquiry",
+      "name": "PrimeCare New Enquiry",
+      "id": "8d9123e9-ac5b-4b2c-abbf-0447b3fbc5ff",
+      "defaultTools": [
+        "endCall"
+      ],
+      "requiredCapabilities": [
+        "Lead lookup",
+        "Consent / suppression check",
+        "Lead creation",
+        "Callback request"
+      ]
+    },
+    {
+      "key": "qualification",
+      "name": "PrimeCare Lead Qualification",
+      "id": "07b2e8c6-d4a9-4284-bb2b-ffae589183b3",
+      "defaultTools": [
+        "endCall"
+      ],
+      "requiredCapabilities": [
+        "Lead lookup",
+        "Consent / suppression check",
+        "Service catalogue",
+        "Qualification update"
+      ]
+    },
+    {
+      "key": "consultation",
+      "name": "PrimeCare Consultation Followup",
+      "id": "16fc27f3-2c96-49b4-aa76-be6ee099c0ec",
+      "defaultTools": [
+        "endCall"
+      ],
+      "requiredCapabilities": [
+        "Lead lookup",
+        "Consent / suppression check",
+        "Consultation status",
+        "Callback request"
+      ]
+    },
+    {
+      "key": "proposal",
+      "name": "PrimeCare Proposal Followup",
+      "id": "322ff7af-f657-424e-91fc-47b7dfd66074",
+      "defaultTools": [
+        "endCall"
+      ],
+      "requiredCapabilities": [
+        "Lead lookup",
+        "Consent / suppression check",
+        "Proposal lookup",
+        "Follow-up outcome"
+      ]
+    },
+    {
+      "key": "booking_recovery",
+      "name": "PrimeCare Booking Followup",
+      "id": "01231dfe-d02a-45a3-9faf-9eb2ebe14e75",
+      "defaultTools": [
+        "endCall"
+      ],
+      "requiredCapabilities": [
+        "Consent / suppression check",
+        "Identity verification",
+        "Availability lookup",
+        "Booking proposal",
+        "Independent confirmation",
+        "Booking readback"
+      ]
+    },
+    {
+      "key": "onboarding",
+      "name": "PrimeCare Client Onboarding",
+      "id": "469ed456-4e68-4d2f-b09e-6658bae5bfdd",
+      "defaultTools": [
+        "endCall"
+      ],
+      "requiredCapabilities": [
+        "Identity verification",
+        "Onboarding status",
+        "Secure instructions",
+        "Callback request"
+      ]
+    },
+    {
+      "key": "retention",
+      "name": "PrimeCare Client Followup",
+      "id": "d1985ae7-8e35-4a7e-8f08-6a6dace03632",
+      "defaultTools": [
+        "endCall"
+      ],
+      "requiredCapabilities": [
+        "Consent / suppression check",
+        "Identity verification",
+        "Service history",
+        "Callback request",
+        "Follow-up outcome"
+      ]
+    }
+  ],
+  "nativeInventoryVerified": true,
+  "anonymousDenied": true,
+  "currentRoleDenied": true,
+  "temporaryDataCleaned": true,
+  "phoneRoutingChanged": false,
+  "callsStarted": false,
+  "businessToolsEnabled": false,
+  "activationRun": 40405876518
+}
