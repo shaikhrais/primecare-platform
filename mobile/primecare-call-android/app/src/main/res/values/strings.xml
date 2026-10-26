@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">PrimeCare Calls · Test</string>
+    <string name="heading">PrimeCare Calls</string>
+    <string name="description">Make staff calls using your PrimeCare account. The calling portal opens in Chrome with your existing sign-in and permissions.</string>
+    <string name="instructions">1. Tap Open calling portal and sign in.\n2. Open Calls → Call a client’s phone.\n3. Enter the number with its country code and tap Call phone.\n4. Allow the microphone, then use Mute or End phone call as needed.</string>
+    <string name="open_portal">Open calling portal</string>
+    <string name="limitations">Keep the calling portal open during the call. This test APK does not provide background calling, a locked-screen call service, or incoming-call notifications.</string>
+    <string name="chrome_required">Install or enable Google Chrome, then tap Open calling portal again.</string>
+    <string name="origin">Secure portal: primecare-clinic.pages.dev</string>
+    <style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#006B68</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#F2FAF9</item>
+        <item name="android:navigationBarColor">#F2FAF9</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+</resources>

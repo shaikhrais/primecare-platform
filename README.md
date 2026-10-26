@@ -132,3 +132,12 @@ Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) guide for detailed instructi
 
 ## 📄 License
 Proprietary & Confidential. All rights reserved by PrimeCare.
+
+### Android calling test APK
+
+The browser-powered Android calling launcher and installation instructions are in
+[mobile/primecare-call-android](mobile/primecare-call-android/README.md). The
+`Build PrimeCare calling test APK` workflow publishes a signed sideload test APK.
+It reuses the deployed staff calling portal in Chrome; keep the portal visible
+during calls. Background/locked-screen calls and native incoming-call
+notifications are not included. Handset/PSTN audio remains a user test.
