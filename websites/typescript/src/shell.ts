@@ -30,7 +30,7 @@ export function renderShell(root:HTMLElement,options:ShellContent):void {
  shells.set(root,options);
 }
 export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,scope:string,entries:()=>SearchEntry[],profileScope?:string,defaultTheme:Record<string,string>={}):void {
- if(!utilityRoots.has(root)){utilityRoots.add(root);root.addEventListener('keydown',event=>{if(event.key!=='Escape')return;const menu=root.querySelector<HTMLDetailsElement>('[data-cy=shell-utilities][open]');if(menu){event.preventDefault();menu.open=false;menu.querySelector<HTMLElement>('summary')?.focus();}});root.addEventListener('click',event=>{const menu=root.querySelector<HTMLDetailsElement>('[data-cy=shell-utilities][open]');if(menu&&event.target instanceof Node&&!menu.contains(event.target))menu.open=false;});}
+ if(!utilityRoots.has(root)){utilityRoots.add(root);root.addEventListener('keydown',event=>{if(event.key!=='Escape'||root.querySelector('dialog[open]'))return;const menu=root.querySelector<HTMLDetailsElement>('[data-cy=shell-utilities][open]');if(menu){event.preventDefault();menu.open=false;menu.querySelector<HTMLElement>('summary')?.focus();}});root.addEventListener('click',event=>{const menu=root.querySelector<HTMLDetailsElement>('[data-cy=shell-utilities][open]');if(menu&&event.target instanceof Node&&!menu.contains(event.target)&&!(event.target instanceof Element&&event.target.closest('dialog[open]')))menu.open=false;});}
  document.documentElement.lang=locale;
  const labels=media.locales[locale];
  root.querySelector('[data-cy=sidebar-toggle]')?.setAttribute('aria-label',labels.nav_open);
