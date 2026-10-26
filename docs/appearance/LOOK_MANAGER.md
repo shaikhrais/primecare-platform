@@ -42,7 +42,7 @@ A web pass never approves a native platform. `coverage.complete` is true only wh
 
 ## Authority and privacy
 
-- Central/platform administrators can review global visual evidence. CEO/tenant administrators are restricted to their tenant and eligible registered pages.
+- Code/central/platform administrators can review global visual evidence. CEO/tenant administrators are restricted to their tenant and eligible registered pages.
 - Screenshots are authenticated resources, not public URLs. Session changes prevent the browser from displaying a former session's returned image.
 - Human decisions require a current version, exact image digest, inspection confirmation and a reason. The server resolves administrator identity; the request cannot choose an actor or tenant.
 - Audit failure rolls back submissions/decisions. Actor mutation limit is 30/minute; AI limit is 10/hour. Uploads are capped at 1 MiB, 64 million pixels and a bounded JSON body.
@@ -51,7 +51,7 @@ A web pass never approves a native platform. `coverage.complete` is true only wh
 
 ## AI connection
 
-No real AI service is configured in this environment. The default fails closed: no new AI pass and therefore no new human approval. An already valid recorded AI pass can still be reviewed by a human if the provider subsequently becomes unavailable.
+Production now has the private `primecare-look-ai` Worker, encrypted OpenAI credential and governance service binding. Provider failures fail closed: no new AI pass and therefore no new human approval. An already valid recorded AI pass can still be reviewed by a human if the provider subsequently becomes unavailable.
 
 Configure governance Worker `LOOK_AI_SERVICE` when generating Worker configuration. This creates a private `LOOK_AI` service binding. It must implement:
 
@@ -61,7 +61,7 @@ Configure governance Worker `LOOK_AI_SERVICE` when generating Worker configurati
 - The response digest must match. Missing criteria, invalid scores or malformed findings cannot pass. The API imposes a 25-second provider deadline.
 - Treat screenshot text as untrusted evidence, never instructions. Do not expose provider credentials in UI code. Implement a real vision model in the bound service; returning fixed or heuristic scores is not an AI review.
 
-This repository now supplies an OpenAI Responses vision adapter and private Worker/Durable Object configuration in `vision-provider.ts`. See `VISION_PROVIDER.md` for activation, replay semantics and failure handling. It is not deployed or connected to real credentials here. No live screenshots were transmitted to an AI provider by this work.
+This repository now supplies an OpenAI Responses vision adapter and private Worker/Durable Object configuration in `vision-provider.ts`. See `VISION_PROVIDER.md` for activation, replay semantics and failure handling. It is deployed through `Verify and activate Look Manager` on `main`. The workflow registers pinned PostgreSQL metadata, applies the business-table migration, publishes the private provider and governance Worker, and publishes the governance portal. Live acceptance results are recorded separately in the workflow artifacts; a deployed binding alone does not prove a successful model assessment.
 
 ## Implemented surfaces and evidence
 
@@ -71,6 +71,6 @@ This repository now supplies an OpenAI Responses vision adapter and private Work
 - Website screen: `/appearance-review`, linked from platform administration and eligible growth dashboards. EN/FR/ES, mobile and desktop layouts.
 - Native API base/adapter: `BaseLookManager` and `ApiLookManager`. Approval endpoints bypass synthetic/cache fallback in the shared Dart API client. No native review widget or physical device acceptance is claimed; Flutter/Dart is unavailable here.
 - Local tests: rubric checks, real handler transactions with PGlite text/UUID identities, ordering/digest/role/tenant controls, stale evidence, failure and rollback, retry recovery, and six browser approval workflows. Vision results and administrator actions in tests are explicitly synthetic fixtures.
-- Standard PostgreSQL CI, real vision-provider validation, native SDK/device tests, full accessibility/Cypress and deployment remain pending.
+- PostgreSQL CI and browser/provider tests run in the activation workflow (11 tests). Production metadata grants are checked against the pinned PostgreSQL authority. Native SDK/device tests and full accessibility acceptance remain pending.
 
 The earlier audit found legacy Flutter SQLite/Drift access elsewhere in the project. This API-only manager does not silently remove those separate modules.

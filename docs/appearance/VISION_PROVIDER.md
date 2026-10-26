@@ -1,6 +1,6 @@
 # Private screenshot vision reviewer
 
-The repository now supplies `primecare-look-ai`, a private Cloudflare Worker behind governance's existing `LOOK_AI` binding. It uses the OpenAI Responses API to send the actual redacted PNG and request a strict structured visual assessment. It does not grant human approval. No real API key or model is configured locally, no live screenshots were transmitted, and this service has not been deployed.
+The repository now supplies `primecare-look-ai`, a private Cloudflare Worker behind governance's existing `LOOK_AI` binding. It uses the OpenAI Responses API to send the actual redacted PNG and request a strict structured visual assessment. It does not grant human approval. The production activation workflow deploys this private service with the encrypted production OpenAI credential and configurable `LOOK_AI_MODEL` (default `gpt-5.4-mini`). Credentials are never written to source or browser assets. Deployment and successful provider assessment are reported separately.
 
 ## Execution and authority
 
@@ -22,7 +22,7 @@ Durable receipts store only the fingerprint, claim time, status and validated re
 
 ## Activation
 
-Choose a model available to your OpenAI project that supports PNG image input and strict structured outputs, and verify that it completes this rubric within the deadline. No model is silently selected or substituted.
+Choose a model available to your OpenAI project that supports PNG image input and strict structured outputs, and verify that it completes this rubric within the deadline. The activation workflow explicitly defaults to `gpt-5.4-mini`; set the production `LOOK_AI_MODEL` variable to change it. There is no fallback model.
 
 From the repository root, generate configuration with the chosen model:
 
@@ -41,7 +41,7 @@ Provider contract tests use explicitly synthetic responses and keys. They verify
 
 Local validation passed: 8 provider-contract tests, 1 workerd runtime/restart test and 11 related auth/configuration regressions (20 total), plus TypeScript checking. Miniflare is pinned to `4.20260730.0`; the provider's compatibility date is `2026-08-06`. Runtime verification caught and corrected an unsupported redirect mode: outbound fetch uses manual redirects and rejects non-success responses. No real provider call occurred.
 
-Remaining: secure key/model configuration, real staging-provider validation and calibration, Cloudflare deployment, retention decisions and the existing native-device acceptance work. No production screen approval or legacy API-completion credit is created by this adapter.
+Production deployment and encrypted key/model configuration are now automated. Remaining acceptance includes successful live provider assessment/calibration, retention decisions and native-device acceptance. No production screen approval or legacy API-completion credit is created by this adapter.
 
 Sources consulted 2026-10-14:
 
