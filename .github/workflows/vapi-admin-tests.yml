@@ -27,3 +27,6 @@ jobs:
       - run: node scripts/test-vapi-admin-browser.mjs
       - name: Check UI types
         run: npx tsc -p websites/typescript/tsconfig.vapi-admin.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: vapi-admin-browser-evidence, path: test-results/vapi, retention-days: 14}
