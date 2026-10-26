@@ -1,0 +1,206 @@
+{
+  "status": "pwa-install-and-explicit-microphone-deployed",
+  "source": "ef0174699a0086c12482d20d97f7ab7f32cae6bd",
+  "workflowRun": 40340998282,
+  "workflowUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/40340998282",
+  "jobs": [
+    {
+      "id": 121637884476,
+      "name": "deploy",
+      "conclusion": "success"
+    },
+    {
+      "id": 121637884838,
+      "name": "metadata",
+      "conclusion": "success"
+    },
+    {
+      "id": 121637964254,
+      "name": "native",
+      "conclusion": "success"
+    },
+    {
+      "id": 121638586098,
+      "name": "websites / verify_gateway",
+      "conclusion": "success"
+    },
+    {
+      "id": 121638664392,
+      "name": "websites / build",
+      "conclusion": "success"
+    },
+    {
+      "id": 121639048502,
+      "name": "websites / deploy (primecare-business-development)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121639048536,
+      "name": "websites / deploy (primecare-client)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121639048542,
+      "name": "websites / deploy (primecare-clinic)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121639334250,
+      "name": "websites / deploy (primecare-corporate)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121639421947,
+      "name": "websites / deploy (primecare-franchise)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121639444998,
+      "name": "websites / deploy (primecare-marketing)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121639629244,
+      "name": "websites / deploy (primecare-support)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121639723899,
+      "name": "websites / deploy (primecare-governance)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121639727250,
+      "name": "websites / deploy (primecare-enterprise-blueprint)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121640024859,
+      "name": "live_ready",
+      "conclusion": "success"
+    }
+  ],
+  "browserMicrophoneAndCalls": {
+    "source": "ef0174699a0086c12482d20d97f7ab7f32cae6bd",
+    "passed": true,
+    "realBrowser": true,
+    "providerSdkStubbed": true,
+    "noAutomaticCall": true,
+    "opaqueTicketOnly": true,
+    "muteAndHangup": true,
+    "tokenRenewal": true,
+    "cleanup": true,
+    "mobileWidths": [
+      320,
+      390,
+      768,
+      1280
+    ],
+    "noHorizontalOverflow": true,
+    "touchTargetsAtLeast48px": true,
+    "phoneLockedWhileCalling": true,
+    "muteStateResetsBetweenCalls": true,
+    "microphoneRequestedOnlyByUser": true,
+    "enableMicrophoneDoesNotReserve": true,
+    "preflightTracksStopped": true,
+    "deniedMicrophoneNeverPreparesOrDials": true,
+    "livePhoneTraffic": false
+  },
+  "browserPwa": {
+    "source": "ef0174699a0086c12482d20d97f7ab7f32cae6bd",
+    "passed": true,
+    "realBrowser": true,
+    "nativeManifestParsed": true,
+    "iconsDecoded": [
+      192,
+      512
+    ],
+    "serviceWorkerControlsPage": true,
+    "installButtonFallback": true,
+    "installPromptEventSimulated": true,
+    "installedStateHidden": true,
+    "offlineNoPrivatePageReplay": true,
+    "workerFetchNetworkFailureForced": true,
+    "noCacheStorage": true,
+    "osInstallPromptVerified": false,
+    "callsPlaced": 0
+  },
+  "liveReadiness": [
+    {
+      "source": "ef0174699a0086c12482d20d97f7ab7f32cae6bd",
+      "passed": true,
+      "callsPlaced": 0,
+      "livePhoneCallVerified": false,
+      "syntheticCleanup": true,
+      "pwaManifestAndInstallControl": true,
+      "serviceWorkerRegistered": true,
+      "microphoneControlVisible": true,
+      "nativeLogin": true,
+      "mfa": false,
+      "staffApiAuthorized": true,
+      "codeAdminPlatformCalls": false,
+      "dialPadVisible": true,
+      "noAutomaticProviderTraffic": true
+    },
+    {
+      "source": "ef0174699a0086c12482d20d97f7ab7f32cae6bd",
+      "passed": true,
+      "callsPlaced": 0,
+      "livePhoneCallVerified": false,
+      "syntheticCleanup": true,
+      "pwaManifestAndInstallControl": true,
+      "serviceWorkerRegistered": true,
+      "microphoneControlVisible": true,
+      "nativeLogin": true,
+      "mfa": true,
+      "staffApiAuthorized": true,
+      "codeAdminPlatformCalls": true,
+      "dialPadVisible": true,
+      "noAutomaticProviderTraffic": true
+    }
+  ],
+  "deployment": {
+    "source": "ef0174699a0086c12482d20d97f7ab7f32cae6bd",
+    "deployed": true,
+    "gatewayConnected": true,
+    "phoneRoutingChanged": false,
+    "livePhoneCallVerified": false,
+    "callsPlaced": 0,
+    "origin": "https://primecare-external-calls-api.itpro-mohammed.workers.dev",
+    "gatewayOrigin": "https://primecare-api-gateway.itpro-mohammed.workers.dev",
+    "stage": "complete",
+    "callerIdOwned": true,
+    "applicationReady": true
+  },
+  "tests": {
+    "unitAndGatewayAndPwa": 20,
+    "metadata": 5,
+    "strictTypescript": true,
+    "nativePostgresAndWorkerd": true
+  },
+  "privacy": {
+    "workerUsesFreshNavigationFetches": true,
+    "noCacheStorage": true,
+    "noPrivateApiInterception": true,
+    "noPrivatePageReplayOnNetworkFailure": true,
+    "microphoneTracksStoppedAfterProbe": true,
+    "noAutomaticMicrophoneRequest": true,
+    "noCallPreparationOnDeniedMicrophone": true,
+    "staffPhonePermissionPolicyUnchanged": true
+  },
+  "boundaries": {
+    "microphoneHardwareVirtualInBrowserFixture": true,
+    "browserMicrophonePermissionPreGrantedForSuccessCase": true,
+    "deniedMicrophoneErrorInjectedForFailureCase": true,
+    "installPromptEventSimulated": true,
+    "actualAndroidInstallVerified": false,
+    "actualAndroidPermissionDialogVerified": false,
+    "realPstnAudioVerified": false,
+    "callsPlaced": 0,
+    "scopedChecksOnly": true
+  },
+  "references": [
+    "https://web.dev/articles/install-criteria",
+    "https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia"
+  ]
+}
