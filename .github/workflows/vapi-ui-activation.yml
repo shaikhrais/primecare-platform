@@ -2,7 +2,7 @@ name: Activate native Vapi management UI
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/vapi-ui-activation.yml', 'scripts/activate-vapi-ui.mjs', 'scripts/verify-live-vapi-ui.mjs', 'tools/governance-production/vapi_admin_registration.py', 'scripts/test-vapi-admin-browser.mjs', 'websites/typescript/src/vapi-admin.ts', 'packages/shared/src/communications/vapi-admin.mjs', 'packages/shared/src/communications/vapi-management.mjs']
+    paths: ['.github/workflows/vapi-ui-activation.yml', 'scripts/activate-vapi-ui.mjs', 'scripts/verify-live-vapi-ui.mjs', 'tools/governance-production/vapi_admin_registration.py', 'scripts/test-vapi-admin-browser.mjs', 'websites/typescript/src/vapi-admin.ts', 'packages/shared/src/communications/vapi-admin.mjs', 'packages/shared/src/communications/vapi-admin-http.mjs', 'packages/shared/src/communications/vapi-management.mjs']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
