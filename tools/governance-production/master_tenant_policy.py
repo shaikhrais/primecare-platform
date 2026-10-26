@@ -5,6 +5,7 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools/workflow-verification'))
 from production_store import ProductionWorkflowStore
 from production_reader import GovernanceReadError
+from twilio_voice_registration import retry_transaction
 FILE=Path(__file__).with_name('master-tenant-hierarchy.json')
 def scope():
  return dict(optInVariable='GOVERNANCE_MASTER_TENANT_POLICY',tables=['platform_hierarchy_policy'],policyId='primecare-master-tenant-hierarchy-v1',definitionSha256=hashlib.sha256(FILE.read_bytes()).hexdigest(),businessDataWrites=False,accountChanges=False)
@@ -29,8 +30,11 @@ class MasterTenantPolicyStore(ProductionWorkflowStore):
   return dict(masterRequirementRegistered=True,businessDataWrites=False,accountChanges=False)
 if __name__=='__main__':
  if sys.argv[1:] not in [['--dry-run'],['--apply']]:raise SystemExit('Explicit mode required')
- with MasterTenantPolicyStore() as db:
-  result=db.register()
-  if result!=db.register():raise GovernanceReadError('Non-idempotent master policy')
-  if sys.argv[1]=='--dry-run':db.db.rollback()
+ def transaction():
+  with MasterTenantPolicyStore() as db:
+   result=db.register()
+   if result!=db.register():raise GovernanceReadError('Non-idempotent master policy')
+   if sys.argv[1]=='--dry-run':db.db.rollback()
+  return result
+ result=retry_transaction(transaction)
  print('MASTER_TENANT_POLICY '+json.dumps(result))
