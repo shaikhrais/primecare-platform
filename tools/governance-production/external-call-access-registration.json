@@ -4,7 +4,8 @@
     "234": "psw_messages",
     "331": "patient_messages",
     "559": "communication",
-    "578": "messaging"
+    "578": "messaging",
+    "1269": "PLATFORM_ADMINISTRATION"
   },
   "paths": [
     "/v1/external-calls/prepare",
@@ -22,6 +23,7 @@
     "ciso",
     "clinical_director",
     "cns",
+    "code_admin",
     "community_outreach",
     "coo",
     "cto",

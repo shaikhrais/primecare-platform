@@ -141,3 +141,21 @@ required. The calling APK workflow builds, tests, lints and signs the sideload
 test app. It reuses current registered auth and external-call APIs and uses a
 microphone foreground service for active calls. This supersedes the earlier
 Chrome-powered launcher. Real handset/PSTN audio remains a user test.
+
+### Master tenant and Code Admin phone calling
+
+The existing registered Code Admin control tenant is reused as the master;
+`platform_master_tenant` links its current owner and `tenant_parent_links` gives
+every other tenant that parent. A native insert trigger also links future
+tenants. Hierarchy does not widen tenant data permissions or move accounts.
+The protected external-calling workflow registers the requirement, tests native
+text/UUID identities, applies the exact hierarchy, and independently reads it
+back. Edited roots, triggers, policies and explicit access denials are preserved.
+
+Code Admin's existing Platform Administration screen hosts the shared phone dial
+pad under **Calls** after current native API/screen grants succeed. The selected
+child tenant never overrides the caller's account scope. External phone calls
+are staff-only; clients, patients and guests cannot dial even if an accidental
+API grant is present. Current clinical messaging rights are not expanded. Tests
+include a synthetic production Code Admin login/MFA and dial-pad visibility;
+automation never places a real phone call.

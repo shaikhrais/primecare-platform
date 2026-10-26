@@ -1248,7 +1248,8 @@
       234,
       331,
       559,
-      578
+      578,
+      1269
     ],
     "paths": [
       "/v1/external-calls/prepare",
@@ -1256,12 +1257,33 @@
       "/v1/external-calls/end"
     ],
     "contractSha256": "0c3c6f259329c2dcc03e935ad0ccd937f806bc4506913efe27a83d7a07f4a934",
-    "definitionSha256": "bcafe5bf5e20d28c34c20c9732e989c450602940ca2edae8702b52af3dbdadb7",
+    "definitionSha256": "4819a0737c56bd204fb5586404ecd34db9cc36efadbd08d0b7dc9853be8cb22a",
     "schemaChanges": false,
     "businessDataWrites": false,
     "roleScreenChanges": false,
     "existingDenials": "preserve",
     "providerWrites": false,
     "activation": false
+  },
+  "masterTenantHierarchyWriter": {
+    "optInVariable": "MASTER_TENANT_HIERARCHY",
+    "definitionSha256": "83a8b4a064282fa0f32131a3741c243aef03ba17110d058efb44701a095613e9",
+    "businessTables": [
+      "public.platform_master_tenant",
+      "public.tenant_parent_links"
+    ],
+    "triggerTable": "public.tenants",
+    "accountChanges": false,
+    "tenantDataScopeChanged": false
+  },
+  "masterTenantHierarchyPolicyWriter": {
+    "optInVariable": "GOVERNANCE_MASTER_TENANT_POLICY",
+    "tables": [
+      "platform_hierarchy_policy"
+    ],
+    "policyId": "primecare-master-tenant-hierarchy-v1",
+    "definitionSha256": "83a8b4a064282fa0f32131a3741c243aef03ba17110d058efb44701a095613e9",
+    "businessDataWrites": false,
+    "accountChanges": false
   }
 }

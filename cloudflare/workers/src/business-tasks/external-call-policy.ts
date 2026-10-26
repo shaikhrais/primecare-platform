@@ -1,8 +1,10 @@
+import access from '../../../../tools/governance-production/external-call-access-registration.json' with {type:'json'};
 import {PostgresRegisteredCommunicationEndpointPolicy} from './endpoint-policy.ts';
 import {PostgresCommunicationSession} from './session.ts';
 import type {Actor,RecordState,AccessPolicy} from '../../../../packages/shared/src/communications/service-base.ts';
 import definition from '../../../../tools/governance-production/external-call-registration.json' with {type:'json'};
 export class ExternalCallPolicy extends PostgresRegisteredCommunicationEndpointPolicy implements AccessPolicy{
+ protected override permittedRoleCodes(){return access.staffRoleCodes;}
  async assert(actor:Actor,action:string,state:RecordState|null){const op=definition.operations.find(o=>o.key===action);if(!op||op.authentication!=='native-session-csrf'||!state||state.tenantId!==actor.tenantId||state.ownerId!==actor.id||state.kind!=='external_call')throw Error('Forbidden');await this.authorizeRegistered(actor,null,op.method,op.path,'EXTERNAL_'+op.key.replaceAll('.','_').toUpperCase());if(action==='external.state'){const call=definition.operations.find(o=>o.key==='external.prepare')!;await this.authorizeRegistered(actor,null,call.method,call.path,'EXTERNAL_EXTERNAL_PREPARE');}}
  async assignee(){throw Error('Forbidden');}
 }

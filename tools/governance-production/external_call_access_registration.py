@@ -8,7 +8,7 @@ from production_reader import GovernanceReadError,connect
 FILE=Path(__file__).with_name('external-call-access-registration.json')
 def definition(db):
  d=json.loads(FILE.read_text());ops=contracts.definition()['operations'][:3]
- if d.get('version')!=1 or d.get('screens')!={'234':'psw_messages','331':'patient_messages','559':'communication','578':'messaging'} or d.get('paths')!=[o['path'] for o in ops] or d.get('roleScreenChanges') is not False or d.get('activation') is not False or d.get('existingDenials')!='preserve':raise GovernanceReadError('Exact existing communication access required')
+ if d.get('version')!=1 or d.get('screens')!={'234':'psw_messages','331':'patient_messages','559':'communication','578':'messaging','1269':'PLATFORM_ADMINISTRATION'} or d.get('paths')!=[o['path'] for o in ops] or d.get('roleScreenChanges') is not False or d.get('activation') is not False or d.get('existingDenials')!='preserve':raise GovernanceReadError('Exact existing communication access required')
  d['apiIds']={k:v for k,v in contracts.register(contracts.ReadView(db))['apiIds'].items() if k in ('external.prepare','external.state','external.end')};return d
 def expected_scope():
  d=json.loads(FILE.read_text());return dict(optInVariable='GOVERNANCE_EXTERNAL_CALL_ACCESS',tables=sorted(base.TABLES),screenIds=sorted(map(int,d['screens'])),paths=d['paths'],contractSha256=contracts.expected_scope()['definitionSha256'],definitionSha256=hashlib.sha256(FILE.read_bytes()).hexdigest(),schemaChanges=False,businessDataWrites=False,roleScreenChanges=False,existingDenials='preserve',providerWrites=False,activation=False)

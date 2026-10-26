@@ -10,6 +10,10 @@ on:
       - 'tools/governance-production/external*call*'
       - 'tools/governance-production/test-external-call-*'
       - 'scripts/*external-call*'
+      - 'scripts/master-tenant-hierarchy.mjs'
+      - 'scripts/test-master-tenant-hierarchy.mjs'
+      - 'tools/governance-production/master-tenant-hierarchy.json'
+      - 'tools/governance-production/master_tenant_policy.py'
   workflow_dispatch:
 permissions: {contents: read}
 concurrency: {group: primecare-external-calls-production, cancel-in-progress: false}
@@ -49,9 +53,10 @@ jobs:
       - run: |
           npm install --prefix "$RUNNER_TEMP/external-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 esbuild@0.27.2 twilio@6.2.0 @twilio/voice-sdk@2.18.5 miniflare@4.20260730.0 playwright@1.56.1
           ln -s "$RUNNER_TEMP/external-tools/node_modules" node_modules
-          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/business-tasks/external-call-worker.ts websites/typescript/src/external-calls.ts websites/typescript/src/internal-calls.ts
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/business-tasks/external-call-worker.ts websites/typescript/src/external-calls.ts websites/typescript/src/internal-calls.ts websites/typescript/src/platform-admin.ts
           node --test scripts/test-external-calls.mjs scripts/test-communication-gateway.mjs scripts/test-voice-contact-deployment-plan.mjs
           node scripts/test-external-call-native.mjs
+          node scripts/test-master-tenant-hierarchy.mjs
           node scripts/test-external-call-workerd.mjs
           CALL_BROWSER_EXECUTABLE=/usr/bin/google-chrome node scripts/test-external-call-browser.mjs
       - uses: actions/upload-artifact@v4
@@ -74,6 +79,8 @@ jobs:
       GOVERNANCE_WORKFLOW_WRITES: '1'
       GOVERNANCE_EXTERNAL_CALLS: '1'
       GOVERNANCE_EXTERNAL_CALL_ACCESS: '1'
+      MASTER_TENANT_HIERARCHY: '1'
+      GOVERNANCE_MASTER_TENANT_POLICY: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -89,6 +96,10 @@ jobs:
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
           mkdir -p test-results/external-calls
+          python tools/governance-production/master_tenant_policy.py --dry-run
+          python tools/governance-production/master_tenant_policy.py --apply
+          node scripts/master-tenant-hierarchy.mjs --apply
+          node scripts/master-tenant-hierarchy.mjs --verify > test-results/external-calls/master-hierarchy.log
           python tools/governance-production/external_call_registration.py --dry-run
           python tools/governance-production/external_call_registration.py --apply
           python tools/governance-production/external_call_registration.py --verify > test-results/external-calls/contracts.log
@@ -135,6 +146,7 @@ jobs:
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
           python scripts/prepare-external-call-live-role.py
           node scripts/test-live-external-call-ready.mjs
+          EXTERNAL_CALL_LIVE_ROLE=code_admin node scripts/test-live-external-call-ready.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: external-call-live-readiness, path: test-results/external-calls, retention-days: 30}

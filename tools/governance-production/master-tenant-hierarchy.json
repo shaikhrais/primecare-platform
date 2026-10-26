@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "id": "primecare-master-tenant-hierarchy-v1",
+  "rootPolicy": "code-admin-control-tenant-v1",
+  "ownerPolicy": "code-admin-owner-v1",
+  "relationship": "all-other-tenants-direct-children",
+  "futureTenantLinks": "native-after-insert-trigger",
+  "reuseExistingControlTenant": true,
+  "accountChanges": false,
+  "tenantDataScopeChanged": false,
+  "calling": "authenticated-currently-permitted-staff-only-no-patients-clients-guests"
+}
