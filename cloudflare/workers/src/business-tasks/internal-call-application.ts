@@ -19,6 +19,11 @@ export class PostgresInternalCallPolicy extends PostgresCommunicationAccessPolic
 }
 const unavailable=()=>Error('Call unavailable');
 const limits={maxMembers:2,maxMessages:100,ringMilliseconds:45000,maxSignalBytes:16384};
+export function internalCallView(state:any,actor:Actor){
+  if(!state.id.startsWith('internal-call:')||state.members.length!==2||!state.members.includes(actor.id))throw unavailable();
+  return {id:state.id,kind:'conversation',version:state.version,members:state.members,calls:state.calls.filter((c:any)=>[c.callerId,c.recipientId].includes(actor.id)).slice(-20).map((c:any)=>({id:c.id,callerId:c.callerId,recipientId:c.recipientId,status:c.status,expiresAt:c.expiresAt,signals:c.status==='accepted'?(c.signals??[]):[],...(c.offered===undefined?{}:{offered:c.offered}),...(c.answered===undefined?{}:{answered:c.answered})}))};
+ }
+export function internalCallExpired(call:any,actor:Actor,now:number){return [call.callerId,call.recipientId].includes(actor.id)&&(call.status==='ringing'&&call.expiresAt<=now||call.status==='accepted'&&Math.min(call.lastSeen?.[call.callerId]??call.expiresAt,call.lastSeen?.[call.recipientId]??call.expiresAt)<now-90000);}
 export class InternalCallApplication extends ScopedServiceBase {
  readonly core:InternalAppCallCore;readonly pool:Pool;readonly transactionPool:Pool;
  constructor(pool:Pool,relay:AppCallRelayPorts,policy:AccessPolicy=new PostgresInternalCallPolicy(pool),transactionPool:Pool=pool,store?:AtomicStore){
@@ -43,10 +48,8 @@ export class InternalCallApplication extends ScopedServiceBase {
   if(row.published!==published)row=await this.core.directory.publish(actor,actor.id,row.version,published,check);
   return this.entry(row);
  }
- private view(state:any,actor:Actor){
-  if(!state.id.startsWith('internal-call:')||state.members.length!==2||!state.members.includes(actor.id))throw unavailable();
-  return {id:state.id,kind:'conversation',version:state.version,members:state.members,calls:state.calls.filter((c:any)=>[c.callerId,c.recipientId].includes(actor.id)).slice(-20).map((c:any)=>({id:c.id,callerId:c.callerId,recipientId:c.recipientId,status:c.status,expiresAt:c.expiresAt,signals:c.status==='accepted'?(c.signals??[]):[],...(c.offered===undefined?{}:{offered:c.offered}),...(c.answered===undefined?{}:{answered:c.answered})}))};
- }
+ private view(state:any,actor:Actor){return internalCallView(state,actor);}
+
  async read(actor:Actor,id:string){if(typeof id!=='string'||!id.startsWith('internal-call:'))throw unavailable();return this.view(await this.sweep(actor,id),actor);}
  async inbox(actor:Actor){
   await this.policy.assert(actor,'conversation.inbox',null);
@@ -75,7 +78,7 @@ export class InternalCallApplication extends ScopedServiceBase {
  }
  private async sweep(actor:Actor,id:string){
   const state=await this.core.calls.read(actor,id),now=Date.now();
-  const expired=state.calls.find((c:any)=>[c.callerId,c.recipientId].includes(actor.id)&&(c.status==='ringing'&&c.expiresAt<=now||c.status==='accepted'&&Math.min(c.lastSeen?.[c.callerId]??c.expiresAt,c.lastSeen?.[c.recipientId]??c.expiresAt)<now-90000));
+  const expired=state.calls.find((c:any)=>internalCallExpired(c,actor,now));
   if(!expired)return state;
   try{await this.core.calls.call(actor,id,'sweep:'+expired.id+':'+expired.status,state.version,expired.status==='ringing'?'expire':'end',expired.id);}catch(error){if(!(error instanceof Error)||!['Version conflict','Call conflict'].includes(error.message))throw error;}
   return this.core.calls.read(actor,id);

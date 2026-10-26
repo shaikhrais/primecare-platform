@@ -42,10 +42,13 @@ def main():
  if sys.argv[1:] not in [['--dry-run'],['--apply'],['--verify']]:raise SystemExit('Explicit mode required')
  if sys.argv[1]=='--verify':result=verify()
  else:
-  with InternalCallPreparationAccessStore() as db:
-   result=register(db)
-   if result!=register(db):raise GovernanceReadError('Non-idempotent internal call access')
-   if sys.argv[1]=='--dry-run':db.db.rollback()
+  def transaction():
+   with InternalCallPreparationAccessStore() as db:
+    result=register(db)
+    if result!=register(db):raise GovernanceReadError('Non-idempotent internal call access')
+    if sys.argv[1]=='--dry-run':db.db.rollback()
+   return result
+  result=contracts.retry_transaction(transaction)
   if sys.argv[1]=='--apply':
    checked=verify()
    if any(checked[k]!=v for k,v in result.items()):raise GovernanceReadError('Independent access readback differs')
