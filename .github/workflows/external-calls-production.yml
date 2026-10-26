@@ -18,6 +18,7 @@ on:
       - 'scripts/test-portal-pwa*'
       - 'scripts/build-typescript-websites.mjs'
       - 'tools/governance-production/external*call*'
+      - 'packages/database/migrations/20261026_external_call_storage.sql'
       - 'tools/governance-production/test-external-call-*'
       - 'scripts/*external-call*'
       - 'scripts/master-tenant-hierarchy.mjs'
@@ -88,6 +89,8 @@ jobs:
       TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
       TWILIO_APPLICATION_SID: ${{ secrets.TWILIO_APPLICATION_SID }}
       GOVERNANCE_WORKFLOW_WRITES: '1'
+      GOVERNANCE_EXTERNAL_CALL_STORAGE: '1'
+      GOVERNANCE_EXTERNAL_CALL_STORAGE_MIGRATION: '1'
       GOVERNANCE_EXTERNAL_CALLS: '1'
       GOVERNANCE_EXTERNAL_CALL_ACCESS: '1'
       MASTER_TENANT_HIERARCHY: '1'
@@ -111,6 +114,8 @@ jobs:
           python tools/governance-production/master_tenant_policy.py --apply
           node scripts/master-tenant-hierarchy.mjs --apply
           node scripts/master-tenant-hierarchy.mjs --verify > test-results/external-calls/master-hierarchy.log
+          python tools/governance-production/external_call_storage.py --dry-run
+          python tools/governance-production/external_call_storage.py --apply
           python tools/governance-production/external_call_registration.py --dry-run
           python tools/governance-production/external_call_registration.py --apply
           python tools/governance-production/external_call_registration.py --verify > test-results/external-calls/contracts.log

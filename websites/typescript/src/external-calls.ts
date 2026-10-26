@@ -2,10 +2,13 @@ import {MicrophoneAccess,microphoneHelp} from './microphone-access';
 import {Device,Call} from '@twilio/voice-sdk';
 import {CommunicationResourceBase} from '../../../packages/shared/src/communications/adapter-base.mjs';
 import {BaseSessionClient} from './infrastructure/http/base-session-client';
+class ExternalCallFailure extends Error{
+ constructor(readonly status:number,readonly reference:string|undefined){super('Calling request failed');}
+}
 class ExternalClient extends BaseSessionClient{
  protected readonly endpoint='/v1/external-calls';
  protected accountChangedError(){return Error('Sign in again');}
- protected rejectResponse():never{throw Error('External calling is unavailable for this account');}
+ protected rejectResponse(response:Response):never{const ref=response.headers.get('x-primecare-external-request')??'';throw new ExternalCallFailure(response.status,/^[a-f0-9-]{36}$/.test(ref)?ref:undefined);}
  state(){return this.requestJson('/state','POST',{});}
  prepare(phone:string,requestId:string){return this.requestJson('/prepare','POST',{phone,requestId});}
  end(ticket:string){return this.requestJson('/end','POST',{ticket});}
@@ -17,6 +20,7 @@ export class ExternalCallsPanel extends CommunicationResourceBase{
  private call:Call|null=null;
  private ticket:string|null=null;
  private timer:ReturnType<typeof setTimeout>|null=null;
+ private diagnostics:Record<string,unknown>[]=[];
  private busy=false;
  private muted=false;
  private connected=false;
@@ -46,6 +50,7 @@ export class ExternalCallsPanel extends CommunicationResourceBase{
      <div class="external-dialer-keypad" role="group" aria-label="Phone keypad">${keys.map(([key,letters])=>`<button type="button" data-dial-key="${key}" aria-label="${key==='*'?'Star':key==='#'?'Hash':key}"><span>${key}</span><small aria-hidden="true">${letters||'&nbsp;'}</small></button>`).join('')}</div>
      <p class="external-call-help external-dialer-mic-note" data-cy="external-microphone-status" role="status">Enable mic to check access. No call starts.</p>
      <p class="external-dialer-hint">During a connected call, use the keypad for phone menus.</p>
+     <details class="external-dialer-diagnostics"><summary>Call diagnostics</summary><pre data-cy="external-call-diagnostics" tabindex="0" aria-label="Call diagnostic log"></pre></details>
     </div>
     <footer class="external-dialer-footer">
      <div class="external-call-status-box"><span class="external-call-dot" aria-hidden="true"></span><p role="status" aria-live="polite" aria-atomic="true" data-cy="external-call-status">Ready to call</p></div>
@@ -87,14 +92,15 @@ export class ExternalCallsPanel extends CommunicationResourceBase{
    clearTimeout(this.timer!);this.release();root.hidden=true;
   });
   this.controls(false);
-  void this.client.state().then((state:any)=>{
+  this.record('state','started');void this.client.state().then((state:any)=>{
+   this.record('state','ok');
    if(this.closed)return;root.hidden=false;
    if(['prepared','active'].includes(state.status)&&state.expiresAt>Date.now()){
     this.ticket=state.ticket;
     if(typeof state.phone==='string')root.querySelector<HTMLInputElement>('[data-cy=external-call-phone]')!.value=state.phone;
     this.controls(true);this.message('An earlier phone call is reserved. End it before starting another.','reserved');
    }
-  }).catch(()=>this.close());
+  }).catch(error=>{this.record('state','failed',error);this.close();});
  }
  setCollapsed(collapsed:boolean){
   this.root.dataset.collapsed=String(collapsed);
@@ -102,6 +108,24 @@ export class ExternalCallsPanel extends CommunicationResourceBase{
   const button=this.root.querySelector('[data-cy=external-dialer-toggle]')!;
   button.setAttribute('aria-expanded',String(!collapsed));button.setAttribute('aria-label',collapsed?'Open phone dialer':'Minimize phone dialer');
   this.root.querySelector('[data-cy=external-dialer-chevron]')!.textContent=collapsed?'+':'−';
+ }
+ private record(stage:string,event:string,error?:unknown){
+  // Allowlisted metadata only. Never retain error messages, tokens, numbers or SDK payloads.
+  const e=error as {code?:unknown;name?:unknown;status?:unknown;reference?:unknown}|undefined;
+  const entry:Record<string,unknown>={at:new Date().toISOString(),stage,event};
+  if(Number.isInteger(e?.code)&&Number(e?.code)>0&&Number(e?.code)<100000)entry.code=e?.code;
+  if(Number.isInteger(e?.status)&&Number(e?.status)>=400&&Number(e?.status)<=599)entry.httpStatus=e?.status;
+  if(typeof e?.reference==='string'&&/^[a-f0-9-]{36}$/.test(e.reference))entry.reference=e.reference;
+  if(['NotAllowedError','NotFoundError','NotReadableError','AbortError','TypeError'].includes(String(e?.name)))entry.kind=e?.name;
+  this.diagnostics.push(entry);if(this.diagnostics.length>50)this.diagnostics.shift();
+  this.root.querySelector('[data-cy=external-call-diagnostics]')!.textContent=JSON.stringify(this.diagnostics,null,2);
+  console.info('primecare_external_call',entry);
+ }
+ private failure(stage:string,error:unknown){
+  this.record(stage,'failed',error);const e=error as {status?:number;code?:number;reference?:string};
+  const known=e?.status===401?'Sign in again to call.':e?.status===403?'Calling access was denied for this account.':e?.status===409?'A call is already reserved or its state changed. End it and retry.':e?.status===429?'Too many calling requests. Wait a moment and retry.':e?.status===503?'The calling service is temporarily unavailable.':microphoneHelp(error)??'Unable to call. Check your connection and calling access.';
+  const reference=typeof e?.reference==='string'&&/^[a-f0-9-]{36}$/.test(e.reference)?' Reference: '+e.reference:typeof e?.code==='number'&&Number.isInteger(e.code)&&e.code>0&&e.code<100000?' Code: '+e.code:'';
+  this.message(known+' Step: '+stage+'.'+reference,'error');
  }
  private current(){this.assertOpen();if(sessionStorage.getItem('primecare_session')!==this.token){this.close();throw Error('Sign in again');}}
  private summary(){
@@ -143,28 +167,32 @@ export class ExternalCallsPanel extends CommunicationResourceBase{
   finally{this.checkingMicrophone=false;if(!this.closed)this.controls(!!this.call||!!this.ticket);}
  }
  private release(){const call=this.call,device=this.device;this.call=null;this.device=null;this.connected=false;this.muted=false;this.muteControl();call?.disconnect();device?.destroy();this.controls(false);}
- private finish(){clearTimeout(this.timer!);this.timer=null;const ticket=this.ticket;this.ticket=null;this.pending=null;this.release();this.message('Call ended','ended');if(ticket)void this.client.end(ticket).catch(()=>{});}
- private watch(){if(this.closed||!this.ticket)return;this.timer=setTimeout(async()=>{try{this.current();const state=await this.client.state() as any;if(state.ticket!==this.ticket||!['prepared','active'].includes(state.status)){this.finish();return;}this.watch();}catch{this.finish();this.message('Call closed. Check your access and connection.','error');}},2000);}
- private async renew(device:Device,phone:string,ticket:string){try{this.current();if(this.device!==device||this.ticket!==ticket)return;const renewed=await this.client.prepare(phone,ticket) as any;this.current();if(this.device===device&&this.ticket===ticket)device.updateToken(renewed.token);}catch{this.finish();this.message('Call closed. Sign in again or check calling access.','error');}}
+ private finish(){this.record('call','ended');clearTimeout(this.timer!);this.timer=null;const ticket=this.ticket;this.ticket=null;this.pending=null;this.release();this.message('Call ended','ended');if(ticket)void this.client.end(ticket).then(()=>this.record('end','ok')).catch(error=>this.record('end','failed',error));}
+ private watch(){if(this.closed||!this.ticket)return;this.timer=setTimeout(async()=>{try{this.current();const state=await this.client.state() as any;if(state.ticket!==this.ticket||!['prepared','active'].includes(state.status)){this.finish();return;}this.watch();}catch(error){this.finish();this.failure('watch',error);}},2000);}
+ private async renew(device:Device,phone:string,ticket:string){try{this.current();if(this.device!==device||this.ticket!==ticket)return;const renewed=await this.client.prepare(phone,ticket) as any;this.current();if(this.device===device&&this.ticket===ticket)device.updateToken(renewed.token);}catch(error){this.finish();this.failure('renew',error);}}
  private async dial(phone:string){
   if(this.busy||this.checkingMicrophone||this.call||!/^\+[1-9][0-9]{6,14}$/.test(phone))return;
   this.busy=true;this.controls(false);this.message('Allow microphone access to start your call…','preparing');
+  let stage='microphone';this.record(stage,'started');
   try{
    this.current();await this.microphone.request();this.current();this.root.querySelector('[data-cy=external-microphone-status]')!.textContent='Microphone ready';this.message('Preparing phone call…','preparing');
    if(this.pending&&this.pending.phone!==phone)throw Error('Resolve previous phone attempt');
    this.pending??={phone,requestId:crypto.randomUUID()};
+   this.record(stage,'ok');stage='prepare';this.record(stage,'started');
    const prepared=await this.client.prepare(phone,this.pending.requestId) as any;this.current();this.ticket=prepared.ticket;
+   this.record(stage,'ok');stage='device';this.record(stage,'started');
    const device=new Device(prepared.token,{closeProtection:true,logLevel:'silent',tokenRefreshMs:30000});this.device=device;
    this.root.querySelector<HTMLButtonElement>('[data-cy=external-call-end]')!.disabled=false;
    device.on('tokenWillExpire',()=>{void this.renew(device,phone,prepared.ticket);});
-   device.on('error',()=>{this.finish();this.message('Phone call failed. Check your connection and try again.','error');});
+   device.on('error',error=>{this.finish();this.failure('device',error);});
    this.root.querySelector('[data-cy=external-call-caller]')!.textContent=typeof prepared.callerId==='string'?prepared.callerId:'Your business number';this.message('Calling '+phone+'…','calling');
+   this.record(stage,'ok');stage='connect';this.record(stage,'started');
    const call=await device.connect({params:{Ticket:prepared.ticket}});this.current();if(this.device!==device){call.disconnect();return;}
-   this.call=call;this.controls(true);
-   call.on('ringing',()=>this.message('Ringing '+phone+'…','ringing'));
-   call.on('accept',()=>{this.connected=true;this.controls(true);this.message('Connected to '+phone,'connected');});
-   call.on('disconnect',()=>this.finish());call.on('cancel',()=>this.finish());call.on('error',()=>{this.finish();this.message('Phone call failed.','error');});this.watch();
-  }catch(error){const pending=this.pending,retain=!this.ticket;this.finish();if(retain)this.pending=pending;this.message(microphoneHelp(error)??'Unable to call. Check your connection and calling access.','error');}
+   this.record(stage,'ok');this.call=call;this.controls(true);
+   call.on('ringing',()=>{this.record('call','ringing');this.message('Ringing '+phone+'…','ringing');});
+   call.on('accept',()=>{this.record('call','connected');this.connected=true;this.controls(true);this.message('Connected to '+phone,'connected');});
+   call.on('disconnect',()=>this.finish());call.on('cancel',()=>this.finish());call.on('error',error=>{this.finish();this.failure('call',error);});this.watch();
+  }catch(error){const pending=this.pending,retain=!this.ticket;this.finish();if(retain)this.pending=pending;this.failure(stage,error);}
   finally{this.busy=false;this.controls(!!this.call);}
  }
 }

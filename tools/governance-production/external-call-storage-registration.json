@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "baseline": "external-call-storage-kind-v1",
+  "sourceApiId": 710,
+  "migrationPath": "packages/database/migrations/20261026_external_call_storage.sql",
+  "migrationSha256": "352a0065e850b375b9381f431d96367a233253adbac11eb27f149c54c08f8f1d",
+  "tables": {
+    "business_work_aggregates": [
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "state",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ]
+  },
+  "relationships": [
+    {
+      "from": "business_work_commands",
+      "columns": [
+        "tenant_id",
+        "aggregate_id"
+      ],
+      "to": "business_work_aggregates",
+      "targetColumns": [
+        "tenant_id",
+        "id"
+      ]
+    },
+    {
+      "from": "business_work_events",
+      "columns": [
+        "tenant_id",
+        "aggregate_id"
+      ],
+      "to": "business_work_aggregates",
+      "targetColumns": [
+        "tenant_id",
+        "id"
+      ]
+    }
+  ],
+  "scope": "No role grants, actor/tenant records, message content or feature activation. Constraints and full DDL preserved in baseline. Tenant/account eligibility remains mandatory application policy.",
+  "generatedIdentity": {
+    "business_work_events.id": "always"
+  }
+}

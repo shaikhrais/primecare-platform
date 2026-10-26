@@ -27,7 +27,7 @@ function corsHeaders(request: Request): Headers {
     'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
     'Access-Control-Allow-Headers': 'Authorization,Cache-Control,Content-Type,Idempotency-Key,X-Device-Id,X-Tenant-Id,X-Requested-With,X-Device-Fingerprint,X-Request-Id,X-Correlation-Id,X-Request-Signature,X-App-Version',
     'Access-Control-Max-Age': '86400',
-    'Access-Control-Expose-Headers': 'Idempotency-Replayed',
+    'Access-Control-Expose-Headers': 'Idempotency-Replayed,X-PrimeCare-External-Request',
     Vary: 'Origin',
   });
   if (allowed) {

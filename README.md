@@ -221,3 +221,18 @@ All 15 external deployment and 17 internal regression jobs passed, including
 live staff and Code Admin/MFA mobile collapse/reopen checks. See the
 [dialer guide](docs/business/floating-dialer-20261026.md) and
 [receipts](reports/communications/floating-dialer-20261026.json).
+
+### Call failure diagnostics and storage repair
+
+External reservations now use the actual constrained communication schema: a
+hashed, governed migration adds only `external_call` to the known kind check,
+preserving existing types, validation and permissions. Native tests reproduce
+the original check failure before migration and use the real SQL thereafter.
+Live readiness prepares and ends a synthetic reservation without dialing.
+
+The dialer’s **Call diagnostics** section keeps the last 50 lifecycle entries
+in memory. Failures show the stage, safe numeric SDK/HTTP code and a server
+request reference where available. Worker logs record operation, stage, result,
+elapsed time and safe SQL state under that reference. Observability stores
+console diagnostics with invocation logs disabled. No raw errors, destination
+numbers, credentials, tokens, tickets, audio or keypad tones are logged.

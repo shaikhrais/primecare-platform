@@ -1285,5 +1285,36 @@
     "definitionSha256": "83a8b4a064282fa0f32131a3741c243aef03ba17110d058efb44701a095613e9",
     "businessDataWrites": false,
     "accountChanges": false
+  },
+  "externalCallStorageWriter": {
+    "optInVariable": "GOVERNANCE_EXTERNAL_CALL_STORAGE",
+    "tables": [
+      "database_rebuild_baselines",
+      "db_schema_columns",
+      "db_schema_tables"
+    ],
+    "definitionSha256": "3f808045623257774b0ce416fd902d4817b41e7351a668641d514370df07f385",
+    "migrationSha256": "352a0065e850b375b9381f431d96367a233253adbac11eb27f149c54c08f8f1d",
+    "businessTables": [
+      "business_work_aggregates"
+    ],
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "activation": false
+  },
+  "externalCallStorageMigration": {
+    "optInVariable": "GOVERNANCE_EXTERNAL_CALL_STORAGE_MIGRATION",
+    "migrationPath": "packages/database/migrations/20261026_external_call_storage.sql",
+    "migrationSha256": "352a0065e850b375b9381f431d96367a233253adbac11eb27f149c54c08f8f1d",
+    "businessTables": [
+      "business_work_aggregates"
+    ],
+    "governanceSchemaChanges": false,
+    "businessSchemaChanges": true,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "activation": false,
+    "temporaryValidationTables": true
   }
 }

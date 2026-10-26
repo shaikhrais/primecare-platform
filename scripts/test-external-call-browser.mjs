@@ -20,10 +20,11 @@ try{
  await mkdir('test-results/external-calls',{recursive:true});
  browser=await chromium.launch({headless:true,executablePath:process.env.CALL_BROWSER_EXECUTABLE||undefined,args:['--no-sandbox','--use-fake-device-for-media-stream']});
  const page=await browser.newPage(),requests=[];
- let revoked=false;
+ let revoked=false,prepareFailure=false;
  await page.route('https://gateway.invalid/v1/external-calls/**',async route=>{
   const req=route.request();
   if(req.method()==='OPTIONS')return route.fulfill({status:204,headers:{'access-control-allow-origin':'*','access-control-allow-methods':'POST, OPTIONS','access-control-allow-headers':'authorization,content-type,idempotency-key'}});
+  if(prepareFailure&&req.url().endsWith('/prepare'))return route.fulfill({status:503,headers:{'access-control-allow-origin':'*','access-control-expose-headers':'x-primecare-external-request','x-primecare-external-request':'22222222-2222-4222-8222-222222222222'},contentType:'application/json',body:'{"error":"unavailable"}'});
   const body=req.postDataJSON();requests.push({path:new URL(req.url()).pathname,body});
   if(revoked)return route.fulfill({status:403,headers:{'access-control-allow-origin':'*'},contentType:'application/json',body:'{"error":"forbidden"}'});
   const payload=req.url().endsWith('/prepare')?{ticket:'11111111-1111-4111-8111-111111111111',phone:body.phone,callerId:'+16479302223',token:'fixture-only',status:'prepared',expiresAt:Date.now()+120000}
@@ -131,7 +132,17 @@ try{
  assert.equal(requests.filter(r=>r.path.endsWith('/prepare')).length,prepares);
  assert.equal(await page.evaluate(()=>window.fixtureDevices.length),2);
  await page.evaluate(()=>window.fixturePanel.close());
- const report={source:process.env.GITHUB_SHA,passed:true,realBrowser:true,providerSdkStubbed:true,noAutomaticCall:true,opaqueTicketOnly:true,muteAndHangup:true,tokenRenewal:true,cleanup:true,mobileWidths:[320,390,768,1280],noHorizontalOverflow:true,touchTargetsAtLeast48px:true,phoneLockedWhileCalling:true,muteStateResetsBetweenCalls:true,microphoneRequestedOnlyByUser:true,enableMicrophoneDoesNotReserve:true,preflightTracksStopped:true,deniedMicrophoneNeverPreparesOrDials:true,fixedDockWithinViewport:true,shortViewportFooterVisible:true,keypadNumberEntry:true,collapsePreservesNumberAndCall:true,connectedDtmfViaSdk:true,livePhoneTraffic:false};
+ // Failed preparation produces a safe, correlated diagnostic, never raw API content.
+ prepareFailure=true;
+ await page.evaluate(async()=>{const {ExternalCallsPanel}=await import('/dialer.mjs');navigator.mediaDevices.getUserMedia=async()=>({getTracks:()=>[{stop(){}}]});window.fixturePanel=new ExternalCallsPanel(document.querySelector('main'),'https://gateway.invalid',sessionStorage.getItem('primecare_session'));});
+ await page.waitForTimeout(100);await page.locator('[data-cy=external-call-end]').click();
+ await page.locator('[data-cy=external-call-phone]').fill('+16475550123');await page.locator('[data-cy=external-call-dial]').click();
+ await page.waitForFunction(()=>document.querySelector('[data-cy=external-call-status]').textContent.includes('Reference: 22222222-2222-4222-8222-222222222222'));
+ const diagnostic=await page.locator('[data-cy=external-call-diagnostics]').textContent();
+ const entries=JSON.parse(diagnostic);assert.ok(entries.some(e=>e.stage==='prepare'&&e.event==='failed'&&e.httpStatus===503));
+ assert.ok(!diagnostic.includes('+16475550123')&&!diagnostic.includes('fixture-only')&&!diagnostic.includes('a'.repeat(43)));
+ assert.equal(await page.evaluate(()=>window.fixtureDevices.length),2);await page.evaluate(()=>window.fixturePanel.close());
+ const report={safeCorrelatedDiagnostics:true,source:process.env.GITHUB_SHA,passed:true,realBrowser:true,providerSdkStubbed:true,noAutomaticCall:true,opaqueTicketOnly:true,muteAndHangup:true,tokenRenewal:true,cleanup:true,mobileWidths:[320,390,768,1280],noHorizontalOverflow:true,touchTargetsAtLeast48px:true,phoneLockedWhileCalling:true,muteStateResetsBetweenCalls:true,microphoneRequestedOnlyByUser:true,enableMicrophoneDoesNotReserve:true,preflightTracksStopped:true,deniedMicrophoneNeverPreparesOrDials:true,fixedDockWithinViewport:true,shortViewportFooterVisible:true,keypadNumberEntry:true,collapsePreservesNumberAndCall:true,connectedDtmfViaSdk:true,livePhoneTraffic:false};
  await writeFile('test-results/external-calls/browser.json',JSON.stringify(report,null,2)+'\n');
  console.log('EXTERNAL_CALL_BROWSER '+JSON.stringify(report));
 }finally{await browser?.close();await new Promise(r=>server.close(r));}
