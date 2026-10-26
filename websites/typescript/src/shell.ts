@@ -9,6 +9,7 @@ export function shellMarkup(options:ShellContent):string {
  const look=new BaseMediaLook();
  return `<div class="app-shell${options.hideChrome?' shell-content-only':''}" data-cy="app-shell"><aside id="app-sidebar" data-cy="app-sidebar" ${options.hideChrome?'hidden':''}><button class="sidebar-close" data-cy="sidebar-close" aria-label="${look.text('nav_close')}">×</button><a class="brand media-shell-brand" href="${options.home}">${new BaseMediaLook().brand()}<span>PrimeCare</span></a><p>${options.role}</p>${options.description?`<p>${options.description}</p>`:''}<nav aria-label="${look.text('nav_label')}">${options.navigation}</nav></aside><div class="workspace"><header class="topbar" data-cy="app-topbar" ${options.hideChrome?'hidden':''}><button class="menu" data-cy="sidebar-toggle" aria-controls="app-sidebar" aria-expanded="false" aria-label="${options.menuLabel??look.text('nav_open')}">☰</button><div data-cy="global-navigation"></div><div class="shell-controls" data-cy="shell-controls">${options.controls}</div></header><main ${options.mainAttributes??''}>${options.content}</main></div></div>`;
 }
+const utilityRoots=new WeakSet<HTMLElement>();
 const shells=new WeakMap<HTMLElement,ShellContent>();
 export function renderShell(root:HTMLElement,options:ShellContent):void {
  applyMediaTokens();
@@ -29,6 +30,7 @@ export function renderShell(root:HTMLElement,options:ShellContent):void {
  shells.set(root,options);
 }
 export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,scope:string,entries:()=>SearchEntry[],profileScope?:string,defaultTheme:Record<string,string>={}):void {
+ if(!utilityRoots.has(root)){utilityRoots.add(root);root.addEventListener('keydown',event=>{if(event.key!=='Escape')return;const menu=root.querySelector<HTMLDetailsElement>('[data-cy=shell-utilities][open]');if(menu){event.preventDefault();menu.open=false;menu.querySelector<HTMLElement>('summary')?.focus();}});root.addEventListener('click',event=>{const menu=root.querySelector<HTMLDetailsElement>('[data-cy=shell-utilities][open]');if(menu&&event.target instanceof Node&&!menu.contains(event.target))menu.open=false;});}
  document.documentElement.lang=locale;
  const labels=media.locales[locale];
  root.querySelector('[data-cy=sidebar-toggle]')?.setAttribute('aria-label',labels.nav_open);

@@ -309,3 +309,21 @@ aside nav a[aria-current="page"], aside nav a:hover, aside nav a:focus-visible {
 @media(max-height:520px){.external-dialer .external-dialer-toggle{min-height:50px;padding-block:6px}.external-dialer-footer{padding:6px 10px}.external-dialer .external-call-status-box{max-height:45px;margin-bottom:5px}}
 
 .external-dialer-diagnostics{font-size:.72rem;color:var(--color-secondary,#536a73)}.external-dialer-diagnostics summary{padding:10px 0;cursor:pointer}.external-dialer-diagnostics pre{max-height:150px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.65rem;user-select:text}
+
+/* Keep administrator context visible and secondary actions in one keyboard-accessible menu. */
+.topbar:has([data-cy=platform-language]){gap:12px;padding:12px 24px}
+.topbar:has([data-cy=platform-language]) .global-navigation{flex:1 1 20rem}
+.topbar:has([data-cy=platform-language]) .topbar-title{display:none}
+.topbar:has([data-cy=platform-language]) .shell-controls{gap:8px;min-width:0}
+.topbar:has([data-cy=platform-language]) .topbar-tenant{flex:1 1 12rem;max-width:18rem}
+.topbar:has([data-cy=platform-language]) [data-cy=platform-language]{width:auto;min-width:64px}
+.topbar:has([data-cy=platform-language]) :is(button,input,select,summary){min-height:44px}
+.shell-utilities{position:relative;flex:none;align-self:end}
+.shell-utilities>summary{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;background:var(--color-surface);color:var(--color-text);list-style:none}
+.shell-utilities>summary::after{content:'⌄'}
+.shell-utilities>summary::-webkit-details-marker{display:none}
+.shell-utilities>summary:focus-visible{outline:3px solid var(--color-info);outline-offset:3px}
+.shell-utility-actions{position:absolute;inset-inline-end:0;top:calc(100% + 8px);z-index:30;min-width:12rem;padding:8px;display:grid;gap:4px;background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-border);border-radius:var(--radius-md);box-shadow:var(--shadow-modal)}
+.shell-utility-actions :is(a,button){display:flex;align-items:center;min-height:44px;width:100%;padding:10px 12px;text-align:start;text-decoration:none;border-radius:var(--radius-sm)}
+.shell-utility-actions a:hover{background:var(--color-surface-soft)}
+@media(max-width:600px){.topbar:has([data-cy=platform-language]){padding:12px 16px}.topbar:has([data-cy=platform-language]) .global-navigation{flex:1 1 10rem}.topbar:has([data-cy=platform-language]) .shell-controls{display:flex;flex-wrap:nowrap;flex-basis:100%}.topbar:has([data-cy=platform-language]) .topbar-tenant{max-width:none;flex:1 1 0}.shell-utilities>summary{padding-inline:10px}.shell-utility-actions{max-width:calc(100vw - 32px)}}
