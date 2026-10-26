@@ -4,7 +4,7 @@ RETURNS jsonb LANGUAGE sql STABLE SECURITY INVOKER SET search_path=pg_catalog,pu
 WITH identity AS MATERIALIZED (
  SELECT u.id::text AS id,u.tenant_id::text AS tenant_id FROM public.auth_sessions s JOIN public.users u ON u.id=s.user_id
  WHERE s.token_hash=p_session_hash AND s.expires_at>NOW() AND LOWER(u.status)='active'
- AND EXISTS(SELECT 1 FROM (VALUES ('POST','/v1/calls/directory','INTERNAL_CALL_DIRECTORY'),('POST','/v1/calls/extension','INTERNAL_CALL_EXTENSION'),('POST','/v1/calls/dial','INTERNAL_CALL_DIAL'),('POST','/v1/calls/command','INTERNAL_CALL_COMMAND'),('POST','/v1/calls/media','INTERNAL_CALL_MEDIA')) request(method,path,code) WHERE request.method=p_method AND request.path=p_path AND request.code=p_code) LIMIT 2
+ AND EXISTS(SELECT 1 FROM (VALUES ('POST','/v1/calls/directory','INTERNAL_CALL_DIRECTORY'),('POST','/v1/calls/extension','INTERNAL_CALL_EXTENSION'),('POST','/v1/calls/dial','INTERNAL_CALL_DIAL'),('POST','/v1/calls/command','INTERNAL_CALL_COMMAND'),('POST','/v1/calls/media','INTERNAL_CALL_MEDIA'),('POST','/v1/calls/prepare','INTERNAL_CALL_PREPARE')) request(method,path,code) WHERE request.method=p_method AND request.path=p_path AND request.code=p_code) LIMIT 2
 ), grants AS MATERIALIZED (
  SELECT COALESCE(jsonb_agg(g),'[]'::jsonb) AS items FROM identity i CROSS JOIN LATERAL (SELECT DISTINCT (r."id")::text AS role_id,(s."id")::text AS screen_id,(a."id")::text AS api_id
     FROM public.users u
@@ -29,6 +29,43 @@ WITH identity AS MATERIALIZED (
  SELECT COALESCE(jsonb_agg(m),'[]'::jsonb) AS items FROM (SELECT manifest_sha256 FROM "governance_68b0b02dd1215f58630d2c1a"."govt_source_manifest") m
 ), permitted AS MATERIALIZED (
  SELECT i.* FROM identity i WHERE (SELECT count(*) FROM identity)=1
+ AND (p_path<>'/v1/calls/prepare' OR (EXISTS(SELECT DISTINCT (r."id")::text AS role_id,(s."id")::text AS screen_id,(a."id")::text AS api_id
+    FROM public.users u
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_roles" r ON r."role_code"=u.roles::text AND r."active"='1'
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_api_permissions" ap ON ap."role_id"=r."id" AND ap."can_access"='1' AND (CASE WHEN jsonb_typeof(to_jsonb(ap."permission_key")) IN ('string','number') THEN to_jsonb(ap."permission_key")#>>'{}'
+ WHEN jsonb_typeof(to_jsonb(ap."permission_key"))='object' AND to_jsonb(ap."permission_key")->>'t' IN ('text','integer') AND jsonb_typeof(to_jsonb(ap."permission_key")->'v')='string' THEN to_jsonb(ap."permission_key")->>'v' ELSE NULL END)='role_screen_permissions'
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_api_endpoints" a ON a."id"=ap."api_id"
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_screen_api_links" l ON l."api_id"=a."id"
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_screens" s ON s."id"=l."screen_id" AND s."active"='1'
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_role_screen_permissions" sp ON sp."screen_id"=s."id" AND sp."role_id"=r."id" AND sp."can_view"='1'
+    WHERE u.id::text=i.id AND u.tenant_id::text=i.tenant_id AND LOWER(u.status)='active'
+    AND (NULL::text::text IS NULL OR a."id"=NULL::text::bigint) AND a."http_method"='POST' AND a."route_path"='/v1/calls/command'
+    AND a."service_name"='governance' AND (CASE WHEN jsonb_typeof(to_jsonb(a."auth_required")) IN ('string','number') THEN to_jsonb(a."auth_required")#>>'{}'
+ WHEN jsonb_typeof(to_jsonb(a."auth_required"))='object' AND to_jsonb(a."auth_required")->>'t' IN ('text','integer') AND jsonb_typeof(to_jsonb(a."auth_required")->'v')='string' THEN to_jsonb(a."auth_required")->>'v' ELSE NULL END)='1'
+    AND (CASE WHEN jsonb_typeof(to_jsonb(a."permission_key")) IN ('string','number') THEN to_jsonb(a."permission_key")#>>'{}'
+ WHEN jsonb_typeof(to_jsonb(a."permission_key"))='object' AND to_jsonb(a."permission_key")->>'t' IN ('text','integer') AND jsonb_typeof(to_jsonb(a."permission_key")->'v')='string' THEN to_jsonb(a."permission_key")->>'v' ELSE NULL END)='role_screen_permissions'
+    AND (s."id" IN ('234','331','559','578'))
+    AND (CASE WHEN jsonb_typeof(to_jsonb(a."endpoint_code")) IN ('string','number') THEN to_jsonb(a."endpoint_code")#>>'{}'
+ WHEN jsonb_typeof(to_jsonb(a."endpoint_code"))='object' AND to_jsonb(a."endpoint_code")->>'t' IN ('text','integer') AND jsonb_typeof(to_jsonb(a."endpoint_code")->'v')='string' THEN to_jsonb(a."endpoint_code")->>'v' ELSE NULL END)='INTERNAL_CALL_COMMAND' AND EXISTS (SELECT 1 FROM public.tenants t WHERE t.id=u.tenant_id AND LOWER(t.status)='active')
+    AND (SELECT COUNT(*) FROM "governance_68b0b02dd1215f58630d2c1a"."govt_api_endpoints" duplicate WHERE duplicate."http_method"='POST' AND duplicate."route_path"='/v1/calls/command' AND duplicate."service_name"='governance')=1 LIMIT 2) AND EXISTS(SELECT DISTINCT (r."id")::text AS role_id,(s."id")::text AS screen_id,(a."id")::text AS api_id
+    FROM public.users u
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_roles" r ON r."role_code"=u.roles::text AND r."active"='1'
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_api_permissions" ap ON ap."role_id"=r."id" AND ap."can_access"='1' AND (CASE WHEN jsonb_typeof(to_jsonb(ap."permission_key")) IN ('string','number') THEN to_jsonb(ap."permission_key")#>>'{}'
+ WHEN jsonb_typeof(to_jsonb(ap."permission_key"))='object' AND to_jsonb(ap."permission_key")->>'t' IN ('text','integer') AND jsonb_typeof(to_jsonb(ap."permission_key")->'v')='string' THEN to_jsonb(ap."permission_key")->>'v' ELSE NULL END)='role_screen_permissions'
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_api_endpoints" a ON a."id"=ap."api_id"
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_screen_api_links" l ON l."api_id"=a."id"
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_screens" s ON s."id"=l."screen_id" AND s."active"='1'
+    JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_role_screen_permissions" sp ON sp."screen_id"=s."id" AND sp."role_id"=r."id" AND sp."can_view"='1'
+    WHERE u.id::text=i.id AND u.tenant_id::text=i.tenant_id AND LOWER(u.status)='active'
+    AND (NULL::text::text IS NULL OR a."id"=NULL::text::bigint) AND a."http_method"='POST' AND a."route_path"='/v1/calls/media'
+    AND a."service_name"='governance' AND (CASE WHEN jsonb_typeof(to_jsonb(a."auth_required")) IN ('string','number') THEN to_jsonb(a."auth_required")#>>'{}'
+ WHEN jsonb_typeof(to_jsonb(a."auth_required"))='object' AND to_jsonb(a."auth_required")->>'t' IN ('text','integer') AND jsonb_typeof(to_jsonb(a."auth_required")->'v')='string' THEN to_jsonb(a."auth_required")->>'v' ELSE NULL END)='1'
+    AND (CASE WHEN jsonb_typeof(to_jsonb(a."permission_key")) IN ('string','number') THEN to_jsonb(a."permission_key")#>>'{}'
+ WHEN jsonb_typeof(to_jsonb(a."permission_key"))='object' AND to_jsonb(a."permission_key")->>'t' IN ('text','integer') AND jsonb_typeof(to_jsonb(a."permission_key")->'v')='string' THEN to_jsonb(a."permission_key")->>'v' ELSE NULL END)='role_screen_permissions'
+    AND (s."id" IN ('234','331','559','578'))
+    AND (CASE WHEN jsonb_typeof(to_jsonb(a."endpoint_code")) IN ('string','number') THEN to_jsonb(a."endpoint_code")#>>'{}'
+ WHEN jsonb_typeof(to_jsonb(a."endpoint_code"))='object' AND to_jsonb(a."endpoint_code")->>'t' IN ('text','integer') AND jsonb_typeof(to_jsonb(a."endpoint_code")->'v')='string' THEN to_jsonb(a."endpoint_code")->>'v' ELSE NULL END)='INTERNAL_CALL_MEDIA' AND EXISTS (SELECT 1 FROM public.tenants t WHERE t.id=u.tenant_id AND LOWER(t.status)='active')
+    AND (SELECT COUNT(*) FROM "governance_68b0b02dd1215f58630d2c1a"."govt_api_endpoints" duplicate WHERE duplicate."http_method"='POST' AND duplicate."route_path"='/v1/calls/media' AND duplicate."service_name"='governance')=1 LIMIT 2)))
  AND jsonb_array_length((SELECT items FROM grants))>0
  AND (SELECT count(DISTINCT g->>'api_id') FROM jsonb_array_elements((SELECT items FROM grants)) g)=1
  AND jsonb_array_length((SELECT items FROM manifest))=1 AND (SELECT items->0->>'manifest_sha256' FROM manifest)='68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42'

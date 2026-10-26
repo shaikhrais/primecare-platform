@@ -15,6 +15,7 @@ export class InternalCallsPanel extends CommunicationResourceBase {
  readonly client:InternalCallClient;readonly root:HTMLElement;readonly token:string;readonly userId:string;readonly labels:Record<string,string>;
  readonly audio=document.createElement('audio');private session:BrowserAudioSession|null=null;private timer:ReturnType<typeof setTimeout>|null=null;
  private events:BrowserCallEvents;private pushWork:Promise<void>|null=null;private pushDirty=false;private refreshWork:Promise<void>|null=null;
+ private preparedCall:string|null=null;private prepWork:Promise<void>|null=null;private mediaStages:{stage:string;at:number}[]=[];
  private active:{view:View;call:Call}|null=null;private self:any=null;private directory:any[]=[];private pending:{extension:string;requestId:string}|null=null;private busy=false;private polling=false;private muted=false;private starting=false;private lastHeartbeat=0;private attempted=new Set<string>();private notification:string|null=null;
  constructor(root:HTMLElement,gateway:string,token:string,context:Context){
   super();this.root=root;this.token=token;this.userId=context.userId;this.client=new InternalCallClient(gateway,token);const locale=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en';this.labels=catalog.locales[locale];
@@ -42,7 +43,7 @@ export class InternalCallsPanel extends CommunicationResourceBase {
   this.root.querySelector<HTMLElement>('[data-cy=internal-call-pending]')!.hidden=this.pending===null;
   const call=this.active?.call,remote=call&&(call.callerId===this.userId?call.recipientId:call.callerId),extension=this.directory.find(e=>e.userId===remote)?.extension??'';
   this.root.querySelector('[data-cy=internal-call-active]')!.textContent=call?`${extension} · ${this.labels[call.status==='accepted'?'accepted':call.status==='missed'?'missed':call.status==='ringing'?'ringing':'closed']}`:this.labels.empty;
-  for(const button of this.root.querySelectorAll<HTMLButtonElement>('[data-call]')){const a=button.dataset.call;button.disabled=this.busy||a==='answer'&&(call?.status!=='ringing'||call.recipientId!==this.userId)||a==='decline'&&(call?.status!=='ringing'||call.recipientId!==this.userId)||a==='end'&&!call||a==='dial'&&!!call||a==='start'&&call?.status!=='accepted'||a==='mute'&&(!this.session||this.session.closed);}
+  for(const button of this.root.querySelectorAll<HTMLButtonElement>('[data-call]')){const a=button.dataset.call;button.disabled=this.busy||a==='answer'&&(call?.status!=='ringing'||call.recipientId!==this.userId)||a==='decline'&&(call?.status!=='ringing'||call.recipientId!==this.userId)||a==='end'&&!call||a==='dial'&&!!call||a==='start'&&call?.status!=='accepted'||a==='mute'&&(!this.session||this.session.closed||!this.session.started);}
   this.root.querySelector('[data-cy=internal-call-directory]')!.innerHTML=this.directory.map(e=>`<p><strong>${escape(e.extension)}</strong></p>`).join('');
  }
  private async operation(work:()=>Promise<void>){if(this.busy||this.closed)return;this.busy=true;this.draw();try{this.current();await work();this.current();await this.refresh();}catch(error){this.session?.close();this.message(error instanceof InternalCallRequestError&&error.status===401?'login':this.pending?'unknown':'unavailable');}finally{this.busy=false;this.draw();}}
@@ -60,9 +61,10 @@ export class InternalCallsPanel extends CommunicationResourceBase {
   this.root.querySelector('[data-cy=internal-call-history]')!.innerHTML=all.filter(x=>!['ringing','accepted'].includes(x.call.status)).sort((a,b)=>a.call.expiresAt-b.call.expiresAt).slice(-20).reverse().map(x=>`<li>${escape(this.labels[x.call.status==='missed'?'missed':'closed'])}</li>`).join('');
   if(this.session&&!this.session.closed&&this.active?.call.status==='accepted'&&Date.now()-this.lastHeartbeat>10000){this.lastHeartbeat=Date.now();try{await this.client.command({action:'heartbeat',id:this.active.view.id,callId:this.active.call.id});}catch(error){if(!(error instanceof InternalCallRequestError)||error.status!==409)throw error;}}
   if(this.pending&&all.some(x=>x.call.id==='call:'+this.pending!.requestId))this.pending=null;
-  if(!this.active||this.session&&this.session.closed){this.session?.close();this.session=null;}this.draw();if(this.root.querySelector('[data-cy=internal-call-status]')?.textContent===this.labels.loading)this.message(this.active?.call.status==='accepted'?'accepted':this.active?'ringing':'ready');
+  if(!this.active||this.preparedCall&&this.preparedCall!==this.active.call.id||this.session&&this.session.closed){this.session?.close();this.session=null;}this.draw();if(this.root.querySelector('[data-cy=internal-call-status]')?.textContent===this.labels.loading)this.message(this.active?.call.status==='accepted'?'accepted':this.active?'ringing':'ready');
   if(this.active?.call.status==='ringing'&&this.active.call.recipientId===this.userId&&this.notification!==this.active.call.id){this.notification=this.active.call.id;if('Notification'in window&&Notification.permission==='granted'&&document.hidden)new Notification(this.labels.ringing,{body:this.labels.title,tag:this.active.call.id});}
-  if(this.active?.call.status==='accepted'&&!this.session&&!this.attempted.has(this.active.call.id))await this.startMedia();
+  if(this.active?.call.status==='ringing')this.prepareMedia();
+  if(this.active?.call.status==='accepted'&&(!this.session||!this.session.started)&&!this.attempted.has(this.active.call.id))await this.startMedia();
  }catch(error){this.session?.close();this.session=null;this.message(error instanceof InternalCallRequestError&&error.status===401?'login':'unavailable');throw error;}finally{this.polling=false;}}
  private async place(extension:string){
   if(this.pending&&this.pending.extension!==extension)throw Error('Resolve original call');this.pending??={extension,requestId:crypto.randomUUID()};this.draw();
@@ -72,9 +74,20 @@ export class InternalCallsPanel extends CommunicationResourceBase {
   const current=this.active;if(!current)return;if(action==='end'){this.session?.close();this.session=null;}
   let view=current.view;for(let attempt=0;attempt<2;attempt++){try{const updated=await this.client.command({action,id:view.id,key:crypto.randomUUID(),version:view.version,callId:current.call.id}) as View;this.current();if(action==='accept'&&updated.id===view.id&&Number.isSafeInteger(updated.version)){this.active={view:{...view,version:updated.version},call:{...current.call,status:'accepted'}};await this.startMedia();}return;}catch(error){if(!(error instanceof InternalCallRequestError)||error.status!==409||attempt===1)throw error;view=await this.client.read(current.view.id) as View;}}
  }
+ private makeSession(current:{view:View;call:Call}){
+  this.mediaStages=[];this.preparedCall=current.call.id;this.root.querySelector('[data-cy=internal-call-panel]')?.setAttribute('data-media-prepared','false');
+  const session=new BrowserAudioSession({userId:this.userId,threadId:current.view.id,callId:current.call.id,transport:{execute:(_channel,input)=>this.client.command(input)},preparationProvider:async()=>await this.client.prepare(current.view.id,current.call.id) as any,onTiming:(stage,at)=>{if(this.mediaStages.length<80){this.mediaStages.push({stage,at});this.root.querySelector('[data-cy=internal-call-panel]')?.setAttribute('data-media-trace',JSON.stringify(this.mediaStages));}},configurationProvider:async()=>await this.client.media(current.view.id,current.call.id) as any,intervalMilliseconds:1000,onError:()=>this.message('unavailable'),media:{configuration:{iceServers:[],iceTransportPolicy:'relay'},getUserMedia:c=>navigator.mediaDevices.getUserMedia(c),createPeer:c=>new BatchedIcePeerConnection(c),onTrack:stream=>{this.audio.srcObject=stream;void this.audio.play().catch(()=>this.message('hear'));},onState:state=>{if(state==='closed'&&this.session===session)this.root.querySelector('[data-cy=internal-call-panel]')?.setAttribute('data-media-prepared','false');if(!this.closed&&(session.started||state!=='closed')){this.message(state==='connected'?'connected':state==='closed'?'closed':'accepted');this.draw();}}}});
+  return session;
+ }
+ private prepareMedia(){
+  if(this.closed||this.prepWork||this.session&&!this.session.closed||this.active?.call.status!=='ringing')return;
+  const current=this.active,session=this.makeSession(current);this.session=session;
+  this.prepWork=session.prepare().then(()=>{if(!this.closed&&!session.closed&&this.session===session)this.root.querySelector('[data-cy=internal-call-panel]')?.setAttribute('data-media-prepared','true');}).catch(()=>{session.close();if(this.session===session)this.session=null;}).finally(()=>{this.prepWork=null;});
+ }
  async startMedia(){
-  if(this.closed||this.starting||this.session&&!this.session.closed||this.active?.call.status!=='accepted')return;const current=this.active;this.starting=true;this.message('accepted');this.attempted.add(current.call.id);
-  const session=new BrowserAudioSession({userId:this.userId,threadId:current.view.id,callId:current.call.id,transport:{execute:(_channel,input)=>this.client.command(input)},configurationProvider:async()=>await this.client.media(current.view.id,current.call.id) as any,intervalMilliseconds:1000,onError:()=>this.message('unavailable'),media:{configuration:{iceServers:[],iceTransportPolicy:'relay'},getUserMedia:c=>navigator.mediaDevices.getUserMedia(c),createPeer:c=>new BatchedIcePeerConnection(c),onTrack:stream=>{this.audio.srcObject=stream;void this.audio.play().catch(()=>this.message('hear'));},onState:state=>{if(!this.closed){this.message(state==='connected'?'connected':state==='closed'?'closed':'accepted');this.draw();}}}});
+  if(this.closed||this.starting||this.session?.started&&!this.session.closed||this.active?.call.status!=='accepted')return;const current=this.active;this.starting=true;this.message('accepted');this.attempted.add(current.call.id);
+  if(this.prepWork)await this.prepWork;this.current();
+  const session=this.session&&!this.session.closed&&this.preparedCall===current.call.id?this.session:this.makeSession(current);
   this.session=session;try{await session.start();this.current();}catch(error){session.close();if(this.session===session)this.session=null;this.message(error instanceof DOMException&&['NotAllowedError','SecurityError'].includes(error.name)?'permission':error instanceof InternalCallRequestError&&error.status===401?'login':'unavailable');}finally{this.starting=false;this.draw();}
  }
 }

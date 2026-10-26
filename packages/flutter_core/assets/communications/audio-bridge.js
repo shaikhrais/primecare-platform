@@ -37,12 +37,14 @@
   var BrowserAudioCall = class extends CommunicationResourceBase {
     constructor({ sendSignal, getUserMedia, createPeer, configuration, onTrack = () => {
     }, onState = () => {
+    }, onTiming = () => {
     } }) {
       super();
       if (typeof sendSignal !== "function" || typeof getUserMedia !== "function" || typeof createPeer !== "function" || !configuration || !Array.isArray(configuration.iceServers)) throw Error("Configured media adapters required");
       this.sendSignal = sendSignal;
       this.getUserMedia = getUserMedia;
       this.createPeer = createPeer;
+      this.onTiming = onTiming;
       this.configuration = configuration;
       this.onTrack = onTrack;
       this.onState = onState;
@@ -55,41 +57,56 @@
       if (this.peer) this.peer.setConfiguration(next);
       this.configuration = next;
     }
+    mark(stage) {
+      try {
+        this.onTiming(stage, performance.now());
+      } catch {
+      }
+    }
+    prepare() {
+      this.assertOpen();
+      if (this.peer) throw Error("Peer already prepared");
+      this.peer = this.createPeer(this.configuration);
+      const peer = this.peer;
+      this.registerCleanup(() => {
+        peer.onicecandidate = null;
+        peer.ontrack = null;
+        peer.onconnectionstatechange = null;
+        peer.close();
+      });
+      this.peer.onicecandidate = (event) => {
+        if (this.closed || !event.candidate) return;
+        Promise.resolve().then(() => {
+          this.assertOpen();
+          return this.sendSignal({ type: "candidate", candidate: event.candidate.toJSON() });
+        }).catch(() => this.close());
+      };
+      this.peer.ontrack = (event) => {
+        if (!this.closed && event.streams?.[0]) this.onTrack(event.streams[0]);
+      };
+      this.peer.onconnectionstatechange = () => {
+        if (this.closed) return;
+        const state = peer.connectionState;
+        this.mark("peer_" + state);
+        try {
+          this.onState(state);
+        } finally {
+          if (state === "failed" || state === "closed") this.close();
+        }
+      };
+      this.mark("peer_prepared");
+    }
     async start() {
-      if (this.closed || this.starting || this.peer) throw Error("Call already started or closed");
+      if (this.closed || this.starting || this.stream) throw Error("Call already started or closed");
       this.starting = true;
       try {
+        this.mark("microphone_request");
         this.stream = await this.getUserMedia({ audio: true, video: false });
+        this.mark("microphone_acquired");
         const stream = this.stream;
         this.registerCleanup(() => stream.getTracks().forEach((track) => track.stop()));
         this.assertOpen();
-        this.peer = this.createPeer(this.configuration);
-        const peer = this.peer;
-        this.registerCleanup(() => {
-          peer.onicecandidate = null;
-          peer.ontrack = null;
-          peer.onconnectionstatechange = null;
-          peer.close();
-        });
-        this.peer.onicecandidate = (event) => {
-          if (this.closed || !event.candidate) return;
-          Promise.resolve().then(() => {
-            this.assertOpen();
-            return this.sendSignal({ type: "candidate", candidate: event.candidate.toJSON() });
-          }).catch(() => this.close());
-        };
-        this.peer.ontrack = (event) => {
-          if (!this.closed && event.streams?.[0]) this.onTrack(event.streams[0]);
-        };
-        this.peer.onconnectionstatechange = () => {
-          if (this.closed) return;
-          const state = peer.connectionState;
-          try {
-            this.onState(state);
-          } finally {
-            if (state === "failed" || state === "closed") this.close();
-          }
-        };
+        if (!this.peer) this.prepare();
         for (const track of this.stream.getTracks()) {
           if (track.readyState === "ended") throw Error("Microphone ended");
           if (typeof track.addEventListener === "function" && typeof track.removeEventListener === "function") {
@@ -109,12 +126,16 @@
     async offer() {
       if (!this.peer || this.closed) throw Error("Call not started");
       try {
+        this.mark("offer_start");
         const offer = await this.peer.createOffer();
         this.assertOpen();
+        this.mark("offer_gather_start");
         await this.peer.setLocalDescription(offer);
         this.assertOpen();
+        this.mark("offer_ice_ready");
         await this.sendSignal({ type: "offer", description: this.peer.localDescription.toJSON() });
         this.assertOpen();
+        this.mark("offer_committed");
       } catch (error) {
         this.close();
         throw error;
@@ -143,12 +164,16 @@
         }
         this.pending = [];
         if (signal.type === "offer") {
+          this.mark("answer_start");
           const answer = await this.peer.createAnswer();
           this.assertOpen();
+          this.mark("answer_gather_start");
           await this.peer.setLocalDescription(answer);
           this.assertOpen();
+          this.mark("answer_ice_ready");
           await this.sendSignal({ type: "answer", description: this.peer.localDescription.toJSON() });
           this.assertOpen();
+          this.mark("answer_committed");
         }
       } catch (error) {
         this.close();
@@ -169,11 +194,16 @@
 
   // packages/shared/src/communications/audio-session.mjs
   var BrowserAudioSession = class extends CommunicationResourceBase {
-    constructor({ transport, userId, threadId, callId, media, configurationProvider, intervalMilliseconds = 1e3, onError = () => {
+    constructor({ transport, userId, threadId, callId, media, configurationProvider, preparationProvider, onTiming = () => {
+    }, intervalMilliseconds = 1e3, onError = () => {
     }, key = () => crypto.randomUUID() }) {
       super();
       if (typeof transport?.execute !== "function" || [userId, threadId, callId].some((value) => typeof value !== "string" || !value.trim()) || !Number.isSafeInteger(intervalMilliseconds) || intervalMilliseconds < 100 || typeof key !== "function" || typeof onError !== "function") throw Error("Audio session adapters required");
       if (configurationProvider !== void 0 && typeof configurationProvider !== "function") throw Error("Media configuration provider required");
+      this.onTiming = onTiming;
+      this.preparationProvider = preparationProvider;
+      this.preparedUntil = 0;
+      this.preparing = null;
       this.configurationProvider = configurationProvider;
       this.configurationTimer = null;
       this.transport = transport;
@@ -190,7 +220,7 @@
       this.refreshing = null;
       this.started = false;
       this.starting = false;
-      this.audio = new BrowserAudioCall({ ...media, sendSignal: (signal) => this.sendSignal(signal), onState: (state) => {
+      this.audio = new BrowserAudioCall({ ...media, onTiming: (stage, at) => this.onTiming(stage, at), sendSignal: (signal) => this.sendSignal(signal), onState: (state) => {
         try {
           media?.onState?.(state);
         } finally {
@@ -212,17 +242,61 @@
       if (record?.id !== this.threadId || record.kind !== "conversation" || !Array.isArray(record.members) || !record.members.includes(this.userId) || !Number.isSafeInteger(record.version) || record.version < 1 || !call || ![call.callerId, call.recipientId].includes(this.userId)) throw Error("Call unavailable");
       return { record, call };
     }
+    mark(stage) {
+      try {
+        this.onTiming(stage, performance.now());
+      } catch {
+      }
+    }
+    async prepare() {
+      this.assertOpen();
+      if (this.started || this.starting || this.preparing || !this.preparationProvider) throw Error("Preparation unavailable");
+      this.preparing = (async () => {
+        this.mark("prepare_start");
+        const before = await this.current();
+        if (!["ringing", "accepted"].includes(before.call.status)) throw Error("Call not accepted");
+        const configuration = structuredClone(await this.preparationProvider());
+        this.assertOpen();
+        if (!Array.isArray(configuration?.iceServers) || !configuration.iceServers.length || !Number.isSafeInteger(configuration.expiresAt) || configuration.expiresAt < Date.now() + 3e4 || configuration.expiresAt > Date.now() + 18e5) throw Error("Media preparation unavailable");
+        const after = await this.current();
+        if (!["ringing", "accepted"].includes(after.call.status) || after.call.callerId !== before.call.callerId || after.call.recipientId !== before.call.recipientId) throw Error("Call not accepted");
+        this.audio.configure({ ...this.audio.configuration, iceServers: configuration.iceServers, iceCandidatePoolSize: 1 });
+        this.audio.prepare();
+        this.preparedUntil = configuration.expiresAt;
+        this.mark("prepare_ready");
+      })();
+      try {
+        await this.preparing;
+      } catch (error) {
+        this.close();
+        throw error;
+      } finally {
+        this.preparing = null;
+      }
+    }
     async start() {
       this.assertOpen();
       if (this.started || this.starting) throw Error("Audio session already started");
       this.starting = true;
       try {
+        this.mark("start");
+        if (this.preparing) await this.preparing;
         const before = await this.current();
+        this.mark("acceptance_checked");
         if (before.call.status !== "accepted") throw Error("Call not accepted");
         if (before.call.callerId === this.userId && before.call.offered || before.call.recipientId === this.userId && before.call.answered) throw Error("Call media already negotiated");
-        await this.#applyConfiguration(before);
+        if (!this.preparedUntil || this.preparedUntil < Date.now() + 6e4) await this.#applyConfiguration(before);
+        else {
+          clearTimeout(this.configurationTimer);
+          this.configurationTimer = setTimeout(() => {
+            this.refreshConfiguration().catch((error) => {
+              if (!this.closed) this.fail(error);
+            });
+          }, Math.max(1e3, this.preparedUntil - Date.now() - 6e4));
+        }
         await this.audio.start();
         const after = await this.current();
+        this.mark("microphone_acceptance_checked");
         if (after.call.status !== "accepted") throw Error("Call not accepted");
         this.started = true;
         if (after.call.callerId === this.userId) await this.audio.offer();

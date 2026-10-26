@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "screens": {
+    "234": "psw_messages",
+    "331": "patient_messages",
+    "559": "communication",
+    "578": "messaging"
+  },
+  "paths": [
+    "/v1/calls/prepare"
+  ],
+  "eligibility": "active-role-and-existing-command-and-media-api-and-communication-screen-can-view",
+  "permission": "role_screen_permissions",
+  "purpose": "Short-lived relay preparation only; current command/media/prepare grants and ringing/accepted parties required; no early microphone or signaling",
+  "existingDenials": "preserve",
+  "roleScreenChanges": false,
+  "activation": false
+}

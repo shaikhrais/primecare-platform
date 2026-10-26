@@ -6,6 +6,7 @@ import {validateCommunicationPolicyDocuments,conversationActions,assertConversat
 import {PostgresAtomicStore} from './store.ts';
 import {assertActor,required,type Actor,type RecordState} from '../../../../packages/shared/src/communications/service-base.ts';
 import definition from '../../../../tools/governance-production/internal-call-contracts-registration.json' with {type:'json'};
+import preparation from '../../../../tools/governance-production/internal-call-preparation-registration.json' with {type:'json'};
 import contextQuery from '../../../../packages/shared/src/communications/internal-call-context-query.mjs';
 import pin from '../../../../tools/governance-production/production-pin.json' with {type:'json'};
 type Snapshot={actor:Actor;policies:Record<string,any>[];activeActor:boolean;members:string[];records:RecordState[];linked:RecordState[]};
@@ -21,7 +22,7 @@ export class PostgresInternalCallContext extends PostgresCommunicationSession {
   return (await this.snapshot(undefined,{},key)).actor;
  }
  async snapshot(expected?:Actor,scope:{id?:string;members?:string[];reference?:string}={},key?:string):Promise<Snapshot>{
-  const request=this.request,op=definition.operations.find(o=>o.path===new URL(request.url).pathname);
+  const request=this.request,op=[...definition.operations,...preparation.operations].find(o=>o.path===new URL(request.url).pathname);
   if(!op||op.method!==request.method||key!==undefined&&op.key!==key)throw Error('Forbidden');
   const token=request.headers.has('authorization')?tokenFrom(request):null;if(!token)throw new CommunicationSessionError(401);
   const {rows}=await this.database.query(contextQuery,[await sha256(token),op.method,op.path,'INTERNAL_'+op.key.replaceAll('.','_').toUpperCase(),scope.id??null,scope.members??null,scope.reference??null]);
@@ -33,6 +34,7 @@ export class PostgresInternalCallContext extends PostgresCommunicationSession {
   assertRegisteredPermissionRows(c.grants);
   for(const field of ['policies','members','records','linked'])if(!Array.isArray(c[field]))throw Error('Communication policy unavailable');
   if(c.policies.length>2||c.members.length>1000||c.records.length>2||c.linked.length>2||typeof c.activeActor!=='boolean'||c.members.some((id:unknown)=>typeof id!=='string'))throw Error('Communication policy unavailable');
+  if(op.key==='call.prepare'&&c.activeActor!==true)throw Error('Forbidden');
   return {actor,policies:c.policies,activeActor:c.activeActor,members:c.members,records:c.records,linked:c.linked};
  }
  // A read receipt is consumed only by its immediate authorization callback.

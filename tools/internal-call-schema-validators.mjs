@@ -6,6 +6,8 @@ import standalone from 'ajv/dist/standalone/index.js';
 import {build} from 'esbuild';
 if(process.argv.slice(2).some(x=>x!=='--generate')||process.argv.length>3)throw Error('Explicit generation or check required');
 const definition=JSON.parse(readFileSync('tools/governance-production/internal-call-contracts-registration.json','utf8'));
+const preparation=JSON.parse(readFileSync('tools/governance-production/internal-call-preparation-registration.json','utf8'));
+if(['request','response'].some(kind=>JSON.stringify(preparation.operations[0][kind])!==JSON.stringify(definition.operations[4][kind])))throw Error('Preparation must reuse the exact bounded media schemas');
 const native=definition.operations;
 if(native.map(o=>o.key).join(',')!=='call.directory,call.extension,call.dial,call.command,call.media')throw Error('Exact registered internal call contracts required');
 const ajv=new Ajv({strict:false,code:{source:true}}),exports={};

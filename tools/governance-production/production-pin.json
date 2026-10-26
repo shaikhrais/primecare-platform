@@ -1087,7 +1087,7 @@
   },
   "internalCallContextProcedure": {
     "signature": "public.primecare_call_context_v1(text,text,text,text,text,text[],text)",
-    "sourceSha256": "71ffadebff95f029a24bbb9474221123a37de66cebee1d7cc5ac884fed6ef2f3",
+    "sourceSha256": "d9a469777de249dc4a1b76473560e256e3343db4fb9fae563f6e5d49ff0ba1f8",
     "runtimeHost": "pooled.db.prisma.io",
     "directHost": "db.prisma.io",
     "securityInvoker": true,
@@ -1135,6 +1135,50 @@
     ],
     "contractSha256": "7d277c97a3bcd8c0a71609ef329ed52c02672d69b47585535e27106730554684",
     "definitionSha256": "61b89b6eadc00c7c8d020ba1aedd89917c1a35cdc0f32a272895b5a53f4890d0",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleScreenChanges": false,
+    "existingDenials": "preserve",
+    "providerWrites": false,
+    "activation": false
+  },
+  "internalCallPreparationWriter": {
+    "optInVariable": "GOVERNANCE_INTERNAL_CALL_PREPARATION",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "call.prepare",
+        "method": "POST",
+        "path": "/v1/calls/prepare"
+      }
+    ],
+    "definitionSha256": "ae5ca3b9ca8f90428155621c395ba1257d240894b276ded4415fff31de86f465",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
+  },
+  "internalCallPreparationAccessWriter": {
+    "optInVariable": "GOVERNANCE_INTERNAL_CALL_PREPARATION_ACCESS",
+    "tables": [
+      "api_permissions",
+      "screen_api_links"
+    ],
+    "screenIds": [
+      234,
+      331,
+      559,
+      578
+    ],
+    "paths": [
+      "/v1/calls/prepare"
+    ],
+    "contractSha256": "ae5ca3b9ca8f90428155621c395ba1257d240894b276ded4415fff31de86f465",
+    "definitionSha256": "ec33d1d873610b1b74ff305eea8a691d8ed458fc3404f6966ded004c45383c07",
     "schemaChanges": false,
     "businessDataWrites": false,
     "roleScreenChanges": false,

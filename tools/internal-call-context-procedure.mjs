@@ -6,8 +6,10 @@ import {communicationPolicyDocumentQuery} from '../cloudflare/workers/src/busine
 const pin=JSON.parse(await readFile('tools/governance-production/production-pin.json','utf8')),definition=JSON.parse(await readFile('tools/governance-production/internal-call-contracts-registration.json','utf8'));
 const literal=s=>"'"+s.replaceAll("'","''")+"'",replace=(text,values)=>text.replace(/\$(\d+)\b/g,(_m,n)=>values[Number(n)-1]);
 const permissions=replace(nativeCallPermissionQuery({id:'template',tenantId:'template'},'POST','/v1/calls/command','INTERNAL_CALL_COMMAND').text,['i.id','i.tenant_id','NULL::text','p_method','p_path','p_code']);
+const preparationGrant=(path,code)=>replace(nativeCallPermissionQuery({id:'template',tenantId:'template'},'POST',path,code).text,['i.id','i.tenant_id','NULL::text',literal('POST'),literal(path),literal(code)]);
 const documents=communicationPolicyDocumentQuery(),policies=replace(documents.text,documents.values.map(literal));
-const allowed=definition.operations.map(op=>'('+[op.method,op.path,'INTERNAL_'+op.key.replaceAll('.','_').toUpperCase()].map(literal).join(',')+')').join(',');
+const preparation=JSON.parse(await readFile('tools/governance-production/internal-call-preparation-registration.json','utf8'));
+const allowed=[...definition.operations,...preparation.operations].map(op=>'('+[op.method,op.path,'INTERNAL_'+op.key.replaceAll('.','_').toUpperCase()].map(literal).join(',')+')').join(',');
 const body=`WITH identity AS MATERIALIZED (
  SELECT u.id::text AS id,u.tenant_id::text AS tenant_id FROM public.auth_sessions s JOIN public.users u ON u.id=s.user_id
  WHERE s.token_hash=p_session_hash AND s.expires_at>NOW() AND LOWER(u.status)='active'
@@ -18,6 +20,7 @@ const body=`WITH identity AS MATERIALIZED (
  SELECT COALESCE(jsonb_agg(m),'[]'::jsonb) AS items FROM (SELECT manifest_sha256 FROM "${pin.schema}"."${pin.manifestTable}") m
 ), permitted AS MATERIALIZED (
  SELECT i.* FROM identity i WHERE (SELECT count(*) FROM identity)=1
+ AND (p_path<>'/v1/calls/prepare' OR (EXISTS(${preparationGrant('/v1/calls/command','INTERNAL_CALL_COMMAND')}) AND EXISTS(${preparationGrant('/v1/calls/media','INTERNAL_CALL_MEDIA')})))
  AND jsonb_array_length((SELECT items FROM grants))>0
  AND (SELECT count(DISTINCT g->>'api_id') FROM jsonb_array_elements((SELECT items FROM grants)) g)=1
  AND jsonb_array_length((SELECT items FROM manifest))=1 AND (SELECT items->0->>'manifest_sha256' FROM manifest)=${literal(pin.manifestSha256)}

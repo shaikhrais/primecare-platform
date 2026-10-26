@@ -141,3 +141,12 @@ test('an older overlapping read cannot regress a successful signal version',asyn
 test('malformed acknowledgements close media without replaying an ambiguous write',async()=>{
  let writes=0;const f=fixture({execute(channel){if(channel==='audio'){writes++;return {id:'other-thread',version:4};}}});await assert.rejects(f.session.start(),/Invalid signal acknowledgement/);assert.equal(writes,1);assert.equal(f.stats().stops,1);
 });
+
+test('ringing preparation creates a reusable pooled peer with no microphone or signaling',async()=>{
+ const f=fixture({status:'ringing'}),stages=[];f.session.onTiming=stage=>stages.push(stage);f.session.preparationProvider=async()=>({iceServers:[{urls:['turn:turn.cloudflare.com:3478?transport=udp'],username:'fixture-user-123456',credential:'fixture-key-1234567'}],expiresAt:Date.now()+1800000});f.session.configurationProvider=async()=>{throw Error('Warm start must reuse configuration');};
+ try{await f.session.prepare();assert.equal(f.stats().gets,0);assert.equal(f.commands.filter(c=>c.action==='signal').length,0);assert.equal(f.session.audio.configuration.iceCandidatePoolSize,1);const peer=f.session.audio.peer;f.record.calls[0].status='accepted';await f.session.start();assert.equal(f.session.audio.peer,peer);assert.equal(f.stats().gets,1);assert.ok(stages.includes('prepare_ready'));assert.ok(stages.includes('offer_ice_ready'));}finally{f.session.close();}
+});
+test('preparation cannot enable capture before acceptance or survive a declined call',async()=>{
+ const f=fixture({status:'ringing'});f.session.preparationProvider=async()=>({iceServers:[{urls:['turn:fixture']}],expiresAt:Date.now()+1800000});await f.session.prepare();await assert.rejects(f.session.start(),/not accepted/);assert.equal(f.stats().gets,0);assert.equal(f.stats().peerCloses,1);
+ const ended=fixture({status:'ringing'});ended.session.preparationProvider=async()=>{ended.record.calls[0].status='declined';return {iceServers:[{urls:['turn:fixture']}],expiresAt:Date.now()+1800000};};await assert.rejects(ended.session.prepare(),/not accepted/);assert.equal(ended.stats().gets,0);assert.equal(ended.session.closed,true);
+});

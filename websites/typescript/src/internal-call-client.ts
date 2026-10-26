@@ -10,5 +10,6 @@ export class InternalCallClient extends BaseSessionClient {
  dial(extension:string,requestId:string){return this.requestJson('/dial','POST',{extension,requestId});}
  command(body:unknown){return this.requestJson('/command','POST',body);}
  read(id:string){return this.command({action:'read',id});}
+ prepare(id:string,callId:string){return this.requestJson('/prepare','POST',{id,callId});}
  media(id:string,callId:string){return this.requestJson('/media','POST',{id,callId});}
 }

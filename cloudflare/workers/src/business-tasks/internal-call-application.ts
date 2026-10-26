@@ -96,5 +96,6 @@ export class InternalCallApplication extends ScopedServiceBase {
   if(input.action==='accept')return this.heartbeat(actor,input.id,input.callId);
   return result;
  }
+ async prepare(actor:Actor,id:string,callId:string){await this.read(actor,id);if(!this.core.media)throw unavailable();return this.core.media.prepareConfiguration(actor,id,callId);}
  async media(actor:Actor,id:string,callId:string){await this.read(actor,id);if(!this.core.media)throw unavailable();return this.core.media.configuration(actor,id,callId);}
 }

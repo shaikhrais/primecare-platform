@@ -63,6 +63,7 @@ jobs:
           python tools/governance-production/test-communication-ui-registration.py
           python tools/governance-production/test-internal-call-registration.py
           python tools/governance-production/test-internal-call-events.py
+          python tools/governance-production/test-internal-call-preparation.py
           python tools/governance-production/test-internal-call-access.py
           python tools/governance-production/test-internal-call-ui.py
   native:
@@ -162,13 +163,15 @@ jobs:
           GOVERNANCE_WORKFLOW_WRITES: '1'
           GOVERNANCE_INTERNAL_CALL_CONTRACTS: '1'
           GOVERNANCE_INTERNAL_CALL_ACCESS: '1'
+          GOVERNANCE_INTERNAL_CALL_PREPARATION: '1'
+          GOVERNANCE_INTERNAL_CALL_PREPARATION_ACCESS: '1'
           GOVERNANCE_INTERNAL_CALL_EVENTS: '1'
           GOVERNANCE_INTERNAL_CALL_EVENTS_ACCESS: '1'
           GOVERNANCE_INTERNAL_CALL_UI: '1'
         run: |
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
-          for writer in contracts access ui events events_access; do
+          for writer in contracts access ui events events_access preparation preparation_access; do
             if ! python "tools/governance-production/internal_call_${writer}_registration.py" --verify; then
               python "tools/governance-production/internal_call_${writer}_registration.py" --dry-run
               python "tools/governance-production/internal_call_${writer}_registration.py" --apply
@@ -183,9 +186,11 @@ jobs:
           import internal_call_ui_registration as ui
           import internal_call_events_registration as events
           import internal_call_events_access_registration as events_access
+          import internal_call_preparation_registration as preparation
+          import internal_call_preparation_access_registration as preparation_access
           from production_reader import connect
           with connect() as reader:ui.base.readback(ui.ReadView(reader))
-          receipt={'events':events.verify(),'eventsAccess':events_access.verify(),'contract':contracts.verify(),'access':access.verify(),'ui':{'independentReadback':True,'writesAttempted':False,'definitionSha256':ui.expected_scope()['definitionSha256']}}
+          receipt={'preparation':preparation.verify(),'preparationAccess':preparation_access.verify(),'events':events.verify(),'eventsAccess':events_access.verify(),'contract':contracts.verify(),'access':access.verify(),'ui':{'independentReadback':True,'writesAttempted':False,'definitionSha256':ui.expected_scope()['definitionSha256']}}
           pathlib.Path('test-results/internal-calls/registration.json').write_text(json.dumps(receipt,indent=2)+'\n')
           print('INTERNAL_CALL_REGISTRATION '+json.dumps(receipt))
           PYCODE

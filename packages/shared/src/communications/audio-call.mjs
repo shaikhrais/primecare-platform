@@ -1,32 +1,38 @@
 /** Browser media adapter. Signaling must validate live membership and accepted call ID. */
 import {CommunicationResourceBase} from './adapter-base.mjs';
 export class BrowserAudioCall extends CommunicationResourceBase {
- constructor({sendSignal, getUserMedia, createPeer, configuration, onTrack = () => {}, onState = () => {}}) {
+ constructor({sendSignal, getUserMedia, createPeer, configuration, onTrack = () => {}, onState = () => {},onTiming=()=>{}}) {
   super();
   if(typeof sendSignal !== 'function' || typeof getUserMedia !== 'function' || typeof createPeer !== 'function' || !configuration || !Array.isArray(configuration.iceServers)) throw Error('Configured media adapters required');
   this.sendSignal=sendSignal;this.getUserMedia=getUserMedia;this.createPeer=createPeer;
-  this.configuration=configuration;this.onTrack=onTrack;this.onState=onState;this.pending=[];
+  this.onTiming=onTiming;this.configuration=configuration;this.onTrack=onTrack;this.onState=onState;this.pending=[];
  }
  configure(configuration){
   this.assertOpen();if(!configuration||!Array.isArray(configuration.iceServers))throw Error('Configured media adapters required');
   const next=structuredClone(configuration);if(this.peer)this.peer.setConfiguration(next);this.configuration=next;
  }
+ mark(stage){try{this.onTiming(stage,performance.now());}catch{}}
+ prepare(){
+  this.assertOpen();if(this.peer)throw Error('Peer already prepared');
+  this.peer=this.createPeer(this.configuration);
+  const peer=this.peer;this.registerCleanup(()=>{peer.onicecandidate=null;peer.ontrack=null;peer.onconnectionstatechange=null;peer.close();});
+  this.peer.onicecandidate=event=>{
+   if(this.closed||!event.candidate)return;
+   // Event callbacks must contain both synchronous and asynchronous port errors.
+   Promise.resolve().then(()=>{this.assertOpen();return this.sendSignal({type:'candidate',candidate:event.candidate.toJSON()});}).catch(()=>this.close());
+  };
+  this.peer.ontrack=event=>{if(!this.closed&&event.streams?.[0])this.onTrack(event.streams[0]);};
+  this.peer.onconnectionstatechange=()=>{if(this.closed)return;const state=peer.connectionState;this.mark('peer_'+state);try{this.onState(state);}finally{if(state==='failed'||state==='closed')this.close();}};
+  this.mark('peer_prepared');
+ }
  async start() {
-  if(this.closed || this.starting || this.peer) throw Error('Call already started or closed');
+  if(this.closed || this.starting || this.stream) throw Error('Call already started or closed');
   this.starting=true;
   try {
-   this.stream=await this.getUserMedia({audio:true,video:false});
-   const stream=this.stream;this.registerCleanup(()=>stream.getTracks().forEach(track=>track.stop()));
+   this.mark('microphone_request');this.stream=await this.getUserMedia({audio:true,video:false});
+   this.mark('microphone_acquired');const stream=this.stream;this.registerCleanup(()=>stream.getTracks().forEach(track=>track.stop()));
    this.assertOpen();
-   this.peer=this.createPeer(this.configuration);
-   const peer=this.peer;this.registerCleanup(()=>{peer.onicecandidate=null;peer.ontrack=null;peer.onconnectionstatechange=null;peer.close();});
-   this.peer.onicecandidate=event=>{
-    if(this.closed||!event.candidate)return;
-    // Event callbacks must contain both synchronous and asynchronous port errors.
-    Promise.resolve().then(()=>{this.assertOpen();return this.sendSignal({type:'candidate',candidate:event.candidate.toJSON()});}).catch(()=>this.close());
-   };
-   this.peer.ontrack=event=>{if(!this.closed&&event.streams?.[0])this.onTrack(event.streams[0]);};
-   this.peer.onconnectionstatechange=()=>{if(this.closed)return;const state=peer.connectionState;try{this.onState(state);}finally{if(state==='failed'||state==='closed')this.close();}};
+   if(!this.peer)this.prepare();
    for(const track of this.stream.getTracks()){
     if(track.readyState==='ended')throw Error('Microphone ended');
     if(typeof track.addEventListener==='function'&&typeof track.removeEventListener==='function'){
@@ -40,10 +46,10 @@ export class BrowserAudioCall extends CommunicationResourceBase {
  async offer() {
   if(!this.peer || this.closed)throw Error('Call not started');
   try {
-   const offer=await this.peer.createOffer();this.assertOpen();
-   await this.peer.setLocalDescription(offer);this.assertOpen();
-   await this.sendSignal({type:'offer',description:this.peer.localDescription.toJSON()});
-   this.assertOpen();
+   this.mark('offer_start');const offer=await this.peer.createOffer();this.assertOpen();
+   this.mark('offer_gather_start');await this.peer.setLocalDescription(offer);this.assertOpen();
+   this.mark('offer_ice_ready');await this.sendSignal({type:'offer',description:this.peer.localDescription.toJSON()});
+   this.assertOpen();this.mark('offer_committed');
   } catch(error) {this.close();throw error;}
  }
  async receive(signal) {
@@ -59,10 +65,10 @@ export class BrowserAudioCall extends CommunicationResourceBase {
   await this.peer.setRemoteDescription(signal.description);this.assertOpen();
   for(const candidate of this.pending){await this.peer.addIceCandidate(candidate);this.assertOpen();}this.pending=[];
   if(signal.type==='offer') {
-   const answer=await this.peer.createAnswer();this.assertOpen();
-   await this.peer.setLocalDescription(answer);this.assertOpen();
-   await this.sendSignal({type:'answer',description:this.peer.localDescription.toJSON()});
-   this.assertOpen();
+   this.mark('answer_start');const answer=await this.peer.createAnswer();this.assertOpen();
+   this.mark('answer_gather_start');await this.peer.setLocalDescription(answer);this.assertOpen();
+   this.mark('answer_ice_ready');await this.sendSignal({type:'answer',description:this.peer.localDescription.toJSON()});
+   this.assertOpen();this.mark('answer_committed');
   }
   } catch(error) {this.close();throw error;}
  }
