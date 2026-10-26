@@ -1,0 +1,24 @@
+{
+  "apkSource": "c25f9f428646b86f5247b84d885870b177c7ad3d",
+  "apkSha256": "9246b71cc7bd14572496664c9161fd929874d92b2436be4b0fa717927d2ac863",
+  "emulator": true,
+  "callsPlaced": 0,
+  "loginAttempted": false,
+  "package": "ca.primecare.calls.test",
+  "installed": true,
+  "launched": true,
+  "nativeLoginVisible": true,
+  "physicalHandsetVerified": false,
+  "androidRelease": "13",
+  "sdk": "33",
+  "abi": "x86_64",
+  "passed": true,
+  "workflowRun": 40324796931,
+  "workflowSource": "a532b1a2bd6d5e8cd5101f8180df54ac6c1c9adc",
+  "workflowUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/40324796931",
+  "installFlags": [
+    "--no-streaming"
+  ],
+  "testOnlyOrUpdateBypassUsed": false,
+  "userHandsetInstallIssue": "Unresolved: generic App wasn't installed; previous app never installed; no detailed package-manager reason supplied."
+}
