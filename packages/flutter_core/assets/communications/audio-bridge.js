@@ -82,7 +82,9 @@
         }).catch(() => this.close());
       };
       this.peer.ontrack = (event) => {
-        if (!this.closed && event.streams?.[0]) this.onTrack(event.streams[0]);
+        if (this.closed) return;
+        this.remoteStream = event.streams?.[0] ?? new MediaStream([event.track]);
+        if (this.activated) this.onTrack(this.remoteStream);
       };
       this.peer.onconnectionstatechange = () => {
         if (this.closed) return;
@@ -96,7 +98,21 @@
       };
       this.mark("peer_prepared");
     }
-    async start() {
+    prepareTransport() {
+      this.assertOpen();
+      if (!this.peer) this.prepare();
+      if (this.transceiver) throw Error("Transport already prepared");
+      this.transceiver = this.peer.addTransceiver("audio", { direction: "sendrecv" });
+    }
+    activate() {
+      this.assertOpen();
+      this.activated = true;
+      this.stream?.getAudioTracks().forEach((track) => {
+        track.enabled = true;
+      });
+      if (this.remoteStream) this.onTrack(this.remoteStream);
+    }
+    async start(deferActivation = false) {
       if (this.closed || this.starting || this.stream) throw Error("Call already started or closed");
       this.starting = true;
       try {
@@ -114,8 +130,12 @@
             track.addEventListener("ended", ended);
             this.registerCleanup(() => track.removeEventListener("ended", ended));
           }
-          this.peer.addTrack(track, this.stream);
+          if (deferActivation) track.enabled = false;
+          if (this.transceiver) await this.transceiver.sender.replaceTrack(track);
+          else this.peer.addTrack(track, this.stream);
+          this.assertOpen();
         }
+        if (!deferActivation) this.activate();
       } catch (error) {
         this.close();
         throw error;
@@ -194,12 +214,14 @@
 
   // packages/shared/src/communications/audio-session.mjs
   var BrowserAudioSession = class extends CommunicationResourceBase {
-    constructor({ transport, userId, threadId, callId, media, configurationProvider, preparationProvider, preparationReader, onTiming = () => {
+    constructor({ transport, userId, threadId, callId, media, configurationProvider, preparationProvider, preparationReader, preparationSignaler, onTiming = () => {
     }, intervalMilliseconds = 1e3, onError = () => {
     }, key = () => crypto.randomUUID() }) {
       super();
       if (typeof transport?.execute !== "function" || [userId, threadId, callId].some((value) => typeof value !== "string" || !value.trim()) || !Number.isSafeInteger(intervalMilliseconds) || intervalMilliseconds < 100 || typeof key !== "function" || typeof onError !== "function") throw Error("Audio session adapters required");
       if (configurationProvider !== void 0 && typeof configurationProvider !== "function") throw Error("Media configuration provider required");
+      this.preparationSignaler = preparationSignaler;
+      this.negotiating = false;
       this.preparationReader = preparationReader;
       this.onTiming = onTiming;
       this.preparationProvider = preparationProvider;
@@ -223,6 +245,7 @@
       this.starting = false;
       this.audio = new BrowserAudioCall({ ...media, onTiming: (stage, at) => this.onTiming(stage, at), sendSignal: (signal) => this.sendSignal(signal), onState: (state) => {
         try {
+          if (state === "connected" && this.negotiating && !this.started) this.mark("prepare_connected");
           media?.onState?.(state);
         } finally {
           if (state === "closed") this.close();
@@ -232,7 +255,7 @@
     }
     async current() {
       this.assertOpen();
-      const record = this.preparedUntil && this.preparationReader ? await this.preparationReader() : await this.transport.execute("message", { action: "read", id: this.threadId });
+      const record = (this.preparedUntil || this.preparationSignaler) && this.preparationReader ? await this.preparationReader() : await this.transport.execute("message", { action: "read", id: this.threadId });
       this.assertOpen();
       const current = this.validateCurrent(record);
       this.signalVersion = Math.max(this.signalVersion, current.record.version);
@@ -264,6 +287,16 @@
         this.audio.configure({ ...this.audio.configuration, iceServers: configuration.iceServers, iceCandidatePoolSize: 1 });
         this.audio.prepare();
         this.preparedUntil = configuration.expiresAt;
+        if (this.preparationSignaler) {
+          this.audio.prepareTransport();
+          this.negotiating = true;
+          if (after.call.callerId === this.userId) {
+            if (after.call.offered) throw Error("Call media already negotiated");
+            await this.audio.offer();
+          }
+          await this.refresh();
+          this.schedule();
+        }
         this.mark("prepare_ready");
       })();
       try {
@@ -285,7 +318,7 @@
         const before = await this.current();
         this.mark("acceptance_checked");
         if (before.call.status !== "accepted") throw Error("Call not accepted");
-        if (before.call.callerId === this.userId && before.call.offered || before.call.recipientId === this.userId && before.call.answered) throw Error("Call media already negotiated");
+        if (!this.negotiating && (before.call.callerId === this.userId && before.call.offered || before.call.recipientId === this.userId && before.call.answered)) throw Error("Call media already negotiated");
         if (!this.preparedUntil || this.preparedUntil < Date.now() + 6e4) await this.#applyConfiguration(before);
         else {
           clearTimeout(this.configurationTimer);
@@ -295,12 +328,14 @@
             });
           }, Math.max(1e3, this.preparedUntil - Date.now() - 6e4));
         }
-        await this.audio.start();
+        await this.audio.start(true);
         const after = await this.current();
         this.mark("microphone_acceptance_checked");
         if (after.call.status !== "accepted") throw Error("Call not accepted");
+        this.audio.activate();
+        this.mark("microphone_activated");
         this.started = true;
-        if (after.call.callerId === this.userId) await this.audio.offer();
+        if (after.call.callerId === this.userId && !this.negotiating) await this.audio.offer();
         await this.refresh();
         this.schedule();
       } catch (error) {
@@ -362,11 +397,11 @@
     }
     async refreshOnce() {
       const { call } = await this.current();
-      if (call.status !== "accepted") {
+      if (call.status !== "accepted" && !(this.negotiating && call.status === "ringing")) {
         this.close();
         return;
       }
-      if (!this.started) return;
+      if (!this.started && !this.negotiating) return;
       const signals = call.signals ?? [];
       if (!Array.isArray(signals)) throw Error("Invalid call signaling");
       let previous = 0;
@@ -413,11 +448,12 @@
         for (let attempt = 0; attempt < 3; attempt++) {
           if (!this.signalVersion || attempt > 0) {
             const { call } = await this.current();
-            if (call.status !== "accepted") throw Error("Call not accepted");
+            if (call.status !== "accepted" && !(this.negotiating && call.status === "ringing")) throw Error("Call not accepted");
           }
           const version = this.signalVersion;
           try {
-            const result = await this.transport.execute("audio", { action: "signal", id: this.threadId, key: this.key(), version, callId: this.callId, signal: signal?.type === "candidate" ? { ...signal, type: "ice" } : signal });
+            const input = { action: "signal", id: this.threadId, key: this.key(), version, callId: this.callId, signal: signal?.type === "candidate" ? { ...signal, type: "ice" } : signal };
+            const result = await (this.negotiating && this.preparationSignaler ? this.preparationSignaler(input) : this.transport.execute("audio", input));
             if (result?.id !== this.threadId || !Number.isSafeInteger(result.version) || result.version !== version + 1) throw Error("Invalid signal acknowledgement");
             this.signalVersion = Math.max(this.signalVersion, result.version);
             return result;

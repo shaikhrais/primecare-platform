@@ -8,12 +8,14 @@
   },
   "paths": [
     "/v1/calls/prepare",
-    "/v1/calls/prepare/read"
+    "/v1/calls/prepare/read",
+    "/v1/calls/prepare/signal"
   ],
   "eligibility": "active-role-and-existing-command-and-media-api-and-communication-screen-can-view",
   "permission": "role_screen_permissions",
   "purpose": "Short-lived relay preparation only; current command/media/prepare grants and ringing/accepted parties required; no early microphone or signaling",
   "existingDenials": "preserve",
   "roleScreenChanges": false,
-  "activation": false
+  "activation": false,
+  "transportPreparation": "The separately registered preparation signal endpoint now permits silent SDP negotiation; microphone capture and activation still require accepted-call authorization. Preserve the original screen-link purpose metadata."
 }

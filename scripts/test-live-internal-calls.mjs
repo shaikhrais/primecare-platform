@@ -48,7 +48,7 @@ try{
  await request(alice,'media',{id:view.id,callId},409);await request(foreign,'command',{action:'read',id:view.id},404);await request(foreign,'media',{id:view.id,callId},404);
  await until(async()=>await cy(bob.page,'internal-call-answer').isEnabled());
  await until(async()=>(await Promise.all([alice.page,bob.page].map(page=>page.evaluate(()=>document.querySelector('[data-cy=internal-call-panel]')?.getAttribute('data-media-prepared')==='true')))).every(Boolean),30000);
- assert.ok((await Promise.all([alice.page,bob.page].map(page=>page.evaluate(()=>window.__callTracks.length===0&&window.__callPeers.length===1&&window.__callPeers[0].getConfiguration().iceCandidatePoolSize===1)))).every(Boolean));report.bothPreparedWithoutMicrophone=true;
+ assert.ok((await Promise.all([alice.page,bob.page].map(page=>page.evaluate(()=>window.__callTracks.length===0&&window.__callPeers.length===1&&window.__callPeers[0].getConfiguration().iceCandidatePoolSize===1&&window.__callPeers[0].connectionState==='connected')))).every(Boolean));report.bothPreparedWithoutMicrophone=true;report.bothConnectedBeforeAnswerWithoutMicrophone=true;
  const answerClocks=await Promise.all([alice.page,bob.page].map(page=>page.evaluate(()=>performance.now())));const mediaStartedAt=Date.now();await cy(bob.page,'internal-call-answer').click();
  report.stage='relay-audio';
  const stats=page=>page.evaluate(async()=>{

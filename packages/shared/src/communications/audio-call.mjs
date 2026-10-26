@@ -21,11 +21,13 @@ export class BrowserAudioCall extends CommunicationResourceBase {
    // Event callbacks must contain both synchronous and asynchronous port errors.
    Promise.resolve().then(()=>{this.assertOpen();return this.sendSignal({type:'candidate',candidate:event.candidate.toJSON()});}).catch(()=>this.close());
   };
-  this.peer.ontrack=event=>{if(!this.closed&&event.streams?.[0])this.onTrack(event.streams[0]);};
+  this.peer.ontrack=event=>{if(this.closed)return;this.remoteStream=event.streams?.[0]??new MediaStream([event.track]);if(this.activated)this.onTrack(this.remoteStream);};
   this.peer.onconnectionstatechange=()=>{if(this.closed)return;const state=peer.connectionState;this.mark('peer_'+state);try{this.onState(state);}finally{if(state==='failed'||state==='closed')this.close();}};
   this.mark('peer_prepared');
  }
- async start() {
+ prepareTransport(){this.assertOpen();if(!this.peer)this.prepare();if(this.transceiver)throw Error('Transport already prepared');this.transceiver=this.peer.addTransceiver('audio',{direction:'sendrecv'});}
+ activate(){this.assertOpen();this.activated=true;this.stream?.getAudioTracks().forEach(track=>{track.enabled=true;});if(this.remoteStream)this.onTrack(this.remoteStream);}
+ async start(deferActivation=false) {
   if(this.closed || this.starting || this.stream) throw Error('Call already started or closed');
   this.starting=true;
   try {
@@ -39,8 +41,11 @@ export class BrowserAudioCall extends CommunicationResourceBase {
      const ended=()=>this.close();track.addEventListener('ended',ended);
      this.registerCleanup(()=>track.removeEventListener('ended',ended));
     }
-    this.peer.addTrack(track,this.stream);
+    if(deferActivation)track.enabled=false;
+    if(this.transceiver)await this.transceiver.sender.replaceTrack(track);else this.peer.addTrack(track,this.stream);
+    this.assertOpen();
    }
+   if(!deferActivation)this.activate();
   } catch(error) {this.close();throw error;} finally {this.starting=false;}
  }
  async offer() {

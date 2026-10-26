@@ -19,9 +19,9 @@ export class PostgresInternalCallPolicy extends PostgresCommunicationAccessPolic
 }
 const unavailable=()=>Error('Call unavailable');
 const limits={maxMembers:2,maxMessages:100,ringMilliseconds:45000,maxSignalBytes:16384};
-export function internalCallView(state:any,actor:Actor){
+export function internalCallView(state:any,actor:Actor,preparation=false){
   if(!state.id.startsWith('internal-call:')||state.members.length!==2||!state.members.includes(actor.id))throw unavailable();
-  return {id:state.id,kind:'conversation',version:state.version,members:state.members,calls:state.calls.filter((c:any)=>[c.callerId,c.recipientId].includes(actor.id)).slice(-20).map((c:any)=>({id:c.id,callerId:c.callerId,recipientId:c.recipientId,status:c.status,expiresAt:c.expiresAt,signals:c.status==='accepted'?(c.signals??[]):[],...(c.offered===undefined?{}:{offered:c.offered}),...(c.answered===undefined?{}:{answered:c.answered})}))};
+  return {id:state.id,kind:'conversation',version:state.version,members:state.members,calls:state.calls.filter((c:any)=>[c.callerId,c.recipientId].includes(actor.id)).slice(-20).map((c:any)=>({id:c.id,callerId:c.callerId,recipientId:c.recipientId,status:c.status,expiresAt:c.expiresAt,signals:c.status==='accepted'||preparation&&c.status==='ringing'?(c.signals??[]):[],...(c.offered===undefined?{}:{offered:c.offered}),...(c.answered===undefined?{}:{answered:c.answered})}))};
  }
 export function internalCallExpired(call:any,actor:Actor,now:number){return [call.callerId,call.recipientId].includes(actor.id)&&(call.status==='ringing'&&call.expiresAt<=now||call.status==='accepted'&&Math.min(call.lastSeen?.[call.callerId]??call.expiresAt,call.lastSeen?.[call.recipientId]??call.expiresAt)<now-90000);}
 export class InternalCallApplication extends ScopedServiceBase {
@@ -96,9 +96,9 @@ export class InternalCallApplication extends ScopedServiceBase {
  async command(actor:Actor,input:any){
   if(input.action==='inbox')return this.inbox(actor);if(input.action==='read')return this.read(actor,input.id);if(input.action==='heartbeat')return this.heartbeat(actor,input.id,input.callId);await this.read(actor,input.id);
   const result=await this.core.execute(actor,input);
-  if(input.action==='accept')return this.heartbeat(actor,input.id,input.callId);
   return result;
  }
+ async prepareSignal(actor:Actor,input:any){await this.read(actor,input.id);return this.core.calls.prepareSignal(actor,input.id,input.key,input.version,input.callId,input.signal);}
  async preparedRead(actor:Actor,id:string,callId:string){const state=await this.read(actor,id);if(!state.calls.some((c:any)=>c.id===callId&&[c.callerId,c.recipientId].includes(actor.id)))throw unavailable();return state;}
  async prepare(actor:Actor,id:string,callId:string){await this.read(actor,id);if(!this.core.media)throw unavailable();return this.core.media.prepareConfiguration(actor,id,callId);}
  async media(actor:Actor,id:string,callId:string){await this.read(actor,id);if(!this.core.media)throw unavailable();return this.core.media.configuration(actor,id,callId);}

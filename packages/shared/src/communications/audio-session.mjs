@@ -6,23 +6,23 @@ import {BrowserAudioCall} from './audio-call.mjs';
  * No routes, credentials, role grants or timers survive close().
  */
 export class BrowserAudioSession extends CommunicationResourceBase {
- constructor({transport,userId,threadId,callId,media,configurationProvider,preparationProvider,preparationReader,onTiming=()=>{},intervalMilliseconds=1000,onError=()=>{},key=()=>crypto.randomUUID()}) {
+ constructor({transport,userId,threadId,callId,media,configurationProvider,preparationProvider,preparationReader,preparationSignaler,onTiming=()=>{},intervalMilliseconds=1000,onError=()=>{},key=()=>crypto.randomUUID()}) {
   super();
   if(typeof transport?.execute!=='function'||[userId,threadId,callId].some(value=>typeof value!=='string'||!value.trim())||!Number.isSafeInteger(intervalMilliseconds)||intervalMilliseconds<100||typeof key!=='function'||typeof onError!=='function')throw Error('Audio session adapters required');
   if(configurationProvider!==undefined&&typeof configurationProvider!=='function')throw Error('Media configuration provider required');
-  this.preparationReader=preparationReader;this.onTiming=onTiming;this.preparationProvider=preparationProvider;this.preparedUntil=0;this.preparing=null;
+  this.preparationSignaler=preparationSignaler;this.negotiating=false;this.preparationReader=preparationReader;this.onTiming=onTiming;this.preparationProvider=preparationProvider;this.preparedUntil=0;this.preparing=null;
   this.configurationProvider=configurationProvider;this.configurationTimer=null;
   this.transport=transport;this.userId=userId;this.threadId=threadId;this.callId=callId;
   this.intervalMilliseconds=intervalMilliseconds;this.onError=onError;this.key=key;
   this.conflictWait=null;this.signalVersion=0;this.lastSequence=0;this.writes=Promise.resolve();this.refreshing=null;this.started=false;this.starting=false;
   this.audio=new BrowserAudioCall({...media,onTiming:(stage,at)=>this.onTiming(stage,at),sendSignal:signal=>this.sendSignal(signal),onState:state=>{
-   try{media?.onState?.(state);}finally{if(state==='closed')this.close();}
+   try{if(state==='connected'&&this.negotiating&&!this.started)this.mark('prepare_connected');media?.onState?.(state);}finally{if(state==='closed')this.close();}
   }});
   this.registerCleanup(()=>this.audio.close());
  }
  async current() {
   this.assertOpen();
-  const record=this.preparedUntil&&this.preparationReader?await this.preparationReader():await this.transport.execute('message',{action:'read',id:this.threadId});
+  const record=(this.preparedUntil||this.preparationSignaler)&&this.preparationReader?await this.preparationReader():await this.transport.execute('message',{action:'read',id:this.threadId});
   this.assertOpen();
   const current=this.validateCurrent(record);this.signalVersion=Math.max(this.signalVersion,current.record.version);return current;
  }
@@ -38,7 +38,9 @@ export class BrowserAudioSession extends CommunicationResourceBase {
    const configuration=structuredClone(await this.preparationProvider());this.assertOpen();
    if(!Array.isArray(configuration?.iceServers)||!configuration.iceServers.length||!Number.isSafeInteger(configuration.expiresAt)||configuration.expiresAt<Date.now()+30000||configuration.expiresAt>Date.now()+1800000)throw Error('Media preparation unavailable');
    const after=await this.current();if(!['ringing','accepted'].includes(after.call.status)||after.call.callerId!==before.call.callerId||after.call.recipientId!==before.call.recipientId)throw Error('Call not accepted');
-   this.audio.configure({...this.audio.configuration,iceServers:configuration.iceServers,iceCandidatePoolSize:1});this.audio.prepare();this.preparedUntil=configuration.expiresAt;this.mark('prepare_ready');
+   this.audio.configure({...this.audio.configuration,iceServers:configuration.iceServers,iceCandidatePoolSize:1});this.audio.prepare();this.preparedUntil=configuration.expiresAt;
+   if(this.preparationSignaler){this.audio.prepareTransport();this.negotiating=true;if(after.call.callerId===this.userId){if(after.call.offered)throw Error('Call media already negotiated');await this.audio.offer();}await this.refresh();this.schedule();}
+   this.mark('prepare_ready');
   })();try{await this.preparing;}catch(error){this.close();throw error;}finally{this.preparing=null;}
  }
  async start() {
@@ -48,15 +50,15 @@ export class BrowserAudioSession extends CommunicationResourceBase {
    this.mark('start');if(this.preparing)await this.preparing;
    const before=await this.current();this.mark('acceptance_checked');if(before.call.status!=='accepted')throw Error('Call not accepted');
    // A reloaded caller cannot replay an offer whose original peer was lost.
-   if(before.call.callerId===this.userId&&before.call.offered||before.call.recipientId===this.userId&&before.call.answered)throw Error('Call media already negotiated');
+   if(!this.negotiating&&(before.call.callerId===this.userId&&before.call.offered||before.call.recipientId===this.userId&&before.call.answered))throw Error('Call media already negotiated');
    // Reuse the check just completed, with no intervening await. The provider
    // result is still followed by a fresh accepted-call read before microphone.
    if(!this.preparedUntil||this.preparedUntil<Date.now()+60000)await this.#applyConfiguration(before);
    else {clearTimeout(this.configurationTimer);this.configurationTimer=setTimeout(()=>{this.refreshConfiguration().catch(error=>{if(!this.closed)this.fail(error);});},Math.max(1000,this.preparedUntil-Date.now()-60000));}
-   await this.audio.start();
+   await this.audio.start(true);
    const after=await this.current();this.mark('microphone_acceptance_checked');if(after.call.status!=='accepted')throw Error('Call not accepted');
-   this.started=true;
-   if(after.call.callerId===this.userId)await this.audio.offer();
+   this.audio.activate();this.mark('microphone_activated');this.started=true;
+   if(after.call.callerId===this.userId&&!this.negotiating)await this.audio.offer();
    await this.refresh();this.schedule();
   }catch(error){this.close();throw error;}finally{this.starting=false;}
  }
@@ -89,8 +91,8 @@ export class BrowserAudioSession extends CommunicationResourceBase {
  }
  async refreshOnce() {
   const {call}=await this.current();
-  if(call.status!=='accepted'){this.close();return;}
-  if(!this.started)return;
+  if(call.status!=='accepted'&&!(this.negotiating&&call.status==='ringing')){this.close();return;}
+  if(!this.started&&!this.negotiating)return;
   const signals=call.signals??[];
   if(!Array.isArray(signals))throw Error('Invalid call signaling');
   let previous=0;
@@ -129,10 +131,11 @@ export class BrowserAudioSession extends CommunicationResourceBase {
    for(let attempt=0;attempt<3;attempt++){
     // The version is only a concurrency hint. The server still checks the
     // current session, permissions and accepted call on every write.
-    if(!this.signalVersion||attempt>0){const {call}=await this.current();if(call.status!=='accepted')throw Error('Call not accepted');}
+    if(!this.signalVersion||attempt>0){const {call}=await this.current();if(call.status!=='accepted'&&!(this.negotiating&&call.status==='ringing'))throw Error('Call not accepted');}
     const version=this.signalVersion;
     try{
-     const result=await this.transport.execute('audio',{action:'signal',id:this.threadId,key:this.key(),version,callId:this.callId,signal:signal?.type==='candidate'?{...signal,type:'ice'}:signal});
+     const input={action:'signal',id:this.threadId,key:this.key(),version,callId:this.callId,signal:signal?.type==='candidate'?{...signal,type:'ice'}:signal};
+     const result=await (this.negotiating&&this.preparationSignaler?this.preparationSignaler(input):this.transport.execute('audio',input));
      if(result?.id!==this.threadId||!Number.isSafeInteger(result.version)||result.version!==version+1)throw Error('Invalid signal acknowledgement');
      this.signalVersion=Math.max(this.signalVersion,result.version);return result;
     }catch(error){

@@ -152,3 +152,26 @@ test('preparation cannot enable capture before acceptance or survive a declined 
 });
 
 test('warm credentials cannot bypass a revoked current media readiness check',async()=>{const f=fixture({status:'ringing'});f.session.preparationReader=async()=>structuredClone(f.record);f.session.preparationProvider=async()=>({iceServers:[{urls:['turn:fixture']}],expiresAt:Date.now()+1800000});await f.session.prepare();f.record.calls[0].status='accepted';f.session.preparationReader=async()=>{throw Error('Forbidden');};await assert.rejects(f.session.start(),/Forbidden/);assert.equal(f.stats().gets,0);assert.equal(f.session.closed,true);});
+
+test('silent ringing negotiation reuses its transceiver and only activates a microphone after fresh acceptance',async()=>{
+ const f=fixture({status:'ringing'}),replaced=[],track={enabled:true,stop(){}};let transceivers=0;
+ const peer=f.options.media.createPeer();peer.addTransceiver=()=>{transceivers++;return {sender:{async replaceTrack(value){replaced.push(value);assert.equal(value.enabled,false);}}};};peer.addTrack=()=>assert.fail('Warm transport must reuse its negotiated sender');
+ f.session.preparationReader=async()=>structuredClone(f.record);f.session.preparationProvider=async()=>({iceServers:[{urls:['turn:fixture']}],expiresAt:Date.now()+1800000});
+ f.session.preparationSignaler=input=>f.options.transport.execute('audio',input);
+ f.session.audio.getUserMedia=async()=>({getTracks:()=>[track],getAudioTracks:()=>[track]});
+ try{await f.session.prepare();assert.equal(transceivers,1);assert.equal(replaced.length,0);assert.equal(f.commands.filter(c=>c.action==='signal').length,1);assert.equal(f.record.calls[0].status,'ringing');
+  f.record.calls[0].offered=true;f.record.calls[0].status='accepted';await f.session.start();assert.equal(replaced.length,1);assert.equal(track.enabled,true);assert.equal(f.commands.filter(c=>c.action==='signal').length,1);
+ }finally{f.session.close();}
+});
+test('revocation during microphone permission never activates a preconnected sender',async()=>{
+ const f=fixture({status:'ringing'}),peer=f.options.media.createPeer(),track={enabled:true,stop(){}};let revoked=false;
+ peer.addTransceiver=()=>({sender:{async replaceTrack(value){assert.equal(value.enabled,false);}}});
+ f.session.preparationReader=async()=>{if(revoked)throw Error('Forbidden');return structuredClone(f.record);};f.session.preparationProvider=async()=>({iceServers:[{urls:['turn:fixture']}],expiresAt:Date.now()+1800000});f.session.preparationSignaler=input=>f.options.transport.execute('audio',input);
+ await f.session.prepare();f.record.calls[0].status='accepted';f.record.calls[0].offered=true;f.session.audio.getUserMedia=async()=>{revoked=true;return {getTracks:()=>[track],getAudioTracks:()=>[track]};};
+ await assert.rejects(f.session.start(),/Forbidden/);assert.equal(track.enabled,false);assert.equal(f.session.audio.activated,undefined);assert.equal(f.session.closed,true);
+});
+test('recipient silently answers a ringing offer without requesting microphone',async()=>{
+ const f=fixture({status:'ringing',userId:'b'}),peer=f.options.media.createPeer();peer.addTransceiver=()=>({sender:{async replaceTrack(){}}});
+ f.record.calls[0].signals.push({sequence:1,actorId:'a',signal:{type:'offer',description:{type:'offer',sdp:'fixture-offer'}}});f.session.preparationReader=async()=>structuredClone(f.record);f.session.preparationProvider=async()=>({iceServers:[{urls:['turn:fixture']}],expiresAt:Date.now()+1800000});f.session.preparationSignaler=input=>f.options.transport.execute('audio',input);
+ try{await f.session.prepare();assert.equal(f.stats().gets,0);assert.equal(f.received.length,1);assert.equal(f.commands.filter(c=>c.action==='signal'&&c.signal.type==='answer').length,1);f.record.calls[0].status='declined';await f.session.refresh();assert.equal(f.session.closed,true);}finally{f.session.close();}
+});

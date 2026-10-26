@@ -20,7 +20,7 @@ const body=`WITH identity AS MATERIALIZED (
  SELECT COALESCE(jsonb_agg(m),'[]'::jsonb) AS items FROM (SELECT manifest_sha256 FROM "${pin.schema}"."${pin.manifestTable}") m
 ), permitted AS MATERIALIZED (
  SELECT i.* FROM identity i WHERE (SELECT count(*) FROM identity)=1
- AND (p_path NOT IN ('/v1/calls/prepare','/v1/calls/prepare/read') OR (EXISTS(${preparationGrant('/v1/calls/command','INTERNAL_CALL_COMMAND')}) AND EXISTS(${preparationGrant('/v1/calls/media','INTERNAL_CALL_MEDIA')})))
+ AND (p_path NOT IN ('/v1/calls/prepare','/v1/calls/prepare/read','/v1/calls/prepare/signal') OR (EXISTS(${preparationGrant('/v1/calls/command','INTERNAL_CALL_COMMAND')}) AND EXISTS(${preparationGrant('/v1/calls/media','INTERNAL_CALL_MEDIA')})))
  AND jsonb_array_length((SELECT items FROM grants))>0
  AND (SELECT count(DISTINCT g->>'api_id') FROM jsonb_array_elements((SELECT items FROM grants)) g)=1
  AND jsonb_array_length((SELECT items FROM manifest))=1 AND (SELECT items->0->>'manifest_sha256' FROM manifest)=${literal(pin.manifestSha256)}

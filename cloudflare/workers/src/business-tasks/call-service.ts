@@ -50,6 +50,7 @@ export class ConversationCallServiceBase extends ScopedServiceBase {
      if (action === 'accept' || action === 'decline') {
       if (actor.id !== call.recipientId || call.status !== 'ringing' || now >= call.expiresAt) throw Error('Call conflict');
       call.status = action === 'accept' ? 'accepted' : 'declined';
+      if(action==='accept')this.acceptedTransition(call,now);
      } else if (action === 'expire') {
       if (call.status !== 'ringing' || now < call.expiresAt) throw Error('Call conflict');
       call.status='missed';
@@ -61,7 +62,11 @@ export class ConversationCallServiceBase extends ScopedServiceBase {
     return {state:state!,event:'conversation.call.'+action};
    });
  }
+ protected acceptedTransition(call:any,now:number){}
  async signal(actor: Actor, id: string, key: string, expectedVersion: number, callId: string, signal: {type:string;description?:{type:string;sdp:string};candidate?:Record<string,unknown>}) {
+  return this.recordSignal(actor,id,key,expectedVersion,callId,signal,false);
+ }
+ protected async recordSignal(actor:Actor,id:string,key:string,expectedVersion:number,callId:string,signal:{type:string;description?:{type:string;sdp:string};candidate?:Record<string,unknown>},preparation:boolean){
   required(callId);
   if(!signal||!['offer','answer','ice'].includes(signal.type)||new TextEncoder().encode(JSON.stringify(signal)).length>this.limits.maxSignalBytes)throw Error('Invalid signal');
   signal=structuredClone(signal);
@@ -73,7 +78,7 @@ export class ConversationCallServiceBase extends ScopedServiceBase {
    async state=>{await this.authorize(actor,'conversation.call',state);const call=state!.calls.find((candidate:any)=>candidate.id===callId);if(!call||![call.callerId,call.recipientId].includes(actor.id))throw Error('Not found');},
    async state=>{
     const call=state!.calls.find((candidate:any)=>candidate.id===callId);
-    if(call.status!=='accepted')throw Error('Call not accepted');
+    if(call.status!=='accepted'&&!(preparation&&call.status==='ringing'&&this.now()<call.expiresAt))throw Error('Call not accepted');
     if(signal.type==='offer') {if(actor.id!==call.callerId||call.offered)throw Error('Invalid offer');call.offered=true;}
     if(signal.type==='answer') {if(actor.id!==call.recipientId||!call.offered||call.answered)throw Error('Invalid answer');call.answered=true;}
     call.signals??=[];if(call.signals.length>=this.limits.maxMessages)throw Error('Signal limit');

@@ -9,6 +9,8 @@ const unavailable=()=>Error('Call destination unavailable');
  * No Twilio SDK, provider token, telephone number or model broker is required.
  */
 export class InternalExtensionCallService extends ConversationCallServiceBase {
+ protected override acceptedTransition(call:any,now:number){call.lastSeen={[call.callerId]:now,[call.recipientId]:now};}
+ async prepareSignal(actor:Actor,id:string,key:string,version:number,callId:string,signal:Parameters<ConversationCallServiceBase['signal']>[5]){return this.recordSignal(actor,id,key,version,callId,signal,true);}
  readonly directory:InternalExtensionDirectory;
  constructor(store:AtomicStore,policy:AccessPolicy,directory:InternalExtensionDirectory,limits:ConversationCallLimits,now=Date.now){
   super(store,policy,limits,now);if(typeof directory?.lookup!=='function')throw unavailable();this.directory=directory;

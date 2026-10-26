@@ -7,10 +7,10 @@ from production_reader import GovernanceReadError
 from twilio_voice_registration import retry_transaction
 FILE=Path(__file__).with_name('internal-call-preparation-registration.json')
 FIELDS=shared.FIELDS
-IDENTITIES={'call.prepare':('POST','/v1/calls/prepare'),'call.prepare.read':('POST','/v1/calls/prepare/read')}
+IDENTITIES={'call.prepare':('POST','/v1/calls/prepare'),'call.prepare.read':('POST','/v1/calls/prepare/read'),'call.prepare.signal':('POST','/v1/calls/prepare/signal')}
 def definition():
  d=json.loads(FILE.read_text())
- if d.get('version')!=1 or d.get('activation') is not False or d.get('implementationStatus')!='registered-unimplemented' or d.get('service')!='governance' or d.get('anchorApiId')!=710 or len(d.get('operations',[]))!=2:raise GovernanceReadError('Exact nonactivating app-call definition required')
+ if d.get('version')!=1 or d.get('activation') is not False or d.get('implementationStatus')!='registered-unimplemented' or d.get('service')!='governance' or d.get('anchorApiId')!=710 or len(d.get('operations',[]))!=3:raise GovernanceReadError('Exact nonactivating app-call definition required')
  seen=set()
  for op in d['operations']:
   if set(op)!={'key','method','path','authentication','responseKind','permission','request','response'} or IDENTITIES.get(op['key'])!=(op['method'],op['path']) or op['key'] in seen or op['authentication']!='native-session-csrf' or op['permission']!='role_screen_permissions' or op['responseKind']!='json':raise GovernanceReadError('Exact app-call operation required')

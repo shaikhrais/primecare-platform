@@ -24,6 +24,6 @@ export class InternalCallReadinessAdapter extends BoundedBinaryAdapterBase {
   try{await this.application.core.calls.authorize(snapshot.actor,'conversation.read',state);}finally{this.context.discard(state);}
   const call=state.calls.find((c:any)=>c.id===input.callId);if(!call||state.id!==input.id||![call.callerId,call.recipientId].includes(snapshot.actor.id))throw Error('Not found');
   if(internalCallExpired(call,snapshot.actor,Date.now()))throw Error('Call not accepted');
-  const result=internalCallView(state,snapshot.actor);if(validators.internalPreparation1_response(result)!==true)throw Error('Invalid call response');return Response.json(result,{headers});
+  const result=internalCallView(state,snapshot.actor,true);if(validators.internalPreparation1_response(result)!==true)throw Error('Invalid call response');return Response.json(result,{headers});
  }catch(error){const known:Record<string,number>={'Forbidden':403,'Not found':404,'Call unavailable':404,'Call not accepted':409};const status=error instanceof CommunicationSessionError?error.status:error instanceof CommunicationInputError?400:error instanceof Error?known[error.message]??503:503;return Response.json({error:({400:'invalid_request',401:'unauthorized',403:'forbidden',404:'not_found',409:'conflict'} as Record<number,string>)[status]??'unavailable'},{status,headers});}}
 }

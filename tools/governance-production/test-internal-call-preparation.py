@@ -14,11 +14,11 @@ class PreparationTests(unittest.TestCase):
   with original.InternalCallContractStore(_test_connection=psycopg.connect(f.f.URL)) as db:original.register(db)
   with calls.InternalCallAccessStore(_test_connection=psycopg.connect(f.f.URL)) as db:calls.register(db)
   with e.InternalCallPreparationStore(_test_connection=psycopg.connect(f.f.URL)) as db:
-   first=e.register(db);self.assertEqual(first,e.register(db));self.assertEqual(first,e.register(e.ReadView(db)));self.assertEqual(first['registered'],2);self.assertEqual(first['roleGrants'],0)
+   first=e.register(db);self.assertEqual(first,e.register(db));self.assertEqual(first,e.register(e.ReadView(db)));self.assertEqual(first['registered'],3);self.assertEqual(first['roleGrants'],0)
  def store_events(self):return a.InternalCallPreparationAccessStore(_test_connection=psycopg.connect(f.f.URL))
  def test_event_access_inherits_existing_command_and_screen_eligibility(self):
   with self.store_events() as db:
-   before=db.execute('SELECT * FROM role_screen_permissions').fetchall();result=a.register(db);self.assertEqual(result,a.register(db));self.assertEqual(result,a.register(a.ReadView(db),False));self.assertEqual(result['eligibleRoles'],1);self.assertEqual(result['screenLinks'],8);self.assertEqual(result['apiGrants'],2);self.assertEqual(before,db.execute('SELECT * FROM role_screen_permissions').fetchall())
+   before=db.execute('SELECT * FROM role_screen_permissions').fetchall();result=a.register(db);self.assertEqual(result,a.register(db));self.assertEqual(result,a.register(a.ReadView(db),False));self.assertEqual(result['eligibleRoles'],1);self.assertEqual(result['screenLinks'],12);self.assertEqual(result['apiGrants'],3);self.assertEqual(before,db.execute('SELECT * FROM role_screen_permissions').fetchall())
  def test_existing_command_deny_cannot_create_new_events_grant(self):
   with self.store_events() as db:
    command=calls.definition(db)['apiIds']['call.command'];event=a.definition(db)['apiIds']['call.prepare'];roles=a.validate(db);self.assertEqual(len(roles),1)
