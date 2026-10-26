@@ -75,7 +75,7 @@
         peer.close();
       });
       this.peer.onicecandidate = (event) => {
-        if (this.closed || !event.candidate) return;
+        if (this.closed || !this.stream || !event.candidate) return;
         Promise.resolve().then(() => {
           this.assertOpen();
           return this.sendSignal({ type: "candidate", candidate: event.candidate.toJSON() });

@@ -17,7 +17,7 @@ export class BrowserAudioCall extends CommunicationResourceBase {
   this.peer=this.createPeer(this.configuration);
   const peer=this.peer;this.registerCleanup(()=>{peer.onicecandidate=null;peer.ontrack=null;peer.onconnectionstatechange=null;peer.close();});
   this.peer.onicecandidate=event=>{
-   if(this.closed||!event.candidate)return;
+   if(this.closed||!this.stream||!event.candidate)return;
    // Event callbacks must contain both synchronous and asynchronous port errors.
    Promise.resolve().then(()=>{this.assertOpen();return this.sendSignal({type:'candidate',candidate:event.candidate.toJSON()});}).catch(()=>this.close());
   };
