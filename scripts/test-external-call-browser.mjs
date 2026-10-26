@@ -134,7 +134,7 @@ try{
  await page.evaluate(()=>window.fixturePanel.close());
  // Failed preparation produces a safe, correlated diagnostic, never raw API content.
  prepareFailure=true;
- await page.evaluate(async()=>{const {ExternalCallsPanel}=await import('/dialer.mjs');navigator.mediaDevices.getUserMedia=async()=>({getTracks:()=>[{stop(){}}]});window.fixturePanel=new ExternalCallsPanel(document.querySelector('main'),'https://gateway.invalid',sessionStorage.getItem('primecare_session'));});
+ await page.evaluate(async()=>{const {ExternalCallsPanel}=await import('/dialer.mjs');navigator.mediaDevices.getUserMedia=async()=>({getTracks:()=>[{stop(){}}],getAudioTracks:()=>[{}]});window.fixturePanel=new ExternalCallsPanel(document.querySelector('main'),'https://gateway.invalid',sessionStorage.getItem('primecare_session'));});
  await page.waitForTimeout(100);await page.locator('[data-cy=external-call-end]').click();
  await page.locator('[data-cy=external-call-phone]').fill('+16475550123');await page.locator('[data-cy=external-call-dial]').click();
  await page.waitForFunction(()=>document.querySelector('[data-cy=external-call-status]').textContent.includes('Reference: 22222222-2222-4222-8222-222222222222'));
