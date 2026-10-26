@@ -33,26 +33,40 @@ jobs:
       - name: Install pinned Android SDK
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
       - name: Build and lint installable test APK
-        run: gradle --no-daemon :app:assembleDebug :app:lintDebug
+        run: gradle --no-daemon :app:testDebugUnitTest :app:assembleDebug :app:lintDebug
+      - name: Upload native test and lint reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PrimeCare-native-test-reports
+          path: mobile/primecare-call-android/app/build/reports/
+          if-no-files-found: ignore
       - name: Verify signature and package, prepare download
         run: |
           set -euo pipefail
           mkdir -p download
-          cp app/build/outputs/apk/debug/app-debug.apk download/PrimeCare-Calls-test.apk
-          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose download/PrimeCare-Calls-test.apk
-          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging download/PrimeCare-Calls-test.apk > download/package-info.txt
+          cp app/build/outputs/apk/debug/app-debug.apk download/PrimeCare-Calls-native-test.apk
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose download/PrimeCare-Calls-native-test.apk
+          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging download/PrimeCare-Calls-native-test.apk > download/package-info.txt
           grep -q "package: name='ca.primecare.calls.test'" download/package-info.txt
           grep -q "launchable-activity: name='ca.primecare.calls.MainActivity'" download/package-info.txt
-          if grep -q 'uses-permission:' download/package-info.txt; then
-            echo 'Launcher unexpectedly requests a permission'; exit 1
+          grep -q "uses-permission: name='android.permission.RECORD_AUDIO'" download/package-info.txt
+          if grep -qE "uses-permission: name='android.permission.(CALL_PHONE|READ_CONTACTS|READ_PHONE_STATE|BLUETOOTH_CONNECT)'" download/package-info.txt; then
+            echo 'Unexpected device permission'; exit 1
+          fi
+          unzip -l download/PrimeCare-Calls-native-test.apk > download/apk-files.txt
+          grep -q 'lib/arm64-v8a/.*twilio' download/apk-files.txt
+          gradle --no-daemon :app:dependencies --configuration debugRuntimeClasspath > download/runtime-dependencies.txt
+          if grep -q 'androidx.browser' download/runtime-dependencies.txt; then
+            echo 'Unexpected browser dependency'; exit 1
           fi
           cp README.md download/INSTALL.md
           printf '%s\n' "$GITHUB_SHA" > download/SOURCE.txt
           cd download
-          sha256sum PrimeCare-Calls-test.apk > SHA256SUMS
+          sha256sum PrimeCare-Calls-native-test.apk > SHA256SUMS
       - uses: actions/upload-artifact@v4
         with:
-          name: PrimeCare-Calls-test-apk
+          name: PrimeCare-Calls-native-test-apk
           path: mobile/primecare-call-android/download/
           if-no-files-found: error
           retention-days: 30

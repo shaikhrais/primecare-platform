@@ -133,11 +133,11 @@ Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) guide for detailed instructi
 ## 📄 License
 Proprietary & Confidential. All rights reserved by PrimeCare.
 
-### Android calling test APK
+### Native Android calling test APK
 
-The browser-powered Android calling launcher and installation instructions are in
-[mobile/primecare-call-android](mobile/primecare-call-android/README.md). The
-`Build PrimeCare calling test APK` workflow publishes a signed sideload test APK.
-It reuses the deployed staff calling portal in Chrome; keep the portal visible
-during calls. Background/locked-screen calls and native incoming-call
-notifications are not included. Handset/PSTN audio remains a user test.
+[PrimeCare Calls](mobile/primecare-call-android/README.md) uses native Android
+sign-in/MFA and Twilio’s Android Voice SDK. No Chrome, browser or WebView is
+required. The calling APK workflow builds, tests, lints and signs the sideload
+test app. It reuses current registered auth and external-call APIs and uses a
+microphone foreground service for active calls. This supersedes the earlier
+Chrome-powered launcher. Real handset/PSTN audio remains a user test.

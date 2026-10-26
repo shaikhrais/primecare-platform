@@ -1,10 +1,8 @@
 package ca.primecare.calls;
 
-import android.net.Uri;
-
-/** Composition root reuses the deployed shared calling UI and native API grants. */
-public final class MainActivity extends BrowserPortalActivity {
-    @Override protected Uri portalUri() {
-        return Uri.parse("https://primecare-clinic.pages.dev/login");
+/** Composition root uses the same native calling screen and controller lifecycle. */
+public final class MainActivity extends NativeCallActivityBase {
+    @Override protected NativeCallController controller() {
+        return ((PrimeCareApplication) getApplication()).calls();
     }
 }

@@ -6,13 +6,18 @@ android {
         applicationId 'ca.primecare.calls.test'
         minSdk 26
         targetSdk 35
-        versionCode 1
-        versionName '0.1-test'
+        versionCode 2
+        versionName '0.2-native-test'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+    testOptions { unitTests.includeAndroidResources = true }
     lint { abortOnError true }
 }
-dependencies { implementation 'androidx.browser:browser:1.8.0' }
+dependencies {
+    implementation 'com.twilio:voice-android:6.10.5'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.14.1'
+}
