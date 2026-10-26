@@ -8,6 +8,8 @@ const report={source:process.env.GITHUB_SHA,readOnly:true,callsPlaced:0,targetSu
 try{
  await db.connect();await db.query('BEGIN READ ONLY');await db.query("SET LOCAL statement_timeout='15s'");
  const manifest=(await db.query(`SELECT manifest_sha256 FROM "${pin.schema}"."${pin.manifestTable}"`)).rows;if(manifest.length!==1||manifest[0].manifest_sha256!==pin.manifestSha256)throw Error('Manifest mismatch');
+ report.storageConstraints=(await db.query("SELECT pg_get_constraintdef(oid) AS definition FROM pg_constraint WHERE conrelid='public.business_work_aggregates'::regclass AND contype='c' ORDER BY conname")).rows;
+ report.accountReservation=(await db.query("SELECT a.state->>'status' AS status,a.state->>'phone'=$1 AS matches_target,a.state ? 'callSid' AS provider_call_attached FROM business_work_aggregates a JOIN users u ON a.id='external-call:'||u.id::text AND a.tenant_id=u.tenant_id::text WHERE lower(u.email)=$2 AND a.state->>'kind'='external_call' LIMIT 2",['+12898873200','shkh.rais@gmail.com'])).rows;
  report.reservations=(await db.query("SELECT state->>'status' AS status,state->>'version' AS version,to_timestamp((state->>'expiresAt')::numeric/1000) AS expires_at, state ? 'callSid' AS provider_call_attached FROM business_work_aggregates WHERE state->>'kind'='external_call' AND state->>'phone'=$1 LIMIT 20",['+12898873200'])).rows;
  report.events=(await db.query("SELECT e.event_type,e.created_at,e.version FROM business_work_events e JOIN business_work_aggregates a ON a.tenant_id=e.tenant_id AND a.id=e.aggregate_id WHERE a.state->>'kind'='external_call' AND a.state->>'phone'=$1 AND e.created_at>now()-interval '24 hours' ORDER BY e.created_at DESC LIMIT 40",['+12898873200'])).rows;
  await db.query('ROLLBACK');
