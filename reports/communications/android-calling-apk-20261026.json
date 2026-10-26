@@ -1,0 +1,35 @@
+{
+  "status": "signed-test-apk-built",
+  "source": "42991dc54ad7612fb87b05c0797f7a5da456a052",
+  "workflowRun": 40320191368,
+  "workflowUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/40320191368",
+  "buildJob": 121562855516,
+  "conclusion": "success",
+  "artifactId": 12648342678,
+  "package": "ca.primecare.calls.test",
+  "minimumAndroidApi": 26,
+  "targetAndroidApi": 35,
+  "apk": "PrimeCare-Calls-test.apk",
+  "apkBytes": 1202148,
+  "apkSha256": "c2761d067699a34592850823839ef3f4d5d60af67991314c65a6ba787755e18d",
+  "checks": {
+    "assembleDebug": true,
+    "lintDebug": true,
+    "apkSignatureV2": true,
+    "packageAndLauncher": true,
+    "noLauncherPermissions": true,
+    "downloadHashAndSource": true
+  },
+  "implementation": "Chrome Custom Tab of fixed deployed HTTPS clinic portal; MainActivity extends BrowserPortalActivity",
+  "limits": {
+    "testDebugSigning": true,
+    "requiresChrome": true,
+    "foregroundOnly": true,
+    "androidHandsetInstallVerified": false,
+    "realPstnAudioVerified": false,
+    "nativeTwilioAndroidSdk": false,
+    "backgroundCalling": false,
+    "incomingPush": false
+  },
+  "callsPlaced": 0
+}
