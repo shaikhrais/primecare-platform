@@ -201,3 +201,17 @@ including live staff and Code Admin/MFA checks of the manifest, worker and
 controls. See [Android Chrome instructions](docs/business/pwa-microphone-20261026.md)
 and [release receipts](reports/communications/pwa-microphone-20261026.json).
 Physical Android installation/permission dialogs remain a user test.
+
+### Collapsible staff phone dock
+
+The shared phone UI is a fixed 360 × 640 px floating dialer, constrained to the
+current viewport. It minimizes to a 248 × 64 px launcher and preserves the
+entered number, active call and permission watchdog. A single account-bound
+instance follows permitted staff through portal sections; Calls opens it.
+Clients remain denied by the native policy. The keypad builds country-code
+numbers before calling and sends only explicit 0–9/*/# tones through the
+existing SDK after connection. Plus/backspace edit locally; no key starts a
+call. Call, microphone, mute and end controls stay in the dock's fixed footer.
+The body scrolls on small screens and small keyboard viewports. No number or
+tone history is stored. Existing auth, native contracts and caller identity
+remain unchanged.

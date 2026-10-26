@@ -3,7 +3,7 @@ import {build} from 'esbuild';
 import {chromium} from 'playwright';
 import {createServer} from 'node:http';
 import {mkdir,writeFile,readFile} from 'node:fs/promises';
-const fake=`export class Call{};export class Device{constructor(){window.fixtureDevices??=[];window.fixtureDevices.push(this);this.events={};}on(k,f){this.events[k]=f;}emit(k){this.events[k]?.();}updateToken(){this.updated=true;}async connect(options){window.fixtureConnect=options;const events={};return window.fixtureCall={on(k,f){events[k]=f;},emit(k){events[k]?.();},mute(value){this.muted=value;},disconnect(){this.closed=true;events.disconnect?.();}};}destroy(){this.closed=true;}}`;
+const fake=`export class Call{};export class Device{constructor(){window.fixtureDevices??=[];window.fixtureDevices.push(this);this.events={};}on(k,f){this.events[k]=f;}emit(k){this.events[k]?.();}updateToken(){this.updated=true;}async connect(options){window.fixtureConnect=options;const events={};return window.fixtureCall={on(k,f){events[k]=f;},emit(k){events[k]?.();},mute(value){this.muted=value;},sendDigits(value){window.fixtureDtmf??=[];window.fixtureDtmf.push(value);},disconnect(){this.closed=true;events.disconnect?.();}};}destroy(){this.closed=true;}}`;
 const bundle=await build({entryPoints:['websites/typescript/src/external-calls.ts'],bundle:true,write:false,platform:'browser',format:'esm',plugins:[{name:'test-sdk',setup(build){
  build.onResolve({filter:/^@twilio\/voice-sdk$/},()=>({path:'sdk',namespace:'fixture'}));
  build.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:fake,loader:'js'}));
@@ -51,14 +51,34 @@ try{
   await page.setViewportSize({width,height:900});
   const layout=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,
    controls:[...document.querySelectorAll('button')].map(el=>({width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height})),
-   card:document.querySelector('main').getBoundingClientRect().width}));
+   card:document.querySelector('main').getBoundingClientRect().width,bounds:(()=>{const r=document.querySelector('main').getBoundingClientRect();return {left:r.left,top:r.top,right:r.right,bottom:r.bottom};})()}));
   assert.equal(layout.overflow,false,'Horizontal overflow at '+width);
   assert.ok(layout.controls.every(b=>b.height>=48&&b.width>=48));
-  assert.ok(layout.card<=672);
+  assert.ok(layout.card<=360);
+  assert.ok(layout.bounds.left>=0&&layout.bounds.top>=0&&layout.bounds.right<=width&&layout.bounds.bottom<=900);
  }
  await page.setViewportSize({width:390,height:844});
  await page.screenshot({path:'test-results/external-calls/ui-mobile-ready.png',fullPage:true});
  const phone=page.locator('[data-cy=external-call-phone]'),mute=page.locator('[data-cy=external-call-mute]');
+ // Keypad edits the number only; minimizing preserves it without a call or mic request.
+ await page.locator('[data-cy=external-dialer-plus]').click();
+ for(const key of '16475550123')await page.locator('[data-dial-key="'+key+'"]').click();
+ assert.equal(await phone.inputValue(),'+16475550123');
+ await page.locator('[data-cy=external-dialer-backspace]').click();assert.equal(await phone.inputValue(),'+1647555012');
+ await page.locator('[data-dial-key="3"]').click();
+ await page.locator('[data-cy=external-dialer-toggle]').click();assert.equal(await phone.isHidden(),true);
+ assert.equal(await page.locator('main').getAttribute('data-collapsed'),'true');
+ assert.equal((await page.locator('main').boundingBox()).height,64);
+ await page.locator('[data-cy=external-dialer-toggle]').click();assert.equal(await phone.inputValue(),'+16475550123');
+ assert.equal(requests.some(r=>r.path.endsWith('/prepare')),false);
+ assert.equal(await page.evaluate(()=>window.fixtureDevices?.length??0),0);
+ await page.setViewportSize({width:390,height:420});
+ const compact=await page.locator('main').boundingBox(),endBox=await page.locator('[data-cy=external-call-end]').boundingBox();
+ assert.ok(compact.y>=0&&compact.y+compact.height<=420);
+ assert.ok(endBox.y>=0&&endBox.y+endBox.height<=420);
+ await page.setViewportSize({width:390,height:844});
+ await page.screenshot({path:'test-results/external-calls/ui-floating-keypad.png',fullPage:true});
+
  await phone.fill('+16475550123');
  assert.equal(await phone.evaluate(el=>el.checkValidity()),true);
  await page.locator('[data-cy=external-call-dial]').click();
@@ -69,6 +89,15 @@ try{
  assert.match(await page.locator('[data-cy=external-call-status]').textContent(),/Connected/);
  assert.equal(await page.locator('main').getAttribute('data-call-state'),'connected');
  assert.equal(await page.locator('[data-cy=external-call-caller]').textContent(),'+16479302223');
+ await page.locator('[data-dial-key="#"]').click();
+ assert.deepEqual(await page.evaluate(()=>window.fixtureDtmf),['#']);
+ assert.equal(await phone.inputValue(),'+16475550123');
+ await page.locator('[data-cy=external-dialer-toggle]').click();
+ assert.equal(await page.locator('[data-cy=external-dialer-summary]').textContent(),'Connected');
+ assert.equal(await page.evaluate(()=>!!window.fixtureCall.closed),false);
+ await page.screenshot({path:'test-results/external-calls/ui-floating-minimized-call.png',fullPage:true});
+ await page.locator('[data-cy=external-dialer-toggle]').click();
+
  await page.screenshot({path:'test-results/external-calls/ui-mobile-connected.png',fullPage:true});
  await page.evaluate(()=>window.fixtureDevices[0].emit('tokenWillExpire'));
  await page.waitForFunction(()=>window.fixtureDevices[0].updated===true);
@@ -102,7 +131,7 @@ try{
  assert.equal(requests.filter(r=>r.path.endsWith('/prepare')).length,prepares);
  assert.equal(await page.evaluate(()=>window.fixtureDevices.length),2);
  await page.evaluate(()=>window.fixturePanel.close());
- const report={source:process.env.GITHUB_SHA,passed:true,realBrowser:true,providerSdkStubbed:true,noAutomaticCall:true,opaqueTicketOnly:true,muteAndHangup:true,tokenRenewal:true,cleanup:true,mobileWidths:[320,390,768,1280],noHorizontalOverflow:true,touchTargetsAtLeast48px:true,phoneLockedWhileCalling:true,muteStateResetsBetweenCalls:true,microphoneRequestedOnlyByUser:true,enableMicrophoneDoesNotReserve:true,preflightTracksStopped:true,deniedMicrophoneNeverPreparesOrDials:true,livePhoneTraffic:false};
+ const report={source:process.env.GITHUB_SHA,passed:true,realBrowser:true,providerSdkStubbed:true,noAutomaticCall:true,opaqueTicketOnly:true,muteAndHangup:true,tokenRenewal:true,cleanup:true,mobileWidths:[320,390,768,1280],noHorizontalOverflow:true,touchTargetsAtLeast48px:true,phoneLockedWhileCalling:true,muteStateResetsBetweenCalls:true,microphoneRequestedOnlyByUser:true,enableMicrophoneDoesNotReserve:true,preflightTracksStopped:true,deniedMicrophoneNeverPreparesOrDials:true,fixedDockWithinViewport:true,shortViewportFooterVisible:true,keypadNumberEntry:true,collapsePreservesNumberAndCall:true,connectedDtmfViaSdk:true,livePhoneTraffic:false};
  await writeFile('test-results/external-calls/browser.json',JSON.stringify(report,null,2)+'\n');
  console.log('EXTERNAL_CALL_BROWSER '+JSON.stringify(report));
 }finally{await browser?.close();await new Promise(r=>server.close(r));}
