@@ -40,7 +40,7 @@ jobs:
           GROWTH_TEST_DATABASE_URL: postgresql://postgres:synthetic@localhost:5432/look_test
       - name: Bundle private vision Worker and governance runtime
         run: |
-          npx esbuild cloudflare/workers/src/look/vision-provider.ts --bundle --platform=browser --format=esm --outfile=/tmp/look-vision.js
+          npx esbuild cloudflare/workers/src/look/vision-provider.ts --bundle --platform=node --format=esm --outfile=/tmp/look-vision.js
           npx esbuild cloudflare/workers/src/service.ts --bundle --platform=node --format=esm --external:pg-native --outfile=/tmp/look-governance.js
       - uses: actions/upload-artifact@v4
         if: always()
