@@ -1,0 +1,374 @@
+{
+  "version": 1,
+  "status": "authenticated-push-deployed-live-verified-one-second-target-unmet",
+  "verifiedAt": "2026-10-26T00:14:28.168Z",
+  "deploymentSource": "3b6feca3e0c911de0da0779f1f932b2b3a23523f",
+  "workflow": {
+    "runId": 40247396185,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/40247396185",
+    "jobs": [
+      {
+        "id": 121331861559,
+        "name": "metadata",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121331861735,
+        "name": "readiness",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121331861783,
+        "name": "native",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121331861818,
+        "name": "account_catalog",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121332196035,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121332952760,
+        "name": "websites / verify_gateway",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121332973122,
+        "name": "websites / build",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121333227624,
+        "name": "websites / deploy (primecare-business-development)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121333227650,
+        "name": "websites / deploy (primecare-clinic)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121333227663,
+        "name": "websites / deploy (primecare-client)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121333331704,
+        "name": "websites / deploy (primecare-corporate)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121333349073,
+        "name": "websites / deploy (primecare-franchise)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121333352536,
+        "name": "websites / deploy (primecare-marketing)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121333432841,
+        "name": "websites / deploy (primecare-support)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121333462570,
+        "name": "websites / deploy (primecare-governance)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121333469094,
+        "name": "websites / deploy (primecare-enterprise-blueprint)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121333586798,
+        "name": "live",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "registration": {
+    "contract": {
+      "apiIds": {
+        "call.events": 16547
+      },
+      "registered": 1,
+      "roleGrants": 0,
+      "messagesSent": 0,
+      "numbersPurchased": 0,
+      "providerWrites": false,
+      "activation": false,
+      "definitionSha256": "7d277c97a3bcd8c0a71609ef329ed52c02672d69b47585535e27106730554684",
+      "independentReadback": true,
+      "writesAttempted": false
+    },
+    "access": {
+      "definitionSha256": "61b89b6eadc00c7c8d020ba1aedd89917c1a35cdc0f32a272895b5a53f4890d0",
+      "screenLinks": 4,
+      "eligibleRoles": 4,
+      "explicitDenialsPreserved": 0,
+      "apiGrants": 4,
+      "businessDataWrites": false,
+      "providerWrites": false,
+      "activation": false,
+      "independentReadback": true,
+      "writesAttempted": false
+    }
+  },
+  "deployment": {
+    "source": "3b6feca3e0c911de0da0779f1f932b2b3a23523f",
+    "deployed": true,
+    "gatewayConnected": true,
+    "turnReady": true,
+    "callingReady": false,
+    "phoneRoutingChanged": false,
+    "stage": "complete",
+    "nativeOrigin": "https://primecare-internal-calls-api.itpro-mohammed.workers.dev",
+    "gatewayOrigin": "https://primecare-api-gateway.itpro-mohammed.workers.dev",
+    "freshDatabaseVerified": true,
+    "placement": "smart",
+    "callEventsReady": true,
+    "boundaryProbe": {
+      "missingStatus": 401,
+      "unknownStatus": 401,
+      "foreignStatus": 403,
+      "sourceMatches": true,
+      "health": null
+    },
+    "boundaryVerified": true
+  },
+  "native": {
+    "workerd": {
+      "source": "3b6feca3e0c911de0da0779f1f932b2b3a23523f",
+      "engine": "workerd",
+      "realDurableObject": true,
+      "realWebSocketUpgrade": true,
+      "firstFrameAuthentication": true,
+      "originDenied": true,
+      "subjectOverrideDenied": true,
+      "payloadBound": true,
+      "currentRevocationBeforePush": true,
+      "privateContentSent": false,
+      "productionPolicyStubbed": true,
+      "passed": true
+    },
+    "postgres": {
+      "source": "3b6feca3e0c911de0da0779f1f932b2b3a23523f",
+      "eventSessionAndBothCurrentGrantsVerified": true,
+      "nativePostgres": true,
+      "allFiveRegisteredEndpoints": true,
+      "oneQueryPerBoundary": true,
+      "oneQueryAuthorizedRead": true,
+      "currentRevocationsDenied": true,
+      "sessionExpiryDenied": true,
+      "foreignTenantDenied": true,
+      "inactiveParticipantDenied": true,
+      "manifestPolicyDriftDenied": true,
+      "duplicateEndpointDenied": true,
+      "inheritedPolicyParity": true,
+      "ownerOnlyReadOnlyFunction": true,
+      "conflictingFunctionPreserved": true,
+      "fullHttpDialAcceptMediaEnd": true,
+      "passed": true
+    },
+    "browserResourceTestsPassed": 3,
+    "metadataEventRegistrationTestsPassed": 3
+  },
+  "transport": {
+    "backend": "Per-user Cloudflare Durable Object with hibernating WebSocket",
+    "endpoint": "GET /v1/calls/events",
+    "nativeApiId": 16547,
+    "authentication": "Bounded first frame; raw token never placed in URLs, logs or connection attachments",
+    "authority": "Current PostgreSQL session, tenant, command AND event API/linked-screen grants checked at authentication, heartbeat and each push",
+    "payloads": [
+      "ready",
+      "changed",
+      "signal",
+      "pong"
+    ],
+    "privateState": "Fetched through existing authorized HTTP APIs; no SDP, call bodies or audio pushed",
+    "roleOrGrantCache": false,
+    "governanceFallback": false,
+    "callStateAuthority": "Pinned native PostgreSQL",
+    "durableObjectStorage": "Platform-managed connection metadata and expiry alarms only; no call or governance source of truth",
+    "committedUpdatesOnly": true,
+    "mutationTransportChanged": false,
+    "inboxRecoveryPollConnectedMilliseconds": 10000,
+    "inboxRecoveryPollDisconnectedMilliseconds": 2000,
+    "audioAuthorizationRecoveryPollMilliseconds": 1000,
+    "reconnectReadsCurrentState": true
+  },
+  "comparison": {
+    "baselineSource": "be2e6fbec97dce110d3b053dc713ac64139f363a",
+    "baselineWorkflowRunId": 40238845542,
+    "baselineAnswerToAudioMilliseconds": 11043,
+    "currentAnswerToAudioMilliseconds": 10040,
+    "metric": "Answer click to both browser peers reporting connected relay audio",
+    "observationLimit": "One controlled synthetic-microphone run per source, with approximately one-second readiness sampling; not a latency SLA or statistically isolated improvement.",
+    "rpcObservations": {
+      "directory": {
+        "samples": 6,
+        "meanMilliseconds": 558
+      },
+      "command:inbox": {
+        "samples": 37,
+        "meanMilliseconds": 728
+      },
+      "extension": {
+        "samples": 3,
+        "meanMilliseconds": 1714
+      },
+      "dial": {
+        "samples": 2,
+        "meanMilliseconds": 3151
+      },
+      "command:accept": {
+        "samples": 2,
+        "meanMilliseconds": 1086
+      },
+      "command:read": {
+        "samples": 36,
+        "meanMilliseconds": 507
+      },
+      "command:heartbeat": {
+        "samples": 3,
+        "meanMilliseconds": 803
+      },
+      "media": {
+        "samples": 4,
+        "meanMilliseconds": 1022
+      },
+      "command:signal": {
+        "samples": 4,
+        "meanMilliseconds": 950
+      },
+      "command:end": {
+        "samples": 4,
+        "meanMilliseconds": 990
+      }
+    }
+  },
+  "live": {
+    "source": "3b6feca3e0c911de0da0779f1f932b2b3a23523f",
+    "passed": true,
+    "synthetic": true,
+    "liveBrowsers": true,
+    "relayAudio": true,
+    "syntheticCleanup": true,
+    "stage": "complete",
+    "nativeLogin": true,
+    "explicitExtensionPublication": true,
+    "noPrematureMicrophone": true,
+    "mediaSummary": [
+      {
+        "gatherOutcome": "usable",
+        "candidateCount": 5,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 39,
+        "relay": true
+      },
+      {
+        "gatherOutcome": "usable",
+        "candidateCount": 5,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 39,
+        "relay": true
+      }
+    ],
+    "connectionMilliseconds": 10040,
+    "callEventSummary": [
+      [
+        {
+          "ready": 1,
+          "changed": 3,
+          "signal": 1,
+          "closed": []
+        }
+      ],
+      [
+        {
+          "ready": 1,
+          "changed": 3,
+          "signal": 1,
+          "closed": []
+        }
+      ]
+    ],
+    "authenticatedPushVerified": true,
+    "audioVerificationMilliseconds": 11544,
+    "bidirectionalPacketGrowth": true,
+    "independentNativeReadback": true,
+    "muteVerified": true,
+    "reverseMediaSummary": [
+      {
+        "gatherOutcome": "usable",
+        "candidateCount": 5,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 32,
+        "relay": true
+      },
+      {
+        "gatherOutcome": "usable",
+        "candidateCount": 5,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 32,
+        "relay": true
+      }
+    ],
+    "reverseCallingVerified": true,
+    "revokedSessionMediaReleased": true,
+    "endVerified": true,
+    "foreignTenantDenied": true,
+    "idempotentDial": true
+  },
+  "limits": {
+    "oneSecondVerified": false,
+    "allPollingRemoved": false,
+    "callWriteRoundTripsReduced": false,
+    "physicalDeviceAcousticsVerified": false,
+    "closedAppRinging": false,
+    "publicPhoneOrBiometricsReadinessClaimed": false,
+    "independentGovernanceReviewApproved": false,
+    "remaining": "Sequential media-startup reads and native mutation transactions remain. Push invalidations alone do not remove these."
+  }
+}

@@ -5,8 +5,8 @@ access, within the same tenant. It uses WebRTC and Cloudflare TURN. Twilio is no
 required for this internal calling path.
 
 The live production test passed in both call directions, including a call back.
-The latest answer-to-audio connection took **11,043 ms**, improved from 21,059 ms
-in the preceding indexed-query test. The measurement starts at the Answer click
+The latest answer-to-audio connection took **10,040 ms**, following 11,043 ms
+in the preceding combined-query test. The measurement starts at the Answer click
 and ends when both peers report connected relay audio. Calling works, but the
 one-second setup target remains unmet.
 
@@ -107,22 +107,63 @@ writes from 2,337 to 1,445 ms. These are observations from one synthetic-browser
 run per source, not a latency guarantee. Database/network latency, native write
 transactions and polling/signaling order remain measurable costs.
 
+## Authenticated push notifications
+
+A per-user Cloudflare Durable Object now holds the browser's WebSocket connection.
+The new registered `GET /v1/calls/events` endpoint is native API 16547. The server
+checks the current native session, active tenant, existing command permission,
+events permission and linked screen grants before authenticating a connection,
+on heartbeats and before releasing each notification. Four existing eligible
+roles received the additive event grant; existing command and screen denials
+were preserved. A client-provided user ID selects a connection target and must
+match the authenticated native identity; it never supplies authority.
+
+The raw session token is sent in one bounded authentication frame, never in a
+URL or retained socket attachment. Attachments retain an identity/session-hash
+reference, not a cached grant. Server messages carry only `ready`, `changed`,
+`signal` or `pong`, with no call IDs, private bodies, SDP or audio. Call updates
+must commit before invalidation is scheduled. The receiving browser reads its
+current private state through the existing authorized APIs. Invalidations can
+coalesce; reconnect reads current state again.
+
+When connected, inbox recovery polling runs at ten-second intervals; it uses
+two-second intervals when disconnected. Existing one-second audio checks remain
+to preserve native session-revocation cleanup. Ringing still expires after 45
+seconds. This release does not remove all polling or reduce the native write
+transaction's SQL statements. Durable Object storage holds transport/expiry
+metadata only; PostgreSQL remains the call and governance authority.
+
+Both live browsers received a ready acknowledgement, three call-change
+notifications and a signaling notification before the first audio check.
+Bidirectional relay packet growth, reverse calling, mute/end, denied access,
+idempotency, independent PostgreSQL readback and session-revocation media cleanup
+passed. The observed answer-to-audio result was 10,040 ms versus 11,043 ms in the
+previous run. Each source has one controlled run, and readiness is sampled at
+approximately one-second intervals, so this is not an isolated latency benchmark.
+
+The actual Workerd WebSocket/Durable Object test checks origin rejection,
+first-frame authentication, subject mismatch, bounded payloads and revocation
+before delivery with a fixture authorization port. Separate real PostgreSQL tests
+check current native sessions and both API/screen permissions. Three browser
+resource tests cover authentication, denial, cleanup and reconnect fallback;
+three native metadata tests cover existing-grant eligibility and deny preservation.
+
 ## Verification evidence
 
-- Deployed source: `be2e6fbec97dce110d3b053dc713ac64139f363a`.
-- [Production workflow 40238845542](https://github.com/shaikhrais/primecare-platform/actions/runs/40238845542): all 17 jobs passed, including metadata, native checks, deployment, nine website publications and live acceptance.
+- Deployed source: `3b6feca3e0c911de0da0779f1f932b2b3a23523f`.
+- [Production workflow 40247396185](https://github.com/shaikhrais/primecare-platform/actions/runs/40247396185): all 17 jobs passed, including metadata, native checks, deployment, nine website publications and live acceptance.
 - Native suite: 59 cases passed, one existing optional case skipped; 12 PostgreSQL HTTP groups passed, plus real Workerd request/redirect checks, native/tagged policy projection tests and the combined-query PostgreSQL flow with current revocation, participant, tenant, policy and duplicate-endpoint denials.
 - Chrome 155.0.8059.39: actual native login, explicit extension publication, no pre-acceptance microphone, increasing audio RTP packets and selected relay candidates on both peers.
 - Both call directions, call back, mute/unmute, hangup, idempotent dial, foreign-tenant denial, independent PostgreSQL readback and server-side session revocation cleanup passed.
 - All synthetic users, sessions, extensions and owned call/tenant records were removed. Receipts contain no bearer credentials, raw audio, SDP or IP addresses.
 
-[Current combined-query performance and live receipt](../../reports/communications/internal-calling-context-performance-20261025.json)
+[Current push performance and live receipt](../../reports/communications/internal-calling-push-performance-20261025.json)
 records the source and job identities. This is functional execution evidence;
 independent governance review flags were not marked approved.
 
 ## Known limits
 
-Initial setup remains slow (11.0 seconds after answering in the latest live test). One-second
+Initial setup remains slow (10.0 seconds after answering in the latest live test). One-second
 calling is not verified. The proof used synthetic microphone audio in real
 authenticated browser sessions against live infrastructure. Physical device
 acoustics, every browser/network combination, closed-app ringing, real-speaker
