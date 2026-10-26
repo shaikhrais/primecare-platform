@@ -1,0 +1,22 @@
+name: Inspect Vapi UI production readiness
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/inspect-vapi-ui-readiness.mjs', '.github/workflows/vapi-ui-readiness.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  inspect:
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm ci --ignore-scripts
+      - run: node scripts/inspect-vapi-ui-readiness.mjs
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
