@@ -1,0 +1,21 @@
+name: Review Code Admin dashboard appearance
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/review-code-admin-look.mjs', '.github/workflows/code-admin-look.yml', 'websites/typescript/src/styles.css', 'websites/typescript/src/shell.ts', 'websites/typescript/src/navigation.ts', 'websites/typescript/src/platform-admin.ts']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install chromium
+      - run: node scripts/review-code-admin-look.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: code-admin-look, path: test-results/code-admin-look, retention-days: 14}
