@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: '24'
       - run: |
-          npm install --prefix /tmp/workspace-signout-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 pg@8.16.3 bcryptjs@3 typescript@5.9.3 jsdom@26
+          npm install --prefix /tmp/workspace-signout-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 pg@8.16.3 bcryptjs@3 typescript@5.9.3 jsdom@26 @twilio/voice-sdk@2.18.5
           ln -s /tmp/workspace-signout-tools/node_modules node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - run: |

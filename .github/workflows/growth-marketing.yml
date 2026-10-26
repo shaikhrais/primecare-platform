@@ -29,7 +29,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install --prefix "$RUNNER_TEMP/growth-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.16.3 bcryptjs@3 playwright@1.60.0 jsqr@1.4.0 miniflare@4.20260730.0 jsdom@26
+      - run: npm install --prefix "$RUNNER_TEMP/growth-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.16.3 bcryptjs@3 playwright@1.60.0 jsqr@1.4.0 miniflare@4.20260730.0 jsdom@26 @twilio/voice-sdk@2.18.5
       - run: ln -s "$RUNNER_TEMP/growth-tools/node_modules" node_modules
       - name: Register operations governance before export checks
         run: python3 scripts/register-workspace-governance.py

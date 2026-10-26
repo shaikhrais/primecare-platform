@@ -62,7 +62,7 @@ jobs:
           python-version: '3.12'
       - name: Install isolated test tools
         run: |
-          npm install --prefix "$RUNNER_TEMP/care-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 @cloudflare/workers-types@4.20260403.1 pg@8.11.3 @electric-sql/pglite@0.3.14 bcryptjs@3 axe-core@4.10.3
+          npm install --prefix "$RUNNER_TEMP/care-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @types/node@22 @types/pg@8 @cloudflare/workers-types@4.20260403.1 pg@8.11.3 @electric-sql/pglite@0.3.14 bcryptjs@3 axe-core@4.10.3 @twilio/voice-sdk@2.18.5
           ln -s "$RUNNER_TEMP/care-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - name: Restore the verified governance checkpoint

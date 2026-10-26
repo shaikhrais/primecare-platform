@@ -24,7 +24,8 @@ jobs:
       - name: Compile website client
         run: |
           mkdir -p "$RUNNER_TEMP/web-deps"
-          npm install --prefix "$RUNNER_TEMP/web-deps" --ignore-scripts typescript@5.9.3
+          npm install --prefix "$RUNNER_TEMP/web-deps" --ignore-scripts typescript@5.9.3 @twilio/voice-sdk@2.18.5
+          ln -s "$RUNNER_TEMP/web-deps/node_modules" node_modules
           "$RUNNER_TEMP/web-deps/node_modules/.bin/tsc" --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/main.ts
       - name: Compile shared maintenance page in Clinic app
         working-directory: apps/primecare_clinic

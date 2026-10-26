@@ -28,7 +28,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '22'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/screen-text-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.11.3 bcryptjs@3 playwright@1.60.0
+          npm install --prefix "$RUNNER_TEMP/screen-text-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.11.3 bcryptjs@3 playwright@1.60.0 @twilio/voice-sdk@2.18.5
           ln -s "$RUNNER_TEMP/screen-text-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - run: python3 scripts/register-live-screen-text.py --check

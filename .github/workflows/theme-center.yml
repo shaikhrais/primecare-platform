@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '22'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/theme-center-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3
+          npm install --prefix "$RUNNER_TEMP/theme-center-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 @twilio/voice-sdk@2.18.5
           ln -s "$RUNNER_TEMP/theme-center-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - run: node scripts/generate-theme-center-catalog.mjs --check
