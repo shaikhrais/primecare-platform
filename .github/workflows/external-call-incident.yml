@@ -1,0 +1,27 @@
+name: Read-only external call incident diagnostic
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/inspect-phone-incident.mjs', '.github/workflows/external-call-incident.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/call-incident" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/call-incident/node_modules" node_modules
+      - run: node scripts/inspect-phone-incident.mjs
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: external-call-incident, path: test-results/external-call-incident, retention-days: 7}
