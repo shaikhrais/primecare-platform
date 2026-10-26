@@ -81,7 +81,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/external-deploy" --ignore-scripts --no-audit --no-fund wrangler@4.68.1
+          npm install --prefix "$RUNNER_TEMP/external-deploy" --ignore-scripts --no-audit --no-fund wrangler@4.68.1 pg@8.16.3
           ln -s "$RUNNER_TEMP/external-deploy/node_modules" node_modules
           pip install -r tools/governance-production/requirements.txt
       - name: Register exact contracts and current staff access, preserving denials
@@ -112,3 +112,29 @@ jobs:
     uses: ./.github/workflows/deploy-typescript-websites.yml
     with: {confirm: DEPLOY}
     secrets: inherit
+  live_ready:
+    needs: websites
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/external-live" --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@2.4.3 playwright@1.56.1
+          ln -s "$RUNNER_TEMP/external-live/node_modules" node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CALL_BROWSER_EXECUTABLE: /usr/bin/google-chrome
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          python scripts/prepare-external-call-live-role.py
+          node scripts/test-live-external-call-ready.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: external-call-live-readiness, path: test-results/external-calls, retention-days: 30}
