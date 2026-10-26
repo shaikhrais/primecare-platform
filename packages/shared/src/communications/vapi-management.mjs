@@ -17,7 +17,7 @@ export class VapiManagementClient extends BoundedBinaryAdapterBase {
  }
  async #request(path,body,method=body===undefined?'GET':'POST',allowList=false){
   try{
-   const response=await this.#fetch('https://api.vapi.ai'+path,{method,redirect:'error',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body===undefined?{}:{'content-type':'application/json'})},...(body===undefined?{}:{body:JSON.stringify(body)})});
+   const response=await this.#fetch('https://api.vapi.ai'+path,{method,redirect:'manual',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body===undefined?{}:{'content-type':'application/json'})},...(body===undefined?{}:{body:JSON.stringify(body)})});
    if(!response.ok){try{await response.body?.cancel();}catch{}const error=fail(response.status===402?'payment_required':[401,403].includes(response.status)?'authentication_denied':response.status===404?'resource_not_found':'provider_unavailable');error.httpStatus=response.status;throw error;}
    const bytes=await this.readBoundedBody(response.body);
    const data=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));

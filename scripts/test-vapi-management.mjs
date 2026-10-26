@@ -4,7 +4,7 @@ import {VapiManagementClient} from '../packages/shared/src/communications/vapi-m
 const id='5ae2ab0c-fad0-454c-8cf7-64b81c91c850',org='aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',key='private-vapi-fixture-key';
 const assistant={id,orgId:org,name:'PrimeCare',firstMessage:'Hello',model:{messages:[{role:'system',content:'Test prompt'}]},artifactPlan:{recordingEnabled:false},maxDurationSeconds:600};
 test('fixed provider reads return projections without embedded credentials',async()=>{
- const client=new VapiManagementClient({apiKey:key,async fetch(url,options){assert.equal(url,'https://api.vapi.ai/assistant/'+id);assert.equal(options.redirect,'error');assert.equal(options.headers.authorization,'Bearer '+key);return Response.json({...assistant,credential:key});}});
+ const client=new VapiManagementClient({apiKey:key,async fetch(url,options){assert.equal(url,'https://api.vapi.ai/assistant/'+id);assert.equal(options.redirect,'manual');assert.equal(options.headers.authorization,'Bearer '+key);return Response.json({...assistant,credential:key});}});
  const row=await client.assistant(id);assert.equal(row.prompt,'Test prompt');assert.equal(row.recordingDisabled,true);assert.ok(!JSON.stringify(row).includes(key));
 });
 test('phone projection excludes Twilio auth token and server credentials',async()=>{
@@ -86,3 +86,5 @@ test('credential conflicts and ambiguous installs never overwrite credentials or
   await assert.rejects(client.installToolCredential(await client.assistant(id),async()=>{installs++;throw Error('private installation failure '+key);}),error=>!String(error).includes(key));assert.equal(creates,0);assert.equal(installs,mode==='install-failure'?1:0);
  }
 });
+
+test('manual redirects fail closed without following or disclosing provider credentials',async()=>{let calls=0;const client=new VapiManagementClient({apiKey:key,fetch:async(_url,options)=>{calls++;assert.equal(options.redirect,'manual');return new Response(null,{status:302,headers:{location:'https://redirect.example.invalid'}});}});await assert.rejects(client.assistant(id),e=>e.code==='provider_unavailable');assert.equal(calls,1);});

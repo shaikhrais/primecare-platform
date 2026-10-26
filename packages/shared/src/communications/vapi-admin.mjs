@@ -12,7 +12,7 @@ export class VapiAdminClient extends VapiManagementClient {
   this.#key=apiKey;this.#fetch=request;this.#org=orgId;this.#template=templateId;this.#catalog=structuredClone(catalog);
  }
  async #request(path,body,method='GET'){
-  try{const r=await this.#fetch('https://api.vapi.ai'+path,{method,redirect:'error',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body?{'content-type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
+  try{const r=await this.#fetch('https://api.vapi.ai'+path,{method,redirect:'manual',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body?{'content-type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
    if(!r.ok){await r.body?.cancel();fail([401,403].includes(r.status)?'authentication_denied':r.status===404?'resource_not_found':r.status===400?'invalid_configuration':'provider_unavailable');}
    if(method==='POST'&&r.status!==201)fail('unverified_write');
    return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await this.readBoundedBody(r.body)));

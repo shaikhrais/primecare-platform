@@ -2,7 +2,7 @@ name: Activate native Vapi management UI
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/vapi-ui-activation.yml', 'scripts/activate-vapi-ui.mjs', 'scripts/verify-live-vapi-ui.mjs', 'tools/governance-production/vapi_admin_registration.py', 'scripts/test-vapi-admin-browser.mjs', 'websites/typescript/src/vapi-admin.ts']
+    paths: ['.github/workflows/vapi-ui-activation.yml', 'scripts/activate-vapi-ui.mjs', 'scripts/verify-live-vapi-ui.mjs', 'tools/governance-production/vapi_admin_registration.py', 'scripts/test-vapi-admin-browser.mjs', 'websites/typescript/src/vapi-admin.ts', 'packages/shared/src/communications/vapi-admin.mjs', 'packages/shared/src/communications/vapi-management.mjs']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
-      - run: node --test scripts/test-vapi-admin.mjs scripts/test-vapi-management.mjs scripts/test-vapi-agent-library.mjs
+      - run: node --test scripts/test-vapi-admin.mjs scripts/test-vapi-management.mjs scripts/test-vapi-agent-library.mjs scripts/test-vapi-api-request.mjs scripts/test-vapi-service-auth.mjs scripts/test-vapi-call-read.mjs
       - run: npm ci --ignore-scripts
       - run: npx playwright install chromium
       - run: node scripts/test-vapi-admin-browser.mjs

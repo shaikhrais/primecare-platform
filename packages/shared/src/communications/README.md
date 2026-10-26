@@ -1294,3 +1294,7 @@ contracts are compiled into standalone validators at build time; request identit
 fields and malformed UUIDs/codes are rejected. Session and exact API/screen grants
 are rechecked around body and service I/O. Candidate PostgreSQL composition does
 not activate production routes, create grants or attach enrollment to an AI tool.
+
+## Vapi management transport
+
+Server-side management clients use Cloudflare-compatible manual redirects to the fixed Vapi origin. Every non-success response, including redirects, is rejected; credentials are never forwarded to a redirected host. The UI continues to use native session authorization. This transport correction changes no endpoint contract, phone routing or business-tool permission.
