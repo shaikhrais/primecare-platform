@@ -13,11 +13,11 @@ test('manifest has standalone identity, scoped login and decoded opaque PNG icon
  }
 });
 test('worker never handles private API or mutation requests and offers no cached authenticated page',async()=>{
- const handlers={};let fetches=0;const self={location:{origin:'https://portal.test'},addEventListener:(k,f)=>handlers[k]=f,skipWaiting:async()=>{},clients:{claim:async()=>{}}};
- vm.runInNewContext(portalServiceWorker,{self,URL,Response,fetch:async()=>{fetches++;throw Error('offline');}});
+ const handlers={};let fetches=0,optionsSeen;const self={location:{origin:'https://portal.test'},addEventListener:(k,f)=>handlers[k]=f,skipWaiting:async()=>{},clients:{claim:async()=>{}}};
+ vm.runInNewContext(portalServiceWorker,{self,URL,Response,fetch:async(_request,options)=>{optionsSeen=options;fetches++;throw Error('offline');}});
  for(const request of [{method:'POST',mode:'cors',url:'https://gateway.test/v1/auth/login'},{method:'GET',mode:'cors',url:'https://portal.test/private'},{method:'GET',mode:'navigate',url:'https://other.test/'}])handlers.fetch({request,respondWith(){throw Error('Request intercepted');}});
  let response;handlers.fetch({request:{method:'GET',mode:'navigate',url:'https://portal.test/platform/administration'},respondWith(p){response=p;}});
- const offline=await response;assert.equal(offline.status,503);assert.match(await offline.text(),/You are offline/);assert.equal(fetches,1);assert.doesNotMatch(portalServiceWorker,/caches\.|localStorage|sessionStorage|indexedDB/);
+ const offline=await response;assert.equal(offline.status,503);assert.match(await offline.text(),/You are offline/);assert.equal(fetches,1);assert.equal(optionsSeen.cache,'no-store');assert.doesNotMatch(portalServiceWorker,/caches\.|localStorage|sessionStorage|indexedDB/);
 });
 test('build connects public install assets and self-only microphone policy to every portal',async()=>{
  const index=await readFile('websites/typescript/index.html','utf8'),build=await readFile('scripts/build-typescript-websites.mjs','utf8');assert.match(index,/rel="manifest" href="\/manifest.webmanifest"/);assert.match(build,/writePortalPwa\(target/);assert.match(build,/microphone=\(self\)/);assert.match(build,/Cache-Control: no-cache/);

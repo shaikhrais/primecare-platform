@@ -25,7 +25,7 @@ export const portalServiceWorker=`self.addEventListener('install',event=>{event.
 self.addEventListener('activate',event=>{event.waitUntil(self.clients.claim());});
 self.addEventListener('fetch',event=>{
  if(event.request.method!=='GET'||event.request.mode!=='navigate'||new URL(event.request.url).origin!==self.location.origin)return;
- event.respondWith(fetch(event.request).catch(()=>new Response('<!doctype html><html lang="en"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrimeCare · Offline</title><main><h1>You are offline</h1><p>Reconnect to the internet and reload this page to sign in or make calls.</p></main></html>',{status:503,headers:{'content-type':'text/html; charset=utf-8','cache-control':'no-store'}})));
+ event.respondWith(fetch(event.request,{cache:'no-store'}).catch(()=>new Response('<!doctype html><html lang="en"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrimeCare · Offline</title><main><h1>You are offline</h1><p>Reconnect to the internet and reload this page to sign in or make calls.</p></main></html>',{status:503,headers:{'content-type':'text/html; charset=utf-8','cache-control':'no-store'}})));
 });
 `;
 export function writePortalPwa(target,name){
