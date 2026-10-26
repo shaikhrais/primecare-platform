@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "status": "external-staff-to-client-telephone-deployment-blocked",
+  "repositorySource": "4c8b9d6cf5032eb47a95620052e8ff41a11f638d",
+  "checkedAt": "2026-10-26T09:43:46.1519977Z",
+  "workflow": {
+    "runId": 40114638201,
+    "jobId": 121501097276,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/40114638201"
+  },
+  "configurationReceipt": {
+    "sourceCommit": "c3623bb89a970311040692e57f44b9f7f52725e5",
+    "purpose": "Deployment configuration presence only; values and provider credentials are never exported.",
+    "configured": [
+      "PRODUCTION_DATABASE_URL",
+      "CLOUDFLARE_API_TOKEN",
+      "CLOUDFLARE_ACCOUNT_ID",
+      "TWILIO_ACCOUNT_SID",
+      "TWILIO_AUTH_TOKEN",
+      "TWILIO_API_KEY_SID",
+      "TWILIO_API_KEY_SECRET",
+      "TWILIO_VERIFY_SERVICE_SID",
+      "TWILIO_MESSAGING_SERVICE_SID",
+      "OPENAI_API_KEY"
+    ],
+    "missing": [
+      "TWILIO_APPLICATION_SID",
+      "VOICE_MODEL",
+      "VOICE_ORIGIN"
+    ],
+    "configurationPresent": false,
+    "runtimeMounted": false,
+    "liveCallVerified": false,
+    "numberRoutingChanged": false,
+    "providerWrites": false
+  },
+  "checkerUnchangedFromWorkflowSource": true,
+  "findings": [
+    "Production configuration check rerun with current production input bindings; it reports missing TWILIO_APPLICATION_SID, VOICE_MODEL and VOICE_ORIGIN. Values are not exported.",
+    "VOICE_MODEL belongs to the complete AI host; staff-only phone calling should not be gated by AI model configuration.",
+    "Existing TwilioExtensionConnectService resolves callerExtension and targetExtension to same-tenant published Voice SDK identities. It does not implement a staff-to-client PSTN number dialer.",
+    "No deployed complete Twilio voice host, client-phone dialer UI or external live-phone acceptance has been established by this work.",
+    "Internal calling remains deployed and live-verified by workflow 40256035852; its proof is distinct from external telephone calling."
+  ],
+  "actions": {
+    "productionNumberRoutingChanged": false,
+    "providerWrites": false,
+    "outboundCallsPlaced": false,
+    "newDeploymentPerformed": false,
+    "credentialsLogged": false
+  },
+  "remaining": [
+    "Configure or provision the owned PrimeCare TwiML application and approved runtime origin through production configuration.",
+    "Implement and register the staff-to-client phone-dialing path using current staff identity, tenant/client access and server-owned caller ID; do not repurpose the extension handler as arbitrary telephone forwarding.",
+    "Deploy the native host and browser controls with current API/screen grants and provider signature validation; validate endpoints before changing number/application routing.",
+    "User performs an explicitly selected test call; do not treat internal WebRTC tests as external phone acceptance."
+  ]
+}
