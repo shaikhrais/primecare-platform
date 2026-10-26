@@ -166,3 +166,9 @@ The master/staff-calling change is deployed from
 with MFA verified **Platform Administration → Calls** and an enabled dial pad,
 with zero real phone calls. See the [guide](docs/business/master-tenant-staff-calling-20261026.md)
 and [receipts](reports/communications/master-tenant-staff-calling-20261026.json).
+
+The shared phone dial pad now uses a responsive card, larger touch controls,
+server-provided caller ID and visible call states. The phone field locks while
+calling, and the mute indicator resets between calls. Real-browser fixture
+checks cover 320–1280 px widths, overflow, touch targets and call cleanup without
+placing provider calls. Existing native permissions and phone routing are reused.
