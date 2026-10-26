@@ -70,7 +70,17 @@ This repository now supplies an OpenAI Responses vision adapter and private Work
 - API manager: `cloudflare/workers/src/look/service.ts`; five governed operations and OpenAPI.
 - Website screen: `/appearance-review`, linked from platform administration and eligible growth dashboards. EN/FR/ES, mobile and desktop layouts.
 - Native API base/adapter: `BaseLookManager` and `ApiLookManager`. Approval endpoints bypass synthetic/cache fallback in the shared Dart API client. No native review widget or physical device acceptance is claimed; Flutter/Dart is unavailable here.
-- Local tests: rubric checks, real handler transactions with PGlite text/UUID identities, ordering/digest/role/tenant controls, stale evidence, failure and rollback, retry recovery, and six browser approval workflows. Vision results and administrator actions in tests are explicitly synthetic fixtures.
+- Local tests: rubric checks, real handler transactions with PostgreSQL text/UUID identities, ordering/digest/role/tenant controls, stale evidence, failure and rollback, retry recovery, and six browser approval workflows. Vision results and administrator actions in tests are explicitly synthetic fixtures.
 - PostgreSQL CI and browser/provider tests run in the activation workflow (11 tests). Production metadata grants are checked against the pinned PostgreSQL authority. Native SDK/device tests and full accessibility acceptance remain pending.
 
 The earlier audit found legacy Flutter SQLite/Drift access elsewhere in the project. This API-only manager does not silently remove those separate modules.
+
+## Production verification — 2026-10-26
+
+Implementation and activation are on `main`, with no feature branch. Screen 2520, five API operations (16556–16560), administrator grants and EN/FR/ES resources are registered in the pinned PostgreSQL metadata. The four business tables are migrated, the private vision Worker and governance binding are deployed, and the governance portal is published.
+
+[Activation run 40390582485](https://github.com/shaikhrais/primecare-platform/actions/runs/40390582485) tested source `d62b182d8a1750d50bed6c9eb874fb5817bd72b3`. All 11 isolated PostgreSQL/browser/provider tests and both Worker builds passed. A live temporary tenant-admin session verified form loading, PNG upload (201), AI dispatch (202), persisted failure state and audit records, browser reload, idempotent replay without duplicate rows, anonymous image denial (401), and current-role denial (403). The temporary user, session, tenant and review data were removed. The test seeds a native session; it does not prove the credential-login flow or human inspection.
+
+Live AI scoring is **blocked**: OpenAI returned `credit_balance_exhausted`. The recorded state is `ai_failed`, with a translated quota message, no fabricated scores and no human approval controls. The activation job intentionally remains failed until an actual model assessment succeeds. Restore credit for the OpenAI project owning the configured production key, then rerun activation or submit fresh evidence. The existing failed review key replays its recorded failure; it does not issue another provider request.
+
+The live test also identified a pre-existing Workers database-driver hang. Pinning `pg@8.16.3` resolved it; authenticated API and direct Worker requests now return 200. No production screen received a human approval during this work. Native review widgets/device acceptance and a retention policy remain separate outstanding work.
