@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'package.json'
+      - 'package-lock.json'
       - 'packages/shared/src/look/**'
       - 'cloudflare/workers/src/look/**'
       - 'websites/typescript/src/look-review.ts'
