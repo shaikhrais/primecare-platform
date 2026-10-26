@@ -22,8 +22,8 @@ class EventTests(unittest.TestCase):
  def test_existing_command_deny_cannot_create_new_events_grant(self):
   with self.store_events() as db:
    command=calls.definition(db)['apiIds']['call.command'];event=a.definition(db)['apiIds']['call.events'];roles=a.validate(db);self.assertEqual(len(roles),1)
-   db.execute('UPDATE api_permissions SET can_access=0 WHERE role_id=? AND api_id=?',(roles[0],command));self.assertEqual(a.register(db)['eligibleRoles'],0);self.assertEqual(db.execute('SELECT count(*) FROM api_permissions WHERE api_id=?',(event,)).fetchone()[0],0)
+   db.db.execute('UPDATE '+db.table('api_permissions')+' SET can_access=0 WHERE role_id=%s AND api_id=%s',(roles[0],command));self.assertEqual(a.register(db)['eligibleRoles'],0);self.assertEqual(db.execute('SELECT count(*) FROM api_permissions WHERE api_id=?',(event,)).fetchone()[0],0)
  def test_existing_event_deny_is_preserved(self):
   with self.store_events() as db:
-   a.register(db);event=a.definition(db)['apiIds']['call.events'];role=a.validate(db)[0];db.execute('UPDATE api_permissions SET can_access=0 WHERE role_id=? AND api_id=?',(role,event));self.assertEqual(a.register(db)['explicitDenialsPreserved'],1);self.assertEqual(db.execute('SELECT can_access FROM api_permissions WHERE role_id=? AND api_id=?',(role,event)).fetchone()[0],0)
+   a.register(db);event=a.definition(db)['apiIds']['call.events'];role=a.validate(db)[0];db.db.execute('UPDATE '+db.table('api_permissions')+' SET can_access=0 WHERE role_id=%s AND api_id=%s',(role,event));self.assertEqual(a.register(db)['explicitDenialsPreserved'],1);self.assertEqual(db.execute('SELECT can_access FROM api_permissions WHERE role_id=? AND api_id=?',(role,event)).fetchone()[0],0)
 if __name__=='__main__':unittest.main(verbosity=2)
