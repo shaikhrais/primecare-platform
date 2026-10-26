@@ -3,12 +3,14 @@
   "endpoint": "/v1/governance/look",
   "route": "/appearance-review",
   "roles": [
+    "code_admin",
     "ceo",
     "central_admin",
     "platform_admin",
     "tenant_admin"
   ],
   "globalRoles": [
+    "code_admin",
     "central_admin",
     "platform_admin"
   ],
@@ -309,7 +311,14 @@
       "image_loading": "Loading screenshot for inspection…",
       "image_load_failed": "Screenshot could not be verified or displayed. Retry before making a human decision.",
       "image_loaded": "Screenshot ready for inspection.",
-      "retry_image": "Retry screenshot"
+      "retry_image": "Retry screenshot",
+      "retry": "Retry",
+      "back_admin": "Administration",
+      "loading": "Loading visual reviews…",
+      "forbidden": "Your account has no current Look Manager permission.",
+      "unavailable": "Look Manager is temporarily unavailable. Retry or return to Administration.",
+      "signed_out": "Your session expired. Sign in again.",
+      "ai_running_notice": "AI is reviewing this screenshot. Refresh to see the saved result."
     },
     "fr": {
       "title": "Gestionnaire de revue visuelle",
@@ -362,7 +371,14 @@
       "image_loading": "Chargement de la capture à examiner…",
       "image_load_failed": "La capture n’a pas pu être vérifiée ou affichée. Réessayez avant toute décision humaine.",
       "image_loaded": "Capture prête à être examinée.",
-      "retry_image": "Recharger la capture"
+      "retry_image": "Recharger la capture",
+      "retry": "Réessayer",
+      "back_admin": "Administration",
+      "loading": "Chargement des évaluations…",
+      "forbidden": "Votre compte ne dispose pas des autorisations actuelles.",
+      "unavailable": "Gestionnaire indisponible. Réessayez ou retournez à Administration.",
+      "signed_out": "Session expirée. Reconnectez-vous.",
+      "ai_running_notice": "L’IA évalue cette capture. Actualisez pour voir le résultat."
     },
     "es": {
       "title": "Gestor de revisión visual",
@@ -415,7 +431,14 @@
       "image_loading": "Cargando la captura para inspeccionarla…",
       "image_load_failed": "No se pudo verificar o mostrar la captura. Reintenta antes de tomar una decisión humana.",
       "image_loaded": "Captura lista para inspeccionar.",
-      "retry_image": "Reintentar captura"
+      "retry_image": "Reintentar captura",
+      "retry": "Reintentar",
+      "back_admin": "Administración",
+      "loading": "Cargando evaluaciones…",
+      "forbidden": "Su cuenta no tiene el permiso actual de evaluación.",
+      "unavailable": "El gestor no está disponible. Reintente o vuelva a Administración.",
+      "signed_out": "La sesión ha caducado. Inicie sesión.",
+      "ai_running_notice": "La IA está evaluando la captura. Actualice para ver el resultado."
     }
   },
   "maxPixels": 64000000,
@@ -441,6 +464,11 @@
       "edit": true
     },
     "tenant_admin": {
+      "view": true,
+      "create": true,
+      "edit": true
+    },
+    "code_admin": {
       "view": true,
       "create": true,
       "edit": true

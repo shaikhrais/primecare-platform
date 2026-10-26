@@ -1,0 +1,79 @@
+name: Verify and activate Look Manager
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/shared/src/look/**'
+      - 'cloudflare/workers/src/look/**'
+      - 'websites/typescript/src/look-review.ts'
+      - 'scripts/test-look-manager.mjs'
+      - 'scripts/test-look-vision-provider.mjs'
+      - 'scripts/deploy-look-manager.mjs'
+      - 'tools/governance-production/look_manager_registration.py'
+      - 'tools/governance-production/look-manager-registration.json'
+      - '.github/workflows/look-manager.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: primecare-look-manager
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_PASSWORD: synthetic, POSTGRES_DB: look_test}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install chromium
+      - run: node --test scripts/test-look-manager.mjs scripts/test-look-vision-provider.mjs
+        env:
+          GROWTH_TEST_DATABASE_URL: postgresql://postgres:synthetic@localhost:5432/look_test
+      - name: Bundle private vision Worker and governance runtime
+        run: |
+          npx esbuild cloudflare/workers/src/look/vision-provider.ts --bundle --platform=browser --format=esm --outfile=/tmp/look-vision.js
+          npx esbuild cloudflare/workers/src/service.ts --bundle --platform=node --format=esm --external:pg-native --outfile=/tmp/look-governance.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: look-browser-evidence, path: test-results/look, retention-days: 14}
+  activate:
+    needs: verify
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 20
+    concurrency: {group: primecare-cloudflare-typescript-production, cancel-in-progress: false}
+    env:
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      LOOK_AI_MODEL: ${{ vars.LOOK_AI_MODEL || 'gpt-5.4-mini' }}
+      GOVERNANCE_WORKFLOW_WRITES: '1'
+      GOVERNANCE_LOOK_MANAGER_WRITES: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: npm ci --ignore-scripts
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Register exact Look Manager screen, APIs and administrator permissions
+        run: python3 tools/governance-production/look_manager_registration.py --apply
+      - uses: actions/download-artifact@v4
+        with: {name: look-browser-evidence, path: test-results/look}
+      - name: Deploy private vision service, preserve governance bindings and publish portal
+        run: node scripts/deploy-look-manager.mjs
+      - run: node scripts/inspect-look-readiness.mjs
+        if: always()
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: look-production-evidence, path: test-results/look, retention-days: 14}

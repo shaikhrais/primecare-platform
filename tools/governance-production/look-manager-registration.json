@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "screenCode": "look_review_manager",
+  "route": "/appearance-review",
+  "roles": ["code_admin","central_admin","platform_admin","tenant_admin","ceo"],
+  "tables": ["screens","role_screen_permissions","api_endpoints","api_permissions","screen_api_links","language_resources","language_resource_values"],
+  "permission": "role_screen_permissions",
+  "requirement": "Activate the existing inherited Look Manager with current administrator grants, real AI screenshot assessment and separate human decisions; no clinical records, account assignments or approval credit."
+}

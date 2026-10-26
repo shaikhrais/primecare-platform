@@ -1316,5 +1316,22 @@
     "roleGrants": false,
     "activation": false,
     "temporaryValidationTables": true
+  },
+  "lookManagerWriter": {
+    "optInVariable": "GOVERNANCE_LOOK_MANAGER_WRITES",
+    "tables": [
+      "screens",
+      "role_screen_permissions",
+      "api_endpoints",
+      "api_permissions",
+      "screen_api_links",
+      "language_resources",
+      "language_resource_values"
+    ],
+    "definitionSha256": "1dadafe2ea541d5995548bf13018977353e520d5f2af3d4c0c54e8fe9a97bbc9",
+    "registrySha256": "22facebd2f8c44a17cd5be3f429e0cce9d4d4fcd47c8fdc5c9cc2077d22286cd",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "accountAssignments": false
   }
 }
