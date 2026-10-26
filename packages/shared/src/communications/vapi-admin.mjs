@@ -12,11 +12,11 @@ export class VapiAdminClient extends VapiManagementClient {
   this.#key=apiKey;this.#fetch=request;this.#org=orgId;this.#template=templateId;this.#catalog=structuredClone(catalog);
  }
  async #request(path,body,method='GET'){
-  try{const r=await this.#fetch('https://api.vapi.ai'+path,{method,redirect:'manual',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body?{'content-type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
-   if(!r.ok){await r.body?.cancel();fail([401,403].includes(r.status)?'authentication_denied':r.status===404?'resource_not_found':r.status===400?'invalid_configuration':'provider_unavailable');}
+  try{const send=this.#fetch;const r=await send('https://api.vapi.ai'+path,{method,redirect:'manual',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body?{'content-type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
+   if(!r.ok){await r.body?.cancel();throw Object.assign(new VapiManagementError([401,403].includes(r.status)?'authentication_denied':r.status===404?'resource_not_found':r.status===400?'invalid_configuration':'provider_unavailable'),{httpStatus:r.status});}
    if(method==='POST'&&r.status!==201)fail('unverified_write');
    return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await this.readBoundedBody(r.body)));
-  }catch(e){if(e instanceof VapiManagementError)throw e;fail('provider_unavailable');}
+  }catch(e){if(e instanceof VapiManagementError)throw e;throw Object.assign(new VapiManagementError('provider_unavailable'),{transportKind:['TypeError','AbortError','TimeoutError'].includes(e?.name)?e.name:'transport_error'});}
  }
  #scope(row){if(!row||row.orgId!==this.#org||!uuid(row.id))fail('scope_denied');return row;}
  #agent(row){this.#scope(row);if(JSON.stringify([row.name,row.firstMessage,row.model?.messages]).includes(this.#key))fail('invalid_provider_response');return {id:row.id,name:typeof row.name==='string'?row.name.slice(0,200):'Unnamed',firstMessage:typeof row.firstMessage==='string'?row.firstMessage.slice(0,4000):'',prompt:Array.isArray(row.model?.messages)?row.model.messages.filter(m=>m.role==='system'&&typeof m.content==='string').map(m=>m.content).join('\n').slice(0,65536):'',toolIds:Array.isArray(row.model?.toolIds)?row.model.toolIds.filter(uuid):[],updatedAt:typeof row.updatedAt==='string'?row.updatedAt:null};}

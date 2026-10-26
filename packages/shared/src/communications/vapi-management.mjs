@@ -17,13 +17,13 @@ export class VapiManagementClient extends BoundedBinaryAdapterBase {
  }
  async #request(path,body,method=body===undefined?'GET':'POST',allowList=false){
   try{
-   const response=await this.#fetch('https://api.vapi.ai'+path,{method,redirect:'manual',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body===undefined?{}:{'content-type':'application/json'})},...(body===undefined?{}:{body:JSON.stringify(body)})});
+   const send=this.#fetch;const response=await send('https://api.vapi.ai'+path,{method,redirect:'manual',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.#key,accept:'application/json',...(body===undefined?{}:{'content-type':'application/json'})},...(body===undefined?{}:{body:JSON.stringify(body)})});
    if(!response.ok){try{await response.body?.cancel();}catch{}const error=fail(response.status===402?'payment_required':[401,403].includes(response.status)?'authentication_denied':response.status===404?'resource_not_found':'provider_unavailable');error.httpStatus=response.status;throw error;}
    const bytes=await this.readBoundedBody(response.body);
    const data=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
    if(!data||typeof data!=='object'||Array.isArray(data)&&!allowList)throw fail('invalid_provider_response');
    return data;
-  }catch(error){if(error instanceof VapiManagementError)throw error;throw fail('provider_unavailable');}
+  }catch(error){if(error instanceof VapiManagementError)throw error;throw Object.assign(fail('provider_unavailable'),{transportKind:['TypeError','AbortError','TimeoutError'].includes(error?.name)?error.name:'transport_error'});}
  }
  /** Read reusable tool inventory without exposing endpoint headers, credentials,
   * server URLs, static parameters or provider payloads. Inventory is not approval
