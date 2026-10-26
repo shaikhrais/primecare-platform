@@ -1,0 +1,32 @@
+name: Create PrimeCare saved Vapi agent library
+on:
+  push:
+    branches: [main]
+    paths: ['packages/shared/src/vapi-agent-templates.json', 'scripts/create-vapi-agent-library.mjs', 'scripts/test-vapi-agent-library.mjs', '.github/workflows/vapi-agent-library.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency: {group: primecare-vapi-agent-library, cancel-in-progress: false}
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test scripts/test-vapi-agent-library.mjs scripts/test-vapi-admin.mjs
+  create:
+    needs: verify
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Create only missing named assistants and verify provider readback
+        run: node scripts/create-vapi-agent-library.mjs
+        env:
+          VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: vapi-agent-library, path: test-results/vapi/agent-library.json, retention-days: 30}
