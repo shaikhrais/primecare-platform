@@ -17,6 +17,8 @@ The backend uses VapiAdminClient inheriting VapiManagementClient, and an injecte
 HTTP boundary. Every operation rechecks the current active native session, active
 tenant, Code Admin role, pinned production manifest, exact API registration,
 explicit API permission and linked screen grant. Unknown/missing grants deny.
+Vapi management has a separate policy query; existing communication-policy source
+and grants are preserved.
 The four candidate operations are in vapi-admin-contract.json, linked to the existing
 Code Admin screen 1269. The JSON file is not a production registration or grant.
 

@@ -1,8 +1,9 @@
+import {vapiPermissionQuery} from './vapi-administration-policy';
 import {VapiAdminClient} from '../../../packages/shared/src/communications/vapi-admin.mjs';
 import {handleVapiAdmin} from '../../../packages/shared/src/communications/vapi-admin-http.mjs';
 import {withDb,tokenFrom,sha256,type Env} from './auth';
 import {privilegedActor} from './auth-projection';
-import {registeredPermissionQuery,assertRegisteredPermissionRows} from './business-tasks/endpoint-policy';
+import {assertRegisteredPermissionRows} from './business-tasks/endpoint-policy';
 import pin from '../../../tools/governance-production/production-pin.json';
 type VapiEnv=Env & {VAPI_PRIVATE_API_KEY?:string;VAPI_ADMIN_ORG_ID?:string;VAPI_ADMIN_TEMPLATE_ID?:string;VAPI_ADMIN_CATALOG?:string};
 /** Configuration management uses native current Code Admin authority. It cannot
@@ -16,7 +17,7 @@ export async function vapiAdministration(request:Request,env:VapiEnv,path:string
    const actor=privilegedActor((await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id JOIN tenants t ON t.id=u.tenant_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' AND LOWER(t.status)='active' LIMIT 2",[await sha256(token)])).rows);
    if(!actor)throw Object.assign(Error('Denied'),{status:401});if(actor.roles!=='code_admin'||!actor.tenant_id||actorId&&actorId!==actor.id)throw Object.assign(Error('Denied'),{status:403});actorId=actor.id;
    const manifest=await db.query(`SELECT manifest_sha256 FROM "${pin.schema}"."${pin.manifestTable}"`);if(manifest.rows.length!==1||manifest.rows[0].manifest_sha256!==pin.manifestSha256)throw Error('Manifest mismatch');
-   const statement=registeredPermissionQuery({id:actor.id,tenantId:actor.tenant_id},null,request.method,'/v1/governance'+path,'VAPI_ADMIN_'+operation.toUpperCase(),undefined,undefined,['code_admin']);
+   const statement=vapiPermissionQuery({id:actor.id,tenantId:actor.tenant_id},request.method,'/v1/governance'+path,'VAPI_ADMIN_'+operation.toUpperCase());
    try{assertRegisteredPermissionRows((await db.query(statement.text,statement.values)).rows);}catch{throw Object.assign(Error('Denied'),{status:403});}
   };
   let client;try{if(env.VAPI_PRIVATE_API_KEY&&env.VAPI_ADMIN_ORG_ID&&env.VAPI_ADMIN_TEMPLATE_ID)client=new VapiAdminClient({apiKey:env.VAPI_PRIVATE_API_KEY,orgId:env.VAPI_ADMIN_ORG_ID,templateId:env.VAPI_ADMIN_TEMPLATE_ID,catalog:JSON.parse(env.VAPI_ADMIN_CATALOG??'[]')});}catch{}

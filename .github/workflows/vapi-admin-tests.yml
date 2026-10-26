@@ -6,7 +6,7 @@ on:
       - 'packages/shared/src/communications/vapi-admin*'
       - 'websites/typescript/src/vapi-admin.ts'
       - 'websites/typescript/src/platform-admin.ts'
-      - 'cloudflare/workers/src/vapi-administration.ts'
+      - 'cloudflare/workers/src/vapi-administration*.ts'
       - 'cloudflare/workers/src/business-tasks/endpoint-policy.ts'
       - 'scripts/test-vapi-admin*'
       - '.github/workflows/vapi-admin-tests.yml'
