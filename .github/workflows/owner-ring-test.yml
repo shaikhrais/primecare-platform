@@ -1,0 +1,45 @@
+name: One-time authorized owner ring test
+on:
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency: {group: owner-ring-test, cancel-in-progress: false}
+jobs:
+  ring:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 3
+    steps:
+      - name: Ring the explicitly requested owner number once
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+        run: |
+          node --input-type=module <<'JS'
+          const sid=process.env.TWILIO_ACCOUNT_SID,token=process.env.TWILIO_AUTH_TOKEN;
+          if(!/^AC[a-f0-9]{32}$/i.test(sid??'')||!token)throw Error('Twilio credentials unavailable');
+          const base='https://api.twilio.com/2010-04-01/Accounts/'+sid;
+          const headers={authorization:'Basic '+Buffer.from(sid+':'+token).toString('base64')};
+          async function request(path,body){
+            const response=await fetch(base+path,{method:body?'POST':'GET',redirect:'error',headers:{...headers,...(body?{'content-type':'application/x-www-form-urlencoded'}:{})},...(body?{body:new URLSearchParams(body)}:{}),signal:AbortSignal.timeout(15000)});
+            const data=await response.json();
+            if(!response.ok){console.log('OWNER_RING_ERROR '+JSON.stringify({httpStatus:response.status,code:data.code}));throw Error('Twilio request failed');}
+            return data;
+          }
+          // Exactly one creation attempt; never retry a POST with uncertain delivery.
+          const call=await request('/Calls.json',{To:'+12898873200',From:'+16479302223',Twiml:'<Response><Hangup/></Response>',Timeout:'15',TimeLimit:'5'});
+          if(!/^CA[a-f0-9]{32}$/i.test(call.sid??''))throw Error('Invalid provider call reference');
+          const observed=new Set([call.status]);
+          let current=call;
+          try{
+            for(let i=0;i<25;i++){
+              await new Promise(resolve=>setTimeout(resolve,1000));
+              current=await request('/Calls/'+call.sid+'.json');
+              observed.add(current.status);
+              if(['completed','failed','busy','no-answer','canceled'].includes(current.status))break;
+            }
+          }finally{
+            if(['queued','ringing','initiated'].includes(current.status))current=await request('/Calls/'+call.sid+'.json',{Status:'canceled'});
+            else if(current.status==='in-progress')current=await request('/Calls/'+call.sid+'.json',{Status:'completed'});
+          }
+          console.log('OWNER_RING_RESULT '+JSON.stringify({callsCreated:1,targetSuffix:'3200',callerId:'+16479302223',observed:[...observed],finalStatus:current.status,duration:current.duration,errorCode:current.error_code??null,uiBypassed:true}));
+          JS
