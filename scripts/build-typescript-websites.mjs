@@ -1,3 +1,4 @@
+import {writePortalPwa} from './portal-pwa-assets.mjs';
 // Registration scripts operate only on explicit isolated SQLite fixtures.
 if (process.env.GOVERNANCE_ALLOW_SQLITE_FIXTURES === "1") {
 if (process.env.GOVERNANCE_DATABASE_URL || process.env.PRODUCTION_DATABASE_URL) throw new Error("SQLite fixtures cannot be enabled with production credentials");
@@ -41,6 +42,7 @@ for (const project of projects) {
   const target = join(dist, project); mkdirSync(join(target, 'assets'), { recursive: true });
   cpSync(join(source, 'index.html'), join(target, 'index.html')); cpSync(join(dist, 'assets'), join(target, 'assets'), { recursive: true });
   cpSync(join(generated, project, 'portal.json'), join(target, 'portal.json'));
+  writePortalPwa(target,JSON.parse(readFileSync(join(target,'portal.json'),'utf8')).name);
   writeFileSync(join(target, '_redirects'), '/* /index.html 200\n');
-  writeFileSync(join(target, '_headers'), '/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(self), geolocation=()\n');
+  writeFileSync(join(target, '_headers'), '/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(self), geolocation=()\n/manifest.webmanifest\n  Content-Type: application/manifest+json\n  Cache-Control: no-cache\n/service-worker.js\n  Content-Type: application/javascript\n  Cache-Control: no-cache\n  Service-Worker-Allowed: /\n');
 }

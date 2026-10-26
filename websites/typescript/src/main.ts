@@ -1,3 +1,4 @@
+import {initializePortalInstall} from './portal-install';
 import {renderCare} from './care/dashboard';
 import {renderLookReview} from './look-review';
 import {renderAuthRecovery} from './auth-recovery';
@@ -24,6 +25,7 @@ type PortalManifest = {
 const selectedRoot = document.querySelector<HTMLElement>('#app');
 if (!selectedRoot) throw new Error('Missing application root');
 const root: HTMLElement = selectedRoot;
+initializePortalInstall();
 const requestedLocale = new URLSearchParams(location.search).get('locale');
 if (requestedLocale === 'en' || requestedLocale === 'fr' || requestedLocale === 'es') document.documentElement.lang = requestedLocale;
 

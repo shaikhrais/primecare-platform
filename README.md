@@ -177,3 +177,20 @@ Mobile UI deployment `6fbaf5782db503d9a2b86d935549b0ffae9a7edb` passed all
 15 scoped calling jobs, including production staff and Code Admin/MFA dial-pad
 checks. See [current UI receipts](reports/communications/calling-ui-20261026.json).
 No real phone call was placed by automation.
+
+### PWA installation and microphone access
+
+Each portal publishes a standalone web app manifest, 192/512 px maskable-safe
+PNG icons, an **Install PrimeCare** action and a network-only service worker.
+The install action uses Chrome’s native prompt when available and otherwise
+shows the Chrome menu path. Installation promotion remains browser-controlled;
+installed standalone windows hide the action. Authentication pages, APIs,
+tokens and private records are never cached by this worker. Offline navigation
+shows a reconnect message and cannot replay an authenticated page.
+
+The shared phone panel has **Enable microphone** and also checks permission
+before preparing a call. Only an explicit user action requests audio; probe
+tracks stop immediately. Permission denial gives Chrome/Android settings
+instructions and cannot reserve or dial a call. Already-granted permission may
+not display another browser prompt. Installation does not enable offline or
+background phone calls, and role/session authorization is unchanged.

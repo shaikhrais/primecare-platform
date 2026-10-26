@@ -7,6 +7,12 @@ on:
       - 'cloudflare/workers/src/business-tasks/external-call-*'
       - 'packages/shared/src/communications/twilio-call-fetch*'
       - 'websites/typescript/src/external-calls.ts'
+      - 'websites/typescript/src/microphone-access.ts'
+      - 'websites/typescript/src/portal-install.ts'
+      - 'websites/typescript/index.html'
+      - 'scripts/portal-pwa-assets.mjs'
+      - 'scripts/test-portal-pwa*'
+      - 'scripts/build-typescript-websites.mjs'
       - 'tools/governance-production/external*call*'
       - 'tools/governance-production/test-external-call-*'
       - 'scripts/*external-call*'
@@ -53,12 +59,13 @@ jobs:
       - run: |
           npm install --prefix "$RUNNER_TEMP/external-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 esbuild@0.27.2 twilio@6.2.0 @twilio/voice-sdk@2.18.5 miniflare@4.20260730.0 playwright@1.56.1
           ln -s "$RUNNER_TEMP/external-tools/node_modules" node_modules
-          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/business-tasks/external-call-worker.ts websites/typescript/src/external-calls.ts websites/typescript/src/internal-calls.ts websites/typescript/src/platform-admin.ts
-          node --test scripts/test-external-calls.mjs scripts/test-communication-gateway.mjs scripts/test-voice-contact-deployment-plan.mjs
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/business-tasks/external-call-worker.ts websites/typescript/src/external-calls.ts websites/typescript/src/internal-calls.ts websites/typescript/src/platform-admin.ts websites/typescript/src/portal-install.ts
+          node --test scripts/test-external-calls.mjs scripts/test-communication-gateway.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-portal-pwa.mjs
           node scripts/test-external-call-native.mjs
           node scripts/test-master-tenant-hierarchy.mjs
           node scripts/test-external-call-workerd.mjs
           CALL_BROWSER_EXECUTABLE=/usr/bin/google-chrome node scripts/test-external-call-browser.mjs
+          CALL_BROWSER_EXECUTABLE=/usr/bin/google-chrome node scripts/test-portal-pwa-browser.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: external-call-native, path: test-results/external-calls, retention-days: 30}

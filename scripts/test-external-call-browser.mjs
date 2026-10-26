@@ -18,7 +18,7 @@ await new Promise(r=>server.listen(0,'127.0.0.1',r));
 let browser;
 try{
  await mkdir('test-results/external-calls',{recursive:true});
- browser=await chromium.launch({headless:true,executablePath:process.env.CALL_BROWSER_EXECUTABLE||undefined,args:['--no-sandbox']});
+ browser=await chromium.launch({headless:true,executablePath:process.env.CALL_BROWSER_EXECUTABLE||undefined,args:['--no-sandbox','--use-fake-device-for-media-stream']});
  const page=await browser.newPage(),requests=[];
  let revoked=false;
  await page.route('https://gateway.invalid/v1/external-calls/**',async route=>{
@@ -30,7 +30,10 @@ try{
    :req.url().endsWith('/state')?(requests.some(r=>r.path.endsWith('/prepare'))?{status:'active',ticket:'11111111-1111-4111-8111-111111111111',expiresAt:Date.now()+120000}:{status:'idle'}):{status:'ended'};
   await route.fulfill({status:200,headers:{'access-control-allow-origin':'*'},contentType:'application/json',body:JSON.stringify(payload)});
  });
- await page.goto('http://127.0.0.1:'+server.address().port);
+ const fixtureOrigin='http://127.0.0.1:'+server.address().port;
+ await page.context().grantPermissions(['microphone'],{origin:fixtureOrigin});
+ await page.addInitScript(()=>{const native=navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);window.fixtureMicRequests=0;window.fixtureMicTracks=[];navigator.mediaDevices.getUserMedia=async constraints=>{window.fixtureMicRequests++;const stream=await native(constraints);window.fixtureMicTracks.push(...stream.getTracks());return stream;};});
+ await page.goto(fixtureOrigin);
  await page.evaluate(async()=>{
   sessionStorage.setItem('primecare_session','a'.repeat(43));
   const {ExternalCallsPanel}=await import('/dialer.mjs');
@@ -38,6 +41,11 @@ try{
  });
  await page.locator('main').waitFor({state:'visible'});
  assert.equal(await page.evaluate(()=>window.fixtureDevices?.length??0),0);
+ assert.equal(await page.evaluate(()=>window.fixtureMicRequests),0);
+ await page.locator('[data-cy=external-call-microphone]').click();
+ await page.waitForFunction(()=>document.querySelector('[data-cy=external-microphone-status]').textContent.includes('Microphone ready'));
+ assert.equal(requests.some(r=>r.path.endsWith('/prepare')),false);
+ assert.equal(await page.evaluate(()=>window.fixtureMicTracks.every(t=>t.readyState==='ended')),true);
  // Actual layout, not just CSS-string assertions. No live provider is used.
  for(const width of [320,390,768,1280]){
   await page.setViewportSize({width,height:900});
@@ -82,7 +90,19 @@ try{
  assert.equal(await page.evaluate(()=>window.fixtureCall.muted),true);
  await page.locator('[data-cy=external-call-end]').click();
  await page.evaluate(()=>window.fixturePanel.close());
- const report={source:process.env.GITHUB_SHA,passed:true,realBrowser:true,providerSdkStubbed:true,noAutomaticCall:true,opaqueTicketOnly:true,muteAndHangup:true,tokenRenewal:true,cleanup:true,mobileWidths:[320,390,768,1280],noHorizontalOverflow:true,touchTargetsAtLeast48px:true,phoneLockedWhileCalling:true,muteStateResetsBetweenCalls:true,livePhoneTraffic:false};
+ // Permission denial must stop before reservation or provider creation.
+ const prepares=requests.filter(r=>r.path.endsWith('/prepare')).length;
+ await page.evaluate(async()=>{const {ExternalCallsPanel}=await import('/dialer.mjs');navigator.mediaDevices.getUserMedia=async()=>{throw new DOMException('Denied','NotAllowedError');};window.fixturePanel=new ExternalCallsPanel(document.querySelector('main'),'https://gateway.invalid',sessionStorage.getItem('primecare_session'));});
+ await page.waitForTimeout(100);
+ // This fixture restores the previous reservation; clear it before testing denial.
+ await page.locator('[data-cy=external-call-end]').click();
+ await page.locator('[data-cy=external-call-phone]').fill('+16475550123');
+ await page.locator('[data-cy=external-call-dial]').click();
+ await page.waitForFunction(()=>document.querySelector('[data-cy=external-call-status]').textContent.includes('Microphone blocked'));
+ assert.equal(requests.filter(r=>r.path.endsWith('/prepare')).length,prepares);
+ assert.equal(await page.evaluate(()=>window.fixtureDevices.length),2);
+ await page.evaluate(()=>window.fixturePanel.close());
+ const report={source:process.env.GITHUB_SHA,passed:true,realBrowser:true,providerSdkStubbed:true,noAutomaticCall:true,opaqueTicketOnly:true,muteAndHangup:true,tokenRenewal:true,cleanup:true,mobileWidths:[320,390,768,1280],noHorizontalOverflow:true,touchTargetsAtLeast48px:true,phoneLockedWhileCalling:true,muteStateResetsBetweenCalls:true,microphoneRequestedOnlyByUser:true,enableMicrophoneDoesNotReserve:true,preflightTracksStopped:true,deniedMicrophoneNeverPreparesOrDials:true,livePhoneTraffic:false};
  await writeFile('test-results/external-calls/browser.json',JSON.stringify(report,null,2)+'\n');
  console.log('EXTERNAL_CALL_BROWSER '+JSON.stringify(report));
 }finally{await browser?.close();await new Promise(r=>server.close(r));}
