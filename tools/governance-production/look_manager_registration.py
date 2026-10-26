@@ -52,11 +52,11 @@ def register(store):
    if not access:insert('api_permissions',dict(id=next_id('api_permissions'),role_id=rid,api_id=aid,can_access=1,permission_key=d['permission']))
    elif access!=[(1,d['permission'])]:raise GovernanceReadError('Existing Look API grant differs')
  resources={}
- for resource,key in rows("SELECT resource_id,resource_key FROM language_resources WHERE resource_key LIKE 'look.%'"):
+ for resource,key in rows("SELECT resource_id,resource_key FROM language_resources WHERE resource_key LIKE ?",('look.%',)):
   if key in resources:raise GovernanceReadError('Duplicate Look translation key')
   resources[key]=resource
  translations={}
- for resource,language,text in rows("SELECT r.resource_id,v.language_id,v.translated_text FROM language_resources r JOIN language_resource_values v ON r.resource_id=v.resource_id WHERE r.resource_key LIKE 'look.%'"):
+ for resource,language,text in rows("SELECT r.resource_id,v.language_id,v.translated_text FROM language_resources r JOIN language_resource_values v ON r.resource_id=v.resource_id WHERE r.resource_key LIKE ?",('look.%',)):
   if (resource,language) in translations:raise GovernanceReadError('Duplicate Look translation')
   translations[(resource,language)]=text
  for lang,values in registry['locales'].items():
