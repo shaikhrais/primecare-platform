@@ -1,0 +1,21 @@
+{
+  "gatewayName": "primecare-api-gateway",
+  "compatibilityDate": "2026-09-27",
+  "appOrigins": [
+    "https://primecare-clinic.pages.dev",
+    "https://primecare-client.pages.dev",
+    "https://primecare-corporate.pages.dev",
+    "https://primecare-franchise.pages.dev",
+    "https://primecare-support.pages.dev",
+    "https://primecare-governance.pages.dev",
+    "https://primecare-marketing.pages.dev",
+    "https://primecare-business-development.pages.dev"
+  ],
+  "workerName": "primecare-external-calls-api",
+  "gatewayBinding": "EXTERNAL_CALLS",
+  "owner": "primecare-external-calls-v1",
+  "callerId": "+16479302223",
+  "phoneSid": "PN14d5f063ed5b5412c444922d3a4b4fd1",
+  "applicationName": "PrimeCare External Staff Calls v1",
+  "rateNamespace": "2026102601"
+}

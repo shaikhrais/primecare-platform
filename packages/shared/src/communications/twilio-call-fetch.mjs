@@ -1,0 +1,6 @@
+import {BoundedBinaryAdapterBase} from './adapter-base.mjs';
+/** Fixed-account call read/cancel transport. No REST call creation capability. */
+export class TwilioCallFetch extends BoundedBinaryAdapterBase{
+ constructor({accountSid,apiKeySid,apiKeySecret,fetch:transport=globalThis.fetch}){super(32768);if(!/^AC[a-f0-9]{32}$/i.test(accountSid)||!/^SK[a-f0-9]{32}$/i.test(apiKeySid)||typeof apiKeySecret!=='string'||apiKeySecret.length<16)throw Error('Configuration required');this.base='https://api.twilio.com/2010-04-01/Accounts/'+accountSid+'/Calls/';this.authorization='Basic '+btoa(apiKeySid+':'+apiKeySecret);this.transport=transport;}
+ async call(sid,cancel=false){if(!/^CA[a-f0-9]{32}$/i.test(sid))throw Error('Invalid call');const r=await this.transport(this.base+sid+'.json',{method:cancel?'POST':'GET',redirect:'error',signal:AbortSignal.timeout(10000),headers:{authorization:this.authorization,accept:'application/json',...(cancel?{'content-type':'application/x-www-form-urlencoded'}:{})},...(cancel?{body:'Status=completed'}:{})});if(!r.ok){await r.body?.cancel();throw Error('Provider unavailable');}const row=JSON.parse(new TextDecoder().decode(await this.readBoundedBody(r.body)));return {sid:row.sid,accountSid:row.account_sid,from:row.from,direction:row.direction,status:row.status};}
+}

@@ -1197,5 +1197,71 @@
     "existingDenials": "preserve",
     "providerWrites": false,
     "activation": false
+  },
+  "externalCallWriter": {
+    "optInVariable": "GOVERNANCE_EXTERNAL_CALLS",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "external.complete",
+        "method": "POST",
+        "path": "/v1/external-calls/complete"
+      },
+      {
+        "key": "external.connect",
+        "method": "POST",
+        "path": "/v1/external-calls/connect"
+      },
+      {
+        "key": "external.end",
+        "method": "POST",
+        "path": "/v1/external-calls/end"
+      },
+      {
+        "key": "external.prepare",
+        "method": "POST",
+        "path": "/v1/external-calls/prepare"
+      },
+      {
+        "key": "external.state",
+        "method": "POST",
+        "path": "/v1/external-calls/state"
+      }
+    ],
+    "definitionSha256": "0c3c6f259329c2dcc03e935ad0ccd937f806bc4506913efe27a83d7a07f4a934",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
+  },
+  "externalCallAccessWriter": {
+    "optInVariable": "GOVERNANCE_EXTERNAL_CALL_ACCESS",
+    "tables": [
+      "api_permissions",
+      "screen_api_links"
+    ],
+    "screenIds": [
+      234,
+      331,
+      559,
+      578
+    ],
+    "paths": [
+      "/v1/external-calls/prepare",
+      "/v1/external-calls/state",
+      "/v1/external-calls/end"
+    ],
+    "contractSha256": "0c3c6f259329c2dcc03e935ad0ccd937f806bc4506913efe27a83d7a07f4a934",
+    "definitionSha256": "bcafe5bf5e20d28c34c20c9732e989c450602940ca2edae8702b52af3dbdadb7",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleScreenChanges": false,
+    "existingDenials": "preserve",
+    "providerWrites": false,
+    "activation": false
   }
 }

@@ -1,0 +1,114 @@
+name: Deploy staff external telephone calling
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/external-calls-production.yml'
+      - 'cloudflare/workers/src/business-tasks/external-call-*'
+      - 'packages/shared/src/communications/twilio-call-fetch*'
+      - 'websites/typescript/src/external-calls.ts'
+      - 'tools/governance-production/external*call*'
+      - 'tools/governance-production/test-external-call-*'
+      - 'scripts/*external-call*'
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency: {group: primecare-external-calls-production, cancel-in-progress: false}
+jobs:
+  metadata:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: communication_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: communication_registration_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communication_fixture -d communication_registration_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      WORKFLOW_TEST_DATABASE_URL: postgres://communication_fixture:disposable-only@localhost:5432/communication_registration_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - run: python tools/governance-production/test-external-call-registration.py
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: twilio_fixture, POSTGRES_PASSWORD: fixture_only, POSTGRES_DB: twilio_sms_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U twilio_fixture -d twilio_sms_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      TWILIO_SMS_TEST_DATABASE_URL: postgres://twilio_fixture:fixture_only@localhost:5432/twilio_sms_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/external-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 esbuild@0.27.2 twilio@6.2.0 @twilio/voice-sdk@2.18.5 miniflare@4.20260730.0 playwright@1.56.1
+          ln -s "$RUNNER_TEMP/external-tools/node_modules" node_modules
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/business-tasks/external-call-worker.ts websites/typescript/src/external-calls.ts websites/typescript/src/internal-calls.ts
+          node --test scripts/test-external-calls.mjs scripts/test-communication-gateway.mjs scripts/test-voice-contact-deployment-plan.mjs
+          node scripts/test-external-call-native.mjs
+          node scripts/test-external-call-workerd.mjs
+          CALL_BROWSER_EXECUTABLE=/usr/bin/google-chrome node scripts/test-external-call-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: external-call-native, path: test-results/external-calls, retention-days: 30}
+  deploy:
+    needs: [metadata,native]
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 18
+    env:
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+      TWILIO_API_KEY_SID: ${{ secrets.TWILIO_API_KEY_SID }}
+      TWILIO_API_KEY_SECRET: ${{ secrets.TWILIO_API_KEY_SECRET }}
+      TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+      TWILIO_APPLICATION_SID: ${{ secrets.TWILIO_APPLICATION_SID }}
+      GOVERNANCE_WORKFLOW_WRITES: '1'
+      GOVERNANCE_EXTERNAL_CALLS: '1'
+      GOVERNANCE_EXTERNAL_CALL_ACCESS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/external-deploy" --ignore-scripts --no-audit --no-fund wrangler@4.68.1
+          ln -s "$RUNNER_TEMP/external-deploy/node_modules" node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Register exact contracts and current staff access, preserving denials
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          mkdir -p test-results/external-calls
+          python tools/governance-production/external_call_registration.py --dry-run
+          python tools/governance-production/external_call_registration.py --apply
+          python tools/governance-production/external_call_registration.py --verify > test-results/external-calls/contracts.log
+          python tools/governance-production/external_call_access_registration.py --dry-run
+          python tools/governance-production/external_call_access_registration.py --apply
+          python tools/governance-production/external_call_access_registration.py --verify > test-results/external-calls/access.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for name,tag in [('contracts','EXTERNAL_CALL_REGISTRATION '),('access','EXTERNAL_CALL_ACCESS ')]:
+           line=next(l for l in Path('test-results/external-calls/'+name+'.log').read_text().splitlines() if l.startswith(tag))
+           Path('test-results/external-calls/'+name+'.json').write_text(json.dumps(json.loads(line[len(tag):])))
+          PY
+      - name: Deploy native staff phone boundary and preserve existing number routing
+        run: node scripts/deploy-external-calls.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: external-call-deployment, path: test-results/external-calls, retention-days: 30}
+  websites:
+    needs: deploy
+    uses: ./.github/workflows/deploy-typescript-websites.yml
+    with: {confirm: DEPLOY}
+    secrets: inherit

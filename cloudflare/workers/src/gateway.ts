@@ -1,5 +1,6 @@
 import {BaseWorker, workerHandler} from './core/base-worker';
 import governedReadAliases from './governed-read-aliases.json';
+import externalCalls from '../../../tools/governance-production/external-call-registration.json';
 import callPreparation from '../../../tools/governance-production/internal-call-preparation-registration.json';
 import callEvents from '../../../tools/governance-production/internal-call-events-registration.json';
 import callContracts from '../../../tools/governance-production/internal-call-contracts-registration.json';
@@ -7,7 +8,7 @@ import contactContracts from '../../../tools/governance-production/voice-contact
 import communicationContracts from '../../../packages/shared/src/communications/registered-contracts.json';
 interface Service { fetch(request: Request): Promise<Response> }
 interface Env {
-  INTERNAL_CALLS?: Service; VOICE_CONTACT?: Service; AUTH: Service; CLIENT: Service; PROVIDER: Service; VISIT: Service;
+  EXTERNAL_CALLS?: Service; INTERNAL_CALLS?: Service; VOICE_CONTACT?: Service; AUTH: Service; CLIENT: Service; PROVIDER: Service; VISIT: Service;
   NOTES: Service; BILLING: Service; SCHEDULING: Service; NOTIFICATION: Service;
   VERIFICATION: Service; COMPLIANCE: Service; GOVERNANCE: Service; FRANCHISE_REPORTING: Service;
 }
@@ -63,6 +64,8 @@ export class GatewayWorker extends BaseWorker<Env> {
       if(!env.INTERNAL_CALLS)return withGatewayHeaders(request,Response.json({error:'calls_unavailable'},{status:503}));
       return withGatewayHeaders(request,await env.INTERNAL_CALLS.fetch(request));
     }
+    const external=externalCalls.operations.find(op=>op.path===url.pathname);
+    if(external){if(request.method!==external.method)return withGatewayHeaders(request,new Response(null,{status:405}));if(!env.EXTERNAL_CALLS)return withGatewayHeaders(request,Response.json({error:'unavailable'},{status:503}));return withGatewayHeaders(request,await env.EXTERNAL_CALLS.fetch(request));}
     const contact=contactContracts.operations.find(op=>op.path===url.pathname);
     if(contact){
       if(request.method!==contact.method)return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:contact.method}}));

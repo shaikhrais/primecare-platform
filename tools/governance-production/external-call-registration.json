@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "requirement": "User-initiated staff browser-to-telephone calls. Current session and exact API/screen grants; server-owned caller ID, one active reservation per staff member, signed one-use call binding. No automated dialing, recording, number inbound-routing changes or AI dependency.",
+  "implementationStatus": "registered-unimplemented",
+  "activation": false,
+  "service": "governance",
+  "anchorApiId": 710,
+  "operations": [
+    {
+      "key": "external.prepare",
+      "method": "POST",
+      "path": "/v1/external-calls/prepare",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "pattern": "^\\+[1-9][0-9]{6,14}$",
+            "maxLength": 16
+          },
+          "requestId": {
+            "type": "string",
+            "pattern": "^[a-f0-9-]{36}$",
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "phone",
+          "requestId"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "ticket": {
+            "type": "string",
+            "pattern": "^[a-f0-9-]{36}$",
+            "maxLength": 36
+          },
+          "phone": {
+            "type": "string",
+            "pattern": "^\\+[1-9][0-9]{6,14}$",
+            "maxLength": 16
+          },
+          "expiresAt": {
+            "type": "integer"
+          },
+          "token": {
+            "type": "string",
+            "maxLength": 8192
+          },
+          "identity": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "callerId": {
+            "type": "string",
+            "pattern": "^\\+[1-9][0-9]{6,14}$",
+            "maxLength": 16
+          }
+        },
+        "required": [
+          "status",
+          "ticket",
+          "phone",
+          "expiresAt",
+          "token",
+          "identity",
+          "callerId"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "key": "external.state",
+      "method": "POST",
+      "path": "/v1/external-calls/state",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "ticket": {
+            "type": "string",
+            "pattern": "^[a-f0-9-]{36}$",
+            "maxLength": 36
+          },
+          "phone": {
+            "type": "string",
+            "pattern": "^\\+[1-9][0-9]{6,14}$",
+            "maxLength": 16
+          },
+          "expiresAt": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "key": "external.end",
+      "method": "POST",
+      "path": "/v1/external-calls/end",
+      "authentication": "native-session-csrf",
+      "responseKind": "json",
+      "permission": "role_screen_permissions",
+      "request": {
+        "type": "object",
+        "properties": {
+          "ticket": {
+            "type": "string",
+            "pattern": "^[a-f0-9-]{36}$",
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "ticket"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "key": "external.connect",
+      "method": "POST",
+      "path": "/v1/external-calls/connect",
+      "authentication": "twilio-signature",
+      "responseKind": "xml",
+      "permission": "provider_signature",
+      "request": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "response": {
+        "type": "string",
+        "maxLength": 16384
+      }
+    },
+    {
+      "key": "external.complete",
+      "method": "POST",
+      "path": "/v1/external-calls/complete",
+      "authentication": "twilio-signature",
+      "responseKind": "xml",
+      "permission": "provider_signature",
+      "request": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "response": {
+        "type": "string",
+        "maxLength": 16384
+      }
+    }
+  ]
+}

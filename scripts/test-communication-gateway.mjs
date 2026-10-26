@@ -36,3 +36,7 @@ test('only five exact registered internal calling routes reach their binding unc
  }
  assert.equal((await gateway.fetch(new Request('https://gateway.example/v1/calls/unknown',{method:'POST'}),{})).status,404);
 });
+test('external calling mounts only exact registered routes and preserves native/provider bodies',async()=>{
+ const definition=JSON.parse(readFileSync('tools/governance-production/external-call-registration.json','utf8'));const calls=[];
+ for(const op of definition.operations){const env={EXTERNAL_CALLS:{async fetch(request){calls.push({url:request.url,body:await request.text()});return new Response('external-fixture',{status:403});}}};const request=new Request('https://gateway.invalid'+op.path,{method:'POST',headers:{'content-type':'application/json'},body:'{"fixture":true}'});const result=await gateway.fetch(request,env);assert.equal(result.status,403);assert.equal(calls.at(-1).url,request.url);assert.equal(calls.at(-1).body,'{"fixture":true}');}
+});

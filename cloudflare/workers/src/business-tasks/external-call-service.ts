@@ -1,0 +1,37 @@
+import {ScopedServiceBase,type Actor,type AccessPolicy,type AtomicStore,type RecordState} from '../../../../packages/shared/src/communications/service-base.ts';
+import AccessToken from 'twilio/lib/jwt/AccessToken.js';
+import {twilioVoiceIdentity} from '../../../../packages/shared/src/communications/twilio-voice.mjs';
+export type ExternalCallState=RecordState&{ownerId:string;ticket:string;sessionHash:string;phone:string;status:string;expiresAt:number;callSid?:string};
+export type ExternalCallPorts={current(hash:string):Promise<Actor>;lookup(actor:Actor):Promise<ExternalCallState|null>;verify(sid:string):Promise<{sid:string;accountSid:string;from:string;direction:string;status:string}>;terminate(sid:string):Promise<void>};
+export const externalPhone=(v:unknown):v is string=>typeof v==='string'&&/^\+[1-9][0-9]{6,14}$/.test(v);
+const uuid=(v:unknown):v is string=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/.test(v);
+export class ExternalCallService extends ScopedServiceBase{
+ readonly ports:ExternalCallPorts;readonly config:{accountSid:string;apiKeySid:string;apiKeySecret:string;applicationSid:string;callerId:string};readonly now:()=>number;
+ constructor(store:AtomicStore,policy:AccessPolicy,ports:ExternalCallPorts,config:{accountSid:string;apiKeySid:string;apiKeySecret:string;applicationSid:string;callerId:string},now=Date.now){super(store,policy);this.ports=ports;this.config=Object.freeze({...config});this.now=now;if(!/^AC[a-f0-9]{32}$/i.test(config.accountSid)||!/^SK[a-f0-9]{32}$/i.test(config.apiKeySid)||!/^AP[a-f0-9]{32}$/i.test(config.applicationSid)||!externalPhone(config.callerId)||typeof config.apiKeySecret!=='string'||config.apiKeySecret.length<16)throw Error('Configuration required');}
+ private id(actor:Actor){return 'external-call:'+actor.id;}
+ private async check(actor:Actor,action:string,state:ExternalCallState,hash?:string){if(state.id!==this.id(actor)||state.ownerId!==actor.id||state.kind!=='external_call'||hash!==undefined&&state.sessionHash!==hash)throw Error('Forbidden');await this.checkAccess(actor,action,state,['external_call']);const current=await this.ports.current(state.sessionHash);if(current.id!==actor.id||current.tenantId!==actor.tenantId)throw Error('Forbidden');}
+ private view(s:ExternalCallState){return {ticket:s.ticket,status:s.status,expiresAt:s.expiresAt,phone:s.phone};}
+ async prepare(actor:Actor,hash:string,input:{phone:string;requestId:string}){
+  if(!externalPhone(input.phone)||!uuid(input.requestId)||! /^[a-f0-9]{64}$/.test(hash)||input.phone===this.config.callerId)throw Error('Invalid input');
+  const draft:ExternalCallState={id:this.id(actor),kind:'external_call',version:0,tenantId:actor.tenantId,ownerId:actor.id,ticket:input.requestId,sessionHash:hash,phone:input.phone,status:'prepared',expiresAt:this.now()+120000};
+  await this.check(actor,'external.prepare',draft,hash);const old=await this.ports.lookup(actor);
+  // Fixed staff aggregate and inherited advisory lock prevent simultaneous calls.
+  if(old?.ticket===input.requestId){if(old.phone!==input.phone)throw Error('Idempotency conflict');await this.check(actor,'external.prepare',old,hash);if(old.status!=='prepared'||old.expiresAt<=this.now())throw Error('Call unavailable');}
+  else await this.store.run({actor,id:draft.id,key:input.requestId,expectedVersion:old?.version??0,type:'external.prepare',payload:{phone:input.phone,sessionHash:hash}},async state=>{await this.check(actor,'external.prepare',draft,hash);if(state&&(state.ownerId!==actor.id||state.tenantId!==actor.tenantId))throw Error('Forbidden');},async state=>{if(state&&['prepared','active'].includes(state.status)&&state.expiresAt>this.now())throw Error('Call busy');return {state:draft,event:'external.prepared'};});
+  const state=await this.ports.lookup(actor);if(!state||state.ticket!==input.requestId)throw Error('Call unavailable');await this.check(actor,'external.prepare',state,hash);
+  const identity=await twilioVoiceIdentity({tenantId:actor.tenantId,userId:actor.id}),token=new AccessToken(this.config.accountSid,this.config.apiKeySid,this.config.apiKeySecret,{identity,ttl:120});token.addGrant(new AccessToken.VoiceGrant({incomingAllow:false,outgoingApplicationSid:this.config.applicationSid}));
+  return {...this.view(state),token:token.toJwt(),identity,callerId:this.config.callerId};
+ }
+ async state(actor:Actor,hash:string){const s=await this.ports.lookup(actor);if(!s){await this.check(actor,'external.state',{id:this.id(actor),kind:'external_call',version:0,tenantId:actor.tenantId,ownerId:actor.id,sessionHash:hash,ticket:'',phone:'',status:'idle',expiresAt:0},hash);return {status:'idle'};}await this.check(actor,'external.state',{...s,sessionHash:hash},hash);return this.view(s);}
+ async connect(actor:Actor,ticket:string,callSid:string,from:string){
+  if(!uuid(ticket)||!/^CA[a-f0-9]{32}$/i.test(callSid)||from!=='client:'+await twilioVoiceIdentity({tenantId:actor.tenantId,userId:actor.id}))throw Error('Forbidden');
+  const s=await this.ports.lookup(actor);if(!s||s.ticket!==ticket)throw Error('Forbidden');await this.check(actor,'external.prepare',s);
+  const call=await this.ports.verify(callSid);if(call.sid!==callSid||call.accountSid!==this.config.accountSid||call.from!==from||call.direction!=='inbound'||!['queued','ringing','in-progress'].includes(call.status))throw Error('Forbidden');
+  if(s.status==='active'&&s.callSid===callSid)return {phone:s.phone,callerId:this.config.callerId};
+  await this.store.run({actor,id:s.id,key:'connect:'+callSid,expectedVersion:s.version,type:'external.connect',payload:{ticket,callSid}},async state=>{if(!state||state.ticket!==ticket)throw Error('Forbidden');await this.check(actor,'external.prepare',state as ExternalCallState);},async state=>{if(state!.status!=='prepared'||state!.expiresAt<=this.now())throw Error('Call unavailable');return {state:{...state!,status:'active',callSid,expiresAt:this.now()+3600000},event:'external.connected'};});
+  const current=await this.ports.lookup(actor);if(!current||current.callSid!==callSid||current.status!=='active')throw Error('Call unavailable');await this.check(actor,'external.prepare',current);return {phone:current.phone,callerId:this.config.callerId};
+ }
+ async end(actor:Actor,hash:string,ticket:string){const s=await this.ports.lookup(actor);if(!s||s.ticket!==ticket)throw Error('Not found');await this.check(actor,'external.end',{...s,sessionHash:hash},hash);await this.finish(actor,s,'ended','end:'+ticket);if(s.callSid&&['prepared','active'].includes(s.status))await this.ports.terminate(s.callSid);return {status:'ended'};}
+ async complete(actor:Actor,callSid:string,status:string){const s=await this.ports.lookup(actor);if(!s||s.callSid!==callSid||!['completed','busy','no-answer','failed','canceled'].includes(status))throw Error('Forbidden');return this.finish(actor,s,status,'complete:'+callSid);}
+ private finish(actor:Actor,s:ExternalCallState,status:string,key:string){if(!['prepared','active'].includes(s.status))return Promise.resolve({status:s.status});return this.store.run({actor,id:s.id,key,expectedVersion:s.version,type:'external.finish',payload:{ticket:s.ticket,status}},async current=>{if(!current||current.ownerId!==actor.id||current.tenantId!==actor.tenantId||current.ticket!==s.ticket)throw Error('Forbidden');},async current=>({state:{...current!,status,expiresAt:this.now()},event:'external.finished'}));}
+}

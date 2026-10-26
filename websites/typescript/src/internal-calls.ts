@@ -1,3 +1,4 @@
+import {ExternalCallsPanel} from './external-calls';
 import {BatchedIcePeerConnection} from './infrastructure/webrtc/batched-peer';
 import {CommunicationResourceBase} from '../../../packages/shared/src/communications/adapter-base.mjs';
 import {BrowserCallEvents} from '../../../packages/shared/src/communications/call-events.mjs';
@@ -23,6 +24,7 @@ export class InternalCallsPanel extends CommunicationResourceBase {
   this.registerCleanup(()=>this.events.close());
   const t=(key:string)=>escape(this.labels[key]),button=(key:string)=>`<button type="button" data-call="${key}" data-cy="internal-call-${key}">${t(key)}</button>`;
   renderShell(root,{home:escape(context.home),role:escape(context.role),navigation:context.navigation,controls:`<a href="${escape(context.home)}">${t('back')}</a>`,content:`<section class="section" data-cy="internal-call-panel"><h1>${t('title')}</h1><p>${t('ready')}</p><p data-cy="internal-call-own"></p><div>${button('enable')}${button('disable')}${button('refresh')}${button('notifications')}</div><form data-cy="internal-call-dial-form"><label>${t('extension')} <input data-cy="internal-call-extension" name="extension" inputmode="numeric" pattern="[1-9][0-9]{3}" maxlength="4" required></label><button data-call="dial" data-cy="internal-call-dial">${t('dial')}</button></form><button type="button" data-call="pending" data-cy="internal-call-pending" hidden>${t('pending')}</button><p role="status" aria-live="polite" data-cy="internal-call-status">${t('loading')}</p><div data-cy="internal-call-active"></div><div data-cy="internal-call-controls">${button('answer')}${button('decline')}${button('end')}${button('start')}${button('mute')}${button('hear')}</div><h2>${t('directory')}</h2><div data-cy="internal-call-directory"></div><ul data-cy="internal-call-history"></ul><div data-cy="internal-call-audio"></div></section>`});
+  const externalRoot=document.createElement('section');root.querySelector('[data-cy=internal-call-panel]')!.append(externalRoot);const external=new ExternalCallsPanel(externalRoot,gateway,token);this.registerCleanup(()=>external.close());
   bindShell(root,this.labels.title,locale,'calls:'+this.userId,()=>[]);
   this.audio.autoplay=true;this.audio.setAttribute('playsinline','');this.audio.controls=false;root.querySelector('[data-cy=internal-call-audio]')!.append(this.audio);
   const click=(event:Event)=>{const element=(event.target as Element).closest<HTMLButtonElement>('[data-call]');if(!element)return;const action=element.dataset.call!;if(action==='dial')return;
