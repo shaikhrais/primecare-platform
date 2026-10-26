@@ -4,11 +4,14 @@ Internal audio calling is deployed for active users with existing communication
 access, within the same tenant. It uses WebRTC and Cloudflare TURN. Twilio is not
 required for this internal calling path.
 
-The live production test passed in both call directions, including a call back.
-The latest answer-to-audio connection took **10,040 ms**, following 11,043 ms
-in the preceding combined-query test. The measurement starts at the Answer click
-and ends when both peers report connected relay audio. Calling works, but the
-one-second setup target remains unmet.
+The latest production test passed in both call directions, including a call back.
+Both relay transports connected before Answer with zero microphone tracks.
+Answer-to-bidirectional-relay-audio took **5,047 ms**, following 7,071 ms with
+pooled preparation and 10,040 ms with authenticated push. This measurement starts
+at the Answer click and ends when both peers report connected relay audio with
+more than ten received audio packets. The one-second production target remains
+unmet. The separate local real-Chromium transport test took 352 ms; that test
+excludes production authorization and TURN.
 
 ## Use calling
 
@@ -47,7 +50,7 @@ Operational presence updates preserve signaling versions. Ringing expires after
 45 seconds; accepted calls lose their lease after 90 seconds without presence.
 The inbox prioritizes active calls and excludes inactive-party histories.
 
-The five registered POST APIs are directory, extension, dial, command and media
+The original five registered POST APIs are directory, extension, dial, command and media
 under `/v1/calls/` (native IDs 16542–16546). They use native opaque sessions and
 current existing-screen grants. Media credentials require a current accepted
 call and participant scope. Long-lived TURN secrets stay encrypted in the owned
@@ -148,7 +151,7 @@ check current native sessions and both API/screen permissions. Three browser
 resource tests cover authentication, denial, cleanup and reconnect fallback;
 three native metadata tests cover existing-grant eligibility and deny preservation.
 
-## Verification evidence
+## Earlier push verification evidence
 
 - Deployed source: `3b6feca3e0c911de0da0779f1f932b2b3a23523f`.
 - [Production workflow 40247396185](https://github.com/shaikhrais/primecare-platform/actions/runs/40247396185): all 17 jobs passed, including metadata, native checks, deployment, nine website publications and live acceptance.
@@ -161,11 +164,67 @@ three native metadata tests cover existing-grant eligibility and deny preservati
 records the source and job identities. This is functional execution evidence;
 independent governance review flags were not marked approved.
 
+## Current silent transport and verification
+
+Three preparation POST contracts are registered with independent native readback:
+
+| Route | Native API | Purpose |
+| --- | --- | --- |
+| `/v1/calls/prepare` | 16548 | Short-lived relay credentials for unexpired ringing or accepted parties |
+| `/v1/calls/prepare/read` | 16549 | Current session, command/media and own API/screen grants, policy, state and active participants in one read-only SQL snapshot |
+| `/v1/calls/prepare/signal` | 16550 | Inherited atomic offer/answer signaling during an unexpired ring or accepted call |
+
+Only current same-tenant call parties can use these contracts. Existing command
+and media grants are prerequisites; explicit denies are preserved. Four existing
+eligible roles have the additive preparation grants and 12 screen links. The
+original media and signaling routes retain their accepted-call requirements;
+ordinary command reads continue to hide ringing SDP. The separately scoped
+preparation read releases it only after its current permission and participant
+checks. Original screen-link purpose text is preserved as historical registration
+metadata; the pinned preparation contract describes the new silent-SDP scope.
+
+During ringing, the caller creates an empty audio transceiver and the recipient
+adopts the incoming offer's audio transceiver, setting it to send and receive
+before answering. No microphone is acquired and no remote stream is delivered to
+playback yet. On acceptance, a fresh current-state read precedes microphone
+capture. Captured tracks remain disabled until another current accepted-call
+read passes, then replace the negotiated sender's track. No second SDP exchange
+is needed. Acceptance initializes both presence leases in the inherited atomic
+transition; subsequent heartbeats preserve semantic versions. A current-state
+read prompted by authenticated push can start media without waiting for inbox
+polling. One-second authorization watchdogs and close/navigation cleanup remain.
+
+The recipient-transceiver rule matters: a separately `addTransceiver`-created
+answerer sender is not associated with the remote offer. An intermediate source
+connected both transports but produced one-way audio; its failed live test
+completed synthetic cleanup. The corrected source reuses the offered sender.
+See the [W3C transceiver specification](https://w3c.github.io/webrtc-pc/#rtcrtptransceiver-interface).
+A real-Chromium preconnection test now gates deployment and checks both connected
+peers, zero microphones and no playback delivery before acceptance, two active
+microphones afterwards, two-way audio packets and exactly two SDP writes.
+
+- Current deployed source: `bcc701eeb6b8f005487f639d15a0ce42236fceb4`.
+- [Production workflow 40256035852](https://github.com/shaikhrais/primecare-platform/actions/runs/40256035852): all 17 jobs passed, including native metadata, PostgreSQL, real Chromium, deployment, nine websites and live acceptance.
+- Core unit suite: 67 passed, one existing optional skip. Adapter/Flutter bridge: 31 passed. Events browser: 3 passed. Native endpoint: 7 passed. Twelve PostgreSQL HTTP groups and the current-scope context flow also passed.
+- Native checks include old-route rejection before acceptance, separate preparation signaling, hidden ordinary ringing SDP, current media revocation, nonparty/tenant denial, expired sessions, inactive participants, policy/manifest drift and duplicate endpoint denial. Readiness uses exactly one native query.
+- Real local Chromium: both connected before Answer with zero microphone tracks; two-way audio after acceptance in 352 ms. This is transport evidence, not production latency.
+- Real production Chrome 155.0.8059.39: both preconnected relay peers had zero microphone tracks before Answer. Both call directions, increasing two-way audio packets, mute/end, idempotent dial, independent PostgreSQL readback, tenant denial and session-revocation cleanup passed.
+- Production answer-to-audio: 5,047 ms, sampled at approximately one-second intervals. The acceptance request took 2,030 ms. The recipient activated its microphone at about 3,154 ms and the caller at 4,378 ms after the Answer clock estimate. ICE gathering finished before Answer (312/322 ms); remaining latency is in acceptance and current-state/media activation, not connection gathering.
+- All synthetic users, sessions, extensions and owned call/tenant records were removed. Evidence contains no credentials, raw audio, SDP or IP addresses. Independent governance review flags were not marked approved.
+
+[Current preparation performance and receipts](../../reports/communications/internal-calling-preparation-performance-20261025.json)
+include exact sources, jobs, stages and limits. The
+[preceding pooled-preparation receipt](../../reports/communications/internal-calling-pooled-preparation-performance-20261025.json)
+records the independently successful 7,071-ms checkpoint.
+
 ## Known limits
 
-Initial setup remains slow (10.0 seconds after answering in the latest live test). One-second
-calling is not verified. The proof used synthetic microphone audio in real
-authenticated browser sessions against live infrastructure. Physical device
+The latest production setup took 5.047 seconds after Answer despite both
+transports being connected beforehand. One-second production calling is not
+verified. Each source has one controlled run, not a latency distribution. The
+proof used synthetic audio and pregranted microphone permissions in real
+authenticated browser sessions against live infrastructure. First-use permission
+prompts and blocked autoplay can add user-dependent delay. Physical device
 acoustics, every browser/network combination, closed-app ringing, real-speaker
 biometrics and public telephone calling are not claimed by this evidence.
 

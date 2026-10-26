@@ -1,0 +1,346 @@
+{
+  "version": 1,
+  "status": "pooled-ringing-preparation-live-verified-one-second-target-unmet",
+  "deploymentSource": "18e9d2e5f7d4a029d6f91d20bdc3ce05c84698df",
+  "workflow": {
+    "runId": 40252318248,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/40252318248",
+    "jobs": [
+      {
+        "id": 121346694268,
+        "name": "metadata",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121346694460,
+        "name": "account_catalog",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121346694466,
+        "name": "native",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121346694477,
+        "name": "readiness",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121347489091,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121348514598,
+        "name": "websites / verify_gateway",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121348658363,
+        "name": "websites / build",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121348820219,
+        "name": "websites / deploy (primecare-business-development)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121348820316,
+        "name": "websites / deploy (primecare-client)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121348820351,
+        "name": "websites / deploy (primecare-clinic)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121348929522,
+        "name": "websites / deploy (primecare-corporate)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121348944600,
+        "name": "websites / deploy (primecare-franchise)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121348956620,
+        "name": "websites / deploy (primecare-marketing)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121349058090,
+        "name": "websites / deploy (primecare-support)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121349082289,
+        "name": "websites / deploy (primecare-governance)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121349099135,
+        "name": "websites / deploy (primecare-enterprise-blueprint)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121349206561,
+        "name": "live",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "liveReceipt": {
+    "source": "18e9d2e5f7d4a029d6f91d20bdc3ce05c84698df",
+    "passed": true,
+    "synthetic": true,
+    "liveBrowsers": true,
+    "relayAudio": true,
+    "syntheticCleanup": true,
+    "stage": "complete",
+    "nativeLogin": true,
+    "explicitExtensionPublication": true,
+    "noPrematureMicrophone": true,
+    "bothPreparedWithoutMicrophone": true,
+    "mediaSummary": [
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 45,
+        "relay": true
+      },
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 44,
+        "relay": true
+      }
+    ],
+    "connectionMilliseconds": 7071,
+    "mediaStageTimings": [
+      [
+        {
+          "stage": "prepare_start",
+          "millisecondsFromAnswerEstimate": -7758
+        },
+        {
+          "stage": "peer_prepared",
+          "millisecondsFromAnswerEstimate": -250
+        },
+        {
+          "stage": "prepare_ready",
+          "millisecondsFromAnswerEstimate": -250
+        },
+        {
+          "stage": "start",
+          "millisecondsFromAnswerEstimate": 2359
+        },
+        {
+          "stage": "acceptance_checked",
+          "millisecondsFromAnswerEstimate": 3015
+        },
+        {
+          "stage": "microphone_request",
+          "millisecondsFromAnswerEstimate": 3015
+        },
+        {
+          "stage": "microphone_acquired",
+          "millisecondsFromAnswerEstimate": 3018
+        },
+        {
+          "stage": "microphone_acceptance_checked",
+          "millisecondsFromAnswerEstimate": 3385
+        },
+        {
+          "stage": "offer_start",
+          "millisecondsFromAnswerEstimate": 3386
+        },
+        {
+          "stage": "offer_gather_start",
+          "millisecondsFromAnswerEstimate": 3402
+        },
+        {
+          "stage": "offer_ice_ready",
+          "millisecondsFromAnswerEstimate": 3480
+        },
+        {
+          "stage": "offer_committed",
+          "millisecondsFromAnswerEstimate": 4445
+        },
+        {
+          "stage": "peer_connecting",
+          "millisecondsFromAnswerEstimate": 6031
+        },
+        {
+          "stage": "peer_connected",
+          "millisecondsFromAnswerEstimate": 6111
+        }
+      ],
+      [
+        {
+          "stage": "prepare_start",
+          "millisecondsFromAnswerEstimate": -7508
+        },
+        {
+          "stage": "peer_prepared",
+          "millisecondsFromAnswerEstimate": -250
+        },
+        {
+          "stage": "prepare_ready",
+          "millisecondsFromAnswerEstimate": -250
+        },
+        {
+          "stage": "start",
+          "millisecondsFromAnswerEstimate": 1249
+        },
+        {
+          "stage": "acceptance_checked",
+          "millisecondsFromAnswerEstimate": 1747
+        },
+        {
+          "stage": "microphone_request",
+          "millisecondsFromAnswerEstimate": 1747
+        },
+        {
+          "stage": "microphone_acquired",
+          "millisecondsFromAnswerEstimate": 1842
+        },
+        {
+          "stage": "microphone_acceptance_checked",
+          "millisecondsFromAnswerEstimate": 2313
+        },
+        {
+          "stage": "answer_start",
+          "millisecondsFromAnswerEstimate": 4510
+        },
+        {
+          "stage": "answer_gather_start",
+          "millisecondsFromAnswerEstimate": 4539
+        },
+        {
+          "stage": "peer_connecting",
+          "millisecondsFromAnswerEstimate": 4638
+        },
+        {
+          "stage": "answer_ice_ready",
+          "millisecondsFromAnswerEstimate": 4680
+        },
+        {
+          "stage": "answer_committed",
+          "millisecondsFromAnswerEstimate": 5645
+        },
+        {
+          "stage": "peer_connected",
+          "millisecondsFromAnswerEstimate": 6107
+        }
+      ]
+    ],
+    "callEventSummary": [
+      [
+        {
+          "ready": 1,
+          "changed": 3,
+          "signal": 1,
+          "closed": []
+        }
+      ],
+      [
+        {
+          "ready": 1,
+          "changed": 3,
+          "signal": 1,
+          "closed": []
+        }
+      ]
+    ],
+    "authenticatedPushVerified": true,
+    "audioVerificationMilliseconds": 8580,
+    "bidirectionalPacketGrowth": true,
+    "independentNativeReadback": true,
+    "muteVerified": true,
+    "reverseMediaSummary": [
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 47,
+        "relay": true
+      },
+      {
+        "gatherOutcome": "complete",
+        "candidateCount": 6,
+        "iceErrors": [],
+        "connectionState": "connected",
+        "iceState": "connected",
+        "signalingState": "stable",
+        "ready": true,
+        "packets": 48,
+        "relay": true
+      }
+    ],
+    "reverseCallingVerified": true,
+    "revokedSessionMediaReleased": true,
+    "endVerified": true,
+    "foreignTenantDenied": true,
+    "idempotentDial": true
+  },
+  "interpretation": {
+    "answerToAudioMilliseconds": 7071,
+    "previousAuthenticatedPushMilliseconds": 10040,
+    "iceGatheringMilliseconds": {
+      "caller": 78,
+      "recipient": 141
+    },
+    "callerMediaStartupMillisecondsAfterAnswerEstimate": 2359,
+    "calleeMediaStartupMillisecondsAfterAnswerEstimate": 1249,
+    "bothPooledBeforeAnswerWithoutMicrophone": true,
+    "fullTransportConnectedBeforeAnswer": false,
+    "oneSecondTargetVerified": false
+  },
+  "changes": [
+    "Current session, command/media/preparation API and screen grants and participants in one read-only readiness SQL snapshot",
+    "TURN credentials and pooled peer prepared while ringing, no microphone or SDP before acceptance in this source",
+    "Removed redundant push refresh and heartbeat work before media startup",
+    "Current authorization before and after microphone capture; one-second ongoing revocation checks"
+  ],
+  "limits": [
+    "Single synthetic-audio run in real authenticated browsers against production infrastructure; not a latency distribution or physical-device audio test",
+    "Browser test polls audio readiness once per second; connectionMilliseconds includes readiness observation delay",
+    "No additional indexes were justified; remaining overhead includes sequential native API reads and offer/answer writes",
+    "Later silent-transport candidate must be independently verified"
+  ]
+}
