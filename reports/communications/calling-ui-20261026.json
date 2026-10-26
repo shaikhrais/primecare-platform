@@ -1,0 +1,172 @@
+{
+  "status": "mobile-calling-ui-deployed",
+  "source": "6fbaf5782db503d9a2b86d935549b0ffae9a7edb",
+  "workflowRun": 40336738062,
+  "workflowUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/40336738062",
+  "jobs": [
+    {
+      "id": 121620223179,
+      "name": "metadata",
+      "conclusion": "success"
+    },
+    {
+      "id": 121620223578,
+      "name": "native",
+      "conclusion": "success"
+    },
+    {
+      "id": 121621035777,
+      "name": "deploy",
+      "conclusion": "success"
+    },
+    {
+      "id": 121622214349,
+      "name": "websites / verify_gateway",
+      "conclusion": "success"
+    },
+    {
+      "id": 121622269658,
+      "name": "websites / build",
+      "conclusion": "success"
+    },
+    {
+      "id": 121622860760,
+      "name": "websites / deploy (primecare-client)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121622860793,
+      "name": "websites / deploy (primecare-clinic)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121622860898,
+      "name": "websites / deploy (primecare-business-development)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121623102905,
+      "name": "websites / deploy (primecare-corporate)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121623131660,
+      "name": "websites / deploy (primecare-franchise)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121623170906,
+      "name": "websites / deploy (primecare-marketing)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121623348422,
+      "name": "websites / deploy (primecare-support)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121623396592,
+      "name": "websites / deploy (primecare-governance)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121623432988,
+      "name": "websites / deploy (primecare-enterprise-blueprint)",
+      "conclusion": "success"
+    },
+    {
+      "id": 121623687828,
+      "name": "live_ready",
+      "conclusion": "success"
+    }
+  ],
+  "browser": {
+    "source": "6fbaf5782db503d9a2b86d935549b0ffae9a7edb",
+    "passed": true,
+    "realBrowser": true,
+    "providerSdkStubbed": true,
+    "noAutomaticCall": true,
+    "opaqueTicketOnly": true,
+    "muteAndHangup": true,
+    "tokenRenewal": true,
+    "cleanup": true,
+    "mobileWidths": [
+      320,
+      390,
+      768,
+      1280
+    ],
+    "noHorizontalOverflow": true,
+    "touchTargetsAtLeast48px": true,
+    "phoneLockedWhileCalling": true,
+    "muteStateResetsBetweenCalls": true,
+    "livePhoneTraffic": false
+  },
+  "deployment": {
+    "source": "6fbaf5782db503d9a2b86d935549b0ffae9a7edb",
+    "deployed": true,
+    "gatewayConnected": true,
+    "phoneRoutingChanged": false,
+    "livePhoneCallVerified": false,
+    "callsPlaced": 0,
+    "origin": "https://primecare-external-calls-api.itpro-mohammed.workers.dev",
+    "gatewayOrigin": "https://primecare-api-gateway.itpro-mohammed.workers.dev",
+    "stage": "complete",
+    "callerIdOwned": true,
+    "applicationReady": true
+  },
+  "liveReadiness": [
+    {
+      "source": "6fbaf5782db503d9a2b86d935549b0ffae9a7edb",
+      "passed": true,
+      "callsPlaced": 0,
+      "livePhoneCallVerified": false,
+      "syntheticCleanup": true,
+      "nativeLogin": true,
+      "mfa": false,
+      "staffApiAuthorized": true,
+      "codeAdminPlatformCalls": false,
+      "dialPadVisible": true,
+      "noAutomaticProviderTraffic": true
+    },
+    {
+      "source": "6fbaf5782db503d9a2b86d935549b0ffae9a7edb",
+      "passed": true,
+      "callsPlaced": 0,
+      "livePhoneCallVerified": false,
+      "syntheticCleanup": true,
+      "nativeLogin": true,
+      "mfa": true,
+      "staffApiAuthorized": true,
+      "codeAdminPlatformCalls": true,
+      "dialPadVisible": true,
+      "noAutomaticProviderTraffic": true
+    }
+  ],
+  "visualReview": {
+    "syntheticFixtureScreensInspected": [
+      "mobile-ready",
+      "mobile-connected"
+    ],
+    "viewportWidth": 390,
+    "passed": true
+  },
+  "changes": [
+    "Responsive themed card and larger number field",
+    "Caller ID displayed from native prepare response",
+    "Call status with live announcements",
+    "Touch targets at least 48px high",
+    "Number entry locked while calling",
+    "Mute state reset between calls",
+    "Mute disabled for restored reservation without local media"
+  ],
+  "boundaries": {
+    "providerSdkStubbedInBrowserFixtures": true,
+    "callsPlaced": 0,
+    "realPstnAudioVerified": false,
+    "physicalHandsetVerified": false,
+    "authAndNativeContractsUnchanged": true,
+    "staffOnlyCallingPolicyRetained": true,
+    "scopedChecksOnly": true
+  }
+}

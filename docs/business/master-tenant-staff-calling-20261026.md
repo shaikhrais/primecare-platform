@@ -69,7 +69,8 @@ separate from the browser/permission and master-tenant changes here.
 
 ## Deployed result
 
-Source `fe0d3928bd050d39fc4a9ed421280875e41164a4` is deployed.
+The master-tenant feature first shipped from source
+`fe0d3928bd050d39fc4a9ed421280875e41164a4`.
 [External workflow 40332200589](https://github.com/shaikhrais/primecare-platform/actions/runs/40332200589)
 passed all 15 jobs; [internal regression 40332200572](https://github.com/shaikhrais/primecare-platform/actions/runs/40332200572)
 passed all 17. The production synthetic Code Admin check completed MFA,
@@ -81,3 +82,24 @@ include current-source job IDs, independent hierarchy/access readback and the
 internal relay-media regression. These are scoped workflow checks and do not
 mark independent governance review flags approved or assert all repository CI
 is green.
+
+## Mobile calling interface
+
+The shared dial pad was refreshed in source
+`6fbaf5782db503d9a2b86d935549b0ffae9a7edb`. It uses the existing theme tokens,
+a responsive calling card, a server-provided caller-ID display, a large telephone
+input and touch-friendly Call/Mute/End controls. Status includes preparing,
+calling, ringing, connected, ended and error states, with live announcements.
+The number locks while calling. Ending a muted call resets the indicator so Mute
+works correctly on the next call. A restored reservation has End available and
+Mute disabled until local media exists.
+
+Real-browser simulated-provider checks verify 320, 390, 768 and 1280 px widths,
+no horizontal overflow, 48 px minimum button height, ticket-only forwarding,
+token renewal, hangup, editable number after ending, and two consecutive calls
+with mute reset. Mobile ready/connected fixture screenshots were inspected.
+These are not physical Android or real carrier-audio tests. Current grants,
+server policy, reservation protocol and incoming routing are unchanged.
+
+[Mobile UI release receipts](../../reports/communications/calling-ui-20261026.json)
+record the current deployment and production staff/Code Admin readiness checks.

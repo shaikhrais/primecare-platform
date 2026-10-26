@@ -1,6 +1,6 @@
 # Staff-to-client telephone calling
 
-Outgoing browser-to-phone calling is deployed from source
+The initial outgoing browser-to-phone release shipped from source
 `6bf5689cf6adda3ae85143372d2f8dc04c436785`. Production workflow
 [40312624692](https://github.com/shaikhrais/primecare-platform/actions/runs/40312624692)
 passed all 15 jobs, including PostgreSQL, Worker runtime, browser controls,
@@ -89,3 +89,8 @@ Live synthetic browsers verified two-way relay media, reverse calling, mute,
 end, revoked-session media release and cleanup. That run measured 4,057 ms
 connection and 5,566 ms audio verification; it does not prove a one-second
 answer-to-audio target. The external service source above remains deployed.
+
+For the current Code Admin/master-tenant access and mobile dial pad, see the
+[staff calling guide](master-tenant-staff-calling-20261026.md) and
+[UI release receipts](../../reports/communications/calling-ui-20261026.json).
+The earlier source/job IDs above are retained as historical release evidence.
