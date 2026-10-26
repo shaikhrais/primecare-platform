@@ -1333,5 +1333,18 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "accountAssignments": false
+  },
+  "vapiAdminWriter": {
+    "optInVariable": "GOVERNANCE_VAPI_ADMIN_WRITES",
+    "tables": [
+      "api_endpoints",
+      "api_permissions",
+      "screen_api_links",
+      "role_screen_permissions"
+    ],
+    "definitionSha256": "4f93b8b4f16f1f22670f5161c6243788428773d8b6615c36c2cd541b70d94ad8",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "accountAssignments": false
   }
 }

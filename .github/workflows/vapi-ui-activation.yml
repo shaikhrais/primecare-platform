@@ -1,0 +1,48 @@
+name: Activate native Vapi management UI
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/vapi-ui-activation.yml', 'scripts/activate-vapi-ui.mjs', 'scripts/verify-live-vapi-ui.mjs', 'tools/governance-production/vapi_admin_registration.py']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test scripts/test-vapi-admin.mjs scripts/test-vapi-management.mjs scripts/test-vapi-agent-library.mjs
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install chromium
+      - run: node scripts/test-vapi-admin-browser.mjs
+      - run: npx tsc -p websites/typescript/tsconfig.vapi-admin.json
+  activate:
+    needs: verify
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    concurrency: {group: primecare-cloudflare-typescript-production, cancel-in-progress: false}
+    env:
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
+      GOVERNANCE_WORKFLOW_WRITES: '1'
+      GOVERNANCE_VAPI_ADMIN_WRITES: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: npm ci --ignore-scripts
+      - run: npm install --no-save --ignore-scripts bcryptjs@3.0.2
+      - run: pip install -r tools/governance-production/requirements.txt
+      - run: python3 tools/governance-production/vapi_admin_registration.py
+      - run: node scripts/activate-vapi-ui.mjs
+      - run: node scripts/verify-live-vapi-ui.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: vapi-native-ui-activation, path: test-results/vapi, retention-days: 30}
