@@ -18,4 +18,19 @@ const sid=process.env.TWILIO_ACCOUNT_SID,auth=process.env.TWILIO_AUTH_TOKEN;
 async function query(url){const r=await fetch(url,{headers:{authorization:'Basic '+Buffer.from(sid+':'+auth).toString('base64')},signal:AbortSignal.timeout(15000)});if(!r.ok){await r.body?.cancel();return {httpStatus:r.status};}return r.json();}
 const calls=await query('https://api.twilio.com/2010-04-01/Accounts/'+sid+'/Calls.json?To=%2B12898873200&StartTime%3E=2026-10-26&PageSize=20');report.providerCalls=calls.calls?.map(c=>({status:c.status,direction:c.direction,start:c.start_time,end:c.end_time,duration:c.duration,hasParent:!!c.parent_call_sid}))??{httpStatus:calls.httpStatus};
 const alerts=await query('https://monitor.twilio.com/v1/Alerts?PageSize=30&StartDate=2026-10-26');report.providerAlerts=alerts.alerts?.map(a=>({code:a.error_code,level:a.log_level,created:a.date_created,requestPath:(()=>{try{return new URL(a.request_url).pathname.replace(/\/AC[a-f0-9]{32}/ig,'/account');}catch{return undefined;}})()}))??{httpStatus:alerts.httpStatus};
+
+report.providerAlertDetails=[];
+for(const alert of (alerts.alerts??[]).filter(a=>a.request_url?.includes('/v1/external-calls/')).slice(0,5)){
+ if(!/^NO[a-f0-9]{32}$/i.test(alert.sid))continue;
+ const detail=await query('https://monitor.twilio.com/v1/Alerts/'+alert.sid);
+ const info=new URLSearchParams(detail.alert_text??'');
+ const summary={code:detail.error_code,created:detail.date_created,httpStatus:info.get('httpResponse')??info.get('status'),method:detail.request_method};
+ // Only fixed diagnostic classifications; do not export webhook inputs or raw headers.
+ const body=String(detail.response_body??'');
+ summary.responseKind=body.includes('"forbidden"')?'forbidden':body.includes('"unavailable"')?'unavailable':body.includes('<Response')?'twiml':body.includes('1101')?'worker_exception':body.includes('1015')?'rate_limit':'other';
+ summary.reportedStatus=/(?:HTTP.*?status.*?|status code)[^0-9]*(\\d{3})/i.exec(info.get('msg')??info.get('Msg')??'')?.[1];
+ for(const key of ['ErrorCode','sourceComponent','httpResponse','ErrorType']){const value=info.get(key);if(value&&/^[a-zA-Z0-9_. -]{1,80}$/.test(value))summary[key]=value;}
+ report.providerAlertDetails.push(summary);
+}
+
 await mkdir('test-results/external-call-incident',{recursive:true});await writeFile('test-results/external-call-incident/incident.json',JSON.stringify(report,null,2)+'\n');console.log('EXTERNAL_CALL_INCIDENT '+JSON.stringify(report));
