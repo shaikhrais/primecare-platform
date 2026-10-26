@@ -11,7 +11,7 @@ try{
  const config=JSON.parse(await readFile('.cloudflare-workers/governance.jsonc','utf8'));config.keep_vars=true;config.vars={...config.vars,...Object.fromEntries(settings.bindings.filter(b=>b.type==='plain_text').map(b=>[b.name,b.text])),LOOK_SOURCE:report.source,VAPI_ADMIN_ORG_ID:'9e1d8550-4b84-4472-a782-67557fe73944',VAPI_ADMIN_TEMPLATE_ID:'5ae2ab0c-fad0-454c-8cf7-64b81c91c850',VAPI_ADMIN_CATALOG:'[]'};
  const path='.cloudflare-workers/vapi-admin-governance.jsonc';await writeFile(path,JSON.stringify(config));
  const cli=(args,input)=>execFileSync('node_modules/.bin/wrangler',args,{encoding:'utf8',input,stdio:['pipe','pipe','pipe'],maxBuffer:4194304});
- cli(['deploy','--config',path]);cli(['secret','bulk','--config',path],JSON.stringify({VAPI_PRIVATE_API_KEY:process.env.VAPI_PRIVATE_API_KEY}));report.deployed=true;
+ cli(['deploy','--config',path]);cli(['secret','bulk','--config',path],JSON.stringify({VAPI_PRIVATE_API_KEY:process.env.VAPI_PRIVATE_API_KEY}));report.deployed=true;await new Promise(r=>setTimeout(r,8000));
  const denied=await fetch('https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/governance/platform/vapi/inventory');report.anonymousStatus=denied.status;await denied.body?.cancel();if(denied.status!==401)throw Error('anonymous_readback_failed');
 }catch(e){report.error=/^[a-z_]+$/.test(e?.message??'')?e.message:'deployment_failed';process.exitCode=1;}
 await mkdir('test-results/vapi',{recursive:true});await writeFile('test-results/vapi/ui-deployment.json',JSON.stringify(report,null,2));console.log('VAPI_UI_DEPLOYMENT '+JSON.stringify(report));
