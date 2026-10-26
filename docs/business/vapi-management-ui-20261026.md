@@ -83,3 +83,17 @@ type checking. Fixture tests do not establish live Vapi or PostgreSQL verificati
 Current documentation requires API Request arguments in body JSON Schema and
 reusable authentication through credentialId. Saved tools attach using model.toolIds;
 creation, attachment, backend implementation and live acceptance are separate checks.
+
+## CI acceptance evidence
+
+Run https://github.com/shaikhrais/primecare-platform/actions/runs/40365470963
+passed on source 9361495b2aaa1db91f87d53ecf194dcf524d12ed: 22 provider/boundary
+tests, the 375px browser creation/readback and permission-denial flow, and strict
+DOM-only TypeScript checks. Browser transport and provider ports are synthetic;
+this is not production PostgreSQL, live Vapi creation or deployment acceptance.
+
+Broader checks triggered by the initial change also reported blocked reviewed-source
+fingerprints (including the unchanged gateway), legacy fixture-consumer review and
+missing voice runtime configuration. The management policy was isolated and the
+existing endpoint-policy.ts restored exactly to its starting source. Do not treat
+the dedicated management CI pass as approval of the broader release gates.
