@@ -1,0 +1,249 @@
+{
+  "version": 1,
+  "status": "staff-outbound-phone-calling-deployed-ready-for-user-phone-test",
+  "deploymentSource": "6bf5689cf6adda3ae85143372d2f8dc04c436785",
+  "workflow": {
+    "runId": 40312624692,
+    "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/40312624692",
+    "jobs": [
+      {
+        "id": 121537892839,
+        "name": "native",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121537893001,
+        "name": "metadata",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121538233619,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121538723215,
+        "name": "websites / verify_gateway",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121538765592,
+        "name": "websites / build",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121539214668,
+        "name": "websites / deploy (primecare-client)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121539214689,
+        "name": "websites / deploy (primecare-clinic)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121539214770,
+        "name": "websites / deploy (primecare-business-development)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121539385646,
+        "name": "websites / deploy (primecare-corporate)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121539405924,
+        "name": "websites / deploy (primecare-franchise)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121539408852,
+        "name": "websites / deploy (primecare-marketing)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121539569309,
+        "name": "websites / deploy (primecare-support)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121539570607,
+        "name": "websites / deploy (primecare-governance)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121539599007,
+        "name": "websites / deploy (primecare-enterprise-blueprint)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 121539782696,
+        "name": "live_ready",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "branches": {
+    "atImplementationStart": [
+      "main"
+    ],
+    "mergeNeeded": false,
+    "mainOnly": true
+  },
+  "deployment": {
+    "source": "6bf5689cf6adda3ae85143372d2f8dc04c436785",
+    "deployed": true,
+    "gatewayConnected": true,
+    "phoneRoutingChanged": false,
+    "livePhoneCallVerified": false,
+    "callsPlaced": 0,
+    "origin": "https://primecare-external-calls-api.itpro-mohammed.workers.dev",
+    "gatewayOrigin": "https://primecare-api-gateway.itpro-mohammed.workers.dev",
+    "stage": "complete",
+    "callerIdOwned": true,
+    "applicationReady": true
+  },
+  "contracts": {
+    "apiIds": {
+      "external.prepare": 16551,
+      "external.state": 16552,
+      "external.end": 16553,
+      "external.connect": 16554,
+      "external.complete": 16555
+    },
+    "registered": 5,
+    "roleGrants": 0,
+    "messagesSent": 0,
+    "numbersPurchased": 0,
+    "providerWrites": false,
+    "activation": false,
+    "definitionSha256": "0c3c6f259329c2dcc03e935ad0ccd937f806bc4506913efe27a83d7a07f4a934",
+    "independentReadback": true
+  },
+  "access": {
+    "definitionSha256": "bcafe5bf5e20d28c34c20c9732e989c450602940ca2edae8702b52af3dbdadb7",
+    "screenLinks": 12,
+    "eligibleRoles": 3,
+    "explicitDenialsPreserved": 0,
+    "apiGrants": 9,
+    "businessDataWrites": false,
+    "providerWrites": false,
+    "activation": false,
+    "independentReadback": true
+  },
+  "nativePostgres": {
+    "source": "6bf5689cf6adda3ae85143372d2f8dc04c436785",
+    "passed": true,
+    "nativePostgres": true,
+    "staffPermissionEnforced": true,
+    "patientDenied": true,
+    "currentRevocationDenied": true,
+    "signatureAndIdentityEnforced": true,
+    "serverCallerId": true,
+    "preparePlacesNoCall": true,
+    "crossTenantEndDenied": true,
+    "sessionExpiryDenied": true,
+    "livePhoneTraffic": false
+  },
+  "workerd": {
+    "source": "6bf5689cf6adda3ae85143372d2f8dc04c436785",
+    "engine": "workerd",
+    "passed": true,
+    "officialJwtAndSignatureAndTwiml": true,
+    "nativeProviderRequest": true,
+    "productionPolicyStubbed": true,
+    "livePhoneTraffic": false
+  },
+  "browserFixture": {
+    "source": "6bf5689cf6adda3ae85143372d2f8dc04c436785",
+    "passed": true,
+    "realBrowser": true,
+    "providerSdkStubbed": true,
+    "noAutomaticCall": true,
+    "opaqueTicketOnly": true,
+    "muteAndHangup": true,
+    "tokenRenewal": true,
+    "cleanup": true,
+    "livePhoneTraffic": false
+  },
+  "productionReadiness": {
+    "source": "6bf5689cf6adda3ae85143372d2f8dc04c436785",
+    "passed": true,
+    "callsPlaced": 0,
+    "livePhoneCallVerified": false,
+    "syntheticCleanup": true,
+    "nativeLogin": true,
+    "mfa": false,
+    "staffApiAuthorized": true,
+    "dialPadVisible": true,
+    "noAutomaticProviderTraffic": true
+  },
+  "validation": {
+    "unitAndGatewayAndDeploymentPlanCasesPassed": 17,
+    "metadataCasesPassed": 3,
+    "strictTypescript": true,
+    "nativePostgres": true,
+    "realWorkerd": true,
+    "realBrowserWithStubbedSdk": true,
+    "realProductionStaffLoginAndDialPad": true
+  },
+  "scope": {
+    "callerId": "+16479302223",
+    "nativeOrigin": "https://primecare-external-calls-api.itpro-mohammed.workers.dev",
+    "nativeApiIds": [
+      16551,
+      16552,
+      16553
+    ],
+    "signedProviderApiIds": [
+      16554,
+      16555
+    ],
+    "registeredStaffRoles": 3,
+    "apiGrants": 9,
+    "screenLinks": 12,
+    "oneActiveExternalReservationPerStaff": true,
+    "userInitiatedOnly": true,
+    "incomingNumberRoutingChanged": false,
+    "recordingEnabled": false,
+    "aiModelRequired": false
+  },
+  "limits": [
+    "No real PSTN phone call was placed by automated tests; the user-selected handset/audio test remains outstanding.",
+    "The production readiness test verifies signed-in staff API access and dial-pad visibility, not live Twilio SDK-to-handset audio.",
+    "Browser UI automation stubs the provider SDK. Workerd policy ports are fixture stubs; native permission enforcement is separately verified with PostgreSQL.",
+    "100 or 10000 simultaneous calls have not been load-tested; actual account/provider and infrastructure capacity is unverified.",
+    "Browser watchdogs close local SDK resources after current-permission/session failures; this is not proof of instantaneous carrier-side termination by a malicious client.",
+    "Existing independent governance review flags were not marked approved; these receipts cover the scoped external-calling workflow."
+  ],
+  "internalCallingCompatibility": {
+    "source": "6ed38c8b6383ffd520de792e8966125c38084b2f",
+    "workflowRun": 40314553887,
+    "workflowUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/40314553887",
+    "jobsPassed": 17,
+    "liveSyntheticBrowserRegressionPassed": true,
+    "relayAudio": true,
+    "bidirectionalPacketGrowth": true,
+    "reverseCallingVerified": true,
+    "revokedSessionMediaReleased": true,
+    "syntheticCleanup": true,
+    "connectionMilliseconds": 4057,
+    "audioVerificationMilliseconds": 5566,
+    "realPstnCallPlaced": false
+  }
+}
