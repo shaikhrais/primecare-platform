@@ -26,4 +26,4 @@ jobs:
       - run: npx playwright install chromium
       - run: node scripts/test-vapi-admin-browser.mjs
       - name: Check UI types
-        run: npx -p typescript tsc --noEmit --strict --target es2022 --module esnext --lib es2022,dom,dom.iterable websites/typescript/src/vapi-admin.ts
+        run: npx tsc -p websites/typescript/tsconfig.vapi-admin.json
