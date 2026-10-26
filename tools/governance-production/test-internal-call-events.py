@@ -5,10 +5,13 @@ import psycopg
 import internal_call_events_registration as e
 import internal_call_events_access_registration as a
 import internal_call_access_registration as calls
+import internal_call_contracts_registration as original
 spec=importlib.util.spec_from_file_location('event_access_fixture',Path(__file__).with_name('test-internal-call-access.py'));f=importlib.util.module_from_spec(spec);spec.loader.exec_module(f)
-class EventTests(f.AccessTests):
+class EventTests(unittest.TestCase):
+ evidence=f.AccessTests.evidence;table=f.AccessTests.table;open_store=f.AccessTests.open_store
  def setUp(self):
-  super().setUp();env=patch.dict(os.environ,{'GOVERNANCE_INTERNAL_CALL_EVENTS':'1','GOVERNANCE_INTERNAL_CALL_EVENTS_ACCESS':'1'});env.start();self.addCleanup(env.stop)
+  f.f.AccessTests.setUp(self);env=patch.dict(os.environ,{'GOVERNANCE_INTERNAL_CALL_CONTRACTS':'1','GOVERNANCE_INTERNAL_CALL_ACCESS':'1','GOVERNANCE_INTERNAL_CALL_EVENTS':'1','GOVERNANCE_INTERNAL_CALL_EVENTS_ACCESS':'1'});env.start();self.addCleanup(env.stop)
+  with original.InternalCallContractStore(_test_connection=psycopg.connect(f.f.URL)) as db:original.register(db)
   with calls.InternalCallAccessStore(_test_connection=psycopg.connect(f.f.URL)) as db:calls.register(db)
   with e.InternalCallEventsStore(_test_connection=psycopg.connect(f.f.URL)) as db:
    first=e.register(db);self.assertEqual(first,e.register(db));self.assertEqual(first,e.register(e.ReadView(db)));self.assertEqual(first['registered'],1);self.assertEqual(first['roleGrants'],0)
