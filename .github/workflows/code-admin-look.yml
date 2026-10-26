@@ -2,7 +2,7 @@ name: Review Code Admin dashboard appearance
 on:
   push:
     branches: [main]
-    paths: ['scripts/review-code-admin-look.mjs', '.github/workflows/code-admin-look.yml', 'websites/typescript/src/styles.css', 'websites/typescript/src/admin-dashboard.ts', 'websites/typescript/src/shell.ts', 'websites/typescript/src/navigation.ts', 'websites/typescript/src/platform-admin.ts']
+    paths: ['scripts/review-code-admin-look.mjs', '.github/workflows/code-admin-look.yml', 'websites/typescript/src/styles.css', 'websites/typescript/src/admin-dashboard.ts', 'websites/typescript/src/workspace.ts', 'websites/typescript/src/care/dashboard.ts', 'websites/typescript/src/growth/dashboard.ts', 'websites/typescript/src/shell.ts', 'websites/typescript/src/navigation.ts', 'websites/typescript/src/platform-admin.ts']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -44,4 +44,6 @@ jobs:
         run: |
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
-          npx wrangler pages deploy websites/typescript/dist/primecare-governance --project-name primecare-governance --branch main --commit-hash "$GITHUB_SHA"
+          for project in $(node -e "console.log(Object.keys(require('./websites/typescript/projects.json')).join(' '))"); do
+            npx wrangler pages deploy "websites/typescript/dist/$project" --project-name "$project" --branch main --commit-hash "$GITHUB_SHA"
+          done
