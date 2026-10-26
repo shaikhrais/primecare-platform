@@ -33,7 +33,8 @@ export class AculabVoiceprintProvider extends VoiceprintProviderBase {
   if(operation==='verify'){url.searchParams.set('enable_pad','true');url.searchParams.set('text_dependent','true');url.searchParams.set('sensitivity',String(this.#sensitivity));}
   const controller=new AbortController(),abort=()=>controller.abort();this.#active.add(controller);signal.addEventListener('abort',abort,{once:true});const timer=setTimeout(abort,12000);
   try{
-   const response=await this.#fetch(url.href,{method:operation==='delete'?'POST':'PUT',redirect:'error',headers:{authorization:this.#auth,accept:'application/json',...(bytes?{'content-type':'audio/wav'}:{})},...(bytes?{body:bytes}:{}),signal:controller.signal});
+   const send=this.#fetch;
+   const response=await send(url.href,{method:operation==='delete'?'POST':'PUT',redirect:'manual',headers:{authorization:this.#auth,accept:'application/json',...(bytes?{'content-type':'audio/wav'}:{})},...(bytes?{body:bytes}:{}),signal:controller.signal});
    if(!response.ok||controller.signal.aborted){try{await response.body?.cancel();}catch{}throw fail();}
    if(response.headers.get('content-type')?.split(';')[0].trim().toLowerCase()!=='application/json')throw fail();
    const reader=new BoundedBinaryAdapterBase(8192),body=await reader.readBoundedBody(response.body.pipeThrough(new TransformStream(),{signal:controller.signal}));

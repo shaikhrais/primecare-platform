@@ -14,7 +14,7 @@ const subject='pc-'+crypto.randomUUID(),signal=()=>new AbortController().signal;
 test('real provider adapter pins URL, uploads WAV, enables PAD and keeps provider identifiers outside public output',async()=>{
  const f=transport();assert.ok(f.provider instanceof VoiceprintProviderBase);assert.equal((await f.provider.enroll({subject,audio:wav(),signal:signal()})).enrolled,true);
  assert.deepEqual(await f.provider.verify({subject,audio:wav(),signal:signal()}),{matched:true,spoofed:false,receipt:'receipt-1'});
- const {url,options}=f.calls[1],u=new URL(url);assert.equal(u.origin,'https://ws-1-2-0.aculabcloud.net');assert.equal(u.searchParams.get('enable_pad'),'true');assert.equal(u.searchParams.get('text_dependent'),'true');assert.equal(u.searchParams.get('sensitivity'),'1');assert.equal(options.method,'PUT');assert.equal(options.redirect,'error');assert.equal(options.body.length,wav().length);assert.ok(!url.includes(config.groupKey));assert.match(options.headers.authorization,/^Basic /);
+ const {url,options}=f.calls[1],u=new URL(url);assert.equal(u.origin,'https://ws-1-2-0.aculabcloud.net');assert.equal(u.searchParams.get('enable_pad'),'true');assert.equal(u.searchParams.get('text_dependent'),'true');assert.equal(u.searchParams.get('sensitivity'),'1');assert.equal(options.method,'PUT');assert.equal(options.redirect,'manual');assert.equal(options.body.length,wav().length);assert.ok(!url.includes(config.groupKey));assert.match(options.headers.authorization,/^Basic /);
 });
 test('provider positive verdict cannot override replay/synthetic flags or missing/invalid scores',async()=>{
  for(const attack of [{type:'TypeA'},{type:'TypeB'},{type:'TypeC'},null]){const f=transport();f.reply({transaction_id:'r',verified:true,confidence:2,pad_detected:attack});assert.deepEqual(await f.provider.verify({subject,audio:wav(),signal:signal()}),{matched:false,spoofed:true,receipt:'r'});}
@@ -47,4 +47,9 @@ test('durable claim prevents repeat provider enrollment and verification after a
 test('revocation blocks recognition before remote deletion and reports uncertain provider deletion honestly',async()=>{
  const f=fixture(),id=crypto.randomUUID();await f.channel.execute(actor,{action:'enroll',id,captureId:crypto.randomUUID(),consent:true});f.reply({error:{text:'remote unavailable'}});
  assert.deepEqual(await f.channel.execute(actor,{action:'revoke',id,version:2}),{revoked:true,providerDeletionConfirmed:false});assert.equal(f.store.rows.get(id).status,'revoked');await assert.rejects(f.channel.execute(actor,{action:'verify',profileId:id,id:crypto.randomUUID(),captureId:crypto.randomUUID()}));await assert.rejects(f.channel.execute(actor,{action:'revoke',id,version:2}));assert.equal(f.calls.length,2);
+});
+test('native fetch port is called without an object receiver and redirects never release a verdict',async()=>{
+ let requests=0;
+ const provider=new AculabVoiceprintProvider({...config,fetch:async function(url,options){assert.equal(this,undefined);assert.equal(options.redirect,'manual');requests++;return new Response(null,{status:302,headers:{location:'https://foreign.invalid'}});}});
+ await assert.rejects(provider.verify({subject,audio:wav(),signal:signal()}),/unavailable/);assert.equal(requests,1);provider.close();
 });

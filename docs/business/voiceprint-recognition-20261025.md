@@ -70,3 +70,23 @@ lifecycle unit tests passed in that job. Worker validation job `121184334308`
 also passed. Both provider traffic and biometric accuracy remain simulated and
 unmeasured respectively; no real enrollment or authentication was performed.
 Evidence: `evidence/voiceprint-recognition-20261025.json`.
+
+## Transport repair — 26 October 2026
+
+The provider transport now calls native fetch without an object receiver and uses
+manual redirects, rejecting all non-success responses. The previous injected
+function fixture did not detect native fetch receiver/runtime behavior. A new
+workerd test uses real native fetch with intercepted outbound HTTP. Nine unit
+tests and seven existing Worker checks plus the native-fetch regression pass
+locally (installed runtime compatibility date 2026-05-03; CI retains 2026-07-30).
+These are simulated provider replies, not live biometric acceptance.
+
+Activation still requires an Aculab account enabled for Voice Biometrics, a
+region/cloud ID, account username and Voice Biometric User Group Key configured
+securely in production; independent verified enrollment and a signed single-use
+call capture path are also absent. No saved voiceprint or live identity grant
+can be inferred from the presence of this code. Enrollment/revocation and task
+authorization remain guarded. The text-dependent adapter requires the same
+phrase for enrollment and verification; randomly selected security answers are
+not a replacement for that phrase. Three-question account setup/storage and its
+phone challenge are not implemented by this transport repair.
