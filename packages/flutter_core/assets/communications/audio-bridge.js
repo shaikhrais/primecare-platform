@@ -194,12 +194,13 @@
 
   // packages/shared/src/communications/audio-session.mjs
   var BrowserAudioSession = class extends CommunicationResourceBase {
-    constructor({ transport, userId, threadId, callId, media, configurationProvider, preparationProvider, onTiming = () => {
+    constructor({ transport, userId, threadId, callId, media, configurationProvider, preparationProvider, preparationReader, onTiming = () => {
     }, intervalMilliseconds = 1e3, onError = () => {
     }, key = () => crypto.randomUUID() }) {
       super();
       if (typeof transport?.execute !== "function" || [userId, threadId, callId].some((value) => typeof value !== "string" || !value.trim()) || !Number.isSafeInteger(intervalMilliseconds) || intervalMilliseconds < 100 || typeof key !== "function" || typeof onError !== "function") throw Error("Audio session adapters required");
       if (configurationProvider !== void 0 && typeof configurationProvider !== "function") throw Error("Media configuration provider required");
+      this.preparationReader = preparationReader;
       this.onTiming = onTiming;
       this.preparationProvider = preparationProvider;
       this.preparedUntil = 0;
@@ -231,7 +232,7 @@
     }
     async current() {
       this.assertOpen();
-      const record = await this.transport.execute("message", { action: "read", id: this.threadId });
+      const record = this.preparedUntil && this.preparationReader ? await this.preparationReader() : await this.transport.execute("message", { action: "read", id: this.threadId });
       this.assertOpen();
       const current = this.validateCurrent(record);
       this.signalVersion = Math.max(this.signalVersion, current.record.version);
@@ -250,7 +251,7 @@
     }
     async prepare() {
       this.assertOpen();
-      if (this.started || this.starting || this.preparing || !this.preparationProvider) throw Error("Preparation unavailable");
+      if (this.started || this.starting || this.preparing || typeof this.preparationProvider !== "function" || typeof this.preparationReader !== "function") throw Error("Preparation unavailable");
       this.preparing = (async () => {
         this.mark("prepare_start");
         const before = await this.current();

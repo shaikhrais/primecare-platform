@@ -1087,7 +1087,7 @@
   },
   "internalCallContextProcedure": {
     "signature": "public.primecare_call_context_v1(text,text,text,text,text,text[],text)",
-    "sourceSha256": "d9a469777de249dc4a1b76473560e256e3343db4fb9fae563f6e5d49ff0ba1f8",
+    "sourceSha256": "1a8bcdff35e387bfb3be316ddf56ebc5a5a7cde83f4fe6b2bdcbc895b1955029",
     "runtimeHost": "pooled.db.prisma.io",
     "directHost": "db.prisma.io",
     "securityInvoker": true,
@@ -1153,9 +1153,14 @@
         "key": "call.prepare",
         "method": "POST",
         "path": "/v1/calls/prepare"
+      },
+      {
+        "key": "call.prepare.read",
+        "method": "POST",
+        "path": "/v1/calls/prepare/read"
       }
     ],
-    "definitionSha256": "ae5ca3b9ca8f90428155621c395ba1257d240894b276ded4415fff31de86f465",
+    "definitionSha256": "7236ab2779b4e6fa0a46c0df6ea16a2382a700eceb2e0c723cb4cd9c3d31fc33",
     "schemaChanges": false,
     "businessDataWrites": false,
     "permissionChanges": false,
@@ -1175,10 +1180,11 @@
       578
     ],
     "paths": [
-      "/v1/calls/prepare"
+      "/v1/calls/prepare",
+      "/v1/calls/prepare/read"
     ],
-    "contractSha256": "ae5ca3b9ca8f90428155621c395ba1257d240894b276ded4415fff31de86f465",
-    "definitionSha256": "ec33d1d873610b1b74ff305eea8a691d8ed458fc3404f6966ded004c45383c07",
+    "contractSha256": "7236ab2779b4e6fa0a46c0df6ea16a2382a700eceb2e0c723cb4cd9c3d31fc33",
+    "definitionSha256": "50c18cef56aa2d9a6e70fe458e9f0ecbc511b4995e7a6c3fafe0ec3c36b67c3f",
     "schemaChanges": false,
     "businessDataWrites": false,
     "roleScreenChanges": false,

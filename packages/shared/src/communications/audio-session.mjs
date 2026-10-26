@@ -6,11 +6,11 @@ import {BrowserAudioCall} from './audio-call.mjs';
  * No routes, credentials, role grants or timers survive close().
  */
 export class BrowserAudioSession extends CommunicationResourceBase {
- constructor({transport,userId,threadId,callId,media,configurationProvider,preparationProvider,onTiming=()=>{},intervalMilliseconds=1000,onError=()=>{},key=()=>crypto.randomUUID()}) {
+ constructor({transport,userId,threadId,callId,media,configurationProvider,preparationProvider,preparationReader,onTiming=()=>{},intervalMilliseconds=1000,onError=()=>{},key=()=>crypto.randomUUID()}) {
   super();
   if(typeof transport?.execute!=='function'||[userId,threadId,callId].some(value=>typeof value!=='string'||!value.trim())||!Number.isSafeInteger(intervalMilliseconds)||intervalMilliseconds<100||typeof key!=='function'||typeof onError!=='function')throw Error('Audio session adapters required');
   if(configurationProvider!==undefined&&typeof configurationProvider!=='function')throw Error('Media configuration provider required');
-  this.onTiming=onTiming;this.preparationProvider=preparationProvider;this.preparedUntil=0;this.preparing=null;
+  this.preparationReader=preparationReader;this.onTiming=onTiming;this.preparationProvider=preparationProvider;this.preparedUntil=0;this.preparing=null;
   this.configurationProvider=configurationProvider;this.configurationTimer=null;
   this.transport=transport;this.userId=userId;this.threadId=threadId;this.callId=callId;
   this.intervalMilliseconds=intervalMilliseconds;this.onError=onError;this.key=key;
@@ -22,7 +22,7 @@ export class BrowserAudioSession extends CommunicationResourceBase {
  }
  async current() {
   this.assertOpen();
-  const record=await this.transport.execute('message',{action:'read',id:this.threadId});
+  const record=this.preparedUntil&&this.preparationReader?await this.preparationReader():await this.transport.execute('message',{action:'read',id:this.threadId});
   this.assertOpen();
   const current=this.validateCurrent(record);this.signalVersion=Math.max(this.signalVersion,current.record.version);return current;
  }
@@ -33,7 +33,7 @@ export class BrowserAudioSession extends CommunicationResourceBase {
  }
  mark(stage){try{this.onTiming(stage,performance.now());}catch{}}
  async prepare(){
-  this.assertOpen();if(this.started||this.starting||this.preparing||!this.preparationProvider)throw Error('Preparation unavailable');
+  this.assertOpen();if(this.started||this.starting||this.preparing||typeof this.preparationProvider!=='function'||typeof this.preparationReader!=='function')throw Error('Preparation unavailable');
   this.preparing=(async()=>{this.mark('prepare_start');const before=await this.current();if(!['ringing','accepted'].includes(before.call.status))throw Error('Call not accepted');
    const configuration=structuredClone(await this.preparationProvider());this.assertOpen();
    if(!Array.isArray(configuration?.iceServers)||!configuration.iceServers.length||!Number.isSafeInteger(configuration.expiresAt)||configuration.expiresAt<Date.now()+30000||configuration.expiresAt>Date.now()+1800000)throw Error('Media preparation unavailable');

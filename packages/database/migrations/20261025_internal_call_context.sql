@@ -4,7 +4,7 @@ RETURNS jsonb LANGUAGE sql STABLE SECURITY INVOKER SET search_path=pg_catalog,pu
 WITH identity AS MATERIALIZED (
  SELECT u.id::text AS id,u.tenant_id::text AS tenant_id FROM public.auth_sessions s JOIN public.users u ON u.id=s.user_id
  WHERE s.token_hash=p_session_hash AND s.expires_at>NOW() AND LOWER(u.status)='active'
- AND EXISTS(SELECT 1 FROM (VALUES ('POST','/v1/calls/directory','INTERNAL_CALL_DIRECTORY'),('POST','/v1/calls/extension','INTERNAL_CALL_EXTENSION'),('POST','/v1/calls/dial','INTERNAL_CALL_DIAL'),('POST','/v1/calls/command','INTERNAL_CALL_COMMAND'),('POST','/v1/calls/media','INTERNAL_CALL_MEDIA'),('POST','/v1/calls/prepare','INTERNAL_CALL_PREPARE')) request(method,path,code) WHERE request.method=p_method AND request.path=p_path AND request.code=p_code) LIMIT 2
+ AND EXISTS(SELECT 1 FROM (VALUES ('POST','/v1/calls/directory','INTERNAL_CALL_DIRECTORY'),('POST','/v1/calls/extension','INTERNAL_CALL_EXTENSION'),('POST','/v1/calls/dial','INTERNAL_CALL_DIAL'),('POST','/v1/calls/command','INTERNAL_CALL_COMMAND'),('POST','/v1/calls/media','INTERNAL_CALL_MEDIA'),('POST','/v1/calls/prepare','INTERNAL_CALL_PREPARE'),('POST','/v1/calls/prepare/read','INTERNAL_CALL_PREPARE_READ')) request(method,path,code) WHERE request.method=p_method AND request.path=p_path AND request.code=p_code) LIMIT 2
 ), grants AS MATERIALIZED (
  SELECT COALESCE(jsonb_agg(g),'[]'::jsonb) AS items FROM identity i CROSS JOIN LATERAL (SELECT DISTINCT (r."id")::text AS role_id,(s."id")::text AS screen_id,(a."id")::text AS api_id
     FROM public.users u
@@ -29,7 +29,7 @@ WITH identity AS MATERIALIZED (
  SELECT COALESCE(jsonb_agg(m),'[]'::jsonb) AS items FROM (SELECT manifest_sha256 FROM "governance_68b0b02dd1215f58630d2c1a"."govt_source_manifest") m
 ), permitted AS MATERIALIZED (
  SELECT i.* FROM identity i WHERE (SELECT count(*) FROM identity)=1
- AND (p_path<>'/v1/calls/prepare' OR (EXISTS(SELECT DISTINCT (r."id")::text AS role_id,(s."id")::text AS screen_id,(a."id")::text AS api_id
+ AND (p_path NOT IN ('/v1/calls/prepare','/v1/calls/prepare/read') OR (EXISTS(SELECT DISTINCT (r."id")::text AS role_id,(s."id")::text AS screen_id,(a."id")::text AS api_id
     FROM public.users u
     JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_roles" r ON r."role_code"=u.roles::text AND r."active"='1'
     JOIN "governance_68b0b02dd1215f58630d2c1a"."govt_api_permissions" ap ON ap."role_id"=r."id" AND ap."can_access"='1' AND (CASE WHEN jsonb_typeof(to_jsonb(ap."permission_key")) IN ('string','number') THEN to_jsonb(ap."permission_key")#>>'{}'

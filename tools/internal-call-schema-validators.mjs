@@ -15,6 +15,7 @@ ajv.addFormat('uuid',/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{
 for(const [index,op] of native.entries())for(const kind of ['request','response']){
  const key='internalCall'+index+'_'+kind;ajv.addSchema(op[kind],key);exports[key]=key;
 }
+for(const [index,op]of preparation.operations.entries())for(const kind of ['request','response']){const key='internalPreparation'+index+'_'+kind;ajv.addSchema(op[kind],key);exports[key]=key;}
 const source=standalone(ajv,exports);
 const bundle=await build({stdin:{contents:source,resolveDir:process.cwd(),loader:'js'},bundle:true,format:'esm',platform:'neutral',target:'es2022',minify:true,write:false,legalComments:'none'});
 const digest=createHash('sha256').update(JSON.stringify(native)).digest('hex');

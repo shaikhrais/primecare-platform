@@ -34,7 +34,7 @@ export class PostgresInternalCallContext extends PostgresCommunicationSession {
   assertRegisteredPermissionRows(c.grants);
   for(const field of ['policies','members','records','linked'])if(!Array.isArray(c[field]))throw Error('Communication policy unavailable');
   if(c.policies.length>2||c.members.length>1000||c.records.length>2||c.linked.length>2||typeof c.activeActor!=='boolean'||c.members.some((id:unknown)=>typeof id!=='string'))throw Error('Communication policy unavailable');
-  if(op.key==='call.prepare'&&c.activeActor!==true)throw Error('Forbidden');
+  if(op.key.startsWith('call.prepare')&&c.activeActor!==true)throw Error('Forbidden');
   return {actor,policies:c.policies,activeActor:c.activeActor,members:c.members,records:c.records,linked:c.linked};
  }
  // A read receipt is consumed only by its immediate authorization callback.
