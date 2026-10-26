@@ -33,4 +33,17 @@ for(const alert of (alerts.alerts??[]).filter(a=>a.request_url?.includes('/v1/ex
  report.providerAlertDetails.push(summary);
 }
 
+
+if(process.env.CLOUDFLARE_ACCOUNT_ID&&process.env.CLOUDFLARE_API_TOKEN){
+ try{
+ const response=await fetch('https://api.cloudflare.com/client/v4/accounts/'+process.env.CLOUDFLARE_ACCOUNT_ID+'/workers/observability/telemetry/query',{method:'POST',headers:{authorization:'Bearer '+process.env.CLOUDFLARE_API_TOKEN,'content-type':'application/json'},body:JSON.stringify({queryId:'primecare-call-incident',view:'events',dry:true,limit:100,timeframe:{from:Date.parse('2026-10-26T15:56:15Z'),to:Date.parse('2026-10-26T15:56:40Z')},parameters:{needle:{value:'external_call_request',isRegex:false,matchCase:true}}}),signal:AbortSignal.timeout(20000)});
+ report.workerLogs={httpStatus:response.status,entries:[]};
+ if(response.ok){
+ const data=await response.json();report.workerLogs.success=data.success;
+ const visit=(value,depth=0)=>{if(depth>12||!value)return;if(typeof value==='string'){if(value.startsWith('{')){try{visit(JSON.parse(value),depth+1);}catch{}}return;}if(typeof value!=='object')return;
+ if(value.event==='external_call_request'){const safe={};for(const key of ['event','operation','phase','status','elapsedMs','sqlState','reason']){const v=value[key];if(typeof v==='number'||typeof v==='string'&&/^[a-zA-Z0-9_. -]{1,80}$/.test(v))safe[key]=v;}report.workerLogs.entries.push(safe);return;}for(const v of Object.values(value))visit(v,depth+1);};visit(data.result?.events?.events??[]);
+ }
+ }catch{report.workerLogs={unavailable:true};}
+}
+
 await mkdir('test-results/external-call-incident',{recursive:true});await writeFile('test-results/external-call-incident/incident.json',JSON.stringify(report,null,2)+'\n');console.log('EXTERNAL_CALL_INCIDENT '+JSON.stringify(report));
