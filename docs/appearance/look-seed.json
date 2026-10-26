@@ -191,7 +191,10 @@
       "forbidden": "Your account has no current Look Manager permission.",
       "unavailable": "Look Manager is temporarily unavailable. Retry or return to Administration.",
       "signed_out": "Your session expired. Sign in again.",
-      "ai_running_notice": "AI is reviewing this screenshot. Refresh to see the saved result."
+      "ai_running_notice": "AI is reviewing this screenshot. Refresh to see the saved result.",
+      "quota_exceeded": "AI account quota is exhausted. An administrator must restore OpenAI billing or quota, then submit a new screenshot. No AI approval was recorded.",
+      "rate_limited_ai": "The AI provider is rate limiting requests. Try again later with a new screenshot. No approval was recorded.",
+      "ai_service_failed": "The AI service could not assess this screenshot. No approval was recorded."
     },
     "fr": {
       "title": "Gestionnaire de revue visuelle",
@@ -251,7 +254,10 @@
       "forbidden": "Votre compte ne dispose pas des autorisations actuelles.",
       "unavailable": "Gestionnaire indisponible. Réessayez ou retournez à Administration.",
       "signed_out": "Session expirée. Reconnectez-vous.",
-      "ai_running_notice": "L’IA évalue cette capture. Actualisez pour voir le résultat."
+      "ai_running_notice": "L’IA évalue cette capture. Actualisez pour voir le résultat.",
+      "quota_exceeded": "Quota IA épuisé. Un administrateur doit rétablir la facturation ou le quota OpenAI, puis soumettre une nouvelle capture. Aucune approbation IA enregistrée.",
+      "rate_limited_ai": "Le fournisseur IA limite les requêtes. Réessayez plus tard avec une nouvelle capture. Aucune approbation enregistrée.",
+      "ai_service_failed": "Le service IA n’a pas pu évaluer cette capture. Aucune approbation enregistrée."
     },
     "es": {
       "title": "Gestor de revisión visual",
@@ -311,7 +317,10 @@
       "forbidden": "Su cuenta no tiene el permiso actual de evaluación.",
       "unavailable": "El gestor no está disponible. Reintente o vuelva a Administración.",
       "signed_out": "La sesión ha caducado. Inicie sesión.",
-      "ai_running_notice": "La IA está evaluando la captura. Actualice para ver el resultado."
+      "ai_running_notice": "La IA está evaluando la captura. Actualice para ver el resultado.",
+      "quota_exceeded": "Cuota de IA agotada. Un administrador debe restablecer la facturación o cuota de OpenAI y enviar una nueva captura. No se registró aprobación de IA.",
+      "rate_limited_ai": "El proveedor de IA limita las solicitudes. Reintente más tarde con una nueva captura. No se registró aprobación.",
+      "ai_service_failed": "El servicio de IA no pudo evaluar la captura. No se registró aprobación."
     }
   },
   "maxPixels": 64000000,
