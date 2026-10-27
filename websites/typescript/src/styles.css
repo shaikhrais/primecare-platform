@@ -385,3 +385,5 @@ aside nav a[aria-current="page"], aside nav a:hover, aside nav a:focus-visible {
 .shell-utility-actions .portal-install{display:grid;padding:10px 0 0;border:0;border-top:1px solid var(--color-border,#d6e3e6);margin-top:6px;background:transparent;gap:8px}.shell-utility-actions .portal-install button{width:100%}.shell-utility-actions .portal-install p{font-size:12px;line-height:1.5}
 .portal-install-standalone{position:fixed;bottom:16px;left:16px;z-index:50;max-width:240px;border:1px solid var(--color-border,#d6e3e6);border-radius:12px;box-shadow:0 5px 25px #153c4815}.portal-install-standalone p{display:none}
 @media(max-width:600px){.topbar .shell-controls{gap:8px}.topbar [data-cy=global-navigation]{min-width:0;flex:1 1 130px}}
+
+.topbar:has([data-cy=shell-utilities]) .shell-controls .topbar-icon-control{flex:0 0 44px;max-width:44px;min-width:44px;width:44px}.topbar .topbar-icon-control select{box-sizing:border-box}
