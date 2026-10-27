@@ -1,0 +1,42 @@
+name: Read latest owner call audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/owner-call-audit-readback.yml']
+permissions: {contents: read}
+jobs:
+  read:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 3
+    steps:
+      - run: npm install --prefix "$RUNNER_TEMP/audit-reader" --ignore-scripts --no-audit --no-fund pg@8.16.3
+      - name: Read provider IDs and matching PrimeCare audit events without private payloads
+        env:
+          VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          node <<'NODE'
+          const {Pool}=require(process.env.RUNNER_TEMP+'/audit-reader/node_modules/pg');
+          let pool;
+          (async()=>{try{
+            const r=await fetch('https://api.vapi.ai/call?limit=100',{headers:{authorization:'Bearer '+process.env.VAPI_PRIVATE_API_KEY},signal:AbortSignal.timeout(15000)});
+            if(!r.ok)throw Error('provider_http_'+r.status);const list=await r.json();
+            const calls=list.filter(c=>c.customer?.number==='+12898873200'&&c.phoneNumberId==='3e9cee92-b463-47c8-9e1a-cdbf179cb675').sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt)).slice(0,3);
+            const u=new URL(process.env.PRODUCTION_DATABASE_URL);if(u.hostname!=='pooled.db.prisma.io'||u.pathname!=='/postgres')throw Error('invalid_authority');
+            pool=new Pool({host:u.hostname,port:5432,database:'postgres',user:decodeURIComponent(u.username),password:decodeURIComponent(u.password),ssl:{rejectUnauthorized:true},max:1,connectionTimeoutMillis:10000});
+            const db=await pool.connect();try{
+              await db.query('BEGIN READ ONLY');await db.query("SET LOCAL statement_timeout='15s'");
+              const eligible=(await db.query("SELECT count(*)::int AS n FROM communication_voice_verified_contacts c JOIN users u ON u.id::text=c.user_id AND u.tenant_id::text=c.tenant_id JOIN tenants t ON t.id=u.tenant_id WHERE c.phone=$1 AND c.revoked_at IS NULL AND lower(u.status)='active' AND lower(t.status)='active'",['+12898873200'])).rows[0].n;
+              console.log('VERIFIED_PHONE_MATCHES '+eligible);
+              for(const c of calls){
+                const rows=(await db.query("SELECT sequence::float8 AS sequence,received_at,payload->>'kind' AS kind,payload->>'source' AS source,payload->>'traceId' AS trace,payload->>'toolName' AS tool,payload->>'action' AS action,payload->>'phase' AS phase,payload->>'outcome' AS outcome,payload->>'reason' AS reason,payload->>'httpStatus' AS http_status,payload->>'durationMs' AS duration_ms,payload->>'verified' AS verified,payload->>'codeRequested' AS code_requested FROM communication_call_audit WHERE call_id=$1 OR payload->>'suppliedCallId'=$1 ORDER BY received_at,sequence",[c.id])).rows;
+                console.log('OWNER_CALL_AUDIT '+JSON.stringify({callId:c.id,createdAt:c.createdAt,status:c.status,endedReason:c.endedReason,events:rows}));
+              }
+              const heartbeat=(await db.query("SELECT received_at FROM communication_call_audit WHERE call_id='system:reconciliation' ORDER BY sequence DESC LIMIT 1")).rows[0];
+              console.log('RECONCILIATION_HEARTBEAT '+JSON.stringify(heartbeat??null));
+              await db.query('ROLLBACK');
+            }finally{db.release();}
+          }catch(e){console.log('READBACK_FAILED '+(/^provider_http_[0-9]+$|invalid_authority$/.test(e.message)?e.message:'read_failed'));process.exitCode=1;}finally{await pool?.end();}})();
+          NODE
