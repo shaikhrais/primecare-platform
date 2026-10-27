@@ -107,3 +107,10 @@ without persistence. It is excluded. Connecting that route would create a false
 saved-lead claim. Tool activation remains blocked by the missing call-scoped
 business authorization composition and role-specific runtime acceptance, not by
 missing Vapi syntax or a need to paste API keys into chat.
+
+The active `PrimeCare Reception - 4277` assistant also receives the reception role
+script as a managed system message. Its existing system instructions and exact
+SMS verification tool are preserved. Unknown tool attachments or missing current
+verification instructions stop the update. The eight library assistants retain
+separate IDs and do not replace the number's routing. Release evidence records
+active-reception readback separately from the eight library readbacks.

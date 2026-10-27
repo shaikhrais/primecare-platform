@@ -1,0 +1,741 @@
+{
+  "source": "a4d465a6d4c3a56100e3daeab78a6e892491518b",
+  "workflowRun": 40442052168,
+  "focusedTests": 19,
+  "release": {
+    "source": "a4d465a6d4c3a56100e3daeab78a6e892491518b",
+    "agents": [
+      {
+        "key": "reception",
+        "id": "9ba3014c-cfaa-4607-997c-b5347212be54",
+        "scriptVersion": 2,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "new_enquiry",
+        "id": "8d9123e9-ac5b-4b2c-abbf-0447b3fbc5ff",
+        "scriptVersion": 2,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "qualification",
+        "id": "07b2e8c6-d4a9-4284-bb2b-ffae589183b3",
+        "scriptVersion": 2,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "consultation",
+        "id": "16fc27f3-2c96-49b4-aa76-be6ee099c0ec",
+        "scriptVersion": 2,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "proposal",
+        "id": "322ff7af-f657-424e-91fc-47b7dfd66074",
+        "scriptVersion": 2,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "booking_recovery",
+        "id": "01231dfe-d02a-45a3-9faf-9eb2ebe14e75",
+        "scriptVersion": 2,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "onboarding",
+        "id": "469ed456-4e68-4d2f-b09e-6658bae5bfdd",
+        "scriptVersion": 2,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "retention",
+        "id": "d1985ae7-8e35-4a7e-8f08-6a6dace03632",
+        "scriptVersion": 2,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      }
+    ],
+    "callsStarted": false,
+    "smsSent": false,
+    "phoneRoutingChanged": false,
+    "businessToolsAttached": false,
+    "status": "scripts_and_native_tools_verified_business_dependencies_pending",
+    "voicemailToolId": "8fda5a14-5833-4000-95f4-b6406351c0cd",
+    "activeReception": {
+      "id": "5ae2ab0c-fad0-454c-8cf7-64b81c91c850",
+      "configurationReadback": true,
+      "verificationToolPreserved": true,
+      "roleScriptVersion": 2,
+      "callTested": false
+    }
+  },
+  "apiAudit": {
+    "source": "a4d465a6d4c3a56100e3daeab78a6e892491518b",
+    "readOnly": true,
+    "authority": "governance_68b0b02dd1215f58630d2c1a",
+    "candidates": [
+      {
+        "id": 10,
+        "endpoint_code": "API__V1_AUTH_OSM_CALLBACK",
+        "route_path": "/v1/auth/osm/callback",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 52,
+        "endpoint_code": "API__V1_ADMIN_BOOKING-REQUESTS",
+        "route_path": "/v1/admin/booking-requests",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 54,
+        "endpoint_code": "API__V1_ADMIN_LEADS",
+        "route_path": "/v1/admin/leads",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 67,
+        "endpoint_code": "API__V1_ADMIN_CONSENT",
+        "route_path": "/v1/admin/consent",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 68,
+        "endpoint_code": "API__V1_ADMIN_CONSENT_TEMPLATES",
+        "route_path": "/v1/admin/consent/templates",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 69,
+        "endpoint_code": "API__V1_ADMIN_CONSENT_EXPIRING",
+        "route_path": "/v1/admin/consent/expiring",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 218,
+        "endpoint_code": "API__V1_PSW_SCHEDULE_AVAILABILITY",
+        "route_path": "/v1/psw/schedule/availability",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 225,
+        "endpoint_code": "API__V1_PSW_AVAILABILITY_SYNC",
+        "route_path": "/v1/psw/availability/sync",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 237,
+        "endpoint_code": "API__V1_CLIENT_BOOKINGS",
+        "route_path": "/v1/client/bookings",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 238,
+        "endpoint_code": "API__V1_CLIENT_BOOKINGS_REQUESTS",
+        "route_path": "/v1/client/bookings/requests",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 319,
+        "endpoint_code": "API__V1_PUBLIC_LEADS",
+        "route_path": "/v1/public/leads",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 533,
+        "endpoint_code": "API__V1_MANAGER_GAMIFICATION_LEADERBOARD",
+        "route_path": "/v1/manager/gamification/leaderboard",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 566,
+        "endpoint_code": "API__V1_CLIENT_BOOKINGS_REQUEST",
+        "route_path": "/v1/client/bookings/request",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 808,
+        "endpoint_code": "API__V1_OFFICE_PARTNERSHIP-LEADS",
+        "route_path": "/v1/office/partnership-leads",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 814,
+        "endpoint_code": "API__V1_MARKETING_LEADS",
+        "route_path": "/v1/marketing/leads",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 836,
+        "endpoint_code": "API__V1_ADMIN_COMPLIANCE_CONSENTS",
+        "route_path": "/v1/admin/compliance/consents",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 846,
+        "endpoint_code": "API__V1_ADMIN_LEADS",
+        "route_path": "/v1/admin/leads",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 941,
+        "endpoint_code": "API__V1_PREMIUM_BDMLEAD",
+        "route_path": "/v1/premium/bdmlead",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 957,
+        "endpoint_code": "API__V1_PREMIUM_FAMILYAPPOINTMENT",
+        "route_path": "/v1/premium/familyappointment",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 979,
+        "endpoint_code": "API__V1_PREMIUM_FRANCHISEBOOKINGNODE",
+        "route_path": "/v1/premium/franchisebookingnode",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1073,
+        "endpoint_code": "API__V1_PREMIUM_BOOKING",
+        "route_path": "/v1/premium/booking",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1074,
+        "endpoint_code": "API__V1_PREMIUM_PROVIDERAVAILABILITY",
+        "route_path": "/v1/premium/provideravailability",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1081,
+        "endpoint_code": "API__V1_PREMIUM_AVAILABILITYOVERRIDE",
+        "route_path": "/v1/premium/availabilityoverride",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1088,
+        "endpoint_code": "API__V1_PREMIUM_BOOKINGREQUEST",
+        "route_path": "/v1/premium/bookingrequest",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1105,
+        "endpoint_code": "API__V1_PREMIUM_CONSENTFORM",
+        "route_path": "/v1/premium/consentform",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1109,
+        "endpoint_code": "API__V1_PREMIUM_LEAD",
+        "route_path": "/v1/premium/lead",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1148,
+        "endpoint_code": "API__V1_MARKETING_LEADS_CONVERSION",
+        "route_path": "/v1/marketing/leads/conversion",
+        "http_method": "GET",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1162,
+        "endpoint_code": "API__V1_CHIROPRACTOR-APPOINTMENTS_COMPLIANCE_SCAN",
+        "route_path": "/v1/chiropractor-appointments/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1173,
+        "endpoint_code": "API__V1_PHYSIOTHERAPIST-APPOINTMENTS_COMPLIANCE_SCAN",
+        "route_path": "/v1/physiotherapist-appointments/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1181,
+        "endpoint_code": "API__V1_RMT-APPOINTMENTS_COMPLIANCE_SCAN",
+        "route_path": "/v1/rmt-appointments/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1186,
+        "endpoint_code": "API__V1_RMT_APPOINTMENTS_FETCH",
+        "route_path": "/v1/rmt/appointments/fetch",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 16565,
+        "endpoint_code": "VAPI_VOICE_VERIFICATION",
+        "route_path": "/v1/vapi/voice/verification",
+        "http_method": "POST",
+        "service_name": "governance",
+        "implementation_status": "registered-unimplemented",
+        "permission_key": "vapi.service.verification",
+        "auth_required": 1
+      },
+      {
+        "id": 1216,
+        "endpoint_code": "API__V1_CNS_CONSULTATIONS_LOG",
+        "route_path": "/v1/cns/consultations/log",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1244,
+        "endpoint_code": "API__V1_APPOINTMENT_COMPLIANCE_SCAN",
+        "route_path": "/v1/appointment/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1260,
+        "endpoint_code": "API__V1_PATIENT-APPOINTMENTS_COMPLIANCE_SCAN",
+        "route_path": "/v1/patient-appointments/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1276,
+        "endpoint_code": "API__V1_APPOINTMENT-OVERVIEW_COMPLIANCE_SCAN",
+        "route_path": "/v1/appointment-overview/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1277,
+        "endpoint_code": "API__V1_BOOKING_COMPLIANCE_SCAN",
+        "route_path": "/v1/booking/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1310,
+        "endpoint_code": "API__V1_FRANCHISE-OWNER-APPOINTMENTS_COMPLIANCE_SCAN",
+        "route_path": "/v1/franchise-owner-appointments/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1322,
+        "endpoint_code": "API__V1_HR-DIRECTOR-ONBOARDING_COMPLIANCE_SCAN",
+        "route_path": "/v1/hr-director-onboarding/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1326,
+        "endpoint_code": "API__V1_INTAKE-COORDINATOR-BOOKING_COMPLIANCE_SCAN",
+        "route_path": "/v1/intake-coordinator-booking/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1364,
+        "endpoint_code": "API__V1_FRANCHISE-LEAD_COMPLIANCE_SCAN",
+        "route_path": "/v1/franchise-lead/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1368,
+        "endpoint_code": "API__V1_LEAD-ANALYTICS_COMPLIANCE_SCAN",
+        "route_path": "/v1/lead-analytics/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1371,
+        "endpoint_code": "API__V1_ONBOARDING_COMPLIANCE_SCAN",
+        "route_path": "/v1/onboarding/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1458,
+        "endpoint_code": "API__V1_HR-HIRING-ONBOARDING_COMPLIANCE_SCAN",
+        "route_path": "/v1/hr-hiring-onboarding/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1464,
+        "endpoint_code": "API__V1_ONBOARDING-CHECKLIST_COMPLIANCE_SCAN",
+        "route_path": "/v1/onboarding-checklist/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1470,
+        "endpoint_code": "API__V1_SCHEDULER-BOOKING-REQUESTS_COMPLIANCE_SCAN",
+        "route_path": "/v1/scheduler-booking-requests/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 1475,
+        "endpoint_code": "API__V1_SCHEDULER-PROVIDER-AVAILABILITY_COMPLIANCE_SCAN",
+        "route_path": "/v1/scheduler-provider-availability/compliance/scan",
+        "http_method": "POST",
+        "service_name": "PRISMA",
+        "implementation_status": "active",
+        "permission_key": null,
+        "auth_required": 1
+      },
+      {
+        "id": 16445,
+        "endpoint_code": "PLATFORM_ONBOARDING_GET",
+        "route_path": "/v1/governance/platform/onboarding",
+        "http_method": "GET",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "platform.onboarding_global",
+        "auth_required": 1
+      },
+      {
+        "id": 16446,
+        "endpoint_code": "PLATFORM_ONBOARDING_POST",
+        "route_path": "/v1/governance/platform/onboarding/{id}/activate",
+        "http_method": "POST",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "platform.onboarding_global",
+        "auth_required": 1
+      },
+      {
+        "id": 16449,
+        "endpoint_code": "GROWTH_POST__leads",
+        "route_path": "/v1/governance/growth/leads",
+        "http_method": "POST",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "growth.tenant_role",
+        "auth_required": 1
+      },
+      {
+        "id": 16450,
+        "endpoint_code": "GROWTH_PATCH__leads_id",
+        "route_path": "/v1/governance/growth/leads/{id}",
+        "http_method": "PATCH",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "growth.tenant_role",
+        "auth_required": 1
+      },
+      {
+        "id": 16457,
+        "endpoint_code": "GROWTH_POST__appointments",
+        "route_path": "/v1/governance/growth/appointments",
+        "http_method": "POST",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "growth.tenant_role",
+        "auth_required": 1
+      },
+      {
+        "id": 16458,
+        "endpoint_code": "GROWTH_PATCH__appointments_id",
+        "route_path": "/v1/governance/growth/appointments/{id}",
+        "http_method": "PATCH",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "growth.tenant_role",
+        "auth_required": 1
+      },
+      {
+        "id": 16472,
+        "endpoint_code": "GROWTH_POST__onboarding",
+        "route_path": "/v1/governance/growth/onboarding",
+        "http_method": "POST",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "growth.ceo_business",
+        "auth_required": 1
+      },
+      {
+        "id": 16473,
+        "endpoint_code": "GROWTH_PATCH__onboarding_id",
+        "route_path": "/v1/governance/growth/onboarding/{id}",
+        "http_method": "PATCH",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "growth.ceo_business",
+        "auth_required": 1
+      },
+      {
+        "id": 16561,
+        "endpoint_code": "VAPI_ADMIN_INVENTORY",
+        "route_path": "/v1/governance/platform/vapi/inventory",
+        "http_method": "GET",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "role_screen_permissions",
+        "auth_required": 1
+      },
+      {
+        "id": 16534,
+        "endpoint_code": "VAPI_VOICE_TASKS",
+        "route_path": "/v1/vapi/voice/tasks",
+        "http_method": "POST",
+        "service_name": "governance",
+        "implementation_status": "registered-unimplemented",
+        "permission_key": "vapi.service.tasks",
+        "auth_required": 1
+      },
+      {
+        "id": 16562,
+        "endpoint_code": "VAPI_ADMIN_ASSISTANTS",
+        "route_path": "/v1/governance/platform/vapi/assistants",
+        "http_method": "POST",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "role_screen_permissions",
+        "auth_required": 1
+      },
+      {
+        "id": 16563,
+        "endpoint_code": "VAPI_ADMIN_TOOLS",
+        "route_path": "/v1/governance/platform/vapi/tools",
+        "http_method": "POST",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "role_screen_permissions",
+        "auth_required": 1
+      },
+      {
+        "id": 16564,
+        "endpoint_code": "VAPI_ADMIN_ATTACHMENT",
+        "route_path": "/v1/governance/platform/vapi/attachment",
+        "http_method": "POST",
+        "service_name": "governance",
+        "implementation_status": "implemented",
+        "permission_key": "role_screen_permissions",
+        "auth_required": 1
+      }
+    ],
+    "bindingsEnabled": false,
+    "status": "metadata_candidates_require_runtime_and_identity_review"
+  },
+  "remaining": [
+    "Call-scoped business authorization bridge to actual tenant/role APIs",
+    "Dedicated verification scope for library assistants",
+    "Verified consent/suppression before marketing calls",
+    "Runtime booking/lead/callback readback and duplicate/failure acceptance"
+  ],
+  "broaderCi": {
+    "communicationsStack": "passed",
+    "workerTyping": "Cannot resolve cloudflare:workers in inventory strict check",
+    "passwordBrowser": "Cannot resolve @twilio/voice-sdk in browser build",
+    "contractReview": "Reviewed source amendment changed: cloudflare/workers/src/gateway.ts",
+    "dashboardPublish": "failed; appearance review passed"
+  }
+}
