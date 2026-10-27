@@ -22,6 +22,7 @@ test('unavailable action checks read back actual saved answers and reject fabric
  const assistantId='9ba3014c-cfaa-4607-997c-b5347212be54';let answer="I can't save a callback here. Nothing has been saved.",calls=0;
  const client=new VapiPublicKnowledgeClient({apiKey:'synthetic-private-key-12345',fetch:async(url,init)=>{calls++;if(init.method==='POST'){const body=JSON.parse(init.body);assert.equal(body.assistantId,assistantId);assert.match(body.input,/synthetic readiness check/);}return Response.json({id:'synthetic_check',orgId:org,assistantId,output:[{role:'assistant',content:answer}]});}});
  assert.equal((await client.probeUnavailable('reception')).limitationStated,true);assert.equal(calls,2);
+ answer="I cannot confirm that your do-not-contact preference has been saved or confirmed because I do not have access to the necessary tool.";assert.equal((await client.probeUnavailable('reception')).completionClaimDetected,false);
  answer="I can't access your account, but I have saved the callback.";
  await assert.rejects(()=>client.probeUnavailable('reception'),e=>e.message==='unavailable_tool_acceptance_failed'&&e.acceptance.completionClaimDetected);
  await assert.rejects(()=>client.probeUnavailable('unregistered'),/chat_probe_scope_required/);

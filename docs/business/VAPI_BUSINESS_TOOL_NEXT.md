@@ -31,3 +31,36 @@ Remaining production connections:
 No call, campaign, SMS, phone routing or authentication change is part of this
 checkpoint. Automated tests use isolated in-memory API/journal fixtures only;
 production journal durability and deployed private execution remain unverified.
+
+## Requested public-to-client service flow
+
+The owner clarified the desired journey on 2026-10-27:
+
+1. Public callers can ask approved company/service questions without signing in.
+   Opening hours and appointment slots must come from their authoritative sources;
+   the public enquiry-category document does not establish either.
+2. A new client can request registration and an appointment. Registration needs
+   the actual approved account/profile service, contact verification and consent;
+   creating a CRM enquiry is not creating a usable client account. Booking needs
+   authoritative service, eligibility, live slots, current versions, exact-detail
+   confirmation and saved-result readback. A request is not a confirmed booking.
+3. An existing client can request a dedicated current-call verification code.
+   The existing backend resolves the unique registered contact and sends to that
+   contact; caller/model input cannot replace the destination. The check tool
+   validates the code without exposing a stored code, hash or login secret.
+4. After successful verification, resolve the current client/tenant permissions.
+   Phone possession does not grant an administrator session or authorize every
+   action. Read/change only that client's permitted appointments and records.
+5. Client service can include appointment changes, client-requested notes and
+   questions for a qualified health professional. A client-requested note is not a
+   clinician-authored assessment. Routing a question is not providing diagnosis
+   or proving that an expert has answered. Save/send only through the approved
+   scoped communications and client APIs, with readback and status tracking.
+6. On unavailable tools or failed verification, explain the limitation and offer
+   the approved contact/app path; never invent an account, appointment or reply.
+
+This is the target flow, not a statement that all steps are currently deployed.
+Existing authentication/verification implementation is preserved. Availability,
+new-client registration, client-note and expert-routing tool bindings must be
+verified separately; the previous 20-capability pack does not include complete
+implementations of these newly clarified steps.

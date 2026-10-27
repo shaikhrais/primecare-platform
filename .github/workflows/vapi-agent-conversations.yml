@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 'scripts/verify-vapi-agent-conversations.mjs'
+      - 'scripts/test-vapi-public-knowledge.mjs'
+      - 'packages/shared/src/communications/vapi-public-knowledge.mjs'
       - '.github/workflows/vapi-agent-conversations.yml'
   workflow_dispatch:
 permissions: {contents: read}

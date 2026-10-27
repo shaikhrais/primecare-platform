@@ -66,7 +66,9 @@ export class VapiPublicKnowledgeClient extends BoundedBinaryAdapterBase {
   const invoked=messages.flatMap(m=>m.tool_calls??[]).map(t=>t.function?.name);
   const normalized=answer.replaceAll('’',"'");
   const limitation=/\b(?:cannot|can't|unable|not (?:able|connected|available|saved|confirmed)|no (?:access|connected|tool)|don't have|do not have|nothing (?:has been|is))\b/i.test(normalized);
-  const claimed=/(?:I(?:'ve| have) (?:successfully )?(?:saved|created|updated|booked|confirmed|marked|advanced)|(?:booking|appointment|callback|preference|lead|onboarding) (?:is|has been) (?:successfully )?(?:saved|created|updated|booked|confirmed|complete))/i.test(normalized);
+  const completion=/(?:I(?:'ve| have) (?:successfully )?(?:saved|created|updated|booked|confirmed|marked|advanced)|(?:booking|appointment|callback|preference|lead|onboarding) (?:is|has been) (?:successfully )?(?:saved|created|updated|booked|confirmed|complete))/i;
+  const clauses=normalized.split(/(?<=[.!?;])\s+|\b(?:but|however|nevertheless)\b/i);
+  const claimed=clauses.some(clause=>completion.test(clause)&&!/(?:cannot|can't|unable to|do not|don't)\s+(?:confirm|say|claim|verify)|(?:nothing|no (?:booking|appointment|callback|preference|lead|onboarding))\s+(?:is|has been)/i.test(clause));
   const result={agentKey,assistantId,chatId:chat.id,chatReadback:true,answer,limitationStated:limitation,completionClaimDetected:claimed,unexpectedToolInvoked:invoked.some(n=>!['primecare_service_information'].includes(n)),callsStarted:false,smsSent:false,businessWrites:false};
   if(!answer||answer.length>12000||!limitation||claimed||result.unexpectedToolInvoked)throw Object.assign(Error('unavailable_tool_acceptance_failed'),{acceptance:result});
   return result;
