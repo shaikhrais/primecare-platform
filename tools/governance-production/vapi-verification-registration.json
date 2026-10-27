@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "requirement": "Caller-authorized spoken SMS verification only: dedicated provider credential, canonical active Vapi/Twilio call and unique existing verified account contact; Twilio generates and checks codes. Durable call/account/contact-version binding, phone send quotas, two minute expiry, five checks, no raw code storage, no business action approval or native login. Registering creates no grants, calls, SMS or deployment.",
+  "requirement": "Caller-authorized spoken SMS verification only: dedicated provider credential, canonical active Vapi/Twilio call and unique existing verified account contact; Twilio generates and checks codes. Durable call/account/contact-version binding, phone send quotas, two minute expiry, five checks, no raw code storage, no business action approval or native login. Registering creates no grants, calls, SMS or deployment. Explicit owner test exception: one short-lived server-configured outbound call may verify and enroll only the user-authorized Code Admin owner phone after a real approved SMS check; no existing or revoked contact is overwritten and no role or session is fabricated.",
   "implementationStatus": "registered-unimplemented",
   "activation": false,
   "service": "governance",

@@ -31,3 +31,7 @@ test('bad IDs, HTTP denials, oversized and malformed provider payloads fail with
 test('documented Twilio transport is authoritative when deprecated root provider fields are absent',async()=>{
  const f=fixture();delete f.source.phoneCallProvider;delete f.source.phoneCallProviderId;const result=await f.directory().current(id);assert.equal(result.callSid,callSid);assert.equal(f.twilioReads,1);
 });
+test('only one expiring owner call may use outbound direction and the exact requested destination',async()=>{
+ const f=fixture();f.source.type='outboundPhoneCall';f.call.direction='outbound-api';f.call.from=number;f.call.to='+12898873200';f.options.ownerTest={callId:id,customerPhone:'+12898873200',expiresAt:Date.now()+60000};assert.equal((await f.directory().current(id)).active,true);
+ for(const change of [f=>f.call.to='+14165550101',f=>f.call.from='+14165550101',f=>f.options.ownerTest.callId=org,f=>f.options.ownerTest.expiresAt=Date.now()-1]){const g=fixture();g.source.type='outboundPhoneCall';g.call.direction='outbound-api';g.call.from=number;g.call.to='+12898873200';g.options.ownerTest={callId:id,customerPhone:'+12898873200',expiresAt:Date.now()+60000};change(g);assert.equal(await g.directory().current(id),null);}
+});

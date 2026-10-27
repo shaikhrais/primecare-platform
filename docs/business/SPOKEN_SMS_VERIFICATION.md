@@ -67,3 +67,13 @@ The unrelated workflow-contract-plan check was already failing before this chang
 (run 40426784922) and still fails its reviewed gateway.ts source-amendment hash.
 The spoken verification release tests and deployment passed independently. No
 unreviewed gateway change or hash bypass is included here.
+
+## Explicit owner test authorization
+
+The owner requested account/phone update and an outbound SMS/code test. This
+additive path permits one short-lived server-configured outbound call to the
+requested owner phone. It verifies both providers and the active Code Admin
+email before sending. Only a real approved Twilio code can enroll the first
+canonical contact; no existing or revoked record is replaced. Native login and
+booking approval remain separate. The test workflow runs once only for the
+explicit OWNER_PHONE_TEST_20261026 commit marker, and skips automatic reruns.

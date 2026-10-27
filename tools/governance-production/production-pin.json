@@ -1360,7 +1360,7 @@
         "path": "/v1/vapi/voice/verification"
       }
     ],
-    "definitionSha256": "538d6e31b3f23321798802c5bb2dfbb63cadab4d0cbf949fdfe78d3e9de46a4c",
+    "definitionSha256": "c11d4a8b27f0703d30cdf43632011619294afad8f482a6f7298b6d45c867e23e",
     "schemaChanges": false,
     "businessDataWrites": false,
     "permissionChanges": false,

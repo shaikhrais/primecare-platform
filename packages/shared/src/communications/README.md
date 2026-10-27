@@ -1337,3 +1337,13 @@ claims. State is purged after ten minutes. This is current-call phone possession
 evidence only; it does not grant native login, task identity or business approval.
 The spoken-code instructions and artifact storage changes apply only to the
 active receptionist. Other agents, phone routing and business tools are preserved.
+
+### Explicit owner outbound acceptance test
+
+The owner-authorized test is limited to one server-configured Vapi call ID, the
+requested owner email/phone and a short expiry. Outbound Twilio direction/source/
+destination and Vapi org/assistant/phone are independently checked. No general
+outbound enrollment path is enabled. Missing contact may select only the current
+active Code Admin owner for this bounded test; a real approved code is required
+before inserting the canonical account contact. Existing/revoked contacts are
+preserved, and no auth session, role or approval is fabricated.
