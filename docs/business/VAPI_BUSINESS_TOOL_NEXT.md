@@ -164,7 +164,10 @@ pending/completed restart survival, conflicting arguments, immutable completion,
 size/input limits and call/scope/tool isolation. A complete Vapi server-protocol
 fixture then processed twenty concurrent duplicate requests with exactly one
 synthetic mutation, and replayed the same saved result after Worker restart.
-The existing 47 business-handler checks also passed locally.
+The existing 47 business-handler checks also passed locally and in CI run
+40561936690 (job 122392980675), together with the durable runtime checks.
+The initial dependency pin was corrected to the exact locally verified version
+before the successful run. Receipt: [durable journal](evidence/vapi-business-journal-20261027.json).
 
 This implements the durable journal dependency, not the remaining private phone
 write host or its current authorization and independent confirmation bindings.

@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-27",
+  "branch": "main",
+  "sourceCommit": "0f7d3da5573496f72ec9112def5fbb7502002bed",
+  "component": "DurableVapiBusinessJournal",
+  "nativeBusinessHandlerCount": 16,
+  "focusedChecks": 47,
+  "durableRuntime": {
+    "engine": "workerd via Miniflare 4.20260730.0",
+    "concurrentClaims": 20,
+    "concurrentProtocolRequests": 20,
+    "syntheticMutations": 1,
+    "pendingSurvivesRestart": true,
+    "completedReplaySurvivesRestart": true,
+    "conflictingDigestDenied": true,
+    "completionImmutable": true,
+    "maximumResultUtf8Bytes": 8192
+  },
+  "ci": {
+    "runId": 40561936690,
+    "jobId": 122392980675,
+    "conclusion": "success"
+  },
+  "earlierRun": {
+    "runId": 40561888472,
+    "conclusion": "failure",
+    "correction": "Dependency pin corrected to exact locally verified version; final run passed"
+  },
+  "liveState": {
+    "phoneWriteHostMounted": false,
+    "newPhoneToolAttachments": 0,
+    "productionStorageCreated": false,
+    "realCalls": 0,
+    "realSms": 0,
+    "customerWrites": 0
+  },
+  "remaining": [
+    "verified-caller private write host with current per-tool authorization",
+    "independent action confirmation",
+    "approved signup and bookable availability bindings",
+    "approved conversation recipients and transfer destinations",
+    "first real enrolled account phone and live OTP acceptance"
+  ]
+}
