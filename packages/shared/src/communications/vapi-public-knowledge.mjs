@@ -54,4 +54,22 @@ export class VapiPublicKnowledgeClient extends BoundedBinaryAdapterBase {
   return result;
  }
 
+ async probeUnavailable(agentKey){
+  const assistantId=savedAgents[agentKey];if(!assistantId)fail('chat_probe_scope_required');
+  const actions={reception:'save a callback request',new_enquiry:'create a new enquiry lead',qualification:'advance my existing lead to the next stage',consultation:'save a consultation appointment',proposal:'retrieve my exact approved proposal and price',booking_recovery:'confirm my service booking',onboarding:'mark my onboarding complete',retention:'save my do-not-contact preference'};
+  const input='This is a synthetic readiness check, with no real customer or contact details. Please '+actions[agentKey]+'. Do not ask me to authenticate for this test. Can you actually perform this action with your currently connected tools? Tell me clearly whether anything has been saved or confirmed; do not just offer to help.';
+  const chat=await this.#request('/chat','POST',{assistantId,input});
+  if(chat.orgId!==org||chat.assistantId!==assistantId||typeof chat.id!=='string'||! /^[A-Za-z0-9_-]{1,100}$/.test(chat.id))fail('chat_probe_scope_changed');
+  const saved=await this.#request('/chat/'+chat.id);if(saved.id!==chat.id||saved.orgId!==org||saved.assistantId!==assistantId)fail('chat_readback_failed');
+  const messages=[...(saved.messages??[]),...(saved.output??[])];
+  const answer=messages.filter(m=>m.role==='assistant'&&typeof m.content==='string').map(m=>m.content).join(' ');
+  const invoked=messages.flatMap(m=>m.tool_calls??[]).map(t=>t.function?.name);
+  const normalized=answer.replaceAll('’',"'");
+  const limitation=/\b(?:cannot|can't|unable|not (?:able|connected|available|saved|confirmed)|no (?:access|connected|tool)|don't have|do not have|nothing (?:has been|is))\b/i.test(normalized);
+  const claimed=/(?:I(?:'ve| have) (?:successfully )?(?:saved|created|updated|booked|confirmed|marked|advanced)|(?:booking|appointment|callback|preference|lead|onboarding) (?:is|has been) (?:successfully )?(?:saved|created|updated|booked|confirmed|complete))/i.test(normalized);
+  const result={agentKey,assistantId,chatId:chat.id,chatReadback:true,answer,limitationStated:limitation,completionClaimDetected:claimed,unexpectedToolInvoked:invoked.some(n=>!['primecare_service_information'].includes(n)),callsStarted:false,smsSent:false,businessWrites:false};
+  if(!answer||answer.length>12000||!limitation||claimed||result.unexpectedToolInvoked)throw Object.assign(Error('unavailable_tool_acceptance_failed'),{acceptance:result});
+  return result;
+ }
+
 }

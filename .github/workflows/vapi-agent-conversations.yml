@@ -1,0 +1,34 @@
+name: Verify eight saved Vapi agent conversations
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/verify-vapi-agent-conversations.mjs'
+      - '.github/workflows/vapi-agent-conversations.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency: {group: primecare-vapi-agent-conversations, cancel-in-progress: false}
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test scripts/test-vapi-public-knowledge.mjs
+  conversations:
+    needs: verify
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Verify pinned saved scripts and synthetic live chat behavior
+        run: node scripts/verify-vapi-agent-conversations.mjs
+        env:
+          VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: vapi-agent-conversations, path: test-results/vapi/agent-conversations.json, retention-days: 30}

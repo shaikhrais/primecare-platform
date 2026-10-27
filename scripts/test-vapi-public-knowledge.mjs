@@ -17,3 +17,17 @@ test('public chat acceptance requires a real query call/result and independently
 });
 
 test('the exact provider-returned storage project is allowed only for object reads with matching bytes',async()=>{const f=fixture();await f.client.ensure(text);f.file.url='https://jtuyprjjgxbgmtjiykoa.supabase.co/storage/v1/object/public/managed/info.txt';assert.equal((await f.client.ensure(text)).contentReadback,true);f.file.url='https://jtuyprjjgxbgmtjiykoa.supabase.co/rest/v1/private';await assert.rejects(()=>f.client.ensure(text),/unsupported_file_storage_preserved/);});
+
+test('unavailable action checks read back actual saved answers and reject fabricated completion',async()=>{
+ const assistantId='9ba3014c-cfaa-4607-997c-b5347212be54';let answer="I can't save a callback here. Nothing has been saved.",calls=0;
+ const client=new VapiPublicKnowledgeClient({apiKey:'synthetic-private-key-12345',fetch:async(url,init)=>{calls++;if(init.method==='POST'){const body=JSON.parse(init.body);assert.equal(body.assistantId,assistantId);assert.match(body.input,/synthetic readiness check/);}return Response.json({id:'synthetic_check',orgId:org,assistantId,output:[{role:'assistant',content:answer}]});}});
+ assert.equal((await client.probeUnavailable('reception')).limitationStated,true);assert.equal(calls,2);
+ answer="I can't access your account, but I have saved the callback.";
+ await assert.rejects(()=>client.probeUnavailable('reception'),e=>e.message==='unavailable_tool_acceptance_failed'&&e.acceptance.completionClaimDetected);
+ await assert.rejects(()=>client.probeUnavailable('unregistered'),/chat_probe_scope_required/);
+});
+test('unavailable action checks reject unrecognized calls and omit provider errors',async()=>{
+ const assistantId='9ba3014c-cfaa-4607-997c-b5347212be54';
+ const client=new VapiPublicKnowledgeClient({apiKey:'synthetic-private-key-12345',fetch:async()=>Response.json({id:'synthetic_check',orgId:org,assistantId,output:[{role:'assistant',content:"I cannot do that.",tool_calls:[{id:'one',function:{name:'private_write'}}]}]})});
+ await assert.rejects(()=>client.probeUnavailable('reception'),e=>e.acceptance.unexpectedToolInvoked===true);
+});
