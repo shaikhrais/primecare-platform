@@ -1494,5 +1494,49 @@
     "businessDataWrites": false,
     "providerWrites": false,
     "activation": false
+  },
+  "callAuditStorageWriter": {
+    "optInVariable": "GOVERNANCE_CALL_AUDIT_STORAGE_WRITES",
+    "tables": [
+      "database_rebuild_baselines",
+      "db_schema_columns",
+      "db_schema_tables"
+    ],
+    "definitionSha256": "70106e2f88a0b66674853ff1d5382e7bc6752be36cf44336d468c4ebd576cdcd",
+    "migrationSha256": "9b9c6ea77cc205a82ed6a30f18382a9ec0e801ddd2322a526298f0465af1232c",
+    "businessTables": [
+      "communication_call_audit"
+    ],
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "activation": false
+  },
+  "callAuditRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_CALL_AUDIT_REGISTRATION",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "vapi.call_audit",
+        "method": "POST",
+        "path": "/v1/vapi/calls/audit"
+      }
+    ],
+    "definitionSha256": "f359fc83b540f396fa891aa715b5f9cf37e310253cfb32221cab10e9b42a175e",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
+  },
+  "callAuditSchemaMigration": {
+    "migrationSha256": "9b9c6ea77cc205a82ed6a30f18382a9ec0e801ddd2322a526298f0465af1232c",
+    "table": "communication_call_audit",
+    "schema": "public",
+    "existingData": "preserve",
+    "roleGrants": false
   }
 }

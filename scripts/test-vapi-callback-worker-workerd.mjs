@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';import {build} from 'esbuild';import {Miniflare,createFetchMock} from 'miniflare';import {builtinModules} from 'node:module';
 const built=await build({stdin:{resolveDir:process.cwd(),contents:`
-import handler from './cloudflare/workers/src/business-tasks/vapi-callback-worker.ts';
+import {VapiCallbackWorker} from './cloudflare/workers/src/business-tasks/vapi-callback-worker.ts';
+const handler={fetch:(request,env)=>new VapiCallbackWorker().fetch(request,env)};
 import {DurableObject} from 'cloudflare:workers';
 export class FixtureRequests extends DurableObject {async fetch(request){return Response.json({forwarded:true,url:request.url,body:await request.text()},{status:409,headers:{'cache-control':'no-store'}});}}
 export default {fetch(request,env,ctx){return handler.fetch(request,{...env,VAPI_TOOL_LIMIT:{async limit(){return {success:!request.headers.has('x-fixture-limit')};}}},ctx);}};

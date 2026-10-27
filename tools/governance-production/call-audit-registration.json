@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "requirement": "Provider-authenticated lifecycle audit ingestion with canonical Vapi/Twilio readback; metadata-only projection; no business actions, conversation recording, user access or phone-routing changes.",
+  "implementationStatus": "registered-unimplemented",
+  "activation": false,
+  "service": "governance",
+  "anchorApiId": 710,
+  "operations": [
+    {
+      "key": "vapi.call_audit",
+      "method": "POST",
+      "path": "/v1/vapi/calls/audit",
+      "authentication": "vapi-service-credential-and-canonical-call",
+      "responseKind": "json",
+      "permission": "vapi.service.call_audit",
+      "request": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "object",
+            "required": [
+              "type",
+              "call"
+            ]
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "accepted": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  ]
+}

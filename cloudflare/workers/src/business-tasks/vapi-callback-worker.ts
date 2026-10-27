@@ -1,3 +1,4 @@
+import {CallAuditedWorker} from './call-audit-worker-base.ts';
 import {DurableObject} from 'cloudflare:workers';
 import pg from 'pg';
 import {BaseWorker,workerHandler} from '../core/base-worker.ts';
@@ -52,4 +53,4 @@ export class VapiCallbackWorker extends BaseWorker<Env>{
  }
  protected override onError(_error:unknown,request:Request,env:Env){void request.body?.cancel().catch(()=>{});return response(env,'callback_unavailable',503);}
 }
-export default workerHandler(new VapiCallbackWorker());
+export default workerHandler(new CallAuditedWorker(new VapiCallbackWorker(),'VAPI_TOOLS_SERVICE_SECRET','business_tool_backend',['/v1/vapi/voice/tasks']));

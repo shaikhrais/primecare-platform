@@ -1,3 +1,4 @@
+import {CallAuditedWorker} from './call-audit-worker-base.ts';
 import {DurableObject} from 'cloudflare:workers';
 import pg from 'pg';
 import savedAgents from '../../../../packages/shared/src/vapi-agent-targets.json' with {type:'json'};
@@ -66,13 +67,14 @@ export class SpokenVerificationWorker extends BaseWorker<Env>{
   if(message?.type!=='tool-calls'||!Array.isArray(list)||list.length!==1||list[0]?.type!=='function'||list[0]?.function?.name!==(clientRead?'primecare_client_information':'primecare_phone_verification')||typeof list[0]?.id!=='string')return deny(400);
   const tool=list[0],callId=message.call?.id;let args=tool.function.arguments;if(typeof args==='string'){if(args.length>1024)return deny(400);args=JSON.parse(args);}
   const pool=new pg.Pool(nativePostgresOptions(env.DB_URL));
+  let auditReason='verification_backend_failed';
   try{
    const ownerTest=ownerTestGrant(env);
    const directory=createVapiCanonicalCallDirectory({vapi:new VapiCallReadClient({apiKey:env.VAPI_PRIVATE_API_KEY}),twilio:{fetch:(id:string)=>twilioCall(env,id)},orgId,assistantId,assistantIds:[assistantId,...Object.values(savedAgents)],phoneNumberId:phoneId,accountSid:env.TWILIO_ACCOUNT_SID,sharedNumber:number,ownerTest});
-   const candidate=async(id:string):Promise<SpokenCandidate|null>=>{const call=await directory.current(id);if(!call)return null;const raw=await twilioCall(env,call.callSid);if(raw.sid!==call.callSid||raw.accountSid!==env.TWILIO_ACCOUNT_SID||raw.status!=='in-progress'||!(raw.direction==='inbound'&&raw.to===number||ownerTest?.callId===id&&raw.direction==='outbound-api'&&raw.from===number&&raw.to===ownerTest.customerPhone))return null;
+   const candidate=async(id:string):Promise<SpokenCandidate|null>=>{const call=await directory.current(id);if(!call){auditReason='call_not_active_or_provider_mismatch';return null;}const raw=await twilioCall(env,call.callSid);if(raw.sid!==call.callSid||raw.accountSid!==env.TWILIO_ACCOUNT_SID||raw.status!=='in-progress'||!(raw.direction==='inbound'&&raw.to===number||ownerTest?.callId===id&&raw.direction==='outbound-api'&&raw.from===number&&raw.to===ownerTest.customerPhone))return null;
     const contactPhone=raw.direction==='inbound'?raw.from:raw.to;if(!/^\+[1-9][0-9]{6,14}$/.test(contactPhone??''))return null;
     const rows=(await pool.query(`SELECT u.email,u.roles,c.user_id,c.tenant_id,c.version::float8 AS version FROM public.communication_voice_verified_contacts c JOIN public.users u ON u.id::text=c.user_id AND u.tenant_id::text=c.tenant_id JOIN public.tenants t ON t.id=u.tenant_id WHERE c.phone=$1 AND c.revoked_at IS NULL AND LOWER(u.status)='active' AND LOWER(t.status)='active' LIMIT 2`,[contactPhone])).rows;
-    if(rows.length===0)return pendingOwnerCandidate(pool,ownerTest,id,contactPhone,call.callSid);if(rows.length!==1||ownerTest?.callId===id&&(rows[0].email.toLowerCase()!==ownerTest.email||rows[0].roles!=='code_admin'))return null;return {actor:{id:rows[0].user_id,tenantId:rows[0].tenant_id},phone:contactPhone,version:rows[0].version,callSid:call.callSid,callId:id};};
+    if(rows.length===0){auditReason='no_verified_account_phone';return pendingOwnerCandidate(pool,ownerTest,id,contactPhone,call.callSid);}if(rows.length>1)auditReason='ambiguous_verified_account_phone';if(rows.length!==1||ownerTest?.callId===id&&(rows[0].email.toLowerCase()!==ownerTest.email||rows[0].roles!=='code_admin'))return null;return {actor:{id:rows[0].user_id,tenantId:rows[0].tenant_id},phone:contactPhone,version:rows[0].version,callSid:call.callSid,callId:id};};
    const registered=async(read:boolean)=>{
     const schema=pin.schema;if(!/^[a-z0-9_]+$/.test(schema))throw Error();const op=read?clientContract.operations[0]:contract.operations[0];
     const v=metadataValue,rows=(await pool.query(`SELECT ${v('a','id')} AS id,${v('a','permission_key')} AS permission,${v('a','auth_required')} AS auth FROM "${schema}".govt_api_endpoints a WHERE ${v('a','http_method')}='POST' AND ${v('a','route_path')}=$1 AND ${v('a','service_name')}='governance' AND EXISTS(SELECT 1 FROM "${schema}".govt_source_manifest WHERE manifest_sha256=$2) LIMIT 2`,[op.path,pin.manifestSha256])).rows;
@@ -87,8 +89,8 @@ export class SpokenVerificationWorker extends BaseWorker<Env>{
    }
    const service=new SpokenSmsVerificationService(new PostgresAtomicStore(pool,'business_sms'),policy,{current:candidate,run:async(c,input)=>{const key=await digest(c.phone);const response=await env.VERIFICATIONS.get(env.VERIFICATIONS.idFromName(key)).fetch('https://private-verification/action',{method:'POST',body:JSON.stringify({candidate:c,input})});if(!response.ok)throw Error();return response.json();}});
    const result=await service.execute(callId,tool.id,args);if(result.verified&&ownerTest?.callId===callId){const current=await candidate(callId);if(!current)throw Error();await enrollApprovedOwner(pool,ownerTest,current,true);if(!await candidate(callId))throw Error();}return Response.json({results:[{toolCallId:tool.id,result:JSON.stringify(result)}]},{headers});
-  }catch{return Response.json({results:[{toolCallId:tool.id,error:clientRead?'Client information unavailable. Current account verification is required; no records were changed.':'Verification unavailable. Do not resend automatically; use reception or the account verification screen.'}]},{headers});}finally{await pool.end();}
+  }catch(error){const reason=(error as Error)?.message==='Verified account contact required'?auditReason:'verification_backend_failed';return Response.json({results:[{toolCallId:tool.id,error:clientRead?'Client information unavailable. Current account verification is required; no records were changed.':'Verification unavailable. Do not resend automatically; use reception or the account verification screen.'}]},{headers:{...headers,'x-primecare-audit-reason':reason}});}finally{await pool.end();}
  }
  protected override onError(){return Response.json({error:'verification_unavailable'},{status:503,headers});}
 }
-export default workerHandler(new SpokenVerificationWorker());
+export default workerHandler(new CallAuditedWorker(new SpokenVerificationWorker(),'VAPI_VERIFY_SECRET','verification_backend',['/v1/vapi/voice/verification', '/v1/vapi/client/read']));

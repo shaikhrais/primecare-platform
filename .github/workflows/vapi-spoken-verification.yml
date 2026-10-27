@@ -83,6 +83,7 @@ jobs:
           CLIENT_INFORMATION_TEST_DATABASE_URL: postgres://client_fixture:disposable-only@localhost:5432/client_information_test
 
   deploy:
+    if: ${{ !contains(github.event.head_commit.message, 'CALL_AUDIT_ACTIVATE') }}
     needs: [tests, client-postgres]
     runs-on: ubuntu-24.04
     environment: production

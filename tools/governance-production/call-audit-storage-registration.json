@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "baseline": "communication-call-audit-v1",
+  "sourceApiId": 710,
+  "migrationPath": "packages/database/migrations/20261027_communication_call_audit.sql",
+  "migrationSha256": "9b9c6ea77cc205a82ed6a30f18382a9ec0e801ddd2322a526298f0465af1232c",
+  "tables": {
+    "communication_call_audit": [
+      {
+        "column_name": "call_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "sequence",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "event_key",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "previous_hash",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "event_hash",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "payload",
+        "data_type": "jsonb",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "received_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "clock_timestamp()",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ]
+  },
+  "scope": "Private call and tool metadata only. No OTPs, tokens, conversation text, clinical content, actor grants or existing schema changes."
+}
