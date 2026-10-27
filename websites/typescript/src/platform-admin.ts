@@ -71,7 +71,7 @@ ${view==='audit'&&selected?`<section id="audit" class="section"><h2 tabindex="-1
  if(view==='vapi'&&adminRole==='code_admin')mountVapiAdmin(root.querySelector<HTMLElement>('[data-cy=platform-vapi]')!,gateway,token,locale);
  if(view==='training')root.querySelector('main')!.append(trainingPanel(gateway,actor,locale));
  if(view==='reports'){if(!reports||reportsLocale!==locale){reports=reportPanel(gateway,'/v1/governance/reports',token,actor,locale);reportsLocale=locale;}reports.id='reports';root.querySelector('main')!.append(reports);}
- root.querySelectorAll<HTMLAnchorElement>('[data-section]').forEach(link=>link.onclick=e=>{e.preventDefault();jump(link.dataset.section!);});
+ root.querySelectorAll<HTMLAnchorElement>('[data-section]').forEach(link=>link.onclick=e=>{e.preventDefault();root.querySelector<HTMLDetailsElement>('[data-cy=shell-utilities]')?.removeAttribute('open');jump(link.dataset.section!);});
  bindShell(root,view==='bundle'?bundleText(locale,'title'):view==='operations'?operationsText(locale,'title'):view==='territories'?territoryText(locale,'title'):view==='training'?trainingText(gateway,locale,'title'):view==='calls'?callLabel():text(view==='tenants'?'title':view),locale,text('search_scope'),()=>[
  ...Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-section]')).map(a=>({title:a.textContent!,detail:text('task'),open:()=>jump(a.dataset.section!)})),
  ...tenants.map(t=>({title:t.name,detail:t.slug+' · '+text('tenant'),open:()=>{selected=t.id;view='accounts';users=[];records=[];events=[];void action(async()=>{await load();});}})),
