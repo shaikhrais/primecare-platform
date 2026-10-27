@@ -7,7 +7,7 @@ for this engineering checkpoint.
 |---|---|---|
 | 1 | Review current agents, registrations and authorization | Reviewed against main 63b5a6f9 and production API audit |
 | 2 | Connect call possession to a reusable server identity | Identity component and private durable proof implemented; task-core compatibility tested; business authorization still separate |
-| 3 | Connect the first real agent business workflow | Pending: approved runtime policy, independent confirmation and actual request-service composition |
+| 3 | Connect the first real agent business workflow | Callback-only task, app-approval and persistence composition verified on native PostgreSQL; production registration/host binding pending |
 | 4 | Test denial, expiry, races and duplicates | Identity/unit and real durable-runtime checks pass locally; release workflow verifies native PostgreSQL and deployment |
 | 5 | Extend the proven business pattern to remaining roles | Pending first complete operational workflow |
 | 6 | Deploy and preserve evidence | Private proof support releases through the existing verification workflow; no claim of live business-task activation |
@@ -43,8 +43,9 @@ approved runtime composition.
 ## First business workflow dependencies
 
 The registered callback task already specifies reason and a future callback
-window, but its `ReceptionAppointmentPorts.requestCallback` is an injected port,
-not a live persisted callback service. The host must connect a real registered
+window, and its `ReceptionAppointmentPorts.requestCallback` now has a concrete candidate
+persistence service and callback-only composition. Native PostgreSQL acceptance
+passes; this component is not yet a published production callback service. The host must connect a real registered
 request service and current authorization, not write arbitrary database rows or
 substitute a staff session. A callback result also needs authoritative readback.
 
@@ -95,3 +96,16 @@ configuration. This is separate from the successful dedicated Vapi verification
 Worker release. The existing reviewed gateway amendment gate also remains failed.
 See the evidence receipt for the full CI snapshot; this checkpoint does not claim
 all repository checks pass.
+
+## Callback checkpoint
+
+Callback source `96ddebb67120602160cd2a06377393a8bd8d2847` passed run
+40496531391: 9 unit/task cases, 11 native PostgreSQL scenario groups and strict
+service types. The actual callback-only composition verifies app approval,
+claimed execution, the exact approved digest, once-only save and independent
+readback. Expiry is rechecked across awaited permissions and before commit.
+
+Candidate migration and implementation are saved on main. No production schema
+migration, public callback host, staff fulfilment route or Vapi business-tool
+attachment was performed. No live caller/app session or human callback is claimed.
+See [callback persistence](RECEPTION_CALLBACK_PERSISTENCE.md) and its evidence.

@@ -1,0 +1,39 @@
+{
+  "source": "96ddebb67120602160cd2a06377393a8bd8d2847",
+  "workflowRun": 40496531391,
+  "jobId": 122163284815,
+  "status": "isolated_callback_composition_verified",
+  "unitAndTaskTests": 9,
+  "nativePostgres": {
+    "groups": 11,
+    "providerTraffic": false,
+    "productionWrites": false,
+    "claims": "native save/readback, independent app approval consumption, scoped read, revocation, duplicate execution, replay and rollback"
+  },
+  "strictTypes": true,
+  "productionMigrationApplied": false,
+  "publicHostEnabled": false,
+  "businessToolAttachedByThisWork": false,
+  "liveCallVerified": false,
+  "liveAppApprovalVerified": false,
+  "callsPlaced": 0,
+  "smsSent": 0,
+  "verifiedProperties": [
+    "Consumed independent app approval required",
+    "Exact approved intent digest rechecked",
+    "Current active owner/contact required",
+    "One persisted requested record per intent",
+    "Independent committed readback before task completion",
+    "Cross-user and cross-tenant reads denied",
+    "Permission and contact revocation denied",
+    "Changed input and stale approval denied",
+    "Expiry while awaiting permission rolls back",
+    "Storage failure rolls back and task outcome becomes unknown"
+  ],
+  "remaining": [
+    "Production storage registration and migration review",
+    "Current permission/call identity and native app approval host binding",
+    "Staff pickup/read and fulfilment policy",
+    "Complete live acceptance before Vapi business-tool activation"
+  ]
+}
