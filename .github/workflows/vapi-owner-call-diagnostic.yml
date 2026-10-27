@@ -1,0 +1,52 @@
+name: Inspect owner Vapi call authentication
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/vapi-owner-call-diagnostic.yml']
+permissions: {contents: read}
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 3
+    steps:
+      - name: Read matching calls and project authentication diagnostics only
+        env:
+          VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          const key=process.env.VAPI_PRIVATE_API_KEY;
+          if(!key){console.log('DIAGNOSTIC configuration_required');process.exit(1);}
+          async function get(path){
+            const r=await fetch('https://api.vapi.ai'+path,{headers:{Authorization:'Bearer '+key},redirect:'error',signal:AbortSignal.timeout(20000)});
+            if(!r.ok)throw new Error('provider_http_'+r.status);
+            const s=await r.text();if(s.length>12000000)throw new Error('response_too_large');return JSON.parse(s);
+          }
+          try{
+            const list=await get('/call?limit=100');
+            if(!Array.isArray(list))throw new Error('unexpected_list_shape');
+            const calls=list.filter(c=>c.customer?.number==='+12898873200'&&c.phoneNumberId==='3e9cee92-b463-47c8-9e1a-cdbf179cb675').sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt)).slice(0,3);
+            console.log('MATCHING_CALLS '+calls.length);
+            for(const item of calls){
+              if(!/^[a-f0-9-]{36}$/i.test(item.id))throw new Error('invalid_call_id');
+              const c=await get('/call/'+item.id);
+              const messages=c.artifact?.messages??c.messages??[];
+              const serialized=JSON.stringify(messages);
+              const names=[...new Set(messages.flatMap(m=>(m.toolCalls??[]).map(t=>t.function?.name)).filter(n=>typeof n==='string'&&/^[a-zA-Z0-9_-]{1,64}$/.test(n)))];
+              const checks={
+                notRegisteredMentioned:/not registered|not_registered|unregistered/i.test(serialized),
+                missingVerifiedContact:/verified account contact required|verified_contact_required|contact_not_found|no_verified_contact|phone_not_enrolled/i.test(serialized),
+                sessionRequired:/current app session required|app_session_required|native_session_required/i.test(serialized),
+                authenticationDenied:/authentication_denied|unauthorized|forbidden/i.test(serialized),
+                providerFailure:/provider_unavailable|configuration_required|internal_server_error/i.test(serialized),
+                otpMentioned:/one.time|verification code|authorization code|otp/i.test(serialized),
+                toolResponseCount:messages.filter(m=>m.role==='tool'||m.role==='tool_call_result').length
+              };
+              const known=['not_registered','contact_not_found','verified_contact_required','phone_not_enrolled','authentication_required','authentication_denied','verification_required','configuration_required','provider_unavailable','call_not_active','account_not_found','identity_not_found','session_required','not_found'];
+              const codes=known.filter(code=>serialized.toLowerCase().includes(code));
+              console.log('CALL_DIAGNOSTIC '+JSON.stringify({id:c.id,createdAt:c.createdAt,startedAt:c.startedAt,status:c.status,assistantId:c.assistantId,endedReason:c.endedReason,toolNames:names,checks,codes}));
+            }
+          }catch(e){console.log('DIAGNOSTIC_FAILED '+(/^provider_http_\d+$|response_too_large|unexpected_list_shape|invalid_call_id$/.test(e.message)?e.message:'request_failed'));process.exitCode=1;}
+          NODE
