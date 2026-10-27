@@ -11,7 +11,8 @@ jobs:
     environment: production
     timeout-minutes: 3
     steps:
-      - run: npm install --prefix "$RUNNER_TEMP/audit-reader" --ignore-scripts --no-audit --no-fund pg@8.16.3
+      - uses: actions/checkout@v4
+      - run: npm install --prefix "$RUNNER_TEMP/audit-reader" --ignore-scripts --no-audit --no-fund pg@8.16.3 esbuild@0.27.2
       - name: Read provider IDs and matching PrimeCare audit events without private payloads
         env:
           VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
@@ -39,4 +40,33 @@ jobs:
               await db.query('ROLLBACK');
             }finally{db.release();}
           }catch(e){console.log('READBACK_FAILED '+(/^provider_http_[0-9]+$|invalid_authority$/.test(e.message)?e.message:'read_failed'));process.exitCode=1;}finally{await pool?.end();}})();
+          NODE
+
+      - name: Independently diagnose metadata projection and copy canonical snapshots
+        env:
+          VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY_SID: ${{ secrets.TWILIO_API_KEY_SID }}
+          TWILIO_API_KEY_SECRET: ${{ secrets.TWILIO_API_KEY_SECRET }}
+        run: |
+          ln -s "$RUNNER_TEMP/audit-reader/node_modules" node_modules
+          node --input-type=module <<'NODE'
+          import {build} from 'esbuild';import pg from 'pg';import {mkdir} from 'node:fs/promises';import {pathToFileURL} from 'node:url';
+          await mkdir('test-results/call-audit',{recursive:true});
+          await build({stdin:{resolveDir:process.cwd(),contents:"export {canonicalSnapshot,snapshotKey,providerJson} from './cloudflare/workers/src/business-tasks/call-audit-provider.ts';export {project,PostgresCallAudit} from './cloudflare/workers/src/business-tasks/call-audit.ts';export {nativePostgresOptions} from './cloudflare/workers/src/business-tasks/native-postgres.ts';"},outfile:'test-results/call-audit/diagnostic.mjs',bundle:true,format:'esm',platform:'node',external:['pg']});
+          const {canonicalSnapshot,snapshotKey,providerJson,project,PostgresCallAudit,nativePostgresOptions}=await import(pathToFileURL(process.cwd()+'/test-results/call-audit/diagnostic.mjs'));
+          const env={DB_URL:process.env.PRODUCTION_DATABASE_URL,...process.env},pool=new pg.Pool(nativePostgresOptions(env.DB_URL));
+          try{
+            const calls=await providerJson('https://api.vapi.ai/call?limit=100','Bearer '+env.VAPI_PRIVATE_API_KEY);
+            const rows=calls.filter(c=>c.customer?.number==='+12898873200'&&c.phoneNumberId==='3e9cee92-b463-47c8-9e1a-cdbf179cb675').sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt)).slice(0,3);
+            for(const row of rows){
+              let stage='provider_read';
+              try{
+                const snapshot=await canonicalSnapshot(row.id,env);stage='projection';project(snapshot);stage='append';
+                await new PostgresCallAudit(pool).append(row.id,await snapshotKey(snapshot),snapshot);
+                console.log('AUDIT_PROJECTION '+JSON.stringify({id:row.id,stage:'complete',saved:true}));
+              }catch(e){console.log('AUDIT_PROJECTION '+JSON.stringify({id:row.id,stage,saved:false,reason:['Audit field refused','Invalid audit phone','Invalid audit time','Invalid audit flag','Invalid audit number','Invalid audit identifier','Audit replay conflict','invalid_call_reference','call_scope_mismatch','call_provider_mismatch','provider_read_failed','provider_response_limit'].includes(e.message)?e.message:e.code&&/^[A-Z0-9]{5}$/.test(e.code)?e.code:'unclassified_failure'}));}
+            }
+          }finally{await pool.end();}
           NODE
