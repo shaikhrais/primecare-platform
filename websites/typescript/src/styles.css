@@ -389,3 +389,20 @@ aside nav a[aria-current="page"], aside nav a:hover, aside nav a:focus-visible {
 .topbar:has([data-cy=shell-utilities]) .shell-controls .topbar-icon-control{flex:0 0 44px;max-width:44px;min-width:44px;width:44px}.topbar .topbar-icon-control select{box-sizing:border-box}
 
 .topbar .shell-utilities>summary:has(>span)::after{content:none}@media(max-width:600px){.topbar:has([data-cy=shell-utilities]) .shell-controls{justify-content:flex-end}}
+/* Solid theme uses semantic tokens, including saved personal colour overrides. */
+:root[data-surface-style=solid]{--shadow-modal:0 2px 0 #14253d18}
+[data-surface-style=solid] .app-shell>aside{background:var(--color-sidebar);color:var(--color-sidebar-text);box-shadow:none;border-inline-end:1px solid var(--color-border)}
+[data-surface-style=solid] .app-shell>aside .media-brand{background:var(--color-primary);color:var(--color-on-primary)}
+[data-surface-style=solid] .app-shell>aside nav a{color:var(--color-sidebar-text)}
+[data-surface-style=solid] .app-shell>aside nav a:is(:hover,:focus-visible,[aria-current=page]){background:var(--color-primary);color:var(--color-on-primary)}
+[data-surface-style=solid] .topbar{background:var(--color-topbar);color:var(--color-topbar-text);box-shadow:none;border-bottom:1px solid var(--color-border)}
+[data-surface-style=solid] .topbar .global-navigation label{color:var(--color-topbar-text)}
+[data-surface-style=solid] :is(.section,.capability,.workflow,.admin-stat,.external-call-panel,.account-settings .account-card-grid>.section){box-shadow:none;border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-surface);backdrop-filter:none}
+[data-surface-style=solid] .admin-command{background:var(--color-sidebar);color:var(--color-sidebar-text)}
+[data-surface-style=solid] :is([data-cy=workspace-overview],[data-cy=care-summary],[data-cy=growth-summary]) .metric{background:var(--color-surface);box-shadow:none}
+[data-surface-style=solid] :is(.media-page-heading p,.account-intro p,.account-card-description,.account-hint){color:var(--color-text-muted)}
+[data-surface-style=solid] :is(.admin-trend,.admin-trend svg,.admin-chart-grid .admin-trend,.admin-chart-grid .admin-trend svg){color:var(--color-primary)}
+[data-surface-style=solid] :is(.account-settings input:not([type=checkbox]),input,select){border-color:var(--color-border)}
+[data-surface-style=solid] .account-settings .account-card-grid>.section{border-radius:10px}
+[data-surface-style=solid] .external-dialer{box-shadow:0 2px 0 #14253d20}
+[data-surface-style=solid] :is(button,input,select,a,summary):focus-visible{outline:3px solid var(--color-info);outline-offset:3px}

@@ -5,12 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   // Classic Institutional Palette
-  static const Color primary = Color(0xFF0D1B2A); // Deep Navy
-  static const Color secondary = Color(0xFF1B263B); // Navy-Slate
+  static const Color primary = Color(0xFF087F80); // Deep Navy
+  static const Color secondary = Color(0xFF14253D); // Navy-Slate
 
   static const Color surface = Color(0xFFFFFFFF);
-  static const Color background = Color(0xFFF8F9FA); // Clean Institutional Grey
-  static const Color border = Color(0xFFE2E8F0);
+  static const Color background = Color(0xFFF1F4F8); // Clean Institutional Grey
+  static const Color border = Color(0xFFB8C5D4);
 
   static ThemeData get lightTheme {
     return ThemeData(
@@ -24,6 +24,7 @@ class AppTheme {
         outline: border,
       ),
       scaffoldBackgroundColor: background,
+      appBarTheme: const AppBarTheme(backgroundColor: secondary,foregroundColor: Colors.white,elevation: 0,scrolledUnderElevation: 0,surfaceTintColor: Colors.transparent),
 
       textTheme: TextTheme(
         displayLarge: GoogleFonts.manrope(
@@ -56,36 +57,37 @@ class AppTheme {
       cardTheme: CardThemeData(
         color: surface,
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           side: const BorderSide(color: border),
         ),
       ),
 
       navigationRailTheme: const NavigationRailThemeData(
-        backgroundColor: Colors.white,
-        selectedIconTheme: IconThemeData(color: primary),
-        unselectedIconTheme: IconThemeData(color: Color(0xFF667171)),
+        backgroundColor: secondary,
+        selectedIconTheme: IconThemeData(color: Colors.white),
+        unselectedIconTheme: IconThemeData(color: Color(0xFFCBD5E1)),
         selectedLabelTextStyle: TextStyle(
-          color: primary,
+          color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
-        unselectedLabelTextStyle: TextStyle(color: Color(0xFF667171)),
+        unselectedLabelTextStyle: TextStyle(color: Color(0xFFCBD5E1)),
       ),
 
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: border),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: border),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: primary, width: 2),
         ),
       ),

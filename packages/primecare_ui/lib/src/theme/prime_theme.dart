@@ -593,6 +593,7 @@ class PrimeThemeData {
       cardTheme: CardThemeData(
         color: colors.surface,
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusMd),

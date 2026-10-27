@@ -37,8 +37,8 @@ ThemeData applyPersonalThemeData(ThemeData baseTheme,PersonalTheme personal) {
     return baseTheme.copyWith(
       primaryColor:resolvedPrimary,scaffoldBackgroundColor:background,dividerColor:border,hintColor:readableMuted,
       textTheme:completeText.apply(fontFamily:fontFamily,fontSizeFactor:style.fontScale,bodyColor:readable,displayColor:readable),
-      cardTheme:baseTheme.cardTheme.copyWith(color:surface,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()))),
-      appBarTheme:baseTheme.appBarTheme.copyWith(backgroundColor:resolvedTopbarBg,foregroundColor:foreground(resolvedTopbarBg,text)),
+      cardTheme:baseTheme.cardTheme.copyWith(color:surface,elevation:0,surfaceTintColor:Colors.transparent,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()),side:BorderSide(color:border))),
+      appBarTheme:baseTheme.appBarTheme.copyWith(backgroundColor:resolvedTopbarBg,foregroundColor:foreground(resolvedTopbarBg,text),elevation:0,scrolledUnderElevation:0,surfaceTintColor:Colors.transparent),
       iconTheme:baseTheme.iconTheme.copyWith(color:readable),
       inputDecorationTheme:baseTheme.inputDecorationTheme.copyWith(fillColor:surface,labelStyle:TextStyle(color:readableMuted),hintStyle:TextStyle(color:readableMuted),border:OutlineInputBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()),borderSide:BorderSide(color:border)),enabledBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()),borderSide:BorderSide(color:border)),focusedBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()),borderSide:BorderSide(color:foreground(surface,resolvedPrimary),width:2)),floatingLabelStyle:TextStyle(color:foreground(surface,resolvedPrimary))),
       filledButtonTheme:FilledButtonThemeData(style:FilledButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))),

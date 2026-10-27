@@ -137,29 +137,29 @@
   "navyTealPalette": {
     "mode": "light",
     "primary": {
-      "main": "#0F3C6E",
-      "light": "#365E92",
-      "dark": "#08254A",
+      "main": "#087F80",
+      "light": "#E0F2F1",
+      "dark": "#066667",
       "contrastText": "#FFFFFF"
     },
     "secondary": {
-      "main": "#00B4A6",
-      "light": "#33C7BB",
-      "dark": "#00867B",
+      "main": "#14253D",
+      "light": "#334155",
+      "dark": "#0B1729",
       "contrastText": "#FFFFFF"
     },
     "background": {
-      "default": "#F6F8FA",
+      "default": "#F1F4F8",
       "paper": "#FFFFFF"
     },
     "text": {
-      "primary": "#0F3C6E",
-      "secondary": "#4B5563",
-      "disabled": "#9CA3AF"
+      "primary": "#14253D",
+      "secondary": "#475569",
+      "disabled": "#64748B"
     },
-    "divider": "#E5E7EB",
-    "sidebarBackground": "#0F3C6E",
-    "topbarBackground": "#0F3C6E"
+    "divider": "#B8C5D4",
+    "sidebarBackground": "#14253D",
+    "topbarBackground": "#14253D"
   },
   "indigoAmberPalette": {
     "mode": "light",

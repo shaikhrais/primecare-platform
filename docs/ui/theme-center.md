@@ -42,3 +42,9 @@ The SQLite screen generator now emits runtime appearance tokens and scaled text.
 ## Verification
 
 Dedicated browser coverage exercises all 37 palettes, live state retention, named CRUD, persistence across reload, per-account isolation, collection bounds and JSON rejection/export/import at mobile/desktop sizes. Shared Flutter tests exercise all catalog presets, personal theme validation, scoped settings/collection CRUD, restart restoration, role/account switching, malformed preferences and collection bounds. Shared app tests and platform compilation must pass before merge.
+
+## Solid default appearance — 2026-10-27
+
+The website now merges `packages/shared/src/solid-theme.json` over the exported portal presentation defaults before restoring scoped personal preferences. This is a checked-in presentation default, not a governance database update. The navy navigation, teal actions, white panels, cool grey background, strong borders and dark text are shared across the portals. Authenticated personal palettes and theme reset remain supported; no saved user preferences are erased. Solid surface treatment removes card shadows and decorative gradients without altering permission or status meanings.
+
+The existing native `navyTealPalette` and application defaults use the same colours through the generated ThemeConfig. Shared Material cards have zero elevation, transparent surface tint and explicit outlines. Other saved native presets remain available. Source and CI coverage do not imply an updated APK or physical-device acceptance.
