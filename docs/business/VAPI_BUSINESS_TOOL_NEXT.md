@@ -105,3 +105,9 @@ Receipt: [vapi-client-information-20261027.json](evidence/vapi-client-informatio
 The native-write host must never substitute its administrator session for a
 verified caller. Account creation, booking changes, notes and expert messages are
 not implemented by this read-only function.
+
+Post-release review 40553600445 re-read all 16 synthetic live chats and all eight
+saved configurations successfully. The checker was corrected for a negated
+sentence about an unsaved do-not-contact preference; no assistant prompt was
+weakened and no new chat, call, SMS or business write was created for the review.
+Receipt: [verified conversation review](evidence/vapi-client-information-conversations-verified-20261027.json).
