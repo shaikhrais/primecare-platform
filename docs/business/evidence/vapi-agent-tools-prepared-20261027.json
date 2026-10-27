@@ -1,37 +1,44 @@
 {
-  "sourceCommit": "427ec03ef440990e76b4e7a359dca70e241e07f6",
-  "runId": 40517567004,
+  "runtimeSource": "838f8f6e1f8342589da1e2fcd7e1e7b63ba51e26",
+  "metadataSource": "2108e39958b9f0b37fc5bbde5f8302d48ecbd32b",
   "authenticationChanged": false,
-  "businessToolsAttached": false,
-  "phoneBusinessReady": false,
+  "publicQueryAttached": true,
+  "privateBusinessToolsAttached": false,
   "tools": [
     {
       "key": "call.end",
       "description": "End after goodbye, completed help or clear refusal.",
       "family": "endCall",
       "preparation": "configured",
-      "liveBusinessReady": false
+      "liveBusinessReady": false,
+      "configurationReadback": true
     },
     {
       "key": "call.voicemail",
       "description": "Silently exit voicemail or an auto-attendant.",
       "family": "voicemail",
       "preparation": "configured",
-      "liveBusinessReady": false
+      "liveBusinessReady": false,
+      "configurationReadback": true
     },
     {
       "key": "service.catalogue",
-      "description": "Read approved service details and published administrative policies.",
-      "family": "apiRequest",
-      "preparation": "backend_missing",
-      "liveBusinessReady": false
+      "description": "Search approved public PSW/home-care enquiry information; no pricing, availability or private records.",
+      "family": "query",
+      "preparation": "native_query_ready",
+      "liveBusinessReady": true,
+      "toolId": "3c5ee8ee-8f7c-4adf-a90f-cba2809ed43b",
+      "contentReadback": true,
+      "chatAcceptanceVerified": true,
+      "publicEnquiryInformationOnly": true
     },
     {
       "key": "reception.transfer",
       "description": "Transfer only to an approved current directory destination.",
       "family": "transferCall",
       "preparation": "directory_destination_required",
-      "liveBusinessReady": false
+      "liveBusinessReady": false,
+      "configurationMissing": "approved_human_destination"
     },
     {
       "key": "callback.propose",
@@ -100,6 +107,14 @@
             "format": "uuid"
           }
         }
+      },
+      "savedTool": {
+        "name": "primecare_callback_request",
+        "id": "789aa291-15de-4916-a875-6bda7825a169",
+        "type": "apiRequest",
+        "configurationReadback": true,
+        "attached": false,
+        "liveBusinessRuntimeVerified": false
       }
     },
     {
@@ -140,6 +155,14 @@
             "format": "uuid"
           }
         }
+      },
+      "savedTool": {
+        "name": "primecare_execute_request",
+        "id": "52c105a9-a0f9-4547-936a-7cfdbec3b7da",
+        "type": "apiRequest",
+        "configurationReadback": true,
+        "attached": false,
+        "liveBusinessRuntimeVerified": false
       }
     },
     {
@@ -159,13 +182,15 @@
         "properties": {},
         "required": []
       },
-      "runtime": "existing-authenticated-native-client",
+      "runtime": "server-handler-with-existing-native-context",
       "registration": {
         "id": 16447,
         "permission": "growth.tenant_role",
         "status": "implemented"
       },
-      "registrationState": "registered"
+      "registrationState": "registered",
+      "serverHandlerImplemented": true,
+      "serverCallbackMounted": false
     },
     {
       "key": "lead.contact_preferences",
@@ -184,13 +209,15 @@
         "properties": {},
         "required": []
       },
-      "runtime": "existing-authenticated-native-client",
+      "runtime": "server-handler-with-existing-native-context",
       "registration": {
         "id": 16447,
         "permission": "growth.tenant_role",
         "status": "implemented"
       },
-      "registrationState": "registered"
+      "registrationState": "registered",
+      "serverHandlerImplemented": true,
+      "serverCallbackMounted": false
     },
     {
       "key": "lead.create",
@@ -264,13 +291,15 @@
           "contactBasis"
         ]
       },
-      "runtime": "existing-authenticated-native-client",
+      "runtime": "server-handler-with-existing-native-context",
       "registration": {
         "id": 16449,
         "permission": "growth.tenant_role",
         "status": "implemented"
       },
-      "registrationState": "registered"
+      "registrationState": "registered",
+      "serverHandlerImplemented": true,
+      "serverCallbackMounted": false
     },
     {
       "key": "lead.followup",
@@ -321,13 +350,15 @@
           "notes"
         ]
       },
-      "runtime": "existing-authenticated-native-client",
+      "runtime": "server-handler-with-existing-native-context",
       "registration": {
         "id": 16456,
         "permission": "growth.tenant_role",
         "status": "implemented"
       },
-      "registrationState": "registered"
+      "registrationState": "registered",
+      "serverHandlerImplemented": true,
+      "serverCallbackMounted": false
     },
     {
       "key": "lead.suppress",
@@ -354,13 +385,15 @@
           "notes"
         ]
       },
-      "runtime": "existing-authenticated-native-client",
+      "runtime": "server-handler-with-existing-native-context",
       "registration": {
         "id": 16456,
         "permission": "growth.tenant_role",
         "status": "implemented"
       },
-      "registrationState": "registered"
+      "registrationState": "registered",
+      "serverHandlerImplemented": true,
+      "serverCallbackMounted": false
     },
     {
       "key": "lead.advance",
@@ -399,13 +432,15 @@
           "evidence"
         ]
       },
-      "runtime": "existing-authenticated-native-client",
+      "runtime": "server-handler-with-existing-native-context",
       "registration": {
         "id": 16450,
         "permission": "growth.tenant_role",
         "status": "implemented"
       },
-      "registrationState": "registered"
+      "registrationState": "registered",
+      "serverHandlerImplemented": true,
+      "serverCallbackMounted": false
     },
     {
       "key": "lead.contact_update",
@@ -448,13 +483,15 @@
           "evidence"
         ]
       },
-      "runtime": "existing-authenticated-native-client",
+      "runtime": "server-handler-with-existing-native-context",
       "registration": {
         "id": 16459,
         "permission": "growth.tenant_role",
         "status": "implemented"
       },
-      "registrationState": "registered"
+      "registrationState": "registered",
+      "serverHandlerImplemented": true,
+      "serverCallbackMounted": false
     },
     {
       "key": "consultation.create",
@@ -493,13 +530,15 @@
           "notes"
         ]
       },
-      "runtime": "existing-authenticated-native-client",
+      "runtime": "server-handler-with-existing-native-context",
       "registration": {
         "id": 16457,
         "permission": "growth.tenant_role",
         "status": "implemented"
       },
-      "registrationState": "registered"
+      "registrationState": "registered",
+      "serverHandlerImplemented": true,
+      "serverCallbackMounted": false
     },
     {
       "key": "consultation.update",
@@ -535,20 +574,23 @@
           "notes"
         ]
       },
-      "runtime": "existing-authenticated-native-client",
+      "runtime": "server-handler-with-existing-native-context",
       "registration": {
         "id": 16458,
         "permission": "growth.tenant_role",
         "status": "implemented"
       },
-      "registrationState": "registered"
+      "registrationState": "registered",
+      "serverHandlerImplemented": true,
+      "serverCallbackMounted": false
     },
     {
       "key": "proposal.lookup",
       "description": "Retrieve current authorized commercial terms; never invent a quote.",
       "family": "apiRequest",
       "preparation": "backend_missing",
-      "liveBusinessReady": false
+      "liveBusinessReady": false,
+      "configurationMissing": "approved_proposal_source"
     },
     {
       "key": "booking.propose",
@@ -621,6 +663,14 @@
             "format": "uuid"
           }
         }
+      },
+      "savedTool": {
+        "name": "primecare_booking_request",
+        "id": "d99bca0b-17e1-4c58-b100-2989e548282f",
+        "type": "apiRequest",
+        "configurationReadback": true,
+        "attached": false,
+        "liveBusinessRuntimeVerified": false
       }
     },
     {
@@ -700,21 +750,99 @@
             "format": "uuid"
           }
         }
+      },
+      "savedTool": {
+        "name": "primecare_reschedule_request",
+        "id": "0ef9c437-7c11-4ae3-9dcb-7515bd4c483d",
+        "type": "apiRequest",
+        "configurationReadback": true,
+        "attached": false,
+        "liveBusinessRuntimeVerified": false
       }
     },
     {
       "key": "client.onboarding_status",
-      "description": "Read client onboarding progress; partner onboarding APIs are excluded.",
-      "family": "apiRequest",
-      "preparation": "backend_missing",
-      "liveBusinessReady": false
+      "description": "Read owned profile, consent and service-authorization statuses. The backend does not certify overall onboarding completion.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/client/home/profile",
+        "method": "GET"
+      },
+      "apiDependencies": [
+        {
+          "path": "/v1/client/consents",
+          "method": "GET"
+        },
+        {
+          "path": "/v1/client/service-authorizations",
+          "method": "GET"
+        }
+      ],
+      "liveBusinessReady": false,
+      "functionName": "primecare_client_onboarding_status",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {},
+        "required": []
+      },
+      "runtime": "server-handler-with-existing-native-context",
+      "registration": {
+        "id": 16431,
+        "permission": "authenticated_client_profile_owner",
+        "status": "implemented"
+      },
+      "registrationState": "registered",
+      "dependencyRegistrations": [
+        {
+          "api": {
+            "path": "/v1/client/consents",
+            "method": "GET"
+          },
+          "matches": [
+            16567
+          ]
+        },
+        {
+          "api": {
+            "path": "/v1/client/service-authorizations",
+            "method": "GET"
+          },
+          "matches": [
+            16568
+          ]
+        }
+      ],
+      "serverHandlerImplemented": true,
+      "serverCallbackMounted": false
     },
     {
       "key": "client.service_history",
-      "description": "Read authorized client service history; CRM milestones are not care delivery.",
-      "family": "apiRequest",
-      "preparation": "backend_missing",
-      "liveBusinessReady": false
+      "description": "Read owned client visit records and their recorded statuses; never expose clinical notes or infer delivered care.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/client/visits",
+        "method": "GET"
+      },
+      "liveBusinessReady": false,
+      "functionName": "primecare_client_service_history",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {},
+        "required": []
+      },
+      "runtime": "server-handler-with-existing-native-context",
+      "registration": {
+        "id": 16566,
+        "permission": "authenticated_client_profile_owner",
+        "status": "implemented"
+      },
+      "registrationState": "registered",
+      "serverHandlerImplemented": true,
+      "serverCallbackMounted": false
     }
   ],
   "agents": {
@@ -735,7 +863,8 @@
       "lead.followup",
       "lead.suppress",
       "callback.propose",
-      "request.execute"
+      "request.execute",
+      "service.catalogue"
     ],
     "qualification": [
       "call.end",
@@ -758,7 +887,8 @@
       "lead.followup",
       "lead.suppress",
       "callback.propose",
-      "request.execute"
+      "request.execute",
+      "service.catalogue"
     ],
     "proposal": [
       "call.end",
@@ -769,7 +899,8 @@
       "lead.followup",
       "lead.suppress",
       "callback.propose",
-      "request.execute"
+      "request.execute",
+      "service.catalogue"
     ],
     "booking_recovery": [
       "call.end",
@@ -788,7 +919,8 @@
       "call.voicemail",
       "client.onboarding_status",
       "callback.propose",
-      "request.execute"
+      "request.execute",
+      "service.catalogue"
     ],
     "retention": [
       "call.end",
@@ -799,7 +931,8 @@
       "lead.followup",
       "lead.suppress",
       "callback.propose",
-      "request.execute"
+      "request.execute",
+      "service.catalogue"
     ]
   },
   "stageRouting": {

@@ -257,3 +257,24 @@ outside model input. They remain unattached while their private runtime is gated
 No authentication, login, OTP or credential rotation changes are included.
 Proposal lookup and reception transfer still require an approved proposal source
 and directory destination; their absence is not masked with fake results.
+
+### Verified business-tool release; authentication unchanged
+
+Workflow 40527152119 passed 56 tests and independently verified eight version-four
+agents plus the active receptionist. The native public Query tool is attached and
+its exact uploaded file bytes/hash, tool configuration and real chat retrieval
+passed. Four API Request tools are saved and independently read back, using the
+existing credential without changing it. They remain unattached for private writes.
+
+Workflow 40529094325 passed six native metadata tests and restored three existing
+owner-only client read registrations and links, then independently reverified
+production: visits 16566, consents 16567, service authorizations 16568. No roles,
+authentication, schemas or customer data were changed. Eleven native business
+handlers now have their existing API contracts represented in production.
+
+The bounded server tool-call protocol and composed business runner are implemented
+and tested; a private host still needs its existing trusted context/journal and
+registered runtime mounting. The proposal tool needs an approved proposal source,
+and transfer needs a real human destination. Those gaps remain explicit rather
+than being implemented with fake data or an invented route. See
+`evidence/vapi-business-runtime-20261027.json` and `VAPI_AGENT_TOOL_PACK.md`.
