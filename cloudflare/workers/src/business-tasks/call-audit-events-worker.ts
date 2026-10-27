@@ -29,7 +29,8 @@ export class CallAuditEventsWorker extends BaseWorker<CallAuditEnvironment>{
    await ledger.append(id,await snapshotKey(snapshot),snapshot);
    const stamp=typeof message.timestamp==='number'?new Date(message.timestamp).toISOString():typeof message.timestamp==='string'&&Number.isFinite(Date.parse(message.timestamp))?new Date(message.timestamp).toISOString():snapshot.at;
    if(message.type!=='conversation-update'){
-    const payload={kind:'call_event',source:'vapi_authenticated_webhook',at:stamp,callId:id,phase:message.type,status:safeWord(message.status??snapshot.status),endedReason:safeWord(message.endedReason??snapshot.endedReason)};
+    const probe=request.headers.get('x-primecare-audit-probe')==='true';
+    const payload={kind:probe?'audit_probe':'call_event',source:probe?'deployment_acceptance':'vapi_authenticated_webhook',at:stamp,callId:id,phase:message.type,status:safeWord(message.status??snapshot.status),endedReason:safeWord(message.endedReason??snapshot.endedReason)};
     await ledger.append(id,'webhook:'+await hash(payload),payload);
    }
    for(const t of toolObservations(message)){

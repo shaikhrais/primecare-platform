@@ -35,6 +35,16 @@ try{
   const negative=await fetch(endpoint,{method:'POST',headers:{'content-type':'application/json'},body:'{}',signal:AbortSignal.timeout(10000)});negativeStatus=negative.status;await negative.body?.cancel();if(negativeStatus===401)break;await new Promise(r=>setTimeout(r,3000));
  }
  report.anonymousStatus=negativeStatus;if(negativeStatus!==401)throw Error('anonymous_denial_failed');
+ report.stage='live-collector-probe';
+ const inventory=await vapi('/call?limit=100');
+ const probeCall=inventory.filter(c=>c.orgId===org&&c.phoneNumberId===phoneId&&ids.includes(c.assistantId)&&c.status==='ended').sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt))[0];
+ if(!probeCall)throw Error('canonical_collector_probe_requires_ended_call');
+ let positive=false;
+ for(let attempt=0;attempt<10;attempt++){
+  const r=await fetch(endpoint,{method:'POST',headers:{authorization:'Bearer '+secret,'content-type':'application/json','x-primecare-audit-probe':'true'},body:JSON.stringify({message:{type:'status-update',status:'ended',timestamp:probeCall.endedAt??probeCall.updatedAt,call:{id:probeCall.id}}}),signal:AbortSignal.timeout(25000)});
+  positive=r.status===200&&r.headers.get('x-primecare-call-audit-source')===process.env.GITHUB_SHA;await r.body?.cancel();if(positive)break;await new Promise(r=>setTimeout(r,3000));
+ }
+ report.liveCollectorReadback=positive;if(!positive)throw Error('live_collector_probe_failed');
  report.stage='existing-workers';
  for(const [name,entry] of [['primecare-vapi-verification-api','vapi-spoken-worker'],['primecare-vapi-tools-api','vapi-callback-worker']]){
   lease();const settings=await cf('/workers/scripts/'+name+'/settings');
