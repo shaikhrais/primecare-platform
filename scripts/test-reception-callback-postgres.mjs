@@ -1,3 +1,4 @@
+import {createPostgresVapiCallbackHost} from '../cloudflare/workers/src/business-tasks/vapi-callback-host.ts';
 import {PostgresReceptionCallbackAccessPolicy} from '../cloudflare/workers/src/business-tasks/reception-callback-policy.ts';
 import pin from '../tools/governance-production/production-pin.json' with {type:'json'};
 import {createHash} from 'node:crypto';
@@ -95,6 +96,43 @@ try{
  assert.equal((await nativeHttp('approve',{intentId:native.intentId,digest:native.digest})).status,403);assert.equal(await approvals(native.intentId),0);await assert.rejects(()=>realTasks.tasks.execute(sid,native.intentId));
  await pool.query(`UPDATE "${pin.schema}".govt_api_permissions SET can_access=1 WHERE api_id=102`);
  assert.equal((await nativeHttp('approve',{intentId:native.intentId,digest:native.digest})).status,200);await realTasks.tasks.execute(sid,native.intentId);assert.equal(await count(native.intentId),1);groups++;
+ // Full callback API Request host with actual fixture PostgreSQL policies,
+ // app approval, persisted replay claims, callback write and independent readback.
+ await pool.query(`INSERT INTO "${pin.schema}".govt_api_endpoints VALUES(16534,'POST','/v1/vapi/voice/tasks','governance',1,'vapi.service.tasks','VAPI_VOICE_TASKS');CREATE TABLE fixture_vapi_tool_receipts(key text PRIMARY KEY,value jsonb NOT NULL)`);
+ const durableStorage={async transaction(fn){const db=await pool.connect();try{await db.query('BEGIN');await db.query("SELECT pg_advisory_xact_lock(987654321)");const result=await fn({async get(key){return (await db.query('SELECT value FROM fixture_vapi_tool_receipts WHERE key=$1',[key])).rows[0]?.value;},async put(key,value){await db.query('INSERT INTO fixture_vapi_tool_receipts VALUES($1,$2) ON CONFLICT(key) DO UPDATE SET value=EXCLUDED.value',[key,JSON.stringify(value)]);}});await db.query('COMMIT');return result;}catch(e){await db.query('ROLLBACK');throw e;}finally{db.release();}}};
+ const orgId='9e1d8550-4b84-4472-a782-67557fe73944',assistantId='5ae2ab0c-fad0-454c-8cf7-64b81c91c850',phoneNumberId='3e9cee92-b463-47c8-9e1a-cdbf179cb675',secret='s'.repeat(43);
+ let canonicalActive=true,admitted=true;
+ const hostOptions={pool,identities:callIdentity,durableStorage,secret,orgId,assistantId,phoneNumberId,calls:{async current(id){return canonicalActive&&id===vapiCallId?{vapiCallId:id,callSid:sid,orgId,assistantId,phoneNumberId,active:true,expiresAt:Date.now()+60000}:null;}},admit:async()=>admitted};
+ let host=createPostgresVapiCallbackHost(hostOptions);
+ const providerHttp=(body,headers={})=>host.respond(new Request('https://primecare-vapi-tools-api.itpro-mohammed.workers.dev/v1/vapi/voice/tasks',{method:'POST',headers:{'content-type':'application/json',authorization:'Bearer '+secret,'x-primecare-vapi-call-id':vapiCallId,...headers},body:JSON.stringify(body)}));
+ const proposeBody=()=>({action:'propose',taskId:'reception.callback.request',args:input(),requestId:crypto.randomUUID()});
+ const taskCount=async()=>(await pool.query('SELECT count(*)::int AS n FROM communication_voice_tasks')).rows[0].n;
+ const beforeHost=await taskCount();
+ assert.equal((await providerHttp(proposeBody(),{authorization:'Bearer bad'})).status,401);
+ admitted=false;assert.equal((await providerHttp(proposeBody())).status,429);admitted=true;
+ canonicalActive=false;assert.equal((await providerHttp(proposeBody())).status,503);canonicalActive=true;
+ proofActive=false;assert.equal((await providerHttp(proposeBody())).status,503);proofActive=true;
+ assert.equal((await providerHttp({...proposeBody(),taskId:'appointment.booking.request'})).status,400);
+ assert.equal((await providerHttp({...proposeBody(),actor:{id:'bob',tenantId:'tenant-b'}})).status,400);
+ assert.equal(await taskCount(),beforeHost);groups++;
+ const requestBody=proposeBody(),proposal=await (await providerHttp(requestBody)).json();
+ assert.equal(proposal.status,'awaiting_confirmation');assert.equal(proposal.requiresConfirmation,true);assert.equal(proposal.digest,undefined);assert.equal(await count(proposal.intentId),0);
+ host=createPostgresVapiCallbackHost(hostOptions); // Host reconstruction preserves durable claims.
+ assert.equal((await providerHttp(requestBody)).status,409);assert.equal(await taskCount(),beforeHost+1);
+ const executeBody=()=>({action:'execute',intentId:proposal.intentId,requestId:crypto.randomUUID()});
+ assert.equal((await (await providerHttp(executeBody())).json()).status,'awaiting_confirmation');assert.equal(await count(proposal.intentId),0);
+ const providerPreview=await (await nativeHttp('preview',{intentId:proposal.intentId})).json();
+ assert.equal((await nativeHttp('approve',{intentId:proposal.intentId,digest:providerPreview.digest})).status,200);
+ const approvedExecution=executeBody();assert.equal((await (await providerHttp(approvedExecution)).json()).status,'completed');
+ assert.equal(await count(proposal.intentId),1);
+ assert.equal((await providerHttp(approvedExecution)).status,409);
+ assert.equal((await providerHttp(executeBody())).status,503);assert.equal(await count(proposal.intentId),1);groups++;
+ const beforeDenial=await taskCount();await pool.query(`UPDATE "${pin.schema}".govt_api_permissions SET can_access=0 WHERE api_id=102`);
+ assert.equal((await providerHttp(proposeBody())).status,503);assert.equal(await taskCount(),beforeDenial);
+ await pool.query(`UPDATE "${pin.schema}".govt_api_permissions SET can_access=1 WHERE api_id=102`);
+ await pool.query(`UPDATE "${pin.schema}".govt_api_endpoints SET permission_key='wrong' WHERE id=16534`);
+ assert.equal((await providerHttp(proposeBody())).status,403);assert.equal(await taskCount(),beforeDenial);
+ await pool.query(`UPDATE "${pin.schema}".govt_api_endpoints SET permission_key='vapi.service.tasks' WHERE id=16534`);groups++;
  const loggedOut=await realTasks.tasks.propose(sid,'reception.callback.request',input());assert.equal((await nativeHttp('preview',{intentId:loggedOut.intentId})).status,200);await pool.query('DELETE FROM auth_sessions WHERE token_hash=$1',[nativeHash]);assert.equal((await nativeHttp('approve',{intentId:loggedOut.intentId,digest:loggedOut.digest})).status,401);assert.equal(await approvals(loggedOut.intentId),0);groups++;
  await pool.query(`UPDATE "${pin.schema}".govt_role_screen_permissions SET can_view=0`);await assert.rejects(()=>realTasks.tasks.propose(sid,'reception.callback.request',input()));groups++;
  await pool.query("CREATE FUNCTION reject_callback() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'fixture persistence failure'; END $$;CREATE TRIGGER fail_callback BEFORE INSERT ON communication_callback_requests FOR EACH ROW EXECUTE FUNCTION reject_callback()");const g=await prepare();await approve(g.p);await assert.rejects(()=>tasks.execute(sid,g.p.intentId),/outcome unknown/);assert.equal(await count(g.p.intentId),0);assert.equal((await intents.read(g.p.intentId)).status,'unknown');groups++;

@@ -173,3 +173,23 @@ This implements the durable journal dependency, not the remaining private phone
 write host or its current authorization and independent confirmation bindings.
 No new phone tool was attached, no production storage was created and no real
 call, SMS or customer write was performed by this batch.
+
+
+## Concrete callback tool host
+
+`createPostgresVapiCallbackHost` now composes the existing registered API Request
+transport with dedicated provider authentication, exact API 16534/manifest checks,
+canonical Vapi/Twilio call lookup, private current-call OTP identity, current
+PostgreSQL callback role/screen policy, durable request claims, independent native
+app confirmation, real callback persistence and independent saved readback.
+Only `reception.callback.request` is allowed; booking/rescheduling are rejected.
+The host creates no native session and accepts no model-selected actor, phone,
+tenant or approval. It does not mount the endpoint or attach tools by construction.
+
+The PostgreSQL acceptance suite now exercises the complete provider request →
+proposal → native app preview/approval → callback save/readback flow, host
+reconstruction with durable claims, duplicate execution, denied metadata/current
+permissions and missing proof. Production activation still needs this host wired
+to its private call/proof/storage bindings and the registered app approval routes.
+No production deployment, provider attachment, customer write, call or SMS was
+performed by this implementation batch.

@@ -2,7 +2,7 @@ name: Verify approved reception callback persistence
 on:
   push:
     branches: [main]
-    paths: ['cloudflare/workers/src/business-tasks/reception-callback-policy.ts', 'scripts/test-reception-callback-policy.mjs', 'cloudflare/workers/src/business-tasks/vapi-call-identity.ts', 'scripts/test-vapi-call-identity.mjs', 'cloudflare/workers/src/business-tasks/reception-callback.ts', 'cloudflare/workers/src/business-tasks/voice-reception-tasks.ts', 'cloudflare/workers/src/business-tasks/voice-tasks.ts', 'cloudflare/workers/src/business-tasks/voice-confirmations.ts', 'packages/database/migrations/20261027_communication_callback_requests.sql', 'scripts/test-reception-callback*.mjs', '.github/workflows/reception-callback.yml']
+    paths: ['cloudflare/workers/src/business-tasks/vapi-callback-host.ts', 'packages/shared/src/communications/vapi-business-journal.*', 'cloudflare/workers/src/business-tasks/reception-callback-policy.ts', 'scripts/test-reception-callback-policy.mjs', 'cloudflare/workers/src/business-tasks/vapi-call-identity.ts', 'scripts/test-vapi-call-identity.mjs', 'cloudflare/workers/src/business-tasks/reception-callback.ts', 'cloudflare/workers/src/business-tasks/voice-reception-tasks.ts', 'cloudflare/workers/src/business-tasks/voice-tasks.ts', 'cloudflare/workers/src/business-tasks/voice-confirmations.ts', 'packages/database/migrations/20261027_communication_callback_requests.sql', 'scripts/test-reception-callback*.mjs', '.github/workflows/reception-callback.yml']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -27,4 +27,4 @@ jobs:
       - run: |
           node --test scripts/test-reception-callback-policy.mjs scripts/test-vapi-call-identity.mjs scripts/test-reception-callback.mjs scripts/test-communication-voice-tasks.mjs
           node scripts/test-reception-callback-postgres.mjs
-          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/reception-callback.ts
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/reception-callback.ts cloudflare/workers/src/business-tasks/vapi-callback-host.ts
