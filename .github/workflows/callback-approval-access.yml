@@ -1,0 +1,92 @@
+name: Register own-callback app approval API access
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/callback-approval-access-registration.json'
+      - 'tools/governance-production/callback_approval_access.py'
+      - 'tools/governance-production/test-callback-approval-access.py'
+      - 'cloudflare/workers/src/business-tasks/reception-callback-policy.ts'
+      - 'scripts/test-reception-callback-policy.mjs'
+      - '.github/workflows/callback-approval-access.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency: {group: primecare-callback-approval-access, cancel-in-progress: false}
+jobs:
+  isolated:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: communication_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: communication_registration_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communication_fixture -d communication_registration_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Test current eligibility, preserved denials, locks and rollback
+        env:
+          WORKFLOW_TEST_DATABASE_URL: postgres://communication_fixture:disposable-only@localhost:5432/communication_registration_test
+        run: |
+          python tools/governance-production/test-callback-approval-access.py
+          node --test scripts/test-reception-callback-policy.mjs
+  callback:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: callback_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: callback_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U callback_fixture -d callback_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      CALLBACK_TEST_DATABASE_URL: postgres://callback_fixture:disposable-only@localhost:5432/callback_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/callback-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0
+          ln -s "$RUNNER_TEMP/callback-tools/node_modules" node_modules
+          node --test scripts/test-reception-callback-policy.mjs scripts/test-vapi-call-identity.mjs scripts/test-reception-callback.mjs scripts/test-communication-voice-tasks.mjs
+          node scripts/test-reception-callback-postgres.mjs
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/reception-callback.ts
+  register:
+    needs: [isolated, callback]
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/callback-access-reader" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/callback-access-reader/node_modules" node_modules
+      - name: Register only the two existing approval APIs for already eligible own-contact roles
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_CALLBACK_APPROVAL_ACCESS: '1'
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          python tools/governance-production/callback_approval_access.py --dry-run
+          python tools/governance-production/callback_approval_access.py --apply
+          python tools/governance-production/callback_approval_access.py --verify
+      - name: Independently read current task grants and remaining identity blockers; no calls or SMS
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
+        run: node scripts/verify-vapi-identity-readiness.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: callback-approval-access-readiness, path: test-results/vapi, retention-days: 90}

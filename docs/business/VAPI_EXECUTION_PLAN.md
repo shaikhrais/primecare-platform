@@ -154,8 +154,29 @@ expiry, live call, current contact, proof and policy without accepting app/model
 identity overrides. Old references require a fresh proposal.
 
 Local targeted checks: 48 tests passed, one separate PostgreSQL native-token test
-skipped; strict callback TypeScript passed. Native PostgreSQL callback acceptance
-and the current production approval-permission inventory are being run in CI;
-record their results before calling this checkpoint verified. These source
+skipped; strict callback TypeScript passed. Native PostgreSQL callback acceptance passed 15 scenario groups in run
+40510589998. Production inventory run 40510590143 independently found the
+callback table present, zero usable preview/approve grants and zero verified
+voice contacts. This identifies the next permission/identity gates. These source
 changes do not mount a new route, attach a business tool, grant access, or send
 calls/SMS. Production gateway/task host and staff handling remain pending.
+
+
+### Narrow callback approval permissions and native host
+
+Prepared an inherited metadata access writer for only the existing preview and
+approve APIs. Eligibility requires an active existing communication-screen role
+and existing grants to all three own-phone enrollment APIs. It preserves explicit
+API denials and all role-screen rights; it grants no administrator shortcut,
+other-account access, provider tool or task approval. Native PostgreSQL tests gate
+production application and independent readback.
+
+`PostgresReceptionCallbackAccessPolicy` requires current preview AND approve
+rights for owned callback v1 proposals, confirmations and executions.
+`createPostgresNativeVapiCallbackApprovalHost` now resolves actual current
+PostgreSQL app sessions and applies the existing exact endpoint/screen policy.
+Expanded disposable PostgreSQL acceptance also verifies this concrete host with
+real fixture login/metadata reads, revocation and denial. Deployment/mounting of
+this host and operational staff handling remain pending; business tools remain
+disabled. Record the new production permission receipt before marking that gate
+complete.

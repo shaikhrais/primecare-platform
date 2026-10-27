@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "screens": {"234":"psw_messages","331":"patient_messages","559":"communication","578":"messaging"},
+  "paths": ["/v1/voice/tasks/preview", "/v1/voice/tasks/approve"],
+  "requirement": "Permit explicit native app approval of an owned verified-call callback request only for active roles already permitted to view an existing communication screen and all three own-phone enrollment APIs. Current native session, original call proof, exact digest and the callback-only service policy remain required. Do not create login sessions, approve tasks, change role-screen rights or enable Vapi tools.",
+  "eligibility": "active-communication-screen-and-all-own-phone-enrollment-api-grants",
+  "permission": "role_screen_permissions",
+  "purpose": "Own callback v1 preview and explicit app approval only; native session, original call proof, exact digest and callback-only policy required",
+  "existingDenials": "preserve",
+  "roleScreenChanges": false,
+  "activation": false
+}

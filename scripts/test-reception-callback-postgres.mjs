@@ -1,6 +1,9 @@
+import {PostgresReceptionCallbackAccessPolicy} from '../cloudflare/workers/src/business-tasks/reception-callback-policy.ts';
+import pin from '../tools/governance-production/production-pin.json' with {type:'json'};
+import {createHash} from 'node:crypto';
 import {VapiVerifiedCallIdentityService,VapiCallTaskIdentityBroker} from '../cloudflare/workers/src/business-tasks/vapi-call-identity.ts';
 import assert from 'node:assert/strict';import pg from 'pg';import {readFile} from 'node:fs/promises';
-import {createPostgresReceptionCallbackServices,createPostgresVapiCallbackApprovalHttpAdapter} from '../cloudflare/workers/src/business-tasks/reception-callback.ts';
+import {createPostgresReceptionCallbackServices,createPostgresVapiCallbackApprovalHttpAdapter,createPostgresNativeVapiCallbackApprovalHost} from '../cloudflare/workers/src/business-tasks/reception-callback.ts';
 import {PostgresVoiceTaskRepository} from '../cloudflare/workers/src/business-tasks/voice-tasks.ts';
 const u=new URL(process.env.CALLBACK_TEST_DATABASE_URL??'');if(!['localhost','127.0.0.1'].includes(u.hostname)||u.username!=='callback_fixture'||u.pathname!=='/callback_test'||process.env.PRODUCTION_DATABASE_URL)throw Error('Named disposable callback database required');
 const pool=new pg.Pool({connectionString:u.href,max:8});const actor={id:'alice',tenantId:'tenant-a'},sid='CA'+'a'.repeat(32);let allowed=true,duringPolicy=async()=>{};
@@ -59,6 +62,41 @@ try{
  const revoked=await vapiServices.tasks.propose(sid,'reception.callback.request',input());assert.equal((await http('preview',{intentId:revoked.intentId})).status,200);proofActive=false;assert.equal((await http('approve',{intentId:revoked.intentId,digest:revoked.digest})).status,503);assert.equal(await approvals(revoked.intentId),0);proofActive=true;groups++;
  const denied=await vapiServices.tasks.propose(sid,'reception.callback.request',input());nativeAllowed=false;assert.equal((await http('approve',{intentId:denied.intentId,digest:denied.digest})).status,403);assert.equal(await approvals(denied.intentId),0);nativeAllowed=true;groups++;
  const changed=await vapiServices.tasks.propose(sid,'reception.callback.request',input());await pool.query("UPDATE communication_voice_tasks SET intent=jsonb_set(intent,'{summary}','\"changed\"') WHERE id=$1",[changed.intentId]);assert.equal((await http('preview',{intentId:changed.intentId})).status,503);assert.equal(await approvals(changed.intentId),0);groups++;
+ // The concrete host and task policy now use real fixture auth_sessions and
+ // registered API/screen metadata, rather than synthetic session/grant ports.
+ if(!/^[a-z0-9_]+$/.test(pin.schema))throw Error('Invalid fixture authority');
+ await pool.query(`CREATE SCHEMA "${pin.schema}";
+ CREATE TABLE "${pin.schema}".govt_source_manifest(manifest_sha256 text);
+ CREATE TABLE "${pin.schema}".govt_roles(id bigint,role_code text,active bigint);
+ CREATE TABLE "${pin.schema}".govt_api_permissions(id bigint,role_id bigint,api_id bigint,permission_key text,can_access bigint);
+ CREATE TABLE "${pin.schema}".govt_api_endpoints(id bigint,http_method text,route_path text,service_name text,auth_required bigint,permission_key text,endpoint_code text);
+ CREATE TABLE "${pin.schema}".govt_screen_api_links(screen_id bigint,api_id bigint);
+ CREATE TABLE "${pin.schema}".govt_screens(id bigint,active bigint);
+ CREATE TABLE "${pin.schema}".govt_role_screen_permissions(role_id bigint,screen_id bigint,can_view bigint);
+ ALTER TABLE users ADD COLUMN roles text NOT NULL DEFAULT 'patient';
+ CREATE TABLE auth_sessions(token_hash text PRIMARY KEY,user_id text,created_at timestamptz,expires_at timestamptz);
+ INSERT INTO "${pin.schema}".govt_roles VALUES(1,'patient',1);
+ INSERT INTO "${pin.schema}".govt_api_permissions VALUES(1,1,101,'role_screen_permissions',1),(2,1,102,'role_screen_permissions',1);
+ INSERT INTO "${pin.schema}".govt_api_endpoints VALUES(101,'POST','/v1/voice/tasks/preview','governance',1,'role_screen_permissions','TWILIO_TASK_PREVIEW'),(102,'POST','/v1/voice/tasks/approve','governance',1,'role_screen_permissions','TWILIO_TASK_APPROVE');
+ INSERT INTO "${pin.schema}".govt_screen_api_links VALUES(331,101),(331,102);
+ INSERT INTO "${pin.schema}".govt_screens VALUES(331,1);
+ INSERT INTO "${pin.schema}".govt_role_screen_permissions VALUES(1,331,1)`);
+ await pool.query(`INSERT INTO "${pin.schema}".govt_source_manifest VALUES($1)`,[pin.manifestSha256]);
+ const nativeToken='n'.repeat(43),nativeHash=createHash('sha256').update(nativeToken).digest('hex');
+ await pool.query("INSERT INTO auth_sessions VALUES($1,'alice',now(),now()+INTERVAL '5 minutes')",[nativeHash]);
+ const realPolicy=new PostgresReceptionCallbackAccessPolicy(pool),realTasks=createPostgresReceptionCallbackServices({pool,policy:realPolicy,identities:new VapiCallTaskIdentityBroker(callIdentity,vapiCallId)});
+ const realApp=createPostgresNativeVapiCallbackApprovalHost({pool,identities:callIdentity,origin:'https://app.example.invalid',maxRequestBytes:2048});
+ const nativeHttp=(key,body,headers={})=>realApp.respond(new Request('https://app.example.invalid/v1/voice/tasks/'+key,{method:'POST',headers:{'content-type':'application/json',authorization:'Bearer '+nativeToken,...headers},body:JSON.stringify(body)}));
+ const native=await realTasks.tasks.propose(sid,'reception.callback.request',input());
+ assert.equal((await nativeHttp('preview',{intentId:native.intentId},{authorization:'Bearer nonexistent-session'})).status,401);
+ assert.equal((await nativeHttp('preview',{intentId:native.intentId},{'x-tenant-id':'tenant-b'})).status,403);
+ assert.equal((await nativeHttp('preview',{intentId:native.intentId})).status,200);assert.equal(await approvals(native.intentId),0);
+ await pool.query(`UPDATE "${pin.schema}".govt_api_permissions SET can_access=0 WHERE api_id=102`);
+ assert.equal((await nativeHttp('approve',{intentId:native.intentId,digest:native.digest})).status,403);assert.equal(await approvals(native.intentId),0);await assert.rejects(()=>realTasks.tasks.execute(sid,native.intentId));
+ await pool.query(`UPDATE "${pin.schema}".govt_api_permissions SET can_access=1 WHERE api_id=102`);
+ assert.equal((await nativeHttp('approve',{intentId:native.intentId,digest:native.digest})).status,200);await realTasks.tasks.execute(sid,native.intentId);assert.equal(await count(native.intentId),1);groups++;
+ const loggedOut=await realTasks.tasks.propose(sid,'reception.callback.request',input());assert.equal((await nativeHttp('preview',{intentId:loggedOut.intentId})).status,200);await pool.query('DELETE FROM auth_sessions WHERE token_hash=$1',[nativeHash]);assert.equal((await nativeHttp('approve',{intentId:loggedOut.intentId,digest:loggedOut.digest})).status,401);assert.equal(await approvals(loggedOut.intentId),0);groups++;
+ await pool.query(`UPDATE "${pin.schema}".govt_role_screen_permissions SET can_view=0`);await assert.rejects(()=>realTasks.tasks.propose(sid,'reception.callback.request',input()));groups++;
  await pool.query("CREATE FUNCTION reject_callback() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'fixture persistence failure'; END $$;CREATE TRIGGER fail_callback BEFORE INSERT ON communication_callback_requests FOR EACH ROW EXECUTE FUNCTION reject_callback()");const g=await prepare();await approve(g.p);await assert.rejects(()=>tasks.execute(sid,g.p.intentId),/outcome unknown/);assert.equal(await count(g.p.intentId),0);assert.equal((await intents.read(g.p.intentId)).status,'unknown');groups++;
  console.log('CALLBACK_POSTGRES_PASS '+JSON.stringify({groups,providerTraffic:false,productionWrites:false,claims:'native save/readback, Vapi stored-proof-to-app HTTP approval and execution, scoped read, revocation, duplicate execution, replay and rollback'}));
 }finally{await pool.end();}

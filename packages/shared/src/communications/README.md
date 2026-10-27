@@ -1402,3 +1402,11 @@ rewritten or silently approved: a fresh verified proposal is required.
 `VapiCallbackAppApprovalService` inherits `ScopedServiceBase` and composes this
 lookup with the existing PostgreSQL app confirmations. Its approval-only HTTP
 factory still requires current native authentication and endpoint permissions.
+
+`createPostgresNativeVapiCallbackApprovalHost` supplies the actual PostgreSQL
+session resolver and registered endpoint policy; its callback service policy
+requires both existing approval API rights and restricts every action to an
+owned callback v1 intent. The callback access registration inherits the existing
+screen-eligible writer, additionally requires all own-phone API grants, and
+preserves explicit denials and role-screen permissions. This does not create a
+login, proof, approval, staff assignment or live tool attachment.

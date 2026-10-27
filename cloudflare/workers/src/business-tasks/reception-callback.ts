@@ -1,3 +1,8 @@
+import {PostgresReceptionCallbackAccessPolicy} from './reception-callback-policy.ts';
+import {PostgresVoiceContactSessions} from './voice-contact-postgres.ts';
+import {tokenFrom,sha256} from '../session-token.ts';
+import {NativeVoiceHttpError} from '../../../../packages/shared/src/communications/voice-native-http.mjs';
+import {PostgresVoiceEndpointPolicy} from './endpoint-policy.ts';
 import {VapiAppTaskIdentityBroker,VapiVerifiedCallIdentityService} from './vapi-call-identity.ts';
 import {NativeVoiceTaskHttpAdapter,type NativeVoiceTaskHttpOptions} from '../../../../packages/shared/src/communications/voice-native-http.mjs';
 import {ScopedServiceBase,assertActor,type Actor,type AtomicStore,type AccessPolicy,type RecordState} from '../../../../packages/shared/src/communications/service-base.ts';
@@ -122,4 +127,21 @@ export class VapiCallbackAppApprovalService extends ScopedServiceBase {
 export function createPostgresVapiCallbackApprovalHttpAdapter(options:{pool:Pool;policy:AccessPolicy;identities:VapiVerifiedCallIdentityService;native:Omit<NativeVoiceTaskHttpOptions,'service'>}){
  const service=new VapiCallbackAppApprovalService(new PostgresAtomicStore(options.pool,'business_sms'),options.policy,options.pool,options.identities);
  return new NativeVoiceTaskHttpAdapter({...options.native,service});
+}
+
+/** Concrete native approval host: current PostgreSQL login, active membership,
+ * exact API/screen policy and owned callback policy. Canonical provider/proof
+ * service remains a mandatory private host binding, never a body field. */
+export function createPostgresNativeVapiCallbackApprovalHost(options:{pool:Pool;identities:VapiVerifiedCallIdentityService;origin:string;appOrigins?:readonly string[];maxRequestBytes:number}){
+ const sessions=new PostgresVoiceContactSessions(options.pool),endpoints=new PostgresVoiceEndpointPolicy(options.pool);
+ return createPostgresVapiCallbackApprovalHttpAdapter({pool:options.pool,identities:options.identities,policy:new PostgresReceptionCallbackAccessPolicy(options.pool),native:{
+  origin:options.origin,appOrigins:options.appOrigins,maxRequestBytes:options.maxRequestBytes,
+  async authenticate(request){
+   const token=tokenFrom(request);if(!token)throw new NativeVoiceHttpError(401);
+   const row=await sessions.currentSession(await sha256(token));if(!row)throw new NativeVoiceHttpError(401);
+   if(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==row.tenantId)throw new NativeVoiceHttpError(403);
+   return {actor:{id:row.userId,tenantId:row.tenantId},sessionHash:row.id,expiresAt:row.expiresAt};
+  },
+  async authorize(session,key,request){try{await endpoints.authorize(session,key,request);}catch{throw new NativeVoiceHttpError(403);}}
+ }});
 }

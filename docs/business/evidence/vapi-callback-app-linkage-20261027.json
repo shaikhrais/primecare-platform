@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-27",
+  "sourceCommit": "2546375199937fa77c02f96a472d5e8db4300b20",
+  "callbackAcceptance": {
+    "runId": 40510589998,
+    "jobId": 122211135227,
+    "status": "success",
+    "groups": 15,
+    "providerTraffic": false,
+    "productionWrites": false
+  },
+  "productionReadiness": {
+    "runId": 40510590143,
+    "jobId": 122211362598,
+    "status": "identity_activation_blocked",
+    "readinessMeasured": true,
+    "nativeTaskPermissions": [
+      {
+        "path": "/v1/voice/tasks/approve",
+        "registration_count": 1,
+        "grant_count": 0
+      },
+      {
+        "path": "/v1/voice/tasks/preview",
+        "registration_count": 1,
+        "grant_count": 0
+      }
+    ],
+    "activeVerifiedContactCount": 0,
+    "callbackStoragePresent": true,
+    "blockers": [
+      "no_verified_voice_contacts",
+      "native_task_permission_not_ready:/v1/voice/tasks/preview",
+      "native_task_permission_not_ready:/v1/voice/tasks/approve",
+      "native_permission_not_ready:/v1/voice/otp/start",
+      "native_permission_not_ready:/v1/voice/otp/check",
+      "native_contact_enrollment_boundary_not_verified",
+      "private_pre_ai_pairing_delivery_not_connected",
+      "native_app_pairing_ui_not_connected",
+      "otp_runtime_not_deployed"
+    ]
+  },
+  "businessToolsEnabled": false,
+  "liveAppAcceptance": false
+}

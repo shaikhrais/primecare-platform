@@ -1399,5 +1399,30 @@
     "roleGrants": false,
     "providerWrites": false,
     "activation": false
+  },
+  "callbackApprovalAccessWriter": {
+    "optInVariable": "GOVERNANCE_CALLBACK_APPROVAL_ACCESS",
+    "tables": [
+      "api_permissions",
+      "screen_api_links"
+    ],
+    "screenIds": [
+      234,
+      331,
+      559,
+      578
+    ],
+    "paths": [
+      "/v1/voice/tasks/preview",
+      "/v1/voice/tasks/approve"
+    ],
+    "contractSha256": "c9c89aaf0ecceaf675ba3cd00b7114ef27bfb17ba6e8a21522c1af45eba95a8b",
+    "definitionSha256": "5f12c1bbc78b0595f4f32daff4a9554034cd68813b5c23263a3f4017b6344274",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleScreenChanges": false,
+    "existingDenials": "preserve",
+    "providerWrites": false,
+    "activation": false
   }
 }
