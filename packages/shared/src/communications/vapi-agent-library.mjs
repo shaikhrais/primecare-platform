@@ -41,7 +41,8 @@ export class VapiAgentLibraryClient extends BoundedBinaryAdapterBase {
   const recheck=this.scope(await this.request('/assistant/'+id));if(!isDeepStrictEqual(recheck,before))fail('concurrent_change_preserved');
   if(!Object.entries(patch).every(([k,v])=>isDeepStrictEqual(before[k],v)))await this.request('/assistant/'+id,'PATCH',patch);
   const saved=this.scope(await this.request('/assistant/'+id));if(!Object.entries(patch).every(([k,v])=>isDeepStrictEqual(saved[k],v)))fail('assistant_readback_failed');
-  const changedFields=Object.entries(before).filter(([k,v])=>!['updatedAt',...Object.keys(patch)].includes(k)&&!isDeepStrictEqual(saved[k],v)).map(([k])=>k);
+  // Provider-managed version receipt changes on PATCH; it is not a setting.
+  const changedFields=Object.entries(before).filter(([k,v])=>!['updatedAt','latestVersion',...Object.keys(patch)].includes(k)&&!isDeepStrictEqual(saved[k],v)).map(([k])=>k);
   if(changedFields.length)throw Object.assign(Error('unrelated_setting_changed'),{changedFields});
   return {key:agent.key,id,scriptVersion:agent.scriptVersion,configurationReadback:true,tools:['endCall','voicemail'],businessToolsAttached:false,callTested:false};
  }
