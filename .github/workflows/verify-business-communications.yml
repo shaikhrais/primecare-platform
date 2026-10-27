@@ -399,7 +399,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/communications-tools" --ignore-scripts pg@8.16.3 @types/pg@8.15.5 esbuild@0.27.2 typescript@5.9.3 @types/node@24.0.0 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0 twilio@6.2.0
+          npm install --prefix "$RUNNER_TEMP/communications-tools" --ignore-scripts pg@8.16.3 @types/pg@8.15.5 esbuild@0.27.2 typescript@5.9.3 @types/node@24.0.0 @cloudflare/workers-types@4.20260403.1 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0 twilio@6.2.0
           ln -s "$RUNNER_TEMP/communications-tools/node_modules" node_modules
       - name: Check production-generated shared route bindings
         run: |
@@ -410,7 +410,7 @@ jobs:
         run: node --test packages/shared/test/business-*.test.mjs
       - name: Strict service types and existing email compatibility
         run: |
-          node_modules/.bin/tsc --noEmit --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strict --skipLibCheck --resolveJsonModule cloudflare/workers/src/business-tasks/*.ts
+          node_modules/.bin/tsc --noEmit --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strict --skipLibCheck --resolveJsonModule --types node,@cloudflare/workers-types cloudflare/workers/src/business-tasks/*.ts
           node --test scripts/test-email-runtime-validation.mjs scripts/test-communication-session.mjs scripts/test-communication-endpoint-policy.mjs scripts/test-communication-native-mail.mjs scripts/test-communication-runtime.mjs scripts/test-communication-workers-runtime.mjs
       - name: All candidate workflow services and communications with native PostgreSQL
         run: node --test scripts/test-business-communications.mjs scripts/test-communication-mail-preview.mjs

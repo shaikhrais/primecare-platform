@@ -1354,3 +1354,12 @@ The deployment-only `VapiAgentLibraryClient` inherits bounded transport, preserv
 provider configuration, and changes only pinned library assistants. Native tools
 are distinct from business API readiness; read-only production registration audit
 never enables an unimplemented business endpoint or creates a user session.
+
+The next Vapi authorization checkpoint is tracked in
+[the execution plan](../../../../docs/business/VAPI_EXECUTION_PLAN.md).
+`VapiVerifiedCallIdentityService` inherits the scoped base and rechecks canonical
+call/contact, verification policy and private durable possession proof. Its
+`VapiCallTaskIdentityBroker` supplies an internal authentication-event binding,
+not a native login or task approval. Business hosts must separately enforce the
+registered identity requirements, current permissions and independent approval.
+A successful SMS check alone never activates the closed business-task endpoint.
