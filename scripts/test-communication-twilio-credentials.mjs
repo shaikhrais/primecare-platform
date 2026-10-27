@@ -24,3 +24,7 @@ test('all shared Twilio API-key adapters accept the same opaque secret without m
  assert.ok(createTwilioSalesQualitySource({...config,serviceSid:'GA'+'a'.repeat(32),operatorSid:'LY'+'b'.repeat(32),rubricDigest:'a'.repeat(64),operatorConfigDigest:'b'.repeat(64)}));
  assert.ok(new TwilioVoiceTokenService({run:unused,read:unused,inbox:unused},{assert:unused,assignee:unused},{currentSession:unused,destinations:unused},{...config,applicationSid:'AP'+'c'.repeat(32),ttlSeconds:60}));
 });
+test('Verify native fetch uses no object receiver and rejects redirects without forwarding credentials',async()=>{
+ let requests=0;const client=new TwilioVerifyFetchClient({serviceSid,apiKeySid,apiKeySecret:secret,fetch:async function(url,options){assert.equal(this,undefined);assert.equal(options.redirect,'manual');requests++;return new Response(null,{status:302,headers:{location:'https://foreign.invalid'}});}});
+ await assert.rejects(client.request({method:'post',uri:'https://verify.twilio.com/v2/Services/'+serviceSid+'/Verifications',username:apiKeySid,password:secret,data:{To:'+14165550101',Channel:'sms'}}),/unavailable/);assert.equal(requests,1);
+});

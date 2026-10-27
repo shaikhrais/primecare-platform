@@ -18,7 +18,8 @@ export class TwilioVerifyFetchClient extends BoundedBinaryAdapterBase {
   }else if(options.uri===base+'/VerificationCheck'){
    if(keys!=='Code,VerificationSid'||typeof data.Code!=='string'||data.Code.length!==6||!/^\d{6}$/.test(data.Code)||!/^VE[a-f0-9]{32}$/i.test(data.VerificationSid))throw Error('Verify transport denied');
   }else throw Error('Verify transport denied');
-  const response=await this.#fetch(options.uri,{method:'POST',redirect:'error',signal:AbortSignal.timeout(10000),headers:{authorization:'Basic '+btoa(this.#key+':'+this.#secret),'content-type':'application/x-www-form-urlencoded',accept:'application/json'},body:new URLSearchParams(data).toString()});
+  const send=this.#fetch;
+  const response=await send(options.uri,{method:'POST',redirect:'manual',signal:AbortSignal.timeout(10000),headers:{authorization:'Basic '+btoa(this.#key+':'+this.#secret),'content-type':'application/x-www-form-urlencoded',accept:'application/json'},body:new URLSearchParams(data).toString()});
   if(response.status!==200&&response.status!==201){try{await response.body?.cancel();}catch{}throw Error('Verify provider unavailable');}
   const type=response.headers.get('content-type')?.split(';')[0].trim().toLowerCase();
   if(type!=='application/json'){await response.body?.cancel();throw Error('Verify provider unavailable');}

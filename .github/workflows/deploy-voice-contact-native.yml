@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/deploy-voice-contact-native.yml'
+      - 'scripts/verify-live-sms-status.mjs'
       - 'cloudflare/workers/src/business-tasks/voice-contact-worker.ts'
       - 'cloudflare/workers/src/business-tasks/voice-contact.ts'
       - 'cloudflare/workers/src/business-tasks/voice-contact-postgres.ts'
@@ -77,7 +78,7 @@ jobs:
         with: {python-version: '3.12'}
       - name: Install dependencies before supplying production credentials
         run: |
-          npm install --prefix "$RUNNER_TEMP/native-contact-deploy" --ignore-scripts --no-audit --no-fund wrangler@4.68.1 pg@8.16.3 twilio@6.2.0
+          npm install --prefix "$RUNNER_TEMP/native-contact-deploy" --ignore-scripts --no-audit --no-fund wrangler@4.68.1 pg@8.16.3 twilio@6.2.0 bcryptjs@3.0.2
           ln -s "$RUNNER_TEMP/native-contact-deploy/node_modules" node_modules
           pip install -r tools/governance-production/requirements.txt
       - name: Independently verify exact native contracts, current access and existing database schema without writes
@@ -111,6 +112,10 @@ jobs:
           TWILIO_API_KEY_SECRET: ${{ secrets.TWILIO_API_KEY_SECRET }}
           TWILIO_VERIFY_SERVICE_SID: ${{ secrets.TWILIO_VERIFY_SERVICE_SID }}
         run: node scripts/deploy-voice-contact-native.mjs
+      - name: Verify current native SMS status, permission denial and session revocation without sending SMS
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/verify-live-sms-status.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

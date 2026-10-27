@@ -1,5 +1,5 @@
-Warning: truncated output (original token count: 23032)
-Total output lines: 1311
+Warning: truncated output (original token count: 23200)
+Total output lines: 1322
 
 # Shared communication core
 
@@ -434,139 +434,7 @@ and run adapter/session, compiled-Dart browser and real packet checks.
 `communication-stack-acceptance.yml` builds a disposable Flutter host around the
 existing `PrimeAuthExperience`, real `AuthNotifier`/`ApiClient` and existing
 `CommunicationScreen`. It does not inject authentication or communication
-transport success. The actual gateway forwards exact registered communication
-paths to the native runtime, which checks current PostgreSQL sessions, endpoint
-and screen grants, account/task/mailbox policy and versioned storage. The test
-uses a dedicated loopback database and refuses production credentials or existing
-tables. Picture raster decoding is real; scanner, private bucket and mail-provider
-acceptance ports are synthetic. Browser microphones are synthetic and no TURN
-relay is configured. This is isolated full-stack acceptance, not deployment.
-
-Auth login, completed MFA and current-session replies now include an optional
-validated server-resolved tenant claim under the independently registered response
-extension. Legacy unscoped accounts remain unscoped. Flutter restoration uses
-current server scope and clears cached overrides; the client never grants access.
-The production governance service still requires explicit runtime composition,
-provider configuration and approved grants before activation.
-
-### Registered ICE signaling boundary
-
-The registered audio API uses `signal.type = ice`. BrowserAudioSession maps the
-browser adapter's native `candidate` event into that wire value and maps stored
-`ice` records back before calling the browser adapter. CommunicationService
-validates and persists the registered value. The unregistered `candidate` wire
-alias is rejected by HTTP schema validation. Candidate content, current-call
-membership, version checks and signal byte/count limits remain enforced.
-
-### Workers-compatible schema validation
-
-`tools/communication-schema-validators.mjs --generate` compiles all seven pinned
-registered API request/response schemas into a bundled standalone module. Normal
-check mode rejects drift; the route-binding provenance check must pass first.
-Ajv is a build dependency, not a runtime compiler. The native inherited runtime
-supplies the compiled validator by default and rejects unknown schema identities.
-An optional extra validator can restrict acceptance but cannot bypass the
-registered schemas; its output is revalidated after any synchronous mutation.
-
-The actual browser and native PostgreSQL acceptance hosts omit an injected
-compiler. Differential checks cover every registered request variant and response,
-including ICE wire values, email formatting, Unicode lengths and unchanged input.
-A VM forbidding string code generation checks the bundled module, and the
-`worker-validator` CI job additionally runs it in workerd. These checks do not
-activate production channels, create grants or verify external provider delivery.
-
-### Shared Node and Workers picture codecs
-
-`PrivatePictureRepositoryBase` owns byte limits, scope snapshots, both mandatory
-scanner stages and private object storage/read validation. The existing
-`PrivatePictureRepository` constructor still accepts Sharp for Node. The derived
-`WorkersPrivatePictureRepository` accepts a native Images binding and an
-R2-compatible private bucket; it uses raw streams rather than public image URLs.
-Missing codecs, scanning or bucket methods fail closed. Neither adapter grants
-conversation access; the inherited service still authorizes before and after I/O.
-
-The Workers codec checks format, exact source byte size and bounded dimensions,
-then decodes/re-encodes through Images to static PNG. A bounded CRC-checked PNG
-container guard rejects animation, truncation, trailing bytes and unknown critical
-chunks. Encoded output retains only IHDR/PLTE/IDAT/IEND/tRNS, preserving pixel and
-transparency data while dropping text, EXIF and profiles. The guard is not a
-replacement decoder or malware scanner. Output is read into one bounded buffer;
-invalid/oversized streams are canceled. Callers and scanners receive isolated
-bytes, and tenant scope is captured before asynchronous work.
-
-CI adds actual local workerd Images/R2 integration, real JPEG/PNG decoding and
-alpha/metadata checks. The full Flutter browser scenario now uses local Images/R2
-instead of a map bucket and Sharp repository. These local emulators and synthetic
-scan decis…5032 tokens truncated…claims one attempt and calls the bound service using a stable idempotency key.
-Provider timeouts or crashes leave unknown/executing outcomes for reconciliation;
-no automatic repeat of a potentially completed task. Status/timestamps provide
-execution evidence without persisting private provider errors.
-
-`PostgresVoiceTaskRepository` and its candidate migration implement the durable
-proposal/claim boundary; `createPostgresVoiceTaskService` composes it. Neither the
-OTP broker, one-time confirmation store, Vapi webhook credentials, Relay WebSocket
-handler nor real business task registrations are installed by this code. An empty
-task catalogue enables nothing. All new task permissions remain default-denied.
-A host must authenticate the provider transport independently, and resolve these
-trust ports from server state rather than tool arguments before mounting.
-
-### Durable app approval and first reception tasks (candidate)
-
-The user selected callbacks and appointments as the first agent scope.
-`createReceptionAppointmentTasks` returns three `VoiceTaskBase` subclasses:
-`reception.callback.request`, `appointment.booking.request` and
-`appointment.reschedule.request`. They accept only typed reason/window or
-service/appointment/slot references, future exact UTC instants and expected
-versions. Model-supplied tenant/user/contact/URL/confirmation fields are rejected.
-The server summary says request and subject to availability; success is not a
-claim that an appointment is booked. A host must bind approved request services
-that independently check account contact, ownership, slot/time correspondence,
-current availability, version and idempotency atomically. No arbitrary HTTP
-adapter or operations-role impersonation is provided. Current client appointment
-APIs were inspected and are read interfaces; care scheduling mutations are
-operations-restricted. This code does not bypass those boundaries.
-
-`PostgresVoiceTaskConfirmationService` extends `ScopedServiceBase` and implements
-`VoiceTaskTrust` with a mandatory server OTP/passkey identity broker. `preview`
-returns the exact proposed summary/digest/expiry to the authenticated native app.
-`approve` requires that native owner, tenant, current call/session binding,
-`voice.task.confirm` permission and displayed digest. Approval lasts at most one
-minute and is consumed atomically once. Repeated approval preserves the original
-expiry. Expired/consumed proof requires a fresh proposal; it cannot be silently
-renewed. Consumption repeats current identity/policy checks and matches all
-call/session/user/tenant/proposal/digest fields against the proposal table. The
-existing task gate rechecks permission and claims one execution afterwards.
-
-Only a registered authenticated native app endpoint may expose preview/approve;
-its host must enforce native session authentication and CSRF. Never expose
-approve as a Vapi/Relay tool or derive the actor from agent JSON. Use an opaque
-server binding ID or token hash, never a raw bearer token, as sessionId. Native
-logout/revocation must invalidate the call identity broker binding. A transcript,
-caller ID or voice-match result never establishes that binding. No OTP code is
-accepted, stored or returned by the confirmation service.
-
-`createPostgresConfirmedVoiceTaskServices` composes the durable proof gate;
-`createPostgresReceptionAppointmentVoiceServices` adds the selected typed task
-catalogue with required business request ports. Candidate schema and all new
-permissions remain unregistered/default-denied. Production OTP issuance/binding,
-request-writing APIs, app routes/screens, provider authentication and live AI
-runtime remain required. Deterministic local tests and disposable PostgreSQL
-checks distinguish synthetic identity/request ports from real call/booking
-acceptance; no appointments or callback requests are created in production.
-
-### Twilio Verify provider port (server-only, candidate)
-
-`createTwilioVoiceOtpClient` uses the official REST SDK with a fixed server-selected
-verified account contact, configured Verify Service SID and SMS channel. It
-exposes only start and check, never service administration, custom-code setting,
-manual status approval, contact changes or arbitrary SDK options. Checks address
-the exact persisted Verification SID; response account/service/contact/channel/SID
-must match before only the authoritative approved status succeeds. Secrets and
-raw codes are never returned or included in errors. Uncertain sends are not
-retried automatically. The shared SID boundary also rejects trailing newline
-values instead of accepting JavaScript's end-anchor exception.
-
-This is a provider port, not an identity grant or complete OTP broker. The host
+transport success. The actual gateway forwards exact registered commun…7200 tokens truncated…complete OTP broker. The host
 must authorize/limit and durably claim each send, resolve current verified account
 contact, bind the exact returned SID to call/user/tenant/session, enforce attempt
 limits/expiry and contact/session revocation, and accept code entry through a
@@ -997,3 +865,14 @@ HTTP as well as injected provider functions. It does not measure biometric accur
 Text-dependent verification requires the enrolled phrase; arbitrary security
 question answers must not be substituted as the verification audio. Recognition
 remains evidence, separate from task authentication and transaction approval.
+
+## Native SMS phone verification
+
+The account screen uses the existing registered contact status/start/check routes.
+An explicit phone consent and button action precede any send; opening the panel
+only reads status. Codes are cleared before checking and never stored in browser
+storage. A verified status is read back after approval. Recent native sessions,
+current role and linked-screen rights, first-time-only enrollment and durable
+quotas remain enforced by the existing server. This enrolls an account phone;
+it does not authenticate a Vapi call or approve any business task. The Verify
+transport uses standalone native fetch and rejects manually returned redirects.
