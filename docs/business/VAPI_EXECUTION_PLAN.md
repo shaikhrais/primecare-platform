@@ -7,7 +7,7 @@ for this engineering checkpoint.
 |---|---|---|
 | 1 | Review current agents, registrations and authorization | Reviewed against main 63b5a6f9 and production API audit |
 | 2 | Connect call possession to a reusable server identity | Identity component and private durable proof implemented; task-core compatibility tested; business authorization still separate |
-| 3 | Connect the first real agent business workflow | Callback-only task, app-approval and persistence composition verified on native PostgreSQL; production registration/host binding pending |
+| 3 | Connect the first real agent business workflow | Callback composition verified; callback storage registered and migrated in production; live approval/API host and staff handling pending |
 | 4 | Test denial, expiry, races and duplicates | Identity/unit and real durable-runtime checks pass locally; release workflow verifies native PostgreSQL and deployment |
 | 5 | Extend the proven business pattern to remaining roles | Pending first complete operational workflow |
 | 6 | Deploy and preserve evidence | Private proof support releases through the existing verification workflow; no claim of live business-task activation |
@@ -109,3 +109,19 @@ Candidate migration and implementation are saved on main. No production schema
 migration, public callback host, staff fulfilment route or Vapi business-tool
 attachment was performed. No live caller/app session or human callback is claimed.
 See [callback persistence](RECEPTION_CALLBACK_PERSISTENCE.md) and its evidence.
+
+## Production callback storage checkpoint
+
+Source `781ba55e0aa6c3f12cb694a003477baaf0bba0e8` passed workflow
+40505751914: five metadata registration tests, four native schema tests, nine
+unit/task checks and eleven callback PostgreSQL scenario groups. Production
+registration independently read back table metadata ID 1365 and nine columns.
+The direct database dry run rolled back, the migration created the private empty
+callback table, and a separate pooled read-only connection verified the full
+schema and owner-only access. Existing task/approval/contact structures matched
+the tested reference and were preserved. No grants, content, calls or SMS were
+created. This checkpoint enables storage only; public callback tools remain off.
+
+Next: live API/approval host composition, current native permission enforcement,
+staff pickup/fulfilment and complete caller/app acceptance. See
+[production storage](CALLBACK_STORAGE_PRODUCTION.md) and its evidence receipt.

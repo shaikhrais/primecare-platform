@@ -1,0 +1,141 @@
+{
+  "source": "781ba55e0aa6c3f12cb694a003477baaf0bba0e8",
+  "workflowRun": 40505751914,
+  "status": "production_callback_storage_verified",
+  "validation": {
+    "metadataTests": 5,
+    "nativeSchemaTests": 4,
+    "unitTaskTests": 9,
+    "callbackPostgresScenarioGroups": 11,
+    "allReleaseJobsPassed": true
+  },
+  "productionReceipts": [
+    {
+      "kind": "CALLBACK_STORAGE_REGISTRATION",
+      "tableIds": {
+        "communication_callback_requests": 1365
+      },
+      "columns": 9,
+      "baseline": "communication-callback-storage-v1",
+      "roleGrants": 0,
+      "businessDataWrites": false,
+      "activation": false
+    },
+    {
+      "kind": "CALLBACK_STORAGE_REGISTRATION",
+      "tableIds": {
+        "communication_callback_requests": 1365
+      },
+      "columns": 9,
+      "baseline": "communication-callback-storage-v1",
+      "roleGrants": 0,
+      "businessDataWrites": false,
+      "activation": false,
+      "independentReadback": true
+    },
+    {
+      "kind": "CALLBACK_STORAGE_REGISTRATION",
+      "tableIds": {
+        "communication_callback_requests": 1365
+      },
+      "columns": 9,
+      "baseline": "communication-callback-storage-v1",
+      "roleGrants": 0,
+      "businessDataWrites": false,
+      "activation": false,
+      "independentReadback": true,
+      "writesAttempted": false
+    },
+    {
+      "kind": "CALLBACK_STORAGE_SCHEMA",
+      "mode": "--dry-run",
+      "source": "781ba55e0aa6c3f12cb694a003477baaf0bba0e8",
+      "businessDataWrites": false,
+      "roleGrants": 0,
+      "providerWrites": false,
+      "activation": false,
+      "committedSchemaChanges": false,
+      "stage": "complete",
+      "existingTablesVerified": [],
+      "tablesPreviouslyMissing": [
+        "communication_callback_requests"
+      ],
+      "tablesVerified": 1,
+      "columnsVerified": 9,
+      "ownerOnlyAccessVerified": true,
+      "prerequisitesVerified": [
+        "communication_voice_tasks",
+        "communication_voice_confirmations",
+        "communication_voice_verified_contacts"
+      ],
+      "migrationSha256": "4c753238b4340168e4e6b14f9a2942e80158050ae35d81097e42533d667a5362",
+      "rolledBack": true,
+      "status": "dry_run_rolled_back"
+    },
+    {
+      "kind": "CALLBACK_STORAGE_SCHEMA",
+      "mode": "--apply",
+      "source": "781ba55e0aa6c3f12cb694a003477baaf0bba0e8",
+      "businessDataWrites": false,
+      "roleGrants": 0,
+      "providerWrites": false,
+      "activation": false,
+      "committedSchemaChanges": true,
+      "stage": "complete",
+      "existingTablesVerified": [],
+      "tablesPreviouslyMissing": [
+        "communication_callback_requests"
+      ],
+      "tablesVerified": 1,
+      "columnsVerified": 9,
+      "ownerOnlyAccessVerified": true,
+      "prerequisitesVerified": [
+        "communication_voice_tasks",
+        "communication_voice_confirmations",
+        "communication_voice_verified_contacts"
+      ],
+      "migrationSha256": "4c753238b4340168e4e6b14f9a2942e80158050ae35d81097e42533d667a5362",
+      "status": "schema_applied_or_verified"
+    },
+    {
+      "kind": "CALLBACK_STORAGE_SCHEMA",
+      "mode": "--verify",
+      "source": "781ba55e0aa6c3f12cb694a003477baaf0bba0e8",
+      "businessDataWrites": false,
+      "roleGrants": 0,
+      "providerWrites": false,
+      "activation": false,
+      "committedSchemaChanges": false,
+      "stage": "complete",
+      "existingTablesVerified": [
+        "communication_callback_requests"
+      ],
+      "tablesPreviouslyMissing": [],
+      "tablesVerified": 1,
+      "columnsVerified": 9,
+      "ownerOnlyAccessVerified": true,
+      "prerequisitesVerified": [
+        "communication_voice_tasks",
+        "communication_voice_confirmations",
+        "communication_voice_verified_contacts"
+      ],
+      "migrationSha256": "4c753238b4340168e4e6b14f9a2942e80158050ae35d81097e42533d667a5362",
+      "status": "schema_independently_verified"
+    }
+  ],
+  "governanceMetadataWritten": true,
+  "businessSchemaChanged": true,
+  "businessDataWrites": false,
+  "roleGrants": 0,
+  "providerWrites": false,
+  "callbackToolActivated": false,
+  "publicCallbackHostActivated": false,
+  "callsPlaced": 0,
+  "smsSent": 0,
+  "remaining": [
+    "Native app approval/API host integration",
+    "Current native permission enforcement for the callback host",
+    "Staff pickup and fulfilment",
+    "Complete live acceptance before Vapi tool activation"
+  ]
+}

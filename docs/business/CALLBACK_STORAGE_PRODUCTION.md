@@ -31,3 +31,13 @@ Run the existing callback workflow for business acceptance. Storage release
 evidence is produced by `callback-storage-production.yml` in
 `test-results/callback-storage-schema`. Record the resulting production receipt
 before describing the migration as complete.
+
+## Verified production result
+
+Workflow 40505751914 completed successfully at source
+`781ba55e0aa6c3f12cb694a003477baaf0bba0e8`. Metadata ID 1365 records the
+single nine-column callback table. Its native schema was created after a
+rolled-back dry run and independently verified using the pooled read-only path.
+Owner-only access and the three prerequisite structures were verified. No role
+grants, callback records or provider traffic were added. Live API and staff
+handling remain pending; storage readiness is not full feature activation.
