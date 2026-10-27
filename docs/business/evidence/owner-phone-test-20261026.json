@@ -1,0 +1,41 @@
+{
+  "accountEmailMatched": true,
+  "ownerPhoneSuffix": "3200",
+  "retry": {
+    "accountMatched": true,
+    "callsCreated": 1,
+    "smsDeliveryVerified": false,
+    "accountPhoneVerified": false,
+    "phoneRoutingChanged": false,
+    "previousStatus": "ended",
+    "stage": "complete",
+    "callId": "01a17b29-6158-7220-9edb-ed9038e95b28",
+    "initialStatus": "queued",
+    "ownerScopeInstalled": true,
+    "finalStatus": "ended",
+    "callProjection": {
+      "type": "outboundPhoneCall",
+      "provider": "twilio",
+      "transportProvider": "twilio",
+      "conversationType": "voice",
+      "hasCallSid": true,
+      "hasTransportAccount": true
+    },
+    "endedReason": "silence-timed-out",
+    "status": "call_attempted_verification_not_confirmed"
+  },
+  "sms": {
+    "smsRequested": true,
+    "phoneVerified": false,
+    "targetSuffix": "3200",
+    "callsPlaced": 0,
+    "providerStatus": "pending",
+    "verificationSid": "VE19155d2e7079cddef7f89d4d8afe053e",
+    "sendAttempts": 1,
+    "status": "provider_accepted_delivery_not_confirmed"
+  },
+  "callWorkflowRunId": 40437724425,
+  "smsWorkflowRunId": 40438206369,
+  "phoneVerified": false,
+  "rawCodeRecorded": false
+}
