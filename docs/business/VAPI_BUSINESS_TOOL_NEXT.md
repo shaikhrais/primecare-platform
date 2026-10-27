@@ -1,103 +1,79 @@
-# Remaining Vapi business activation
+# PrimeCare public-to-client voice flow and remaining activation
 
-Updated 2026-10-27. Work is saved on main; authentication is unchanged and excluded
-from this work. The previous authentication-first implementation target is
-superseded by the user's instruction to prepare business tools and agents.
+Updated 2026-10-27. All changes are on main. The owner explicitly included
+authentication in the latest request.
 
-Eight v4 saved agents and their public Query attachment have verified provider
-readbacks and a successful public-only Vapi chat probe. Four registered task
-request tools are saved but unattached. Eleven native business handlers are
-implemented; client owner read contracts are registered in production. See
-[VAPI_AGENT_TOOL_PACK.md](VAPI_AGENT_TOOL_PACK.md) for IDs and receipts.
+## Current verified state
 
-The result-returning server protocol now has an executable composition root,
-`createVapiBusinessRuntime`, combining the existing Growth and client adapters.
-It consumes existing authenticated transport, current context, access policy and
-durable journal ports. It changes no authentication code and mounts no new route.
-Its integration suite exercises actual native adapters behind the Vapi protocol,
-including saved readback/replay, uncertain responses, denied access, context
-rebinding, role isolation and private-field omission.
+- Eight v4 saved agents and the active 4277 receptionist have native call ending,
+  silent voicemail and public-information Query. Sixteen synthetic live chats
+  verified public retrieval and honest unavailable-action responses.
+- Current-call OTP backend support is deployed for the original receptionist and
+  the exact eight saved IDs. The existing verification tool and exact instructions
+  are attached and independently read back. Unknown calls and anonymous requests
+  are denied. Call mapping is stable across two provider reads; identity grants
+  no native administrator session or business-action approval.
+- Native first-time account-phone enrollment was redeployed through its three
+  registered gateway routes. Fresh source/CORS/no-store checks passed. A temporary
+  authorized QA session read status; permission removal and session revocation
+  denied access. QA account/session/tenant cleanup passed. No real SMS was sent.
+- Eleven native business handlers and the result-returning server composition are
+  implemented and tested. Four registered request tools are saved in Vapi but
+  remain unattached. The private business host is not yet deployed/mounted.
+- Zero real account phones were enrolled at the production audit. A real account
+  phone must be enrolled before a real caller can complete OTP acceptance.
 
-Remaining production connections:
-
-- A registered host must supply those existing ports and mount the composed
-  responder. Until then, private business tools remain unattached and cannot be
-  reported as working by phone. Do not substitute an administrator session.
-- Proposal lookup needs the approved client proposal source. A tenant marketing
-  contribution proposal is not a client quote.
-- Human transfer needs an approved directory destination. The owner's personal
-  test number is not an approved transfer destination.
-
-No call, campaign, SMS, phone routing or authentication change is part of this
-checkpoint. Automated tests use isolated in-memory API/journal fixtures only;
-production journal durability and deployed private execution remain unverified.
-
-## Requested public-to-client service flow
-
-The owner clarified the desired journey on 2026-10-27:
+## Requested service journey
 
 1. Public callers can ask approved company/service questions without signing in.
-   Opening hours and appointment slots must come from their authoritative sources;
-   the public enquiry-category document does not establish either.
-2. A new client can request registration and an appointment. Registration needs
-   the actual approved account/profile service, contact verification and consent;
-   creating a CRM enquiry is not creating a usable client account. Booking needs
-   authoritative service, eligibility, live slots, current versions, exact-detail
-   confirmation and saved-result readback. A request is not a confirmed booking.
-3. An existing client can request a dedicated current-call verification code.
-   The existing backend resolves the unique registered contact and sends to that
-   contact; caller/model input cannot replace the destination. The check tool
-   validates the code without exposing a stored code, hash or login secret.
-4. After successful verification, resolve the current client/tenant permissions.
-   Phone possession does not grant an administrator session or authorize every
-   action. Read/change only that client's permitted appointments and records.
-5. Client service can include appointment changes, client-requested notes and
-   questions for a qualified health professional. A client-requested note is not a
-   clinician-authored assessment. Routing a question is not providing diagnosis
-   or proving that an expert has answered. Save/send only through the approved
-   scoped communications and client APIs, with readback and status tracking.
-6. On unavailable tools or failed verification, explain the limitation and offer
-   the approved contact/app path; never invent an account, appointment or reply.
+   Hours, prices and slots must come from approved current sources. The current
+   public source establishes PSW/home-care enquiry categories, not availability.
+2. New-client registration must use an approved client account/profile service,
+   contact verification and consent, checking for duplicates. A CRM enquiry is
+   not an active client account. The current `/register` implementation is a
+   privileged account-management operation requiring a password; do not expose
+   it as public voice registration or ask callers to speak passwords.
+3. Existing clients can request a dedicated verification text after consent. The
+   backend matches the unique registered account phone against the canonical
+   live caller. It never accepts a model-selected replacement destination. The
+   check tool validates only the six digits from that call's verification text.
+4. Successful OTP resolves a current call-scoped subject. Every appointment or
+   support action must still enforce current client/tenant ownership and policy.
+   Expired proofs, changed contacts, ambiguous accounts and uncertain checks fail.
+5. Booking needs authoritative service/eligibility/slot data, current versions,
+   exact-detail confirmation and saved-result readback. A pending request or CRM
+   coordination appointment is not a confirmed service appointment.
+6. Client-requested notes and questions to health professionals need approved
+   scoped records/conversations and recipients. A submitted question is not an
+   expert reply or clinician-authored assessment. Do not invent a recipient.
+7. On missing tools or failed verification, explain the limitation and offer the
+   approved contact/app path. Never claim an account, appointment or reply exists
+   without its saved result.
 
-This is the target flow, not a statement that all steps are currently deployed.
-Existing authentication/verification implementation is preserved. Availability,
-new-client registration, client-note and expert-routing tool bindings must be
-verified separately; the previous 20-capability pack does not include complete
-implementations of these newly clarified steps.
+## Remaining real dependencies
 
-## Verified saved-agent conversations
+- First real account-phone enrollment and real caller OTP acceptance.
+- Deploy the private business responder with current verified subject/native
+  context, per-tool authorization and durable execution journal; do not borrow
+  an administrator session or create a permissive policy.
+- Authoritative availability and approved new-client registration bindings.
+- Client-note and expert-question routing bindings to actual authorized records.
+- Approved client proposal source and human-transfer directory destination.
 
-Workflow 40537934027 at source `dbb9df30c5ae0bb66f7dea9817397e55e3714f60`
-passed all 16 live synthetic chats: eight actual public Query invocations/results
-and eight clear unavailable-action responses. Each saved role script and allowed
-tool configuration was read before and after its checks. No private business
-action, phone call, SMS or authentication change occurred. Evidence:
-[evidence/vapi-agent-conversations-20261027.json](evidence/vapi-agent-conversations-20261027.json).
-The focused local suite also passed 63 checks. These checks verify the currently
-connected agent behavior, not the unimplemented service-flow steps above.
+The alternative native pre-AI app-pairing path still has its own dependencies;
+it is reported separately and is not treated as a prerequisite for the deployed
+spoken-SMS path. Neither configuration readback nor an anonymous denial proves a
+real code was accepted or an appointment was saved.
 
-## Authentication scope update
+## Evidence
 
-The owner explicitly included authentication after the public-to-client flow
-review. The current implementation target therefore includes connecting the
-existing call-verification capability to all eight saved roles. The worker uses
-one pinned assistant list, two consistent provider reads and the existing unique
-registered-contact mapping. The release deploys backend support before attaching
-the existing tool and exact instructions. Native sessions, role grants and
-business-action confirmation are not manufactured from an OTP result.
-
-Authentication attachment and live code acceptance are separate checks. A
-verified saved configuration does not prove a real caller completed verification,
-or that account creation, appointment writes or expert routing are deployed.
-
-Authentication release `f873b360fd8ab41b5a8e6ebce2ee990c6c11d125`, workflow
-40546849680, deployed successfully. All eight saved role configurations now have
-`primecare_phone_verification` and exact current-call instructions; independent
-readback passed. Anonymous and unknown-call requests were denied. The dedicated
-provider credential was rotated by the release and read back; no token is in the
-receipt. Phone routing is unchanged. Evidence:
-[evidence/vapi-agent-authentication-20261027.json](evidence/vapi-agent-authentication-20261027.json).
-
-The live inventory still has zero enrolled account phones. Recovery of the native
-first-time phone-enrollment boundary is therefore the next concrete dependency.
-No real SMS/code acceptance or private business action has been claimed.
+- [Eight-agent conversations](evidence/vapi-agent-conversations-20261027.json):
+  workflow 40537934027; 16 live synthetic chats; private actions not live.
+- [OTP deployment](evidence/vapi-agent-authentication-20261027.json): workflow
+  40546849680; source `f873b360fd8ab41b5a8e6ebce2ee990c6c11d125`; 53 local
+  auth checks and durable runtime tests passed; real caller acceptance pending.
+- [Enrollment recovery](evidence/voice-contact-native-deployment-20261027.json):
+  workflow 40547521771; source `f31a704087d76a897aa9fd8bff9833da3f7eea8b`;
+  fresh gateway boundary, authorized status, role denial, revocation and cleanup.
+- [Business tool pack](VAPI_AGENT_TOOL_PACK.md): saved tool IDs, owner API
+  registrations, handler coverage and actual attachment states.

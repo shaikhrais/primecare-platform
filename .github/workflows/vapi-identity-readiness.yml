@@ -11,6 +11,10 @@ on:
       - 'scripts/test-vapi-call-read.mjs'
       - 'scripts/test-vapi-otp-task-integration.mjs'
       - 'scripts/verify-vapi-identity-readiness.mjs'
+      - 'scripts/vapi-authentication-readback.mjs'
+      - 'scripts/test-vapi-authentication-readback.mjs'
+      - 'docs/business/evidence/vapi-agent-authentication-20261027.json'
+      - 'docs/business/evidence/voice-contact-native-deployment-20261027.json'
       - 'scripts/voice-contact-deployment-readback.mjs'
       - 'scripts/test-voice-contact-deployment-readback.mjs'
       - 'docs/business/evidence/voice-contact-native-deployment-20261024.json'
@@ -26,7 +30,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
-      - run: node --test scripts/test-voice-contact-deployment-readback.mjs scripts/test-vapi-call-read.mjs scripts/test-vapi-otp-task-integration.mjs scripts/test-communication-voice-otp.mjs scripts/test-vapi-api-request.mjs
+      - run: node --test scripts/test-voice-contact-deployment-readback.mjs scripts/test-vapi-call-read.mjs scripts/test-vapi-otp-task-integration.mjs scripts/test-communication-voice-otp.mjs scripts/test-vapi-api-request.mjs scripts/test-vapi-authentication-readback.mjs
   readiness:
     needs: integration
     runs-on: ubuntu-24.04

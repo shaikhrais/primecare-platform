@@ -1,9 +1,11 @@
 import pg from 'pg';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {verifyNativeContactDeployment} from './voice-contact-deployment-readback.mjs';
+import {VapiAgentLibraryClient} from '../packages/shared/src/communications/vapi-agent-library.mjs';
+import {verifyVapiSpokenDeployment} from './vapi-authentication-readback.mjs';
 import {VapiCallReadClient} from '../packages/shared/src/communications/vapi-call-read.mjs';
 const {Pool}=pg;
-const report={step:3,readinessMeasured:false,liveCallVerified:false,liveOtpVerified:false,smsSent:false,businessActionsEnabled:false,toolsAttached:false,blockers:[]};
+const report={step:3,readinessMeasured:false,liveCallVerified:false,liveOtpVerified:false,smsSent:false,businessActionsEnabled:false,toolsAttached:false,blockers:[],nativePairingPath:{requiredForSpokenSms:false,ready:false,blockers:[]}};
 let pool;
 try{
  report.stage='authority';
@@ -76,17 +78,23 @@ try{
   report.nativeOtpPermissions=grants.rows.filter(row=>row.path.startsWith('/v1/voice/otp/'));
   report.nativeContactPermissions=grants.rows.filter(row=>row.path.startsWith('/v1/voice/contact/'));
   for(const path of ['/v1/voice/contact/status','/v1/voice/contact/start','/v1/voice/contact/check']){const row=grants.rows.find(row=>row.path===path);if(!row||row.registration_count!==1||!Number.isSafeInteger(row.grant_count)||row.grant_count<1)report.blockers.push('native_contact_permission_not_ready:'+path);}
-  for(const path of ['/v1/voice/otp/start','/v1/voice/otp/check']){const row=grants.rows.find(row=>row.path===path);if(!row||row.registration_count!==1||!Number.isSafeInteger(row.grant_count)||row.grant_count<1)report.blockers.push('native_permission_not_ready:'+path);}
+  for(const path of ['/v1/voice/otp/start','/v1/voice/otp/check']){const row=grants.rows.find(row=>row.path===path);if(!row||row.registration_count!==1||!Number.isSafeInteger(row.grant_count)||row.grant_count<1)report.nativePairingPath.blockers.push('native_permission_not_ready:'+path);}
  }finally{try{await db.query('ROLLBACK');}finally{db.release();}}
  report.stage='provider-negative-check';
  const vapi=new VapiCallReadClient({apiKey:process.env.VAPI_PRIVATE_API_KEY});
  try{await vapi.fetch('00000000-0000-4000-8000-000000000000');throw Error('Unknown call unexpectedly resolved');}catch(error){if(error?.code!=='resource_not_found')throw Error('Provider read check failed');report.unknownProviderCallRejected=true;}
  // Require fresh live denial/readback in addition to the saved deployment receipt.
- let nativeReceipt;try{nativeReceipt=JSON.parse(await readFile('docs/business/evidence/voice-contact-native-deployment-20261024.json','utf8'));}catch{}
+ let nativeReceipt;for(const path of ['docs/business/evidence/voice-contact-native-deployment-20261027.json','docs/business/evidence/voice-contact-native-deployment-20261024.json']){try{nativeReceipt=JSON.parse(await readFile(path,'utf8'));break;}catch{}}
  report.nativeContactBoundary=await verifyNativeContactDeployment(nativeReceipt);
  if(!report.nativeContactBoundary.boundaryVerified)report.blockers.push(report.nativeContactBoundary.deploymentRecorded?'native_contact_enrollment_boundary_not_verified':'native_contact_enrollment_not_deployed');
- report.blockers.push('private_pre_ai_pairing_delivery_not_connected','native_app_pairing_ui_not_connected','otp_runtime_not_deployed');
- report.stage='complete';report.readinessMeasured=true;report.ready=false;report.status='identity_activation_blocked';
+ report.nativePairingPath.blockers.push('private_pre_ai_pairing_delivery_not_connected','native_app_pairing_ui_not_connected','native_pairing_otp_runtime_not_deployed');
+ let spokenReceipt;try{spokenReceipt=JSON.parse(await readFile('docs/business/evidence/vapi-agent-authentication-20261027.json','utf8'));}catch{}
+ report.spokenSms=await verifyVapiSpokenDeployment({receipt:spokenReceipt,client:new VapiAgentLibraryClient({apiKey:process.env.VAPI_PRIVATE_API_KEY}),catalog:JSON.parse(await readFile('packages/shared/src/vapi-agent-templates.json','utf8')),instruction:await readFile('packages/shared/src/vapi-spoken-verification-instructions.txt','utf8')});
+ report.toolsAttached=report.spokenSms.configurationVerified;report.liveOtpVerified=false;
+ if(!report.spokenSms.configurationVerified)report.blockers.push('spoken_sms_configuration_not_verified');
+ report.blockers.push('real_caller_otp_acceptance_pending');
+ report.stage='complete';report.readinessMeasured=true;report.ready=false;
+ report.status=report.spokenSms.configurationVerified?'spoken_sms_configured_account_enrollment_or_live_acceptance_pending':'identity_activation_blocked';
 }catch{report.status='identity_readiness_check_failed';process.exitCode=1;}
 finally{await pool?.end();}
 await mkdir('test-results/vapi',{recursive:true});await writeFile('test-results/vapi/identity-readiness.json',JSON.stringify(report,null,2)+'\n');console.log('VAPI_IDENTITY_READINESS '+JSON.stringify(report));

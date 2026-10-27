@@ -1,14 +1,17 @@
 # PrimeCare agents and business tools
 
-Authentication remains unchanged. All eight saved agents and the active 4277
+Authentication is now included by the owner. All eight saved agents and the active 4277
 receptionist have version-four scripts, native end-call, silent voicemail and the
-public-information Query tool. Saved configuration and a real public-only Vapi
+public-information Query tool. They now also have the existing current-call OTP
+verification tool and exact instructions. Saved configuration and a real public-only Vapi
 chat/query/result/readback test passed. No phone calls, SMS or customer-record
 writes were performed for this release.
 
 | Capability | Verified state |
 |---|---|
 | Eight role scripts and active receptionist | Version 4 saved and independently read back |
+| Current-call OTP | Backend deployed for the original receptionist and eight saved IDs; tool/instructions attached and read back; real caller/code acceptance pending |
+| Account phone enrollment | Native API/gateway redeployed; fresh CORS/session/permission/revocation checks passed; no real enrollment SMS sent |
 | Public service enquiry information | Native Query attached; source file bytes/hash and actual retrieval verified |
 | Callback, booking, rescheduling, execution | Four API Request tools saved/read back; not attached or activated |
 | Native Growth tools | Nine business API adapters implemented and tested |
@@ -17,7 +20,8 @@ writes were performed for this release.
 | Proposals | Needs an approved current proposal source |
 | Human transfer | Needs an approved directory/transfer destination |
 
-The tool pack covers 20 capabilities and all ten existing CRM stages. Stage
+The business/call tool pack covers 20 capabilities and all ten existing CRM
+stages. Current-call OTP is managed separately. Stage
 selection is a plan, not automatic dialing or a stage update. Lost, suppressed,
 duplicated and unrequested-contact leads are excluded. CRM milestones and
 coordination appointments do not certify clinical care.
@@ -109,3 +113,10 @@ Current primary references:
 - https://docs.vapi.ai/tools/api-request/configuration
 - https://docs.vapi.ai/tools/client-side-websdk
 - https://docs.vapi.ai/tools/custom-tools
+
+Authentication release: workflow 40546849680, source `f873b360fd8ab41b5a8e6ebce2ee990c6c11d125`.
+Enrollment recovery: workflow 40547521771, source `f31a704087d76a897aa9fd8bff9833da3f7eea8b`.
+Current evidence: `evidence/vapi-agent-authentication-20261027.json` and
+`evidence/voice-contact-native-deployment-20261027.json`. Enrollment status checks
+used a temporary QA account/session/tenant and verified cleanup. Zero account
+phones were enrolled at the audit; caller-code acceptance remains pending.
