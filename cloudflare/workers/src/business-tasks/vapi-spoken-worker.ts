@@ -1,0 +1,67 @@
+import {DurableObject} from 'cloudflare:workers';
+import pg from 'pg';
+import {BaseWorker,workerHandler} from '../core/base-worker.ts';
+import {BoundedBinaryAdapterBase} from '../../../../packages/shared/src/communications/adapter-base.mjs';
+import {createVapiToolCredentialVerifier} from '../../../../packages/shared/src/communications/vapi-service-auth.mjs';
+import {VapiCallReadClient,createVapiCanonicalCallDirectory} from '../../../../packages/shared/src/communications/vapi-call-read.mjs';
+import {TwilioVerifyFetchClient} from '../../../../packages/shared/src/communications/twilio-verify-fetch.mjs';
+import {createTwilioVoiceOtpClient} from '../../../../packages/shared/src/communications/twilio-verify.mjs';
+import {nativePostgresOptions} from './native-postgres.ts';
+import {PostgresAtomicStore} from './store.ts';
+import {SpokenSmsVerificationService,type SpokenCandidate} from './vapi-spoken-verification.ts';
+import contract from '../../../../tools/governance-production/vapi-verification-registration.json' with {type:'json'};
+import pin from '../../../../tools/governance-production/production-pin.json' with {type:'json'};
+type Env={DB_URL:string;VAPI_PRIVATE_API_KEY:string;VAPI_VERIFY_SECRET:string;VAPI_VERIFY_OWNER:string;VAPI_VERIFY_ORIGIN:string;VAPI_VERIFY_API_ID:string;VAPI_VERIFY_CONTRACT_SHA:string;TWILIO_ACCOUNT_SID:string;TWILIO_API_KEY_SID:string;TWILIO_API_KEY_SECRET:string;TWILIO_VERIFY_SERVICE_SID:string;VERIFICATIONS:DurableObjectNamespace;VERIFY_LIMIT:{limit(value:{key:string}):Promise<{success:boolean}>}};
+const orgId='9e1d8550-4b84-4472-a782-67557fe73944',assistantId='5ae2ab0c-fad0-454c-8cf7-64b81c91c850',phoneId='3e9cee92-b463-47c8-9e1a-cdbf179cb675',number='+12897994277';
+const headers={'cache-control':'no-store','x-content-type-options':'nosniff'};
+const digest=async(text:string)=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text))),x=>x.toString(16).padStart(2,'0')).join('');
+const same=(a:unknown,b:unknown)=>JSON.stringify(a)===JSON.stringify(b);
+const authHeaders=(env:Env)=>({authorization:'Basic '+btoa(env.TWILIO_API_KEY_SID+':'+env.TWILIO_API_KEY_SECRET),accept:'application/json'});
+async function twilioCall(env:Env,id:string){
+ if(!/^CA[a-f0-9]{32}$/i.test(id))throw Error();const r=await fetch('https://api.twilio.com/2010-04-01/Accounts/'+env.TWILIO_ACCOUNT_SID+'/Calls/'+id+'.json',{redirect:'manual',headers:authHeaders(env),signal:AbortSignal.timeout(10000)});
+ if(!r.ok){await r.body?.cancel();throw Error();}const row=JSON.parse(new TextDecoder().decode(await new BoundedBinaryAdapterBase(65536).readBoundedBody(r.body!)));return {sid:row.sid,accountSid:row.account_sid,from:row.from,to:row.to,direction:row.direction,status:row.status};
+}
+/** Private phone-keyed durable repository; codes are held by Twilio, never stored here. */
+export class SpokenVerification extends DurableObject<Env> {
+ async fetch(request:Request):Promise<Response>{return this.ctx.blockConcurrencyWhile(async()=>{try{
+  const {candidate,input}=await request.json() as {candidate:SpokenCandidate;input:{action:'request'|'check';requestId:string;code?:string}};
+  let row=await this.ctx.storage.get<any>('challenge');const now=Date.now();
+  const bound=row&&same(row.candidate,candidate);
+  if(input.action==='request'){
+   if(row&&row.quotaUntil>now){if(bound&&row.state==='pending'&&row.expiresAt>now)return Response.json({verified:false,codeRequested:true});throw Error('Send unavailable');}
+   row={candidate,state:'sending',expiresAt:now+120000,quotaUntil:now+600000,attempts:0,receipts:{}};await this.ctx.storage.put('challenge',row);await this.ctx.storage.setAlarm(row.quotaUntil);
+   try{const receipt=await this.client(candidate.phone).start();row.sid=receipt.verificationSid;row.state='pending';await this.ctx.storage.put('challenge',row);return Response.json({verified:false,codeRequested:true});}catch{row.state='unknown';await this.ctx.storage.put('challenge',row);throw Error('Send outcome unknown');}
+  }
+  if(!bound||row.expiresAt<=now)throw Error('Challenge unavailable');
+  if(Object.hasOwn(row.receipts,input.requestId))return Response.json(row.receipts[input.requestId]);
+  if(row.state!=='pending'||row.attempts>=5||typeof input.code!=='string'||!/^\d{6}$/.test(input.code))throw Error('Check unavailable');
+  row.state='checking';row.attempts++;await this.ctx.storage.put('challenge',row);
+  try{const result=await this.client(candidate.phone).check(row.sid,input.code);if(Date.now()>=row.expiresAt)throw Error();const receipt={verified:result.approved};row.state=result.approved?'verified':row.attempts>=5?'locked':'pending';row.receipts[input.requestId]=receipt;await this.ctx.storage.put('challenge',row);return Response.json(receipt);}catch{row.state='unknown';await this.ctx.storage.put('challenge',row);throw Error('Check outcome unknown');}
+ }catch{return Response.json({error:'verification_unavailable'},{status:503});}});}
+ private client(phone:string){return createTwilioVoiceOtpClient({accountSid:this.env.TWILIO_ACCOUNT_SID,apiKeySid:this.env.TWILIO_API_KEY_SID,apiKeySecret:this.env.TWILIO_API_KEY_SECRET,serviceSid:this.env.TWILIO_VERIFY_SERVICE_SID,contact:{phone,verified:true},httpClient:new TwilioVerifyFetchClient({serviceSid:this.env.TWILIO_VERIFY_SERVICE_SID,apiKeySid:this.env.TWILIO_API_KEY_SID,apiKeySecret:this.env.TWILIO_API_KEY_SECRET})});}
+ async alarm(){await this.ctx.storage.deleteAll();}
+}
+export class SpokenVerificationWorker extends BaseWorker<Env>{
+ protected async handle(request:Request,env:Env):Promise<Response>{
+  const deny=async(status:number)=>{try{await request.body?.cancel();}catch{}return Response.json({error:'verification_unavailable'},{status,headers});};
+  const url=new URL(request.url);if(url.origin!==env.VAPI_VERIFY_ORIGIN||url.pathname!==contract.operations[0].path)return deny(404);if(request.method!=='POST')return deny(405);if(url.search||url.hash)return deny(400);
+  if(!await createVapiToolCredentialVerifier({secret:env.VAPI_VERIFY_SECRET})(request))return deny(401);
+  if(env.VAPI_VERIFY_CONTRACT_SHA!==pin.vapiVerificationRegistrationWriter.definitionSha256||!(await env.VERIFY_LIMIT.limit({key:'spoken-verification'})).success)return deny(503);
+  if(request.headers.get('content-type')?.split(';')[0].trim()!=='application/json')return deny(415);
+  const body=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await new BoundedBinaryAdapterBase(131072).readBoundedBody(request.body!))),message=body?.message,list=message?.toolCallList;
+  if(message?.type!=='tool-calls'||!Array.isArray(list)||list.length!==1||list[0]?.type!=='function'||list[0]?.function?.name!=='primecare_phone_verification'||typeof list[0]?.id!=='string')return deny(400);
+  const tool=list[0],callId=message.call?.id;let args=tool.function.arguments;if(typeof args==='string'){if(args.length>1024)return deny(400);args=JSON.parse(args);}
+  const pool=new pg.Pool(nativePostgresOptions(env.DB_URL));
+  try{
+   const directory=createVapiCanonicalCallDirectory({vapi:new VapiCallReadClient({apiKey:env.VAPI_PRIVATE_API_KEY}),twilio:{fetch:(id:string)=>twilioCall(env,id)},orgId,assistantId,phoneNumberId:phoneId,accountSid:env.TWILIO_ACCOUNT_SID,sharedNumber:number});
+   const candidate=async(id:string):Promise<SpokenCandidate|null>=>{const call=await directory.current(id);if(!call)return null;const raw=await twilioCall(env,call.callSid);if(raw.sid!==call.callSid||raw.accountSid!==env.TWILIO_ACCOUNT_SID||raw.direction!=='inbound'||!/^\+[1-9][0-9]{6,14}$/.test(raw.from??'')||raw.status!=='in-progress'||raw.to!==number)return null;
+    const rows=(await pool.query(`SELECT c.user_id,c.tenant_id,c.version::float8 AS version FROM public.communication_voice_verified_contacts c JOIN public.users u ON u.id::text=c.user_id AND u.tenant_id::text=c.tenant_id JOIN public.tenants t ON t.id=u.tenant_id WHERE c.phone=$1 AND c.revoked_at IS NULL AND LOWER(u.status)='active' AND LOWER(t.status)='active' LIMIT 2`,[raw.from])).rows;
+    if(rows.length!==1)return null;return {actor:{id:rows[0].user_id,tenantId:rows[0].tenant_id},phone:raw.from,version:rows[0].version,callSid:call.callSid,callId:id};};
+   const policy={async assert(actor:any,action:string,state:any){if(action!=='voice.sms.spoken.verify'||state?.ownerId!==actor.id||state.tenantId!==actor.tenantId)throw Error();const schema=pin.schema;if(!/^[a-z0-9_]+$/.test(schema))throw Error();const rows=(await pool.query(`SELECT id FROM "${schema}".govt_api_endpoints WHERE id=$1 AND http_method='POST' AND route_path=$2 AND permission_key='vapi.service.verification'`,[Number(env.VAPI_VERIFY_API_ID),contract.operations[0].path])).rows;if(rows.length!==1)throw Error();},async assignee(){throw Error();}};
+   const service=new SpokenSmsVerificationService(new PostgresAtomicStore(pool,'business_sms'),policy,{current:candidate,run:async(c,input)=>{const key=await digest(c.phone);const response=await env.VERIFICATIONS.get(env.VERIFICATIONS.idFromName(key)).fetch('https://private-verification/action',{method:'POST',body:JSON.stringify({candidate:c,input})});if(!response.ok)throw Error();return response.json();}});
+   const result=await service.execute(callId,tool.id,args);return Response.json({results:[{toolCallId:tool.id,result:JSON.stringify(result)}]},{headers});
+  }catch{return Response.json({results:[{toolCallId:tool.id,error:'Verification unavailable. Do not resend automatically; use reception or the account verification screen.'}]},{headers});}finally{await pool.end();}
+ }
+ protected override onError(){return Response.json({error:'verification_unavailable'},{status:503,headers});}
+}
+export default workerHandler(new SpokenVerificationWorker());

@@ -15,7 +15,7 @@ export class VapiCallReadClient extends BoundedBinaryAdapterBase{
  async fetch(id){
   if(!uuid(id))throw new VapiCallReadError('invalid_resource');
   try{
-   const response=await this.#fetch('https://api.vapi.ai/call/'+id,{method:'GET',redirect:'error',signal:AbortSignal.timeout(10000),headers:{authorization:'Bearer '+this.#key,accept:'application/json'}});
+   const send=this.#fetch;const response=await send('https://api.vapi.ai/call/'+id,{method:'GET',redirect:'manual',signal:AbortSignal.timeout(10000),headers:{authorization:'Bearer '+this.#key,accept:'application/json'}});
    if(!response.ok){await response.body?.cancel();throw new VapiCallReadError(response.status===404?'resource_not_found':[401,403].includes(response.status)?'authentication_denied':'provider_unavailable');}
    const row=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await this.readBoundedBody(response.body)));
    if(!row||row.id!==id||!uuid(row.orgId)||!uuid(row.assistantId)||!uuid(row.phoneNumberId)||!['inboundPhoneCall','outboundPhoneCall','webCall','vapi.websocketCall'].includes(row.type)||!['scheduled','queued','ringing','in-progress','forwarding','ended','not-found','deletion-failed'].includes(row.status))throw new VapiCallReadError('invalid_provider_response');

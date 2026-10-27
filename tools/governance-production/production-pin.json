@@ -1346,5 +1346,25 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "accountAssignments": false
+  },
+  "vapiVerificationRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_VAPI_VERIFICATION_REGISTRATION",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "vapi.verification",
+        "method": "POST",
+        "path": "/v1/vapi/voice/verification"
+      }
+    ],
+    "definitionSha256": "538d6e31b3f23321798802c5bb2dfbb63cadab4d0cbf949fdfe78d3e9de46a4c",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
   }
 }
