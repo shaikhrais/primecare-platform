@@ -1,0 +1,162 @@
+{
+  "source": "5666ccc6127345f6955d4fd20f87db27e0b1683c",
+  "stage": "call_identity_foundation",
+  "publicBusinessToolsEnabled": false,
+  "changes": [
+    "Approved-only private durable possession proof and RPC reader",
+    "Scoped identity service and task broker without native session or approval creation",
+    "Cloudflare runtime type-check dependency and abstract socket host type fixed"
+  ],
+  "validation": {
+    "focusedTests": 36,
+    "identityBrokerTests": 8,
+    "realDurableRuntime": "passed synthetic Verify requests, private RPC, restart persistence, expiry and foreign candidate denial",
+    "strictBusinessServiceTypes": "passed",
+    "nativeOwnerPostgres": "passed in release workflow",
+    "communicationsCi": {
+      "run": 40491531928,
+      "jobsPassed": 12,
+      "jobsTotal": 12
+    },
+    "verificationRelease": {
+      "run": 40491531919,
+      "tests": "passed",
+      "deployment": "passed",
+      "ownerCall": "skipped"
+    }
+  },
+  "deployment": {
+    "source": "5666ccc6127345f6955d4fd20f87db27e0b1683c",
+    "registered": true,
+    "deployed": true,
+    "toolCreated": false,
+    "attached": true,
+    "anonymousDenied": true,
+    "unknownCallDenied": true,
+    "smsSent": false,
+    "liveCodeVerified": false,
+    "phoneRoutingChanged": false,
+    "businessToolsEnabled": false,
+    "stage": "complete",
+    "apiId": 16565,
+    "verifyServiceReadback": true,
+    "credentialRotated": true,
+    "credentialId": "84312e6b-93c2-47c8-af91-59627513eac5",
+    "endpoint": "https://primecare-vapi-verification-api.itpro-mohammed.workers.dev/v1/vapi/voice/verification",
+    "toolId": "764dd85f-fafd-45c1-9352-45867ed94371",
+    "assistantId": "5ae2ab0c-fad0-454c-8cf7-64b81c91c850",
+    "artifactStorageDisabled": true,
+    "eligibleVerifiedContacts": 0,
+    "status": "deployed_and_attached_live_sms_test_pending"
+  },
+  "ciSnapshot": [
+    {
+      "id": 40491747589,
+      "name": "Record deployed account lifecycle evidence",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 40491747161,
+      "name": "Verify deployed own-session controls",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 40491745312,
+      "name": "Record deployed own-session evidence",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 40491738933,
+      "name": "Deduplicate pending auth verification",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 40491738809,
+      "name": "Verify deployed own-session controls",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 40491738855,
+      "name": "Verify deployed account creation editing revocation and email recovery",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 40491732892,
+      "name": "Release confirmed self-session revocation",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 40491531912,
+      "name": "Verify communication stack acceptance",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 40491531885,
+      "name": "Native session revocation fault proof",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 40491531985,
+      "name": "Current-account password browser acceptance",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 40491531919,
+      "name": "Deploy spoken SMS verification tool",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 40491531928,
+      "name": "Verify business communications inventory and services",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 40491531807,
+      "name": "HTTP response compression",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 40491531984,
+      "name": "Verify voice runtime and deployment configuration",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 40491531901,
+      "name": "Native auth invalidation rollback proof",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 40491531849,
+      "name": "Workflow contract review coverage",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 40491531951,
+      "name": "Auth Worker unit and PostgreSQL tests",
+      "status": "completed",
+      "conclusion": "failure"
+    }
+  ],
+  "nextSteps": [
+    "Real registered callback persistence/readback service",
+    "Business policy composition and independent approval path",
+    "Complete business workflow acceptance before tool attachment"
+  ],
+  "liveCallerAcceptance": false
+}

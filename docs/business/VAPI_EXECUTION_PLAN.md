@@ -78,3 +78,20 @@ Sources reviewed: Cloudflare Durable Object rules and RPC guidance at
 https://developers.cloudflare.com/durable-objects/best-practices/rules-of-durable-objects/
 and Vapi server authentication at
 https://docs.vapi.ai/server-url/server-authentication.
+
+## Deployed checkpoint
+
+Source `5666ccc6127345f6955d4fd20f87db27e0b1683c` passed the verification
+release (run 40491531919). The private proof support is deployed; anonymous and
+unknown-call denial probes passed. The owner-call job was skipped. No real SMS
+or call was sent. Eligible verified contacts remain zero, so no live caller proof
+or business action is claimed. The component and adapter tests cover 36 cases,
+plus the real durable-runtime check. All 12 communications CI jobs passed (run
+40491531928), including the repaired strict service type check.
+
+The older general voice deployment configuration check remains incomplete:
+TWILIO_APPLICATION_SID, VOICE_MODEL and VOICE_ORIGIN are absent from that workflow's
+configuration. This is separate from the successful dedicated Vapi verification
+Worker release. The existing reviewed gateway amendment gate also remains failed.
+See the evidence receipt for the full CI snapshot; this checkpoint does not claim
+all repository checks pass.
