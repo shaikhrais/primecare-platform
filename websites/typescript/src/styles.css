@@ -387,3 +387,5 @@ aside nav a[aria-current="page"], aside nav a:hover, aside nav a:focus-visible {
 @media(max-width:600px){.topbar .shell-controls{gap:8px}.topbar [data-cy=global-navigation]{min-width:0;flex:1 1 130px}}
 
 .topbar:has([data-cy=shell-utilities]) .shell-controls .topbar-icon-control{flex:0 0 44px;max-width:44px;min-width:44px;width:44px}.topbar .topbar-icon-control select{box-sizing:border-box}
+
+.topbar .shell-utilities>summary:has(>span)::after{content:none}@media(max-width:600px){.topbar:has([data-cy=shell-utilities]) .shell-controls{justify-content:flex-end}}
