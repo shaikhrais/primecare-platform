@@ -22,3 +22,12 @@ test('active reception migrates only an exact reviewed version-three role script
  const f=fixture(row);await f.client.updateActiveReception(c.agents[0],instruction,toolId,previousHash,knowledgeId);assert.equal(f.row().model.messages[0].content,instruction);assert.ok(f.row().model.messages[1].content.startsWith('PrimeCare reception role script version 4\n'));assert.equal(f.row().model.messages.length,2);
  const g=fixture(row);await assert.rejects(()=>g.client.updateActiveReception(c.agents[0],instruction,toolId,'incorrect',knowledgeId),/unreviewed_prompt_preserved/);assert.equal(g.writes.length,0);
 });
+
+test('verification attachment preserves native settings and survives normal reconciliation without duplicate instructions',async()=>{
+ const f=fixture(),v={toolId:'764dd85f-fafd-45c1-9352-45867ed94371',instruction:'Trusted current-call OTP instructions.',attach:true};
+ await f.client.update(c.agents[0],hash,toolId,knowledgeId,v);
+ assert.equal(f.row().model.messages.find(m=>m.role==='system').content,c.agents[0].prompt+'\n\n'+v.instruction);
+ assert.ok(f.row().model.toolIds.includes(v.toolId));assert.equal(f.row().voice.voiceId,'preserve-me');
+ await f.client.update(c.agents[0],hash,toolId,knowledgeId,{...v,attach:false});assert.equal(f.writes.length,1);
+ const edited=f.row();edited.model.messages[0].content+='unreviewed';await assert.rejects(()=>f.client.update(c.agents[0],hash,toolId,knowledgeId,v),/unreviewed_prompt_preserved/);
+});

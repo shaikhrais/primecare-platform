@@ -75,3 +75,17 @@ action, phone call, SMS or authentication change occurred. Evidence:
 [evidence/vapi-agent-conversations-20261027.json](evidence/vapi-agent-conversations-20261027.json).
 The focused local suite also passed 63 checks. These checks verify the currently
 connected agent behavior, not the unimplemented service-flow steps above.
+
+## Authentication scope update
+
+The owner explicitly included authentication after the public-to-client flow
+review. The current implementation target therefore includes connecting the
+existing call-verification capability to all eight saved roles. The worker uses
+one pinned assistant list, two consistent provider reads and the existing unique
+registered-contact mapping. The release deploys backend support before attaching
+the existing tool and exact instructions. Native sessions, role grants and
+business-action confirmation are not manufactured from an OTP result.
+
+Authentication attachment and live code acceptance are separate checks. A
+verified saved configuration does not prove a real caller completed verification,
+or that account creation, appointment writes or expert routing are deployed.

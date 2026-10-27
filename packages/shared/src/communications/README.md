@@ -1477,3 +1477,20 @@ Run `node --test scripts/test-vapi-business-runtime.mjs` for protocol-to-native
 adapter integration: saved mutation readback, durable replay, uncertain-write
 rejection, API denial, target rebinding, native scope expiry, role isolation and
 owned-client projections. This isolated suite does not claim production mounting.
+
+### Shared saved-agent phone verification
+
+The owner subsequently included authentication in the agent-readiness scope.
+`vapi-agent-targets.json` is the shared list of eight existing saved assistants.
+The spoken verification worker accepts only those IDs plus the original reception
+ID. Canonical Vapi/Twilio reads must agree on the same assistant throughout each
+lookup; changing between two permitted assistants invalidates that lookup.
+
+The verification release deploys that backend before attaching the existing
+`primecare_phone_verification` tool and exact current-call instructions to each
+saved agent. Subsequent library reconciliation preserves this attachment and
+instruction. Existing model tuning, voice, call controls and routing are retained;
+recording, transcript storage and provider logging remain disabled for spoken
+codes. This enables a verification capability, not private business permission.
+Wrong codes, expiry, attempt limits, revoked/ambiguous account contacts and
+uncertain delivery still fail without automatic sends or business approval.

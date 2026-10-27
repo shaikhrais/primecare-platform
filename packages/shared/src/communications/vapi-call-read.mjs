@@ -31,14 +31,16 @@ export class VapiCallReadClient extends BoundedBinaryAdapterBase{
  * Every invocation rechecks providers. No positive result is cached. OTP/passkey,
  * native session, tenant policy and exact task approval are still mandatory.
  */
-export function createVapiCanonicalCallDirectory({vapi,twilio,orgId,assistantId,phoneNumberId,accountSid,sharedNumber,ownerTest}){
+export function createVapiCanonicalCallDirectory({vapi,twilio,orgId,assistantId,phoneNumberId,accountSid,sharedNumber,ownerTest,assistantIds=[assistantId]}){
  if(typeof vapi?.fetch!=='function'||typeof twilio?.fetch!=='function'||[orgId,assistantId,phoneNumberId].some(id=>!uuid(id))||!sid('AC',accountSid)||typeof sharedNumber!=='string'||!/^\+[1-9][0-9]{6,14}$/.test(sharedNumber))throw new VapiCallReadError('configuration_required');
  if(ownerTest!==undefined&&(!uuid(ownerTest.callId)||typeof ownerTest.customerPhone!=='string'||!/^\+[1-9][0-9]{6,14}$/.test(ownerTest.customerPhone)||!Number.isSafeInteger(ownerTest.expiresAt)))throw new VapiCallReadError('configuration_required');
+ const allowedAssistants=Array.isArray(assistantIds)?[...assistantIds]:[];if(!allowedAssistants.length||allowedAssistants.length>9||allowedAssistants.some(id=>!uuid(id))||new Set(allowedAssistants).size!==allowedAssistants.length||!allowedAssistants.includes(assistantId))throw new VapiCallReadError('configuration_required');
+ const accepted=new Set(allowedAssistants);
  const ownerCall=id=>ownerTest?.callId===id&&ownerTest.expiresAt>Date.now();
  const readVapi=vapi.fetch.bind(vapi),readTwilio=twilio.fetch.bind(twilio);
  const active=(row,id)=>{
   const started=Date.parse(row?.startedAt);
-  return row?.id===id&&row.orgId===orgId&&row.assistantId===assistantId&&row.phoneNumberId===phoneNumberId&&(row.type==='inboundPhoneCall'||ownerCall(id)&&row.type==='outboundPhoneCall')&&row.status==='in-progress'&&(row.provider===null||row.provider==='twilio')&&row.transportProvider==='twilio'&&row.conversationType==='voice'&&sid('CA',row.callSid)&&row.transportCallSid===row.callSid&&row.transportAccountSid===accountSid&&!row.ended&&Number.isFinite(started)&&started<=Date.now()+5000&&started+600000>Date.now();
+  return row?.id===id&&row.orgId===orgId&&accepted.has(row.assistantId)&&row.phoneNumberId===phoneNumberId&&(row.type==='inboundPhoneCall'||ownerCall(id)&&row.type==='outboundPhoneCall')&&row.status==='in-progress'&&(row.provider===null||row.provider==='twilio')&&row.transportProvider==='twilio'&&row.conversationType==='voice'&&sid('CA',row.callSid)&&row.transportCallSid===row.callSid&&row.transportAccountSid===accountSid&&!row.ended&&Number.isFinite(started)&&started<=Date.now()+5000&&started+600000>Date.now();
  };
  return Object.freeze({async current(id){
   if(!uuid(id))return null;
@@ -47,8 +49,8 @@ export function createVapiCanonicalCallDirectory({vapi,twilio,orgId,assistantId,
    const call=await readTwilio(first.callSid);
    if(!call||call.sid!==first.callSid||call.accountSid!==accountSid||!(first.type==='inboundPhoneCall'?call.to===sharedNumber&&call.direction==='inbound':ownerCall(id)&&call.from===sharedNumber&&call.to===ownerTest.customerPhone&&call.direction==='outbound-api')||call.status!=='in-progress')return null;
    const latest=await readVapi(id);
-   if(!active(latest,id)||latest.callSid!==first.callSid||latest.startedAt!==first.startedAt||latest.type!==first.type)return null;
-   return Object.freeze({vapiCallId:id,callSid:first.callSid,orgId,assistantId,phoneNumberId,active:true,expiresAt:Math.min(Date.now()+10000,Date.parse(latest.startedAt)+600000)});
+   if(!active(latest,id)||latest.callSid!==first.callSid||latest.startedAt!==first.startedAt||latest.type!==first.type||latest.assistantId!==first.assistantId)return null;
+   return Object.freeze({vapiCallId:id,callSid:first.callSid,orgId,assistantId:first.assistantId,phoneNumberId,active:true,expiresAt:Math.min(Date.now()+10000,Date.parse(latest.startedAt)+600000)});
   }catch{return null;}
  }});
 }

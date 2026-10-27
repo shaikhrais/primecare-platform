@@ -35,3 +35,14 @@ test('only one expiring owner call may use outbound direction and the exact requ
  const f=fixture();f.source.type='outboundPhoneCall';f.call.direction='outbound-api';f.call.from=number;f.call.to='+12898873200';f.options.ownerTest={callId:id,customerPhone:'+12898873200',expiresAt:Date.now()+60000};assert.equal((await f.directory().current(id)).active,true);
  for(const change of [f=>f.call.to='+14165550101',f=>f.call.from='+14165550101',f=>f.options.ownerTest.callId=org,f=>f.options.ownerTest.expiresAt=Date.now()-1]){const g=fixture();g.source.type='outboundPhoneCall';g.call.direction='outbound-api';g.call.from=number;g.call.to='+12898873200';g.options.ownerTest={callId:id,customerPhone:'+12898873200',expiresAt:Date.now()+60000};change(g);assert.equal(await g.directory().current(id),null);}
 });
+
+test('explicit saved assistant allowlist admits only stable pinned targets and copies its input',async()=>{
+ const specialist='55555555-5555-4555-8555-555555555555',f=fixture(),ids=[assistant,specialist];f.options.assistantIds=ids;f.source.assistantId=specialist;
+ const directory=f.directory();ids.push('66666666-6666-4666-8666-666666666666');assert.equal((await directory.current(id)).assistantId,specialist);
+ f.source.assistantId=ids[2];assert.equal(await directory.current(id),null);
+ for(const values of [[],[assistant,assistant],[specialist],['invalid']])assert.throws(()=>createVapiCanonicalCallDirectory({...f.options,assistantIds:values}));
+});
+test('a change between two allowlisted assistants invalidates the same live call',async()=>{
+ const specialist='55555555-5555-4555-8555-555555555555',f=fixture();f.options.assistantIds=[assistant,specialist];const original=f.options.twilio.fetch;
+ f.options.twilio.fetch=async sid=>{const row=await original(sid);f.source.assistantId=specialist;return row;};assert.equal(await f.directory().current(id),null);
+});

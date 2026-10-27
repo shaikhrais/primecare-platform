@@ -8,6 +8,9 @@ on:
       - 'cloudflare/workers/src/business-tasks/vapi-owner-test.ts'
       - 'cloudflare/workers/src/business-tasks/vapi-call-identity.ts'
       - 'scripts/test-vapi-call-identity.mjs'
+      - 'packages/shared/src/communications/vapi-call-read.mjs'
+      - 'packages/shared/src/vapi-agent-targets.json'
+      - 'packages/shared/src/communications/vapi-call-read.d.mts'
       - 'scripts/run-owner-phone-test.mjs'
       - 'scripts/test-vapi-owner-test-postgres.mjs'
       - 'packages/shared/src/vapi-spoken-verification-instructions.txt'
@@ -41,7 +44,7 @@ jobs:
           ln -s "$RUNNER_TEMP/spoken-tests/node_modules" node_modules
           pip install -r tools/governance-production/requirements.txt
       - run: |
-          node --test scripts/test-vapi-call-identity.mjs scripts/test-vapi-spoken-verification.mjs scripts/test-vapi-call-read.mjs scripts/test-vapi-service-auth.mjs scripts/test-communication-twilio-verify.mjs scripts/test-communication-voice-tasks.mjs
+          node --test scripts/test-vapi-call-identity.mjs scripts/test-vapi-spoken-verification.mjs scripts/test-vapi-call-read.mjs scripts/test-vapi-service-auth.mjs scripts/test-vapi-agent-library.mjs scripts/test-communication-twilio-verify.mjs scripts/test-communication-voice-tasks.mjs
           node scripts/test-vapi-spoken-workerd.mjs
           node scripts/test-vapi-owner-test-postgres.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --types node,@cloudflare/workers-types cloudflare/workers/src/business-tasks/vapi-spoken-worker.ts
@@ -87,7 +90,7 @@ jobs:
           pathlib.Path('test-results/vapi-spoken/registration.json').write_text(json.dumps(reports[0]))
           print('Exact verification API registration independently read back')
           PY
-      - name: Deploy dedicated SMS verification and attach only its tool to the existing receptionist
+      - name: Deploy dedicated SMS verification and attach its tool to the existing receptionist and eight saved agents
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -1,5 +1,6 @@
 import {DurableObject} from 'cloudflare:workers';
 import pg from 'pg';
+import savedAgents from '../../../../packages/shared/src/vapi-agent-targets.json' with {type:'json'};
 import {BaseWorker,workerHandler} from '../core/base-worker.ts';
 import {BoundedBinaryAdapterBase} from '../../../../packages/shared/src/communications/adapter-base.mjs';
 import {createVapiToolCredentialVerifier} from '../../../../packages/shared/src/communications/vapi-service-auth.mjs';
@@ -64,7 +65,7 @@ export class SpokenVerificationWorker extends BaseWorker<Env>{
   const pool=new pg.Pool(nativePostgresOptions(env.DB_URL));
   try{
    const ownerTest=ownerTestGrant(env);
-   const directory=createVapiCanonicalCallDirectory({vapi:new VapiCallReadClient({apiKey:env.VAPI_PRIVATE_API_KEY}),twilio:{fetch:(id:string)=>twilioCall(env,id)},orgId,assistantId,phoneNumberId:phoneId,accountSid:env.TWILIO_ACCOUNT_SID,sharedNumber:number,ownerTest});
+   const directory=createVapiCanonicalCallDirectory({vapi:new VapiCallReadClient({apiKey:env.VAPI_PRIVATE_API_KEY}),twilio:{fetch:(id:string)=>twilioCall(env,id)},orgId,assistantId,assistantIds:[assistantId,...Object.values(savedAgents)],phoneNumberId:phoneId,accountSid:env.TWILIO_ACCOUNT_SID,sharedNumber:number,ownerTest});
    const candidate=async(id:string):Promise<SpokenCandidate|null>=>{const call=await directory.current(id);if(!call)return null;const raw=await twilioCall(env,call.callSid);if(raw.sid!==call.callSid||raw.accountSid!==env.TWILIO_ACCOUNT_SID||raw.status!=='in-progress'||!(raw.direction==='inbound'&&raw.to===number||ownerTest?.callId===id&&raw.direction==='outbound-api'&&raw.from===number&&raw.to===ownerTest.customerPhone))return null;
     const contactPhone=raw.direction==='inbound'?raw.from:raw.to;if(!/^\+[1-9][0-9]{6,14}$/.test(contactPhone??''))return null;
     const rows=(await pool.query(`SELECT u.email,u.roles,c.user_id,c.tenant_id,c.version::float8 AS version FROM public.communication_voice_verified_contacts c JOIN public.users u ON u.id::text=c.user_id AND u.tenant_id::text=c.tenant_id JOIN public.tenants t ON t.id=u.tenant_id WHERE c.phone=$1 AND c.revoked_at IS NULL AND LOWER(u.status)='active' AND LOWER(t.status)='active' LIMIT 2`,[contactPhone])).rows;

@@ -2,7 +2,8 @@ import {BoundedBinaryAdapterBase} from './adapter-base.mjs';
 import {isDeepStrictEqual} from 'node:util';
 import {createHash} from 'node:crypto';
 const org='9e1d8550-4b84-4472-a782-67557fe73944';
-export const savedAgents=Object.freeze({reception:'9ba3014c-cfaa-4607-997c-b5347212be54',new_enquiry:'8d9123e9-ac5b-4b2c-abbf-0447b3fbc5ff',qualification:'07b2e8c6-d4a9-4284-bb2b-ffae589183b3',consultation:'16fc27f3-2c96-49b4-aa76-be6ee099c0ec',proposal:'322ff7af-f657-424e-91fc-47b7dfd66074',booking_recovery:'01231dfe-d02a-45a3-9faf-9eb2ebe14e75',onboarding:'469ed456-4e68-4d2f-b09e-6658bae5bfdd',retention:'d1985ae7-8e35-4a7e-8f08-6a6dace03632'});
+import targets from '../vapi-agent-targets.json' with {type:'json'};
+export const savedAgents=Object.freeze(targets);
 export const voicemailPayload=Object.freeze({type:'voicemail',function:{name:'primecare_silent_voicemail',description:'Silently end when a voicemail system or auto-attendant is detected. Do not leave a message.'},messages:[]});
 const fail=message=>{throw Error(message);};
 /** Deployment-only provider adapter. Shares bounded transport inheritance; no
@@ -25,17 +26,20 @@ export class VapiAgentLibraryClient extends BoundedBinaryAdapterBase {
   if(!/^[a-f0-9-]{36}$/.test(row.id??''))fail('invalid_tool_id');
   const saved=this.scope(await this.request('/tool/'+row.id));if(!Object.entries(voicemailPayload).every(([k,v])=>isDeepStrictEqual(saved[k],v)))fail('tool_readback_failed');return saved.id;
  }
- async update(agent,previousPromptHash,voicemailId,knowledgeId){
+ async update(agent,previousPromptHash,voicemailId,knowledgeId,verification){
   const id=savedAgents[agent.key];if(!id||!agent.prompt||agent.name.length>40||!knowledgeId)fail('agent_scope_required');
   const before=this.scope(await this.request('/assistant/'+id));
   if(!knowledgeId||before.id!==id||before.name!==agent.name||!before.model||!Array.isArray(before.model.messages))fail('agent_scope_changed');
+  if(verification&&(verification.toolId!=='764dd85f-fafd-45c1-9352-45867ed94371'||typeof verification.instruction!=='string'||!verification.instruction.trim()||typeof verification.attach!=='boolean'))fail('verification_configuration_required');
+  const hasVerification=!!verification&&(before.model.toolIds??[]).includes(verification.toolId);
+  const prompt=agent.prompt+((hasVerification||verification?.attach)?'\n\n'+verification.instruction:'');
   const systems=before.model.messages.filter(m=>m.role==='system');
-  if(systems.length!==1||typeof systems[0].content!=='string'||systems[0].content!==agent.prompt&&createHash('sha256').update(systems[0].content).digest('hex')!==previousPromptHash)fail('unreviewed_prompt_preserved');
+  if(systems.length!==1||typeof systems[0].content!=='string'||systems[0].content!==prompt&&systems[0].content!==agent.prompt&&createHash('sha256').update(systems[0].content).digest('hex')!==previousPromptHash)fail('unreviewed_prompt_preserved');
   // Unknown business capabilities must be reviewed before combining with scripts.
-  if((before.model.toolIds??[]).some(x=>![voicemailId,knowledgeId].includes(x))||(before.model.tools??[]).some(x=>x.type!=='endCall')||(before.model.functions??[]).length||before.server?.url)fail('unreviewed_capabilities_preserved');
-  const model=structuredClone(before.model);model.messages=model.messages.map(m=>m.role==='system'?{...m,content:agent.prompt}:m);
+  if((before.model.toolIds??[]).some(x=>![voicemailId,knowledgeId,...(verification?[verification.toolId]:[])].includes(x))||(before.model.tools??[]).some(x=>x.type!=='endCall')||(before.model.functions??[]).length||before.server?.url)fail('unreviewed_capabilities_preserved');
+  const model=structuredClone(before.model);model.messages=model.messages.map(m=>m.role==='system'?{...m,content:prompt}:m);
   if(!(model.tools??[]).some(x=>x.type==='endCall'))model.tools=[...(model.tools??[]),{type:'endCall'}];
-  model.toolIds=[...new Set([...(model.toolIds??[]),voicemailId,knowledgeId])];
+  model.toolIds=[...new Set([...(model.toolIds??[]),voicemailId,knowledgeId,...(verification?.attach?[verification.toolId]:[])])];
   const artifactPlan={...(before.artifactPlan??{}),recordingEnabled:false,loggingEnabled:false,pcapEnabled:false,transcriptPlan:{...(before.artifactPlan?.transcriptPlan??{}),enabled:false}};
   const patch={model,firstMessage:agent.firstMessage,artifactPlan,voicemailMessage:''};
   const recheck=this.scope(await this.request('/assistant/'+id));if(!isDeepStrictEqual(recheck,before))fail('concurrent_change_preserved');
@@ -44,7 +48,7 @@ export class VapiAgentLibraryClient extends BoundedBinaryAdapterBase {
   // Provider-managed version receipt changes on PATCH; it is not a setting.
   const changedFields=Object.entries(before).filter(([k,v])=>!['updatedAt','latestVersion',...Object.keys(patch)].includes(k)&&!isDeepStrictEqual(saved[k],v)).map(([k])=>k);
   if(changedFields.length)throw Object.assign(Error('unrelated_setting_changed'),{changedFields});
-  return {key:agent.key,id,scriptVersion:agent.scriptVersion,configurationReadback:true,tools:['endCall','voicemail','query'],businessToolsAttached:true,businessWriteToolsAttached:false,callTested:false};
+  return {key:agent.key,id,scriptVersion:agent.scriptVersion,configurationReadback:true,tools:['endCall','voicemail','query',...(hasVerification||verification?.attach?['phoneVerification']:[])],phoneVerificationAttached:hasVerification||verification?.attach===true,businessToolsAttached:true,businessWriteToolsAttached:false,callTested:false};
  }
  async updateActiveReception(agent,verificationInstruction,voicemailId,previousPromptHash,knowledgeId){
   const id='5ae2ab0c-fad0-454c-8cf7-64b81c91c850',verificationId='764dd85f-fafd-45c1-9352-45867ed94371';
