@@ -29,7 +29,11 @@ try{
  const values={DB_URL:required('PRODUCTION_DATABASE_URL'),CALL_AUDIT_SECRET:secret,VAPI_PRIVATE_API_KEY:required('VAPI_PRIVATE_API_KEY'),TWILIO_ACCOUNT_SID:required('TWILIO_ACCOUNT_SID'),TWILIO_API_KEY_SID:required('TWILIO_API_KEY_SID'),TWILIO_API_KEY_SECRET:required('TWILIO_API_KEY_SECRET')};
  cli(['secret','bulk','--config',file],JSON.stringify(values));
  if(matches.length)await vapi('/credential/'+credential.id,'PATCH',{provider:'custom-credential',authenticationPlan:{type:'bearer',token:secret,headerName:'Authorization',bearerPrefixEnabled:true}});
- const negative=await fetch(endpoint,{method:'POST',headers:{'content-type':'application/json'},body:'{}'});if(negative.status!==401)throw Error('anonymous_denial_failed');await negative.body?.cancel();
+ let negativeStatus;
+ for(let attempt=0;attempt<10;attempt++){
+  const negative=await fetch(endpoint,{method:'POST',headers:{'content-type':'application/json'},body:'{}',signal:AbortSignal.timeout(10000)});negativeStatus=negative.status;await negative.body?.cancel();if(negativeStatus===401)break;await new Promise(r=>setTimeout(r,3000));
+ }
+ report.anonymousStatus=negativeStatus;if(negativeStatus!==401)throw Error('anonymous_denial_failed');
  report.stage='existing-workers';
  for(const [name,entry] of [['primecare-vapi-verification-api','vapi-spoken-worker'],['primecare-vapi-tools-api','vapi-callback-worker']]){
   lease();const settings=await cf('/workers/scripts/'+name+'/settings');
@@ -48,8 +52,12 @@ try{
   // Stable named binding projection detects lost secrets, namespace IDs and URLs.
   const stable=x=>[...x.bindings].sort((a,b)=>a.name.localeCompare(b.name));if(!isDeepStrictEqual(stable(settings),stable(after)))throw Error('existing_bindings_changed');
   const path=entry==='vapi-spoken-worker'?'/v1/vapi/voice/verification':'/v1/vapi/voice/tasks';
-  const probe=await fetch('https://'+name+'.'+subdomain+'.workers.dev'+path,{method:'POST',headers:{'content-type':'application/json'},body:'{}'});
-  if(probe.status!==401||!probe.headers.get('x-primecare-audit-id'))throw Error('audited_denial_not_verified');await probe.body?.cancel();
+  let audited=false;
+  for(let attempt=0;attempt<10;attempt++){
+   const probe=await fetch('https://'+name+'.'+subdomain+'.workers.dev'+path,{method:'POST',headers:{'content-type':'application/json'},body:'{}',signal:AbortSignal.timeout(15000)});
+   audited=probe.status===401&&!!probe.headers.get('x-primecare-audit-id');await probe.body?.cancel();if(audited)break;await new Promise(r=>setTimeout(r,3000));
+  }
+  if(!audited)throw Error('audited_denial_not_verified');
  }
  report.stage='assistant-webhooks';
  await build({stdin:{resolveDir:process.cwd(),contents:"export {PostgresCallAudit,hash} from './cloudflare/workers/src/business-tasks/call-audit.ts';export {nativePostgresOptions} from './cloudflare/workers/src/business-tasks/native-postgres.ts';"},outfile:'test-results/call-audit/repository.mjs',bundle:true,format:'esm',platform:'node',external:['pg']});
