@@ -5,7 +5,7 @@ const sessionBindings=new WeakMap<HTMLElement,()=>void>();
 import {AccountClient,AccountRequestError} from './account-client';
 /** Shared current-account form; labels are escaped by each caller. */
 export function accountMarkup(label:(key:string)=>string):string {
- return `<section class="section"><form data-cy="change-password-form"><label>${label('current_password')}<input required type="password" name="currentPassword" autocomplete="current-password" data-cy="current-password"></label><label>${label('new_password')}<input required minlength="12" type="password" name="newPassword" autocomplete="new-password" data-cy="new-password"></label><button type="submit" data-cy="change-password-submit">${label('change_password')}</button><output role="status" data-cy="change-password-status"></output></form></section>`+sessionsMarkup()+voicePairingMarkup()+smsVerificationMarkup();
+ return smsVerificationMarkup()+`<section class="section"><h2>${label('change_password')}</h2><form data-cy="change-password-form"><label>${label('current_password')}<input required type="password" name="currentPassword" autocomplete="current-password" data-cy="current-password"></label><label>${label('new_password')}<input required minlength="12" type="password" name="newPassword" autocomplete="new-password" data-cy="new-password"></label><button type="submit" data-cy="change-password-submit">${label('change_password')}</button><output role="status" data-cy="change-password-status"></output></form></section>`+sessionsMarkup()+voicePairingMarkup();
 }
 export function bindAccount(root:HTMLElement,gateway:string,token:string,failed:string,unavailable:string):void {
  sessionBindings.get(root)?.();sessionBindings.delete(root);
