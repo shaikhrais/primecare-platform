@@ -1,0 +1,19 @@
+{
+  "requirement": "Client-requested support questions and service notes through existing registered conversation API 710. The native host binds actor, tenant, conversation, approved recipient and independent confirmation. No new route, grants, chart write or automatic expert reply.",
+  "apiId": 710,
+  "path": "/v1/messages",
+  "tools": {
+    "client.support_question": {"name":"primecare_client_support_question","description":"After verification and independent confirmation, save the caller's question to the existing authorized support conversation. This does not provide medical advice or verify an expert reply.","prefix":"Client question: "},
+    "client.service_note": {"name":"primecare_client_service_note","description":"After verification and independent confirmation, save a client-requested service note as a message in the existing authorized conversation. This is not a clinical chart entry.","prefix":"Client-requested service note: "}
+  },
+  "roles": {
+    "reception":["client.support_question","client.service_note"],
+    "new_enquiry":["client.support_question"],
+    "qualification":["client.support_question"],
+    "consultation":["client.support_question","client.service_note"],
+    "proposal":["client.support_question"],
+    "booking_recovery":["client.support_question","client.service_note"],
+    "onboarding":["client.support_question","client.service_note"],
+    "retention":["client.support_question","client.service_note"]
+  }
+}

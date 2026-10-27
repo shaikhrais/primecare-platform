@@ -1469,5 +1469,30 @@
     "permissionChanges": false,
     "providerWrites": false,
     "activation": false
+  },
+  "vapiBookingRequestContractWriter": {
+    "optInVariable": "GOVERNANCE_VAPI_BOOKING_REQUESTS",
+    "tables": [
+      "api_endpoints",
+      "screen_api_links"
+    ],
+    "paths": [
+      "/v1/client/booking-requests",
+      "/v1/client/booking-requests/{requestId}",
+      "/v1/client/booking-requests/{requestId}/cancel"
+    ],
+    "anchorApiId": 16431,
+    "screenCode": "client_profile",
+    "definitionSha256": "62211377288d3d0444189c04422f9904aa6a4ecb39a1014d3b08266de283c720",
+    "sourceSha256": {
+      "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5",
+      "cloudflare/workers/src/client-booking-lifecycle.ts": "2eeaf8a0f563a6de1dc3b9add19e37bc32107856a9138b5cacc1714cc0be443c"
+    },
+    "schemaChanges": false,
+    "roleGrants": false,
+    "authenticationChanges": false,
+    "businessDataWrites": false,
+    "providerWrites": false,
+    "activation": false
   }
 }

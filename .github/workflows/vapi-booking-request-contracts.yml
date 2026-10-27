@@ -1,0 +1,63 @@
+name: Register existing booking request APIs for agent tools
+on:
+  push:
+    branches: [main]
+    paths: ['tools/governance-production/vapi-booking-request-contracts.json', 'tools/governance-production/vapi_booking_requests.py', 'tools/governance-production/test-vapi-booking-requests.py', '.github/workflows/vapi-booking-request-contracts.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency: {group: vapi-booking-request-contracts, cancel-in-progress: false}
+jobs:
+  isolated:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: communication_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: communication_registration_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communication_fixture -d communication_registration_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - run: python tools/governance-production/test-vapi-booking-requests.py
+        env:
+          WORKFLOW_TEST_DATABASE_URL: postgres://communication_fixture:disposable-only@localhost:5432/communication_registration_test
+      - run: node --test scripts/test-vapi-client-tools.mjs
+  register:
+    needs: isolated
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/vapi-booking-requester" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/vapi-booking-requester/node_modules" node_modules
+      - name: Restore exact existing booking request contracts and links; no roles, authentication or patient data changes
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_VAPI_BOOKING_REQUESTS: '1'
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          python tools/governance-production/vapi_booking_requests.py --dry-run
+          python tools/governance-production/vapi_booking_requests.py --apply
+          python tools/governance-production/vapi_booking_requests.py --verify
+      - name: Independently read current API bindings
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/audit-vapi-agent-api-bindings.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: vapi-booking-request-contracts, path: test-results/vapi, retention-days: 90}

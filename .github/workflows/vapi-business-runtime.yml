@@ -6,6 +6,9 @@ on:
       - 'packages/shared/src/communications/vapi-business-*.mjs'
       - 'packages/shared/src/communications/vapi-growth-*.mjs'
       - 'packages/shared/src/communications/vapi-client-tools.mjs'
+      - 'packages/shared/src/communications/vapi-client-support-tools.mjs'
+      - 'packages/shared/src/vapi-client-support-tools.json'
+      - 'scripts/test-vapi-client-support-tools.mjs'
       - 'packages/shared/src/vapi-agent-tool-pack.json'
       - 'scripts/test-vapi-business-*.mjs'
       - '.github/workflows/vapi-business-runtime.yml'
@@ -18,4 +21,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
-      - run: node --test scripts/test-vapi-business-runtime.mjs scripts/test-vapi-business-function.mjs scripts/test-vapi-growth-tools.mjs scripts/test-vapi-client-tools.mjs scripts/test-vapi-agent-tool-pack.mjs
+      - run: node --test scripts/test-vapi-business-runtime.mjs scripts/test-vapi-business-function.mjs scripts/test-vapi-growth-tools.mjs scripts/test-vapi-client-tools.mjs scripts/test-vapi-agent-tool-pack.mjs scripts/test-vapi-client-support-tools.mjs

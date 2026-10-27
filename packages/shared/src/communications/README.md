@@ -1512,3 +1512,25 @@ Reads cannot create bookings or certify care delivery or complete onboarding.
 The shared saved-tool definition and exact instruction migration preserve OTP,
 public Query, voice/model settings and phone routing. The production metadata
 contract is registered and independently read back before runtime deployment.
+
+### Client support questions and service notes
+
+`VapiClientSupportToolClient` inherits the bounded transport base and contributes
+optional server handlers to `createVapiBusinessToolRunner`. Its two schemas accept
+only message text. The existing native host must supply `support` with actor,
+tenant, existing authorized conversation, approved recipient and independent
+`confirm` callback. These fields join the runtime receipt-scope hash. An absent
+binding exposes no support tools; OTP never creates that native context.
+
+Both operations reuse registered API 710, `POST /v1/messages`, and its exact
+read/send commands. They read current membership/version, obtain independent
+confirmation, recheck membership/version, send with a stable message key and
+independently verify the stored message/author/text. A completed operation can be
+read back without a second send. Unknown send outcomes never retry automatically.
+Only the saved-message receipt leaves the adapter; other conversation messages
+are omitted. A client-requested service note is a conversation message, not a
+clinical chart entry. Saving a question does not prove an expert replied.
+
+The optional handlers are built/tested native business functions. They are not
+attached phone tools until the existing native business host supplies all ports;
+the deployed protected phone information tool remains read-only.

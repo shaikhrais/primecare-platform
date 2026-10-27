@@ -111,3 +111,16 @@ saved configurations successfully. The checker was corrected for a negated
 sentence about an unsaved do-not-contact preference; no assistant prompt was
 weakened and no new chat, call, SMS or business write was created for the review.
 Receipt: [verified conversation review](evidence/vapi-client-information-conversations-verified-20261027.json).
+
+## Optional support write tools built
+
+Two additional native business functions are implemented:
+`primecare_client_support_question` and `primecare_client_service_note`.
+They reuse registered conversation API 710, require host-bound account/tenant/
+conversation/approved recipient and independent confirmation, and verify the
+saved message. Role selections are in `vapi-client-support-tools.json`.
+Eight focused scenarios cover saved readback/replay, denied/cross-tenant scope,
+model overrides, version races, lost responses and complete Vapi protocol replay.
+These two handlers are not yet attached to phone agents: the native write host
+and actual recipient/conversation binding are still required. They create no
+clinical chart note or expert reply.
