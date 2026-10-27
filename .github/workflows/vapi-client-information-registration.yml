@@ -14,6 +14,11 @@ jobs:
     environment: production
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/vapi-client-reader" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/vapi-client-reader/node_modules" node_modules
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: pip install -r tools/governance-production/requirements.txt
