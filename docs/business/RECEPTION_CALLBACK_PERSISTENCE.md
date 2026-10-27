@@ -26,10 +26,10 @@ a completed call, a scheduled callback or an appointment.
 
 ## Production boundary
 
-The SQL migration is a candidate for reviewed production storage registration.
-It is applied only to the named disposable PostgreSQL fixture by this release.
+Callback storage was registered and migrated in production; see
+`CALLBACK_STORAGE_PRODUCTION.md` and its independently verified receipts.
 The business endpoint stays closed and no business tool is attached. Before
-production activation: register/review storage and native task permissions, wire
+production activation: verify current native task permissions, wire
 the actual identity/approval host, deploy the callback service, add operational
 staff pickup/read access, then verify the real call/app/API/database path. Never
 replace app approval with a transcript or a model-provided consent flag.
@@ -58,3 +58,29 @@ confirmation service and callback repository as one callback-only composition.
 Its host must supply current identity and policy; it mounts no route. Native
 acceptance uses this composition. The repository rehashes the complete approved
 intent before accepting a write, so modified details cannot reuse an old digest.
+
+## Vapi proof to native app approval
+
+The previous `vapi-proof:<proof UUID>` reference was rejected by the native
+confirmation service's bounded reference validator. New proposals bind the
+canonical Vapi call and original SMS proof in an opaque underscore-delimited
+reference. Existing intents are never mutated to bypass their approved digest.
+
+`VapiAppTaskIdentityBroker` accepts only a host-authenticated actor and a stored
+intent ID. It checks owned callback v1 intent, current proposed state, expiry and
+full digest before reading any provider proof. It then checks the original live
+call/proof/current contact through `VapiVerifiedCallIdentityService`, rereads the
+intent and rechecks identity. No app/model-supplied call ID, phone, proof or
+native-session override is accepted. A replaced or expired proof requires a fresh
+proposal. `VapiCallbackAppApprovalService` and
+`createPostgresVapiCallbackApprovalHttpAdapter` compose these checks with the real
+PostgreSQL app confirmation service and the inherited native HTTP boundary.
+
+Disposable PostgreSQL acceptance now also exercises the Vapi-bound proposal,
+native HTTP preview and explicit approval, approval consumption, exactly one
+saved callback, independent SQL readback, invalid digest, foreign owner,
+unauthenticated/denied endpoint, revoked proof and modified intent. Provider
+calls/proofs/native sessions are explicit fixture ports, not live login evidence.
+The production identity readiness report separately inspects the existing task
+preview/approve registration and linked-screen grant counts without modifying
+permissions or user data. Live host mounting and staff fulfilment remain pending.

@@ -1,3 +1,4 @@
+import {VapiAppTaskIdentityBroker,VapiVerifiedCallIdentityService} from './vapi-call-identity.ts';
 import {NativeVoiceTaskHttpAdapter,type NativeVoiceTaskHttpOptions} from '../../../../packages/shared/src/communications/voice-native-http.mjs';
 import {ScopedServiceBase,assertActor,type Actor,type AtomicStore,type AccessPolicy,type RecordState} from '../../../../packages/shared/src/communications/service-base.ts';
 import {validateCallbackRequest,type CallbackRequest} from './voice-reception-tasks.ts';
@@ -97,4 +98,28 @@ export function createPostgresReceptionCallbackHttpServices(options:Parameters<t
  const services=createPostgresReceptionCallbackServices(options);
  const approvals=new NativeVoiceTaskHttpAdapter({...options.native,service:services.confirmations});
  return Object.freeze({...services,approvals});
+}
+
+/** App approval resolves the provider/proof only from an owned stored intent.
+ * The current native actor still comes from the outer authenticated transport;
+ * neither a valid service credential nor SMS possession can approve a task. */
+export class VapiCallbackAppApprovalService extends ScopedServiceBase {
+ readonly pool:Pool;readonly identities:VapiVerifiedCallIdentityService;readonly intents:PostgresVoiceTaskRepository;
+ constructor(store:AtomicStore,policy:AccessPolicy,pool:Pool,identities:VapiVerifiedCallIdentityService){
+  super(store,policy);if(!(identities instanceof VapiVerifiedCallIdentityService))throw unavailable();
+  this.pool=pool;this.identities=identities;this.intents=new PostgresVoiceTaskRepository(pool);
+ }
+ private confirmation(actor:Actor,intentId:string){
+  const broker=new VapiAppTaskIdentityBroker(this.identities,this.intents,actor,intentId);
+  return new PostgresVoiceTaskConfirmationService(this.store,this.policy,this.pool,broker,this.intents);
+ }
+ async preview(actor:Actor,intentId:string){return this.confirmation(actor,intentId).preview(actor,intentId);}
+ async approve(actor:Actor,intentId:string,digest:string){return this.confirmation(actor,intentId).approve(actor,intentId,digest);}
+}
+/** Approval-only native host composition for Vapi callback intents. Mandatory
+ * native authentication/endpoint authorization ports are separate from provider
+ * proof resolution. Does not mount routes or enable a business tool. */
+export function createPostgresVapiCallbackApprovalHttpAdapter(options:{pool:Pool;policy:AccessPolicy;identities:VapiVerifiedCallIdentityService;native:Omit<NativeVoiceTaskHttpOptions,'service'>}){
+ const service=new VapiCallbackAppApprovalService(new PostgresAtomicStore(options.pool,'business_sms'),options.policy,options.pool,options.identities);
+ return new NativeVoiceTaskHttpAdapter({...options.native,service});
 }

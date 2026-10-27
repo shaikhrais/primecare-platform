@@ -19,7 +19,7 @@ try{
   const manifest=await db.query(`SELECT manifest_sha256 FROM "${pin.schema}"."govt_source_manifest"`);
   if(manifest.rows.length!==1||manifest.rows[0].manifest_sha256!==pin.manifestSha256)throw Error('Invalid authority');
   report.stage='database-inventory';
-  const names=['communication_voice_verified_contacts','communication_voice_otp','communication_voice_otp_limits','communication_voice_tasks','communication_voice_confirmations','communication_voice_contact_challenges','users','tenants','auth_sessions'];
+  const names=['communication_voice_verified_contacts','communication_voice_otp','communication_voice_otp_limits','communication_voice_tasks','communication_callback_requests','communication_voice_confirmations','communication_voice_contact_challenges','users','tenants','auth_sessions'];
   const tables={};for(const name of names)tables[name]=(await db.query('SELECT to_regclass($1) IS NOT NULL AS present',['public.'+name])).rows[0]?.present===true;
   report.tables=tables;
   report.nativeSessionCreationTimeAvailable=(await db.query("SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='auth_sessions' AND column_name='created_at' AND data_type='timestamp with time zone') AS present")).rows[0]?.present===true;
@@ -42,7 +42,7 @@ try{
    LEFT JOIN ${table('screens')} s ON ${value('s','id')}=${value('l','screen_id')} AND (${value('s','id')} IN ('234','331','559','578') OR (${value('s','id')}='1269' AND ${value('a','id')} IN ('16535','16536','16537')))
    LEFT JOIN ${table('role_screen_permissions')} sp ON ${value('sp','screen_id')}=${value('s','id')} AND ${value('sp','role_id')}=${value('r','id')}
    WHERE ${value('a','route_path')}=ANY($1::text[]) AND ${value('a','http_method')}='POST' AND ${value('a','service_name')}='governance' AND ${value('a','auth_required')}='1' AND ${value('a','permission_key')}='role_screen_permissions'
-   GROUP BY ${value('a','route_path')}`, [['/v1/voice/otp/start','/v1/voice/otp/check','/v1/voice/contact/status','/v1/voice/contact/start','/v1/voice/contact/check']]);
+   GROUP BY ${value('a','route_path')}`, [['/v1/voice/tasks/preview','/v1/voice/tasks/approve','/v1/voice/otp/start','/v1/voice/otp/check','/v1/voice/contact/status','/v1/voice/contact/start','/v1/voice/contact/check']]);
   // Read metadata only: no user, session, phone or message content is selected.
   // Report exact portal/route ownership rather than treating OAuth consent as
   // a communication permission editor or assuming an administrator bypass.
@@ -71,6 +71,8 @@ try{
    WHERE ${value('r','role_code')}='code_admin' AND ${value('r','active')}='1'
     AND ${value('a','id')} IN ('16535','16536','16537')
    ORDER BY ${value('a','route_path')}`)).rows;
+  report.nativeTaskPermissions=grants.rows.filter(row=>row.path.startsWith('/v1/voice/tasks/'));
+  for(const path of ['/v1/voice/tasks/preview','/v1/voice/tasks/approve']){const row=grants.rows.find(row=>row.path===path);if(!row||row.registration_count!==1||!Number.isSafeInteger(row.grant_count)||row.grant_count<1)report.blockers.push('native_task_permission_not_ready:'+path);}
   report.nativeOtpPermissions=grants.rows.filter(row=>row.path.startsWith('/v1/voice/otp/'));
   report.nativeContactPermissions=grants.rows.filter(row=>row.path.startsWith('/v1/voice/contact/'));
   for(const path of ['/v1/voice/contact/status','/v1/voice/contact/start','/v1/voice/contact/check']){const row=grants.rows.find(row=>row.path===path);if(!row||row.registration_count!==1||!Number.isSafeInteger(row.grant_count)||row.grant_count<1)report.blockers.push('native_contact_permission_not_ready:'+path);}

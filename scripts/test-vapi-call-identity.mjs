@@ -10,4 +10,46 @@ test('ended calls and contact/tenant/user/version changes revoke the projection'
 test('permission or durable proof changes during resolution fail closed',async()=>{const f=fixture();f.during(()=>f.deny());assert.equal(await f.service.current(callId),null);const g=fixture();g.during(()=>g.proof({id:'33333333-3333-4333-8333-333333333333',verifiedAt:Date.now()-1000,expiresAt:Date.now()+1000}));assert.equal(await g.service.current(callId),null);});
 test('no positive identity cache survives a later call end',async()=>{const f=fixture();assert.ok(await f.service.current(callId));f.candidate(null);assert.equal(await f.service.current(callId),null);});
 test('private repository derives its own phone key and exposes only valid proof fields',async()=>{const {DurableVapiCallProofRepository}=await import('../cloudflare/workers/src/business-tasks/vapi-call-identity.ts');const {createHash}=await import('node:crypto');const expected=createHash('sha256').update(c.phone).digest('hex'),objectId={};let reads=0;const p={id:proofId,verifiedAt:Date.now()-1000,expiresAt:Date.now()+1000};const repo=new DurableVapiCallProofRepository({idFromName(name){assert.equal(name,expected);return objectId;},get(id){assert.equal(id,objectId);return {async possession(candidate){reads++;assert.deepEqual(candidate,c);return {...p,privateField:'excluded'};}};}});assert.deepEqual(await repo.read(c),p);assert.equal(reads,1);});
-test('task broker binds canonical call SID and does not turn possession into task approval',async()=>{const {VapiCallTaskIdentityBroker}=await import('../cloudflare/workers/src/business-tasks/vapi-call-identity.ts');const {VoiceTaskService,BoundVoiceApiTask}=await import('../cloudflare/workers/src/business-tasks/voice-tasks.ts');const f=fixture(),broker=new VapiCallTaskIdentityBroker(f.service,callId);assert.equal(await broker.current('CA'+'b'.repeat(32)),null);let saved,executions=0;const unused=()=>{throw Error('unexpected write');};const tasks=new VoiceTaskService({run:unused,read:unused,inbox:unused},{async assert(){},assignee:unused},{async create(v){saved=v;},async read(){return saved;},async claim(){throw Error('Approval must precede claim');},async finish(){throw Error('Not executed');}},{current:broker.current.bind(broker),async consumeConfirmation(){return null;}},[new BoundVoiceApiTask('reception.callback.request',1,{validate(v){return v;},describe(){return 'Request a general callback.';},async execute(){executions++;}})]);const proposal=await tasks.propose(c.callSid,'reception.callback.request',{});assert.equal(proposal.requiresConfirmation,true);assert.equal(saved.actor.id,'alice');assert.equal(saved.sessionId,'vapi-proof:'+proofId);await assert.rejects(()=>tasks.execute(c.callSid,proposal.intentId),e=>e.code==='VOICE_TASK_CONFIRMATION_REQUIRED');assert.equal(executions,0);});
+test('task broker binds canonical call SID and does not turn possession into task approval',async()=>{const {VapiCallTaskIdentityBroker}=await import('../cloudflare/workers/src/business-tasks/vapi-call-identity.ts');const {VoiceTaskService,BoundVoiceApiTask}=await import('../cloudflare/workers/src/business-tasks/voice-tasks.ts');const f=fixture(),broker=new VapiCallTaskIdentityBroker(f.service,callId);assert.equal(await broker.current('CA'+'b'.repeat(32)),null);let saved,executions=0;const unused=()=>{throw Error('unexpected write');};const tasks=new VoiceTaskService({run:unused,read:unused,inbox:unused},{async assert(){},assignee:unused},{async create(v){saved=v;},async read(){return saved;},async claim(){throw Error('Approval must precede claim');},async finish(){throw Error('Not executed');}},{current:broker.current.bind(broker),async consumeConfirmation(){return null;}},[new BoundVoiceApiTask('reception.callback.request',1,{validate(v){return v;},describe(){return 'Request a general callback.';},async execute(){executions++;}})]);const proposal=await tasks.propose(c.callSid,'reception.callback.request',{});assert.equal(proposal.requiresConfirmation,true);assert.equal(saved.actor.id,'alice');assert.equal(saved.sessionId,'vapi_'+callId+'_'+proofId);await assert.rejects(()=>tasks.execute(c.callSid,proposal.intentId),e=>e.code==='VOICE_TASK_CONFIRMATION_REQUIRED');assert.equal(executions,0);});
+
+async function appFixture(){
+ const {VapiCallTaskIdentityBroker,VapiAppTaskIdentityBroker}=await import('../cloudflare/workers/src/business-tasks/vapi-call-identity.ts');
+ const {VoiceTaskService,BoundVoiceApiTask}=await import('../cloudflare/workers/src/business-tasks/voice-tasks.ts');
+ const f=fixture(),provider=new VapiCallTaskIdentityBroker(f.service,callId);let saved,reads=0,onRead=()=>{};
+ const unused=()=>{throw Error('No mutation expected');};
+ const repo={async create(row){saved=structuredClone(row);},async read(){reads++;onRead(reads);return structuredClone(saved);},claim:unused,finish:unused};
+ const store={run:unused,read:unused,inbox:unused},policy={async assert(){},assignee:unused};
+ const tasks=new VoiceTaskService(store,policy,repo,{current:provider.current.bind(provider),consumeConfirmation:unused},[new BoundVoiceApiTask('reception.callback.request',1,{validate:v=>v,describe:()=> 'Request a general callback.',execute:unused})]);
+ const proposal=await tasks.propose(c.callSid,'reception.callback.request',{});
+ const broker=new VapiAppTaskIdentityBroker(f.service,repo,c.actor,proposal.intentId);
+ return {...f,provider,repo,store,policy,proposal,broker,get saved(){return saved;},edit(fn){fn(saved);},onRead(fn){onRead=fn;}};
+}
+test('owned stored intent resolves the same proof for native app preview without granting approval',async()=>{
+ const {PostgresVoiceTaskConfirmationService}=await import('../cloudflare/workers/src/business-tasks/voice-confirmations.ts');
+ const f=await appFixture(),identity=await f.broker.current(c.callSid);
+ assert.equal(identity.sessionId,f.saved.sessionId);assert.match(identity.sessionId,/^[A-Za-z0-9_-]{1,200}$/);
+ assert.ok(Object.isFrozen(identity.actor));assert.equal(identity.actor.id,c.actor.id);
+ const confirmations=new PostgresVoiceTaskConfirmationService(f.store,f.policy,{async query(){assert.fail('Preview must never write an approval');}},f.broker,f.repo);
+ assert.deepEqual(await confirmations.preview(c.actor,f.proposal.intentId),{intentId:f.proposal.intentId,summary:f.saved.summary,digest:f.saved.digest,expiresAt:f.saved.expiresAt});
+});
+test('foreign owner, altered intent, old binding and unsupported task never read provider proof',async()=>{
+ const {VapiAppTaskIdentityBroker}=await import('../cloudflare/workers/src/business-tasks/vapi-call-identity.ts');
+ for(const patch of [r=>r.actor.id='bob',r=>r.actor.tenantId='other',r=>r.args.changed=true,r=>r.summary='Changed',r=>r.digest='f'.repeat(64),r=>r.status='completed',r=>r.expiresAt=Date.now()-1,r=>r.sessionId='vapi-proof:'+proofId,r=>r.taskId='appointment.book',r=>r.taskVersion=2]){
+  const f=await appFixture(),before=f.proofReads;f.edit(patch);assert.equal(await f.broker.current(c.callSid),null);assert.equal(f.proofReads,before);
+ }
+ const f=await appFixture(),before=f.proofReads;
+ for(const actor of [{id:'bob',tenantId:c.actor.tenantId},{id:c.actor.id,tenantId:'other'}])assert.equal(await new VapiAppTaskIdentityBroker(f.service,f.repo,actor,f.saved.id).current(c.callSid),null);
+ assert.equal(f.proofReads,before);
+});
+test('native app lookup rejects changed call, proof, contact or proposal during asynchronous resolution',async()=>{
+ for(const change of ['proof','call','contact','proposal','policy']){
+  const f=await appFixture();
+  if(change==='proof')f.proof({id:'33333333-3333-4333-8333-333333333333',verifiedAt:Date.now()-1000,expiresAt:Date.now()+1000});
+  if(change==='call')f.candidate(null);
+  if(change==='contact')f.candidate({...c,version:2});
+  if(change==='proposal')f.onRead(n=>{if(n===2)f.edit(r=>r.status='executing');});
+  if(change==='policy')f.deny();
+  assert.equal(await f.broker.current(c.callSid),null,change);
+ }
+ const f=await appFixture();assert.equal(await f.broker.current('CA'+'b'.repeat(32)),null);
+});

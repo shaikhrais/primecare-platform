@@ -2,7 +2,7 @@ name: Verify approved reception callback persistence
 on:
   push:
     branches: [main]
-    paths: ['cloudflare/workers/src/business-tasks/reception-callback.ts', 'cloudflare/workers/src/business-tasks/voice-reception-tasks.ts', 'cloudflare/workers/src/business-tasks/voice-tasks.ts', 'cloudflare/workers/src/business-tasks/voice-confirmations.ts', 'packages/database/migrations/20261027_communication_callback_requests.sql', 'scripts/test-reception-callback*.mjs', '.github/workflows/reception-callback.yml']
+    paths: ['cloudflare/workers/src/business-tasks/vapi-call-identity.ts', 'scripts/test-vapi-call-identity.mjs', 'cloudflare/workers/src/business-tasks/reception-callback.ts', 'cloudflare/workers/src/business-tasks/voice-reception-tasks.ts', 'cloudflare/workers/src/business-tasks/voice-tasks.ts', 'cloudflare/workers/src/business-tasks/voice-confirmations.ts', 'packages/database/migrations/20261027_communication_callback_requests.sql', 'scripts/test-reception-callback*.mjs', '.github/workflows/reception-callback.yml']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -25,6 +25,6 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/callback-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0
           ln -s "$RUNNER_TEMP/callback-tools/node_modules" node_modules
       - run: |
-          node --test scripts/test-reception-callback.mjs scripts/test-communication-voice-tasks.mjs
+          node --test scripts/test-vapi-call-identity.mjs scripts/test-reception-callback.mjs scripts/test-communication-voice-tasks.mjs
           node scripts/test-reception-callback-postgres.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/reception-callback.ts

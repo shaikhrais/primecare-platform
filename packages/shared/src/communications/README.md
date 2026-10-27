@@ -1390,3 +1390,15 @@ callback persistence/confirmation/task services. Current native authentication
 and authorization ports remain mandatory host dependencies. Construction does
 not mount a route, grant permissions or activate a Vapi tool. Live gateway
 routing, current call identity linkage and staff fulfilment remain pending.
+
+`VapiCallTaskIdentityBroker` uses `vapi_<canonical call UUID>_<proof UUID>` as
+an opaque authentication-event reference accepted by app confirmation bounds.
+This is not a native login token. `VapiAppTaskIdentityBroker` resolves that
+reference only from one stored, digest-valid, unexpired callback intent belonging
+to the current native actor. It rechecks the intent, canonical call, enrolled
+contact, proof and policy; other users, other tenants, old proof references and
+changed/expired proofs fail closed. Existing `vapi-proof:` references are not
+rewritten or silently approved: a fresh verified proposal is required.
+`VapiCallbackAppApprovalService` inherits `ScopedServiceBase` and composes this
+lookup with the existing PostgreSQL app confirmations. Its approval-only HTTP
+factory still requires current native authentication and endpoint permissions.

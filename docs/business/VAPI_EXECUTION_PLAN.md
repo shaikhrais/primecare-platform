@@ -142,3 +142,20 @@ strict TypeScript checks passed. This is source composition evidence, not a live
 app approval acceptance result. Gateway mounting, production current grants,
 call-to-app identity linkage and staff handling are still pending. The business
 Vapi tool remains disabled.
+
+
+### Vapi proof/app approval linkage — October 27, 2026
+
+Corrected the proof-reference format that the app confirmation validator rejected.
+New callback intents bind the canonical call UUID and original proof UUID in a
+bounded opaque reference. Added an owner-scoped stored-intent broker and native
+approval service composition. They recheck digest, actor/tenant, proposed state,
+expiry, live call, current contact, proof and policy without accepting app/model
+identity overrides. Old references require a fresh proposal.
+
+Local targeted checks: 48 tests passed, one separate PostgreSQL native-token test
+skipped; strict callback TypeScript passed. Native PostgreSQL callback acceptance
+and the current production approval-permission inventory are being run in CI;
+record their results before calling this checkpoint verified. These source
+changes do not mount a new route, attach a business tool, grant access, or send
+calls/SMS. Production gateway/task host and staff handling remain pending.

@@ -1,5 +1,6 @@
+import {VapiVerifiedCallIdentityService,VapiCallTaskIdentityBroker} from '../cloudflare/workers/src/business-tasks/vapi-call-identity.ts';
 import assert from 'node:assert/strict';import pg from 'pg';import {readFile} from 'node:fs/promises';
-import {createPostgresReceptionCallbackServices} from '../cloudflare/workers/src/business-tasks/reception-callback.ts';
+import {createPostgresReceptionCallbackServices,createPostgresVapiCallbackApprovalHttpAdapter} from '../cloudflare/workers/src/business-tasks/reception-callback.ts';
 import {PostgresVoiceTaskRepository} from '../cloudflare/workers/src/business-tasks/voice-tasks.ts';
 const u=new URL(process.env.CALLBACK_TEST_DATABASE_URL??'');if(!['localhost','127.0.0.1'].includes(u.hostname)||u.username!=='callback_fixture'||u.pathname!=='/callback_test'||process.env.PRODUCTION_DATABASE_URL)throw Error('Named disposable callback database required');
 const pool=new pg.Pool({connectionString:u.href,max:8});const actor={id:'alice',tenantId:'tenant-a'},sid='CA'+'a'.repeat(32);let allowed=true,duringPolicy=async()=>{};
@@ -26,6 +27,38 @@ try{
  const stale=await prepare();await approve(stale.p);await pool.query('UPDATE communication_voice_confirmations SET approved_at=$2,expires_at=$3 WHERE intent_id=$1',[stale.p.intentId,Date.now()-120000,Date.now()-60000]);await assert.rejects(()=>tasks.execute(sid,stale.p.intentId),e=>e.code==='VOICE_TASK_CONFIRMATION_REQUIRED');assert.equal(await count(stale.p.intentId),0);groups++;
  const tampered=await prepare();await approve(tampered.p);const original=await intents.read(tampered.p.intentId);await confirmations.consumeConfirmation({callSid:sid,intentId:original.id,digest:original.digest,actor,sessionId:identity.sessionId});await intents.claim(original.id,original.digest);await pool.query("UPDATE communication_voice_tasks SET intent=jsonb_set(intent,'{args,reason}','\"appointment_help\"') WHERE id=$1",[original.id]);await assert.rejects(()=>callbacks.requestCallback(actor,{...tampered.args,reason:'appointment_help'},'voice-task:'+original.id));assert.equal(await count(original.id),0);groups++;
  const expiring=await prepare();await approve(expiring.p);const deadline=Date.now()+5000;await pool.query('UPDATE communication_voice_confirmations SET approved_at=$2,expires_at=$3 WHERE intent_id=$1',[expiring.p.intentId,deadline-60000,deadline]);let checks=0;duringPolicy=async action=>{if(action==='voice.task.execute'&&++checks===3)await new Promise(resolve=>setTimeout(resolve,Math.max(0,deadline-Date.now()+100)));};await assert.rejects(()=>tasks.execute(sid,expiring.p.intentId),/outcome unknown/);duringPolicy=async()=>{};assert.equal(await count(expiring.p.intentId),0);groups++;
+ // Native app HTTP approval of a Vapi proof-bound intent, backed by actual
+ // disposable PostgreSQL. Provider/proof/native session ports are test fixtures;
+ // no production role, login, call or SMS is represented by this acceptance.
+ const vapiCallId='11111111-1111-4111-8111-111111111111',proofId='22222222-2222-4222-8222-222222222222';
+ let proofActive=true,nativeActor=actor,nativeAllowed=true;
+ const proof={id:proofId,verifiedAt:Date.now()-1000,expiresAt:Date.now()+100000};
+ const callIdentity=new VapiVerifiedCallIdentityService({run:unused,read:unused,inbox:unused},policy,{
+  async current(id){
+   if(id!==vapiCallId)return null;
+   const r=(await pool.query("SELECT c.phone,c.version::int AS version FROM communication_voice_verified_contacts c JOIN users u ON u.id=c.user_id AND u.tenant_id=c.tenant_id JOIN tenants t ON t.id=c.tenant_id WHERE c.user_id=$1 AND c.tenant_id=$2 AND c.revoked_at IS NULL AND u.status='active' AND t.status='active'",[actor.id,actor.tenantId])).rows;
+   return r.length===1?{actor,callId:id,callSid:sid,phone:r[0].phone,version:r[0].version}:null;
+  },
+  async proof(candidate){return proofActive&&candidate.phone==='+14165550101'&&candidate.version===1?{...proof}:null;}
+ });
+ const vapiServices=createPostgresReceptionCallbackServices({pool,policy,identities:new VapiCallTaskIdentityBroker(callIdentity,vapiCallId)});
+ const app=createPostgresVapiCallbackApprovalHttpAdapter({pool,policy,identities:callIdentity,native:{origin:'https://app.example.invalid',maxRequestBytes:2048,
+  async authenticate(){return {actor:nativeActor,sessionHash:'a'.repeat(64),expiresAt:Date.now()+60000};},
+  async authorize(session,key){if(!nativeAllowed||!['task.preview','task.approve'].includes(key))throw new (await import('../packages/shared/src/communications/voice-native-http.mjs')).NativeVoiceHttpError(403);}
+ }});
+ const http=(key,body,authenticated=true)=>app.respond(new Request('https://app.example.invalid/v1/voice/tasks/'+key,{method:'POST',headers:{'content-type':'application/json',...(authenticated?{authorization:'Bearer native-fixture'}:{})},body:JSON.stringify(body)}));
+ const approvals=async id=>(await pool.query('SELECT count(*)::int AS n FROM communication_voice_confirmations WHERE intent_id=$1',[id])).rows[0].n;
+ const v=await vapiServices.tasks.propose(sid,'reception.callback.request',input());
+ await assert.rejects(()=>vapiServices.tasks.execute(sid,v.intentId),e=>e.code==='VOICE_TASK_CONFIRMATION_REQUIRED');
+ const display=await http('preview',{intentId:v.intentId});assert.equal(display.status,200);const shown=await display.json();assert.equal(shown.digest,v.digest);assert.equal(await approvals(v.intentId),0);
+ assert.equal((await http('approve',{intentId:v.intentId,digest:shown.digest},false)).status,401);
+ nativeActor={id:'charlie',tenantId:'tenant-a'};assert.equal((await http('preview',{intentId:v.intentId})).status,503);nativeActor=actor;
+ assert.equal((await http('approve',{intentId:v.intentId,digest:'f'.repeat(64)})).status,503);assert.equal(await approvals(v.intentId),0);
+ assert.equal((await http('approve',{intentId:v.intentId,digest:shown.digest})).status,200);assert.equal(await approvals(v.intentId),1);
+ await vapiServices.tasks.execute(sid,v.intentId);assert.equal(await count(v.intentId),1);assert.equal((await callbacks.read(actor,v.intentId)).status,'requested');await assert.rejects(()=>vapiServices.tasks.execute(sid,v.intentId));assert.equal(await count(v.intentId),1);groups++;
+ const revoked=await vapiServices.tasks.propose(sid,'reception.callback.request',input());assert.equal((await http('preview',{intentId:revoked.intentId})).status,200);proofActive=false;assert.equal((await http('approve',{intentId:revoked.intentId,digest:revoked.digest})).status,503);assert.equal(await approvals(revoked.intentId),0);proofActive=true;groups++;
+ const denied=await vapiServices.tasks.propose(sid,'reception.callback.request',input());nativeAllowed=false;assert.equal((await http('approve',{intentId:denied.intentId,digest:denied.digest})).status,403);assert.equal(await approvals(denied.intentId),0);nativeAllowed=true;groups++;
+ const changed=await vapiServices.tasks.propose(sid,'reception.callback.request',input());await pool.query("UPDATE communication_voice_tasks SET intent=jsonb_set(intent,'{summary}','\"changed\"') WHERE id=$1",[changed.intentId]);assert.equal((await http('preview',{intentId:changed.intentId})).status,503);assert.equal(await approvals(changed.intentId),0);groups++;
  await pool.query("CREATE FUNCTION reject_callback() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'fixture persistence failure'; END $$;CREATE TRIGGER fail_callback BEFORE INSERT ON communication_callback_requests FOR EACH ROW EXECUTE FUNCTION reject_callback()");const g=await prepare();await approve(g.p);await assert.rejects(()=>tasks.execute(sid,g.p.intentId),/outcome unknown/);assert.equal(await count(g.p.intentId),0);assert.equal((await intents.read(g.p.intentId)).status,'unknown');groups++;
- console.log('CALLBACK_POSTGRES_PASS '+JSON.stringify({groups,providerTraffic:false,productionWrites:false,claims:'native save/readback, independent app approval consumption, scoped read, revocation, duplicate execution, replay and rollback'}));
+ console.log('CALLBACK_POSTGRES_PASS '+JSON.stringify({groups,providerTraffic:false,productionWrites:false,claims:'native save/readback, Vapi stored-proof-to-app HTTP approval and execution, scoped read, revocation, duplicate execution, replay and rollback'}));
 }finally{await pool.end();}

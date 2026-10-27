@@ -1,6 +1,6 @@
 import {ScopedServiceBase,type Actor,type AtomicStore,type AccessPolicy,assertActor} from '../../../../packages/shared/src/communications/service-base.ts';
 import type {SpokenCandidate} from './vapi-spoken-verification.ts';
-import type {VerifiedVoiceIdentity} from './voice-tasks.ts';
+import {voiceTaskIntentDigest,type VoiceTaskRepository,type VoiceTaskIntent,type VerifiedVoiceIdentity} from './voice-tasks.ts';
 export type CallPossessionProof={id:string;verifiedAt:number;expiresAt:number};
 export type VerifiedCallSubject={actor:Actor;callId:string;callSid:string;proofId:string;authentication:'otp';verifiedAt:number;expiresAt:number;nativeSession:false;businessActionApproved:false};
 export type CallIdentityPorts={
@@ -58,6 +58,51 @@ export class VapiCallTaskIdentityBroker {
  async current(callSid:string):Promise<VerifiedVoiceIdentity|null>{
   if(typeof callSid!=='string'||!/^CA[a-f0-9]{32}$/i.test(callSid))return null;
   const subject=await this.identities.current(this.callId);if(!subject||subject.callSid!==callSid)return null;
-  return {actor:subject.actor,sessionId:'vapi-proof:'+subject.proofId,authentication:'otp',active:true,expiresAt:subject.expiresAt};
+  return {actor:subject.actor,sessionId:vapiTaskProofBinding(subject.callId,subject.proofId),authentication:'otp',active:true,expiresAt:subject.expiresAt};
+ }
+}
+
+/** Opaque authentication-event reference, compatible with app confirmation
+ * bounds. Includes the canonical provider call so a stored owner intent can
+ * resolve its original proof; it never represents a native auth session. */
+export function vapiTaskProofBinding(callId:string,proofId:string):string{
+ if(!uuid(callId)||!uuid(proofId))throw Error('Canonical proof binding required');
+ return 'vapi_'+callId+'_'+proofId;
+}
+function binding(value:unknown){
+ if(typeof value!=='string')return null;
+ const match=/^vapi_([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})_([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})$/i.exec(value);
+ return match?{callId:match[1],proofId:match[2]}:null;
+}
+/** Native app lookup for one owner-selected stored callback intent. Only the
+ * host-supplied authenticated actor and repository may choose the call binding.
+ * No phone, provider call ID or proof may be supplied by the app/model body. */
+export class VapiAppTaskIdentityBroker {
+ readonly identities:VapiVerifiedCallIdentityService;readonly intents:VoiceTaskRepository;
+ readonly actor:Readonly<Actor>;readonly intentId:string;
+ constructor(identities:VapiVerifiedCallIdentityService,intents:VoiceTaskRepository,actor:Actor,intentId:string){
+  assertActor(actor);
+  if(!(identities instanceof VapiVerifiedCallIdentityService)||typeof intents?.read!=='function'||!uuid(intentId))throw Error('Owned callback intent required');
+  this.identities=identities;this.intents=intents;this.actor=Object.freeze({...actor});this.intentId=intentId;
+ }
+ private async proposal(callSid:string):Promise<VoiceTaskIntent|null>{
+  const found=await this.intents.read(this.intentId);if(!found)return null;const row=structuredClone(found);
+  if(row.id!==this.intentId||row.callSid!==callSid||row.status!=='proposed'||row.taskId!=='reception.callback.request'||row.taskVersion!==1||row.actor?.id!==this.actor.id||row.actor?.tenantId!==this.actor.tenantId||!Number.isSafeInteger(row.expiresAt)||row.expiresAt<=Date.now()||await voiceTaskIntentDigest(row)!==row.digest)return null;
+  return row;
+ }
+ async current(callSid:string):Promise<VerifiedVoiceIdentity|null>{
+  try{
+   if(typeof callSid!=='string'||!/^CA[a-f0-9]{32}$/i.test(callSid))return null;
+   const row=await this.proposal(callSid),ref=binding(row?.sessionId);if(!row||!ref)return null;
+   const resolve=async()=>{
+    const subject=await this.identities.current(ref.callId);
+    if(!subject||subject.actor.id!==this.actor.id||subject.actor.tenantId!==this.actor.tenantId||subject.callSid!==callSid||subject.proofId!==ref.proofId||vapiTaskProofBinding(subject.callId,subject.proofId)!==row.sessionId)return null;
+    return subject;
+   };
+   const subject=await resolve();if(!subject)return null;
+   const latest=await this.proposal(callSid);if(!latest||latest.digest!==row.digest||latest.sessionId!==row.sessionId)return null;
+   const current=await resolve();if(!current||current.expiresAt!==subject.expiresAt||current.verifiedAt!==subject.verifiedAt)return null;
+   return Object.freeze({actor:this.actor,sessionId:row.sessionId,authentication:'otp',active:true,expiresAt:Math.min(row.expiresAt,current.expiresAt)});
+  }catch{return null;}
  }
 }
