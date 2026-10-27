@@ -1,0 +1,12 @@
+{
+  "authenticatedStatus": true,
+  "roleDenied": true,
+  "sessionRevoked": true,
+  "cleanup": true,
+  "smsSent": false,
+  "liveOtpVerified": false,
+  "credentialLoginVerified": false,
+  "statusCode": 200,
+  "workflowRunId": 40426784863,
+  "jobId": 121934689122
+}
