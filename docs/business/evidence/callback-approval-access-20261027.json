@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-27",
+  "sourceCommit": "3bd1e93ffbb208cb71212b05fa88431c8e4bf320",
+  "runId": 40511738975,
+  "jobs": [
+    {
+      "id": 122215148565,
+      "name": "isolated",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 122215149163,
+      "name": "callback",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 122215561131,
+      "name": "register",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "isolatedVerification": {
+    "metadataTests": 9,
+    "callbackPolicyTests": 3,
+    "callbackScenarioGroups": 18,
+    "strictTypeScript": true,
+    "providerTraffic": false,
+    "productionWrites": false,
+    "loginAndPermissionSource": "real disposable PostgreSQL auth_sessions and governance fixtures; provider call and proof are explicit fixture ports"
+  },
+  "production": {
+    "jobId": 122215561131,
+    "receipts": [
+      {
+        "definitionSha256": "5f12c1bbc78b0595f4f32daff4a9554034cd68813b5c23263a3f4017b6344274",
+        "screenLinks": 8,
+        "eligibleRoles": 4,
+        "explicitDenialsPreserved": 0,
+        "apiGrants": 8,
+        "businessDataWrites": false,
+        "providerWrites": false,
+        "activation": false
+      },
+      {
+        "definitionSha256": "5f12c1bbc78b0595f4f32daff4a9554034cd68813b5c23263a3f4017b6344274",
+        "screenLinks": 8,
+        "eligibleRoles": 4,
+        "explicitDenialsPreserved": 0,
+        "apiGrants": 8,
+        "businessDataWrites": false,
+        "providerWrites": false,
+        "activation": false,
+        "independentReadback": true
+      },
+      {
+        "definitionSha256": "5f12c1bbc78b0595f4f32daff4a9554034cd68813b5c23263a3f4017b6344274",
+        "screenLinks": 8,
+        "eligibleRoles": 4,
+        "explicitDenialsPreserved": 0,
+        "apiGrants": 8,
+        "businessDataWrites": false,
+        "providerWrites": false,
+        "activation": false,
+        "independentReadback": true,
+        "writesAttempted": false
+      }
+    ],
+    "readiness": {
+      "status": "identity_activation_blocked",
+      "readinessMeasured": true,
+      "nativeTaskPermissions": [
+        {
+          "path": "/v1/voice/tasks/approve",
+          "registration_count": 1,
+          "grant_count": 4
+        },
+        {
+          "path": "/v1/voice/tasks/preview",
+          "registration_count": 1,
+          "grant_count": 4
+        }
+      ],
+      "activeVerifiedContactCount": 0,
+      "callbackStoragePresent": true,
+      "blockers": [
+        "no_verified_voice_contacts",
+        "native_permission_not_ready:/v1/voice/otp/start",
+        "native_permission_not_ready:/v1/voice/otp/check",
+        "native_contact_enrollment_boundary_not_verified",
+        "private_pre_ai_pairing_delivery_not_connected",
+        "native_app_pairing_ui_not_connected",
+        "otp_runtime_not_deployed"
+      ]
+    }
+  },
+  "broaderCommunications": {
+    "runId": 40511739234,
+    "passedJobs": 12
+  },
+  "knownRepositoryGateFailure": {
+    "runId": 40511739174,
+    "jobId": 122215150176,
+    "message": "Reviewed source amendment changed: cloudflare/workers/src/gateway.ts",
+    "gatewayChangedByThisRelease": false
+  },
+  "businessToolEnabled": false,
+  "liveAppAcceptance": false,
+  "staffFulfilmentImplemented": false
+}

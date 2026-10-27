@@ -84,3 +84,20 @@ calls/proofs/native sessions are explicit fixture ports, not live login evidence
 The production identity readiness report separately inspects the existing task
 preview/approve registration and linked-screen grant counts without modifying
 permissions or user data. Live host mounting and staff fulfilment remain pending.
+
+## Verified approval permissions
+
+Source `3bd1e93ffbb208cb71212b05fa88431c8e4bf320` passed 18 native callback
+scenario groups, nine native metadata tests, three focused callback policy tests
+and strict TypeScript. Workflow 40511738975 then dry-ran, applied and independently
+verified the exact approval metadata. Four already eligible own-contact roles
+have eight API grants across eight screen links; each existing preview/approve
+endpoint independently reports four usable grants. Role-screen rights, business
+records and provider resources were untouched. Evidence is in
+`evidence/callback-approval-access-20261027.json`.
+
+The concrete native approval host now uses PostgreSQL `auth_sessions`, active
+user/tenant membership, exact endpoint/screen grants and callback-only business
+policy. Its routes still require operational mounting and acceptance. The
+readiness snapshot still finds zero verified voice contacts. No live app
+approval, callback staff fulfilment or Vapi business-tool activation is claimed.

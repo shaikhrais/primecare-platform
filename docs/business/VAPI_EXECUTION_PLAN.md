@@ -168,15 +168,32 @@ Prepared an inherited metadata access writer for only the existing preview and
 approve APIs. Eligibility requires an active existing communication-screen role
 and existing grants to all three own-phone enrollment APIs. It preserves explicit
 API denials and all role-screen rights; it grants no administrator shortcut,
-other-account access, provider tool or task approval. Native PostgreSQL tests gate
-production application and independent readback.
+other-account access, provider tool or task approval. Native PostgreSQL tests gated
+production application and independent readback; all three jobs passed in run
+40511738975.
 
 `PostgresReceptionCallbackAccessPolicy` requires current preview AND approve
 rights for owned callback v1 proposals, confirmations and executions.
 `createPostgresNativeVapiCallbackApprovalHost` now resolves actual current
 PostgreSQL app sessions and applies the existing exact endpoint/screen policy.
-Expanded disposable PostgreSQL acceptance also verifies this concrete host with
-real fixture login/metadata reads, revocation and denial. Deployment/mounting of
+Expanded disposable PostgreSQL acceptance passed 18 scenario groups, including
+this concrete host with real fixture login/metadata reads, revocation and denial. Deployment/mounting of
 this host and operational staff handling remain pending; business tools remain
-disabled. Record the new production permission receipt before marking that gate
-complete.
+disabled. Production permission registration is verified: four eligible roles, eight API
+grants and eight screen links; each approval endpoint independently reports four
+usable grants. No role-screen rights or business data were changed. Zero verified
+voice contacts remain. Evidence: `evidence/callback-approval-access-20261027.json`.
+
+
+The broader communications workflow 40511739234 also passed all 12 jobs.
+Repository contract-review job 122215150176 still fails its pre-existing reviewed
+source amendment for `cloudflare/workers/src/gateway.ts`; this release did not
+change that file or bless its review hash. Full repository CI is not claimed green.
+
+Next operational work: mount the concrete approval host through the exact
+registered gateway paths; complete the compatible current-call/app identity
+runtime; expose the registered approval UI; add registered staff pickup and
+fulfilment; then perform authorized live call/app/API/database acceptance before
+attaching the callback business tool. The production readiness report also tracks
+the separate legacy native OTP/pairing path; its failures are not evidence that a
+new callback host has been deployed.
