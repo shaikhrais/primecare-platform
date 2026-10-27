@@ -1,8 +1,11 @@
 import {ScopedServiceBase,assertActor,type Actor,type AtomicStore,type AccessPolicy,type RecordState} from '../../../../packages/shared/src/communications/service-base.ts';
 import {validateCallbackRequest,type CallbackRequest} from './voice-reception-tasks.ts';
-import {voiceTaskIntentDigest,type VoiceTaskIntent} from './voice-tasks.ts';
+import {voiceTaskIntentDigest,VoiceTaskService,PostgresVoiceTaskRepository,type VoiceTaskIntent} from './voice-tasks.ts';
+import {PostgresVoiceTaskConfirmationService} from './voice-confirmations.ts';
+import {ReceptionCallbackTask} from './voice-reception-tasks.ts';
+import {PostgresAtomicStore} from './store.ts';
 type Sql={query(sql:string,values?:unknown[]):Promise<{rows:any[]}>};
-type Pool={connect():Promise<Sql&{release():void}>};
+type Pool=Sql&{connect():Promise<Sql&{release():void}>};
 export type CallbackReceipt={intentId:string;status:'requested';reason:CallbackRequest['reason'];windowStartsAt:string;windowEndsAt:string};
 type Authorize=(intent:VoiceTaskIntent)=>Promise<void>;
 export interface CallbackRequestRepository {
@@ -72,4 +75,14 @@ export class PostgresCallbackRequestRepository implements CallbackRequestReposit
    if(rows.length!==1||Number(rows[0].contact_version)!==context.contactVersion)throw unavailable();const receipt=this.receipt(rows[0]);await db.query('ROLLBACK');return receipt;
   }catch(e){await db.query('ROLLBACK');throw e;}finally{db.release();}
  }
+}
+/** Callback-only composition: real persistence and app approval, without
+ * enabling unfinished booking or rescheduling ports. Host identity and current
+ * policy are mandatory. Construction mounts no endpoint and sends no traffic. */
+export function createPostgresReceptionCallbackServices(options:{pool:Pool;policy:AccessPolicy;identities:ConstructorParameters<typeof PostgresVoiceTaskConfirmationService>[3]}){
+ const store=new PostgresAtomicStore(options.pool,'business_sms'),intents=new PostgresVoiceTaskRepository(options.pool);
+ const callbacks=new ReceptionCallbackRequestService(store,options.policy,new PostgresCallbackRequestRepository(options.pool));
+ const confirmations=new PostgresVoiceTaskConfirmationService(store,options.policy,options.pool,options.identities,intents);
+ const tasks=new VoiceTaskService(store,options.policy,intents,confirmations,[new ReceptionCallbackTask(callbacks.requestCallback.bind(callbacks))]);
+ return Object.freeze({callbacks,confirmations,tasks});
 }

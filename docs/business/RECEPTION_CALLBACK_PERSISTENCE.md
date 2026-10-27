@@ -52,3 +52,9 @@ failure. It refuses production credentials and nonlocal/nonfixture databases.
 The fixture's policy and identity are explicit synthetic host ports. Passing it
 does not verify a live app session, provider call, production policy registration
 or staff callback fulfilment.
+
+`createPostgresReceptionCallbackServices` connects the real task service, app
+confirmation service and callback repository as one callback-only composition.
+Its host must supply current identity and policy; it mounts no route. Native
+acceptance uses this composition. The repository rehashes the complete approved
+intent before accepting a write, so modified details cannot reuse an old digest.

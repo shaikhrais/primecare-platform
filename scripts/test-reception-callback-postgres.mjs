@@ -1,13 +1,11 @@
 import assert from 'node:assert/strict';import pg from 'pg';import {readFile} from 'node:fs/promises';
-import {ReceptionCallbackRequestService,PostgresCallbackRequestRepository} from '../cloudflare/workers/src/business-tasks/reception-callback.ts';
-import {VoiceTaskService,PostgresVoiceTaskRepository} from '../cloudflare/workers/src/business-tasks/voice-tasks.ts';
-import {PostgresVoiceTaskConfirmationService} from '../cloudflare/workers/src/business-tasks/voice-confirmations.ts';
-import {ReceptionCallbackTask} from '../cloudflare/workers/src/business-tasks/voice-reception-tasks.ts';
+import {createPostgresReceptionCallbackServices} from '../cloudflare/workers/src/business-tasks/reception-callback.ts';
+import {PostgresVoiceTaskRepository} from '../cloudflare/workers/src/business-tasks/voice-tasks.ts';
 const u=new URL(process.env.CALLBACK_TEST_DATABASE_URL??'');if(!['localhost','127.0.0.1'].includes(u.hostname)||u.username!=='callback_fixture'||u.pathname!=='/callback_test'||process.env.PRODUCTION_DATABASE_URL)throw Error('Named disposable callback database required');
 const pool=new pg.Pool({connectionString:u.href,max:8});const actor={id:'alice',tenantId:'tenant-a'},sid='CA'+'a'.repeat(32);let allowed=true;
-const unused=()=>{throw Error('Unexpected atomic operation');},store={run:unused,read:unused,inbox:unused},policy={async assert(a,action,state){if(!allowed||a.id!==actor.id||a.tenantId!==actor.tenantId||state.ownerId!==a.id||state.tenantId!==a.tenantId)throw Error('Denied');},assignee:unused};
+const unused=()=>{throw Error('Unexpected atomic operation');},policy={async assert(a,action,state){if(!allowed||a.id!==actor.id||a.tenantId!==actor.tenantId||state.ownerId!==a.id||state.tenantId!==a.tenantId)throw Error('Denied');},assignee:unused};
 const identity={actor,sessionId:'synthetic-authenticated-session',authentication:'otp',active:true,expiresAt:Date.now()+300000},identities={async current(callSid){return callSid===sid?structuredClone(identity):null;}};
-const repo=new PostgresCallbackRequestRepository(pool),callbacks=new ReceptionCallbackRequestService(store,policy,repo),intents=new PostgresVoiceTaskRepository(pool),confirmations=new PostgresVoiceTaskConfirmationService(store,policy,pool,identities,intents),tasks=new VoiceTaskService(store,policy,intents,confirmations,[new ReceptionCallbackTask(callbacks.requestCallback.bind(callbacks))]);
+const {callbacks,confirmations,tasks}=createPostgresReceptionCallbackServices({pool,policy,identities});const intents=new PostgresVoiceTaskRepository(pool);
 const input=()=>({reason:'general',windowStartsAt:new Date(Date.now()+3600000).toISOString(),windowEndsAt:new Date(Date.now()+7200000).toISOString()});
 const count=async id=>(await pool.query('SELECT count(*)::int AS n FROM communication_callback_requests WHERE intent_id=$1',[id])).rows[0].n;
 async function prepare(){const args=input(),p=await tasks.propose(sid,'reception.callback.request',args);return {args,p};}
