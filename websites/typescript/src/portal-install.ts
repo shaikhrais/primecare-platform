@@ -9,7 +9,9 @@ export function initializePortalInstall():void{
  const button=document.createElement('button');button.type='button';button.dataset.cy='portal-install-button';button.textContent='Install PrimeCare';
  const note=document.createElement('p');note.dataset.cy='portal-install-status';note.setAttribute('role','status');note.setAttribute('aria-live','polite');
  note.textContent='Add PrimeCare to your home screen for quick access.';
- bar.append(button,note);document.body.prepend(bar);
+ bar.append(button,note);
+ const place=()=>{const menu=document.querySelector('.shell-utility-actions');const parent=menu??document.body;if(bar.parentElement!==parent)parent.append(bar);bar.classList.toggle('portal-install-standalone',!menu);};
+ place();new MutationObserver(place).observe(document.body,{childList:true,subtree:true});
  const standalone=window.matchMedia('(display-mode: standalone)');
  const visibility=()=>{bar.hidden=standalone.matches;};visibility();standalone.addEventListener('change',visibility);
  window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();pending=event as InstallPromptEvent;button.disabled=false;note.textContent='PrimeCare is ready to install.';});
