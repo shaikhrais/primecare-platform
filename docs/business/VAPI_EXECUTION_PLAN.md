@@ -125,3 +125,20 @@ created. This checkpoint enables storage only; public callback tools remain off.
 Next: live API/approval host composition, current native permission enforcement,
 staff pickup/fulfilment and complete caller/app acceptance. See
 [production storage](CALLBACK_STORAGE_PRODUCTION.md) and its evidence receipt.
+
+
+### Callback approval HTTP composition — October 27, 2026
+
+Implemented `NativeVoiceTaskHttpAdapter` and
+`createPostgresReceptionCallbackHttpServices`: the real callback confirmation
+service can now serve the two existing registered app approval contracts without
+installing unrelated placeholder services. The inherited transport checks retain
+native bearer identity, exact endpoint permission, bounded registered schemas,
+approved origins and identity/grant rechecks before invocation and response.
+
+Local verification: 22 native HTTP tests passed, one disposable PostgreSQL test
+skipped because no test database was supplied; declaration and callback source
+strict TypeScript checks passed. This is source composition evidence, not a live
+app approval acceptance result. Gateway mounting, production current grants,
+call-to-app identity linkage and staff handling are still pending. The business
+Vapi tool remains disabled.

@@ -28,3 +28,6 @@ export class NativeVoiceHttpAdapter extends BoundedBinaryAdapterBase {
 
 export type NativeVoiceContactHttpOptions=Omit<NativeVoiceHttpOptions,'services'|'maxAudioBytes'> & {service:NonNullable<NativeVoiceHttpOptions['services']['contacts']>};
 export class NativeVoiceContactHttpAdapter extends NativeVoiceHttpAdapter {constructor(options:NativeVoiceContactHttpOptions);}
+
+export type NativeVoiceTaskHttpOptions=Omit<NativeVoiceHttpOptions,'services'|'maxAudioBytes'> & {service:NativeVoiceHttpOptions['services']['confirmations']};
+export class NativeVoiceTaskHttpAdapter extends NativeVoiceHttpAdapter {constructor(options:NativeVoiceTaskHttpOptions);}

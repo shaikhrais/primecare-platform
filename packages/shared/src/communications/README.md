@@ -1377,3 +1377,16 @@ registers the exact nine-column design and separately validates the private nati
 schema against a tested PostgreSQL reference. It creates no callback requests or
 role grants and does not activate the callback API or Vapi tool. Current identity,
 independent app approval and staff fulfilment remain separate release gates.
+
+### Callback app approval composition
+
+`NativeVoiceTaskHttpAdapter` inherits `NativeVoiceHttpAdapter` and exposes only
+registered `task.preview` and `task.approve` contracts. It uses the existing
+bounded JSON validators, bearer-only native session, exact endpoint grants,
+approved origins and identity/grant rechecks. It requires only the real
+confirmation service; token, voicemail, extension and call-OTP stubs are absent.
+`createPostgresReceptionCallbackHttpServices` composes this adapter with the real
+callback persistence/confirmation/task services. Current native authentication
+and authorization ports remain mandatory host dependencies. Construction does
+not mount a route, grant permissions or activate a Vapi tool. Live gateway
+routing, current call identity linkage and staff fulfilment remain pending.

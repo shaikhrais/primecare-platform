@@ -1,3 +1,4 @@
+import {NativeVoiceTaskHttpAdapter,type NativeVoiceTaskHttpOptions} from '../../../../packages/shared/src/communications/voice-native-http.mjs';
 import {ScopedServiceBase,assertActor,type Actor,type AtomicStore,type AccessPolicy,type RecordState} from '../../../../packages/shared/src/communications/service-base.ts';
 import {validateCallbackRequest,type CallbackRequest} from './voice-reception-tasks.ts';
 import {voiceTaskIntentDigest,VoiceTaskService,PostgresVoiceTaskRepository,type VoiceTaskIntent} from './voice-tasks.ts';
@@ -86,4 +87,14 @@ export function createPostgresReceptionCallbackServices(options:{pool:Pool;polic
  const confirmations=new PostgresVoiceTaskConfirmationService(store,options.policy,options.pool,options.identities,intents);
  const tasks=new VoiceTaskService(store,options.policy,intents,confirmations,[new ReceptionCallbackTask(callbacks.requestCallback.bind(callbacks))]);
  return Object.freeze({callbacks,confirmations,tasks});
+}
+
+/** Compose callback persistence with the two registered native app approval
+ * handlers. The host must supply current native-session resolution and exact
+ * endpoint authorization; provider authentication never grants app approval.
+ * This factory does not mount routes or alter gateway/permission metadata. */
+export function createPostgresReceptionCallbackHttpServices(options:Parameters<typeof createPostgresReceptionCallbackServices>[0] & {native:Omit<NativeVoiceTaskHttpOptions,'service'>}){
+ const services=createPostgresReceptionCallbackServices(options);
+ const approvals=new NativeVoiceTaskHttpAdapter({...options.native,service:services.confirmations});
+ return Object.freeze({...services,approvals});
 }

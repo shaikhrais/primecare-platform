@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {NativeVoiceHttpAdapter,NativeVoiceHttpError} from '../packages/shared/src/communications/voice-native-http.mjs';
+import {NativeVoiceHttpAdapter,NativeVoiceTaskHttpAdapter,NativeVoiceHttpError} from '../packages/shared/src/communications/voice-native-http.mjs';
 import {BoundedBinaryAdapterBase} from '../packages/shared/src/communications/adapter-base.mjs';
 import {createPostgresNativeVoiceHttpAdapter} from '../cloudflare/workers/src/business-tasks/twilio-integration.ts';
 import {createHash} from 'node:crypto';
@@ -132,4 +132,28 @@ test('enrollment denies ambient cookies, foreign origins and missing grants with
 });
 test('enrollment suppresses responses after logout, malformed results and private provider errors without retry',async()=>{
  for(const mode of ['logout','malformed','error']){const f=contactsFixture();let count=0;f.services.contacts.start=async()=>{count++;if(mode==='logout'){f.logout();return contactCommands[1][3];}if(mode==='malformed')return {error:'private'};throw Error('PRIVATE SMS SECRET');};const adapter=new NativeVoiceHttpAdapter(f.options);const r=await adapter.respond(request(contactCommands[1][1],contactCommands[1][2]));assert.equal(r.status,mode==='logout'?401:503);assert.doesNotMatch(await r.text(),/PRIVATE|SECRET|private|challengeId/);assert.equal(count,1);}
+});
+
+test('approval-only native adapter exposes exactly the registered preview and approve contracts',async()=>{
+ const f=fixture(),adapter=new NativeVoiceTaskHttpAdapter({...f.options,service:f.services.confirmations});
+ assert.ok(adapter instanceof NativeVoiceHttpAdapter);
+ for(const [key,path,body] of commands){
+  const response=await adapter.respond(request(path,body));
+  assert.equal(response.status,key.startsWith('task.')?200:404,key);
+ }
+ assert.deepEqual(f.calls.map(c=>c.key),['task.preview','task.approve']);
+ assert.deepEqual(f.calls[1].args,[actor,intentId,digest]);
+});
+test('approval-only adapter retains native identity, exact authorization and response validation',async()=>{
+ for(const mode of ['deny','override','logout','malformed']){
+  const f=fixture();
+  if(mode==='deny')f.deny();
+  if(mode==='logout')f.after(()=>f.logout());
+  if(mode==='malformed')f.services.confirmations.approve=async()=>({approved:true,phone:'private'});
+  const adapter=new NativeVoiceTaskHttpAdapter({...f.options,service:f.services.confirmations});
+  const response=await adapter.respond(request('/v1/voice/tasks/approve',{intentId,digest,...(mode==='override'?{actor:'forged'}:{})}));
+  assert.equal(response.status,{deny:403,override:400,logout:401,malformed:503}[mode]);
+  assert.equal(f.calls.length,mode==='logout'?1:0);
+  assert.doesNotMatch(await response.text(),/private|forged|approved/);
+ }
 });
