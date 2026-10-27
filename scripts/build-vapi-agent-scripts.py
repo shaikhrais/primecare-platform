@@ -85,7 +85,8 @@ for agent in catalog['agents']:
     tool_keys = tool_pack['agents'][agent['key']]
     agent['toolKeys'] = tool_keys
     agent['prompt'] += '\nBusiness tool workflow\n' + '\n'.join('- When the corresponding capability is attached: ' + next(t['description'] for t in tool_pack['tools'] if t['key'] == key) for key in tool_keys if not key.startswith('call.')) + '\n- Start follow-up from the current backend CRM stage, never an inferred stage. A CRM milestone is not evidence of clinical care.\n- Do not advance a stage merely because a call was answered. Record the actual outcome, and treat refusal, wrong recipient and no answer separately.\n'
+    agent['prompt'] += '\nApproved public information\n- For general service enquiries, call primecare_service_information before answering. Its public knowledge covers enquiry categories only; never infer prices, availability or individual records from it.\n'
     agent['defaultTools'] = ['endCall', 'voicemail']
-    agent['scriptVersion'] = 3
-catalog['version'] = 3
+    agent['scriptVersion'] = 4
+catalog['version'] = 4
 path.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + '\n')

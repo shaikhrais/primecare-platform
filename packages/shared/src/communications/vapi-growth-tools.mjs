@@ -37,8 +37,9 @@ export class VapiGrowthToolClient extends BoundedBinaryAdapterBase {
    if(snapshot.leads.length<100)break;
   }fail('bound_lead_unavailable');
  }
- /** Client-side/native-host definitions, not phone-webhook attachment payloads. */
- functionDefinitions(){return pack.agents[this.#context.agentKey].filter(key=>nativeGrowthToolSchemas[key]).map(key=>({type:'function',function:{name:'primecare_'+key.replaceAll('.','_'),description:pack.tools.find(t=>t.key===key).description,parameters:structuredClone(nativeGrowthToolSchemas[key])}}));}
+ /** Server-handler definitions. Vapi result-returning tools require the server protocol. */
+ #available(key){if(key==='lead.create')return !!this.#context.ownerId&&!this.#context.leadId;if(key==='consultation.create')return !!this.#context.leadId&&!!this.#context.ownerId;if(key==='consultation.update')return !!this.#context.leadId&&!!this.#context.appointmentId;return !!this.#context.leadId;}
+ functionDefinitions(){return pack.agents[this.#context.agentKey].filter(key=>nativeGrowthToolSchemas[key]&&this.#available(key)).map(key=>({type:'function',function:{name:'primecare_'+key.replaceAll('.','_'),description:pack.tools.find(t=>t.key===key).description,parameters:structuredClone(nativeGrowthToolSchemas[key])}}));}
  async executeFunction(name,input,operationId){const key=pack.agents[this.#context.agentKey].find(key=>nativeGrowthToolSchemas[key]&&'primecare_'+key.replaceAll('.','_')===name);if(!key)fail('unknown_agent_function');return this.execute(key,input,operationId);}
  async execute(key,input={},operationId){
   if(!exact(input,[])&&(!input||typeof input!=='object'||Array.isArray(input)))fail('invalid_tool_input');
@@ -49,7 +50,7 @@ export class VapiGrowthToolClient extends BoundedBinaryAdapterBase {
    'lead.suppress':['notes'],'lead.contact_update':['name','email','phone','evidence'],
    'consultation.create':['startsAt','duration','notes'],'consultation.update':['status','notes']
   };
-  if(!pack.agents[this.#context.agentKey].includes(key)||!Object.hasOwn(allowed,key)||!exact(input,allowed[key]))fail('invalid_tool_input');
+  if(!pack.agents[this.#context.agentKey].includes(key)||!Object.hasOwn(allowed,key)||!this.#available(key)||!exact(input,allowed[key]))fail('invalid_tool_input');
   input=structuredClone(input);const encoded=new TextEncoder().encode(JSON.stringify(input));if(encoded.length>16384)fail('invalid_tool_input');this.validateBytes(encoded);this.#current();
   if(key==='lead.create'){
    if(!this.#context.ownerId||!text(input.name,150)||!input.name.trim()||!text(input.email??'',254)||!text(input.phone??'',40)||!registry.sources.includes(input.source)||!text(input.reference)||!['requested','not_requested'].includes(input.contactBasis))fail('invalid_tool_input');

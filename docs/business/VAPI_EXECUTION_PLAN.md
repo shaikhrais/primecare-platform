@@ -238,3 +238,22 @@ contracts are saved in `evidence/vapi-agent-tools-prepared-20261027.json`; relea
 receipts are in `evidence/vapi-agent-tool-pack-20261027.json`. Authentication work
 remains paused. The next business work is actual runtime attachment and the
 missing business backends, not more identity plumbing.
+
+
+### Business-tool runtime work; authentication unchanged
+
+Added real owned-client history and profile/consent/authorization status adapters,
+raising native API-backed capabilities to eleven. Formal onboarding completion
+is not invented. A composed runner and bounded Vapi server function protocol now
+return matched string results, enforce existing host access, and preserve durable
+replay/uncertain-write behavior. Browser side-effect tools are not used for
+result-returning business operations.
+
+The release configures a native public-information Query tool on all eight saved
+agents and the active receptionist, with independently hashed file content and a
+public-only chat acceptance probe. Four registered API Request tools are saved
+using the existing credential reference; actions/task IDs and call headers stay
+outside model input. They remain unattached while their private runtime is gated.
+No authentication, login, OTP or credential rotation changes are included.
+Proposal lookup and reception transfer still require an approved proposal source
+and directory destination; their absence is not masked with fake results.

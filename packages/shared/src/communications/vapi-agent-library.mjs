@@ -25,17 +25,17 @@ export class VapiAgentLibraryClient extends BoundedBinaryAdapterBase {
   if(!/^[a-f0-9-]{36}$/.test(row.id??''))fail('invalid_tool_id');
   const saved=this.scope(await this.request('/tool/'+row.id));if(!Object.entries(voicemailPayload).every(([k,v])=>isDeepStrictEqual(saved[k],v)))fail('tool_readback_failed');return saved.id;
  }
- async update(agent,previousPromptHash,voicemailId){
-  const id=savedAgents[agent.key];if(!id||!agent.prompt||agent.name.length>40)fail('agent_scope_required');
+ async update(agent,previousPromptHash,voicemailId,knowledgeId){
+  const id=savedAgents[agent.key];if(!id||!agent.prompt||agent.name.length>40||!knowledgeId)fail('agent_scope_required');
   const before=this.scope(await this.request('/assistant/'+id));
-  if(before.id!==id||before.name!==agent.name||!before.model||!Array.isArray(before.model.messages))fail('agent_scope_changed');
+  if(!knowledgeId||before.id!==id||before.name!==agent.name||!before.model||!Array.isArray(before.model.messages))fail('agent_scope_changed');
   const systems=before.model.messages.filter(m=>m.role==='system');
   if(systems.length!==1||typeof systems[0].content!=='string'||systems[0].content!==agent.prompt&&createHash('sha256').update(systems[0].content).digest('hex')!==previousPromptHash)fail('unreviewed_prompt_preserved');
   // Unknown business capabilities must be reviewed before combining with scripts.
-  if((before.model.toolIds??[]).some(x=>x!==voicemailId)||(before.model.tools??[]).some(x=>x.type!=='endCall')||(before.model.functions??[]).length||before.server?.url)fail('unreviewed_capabilities_preserved');
+  if((before.model.toolIds??[]).some(x=>![voicemailId,knowledgeId].includes(x))||(before.model.tools??[]).some(x=>x.type!=='endCall')||(before.model.functions??[]).length||before.server?.url)fail('unreviewed_capabilities_preserved');
   const model=structuredClone(before.model);model.messages=model.messages.map(m=>m.role==='system'?{...m,content:agent.prompt}:m);
   if(!(model.tools??[]).some(x=>x.type==='endCall'))model.tools=[...(model.tools??[]),{type:'endCall'}];
-  model.toolIds=[...new Set([...(model.toolIds??[]),voicemailId])];
+  model.toolIds=[...new Set([...(model.toolIds??[]),voicemailId,knowledgeId])];
   const artifactPlan={...(before.artifactPlan??{}),recordingEnabled:false,loggingEnabled:false,pcapEnabled:false,transcriptPlan:{...(before.artifactPlan?.transcriptPlan??{}),enabled:false}};
   const patch={model,firstMessage:agent.firstMessage,artifactPlan,voicemailMessage:''};
   const recheck=this.scope(await this.request('/assistant/'+id));if(!isDeepStrictEqual(recheck,before))fail('concurrent_change_preserved');
@@ -44,25 +44,25 @@ export class VapiAgentLibraryClient extends BoundedBinaryAdapterBase {
   // Provider-managed version receipt changes on PATCH; it is not a setting.
   const changedFields=Object.entries(before).filter(([k,v])=>!['updatedAt','latestVersion',...Object.keys(patch)].includes(k)&&!isDeepStrictEqual(saved[k],v)).map(([k])=>k);
   if(changedFields.length)throw Object.assign(Error('unrelated_setting_changed'),{changedFields});
-  return {key:agent.key,id,scriptVersion:agent.scriptVersion,configurationReadback:true,tools:['endCall','voicemail'],businessToolsAttached:false,callTested:false};
+  return {key:agent.key,id,scriptVersion:agent.scriptVersion,configurationReadback:true,tools:['endCall','voicemail','query'],businessToolsAttached:true,businessWriteToolsAttached:false,callTested:false};
  }
- async updateActiveReception(agent,verificationInstruction,voicemailId,previousPromptHash){
+ async updateActiveReception(agent,verificationInstruction,voicemailId,previousPromptHash,knowledgeId){
   const id='5ae2ab0c-fad0-454c-8cf7-64b81c91c850',verificationId='764dd85f-fafd-45c1-9352-45867ed94371';
   const before=this.scope(await this.request('/assistant/'+id));
-  if(before.id!==id||before.name!=='PrimeCare Reception - 4277'||agent.key!=='reception'||!Array.isArray(before.model?.messages)||!before.model.messages.some(m=>m.role==='system'&&m.content===verificationInstruction)||!(before.model.toolIds??[]).includes(verificationId)||before.server?.url)fail('active_reception_scope_changed');
-  if(before.model.toolIds.some(x=>![verificationId,voicemailId].includes(x))||(before.model.tools??[]).some(x=>x.type!=='endCall')||(before.model.functions??[]).length)fail('unreviewed_capabilities_preserved');
+  if(!knowledgeId||before.id!==id||before.name!=='PrimeCare Reception - 4277'||agent.key!=='reception'||!Array.isArray(before.model?.messages)||!before.model.messages.some(m=>m.role==='system'&&m.content===verificationInstruction)||!(before.model.toolIds??[]).includes(verificationId)||before.server?.url)fail('active_reception_scope_changed');
+  if(before.model.toolIds.some(x=>![verificationId,voicemailId,knowledgeId].includes(x))||(before.model.tools??[]).some(x=>x.type!=='endCall')||(before.model.functions??[]).length)fail('unreviewed_capabilities_preserved');
   const prefix='PrimeCare reception role script version ',marker=prefix+agent.scriptVersion+'\n',content=marker+agent.prompt;
   const managed=before.model.messages.filter(m=>m.role==='system'&&typeof m.content==='string'&&m.content.startsWith(prefix));
-  if(managed.length>1||managed.length===1&&managed[0].content!==content&&(!managed[0].content.startsWith(prefix+'2\n')||createHash('sha256').update(managed[0].content.slice((prefix+'2\n').length)).digest('hex')!==previousPromptHash))fail('unreviewed_prompt_preserved');
+  if(managed.length>1||managed.length===1&&managed[0].content!==content&&(!managed[0].content.startsWith(prefix+(agent.scriptVersion-1)+'\n')||createHash('sha256').update(managed[0].content.slice((prefix+(agent.scriptVersion-1)+'\n').length)).digest('hex')!==previousPromptHash))fail('unreviewed_prompt_preserved');
   const model=structuredClone(before.model);if(!managed.length)model.messages.push({role:'system',content});else model.messages=model.messages.map(m=>m.role==='system'&&typeof m.content==='string'&&m.content.startsWith(prefix)?{...m,content}:m);
   if(!(model.tools??[]).some(x=>x.type==='endCall'))model.tools=[...(model.tools??[]),{type:'endCall'}];
-  model.toolIds=[...new Set([...model.toolIds,voicemailId])];
+  model.toolIds=[...new Set([...model.toolIds,voicemailId,knowledgeId])];
   const patch={model,voicemailMessage:''};
   const recheck=this.scope(await this.request('/assistant/'+id));if(!isDeepStrictEqual(recheck,before))fail('concurrent_change_preserved');
   if(!Object.entries(patch).every(([k,v])=>isDeepStrictEqual(before[k],v)))await this.request('/assistant/'+id,'PATCH',patch);
   const saved=this.scope(await this.request('/assistant/'+id));if(!Object.entries(patch).every(([k,v])=>isDeepStrictEqual(saved[k],v)))fail('assistant_readback_failed');
   const changedFields=Object.entries(before).filter(([k,v])=>!['updatedAt','latestVersion',...Object.keys(patch)].includes(k)&&!isDeepStrictEqual(saved[k],v)).map(([k])=>k);
   if(changedFields.length)throw Object.assign(Error('unrelated_setting_changed'),{changedFields});
-  return {id,configurationReadback:true,verificationToolPreserved:true,roleScriptVersion:agent.scriptVersion,callTested:false};
+  return {id,configurationReadback:true,verificationToolPreserved:true,publicServiceToolAttached:true,roleScriptVersion:agent.scriptVersion,callTested:false};
  }
 }

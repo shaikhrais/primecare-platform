@@ -1,7 +1,7 @@
 # PrimeCare agent and tool pack
 
 Authentication is left unchanged. The eight existing saved assistants receive
-version-three role scripts and explicit per-role tool workflows. No duplicate
+version-four role scripts and explicit per-role tool workflows. No duplicate
 assistants, campaigns, calls or phone-routing changes are created.
 
 The machine-readable pack is `packages/shared/src/vapi-agent-tool-pack.json`.
@@ -38,7 +38,7 @@ Readback mismatch/network ambiguity is an uncertain outcome with no blind retry.
 Nine model-facing function parameter schemas and per-agent native function
 definitions are included. They omit owner/lead/version/operation identifiers,
 credentials and destinations; the host binds those independently. These are
-client-side/native-host definitions, not saved phone webhook tools.
+server-handler definitions; Vapi client-side tools cannot return results to the model. They require the result-returning server adapter and its existing native context, not browser side effects.
 
 The adapter requires a host-pinned saved-agent role and native scope. It is not
 permission to expose staff endpoints to an anonymous phone caller. The production
@@ -78,3 +78,33 @@ receipts and `evidence/vapi-agent-tools-prepared-20261027.json` for the complete
 20-capability contracts, nine native function parameter schemas, registered API
 bindings, per-agent tool selections and ten-stage map. The artifact explicitly
 records that live phone business tools are not yet attached.
+
+
+## Business runtime release in progress
+
+Authentication remains unchanged. Version-four agents receive a native Vapi Query
+tool backed by a content-hashed, independently read public enquiry-information
+file. The facts are limited to the existing PSW/home-care enquiry categories;
+there are no invented prices, availability, clinical promises or tenant offers.
+The release verifies saved attachments and performs a public-only text-chat
+acceptance check without calling or texting anyone.
+
+The four callback/booking/rescheduling/execution API Request tools are saved in
+Vapi with the existing provider credential, fixed action/task parameters and a
+server-resolved call header. They are not attached to phone agents while the
+business task endpoint is closed. Saving a tool does not activate a business write.
+
+The native business runner now combines eleven capabilities: the nine Growth
+operations plus owned client history and onboarding facts from the existing
+client profile, consent and service-authorization APIs. Onboarding facts do not
+certify overall onboarding completion; visit statuses do not prove delivered care.
+No client ID or private clinical notes enter the model-facing interface.
+
+Vapi's client-side tools cannot return results to the model. The new
+`VapiBusinessFunctionAdapter` therefore implements the actual server tool-call
+protocol: bounded batches, per-call string results/errors, current host context
+and per-tool authorization checks, durable replay handling and stable operation
+keys. Existing authentication/context and journal ports are mandatory; this
+adapter creates no login or permission and is not itself a mounted public route.
+Proposal lookup still needs an approved proposal source; transfer still needs an
+approved directory destination. Their absence is a business configuration gap.

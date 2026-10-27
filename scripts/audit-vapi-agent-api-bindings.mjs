@@ -9,7 +9,7 @@ const report={source:process.env.GITHUB_SHA,readOnly:true,authority:pin.schema,c
 try{
  await db.connect();await db.query('BEGIN READ ONLY');const manifest=(await db.query(`SELECT manifest_sha256 FROM "${pin.schema}".govt_source_manifest`)).rows;if(manifest.length!==1||manifest[0].manifest_sha256!==pin.manifestSha256)throw Error('authority_mismatch');await db.query("SET LOCAL statement_timeout='15s'");
  const rows=(await db.query(`SELECT to_jsonb(a) AS row FROM "${pin.schema}".govt_api_endpoints a`)).rows;
- for(const {row} of rows){const path=unwrap(row.route_path);if(typeof path!=='string'||!path.startsWith('/v1/governance/growth')&&!/(vapi|lead|appointment|booking|consultation|proposal|onboarding|callback|suppression|consent|service.catalog|availability)/i.test(path))continue;
+ for(const {row} of rows){const path=unwrap(row.route_path);if(typeof path!=='string'||!path.startsWith('/v1/governance/growth')&&!/(vapi|lead|appointment|booking|consultation|proposal|onboarding|callback|suppression|consent|service.catalog|availability|client\/visits|client\/home\/profile|client\/consents|client\/service-authorizations)/i.test(path))continue;
   report.candidates.push(Object.fromEntries(['id','endpoint_code','route_path','http_method','service_name','implementation_status','permission_key','auth_required'].map(k=>[k,unwrap(row[k])??null])));
  }
  await db.query('ROLLBACK');

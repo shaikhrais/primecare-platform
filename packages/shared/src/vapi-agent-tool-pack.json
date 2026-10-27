@@ -22,9 +22,9 @@
     },
     {
       "key": "service.catalogue",
-      "description": "Read approved service details and published administrative policies.",
-      "family": "apiRequest",
-      "preparation": "backend_missing"
+      "description": "Search approved public PSW/home-care enquiry information; no pricing, availability or private records.",
+      "family": "query",
+      "preparation": "native_query_ready"
     },
     {
       "key": "lead.lookup",
@@ -124,15 +124,33 @@
     },
     {
       "key": "client.onboarding_status",
-      "description": "Read client onboarding progress; partner onboarding APIs are excluded.",
-      "family": "apiRequest",
-      "preparation": "backend_missing"
+      "description": "Read owned profile, consent and service-authorization statuses. The backend does not certify overall onboarding completion.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/client/home/profile",
+        "method": "GET"
+      },
+      "apiDependencies": [
+        {
+          "path": "/v1/client/consents",
+          "method": "GET"
+        },
+        {
+          "path": "/v1/client/service-authorizations",
+          "method": "GET"
+        }
+      ]
     },
     {
       "key": "client.service_history",
-      "description": "Read authorized client service history; CRM milestones are not care delivery.",
-      "family": "apiRequest",
-      "preparation": "backend_missing"
+      "description": "Read owned client visit records and their recorded statuses; never expose clinical notes or infer delivered care.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/client/visits",
+        "method": "GET"
+      }
     },
     {
       "key": "callback.propose",
@@ -200,7 +218,8 @@
       "lead.followup",
       "lead.suppress",
       "callback.propose",
-      "request.execute"
+      "request.execute",
+      "service.catalogue"
     ],
     "qualification": [
       "call.end",
@@ -223,7 +242,8 @@
       "lead.followup",
       "lead.suppress",
       "callback.propose",
-      "request.execute"
+      "request.execute",
+      "service.catalogue"
     ],
     "proposal": [
       "call.end",
@@ -234,7 +254,8 @@
       "lead.followup",
       "lead.suppress",
       "callback.propose",
-      "request.execute"
+      "request.execute",
+      "service.catalogue"
     ],
     "booking_recovery": [
       "call.end",
@@ -253,7 +274,8 @@
       "call.voicemail",
       "client.onboarding_status",
       "callback.propose",
-      "request.execute"
+      "request.execute",
+      "service.catalogue"
     ],
     "retention": [
       "call.end",
@@ -264,7 +286,8 @@
       "lead.followup",
       "lead.suppress",
       "callback.propose",
-      "request.execute"
+      "request.execute",
+      "service.catalogue"
     ]
   },
   "stageRouting": {

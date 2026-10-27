@@ -1,0 +1,15 @@
+PrimeCare public enquiry information
+
+The PrimeCare territory enquiry form accepts two service-interest categories:
+- PSW
+- Home care
+
+These are enquiry categories, not a guarantee of a bookable service, a provider's eligibility, or available appointments.
+
+This information contains no approved prices, discounts, opening hours, service-area guarantees, insurance coverage, cancellation terms, clinical advice or appointment availability. A team member must confirm details that are not available from a current authorized business result.
+
+An enquiry is not a confirmed appointment. A saved callback request is not a guarantee that a callback has been assigned or completed. A CRM consultation record does not confirm clinical care.
+
+For administrative enquiries, ask the preferred service, service area and timing one question at a time. Do not request clinical histories, payment-card details or government identification.
+
+For questions requiring individual records, use the existing approved account workflow. Do not reveal account information from this public knowledge source.

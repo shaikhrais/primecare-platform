@@ -1442,3 +1442,23 @@ and per-agent function definitions. The host passes its stable operation ID
 separately to `executeFunction`; function parameters cannot supply trusted IDs,
 versions, credentials or destinations. Native functions need their existing
 authenticated host and are not automatically attached to saved phone agents.
+
+### Result-returning Vapi business runtime
+
+`VapiBusinessFunctionAdapter` is the server tool-calls protocol boundary, composed
+with `createVapiBusinessToolRunner`. Native/client-side Vapi functions cannot
+return tool results to the model; do not deploy the earlier parameter definitions
+as browser side effects for business reasoning. The server adapter requires the
+existing credential verifier, canonical/current context resolver, per-tool access
+policy and durable journal. It returns bounded flat string results/errors per
+original tool-call ID, rejects identity overrides and duplicate batch IDs, and
+never retries uncertain writes. Resource/version and native permission checks
+remain in the actual API adapters. This class mounts no unregistered route.
+
+`VapiClientToolClient` adds read-only owned visit history and profile/consent/
+service-authorization status facts; all current native auth remains in its host.
+`VapiPublicKnowledgeClient` provisions the native query capability from an exact
+content-hashed public file, verifies raw content and tool readback, and performs
+a public-only chat probe. `VapiRequestToolLibraryClient` saves four existing
+registered request tools with the existing credential reference, trusted static
+actions and call header, without changing credentials or attaching writes.
