@@ -1424,5 +1424,30 @@
     "existingDenials": "preserve",
     "providerWrites": false,
     "activation": false
+  },
+  "vapiClientReadContractWriter": {
+    "optInVariable": "GOVERNANCE_VAPI_CLIENT_READS",
+    "tables": [
+      "api_endpoints",
+      "screen_api_links"
+    ],
+    "paths": [
+      "/v1/client/visits",
+      "/v1/client/consents",
+      "/v1/client/service-authorizations"
+    ],
+    "anchorApiId": 16431,
+    "screenCode": "client_profile",
+    "definitionSha256": "ee3b59ce3e7dd6631245475caff598239deaafeb37a2bc0f1129ff2e1c2b8e30",
+    "sourceSha256": {
+      "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5",
+      "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5"
+    },
+    "schemaChanges": false,
+    "roleGrants": false,
+    "authenticationChanges": false,
+    "businessDataWrites": false,
+    "providerWrites": false,
+    "activation": false
   }
 }
