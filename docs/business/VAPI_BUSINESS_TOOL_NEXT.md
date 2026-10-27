@@ -77,3 +77,10 @@ real code was accepted or an appointment was saved.
   fresh gateway boundary, authorized status, role denial, revocation and cleanup.
 - [Business tool pack](VAPI_AGENT_TOOL_PACK.md): saved tool IDs, owner API
   registrations, handler coverage and actual attachment states.
+
+Fresh production readback at workflow 40548592246 independently confirmed all
+eight saved OTP configurations, original receptionist, phone routing and recovered
+enrollment boundary. The direct spoken-SMS path has only two remaining identity
+acceptance blockers: zero enrolled account phones and no real caller OTP test.
+The native pairing path remains separate. Private business actions remain closed.
+Receipt: [vapi-authentication-readiness-20261027.json](evidence/vapi-authentication-readiness-20261027.json).

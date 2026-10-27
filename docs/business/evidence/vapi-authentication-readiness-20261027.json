@@ -1,0 +1,184 @@
+{
+  "sourceCommit": "37132172585b6837b33f828f3cf31c019c2119ca",
+  "workflowRunId": 40548592246,
+  "readinessJobId": 122346254220,
+  "step": 3,
+  "readinessMeasured": true,
+  "liveCallVerified": false,
+  "liveOtpVerified": false,
+  "smsSent": false,
+  "businessActionsEnabled": false,
+  "toolsAttached": true,
+  "blockers": [
+    "no_verified_voice_contacts",
+    "real_caller_otp_acceptance_pending"
+  ],
+  "nativePairingPath": {
+    "requiredForSpokenSms": false,
+    "ready": false,
+    "blockers": [
+      "native_permission_not_ready:/v1/voice/otp/start",
+      "native_permission_not_ready:/v1/voice/otp/check",
+      "private_pre_ai_pairing_delivery_not_connected",
+      "native_app_pairing_ui_not_connected",
+      "native_pairing_otp_runtime_not_deployed"
+    ]
+  },
+  "stage": "complete",
+  "tables": {
+    "communication_voice_verified_contacts": true,
+    "communication_voice_otp": true,
+    "communication_voice_otp_limits": true,
+    "communication_voice_tasks": true,
+    "communication_callback_requests": true,
+    "communication_voice_confirmations": true,
+    "communication_voice_contact_challenges": true,
+    "users": true,
+    "tenants": true,
+    "auth_sessions": true
+  },
+  "nativeSessionCreationTimeAvailable": true,
+  "activeVerifiedContactCount": 0,
+  "nativeContactRoleAccess": [
+    {
+      "role": "caregiver",
+      "app": "clinic",
+      "origin": "https://primecare-clinic.pages.dev",
+      "home": "/offices/clinical/roles/caregiver/dashboard",
+      "screen_id": "578",
+      "screen": "messaging",
+      "can_view": "1"
+    },
+    {
+      "role": "code_admin",
+      "app": "go",
+      "origin": null,
+      "home": "/platform/administration",
+      "screen_id": "1269",
+      "screen": "PLATFORM_ADMINISTRATION",
+      "can_view": "1"
+    },
+    {
+      "role": "code_admin",
+      "app": "go",
+      "origin": null,
+      "home": "/platform/administration",
+      "screen_id": "2520",
+      "screen": "look_review_manager",
+      "can_view": "1"
+    },
+    {
+      "role": "customer_support",
+      "app": "support",
+      "origin": "https://primecare-support.pages.dev",
+      "home": "/common/customer-support-analytics",
+      "screen_id": "559",
+      "screen": "communication",
+      "can_view": "1"
+    },
+    {
+      "role": "patient",
+      "app": "client",
+      "origin": "https://primecare-client.pages.dev",
+      "home": "/common/family-member-dashboard",
+      "screen_id": "331",
+      "screen": "patient_messages",
+      "can_view": "1"
+    },
+    {
+      "role": "psw",
+      "app": "clinic",
+      "origin": "https://primecare-clinic.pages.dev",
+      "home": "/care",
+      "screen_id": "234",
+      "screen": "psw_messages",
+      "can_view": "1"
+    }
+  ],
+  "nativeContactCodeAdminApiAccess": [
+    {
+      "path": "/v1/voice/contact/check",
+      "can_access": "1",
+      "permission": "role_screen_permissions"
+    },
+    {
+      "path": "/v1/voice/contact/start",
+      "can_access": "1",
+      "permission": "role_screen_permissions"
+    },
+    {
+      "path": "/v1/voice/contact/status",
+      "can_access": "1",
+      "permission": "role_screen_permissions"
+    }
+  ],
+  "nativeTaskPermissions": [
+    {
+      "path": "/v1/voice/tasks/approve",
+      "registration_count": 1,
+      "grant_count": 4
+    },
+    {
+      "path": "/v1/voice/tasks/preview",
+      "registration_count": 1,
+      "grant_count": 4
+    }
+  ],
+  "nativeOtpPermissions": [
+    {
+      "path": "/v1/voice/otp/check",
+      "registration_count": 1,
+      "grant_count": 0
+    },
+    {
+      "path": "/v1/voice/otp/start",
+      "registration_count": 1,
+      "grant_count": 0
+    }
+  ],
+  "nativeContactPermissions": [
+    {
+      "path": "/v1/voice/contact/check",
+      "registration_count": 1,
+      "grant_count": 5
+    },
+    {
+      "path": "/v1/voice/contact/start",
+      "registration_count": 1,
+      "grant_count": 5
+    },
+    {
+      "path": "/v1/voice/contact/status",
+      "registration_count": 1,
+      "grant_count": 5
+    }
+  ],
+  "unknownProviderCallRejected": true,
+  "nativeContactBoundary": {
+    "deploymentRecorded": true,
+    "boundaryVerified": true,
+    "smsSent": false,
+    "authenticatedUserVerified": false,
+    "sourceCommit": "f31a704087d76a897aa9fd8bff9833da3f7eea8b",
+    "httpStatus": 401,
+    "sourceMatchesReceipt": true,
+    "observedSourceCommit": "f31a704087d76a897aa9fd8bff9833da3f7eea8b",
+    "noStore": true,
+    "corsMatches": true
+  },
+  "spokenSms": {
+    "configurationRecorded": true,
+    "configurationVerified": true,
+    "agentsVerified": 8,
+    "anonymousDenied": true,
+    "liveOtpVerified": false,
+    "smsSent": false,
+    "businessActionsEnabled": false,
+    "source": "f873b360fd8ab41b5a8e6ebce2ee990c6c11d125",
+    "toolReadback": true,
+    "activeReceptionVerified": true,
+    "phoneRoutingVerified": true
+  },
+  "ready": false,
+  "status": "spoken_sms_configured_account_enrollment_or_live_acceptance_pending"
+}
