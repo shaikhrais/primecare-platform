@@ -1,7 +1,7 @@
 import {BoundedBinaryAdapterBase} from './adapter-base.mjs';
 import catalogue from '../vapi-client-support-tools.json' with {type:'json'};
 import registered from './registered-contracts.json' with {type:'json'};
-const id=v=>typeof v==='string'&&/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(v);
+const id=v=>typeof v==='string'&&!!v.trim()&&v.length<=200&&!/[\u0000-\u001f\u007f]/.test(v);
 const uuid=v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(v);
 const version=v=>Number.isSafeInteger(v)&&v>0;
 const fail=code=>{throw Object.assign(Error(code),{code});};
@@ -21,7 +21,7 @@ export class VapiClientSupportToolClient extends BoundedBinaryAdapterBase {
  #current(){if(this.#scope()!==this.#initial)fail('native_context_changed');}
  functionDefinitions(){if(!this.#support)return [];return catalogue.roles[this.#agent].map(key=>({type:'function',function:{name:catalogue.tools[key].name,description:catalogue.tools[key].description,parameters:structuredClone(schema)}}));}
  async #request(body){
-  this.#current();const send=this.#send,response=await send('https://primecare-api-gateway.itpro-mohammed.workers.dev'+catalogue.path,{method:'POST',redirect:'manual',headers:{accept:'application/json','content-type':'application/json'},body:JSON.stringify(body)});this.#current();
+  this.#current();const send=this.#send,response=await send('https://primecare-api-gateway.itpro-mohammed.workers.dev'+catalogue.path,{method:'POST',redirect:'manual',signal:AbortSignal.timeout(15000),headers:{accept:'application/json','content-type':'application/json'},body:JSON.stringify(body)});try{this.#current();}catch(error){await response.body?.cancel();throw error;}
   if(!response.ok){await response.body?.cancel();fail([401,403].includes(response.status)?'native_api_denied':response.status===409?'native_api_conflict':'support_api_unavailable');}
   const result=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await this.readBoundedBody(response.body)));this.#current();if(!result||typeof result!=='object'||Array.isArray(result)||Object.hasOwn(result,'error'))fail('invalid_support_response');return result;
  }

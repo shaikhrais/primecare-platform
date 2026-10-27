@@ -1,0 +1,18 @@
+{
+  "requirement":"Native client-owned booking requests only, through the registered existing lifecycle APIs. Host binds service, time zone, optional request and independent confirmation. Requests are not confirmed appointments.",
+  "tools":{
+    "create":{"name":"primecare_client_booking_request_create","description":"After independent confirmation, save a pending request for the host-selected service and the caller's preferred local date/time. This does not reserve availability or confirm an appointment."},
+    "status":{"name":"primecare_client_booking_request_status","description":"Read the status of the existing host-bound client-owned booking request. Does not read another account or confirm a service appointment."},
+    "cancel":{"name":"primecare_client_booking_request_cancel","description":"After independent confirmation, cancel only the existing host-bound pending booking request. This does not cancel an actual service appointment."}
+  },
+  "roles":{
+    "reception":["create","status","cancel"],
+    "new_enquiry":["create","status"],
+    "qualification":["status"],
+    "consultation":["create","status","cancel"],
+    "proposal":["status"],
+    "booking_recovery":["create","status","cancel"],
+    "onboarding":["status"],
+    "retention":["create","status","cancel"]
+  }
+}

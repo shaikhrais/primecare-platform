@@ -1534,3 +1534,26 @@ clinical chart entry. Saving a question does not prove an expert replied.
 The optional handlers are built/tested native business functions. They are not
 attached phone tools until the existing native business host supplies all ports;
 the deployed protected phone information tool remains read-only.
+
+### Native pending booking-request tools
+
+`VapiBookingRequestToolClient` adds create/status/cancel functions through the
+existing client-owned booking-request lifecycle and item-read APIs. Production
+metadata restoration precedes this adapter. The host supplies `bookingRequests`
+with its approved service, clinic time zone, optional bound request ID and an
+independent confirmation callback. These fields join the runtime scope hash.
+Only preferred date/time are model inputs for create; status/cancel accept none.
+
+Create validates a future local preference and stores a pending request with a
+stable native idempotency key. Cancel targets only the bound pending request,
+rechecks its state after confirmation and uses the native transaction/status
+check. Both independently read and match the saved request. A terminal state is
+reported as an observation, never a new successful cancellation. These operations
+do not inspect bookable slots, create a confirmed appointment or cancel one.
+Unknown mutation results are not retried automatically. The separate status tool
+can read a known owner request; a lost create response without an ID requires
+checking the native client's request list.
+
+The expanded runner has sixteen native capabilities (eleven existing plus two
+support messages and three booking-request functions). This count describes
+implemented handlers, not provider attachment or live phone-write activation.

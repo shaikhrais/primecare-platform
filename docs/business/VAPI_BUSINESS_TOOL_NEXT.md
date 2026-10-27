@@ -124,3 +124,20 @@ model overrides, version races, lost responses and complete Vapi protocol replay
 These two handlers are not yet attached to phone agents: the native write host
 and actual recipient/conversation binding are still required. They create no
 clinical chart note or expert reply.
+
+## Native request tools built
+
+`primecare_client_booking_request_create`,
+`primecare_client_booking_request_status` and
+`primecare_client_booking_request_cancel` now reuse the existing client-owned
+request lifecycle. The host binds the approved service/clinic time zone, current
+native account and optional target request; writes require independent
+confirmation. Saved create/cancel receipts are independently read back, and an
+uncertain send never retries automatically. A pending request is not an actual
+confirmed appointment, and cancelling it does not cancel a service booking.
+
+Together with the two support-message functions, five new native tools are built
+and composed into the shared server runner. The phone write host remains
+unmounted; these five tools are not attached to phone assistants yet. Actual
+account registration, bookable availability, service appointment changes and
+approved expert/transfer routing remain separate unfinished dependencies.
