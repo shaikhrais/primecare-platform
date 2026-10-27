@@ -1,0 +1,161 @@
+{
+  "source": "f873b360fd8ab41b5a8e6ebce2ee990c6c11d125",
+  "registered": true,
+  "deployed": true,
+  "toolCreated": false,
+  "attached": true,
+  "anonymousDenied": true,
+  "unknownCallDenied": true,
+  "smsSent": false,
+  "liveCodeVerified": false,
+  "phoneRoutingChanged": false,
+  "businessToolsEnabled": false,
+  "stage": "complete",
+  "apiId": 16565,
+  "verifyServiceReadback": true,
+  "credentialRotated": true,
+  "credentialId": "84312e6b-93c2-47c8-af91-59627513eac5",
+  "endpoint": "https://primecare-vapi-verification-api.itpro-mohammed.workers.dev/v1/vapi/voice/verification",
+  "toolId": "764dd85f-fafd-45c1-9352-45867ed94371",
+  "savedAgentAuthentication": [
+    {
+      "key": "reception",
+      "id": "9ba3014c-cfaa-4607-997c-b5347212be54",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "tools": [
+        "endCall",
+        "voicemail",
+        "query",
+        "phoneVerification"
+      ],
+      "phoneVerificationAttached": true,
+      "businessToolsAttached": true,
+      "businessWriteToolsAttached": false,
+      "callTested": false
+    },
+    {
+      "key": "new_enquiry",
+      "id": "8d9123e9-ac5b-4b2c-abbf-0447b3fbc5ff",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "tools": [
+        "endCall",
+        "voicemail",
+        "query",
+        "phoneVerification"
+      ],
+      "phoneVerificationAttached": true,
+      "businessToolsAttached": true,
+      "businessWriteToolsAttached": false,
+      "callTested": false
+    },
+    {
+      "key": "qualification",
+      "id": "07b2e8c6-d4a9-4284-bb2b-ffae589183b3",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "tools": [
+        "endCall",
+        "voicemail",
+        "query",
+        "phoneVerification"
+      ],
+      "phoneVerificationAttached": true,
+      "businessToolsAttached": true,
+      "businessWriteToolsAttached": false,
+      "callTested": false
+    },
+    {
+      "key": "consultation",
+      "id": "16fc27f3-2c96-49b4-aa76-be6ee099c0ec",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "tools": [
+        "endCall",
+        "voicemail",
+        "query",
+        "phoneVerification"
+      ],
+      "phoneVerificationAttached": true,
+      "businessToolsAttached": true,
+      "businessWriteToolsAttached": false,
+      "callTested": false
+    },
+    {
+      "key": "proposal",
+      "id": "322ff7af-f657-424e-91fc-47b7dfd66074",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "tools": [
+        "endCall",
+        "voicemail",
+        "query",
+        "phoneVerification"
+      ],
+      "phoneVerificationAttached": true,
+      "businessToolsAttached": true,
+      "businessWriteToolsAttached": false,
+      "callTested": false
+    },
+    {
+      "key": "booking_recovery",
+      "id": "01231dfe-d02a-45a3-9faf-9eb2ebe14e75",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "tools": [
+        "endCall",
+        "voicemail",
+        "query",
+        "phoneVerification"
+      ],
+      "phoneVerificationAttached": true,
+      "businessToolsAttached": true,
+      "businessWriteToolsAttached": false,
+      "callTested": false
+    },
+    {
+      "key": "onboarding",
+      "id": "469ed456-4e68-4d2f-b09e-6658bae5bfdd",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "tools": [
+        "endCall",
+        "voicemail",
+        "query",
+        "phoneVerification"
+      ],
+      "phoneVerificationAttached": true,
+      "businessToolsAttached": true,
+      "businessWriteToolsAttached": false,
+      "callTested": false
+    },
+    {
+      "key": "retention",
+      "id": "d1985ae7-8e35-4a7e-8f08-6a6dace03632",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "tools": [
+        "endCall",
+        "voicemail",
+        "query",
+        "phoneVerification"
+      ],
+      "phoneVerificationAttached": true,
+      "businessToolsAttached": true,
+      "businessWriteToolsAttached": false,
+      "callTested": false
+    }
+  ],
+  "authenticationUpdated": true,
+  "assistantId": "5ae2ab0c-fad0-454c-8cf7-64b81c91c850",
+  "artifactStorageDisabled": true,
+  "eligibleVerifiedContacts": 0,
+  "status": "deployed_and_attached_live_sms_test_pending",
+  "releaseRunId": 40546849680,
+  "testJobId": 122339634930,
+  "deployJobId": 122340054392,
+  "localAuthChecks": 53,
+  "localWorkerRuntime": "passed synthetic SMS, restart persistence, proof binding, expiry and attempt limits",
+  "realCallerOtpTested": false
+}

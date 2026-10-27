@@ -15,3 +15,8 @@ test('changed source, missing CORS or cache policy and unexpected status are not
 test('transport outages remain unverified without a retry or private provider details',async()=>{
  let requests=0;const checked=await verifyNativeContactDeployment(receipt,async()=>{requests++;throw Error('private');});assert.equal(requests,1);assert.equal(checked.boundaryVerified,false);assert.equal(JSON.stringify(checked).includes('private'),false);
 });
+
+test('readback explains source drift without blessing a different deployment',async()=>{
+ const checked=await verifyNativeContactDeployment(receipt,async()=>new Response('{}',{status:401,headers:{...headers,'x-primecare-voice-contact-source':'b'.repeat(40)}}));
+ assert.equal(checked.boundaryVerified,false);assert.equal(checked.httpStatus,401);assert.equal(checked.sourceMatchesReceipt,false);assert.equal(checked.observedSourceCommit,'b'.repeat(40));assert.equal(checked.corsMatches,true);assert.equal(checked.noStore,true);
+});

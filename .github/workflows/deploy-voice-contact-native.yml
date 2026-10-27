@@ -5,6 +5,8 @@ on:
     paths:
       - '.github/workflows/deploy-voice-contact-native.yml'
       - 'scripts/verify-live-sms-status.mjs'
+      - 'scripts/voice-contact-deployment-readback.mjs'
+      - 'scripts/test-voice-contact-deployment-readback.mjs'
       - 'cloudflare/workers/src/business-tasks/voice-contact-worker.ts'
       - 'cloudflare/workers/src/business-tasks/voice-contact.ts'
       - 'cloudflare/workers/src/business-tasks/voice-contact-postgres.ts'
@@ -56,7 +58,7 @@ jobs:
           node scripts/migrate-voice-identity-schema.mjs --reference
           node --test scripts/test-voice-identity-schema.mjs
           node --test scripts/test-voice-contact-enrollment.mjs scripts/test-communication-twilio-verify.mjs scripts/test-communication-twilio-credentials.mjs
-          node --test scripts/test-voice-contact-worker.mjs scripts/test-communication-gateway.mjs scripts/test-voice-contact-deployment-plan.mjs
+          node --test scripts/test-voice-contact-worker.mjs scripts/test-communication-gateway.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-voice-contact-deployment-readback.mjs
           node scripts/test-voice-contact-workerd.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/voice-contact-worker.ts packages/shared/src/communications/voice-native-http.d.mts packages/shared/src/communications/twilio-verify-fetch.d.mts
       - uses: actions/upload-artifact@v4
@@ -112,6 +114,17 @@ jobs:
           TWILIO_API_KEY_SECRET: ${{ secrets.TWILIO_API_KEY_SECRET }}
           TWILIO_VERIFY_SERVICE_SID: ${{ secrets.TWILIO_VERIFY_SERVICE_SID }}
         run: node scripts/deploy-voice-contact-native.mjs
+      - name: Independently verify the newly deployed enrollment receipt
+        run: |
+          node --input-type=module - <<'JS'
+          import {readFile,writeFile} from 'node:fs/promises';
+          import {verifyNativeContactDeployment} from './scripts/voice-contact-deployment-readback.mjs';
+          const receipt=JSON.parse(await readFile('test-results/voice-contact-native/deployment.json','utf8'));
+          const result=await verifyNativeContactDeployment(receipt);
+          await writeFile('test-results/voice-contact-native/fresh-boundary.json',JSON.stringify(result,null,2)+'\n');
+          console.log('NATIVE_CONTACT_FRESH_BOUNDARY '+JSON.stringify(result));
+          if(!result.boundaryVerified)throw Error('Native enrollment boundary not verified');
+          JS
       - name: Verify current native SMS status, permission denial and session revocation without sending SMS
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}

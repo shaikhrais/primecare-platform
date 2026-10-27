@@ -89,3 +89,15 @@ business-action confirmation are not manufactured from an OTP result.
 Authentication attachment and live code acceptance are separate checks. A
 verified saved configuration does not prove a real caller completed verification,
 or that account creation, appointment writes or expert routing are deployed.
+
+Authentication release `f873b360fd8ab41b5a8e6ebce2ee990c6c11d125`, workflow
+40546849680, deployed successfully. All eight saved role configurations now have
+`primecare_phone_verification` and exact current-call instructions; independent
+readback passed. Anonymous and unknown-call requests were denied. The dedicated
+provider credential was rotated by the release and read back; no token is in the
+receipt. Phone routing is unchanged. Evidence:
+[evidence/vapi-agent-authentication-20261027.json](evidence/vapi-agent-authentication-20261027.json).
+
+The live inventory still has zero enrolled account phones. Recovery of the native
+first-time phone-enrollment boundary is therefore the next concrete dependency.
+No real SMS/code acceptance or private business action has been claimed.

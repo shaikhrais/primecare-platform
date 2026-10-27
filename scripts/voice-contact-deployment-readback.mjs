@@ -12,7 +12,15 @@ export async function verifyNativeContactDeployment(receipt,transport=globalThis
   if(!/^[a-z0-9][a-z0-9-]{0,62}$/.test(subdomain)||[native,gateway].some(u=>u.protocol!=='https:'||u.username||u.password||u.port)||native.origin!==receipt.nativeOrigin||gateway.origin!==receipt.gatewayOrigin||gateway.hostname!==config.gatewayName+'.'+subdomain+suffix)return result;
   result.deploymentRecorded=true;result.sourceCommit=receipt.sourceCommit;
   const response=await transport(gateway.origin+'/v1/voice/contact/status',{method:'POST',redirect:'error',signal:AbortSignal.timeout(15000),headers:{authorization:'Bearer '+randomBytes(32).toString('base64url'),'content-type':'application/json','user-agent':'PrimeCare-Native-Contact-Readiness/1.0','cache-control':'no-cache',origin:config.appOrigins[0]},body:'{}'});
-  try{result.boundaryVerified=response.status===401&&response.headers.get('x-primecare-voice-contact-source')===receipt.sourceCommit&&response.headers.get('cache-control')?.includes('no-store')===true&&response.headers.get('access-control-allow-origin')===config.appOrigins[0];}finally{await response.body?.cancel();}
+  try{
+   result.httpStatus=response.status;
+   const source=response.headers.get('x-primecare-voice-contact-source');
+   result.sourceMatchesReceipt=source===receipt.sourceCommit;
+   if(/^[a-f0-9]{40}$/.test(source??''))result.observedSourceCommit=source;
+   result.noStore=response.headers.get('cache-control')?.includes('no-store')===true;
+   result.corsMatches=response.headers.get('access-control-allow-origin')===config.appOrigins[0];
+   result.boundaryVerified=response.status===401&&result.sourceMatchesReceipt&&result.noStore&&result.corsMatches;
+  }finally{await response.body?.cancel();}
  }catch{}
  return result;
 }
