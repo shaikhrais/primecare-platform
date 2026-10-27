@@ -1576,3 +1576,25 @@ Run `node scripts/test-vapi-business-journal-workerd.mjs` with isolated esbuild 
 Miniflare dependencies for real local Durable Object transaction/restart tests,
 including complete server-protocol replay with exactly one synthetic execution.
 This isolated storage fixture is not an operational governance authority.
+
+
+### Concrete Vapi callback tool host
+
+`createPostgresVapiCallbackHost` in the Worker business-task package composes the
+registered API Request transport with the existing callback persistence core.
+It requires dedicated provider authentication, a canonical call directory,
+`VapiVerifiedCallIdentityService`, private transactional receipt storage and a
+rate-limit port. It verifies API 16534 and the pinned governance manifest, then
+uses current native callback API/screen grants and independent app approval.
+The metadata registration check also runs during scoped task/persistence checks.
+Only callback requests are enabled in this factory; appointment creation and
+rescheduling never acquire a permissive fallback. This factory mounts no route,
+creates no native session and attaches no tools. Deployment must provide private
+bindings and separately mount the registered native approval host. Keep the
+private write boundary closed until that deployment is independently verified.
+
+`test-reception-callback-postgres.mjs` covers the composed provider transport,
+actual PostgreSQL permission lookups, current OTP proof, native app approval,
+saved callback/readback, durable claims after host reconstruction and duplicate
+execution prevention. Fixture provider calls and proof ports make no live calls
+or SMS. The fixture connection is restricted to a named local disposable database.

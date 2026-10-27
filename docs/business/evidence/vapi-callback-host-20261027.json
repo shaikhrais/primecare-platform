@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-27",
+  "branch": "main",
+  "sourceCommit": "131be2d51355bda481c6e6c4f7d995b46a64aef9",
+  "component": "createPostgresVapiCallbackHost",
+  "registeredApiId": 16534,
+  "allowedTaskIds": [
+    "reception.callback.request"
+  ],
+  "ci": {
+    "runId": 40564830816,
+    "jobId": 122403197479,
+    "conclusion": "success",
+    "focusedChecks": 23,
+    "postgresScenarioGroups": 21,
+    "strictTypeScript": "passed"
+  },
+  "verified": [
+    "provider credential and pinned API/manifest metadata",
+    "current canonical call and private OTP proof",
+    "current native callback API and linked-screen grants",
+    "independent authenticated native app approval",
+    "real PostgreSQL callback save and independent readback",
+    "durable claim survives host reconstruction",
+    "duplicate or uncertain requests never repeat execution",
+    "missing proof, ended call, denied role and changed metadata cannot create requests"
+  ],
+  "traffic": {
+    "providerTraffic": false,
+    "productionWrites": false,
+    "phoneToolAttachments": 0,
+    "deploymentPerformed": false
+  },
+  "remaining": [
+    "production host mounting and private call/proof/storage bindings",
+    "registered native approval routes mounting",
+    "real enrolled account phone and OTP acceptance",
+    "authoritative signup, service availability and appointment change services",
+    "approved expert and human transfer routing"
+  ],
+  "broaderChecks": {
+    "allRepositoryChecksPassed": false,
+    "knownSeparateFailures": [
+      "gateway reviewed source amendment differs",
+      "password-browser fixture missing @twilio/voice-sdk"
+    ]
+  }
+}
