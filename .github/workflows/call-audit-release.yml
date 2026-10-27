@@ -32,9 +32,10 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/audit-test" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 twilio@6.2.0 pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 @cloudflare/workers-types@4.20260403.1 miniflare@4.20260730.0
           ln -s "$RUNNER_TEMP/audit-test/node_modules" node_modules
       - run: |
-          node --test scripts/test-call-audit.mjs scripts/test-vapi-service-auth.mjs scripts/test-vapi-call-read.mjs scripts/test-vapi-call-identity.mjs
+          node --test scripts/test-verification-outcome.mjs scripts/test-call-audit.mjs scripts/test-vapi-service-auth.mjs scripts/test-vapi-call-read.mjs scripts/test-vapi-call-identity.mjs
           node scripts/migrate-call-audit.mjs --reference
           node scripts/test-call-audit-postgres.mjs
+          node scripts/test-call-audit-provider-workerd.mjs
           node scripts/test-vapi-spoken-workerd.mjs
           node scripts/test-vapi-callback-worker-workerd.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --types node,@cloudflare/workers-types cloudflare/workers/src/business-tasks/call-audit-events-worker.ts cloudflare/workers/src/business-tasks/vapi-spoken-worker.ts cloudflare/workers/src/business-tasks/vapi-callback-worker.ts

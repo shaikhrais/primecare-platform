@@ -52,3 +52,17 @@ assistants. Configuration hashes and tool coverage inventories are persisted.
 It makes no calls, sends no SMS, enrolls no phone and grants no native permissions.
 Real incoming webhook/tool acceptance still requires a real caller test; a passing
 fixture or historical snapshot is not evidence of that test.
+
+## Verification-denial correction
+
+The 2026-10-27 owner call produced a direct backend audit receipt with
+`no_verified_account_phone`. This means no eligible verified phone binding was
+found; it does not prove no user account exists and is not an outage. The tool now
+returns an expected `account_phone_not_verified` result with `codeRequested=false`.
+The nine agent instructions map that status to account-phone enrollment or
+registration help at reception. Infrastructure errors remain separate, and the
+private audit records the safe outcome and reason.
+
+A live audit gap exposed `redirect: error`, which Node fetch accepts but workerd
+rejects. Audit provider reads now use manual redirects and reject non-success
+statuses. A real-workerd Vapi/Twilio projection regression test covers this path.

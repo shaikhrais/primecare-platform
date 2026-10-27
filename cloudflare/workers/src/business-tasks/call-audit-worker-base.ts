@@ -54,6 +54,7 @@ export class CallAuditedWorker<E extends AuditEnv> extends BaseWorker<E>{
     const raw=await response.clone().text();if(raw.length<1048576){const body=JSON.parse(raw),entry=body.results?.[0];
      if(body.error||entry?.error)outcome='denied';
      let result=entry?.result??body;if(typeof result==='string')try{result=JSON.parse(result);}catch{result={};}
+     if(['account_phone_not_verified','account_selection_required'].includes(result?.status)){outcome='denied';flags.resultStatus=result.status;}
      for(const key of ['verified','codeRequested'] as const)if(typeof result?.[key]==='boolean')flags[key]=result[key];
      if(uuid(result?.id??result?.intentId))flags.resultId=result.id??result.intentId;
     }

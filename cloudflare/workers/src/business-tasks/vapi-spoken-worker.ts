@@ -1,3 +1,4 @@
+import {verificationFailure} from './verification-outcome.ts';
 import {CallAuditedWorker} from './call-audit-worker-base.ts';
 import {DurableObject} from 'cloudflare:workers';
 import pg from 'pg';
@@ -89,7 +90,7 @@ export class SpokenVerificationWorker extends BaseWorker<Env>{
    }
    const service=new SpokenSmsVerificationService(new PostgresAtomicStore(pool,'business_sms'),policy,{current:candidate,run:async(c,input)=>{const key=await digest(c.phone);const response=await env.VERIFICATIONS.get(env.VERIFICATIONS.idFromName(key)).fetch('https://private-verification/action',{method:'POST',body:JSON.stringify({candidate:c,input})});if(!response.ok)throw Error();return response.json();}});
    const result=await service.execute(callId,tool.id,args);if(result.verified&&ownerTest?.callId===callId){const current=await candidate(callId);if(!current)throw Error();await enrollApprovedOwner(pool,ownerTest,current,true);if(!await candidate(callId))throw Error();}return Response.json({results:[{toolCallId:tool.id,result:JSON.stringify(result)}]},{headers});
-  }catch(error){const reason=(error as Error)?.message==='Verified account contact required'?auditReason:'verification_backend_failed';return Response.json({results:[{toolCallId:tool.id,error:clientRead?'Client information unavailable. Current account verification is required; no records were changed.':'Verification unavailable. Do not resend automatically; use reception or the account verification screen.'}]},{headers:{...headers,'x-primecare-audit-reason':reason}});}finally{await pool.end();}
+  }catch(error){const failure=verificationFailure(auditReason,error,clientRead);const entry='result' in failure?{toolCallId:tool.id,result:JSON.stringify(failure.result)}:{toolCallId:tool.id,error:failure.error};return Response.json({results:[entry]},{headers:{...headers,'x-primecare-audit-reason':failure.auditReason}});}finally{await pool.end();}
  }
  protected override onError(){return Response.json({error:'verification_unavailable'},{status:503,headers});}
 }

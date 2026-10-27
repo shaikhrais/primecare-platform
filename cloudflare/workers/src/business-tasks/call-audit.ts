@@ -6,7 +6,7 @@ export const hash=async(v:unknown)=>Array.from(new Uint8Array(await crypto.subtl
 const zero='0'.repeat(64);
 const words=(v:unknown,max=120)=>typeof v==='string'&&v.length<=max&&/^[a-zA-Z0-9_.:-]+$/.test(v)?v:undefined;
 const date=(v:unknown)=>typeof v==='string'&&Number.isFinite(Date.parse(v))?new Date(v).toISOString():undefined;
-const fields=['kind','source','at','traceId','suppliedCallId','callId','callSid','assistantId','phoneNumberId','orgId','from','to','direction','status','startedAt','endedAt','endedReason','providerMatched','toolCallId','toolName','action','phase','outcome','reason','httpStatus','durationMs','verified','codeRequested','resultId','configurationHash','observedAt','coverage','evidence'];
+const fields=['kind','source','at','traceId','suppliedCallId','callId','callSid','assistantId','phoneNumberId','orgId','from','to','direction','status','startedAt','endedAt','endedReason','providerMatched','toolCallId','toolName','action','phase','outcome','reason','httpStatus','durationMs','verified','codeRequested','resultId','configurationHash','observedAt','coverage','evidence','resultStatus'];
 /** Reject extra fields rather than redacting after serialization. Never hash codes. */
 export function project(input:AuditPayload):AuditPayload {
  if(Object.keys(input).some(k=>!fields.includes(k)))throw Error('Audit field refused');

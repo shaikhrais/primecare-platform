@@ -4,7 +4,7 @@ export const orgId='9e1d8550-4b84-4472-a782-67557fe73944',phoneId='3e9cee92-b463
 export const assistantIds=['5ae2ab0c-fad0-454c-8cf7-64b81c91c850',...Object.values(agents)];
 export type AuditEnv={DB_URL:string;VAPI_PRIVATE_API_KEY:string;TWILIO_ACCOUNT_SID:string;TWILIO_API_KEY_SID:string;TWILIO_API_KEY_SECRET:string};
 export async function providerJson(url:string,authorization:string){
- const r=await fetch(url,{headers:{authorization,accept:'application/json'},redirect:'error',signal:AbortSignal.timeout(12000)});
+ const r=await fetch(url,{headers:{authorization,accept:'application/json'},redirect:'manual',signal:AbortSignal.timeout(12000)});
  if(!r.ok){await r.body?.cancel();throw Error('provider_read_failed');}
  if(Number(r.headers.get('content-length')??0)>4194304)throw Error('provider_response_limit');
  const reader=r.body!.getReader();const chunks:Uint8Array[]=[];let bytes=0;try{while(true){const {value,done}=await reader.read();if(done)break;bytes+=value.length;if(bytes>4194304)throw Error('provider_response_limit');chunks.push(value);}}finally{await reader.cancel();}

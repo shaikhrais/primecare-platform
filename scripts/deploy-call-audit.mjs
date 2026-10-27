@@ -17,6 +17,7 @@ try{
  const receipt=JSON.parse(await readFile('test-results/call-audit/api-registration.json','utf8'));if(receipt.independentReadback!==true||!Number.isSafeInteger(receipt.apiIds?.['vapi.call_audit']))throw Error('registration_not_verified');
  const phone=await vapi('/phone-number/'+phoneId);if(phone.orgId!==org||phone.number!=='+12897994277'||phone.assistantId!=='5ae2ab0c-fad0-454c-8cf7-64b81c91c850')throw Error('routing_scope_changed');
  const ids=['5ae2ab0c-fad0-454c-8cf7-64b81c91c850',...Object.values(JSON.parse(await readFile('packages/shared/src/vapi-agent-targets.json','utf8')))];
+ const previousInstruction=await readFile('packages/shared/src/vapi-spoken-verification-instructions-previous.txt','utf8'),instruction=await readFile('packages/shared/src/vapi-spoken-verification-instructions.txt','utf8');
  const before=[];for(const id of ids){const a=await vapi('/assistant/'+id);if(a.orgId!==org||a.server?.url&&a.server.url!==endpoint)throw Error('existing_server_preserved');before.push(a);}
  report.stage='audit-worker';await mkdir('.cloudflare-workers',{recursive:true});
  const credentialName='PrimeCare Call Audit Events';let credentials=await vapi('/credential'),matches=credentials.filter(c=>c.name===credentialName);if(matches.length>1)throw Error('ambiguous_audit_credential');
@@ -65,10 +66,17 @@ try{
 
  for(const a of before){
   lease();const current=await vapi('/assistant/'+a.id);if(!isDeepStrictEqual(current,a))throw Error('concurrent_assistant_change');
+  const model=structuredClone(a.model);let updatedInstruction=false;
+  model.messages=model.messages.map(m=>{
+   if(m.role!=='system'||typeof m.content!=='string')return m;
+   if(m.content===instruction||m.content.endsWith('\n\n'+instruction)){updatedInstruction=true;return m;}
+   if(m.content===previousInstruction||m.content.endsWith('\n\n'+previousInstruction)){updatedInstruction=true;return {...m,content:m.content.slice(0,-previousInstruction.length)+instruction};}
+   return m;
+  });if(!updatedInstruction)throw Error('unreviewed_verification_instruction');
   const server={...(a.server??{}),url:endpoint,credentialId:credential.id,timeoutSeconds:20};
   const serverMessages=[...new Set([...(a.serverMessages??[]),'tool-calls','status-update','end-of-call-report','conversation-update'])];
-  if(!isDeepStrictEqual(a.server,server)||!isDeepStrictEqual(a.serverMessages,serverMessages))await vapi('/assistant/'+a.id,'PATCH',{server,serverMessages});const saved=await vapi('/assistant/'+a.id);
-  if(!isDeepStrictEqual(saved.server,server)||!isDeepStrictEqual(saved.serverMessages,serverMessages)||Object.keys(a).filter(k=>!['server','serverMessages','updatedAt','latestVersion'].includes(k)).some(k=>!isDeepStrictEqual(saved[k],a[k])))throw Error('assistant_configuration_changed');
+  if(!isDeepStrictEqual(a.model,model)||!isDeepStrictEqual(a.server,server)||!isDeepStrictEqual(a.serverMessages,serverMessages))await vapi('/assistant/'+a.id,'PATCH',{model,server,serverMessages});const saved=await vapi('/assistant/'+a.id);
+  if(!isDeepStrictEqual(saved.model,model)||!isDeepStrictEqual(saved.server,server)||!isDeepStrictEqual(saved.serverMessages,serverMessages)||Object.keys(a).filter(k=>!['model','server','serverMessages','updatedAt','latestVersion'].includes(k)).some(k=>!isDeepStrictEqual(saved[k],a[k])))throw Error('assistant_configuration_changed');
   const configurationHash=await hash({model:saved.model,server:saved.server,serverMessages:saved.serverMessages,artifactPlan:saved.artifactPlan??null});
   const at=new Date(saved.updatedAt).toISOString();
   await ledger.append('assistant:'+a.id,'config:'+configurationHash+':'+saved.updatedAt,{kind:'configuration_snapshot',source:'primecare_deployment',at,assistantId:a.id,configurationHash,coverage:'backend_direct_and_provider_observations'});
