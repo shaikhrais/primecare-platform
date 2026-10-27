@@ -1,3 +1,4 @@
+import {normalizePhoneNumber} from './phone-number.mjs';
 import {BoundedBinaryAdapterBase,CommunicationInputError} from './adapter-base.mjs';
 import definition from '../../../../tools/governance-production/twilio-contracts-registration.json' with {type:'json'};
 import contacts from '../../../../tools/governance-production/voice-contact-contracts-registration.json' with {type:'json'};
@@ -92,6 +93,7 @@ export class NativeVoiceHttpAdapter extends BoundedBinaryAdapterBase {
     bytes=await this.readBoundedStream(request.body,size);
    }else bytes=await this.readBoundedBody(request.body);
    let input;try{input=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));}catch{throw new CommunicationInputError('Invalid JSON');}
+   if(op.key==='contact.start'&&input&&typeof input==='object'&&!Array.isArray(input)){try{input={...input,phone:normalizePhoneNumber(input.phone)};}catch{throw new CommunicationInputError('Invalid phone number');}}
    if(validators['voice'+op.index+'_request'](input)!==true)throw new CommunicationInputError('Invalid voice command');
    // Body reading can suspend. Recheck the same current identity and grant
    // immediately before service invocation; body fields never supply identity.

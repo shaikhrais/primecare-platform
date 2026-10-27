@@ -1620,3 +1620,13 @@ and approved execution tools to the original receptionist; eight saved role
 agents are unchanged. Exact callback instructions require independent native app
 approval and never claim a screen/notification exists unless actually available.
 Configuration is distinct from a real enrolled caller's complete acceptance test.
+
+## Phone input normalization
+
+`normalizePhoneNumber` accepts Canadian/US 10-digit, 1-prefixed and formatted
+phone input and produces +1 E.164. Explicit canonical international numbers stay
+unchanged. The SMS enrollment UI, native HTTP adapter and enrollment service use
+the same helper before validation, sending or storage. Control characters,
+extensions, multiple numbers and malformed country prefixes are rejected.
+Canonical matching remains exact; normalization never creates a verified contact
+or grants identity. Existing account, consent, quota and OTP checks still apply.

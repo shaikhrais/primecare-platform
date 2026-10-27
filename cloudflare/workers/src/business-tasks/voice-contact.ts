@@ -1,3 +1,4 @@
+import {normalizePhoneNumber} from '../../../../packages/shared/src/communications/phone-number.mjs';
 import {ScopedServiceBase,type Actor,type AtomicStore,type AccessPolicy} from '../../../../packages/shared/src/communications/service-base.ts';
 export type ContactEnrollmentRow={id:string;userId:string;tenantId:string;sessionHash:string;requestId:string;phone:string;state:string;verificationSid:string|null;expiresAt:number};
 export interface ContactEnrollmentRepository{
@@ -40,6 +41,7 @@ export class VoiceContactEnrollmentService extends ScopedServiceBase{
   return {verified:result.verified,enrollmentAllowed:!result.exists};
  }
  async start(hash:string,number:string,requestId:string){
+  try{number=normalizePhoneNumber(number);}catch{throw denied();}
   if(!phone(number)||!uuid(requestId))throw denied();requestId=requestId.toLowerCase();const session=await this.#session(hash,true);await this.#authorized(session.actor,'voice.contact.start');
   if((await this.repository.status(session.actor)).exists)throw denied();await this.#same(hash,session);
   const claimed=await this.repository.claim({actor:session.actor,sessionHash:hash,requestId,phone:number,expiresAt:Math.min(session.expiresAt,Date.now()+120000)}),row=Object.freeze({...claimed.row});

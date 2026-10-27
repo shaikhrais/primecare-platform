@@ -47,3 +47,11 @@ test('native HTTP enrollment persists and rereads exact contact through current 
  await pool.query('DELETE FROM public.auth_sessions WHERE token_hash=$1',[sessionHash]);assert.equal((await post('status',{})).status,401);assert.equal(sends,1);assert.ok(grants.includes('contact.check'));
 });
 test.after(async()=>{await pool.end();});
+
+test('formatted Canadian inputs share one canonical enrollment and send quota',async()=>{
+ const request=crypto.randomUUID(),challenge=await service.start(hash,'289-887-3200',request);
+ assert.equal((await service.start(hash,'+1 (289) 887-3200',request)).challengeId,challenge.challengeId);assert.equal(sends,1);
+ assert.equal((await pool.query('SELECT phone FROM communication_voice_contact_challenges')).rows[0].phone,'+12898873200');
+ assert.deepEqual(await service.check(hash,challenge.challengeId,'123456'),{verified:true});
+ assert.equal((await pool.query('SELECT phone FROM communication_voice_verified_contacts')).rows[0].phone,'+12898873200');
+});

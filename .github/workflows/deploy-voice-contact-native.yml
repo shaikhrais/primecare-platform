@@ -9,6 +9,8 @@ on:
       - 'scripts/test-voice-contact-deployment-readback.mjs'
       - 'cloudflare/workers/src/business-tasks/voice-contact-worker.ts'
       - 'cloudflare/workers/src/business-tasks/voice-contact.ts'
+      - 'packages/shared/src/communications/phone-number.mjs'
+      - 'scripts/test-phone-number.mjs'
       - 'cloudflare/workers/src/business-tasks/voice-contact-postgres.ts'
       - 'cloudflare/workers/src/business-tasks/endpoint-policy.ts'
       - 'tools/governance-production/voice-contact-platform-registration.json'
@@ -55,6 +57,7 @@ jobs:
           ln -s "$RUNNER_TEMP/native-contact-tests/node_modules" node_modules
       - name: Native database, inherited boundary, gateway routing, SDK fetch and workerd checks
         run: |
+          node --test scripts/test-phone-number.mjs
           node scripts/migrate-voice-identity-schema.mjs --reference
           node --test scripts/test-voice-identity-schema.mjs
           node --test scripts/test-voice-contact-enrollment.mjs scripts/test-communication-twilio-verify.mjs scripts/test-communication-twilio-credentials.mjs
