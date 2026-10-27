@@ -61,11 +61,12 @@ export class PostgresCallbackRequestRepository implements CallbackRequestReposit
   assertActor(actor);if(!uuid(intentId))throw unavailable();const request=validateCallbackRequest(input),db=await this.pool.connect();
   try{await db.query('BEGIN');await db.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',['callback:'+intentId]);
    const context=await this.context(db,actor,intentId,true);if(!same(validateCallbackRequest(context.intent.args),request))throw unavailable();await authorize(context.intent);
+   await this.context(db,actor,intentId,true);validateCallbackRequest(request);
    await db.query(`INSERT INTO communication_callback_requests(intent_id,tenant_id,user_id,contact_version,reason,window_starts_at,window_ends_at)
     VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(intent_id) DO NOTHING`,[intentId,actor.tenantId,actor.id,context.contactVersion,request.reason,request.windowStartsAt,request.windowEndsAt]);
    const rows=(await db.query('SELECT * FROM communication_callback_requests WHERE intent_id=$1 AND tenant_id=$2 AND user_id=$3',[intentId,actor.tenantId,actor.id])).rows;
    if(rows.length!==1||Number(rows[0].contact_version)!==context.contactVersion)throw unavailable();const receipt=this.receipt(rows[0]);if(!same(receipt,request))throw unavailable();
-   await authorize(context.intent);await db.query('COMMIT');return receipt;
+   await authorize(context.intent);await this.context(db,actor,intentId,true);validateCallbackRequest(request);await db.query('COMMIT');return receipt;
   }catch(e){await db.query('ROLLBACK');throw e;}finally{db.release();}
  }
  async read(actor:Actor,intentId:string,authorize:Authorize):Promise<CallbackReceipt>{
