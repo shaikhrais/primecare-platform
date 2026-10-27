@@ -1,0 +1,118 @@
+name: Register and deploy private callback storage
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/callback_storage.py'
+      - 'tools/governance-production/callback-storage-registration.json'
+      - 'tools/governance-production/generate-callback-storage.py'
+      - 'tools/governance-production/test-callback-storage.py'
+      - 'scripts/migrate-callback-storage.mjs'
+      - 'scripts/test-callback-storage-schema.mjs'
+      - 'packages/database/migrations/20261027_communication_callback_storage.sql'
+      - '.github/workflows/callback-storage-production.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency: {group: primecare-callback-storage-production, cancel-in-progress: false}
+jobs:
+  metadata:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: communication_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: communication_registration_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U communication_fixture -d communication_registration_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      WORKFLOW_TEST_DATABASE_URL: postgres://communication_fixture:disposable-only@localhost:5432/communication_registration_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - run: |
+          python tools/governance-production/generate-callback-storage.py --check
+          python tools/governance-production/test-callback-storage.py
+  reference:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: callback_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: callback_schema_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U callback_fixture -d callback_schema_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      WORKFLOW_TEST_DATABASE_URL: postgres://callback_fixture:disposable-only@localhost:5432/callback_schema_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/callback-schema-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/callback-schema-tools/node_modules" node_modules
+          node scripts/migrate-callback-storage.mjs --reference
+          node --test scripts/test-callback-storage-schema.mjs
+      - uses: actions/upload-artifact@v4
+        with: {name: callback-storage-reference, path: test-results/callback-storage-schema/reference.json}
+  acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: callback_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: callback_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U callback_fixture -d callback_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      CALLBACK_TEST_DATABASE_URL: postgres://callback_fixture:disposable-only@localhost:5432/callback_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/callback-native-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0
+          ln -s "$RUNNER_TEMP/callback-native-tools/node_modules" node_modules
+          node --test scripts/test-reception-callback.mjs scripts/test-communication-voice-tasks.mjs
+          node scripts/test-reception-callback-postgres.mjs
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/reception-callback.ts
+  production:
+    needs: [metadata, reference, acceptance]
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/callback-production-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/callback-production-tools/node_modules" node_modules
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+      - uses: actions/download-artifact@v4
+        with: {name: callback-storage-reference, path: test-results/callback-storage-schema}
+      - name: Register only the exact callback design with independent readback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_CALLBACK_STORAGE_WRITES: '1'
+        run: |
+          python tools/governance-production/callback_storage.py --register-dry-run
+          python tools/governance-production/callback_storage.py --register
+          python tools/governance-production/callback_storage.py --verify
+      - name: Validate rollback, create private empty storage, independently verify pooled readback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CALLBACK_STORAGE_SCHEMA_APPLY: '1'
+        run: |
+          node scripts/migrate-callback-storage.mjs --dry-run
+          node scripts/migrate-callback-storage.mjs --apply
+          node scripts/migrate-callback-storage.mjs --verify
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: callback-storage-production-evidence, path: test-results/callback-storage-schema, retention-days: 90}

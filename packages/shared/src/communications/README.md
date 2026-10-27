@@ -1371,3 +1371,9 @@ host policy, then save once and independently read back status `requested`.
 See [callback persistence](../../../../docs/business/RECEPTION_CALLBACK_PERSISTENCE.md).
 Its migration is isolated-fixture-only until production storage and operational
 permissions are reviewed. This does not activate a voice tool or promise a callback.
+
+[Callback storage production release](../../../../docs/business/CALLBACK_STORAGE_PRODUCTION.md)
+registers the exact nine-column design and separately validates the private native
+schema against a tested PostgreSQL reference. It creates no callback requests or
+role grants and does not activate the callback API or Vapi tool. Current identity,
+independent app approval and staff fulfilment remain separate release gates.

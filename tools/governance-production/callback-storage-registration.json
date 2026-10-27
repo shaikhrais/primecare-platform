@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "baseline": "communication-callback-storage-v1",
+  "sourceApiId": 710,
+  "taskApiId": 16534,
+  "taskId": "reception.callback.request",
+  "migrationPath": "packages/database/migrations/20261027_communication_callback_storage.sql",
+  "migrationSha256": "4c753238b4340168e4e6b14f9a2942e80158050ae35d81097e42533d667a5362",
+  "sourcePath": "packages/database/migrations/20261027_communication_callback_requests.sql",
+  "sourceSha256": "80e9fa19920f789b811c0a14acb71cc1b487ed2d9d16c29ede053bd03f158dfe",
+  "prerequisiteSources": {
+    "20261023_communication_voice_tasks.sql": "3d2c539060540e7116089501344d62753aab8de47ce215a4ae3efd082416ea49",
+    "20261023_communication_voice_confirmations.sql": "1ff18233d245432d11c319d15212367a43dea5ae0375dabbf836173383551a94",
+    "20261023_communication_voice_otp.sql": "be23c218580c5727064cd971d66e288c2ed5b0500eef523a851b9c71d9e86a6c"
+  },
+  "tables": {
+    "communication_callback_requests": [
+      {
+        "column_name": "intent_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 1,
+        "is_foreign": 1,
+        "default_value": null,
+        "foreign_table_name": "communication_voice_tasks",
+        "foreign_column_name": "id"
+      },
+      {
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "user_id",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "contact_version",
+        "data_type": "bigint",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "reason",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "window_starts_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "window_ends_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": null,
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "status",
+        "data_type": "text",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "'requested'::text",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": 0,
+        "is_primary": 0,
+        "is_foreign": 0,
+        "default_value": "clock_timestamp()",
+        "foreign_table_name": null,
+        "foreign_column_name": null
+      }
+    ]
+  },
+  "scope": "One empty owner-private table for approved callback requests. No grants, caller records, task execution, public host, provider traffic or activation."
+}

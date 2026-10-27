@@ -1366,5 +1366,38 @@
     "permissionChanges": false,
     "providerWrites": false,
     "activation": false
+  },
+  "callbackStorageWriter": {
+    "optInVariable": "GOVERNANCE_CALLBACK_STORAGE_WRITES",
+    "tables": [
+      "database_rebuild_baselines",
+      "db_schema_columns",
+      "db_schema_tables"
+    ],
+    "definitionSha256": "c101226fc9e1907d253718517ed629de9ea81804bc2afbd5e4cb48192b9e41c9",
+    "migrationSha256": "4c753238b4340168e4e6b14f9a2942e80158050ae35d81097e42533d667a5362",
+    "businessTables": [
+      "communication_callback_requests"
+    ],
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "activation": false
+  },
+  "callbackStorageSchemaMigration": {
+    "runtimeHost": "pooled.db.prisma.io",
+    "directHost": "db.prisma.io",
+    "database": "postgres",
+    "credentialSource": "PRODUCTION_DATABASE_URL",
+    "optInVariable": "CALLBACK_STORAGE_SCHEMA_APPLY",
+    "schema": "public",
+    "tables": [
+      "communication_callback_requests"
+    ],
+    "migrationSha256": "4c753238b4340168e4e6b14f9a2942e80158050ae35d81097e42533d667a5362",
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "providerWrites": false,
+    "activation": false
   }
 }
