@@ -33,6 +33,9 @@ function canonical(value:unknown,depth=0):string {
 }
 function argumentsSnapshot(value:unknown){if(!value||typeof value!=='object'||Array.isArray(value))throw Error('Task arguments required');const encoded=canonical(value);if(new TextEncoder().encode(encoded).length>8192)throw Error('Task argument bounds');return JSON.parse(encoded) as Record<string,unknown>;}
 async function digest(value:unknown){const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(canonical(value)));return Array.from(new Uint8Array(bytes),b=>b.toString(16).padStart(2,'0')).join('');}
+/** Reuse the exact approval digest when a concrete request service rechecks a
+ * claimed intent. The mutable execution status is not part of a new approval. */
+export async function voiceTaskIntentDigest(intent:VoiceTaskIntent){return digest({...intent,digest:'',status:'proposed'});}
 /** Provider-neutral boundary for Vapi or Twilio ConversationRelay tool calls.
  * Neither the model nor a voice-match result may approve or select an actor.
  */

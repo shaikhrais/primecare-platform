@@ -2,7 +2,7 @@ name: Verify approved reception callback persistence
 on:
   push:
     branches: [main]
-    paths: ['cloudflare/workers/src/business-tasks/reception-callback.ts', 'cloudflare/workers/src/business-tasks/voice-reception-tasks.ts', 'packages/database/migrations/20261027_communication_callback_requests.sql', 'scripts/test-reception-callback*.mjs', '.github/workflows/reception-callback.yml']
+    paths: ['cloudflare/workers/src/business-tasks/reception-callback.ts', 'cloudflare/workers/src/business-tasks/voice-reception-tasks.ts', 'cloudflare/workers/src/business-tasks/voice-tasks.ts', 'cloudflare/workers/src/business-tasks/voice-confirmations.ts', 'packages/database/migrations/20261027_communication_callback_requests.sql', 'scripts/test-reception-callback*.mjs', '.github/workflows/reception-callback.yml']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:

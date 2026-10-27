@@ -1,6 +1,6 @@
 import {ScopedServiceBase,assertActor,type Actor,type AtomicStore,type AccessPolicy,type RecordState} from '../../../../packages/shared/src/communications/service-base.ts';
 import {validateCallbackRequest,type CallbackRequest} from './voice-reception-tasks.ts';
-import type {VoiceTaskIntent} from './voice-tasks.ts';
+import {voiceTaskIntentDigest,type VoiceTaskIntent} from './voice-tasks.ts';
 type Sql={query(sql:string,values?:unknown[]):Promise<{rows:any[]}>};
 type Pool={connect():Promise<Sql&{release():void}>};
 export type CallbackReceipt={intentId:string;status:'requested';reason:CallbackRequest['reason'];windowStartsAt:string;windowEndsAt:string};
@@ -46,7 +46,7 @@ export class PostgresCallbackRequestRepository implements CallbackRequestReposit
     ${writing?"AND t.status='executing' AND (t.intent->>'expiresAt')::bigint>FLOOR(EXTRACT(EPOCH FROM clock_timestamp())*1000) AND p.expires_at>FLOOR(EXTRACT(EPOCH FROM clock_timestamp())*1000) AND p.approved_at>=FLOOR(EXTRACT(EPOCH FROM clock_timestamp())*1000)-60000":''}
    FOR SHARE OF t,p`,[id,actor.id,actor.tenantId])).rows;
   if(rows.length!==1)throw unavailable();const row=rows[0],intent=row.intent as VoiceTaskIntent;
-  if(intent.id!==id||intent.actor.id!==actor.id||intent.actor.tenantId!==actor.tenantId||intent.taskId!=='reception.callback.request'||intent.taskVersion!==1||!Number.isSafeInteger(Number(row.contact_version))||Number(row.contact_version)<1)throw unavailable();
+  if(intent.id!==id||intent.actor.id!==actor.id||intent.actor.tenantId!==actor.tenantId||intent.taskId!=='reception.callback.request'||intent.taskVersion!==1||!Number.isSafeInteger(Number(row.contact_version))||Number(row.contact_version)<1||await voiceTaskIntentDigest(intent)!==intent.digest)throw unavailable();
   return {intent:{...intent,status:row.status} as VoiceTaskIntent,contactVersion:Number(row.contact_version)};
  }
  private receipt(row:any):CallbackReceipt{
