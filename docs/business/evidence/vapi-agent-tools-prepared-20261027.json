@@ -1,0 +1,821 @@
+{
+  "sourceCommit": "427ec03ef440990e76b4e7a359dca70e241e07f6",
+  "runId": 40517567004,
+  "authenticationChanged": false,
+  "businessToolsAttached": false,
+  "phoneBusinessReady": false,
+  "tools": [
+    {
+      "key": "call.end",
+      "description": "End after goodbye, completed help or clear refusal.",
+      "family": "endCall",
+      "preparation": "configured",
+      "liveBusinessReady": false
+    },
+    {
+      "key": "call.voicemail",
+      "description": "Silently exit voicemail or an auto-attendant.",
+      "family": "voicemail",
+      "preparation": "configured",
+      "liveBusinessReady": false
+    },
+    {
+      "key": "service.catalogue",
+      "description": "Read approved service details and published administrative policies.",
+      "family": "apiRequest",
+      "preparation": "backend_missing",
+      "liveBusinessReady": false
+    },
+    {
+      "key": "reception.transfer",
+      "description": "Transfer only to an approved current directory destination.",
+      "family": "transferCall",
+      "preparation": "directory_destination_required",
+      "liveBusinessReady": false
+    },
+    {
+      "key": "callback.propose",
+      "description": "Prepare exact callback details using the registered request schema.",
+      "family": "apiRequest",
+      "preparation": "contract_prepared_runtime_closed",
+      "api": {
+        "path": "/v1/vapi/voice/tasks",
+        "method": "POST"
+      },
+      "taskId": "reception.callback.request",
+      "action": "propose",
+      "liveBusinessReady": false,
+      "registration": {
+        "id": 16534,
+        "permission": "vapi.service.tasks",
+        "status": "registered-unimplemented"
+      },
+      "registrationState": "registered",
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action",
+          "taskId",
+          "args",
+          "requestId"
+        ],
+        "properties": {
+          "action": {
+            "const": "propose"
+          },
+          "taskId": {
+            "const": "reception.callback.request"
+          },
+          "args": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "reason",
+              "windowStartsAt",
+              "windowEndsAt"
+            ],
+            "properties": {
+              "reason": {
+                "type": "string",
+                "enum": [
+                  "appointment_help",
+                  "general"
+                ]
+              },
+              "windowStartsAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+              },
+              "windowEndsAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+              }
+            }
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    {
+      "key": "request.execute",
+      "description": "Execute only a previously approved exact intent; request completion is not confirmed care.",
+      "family": "apiRequest",
+      "preparation": "contract_prepared_runtime_closed",
+      "api": {
+        "path": "/v1/vapi/voice/tasks",
+        "method": "POST"
+      },
+      "action": "execute",
+      "liveBusinessReady": false,
+      "registration": {
+        "id": 16534,
+        "permission": "vapi.service.tasks",
+        "status": "registered-unimplemented"
+      },
+      "registrationState": "registered",
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action",
+          "intentId",
+          "requestId"
+        ],
+        "properties": {
+          "action": {
+            "const": "execute"
+          },
+          "intentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    {
+      "key": "lead.lookup",
+      "description": "Read one backend-bound lead; never return the full staff dashboard.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth",
+        "method": "GET"
+      },
+      "liveBusinessReady": false,
+      "functionName": "primecare_lead_lookup",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {},
+        "required": []
+      },
+      "runtime": "existing-authenticated-native-client",
+      "registration": {
+        "id": 16447,
+        "permission": "growth.tenant_role",
+        "status": "implemented"
+      },
+      "registrationState": "registered"
+    },
+    {
+      "key": "lead.contact_preferences",
+      "description": "Read current CRM contact preference and suppression; this alone does not authorize dialing.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth",
+        "method": "GET"
+      },
+      "liveBusinessReady": false,
+      "functionName": "primecare_lead_contact_preferences",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {},
+        "required": []
+      },
+      "runtime": "existing-authenticated-native-client",
+      "registration": {
+        "id": 16447,
+        "permission": "growth.tenant_role",
+        "status": "implemented"
+      },
+      "registrationState": "registered"
+    },
+    {
+      "key": "lead.create",
+      "description": "Create an enquiry with explicit contact basis; independently read the saved lead.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/leads",
+        "method": "POST"
+      },
+      "liveBusinessReady": false,
+      "functionName": "primecare_lead_create",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 254
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "google_search",
+              "google_ads",
+              "facebook",
+              "instagram",
+              "offline",
+              "referral",
+              "website"
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "contactBasis": {
+            "type": "string",
+            "enum": [
+              "requested",
+              "not_requested"
+            ]
+          },
+          "dueAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "source",
+          "reference",
+          "contactBasis"
+        ]
+      },
+      "runtime": "existing-authenticated-native-client",
+      "registration": {
+        "id": 16449,
+        "permission": "growth.tenant_role",
+        "status": "implemented"
+      },
+      "registrationState": "registered"
+    },
+    {
+      "key": "lead.followup",
+      "description": "Record one actual call outcome and optional follow-up date; never dial.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/calls",
+        "method": "POST"
+      },
+      "liveBusinessReady": false,
+      "functionName": "primecare_lead_followup",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "no_answer",
+              "contacted",
+              "qualified",
+              "callback_requested",
+              "wrong_number",
+              "do_not_contact"
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "dueAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "outcome",
+          "notes"
+        ]
+      },
+      "runtime": "existing-authenticated-native-client",
+      "registration": {
+        "id": 16456,
+        "permission": "growth.tenant_role",
+        "status": "implemented"
+      },
+      "registrationState": "registered"
+    },
+    {
+      "key": "lead.suppress",
+      "description": "Record an explicit do-not-contact outcome and independently verify suppression.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/calls",
+        "method": "POST"
+      },
+      "liveBusinessReady": false,
+      "functionName": "primecare_lead_suppress",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "notes": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "notes"
+        ]
+      },
+      "runtime": "existing-authenticated-native-client",
+      "registration": {
+        "id": 16456,
+        "permission": "growth.tenant_role",
+        "status": "implemented"
+      },
+      "registrationState": "registered"
+    },
+    {
+      "key": "lead.advance",
+      "description": "Move only to the backend-defined next CRM stage with current version and evidence.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/leads/{id}",
+        "method": "PATCH"
+      },
+      "liveBusinessReady": false,
+      "functionName": "primecare_lead_advance",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "dueAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "evidence"
+        ]
+      },
+      "runtime": "existing-authenticated-native-client",
+      "registration": {
+        "id": 16450,
+        "permission": "growth.tenant_role",
+        "status": "implemented"
+      },
+      "registrationState": "registered"
+    },
+    {
+      "key": "lead.contact_update",
+      "description": "Update permitted contact details for one backend-bound lead with current version.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/contacts/{id}",
+        "method": "PATCH"
+      },
+      "liveBusinessReady": false,
+      "functionName": "primecare_lead_contact_update",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 254
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "phone",
+          "evidence"
+        ]
+      },
+      "runtime": "existing-authenticated-native-client",
+      "registration": {
+        "id": 16459,
+        "permission": "growth.tenant_role",
+        "status": "implemented"
+      },
+      "registrationState": "registered"
+    },
+    {
+      "key": "consultation.create",
+      "description": "Save a CRM coordination appointment; not a confirmed clinical service booking.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/appointments",
+        "method": "POST"
+      },
+      "liveBusinessReady": false,
+      "functionName": "primecare_consultation_create",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "startsAt": {
+            "type": "string",
+            "format": "date-time",
+            "maxLength": 40
+          },
+          "duration": {
+            "type": "integer",
+            "minimum": 15,
+            "maximum": 180
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "startsAt",
+          "duration",
+          "notes"
+        ]
+      },
+      "runtime": "existing-authenticated-native-client",
+      "registration": {
+        "id": 16457,
+        "permission": "growth.tenant_role",
+        "status": "implemented"
+      },
+      "registrationState": "registered"
+    },
+    {
+      "key": "consultation.update",
+      "description": "Record a CRM coordination appointment outcome; not clinical completion.",
+      "family": "function",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/appointments/{id}",
+        "method": "PATCH"
+      },
+      "liveBusinessReady": false,
+      "functionName": "primecare_consultation_update",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "cancelled",
+              "no_show"
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "status",
+          "notes"
+        ]
+      },
+      "runtime": "existing-authenticated-native-client",
+      "registration": {
+        "id": 16458,
+        "permission": "growth.tenant_role",
+        "status": "implemented"
+      },
+      "registrationState": "registered"
+    },
+    {
+      "key": "proposal.lookup",
+      "description": "Retrieve current authorized commercial terms; never invent a quote.",
+      "family": "apiRequest",
+      "preparation": "backend_missing",
+      "liveBusinessReady": false
+    },
+    {
+      "key": "booking.propose",
+      "description": "Prepare an appointment request using backend-returned service and slot/version.",
+      "family": "apiRequest",
+      "preparation": "contract_prepared_runtime_closed",
+      "api": {
+        "path": "/v1/vapi/voice/tasks",
+        "method": "POST"
+      },
+      "taskId": "appointment.booking.request",
+      "action": "propose",
+      "liveBusinessReady": false,
+      "registration": {
+        "id": 16534,
+        "permission": "vapi.service.tasks",
+        "status": "registered-unimplemented"
+      },
+      "registrationState": "registered",
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action",
+          "taskId",
+          "args",
+          "requestId"
+        ],
+        "properties": {
+          "action": {
+            "const": "propose"
+          },
+          "taskId": {
+            "const": "appointment.booking.request"
+          },
+          "args": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "serviceId",
+              "slotId",
+              "slotVersion",
+              "startsAt"
+            ],
+            "properties": {
+              "serviceId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$",
+                "maxLength": 100
+              },
+              "slotId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$",
+                "maxLength": 100
+              },
+              "slotVersion": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740990
+              },
+              "startsAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+              }
+            }
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    {
+      "key": "booking.reschedule",
+      "description": "Prepare a rescheduling request using registered task fields.",
+      "family": "apiRequest",
+      "preparation": "contract_prepared_runtime_closed",
+      "api": {
+        "path": "/v1/vapi/voice/tasks",
+        "method": "POST"
+      },
+      "taskId": "appointment.reschedule.request",
+      "action": "propose",
+      "liveBusinessReady": false,
+      "registration": {
+        "id": 16534,
+        "permission": "vapi.service.tasks",
+        "status": "registered-unimplemented"
+      },
+      "registrationState": "registered",
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action",
+          "taskId",
+          "args",
+          "requestId"
+        ],
+        "properties": {
+          "action": {
+            "const": "propose"
+          },
+          "taskId": {
+            "const": "appointment.reschedule.request"
+          },
+          "args": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "appointmentId",
+              "expectedVersion",
+              "slotId",
+              "slotVersion",
+              "startsAt"
+            ],
+            "properties": {
+              "appointmentId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$",
+                "maxLength": 100
+              },
+              "expectedVersion": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740990
+              },
+              "slotId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$",
+                "maxLength": 100
+              },
+              "slotVersion": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740990
+              },
+              "startsAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+              }
+            }
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    {
+      "key": "client.onboarding_status",
+      "description": "Read client onboarding progress; partner onboarding APIs are excluded.",
+      "family": "apiRequest",
+      "preparation": "backend_missing",
+      "liveBusinessReady": false
+    },
+    {
+      "key": "client.service_history",
+      "description": "Read authorized client service history; CRM milestones are not care delivery.",
+      "family": "apiRequest",
+      "preparation": "backend_missing",
+      "liveBusinessReady": false
+    }
+  ],
+  "agents": {
+    "reception": [
+      "call.end",
+      "call.voicemail",
+      "service.catalogue",
+      "reception.transfer",
+      "callback.propose",
+      "request.execute"
+    ],
+    "new_enquiry": [
+      "call.end",
+      "call.voicemail",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "lead.create",
+      "lead.followup",
+      "lead.suppress",
+      "callback.propose",
+      "request.execute"
+    ],
+    "qualification": [
+      "call.end",
+      "call.voicemail",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "service.catalogue",
+      "lead.advance",
+      "lead.followup",
+      "lead.suppress",
+      "lead.contact_update"
+    ],
+    "consultation": [
+      "call.end",
+      "call.voicemail",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "consultation.create",
+      "consultation.update",
+      "lead.followup",
+      "lead.suppress",
+      "callback.propose",
+      "request.execute"
+    ],
+    "proposal": [
+      "call.end",
+      "call.voicemail",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "proposal.lookup",
+      "lead.followup",
+      "lead.suppress",
+      "callback.propose",
+      "request.execute"
+    ],
+    "booking_recovery": [
+      "call.end",
+      "call.voicemail",
+      "service.catalogue",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "booking.propose",
+      "booking.reschedule",
+      "request.execute",
+      "lead.followup",
+      "lead.suppress"
+    ],
+    "onboarding": [
+      "call.end",
+      "call.voicemail",
+      "client.onboarding_status",
+      "callback.propose",
+      "request.execute"
+    ],
+    "retention": [
+      "call.end",
+      "call.voicemail",
+      "client.service_history",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "lead.followup",
+      "lead.suppress",
+      "callback.propose",
+      "request.execute"
+    ]
+  },
+  "stageRouting": {
+    "client": {
+      "new": "new_enquiry",
+      "assessment": "consultation",
+      "agreed": "booking_recovery",
+      "started": "onboarding",
+      "recurring": "retention"
+    },
+    "tenant": {
+      "new": "qualification",
+      "discussion": "consultation",
+      "demo": "proposal",
+      "pilot": "onboarding",
+      "active": "retention"
+    }
+  }
+}

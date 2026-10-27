@@ -67,3 +67,14 @@ https://docs.vapi.ai/knowledge-base/using-query-tool (complete-model attachment
 updates). Tests cover role/stage mappings, registered schemas, private-field
 projection, current versions, saved readback, suppression, denial, scope changes,
 uncertain writes, native coordination appointments and Vapi preservation.
+
+## Verified release
+
+Source `427ec03ef440990e76b4e7a359dca70e241e07f6`, workflow 40517567004,
+passed all 38 targeted checks and independently read back all eight version-three
+agents plus the active receptionist. Authentication, phone routing and verification
+attachments were preserved. See `evidence/vapi-agent-tool-pack-20261027.json` for
+receipts and `evidence/vapi-agent-tools-prepared-20261027.json` for the complete
+20-capability contracts, nine native function parameter schemas, registered API
+bindings, per-agent tool selections and ten-stage map. The artifact explicitly
+records that live phone business tools are not yet attached.

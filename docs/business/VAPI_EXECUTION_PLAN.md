@@ -231,3 +231,10 @@ credentials. Native staff functions still need the host attachment; saved phone
 business tools remain unconnected. Missing catalogue/proposal/client-specific
 backends and approved transfer destinations are recorded in the tool pack rather
 than published as fake capabilities.
+
+Final agent/tool verification: workflow 40517567004 passed 38 checks and all saved
+agent readbacks. Source `427ec03ef440990e76b4e7a359dca70e241e07f6`. Complete prepared
+contracts are saved in `evidence/vapi-agent-tools-prepared-20261027.json`; release
+receipts are in `evidence/vapi-agent-tool-pack-20261027.json`. Authentication work
+remains paused. The next business work is actual runtime attachment and the
+missing business backends, not more identity plumbing.

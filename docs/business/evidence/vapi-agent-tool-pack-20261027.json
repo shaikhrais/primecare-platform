@@ -1,12 +1,14 @@
 {
   "date": "2026-10-27",
-  "agentReleaseSource": "54c88e26f093e158ba6de27a13a5bf2266b35bf2",
-  "runId": 40516520809,
-  "verifyJobId": 122231702780,
-  "releaseJobId": 122231850345,
+  "sourceCommit": "427ec03ef440990e76b4e7a359dca70e241e07f6",
+  "runId": 40517567004,
+  "verifyJobId": 122235064890,
+  "releaseJobId": 122235208412,
   "status": "success",
+  "targetedTests": 38,
+  "strictDeclarationsPassedLocally": true,
   "report": {
-    "source": "54c88e26f093e158ba6de27a13a5bf2266b35bf2",
+    "source": "427ec03ef440990e76b4e7a359dca70e241e07f6",
     "agents": [
       {
         "key": "reception",
