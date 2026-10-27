@@ -1,0 +1,112 @@
+{
+  "sourceCommit": "0bcea9cf896e78c44e51edc4dc5e6334ab1b0065",
+  "date": "2026-10-27",
+  "capabilities": [
+    {
+      "name": "primecare_client_booking_request_create",
+      "effect": "Create a pending service preference request; not a confirmed appointment",
+      "livePhoneAttached": false
+    },
+    {
+      "name": "primecare_client_booking_request_status",
+      "effect": "Read the current native owner's host-bound request",
+      "livePhoneAttached": false
+    },
+    {
+      "name": "primecare_client_booking_request_cancel",
+      "effect": "Cancel only a pending request; not an actual service appointment",
+      "livePhoneAttached": false
+    },
+    {
+      "name": "primecare_client_service_note",
+      "effect": "Save a client-requested message in an existing approved conversation; not a clinical chart entry",
+      "livePhoneAttached": false
+    },
+    {
+      "name": "primecare_client_support_question",
+      "effect": "Save a question in an existing approved conversation; no expert reply is inferred",
+      "livePhoneAttached": false
+    }
+  ],
+  "nativeCapabilitiesImplemented": 16,
+  "validation": {
+    "localChecksPassed": 47,
+    "ciRunId": 40557983956,
+    "ciJobId": 122379070903,
+    "ciConclusion": "success",
+    "registrationRunId": 40556734285,
+    "registrationJobs": [
+      {
+        "id": 122374673062,
+        "name": "isolated",
+        "conclusion": "success"
+      },
+      {
+        "id": 122375163803,
+        "name": "register",
+        "conclusion": "success"
+      }
+    ],
+    "registrationReceipts": [
+      {
+        "apiIds": {
+          "CLIENT_BOOKING_REQUEST_CREATE": 16570,
+          "CLIENT_BOOKING_REQUEST_READ": 16571,
+          "CLIENT_BOOKING_REQUEST_CANCEL": 16572
+        },
+        "registered": 3,
+        "screenLinks": 3,
+        "roleGrants": 0,
+        "authenticationChanges": false,
+        "schemaChanges": false,
+        "businessDataWrites": false,
+        "providerWrites": false,
+        "definitionSha256": "62211377288d3d0444189c04422f9904aa6a4ecb39a1014d3b08266de283c720"
+      },
+      {
+        "apiIds": {
+          "CLIENT_BOOKING_REQUEST_CREATE": 16570,
+          "CLIENT_BOOKING_REQUEST_READ": 16571,
+          "CLIENT_BOOKING_REQUEST_CANCEL": 16572
+        },
+        "registered": 3,
+        "screenLinks": 3,
+        "roleGrants": 0,
+        "authenticationChanges": false,
+        "schemaChanges": false,
+        "businessDataWrites": false,
+        "providerWrites": false,
+        "definitionSha256": "62211377288d3d0444189c04422f9904aa6a4ecb39a1014d3b08266de283c720",
+        "independentReadback": true
+      },
+      {
+        "apiIds": {
+          "CLIENT_BOOKING_REQUEST_CREATE": 16570,
+          "CLIENT_BOOKING_REQUEST_READ": 16571,
+          "CLIENT_BOOKING_REQUEST_CANCEL": 16572
+        },
+        "registered": 3,
+        "screenLinks": 3,
+        "roleGrants": 0,
+        "authenticationChanges": false,
+        "schemaChanges": false,
+        "businessDataWrites": false,
+        "providerWrites": false,
+        "definitionSha256": "62211377288d3d0444189c04422f9904aa6a4ecb39a1014d3b08266de283c720",
+        "independentReadback": true,
+        "writesAttempted": false
+      }
+    ]
+  },
+  "requiredHostBindings": [
+    "existing current native session and authenticated transport",
+    "approved service and clinic time zone",
+    "client-owned request selection",
+    "approved existing conversation and staff recipient",
+    "independent confirmation for every new write",
+    "current per-tool policy and durable server journal"
+  ],
+  "providerResourcesChanged": false,
+  "customerRecordsChanged": false,
+  "newPhoneToolsAttached": false
+}

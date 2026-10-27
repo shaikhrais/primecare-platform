@@ -141,3 +141,9 @@ and composed into the shared server runner. The phone write host remains
 unmounted; these five tools are not attached to phone assistants yet. Actual
 account registration, bookable availability, service appointment changes and
 approved expert/transfer routing remain separate unfinished dependencies.
+
+The five-handler batch passed 47 local checks and CI run 40557983956. Booking
+request contracts 16570 (create), 16571 (item status) and 16572 (pending cancel)
+were independently registered/read back in run 40556734285 with no role grants,
+schema changes, authentication changes or customer writes. Receipt:
+[client action tools](evidence/vapi-client-action-tools-20261027.json).
