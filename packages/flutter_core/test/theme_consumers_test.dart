@@ -23,7 +23,9 @@ void main() {
       final theme = applyPersonalThemeData(branding, personal);
       expect(theme.inputDecorationTheme.fillColor, theme.colorScheme.surface, reason: preset);
       expect(theme.cardTheme.color, theme.colorScheme.surface, reason: preset);
-      expect(theme.cardTheme.elevation, 7);
+      expect(theme.cardTheme.elevation, 0);
+      expect(theme.cardTheme.surfaceTintColor, Colors.transparent);
+      expect((theme.cardTheme.shape! as RoundedRectangleBorder).side.color, theme.colorScheme.outline);
       final border = theme.inputDecorationTheme.enabledBorder! as OutlineInputBorder;
       expect(border.borderRadius, BorderRadius.circular(20));
       expect(themeContrastRatio(theme.colorScheme.surface, theme.colorScheme.onSurface), greaterThanOrEqualTo(4.5));

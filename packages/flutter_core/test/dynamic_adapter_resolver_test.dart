@@ -4,6 +4,18 @@ import 'package:flutter_core/flutter_core.dart';
 
 class MockApiClient implements ApiClient {
   @override
+  CommunicationHub communications({required int maxPictureBytes}) =>
+      throw UnsupportedError('Communications are outside this registry test');
+
+  @override
+  Future<ApiResponse> getForSession(String path, String token) async =>
+      throw UnsupportedError('Session reads are outside this registry test');
+
+  @override
+  Future<ApiResponse> confirmSession(String token) async =>
+      throw UnsupportedError('Session confirmation is outside this registry test');
+
+  @override
   Future<ApiResponse> downloadBytes(String path) async {
     throw UnsupportedError('Downloads are outside this registry test');
   }
