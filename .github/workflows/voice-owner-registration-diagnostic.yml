@@ -26,6 +26,16 @@ jobs:
             pool=new Pool({host:u.hostname,port:Number(u.port||5432),database:'postgres',user:decodeURIComponent(u.username),password:decodeURIComponent(u.password),ssl:{rejectUnauthorized:true},max:1,connectionTimeoutMillis:10000});
             db=await pool.connect();await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');await db.query("SET LOCAL statement_timeout='15s'");
             const phone='+12898873200';
+
+            const accounts=(await db.query("SELECT u.id::text AS id,to_jsonb(u) AS data FROM public.users u WHERE lower(u.email)=lower($1)",['shkh.rais@gmail.com'])).rows;
+            const summaries=[];
+            for(const a of accounts){
+              const d=a.data;
+              const phones=Object.entries(d).filter(([k,v])=>/phone|mobile/i.test(k)&&typeof v==='string').map(([field,value])=>({field,present:!!value,matchesRequested:['2898873200','12898873200'].includes(value.replace(/[^0-9]/g,''))}));
+              const contacts=(await db.query("SELECT count(*)::int AS total,count(*) FILTER(WHERE revoked_at IS NULL)::int AS active,count(*) FILTER(WHERE revoked_at IS NULL AND phone=$2)::int AS requested_phone_active FROM public.communication_voice_verified_contacts WHERE user_id=$1",[a.id,phone])).rows[0];
+              summaries.push({status:d.status,roles:d.roles,phoneFields:phones,verifiedContacts:contacts});
+            }
+            console.log('OWNER_ACCOUNT_DIAGNOSTIC '+JSON.stringify({emailAccountMatches:accounts.length,accounts:summaries}));
             const contact=(await db.query("SELECT COUNT(*)::int AS total,COUNT(*) FILTER(WHERE revoked_at IS NULL)::int AS active FROM public.communication_voice_verified_contacts WHERE phone=$1",[phone])).rows[0];
             const eligible=(await db.query("SELECT COUNT(*)::int AS count FROM public.communication_voice_verified_contacts c JOIN public.users u ON u.id::text=c.user_id AND u.tenant_id::text=c.tenant_id JOIN public.tenants t ON t.id=u.tenant_id WHERE c.phone=$1 AND c.revoked_at IS NULL AND LOWER(u.status)='active' AND LOWER(t.status)='active'",[phone])).rows[0].count;
             const total=(await db.query("SELECT COUNT(*)::int AS count FROM public.communication_voice_verified_contacts WHERE revoked_at IS NULL")).rows[0].count;
