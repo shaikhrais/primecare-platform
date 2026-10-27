@@ -25,6 +25,9 @@ jobs:
             const s=await r.text();if(s.length>12000000)throw new Error('response_too_large');return JSON.parse(s);
           }
           try{
+            const a=await get('/assistant/5ae2ab0c-fad0-454c-8cf7-64b81c91c850');
+            const prompt=JSON.stringify(a.model?.messages??[]);
+            console.log('ASSISTANT_DIAGNOSTIC '+JSON.stringify({toolIdsCount:a.model?.toolIds?.length??0,inlineToolsCount:a.model?.tools?.length??0,serverConfigured:!!a.server?.url,otpPromptPresent:/otp|one.time|verify.*identity/i.test(prompt),requiresEnrollment:/enroll|registered|registration/i.test(prompt)}));
             const list=await get('/call?limit=100');
             if(!Array.isArray(list))throw new Error('unexpected_list_shape');
             const calls=list.filter(c=>c.customer?.number==='+12898873200'&&c.phoneNumberId==='3e9cee92-b463-47c8-9e1a-cdbf179cb675').sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt)).slice(0,3);
@@ -34,6 +37,7 @@ jobs:
               const c=await get('/call/'+item.id);
               const messages=c.artifact?.messages??c.messages??[];
               const serialized=JSON.stringify(messages);
+              console.log('MESSAGE_SHAPE '+JSON.stringify({count:messages.length,roles:[...new Set(messages.map(m=>m.role))],callToolIds:c.assistant?.model?.toolIds?.length??null,artifactToolCalls:c.artifact?.toolCalls?.length??null,registrationLanguage:/register|enroll|account|profile/i.test(serialized),cannotFindAccount:/couldn.t find|could not find|unable to find|no account|not.*registered|not.*enrolled/i.test(serialized)}));
               const names=[...new Set(messages.flatMap(m=>(m.toolCalls??[]).map(t=>t.function?.name)).filter(n=>typeof n==='string'&&/^[a-zA-Z0-9_-]{1,64}$/.test(n)))];
               const checks={
                 notRegisteredMentioned:/not registered|not_registered|unregistered/i.test(serialized),
