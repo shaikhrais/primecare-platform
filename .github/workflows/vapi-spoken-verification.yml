@@ -59,6 +59,7 @@ jobs:
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           GOVERNANCE_VAPI_VERIFICATION_REGISTRATION: '1'
+          GOVERNANCE_WORKFLOW_WRITES: '1'
         run: |
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
