@@ -1,0 +1,32 @@
+{
+  "source": "c6858d9de8805a2aeaec986de7b7363d2b82cf01",
+  "releaseRunId": 40591413485,
+  "deployJobId": 122496712586,
+  "deployed": true,
+  "phoneRoutingPreserved": true,
+  "assistantsConfigured": 9,
+  "storage": "public.communication_call_audit",
+  "schemaRegisteredAndIndependentlyVerified": true,
+  "backendHosts": [
+    "primecare-vapi-verification-api",
+    "primecare-vapi-tools-api"
+  ],
+  "auditEndpoint": "https://primecare-call-audit-api.itpro-mohammed.workers.dev/v1/vapi/calls/audit",
+  "backfill": {
+    "scanned": 4,
+    "matched": 4,
+    "pages": 1,
+    "unfinished": 0
+  },
+  "streamsVerified": 17,
+  "eventsVerified": 58,
+  "chainIntegrity": true,
+  "deniedAttemptsPersisted": 3,
+  "reconciliationCron": "*/5 * * * *",
+  "nativeToolsEvidence": "provider_observed_only",
+  "backendToolsEvidence": "direct_before_and_after_boundary",
+  "liveWebhookDeliveryTested": false,
+  "realSmsSent": false,
+  "realCallMade": false,
+  "auditReadSurface": "authorized production reader and workflow; no public audit reader or UI added"
+}
