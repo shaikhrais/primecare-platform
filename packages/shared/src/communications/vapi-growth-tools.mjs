@@ -1,3 +1,4 @@
+import {nativeGrowthToolSchemas} from './vapi-growth-tool-schemas.mjs';
 import {BoundedBinaryAdapterBase} from './adapter-base.mjs';
 import registry from '../growth/registry.json' with {type:'json'};
 import pack from '../vapi-agent-tool-pack.json' with {type:'json'};
@@ -5,6 +6,7 @@ const uuid=v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab]
 const text=(v,n=500)=>typeof v==='string'&&v.length<=n&&!/[\u0000-\u001f\u007f]/.test(v);
 const exact=(v,keys)=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.keys(v).every(k=>keys.includes(k));
 const version=v=>Number.isSafeInteger(v)&&v>0;
+const sameTime=(a,b)=>a==null&&b==null||Number.isFinite(Date.parse(a))&&Date.parse(a)===Date.parse(b);
 const fail=code=>{throw Object.assign(Error(code),{code});};
 const project=l=>Object.freeze({id:l.id,pipeline:l.pipeline,stage:l.stage,version:l.version});
 /** Native staff API transport, not an authentication implementation or a mounted
@@ -35,6 +37,9 @@ export class VapiGrowthToolClient extends BoundedBinaryAdapterBase {
    if(snapshot.leads.length<100)break;
   }fail('bound_lead_unavailable');
  }
+ /** Client-side/native-host definitions, not phone-webhook attachment payloads. */
+ functionDefinitions(){return pack.agents[this.#context.agentKey].filter(key=>nativeGrowthToolSchemas[key]).map(key=>({type:'function',function:{name:'primecare_'+key.replaceAll('.','_'),description:pack.tools.find(t=>t.key===key).description,parameters:structuredClone(nativeGrowthToolSchemas[key])}}));}
+ async executeFunction(name,input,operationId){const key=pack.agents[this.#context.agentKey].find(key=>nativeGrowthToolSchemas[key]&&'primecare_'+key.replaceAll('.','_')===name);if(!key)fail('unknown_agent_function');return this.execute(key,input,operationId);}
  async execute(key,input={},operationId){
   if(!exact(input,[])&&(!input||typeof input!=='object'||Array.isArray(input)))fail('invalid_tool_input');
   const allowed={
@@ -49,7 +54,7 @@ export class VapiGrowthToolClient extends BoundedBinaryAdapterBase {
   if(key==='lead.create'){
    if(!this.#context.ownerId||!text(input.name,150)||!input.name.trim()||!text(input.email??'',254)||!text(input.phone??'',40)||!registry.sources.includes(input.source)||!text(input.reference)||!['requested','not_requested'].includes(input.contactBasis))fail('invalid_tool_input');
    const body={...input,pipeline:'client',ownerId:this.#context.ownerId,campaignId:null,dueAt:input.dueAt??null};
-   return this.#save(key,'POST','/leads',body,operationId,async receipt=>{const {lead}=await this.#snapshot(input.name,receipt.id);if(lead.version!==receipt.version||lead.name!==input.name.trim()||lead.pipeline!=='client'||lead.contact_basis!==input.contactBasis||lead.email!==(input.email??'').trim().toLowerCase()||lead.phone!==(input.phone??'').trim())fail('readback_mismatch');return project(lead);});
+   return this.#save(key,'POST','/leads',body,operationId,async receipt=>{const {lead}=await this.#snapshot(input.name,receipt.id);if(lead.version!==receipt.version||lead.name!==input.name.trim()||lead.pipeline!=='client'||lead.contact_basis!==input.contactBasis||lead.email!==(input.email??'').trim().toLowerCase()||lead.phone!==(input.phone??'').trim()||lead.source!==input.source||lead.reference!==input.reference||lead.owner_id!==this.#context.ownerId||!sameTime(lead.due_at,body.dueAt))fail('readback_mismatch');return project(lead);});
   }
   if(!this.#context.leadId)fail('bound_lead_required');const {lead,snapshot}=await this.#snapshot();
   if(key==='lead.lookup')return project(lead);
@@ -57,14 +62,14 @@ export class VapiGrowthToolClient extends BoundedBinaryAdapterBase {
   if(key==='lead.advance'){
    const next=registry.pipelines[lead.pipeline][registry.pipelines[lead.pipeline].indexOf(lead.stage)+1];
    if(lead.stage==='lost'||!next||lead.nextStage!==next||!text(input.evidence)||!input.evidence.trim())fail('stage_change_unavailable');
-   const body={version:lead.version,stage:next,ownerId:lead.owner_id,dueAt:input.dueAt??lead.due_at??null,evidence:input.evidence};
-   return this.#save(key,'PATCH','/leads/'+lead.id,body,operationId,async r=>{const {lead:l}=await this.#snapshot();if(l.version!==r.version||l.stage!==next)fail('readback_mismatch');return project(l);});
+   const body={version:lead.version,stage:next,ownerId:lead.owner_id,dueAt:Object.hasOwn(input,'dueAt')?input.dueAt:lead.due_at??null,evidence:input.evidence};
+   return this.#save(key,'PATCH','/leads/'+lead.id,body,operationId,async r=>{const {lead:l}=await this.#snapshot();if(l.version!==r.version||l.stage!==next||l.owner_id!==body.ownerId||!sameTime(l.due_at,body.dueAt))fail('readback_mismatch');return project(l);});
   }
   if(key==='lead.followup'||key==='lead.suppress'){
    const outcome=key==='lead.suppress'?'do_not_contact':input.outcome;
    if(!registry.callOutcomes.includes(outcome)||!text(input.notes)||!input.notes.trim())fail('invalid_tool_input');
    const body={leadId:lead.id,leadVersion:lead.version,outcome,notes:input.notes,dueAt:key==='lead.suppress'?null:input.dueAt??null};
-   return this.#save(key,'POST','/calls',body,operationId,async r=>{const {lead:l,snapshot:s}=await this.#snapshot();const calls=s.calls?.filter(c=>c.id===r.id&&c.lead_id===lead.id&&c.outcome===outcome);if(!version(r.leadVersion)||l.version!==r.leadVersion||calls?.length!==1||outcome==='do_not_contact'&&l.contact_blocked!==true)fail('readback_mismatch');return Object.freeze({id:r.id,leadVersion:l.version,outcome,suppressionSaved:outcome==='do_not_contact'});});
+   return this.#save(key,'POST','/calls',body,operationId,async r=>{const {lead:l,snapshot:s}=await this.#snapshot();const calls=s.calls?.filter(c=>c.id===r.id&&c.lead_id===lead.id&&c.outcome===outcome&&c.notes===input.notes);if(!version(r.leadVersion)||l.version!==r.leadVersion||calls?.length!==1||(outcome==='do_not_contact'&&l.contact_blocked!==true)||!sameTime(l.due_at,body.dueAt))fail('readback_mismatch');return Object.freeze({id:r.id,leadVersion:l.version,outcome,suppressionSaved:outcome==='do_not_contact'});});
   }
   if(key==='lead.contact_update'){
    if(!text(input.name,150)||!text(input.email,254)||!text(input.phone,40)||!text(input.evidence)||!input.evidence.trim())fail('invalid_tool_input');

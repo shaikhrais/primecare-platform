@@ -35,6 +35,11 @@ model arguments. Actual Growth service policy and idempotency stay authoritative
 Writes require an independently read saved result, not just an HTTP success.
 Readback mismatch/network ambiguity is an uncertain outcome with no blind retry.
 
+Nine model-facing function parameter schemas and per-agent native function
+definitions are included. They omit owner/lead/version/operation identifiers,
+credentials and destinations; the host binds those independently. These are
+client-side/native-host definitions, not saved phone webhook tools.
+
 The adapter requires a host-pinned saved-agent role and native scope. It is not
 permission to expose staff endpoints to an anonymous phone caller. The production
 workflow reads current registrations and produces an exact per-agent readiness

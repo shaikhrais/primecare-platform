@@ -2,7 +2,7 @@ name: Create PrimeCare saved Vapi agent library
 on:
   push:
     branches: [main]
-    paths: ['packages/shared/src/vapi-agent-*.json', 'packages/shared/src/communications/vapi-agent-library.mjs', 'scripts/*vapi-agent*.mjs', 'scripts/build-vapi-agent-scripts.py', 'packages/shared/src/communications/vapi-growth-tools.mjs', 'packages/shared/src/communications/vapi-agent-tool-pack.mjs', 'scripts/test-vapi-growth-tools.mjs', 'scripts/test-vapi-agent-tool-pack.mjs', '.github/workflows/vapi-agent-library.yml']
+    paths: ['packages/shared/src/vapi-agent-*.json', 'packages/shared/src/communications/vapi-agent-library.mjs', 'scripts/*vapi-agent*.mjs', 'scripts/build-vapi-agent-scripts.py', 'packages/shared/src/communications/vapi-growth-tools.mjs', 'packages/shared/src/communications/vapi-growth-tool-schemas.mjs', 'packages/shared/src/communications/vapi-agent-tool-pack.mjs', 'scripts/test-vapi-growth-tools.mjs', 'scripts/test-vapi-agent-tool-pack.mjs', '.github/workflows/vapi-agent-library.yml']
   workflow_dispatch:
 permissions: {contents: read}
 concurrency: {group: primecare-vapi-agent-library, cancel-in-progress: false}

@@ -1,3 +1,4 @@
+import {nativeGrowthToolSchemas} from './vapi-growth-tool-schemas.mjs';
 import pack from '../vapi-agent-tool-pack.json' with {type:'json'};
 import registry from '../growth/registry.json' with {type:'json'};
 import taskContracts from '../../../../tools/governance-production/vapi-contracts-registration.json' with {type:'json'};
@@ -7,7 +8,7 @@ export function prepareAgentTools(agentKey,registrations=[]){
  const keys=pack.agents[agentKey];if(!keys)throw Error('Unknown agent');
  return keys.map(key=>{
   const tool=pack.tools.find(t=>t.key===key);if(!tool)throw Error('Missing tool contract');
-  const result=structuredClone(tool);result.liveBusinessReady=false;
+  const result=structuredClone(tool);result.liveBusinessReady=false;if(nativeGrowthToolSchemas[key]){result.functionName='primecare_'+key.replaceAll('.','_');result.inputSchema=structuredClone(nativeGrowthToolSchemas[key]);result.runtime='existing-authenticated-native-client';}
   if(tool.api){
    const matches=registrations.filter(r=>r.route_path===tool.api.path&&r.http_method===tool.api.method);
    result.registration=matches.length===1?{id:matches[0].id,permission:matches[0].permission_key,status:matches[0].implementation_status}:null;

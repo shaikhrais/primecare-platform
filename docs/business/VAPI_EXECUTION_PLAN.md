@@ -216,3 +216,18 @@ proposal, client onboarding/history and directory transfer still require their
 actual compatible runtime/destination; callback/booking task contracts retain
 their existing closed-runtime status. Authentication is not being changed to
 work around those missing business bindings.
+
+Release 40516520809 passed and independently read back all eight version-three
+saved assistants plus the active 4277 receptionist. Existing voicemail/end-call
+and verification attachments and phone routing were preserved. Production metadata
+confirmed the native Growth bindings: API 16447 (read), 16449/16450 (lead), 16456
+(call outcome/opt-out), 16457/16458 (CRM appointment) and 16459 (contact correction).
+Authentication was unchanged; no calls, SMS or business writes were performed.
+
+The native function parameter definitions and dispatch are also implemented for
+all nine adapter capabilities, with 38 local checks and strict declaration checks
+passed. Model parameters omit trusted scope, record/version identifiers and
+credentials. Native staff functions still need the host attachment; saved phone
+business tools remain unconnected. Missing catalogue/proposal/client-specific
+backends and approved transfer destinations are recorded in the tool pack rather
+than published as fake capabilities.

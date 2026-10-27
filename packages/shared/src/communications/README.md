@@ -1436,3 +1436,9 @@ These native staff adapters are not a deployed phone-tool webhook. Attaching a
 business tool requires its actual compatible runtime, registered server and
 verified live scope. Authentication and the existing receptionist verification
 instructions/tool remain unchanged by the tool-pack release.
+
+The nine native Growth tools also expose exact model-facing parameter schemas
+and per-agent function definitions. The host passes its stable operation ID
+separately to `executeFunction`; function parameters cannot supply trusted IDs,
+versions, credentials or destinations. Native functions need their existing
+authenticated host and are not automatically attached to saved phone agents.

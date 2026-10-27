@@ -1,0 +1,203 @@
+{
+  "date": "2026-10-27",
+  "agentReleaseSource": "54c88e26f093e158ba6de27a13a5bf2266b35bf2",
+  "runId": 40516520809,
+  "verifyJobId": 122231702780,
+  "releaseJobId": 122231850345,
+  "status": "success",
+  "report": {
+    "source": "54c88e26f093e158ba6de27a13a5bf2266b35bf2",
+    "agents": [
+      {
+        "key": "reception",
+        "id": "9ba3014c-cfaa-4607-997c-b5347212be54",
+        "scriptVersion": 3,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "new_enquiry",
+        "id": "8d9123e9-ac5b-4b2c-abbf-0447b3fbc5ff",
+        "scriptVersion": 3,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "qualification",
+        "id": "07b2e8c6-d4a9-4284-bb2b-ffae589183b3",
+        "scriptVersion": 3,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "consultation",
+        "id": "16fc27f3-2c96-49b4-aa76-be6ee099c0ec",
+        "scriptVersion": 3,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "proposal",
+        "id": "322ff7af-f657-424e-91fc-47b7dfd66074",
+        "scriptVersion": 3,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "booking_recovery",
+        "id": "01231dfe-d02a-45a3-9faf-9eb2ebe14e75",
+        "scriptVersion": 3,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "onboarding",
+        "id": "469ed456-4e68-4d2f-b09e-6658bae5bfdd",
+        "scriptVersion": 3,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "retention",
+        "id": "d1985ae7-8e35-4a7e-8f08-6a6dace03632",
+        "scriptVersion": 3,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail"
+        ],
+        "businessToolsAttached": false,
+        "callTested": false
+      }
+    ],
+    "callsStarted": false,
+    "smsSent": false,
+    "phoneRoutingChanged": false,
+    "businessToolsAttached": false,
+    "status": "scripts_and_native_tools_verified_business_dependencies_pending",
+    "voicemailToolId": "8fda5a14-5833-4000-95f4-b6406351c0cd",
+    "activeReception": {
+      "id": "5ae2ab0c-fad0-454c-8cf7-64b81c91c850",
+      "configurationReadback": true,
+      "verificationToolPreserved": true,
+      "roleScriptVersion": 3,
+      "callTested": false
+    }
+  },
+  "preparation": {
+    "agents": 8,
+    "capabilities": 20,
+    "nativeTransportImplemented": 9,
+    "businessToolsAttached": false,
+    "authenticationChanged": false
+  },
+  "registeredGrowthBindings": [
+    {
+      "id": 16447,
+      "endpoint_code": "GROWTH_GET_",
+      "route_path": "/v1/governance/growth",
+      "http_method": "GET",
+      "service_name": "governance",
+      "implementation_status": "implemented",
+      "permission_key": "growth.tenant_role",
+      "auth_required": 1
+    },
+    {
+      "id": 16449,
+      "endpoint_code": "GROWTH_POST__leads",
+      "route_path": "/v1/governance/growth/leads",
+      "http_method": "POST",
+      "service_name": "governance",
+      "implementation_status": "implemented",
+      "permission_key": "growth.tenant_role",
+      "auth_required": 1
+    },
+    {
+      "id": 16450,
+      "endpoint_code": "GROWTH_PATCH__leads_id",
+      "route_path": "/v1/governance/growth/leads/{id}",
+      "http_method": "PATCH",
+      "service_name": "governance",
+      "implementation_status": "implemented",
+      "permission_key": "growth.tenant_role",
+      "auth_required": 1
+    },
+    {
+      "id": 16456,
+      "endpoint_code": "GROWTH_POST__calls",
+      "route_path": "/v1/governance/growth/calls",
+      "http_method": "POST",
+      "service_name": "governance",
+      "implementation_status": "implemented",
+      "permission_key": "growth.tenant_role",
+      "auth_required": 1
+    },
+    {
+      "id": 16457,
+      "endpoint_code": "GROWTH_POST__appointments",
+      "route_path": "/v1/governance/growth/appointments",
+      "http_method": "POST",
+      "service_name": "governance",
+      "implementation_status": "implemented",
+      "permission_key": "growth.tenant_role",
+      "auth_required": 1
+    },
+    {
+      "id": 16458,
+      "endpoint_code": "GROWTH_PATCH__appointments_id",
+      "route_path": "/v1/governance/growth/appointments/{id}",
+      "http_method": "PATCH",
+      "service_name": "governance",
+      "implementation_status": "implemented",
+      "permission_key": "growth.tenant_role",
+      "auth_required": 1
+    },
+    {
+      "id": 16459,
+      "endpoint_code": "GROWTH_PATCH__contacts_id",
+      "route_path": "/v1/governance/growth/contacts/{id}",
+      "http_method": "PATCH",
+      "service_name": "governance",
+      "implementation_status": "implemented",
+      "permission_key": "growth.tenant_role",
+      "auth_required": 1
+    }
+  ],
+  "authenticationChanged": false,
+  "liveBusinessToolAcceptance": false
+}
