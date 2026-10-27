@@ -58,7 +58,7 @@ try{
  for(const a of before){
   lease();const current=await vapi('/assistant/'+a.id);if(!isDeepStrictEqual(current,a))throw Error('concurrent_assistant_change');
   const server={...(a.server??{}),url:endpoint,credentialId:credential.id,timeoutSeconds:20};
-  const serverMessages=[...new Set([...(a.serverMessages??[]),'status-update','end-of-call-report','conversation-update'])];
+  const serverMessages=[...new Set([...(a.serverMessages??[]),'tool-calls','status-update','end-of-call-report','conversation-update'])];
   await vapi('/assistant/'+a.id,'PATCH',{server,serverMessages});const saved=await vapi('/assistant/'+a.id);
   if(!isDeepStrictEqual(saved.server,server)||!isDeepStrictEqual(saved.serverMessages,serverMessages)||Object.keys(a).filter(k=>!['server','serverMessages','updatedAt','latestVersion'].includes(k)).some(k=>!isDeepStrictEqual(saved[k],a[k])))throw Error('assistant_configuration_changed');
   const configurationHash=await hash({model:saved.model,server:saved.server,serverMessages:saved.serverMessages,artifactPlan:saved.artifactPlan??null});
