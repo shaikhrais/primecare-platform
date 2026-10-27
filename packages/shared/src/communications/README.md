@@ -1462,3 +1462,18 @@ content-hashed public file, verifies raw content and tool readback, and performs
 a public-only chat probe. `VapiRequestToolLibraryClient` saves four existing
 registered request tools with the existing credential reference, trusted static
 actions and call header, without changing credentials or attaching writes.
+
+`createVapiBusinessRuntime` is the composition root for that protocol and both
+native API clients. The existing host supplies `authenticate`, `authorize`,
+`contexts.current(callId)` and durable `journal.begin/complete`. Each current
+context supplies native `scopeKey`, `currentScope`, authenticated `fetch`, pinned
+`agentKey/assistantId`, `expiresAt` and optional bound business targets. The
+runtime rebuilds the runner at every context check and binds receipts to the
+native scope and lead/owner/appointment/search targets. The policy receives
+`nativeScopeKey` alongside the derived receipt namespace. Changing targets during
+execution invalidates the operation. No credentials, grants or URLs are created.
+
+Run `node --test scripts/test-vapi-business-runtime.mjs` for protocol-to-native
+adapter integration: saved mutation readback, durable replay, uncertain-write
+rejection, API denial, target rebinding, native scope expiry, role isolation and
+owned-client projections. This isolated suite does not claim production mounting.

@@ -1,11 +1,33 @@
-# Next Vapi business-tool activation checkpoint
+# Remaining Vapi business activation
 
-2026-10-26. Work remains on main.
+Updated 2026-10-27. Work is saved on main; authentication is unchanged and excluded
+from this work. The previous authentication-first implementation target is
+superseded by the user's instruction to prepare business tools and agents.
 
-The current identity readiness check is [run 40412672475](https://github.com/shaikhrais/primecare-platform/actions/runs/40412672475). Its integration tests passed and the read-only production inspection completed. All required identity/task/contact tables are present. There are zero active verified voice contacts. Native OTP endpoint permissions are not ready. The current contact-enrollment deployment receipt does not pass its boundary verification. Pre-AI pairing delivery, native app pairing UI and deployed OTP runtime remain recorded integration dependencies.
+Eight v4 saved agents and their public Query attachment have verified provider
+readbacks and a successful public-only Vapi chat probe. Four registered task
+request tools are saved but unattached. Eleven native business handlers are
+implemented; client owner read contracts are registered in production. See
+[VAPI_AGENT_TOOL_PACK.md](VAPI_AGENT_TOOL_PACK.md) for IDs and receipts.
 
-The existing registered Vapi task boundary supports reception callback requests and appointment request proposals/execution; it does not currently expose lead-update actions. It remains explicitly closed to business actions. Creating a new lead-stage tool requires its own registered backend contract and scoped execution path rather than attaching a general CRM write endpoint or forwarding native session tokens to the model.
+The result-returning server protocol now has an executable composition root,
+`createVapiBusinessRuntime`, combining the existing Growth and client adapters.
+It consumes existing authenticated transport, current context, access policy and
+durable journal ports. It changes no authentication code and mounts no new route.
+Its integration suite exercises actual native adapters behind the Vapi protocol,
+including saved readback/replay, uncertain responses, denied access, context
+rebinding, role isolation and private-field omission.
 
-The Vapi management UI now explicitly distinguishes saved agent configurations from connected business actions. It was published after browser/type checks. [Native activation/readback run 40412790335](https://github.com/shaikhrais/primecare-platform/actions/runs/40412790335) passed after publication. No live call, SMS, routing change or business-tool attachment occurred in this step.
+Remaining production connections:
 
-Next implementation target: native app pairing and deployed OTP runtime, followed by a verified caller/contact flow, then the reception callback request tool through canonical Vapi/Twilio call checks and independent confirmation. The saved-agent library and Code Admin management UI are available; business-task activation is not complete.
+- A registered host must supply those existing ports and mount the composed
+  responder. Until then, private business tools remain unattached and cannot be
+  reported as working by phone. Do not substitute an administrator session.
+- Proposal lookup needs the approved client proposal source. A tenant marketing
+  contribution proposal is not a client quote.
+- Human transfer needs an approved directory destination. The owner's personal
+  test number is not an approved transfer destination.
+
+No call, campaign, SMS, phone routing or authentication change is part of this
+checkpoint. Automated tests use isolated in-memory API/journal fixtures only;
+production journal durability and deployed private execution remain unverified.
