@@ -21,7 +21,7 @@ authentication in the latest request.
   eight saved agents plus the original receptionist. After current-call OTP it
   reads bounded appointments, visit statuses or onboarding facts from the verified
   caller's own client profile/tenant. No native session is created.
-- Eleven native business handlers and the generic result-returning server
+- Sixteen native business handlers and the generic result-returning server
   composition are implemented and tested. Four registered request tools remain
   unattached. The separate private business-write responder is not yet mounted.
 - Zero real account phones were enrolled at the production audit. A real account
@@ -147,3 +147,26 @@ request contracts 16570 (create), 16571 (item status) and 16572 (pending cancel)
 were independently registered/read back in run 40556734285 with no role grants,
 schema changes, authentication changes or customer writes. Receipt:
 [client action tools](evidence/vapi-client-action-tools-20261027.json).
+
+## Durable business execution journal built
+
+The shared runtime now accepts private transactional Durable Object storage via
+`durableStorage`, or an existing explicit `journal` port, never both.
+`DurableVapiBusinessJournal` commits a pending claim before business execution,
+keeps unknown outcomes pending across restarts and replays only a bounded,
+immutable completed result with a matching argument digest. Keys isolate the
+canonical call, native business scope and provider tool-call ID. No automatic
+lease expiry or retry can repeat an uncertain write. The host must preserve
+receipts for the full period in which it accepts a call or replay.
+
+A real local workerd Durable Object test passed twenty concurrent storage claims,
+pending/completed restart survival, conflicting arguments, immutable completion,
+size/input limits and call/scope/tool isolation. A complete Vapi server-protocol
+fixture then processed twenty concurrent duplicate requests with exactly one
+synthetic mutation, and replayed the same saved result after Worker restart.
+The existing 47 business-handler checks also passed locally.
+
+This implements the durable journal dependency, not the remaining private phone
+write host or its current authorization and independent confirmation bindings.
+No new phone tool was attached, no production storage was created and no real
+call, SMS or customer write was performed by this batch.

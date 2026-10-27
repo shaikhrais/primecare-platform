@@ -25,3 +25,9 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: node --test scripts/test-vapi-business-runtime.mjs scripts/test-vapi-business-function.mjs scripts/test-vapi-growth-tools.mjs scripts/test-vapi-client-tools.mjs scripts/test-vapi-agent-tool-pack.mjs scripts/test-vapi-client-support-tools.mjs scripts/test-vapi-booking-request-tools.mjs
+      - name: Install isolated Worker test dependencies
+        run: npm install --prefix /tmp/vapi-business-worker --ignore-scripts --no-audit --no-fund esbuild@0.27.2 miniflare@4.20260730.1
+      - name: Verify durable execution receipts across restarts
+        run: |
+          ln -s /tmp/vapi-business-worker/node_modules node_modules
+          node scripts/test-vapi-business-journal-workerd.mjs

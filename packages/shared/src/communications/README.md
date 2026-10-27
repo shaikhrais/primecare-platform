@@ -1557,3 +1557,22 @@ checking the native client's request list.
 The expanded runner has sixteen native capabilities (eleven existing plus two
 support messages and three booking-request functions). This count describes
 implemented handlers, not provider attachment or live phone-write activation.
+
+
+### Durable Vapi business receipts
+
+`createVapiBusinessRuntime` accepts `durableStorage` from the authenticated host's
+private Durable Object storage. Alternatively pass the existing `journal` port;
+passing both is rejected. `DurableVapiBusinessJournal` uses storage transactions
+to claim each canonical call/native scope/tool-call ID once, rejects changed
+argument digests, keeps uncertain executions pending across restarts and returns
+only immutable completed results bounded to 8192 UTF-8 bytes. It does not grant
+access, resolve a native account, approve an action or mount a route. Preserve
+receipt storage throughout every accepted call/replay window; never clear pending
+claims to retry an uncertain business write. Do not place credentials or raw OTPs
+in a tool result. Stored results require the same access controls as their source.
+
+Run `node scripts/test-vapi-business-journal-workerd.mjs` with isolated esbuild and
+Miniflare dependencies for real local Durable Object transaction/restart tests,
+including complete server-protocol replay with exactly one synthetic execution.
+This isolated storage fixture is not an operational governance authority.
