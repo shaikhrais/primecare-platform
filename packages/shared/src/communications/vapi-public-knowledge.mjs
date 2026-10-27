@@ -30,7 +30,7 @@ export class VapiPublicKnowledgeClient extends BoundedBinaryAdapterBase {
   for(let i=0;i<30;i++){file=this.#scope(await this.#request('/file/'+file.id));if(file.status==='done')break;if(file.status!=='processing')fail('knowledge_file_failed');if(i<29)await new Promise(r=>setTimeout(r,1000));}
   if(file.status!=='done'||file.metadata?.primecareSha256!==digest)fail('knowledge_file_not_ready');
   // The URL is returned by the authenticated provider file read, never a caller.
-  const url=new URL(file.url);if(url.protocol!=='https:'||url.username||url.password||!['auth.vapi.ai','storage.vapi.ai'].includes(url.hostname))throw Object.assign(Error('unsupported_file_storage_preserved'),{storageHost:url.hostname});
+  const url=new URL(file.url);if(url.protocol!=='https:'||url.username||url.password||!['auth.vapi.ai','storage.vapi.ai','jtuyprjjgxbgmtjiykoa.supabase.co'].includes(url.hostname)||url.hostname==='jtuyprjjgxbgmtjiykoa.supabase.co'&&!url.pathname.startsWith('/storage/v1/object/'))throw Object.assign(Error('unsupported_file_storage_preserved'),{storageHost:url.hostname});
   const send=this.#send,readback=await send(url.href,{method:'GET',redirect:'manual',signal:AbortSignal.timeout(15000)});
   if(!readback.ok){await readback.body?.cancel();fail('knowledge_readback_failed');}
   const bytes=await this.readBoundedBody(readback.body);if(hash(bytes)!==digest)fail('knowledge_content_mismatch');
