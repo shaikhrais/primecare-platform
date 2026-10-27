@@ -1,7 +1,7 @@
 {
-  "sourceCommit": "37132172585b6837b33f828f3cf31c019c2119ca",
-  "workflowRunId": 40548592246,
-  "readinessJobId": 122346254220,
+  "sourceCommit": "a6f7a074e2594bb064e22ee2ed9d0081a22e51ea",
+  "workflowRunId": 40552901484,
+  "readinessJobId": 122361322207,
   "step": 3,
   "readinessMeasured": true,
   "liveCallVerified": false,
@@ -174,10 +174,13 @@
     "liveOtpVerified": false,
     "smsSent": false,
     "businessActionsEnabled": false,
-    "source": "f873b360fd8ab41b5a8e6ebce2ee990c6c11d125",
+    "source": "5243abd88bfd308714bb8cf401f3a714e4078dbe",
     "toolReadback": true,
+    "clientInformationToolReadback": true,
+    "clientInformationAnonymousDenied": true,
     "activeReceptionVerified": true,
-    "phoneRoutingVerified": true
+    "phoneRoutingVerified": true,
+    "clientInformationVerified": true
   },
   "ready": false,
   "status": "spoken_sms_configured_account_enrollment_or_live_acceptance_pending"

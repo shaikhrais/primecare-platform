@@ -8,6 +8,9 @@ const report={source:process.env.GITHUB_SHA,status:'pending',agents:[],authentic
 try{
  execFileSync('git',['fetch','origin','main'],{stdio:'pipe'});
  if(execFileSync('git',['rev-parse','FETCH_HEAD'],{encoding:'utf8'}).trim()!==report.source)throw Error('stale_main');
+ const replayPath=process.argv[2]==='--replay'&&process.argv[3];if(process.argv.length>2&&replayPath!=='docs/business/evidence/vapi-client-information-conversations-recorded-20261027.json')throw Error('unapproved_replay_source');
+ const replay=replayPath?JSON.parse(await readFile(replayPath,'utf8')):null;
+ if(replay&&(!Array.isArray(replay.agents)||replay.agents.length!==8||new Set(replay.agents.map(a=>a.agentKey)).size!==8))throw Error('invalid_replay_receipt');report.replayedSavedChats=!!replay;
  const catalog=JSON.parse(await readFile('packages/shared/src/vapi-agent-templates.json','utf8'));
  const client=new VapiAgentLibraryClient({apiKey:process.env.VAPI_PRIVATE_API_KEY}),knowledge=new VapiPublicKnowledgeClient({apiKey:process.env.VAPI_PRIVATE_API_KEY});
  const previousVerificationInstruction=await readFile('packages/shared/src/vapi-spoken-verification-instructions-baseline.txt','utf8');
@@ -25,8 +28,9 @@ try{
  // Live chats only; no phone calls, tool writes, provider patches or auth changes.
  for(const agent of catalog.agents){
   const entry={agentKey:agent.key,assistantId:savedAgents[agent.key],scriptVersion:agent.scriptVersion};report.agents.push(entry);
-  await preflight(agent);entry.configurationReadback=true;entry.publicInformation=await knowledge.probe(entry.assistantId);
-  await preflight(agent);entry.unavailableAction=await knowledge.probeUnavailable(agent.key);
+  const previous=replay?.agents.find(a=>a.agentKey===agent.key);if(replay&&(!previous||previous.assistantId!==entry.assistantId||!previous.publicInformation?.chatId||!previous.unavailableAction?.chatId))throw Error('invalid_replay_receipt');
+  await preflight(agent);entry.configurationReadback=true;entry.publicInformation=await knowledge.probe(entry.assistantId,previous?{chatId:previous.publicInformation.chatId}:undefined);
+  await preflight(agent);entry.unavailableAction=await knowledge.probeUnavailable(agent.key,previous?{chatId:previous.unavailableAction.chatId}:undefined);
   await preflight(agent);entry.configurationUnchanged=true;
  }
  report.status='all_eight_agent_chat_checks_passed_private_actions_not_live';

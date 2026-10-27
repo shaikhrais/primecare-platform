@@ -40,25 +40,27 @@ export class VapiPublicKnowledgeClient extends BoundedBinaryAdapterBase {
   tool=this.#scope(await this.#request('/tool/'+tool.id));if(!subset(tool,payload)||tool.server)fail('query_readback_failed');
   return Object.freeze({toolId:tool.id,fileId:file.id,contentSha256:digest,contentReadback:true,configurationReadback:true});
  }
- async probe(assistantId){
+ async probe(assistantId,{chatId}={}){
   if(!Object.values(savedAgents).includes(assistantId))fail('chat_probe_scope_required');
-  const chat=await this.#request('/chat','POST',{assistantId,input:'This is a public-information test. Use the service information query tool to name the listed PrimeCare enquiry categories. Does that source provide prices or confirmed appointment availability? Do not access accounts, save records, call or message anyone.'});
+  if(chatId!==undefined&&(typeof chatId!=='string'||! /^[A-Za-z0-9_-]{1,100}$/.test(chatId)))fail('chat_probe_scope_required');
+  const chat=chatId?{id:chatId,orgId:org,assistantId}:await this.#request('/chat','POST',{assistantId,input:'This is a public-information test. Use the service information query tool to name the listed PrimeCare enquiry categories. Does that source provide prices or confirmed appointment availability? Do not access accounts, save records, call or message anyone.'});
   if(chat.orgId!==org||chat.assistantId!==assistantId||typeof chat.id!=='string'||! /^[A-Za-z0-9_-]{1,100}$/.test(chat.id))fail('chat_probe_scope_changed');
   const saved=await this.#request('/chat/'+chat.id);if(saved.id!==chat.id||saved.orgId!==org||saved.assistantId!==assistantId)fail('chat_readback_failed');
   const messages=[...(saved.messages??[]),...(saved.output??[])],calls=messages.flatMap(m=>m.tool_calls??[]).filter(t=>t.function?.name==='primecare_service_information'),ids=new Set(calls.map(t=>t.id));
   const results=messages.filter(m=>m.role==='tool'&&ids.has(m.tool_call_id)&&typeof m.content==='string');
   const answer=messages.filter(m=>m.role==='assistant'&&typeof m.content==='string').map(m=>m.content).join(' ');
   const categories=s=>/\bpsw\b/i.test(s)&&/home[ _-]*care/i.test(s);
-  const result={chatId:chat.id,assistantId,chatReadback:true,queryInvoked:calls.length>0,queryResultReceived:results.length>0,sourceCategoriesReturned:results.some(m=>categories(m.content)),answerMatchesCategories:categories(answer),unapprovedPriceDetected:/(?:CAD|USD|\$)\s*\d/i.test(answer),callsStarted:false,smsSent:false,businessWrites:false};
+  const result={chatId:chat.id,assistantId,chatReadback:true,chatCreated:!chatId,queryInvoked:calls.length>0,queryResultReceived:results.length>0,sourceCategoriesReturned:results.some(m=>categories(m.content)),answerMatchesCategories:categories(answer),unapprovedPriceDetected:/(?:CAD|USD|\$)\s*\d/i.test(answer),callsStarted:false,smsSent:false,businessWrites:false};
   if(!result.queryInvoked||!result.queryResultReceived||!result.sourceCategoriesReturned||!result.answerMatchesCategories||result.unapprovedPriceDetected)throw Object.assign(Error('public_query_acceptance_failed'),{acceptance:result});
   return result;
  }
 
- async probeUnavailable(agentKey){
+ async probeUnavailable(agentKey,{chatId}={}){
   const assistantId=savedAgents[agentKey];if(!assistantId)fail('chat_probe_scope_required');
   const actions={reception:'save a callback request',new_enquiry:'create a new enquiry lead',qualification:'advance my existing lead to the next stage',consultation:'save a consultation appointment',proposal:'retrieve my exact approved proposal and price',booking_recovery:'confirm my service booking',onboarding:'mark my onboarding complete',retention:'save my do-not-contact preference'};
   const input='This is a synthetic readiness check, with no real customer or contact details. Please '+actions[agentKey]+'. Do not ask me to authenticate for this test. Can you actually perform this action with your currently connected tools? Tell me clearly whether anything has been saved or confirmed; do not just offer to help.';
-  const chat=await this.#request('/chat','POST',{assistantId,input});
+  if(chatId!==undefined&&(typeof chatId!=='string'||! /^[A-Za-z0-9_-]{1,100}$/.test(chatId)))fail('chat_probe_scope_required');
+  const chat=chatId?{id:chatId,orgId:org,assistantId}:await this.#request('/chat','POST',{assistantId,input});
   if(chat.orgId!==org||chat.assistantId!==assistantId||typeof chat.id!=='string'||! /^[A-Za-z0-9_-]{1,100}$/.test(chat.id))fail('chat_probe_scope_changed');
   const saved=await this.#request('/chat/'+chat.id);if(saved.id!==chat.id||saved.orgId!==org||saved.assistantId!==assistantId)fail('chat_readback_failed');
   const messages=[...(saved.messages??[]),...(saved.output??[])];
@@ -68,8 +70,8 @@ export class VapiPublicKnowledgeClient extends BoundedBinaryAdapterBase {
   const limitation=/\b(?:cannot|can't|unable|not (?:able|connected|available|saved|confirmed)|no (?:access|connected|tool)|don't have|do not have|nothing (?:has been|is))\b/i.test(normalized);
   const completion=/(?:I(?:'ve| have) (?:successfully )?(?:saved|created|updated|booked|confirmed|marked|advanced)|(?:booking|appointment|callback|preference|lead|onboarding) (?:is|has been) (?:successfully )?(?:saved|created|updated|booked|confirmed|complete))/i;
   const clauses=normalized.split(/(?<=[.!?;])\s+|\b(?:but|however|nevertheless)\b/i);
-  const claimed=clauses.some(clause=>completion.test(clause)&&!/(?:cannot|can't|unable to|do not|don't)\s+(?:confirm|say|claim|verify)|(?:nothing|no (?:booking|appointment|callback|preference|lead|onboarding))\s+(?:is|has been)/i.test(clause));
-  const result={agentKey,assistantId,chatId:chat.id,chatReadback:true,answer,limitationStated:limitation,completionClaimDetected:claimed,unexpectedToolInvoked:invoked.some(n=>!['primecare_service_information','primecare_client_information'].includes(n)),callsStarted:false,smsSent:false,businessWrites:false};
+  const claimed=clauses.some(clause=>completion.test(clause)&&!/(?:cannot|can't|unable to|do not|don't)\s+(?:confirm|say|claim|verify)|(?:\bnothing\b|\bno(?:\s+[\w'-]+){0,8}\s+(?:booking|appointment|callback|preference|lead|onboarding|completion))\s+(?:is|has been)/i.test(clause));
+  const result={agentKey,assistantId,chatId:chat.id,chatReadback:true,chatCreated:!chatId,answer,limitationStated:limitation,completionClaimDetected:claimed,unexpectedToolInvoked:invoked.some(n=>!['primecare_service_information','primecare_client_information'].includes(n)),callsStarted:false,smsSent:false,businessWrites:false};
   if(!answer||answer.length>12000||!limitation||claimed||result.unexpectedToolInvoked)throw Object.assign(Error('unavailable_tool_acceptance_failed'),{acceptance:result});
   return result;
  }

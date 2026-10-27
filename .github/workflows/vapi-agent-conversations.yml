@@ -29,8 +29,14 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - name: Verify pinned saved scripts and synthetic live chat behavior
-        run: node scripts/verify-vapi-agent-conversations.mjs
+        run: |
+          if [ "$REPLAY_RECORDED_CHATS" = "true" ]; then
+            node scripts/verify-vapi-agent-conversations.mjs --replay docs/business/evidence/vapi-client-information-conversations-recorded-20261027.json
+          else
+            node scripts/verify-vapi-agent-conversations.mjs
+          fi
         env:
+          REPLAY_RECORDED_CHATS: ${{ contains(github.event.head_commit.message, 'VAPI_REVIEW_RECORDED_CONVERSATIONS') }}
           VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
       - uses: actions/upload-artifact@v4
         if: always()

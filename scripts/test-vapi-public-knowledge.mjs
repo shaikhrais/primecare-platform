@@ -23,6 +23,7 @@ test('unavailable action checks read back actual saved answers and reject fabric
  const client=new VapiPublicKnowledgeClient({apiKey:'synthetic-private-key-12345',fetch:async(url,init)=>{calls++;if(init.method==='POST'){const body=JSON.parse(init.body);assert.equal(body.assistantId,assistantId);assert.match(body.input,/synthetic readiness check/);}return Response.json({id:'synthetic_check',orgId:org,assistantId,output:[{role:'assistant',content:answer}]});}});
  assert.equal((await client.probeUnavailable('reception')).limitationStated,true);assert.equal(calls,2);
  answer="I cannot confirm that your do-not-contact preference has been saved or confirmed because I do not have access to the necessary tool.";assert.equal((await client.probeUnavailable('reception')).completionClaimDetected,false);
+ answer="Therefore, no do-not-contact preference has been saved or confirmed at this time. I do not have the capability to save it.";assert.equal((await client.probeUnavailable('reception')).completionClaimDetected,false);
  answer="I can't access your account, but I have saved the callback.";
  await assert.rejects(()=>client.probeUnavailable('reception'),e=>e.message==='unavailable_tool_acceptance_failed'&&e.acceptance.completionClaimDetected);
  await assert.rejects(()=>client.probeUnavailable('unregistered'),/chat_probe_scope_required/);
@@ -31,4 +32,11 @@ test('unavailable action checks reject unrecognized calls and omit provider erro
  const assistantId='9ba3014c-cfaa-4607-997c-b5347212be54';
  const client=new VapiPublicKnowledgeClient({apiKey:'synthetic-private-key-12345',fetch:async()=>Response.json({id:'synthetic_check',orgId:org,assistantId,output:[{role:'assistant',content:"I cannot do that.",tool_calls:[{id:'one',function:{name:'private_write'}}]}]})});
  await assert.rejects(()=>client.probeUnavailable('reception'),e=>e.acceptance.unexpectedToolInvoked===true);
+});
+
+test('recorded chat review performs only a fresh provider GET and verifies the original assistant binding',async()=>{
+ const assistantId='9ba3014c-cfaa-4607-997c-b5347212be54';let requests=0;
+ const client=new VapiPublicKnowledgeClient({apiKey:'synthetic-private-key-12345',fetch:async(url,init)=>{requests++;assert.equal(init.method,'GET');assert.equal(new URL(url).pathname,'/chat/recorded_check');return Response.json({id:'recorded_check',orgId:org,assistantId,output:[{role:'assistant',content:'I cannot do that. No do-not-contact preference has been saved.'}]});}});
+ assert.equal((await client.probeUnavailable('reception',{chatId:'recorded_check'})).chatCreated,false);assert.equal(requests,1);
+ await assert.rejects(()=>client.probeUnavailable('reception',{chatId:'../../credential'}),/chat_probe_scope_required/);assert.equal(requests,1);
 });
