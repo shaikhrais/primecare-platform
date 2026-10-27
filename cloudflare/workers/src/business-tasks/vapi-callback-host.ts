@@ -1,4 +1,5 @@
 import {VapiApiRequestAdapter,type VapiApiRequestOptions} from '../../../../packages/shared/src/communications/vapi-api-request.mjs';
+import type {Actor,RecordState} from '../../../../packages/shared/src/communications/service-base.ts';
 import {createVapiToolCredentialVerifier} from '../../../../packages/shared/src/communications/vapi-service-auth.mjs';
 import {DurableVapiBusinessJournal} from '../../../../packages/shared/src/communications/vapi-business-journal.mjs';
 import {createPostgresReceptionCallbackServices} from './reception-callback.ts';
@@ -16,7 +17,7 @@ export function createPostgresVapiCallbackHost(options:{pool:Pool;identities:Vap
  if(typeof options.pool?.connect!=='function'||typeof options.pool?.query!=='function'||!(options.identities instanceof VapiVerifiedCallIdentityService)||!/^governance_[a-f0-9]+$/.test(pin.schema))throw Error('Verified callback host required');
  const op=contract.operations[0],url='https://primecare-vapi-tools-api.itpro-mohammed.workers.dev'+op.path;
  if(contract.operations.length!==1||op.method!=='POST'||op.path!=='/v1/vapi/voice/tasks'||op.permission!=='vapi.service.tasks')throw Error('Registered callback contract required');
- const authenticate=createVapiToolCredentialVerifier({secret:options.secret}),journal=new DurableVapiBusinessJournal(options.durableStorage),policy=new PostgresReceptionCallbackAccessPolicy(options.pool);
+ const authenticate=createVapiToolCredentialVerifier({secret:options.secret}),journal=new DurableVapiBusinessJournal(options.durableStorage);
  const binding=Object.freeze({...options});
  const authorize=async()=>{
   const db=await binding.pool.connect();
@@ -28,6 +29,12 @@ export function createPostgresVapiCallbackHost(options:{pool:Pool;identities:Vap
    return rows.length===1&&rows[0].id==='16534'&&rows[0].permission===op.permission&&rows[0].auth==='1'&&rows[0].code==='VAPI_VOICE_TASKS';
   }finally{try{await db.query('ROLLBACK');}finally{db.release();}}
  };
+ const policy=new class extends PostgresReceptionCallbackAccessPolicy {
+  override async assert(actor:Actor,action:string,state:RecordState|null){
+   if(!await authorize())throw Error('Callback tool registration unavailable');
+   await super.assert(actor,action,state);
+  }
+ }(binding.pool);
  return Object.freeze({async respond(request:Request){
   // Header is only a lookup key: canonical directory and OTP broker must agree.
   const services=()=>createPostgresReceptionCallbackServices({pool:binding.pool,policy,identities:new VapiCallTaskIdentityBroker(binding.identities,request.headers.get('x-primecare-vapi-call-id')??'')});
