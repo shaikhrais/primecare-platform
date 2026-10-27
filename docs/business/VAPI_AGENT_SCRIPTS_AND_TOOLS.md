@@ -74,3 +74,36 @@ Function callbacks must return a string result or a flat string error per
 `toolCallId`. Use API Request tools only for a real directly compatible endpoint.
 Native call controls use native Vapi tools. Update attachments by merging the
 complete fetched model, never a hand-written partial replacement.
+
+## Production API review, October 26, 2026 (Toronto)
+
+Read-only audit found 60 keyword-matched candidate registrations; 46 had no
+permission key. These counts include unrelated keyword matches and are not a
+count of 60 usable voice operations. Twelve were labelled implemented, which
+still does not prove live runtime behavior. API 16565 is deployed but retains its
+older registered-unimplemented metadata label; runtime evidence and registration
+labels must not be conflated.
+
+Verified existing Growth registration candidates:
+
+| API IDs | Operations | Required authority |
+|---|---|---|
+| 16449, 16450 | Create/edit Growth lead | Native staff session, Growth tenant/role policy |
+| 16457, 16458 | Create/edit Growth appointment | Native staff session, Growth tenant/role policy |
+| 16472, 16473 | Partner onboarding | Native staff session, CEO/business authority |
+| 16445, 16446 | Platform onboarding review/activation | Platform onboarding global authority |
+
+Growth service source additionally implements call outcomes, contact controls,
+intake links and idempotent transactions. Its entry point resolves actual
+`auth_sessions`, rechecks active user/tenant and role policy, and requires an
+Idempotency-Key for writes. Vapi's provider credential is not a staff session.
+The voice service must not reuse a Code Admin session to write for anonymous
+callers or bypass tenant policy. Growth appointments must not be described as
+confirmed clinical bookings. Partner onboarding must not be exposed to the
+client-onboarding assistant merely because its endpoint contains onboarding.
+
+A legacy franchise leads route was also reviewed: its action returns success
+without persistence. It is excluded. Connecting that route would create a false
+saved-lead claim. Tool activation remains blocked by the missing call-scoped
+business authorization composition and role-specific runtime acceptance, not by
+missing Vapi syntax or a need to paste API keys into chat.

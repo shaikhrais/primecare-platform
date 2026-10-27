@@ -12,6 +12,7 @@ try{
  const phone=client.scope(await client.request(phonePath));
  const toolId=await client.ensureVoicemail();report.voicemailToolId=toolId;
  for(const agent of catalog.agents)report.agents.push(await client.update(agent,baseline[agent.key],toolId));
+ report.activeReception=await client.updateActiveReception(catalog.agents.find(a=>a.key==='reception'),await readFile('packages/shared/src/vapi-spoken-verification-instructions.txt','utf8'),toolId);
  const after=client.scope(await client.request(phonePath));if(!isDeepStrictEqual(after,phone))throw Error('phone_routing_changed');
  report.status='scripts_and_native_tools_verified_business_dependencies_pending';
 }catch(e){report.status=/^[a-z_]{1,100}$/.test(e?.message??'')?e.message:'reconciliation_failed';if(Array.isArray(e.changedFields))report.changedFields=e.changedFields;process.exitCode=1;}
