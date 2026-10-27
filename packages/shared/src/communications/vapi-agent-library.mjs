@@ -3,6 +3,7 @@ import {isDeepStrictEqual} from 'node:util';
 import {createHash} from 'node:crypto';
 const org='9e1d8550-4b84-4472-a782-67557fe73944';
 import targets from '../vapi-agent-targets.json' with {type:'json'};
+import callback from '../vapi-callback-tool-bindings.json' with {type:'json'};
 export const savedAgents=Object.freeze(targets);
 export const voicemailPayload=Object.freeze({type:'voicemail',function:{name:'primecare_silent_voicemail',description:'Silently end when a voicemail system or auto-attendant is detected. Do not leave a message.'},messages:[]});
 const fail=message=>{throw Error(message);};
@@ -55,7 +56,9 @@ export class VapiAgentLibraryClient extends BoundedBinaryAdapterBase {
   const id='5ae2ab0c-fad0-454c-8cf7-64b81c91c850',verificationId='764dd85f-fafd-45c1-9352-45867ed94371';
   const before=this.scope(await this.request('/assistant/'+id));
   if(!knowledgeId||before.id!==id||before.name!=='PrimeCare Reception - 4277'||agent.key!=='reception'||!Array.isArray(before.model?.messages)||!before.model.messages.some(m=>m.role==='system'&&(m.content===verificationInstruction||verification?.previousInstruction&&m.content===verification.previousInstruction))||!(before.model.toolIds??[]).includes(verificationId)||before.server?.url)fail('active_reception_scope_changed');
-  if(before.model.toolIds.some(x=>![verificationId,voicemailId,knowledgeId,...(verification?.clientInformationId?[verification.clientInformationId]:[])].includes(x))||(before.model.tools??[]).some(x=>x.type!=='endCall')||(before.model.functions??[]).length)fail('unreviewed_capabilities_preserved');
+  const callbackIds=[callback.proposeToolId,callback.executeToolId],hasCallback=callbackIds.some(x=>before.model.toolIds.includes(x));
+  if(hasCallback&&(!callbackIds.every(x=>before.model.toolIds.includes(x))||before.model.messages.filter(m=>m.role==='system'&&m.content===callback.instruction).length!==1))fail('unreviewed_callback_configuration_preserved');
+  if(before.model.toolIds.some(x=>![verificationId,voicemailId,knowledgeId,...(hasCallback?callbackIds:[]),...(verification?.clientInformationId?[verification.clientInformationId]:[])].includes(x))||(before.model.tools??[]).some(x=>x.type!=='endCall')||(before.model.functions??[]).length)fail('unreviewed_capabilities_preserved');
   const prefix='PrimeCare reception role script version ',marker=prefix+agent.scriptVersion+'\n',content=marker+agent.prompt;
   const managed=before.model.messages.filter(m=>m.role==='system'&&typeof m.content==='string'&&m.content.startsWith(prefix));
   if(managed.length>1||managed.length===1&&managed[0].content!==content&&(!managed[0].content.startsWith(prefix+(agent.scriptVersion-1)+'\n')||createHash('sha256').update(managed[0].content.slice((prefix+(agent.scriptVersion-1)+'\n').length)).digest('hex')!==previousPromptHash))fail('unreviewed_prompt_preserved');

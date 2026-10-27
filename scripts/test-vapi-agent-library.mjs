@@ -1,3 +1,4 @@
+import callback from '../packages/shared/src/vapi-callback-tool-bindings.json' with {type:'json'};
 import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';
 import {VapiAgentLibraryClient,savedAgents,voicemailPayload} from '../packages/shared/src/communications/vapi-agent-library.mjs';
 const c=JSON.parse(await readFile('packages/shared/src/vapi-agent-templates.json','utf8'));
@@ -42,4 +43,11 @@ test('active receptionist instruction migration preserves one exact updated veri
  const v={previousInstruction:'Old exact instructions.',clientInformationId:'dddddddd-dddd-4ddd-8ddd-dddddddddddd',attach:true},id='5ae2ab0c-fad0-454c-8cf7-64b81c91c850';
  const f=fixture({id,name:'PrimeCare Reception - 4277',model:{provider:'openai',model:'keep',messages:[{role:'system',content:v.previousInstruction}],toolIds:['764dd85f-fafd-45c1-9352-45867ed94371']}});
  await f.client.updateActiveReception(c.agents[0],'New exact instructions.',toolId,undefined,knowledgeId,v);assert.equal(f.row().model.messages.filter(m=>m.content==='New exact instructions.').length,1);assert.ok(f.row().model.toolIds.includes(v.clientInformationId));await f.client.updateActiveReception(c.agents[0],'New exact instructions.',toolId,undefined,knowledgeId,v);assert.equal(f.writes.length,1);
+});
+
+test('active receptionist preserves only the complete reviewed callback tool pair and exact instructions',async()=>{
+ const instruction='Current OTP instructions.',id=callback.assistantId,verificationId='764dd85f-fafd-45c1-9352-45867ed94371';
+ const row={id,name:'PrimeCare Reception - 4277',model:{provider:'openai',model:'keep',messages:[{role:'system',content:instruction},{role:'system',content:callback.instruction}],toolIds:[verificationId,callback.proposeToolId,callback.executeToolId]}};
+ const f=fixture(row);await f.client.updateActiveReception(c.agents[0],instruction,toolId,hash,knowledgeId);assert.ok(f.row().model.toolIds.includes(callback.proposeToolId));assert.equal(f.row().model.messages.filter(m=>m.content===callback.instruction).length,1);
+ for(const alter of [r=>r.model.toolIds.pop(),r=>r.model.messages[1].content+=' changed']){const bad=structuredClone(row);alter(bad);const g=fixture(bad);await assert.rejects(()=>g.client.updateActiveReception(c.agents[0],instruction,toolId,hash,knowledgeId),/unreviewed_callback_configuration_preserved/);assert.equal(g.writes.length,0);}
 });

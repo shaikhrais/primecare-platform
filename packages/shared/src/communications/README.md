@@ -1598,3 +1598,25 @@ actual PostgreSQL permission lookups, current OTP proof, native app approval,
 saved callback/readback, durable claims after host reconstruction and duplicate
 execution prevention. Fixture provider calls and proof ports make no live calls
 or SMS. The fixture connection is restricted to a named local disposable database.
+
+
+### Callback Worker activation
+
+`vapi-callback-worker.ts` mounts the registered callback API Request operation and
+separately authenticated native task preview/approval routes. Per-call Durable
+Objects retain request claims. A private cross-Worker binding reads the existing
+spoken-verification proof namespace without exposing a proof endpoint or sending
+SMS. `vapi-verified-runtime.ts` reuses canonical provider call readers and the
+shared verified-subject service; it only accepts a unique active enrolled contact
+on a live inbound shared-number call. It creates no native login or approval.
+The gateway forwards only the two registered native approval paths to the new
+binding. Existing calls, enrollment and all other service targets are preserved.
+
+The callback release workflow runs native PostgreSQL, Worker, gateway and prompt
+preservation checks before a separately marked activation. Other gateway writers
+and agent reconcilers defer their mutations for that release while retaining tests.
+The release verifies provider tools before attaching only the callback proposal
+and approved execution tools to the original receptionist; eight saved role
+agents are unchanged. Exact callback instructions require independent native app
+approval and never claim a screen/notification exists unless actually available.
+Configuration is distinct from a real enrolled caller's complete acceptance test.

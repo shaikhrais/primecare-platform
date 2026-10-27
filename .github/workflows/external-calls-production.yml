@@ -75,6 +75,7 @@ jobs:
         if: always()
         with: {name: external-call-native, path: test-results/external-calls, retention-days: 30}
   deploy:
+    if: ${{ !contains(github.event.head_commit.message, 'VAPI_CALLBACK_RELEASE') }}
     needs: [metadata,native]
     runs-on: ubuntu-24.04
     environment: production

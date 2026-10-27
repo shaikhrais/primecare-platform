@@ -40,3 +40,15 @@ test('external calling mounts only exact registered routes and preserves native/
  const definition=JSON.parse(readFileSync('tools/governance-production/external-call-registration.json','utf8'));const calls=[];
  for(const op of definition.operations){const env={EXTERNAL_CALLS:{async fetch(request){calls.push({url:request.url,body:await request.text()});return new Response('external-fixture',{status:403});}}};const request=new Request('https://gateway.invalid'+op.path,{method:'POST',headers:{'content-type':'application/json'},body:'{"fixture":true}'});const result=await gateway.fetch(request,env);assert.equal(result.status,403);assert.equal(calls.at(-1).url,request.url);assert.equal(calls.at(-1).body,'{"fixture":true}');}
 });
+
+
+test('only the registered native task preview and approval routes reach callback host unchanged',async()=>{
+ for(const action of ['preview','approve']){
+  const request=new Request('https://gateway.invalid/v1/voice/tasks/'+action,{method:'POST',headers:{authorization:'Bearer native-session'},body:'{}'});let seen;
+  const env={VAPI_CALLBACK:{async fetch(r){seen=r;return Response.json({error:'unauthorized'},{status:401});}},GOVERNANCE:{fetch(){assert.fail('Must use dedicated native approval host');}}};
+  assert.equal((await gateway.fetch(request,env)).status,401);assert.equal(seen,request);
+  assert.equal((await gateway.fetch(new Request(request.url),env)).status,405);
+  assert.equal((await gateway.fetch(new Request(request.url,{method:'POST',body:'{}'}),{})).status,503);
+ }
+ assert.equal((await gateway.fetch(new Request('https://gateway.invalid/v1/voice/tasks/other',{method:'POST'}),{})).status,404);
+});

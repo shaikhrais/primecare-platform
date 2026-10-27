@@ -1,0 +1,84 @@
+name: Verify and deploy Vapi callback request tools
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/vapi-callback-release.yml'
+      - 'cloudflare/workers/src/business-tasks/vapi-callback-*.ts'
+      - 'cloudflare/workers/src/business-tasks/vapi-verified-runtime.ts'
+      - 'packages/shared/src/vapi-callback-tool-bindings.json'
+      - 'scripts/deploy-vapi-callback.mjs'
+      - 'scripts/test-vapi-callback-*.mjs'
+      - 'scripts/test-vapi-verified-runtime.mjs'
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency: {group: primecare-vapi-callback-production, cancel-in-progress: false}
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: callback_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: callback_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U callback_fixture -d callback_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      CALLBACK_TEST_DATABASE_URL: postgres://callback_fixture:disposable-only@localhost:5432/callback_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/vapi-callback-tests" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 @cloudflare/workers-types@4.20260403.1 esbuild@0.27.2 miniflare@4.20260730.0
+          ln -s "$RUNNER_TEMP/vapi-callback-tests/node_modules" node_modules
+      - run: |
+          node --test scripts/test-reception-callback-policy.mjs scripts/test-vapi-call-identity.mjs scripts/test-reception-callback.mjs scripts/test-communication-voice-tasks.mjs scripts/test-vapi-verified-runtime.mjs scripts/test-communication-gateway.mjs scripts/test-voice-contact-deployment-plan.mjs scripts/test-internal-call-deployment-plan.mjs scripts/test-vapi-agent-library.mjs scripts/test-vapi-api-request.mjs scripts/test-vapi-service-auth.mjs
+          node scripts/test-reception-callback-postgres.mjs
+          node scripts/test-vapi-callback-worker-workerd.mjs
+          node scripts/test-vapi-business-journal-workerd.mjs
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --types @cloudflare/workers-types cloudflare/workers/src/business-tasks/vapi-callback-worker.ts
+          node --check scripts/deploy-vapi-callback.mjs
+  deploy:
+    if: ${{ contains(github.event.head_commit.message, 'VAPI_CALLBACK_ACTIVATE') }}
+    needs: tests
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/vapi-callback-deploy" --ignore-scripts --no-audit --no-fund pg@8.16.3 wrangler@4.68.1
+          ln -s "$RUNNER_TEMP/vapi-callback-deploy/node_modules" node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Independently verify the existing registered provider contract
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          mkdir -p test-results/vapi
+          python tools/governance-production/vapi_contracts_registration.py --verify > "$RUNNER_TEMP/callback-registration.txt"
+          python - <<'PY'
+          import os,json,pathlib
+          rows=[json.loads(s.removeprefix('VAPI_CONTRACT_REGISTRATION ')) for s in (pathlib.Path(os.environ['RUNNER_TEMP'])/'callback-registration.txt').read_text().splitlines() if s.startswith('VAPI_CONTRACT_REGISTRATION ')]
+          assert len(rows)==1 and rows[0]['independentReadback'] is True and rows[0]['writesAttempted'] is False
+          pathlib.Path('test-results/vapi/deployment-registration.json').write_text(json.dumps(rows[0]))
+          PY
+      - name: Deploy callback host, native approval routes and verified existing tools
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY_SID: ${{ secrets.TWILIO_API_KEY_SID }}
+          TWILIO_API_KEY_SECRET: ${{ secrets.TWILIO_API_KEY_SECRET }}
+        run: node scripts/deploy-vapi-callback.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: vapi-callback-release, path: test-results/vapi-callback, retention-days: 60}

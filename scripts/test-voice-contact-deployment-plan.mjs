@@ -16,7 +16,7 @@ test('new native target is permitted, owned target retained, and unknown or conf
  for(const bad of [{bindings:[]},{bindings:[...owned.bindings,{name:'UNRELATED',type:'secret_text'}]},{bindings:[...owned.bindings,owned.bindings[0]]}])assert.throws(()=>assertOwnedNativeContactTarget(bad,config),/preserved/);
 });
 test('future full-worker configuration retains the dedicated native gateway binding',()=>{
- const dir=mkdtempSync(join(tmpdir(),'contact-gateway-plan-'));try{execFileSync(process.execPath,['scripts/generate-cloudflare-worker-config.mjs',dir],{stdio:'pipe'});const generated=JSON.parse(readFileSync(join(dir,'gateway.jsonc')));assert.equal(generated.services.filter(b=>b.binding===config.gatewayBinding&&b.service===config.workerName).length,1);assert.equal(generated.services.length,15);}finally{rmSync(dir,{recursive:true,force:true});}
+ const dir=mkdtempSync(join(tmpdir(),'contact-gateway-plan-'));try{execFileSync(process.execPath,['scripts/generate-cloudflare-worker-config.mjs',dir],{stdio:'pipe'});const generated=JSON.parse(readFileSync(join(dir,'gateway.jsonc')));assert.equal(generated.services.filter(b=>b.binding===config.gatewayBinding&&b.service===config.workerName).length,1);assert.equal(generated.services.length,16);}finally{rmSync(dir,{recursive:true,force:true});}
 });
 
 test('existing encrypted gateway JWT binding is preserved by platform retention without reading or recreating its value',()=>{

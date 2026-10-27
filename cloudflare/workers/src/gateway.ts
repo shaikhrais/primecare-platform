@@ -5,10 +5,11 @@ import callPreparation from '../../../tools/governance-production/internal-call-
 import callEvents from '../../../tools/governance-production/internal-call-events-registration.json';
 import callContracts from '../../../tools/governance-production/internal-call-contracts-registration.json';
 import contactContracts from '../../../tools/governance-production/voice-contact-contracts-registration.json';
+import voiceContracts from '../../../tools/governance-production/twilio-contracts-registration.json';
 import communicationContracts from '../../../packages/shared/src/communications/registered-contracts.json';
 interface Service { fetch(request: Request): Promise<Response> }
 interface Env {
-  EXTERNAL_CALLS?: Service; INTERNAL_CALLS?: Service; VOICE_CONTACT?: Service; AUTH: Service; CLIENT: Service; PROVIDER: Service; VISIT: Service;
+  VAPI_CALLBACK?: Service; EXTERNAL_CALLS?: Service; INTERNAL_CALLS?: Service; VOICE_CONTACT?: Service; AUTH: Service; CLIENT: Service; PROVIDER: Service; VISIT: Service;
   NOTES: Service; BILLING: Service; SCHEDULING: Service; NOTIFICATION: Service;
   VERIFICATION: Service; COMPLIANCE: Service; GOVERNANCE: Service; FRANCHISE_REPORTING: Service;
 }
@@ -58,6 +59,12 @@ export class GatewayWorker extends BaseWorker<Env> {
 
   protected override async handle(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+    const approval=voiceContracts.operations.find(op=>['task.preview','task.approve'].includes(op.key)&&op.path===url.pathname);
+    if(approval){
+      if(request.method!==approval.method)return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:approval.method}}));
+      if(!env.VAPI_CALLBACK)return withGatewayHeaders(request,Response.json({error:'approval_unavailable'},{status:503}));
+      return withGatewayHeaders(request,await env.VAPI_CALLBACK.fetch(request));
+    }
     const call=[...callContracts.operations,...callEvents.operations,...callPreparation.operations].find(op=>op.path===url.pathname);
     if(call){
       if(request.method!==call.method)return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:call.method}}));

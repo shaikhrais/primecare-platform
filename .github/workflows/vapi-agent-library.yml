@@ -17,7 +17,7 @@ jobs:
         run: python scripts/build-vapi-agent-scripts.py && git diff --exit-code -- packages/shared/src/vapi-agent-templates.json
       - run: node --test scripts/test-vapi-agent-library.mjs scripts/test-vapi-admin.mjs scripts/test-vapi-growth-tools.mjs scripts/test-vapi-agent-tool-pack.mjs scripts/test-vapi-client-tools.mjs scripts/test-vapi-business-function.mjs scripts/test-vapi-public-knowledge.mjs scripts/test-vapi-request-tool-library.mjs
   create:
-    if: ${{ !contains(github.event.head_commit.message, 'VAPI_CLIENT_INFORMATION_RELEASE') }}
+    if: ${{ !contains(github.event.head_commit.message, 'VAPI_CLIENT_INFORMATION_RELEASE') && !contains(github.event.head_commit.message, 'VAPI_CALLBACK_RELEASE') }}
     needs: verify
     environment: production
     runs-on: ubuntu-24.04

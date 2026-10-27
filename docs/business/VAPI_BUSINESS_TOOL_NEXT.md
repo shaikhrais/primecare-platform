@@ -195,3 +195,15 @@ No production deployment, provider attachment, customer write, call or SMS was
 performed by this implementation batch.
 
 Final callback host source `131be2d51355bda481c6e6c4f7d995b46a64aef9` passed CI run 40564830816 (job 122403197479): 23 focused checks, 21 real PostgreSQL scenario groups and strict TypeScript. Receipt: [callback host](evidence/vapi-callback-host-20261027.json). The broader gateway review and password-browser dependency failures remain separate; this is not a claim that all repository checks pass.
+
+
+## Callback activation batch in progress
+
+The production Worker, private proof consumer, durable call journal, exact native
+approval gateway mounts and configuration-preserving callback attachments are
+implemented. Local focused/Worker checks passed. Activation requires successful
+CI, production schema/metadata preflight, private binding readback and HTTP denial
+checks. No deployment or attachment is claimed until its receipt is verified.
+Pending booking requests and support-message tools still require their own phone
+write bindings and independent confirmation; this callback host never borrows a
+native administrator session to run them. These remain separate acceptance items.

@@ -144,6 +144,7 @@ jobs:
           pip install -r tools/governance-production/requirements.txt
           python tools/governance-production/test-account-sessions-registration.py
   deploy:
+    if: ${{ !contains(github.event.head_commit.message, 'VAPI_CALLBACK_RELEASE') }}
     needs: [metadata, native, account_catalog]
     runs-on: ubuntu-24.04
     environment: production
