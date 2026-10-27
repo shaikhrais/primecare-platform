@@ -46,3 +46,24 @@ phone by SMS, then call the existing receptionist from that number. Ask to verif
 identity, consent to a new call-verification SMS, and read only the code in that
 new text. Never read app enrollment or login codes. No real call or SMS is started
 by the deployment checks. Voiceprint work remains disabled.
+
+## Deployed configuration and readback
+
+Source 208fb9cf9ceb592f5ffd9a303209615fc738f093, workflow run 40429469151:
+focused tests job 121943349096 and production deployment job 121943535397 passed.
+Registered API ID 16565; function tool 764dd85f-fafd-45c1-9352-45867ed94371 is
+attached to the active receptionist 5ae2ab0c-fad0-454c-8cf7-64b81c91c850.
+The dedicated Verify service, tool, full assistant model and artifact settings
+were read back. Anonymous requests return 401 and a nonexistent call receives a
+safe tool error without sending SMS. Phone routing and business tools are unchanged.
+
+At readback there were zero active verified-contact records. First enroll the
+owned account phone in the existing Account SMS screen. A real incoming call,
+SMS delivery and spoken-code approval remain unverified; no SMS or call was
+started by these checks. This is configuration plus negative-live-boundary proof,
+not a successful live identity verification.
+
+The unrelated workflow-contract-plan check was already failing before this change
+(run 40426784922) and still fails its reviewed gateway.ts source-amendment hash.
+The spoken verification release tests and deployment passed independently. No
+unreviewed gateway change or hash bypass is included here.
