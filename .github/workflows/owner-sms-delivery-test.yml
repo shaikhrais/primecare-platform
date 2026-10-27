@@ -1,0 +1,26 @@
+name: One authorized owner SMS delivery test
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/send-owner-sms-delivery-test.mjs', '.github/workflows/owner-sms-delivery-test.yml']
+permissions: {contents: read}
+concurrency: {group: owner-sms-delivery-test, cancel-in-progress: false}
+jobs:
+  send:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Send the one explicitly authorized verification SMS without logging its code
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY_SID: ${{ secrets.TWILIO_API_KEY_SID }}
+          TWILIO_API_KEY_SECRET: ${{ secrets.TWILIO_API_KEY_SECRET }}
+        run: node scripts/send-owner-sms-delivery-test.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: owner-sms-delivery-test, path: test-results/owner-sms, retention-days: 7}
