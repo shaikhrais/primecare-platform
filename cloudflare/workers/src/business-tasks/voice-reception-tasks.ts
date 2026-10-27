@@ -21,10 +21,11 @@ function exact(args:unknown,keys:string[]):Record<string,unknown>{
 function id(value:unknown):asserts value is string {if(typeof value!=='string'||! /^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$/.test(value))throw Error('Invalid record reference');}
 function version(value:unknown):asserts value is number {if(!Number.isSafeInteger(value)||Number(value)<1||Number(value)>=Number.MAX_SAFE_INTEGER)throw Error('Expected version required');}
 function instant(value:unknown):asserts value is string {if(typeof value!=='string'||! /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(value)||!Number.isFinite(Date.parse(value))||new Date(value).toISOString()!==value||Date.parse(value)<=Date.now())throw Error('Future UTC time required');}
+export function validateCallbackRequest(input:unknown):CallbackRequest{const a=exact(input,['reason','windowStartsAt','windowEndsAt']);if(a.reason!=='appointment_help'&&a.reason!=='general')throw Error('Invalid callback reason');instant(a.windowStartsAt);instant(a.windowEndsAt);if(a.windowStartsAt>=a.windowEndsAt)throw Error('Invalid callback window');return {reason:a.reason,windowStartsAt:a.windowStartsAt,windowEndsAt:a.windowEndsAt};}
 export class ReceptionCallbackTask extends VoiceTaskBase {
  readonly api:ReceptionAppointmentPorts['requestCallback'];
  constructor(api:ReceptionAppointmentPorts['requestCallback']){super('reception.callback.request',1);if(typeof api!=='function')throw Error('Callback API required');this.api=api;}
- validate(input:unknown):CallbackRequest{const a=exact(input,['reason','windowStartsAt','windowEndsAt']);if(a.reason!=='appointment_help'&&a.reason!=='general')throw Error('Invalid callback reason');instant(a.windowStartsAt);instant(a.windowEndsAt);if(a.windowStartsAt>=a.windowEndsAt)throw Error('Invalid callback window');return {reason:a.reason,windowStartsAt:a.windowStartsAt,windowEndsAt:a.windowEndsAt};}
+ validate(input:unknown):CallbackRequest{return validateCallbackRequest(input);}
  describe(args:Record<string,unknown>){const a=this.validate(args);return `Request a receptionist callback for ${a.reason==='appointment_help'?'appointment help':'a general enquiry'} between ${a.windowStartsAt} and ${a.windowEndsAt} (UTC), using your account contact details.`;}
  async execute(actor:Actor,args:Record<string,unknown>,key:string){const a=this.validate(args);await this.api(actor,a,key);}
 }

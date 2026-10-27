@@ -1363,3 +1363,11 @@ call/contact, verification policy and private durable possession proof. Its
 not a native login or task approval. Business hosts must separately enforce the
 registered identity requirements, current permissions and independent approval.
 A successful SMS check alone never activates the closed business-task endpoint.
+
+The registered receptionist callback task now has a concrete candidate business
+port: `ReceptionCallbackRequestService` and `PostgresCallbackRequestRepository`.
+They require a claimed intent, consumed app approval, current owner/contact and
+host policy, then save once and independently read back status `requested`.
+See [callback persistence](../../../../docs/business/RECEPTION_CALLBACK_PERSISTENCE.md).
+Its migration is isolated-fixture-only until production storage and operational
+permissions are reviewed. This does not activate a voice tool or promise a callback.

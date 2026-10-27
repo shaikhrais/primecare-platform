@@ -1,0 +1,30 @@
+name: Verify approved reception callback persistence
+on:
+  push:
+    branches: [main]
+    paths: ['cloudflare/workers/src/business-tasks/reception-callback.ts', 'cloudflare/workers/src/business-tasks/voice-reception-tasks.ts', 'packages/database/migrations/20261027_communication_callback_requests.sql', 'scripts/test-reception-callback*.mjs', '.github/workflows/reception-callback.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  callback:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: callback_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: callback_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U callback_fixture -d callback_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      CALLBACK_TEST_DATABASE_URL: postgres://callback_fixture:disposable-only@localhost:5432/callback_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/callback-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0
+          ln -s "$RUNNER_TEMP/callback-tools/node_modules" node_modules
+      - run: |
+          node --test scripts/test-reception-callback.mjs scripts/test-communication-voice-tasks.mjs
+          node scripts/test-reception-callback-postgres.mjs
+          node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions cloudflare/workers/src/business-tasks/reception-callback.ts
