@@ -1449,5 +1449,25 @@
     "businessDataWrites": false,
     "providerWrites": false,
     "activation": false
+  },
+  "vapiClientInformationRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_VAPI_CLIENT_INFORMATION_REGISTRATION",
+    "tables": [
+      "api_endpoints"
+    ],
+    "anchorApiId": 710,
+    "endpointIdentities": [
+      {
+        "key": "vapi.client_information",
+        "method": "POST",
+        "path": "/v1/vapi/client/read"
+      }
+    ],
+    "definitionSha256": "2037936050cf82a62b8ff923e1a0a565aac27fabe011c0fec479aece11e0ed10",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false,
+    "providerWrites": false,
+    "activation": false
   }
 }

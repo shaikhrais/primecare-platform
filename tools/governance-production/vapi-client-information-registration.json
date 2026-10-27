@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "requirement": "Authenticated current-call client information only. Require the existing dedicated Vapi service credential, stable canonical live Vapi/Twilio call, unique registered phone contact and unexpired approved OTP proof. Resolve the client profile by the verified actor and tenant. Return bounded administrative booking, visit or consent/authorization statuses only. No clinical notes, funding data, names, addresses, client IDs from model input, native sessions, role grants, writes or business approvals. Registration alone creates no tools or activation.",
+  "implementationStatus": "registered-unimplemented",
+  "activation": false,
+  "service": "governance",
+  "anchorApiId": 710,
+  "operations": [
+    {
+      "key": "vapi.client_information",
+      "method": "POST",
+      "path": "/v1/vapi/client/read",
+      "authentication": "vapi-service-credential-and-canonical-call",
+      "responseKind": "json",
+      "permission": "vapi.service.client_information",
+      "request": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "object",
+            "required": [
+              "type",
+              "call",
+              "toolCallList"
+            ],
+            "properties": {
+              "type": {
+                "const": "tool-calls"
+              },
+              "call": {
+                "type": "object"
+              },
+              "toolCallList": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1
+              }
+            }
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "maxItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+name: Register owner-only Vapi client information contract
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/vapi-client-information-registration.yml'
+      - 'tools/governance-production/vapi-client-information-registration.json'
+      - 'tools/governance-production/vapi_client_information_registration.py'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  register:
+    runs-on: ubuntu-24.04
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Verify exact contract, dry run, register and independently read back
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_VAPI_CLIENT_INFORMATION_REGISTRATION: '1'
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          python - <<'PY'
+          import sys,json
+          sys.path.insert(0,'tools/governance-production')
+          import vapi_client_information_registration as m
+          p=json.load(open('tools/governance-production/production-pin.json'))
+          assert p['vapiClientInformationRegistrationWriter']==m.expected_scope()
+          assert m.definition()['operations'][0]['path']=='/v1/vapi/client/read'
+          PY
+          python tools/governance-production/vapi_client_information_registration.py --dry-run
+          python tools/governance-production/vapi_client_information_registration.py --apply
+          python tools/governance-production/vapi_client_information_registration.py --verify
