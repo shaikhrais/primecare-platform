@@ -52,7 +52,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/spoken-deploy" --ignore-scripts --no-audit --no-fund wrangler@4.68.1 pg@8.16.3
+          npm install --prefix "$RUNNER_TEMP/spoken-deploy" --ignore-scripts --no-audit --no-fund wrangler@4.68.1 pg@8.16.3 twilio@6.2.0
           ln -s "$RUNNER_TEMP/spoken-deploy/node_modules" node_modules
           pip install -r tools/governance-production/requirements.txt
       - name: Register only the exact verification service API; no role grants or schema writes
