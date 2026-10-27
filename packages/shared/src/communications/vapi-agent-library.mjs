@@ -46,15 +46,15 @@ export class VapiAgentLibraryClient extends BoundedBinaryAdapterBase {
   if(changedFields.length)throw Object.assign(Error('unrelated_setting_changed'),{changedFields});
   return {key:agent.key,id,scriptVersion:agent.scriptVersion,configurationReadback:true,tools:['endCall','voicemail'],businessToolsAttached:false,callTested:false};
  }
- async updateActiveReception(agent,verificationInstruction,voicemailId){
+ async updateActiveReception(agent,verificationInstruction,voicemailId,previousPromptHash){
   const id='5ae2ab0c-fad0-454c-8cf7-64b81c91c850',verificationId='764dd85f-fafd-45c1-9352-45867ed94371';
   const before=this.scope(await this.request('/assistant/'+id));
   if(before.id!==id||before.name!=='PrimeCare Reception - 4277'||agent.key!=='reception'||!Array.isArray(before.model?.messages)||!before.model.messages.some(m=>m.role==='system'&&m.content===verificationInstruction)||!(before.model.toolIds??[]).includes(verificationId)||before.server?.url)fail('active_reception_scope_changed');
   if(before.model.toolIds.some(x=>![verificationId,voicemailId].includes(x))||(before.model.tools??[]).some(x=>x.type!=='endCall')||(before.model.functions??[]).length)fail('unreviewed_capabilities_preserved');
-  const marker='PrimeCare reception role script version 2\n',content=marker+agent.prompt;
-  const managed=before.model.messages.filter(m=>m.role==='system'&&typeof m.content==='string'&&m.content.startsWith(marker));
-  if(managed.length>1||managed.length===1&&managed[0].content!==content)fail('unreviewed_prompt_preserved');
-  const model=structuredClone(before.model);if(!managed.length)model.messages.push({role:'system',content});
+  const prefix='PrimeCare reception role script version ',marker=prefix+agent.scriptVersion+'\n',content=marker+agent.prompt;
+  const managed=before.model.messages.filter(m=>m.role==='system'&&typeof m.content==='string'&&m.content.startsWith(prefix));
+  if(managed.length>1||managed.length===1&&managed[0].content!==content&&(!managed[0].content.startsWith(prefix+'2\n')||createHash('sha256').update(managed[0].content.slice((prefix+'2\n').length)).digest('hex')!==previousPromptHash))fail('unreviewed_prompt_preserved');
+  const model=structuredClone(before.model);if(!managed.length)model.messages.push({role:'system',content});else model.messages=model.messages.map(m=>m.role==='system'&&typeof m.content==='string'&&m.content.startsWith(prefix)?{...m,content}:m);
   if(!(model.tools??[]).some(x=>x.type==='endCall'))model.tools=[...(model.tools??[]),{type:'endCall'}];
   model.toolIds=[...new Set([...model.toolIds,voicemailId])];
   const patch={model,voicemailMessage:''};
@@ -63,6 +63,6 @@ export class VapiAgentLibraryClient extends BoundedBinaryAdapterBase {
   const saved=this.scope(await this.request('/assistant/'+id));if(!Object.entries(patch).every(([k,v])=>isDeepStrictEqual(saved[k],v)))fail('assistant_readback_failed');
   const changedFields=Object.entries(before).filter(([k,v])=>!['updatedAt','latestVersion',...Object.keys(patch)].includes(k)&&!isDeepStrictEqual(saved[k],v)).map(([k])=>k);
   if(changedFields.length)throw Object.assign(Error('unrelated_setting_changed'),{changedFields});
-  return {id,configurationReadback:true,verificationToolPreserved:true,roleScriptVersion:2,callTested:false};
+  return {id,configurationReadback:true,verificationToolPreserved:true,roleScriptVersion:agent.scriptVersion,callTested:false};
  }
 }

@@ -5,6 +5,7 @@ from pathlib import Path
 root = Path(__file__).resolve().parents[1]
 path = root / 'packages/shared/src/vapi-agent-templates.json'
 catalog = json.loads(path.read_text())
+tool_pack = json.loads((root / 'packages/shared/src/vapi-agent-tool-pack.json').read_text())
 shared = '''Identity and voice
 - You are PrimeCare's automated AI assistant. Identify yourself as AI. Speak English in warm, concise turns, one question at a time. Never speak headings or internal identifiers.
 - Stop when interrupted. Use information already supplied; clarify an unclear answer once. After repeated confusion, explain the limitation and offer the existing app/contact channel.
@@ -81,7 +82,10 @@ workflows = {
 for agent in catalog['agents']:
     steps, examples = workflows[agent['key']]
     agent['prompt'] = shared + '\nRole objective\n- ' + agent['objective'].replace('Never ask callers to speak passwords, payment-card details or one-time codes.', 'Keep sign-in and enrollment codes in the app.') + '\nRole workflow\n' + '\n'.join(f'{n}. {s}' for n,s in enumerate(steps,1)) + '\nExamples\n' + '\n'.join(f'Caller: {c}\nAssistant: {a}' for c,a in examples)
+    tool_keys = tool_pack['agents'][agent['key']]
+    agent['toolKeys'] = tool_keys
+    agent['prompt'] += '\nBusiness tool workflow\n' + '\n'.join('- When the corresponding capability is attached: ' + next(t['description'] for t in tool_pack['tools'] if t['key'] == key) for key in tool_keys if not key.startswith('call.')) + '\n- Start follow-up from the current backend CRM stage, never an inferred stage. A CRM milestone is not evidence of clinical care.\n- Do not advance a stage merely because a call was answered. Record the actual outcome, and treat refusal, wrong recipient and no answer separately.\n'
     agent['defaultTools'] = ['endCall', 'voicemail']
-    agent['scriptVersion'] = 2
-catalog['version'] = 2
+    agent['scriptVersion'] = 3
+catalog['version'] = 3
 path.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + '\n')

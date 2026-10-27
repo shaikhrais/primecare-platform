@@ -197,3 +197,22 @@ fulfilment; then perform authorized live call/app/API/database acceptance before
 attaching the callback business tool. The production readiness report also tracks
 the separate legacy native OTP/pairing path; its failures are not evidence that a
 new callback host has been deployed.
+
+### User-directed agent/tool scope — October 27, 2026
+
+Authentication work is paused at the user's request. The next release prepares
+20 role-specific capabilities, nine native Growth tool adapters and all ten CRM
+stage mappings for the eight existing saved agents. Version-three scripts add
+explicit tool workflows and retain current account safeguards, short voice turns,
+readback requirements and missing-tool behavior. Saved agents are reconciled by
+pinned IDs; no duplicate agents or campaigns are created. The active receptionist
+retains its existing verification instruction and tool unchanged.
+
+See `VAPI_AGENT_TOOL_PACK.md`. Local targeted tests passed 36 cases. The release
+workflow independently checks current production API registrations and Vapi saved
+configuration before recording deployment success. Prepared contracts and native
+staff adapters must not be described as live phone-tool attachments. Catalogue,
+proposal, client onboarding/history and directory transfer still require their
+actual compatible runtime/destination; callback/booking task contracts retain
+their existing closed-runtime status. Authentication is not being changed to
+work around those missing business bindings.

@@ -1410,3 +1410,29 @@ owned callback v1 intent. The callback access registration inherits the existing
 screen-eligible writer, additionally requires all own-phone API grants, and
 preserves explicit denials and role-screen permissions. This does not create a
 login, proof, approval, staff assignment or live tool attachment.
+
+### Agent business tool packs
+
+`vapi-agent-tool-pack.json` maps 20 capabilities to the eight saved agent roles.
+`prepareAgentTools` reuses existing registered task schemas and joins exact native
+API method/path metadata. Missing or ambiguous registrations are reported; no
+server URL, credential, tool ID or availability result is invented. Stage planning
+covers the ten stages in the existing Growth registry. It never starts calls,
+moves stages or treats CRM contact permission as complete outbound authorization.
+
+`VapiGrowthToolClient` inherits `BoundedBinaryAdapterBase` and uses the host's
+existing authenticated native fetch and current scope. It does not implement or
+change authentication. The host binds agent, lead, owner and appointment outside
+model arguments. The role pack limits available operations, and the existing
+Growth API independently enforces current session, role, tenant, ownership,
+version and idempotency. The adapter projects one bound record, uses backend
+versions and next stages, and independently reads every accepted write before
+returning saved status. Denied/conflicting writes remain errors; uncertain
+outcomes never automatically retry. CRM appointments are expressly coordination
+records, not confirmed clinical care. Search/readback is bounded to five pages;
+unavailable older records fail closed rather than claiming success.
+
+These native staff adapters are not a deployed phone-tool webhook. Attaching a
+business tool requires its actual compatible runtime, registered server and
+verified live scope. Authentication and the existing receptionist verification
+instructions/tool remain unchanged by the tool-pack release.

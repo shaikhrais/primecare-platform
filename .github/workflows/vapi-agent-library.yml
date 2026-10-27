@@ -2,7 +2,7 @@ name: Create PrimeCare saved Vapi agent library
 on:
   push:
     branches: [main]
-    paths: ['packages/shared/src/vapi-agent-*.json', 'packages/shared/src/communications/vapi-agent-library.mjs', 'scripts/*vapi-agent*.mjs', 'scripts/build-vapi-agent-scripts.py', '.github/workflows/vapi-agent-library.yml']
+    paths: ['packages/shared/src/vapi-agent-*.json', 'packages/shared/src/communications/vapi-agent-library.mjs', 'scripts/*vapi-agent*.mjs', 'scripts/build-vapi-agent-scripts.py', 'packages/shared/src/communications/vapi-growth-tools.mjs', 'packages/shared/src/communications/vapi-agent-tool-pack.mjs', 'scripts/test-vapi-growth-tools.mjs', 'scripts/test-vapi-agent-tool-pack.mjs', '.github/workflows/vapi-agent-library.yml']
   workflow_dispatch:
 permissions: {contents: read}
 concurrency: {group: primecare-vapi-agent-library, cancel-in-progress: false}
@@ -15,7 +15,7 @@ jobs:
         with: {node-version: '24'}
       - name: Verify generated role scripts are reproducible
         run: python scripts/build-vapi-agent-scripts.py && git diff --exit-code -- packages/shared/src/vapi-agent-templates.json
-      - run: node --test scripts/test-vapi-agent-library.mjs scripts/test-vapi-admin.mjs
+      - run: node --test scripts/test-vapi-agent-library.mjs scripts/test-vapi-admin.mjs scripts/test-vapi-growth-tools.mjs scripts/test-vapi-agent-tool-pack.mjs
   create:
     needs: verify
     environment: production

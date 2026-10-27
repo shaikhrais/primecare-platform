@@ -1,0 +1,288 @@
+{
+  "version": 1,
+  "requirement": "Prepare role-specific tools for the eight existing saved assistants using registered PrimeCare APIs. Keep current authentication unchanged. Configuration, backend implementation and live attachment are separate states.",
+  "tools": [
+    {
+      "key": "call.end",
+      "description": "End after goodbye, completed help or clear refusal.",
+      "family": "endCall",
+      "preparation": "configured"
+    },
+    {
+      "key": "call.voicemail",
+      "description": "Silently exit voicemail or an auto-attendant.",
+      "family": "voicemail",
+      "preparation": "configured"
+    },
+    {
+      "key": "reception.transfer",
+      "description": "Transfer only to an approved current directory destination.",
+      "family": "transferCall",
+      "preparation": "directory_destination_required"
+    },
+    {
+      "key": "service.catalogue",
+      "description": "Read approved service details and published administrative policies.",
+      "family": "apiRequest",
+      "preparation": "backend_missing"
+    },
+    {
+      "key": "lead.lookup",
+      "description": "Read one backend-bound lead; never return the full staff dashboard.",
+      "family": "apiRequest",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth",
+        "method": "GET"
+      }
+    },
+    {
+      "key": "lead.contact_preferences",
+      "description": "Read current CRM contact preference and suppression; this alone does not authorize dialing.",
+      "family": "apiRequest",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth",
+        "method": "GET"
+      }
+    },
+    {
+      "key": "lead.create",
+      "description": "Create an enquiry with explicit contact basis; independently read the saved lead.",
+      "family": "apiRequest",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/leads",
+        "method": "POST"
+      }
+    },
+    {
+      "key": "lead.advance",
+      "description": "Move only to the backend-defined next CRM stage with current version and evidence.",
+      "family": "apiRequest",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/leads/{id}",
+        "method": "PATCH"
+      }
+    },
+    {
+      "key": "lead.followup",
+      "description": "Record one actual call outcome and optional follow-up date; never dial.",
+      "family": "apiRequest",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/calls",
+        "method": "POST"
+      }
+    },
+    {
+      "key": "lead.suppress",
+      "description": "Record an explicit do-not-contact outcome and independently verify suppression.",
+      "family": "apiRequest",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/calls",
+        "method": "POST"
+      }
+    },
+    {
+      "key": "lead.contact_update",
+      "description": "Update permitted contact details for one backend-bound lead with current version.",
+      "family": "apiRequest",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/contacts/{id}",
+        "method": "PATCH"
+      }
+    },
+    {
+      "key": "consultation.create",
+      "description": "Save a CRM coordination appointment; not a confirmed clinical service booking.",
+      "family": "apiRequest",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/appointments",
+        "method": "POST"
+      }
+    },
+    {
+      "key": "consultation.update",
+      "description": "Record a CRM coordination appointment outcome; not clinical completion.",
+      "family": "apiRequest",
+      "preparation": "native_adapter_implemented",
+      "api": {
+        "path": "/v1/governance/growth/appointments/{id}",
+        "method": "PATCH"
+      }
+    },
+    {
+      "key": "proposal.lookup",
+      "description": "Retrieve current authorized commercial terms; never invent a quote.",
+      "family": "apiRequest",
+      "preparation": "backend_missing"
+    },
+    {
+      "key": "client.onboarding_status",
+      "description": "Read client onboarding progress; partner onboarding APIs are excluded.",
+      "family": "apiRequest",
+      "preparation": "backend_missing"
+    },
+    {
+      "key": "client.service_history",
+      "description": "Read authorized client service history; CRM milestones are not care delivery.",
+      "family": "apiRequest",
+      "preparation": "backend_missing"
+    },
+    {
+      "key": "callback.propose",
+      "description": "Prepare exact callback details using the registered request schema.",
+      "family": "apiRequest",
+      "preparation": "contract_prepared_runtime_closed",
+      "api": {
+        "path": "/v1/vapi/voice/tasks",
+        "method": "POST"
+      },
+      "taskId": "reception.callback.request",
+      "action": "propose"
+    },
+    {
+      "key": "booking.propose",
+      "description": "Prepare an appointment request using backend-returned service and slot/version.",
+      "family": "apiRequest",
+      "preparation": "contract_prepared_runtime_closed",
+      "api": {
+        "path": "/v1/vapi/voice/tasks",
+        "method": "POST"
+      },
+      "taskId": "appointment.booking.request",
+      "action": "propose"
+    },
+    {
+      "key": "booking.reschedule",
+      "description": "Prepare a rescheduling request using registered task fields.",
+      "family": "apiRequest",
+      "preparation": "contract_prepared_runtime_closed",
+      "api": {
+        "path": "/v1/vapi/voice/tasks",
+        "method": "POST"
+      },
+      "taskId": "appointment.reschedule.request",
+      "action": "propose"
+    },
+    {
+      "key": "request.execute",
+      "description": "Execute only a previously approved exact intent; request completion is not confirmed care.",
+      "family": "apiRequest",
+      "preparation": "contract_prepared_runtime_closed",
+      "api": {
+        "path": "/v1/vapi/voice/tasks",
+        "method": "POST"
+      },
+      "action": "execute"
+    }
+  ],
+  "agents": {
+    "reception": [
+      "call.end",
+      "call.voicemail",
+      "service.catalogue",
+      "reception.transfer",
+      "callback.propose",
+      "request.execute"
+    ],
+    "new_enquiry": [
+      "call.end",
+      "call.voicemail",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "lead.create",
+      "lead.followup",
+      "lead.suppress",
+      "callback.propose",
+      "request.execute"
+    ],
+    "qualification": [
+      "call.end",
+      "call.voicemail",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "service.catalogue",
+      "lead.advance",
+      "lead.followup",
+      "lead.suppress",
+      "lead.contact_update"
+    ],
+    "consultation": [
+      "call.end",
+      "call.voicemail",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "consultation.create",
+      "consultation.update",
+      "lead.followup",
+      "lead.suppress",
+      "callback.propose",
+      "request.execute"
+    ],
+    "proposal": [
+      "call.end",
+      "call.voicemail",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "proposal.lookup",
+      "lead.followup",
+      "lead.suppress",
+      "callback.propose",
+      "request.execute"
+    ],
+    "booking_recovery": [
+      "call.end",
+      "call.voicemail",
+      "service.catalogue",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "booking.propose",
+      "booking.reschedule",
+      "request.execute",
+      "lead.followup",
+      "lead.suppress"
+    ],
+    "onboarding": [
+      "call.end",
+      "call.voicemail",
+      "client.onboarding_status",
+      "callback.propose",
+      "request.execute"
+    ],
+    "retention": [
+      "call.end",
+      "call.voicemail",
+      "client.service_history",
+      "lead.lookup",
+      "lead.contact_preferences",
+      "lead.followup",
+      "lead.suppress",
+      "callback.propose",
+      "request.execute"
+    ]
+  },
+  "stageRouting": {
+    "client": {
+      "new": "new_enquiry",
+      "assessment": "consultation",
+      "agreed": "booking_recovery",
+      "started": "onboarding",
+      "recurring": "retention"
+    },
+    "tenant": {
+      "new": "qualification",
+      "discussion": "consultation",
+      "demo": "proposal",
+      "pilot": "onboarding",
+      "active": "retention"
+    }
+  },
+  "automaticCalls": false,
+  "businessToolsAttached": false
+}
