@@ -3,6 +3,7 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {VapiAgentLibraryClient,savedAgents} from '../packages/shared/src/communications/vapi-agent-library.mjs';
 import {VapiPublicKnowledgeClient} from '../packages/shared/src/communications/vapi-public-knowledge.mjs';
+// Recheck all saved roles after the current-call client-information release.
 const report={source:process.env.GITHUB_SHA,status:'pending',agents:[],authenticationChanged:false,callsStarted:false,smsSent:false,businessWrites:false,configurationChanged:false,privateActionsLive:false};
 try{
  execFileSync('git',['fetch','origin','main'],{stdio:'pipe'});

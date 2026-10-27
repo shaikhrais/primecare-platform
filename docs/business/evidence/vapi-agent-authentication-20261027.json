@@ -1,5 +1,5 @@
 {
-  "source": "f873b360fd8ab41b5a8e6ebce2ee990c6c11d125",
+  "source": "5243abd88bfd308714bb8cf401f3a714e4078dbe",
   "registered": true,
   "deployed": true,
   "toolCreated": false,
@@ -12,11 +12,16 @@
   "businessToolsEnabled": false,
   "stage": "complete",
   "apiId": 16565,
+  "clientInformationApiId": 16569,
+  "clientSchemaReadback": true,
   "verifyServiceReadback": true,
   "credentialRotated": true,
   "credentialId": "84312e6b-93c2-47c8-af91-59627513eac5",
   "endpoint": "https://primecare-vapi-verification-api.itpro-mohammed.workers.dev/v1/vapi/voice/verification",
   "toolId": "764dd85f-fafd-45c1-9352-45867ed94371",
+  "clientInformationToolId": "6a74a2af-7950-4a6d-b0eb-3082c6ad10a8",
+  "clientInformationEndpoint": "https://primecare-vapi-verification-api.itpro-mohammed.workers.dev/v1/vapi/client/read",
+  "unverifiedClientReadDenied": true,
   "savedAgentAuthentication": [
     {
       "key": "reception",
@@ -30,6 +35,7 @@
         "phoneVerification"
       ],
       "phoneVerificationAttached": true,
+      "clientInformationAttached": true,
       "businessToolsAttached": true,
       "businessWriteToolsAttached": false,
       "callTested": false
@@ -46,6 +52,7 @@
         "phoneVerification"
       ],
       "phoneVerificationAttached": true,
+      "clientInformationAttached": true,
       "businessToolsAttached": true,
       "businessWriteToolsAttached": false,
       "callTested": false
@@ -62,6 +69,7 @@
         "phoneVerification"
       ],
       "phoneVerificationAttached": true,
+      "clientInformationAttached": true,
       "businessToolsAttached": true,
       "businessWriteToolsAttached": false,
       "callTested": false
@@ -78,6 +86,7 @@
         "phoneVerification"
       ],
       "phoneVerificationAttached": true,
+      "clientInformationAttached": true,
       "businessToolsAttached": true,
       "businessWriteToolsAttached": false,
       "callTested": false
@@ -94,6 +103,7 @@
         "phoneVerification"
       ],
       "phoneVerificationAttached": true,
+      "clientInformationAttached": true,
       "businessToolsAttached": true,
       "businessWriteToolsAttached": false,
       "callTested": false
@@ -110,6 +120,7 @@
         "phoneVerification"
       ],
       "phoneVerificationAttached": true,
+      "clientInformationAttached": true,
       "businessToolsAttached": true,
       "businessWriteToolsAttached": false,
       "callTested": false
@@ -126,6 +137,7 @@
         "phoneVerification"
       ],
       "phoneVerificationAttached": true,
+      "clientInformationAttached": true,
       "businessToolsAttached": true,
       "businessWriteToolsAttached": false,
       "callTested": false
@@ -142,20 +154,24 @@
         "phoneVerification"
       ],
       "phoneVerificationAttached": true,
+      "clientInformationAttached": true,
       "businessToolsAttached": true,
       "businessWriteToolsAttached": false,
       "callTested": false
     }
   ],
+  "clientInformationAttachedToAllNine": true,
   "authenticationUpdated": true,
   "assistantId": "5ae2ab0c-fad0-454c-8cf7-64b81c91c850",
   "artifactStorageDisabled": true,
   "eligibleVerifiedContacts": 0,
   "status": "deployed_and_attached_live_sms_test_pending",
-  "releaseRunId": 40546849680,
-  "testJobId": 122339634930,
-  "deployJobId": 122340054392,
-  "localAuthChecks": 53,
-  "localWorkerRuntime": "passed synthetic SMS, restart persistence, proof binding, expiry and attempt limits",
-  "realCallerOtpTested": false
+  "releaseRunId": 40551796137,
+  "testJobId": 122357216915,
+  "clientPostgresJobId": 122357216468,
+  "deployJobId": 122357964610,
+  "localFocusedChecks": 61,
+  "realCallerOtpTested": false,
+  "clientInformationReadConfigured": true,
+  "businessWritesEnabled": false
 }

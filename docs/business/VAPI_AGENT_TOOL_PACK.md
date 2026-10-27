@@ -15,13 +15,15 @@ writes were performed for this release.
 | Public service enquiry information | Native Query attached; source file bytes/hash and actual retrieval verified |
 | Callback, booking, rescheduling, execution | Four API Request tools saved/read back; not attached or activated |
 | Native Growth tools | Nine business API adapters implemented and tested |
-| Client history and onboarding facts | Two owner-only read adapters; existing API contracts registered in production |
-| Result-returning function protocol | Server adapter/runner implemented and tested; private host not mounted |
+| Protected phone client information | Saved function deployed/attached to all nine assistants; reads owned appointments/history/onboarding only after current-call OTP |
+| Native client history and onboarding facts | Two owner-only native adapters; existing API contracts registered in production |
+| Generic native business-write protocol | Server adapter/runner implemented and tested; separate write host not mounted |
 | Proposals | Needs an approved current proposal source |
 | Human transfer | Needs an approved directory/transfer destination |
 
 The business/call tool pack covers 20 capabilities and all ten existing CRM
-stages. Current-call OTP is managed separately. Stage
+stages. Current-call OTP and the protected client-information function are
+managed separately. Stage
 selection is a plan, not automatic dialing or a stage update. Lost, suppressed,
 duplicated and unrequested-contact leads are excluded. CRM milestones and
 coordination appointments do not certify clinical care.
@@ -120,3 +122,10 @@ Current evidence: `evidence/vapi-agent-authentication-20261027.json` and
 `evidence/voice-contact-native-deployment-20261027.json`. Enrollment status checks
 used a temporary QA account/session/tenant and verified cleanup. Zero account
 phones were enrolled at the audit; caller-code acceptance remains pending.
+
+Protected client-information release: API 16569; tool
+`6a74a2af-7950-4a6d-b0eb-3082c6ad10a8`; workflow 40551796137, source
+`5243abd88bfd308714bb8cf401f3a714e4078dbe`. Three owner-only read sections
+are deployed with bounded projections and current OTP/policy rechecks. Real
+caller acceptance remains pending; no appointment or account writes are enabled.
+See `evidence/vapi-client-information-20261027.json`.

@@ -1,0 +1,211 @@
+{
+  "date": "2026-10-27",
+  "sourceCommit": "5243abd88bfd308714bb8cf401f3a714e4078dbe",
+  "registrationSource": "4ec5bb20a11f84be9003de891c72bff9fccc8e8d",
+  "registrationRun": 40550285781,
+  "registration": {
+    "apiIds": {
+      "vapi.client_information": 16569
+    },
+    "registered": 1,
+    "independentReadback": true,
+    "writesAttempted": false,
+    "roleGrants": 0,
+    "extensionsAssigned": 0,
+    "providerWrites": false,
+    "activation": false,
+    "definitionSha256": "2037936050cf82a62b8ff923e1a0a565aac27fabe011c0fec479aece11e0ed10"
+  },
+  "deployment": {
+    "source": "5243abd88bfd308714bb8cf401f3a714e4078dbe",
+    "registered": true,
+    "deployed": true,
+    "toolCreated": false,
+    "attached": true,
+    "anonymousDenied": true,
+    "unknownCallDenied": true,
+    "smsSent": false,
+    "liveCodeVerified": false,
+    "phoneRoutingChanged": false,
+    "businessToolsEnabled": false,
+    "stage": "complete",
+    "apiId": 16565,
+    "clientInformationApiId": 16569,
+    "clientSchemaReadback": true,
+    "verifyServiceReadback": true,
+    "credentialRotated": true,
+    "credentialId": "84312e6b-93c2-47c8-af91-59627513eac5",
+    "endpoint": "https://primecare-vapi-verification-api.itpro-mohammed.workers.dev/v1/vapi/voice/verification",
+    "toolId": "764dd85f-fafd-45c1-9352-45867ed94371",
+    "clientInformationToolId": "6a74a2af-7950-4a6d-b0eb-3082c6ad10a8",
+    "clientInformationEndpoint": "https://primecare-vapi-verification-api.itpro-mohammed.workers.dev/v1/vapi/client/read",
+    "unverifiedClientReadDenied": true,
+    "savedAgentAuthentication": [
+      {
+        "key": "reception",
+        "id": "9ba3014c-cfaa-4607-997c-b5347212be54",
+        "scriptVersion": 4,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail",
+          "query",
+          "phoneVerification"
+        ],
+        "phoneVerificationAttached": true,
+        "clientInformationAttached": true,
+        "businessToolsAttached": true,
+        "businessWriteToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "new_enquiry",
+        "id": "8d9123e9-ac5b-4b2c-abbf-0447b3fbc5ff",
+        "scriptVersion": 4,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail",
+          "query",
+          "phoneVerification"
+        ],
+        "phoneVerificationAttached": true,
+        "clientInformationAttached": true,
+        "businessToolsAttached": true,
+        "businessWriteToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "qualification",
+        "id": "07b2e8c6-d4a9-4284-bb2b-ffae589183b3",
+        "scriptVersion": 4,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail",
+          "query",
+          "phoneVerification"
+        ],
+        "phoneVerificationAttached": true,
+        "clientInformationAttached": true,
+        "businessToolsAttached": true,
+        "businessWriteToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "consultation",
+        "id": "16fc27f3-2c96-49b4-aa76-be6ee099c0ec",
+        "scriptVersion": 4,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail",
+          "query",
+          "phoneVerification"
+        ],
+        "phoneVerificationAttached": true,
+        "clientInformationAttached": true,
+        "businessToolsAttached": true,
+        "businessWriteToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "proposal",
+        "id": "322ff7af-f657-424e-91fc-47b7dfd66074",
+        "scriptVersion": 4,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail",
+          "query",
+          "phoneVerification"
+        ],
+        "phoneVerificationAttached": true,
+        "clientInformationAttached": true,
+        "businessToolsAttached": true,
+        "businessWriteToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "booking_recovery",
+        "id": "01231dfe-d02a-45a3-9faf-9eb2ebe14e75",
+        "scriptVersion": 4,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail",
+          "query",
+          "phoneVerification"
+        ],
+        "phoneVerificationAttached": true,
+        "clientInformationAttached": true,
+        "businessToolsAttached": true,
+        "businessWriteToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "onboarding",
+        "id": "469ed456-4e68-4d2f-b09e-6658bae5bfdd",
+        "scriptVersion": 4,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail",
+          "query",
+          "phoneVerification"
+        ],
+        "phoneVerificationAttached": true,
+        "clientInformationAttached": true,
+        "businessToolsAttached": true,
+        "businessWriteToolsAttached": false,
+        "callTested": false
+      },
+      {
+        "key": "retention",
+        "id": "d1985ae7-8e35-4a7e-8f08-6a6dace03632",
+        "scriptVersion": 4,
+        "configurationReadback": true,
+        "tools": [
+          "endCall",
+          "voicemail",
+          "query",
+          "phoneVerification"
+        ],
+        "phoneVerificationAttached": true,
+        "clientInformationAttached": true,
+        "businessToolsAttached": true,
+        "businessWriteToolsAttached": false,
+        "callTested": false
+      }
+    ],
+    "clientInformationAttachedToAllNine": true,
+    "authenticationUpdated": true,
+    "assistantId": "5ae2ab0c-fad0-454c-8cf7-64b81c91c850",
+    "artifactStorageDisabled": true,
+    "eligibleVerifiedContacts": 0,
+    "status": "deployed_and_attached_live_sms_test_pending",
+    "releaseRunId": 40551796137,
+    "testJobId": 122357216915,
+    "clientPostgresJobId": 122357216468,
+    "deployJobId": 122357964610,
+    "localFocusedChecks": 61,
+    "realCallerOtpTested": false,
+    "clientInformationReadConfigured": true,
+    "businessWritesEnabled": false
+  },
+  "verification": {
+    "nativePostgresPassed": true,
+    "nativePostgresJobId": 122357216468,
+    "durableWorkerPassed": true,
+    "localFocusedChecksPassed": 61,
+    "realCallerOtpTested": false,
+    "productionClientDataReadTested": false
+  },
+  "remaining": [
+    "real client phone enrollment and live OTP acceptance",
+    "private business write responder and independent confirmation",
+    "authoritative availability and new-client registration",
+    "client-requested notes and expert-message routing",
+    "approved proposal source and human transfer destination"
+  ]
+}

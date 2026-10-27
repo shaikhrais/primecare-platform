@@ -17,9 +17,13 @@ authentication in the latest request.
   registered gateway routes. Fresh source/CORS/no-store checks passed. A temporary
   authorized QA session read status; permission removal and session revocation
   denied access. QA account/session/tenant cleanup passed. No real SMS was sent.
-- Eleven native business handlers and the result-returning server composition are
-  implemented and tested. Four registered request tools are saved in Vapi but
-  remain unattached. The private business host is not yet deployed/mounted.
+- The owner-only client-information function is deployed and attached to all
+  eight saved agents plus the original receptionist. After current-call OTP it
+  reads bounded appointments, visit statuses or onboarding facts from the verified
+  caller's own client profile/tenant. No native session is created.
+- Eleven native business handlers and the generic result-returning server
+  composition are implemented and tested. Four registered request tools remain
+  unattached. The separate private business-write responder is not yet mounted.
 - Zero real account phones were enrolled at the production audit. A real account
   phone must be enrolled before a real caller can complete OTP acceptance.
 
@@ -82,5 +86,22 @@ Fresh production readback at workflow 40548592246 independently confirmed all
 eight saved OTP configurations, original receptionist, phone routing and recovered
 enrollment boundary. The direct spoken-SMS path has only two remaining identity
 acceptance blockers: zero enrolled account phones and no real caller OTP test.
-The native pairing path remains separate. Private business actions remain closed.
+The native pairing path remains separate. Private business writes remain closed; the protected client-information read
+function is now deployed.
 Receipt: [vapi-authentication-readiness-20261027.json](evidence/vapi-authentication-readiness-20261027.json).
+
+## Protected client-information release
+
+Contract API 16569 was independently registered/read back before runtime release.
+Source `5243abd88bfd308714bb8cf401f3a714e4078dbe`, workflow 40551796137,
+passed the 61 focused checks, durable Worker checks, real disposable PostgreSQL
+owner/tenant tests and production schema preflight. The live endpoint denied an
+unverified caller. Tool `6a74a2af-7950-4a6d-b0eb-3082c6ad10a8` was created/read
+back and attached to all nine target assistants. No phone routing, real SMS or
+customer records were changed. Real caller OTP/client-read acceptance remains
+pending because no account phone is enrolled.
+
+Receipt: [vapi-client-information-20261027.json](evidence/vapi-client-information-20261027.json).
+The native-write host must never substitute its administrator session for a
+verified caller. Account creation, booking changes, notes and expert messages are
+not implemented by this read-only function.

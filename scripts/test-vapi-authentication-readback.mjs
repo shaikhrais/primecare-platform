@@ -11,3 +11,15 @@ function fixture(){const receipt={deployed:true,registered:true,authenticationUp
 test('current tool, eight agent scripts, original reception and routing read back without SMS or credential access',async()=>{const f=fixture(),r=await verifyVapiSpokenDeployment(f.options);assert.equal(r.configurationVerified,true);assert.equal(r.agentsVerified,8);assert.equal(r.liveOtpVerified,false);assert.equal(r.smsSent,false);assert.equal(f.requests.length,11);});
 test('missing receipt, arbitrary endpoint, foreign org, changed prompts, logging or routing cannot pass',async()=>{for(const mode of ['missing','url','org','prompt','logging','routing']){const f=fixture();if(mode==='missing')f.options.receipt=null;if(mode==='url')f.options.receipt.endpoint='https://foreign.invalid';if(mode==='org')f.rows.get('/tool/'+id).orgId='foreign';if(mode==='prompt')f.rows.get('/assistant/'+savedAgents.reception).model.messages[0].content='edited';if(mode==='logging')f.rows.get('/assistant/'+savedAgents.reception).artifactPlan.loggingEnabled=true;if(mode==='routing')f.rows.get('/phone-number/'+phoneId).assistantId=savedAgents.reception;const r=await verifyVapiSpokenDeployment(f.options);assert.equal(r.configurationVerified,false);if(['missing','url'].includes(mode))assert.equal(f.requests.length,0);}});
 test('unexpected endpoint status and transport errors stay unverified without leaking errors',async()=>{for(const fetch of [async()=>new Response('{}',{status:200}),async()=>{throw Error('private provider token');}]){const f=fixture();const r=await verifyVapiSpokenDeployment({...f.options,fetch});assert.equal(r.configurationVerified,false);assert.ok(!JSON.stringify(r).includes('private'));}});
+
+test('current protected client-read tool and all nine attachments are independently checked when recorded',async()=>{
+ const f=fixture(),clientId='dddddddd-dddd-4ddd-8ddd-dddddddddddd';
+ f.options.receipt.clientInformationToolId=clientId;
+ f.options.fetch=async(url,init)=>{assert.ok([f.options.receipt.endpoint,f.options.receipt.endpoint.replace('/voice/verification','/client/read')].includes(url));assert.ok(!init.headers.authorization);return new Response('{}',{status:401,headers:{'cache-control':'no-store'}});};
+ const {clientInformationTool}=await import('../packages/shared/src/communications/vapi-client-information-tool.mjs');
+ f.rows.set('/tool/'+clientId,{...clientInformationTool(f.options.receipt.endpoint.replace('/voice/verification','/client/read'),f.options.receipt.credentialId),id:clientId,orgId});
+ for(const [path,row] of f.rows)if(path.startsWith('/assistant/'))row.model.toolIds.push(clientId);
+ assert.equal((await verifyVapiSpokenDeployment(f.options)).clientInformationVerified,true);
+ f.rows.get('/assistant/'+savedAgents.onboarding).model.toolIds=f.rows.get('/assistant/'+savedAgents.onboarding).model.toolIds.filter(v=>v!==clientId);
+ assert.equal((await verifyVapiSpokenDeployment(f.options)).configurationVerified,false);
+});
