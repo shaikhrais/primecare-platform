@@ -1,4 +1,5 @@
 name: Verify and deploy Vapi callback request tools
+# Activation follows the passing callback build and explicit reversible gateway review.
 on:
   push:
     branches: [main]
