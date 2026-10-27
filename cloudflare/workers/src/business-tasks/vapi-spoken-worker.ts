@@ -11,10 +11,13 @@ import {nativePostgresOptions} from './native-postgres.ts';
 import {ownerTestGrant,pendingOwnerCandidate,enrollApprovedOwner} from './vapi-owner-test.ts';
 import {PostgresAtomicStore} from './store.ts';
 import {SpokenSmsVerificationService,type SpokenCandidate} from './vapi-spoken-verification.ts';
-import type {CallPossessionProof} from './vapi-call-identity.ts';
+import {VapiVerifiedCallIdentityService,DurableVapiCallProofRepository,type CallPossessionProof} from './vapi-call-identity.ts';
+import {VapiClientInformationService} from './vapi-client-information.ts';
+import {registeredMetadataValue as metadataValue} from './endpoint-policy.ts';
+import clientContract from '../../../../tools/governance-production/vapi-client-information-registration.json' with {type:'json'};
 import contract from '../../../../tools/governance-production/vapi-verification-registration.json' with {type:'json'};
 import pin from '../../../../tools/governance-production/production-pin.json' with {type:'json'};
-type Env={OWNER_TEST_CALL_ID?:string;OWNER_TEST_EXPIRES_AT?:string;OWNER_TEST_EMAIL?:string;OWNER_TEST_PHONE?:string;DB_URL:string;VAPI_PRIVATE_API_KEY:string;VAPI_VERIFY_SECRET:string;VAPI_VERIFY_OWNER:string;VAPI_VERIFY_ORIGIN:string;VAPI_VERIFY_API_ID:string;VAPI_VERIFY_CONTRACT_SHA:string;TWILIO_ACCOUNT_SID:string;TWILIO_API_KEY_SID:string;TWILIO_API_KEY_SECRET:string;TWILIO_VERIFY_SERVICE_SID:string;VERIFICATIONS:DurableObjectNamespace;VERIFY_LIMIT:{limit(value:{key:string}):Promise<{success:boolean}>}};
+type Env={VAPI_CLIENT_READ_API_ID?:string;VAPI_CLIENT_READ_CONTRACT_SHA?:string;OWNER_TEST_CALL_ID?:string;OWNER_TEST_EXPIRES_AT?:string;OWNER_TEST_EMAIL?:string;OWNER_TEST_PHONE?:string;DB_URL:string;VAPI_PRIVATE_API_KEY:string;VAPI_VERIFY_SECRET:string;VAPI_VERIFY_OWNER:string;VAPI_VERIFY_ORIGIN:string;VAPI_VERIFY_API_ID:string;VAPI_VERIFY_CONTRACT_SHA:string;TWILIO_ACCOUNT_SID:string;TWILIO_API_KEY_SID:string;TWILIO_API_KEY_SECRET:string;TWILIO_VERIFY_SERVICE_SID:string;VERIFICATIONS:DurableObjectNamespace;VERIFY_LIMIT:{limit(value:{key:string}):Promise<{success:boolean}>}};
 const orgId='9e1d8550-4b84-4472-a782-67557fe73944',assistantId='5ae2ab0c-fad0-454c-8cf7-64b81c91c850',phoneId='3e9cee92-b463-47c8-9e1a-cdbf179cb675',number='+12897994277';
 const headers={'cache-control':'no-store','x-content-type-options':'nosniff'};
 const digest=async(text:string)=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text))),x=>x.toString(16).padStart(2,'0')).join('');
@@ -55,12 +58,12 @@ export class SpokenVerification extends DurableObject<Env> {
 export class SpokenVerificationWorker extends BaseWorker<Env>{
  protected async handle(request:Request,env:Env):Promise<Response>{
   const deny=async(status:number)=>{try{await request.body?.cancel();}catch{}return Response.json({error:'verification_unavailable'},{status,headers});};
-  const url=new URL(request.url);if(url.origin!==env.VAPI_VERIFY_ORIGIN||url.pathname!==contract.operations[0].path)return deny(404);if(request.method!=='POST')return deny(405);if(url.search||url.hash)return deny(400);
+  const url=new URL(request.url),clientRead=url.pathname===clientContract.operations[0].path;if(url.origin!==env.VAPI_VERIFY_ORIGIN||!clientRead&&url.pathname!==contract.operations[0].path)return deny(404);if(request.method!=='POST')return deny(405);if(url.search||url.hash)return deny(400);
   if(!await createVapiToolCredentialVerifier({secret:env.VAPI_VERIFY_SECRET})(request))return deny(401);
-  if(env.VAPI_VERIFY_CONTRACT_SHA!==pin.vapiVerificationRegistrationWriter.definitionSha256||!(await env.VERIFY_LIMIT.limit({key:'spoken-verification'})).success)return deny(503);
+  if(env.VAPI_VERIFY_CONTRACT_SHA!==pin.vapiVerificationRegistrationWriter.definitionSha256||clientRead&&env.VAPI_CLIENT_READ_CONTRACT_SHA!==pin.vapiClientInformationRegistrationWriter.definitionSha256||!(await env.VERIFY_LIMIT.limit({key:'spoken-verification'})).success)return deny(503);
   if(request.headers.get('content-type')?.split(';')[0].trim()!=='application/json')return deny(415);
   const body=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await new BoundedBinaryAdapterBase(131072).readBoundedBody(request.body!))),message=body?.message,list=message?.toolCallList;
-  if(message?.type!=='tool-calls'||!Array.isArray(list)||list.length!==1||list[0]?.type!=='function'||list[0]?.function?.name!=='primecare_phone_verification'||typeof list[0]?.id!=='string')return deny(400);
+  if(message?.type!=='tool-calls'||!Array.isArray(list)||list.length!==1||list[0]?.type!=='function'||list[0]?.function?.name!==(clientRead?'primecare_client_information':'primecare_phone_verification')||typeof list[0]?.id!=='string')return deny(400);
   const tool=list[0],callId=message.call?.id;let args=tool.function.arguments;if(typeof args==='string'){if(args.length>1024)return deny(400);args=JSON.parse(args);}
   const pool=new pg.Pool(nativePostgresOptions(env.DB_URL));
   try{
@@ -70,10 +73,21 @@ export class SpokenVerificationWorker extends BaseWorker<Env>{
     const contactPhone=raw.direction==='inbound'?raw.from:raw.to;if(!/^\+[1-9][0-9]{6,14}$/.test(contactPhone??''))return null;
     const rows=(await pool.query(`SELECT u.email,u.roles,c.user_id,c.tenant_id,c.version::float8 AS version FROM public.communication_voice_verified_contacts c JOIN public.users u ON u.id::text=c.user_id AND u.tenant_id::text=c.tenant_id JOIN public.tenants t ON t.id=u.tenant_id WHERE c.phone=$1 AND c.revoked_at IS NULL AND LOWER(u.status)='active' AND LOWER(t.status)='active' LIMIT 2`,[contactPhone])).rows;
     if(rows.length===0)return pendingOwnerCandidate(pool,ownerTest,id,contactPhone,call.callSid);if(rows.length!==1||ownerTest?.callId===id&&(rows[0].email.toLowerCase()!==ownerTest.email||rows[0].roles!=='code_admin'))return null;return {actor:{id:rows[0].user_id,tenantId:rows[0].tenant_id},phone:contactPhone,version:rows[0].version,callSid:call.callSid,callId:id};};
-   const policy={async assert(actor:any,action:string,state:any){if(action!=='voice.sms.spoken.verify'||state?.ownerId!==actor.id||state.tenantId!==actor.tenantId)throw Error();const schema=pin.schema;if(!/^[a-z0-9_]+$/.test(schema))throw Error();const rows=(await pool.query(`SELECT id FROM "${schema}".govt_api_endpoints WHERE id=$1 AND http_method='POST' AND route_path=$2 AND permission_key='vapi.service.verification'`,[Number(env.VAPI_VERIFY_API_ID),contract.operations[0].path])).rows;if(rows.length!==1)throw Error();},async assignee(){throw Error();}};
+   const registered=async(read:boolean)=>{
+    const schema=pin.schema;if(!/^[a-z0-9_]+$/.test(schema))throw Error();const op=read?clientContract.operations[0]:contract.operations[0];
+    const v=metadataValue,rows=(await pool.query(`SELECT ${v('a','id')} AS id,${v('a','permission_key')} AS permission,${v('a','auth_required')} AS auth FROM "${schema}".govt_api_endpoints a WHERE ${v('a','http_method')}='POST' AND ${v('a','route_path')}=$1 AND ${v('a','service_name')}='governance' AND EXISTS(SELECT 1 FROM "${schema}".govt_source_manifest WHERE manifest_sha256=$2) LIMIT 2`,[op.path,pin.manifestSha256])).rows;
+    if(rows.length!==1||rows[0].id!==(read?env.VAPI_CLIENT_READ_API_ID:env.VAPI_VERIFY_API_ID)||rows[0].permission!==op.permission||rows[0].auth!=='1')throw Error();
+   };
+   const policy={async assert(actor:any,action:string,state:any){if(action!=='voice.sms.spoken.verify'||state?.ownerId!==actor.id||state.tenantId!==actor.tenantId)throw Error();await registered(false);},async assignee(){throw Error();}};
+   if(clientRead){
+    const proofs=new DurableVapiCallProofRepository(env.VERIFICATIONS),identities=new VapiVerifiedCallIdentityService(new PostgresAtomicStore(pool,'business_sms'),policy,{current:candidate,proof:c=>proofs.read(c)});
+    const readPolicy={async assert(actor:any,action:string,state:any){if(action!=='voice.client.read'||state?.kind!=='voice_client_information'||state.ownerId!==actor.id||state.tenantId!==actor.tenantId)throw Error();await registered(true);},async assignee(){throw Error();}};
+    const service=new VapiClientInformationService(new PostgresAtomicStore(pool,'business_sms'),readPolicy,pool,identities);
+    const result=await service.read(callId,args);return Response.json({results:[{toolCallId:tool.id,result:JSON.stringify(result)}]},{headers});
+   }
    const service=new SpokenSmsVerificationService(new PostgresAtomicStore(pool,'business_sms'),policy,{current:candidate,run:async(c,input)=>{const key=await digest(c.phone);const response=await env.VERIFICATIONS.get(env.VERIFICATIONS.idFromName(key)).fetch('https://private-verification/action',{method:'POST',body:JSON.stringify({candidate:c,input})});if(!response.ok)throw Error();return response.json();}});
    const result=await service.execute(callId,tool.id,args);if(result.verified&&ownerTest?.callId===callId){const current=await candidate(callId);if(!current)throw Error();await enrollApprovedOwner(pool,ownerTest,current,true);if(!await candidate(callId))throw Error();}return Response.json({results:[{toolCallId:tool.id,result:JSON.stringify(result)}]},{headers});
-  }catch{return Response.json({results:[{toolCallId:tool.id,error:'Verification unavailable. Do not resend automatically; use reception or the account verification screen.'}]},{headers});}finally{await pool.end();}
+  }catch{return Response.json({results:[{toolCallId:tool.id,error:clientRead?'Client information unavailable. Current account verification is required; no records were changed.':'Verification unavailable. Do not resend automatically; use reception or the account verification screen.'}]},{headers});}finally{await pool.end();}
  }
  protected override onError(){return Response.json({error:'verification_unavailable'},{status:503,headers});}
 }

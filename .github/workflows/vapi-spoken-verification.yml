@@ -7,6 +7,12 @@ on:
       - 'cloudflare/workers/src/business-tasks/vapi-spoken*.ts'
       - 'cloudflare/workers/src/business-tasks/vapi-owner-test.ts'
       - 'cloudflare/workers/src/business-tasks/vapi-call-identity.ts'
+      - 'cloudflare/workers/src/business-tasks/vapi-client-information.ts'
+      - 'scripts/test-vapi-client-information.mjs'
+      - 'scripts/test-vapi-client-information-postgres.mjs'
+      - 'packages/shared/src/communications/vapi-client-information-tool.mjs'
+      - 'tools/governance-production/vapi-client-information-registration.json'
+      - 'tools/governance-production/vapi_client_information_registration.py'
       - 'scripts/test-vapi-call-identity.mjs'
       - 'packages/shared/src/communications/vapi-call-read.mjs'
       - 'packages/shared/src/vapi-agent-targets.json'
@@ -44,7 +50,7 @@ jobs:
           ln -s "$RUNNER_TEMP/spoken-tests/node_modules" node_modules
           pip install -r tools/governance-production/requirements.txt
       - run: |
-          node --test scripts/test-vapi-call-identity.mjs scripts/test-vapi-spoken-verification.mjs scripts/test-vapi-call-read.mjs scripts/test-vapi-service-auth.mjs scripts/test-vapi-agent-library.mjs scripts/test-communication-twilio-verify.mjs scripts/test-communication-voice-tasks.mjs
+          node --test scripts/test-vapi-call-identity.mjs scripts/test-vapi-spoken-verification.mjs scripts/test-vapi-call-read.mjs scripts/test-vapi-service-auth.mjs scripts/test-vapi-agent-library.mjs scripts/test-vapi-client-information.mjs scripts/test-vapi-client-information-tool.mjs scripts/test-communication-twilio-verify.mjs scripts/test-communication-voice-tasks.mjs
           node scripts/test-vapi-spoken-workerd.mjs
           node scripts/test-vapi-owner-test-postgres.mjs
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --resolveJsonModule --types node,@cloudflare/workers-types cloudflare/workers/src/business-tasks/vapi-spoken-worker.ts
@@ -57,8 +63,27 @@ jobs:
           assert m.definition()['operations'][0]['key']=='vapi.verification'
           print('Pinned verification contract passed')
           PY
+  client-postgres:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: client_fixture, POSTGRES_PASSWORD: disposable-only, POSTGRES_DB: client_information_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U client_fixture -d client_information_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/client-information-test" --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s "$RUNNER_TEMP/client-information-test/node_modules" node_modules
+      - run: node scripts/test-vapi-client-information-postgres.mjs
+        env:
+          CLIENT_INFORMATION_TEST_DATABASE_URL: postgres://client_fixture:disposable-only@localhost:5432/client_information_test
+
   deploy:
-    needs: tests
+    needs: [tests, client-postgres]
     runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 15
@@ -89,6 +114,18 @@ jobs:
           assert len(reports)==1 and reports[0]['independentReadback'] is True
           pathlib.Path('test-results/vapi-spoken/registration.json').write_text(json.dumps(reports[0]))
           print('Exact verification API registration independently read back')
+          PY
+      - name: Independently verify the already registered client-information contract
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python tools/governance-production/vapi_client_information_registration.py --verify > "$RUNNER_TEMP/client-information-registration.txt"
+          python - <<'PY'
+          import json,os,pathlib
+          lines=(pathlib.Path(os.environ['RUNNER_TEMP'])/'client-information-registration.txt').read_text().splitlines()
+          rows=[json.loads(s.removeprefix('VAPI_CLIENT_INFORMATION_REGISTRATION ')) for s in lines if s.startswith('VAPI_CLIENT_INFORMATION_REGISTRATION ')]
+          assert len(rows)==1 and rows[0]['independentReadback'] and rows[0]['writesAttempted'] is False
+          pathlib.Path('test-results/vapi-spoken/client-read-registration.json').write_text(json.dumps(rows[0]))
           PY
       - name: Deploy dedicated SMS verification and attach its tool to the existing receptionist and eight saved agents
         env:

@@ -1,3 +1,4 @@
+import {resolveClientInformationTool} from '../packages/shared/src/communications/vapi-client-information-tool.mjs';
 import {VapiRequestToolLibraryClient} from '../packages/shared/src/communications/vapi-request-tool-library.mjs';
 import {VapiPublicKnowledgeClient} from '../packages/shared/src/communications/vapi-public-knowledge.mjs';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
@@ -14,9 +15,10 @@ try{
  const phone=client.scope(await client.request(phonePath));
  const toolId=await client.ensureVoicemail();report.voicemailToolId=toolId;
  const knowledge=await new VapiPublicKnowledgeClient({apiKey:process.env.VAPI_PRIVATE_API_KEY}).ensure(await readFile('packages/shared/src/vapi-agent-public-knowledge.txt','utf8'));report.publicKnowledge=knowledge;report.savedRequestTools=await new VapiRequestToolLibraryClient({apiKey:process.env.VAPI_PRIVATE_API_KEY}).ensure();report.publicServiceToolAttached=true;report.businessToolsAttached=true;report.businessWriteToolsAttached=false;
- const verification={toolId:'764dd85f-fafd-45c1-9352-45867ed94371',instruction:await readFile('packages/shared/src/vapi-spoken-verification-instructions.txt','utf8'),attach:false};
+ const clientInformation=await resolveClientInformationTool(client);report.clientInformationReadToolAttached=!!clientInformation;
+ const verification={previousInstruction:await readFile('packages/shared/src/vapi-spoken-verification-instructions-baseline.txt','utf8'),...(clientInformation?{clientInformationId:clientInformation.toolId}:{}),toolId:'764dd85f-fafd-45c1-9352-45867ed94371',instruction:await readFile('packages/shared/src/vapi-spoken-verification-instructions.txt','utf8'),attach:false};
  for(const agent of catalog.agents)report.agents.push(await client.update(agent,baseline[agent.key],toolId,knowledge.toolId,verification));
- report.activeReception=await client.updateActiveReception(catalog.agents.find(a=>a.key==='reception'),await readFile('packages/shared/src/vapi-spoken-verification-instructions.txt','utf8'),toolId,baseline.reception,knowledge.toolId);
+ report.activeReception=await client.updateActiveReception(catalog.agents.find(a=>a.key==='reception'),await readFile('packages/shared/src/vapi-spoken-verification-instructions.txt','utf8'),toolId,baseline.reception,knowledge.toolId,verification);
  const after=client.scope(await client.request(phonePath));if(!isDeepStrictEqual(after,phone))throw Error('phone_routing_changed');
  report.publicQueryAcceptance=await new VapiPublicKnowledgeClient({apiKey:process.env.VAPI_PRIVATE_API_KEY}).probe('9ba3014c-cfaa-4607-997c-b5347212be54');
  const readinessPath='test-results/vapi/agent-tool-readiness.json';const readiness=JSON.parse(await readFile(readinessPath,'utf8'));readiness.businessToolsAttached=true;readiness.businessWriteToolsAttached=false;readiness.publicServiceToolAttached=true;for(const row of readiness.agents)for(const tool of row.tools)if(tool.key==='service.catalogue'){tool.liveBusinessReady=true;tool.toolId=knowledge.toolId;tool.configurationReadback=true;}await writeFile(readinessPath,JSON.stringify(readiness,null,2)+'\n');

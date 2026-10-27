@@ -31,3 +31,15 @@ test('verification attachment preserves native settings and survives normal reco
  await f.client.update(c.agents[0],hash,toolId,knowledgeId,{...v,attach:false});assert.equal(f.writes.length,1);
  const edited=f.row();edited.model.messages[0].content+='unreviewed';await assert.rejects(()=>f.client.update(c.agents[0],hash,toolId,knowledgeId,v),/unreviewed_prompt_preserved/);
 });
+
+test('reviewed instruction migration adds owner-read tool without removing OTP or unrelated settings',async()=>{
+ const v={toolId:'764dd85f-fafd-45c1-9352-45867ed94371',clientInformationId:'dddddddd-dddd-4ddd-8ddd-dddddddddddd',previousInstruction:'Reviewed old OTP instructions.',instruction:'Reviewed OTP plus owner read instructions.',attach:true};
+ const f=fixture({model:{provider:'openai',model:'keep',temperature:0.2,messages:[{role:'system',content:c.agents[0].prompt+'\n\n'+v.previousInstruction}],toolIds:[v.toolId],tools:[{type:'endCall'}]}});
+ const receipt=await f.client.update(c.agents[0],hash,toolId,knowledgeId,v);assert.equal(receipt.clientInformationAttached,true);assert.ok(f.row().model.toolIds.includes(v.toolId));assert.ok(f.row().model.toolIds.includes(v.clientInformationId));assert.equal(f.row().model.messages[0].content,c.agents[0].prompt+'\n\n'+v.instruction);assert.equal(f.row().model.temperature,0.2);
+ await f.client.update(c.agents[0],hash,toolId,knowledgeId,{...v,attach:false});assert.equal(f.writes.length,1);
+});
+test('active receptionist instruction migration preserves one exact updated verification message and owner-read attachment',async()=>{
+ const v={previousInstruction:'Old exact instructions.',clientInformationId:'dddddddd-dddd-4ddd-8ddd-dddddddddddd',attach:true},id='5ae2ab0c-fad0-454c-8cf7-64b81c91c850';
+ const f=fixture({id,name:'PrimeCare Reception - 4277',model:{provider:'openai',model:'keep',messages:[{role:'system',content:v.previousInstruction}],toolIds:['764dd85f-fafd-45c1-9352-45867ed94371']}});
+ await f.client.updateActiveReception(c.agents[0],'New exact instructions.',toolId,undefined,knowledgeId,v);assert.equal(f.row().model.messages.filter(m=>m.content==='New exact instructions.').length,1);assert.ok(f.row().model.toolIds.includes(v.clientInformationId));await f.client.updateActiveReception(c.agents[0],'New exact instructions.',toolId,undefined,knowledgeId,v);assert.equal(f.writes.length,1);
+});

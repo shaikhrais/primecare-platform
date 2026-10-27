@@ -1494,3 +1494,21 @@ recording, transcript storage and provider logging remain disabled for spoken
 codes. This enables a verification capability, not private business permission.
 Wrong codes, expiry, attempt limits, revoked/ambiguous account contacts and
 uncertain delivery still fail without automatic sends or business approval.
+
+### Current-call client information
+
+`VapiClientInformationService` inherits `ScopedServiceBase` and uses the existing
+canonical-call and private OTP-proof services. The registered
+`POST /v1/vapi/client/read` operation shares the dedicated verification Worker and
+provider credential. Its only model argument is `section`: appointments,
+service_history or onboarding_status. Actor, tenant and profile are resolved from
+the current proof and `client_profiles.user_id/tenant_id`; no native session is
+created. All database work is a repeatable-read, read-only transaction. Current
+proof and policy are rechecked before/after the read and the result is bounded.
+
+The output has at most ten administrative records, plus `hasMore`; no clinical
+notes, names, addresses, funding details, signatures or internal account IDs.
+Reads cannot create bookings or certify care delivery or complete onboarding.
+The shared saved-tool definition and exact instruction migration preserve OTP,
+public Query, voice/model settings and phone routing. The production metadata
+contract is registered and independently read back before runtime deployment.

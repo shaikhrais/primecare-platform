@@ -1,3 +1,4 @@
+import {resolveClientInformationTool} from '../packages/shared/src/communications/vapi-client-information-tool.mjs';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {VapiAgentLibraryClient,savedAgents} from '../packages/shared/src/communications/vapi-agent-library.mjs';
@@ -8,12 +9,15 @@ try{
  if(execFileSync('git',['rev-parse','FETCH_HEAD'],{encoding:'utf8'}).trim()!==report.source)throw Error('stale_main');
  const catalog=JSON.parse(await readFile('packages/shared/src/vapi-agent-templates.json','utf8'));
  const client=new VapiAgentLibraryClient({apiKey:process.env.VAPI_PRIVATE_API_KEY}),knowledge=new VapiPublicKnowledgeClient({apiKey:process.env.VAPI_PRIVATE_API_KEY});
+ const previousVerificationInstruction=await readFile('packages/shared/src/vapi-spoken-verification-instructions-baseline.txt','utf8');
  const verificationId='764dd85f-fafd-45c1-9352-45867ed94371',verificationInstruction=await readFile('packages/shared/src/vapi-spoken-verification-instructions.txt','utf8');
+ const clientInformation=await resolveClientInformationTool(client);
  const approvedIds=['3c5ee8ee-8f7c-4adf-a90f-cba2809ed43b','8fda5a14-5833-4000-95f4-b6406351c0cd'];
+ const requiredIds=[...approvedIds,...(clientInformation?[clientInformation.toolId]:[])];
  const preflight=async agent=>{
   const row=client.scope(await client.request('/assistant/'+savedAgents[agent.key]));
   const authenticated=(row.model?.toolIds??[]).includes(verificationId),expectedPrompt=agent.prompt+(authenticated?'\n\n'+verificationInstruction:'');
-  if(row.id!==savedAgents[agent.key]||row.name!==agent.name||row.model?.messages?.filter(m=>m.role==='system').length!==1||row.model.messages.find(m=>m.role==='system').content!==expectedPrompt||row.firstMessage!==agent.firstMessage||row.server?.url||row.hooks?.length||row.model.functions?.length||row.model.tools?.some(t=>t.type!=='endCall')||row.model.toolIds?.length!==(authenticated?3:2)||approvedIds.some(id=>!row.model.toolIds.includes(id)))throw Error('unreviewed_assistant_configuration');
+  if(row.id!==savedAgents[agent.key]||row.name!==agent.name||row.model?.messages?.filter(m=>m.role==='system').length!==1||!([expectedPrompt,...(authenticated?[agent.prompt+'\n\n'+previousVerificationInstruction]:[])].includes(row.model.messages.find(m=>m.role==='system').content))||row.firstMessage!==agent.firstMessage||row.server?.url||row.hooks?.length||row.model.functions?.length||row.model.tools?.some(t=>t.type!=='endCall')||row.model.toolIds?.length!==requiredIds.length+(authenticated?1:0)||requiredIds.some(id=>!row.model.toolIds.includes(id)))throw Error('unreviewed_assistant_configuration');
   // Web chat has no canonical PSTN call; the verification endpoint cannot send SMS from these synthetic chats.
   for(const id of approvedIds){const tool=client.scope(await client.request('/tool/'+id));if(tool.id!==id||tool.server?.url||tool.type!==(id===approvedIds[0]?'query':'voicemail'))throw Error('unreviewed_tool_configuration');if(tool.type==='query'&&(tool.function?.name!=='primecare_service_information'||tool.knowledgeBases?.length!==1||tool.knowledgeBases[0].fileIds?.length!==1||tool.knowledgeBases[0].fileIds[0]!=='40b4d2df-67a4-402c-814b-4cc67592942c'))throw Error('unreviewed_public_source');}
  };

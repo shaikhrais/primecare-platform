@@ -69,7 +69,7 @@ export class VapiPublicKnowledgeClient extends BoundedBinaryAdapterBase {
   const completion=/(?:I(?:'ve| have) (?:successfully )?(?:saved|created|updated|booked|confirmed|marked|advanced)|(?:booking|appointment|callback|preference|lead|onboarding) (?:is|has been) (?:successfully )?(?:saved|created|updated|booked|confirmed|complete))/i;
   const clauses=normalized.split(/(?<=[.!?;])\s+|\b(?:but|however|nevertheless)\b/i);
   const claimed=clauses.some(clause=>completion.test(clause)&&!/(?:cannot|can't|unable to|do not|don't)\s+(?:confirm|say|claim|verify)|(?:nothing|no (?:booking|appointment|callback|preference|lead|onboarding))\s+(?:is|has been)/i.test(clause));
-  const result={agentKey,assistantId,chatId:chat.id,chatReadback:true,answer,limitationStated:limitation,completionClaimDetected:claimed,unexpectedToolInvoked:invoked.some(n=>!['primecare_service_information'].includes(n)),callsStarted:false,smsSent:false,businessWrites:false};
+  const result={agentKey,assistantId,chatId:chat.id,chatReadback:true,answer,limitationStated:limitation,completionClaimDetected:claimed,unexpectedToolInvoked:invoked.some(n=>!['primecare_service_information','primecare_client_information'].includes(n)),callsStarted:false,smsSent:false,businessWrites:false};
   if(!answer||answer.length>12000||!limitation||claimed||result.unexpectedToolInvoked)throw Object.assign(Error('unavailable_tool_acceptance_failed'),{acceptance:result});
   return result;
  }
