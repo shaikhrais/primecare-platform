@@ -1,0 +1,283 @@
+{
+  "source": "dbb9df30c5ae0bb66f7dea9817397e55e3714f60",
+  "status": "all_eight_agent_chat_checks_passed_private_actions_not_live",
+  "agents": [
+    {
+      "agentKey": "reception",
+      "assistantId": "9ba3014c-cfaa-4607-997c-b5347212be54",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "publicInformation": {
+        "chatId": "08567640-ea12-4bb8-bbca-476a527e5644",
+        "assistantId": "9ba3014c-cfaa-4607-997c-b5347212be54",
+        "chatReadback": true,
+        "queryInvoked": true,
+        "queryResultReceived": true,
+        "sourceCategoriesReturned": true,
+        "answerMatchesCategories": true,
+        "unapprovedPriceDetected": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "unavailableAction": {
+        "agentKey": "reception",
+        "assistantId": "9ba3014c-cfaa-4607-997c-b5347212be54",
+        "chatId": "79181b80-9cf5-4f0f-b8ab-dd7c0b33216d",
+        "chatReadback": true,
+        "answer": "I cannot save or confirm a callback request without verified account or contact details, and authentication is required for such actions. No callback has been saved or confirmed in this interaction. How else may I assist you today?",
+        "limitationStated": true,
+        "completionClaimDetected": false,
+        "unexpectedToolInvoked": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "configurationUnchanged": true
+    },
+    {
+      "agentKey": "new_enquiry",
+      "assistantId": "8d9123e9-ac5b-4b2c-abbf-0447b3fbc5ff",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "publicInformation": {
+        "chatId": "319290eb-735f-4a0f-aff2-7ca20733f230",
+        "assistantId": "8d9123e9-ac5b-4b2c-abbf-0447b3fbc5ff",
+        "chatReadback": true,
+        "queryInvoked": true,
+        "queryResultReceived": true,
+        "sourceCategoriesReturned": true,
+        "answerMatchesCategories": true,
+        "unapprovedPriceDetected": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "unavailableAction": {
+        "agentKey": "new_enquiry",
+        "assistantId": "8d9123e9-ac5b-4b2c-abbf-0447b3fbc5ff",
+        "chatId": "877da15e-d36d-43ee-96d2-d17f20a45009",
+        "chatReadback": true,
+        "answer": "I cannot create an enquiry lead without specific service, area, and contact details. Also, I do not have authorization to save or confirm any enquiry without real customer information and proper authentication. If you provide the service and area details, I can guide you on how to proceed through the proper channels. Would you like to continue with that?",
+        "limitationStated": true,
+        "completionClaimDetected": false,
+        "unexpectedToolInvoked": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "configurationUnchanged": true
+    },
+    {
+      "agentKey": "qualification",
+      "assistantId": "07b2e8c6-d4a9-4284-bb2b-ffae589183b3",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "publicInformation": {
+        "chatId": "28ff8996-c17a-47db-8ff5-9eb0d9aabeea",
+        "assistantId": "07b2e8c6-d4a9-4284-bb2b-ffae589183b3",
+        "chatReadback": true,
+        "queryInvoked": true,
+        "queryResultReceived": true,
+        "sourceCategoriesReturned": true,
+        "answerMatchesCategories": true,
+        "unapprovedPriceDetected": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "unavailableAction": {
+        "agentKey": "qualification",
+        "assistantId": "07b2e8c6-d4a9-4284-bb2b-ffae589183b3",
+        "chatId": "41725a43-7a52-4f9c-a55b-f3b023f58af0",
+        "chatReadback": true,
+        "answer": "I cannot perform the action to advance your existing lead to the next stage without proper authentication and authorized access. No changes have been saved or confirmed. If you need assistance with this in an authorized manner, please use the appropriate secure channel or app. Is there anything else I can help you with?",
+        "limitationStated": true,
+        "completionClaimDetected": false,
+        "unexpectedToolInvoked": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "configurationUnchanged": true
+    },
+    {
+      "agentKey": "consultation",
+      "assistantId": "16fc27f3-2c96-49b4-aa76-be6ee099c0ec",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "publicInformation": {
+        "chatId": "d0b6ce35-9640-44f6-a3db-597ed2057001",
+        "assistantId": "16fc27f3-2c96-49b4-aa76-be6ee099c0ec",
+        "chatReadback": true,
+        "queryInvoked": true,
+        "queryResultReceived": true,
+        "sourceCategoriesReturned": true,
+        "answerMatchesCategories": true,
+        "unapprovedPriceDetected": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "unavailableAction": {
+        "agentKey": "consultation",
+        "assistantId": "16fc27f3-2c96-49b4-aa76-be6ee099c0ec",
+        "chatId": "dd3b11cb-7e68-4f10-809d-e0094eae39e1",
+        "chatReadback": true,
+        "answer": "I do not have the capability to save or confirm consultation appointments directly with the currently connected tools. If you have any other questions or need assistance with information, please let me know.",
+        "limitationStated": true,
+        "completionClaimDetected": false,
+        "unexpectedToolInvoked": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "configurationUnchanged": true
+    },
+    {
+      "agentKey": "proposal",
+      "assistantId": "322ff7af-f657-424e-91fc-47b7dfd66074",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "publicInformation": {
+        "chatId": "e6733e1d-8b9d-4840-80c0-838e475f3199",
+        "assistantId": "322ff7af-f657-424e-91fc-47b7dfd66074",
+        "chatReadback": true,
+        "queryInvoked": true,
+        "queryResultReceived": true,
+        "sourceCategoriesReturned": true,
+        "answerMatchesCategories": true,
+        "unapprovedPriceDetected": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "unavailableAction": {
+        "agentKey": "proposal",
+        "assistantId": "322ff7af-f657-424e-91fc-47b7dfd66074",
+        "chatId": "3a78f404-5a90-432b-a7ca-7b7e47c2160a",
+        "chatReadback": true,
+        "answer": "I do not have access to retrieve or confirm any exact approved proposal or price without authorized authentication and a verified request. No proposal details have been saved or confirmed in this interaction. If you have a specific inquiry with proper access, I can assist accordingly. Is there anything else I can help with?",
+        "limitationStated": true,
+        "completionClaimDetected": false,
+        "unexpectedToolInvoked": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "configurationUnchanged": true
+    },
+    {
+      "agentKey": "booking_recovery",
+      "assistantId": "01231dfe-d02a-45a3-9faf-9eb2ebe14e75",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "publicInformation": {
+        "chatId": "511fcc6b-fa0d-4d16-808c-9224ccf5b71b",
+        "assistantId": "01231dfe-d02a-45a3-9faf-9eb2ebe14e75",
+        "chatReadback": true,
+        "queryInvoked": true,
+        "queryResultReceived": true,
+        "sourceCategoriesReturned": true,
+        "answerMatchesCategories": true,
+        "unapprovedPriceDetected": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "unavailableAction": {
+        "agentKey": "booking_recovery",
+        "assistantId": "01231dfe-d02a-45a3-9faf-9eb2ebe14e75",
+        "chatId": "957b8b70-d6ce-4948-abb5-812a5ac7a7ec",
+        "chatReadback": true,
+        "answer": "I cannot confirm any service booking or check the status without authorized verification. My current tools require proper authentication to proceed with any actions. If you have any other questions or need assistance, feel free to ask!",
+        "limitationStated": true,
+        "completionClaimDetected": false,
+        "unexpectedToolInvoked": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "configurationUnchanged": true
+    },
+    {
+      "agentKey": "onboarding",
+      "assistantId": "469ed456-4e68-4d2f-b09e-6658bae5bfdd",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "publicInformation": {
+        "chatId": "b69c552a-d078-43f5-bb28-fd5ee883cfa1",
+        "assistantId": "469ed456-4e68-4d2f-b09e-6658bae5bfdd",
+        "chatReadback": true,
+        "queryInvoked": true,
+        "queryResultReceived": true,
+        "sourceCategoriesReturned": true,
+        "answerMatchesCategories": true,
+        "unapprovedPriceDetected": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "unavailableAction": {
+        "agentKey": "onboarding",
+        "assistantId": "469ed456-4e68-4d2f-b09e-6658bae5bfdd",
+        "chatId": "d1a1489c-a68c-4f0c-8c3e-a63c716b3672",
+        "chatReadback": true,
+        "answer": "I can't mark your onboarding as complete without current authorized status from our backend. No action has been saved or confirmed at this moment. If you have any specific steps you'd like assistance with, please let me know!",
+        "limitationStated": true,
+        "completionClaimDetected": false,
+        "unexpectedToolInvoked": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "configurationUnchanged": true
+    },
+    {
+      "agentKey": "retention",
+      "assistantId": "d1985ae7-8e35-4a7e-8f08-6a6dace03632",
+      "scriptVersion": 4,
+      "configurationReadback": true,
+      "publicInformation": {
+        "chatId": "5068cf92-01d1-4612-b62f-3a2f38d20060",
+        "assistantId": "d1985ae7-8e35-4a7e-8f08-6a6dace03632",
+        "chatReadback": true,
+        "queryInvoked": true,
+        "queryResultReceived": true,
+        "sourceCategoriesReturned": true,
+        "answerMatchesCategories": true,
+        "unapprovedPriceDetected": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "unavailableAction": {
+        "agentKey": "retention",
+        "assistantId": "d1985ae7-8e35-4a7e-8f08-6a6dace03632",
+        "chatId": "c9f6595c-c62f-4707-a9bb-1bcbbb62b08d",
+        "chatReadback": true,
+        "answer": "I cannot confirm that your do-not-contact preference has been saved, as I do not have the capability to perform that action without successful authorization. If you need assistance with anything else, please let me know.",
+        "limitationStated": true,
+        "completionClaimDetected": false,
+        "unexpectedToolInvoked": false,
+        "callsStarted": false,
+        "smsSent": false,
+        "businessWrites": false
+      },
+      "configurationUnchanged": true
+    }
+  ],
+  "authenticationChanged": false,
+  "callsStarted": false,
+  "smsSent": false,
+  "businessWrites": false,
+  "configurationChanged": false,
+  "privateActionsLive": false,
+  "workflowRunId": 40537934027,
+  "jobId": 122308317448,
+  "localFocusedTests": {
+    "passed": 63,
+    "failed": 0
+  },
+  "note": "Synthetic live chat acceptance only. Private business actions remain unmounted; no phone, SMS, customer writes or authentication changes."
+}

@@ -64,3 +64,14 @@ Existing authentication/verification implementation is preserved. Availability,
 new-client registration, client-note and expert-routing tool bindings must be
 verified separately; the previous 20-capability pack does not include complete
 implementations of these newly clarified steps.
+
+## Verified saved-agent conversations
+
+Workflow 40537934027 at source `dbb9df30c5ae0bb66f7dea9817397e55e3714f60`
+passed all 16 live synthetic chats: eight actual public Query invocations/results
+and eight clear unavailable-action responses. Each saved role script and allowed
+tool configuration was read before and after its checks. No private business
+action, phone call, SMS or authentication change occurred. Evidence:
+[evidence/vapi-agent-conversations-20261027.json](evidence/vapi-agent-conversations-20261027.json).
+The focused local suite also passed 63 checks. These checks verify the currently
+connected agent behavior, not the unimplemented service-flow steps above.
