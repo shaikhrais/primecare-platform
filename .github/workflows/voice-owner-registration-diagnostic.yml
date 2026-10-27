@@ -1,0 +1,38 @@
+name: Diagnose owner voice contact registration
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/voice-owner-registration-diagnostic.yml']
+permissions: {contents: read}
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 3
+    steps:
+      - name: Install pinned database reader
+        run: npm install --prefix "$RUNNER_TEMP/voice-reader" --ignore-scripts --no-audit --no-fund pg@8.16.3
+      - name: Read contact match counts without account identifiers or codes
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          node <<'NODE'
+          const {Pool}=require(process.env.RUNNER_TEMP+'/voice-reader/node_modules/pg');
+          let pool,db;
+          (async()=>{try{
+            const u=new URL(process.env.PRODUCTION_DATABASE_URL);
+            if(!['postgres:','postgresql:'].includes(u.protocol)||u.hostname!=='pooled.db.prisma.io'||u.pathname!=='/postgres')throw Error('invalid_authority');
+            pool=new Pool({host:u.hostname,port:Number(u.port||5432),database:'postgres',user:decodeURIComponent(u.username),password:decodeURIComponent(u.password),ssl:{rejectUnauthorized:true},max:1,connectionTimeoutMillis:10000});
+            db=await pool.connect();await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');await db.query("SET LOCAL statement_timeout='15s'");
+            const phone='+12898873200';
+            const contact=(await db.query("SELECT COUNT(*)::int AS total,COUNT(*) FILTER(WHERE revoked_at IS NULL)::int AS active FROM public.communication_voice_verified_contacts WHERE phone=$1",[phone])).rows[0];
+            const eligible=(await db.query("SELECT COUNT(*)::int AS count FROM public.communication_voice_verified_contacts c JOIN public.users u ON u.id::text=c.user_id AND u.tenant_id::text=c.tenant_id JOIN public.tenants t ON t.id=u.tenant_id WHERE c.phone=$1 AND c.revoked_at IS NULL AND LOWER(u.status)='active' AND LOWER(t.status)='active'",[phone])).rows[0].count;
+            const total=(await db.query("SELECT COUNT(*)::int AS count FROM public.communication_voice_verified_contacts WHERE revoked_at IS NULL")).rows[0].count;
+            const columns=(await db.query("SELECT column_name FROM information_schema.columns WHERE table_schema='public' AND table_name='communication_voice_contact_challenges'")).rows.map(x=>x.column_name);
+            let challenges=null;
+            if(columns.includes('phone')&&columns.includes('state'))challenges=(await db.query("SELECT state,COUNT(*)::int AS count FROM public.communication_voice_contact_challenges WHERE phone=$1 GROUP BY state",[phone])).rows.filter(x=>/^[a-z_]{1,30}$/.test(x.state));
+            console.log('OWNER_CONTACT_DIAGNOSTIC '+JSON.stringify({matchingContactRecords:contact.total,matchingUnrevokedRecords:contact.active,eligibleActiveAccountMatches:eligible,totalActiveVerifiedContacts:total,enrollmentChallengeStates:challenges,reason:eligible===0?'no_eligible_verified_phone':eligible>1?'ambiguous_verified_phone':'eligible_verified_phone_found'}));
+          }catch(e){console.log('OWNER_CONTACT_DIAGNOSTIC_FAILED '+(e.message==='invalid_authority'?'invalid_authority':/^[0-9A-Z]{5}$/.test(e.code??'')?e.code:'read_failed'));process.exitCode=1;}
+          finally{if(db){await db.query('ROLLBACK').catch(()=>{});db.release();}await pool?.end();}})();
+          NODE
