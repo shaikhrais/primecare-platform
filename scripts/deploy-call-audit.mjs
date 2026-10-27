@@ -59,16 +59,16 @@ try{
   lease();const current=await vapi('/assistant/'+a.id);if(!isDeepStrictEqual(current,a))throw Error('concurrent_assistant_change');
   const server={...(a.server??{}),url:endpoint,credentialId:credential.id,timeoutSeconds:20};
   const serverMessages=[...new Set([...(a.serverMessages??[]),'tool-calls','status-update','end-of-call-report','conversation-update'])];
-  await vapi('/assistant/'+a.id,'PATCH',{server,serverMessages});const saved=await vapi('/assistant/'+a.id);
+  if(!isDeepStrictEqual(a.server,server)||!isDeepStrictEqual(a.serverMessages,serverMessages))await vapi('/assistant/'+a.id,'PATCH',{server,serverMessages});const saved=await vapi('/assistant/'+a.id);
   if(!isDeepStrictEqual(saved.server,server)||!isDeepStrictEqual(saved.serverMessages,serverMessages)||Object.keys(a).filter(k=>!['server','serverMessages','updatedAt','latestVersion'].includes(k)).some(k=>!isDeepStrictEqual(saved[k],a[k])))throw Error('assistant_configuration_changed');
   const configurationHash=await hash({model:saved.model,server:saved.server,serverMessages:saved.serverMessages,artifactPlan:saved.artifactPlan??null});
   const at=new Date(saved.updatedAt).toISOString();
-  await ledger.append('assistant:'+a.id,'config:'+configurationHash,{kind:'configuration_snapshot',source:'primecare_deployment',at,assistantId:a.id,configurationHash,coverage:'backend_direct_and_provider_observations'});
+  await ledger.append('assistant:'+a.id,'config:'+configurationHash+':'+saved.updatedAt,{kind:'configuration_snapshot',source:'primecare_deployment',at,assistantId:a.id,configurationHash,coverage:'backend_direct_and_provider_observations'});
   for(const toolId of saved.model?.toolIds??[]){
    let t=toolCache.get(toolId);if(!t){t=await vapi('/tool/'+toolId);toolCache.set(toolId,t);}
    const target=t.server?.url??t.url;
    const coverage=target?.startsWith('https://primecare-vapi-verification-api.itpro-mohammed.workers.dev/')||target?.startsWith('https://primecare-vapi-tools-api.itpro-mohammed.workers.dev/')?'direct_backend':target?'coverage_gap':'provider_observed_only';
-   await ledger.append('assistant:'+a.id,'tool:'+configurationHash+':'+toolId,{kind:'tool_inventory',source:'primecare_deployment',at,assistantId:a.id,configurationHash,resultId:toolId,toolName:String(t.function?.name??t.name??t.type).replace(/[^a-zA-Z0-9_.:-]/g,'_').slice(0,120),coverage});
+   await ledger.append('assistant:'+a.id,'tool:'+configurationHash+':'+saved.updatedAt+':'+toolId,{kind:'tool_inventory',source:'primecare_deployment',at,assistantId:a.id,configurationHash,resultId:toolId,toolName:String(t.function?.name??t.name??t.type).replace(/[^a-zA-Z0-9_.:-]/g,'_').slice(0,120),coverage});
    if(coverage==='coverage_gap')throw Error('external_tool_coverage_gap');
   }
  }
