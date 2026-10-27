@@ -14,5 +14,5 @@ try{
  for(const agent of catalog.agents)report.agents.push(await client.update(agent,baseline[agent.key],toolId));
  const after=client.scope(await client.request(phonePath));if(!isDeepStrictEqual(after,phone))throw Error('phone_routing_changed');
  report.status='scripts_and_native_tools_verified_business_dependencies_pending';
-}catch(e){report.status=/^[a-z_]{1,100}$/.test(e?.message??'')?e.message:'reconciliation_failed';process.exitCode=1;}
+}catch(e){report.status=/^[a-z_]{1,100}$/.test(e?.message??'')?e.message:'reconciliation_failed';if(Array.isArray(e.changedFields))report.changedFields=e.changedFields;process.exitCode=1;}
 await mkdir('test-results/vapi',{recursive:true});await writeFile('test-results/vapi/agent-library.json',JSON.stringify(report,null,2)+'\n');console.log('VAPI_AGENT_LIBRARY '+JSON.stringify(report));
