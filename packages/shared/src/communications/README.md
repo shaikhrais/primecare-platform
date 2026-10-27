@@ -1347,3 +1347,10 @@ outbound enrollment path is enabled. Missing contact may select only the current
 active Code Admin owner for this bounded test; a real approved code is required
 before inserting the canonical account contact. Existing/revoked contacts are
 preserved, and no auth session, role or approval is fabricated.
+
+Saved Vapi agent scripts and their API dependency review are documented in
+[the agent guide](../../../../docs/business/VAPI_AGENT_SCRIPTS_AND_TOOLS.md).
+The deployment-only `VapiAgentLibraryClient` inherits bounded transport, preserves
+provider configuration, and changes only pinned library assistants. Native tools
+are distinct from business API readiness; read-only production registration audit
+never enables an unimplemented business endpoint or creates a user session.

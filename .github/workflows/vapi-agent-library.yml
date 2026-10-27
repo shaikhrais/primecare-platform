@@ -2,7 +2,7 @@ name: Create PrimeCare saved Vapi agent library
 on:
   push:
     branches: [main]
-    paths: ['packages/shared/src/vapi-agent-templates.json', 'scripts/create-vapi-agent-library.mjs', 'scripts/test-vapi-agent-library.mjs', '.github/workflows/vapi-agent-library.yml']
+    paths: ['packages/shared/src/vapi-agent-*.json', 'packages/shared/src/communications/vapi-agent-library.mjs', 'scripts/*vapi-agent*.mjs', 'scripts/build-vapi-agent-scripts.py', '.github/workflows/vapi-agent-library.yml']
   workflow_dispatch:
 permissions: {contents: read}
 concurrency: {group: primecare-vapi-agent-library, cancel-in-progress: false}
@@ -13,6 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
+      - name: Verify generated role scripts are reproducible
+        run: python scripts/build-vapi-agent-scripts.py && git diff --exit-code -- packages/shared/src/vapi-agent-templates.json
       - run: node --test scripts/test-vapi-agent-library.mjs scripts/test-vapi-admin.mjs
   create:
     needs: verify
@@ -23,10 +25,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
-      - name: Create only missing named assistants and verify provider readback
+      - run: npm install --no-save --ignore-scripts --package-lock=false pg@8.16.3
+      - name: Read production API registrations without enabling unverified bindings
+        run: node scripts/audit-vapi-agent-api-bindings.mjs
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      - name: Update pinned saved agents and verify scripts and native tools
         run: node scripts/create-vapi-agent-library.mjs
         env:
           VAPI_PRIVATE_API_KEY: ${{ secrets.VAPI_PRIVATE_API_KEY }}
       - uses: actions/upload-artifact@v4
         if: always()
-        with: {name: vapi-agent-library, path: test-results/vapi/agent-library.json, retention-days: 30}
+        with: {name: vapi-agent-library, path: test-results/vapi/, retention-days: 30}
