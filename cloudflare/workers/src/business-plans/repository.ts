@@ -1,14 +1,14 @@
 import type {Client} from 'pg';
 import {instantiateTemplate,lessonData,applyPatch} from '../../../../packages/shared/src/business-plans/template-learning.mjs';
 import {changeCycle} from '../../../../packages/shared/src/business-plans/execution.mjs';
-import {manager,globalManager,publisher,publicCycle,businessRoles,authorizeAction,loopSummary} from '../../../../packages/shared/src/business-plans/policy.mjs';
+import {manager,globalManager,publisher,publicCycle,businessRoles,managers,authorizeAction,loopSummary} from '../../../../packages/shared/src/business-plans/policy.mjs';
 import {fail,uuid,type Actor} from '../../../../packages/shared/src/growth/contract';
 const text=(v:unknown,max=2000)=>{if(typeof v!=='string'||!v.trim()||v.length>max)fail(400);return (v as string).trim();};
 export class BusinessPlanRepository {
  constructor(readonly db:Client,readonly actor:Actor,readonly scope:string){}
  async audit(action:string,cycle:string|null,detail:unknown){await this.db.query('INSERT INTO business_plan_audit(id,tenant_id,cycle_id,actor_id,action,detail) VALUES($1,$2,$3,$4,$5,$6)',[crypto.randomUUID(),this.scope,cycle,this.actor.id,action,JSON.stringify(detail)]);}
  async cycle(id:unknown,lock=false){if(!uuid(id))fail(400);const row=(await this.db.query('SELECT * FROM business_plan_cycles WHERE id=$1 AND tenant_id=$2'+(lock?' FOR UPDATE':''),[id,this.scope])).rows[0];if(!row||!manager(this.actor)&&!row.data.tasks.some((t:any)=>t.ownerUserId===this.actor.id))fail(404,'not_found');return row;}
- async notice(cycle:string,title:string,message:string,recipient:string|null=null){await this.db.query('INSERT INTO business_plan_notices(id,tenant_id,recipient_id,roles,title,message,cycle_id) VALUES($1,$2,$3,$4,$5,$6,$7)',[crypto.randomUUID(),this.scope,recipient,JSON.stringify(businessRoles),title,message,cycle]);}
+ async notice(cycle:string,title:string,message:string,recipient:string|null=null){await this.db.query('INSERT INTO business_plan_notices(id,tenant_id,recipient_id,roles,title,message,cycle_id) VALUES($1,$2,$3,$4,$5,$6,$7)',[crypto.randomUUID(),this.scope,recipient,JSON.stringify(recipient?businessRoles:managers),title,message,cycle]);}
  async list(id?:string){
   const templates=(await this.db.query('SELECT id,flow,family,version,name,published_at,payload FROM (SELECT *,ROW_NUMBER() OVER(PARTITION BY flow,family ORDER BY version DESC) AS n FROM business_plan_templates) v WHERE n<=5 ORDER BY flow,family,version DESC')).rows;
   const scopes=globalManager(this.actor)?(await this.db.query("SELECT id::text,name,slug FROM tenants WHERE LOWER(status)='active' ORDER BY name LIMIT 300")).rows:[];
@@ -18,7 +18,8 @@ export class BusinessPlanRepository {
   const lessons=manager(this.actor)?(await this.db.query('SELECT id,cycle_id,template_id,data,status,review_reason,published_template_id,created_at FROM business_plan_lessons WHERE '+(publisher(this.actor)?'TRUE':'tenant_id=$1')+' ORDER BY created_at DESC LIMIT 100',publisher(this.actor)?[]:[this.scope])).rows:[];
   const notices=(await this.db.query('SELECT n.id,n.title,n.message,n.cycle_id,(r.user_id IS NOT NULL) AS read FROM business_plan_notices n LEFT JOIN business_plan_notice_reads r ON r.notice_id=n.id AND r.user_id=$1 WHERE (n.tenant_id IS NULL OR n.tenant_id=$2) AND (n.recipient_id IS NULL OR n.recipient_id=$1) AND n.roles ? $3 ORDER BY n.created_at DESC,n.id DESC LIMIT 100',[this.actor.id,this.scope,this.actor.roles])).rows;
   const audit=id?(await this.db.query('SELECT actor_id,action,detail,created_at FROM business_plan_audit WHERE cycle_id=$1 AND tenant_id=$2'+(manager(this.actor)?'':' AND actor_id=$3')+' ORDER BY created_at DESC LIMIT 100',manager(this.actor)?[id,this.scope]:[id,this.scope,this.actor.id])).rows:[];
-  return {identity:{userId:this.actor.id,role:this.actor.roles,tenantId:this.scope},canManage:manager(this.actor),canPublish:publisher(this.actor),scopes,templates:manager(this.actor)?templates:[],cycles,members,lessons,notices,audit,limit:100};
+  const organization=(await this.db.query('SELECT name FROM tenants WHERE id::text=$1',[this.scope])).rows[0]?.name||this.scope;
+  return {identity:{userId:this.actor.id,role:this.actor.roles,tenantId:this.scope,organization},canManage:manager(this.actor),canPublish:publisher(this.actor),scopes,templates:manager(this.actor)?templates:[],cycles,members,lessons,notices,audit,limit:100};
  }
  async execute(body:any){const action=body.action,v=body.value||{},now=new Date().toISOString();
   if(action==='acknowledge'){if(!uuid(v.id))fail(400);const accessible=(await this.list()).notices.some((n:any)=>n.id===v.id);if(!accessible)fail(404,'not_found');await this.db.query('INSERT INTO business_plan_notice_reads(notice_id,user_id) VALUES($1,$2) ON CONFLICT DO NOTHING',[v.id,this.actor.id]);return {saved:true};}
