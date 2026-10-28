@@ -24,6 +24,7 @@ for(const stale of ['success','failure'])await test('CEO refresh keeps newest re
  try{
   const initial=renderGrowth(root,'https://gateway.test');
   pending.shift()(response(0));await initial;
+  for(const key of ['business_ops','plan','intake'])assert.equal(root.querySelector('[data-cy=growth-nav-'+key+']'),null,'unavailable actions must not gain navigation');
   const refresh=()=>root.querySelector('[data-cy=growth-refresh]').click();
   refresh();refresh();assert.equal(pending.length,2);
   pending[1](response(7));await tick();await tick();

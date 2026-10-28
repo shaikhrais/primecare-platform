@@ -3057,6 +3057,10 @@
         "icon": "campaign"
       },
       {
+        "key": "intake",
+        "icon": "link"
+      },
+      {
         "key": "tasks",
         "icon": "check"
       },
@@ -3075,6 +3079,14 @@
       {
         "key": "performance",
         "icon": "chart"
+      },
+      {
+        "key": "business_ops",
+        "icon": "wallet"
+      },
+      {
+        "key": "plan",
+        "icon": "calendar"
       }
     ]
   },
