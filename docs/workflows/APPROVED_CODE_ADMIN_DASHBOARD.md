@@ -1,0 +1,9 @@
+# Approved Code Admin dashboard integration
+
+The owner approved the HTML dashboard and explicitly requested its application to the interactive dashboard with its sample data persisted in the database (2026-10-28).
+
+The implementation reuses the native tenant, account, reference record, support, document, territory, report and security handlers. Administrative Code Admin grants are registered for operations, the platform bundle and territories; the two administrative reports allow viewing/export only. Clinical permissions, marketing/CEO powers, report email, identity verification and launch approval requirements are unchanged.
+
+The additive seed uses six `demo-primecare-` organizations and 55 non-login accounts at the reserved `primecare.example` domain. It creates pending documents, draft launch records and open support tickets. Original visual examples are stored in a labelled dataset on the actual tenant creation audit event. Call examples are read-only historical illustrations, not provider health or fabricated provider events. No calls, messages, invitations, sessions, clinical records, territory purchases or launch approvals are created. Existing real accounts and security credentials are untouched. A deterministic receipt and transaction lock prevent duplicate seeds; collisions fail closed.
+
+Release is gated by native PostgreSQL tests for text/UUID identities, browser writes/readback, cross-tenant denial, responsive appearance and existing Code Admin security acceptance. The production job preserves existing governance worker bindings, verifies the existing owner, applies only additive native schema, seeds once and publishes from current main. The release artifacts provide deployment and database counts. Passing fixture checks alone does not establish production deployment or live provider availability.

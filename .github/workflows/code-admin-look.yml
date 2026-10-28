@@ -2,7 +2,7 @@ name: Review Code Admin dashboard appearance
 on:
   push:
     branches: [main]
-    paths: ['websites/typescript/src/shell-icons.ts', 'websites/typescript/src/media-look.ts', 'websites/typescript/src/shell.ts', 'websites/typescript/src/navigation.ts', 'websites/typescript/src/layout-customizer.ts', 'scripts/test-layout-manager-browser.mjs', 'websites/typescript/src/code-admin-layout.ts', 'websites/typescript/src/admin-training.ts', 'websites/typescript/src/getting-started-guide.ts', 'packages/shared/src/getting-started-guide.json', 'websites/typescript/public/assets/guides/**', '.github/workflows/theme-center.yml', 'websites/typescript/src/theme-manager.ts', 'packages/shared/src/solid-theme.json', 'websites/typescript/src/main.ts', 'websites/typescript/src/portal-install.ts', 'scripts/review-code-admin-look.mjs', '.github/workflows/code-admin-look.yml', 'websites/typescript/src/styles.css', 'websites/typescript/src/sms-verification-panel.ts', 'scripts/test-sms-verification-panel.mjs', 'websites/typescript/src/account.ts', 'websites/typescript/src/voice-pairing-panel.ts', 'scripts/test-voice-pairing-panel.mjs', 'websites/typescript/src/admin-dashboard.ts', 'websites/typescript/src/vapi-admin.ts', 'scripts/test-vapi-admin-browser.mjs', 'packages/shared/src/vapi-agent-templates.json', '.github/workflows/vapi-ui-activation.yml', 'websites/typescript/src/workspace.ts', 'websites/typescript/src/care/dashboard.ts', 'websites/typescript/src/growth/dashboard.ts', 'websites/typescript/src/shell.ts', 'websites/typescript/src/navigation.ts', 'websites/typescript/src/platform-admin.ts']
+    paths: ['scripts/seed-code-admin-demo.mjs', 'scripts/test-code-admin-approved.mjs', 'packages/shared/src/code-admin-demo.json', 'websites/typescript/src/approved-admin-dashboard.ts', 'websites/typescript/src/admin-demo-calls.ts', 'websites/typescript/src/shell-icons.ts', 'websites/typescript/src/media-look.ts', 'websites/typescript/src/shell.ts', 'websites/typescript/src/navigation.ts', 'websites/typescript/src/layout-customizer.ts', 'scripts/test-layout-manager-browser.mjs', 'websites/typescript/src/code-admin-layout.ts', 'websites/typescript/src/admin-training.ts', 'websites/typescript/src/getting-started-guide.ts', 'packages/shared/src/getting-started-guide.json', 'websites/typescript/public/assets/guides/**', '.github/workflows/theme-center.yml', 'websites/typescript/src/theme-manager.ts', 'packages/shared/src/solid-theme.json', 'websites/typescript/src/main.ts', 'websites/typescript/src/portal-install.ts', 'scripts/review-code-admin-look.mjs', '.github/workflows/code-admin-look.yml', 'websites/typescript/src/styles.css', 'websites/typescript/src/sms-verification-panel.ts', 'scripts/test-sms-verification-panel.mjs', 'websites/typescript/src/account.ts', 'websites/typescript/src/voice-pairing-panel.ts', 'scripts/test-voice-pairing-panel.mjs', 'websites/typescript/src/admin-dashboard.ts', 'websites/typescript/src/vapi-admin.ts', 'scripts/test-vapi-admin-browser.mjs', 'packages/shared/src/vapi-agent-templates.json', '.github/workflows/vapi-ui-activation.yml', 'websites/typescript/src/workspace.ts', 'websites/typescript/src/care/dashboard.ts', 'websites/typescript/src/growth/dashboard.ts', 'websites/typescript/src/shell.ts', 'websites/typescript/src/navigation.ts', 'websites/typescript/src/platform-admin.ts']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -23,8 +23,35 @@ jobs:
         if: always()
         with: {name: code-admin-look, path: test-results/code-admin-look, retention-days: 14}
 
+  data_acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: approved, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: approved}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U approved" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PLATFORM_TEST_DATABASE_URL: postgres://approved:fixture-only@127.0.0.1:5432/approved
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm install --prefix "$RUNNER_TEMP/approved-tools" --ignore-scripts --no-audit --no-fund pg@8.16.3 esbuild@0.27.2 bcryptjs@3 playwright@1.60.0 @twilio/voice-sdk@2.18.5
+      - run: ln -s "$RUNNER_TEMP/approved-tools/node_modules" node_modules
+      - run: node_modules/.bin/playwright install --with-deps chromium
+      - name: Verify native data, isolation and the approved interactive dashboard
+        run: node scripts/test-code-admin-approved.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: approved-code-admin-data-browser, path: test-results/approved-code-admin, retention-days: 14}
+
+  security_acceptance:
+    uses: ./.github/workflows/code-admin-tests.yml
+
   publish:
-    needs: review
+    needs: [review, data_acceptance, security_acceptance]
     environment: production
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -41,7 +68,19 @@ jobs:
         with: {python-version: '3.12'}
       - run: npm ci --ignore-scripts
       - run: pip install -r tools/governance-production/requirements.txt
+      - run: python3 tools/governance-production/verify-production-reader.py
       - run: node scripts/build-typescript-websites.mjs
+      - name: Connect approved administration and persist isolated demo records
+        if: contains(github.event.head_commit.message, 'APPLY_APPROVED_CODE_ADMIN')
+        env: {PRIMECARE_DEMO_SEED_AUTHORIZATION: APPLY_APPROVED_CODE_ADMIN_DEMO}
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          node scripts/deploy-approved-admin-governance.mjs
+          node scripts/prepare-code-admin-demo-schema.mjs
+          mkdir -p test-results/approved-code-admin-release
+          node scripts/seed-code-admin-demo.mjs > test-results/approved-code-admin-release/seed.json
+          cat test-results/approved-code-admin-release/seed.json
       - name: Publish verified governance portal from current main
         run: |
           git fetch origin main
@@ -49,3 +88,6 @@ jobs:
           for project in $(node -e "console.log(Object.keys(require('./websites/typescript/projects.json')).join(' '))"); do
             npx wrangler pages deploy "websites/typescript/dist/$project" --project-name "$project" --branch main --commit-hash "$GITHUB_SHA"
           done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: approved-code-admin-production-receipt, path: test-results/approved-code-admin-release, retention-days: 30}

@@ -4,7 +4,8 @@
     "central_admin": "global",
     "platform_admin": "global",
     "tenant_admin": "own",
-    "owner": "own"
+    "owner": "own",
+    "code_admin": "global"
   },
   "documentKinds": [
     "agreement",

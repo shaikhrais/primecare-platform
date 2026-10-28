@@ -25,7 +25,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [
@@ -667,7 +668,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [
@@ -1317,7 +1319,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [
@@ -1465,7 +1468,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [
@@ -1631,7 +1635,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [
@@ -1704,7 +1709,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [
@@ -1854,7 +1860,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [
@@ -1997,7 +2004,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [
@@ -2167,7 +2175,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [
@@ -2318,7 +2327,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [
@@ -2462,7 +2472,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [
@@ -2712,7 +2723,8 @@
           "central_admin": "global",
           "platform_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 mutations/minute per actor; 120 authenticated reads/minute per actor",
         "parameters": [

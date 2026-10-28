@@ -5,12 +5,14 @@
     "platform_admin": "global",
     "central_admin": "global",
     "tenant_admin": "own",
-    "owner": "own"
+    "owner": "own",
+    "code_admin": "global"
   },
   "managementRoles": [
     "platform_admin",
     "central_admin",
-    "tenant_admin"
+    "tenant_admin",
+    "code_admin"
   ],
   "pageSize": 25,
   "maxOffset": 100000,

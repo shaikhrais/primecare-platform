@@ -8,18 +8,17 @@ export function codeAdminPage({title,description,view,content}:{title:string;des
 }
 /** Group only already-visible links; never synthesizes a permission or destination. */
 export function codeAdminNavigation(markup:string,locale:string):string{
- const labels=locale==='fr'?['Organisation','Activités','Outils','Mon compte']:locale==='es'?['Organización','Operaciones','Herramientas','Mi cuenta']:['Organization','Business','Tools','My account'];
- const groups:string[][]=[[],[],[],[]];const template=document.createElement('template');template.innerHTML=markup;
+ const names:Record<string,string[]>={en:['WORKSPACE','ACCESS & DATA','OPERATIONS','VOICE & TOOLS','SYSTEM'],fr:['ESPACE DE TRAVAIL','ACCÈS ET DONNÉES','OPÉRATIONS','VOIX ET OUTILS','SYSTÈME'],es:['ESPACIO DE TRABAJO','ACCESO Y DATOS','OPERACIONES','VOZ Y HERRAMIENTAS','SISTEMA']};
+ const labels:Record<string,Record<string,string>>={en:{tenants:'Overview','tenant-selection':'Organizations',launch:'Setup & launch',onboarding:'Partner activation',accounts:'Accounts & roles',masters:'Reference records',documents:'Documents & renewals',support:'Support desk',bundle:'Attention & workflows',appearance:'Appearance & language',account:'Account & security'},fr:{tenants:'Vue d’ensemble','tenant-selection':'Organisations',launch:'Configuration et lancement',onboarding:'Activation des partenaires',accounts:'Comptes et rôles',masters:'Référentiels',documents:'Documents et renouvellements',support:'Assistance',bundle:'À vérifier et processus',appearance:'Apparence et langue',account:'Compte et sécurité'},es:{tenants:'Vista general','tenant-selection':'Organizaciones',launch:'Configuración y lanzamiento',onboarding:'Activación de socios',accounts:'Cuentas y roles',masters:'Datos de referencia',documents:'Documentos y renovaciones',support:'Soporte',bundle:'Atención y procesos',appearance:'Apariencia e idioma',account:'Cuenta y seguridad'}};
+ const groups:string[][]=[[],[],[],[],[]],template=document.createElement('template');template.innerHTML=markup;
  for(const node of Array.from(template.content.children)){
-  const id=(node as HTMLElement).dataset.section;
-  if(id==='tenants')node.textContent=locale==='fr'?'Tableau de bord':locale==='es'?'Panel':'Dashboard';
-  if(node.tagName==='A'){const key=id??(node.getAttribute('data-cy')==='look-nav'?'look':'growth');node.querySelector('.media-icon')?.remove();node.insertAdjacentHTML('afterbegin',navigationIcon(key));}
-
-
-  const group=id==='account'?3:node.hasAttribute('data-cy')&&['look-nav','platform-nav-vapi','platform-nav-calls'].includes(node.getAttribute('data-cy')!)||['training','text'].includes(id??'')?2:['operations','bundle','reports','audit','territories'].includes(id??'')||node.getAttribute('data-cy')==='platform-growth-link'?1:0;
+  const id=(node as HTMLElement).dataset.section,cy=node.getAttribute('data-cy'),key=id??(cy==='look-nav'?'look':'growth');
+  if(labels[locale]?.[key])node.textContent=labels[locale][key];
+  if(node.tagName==='A'){node.querySelector('.media-icon')?.remove();node.insertAdjacentHTML('afterbegin',navigationIcon(key));}
+  const group=['calls','vapi'].includes(key)?3:['training','text','appearance','account','look'].includes(key)?4:['accounts','masters','territories'].includes(key)?1:['operations','bundle','documents','support','reports','audit','growth'].includes(key)?2:0;
   groups[group].push(node.outerHTML);
  }
- return groups.map((items,i)=>items.length?`<section class="code-admin-nav-group"><h2>${esc(labels[i])}</h2>${items.join('')}</section>`:'').join('');
+ return groups.map((items,i)=>items.length?`<section class="code-admin-nav-group"><h2>${esc((names[locale]??names.en)[i])}</h2>${items.join('')}</section>`:'').join('');
 }
 
 export function codeAdminDescription(view:string,locale:string):string{

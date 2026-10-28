@@ -83,6 +83,12 @@
           "email": 1
         },
         {
+          "role": "code_admin",
+          "view": 1,
+          "export": 1,
+          "email": 0
+        },
+        {
           "role": "community_outreach",
           "view": 1,
           "export": 1,
@@ -474,6 +480,12 @@
       "classification": "internal",
       "requirement": "Platform administrator only: managed tenant metadata and aggregate account/master counts.",
       "grants": [
+        {
+          "role": "code_admin",
+          "view": 1,
+          "export": 1,
+          "email": 0
+        },
         {
           "role": "platform_admin",
           "view": 1,

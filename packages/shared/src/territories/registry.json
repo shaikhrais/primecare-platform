@@ -5,7 +5,8 @@
     "platform_admin": "global",
     "central_admin": "global",
     "tenant_admin": "own",
-    "owner": "own"
+    "owner": "own",
+    "code_admin": "global"
   },
   "services": [
     "psw",

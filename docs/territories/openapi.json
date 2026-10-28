@@ -25,7 +25,8 @@
           "platform_admin": "global",
           "central_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 authenticated mutation attempts per actor per minute",
         "parameters": [],
@@ -237,7 +238,8 @@
           "platform_admin": "global",
           "central_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "30 authenticated mutation attempts per actor per minute",
         "parameters": [

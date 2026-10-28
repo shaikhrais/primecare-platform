@@ -25,7 +25,8 @@
           "platform_admin": "global",
           "central_admin": "global",
           "tenant_admin": "own",
-          "owner": "own"
+          "owner": "own",
+          "code_admin": "global"
         },
         "x-rate-limit": "Read-only endpoint; bounded 25-row pages and optional workspace source limiter",
         "parameters": [

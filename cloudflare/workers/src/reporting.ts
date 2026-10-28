@@ -58,7 +58,7 @@ export class OrganizationSummaryReport extends AdminReportDefinition {
 export class PlatformAdministrationReport extends AdminReportDefinition {
  constructor(){super('platform_administration');}
  async rows(db:Client,actor:Actor,request:ReportRequest){
-  if(actor.roles!=='platform_admin')fail(403,'Forbidden');
+  if(!['platform_admin','code_admin'].includes(actor.roles))fail(403,'Forbidden');
   if(request.search||request.readiness!=='all')fail(400,'Filters are not supported by this report');
   const rows=(await db.query(`SELECT t.slug AS tenant,t.name,COUNT(DISTINCT u.id)::int AS accounts,COUNT(DISTINCT m.id)::int AS masters FROM tenants t LEFT JOIN users u ON u.tenant_id::text=t.id::text AND u.roles<>'platform_admin' AND LOWER(u.status)='active' LEFT JOIN platform_master_records m ON m.tenant_id::text=t.id::text GROUP BY t.id,t.slug,t.name ORDER BY t.slug LIMIT 1001`)).rows;
   const l=labels(request.locale);

@@ -23,6 +23,8 @@ def register(db):
  db.execute("INSERT INTO shared_report_grants SELECT 'platform_administration',id,1,1,1 FROM roles WHERE role_code='platform_admin' AND active=1")
  db.execute("INSERT INTO shared_report_grants SELECT 'page_readiness',r.id,1,1,1 FROM roles r WHERE r.active=1 AND EXISTS(SELECT 1 FROM role_screen_permissions p WHERE p.role_id=r.id AND p.can_view=1)")
  db.execute("INSERT INTO shared_report_grants SELECT 'organization_summary',r.id,1,1,1 FROM roles r JOIN runtime_catalog_permissions p ON p.role_id=r.id WHERE r.active=1 AND p.can_view_organization=1")
+ for report_id in ['page_readiness','platform_administration']:
+  db.execute("INSERT OR REPLACE INTO shared_report_grants SELECT ?,id,1,1,0 FROM roles WHERE role_code='code_admin' AND active=1",(report_id,))
  for locale,labels in LOCALES.items():
   lid=db.execute('SELECT language_id FROM languages WHERE language_code=?',(locale,)).fetchone()[0]
   for key,value in labels.items():

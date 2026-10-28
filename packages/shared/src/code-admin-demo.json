@@ -1,0 +1,342 @@
+{
+  "version": "approved-code-admin-demo-v1",
+  "namespace": "demo-primecare-",
+  "fixture": {
+    "tenants": [
+      {
+        "id": "maple",
+        "name": "Maple Home Care",
+        "slug": "maple-home-care",
+        "initials": "MC",
+        "status": "Active",
+        "accounts": 18,
+        "setup": 100,
+        "attention": 0,
+        "city": "Hamilton"
+      },
+      {
+        "id": "harbour",
+        "name": "Harbour Health",
+        "slug": "harbour-health",
+        "initials": "HH",
+        "status": "Setup pending",
+        "accounts": 8,
+        "setup": 60,
+        "attention": 2,
+        "city": "Burlington"
+      },
+      {
+        "id": "northstar",
+        "name": "Northstar Community Care",
+        "slug": "northstar-care",
+        "initials": "NC",
+        "status": "Active",
+        "accounts": 14,
+        "setup": 100,
+        "attention": 0,
+        "city": "Mississauga"
+      },
+      {
+        "id": "meadow",
+        "name": "Meadow Support Services",
+        "slug": "meadow-support",
+        "initials": "MS",
+        "status": "Needs review",
+        "accounts": 6,
+        "setup": 80,
+        "attention": 1,
+        "city": "Hamilton"
+      },
+      {
+        "id": "lakeview",
+        "name": "Lakeview Care",
+        "slug": "lakeview-care",
+        "initials": "LC",
+        "status": "Active",
+        "accounts": 9,
+        "setup": 100,
+        "attention": 0,
+        "city": "Oakville"
+      },
+      {
+        "id": "oak",
+        "name": "Oak & Willow Health",
+        "slug": "oak-willow",
+        "initials": "OW",
+        "status": "Inactive",
+        "accounts": 0,
+        "setup": 40,
+        "attention": 0,
+        "city": "Toronto"
+      }
+    ],
+    "accounts": [
+      {
+        "id": "a1",
+        "tenant": "maple",
+        "email": "admin@maple.example",
+        "role": "tenant_admin",
+        "status": "Active"
+      },
+      {
+        "id": "a2",
+        "tenant": "maple",
+        "email": "care@maple.example",
+        "role": "caregiver",
+        "status": "Active"
+      },
+      {
+        "id": "a3",
+        "tenant": "maple",
+        "email": "scheduler@maple.example",
+        "role": "scheduler",
+        "status": "Active"
+      },
+      {
+        "id": "a4",
+        "tenant": "harbour",
+        "email": "admin@harbour.example",
+        "role": "tenant_admin",
+        "status": "Active"
+      },
+      {
+        "id": "a5",
+        "tenant": "northstar",
+        "email": "admin@northstar.example",
+        "role": "tenant_admin",
+        "status": "Active"
+      },
+      {
+        "id": "a6",
+        "tenant": "meadow",
+        "email": "admin@meadow.example",
+        "role": "tenant_admin",
+        "status": "Active"
+      }
+    ],
+    "masters": [
+      {
+        "id": "m1",
+        "tenant": "maple",
+        "type": "location",
+        "code": "hamilton",
+        "label": "Hamilton office",
+        "status": "Active",
+        "version": 1
+      },
+      {
+        "id": "m2",
+        "tenant": "maple",
+        "type": "service_category",
+        "code": "home-support",
+        "label": "Home support",
+        "status": "Active",
+        "version": 1
+      },
+      {
+        "id": "m3",
+        "tenant": "harbour",
+        "type": "location",
+        "code": "burlington",
+        "label": "Burlington office",
+        "status": "Active",
+        "version": 1
+      }
+    ],
+    "documents": [
+      {
+        "id": "d1",
+        "tenant": "maple",
+        "name": "Partner agreement",
+        "type": "Agreement",
+        "expires": "2027-04-30",
+        "status": "Approved",
+        "version": 2
+      },
+      {
+        "id": "d2",
+        "tenant": "harbour",
+        "name": "Insurance certificate",
+        "type": "Insurance",
+        "expires": "2026-11-12",
+        "status": "Renewal due",
+        "version": 1
+      },
+      {
+        "id": "d3",
+        "tenant": "meadow",
+        "name": "Partner agreement",
+        "type": "Agreement",
+        "expires": "2027-06-30",
+        "status": "Pending review",
+        "version": 1
+      }
+    ],
+    "tickets": [
+      {
+        "id": "SUP-1042",
+        "tenant": "harbour",
+        "subject": "Help completing organization setup",
+        "priority": "Urgent",
+        "status": "Open",
+        "owner": "Unassigned",
+        "due": "Today, 2:00 PM"
+      },
+      {
+        "id": "SUP-1039",
+        "tenant": "meadow",
+        "subject": "Document renewal review",
+        "priority": "Normal",
+        "status": "In progress",
+        "owner": "Platform support",
+        "due": "Tomorrow, 10:00 AM"
+      }
+    ],
+    "calls": [
+      {
+        "id": "CALL-0214",
+        "tenant": "maple",
+        "number": "+1 555 010 0199",
+        "channel": "Vapi",
+        "status": "Verified account",
+        "time": "10:42 AM",
+        "tool": "Read permitted account status"
+      },
+      {
+        "id": "CALL-0213",
+        "tenant": "harbour",
+        "number": "+1 555 010 0188",
+        "channel": "Vapi",
+        "status": "Verification unavailable",
+        "time": "10:38 AM",
+        "tool": "Check account registration"
+      },
+      {
+        "id": "CALL-0212",
+        "tenant": "maple",
+        "number": "+1 555 010 0177",
+        "channel": "Twilio",
+        "status": "Unregistered caller",
+        "time": "10:30 AM",
+        "tool": "Check account registration"
+      },
+      {
+        "id": "CALL-0211",
+        "tenant": "meadow",
+        "number": "+1 555 010 0166",
+        "channel": "Vapi",
+        "status": "Tool denied",
+        "time": "10:21 AM",
+        "tool": "Read client information"
+      }
+    ],
+    "events": [
+      {
+        "action": "Document review requested",
+        "tenant": "meadow",
+        "actor": "Tenant administrator",
+        "time": "12 min ago",
+        "kind": "file-text"
+      },
+      {
+        "action": "Tenant account updated",
+        "tenant": "maple",
+        "actor": "Code Administrator",
+        "time": "28 min ago",
+        "kind": "users"
+      },
+      {
+        "action": "Verification service unavailable",
+        "tenant": "harbour",
+        "actor": "Voice verification service",
+        "time": "34 min ago",
+        "kind": "phone"
+      },
+      {
+        "action": "Organization setup completed",
+        "tenant": "northstar",
+        "actor": "Platform administrator",
+        "time": "1 hour ago",
+        "kind": "clipboard-check"
+      }
+    ],
+    "launch": {
+      "maple": "Approved",
+      "harbour": "Draft",
+      "northstar": "Approved",
+      "meadow": "Submitted",
+      "lakeview": "Approved",
+      "oak": "Draft"
+    },
+    "territories": [
+      {
+        "city": "Hamilton",
+        "fsa": "L8E",
+        "owner": "Maple Home Care",
+        "status": "Assigned"
+      },
+      {
+        "city": "Burlington",
+        "fsa": "L7L",
+        "owner": "Harbour Health",
+        "status": "Assigned"
+      },
+      {
+        "city": "Oakville",
+        "fsa": "L6L",
+        "owner": "",
+        "status": "Unassigned"
+      },
+      {
+        "city": "Mississauga",
+        "fsa": "L5B",
+        "owner": "Northstar Community Care",
+        "status": "Assigned"
+      },
+      {
+        "city": "Milton",
+        "fsa": "L9T",
+        "owner": "",
+        "status": "Reserve"
+      },
+      {
+        "city": "Toronto",
+        "fsa": "M5V",
+        "owner": "",
+        "status": "Unassigned"
+      }
+    ],
+    "revoked": [],
+    "lookReviews": [
+      {
+        "id": "LOOK-001",
+        "area": "Code Admin dashboard",
+        "status": "Draft",
+        "note": "Sample design review awaiting human feedback."
+      }
+    ],
+    "resources": [
+      {
+        "key": "create_tenant",
+        "en": "Create organization",
+        "fr": "Créer une organisation",
+        "es": "Crear organización",
+        "version": 1
+      },
+      {
+        "key": "choose_tenant",
+        "en": "Choose organization",
+        "fr": "Choisir une organisation",
+        "es": "Elegir organización",
+        "version": 1
+      },
+      {
+        "key": "accounts",
+        "en": "Accounts and roles",
+        "fr": "Comptes et rôles",
+        "es": "Cuentas y roles",
+        "version": 1
+      }
+    ]
+  }
+}

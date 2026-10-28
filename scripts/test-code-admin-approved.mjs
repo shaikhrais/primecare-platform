@@ -1,0 +1,62 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdtemp,mkdir} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {createHash,randomUUID} from 'node:crypto';
+import {createRequire} from 'node:module';
+import {createServer} from 'node:http';
+import pg from 'pg';
+import bcrypt from 'bcryptjs';
+import {build} from 'esbuild';
+import {seedCodeAdminDemo,demoId,definition} from './seed-code-admin-demo.mjs';
+import {launchCareBrowser} from './care-browser-launch.mjs';
+const connection=process.env.PLATFORM_TEST_DATABASE_URL;
+if(!connection||!['localhost','127.0.0.1'].includes(new URL(connection).hostname)||process.env.PRODUCTION_DATABASE_URL)throw Error('Disposable loopback database required');
+const directory=await mkdtemp(join(tmpdir(),'approved-admin-')),file=join(directory,'api.cjs');
+await build({entryPoints:['cloudflare/workers/src/platform-administration.ts'],bundle:true,platform:'node',format:'cjs',outfile:file,external:['pg']});
+await writeFile(file,(await readFile(file,'utf8')).replaceAll('require("pg")',`require(${JSON.stringify(join(process.cwd(),'node_modules/pg'))})`));
+const {platformAdministration}=createRequire(import.meta.url)(file);
+const receipt={source:process.env.GITHUB_SHA??'local',passed:false,checks:[],providerActions:0,productionData:false};
+await mkdir('test-results/approved-code-admin',{recursive:true});
+for(const identity of ['text','uuid']){
+ const db=new pg.Client({connectionString:connection});await db.connect();const schema='approved_'+identity+'_'+randomUUID().replaceAll('-',''),actor=randomUUID(),root=randomUUID(),token='x'.repeat(43);let browser,server;
+ try{
+  await db.query(`CREATE SCHEMA ${schema};SET search_path TO ${schema}`);
+  await db.query(`CREATE TABLE tenants(id ${identity} PRIMARY KEY,name text,slug text UNIQUE,status text,created_at timestamptz DEFAULT NOW(),updated_at timestamptz DEFAULT NOW(),allowed_vpn_ranges text NOT NULL DEFAULT '',cors_allowed_origins jsonb NOT NULL DEFAULT '[]',cors_allowed_methods jsonb NOT NULL DEFAULT '[]',cors_allowed_headers jsonb NOT NULL DEFAULT '[]');CREATE TABLE users(id ${identity} PRIMARY KEY,email text UNIQUE,roles text,tenant_id ${identity} REFERENCES tenants(id),password_hash text,status text,updated_at timestamptz DEFAULT NOW());CREATE TABLE auth_sessions(user_id ${identity} REFERENCES users(id),token_hash text,expires_at timestamptz)`);
+  for(const migration of ['20261011_platform_administration','20261013_growth_marketing','20261013_growth_operations','20261013_growth_contacts','20261014_growth_intake','20261014_growth_offline','20261015_territory_allocation','20261015_territory_catalog','20261016_platform_bundle','20261016_territory_intake'])await db.query(await readFile('packages/database/migrations/'+migration+'.sql','utf8'));
+  await db.query("INSERT INTO tenants(id,name,slug,status) VALUES($1,'Existing real organization','existing-real','active')",[root]);
+  await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,'fixture-owner@example.invalid','code_admin',$2,'preserve-existing-password','active')",[actor,root]);
+  await db.query("INSERT INTO auth_sessions VALUES($1,$2,NOW()+INTERVAL '1 hour')",[actor,createHash('sha256').update(token).digest('hex')]);
+  const before=(await db.query('SELECT * FROM users WHERE id=$1',[actor])).rows[0];
+  const first=await seedCodeAdminDemo(db,{actorId:actor});assert.equal(first.inserted,true);assert.equal(first.tenants,6);assert.equal(first.accounts,55);assert.equal(first.documents,3);assert.equal(first.tickets,2);assert.equal(first.sessions,0);
+  const second=await seedCodeAdminDemo(db,{actorId:actor});assert.equal(second.inserted,false);assert.equal(second.accounts,55);
+  assert.deepEqual((await db.query('SELECT * FROM users WHERE id=$1',[actor])).rows[0],before);
+  assert.equal((await db.query("SELECT COUNT(*)::int AS n FROM platform_launch WHERE state='approved'")).rows[0].n,0);
+  assert.equal((await db.query("SELECT COUNT(*)::int AS n FROM platform_documents WHERE status<>'pending'")).rows[0].n,0);
+  assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM platform_territory_sales')).rows[0].n,0);
+  assert.equal(await bcrypt.compare('any-password','!DEMO-NO-LOGIN'),false);
+  await assert.rejects(()=>seedCodeAdminDemo(db,{actorId:randomUUID()}),/authorized/);
+  const target=new URL(connection);target.searchParams.set('options',`-c search_path=${schema}`);const env={SERVICE_NAME:'governance',DB_URL:target.toString()};
+  const call=async(path='/platform',method='GET',body)=>platformAdministration(new Request('http://fixture'+path,{method,headers:{authorization:'Bearer '+token,...(body?{'content-type':'application/json','idempotency-key':randomUUID()}:{})},...(body?{body:JSON.stringify(body)}:{})}),env,path.split('?')[0],{});
+  const bootstrap=await (await call()).json();assert.equal(bootstrap.role,'code_admin');assert.equal(bootstrap.canViewOperations,true);assert.equal(bootstrap.canViewBundle,true);assert.equal(bootstrap.canViewTerritories,true);assert.equal(bootstrap.canViewReports,true);
+  const operations=await call('/platform/operations?search=demo-primecare-');assert.equal(operations.status,200);const data=await operations.json();assert.equal(data.summary.total,6);assert.equal(data.tenants.reduce((n,t)=>n+t.counts.accounts,0),55);
+  const fixtureAudit=await (await call('/platform/tenants/'+demoId('tenant:maple')+'/audit')).json();assert.equal(fixtureAudit.events.find(e=>e.current_state.demoDataset)?.current_state.demoDataset.examples.calls.length,4);
+  const docs=await call('/platform/bundle/tenants/'+demoId('tenant:harbour'));assert.equal(docs.status,200);assert.ok((await docs.json()).documents.length);
+  const row=(await db.query('SELECT id,version FROM platform_master_records LIMIT 1')).rows[0];await db.query("UPDATE platform_master_records SET label='DEMO custom edit retained',version=version+1 WHERE id=$1",[row.id]);await seedCodeAdminDemo(db,{actorId:actor});assert.equal((await db.query('SELECT label FROM platform_master_records WHERE id=$1',[row.id])).rows[0].label,'DEMO custom edit retained');
+  const local=randomUUID(),localToken='l'.repeat(43);await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,'tenant-fixture@example.invalid','tenant_admin',$2,'unused','active')",[local,root]);await db.query("INSERT INTO auth_sessions VALUES($1,$2,NOW()+INTERVAL '1 hour')",[local,createHash('sha256').update(localToken).digest('hex')]);
+  const denied=await platformAdministration(new Request('http://fixture/platform/tenants/'+demoId('tenant:maple')+'/accounts',{headers:{authorization:'Bearer '+localToken}}),env,'/platform/tenants/'+demoId('tenant:maple')+'/accounts',{});assert.equal(denied.status,403);
+  receipt.checks.push({identity,database:true,idempotent:true,nonLogin:true,existingAccountsPreserved:true,noLaunchApproval:true,noTerritorySale:true,scopedAPI:true,tenantIsolation:true,editsPreserved:true});
+  if(identity==='uuid'){
+   const front=await build({stdin:{contents:"import {renderPlatformAdmin} from './websites/typescript/src/platform-admin';document.documentElement.lang=new URLSearchParams(location.search).get('locale')||'en';renderPlatformAdmin(document.querySelector('#app'),location.origin);",resolveDir:process.cwd()},bundle:true,format:'iife',write:false});const css=await readFile('websites/typescript/src/styles.css','utf8'),theme=JSON.parse(await readFile('packages/shared/src/solid-theme.json'));
+   server=createServer(async(req,res)=>{try{const u=new URL(req.url,'http://fixture');if(u.pathname.startsWith('/v1/governance/platform')){let body='';for await(const c of req)body+=c;const path=req.url.replace('/v1/governance',''),response=await platformAdministration(new Request('http://fixture'+path,{method:req.method,headers:req.headers,...(body?{body}:{})}),env,u.pathname.replace('/v1/governance',''),{});res.writeHead(response.status,Object.fromEntries(response.headers));res.end(await response.text());}else if(u.pathname==='/app.js'){res.setHeader('content-type','text/javascript');res.end(front.outputFiles[0].text);}else if(u.pathname==='/app.css'){res.setHeader('content-type','text/css');res.end(css);}else if(u.pathname.startsWith('/assets/')){try{res.end(await readFile('websites/typescript/public'+u.pathname));}catch{res.writeHead(404);res.end();}}else if(u.pathname.startsWith('/v1/')){res.writeHead(503,{'content-type':'application/json'});res.end('{"error":"fixture_provider_not_connected"}');}else{res.setHeader('content-type','text/html');res.end('<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{'+Object.entries(theme).map(([k,v])=>k+':'+v).join(';')+'}</style><link rel="stylesheet" href="/app.css"></head><body><div id="app"></div><script src="/app.js"></script></body></html>');}}catch{res.writeHead(500);res.end('Fixture failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));browser=await launchCareBrowser();
+   for(const locale of ['en','fr','es'])for(const width of [320,1440]){
+    const page=await browser.newPage({viewport:{width,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(t=>sessionStorage.setItem('primecare_session',t),token);await page.goto('http://127.0.0.1:'+server.address().port+'/platform/administration?locale='+locale);
+    const el=id=>page.locator('[data-cy="'+id+'"]');await page.locator('.approved-directory tbody tr').first().waitFor();assert.equal(await page.locator('.admin-stat').nth(1).locator('strong').innerText(),'55');assert.equal(await page.locator('.approved-directory tbody tr').count(),4);await el('admin-create-organization').click();await page.locator('dialog[data-admin-form-dialog]').waitFor({state:'visible'});const slug='approved-browser-'+locale+'-'+width;await el('platform-tenant-form').locator('[name=name]').fill('Browser '+locale+' '+width);await el('platform-tenant-form').locator('[name=slug]').fill(slug);await el('platform-tenant-form').locator('button').click();await el('platform-account-form').waitFor();
+    await el('platform-account-form').locator('[name=email]').fill(slug+'@example.invalid');await el('platform-account-form').locator('[name=password]').fill('Fixture-Only-2026!');await el('platform-account-form').locator('[name=role]').selectOption('caregiver');await el('platform-account-form').locator('button').click();await el('platform-users').getByText(slug+'@example.invalid',{exact:true}).waitFor();assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM users WHERE email=$1',[slug+'@example.invalid'])).rows[0].n,1);
+    await el('platform-topbar-tenant').selectOption(demoId('tenant:harbour'));await page.waitForFunction(()=>!document.querySelector('[data-cy=platform-refresh]')?.disabled);
+    const go=async id=>{if(width===320)await el('sidebar-toggle').click();await el('platform-nav-'+id).click();};await go('documents');await el('bundle-documents').waitFor();assert.ok((await el('bundle-documents').innerText()).includes('DEMO-insurance.pdf'));await go('support');await el('bundle-support').waitFor();assert.ok((await el('bundle-support').innerText()).includes('DEMO · Help completing organization setup'));await go('calls');await el('demo-call-history').waitFor();await el('demo-call-history').getByRole('button',{name:'Inspect example'}).click();await page.getByRole('dialog').getByText('DEMO · CALL-0213',{exact:true}).waitFor();await page.getByRole('dialog').getByRole('button',{name:'Close',exact:true}).click();await go('tenants');await page.locator('.approved-directory tbody tr').first().waitFor();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.deepEqual(errors,[]);await page.screenshot({path:'test-results/approved-code-admin/'+locale+'-'+width+'.png',fullPage:true});receipt.checks.push({locale,width,createTenant:true,createAccount:true,databaseReadback:true,documents:true,support:true,demoTrace:true,noHorizontalOverflow:true});await page.close();
+   }
+  }
+ }finally{if(browser)await browser.close();if(server)await new Promise(r=>server.close(r));await db.query('SET search_path TO public');await db.query('DROP SCHEMA '+schema+' CASCADE');await db.end();}
+}
+receipt.passed=true;await writeFile('test-results/approved-code-admin/results.json',JSON.stringify(receipt,null,2));console.log('APPROVED_CODE_ADMIN_PASS '+JSON.stringify(receipt));

@@ -28,6 +28,6 @@ const paths={
 } as const;
 export type ShellIcon=keyof typeof paths;
 export function shellIcon(name:ShellIcon):string{return `<svg class="media-icon shell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${paths[name]}</svg>`;}
-const destinations:Record<string,ShellIcon>={tenants:'layout-dashboard','tenant-selection':'building',onboarding:'shield-check',accounts:'users',masters:'database',audit:'clipboard-check',reports:'chart-bar',territories:'map-2',operations:'adjustments-horizontal',bundle:'rocket',growth:'chart-bar',training:'school',text:'file-text',account:'user-circle',vapi:'robot',calls:'phone',look:'palette'};
+const destinations:Record<string,ShellIcon>={appearance:'palette',launch:'rocket',documents:'file-text',support:'users',organizations:'building',tenants:'layout-dashboard','tenant-selection':'building',onboarding:'shield-check',accounts:'users',masters:'database',audit:'clipboard-check',reports:'chart-bar',territories:'map-2',operations:'adjustments-horizontal',bundle:'rocket',growth:'chart-bar',training:'school',text:'file-text',account:'user-circle',vapi:'robot',calls:'phone',look:'palette'};
 export function navigationIcon(destination:string):string{return shellIcon(destinations[destination]??'layout-dashboard');}
 
