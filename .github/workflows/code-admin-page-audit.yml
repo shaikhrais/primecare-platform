@@ -92,8 +92,10 @@ jobs:
           node --test scripts/test-voice-identity-schema.mjs scripts/test-voice-contact-enrollment.mjs scripts/test-phone-number.mjs
       - name: Verify own account and session boundaries for both identifier types
         run: |
-          node --input-type=module -e "import pg from 'pg';const c=new pg.Client({connectionString:process.env.WORKFLOW_TEST_DATABASE_URL});await c.connect();await c.query('CREATE DATABASE auth_test');await c.end();"
-          AUTH_TEST_ID_TYPE=text node scripts/test-account-session-pages-postgres.mjs
-          AUTH_TEST_ID_TYPE=uuid node scripts/test-account-session-pages-postgres.mjs
-          AUTH_TEST_ID_TYPE=text node scripts/test-self-sessions-postgres.mjs
-          AUTH_TEST_ID_TYPE=uuid node scripts/test-self-sessions-postgres.mjs
+          for identity in text uuid
+          do
+            node --input-type=module -e "import pg from 'pg';const c=new pg.Client({connectionString:process.env.WORKFLOW_TEST_DATABASE_URL});await c.connect();await c.query('DROP DATABASE IF EXISTS auth_test');await c.query('CREATE DATABASE auth_test');await c.end();"
+            AUTH_TEST_ID_TYPE="$identity" node scripts/test-auth-postgres.mjs
+            AUTH_TEST_ID_TYPE="$identity" node scripts/test-account-session-pages-postgres.mjs
+            AUTH_TEST_ID_TYPE="$identity" node scripts/test-self-sessions-postgres.mjs
+          done
