@@ -86,7 +86,7 @@ test('all active role landings resolve to their own authorized governed page',as
   const {dom,root,data}=browser(role);
   const landing=registry.landings[role];
   const dedicatedAdmin=['code_admin','central_admin','tenant_admin','platform_admin'].includes(role);
-  if(landing==='/care'||dedicatedAdmin) {
+  if(['/care','/growth'].includes(landing)||dedicatedAdmin) {
    assert.ok(data.screens.some(screen=>screen.route===landing),role+' must have a granted landing');
    const navigations=[];
    globalThis.location={pathname:'/',search:dom.window.location.search,assign:href=>navigations.push(new URL(href,dom.window.location.href))};
@@ -116,4 +116,18 @@ test('delayed workspace responses cannot render or clear a replacement account s
   assert.equal(sessionStorage.getItem('primecare_session'),'replacement-account-session');assert.equal(reloads,1);assert.deepEqual(redirects,[]);assert.equal(root.querySelector('[data-cy=workspace-organization]'),null);
   dom.window.close();
  }
+});
+
+for(const entry of ['sidebar','search'])test('CEO '+entry+' opens the working marketing board',async()=>{
+ const {dom,root}=browser('ceo'),navigations=[];
+ try{
+  await renderWorkspace(root,'https://gateway.test');
+  const pathname=location.pathname;globalThis.location={pathname,search:location.search,assign:href=>navigations.push(new URL(href,dom.window.location.href))};
+  if(entry==='sidebar')root.querySelector('[data-cy="sidebar-item-founder_growth_dashboard"]').click();
+  else {const input=root.querySelector('[data-cy="universal-search"]');input.value='Founder Growth';input.dispatchEvent(new window.Event('input'));root.querySelector('[data-cy="universal-search-results"] button').click();}
+  assert.equal(navigations.length,1,'working domain renderer must receive a real navigation');
+  assert.equal(navigations[0].pathname,'/growth');
+  assert.equal(navigations[0].searchParams.get('enable-semantics'),'true');
+  assert.equal(root.querySelector('[data-cy="screen-founder_growth_dashboard"]'),null,'generic page must not replace the working marketing board');
+ }finally{dom.window.close();}
 });

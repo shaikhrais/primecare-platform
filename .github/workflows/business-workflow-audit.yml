@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/business-workflow-audit.yml', 'scripts/run-business-workflow-audit.mjs', 'scripts/test-care*.mjs', 'scripts/test-growth*.mjs', 'scripts/test-workspace*.mjs', 'scripts/test-account-admin*.mjs', 'scripts/test-care-metadata*.mjs', 'scripts/test-screen-text*.mjs', 'cloudflare/workers/src/care/**', 'cloudflare/workers/src/growth/**', 'websites/typescript/src/growth/**', 'packages/shared/src/growth/**', 'scripts/fixtures/growth-read-model.mjs']
+    paths: ['.github/workflows/business-workflow-audit.yml', 'scripts/run-business-workflow-audit.mjs', 'scripts/test-tenant*.mjs', 'scripts/test-client*.mjs', 'scripts/test-care*.mjs', 'scripts/test-growth*.mjs', 'scripts/test-workspace*.mjs', 'scripts/test-account-admin*.mjs', 'scripts/test-care-metadata*.mjs', 'scripts/test-screen-text*.mjs', 'cloudflare/workers/src/care/**', 'cloudflare/workers/src/growth/**', 'websites/typescript/src/growth/**', 'packages/shared/src/growth/**', 'scripts/fixtures/growth-read-model.mjs', 'cloudflare/workers/src/tenant-operations.ts', 'cloudflare/workers/src/client*.ts']
 permissions: {contents: read}
 jobs:
   audit:
@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        domain: [account, care, growth, workspace]
+        domain: [account, care, growth, workspace, tenant, client]
     services:
       postgres:
         image: postgres:16-alpine
@@ -21,6 +21,7 @@ jobs:
         options: --health-cmd "pg_isready -U audit" --health-interval 5s --health-timeout 5s --health-retries 10
     env:
       WORKFLOW_TEST_DATABASE_URL: postgres://audit:fixture-only@localhost:5432/login_browser
+      PLATFORM_TEST_DATABASE_URL: postgres://audit:fixture-only@localhost:5432/login_browser
       CARE_TEST_DATABASE_URL: postgres://audit:fixture-only@localhost:5432/login_browser
       GROWTH_TEST_DATABASE_URL: postgres://audit:fixture-only@localhost:5432/login_browser
       SCREEN_TEXT_TEST_DATABASE_URL: postgres://audit:fixture-only@localhost:5432/login_browser

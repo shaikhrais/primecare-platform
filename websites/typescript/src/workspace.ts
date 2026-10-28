@@ -1,5 +1,6 @@
 import {mutationActorForScreen,accountCreationMarkup,bindAccountCreation} from './account-mutations-panel';
 import {tenantAccountsScreen,tenantAccountsMarkup,bindTenantAccounts} from './tenant-accounts-panel';
+import growthRegistry from '../../../packages/shared/src/growth/registry.json';
 import careRegistry from '../../../packages/shared/src/care/registry.json';
 import {openAdminTraining,trainingText} from './admin-training';
 import {DashboardMediaLook} from './media-look';
@@ -59,7 +60,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   }
   const reportPanels=new Map<string,HTMLElement>();
   if(['code_admin','central_admin','tenant_admin','platform_admin'].includes(data.identity.role)&&location.pathname!=='/success'){location.assign(routeUrl('/platform/administration'));return;}
-  if(['/','/dashboard'].includes(location.pathname)&&data.landing===careRegistry.route&&data.screens.some(s=>s.route===careRegistry.route)){location.assign(routeUrl(careRegistry.route));return;}
+  if(['/','/dashboard'].includes(location.pathname)&&[careRegistry.route,growthRegistry.route].includes(data.landing)&&data.screens.some(s=>s.route===data.landing)){location.assign(routeUrl(data.landing));return;}
   const live=liveScreenText(gateway);let dirtyForm=false;root.addEventListener('input',()=>dirtyForm=true);
   let search='';let pendingOnly=false;let pageNumber=0;let signingOut=false;
   const locale=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en';
@@ -114,13 +115,13 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       <section class="section" data-cy="workspace-activity"><h2>${t('activity')}</h2>${activities()}</section><details class="section" data-cy="workspace-delivery"><summary>${t('details')}</summary>${details(page!)}</details>
       <details class="section workspace-inventory-disclosure" data-cy="workspace-inventory" ${inventoryOpen?'open':''}><summary>${t('inventory')}</summary><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
       <div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></details>`}`});
-    root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();if(a.dataset.route===careRegistry.route){location.assign(a.href);return;}history.pushState({},'',a.href);draw();root.querySelector<HTMLElement>('h1')?.focus();});
+    root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();if([careRegistry.route,growthRegistry.route].includes(a.dataset.route??'')){location.assign(a.href);return;}history.pushState({},'',a.href);draw();root.querySelector<HTMLElement>('h1')?.focus();});
     if(page && data.reporting?.screens.includes(page.code)) {
       let panel=reportPanels.get(page.code);
       if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId);reportPanels.set(page.code,panel);}
       root.querySelector('main')!.insertBefore(panel,root.querySelector('[data-cy="workspace-inventory"]'));
     }
-    bindShell(root,account?text('account'):page?.name??'PrimeCare',locale,'Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>{if(s.route===careRegistry.route){location.assign(routeUrl(s.route));return;}history.pushState({},'',routeUrl(s.route));draw();root.querySelector<HTMLElement>('h1')?.focus();}})),data.identity.role+':'+data.identity.userId);
+    bindShell(root,account?text('account'):page?.name??'PrimeCare',locale,'Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>{if([careRegistry.route,growthRegistry.route].includes(s.route)){location.assign(routeUrl(s.route));return;}history.pushState({},'',routeUrl(s.route));draw();root.querySelector<HTMLElement>('h1')?.focus();}})),data.identity.role+':'+data.identity.userId);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-training"]')!.onclick=()=>openAdminTraining(gateway,data.identity.userId);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-refresh"]')!.onclick=()=>void renderWorkspace(root,gateway);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-logout"]')!.onclick=async event=>{
