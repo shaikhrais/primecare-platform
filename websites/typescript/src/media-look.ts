@@ -1,3 +1,4 @@
+import {navigationIcon} from './shell-icons';
 import registry from '../../../packages/shared/src/media/registry.json';
 export type MediaLocale = keyof typeof registry.locales;
 export type MediaIcon = keyof typeof registry.icons;
@@ -28,8 +29,7 @@ export class EntryMediaLook extends BaseMediaLook {
 /** Operational pages inherit compact cues instead of decorative hero images. */
 export class DashboardMediaLook extends BaseMediaLook {
   navigationIcon(key:string):string {
-    const name=(registry.navigation as Record<string,MediaIcon>)[key]??'home';
-    return this.icon(name);
+    return navigationIcon(key);
   }
   roleLabel(code:string):string{return (registry.roles as Record<string,string>)[code]??code;}
   sectionIcon(type:string):string{return this.icon((registry.sectionIcons as Record<string,MediaIcon>)[type]??'home');}

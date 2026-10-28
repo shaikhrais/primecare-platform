@@ -1,3 +1,4 @@
+import {shellIcon} from './shell-icons';
 import media from '../../../packages/shared/src/media/registry.json';
 export type SearchEntry={title:string;detail:string;open:()=>void};
 export type NavigationLocale='en'|'fr'|'es';
@@ -10,7 +11,7 @@ export function mountNavigation(host:HTMLElement,title:string,locale:NavigationL
  const words=media.locales[locale],text={search:words.nav_search,placeholder:words.nav_placeholder,empty:words.nav_empty,scope:words.nav_scope,results:words.nav_results};host.className='global-navigation';
  const heading=document.createElement('strong');heading.className='topbar-title';heading.textContent=title;
  const box=document.createElement('div');box.className='global-search';
- const label=document.createElement('label');label.textContent=text.search;
+ const label=document.createElement('label');const accessibleLabel=document.createElement('span');accessibleLabel.className='visually-hidden';accessibleLabel.textContent=text.search;label.innerHTML=shellIcon('search');label.append(accessibleLabel);
  const input=document.createElement('input');input.type='search';input.maxLength=100;input.placeholder=text.placeholder;input.dataset.cy='universal-search';input.setAttribute('aria-controls','universal-search-results');input.autocomplete='off';label.append(input);
  const panel=document.createElement('div');panel.id='universal-search-results';panel.dataset.cy='universal-search-results';panel.className='global-search-results';panel.hidden=true;
  const scopeLine=document.createElement('p');scopeLine.textContent=text.scope+': '+scope;scopeLine.className='search-scope';

@@ -426,3 +426,46 @@ aside nav a[aria-current="page"], aside nav a:hover, aside nav a:focus-visible {
 .global-search-results{color:var(--color-surface-text,var(--color-text))}
 /* Navigation labels need an opaque surface even inside a clipped/scrolling rail. */
 .code-admin-nav-group h2{background:var(--color-sidebar);color:var(--color-sidebar-text);opacity:1}
+
+/* Tabler vertical-dashboard reference: a quiet utility header and one clear navigation rail.
+   Selected SVGs are vendored in shell-icons.ts; no runtime CDN or icon font is required. */
+.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}
+.shell-icon{width:20px;height:20px;flex:none;stroke-width:1.75}
+.app-shell:has(.code-admin-layout):not([data-navigation-mode=compact]){--layout-sidebar-width:248px}
+.app-shell:has(.code-admin-layout)>aside{display:flex;flex-direction:column;padding:24px 12px 16px}
+.app-shell:has(.code-admin-layout)>aside>.brand{gap:10px;padding:0 12px;margin:0 0 20px;font-size:23px;letter-spacing:-.6px;line-height:40px}
+.app-shell:has(.code-admin-layout)>aside>.brand .media-brand{width:36px;height:36px;border-radius:10px}
+.app-shell:has(.code-admin-layout)>aside>.sidebar-role{margin:0 12px 20px;padding:8px 10px;border:1px solid #ffffff30;border-radius:6px;font-size:11px;line-height:1.4;letter-spacing:.025em;color:var(--color-sidebar-text)}
+.app-shell:has(.code-admin-layout)>aside>.sidebar-description{display:none}
+.app-shell:has(.code-admin-layout)>aside nav{display:grid;flex:1;min-height:0;max-height:none;gap:24px;padding:0 0 16px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#ffffff50 transparent;align-content:start}
+.code-admin-nav-group{gap:4px}.code-admin-nav-group h2{font-size:10px;font-weight:600;letter-spacing:.1em;margin:0 0 6px;padding:0 14px;line-height:18px}
+.code-admin-nav-group a{display:flex;align-items:center;gap:12px;min-height:44px;padding:10px 14px;font-size:13px;font-weight:500;line-height:20px;border:1px solid transparent;border-radius:6px;text-decoration:none}
+.code-admin-nav-group a>.shell-icon{width:20px;height:20px}
+.app-shell:has(.code-admin-layout)>aside nav a:hover{background:#ffffff12;color:var(--color-sidebar-text)}
+.app-shell:has(.code-admin-layout)>aside nav a[aria-current=page]{background:var(--color-primary);border-color:#ffffff20;color:var(--color-on-primary);font-weight:600}
+.app-shell:has(.code-admin-layout) .topbar{display:flex;align-items:center;flex-wrap:nowrap;gap:20px;min-height:72px;padding:12px 28px;background:var(--color-surface);color:var(--color-text);border-bottom:1px solid var(--color-border);box-shadow:none}
+.app-shell:has(.code-admin-layout) .global-navigation{flex:1 1 auto;max-width:440px;min-width:120px;margin-inline-end:auto;order:0}
+.app-shell:has(.code-admin-layout) .global-search{width:100%;max-width:none;min-width:0}
+.global-search>label{position:relative;display:block;margin:0}
+.global-search>label>.shell-icon{position:absolute;inset-inline-start:13px;top:50%;transform:translateY(-50%);color:var(--color-text-muted);pointer-events:none}
+.global-search>label>input{padding-inline-start:42px}
+.app-shell:has(.code-admin-layout) .global-search input{height:44px;min-height:44px;margin:0;border:1px solid var(--color-border);border-radius:7px;background:var(--color-background,var(--color-surface-soft));font-size:13px;color:var(--color-text)}
+.app-shell:has(.code-admin-layout) .shell-controls{display:flex;align-items:center;flex:none;flex-wrap:nowrap;gap:10px}
+.app-shell:has(.code-admin-layout) .topbar .topbar-tenant{display:flex;align-items:center;flex:0 1 200px;gap:8px;width:200px;max-width:200px;min-width:160px;height:44px;padding:0 10px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:7px}
+.app-shell:has(.code-admin-layout) .topbar .topbar-tenant>span{position:static;flex:none;color:var(--color-text-muted)}
+.app-shell:has(.code-admin-layout) .topbar .topbar-tenant select{position:static;inset:auto;opacity:1;flex:1;width:0;min-width:0;min-height:44px;border:0;border-radius:0;padding:0;background:transparent;color:var(--color-text);font-size:13px;text-overflow:ellipsis;cursor:pointer}
+.app-shell:has(.code-admin-layout) .topbar-language{width:44px;min-width:44px;height:44px;flex:0 0 44px;border:0;border-radius:7px;background:transparent}
+.app-shell:has(.code-admin-layout) .topbar-language .language-flag{width:22px;height:16px}
+.app-shell:has(.code-admin-layout) .shell-utilities{align-self:center}
+.app-shell:has(.code-admin-layout) .shell-utilities>summary{height:44px;min-width:58px;padding:0 6px;border:0;border-radius:7px;background:transparent;color:var(--color-text)}
+.app-shell:has(.code-admin-layout) .shell-utilities>summary>span{display:flex;align-items:center;gap:6px}
+.app-shell:has(.code-admin-layout) .shell-utilities>summary .shell-icon:first-child{width:28px;height:28px;color:var(--color-primary)}
+.app-shell:has(.code-admin-layout) .shell-utilities>summary .shell-icon:last-child{width:14px;height:14px}
+.app-shell:has(.code-admin-layout) .shell-utilities>summary::after{content:none}
+.shell-utility-actions{padding:6px;min-width:220px;border-radius:8px;box-shadow:0 8px 24px #15263f14}
+.shell-utility-actions :is(a,button){gap:10px;background:transparent;color:var(--color-text);font-size:13px;font-weight:500;border:0}
+.shell-utility-actions :is(a,button):hover{background:var(--color-surface-soft)}
+.shell-utility-actions .shell-icon{width:18px;height:18px;color:var(--color-text-muted)}
+.app-shell:has(.code-admin-layout) .menu,.app-shell:has(.code-admin-layout) .sidebar-close{padding:10px;width:44px;min-width:44px;height:44px;align-items:center;justify-content:center;border:1px solid var(--color-border);border-radius:7px;background:var(--color-surface);color:var(--color-text)}
+@media(max-width:1024px){.app-shell:has(.code-admin-layout)>aside{width:min(280px,calc(100vw - 24px));z-index:50}.app-shell:has(.code-admin-layout)>aside:not(.open){display:none}.app-shell:has(.code-admin-layout) .menu{display:flex}.app-shell:has(.code-admin-layout) .sidebar-close{display:flex;align-self:flex-end;margin-bottom:12px}.app-shell:has(.code-admin-layout) .topbar{gap:12px;padding:12px 16px}}
+@media(max-width:600px){.app-shell:has(.code-admin-layout) .topbar{display:grid;grid-template-columns:44px minmax(0,1fr) 44px 58px;gap:8px;padding:10px 12px}.app-shell:has(.code-admin-layout) .global-navigation{grid-column:2;grid-row:1;width:100%;max-width:none;min-width:0;flex-direction:row}.app-shell:has(.code-admin-layout) .menu{grid-column:1;grid-row:1}.app-shell:has(.code-admin-layout) .shell-controls{display:contents}.app-shell:has(.code-admin-layout) .topbar .topbar-tenant{grid-column:1/-1;grid-row:2;width:100%;max-width:none;min-width:0;box-sizing:border-box}.app-shell:has(.code-admin-layout) .topbar-language{grid-column:3;grid-row:1}.app-shell:has(.code-admin-layout) .shell-utilities{grid-column:4;grid-row:1}.app-shell:has(.code-admin-layout) .global-search input{font-size:12px;padding-inline-start:32px;padding-inline-end:6px}.global-search>label>.shell-icon{inset-inline-start:10px;width:16px;height:16px}.app-shell:has(.code-admin-layout) .shell-utility-actions{max-width:calc(100vw - 24px)}}
