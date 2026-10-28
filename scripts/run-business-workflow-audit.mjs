@@ -2,7 +2,7 @@ import {spawn} from 'node:child_process';
 import {createWriteStream} from 'node:fs';
 import {mkdir,writeFile} from 'node:fs/promises';
 const suites={
- tenant:[['tenant-authority','--test','scripts/test-tenant-authority-boundaries.mjs'],['tenant-operations','scripts/test-tenant-operations.mjs']],
+ tenant:[['tenant-authority','--test','scripts/test-tenant-authority-boundaries.mjs'],['tenant-operations','scripts/test-tenant-operations.mjs'],['tenant-territories','scripts/test-territory-allocation.mjs'],['tenant-launch-documents-support','scripts/test-platform-bundle.mjs'],['tenant-public-enquiry-handoff','scripts/test-public-territory-intake.mjs']],
  client:[['client-api-contracts','--test',...['self','records','care-events','care-metadata','family-notifications','booking-lifecycle'].map(name=>'scripts/test-client-'+name+'-api.mjs')]],
  care:[['care-contracts-and-database','--test','scripts/test-care-delivery.mjs','scripts/test-care-roster-search.mjs','scripts/test-care-visit-picker.mjs','scripts/test-care-form-drafts.mjs','scripts/test-care-migration-target.mjs'],['care-loading','scripts/test-care-loading-browser.mjs'],['care-availability-journey','scripts/test-care-availability-workflow.mjs']],
  growth:[['growth-contracts','--test','scripts/test-growth.mjs','scripts/test-workforce-foundation.mjs','scripts/test-growth-read-order.mjs','scripts/test-growth-report-drafts.mjs'],['growth-database','--test','scripts/test-growth-postgres.mjs','scripts/test-growth-intake.mjs','scripts/test-growth-reporting.mjs','scripts/test-growth-business.mjs'],['growth-browser','scripts/test-growth-browser.mjs'],['growth-administration-browser','scripts/test-growth-admin-browser.mjs'],['growth-loading','scripts/test-growth-loading-browser.mjs']],
