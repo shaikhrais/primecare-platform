@@ -17,13 +17,41 @@ jobs:
       - run: npx playwright install chromium
       - name: Check layout preferences, training, theme, voice administration and Account workflows
         run: |
-          node scripts/test-layout-manager-browser.mjs
-          node scripts/test-theme-center-browser.mjs
-          node scripts/test-admin-training-browser.mjs
-          node scripts/test-vapi-admin-browser.mjs
-          node scripts/test-sms-verification-panel.mjs
-          node scripts/test-voice-pairing-panel.mjs
-          node scripts/test-external-call-browser.mjs
+          failed=0
+          mkdir -p test-results/code-admin-page-audit
+          for script in test-layout-manager-browser test-theme-center-browser test-admin-training-browser test-vapi-admin-browser test-sms-verification-panel test-voice-pairing-panel test-external-call-browser test-screen-text-browser
+          do
+            if node "scripts/$script.mjs"
+            then
+              printf '%s PASS\n' "$script" >> test-results/code-admin-page-audit/results.txt
+            else
+              failed=1
+              printf '%s FAIL\n' "$script" >> test-results/code-admin-page-audit/results.txt
+            fi
+          done
+          exit "$failed"
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: code-admin-presentation-audit, path: test-results, retention-days: 14}
+
+  visual-review-service:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: audit, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: audit}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U audit" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      GROWTH_TEST_DATABASE_URL: postgresql://audit:fixture-only@localhost:5432/audit
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install chromium
+      - run: node --test scripts/test-look-manager.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: code-admin-look-workflow-audit, path: test-results, retention-days: 14}
