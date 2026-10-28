@@ -1,0 +1,10 @@
+BEGIN;
+CREATE TABLE IF NOT EXISTS psw_workspaces(tenant_id TEXT NOT NULL,workspace_key TEXT NOT NULL,data_kind TEXT NOT NULL DEFAULT 'synthetic_training' CHECK(data_kind='synthetic_training'),version INTEGER NOT NULL DEFAULT 1 CHECK(version>0),data JSONB NOT NULL,created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),PRIMARY KEY(tenant_id,workspace_key));
+CREATE TABLE IF NOT EXISTS psw_workspace_events(id UUID PRIMARY KEY,tenant_id TEXT NOT NULL,workspace_key TEXT NOT NULL,actor_id TEXT NOT NULL,actor_role TEXT NOT NULL,action TEXT NOT NULL,detail JSONB NOT NULL,created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
+CREATE INDEX IF NOT EXISTS psw_workspace_events_scope ON psw_workspace_events(tenant_id,workspace_key,created_at DESC);
+CREATE TABLE IF NOT EXISTS psw_workspace_requests(actor_id TEXT NOT NULL,idempotency_key TEXT NOT NULL,fingerprint TEXT NOT NULL,response JSONB NOT NULL,created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),PRIMARY KEY(actor_id,idempotency_key));
+CREATE INDEX IF NOT EXISTS psw_workspace_requests_rate ON psw_workspace_requests(actor_id,created_at DESC);
+CREATE OR REPLACE FUNCTION psw_workspace_event_immutable() RETURNS TRIGGER LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'Workspace audit events are immutable'; END $$;
+DROP TRIGGER IF EXISTS psw_workspace_events_immutable ON psw_workspace_events;
+CREATE TRIGGER psw_workspace_events_immutable BEFORE UPDATE OR DELETE ON psw_workspace_events FOR EACH ROW EXECUTE FUNCTION psw_workspace_event_immutable();
+COMMIT;

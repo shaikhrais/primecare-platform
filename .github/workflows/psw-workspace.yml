@@ -1,0 +1,79 @@
+name: Test and publish PSW database workspace
+on:
+  push:
+    branches: [main]
+    paths: ['packages/shared/src/psw-workspace/**', 'cloudflare/workers/src/psw-workspace/**', 'packages/database/migrations/20261028_psw_workspace.sql', 'websites/typescript/src/psw-workspace/**', 'scripts/*psw*', '.github/workflows/psw-workspace.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: psw_test, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: psw_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U psw_test -d psw_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm ci --ignore-scripts
+      - run: npm install --prefix /tmp/psw-tools --ignore-scripts --no-audit --no-fund @electric-sql/pglite@0.3.14 bcryptjs@3.0.2
+      - run: test -e node_modules/bcryptjs || ln -s /tmp/psw-tools/node_modules/bcryptjs node_modules/bcryptjs
+      - name: Scheduling constraints and atomic recurrence
+        run: node scripts/test-psw-scheduling.mjs
+      - name: Native PostgreSQL workspace commands and isolation
+        env: {PSW_TEST_DATABASE_URL: 'postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test'}
+        run: node scripts/test-psw-workspace.mjs
+      - name: Session-facing API acceptance and production UI bundle
+        env: {PSW_PGLITE_MODULE: /tmp/psw-tools/node_modules/@electric-sql/pglite/dist/index.js}
+        run: node scripts/preview-psw-workspace.mjs
+      - name: Typecheck project API and portal
+        run: npx -p typescript@5.9.3 tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/psw-workspace/service.ts websites/typescript/src/main.ts
+  publish:
+    needs: acceptance
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    concurrency: {group: primecare-cloudflare-typescript-production, cancel-in-progress: false}
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: npm ci --ignore-scripts
+      - run: npm install --prefix /tmp/psw-release --ignore-scripts --no-audit --no-fund bcryptjs@3.0.2
+      - run: test -e node_modules/bcryptjs || ln -s /tmp/psw-release/node_modules/bcryptjs node_modules/bcryptjs
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Verify current main before publication
+        run: git fetch origin main && test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+      - name: Persist tenant-scoped synthetic workspace templates
+        run: node scripts/apply-psw-workspace.mjs
+      - name: Publish governance API while preserving existing live bindings
+        run: node scripts/deploy-approved-admin-governance.mjs
+      - name: Build database-governed portals
+        run: node scripts/build-typescript-websites.mjs
+      - name: Publish the PSW route to every existing portal
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          for project in $(node -e "console.log(Object.keys(require('./websites/typescript/projects.json')).join(' '))"); do
+            npx wrangler pages deploy "websites/typescript/dist/$project" --project-name "$project" --branch main --commit-hash "$GITHUB_SHA"
+          done
+      - name: Verify live gateway routes enforce authentication
+        run: |
+          node --input-type=module <<'JS'
+          const r=await fetch('https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/governance/care/workspace');
+          if(r.status!==401)throw Error('Live PSW workspace authentication readback failed: '+r.status);
+          console.log('PSW_WORKSPACE_LIVE_AUTHENTICATION_CONFIRMED');
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: psw-workspace-production-receipt, path: 'test-results/', retention-days: 30}

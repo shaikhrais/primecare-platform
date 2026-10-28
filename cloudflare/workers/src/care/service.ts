@@ -1,3 +1,4 @@
+import {pswWorkspace} from '../psw-workspace/service';
 import {json,withDb,tokenFrom,sha256,parseBody,bodyFailure,type Env} from '../auth';
 import {privilegedActor} from '../auth-projection';
 import {requiredRow,optionalRow} from '../database-results';
@@ -15,6 +16,7 @@ import {operational} from '../../../../packages/shared/src/care/contract';
 
 export async function careDelivery(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null>{
  if(env.SERVICE_NAME!=='governance'||!(path==='/care'||path.startsWith('/care/')))return null;
+ const workspaceResponse=await pswWorkspace(request,env,path,headers);if(workspaceResponse)return workspaceResponse;
  const safe=new Headers(headers);safe.set('cache-control','no-store');safe.set('x-content-type-options','nosniff');safe.set('referrer-policy','no-referrer');
  try{
   const match=/^\/care(?:\/(clearances|cases|staffing|schedules|time-records|handovers|followups)(?:\/([0-9a-f-]+)\/actions)?)?$/.exec(path);if(!match)fail(404,'not_found');const kind=match[2]?'actions':match[1],id=match[2];if(id&&match[1]!=='cases')fail(404,'not_found');if(id&&!uuid(id))fail(400);

@@ -1,0 +1,10 @@
+export const services:any;
+export function seedState():any;
+export function validateVisit(v:any,s:any,id?:string):string;
+export function validDate(v:any):boolean;
+export function minutes(v:any):number;
+export function time(v:any):string;
+export function addDate(d:string,n:number):string;
+export function shiftFor(p:any,d:string):any;
+export function planBooking(v:any,s:any,o?:any):any[];
+export function suggestSlots(v:any,s:any,d:string):any[];
