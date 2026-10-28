@@ -1,9 +1,10 @@
 # Code Admin page and workflow audit
 
-Date: 2026-10-28 UTC. Released web source: `dbcf6f2a7fdad83725c99a1b3c2ac322436dd704`; subsequent changes repair audit fixtures and navigation tests. Scope: the Code Administrator web workspace and its linked administrative tools. This report separates browser/database evidence from live external-provider acceptance.
+Date: 2026-10-28 UTC. Released web source: `53f7c63157fc4f79d1d8acbb1a41410b7587bbe5`. The latest navigation redesign is documented in [NAVIGATION_REDESIGN.md](NAVIGATION_REDESIGN.md). Scope: the Code Administrator web workspace and its linked administrative tools. This report separates browser/database evidence from live external-provider acceptance.
 
 ## Changes delivered
 
+- Added the researched Tabler navigation pattern and licensed SVG icons; see the navigation design notes.
 - Shared solid navy/teal frame, grouped navigation, consistent page title/breadcrumb/content zones, responsive cards, and an accessible More menu remain the common layout across administrative screens.
 - Fixed search results inheriting white text from the navy header. Empty results and search status now use the surface text colour.
 - Fixed low-contrast sidebar group headings by removing faded opacity and declaring the sidebar background/text pair explicitly. Darkened mobile account avatar initials to meet text contrast requirements.
@@ -35,16 +36,16 @@ Date: 2026-10-28 UTC. Released web source: `dbcf6f2a7fdad83725c99a1b3c2ac322436d
 
 ## Passing evidence
 
-- [Appearance review and publication](https://github.com/shaikhrais/primecare-platform/actions/runs/40616001864): passed; includes screenshots for English, French and Spanish at 320, 390, 768 and 1440 pixels, Account verification/pairing controls, and publication of the corrected web theme.
+- [Appearance review and publication](https://github.com/shaikhrais/primecare-platform/actions/runs/40621013578): passed; includes screenshots for English, French and Spanish at 320, 390, 768 and 1440 pixels, Account verification/pairing controls, and publication of the corrected web theme.
 - [Code Admin security and browser acceptance](https://github.com/shaikhrais/primecare-platform/actions/runs/40613568766): passed; permissions, protected setup, MFA, delegation, training and sign-out flows.
-- [Page/tools, Look Manager and Account database audit](https://github.com/shaikhrais/primecare-platform/actions/runs/40616001780): all three jobs passed. Eight browser/tool scripts passed. Phone/schema suite: 16 tests. Auth: 90 checks for each identity type. Account pages: 38 checks for each identity type. Self sessions: 14 checks for each identity type.
-- [Password and recovery acceptance](https://github.com/shaikhrais/primecare-platform/actions/runs/40616001835): passed in Chromium, Firefox and WebKit, including keyboard navigation, translated form accessibility, malformed responses, offline failures, audit rollback, password changes, reset tokens, session revocation, replacement sessions and isolated recovery delivery.
+- [Page/tools, Look Manager and Account database audit](https://github.com/shaikhrais/primecare-platform/actions/runs/40621013572): all three jobs passed. Eight browser/tool scripts passed. Phone/schema suite: 16 tests. Auth: 90 checks for each identity type. Account pages: 38 checks for each identity type. Self sessions: 14 checks for each identity type.
+- [Password and recovery acceptance](https://github.com/shaikhrais/primecare-platform/actions/runs/40621013540): passed in Chromium, Firefox and WebKit, including keyboard navigation, translated form accessibility, malformed responses, offline failures, audit rollback, password changes, reset tokens, session revocation, replacement sessions and isolated recovery delivery.
 - [Sign-out failure and retry acceptance](https://github.com/shaikhrais/primecare-platform/actions/runs/40617046412): passed; database/offline failures preserve the session, malformed confirmations are rejected, lost responses can be retried, replacement sessions survive, and only the intended session is revoked.
 - [Workflow contract source review](https://github.com/shaikhrais/primecare-platform/actions/runs/40617046450): passed. Exact reversible source amendments preserve the historical baselines and blocked dispositions; no implementation credit was added.
 
 ## Wider administrative acceptance
 
-[PostgreSQL and browser suite](https://github.com/shaikhrais/primecare-platform/actions/runs/40616814156): **passed completely**, including 203 automated tests, 27 administrator browser workflows, the actual website build, all 64 accessibility scenarios, and the final contrast evidence gate. Screenshots, videos and JSON receipts are attached to that run. No accessibility failure was waived.
+[PostgreSQL and browser suite](https://github.com/shaikhrais/primecare-platform/actions/runs/40621013543): **passed completely**, including 203 automated tests, 27 administrator browser workflows, the actual website build, all 64 accessibility scenarios, and the final contrast evidence gate. Screenshots, videos and JSON receipts are attached to that run. No accessibility failure was waived.
 
 ## Limits and remaining acceptance
 

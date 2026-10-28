@@ -10,3 +10,12 @@ Reference: Tabler's [vertical dashboard](https://preview.tabler.io/layout-vertic
 - Existing action handlers, permissions, tenant scope and translations remain authoritative. Theme customizations still use the existing Theme Center.
 
 Validation: appearance screenshots in three languages and four viewport widths; keyboard/menu and page/workflow regression suites. Appearance tests require every administrative navigation link to have an SVG and the header to fit within the intended height.
+
+## Verification
+
+- [Appearance review and publication](https://github.com/shaikhrais/primecare-platform/actions/runs/40621013578): passed; desktop/mobile screenshots inspected.
+- [Page/tool and Account database audit](https://github.com/shaikhrais/primecare-platform/actions/runs/40621013572): all three jobs passed.
+- [Password browsers](https://github.com/shaikhrais/primecare-platform/actions/runs/40621013540): Chromium, Firefox and WebKit passed.
+- [Administrative workflows and accessibility](https://github.com/shaikhrais/primecare-platform/actions/runs/40621013543): passed, including 27 browser workflows and 64 accessibility scenarios.
+
+Released web source: `53f7c63157fc4f79d1d8acbb1a41410b7587bbe5`.
