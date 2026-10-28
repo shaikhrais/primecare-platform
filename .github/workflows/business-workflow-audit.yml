@@ -27,10 +27,14 @@ jobs:
       LOGIN_BROWSER_DATABASE_URL: postgres://audit:fixture-only@127.0.0.1:5432/login_browser
       AUTH_TEST_DATABASE_URL: postgres://audit:fixture-only@127.0.0.1:5432/auth_test
       AUTH_WORKSPACE_TEST_FIXTURE: '1'
+      GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
       - name: Prepare explicit isolated metadata and workspace fixture
         env: {GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'}
         run: |
