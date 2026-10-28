@@ -67,6 +67,10 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: npm ci --ignore-scripts
+      - name: Provide the existing API password dependency for Worker bundling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/approved-password-dependency" --ignore-scripts --no-audit --no-fund bcryptjs@3.0.2
+          test -e node_modules/bcryptjs || ln -s "$RUNNER_TEMP/approved-password-dependency/node_modules/bcryptjs" node_modules/bcryptjs
       - run: pip install -r tools/governance-production/requirements.txt
       - run: python3 tools/governance-production/verify-production-reader.py
       - run: node scripts/build-typescript-websites.mjs

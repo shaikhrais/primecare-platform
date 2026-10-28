@@ -67,6 +67,7 @@ ${view==='calls'?'<div data-cy=platform-demo-calls></div>'+(canCall?'<section da
 ${view==='account'?accountMarkup(label):''}
 ${view==='audit'&&selected?`<section id="audit" class="section"><h2 tabindex="-1">${label('audit')}</h2><ul data-cy="platform-audit">${events.map(e=>`<li>${escapeHtml(e.action)} · ${escapeHtml(e.created_at)}</li>`).join('')}</ul></section>`:''}
 `})});
+ if(adminRole==='code_admin'&&demoDataset)root.querySelectorAll<HTMLElement>('#tenants,#tenant-selection').forEach(e=>e.hidden=true);
  if(view==='organizations')root.querySelector('[data-cy=platform-nav-tenant-selection]')?.setAttribute('aria-current','page');
  root.querySelector('.app-shell')?.classList.toggle('approved-code-admin',adminRole==='code_admin');
  if(adminRole==='code_admin'){const brand=root.querySelector('.brand');if(brand)brand.innerHTML='<span class="approved-brand-mark">+</span><span>PrimeCare<small>ADMINISTRATION</small></span>';}
