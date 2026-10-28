@@ -1,5 +1,29 @@
 # Continued workflow audit
 
+## Expanded tenant launch and client acquisition — 2026-10-28
+
+After the CEO marketing correction, [run 40679400005](https://github.com/shaikhrais/primecare-platform/actions/runs/40679400005), source `2f144b3841790e69c13000ea31dd29ef0eba2111`, passed its expanded tenant job, client job, growth, account and workspace jobs.
+
+| Added suite | Passing evidence |
+| --- | --- |
+| Territory allocation | 17 native database/browser cases covering catalogue/readiness boundaries and authorized service-area allocation. |
+| Tenant launch, documents and support | 35 native database/browser cases, including uploads/downloads, signature/size checks, versioned review, renewal/expiry, human launch approval, correction/resubmission, support deadlines/resolution/reopen, audit rollback and real concurrent enquiry delivery. Includes six EN/FR/ES operational flows and six workflow-filter cases at 320/1440 pixels. |
+| Public marketing enquiry handoff | 19 native database/browser cases, including six full marketing-link → public-form → recipient-acceptance journeys in EN/FR/ES at 320/1440 pixels. Consent, first-touch attribution, readiness, withdrawal, opt-outs, contact concealment, rate limiting, transactional rollback and native concurrent submissions are exercised. |
+
+The tenant job also retained its 159 authority tests, 16 operations cases and 120 PostgreSQL authority checks per text/UUID identifier format. The client job retained 296 API tests and 329 native PostgreSQL checks per identifier format; the auth fixture's 90 baseline checks ran per format as a prerequisite. These counts overlap earlier evidence and are not distinct workflow totals.
+
+No new tenant/client runtime defect was reproduced in these added suites. Their assertions were retained. No production approval, customer account, clinical appointment, message, advertisement or charge was created. Real launch acceptance and external provider integrations remain separate.
+
+## Report drafts and business navigation continuation — 2026-10-28
+
+Reproduced and fixed another CEO workflow failure: opening a successful report cleared unfinished lead and campaign forms. Read-only report and PDF actions now restore drafts after a successful list reload only when the user, tenant and role remain the same. Successful creation still clears its form; report failure preserves retry drafts. Existing row version checks still prevent restoring a stale row over newly returned server values.
+
+The marketing sidebar now exposes its existing website-enquiry, business/finance and plan sections using server capabilities and existing EN/FR/ES labels. No authorization grant or new business endpoint was introduced. The source seed and generated policy contain the same navigation definitions; the complete policy export is also checked against registered metadata in memory after its inherited media dependencies.
+
+[Run 40678970392](https://github.com/shaikhrais/primecare-platform/actions/runs/40678970392), runtime source `02cc055349f39c8aa9f6f1e26e67f7aa7bb1e712`, passed the growth, tenant, client, account and workspace jobs. Growth evidence: 45 contract/workforce/renderer checks, eight native PostgreSQL groups, 34 marketing browser cases, eight partner/admin browser cases and six loading/retry cases. Six EN/FR/ES browser cases at 320/1440 pixels check draft preservation through both real report rendering and actual PDF download. Eight controlled renderer cases cover statements/downloads, failure, tenant/role changes and successful create clearing; these are included in the 45 checks.
+
+[Production publication succeeded](https://github.com/shaikhrais/primecare-platform/actions/runs/40678970314). No message, advertisement, charge or production business record was created by these tests. Live provider launch/delivery and broader unimplemented operations remain open.
+
 ## CEO marketing priority and tenant/client continuation — 2026-10-28
 
 The user prioritized CEO marketing before tenant and client work. The [current operating checklist](../marketing/CEO_MARKETING_READINESS.md) separates usable manual business workflows from unavailable advertising-provider launch, live outbound delivery and payment collection.

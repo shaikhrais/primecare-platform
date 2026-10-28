@@ -23,6 +23,10 @@ The generic organization overview and the operational marketing board are separa
 
 ## Verified repairs and checks
 
+- Latest continuation: fixed report viewing/downloads clearing unfinished lead and campaign forms. Performance reports, monthly marketing statements and their PDF downloads now restore drafts only after a successful reload in the same user, tenant and role scope. Creation forms still clear after a successful create. A failed report retains the existing retry/draft behavior.
+- Added permission-scoped sidebar entries for **Website enquiries**, **Onboarding, care and finance**, and **Plan period and targets**. They point to the working sections and use the existing EN/FR/ES resources; no role or API permission was added.
+- [Marketing continuation on runtime source `02cc0553`](https://github.com/shaikhrais/primecare-platform/actions/runs/40678970392) passed: 45 contract/workforce/renderer checks, eight native PostgreSQL groups, 34 marketing browser cases, eight partner/admin browser cases and six loading/retry cases. The six performance/PDF browser cases additionally verify retained unfinished lead and campaign fields in EN/FR/ES at 320/1440 pixels. Controlled renderer cases also cover monthly statements/downloads, failure, scope changes and successful create clearing.
+- The complete generated growth policy matches its registered seed, permissions, translations and media dependencies in a read-only-source/in-memory metadata fixture. [Publication succeeded](https://github.com/shaikhrais/primecare-platform/actions/runs/40678970314) for runtime source `02cc0553`.
 - Fixed an out-of-order refresh defect: an earlier successful response could overwrite newer CEO figures, and an earlier failed response could replace the successful dashboard with an error. Both regressions failed before the fix and pass after it.
 - Fixed workspace navigation that rendered a generic overview for `/growth`. CEO sidebar and universal search now hand off to the working marketing screen. Dedicated growth landings use the same handoff.
 - [Marketing audit on source `34bc2f63`](https://github.com/shaikhrais/primecare-platform/actions/runs/40630769201) passed: 37 contract/workforce/refresh-order tests, eight native PostgreSQL groups, 34 marketing browser cases, eight partner/admin browser cases and six loading/retry cases. These counts overlap earlier evidence and are not distinct business workflows.
@@ -31,6 +35,14 @@ The generic organization overview and the operational marketing board are separa
 - The workspace suite passed 43 checks, including the two navigation regressions. A follow-up test-harness correction supplies JSDOM's missing desktop media query and explicitly rejects uncaught navigation event errors; all 43 checks passed locally with a clean event log. It changes no application code.
 
 The navigation correction was [published successfully](https://github.com/shaikhrais/primecare-platform/actions/runs/40631136202) from runtime source `63e1a0f2`.
+
+## Tenant and client handoff continuation
+
+After the marketing fixes, [run 40679400005](https://github.com/shaikhrais/primecare-platform/actions/runs/40679400005), source `2f144b38`, passed the expanded tenant job: 17 territory cases, 35 launch/document/support cases, and 19 public-enquiry handoff cases, in addition to the existing operations and authority checks. This includes real PostgreSQL contention and EN/FR/ES browser journeys at 320/1440 pixels. The client job also passed its 296 API tests and 329 native PostgreSQL checks per identifier format.
+
+The tested acquisition path is **marketing intake link → consented public enquiry → territory/service routing → authorized recipient acceptance → one scoped growth lead**. Pending recipients cannot inspect routed contact details. Withdrawal, opt-outs, stale readiness and concurrent submissions are checked. This does not create a patient account, clinical booking, paid advertisement or payment.
+
+Tenant readiness tests enforce document review, renewal/expiry, setup prerequisites, explicit authorized human launch decisions and correction/resubmission. Support tests cover assignment, stale versions, deadlines, escalation, resolution and reopening. These are disposable fixtures and not real production approvals.
 
 ## Remaining live-business dependencies
 
