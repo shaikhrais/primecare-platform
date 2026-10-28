@@ -21,3 +21,13 @@ Evidence establishes this dashboard release and its labelled demo records. Live 
 The owner's follow-up requested that the live utility bar match the approved demo. The frontend at `ccbeecd048cfba762f66a54242033573a08acbb1` places Administration / current page on the left and compact operation search, organization selector, Canadian English flag and CA avatar on the right. It reuses existing authorized search, language, tenant and account-menu handlers; Ctrl/Cmd+K focuses search. Phone controls retain 44px targets and two rows. Search has a single border and an outer keyboard-focus outline.
 
 [Run 40707167693](https://github.com/shaikhrais/primecare-platform/actions/runs/40707167693) passed native data/browser, 48-state appearance and reused Code Admin security acceptance. Browser checks verify the 70px desktop bar, compact search placement, account avatar, search results, shortcut and Escape behavior in English, French and Spanish at desktop/phone sizes. Website publication completed successfully in that run. This frontend release does not rerun the production seed or change API workers.
+
+## Sidebar pop-up and Theme Center follow-up
+
+At `27d9bf7951f665bd55aab7c543474566962b00fa`, the sidebar footer has a settings pop-up for the existing Account & security and Theme Center controls. Mobile navigation adds a backdrop, click-away closing and keyboard focus cycling. It retains existing authorized navigation and account handlers.
+
+Theme Center includes three visual palette choices, localized palette names, responsive groups and readable dark-theme editing. The approved dashboard now consumes the personal theme tokens instead of hiding selected colors behind fixed styles. Right-side navigation, compact width, content width and table density use the existing layout profile. Personal themes and layouts remain scoped to the account/role in this browser; no backend preferences or provider actions are introduced.
+
+[Run 40713122021](https://github.com/shaikhrais/primecare-platform/actions/runs/40713122021) verifies the shared Theme Center and layout browser suites, native dashboard save/reload/reset, dark preview, compact/right-side navigation and mobile backdrop in English, French and Spanish. Formal review approvals and unrelated workflow backlog are unchanged.
+
+The sidebar and Theme Center release completed successfully in run 40713122021, including website publication. The existing demo dataset and API workers were not reseeded or republished.
