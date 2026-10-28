@@ -67,7 +67,7 @@ class BlockerTests(unittest.TestCase):
         import json,shutil
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)
-            for path in list(m.SOURCE_HASHES)+['docs/api/method-capture-blocker-package.json']:
+            for path in list(m.SOURCE_HASHES)+['docs/api/method-capture-blocker-package.json','docs/api/workflow-contract-source-amendments.json']:
                 target=root/path;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(m.ROOT/path,target)
             target=root/'docs/api/method-capture-blocker-package.json';package=json.loads(target.read_text());package['resolvedOperations']=4;target.write_text(json.dumps(package))
             before=self.rows()

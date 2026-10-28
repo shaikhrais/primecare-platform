@@ -7,9 +7,26 @@ import {pathToFileURL} from 'node:url';
 // Exact reviewed declarations only. A 405 on a wildcard detail route is not a
 // workflow implementation, and a real feedback submission is not a read alias.
 export const METHOD_BLOCKER_SOURCE_HASHES = {"cloudflare/workers/src/gateway.ts": "c77d195c80789fdd709b3d3157e3fa962c00371cfc312e21559640bb42eb1a5f", "cloudflare/workers/src/account-admin.ts": "b108356241f0bc04b34ddbc04b36cd93551cb2dc1cdc4c9a9133c8ed906f02be", "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5", "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5", "packages/domain/src/registries/FormRegistry/client-forms.ts": "f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516", "cloudflare/workers/src/core/base-worker.ts": "bbecbff8fe9a4c8ca60635c7d825c2980855d768fc80a989741de1368034b18b", "cloudflare/workers/src/service.ts": "fa19183dee1ef774c35db7205c03d9ba24e508b09699e36a15bbaed8f832e37e", "cloudflare/workers/src/business-modules.ts": "10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa", "cloudflare/workers/src/runtime/worker-application.ts": "d15343e639df5523847767854bdc535658b577120bd7f3b8b9cc9e229e8cd288", "cloudflare/workers/src/runtime/handler-pipeline.ts": "d5f3241e46fc9455df12c5c7c2ee674b2bcec723f6590c1ed56b38c8a42acd41", "cloudflare/workers/src/service-application.ts": "e0f3d90ded8dd222673c9a187b1630100aae083faf33bd58b64a6379e7d30d5c"};
+function reviewedGatewaySource(content,expected) {
+ if(typeof content!=='string')return null;
+ const hash=value=>createHash('sha256').update(value).digest('hex');
+ if(hash(content)===expected)return content;
+ try{
+  const doc=JSON.parse(readFileSync(new URL('../docs/api/workflow-contract-source-amendments.json',import.meta.url),'utf8'));
+  if(doc.version!==1||doc.noActivation!==true||doc.implementationCredits!==0||doc.retirementCredits!==0) return null;
+  const entries=doc.entries.filter(e=>e.path==='cloudflare/workers/src/gateway.ts');if(entries.length!==1)return null;
+  const e=entries[0];if(hash(content)!==e.reviewedSha256||e.baselineSha256!=='10a26892b2bc96b4d065178876ebde22841d3e256937f61b45ba58a1fbfd9530'||!Array.isArray(e.hunks))return null;
+  let original=content,matched=null;
+  for(const h of [...e.hunks].reverse()){
+   if(typeof h.before!=='string'||typeof h.after!=='string'||!h.after||original.split(h.after).length!==2)return null;
+   original=original.replace(h.after,h.before);if(hash(original)===expected)matched=original;
+  }
+  return hash(original)===e.baselineSha256?matched:null;
+ }catch{return null;}
+}
 export function reviewedMethodBlocker(observation, sources) {
  if(!observation||typeof observation!=='object'||!sources||typeof sources!=='object'||!Array.isArray(observation.declarationIds)||!Array.isArray(observation.forwarded)||observation.forwarded.some(f=>!f||typeof f!=='object'))return null;
- for(const [path,expected] of Object.entries(METHOD_BLOCKER_SOURCE_HASHES))if(typeof sources[path]!=='string'||createHash('sha256').update(sources[path]).digest('hex')!==expected)return null;
+ for(const [path,expected] of Object.entries(METHOD_BLOCKER_SOURCE_HASHES)){const content=path==='cloudflare/workers/src/gateway.ts'?reviewedGatewaySource(sources[path],expected):sources[path];if(typeof content!=='string'||createHash('sha256').update(content).digest('hex')!==expected)return null;}
  const definitions = {
   'POST /v1/admin/users/churn-heatmap': {id:12,binding:'AUTH',workerPath:'/admin/users/churn-heatmap',classification:'workflow_name_captured_as_record_id',source:'cloudflare/workers/src/account-admin.ts',pattern:'/admin/users/{userId}',parameter:'userId',value:'churn-heatmap',needles:['const detail=!audit&&!creationAudit&&!sessions?',"operation:Operation=audit?'audit_read':creationAudit?'creation_audit_read':detail?'account_read'",'detail?.[1]']},
   'POST /v1/client/feedback/surveys': {id:252,binding:'CLIENT',workerPath:'/feedback/surveys',classification:'workflow_name_captured_as_record_id',source:'cloudflare/workers/src/client-self.ts',pattern:'/feedback/{recordId}',parameter:'recordId',value:'surveys',needles:["path.startsWith(r.path+'/')",'path.slice(record.path.length+1):null']},

@@ -8,6 +8,7 @@ permissions: {contents: read}
 jobs:
   presentation:
     runs-on: ubuntu-24.04
+    env: {CALL_BROWSER_EXECUTABLE: /usr/bin/google-chrome}
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -17,6 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: npm ci --ignore-scripts
+      - run: npm install --no-save --package-lock=false --ignore-scripts bcryptjs@3.0.2 pg@8.16.3
       - run: npx playwright install chromium
       - name: Check layout preferences, training, theme, voice administration and Account workflows
         run: |
@@ -56,6 +58,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: npm ci --ignore-scripts
+      - run: npm install --no-save --package-lock=false --ignore-scripts bcryptjs@3.0.2 pg@8.16.3
       - run: npx playwright install chromium
       - run: node --test scripts/test-look-manager.mjs
       - uses: actions/upload-artifact@v4

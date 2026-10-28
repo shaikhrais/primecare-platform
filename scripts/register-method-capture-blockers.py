@@ -152,12 +152,31 @@ EXPECTED = {12: {'id': 12,
        'optimization_status': 'pending'}}
 SOURCE_HASHES = {'cloudflare/workers/src/gateway.ts': 'c77d195c80789fdd709b3d3157e3fa962c00371cfc312e21559640bb42eb1a5f', 'cloudflare/workers/src/account-admin.ts': 'b108356241f0bc04b34ddbc04b36cd93551cb2dc1cdc4c9a9133c8ed906f02be', 'cloudflare/workers/src/client-self.ts': '61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5', 'cloudflare/workers/src/client-records-registry.json': '376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5', 'packages/domain/src/registries/FormRegistry/client-forms.ts': 'f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516', 'cloudflare/workers/src/core/base-worker.ts': 'bbecbff8fe9a4c8ca60635c7d825c2980855d768fc80a989741de1368034b18b', 'cloudflare/workers/src/service.ts': 'fa19183dee1ef774c35db7205c03d9ba24e508b09699e36a15bbaed8f832e37e', 'cloudflare/workers/src/business-modules.ts': '10c4afa725dc01a092f13606ea9ff55b0cb03c1b9038020d72ca2f1ef1174daa', 'cloudflare/workers/src/runtime/worker-application.ts': 'd15343e639df5523847767854bdc535658b577120bd7f3b8b9cc9e229e8cd288', 'cloudflare/workers/src/runtime/handler-pipeline.ts': 'd5f3241e46fc9455df12c5c7c2ee674b2bcec723f6590c1ed56b38c8a42acd41', 'cloudflare/workers/src/service-application.ts': 'e0f3d90ded8dd222673c9a187b1630100aae083faf33bd58b64a6379e7d30d5c'}
 
+def reviewed_gateway_source(content,expected,root):
+    digest=lambda value:hashlib.sha256(value.encode()).hexdigest()
+    if digest(content)==expected:return content
+    document=json.loads((root/'docs/api/workflow-contract-source-amendments.json').read_text())
+    if document.get('version')!=1 or document.get('noActivation') is not True or document.get('implementationCredits')!=0 or document.get('retirementCredits')!=0:raise ValueError('Invalid gateway source review')
+    entries=[e for e in document['entries'] if e['path']=='cloudflare/workers/src/gateway.ts']
+    if len(entries)!=1:raise ValueError('Gateway source review required')
+    entry=entries[0]
+    if digest(content)!=entry['reviewedSha256'] or entry['baselineSha256']!='10a26892b2bc96b4d065178876ebde22841d3e256937f61b45ba58a1fbfd9530':raise ValueError('Reviewed gateway source changed')
+    original=content;matched=None
+    for hunk in reversed(entry['hunks']):
+        if not isinstance(hunk['before'],str) or not isinstance(hunk['after'],str) or not hunk['after'] or original.count(hunk['after'])!=1:raise ValueError('Ambiguous gateway review')
+        original=original.replace(hunk['after'],hunk['before'],1)
+        if digest(original)==expected:matched=original
+    if digest(original)!=entry['baselineSha256'] or matched is None:raise ValueError('Gateway review exceeds baseline')
+    return matched
+
 def verify_sources(root=ROOT):
     for path,expected in SOURCE_HASHES.items():
         actual=root/path
-        if not actual.is_file() or hashlib.sha256(actual.read_bytes()).hexdigest()!=expected:
-            raise ValueError('Reviewed method/caller evidence changed: '+path)
-    gateway=(root/'cloudflare/workers/src/gateway.ts').read_text()
+        if not actual.is_file():raise ValueError('Reviewed method/caller evidence changed: '+path)
+        content=actual.read_text()
+        if path=='cloudflare/workers/src/gateway.ts':content=reviewed_gateway_source(content,expected,root)
+        if hashlib.sha256(content.encode()).hexdigest()!=expected:raise ValueError('Reviewed method/caller evidence changed: '+path)
+    gateway=reviewed_gateway_source((root/'cloudflare/workers/src/gateway.ts').read_text(),SOURCE_HASHES['cloudflare/workers/src/gateway.ts'],root)
     communication_import="import communicationContracts from '../../../packages/shared/src/communications/registered-contracts.json';\n"
     communication_amendment="    // Registered communication routes retain their canonical path. The native\n    // service still enforces current session, API/screen and resource policies.\n    const communication=communicationContracts.apis.filter(api=>api.path===url.pathname);\n    if(communication.length){\n      if(!communication.some(api=>api.method===request.method))return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:[...new Set(communication.map(api=>api.method))].join(',')}}));\n      return withGatewayHeaders(request,await env.GOVERNANCE.fetch(request));\n    }\n"
     if gateway.count(communication_import)!=1 or gateway.count(communication_amendment)!=1 or hashlib.sha256(gateway.replace(communication_import,'').replace(communication_amendment,'').encode()).hexdigest()!='10a26892b2bc96b4d065178876ebde22841d3e256937f61b45ba58a1fbfd9530':

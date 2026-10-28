@@ -422,3 +422,5 @@ aside nav a[aria-current="page"], aside nav a:hover, aside nav a:focus-visible {
 @media(max-width:1100px){.code-admin-page-body>:is(#tenants,#tenant-selection){grid-column:1/-1}.code-admin-layout{padding:24px}.code-admin-page-body .admin-chart-grid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){.code-admin-layout{padding:20px 16px 40px}.code-admin-page-header{padding-bottom:20px;margin-bottom:20px}.code-admin-title-row h1{font-size:24px}.code-admin-page-body{gap:18px}.code-admin-page-body :is(#tenants,#accounts,#masters)>form{grid-template-columns:minmax(0,1fr)}.code-admin-page-body .section{padding:20px}.code-admin-page-body .admin-stat{padding:16px}.code-admin-page-body .admin-stat strong{font-size:24px}.code-admin-breadcrumb{margin-bottom:14px}}
 [data-surface-style=solid] .code-admin-page-body .admin-command p{color:var(--color-sidebar-text)}
+/* Search results are a light surface, independent of the navy utility bar. */
+.global-search-results{color:var(--color-surface-text,var(--color-text))}
