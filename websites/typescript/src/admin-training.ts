@@ -1,3 +1,4 @@
+import {gettingStartedGuide} from './getting-started-guide';
 import course from './training/admin-course.json';
 import {TrainingProgress} from './training/progress';
 import {liveScreenText} from './screen-text';
@@ -6,7 +7,7 @@ export function trainingText(gateway:string,locale:Locale,key:string):string {
  return liveScreenText(gateway).text('admin_training',locale,key,(course.locales[locale] as Record<string,string>)[key]??key);
 }
 /** Self-study content never invokes business mutations or sends a report. */
-export function trainingPanel(gateway:string,actor:string,initialLocale:Locale='en'):HTMLElement {
+export function trainingPanel(gateway:string,actor:string,initialLocale:Locale='en',onDashboard?:()=>void):HTMLElement {
  const root=document.createElement('section');root.className='section admin-training';root.dataset.cy='screen-admin-training';
  let locale=initialLocale,selected=course.modules[0],answer:number|null=null,noticeKey='';
  let progress:TrainingProgress;try{progress=new TrainingProgress(gateway,actor);}catch{progress=new TrainingProgress(gateway,actor,{getItem:()=>null,setItem:()=>{throw Error('Storage unavailable');},removeItem:()=>{throw Error('Storage unavailable');}});}
@@ -28,7 +29,7 @@ export function trainingPanel(gateway:string,actor:string,initialLocale:Locale='
  root.querySelector<HTMLButtonElement>('[data-cy=training-export]')!.onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(progress.summary(),null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Admin-Training-Summary.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
  root.querySelector<HTMLButtonElement>('[data-cy=training-reset]')!.onclick=()=>{if(!confirm(text('reset_confirm')))return;try{progress.reset();noticeKey='';}catch{noticeKey='storage_error';}draw();root.querySelector<HTMLButtonElement>('[data-cy=training-reset]')?.focus();};
  }
- draw();const stop=liveScreenText(gateway).subscribe(()=>{if(root.isConnected)updateText();else stop();});return root;
+ draw();const wrapper=document.createElement('div');wrapper.append(gettingStartedGuide(onDashboard));const lessons=document.createElement('details');lessons.className='guide-detailed-lessons';const summary=document.createElement('summary');summary.textContent='Detailed training and self-assessment';lessons.append(summary,root);wrapper.append(lessons);const stop=liveScreenText(gateway).subscribe(()=>{if(root.isConnected)updateText();else stop();});return wrapper;
 }
 export function openAdminTraining(gateway:string,actor:string,locale:Locale='en'):void {
  const dialog=document.createElement('dialog');dialog.className='layout-customizer';dialog.dataset.cy='training-dialog';dialog.setAttribute('aria-label',trainingText(gateway,locale,'title'));

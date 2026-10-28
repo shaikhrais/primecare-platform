@@ -142,8 +142,9 @@ class PrimeAuthExperience extends ConsumerWidget {
           Icon(Icons.check_circle_outline_rounded, size: AuthDesignTokens.markSize, color: theme.colors.primary), gap,
           Text(_copy(context, 'account'), style: theme.typography.labelBold),
           Text(auth.userName ?? '', style: theme.typography.bodyLarge), gap,
+          const PlatformAdministrationLauncher(label:'Open dashboard'), gap,
+          const Text('New here? Start with the beginner guide to understand your organization, people and daily work.'), gap,
           const AdminTrainingLauncher(), gap,
-          const PlatformAdministrationLauncher(), gap,
           Text(_copy(context, 'role'), style: theme.typography.labelBold),
           Text(auth.role ?? '', style: theme.typography.bodyLarge), gap,
           if (ref.read(authProvider.notifier).canManageMfa)

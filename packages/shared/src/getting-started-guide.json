@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "screenshotNote": "Example screenshots use synthetic data. Your visible menus and totals depend on your account and permissions.",
+  "steps": [
+    {
+      "id": "1",
+      "title": "Welcome to your workspace",
+      "body": "After signing in, open your dashboard. Training explains the system; it is not a required first task. Use the left menu to move between work areas.",
+      "check": "Find the main menu and the Account link.",
+      "image": "/assets/guides/dashboard.png",
+      "domains": []
+    },
+    {
+      "id": "2",
+      "title": "Organization and tenants",
+      "body": "An organization is the business you work in. PrimeCare uses a tenant to keep that organization\u2019s records separate. A master tenant can group related tenants; it does not make their private records shared. Select the correct tenant before changing records.",
+      "check": "Check the tenant name before starting work.",
+      "image": "/assets/guides/dashboard.png",
+      "domains": [
+        "Organization / tenant: business identity and its own records",
+        "Locations / territories: where the business operates",
+        "Users and roles: who works here and what each person can access"
+      ]
+    },
+    {
+      "id": "3",
+      "title": "People and access",
+      "body": "Accounts are sign-in identities. A role controls permitted tasks. A client receives services; a provider or staff member delivers or supports them. These are different responsibilities.",
+      "check": "Identify your own role. Ask your administrator if an expected menu is missing.",
+      "image": "/assets/guides/dashboard.png",
+      "domains": [
+        "Clients: people receiving services",
+        "Staff and providers: people delivering and supporting care",
+        "Administrators: people managing the organization and access"
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Services and daily work",
+      "body": "Services describe what the organization offers. Appointments or visits connect a client, an eligible provider, a service and a time. Only available, authorized screens can save changes.",
+      "check": "Open an available work area from your menu; review its instructions before saving.",
+      "image": "/assets/guides/dashboard.png",
+      "domains": [
+        "Service catalogue and scheduling",
+        "Care plans, visits and service notes",
+        "Operations, tasks and follow-ups"
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Calls, messages and account phone",
+      "body": "Account phone verification links a mobile number to your account. Enter the SMS code in the account screen. Call verification is a separate step for a particular connected call. Do not speak codes to the AI.",
+      "check": "Open Account and check your phone status. Open Calls only if your role offers it.",
+      "image": "/assets/guides/account.png",
+      "domains": [
+        "Calls and reception",
+        "SMS, email and other configured channels",
+        "Verification and communication history"
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Billing, reports and audit",
+      "body": "Billing, reporting and audit are separate work areas. A dashboard total is a summary, not proof that a payment or service is complete. Review saved records and permissions. Some domains may not yet be enabled for your role.",
+      "check": "Locate Reports or Audit if they appear in your menu.",
+      "image": "/assets/guides/dashboard.png",
+      "domains": [
+        "Invoices, payments and reconciliation where enabled",
+        "Business and service reports",
+        "Audit history and access controls"
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Your first-day checklist",
+      "body": "Start with these small tasks: open your dashboard, confirm your organization, review your role, verify your phone if needed, and find the one work area you need today. You can return to this guide at any time.",
+      "check": "Use Open dashboard to continue. Detailed lessons remain available below the guide.",
+      "image": "/assets/guides/account.png",
+      "domains": [
+        "1. Open dashboard",
+        "2. Confirm organization / tenant",
+        "3. Review role and access",
+        "4. Check Account and phone status",
+        "5. Find today\u2019s task"
+      ]
+    }
+  ]
+}

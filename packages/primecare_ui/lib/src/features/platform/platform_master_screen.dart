@@ -23,11 +23,12 @@ final platformAdministrationAccessProvider = FutureProvider.autoDispose<bool>((r
 
 /// Only a successful server capability read reveals the existing navigation.
 class PlatformAdministrationLauncher extends ConsumerWidget {
-  const PlatformAdministrationLauncher({super.key});
+  final String? label;
+  const PlatformAdministrationLauncher({super.key,this.label});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (ref.watch(platformAdministrationAccessProvider).asData?.value != true) return const SizedBox.shrink();
-    return PrimeButton(label: platformMasterText(context, 'masters'),
+    return PrimeButton(label: label ?? platformMasterText(context, 'masters'),
       dataCy: 'platform-nav-masters', onPressed: () => context.go('$platformAdministrationRoute?enable-semantics=true'));
   }
 }

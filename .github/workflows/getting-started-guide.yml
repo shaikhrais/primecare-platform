@@ -1,0 +1,18 @@
+name: Verify beginner guide and native entry
+on:
+  push:
+    branches: [main]
+    paths: ['packages/primecare_ui/lib/src/features/training/getting_started*', 'packages/primecare_ui/lib/src/features/training/admin_training_launcher.dart', 'packages/primecare_ui/lib/src/features/auth/auth_experience.dart', 'packages/primecare_ui/lib/src/features/platform/platform_master_screen.dart', 'packages/primecare_ui/test/getting_started_guide_test.dart', 'packages/shared/src/getting-started-guide.json', '.github/workflows/getting-started-guide.yml']
+permissions: {contents: read}
+jobs:
+  native-guide:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter test test/getting_started_guide_test.dart test/auth_design_test.dart
+        working-directory: packages/primecare_ui
