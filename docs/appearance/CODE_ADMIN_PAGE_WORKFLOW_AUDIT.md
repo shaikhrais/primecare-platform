@@ -53,3 +53,7 @@ Date: 2026-10-28 UTC. Released web source: `53f7c63157fc4f79d1d8acbb1a41410b7587
 - Review handoff issues #220 and #221 are tracking tickets; they are not authenticated production Look Manager submissions or formal human/AI approvals.
 - The broader legacy workflow catalogue still reports 1,063 unresolved API operations and zero new API implementation credits. That is catalogue debt, not a count of failures discovered in this page audit. Undocumented endpoints or new privileges were not invented to make checks pass.
 - This audit covers the web workspace. It does not certify a new native Flutter/Android release.
+
+## Continued business workflow testing
+
+See [the continued audit](../workflows/CONTINUED_WORKFLOW_AUDIT.md) and [workflow status checklist](../workflows/WORKFLOW_TEST_STATUS.csv) for account, care, growth, workspace and call/tool checks completed after this page audit.
