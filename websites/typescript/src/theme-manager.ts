@@ -17,7 +17,9 @@ export class BaseThemeManager {
   if(profile.theme!=='default'){const colors=palettes[profile.theme];['--color-surface','--color-background','--color-surface-soft','--color-text','--color-text-muted','--color-border','--color-primary','--color-primary-hover','--color-info'].forEach((k,i)=>this.host.style.setProperty(k,colors[i]));this.host.style.setProperty('--color-secondary',colors[3]);this.host.style.setProperty('--color-sidebar',colors[0]);this.host.style.setProperty('--color-sidebar-text',colors[3]);}
   if(profile.accent){this.host.style.setProperty('--color-primary',profile.accent);this.host.style.setProperty('--color-primary-hover',profile.accent);}
   const primary=this.host.style.getPropertyValue('--color-primary').trim();if(/^#[0-9a-f]{6}$/i.test(primary))this.host.style.setProperty('--color-on-primary',onAccent(primary));
+  this.host.style.setProperty('--theme-font-scale','1');
   this.host.style.colorScheme=profile.theme==='dark'?'dark':'light';
+  if(profile.theme!=='default'){this.host.style.setProperty('--color-topbar',palettes[profile.theme][0]);this.host.style.setProperty('--color-topbar-text',palettes[profile.theme][3]);this.host.style.setProperty('--color-surface-text',palettes[profile.theme][3]);this.host.style.setProperty('--color-surface-muted',palettes[profile.theme][4]);}
   if(personal)this.applyPersonal(validatePersonalTheme(personal));
  }
  private applyPersonal(personal:PersonalTheme):void {
@@ -28,6 +30,7 @@ export class BaseThemeManager {
   const safe=(color:string,bg:string)=>contrastRatio(color,bg)>=4.5?color:onAccent(bg);
   const assignments={'--color-background':background,'--color-surface':surface,'--color-surface-soft':surface,'--color-primary':primary,'--color-primary-hover':primary,'--color-on-primary':onAccent(primary),'--color-secondary':colors.secondary??resolve(palette.secondary.main),'--color-sidebar':sidebar,'--color-sidebar-text':onAccent(sidebar),'--color-topbar':topbar,'--color-topbar-text':onAccent(topbar),'--color-text':safe(text,background),'--color-text-muted':safe(muted,background),'--color-surface-text':safe(text,surface),'--color-surface-muted':safe(muted,surface),'--color-border':colors.border??resolve(palette.divider,surface)};
   for(const [key,value] of Object.entries(assignments))this.host.style.setProperty(key,value);
+  this.host.style.setProperty('--theme-font-scale',String(personal.fontScale));
   if(personal.fontFamily!=='system')this.host.style.setProperty('--font-family',personal.fontFamily==='serif'?'Georgia, serif':'ui-monospace, monospace');
   for(const [key,fallback] of [['--font-size-body','1rem'],['--font-size-heading','1.5rem'],['--font-size-caption','.875rem']])this.host.style.setProperty(key,`calc(${this.base.get(key)||fallback} * ${personal.fontScale})`);
   this.host.style.setProperty('--radius-md',personal.radius+'px');this.host.style.setProperty('--radius-lg',personal.radius+'px');this.host.style.colorScheme=palette.mode==='dark'?'dark':'light';

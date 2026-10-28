@@ -1,3 +1,4 @@
+import {mountAdminSidebarMenu} from './admin-sidebar-menu';
 import {matchApprovedAdminTopbar} from './admin-topbar';
 import {shellIcon} from './shell-icons';
 import {mountDemoCallHistory} from './admin-demo-calls';
@@ -94,7 +95,7 @@ ${view==='audit'&&selected?`<section id="audit" class="section"><h2 tabindex="-1
  ...users.map(u=>({title:u.email,detail:u.roles+' · '+text('accounts'),open:()=>jump('accounts')})),
  ...records.map(r=>({title:r.label,detail:r.type+' / '+r.code+' · '+text('masters'),open:()=>jump('masters')})),
  ...Array.from(reports?.querySelectorAll<HTMLOptionElement>('[data-cy=report-select] option')??[]).map(o=>({title:o.textContent!,detail:text('reports'),open:()=>{const select=reports!.querySelector<HTMLSelectElement>('[data-cy=report-select]')!;select.value=o.value;select.dispatchEvent(new Event('change'));jump('reports');}}))], adminRole+':'+actor,daylight.visual.theme);
- if(adminRole==='code_admin')matchApprovedAdminTopbar(root,locale,view==='tenants');
+ if(adminRole==='code_admin'){matchApprovedAdminTopbar(root,locale,view==='tenants');mountAdminSidebarMenu(root,locale);}
  root.querySelectorAll<HTMLInputElement|HTMLButtonElement|HTMLSelectElement>('input,button,select').forEach(e=>{if(!reports?.contains(e))e.disabled=busy||e.hasAttribute('data-protected');});
  root.querySelector<HTMLButtonElement>('[data-cy=platform-refresh]')!.onclick=()=>void action(async()=>{await load(true);discardRows=true;});
  root.querySelector<HTMLButtonElement>('[data-cy=platform-logout]')!.onclick=()=>void action(async()=>{try{await signOut(gateway,token);}catch{throw new Error(text('unavailable'));}if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}sessionStorage.removeItem('primecare_session');location.assign('/login?enable-semantics=true');});
