@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: '24'
       - run: |
-          npm install --prefix /tmp/code-admin-tests --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.16.3 @electric-sql/pglite@0.3.14 bcryptjs@3 playwright@1.60.0
+          npm install --prefix /tmp/code-admin-tests --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.16.3 @electric-sql/pglite@0.3.14 bcryptjs@3 playwright@1.60.0 @twilio/voice-sdk@2.18.5
           ln -s /tmp/code-admin-tests/node_modules node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - name: Validate protected setup, grants, tenant boundaries, session invalidation and audit rollback

@@ -8,6 +8,8 @@ export async function scanAccessibility(page,name){
  if(!await page.evaluate(()=>Boolean(window.axe)))await page.addScriptTag({path:require.resolve('axe-core/axe.min.js')});
  const results=await page.evaluate(()=>window.axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']}}));
  await mkdir('test-results/accessibility',{recursive:true});
+ await page.screenshot({path:'test-results/accessibility/'+name+'.png',fullPage:true});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Page overflow: '+name);
  await writeFile('test-results/accessibility/'+name+'.json',JSON.stringify(results,null,2));
  assert.deepEqual(results.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})),[],'Automated accessibility violations: '+name);
  if(process.env.ACCESSIBILITY_CONTRAST_REVIEW==='1')await reviewContrast(page,name);

@@ -1,0 +1,29 @@
+name: Code Admin page and workflow audit
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/code-admin-page-audit.yml', 'scripts/browser-accessibility.mjs']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  presentation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install chromium
+      - name: Check layout preferences, training, theme, voice administration and Account workflows
+        run: |
+          node scripts/test-layout-manager-browser.mjs
+          node scripts/test-theme-center-browser.mjs
+          node scripts/test-admin-training-browser.mjs
+          node scripts/test-vapi-admin-browser.mjs
+          node scripts/test-sms-verification-panel.mjs
+          node scripts/test-voice-pairing-panel.mjs
+          node scripts/test-external-call-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: code-admin-presentation-audit, path: test-results, retention-days: 14}
