@@ -1,5 +1,7 @@
 # Numbered sales and marketing task checklist
 
+Current operating guidance and the 2026-10-28 CEO fixes are in [CEO marketing and business readiness](CEO_MARKETING_READINESS.md). The dated local-only, publication and CI limitations below are historical snapshots; current test and release evidence is recorded in that guide and the [continued workflow audit](../workflows/CONTINUED_WORKFLOW_AUDIT.md).
+
 Built locally means implemented and locally tested; deployment and live validation remain task 28. Local PostgreSQL-compatible SQL checks use PGlite; CI must still run standard PostgreSQL 16. No advertisements, messages, invitations or calls have been sent.
 
 | No. | Task | Status |

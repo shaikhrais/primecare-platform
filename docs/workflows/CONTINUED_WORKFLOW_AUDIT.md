@@ -1,5 +1,26 @@
 # Continued workflow audit
 
+## CEO marketing priority and tenant/client continuation — 2026-10-28
+
+The user prioritized CEO marketing before tenant and client work. The [current operating checklist](../marketing/CEO_MARKETING_READINESS.md) separates usable manual business workflows from unavailable advertising-provider launch, live outbound delivery and payment collection.
+
+Two application defects were reproduced and fixed: overlapping marketing reads could overwrite newer figures or replace success with a stale error; workspace sidebar/search navigation opened a generic `/growth` overview instead of the working marketing renderer. Regression checks failed before the corresponding fixes and passed afterward. Dedicated growth landings now hand off to that renderer too.
+
+[Run 40631136226](https://github.com/shaikhrais/primecare-platform/actions/runs/40631136226), runtime source `63e1a0f2604ccc4372cbc5d121f840599200592c`, passed the growth, workspace, account, tenant and client jobs. Counts below are test/check evidence, not a count of distinct completed workflows.
+
+| Area | Evidence |
+| --- | --- |
+| CEO marketing | 37 contract/workforce/refresh-order checks; eight PostgreSQL groups; 34 marketing browser cases; eight partner/admin browser cases; six loading/retry cases. |
+| Workspace | 18 screen-text/training checks, 43 workspace/client checks and six credential-login/sign-out browser cases. The two new navigation checks cover the CEO sidebar and universal search. |
+| Tenant | 159 authority tests; 16 database/browser cases including six EN/FR/ES operations correction flows at 320/1440 pixels; 120 native PostgreSQL authority checks for each text/UUID identity format. |
+| Client | 296 API tests; for each text/UUID auth format: 68 self-service read checks, 42 booking lifecycle checks, 63 owned-record checks, 38 care-metadata checks, 96 PSW record-metadata checks and 22 family-notification checks. These are selected authorized reads and booking mutations, not all client actions. |
+
+The auth fixture also passed its 90 baseline checks per identifier format in the account, tenant and client jobs. These are repeated prerequisites, not additional business workflows. All domain data was synthetic in disposable PostgreSQL databases. No production tenant/client record, permission, provider action or formal review status was changed.
+
+The continuation runner now includes dedicated tenant/client suites and validates named loopback database targets before resetting its disposable auth database. Local client/tenant contract verification passed 455 tests. The final JSDOM harness correction also passed all 43 workspace/client checks locally and asserts that navigation has no uncaught event failures.
+
+## Earlier snapshot
+
 Snapshot: 2026-10-27, America/Toronto. This is a test-evidence snapshot for selected implemented workflows, not a statement that every platform workflow is complete or production-approved.
 
 [Download/read the workflow status list](WORKFLOW_TEST_STATUS.csv). It distinguishes passing isolated checks, unsupported account deletion, live-provider checks, and unresolved contracts.

@@ -14,6 +14,8 @@ const {renderWorkspace,inventoryCsv,loadWorkspace}=await import(pathToFileURL(bu
 const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));
 function browser(role='ceo') {
  const dom=new JSDOM('<div id="app"></div>',{url:'https://primecare-corporate.pages.dev/?enable-semantics=true'});
+ // JSDOM has no media-query engine; these DOM tests use its desktop viewport.
+ dom.window.matchMedia=media=>({media,matches:false});
  for(const key of ['window','document','location','history','sessionStorage','localStorage','HTMLElement','HTMLInputElement','HTMLSelectElement','HTMLButtonElement','HTMLDetailsElement','Element','Node'])globalThis[key]=dom.window[key];
  globalThis.getComputedStyle=dom.window.getComputedStyle.bind(dom.window);
  globalThis.sessionStorage.setItem('primecare_session','fixture-token');
@@ -119,7 +121,8 @@ test('delayed workspace responses cannot render or clear a replacement account s
 });
 
 for(const entry of ['sidebar','search'])test('CEO '+entry+' opens the working marketing board',async()=>{
- const {dom,root}=browser('ceo'),navigations=[];
+ const {dom,root}=browser('ceo'),navigations=[],errors=[];
+ dom.window.addEventListener('error',event=>errors.push(event.message));
  try{
   await renderWorkspace(root,'https://gateway.test');
   const pathname=location.pathname;globalThis.location={pathname,search:location.search,assign:href=>navigations.push(new URL(href,dom.window.location.href))};
@@ -129,5 +132,6 @@ for(const entry of ['sidebar','search'])test('CEO '+entry+' opens the working ma
   assert.equal(navigations[0].pathname,'/growth');
   assert.equal(navigations[0].searchParams.get('enable-semantics'),'true');
   assert.equal(root.querySelector('[data-cy="screen-founder_growth_dashboard"]'),null,'generic page must not replace the working marketing board');
+  assert.deepEqual(errors,[],'navigation must not hide an uncaught browser event failure');
  }finally{dom.window.close();}
 });
