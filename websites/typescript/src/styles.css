@@ -424,3 +424,5 @@ aside nav a[aria-current="page"], aside nav a:hover, aside nav a:focus-visible {
 [data-surface-style=solid] .code-admin-page-body .admin-command p{color:var(--color-sidebar-text)}
 /* Search results are a light surface, independent of the navy utility bar. */
 .global-search-results{color:var(--color-surface-text,var(--color-text))}
+/* Navigation labels need an opaque surface even inside a clipped/scrolling rail. */
+.code-admin-nav-group h2{background:var(--color-sidebar);color:var(--color-sidebar-text);opacity:1}
