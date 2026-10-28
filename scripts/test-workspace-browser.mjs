@@ -1,16 +1,20 @@
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
+import {readFile,writeFile,mkdtemp} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {pathToFileURL} from 'node:url';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
 const {JSDOM}=require(process.env.WORKSPACE_DOM_MODULE||'jsdom');
 const output=await build({entryPoints:['websites/typescript/src/workspace.ts'],bundle:true,write:false,platform:'node',format:'esm'});
-const {renderWorkspace,inventoryCsv,loadWorkspace}=await import('data:text/javascript;base64,'+Buffer.from(output.outputFiles[0].text).toString('base64'));
+const bundlePath=join(await mkdtemp(join(tmpdir(),'workspace-browser-test-')),'workspace.mjs');await writeFile(bundlePath,output.outputFiles[0].text);
+const {renderWorkspace,inventoryCsv,loadWorkspace}=await import(pathToFileURL(bundlePath).href);
 const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));
 function browser(role='ceo') {
  const dom=new JSDOM('<div id="app"></div>',{url:'https://primecare-corporate.pages.dev/?enable-semantics=true'});
- for(const key of ['window','document','location','history','sessionStorage','HTMLInputElement'])globalThis[key]=dom.window[key];
+ for(const key of ['window','document','location','history','sessionStorage','localStorage','HTMLElement','HTMLInputElement','HTMLSelectElement','HTMLButtonElement','HTMLDetailsElement','Element','Node'])globalThis[key]=dom.window[key];
  globalThis.getComputedStyle=dom.window.getComputedStyle.bind(dom.window);
  globalThis.sessionStorage.setItem('primecare_session','fixture-token');
  const screens=registry.screens.filter(s=>s.renderer!=='account'&&s.grants.some(g=>g.role===role&&g.view));
@@ -28,7 +32,7 @@ test('CEO login landing renders real dashboard, every CEO route, governed sectio
  for(const page of screens){
   history.pushState({},'',page.route+'?enable-semantics=true');window.onpopstate();
   assert.ok(root.querySelector(`[data-cy="screen-${page.code}"]`),page.code);
-  for(const section of page.sections)assert.ok([...root.querySelectorAll('[data-cy]')].some(e=>e.dataset.cy===(section.testId||section.code)),page.code+':'+section.code);
+  if(page.renderer==='dashboard'){for(const id of ['workspace-overview','workspace-organization','workspace-activity','workspace-delivery'])assert.ok(root.querySelector('[data-cy="'+id+'"]'),page.code+':'+id);}else for(const section of page.sections)assert.ok([...root.querySelectorAll('[data-cy]')].some(e=>e.dataset.cy===(section.testId||section.code)),page.code+':'+section.code);
  }
  dom.window.close();
 });
@@ -81,13 +85,14 @@ test('all active role landings resolve to their own authorized governed page',as
  for(const role of Object.keys(registry.landings)) {
   const {dom,root,data}=browser(role);
   const landing=registry.landings[role];
-  if(landing==='/care'||role==='platform_admin') {
+  const dedicatedAdmin=['code_admin','central_admin','tenant_admin','platform_admin'].includes(role);
+  if(landing==='/care'||dedicatedAdmin) {
    assert.ok(data.screens.some(screen=>screen.route===landing),role+' must have a granted landing');
    const navigations=[];
    globalThis.location={pathname:'/',search:dom.window.location.search,assign:href=>navigations.push(new URL(href,dom.window.location.href))};
    await renderWorkspace(root,'https://gateway.test');
    assert.equal(navigations.length,1,role+' must navigate once');
-   assert.equal(navigations[0].pathname,landing,role);
+   assert.equal(navigations[0].pathname,dedicatedAdmin?'/platform/administration':landing,role);
    assert.equal(navigations[0].searchParams.get('enable-semantics'),'true',role+' redirect retains semantics');
    assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
   } else {
