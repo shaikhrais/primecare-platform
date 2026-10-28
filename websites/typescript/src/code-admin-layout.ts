@@ -16,3 +16,8 @@ export function codeAdminNavigation(markup:string,locale:string):string{
  }
  return groups.map((items,i)=>items.length?`<section class="code-admin-nav-group"><h2>${esc(labels[i])}</h2>${items.join('')}</section>`:'').join('');
 }
+
+export function codeAdminDescription(view:string,locale:string):string{
+ const copy=locale==='fr'?['Sélectionnez une organisation, gérez les accès et ouvrez vos espaces de travail.','Vos paramètres personnels et votre sécurité.','Découvrez les organisations, les personnes et les tâches, étape par étape.','Consultez les informations et les tâches disponibles pour votre rôle.']:locale==='es'?['Seleccione una organización, gestione el acceso y abra sus áreas de trabajo.','Su configuración personal y seguridad.','Conozca las organizaciones, las personas y las tareas paso a paso.','Revise la información y las tareas disponibles para su rol.']:['Select an organization, manage access, and open your work areas.','Your personal settings and security.','Learn about organizations, people, and daily tasks, one step at a time.','Review the information and tasks available to your role.'];
+ return copy[view==='tenants'?0:view==='account'?1:view==='training'?2:3];
+}
