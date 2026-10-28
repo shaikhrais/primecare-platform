@@ -1,3 +1,4 @@
+import {businessPlans} from '../business-plans/service';
 import {growthReports} from './reports';
 import {publicEnquiry} from './enquiries';
 import {canManageIntake} from '../../../../packages/shared/src/growth/intake';
@@ -10,6 +11,7 @@ import {GrowthRepository} from './repository';
 import {GrowthCommands} from './commands';
 export async function growth(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null>{
  if(env.SERVICE_NAME!=='governance'||!(path==='/growth'||path.startsWith('/growth/')))return null;
+ const cycleResponse=await businessPlans(request,env,path,headers);if(cycleResponse)return cycleResponse;
  const reportsResponse=await growthReports(request,env,path,headers);if(reportsResponse)return reportsResponse;
  const publicResponse=await publicEnquiry(request,env,path,headers);if(publicResponse)return publicResponse;
  const safe=new Headers(headers);safe.set('cache-control','no-store');safe.set('x-content-type-options','nosniff');

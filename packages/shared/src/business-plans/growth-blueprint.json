@@ -1,0 +1,1386 @@
+{
+  "version": 1,
+  "researchDate": "2026-10-28",
+  "sources": [
+    [
+      "BDC · Sales planning",
+      "https://www.bdc.ca/en/articles-tools/marketing-sales-export/sales/sales-plans-improve-sales-performance",
+      "Test demand and resources; give owners measurable goals and review results."
+    ],
+    [
+      "BDC · Acquisition economics",
+      "https://www.bdc.ca/en/articles-tools/blog/calculating-customer-lifetime-value-cost-acquisition",
+      "CAC includes sales and marketing costs divided by acquired customers. Validate costs and customer value."
+    ],
+    [
+      "Hamilton · Age Friendly",
+      "https://www.hamilton.ca/people-programs/adults-55-services/age-friendly-hamilton",
+      "Historical 2021 count: 104,290 residents aged 65+. This is not a current paying market estimate."
+    ],
+    [
+      "Ontario · Home/community care",
+      "https://www.ontario.ca/page/home-community-care",
+      "Public assessment and private-pay care are distinct pathways. Explain existing options."
+    ],
+    [
+      "CNO · Nursing advertising",
+      "https://www.cno.org/standards-learning/practice-support/practice-support-faqs/advertising",
+      "Truthful verifiable service information, clinician identity and professional boundaries; no unsupported superiority or guarantees."
+    ],
+    [
+      "IPC · Health information consent",
+      "https://www.ipc.on.ca/en/health-individuals/consent-and-your-personal-health-information",
+      "Marketing uses of health information require express consent; care consent is separate."
+    ],
+    [
+      "CRTC · CASL FAQ",
+      "https://crtc.gc.ca/eng/com500/faq500.htm/",
+      "Check the consent basis, sender identification and unsubscribe requirements before promotional email/SMS."
+    ],
+    [
+      "Ontario Health · Provider prequalification",
+      "https://www.ontariohealth.ca/clinical/home-community/prequalification",
+      "Public-funded service opportunities have formal qualification/procurement routes; no public contract is assumed. Search result verified; direct page retrieval returned 403."
+    ]
+  ],
+  "dayConvention": "Day 1 is the start date you supply. Day N = start date + N − 1 calendar days. Deadlines do not certify readiness. Review weekends, holidays, staffing and current requirements before activation.",
+  "disclaimer": "Evidence informs the method and safeguards. All counts, rates, dates, prices, budgets and service thresholds below are proposed management assumptions, not published industry benchmarks or guaranteed results. No real achievements are fabricated.",
+  "master": {
+    "goals": [
+      {
+        "key": "M01",
+        "title": "Buyer discovery interviews",
+        "target": 10,
+        "unit": "organization interviews",
+        "dueDay": 14,
+        "owner": "Business development lead",
+        "evidence": "Permission-based notes identify needs, buyer, costs and objections.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M02",
+        "title": "Suitable organization research list",
+        "target": 100,
+        "unit": "organizations",
+        "dueDay": 30,
+        "owner": "Business development lead",
+        "evidence": "Public business sources, fit and permitted contact route; no patient data.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M03",
+        "title": "Qualified opportunities · day 60",
+        "target": 8,
+        "unit": "organizations",
+        "dueDay": 60,
+        "owner": "Business development lead",
+        "evidence": "Need, authority, budget/procurement path and implementation fit reviewed.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M04",
+        "title": "Qualified opportunities · day 180",
+        "target": 20,
+        "unit": "organizations",
+        "dueDay": 180,
+        "owner": "Business development lead",
+        "evidence": "Cumulative qualified pipeline; deduplicate organizations.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M05",
+        "title": "Completed relevant demonstrations · day 60",
+        "target": 8,
+        "unit": "demonstrations",
+        "dueDay": 60,
+        "owner": "Product / demonstration lead",
+        "evidence": "Completed session with buyer questions and permitted next action.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M06",
+        "title": "Completed relevant demonstrations · day 180",
+        "target": 20,
+        "unit": "demonstrations",
+        "dueDay": 180,
+        "owner": "Product / demonstration lead",
+        "evidence": "Count organizations shown implemented functions; repeated demos distinguished.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M07",
+        "title": "Written suitable pilot proposals",
+        "target": 10,
+        "unit": "proposals",
+        "dueDay": 180,
+        "owner": "Commercial lead",
+        "evidence": "Scope, charges, success criteria, access, support and data responsibilities specified.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M08",
+        "title": "Accepted bounded pilots · day 90",
+        "target": 2,
+        "unit": "accepted pilots",
+        "dueDay": 90,
+        "owner": "Commercial lead",
+        "evidence": "Actual written acceptance, readiness gate and owner; proposal alone does not count.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M09",
+        "title": "Accepted bounded pilots · day 180",
+        "target": 4,
+        "unit": "accepted pilots",
+        "dueDay": 180,
+        "owner": "Commercial lead",
+        "evidence": "Cumulative accepted pilots; no presumed government contracts.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M10",
+        "title": "Paying active tenant organizations",
+        "target": 3,
+        "unit": "paying active tenants",
+        "dueDay": 180,
+        "owner": "Commercial / finance lead",
+        "evidence": "Agreement, confirmed invoice/payment and usable activated workflow; do not count demos.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M11",
+        "title": "Core onboarding workflows verified",
+        "target": 6,
+        "unit": "workflows",
+        "dueDay": 30,
+        "owner": "Product / security lead",
+        "evidence": "Evidence for identity, tenant provisioning, role isolation, billing readback, support and recovery.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M12",
+        "title": "Pilot activation and support review",
+        "target": 2,
+        "unit": "reviewed pilots",
+        "dueDay": 120,
+        "owner": "Tenant success lead",
+        "evidence": "Two pilots independently reviewed for activation, support and agreed success criteria.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "M13",
+        "title": "Economics and product decision reviews",
+        "target": 6,
+        "unit": "monthly reviews",
+        "dueDay": 180,
+        "owner": "CEO / finance lead",
+        "evidence": "Costs, pipeline, usability, incidents, receipts and next go/hold decision recorded.",
+        "kind": "cumulative"
+      }
+    ],
+    "tasks": [
+      {
+        "key": "01",
+        "title": "Approve scope, roles and decision rights",
+        "startDay": 1,
+        "dueDay": 3,
+        "owner": "CEO",
+        "team": "GOV",
+        "description": "Select one initial organization segment, decision-maker, use case and geography. Name the person covering each proposed role. Agree budget authority and pause rights.",
+        "deliverable": "Signed scope and ownership map.",
+        "acceptance": "No team is treated as staffed until names and availability are confirmed.",
+        "goalKey": "",
+        "dependencies": "",
+        "gate": "Foundation"
+      },
+      {
+        "key": "02",
+        "title": "Interview ten potential tenant buyers",
+        "startDay": 1,
+        "dueDay": 14,
+        "owner": "Business development lead",
+        "team": "BD",
+        "description": "Arrange permission-based interviews; test unmet workflow, incumbent products, willingness to pay, procurement and switching effort.",
+        "deliverable": "Ten de-identified buyer interviews and objection themes.",
+        "acceptance": "Separate problems from assumed feature demand.",
+        "goalKey": "M01",
+        "dependencies": "01",
+        "gate": ""
+      },
+      {
+        "key": "03",
+        "title": "Review competitors and customer alternatives",
+        "startDay": 3,
+        "dueDay": 14,
+        "owner": "Product / strategy lead",
+        "team": "BD",
+        "description": "Compare published provider features, manual workflows and do-nothing choices. Validate one narrow reason to change without unsupported superiority.",
+        "deliverable": "Competitor/alternative comparison and testable value proposition.",
+        "acceptance": "Verify claims against implemented functions and source pages.",
+        "goalKey": "",
+        "dependencies": "02",
+        "gate": ""
+      },
+      {
+        "key": "04",
+        "title": "Verify six core platform workflows",
+        "startDay": 1,
+        "dueDay": 30,
+        "owner": "Product / security lead",
+        "team": "PROD",
+        "description": "Run browser→API→database readback for identity, tenant setup, cross-tenant access denial, billing, support and recovery. Add negative/error cases and real audit correlations.",
+        "deliverable": "Six test packs with defects and evidence references.",
+        "acceptance": "Resolve critical isolation, onboarding or payment/readback defects before pilots.",
+        "goalKey": "M11",
+        "dependencies": "01",
+        "gate": "Platform safety"
+      },
+      {
+        "key": "05",
+        "title": "Review privacy, access and commercial terms",
+        "startDay": 4,
+        "dueDay": 21,
+        "owner": "Privacy / commercial adviser",
+        "team": "GOV",
+        "description": "Review record roles, minimum data, permission boundaries, charges, support, cancellation and incident responsibilities. Keep patient information outside this tracker.",
+        "deliverable": "Reviewed data/contract versions and open issues.",
+        "acceptance": "No unresolved critical legal/privacy issue before a pilot.",
+        "goalKey": "",
+        "dependencies": "01",
+        "gate": "Platform safety"
+      },
+      {
+        "key": "06",
+        "title": "Validate price and full delivery costs",
+        "startDay": 7,
+        "dueDay": 21,
+        "owner": "Finance lead",
+        "team": "FIN",
+        "description": "Use actual quotes and buyer feedback. Include hosting, voice, support, implementation, staff time, refunds and acquisition cost.",
+        "deliverable": "Quote-backed cost model and proposed price.",
+        "acceptance": "Illustrative CAD399/month is not a quote; validate willingness to pay.",
+        "goalKey": "",
+        "dependencies": "02,05",
+        "gate": "Economics"
+      },
+      {
+        "key": "07",
+        "title": "Write truthful demo and accessible offer",
+        "startDay": 14,
+        "dueDay": 30,
+        "owner": "Product / demonstration lead",
+        "team": "PROD",
+        "description": "Show working capabilities only. Mark demo records. Explain rollout limits, data handling, staffed support and prices before asking for a pilot.",
+        "deliverable": "Demo script, service page and objection sheet.",
+        "acceptance": "Product and commercial reviewers approve every claim.",
+        "goalKey": "",
+        "dependencies": "03,04,05",
+        "gate": "Platform safety"
+      },
+      {
+        "key": "08",
+        "title": "Build 100-account research list",
+        "startDay": 7,
+        "dueDay": 30,
+        "owner": "Business development lead",
+        "team": "BD",
+        "description": "Use public organization information and lawful contact routes. Record fit, buyer role and next step; no patient lists or personal health targeting.",
+        "deliverable": "100-account segmented prospect register.",
+        "acceptance": "A researched account is not a lead or consenting contact.",
+        "goalKey": "M02",
+        "dependencies": "02",
+        "gate": ""
+      },
+      {
+        "key": "09",
+        "title": "Set contact permission and suppression process",
+        "startDay": 7,
+        "dueDay": 21,
+        "owner": "Privacy / marketing lead",
+        "team": "BD",
+        "description": "Check CASL bases, sender details, unsubscribe and telephone rules for chosen channels. Use requested conversations and approved institutional routes.",
+        "deliverable": "Permission/suppression SOP and test records.",
+        "acceptance": "No bulk outreach before route-specific review.",
+        "goalKey": "",
+        "dependencies": "05",
+        "gate": "Consent"
+      },
+      {
+        "key": "10",
+        "title": "Configure pipeline and evidence definitions",
+        "startDay": 7,
+        "dueDay": 21,
+        "owner": "Commercial operations lead",
+        "team": "BD",
+        "description": "Define discovered, contacted, qualified, demo, proposal, accepted pilot and paying active; deduplicate organizations and name owners.",
+        "deliverable": "Stage definitions and weekly pipeline view.",
+        "acceptance": "Written acceptance and payment evidence distinguish real outcomes.",
+        "goalKey": "",
+        "dependencies": "02",
+        "gate": ""
+      },
+      {
+        "key": "11",
+        "title": "Run first controlled discovery-to-demo wave",
+        "startDay": 21,
+        "dueDay": 60,
+        "owner": "Business development lead",
+        "team": "BD",
+        "description": "Approach selected suitable organizations within approved contact routes and support capacity. Review objections each week.",
+        "deliverable": "Eight qualified opportunities and eight relevant demonstrations.",
+        "acceptance": "Do not scale volume to conceal poor product fit.",
+        "goalKey": "M03",
+        "dependencies": "07,08,09,10",
+        "gate": "Contact permission"
+      },
+      {
+        "key": "12",
+        "title": "Prepare the bounded pilot offer",
+        "startDay": 21,
+        "dueDay": 45,
+        "owner": "Commercial lead",
+        "team": "GOV",
+        "description": "Specify one usable workflow, duration, fees, success measures, data responsibilities, support and exit. Confirm institutional procurement requirements.",
+        "deliverable": "Reviewed pilot proposal and acceptance template.",
+        "acceptance": "A proposal is not a signed agreement or public service-provider contract.",
+        "goalKey": "",
+        "dependencies": "04,05,06",
+        "gate": "Platform safety"
+      },
+      {
+        "key": "13",
+        "title": "Review Day 30 evidence and spending tranche",
+        "startDay": 28,
+        "dueDay": 30,
+        "owner": "CEO / finance lead",
+        "team": "FIN",
+        "description": "Compare interviews, defects, quotes and cash; release only a bounded next tranche or HOLD.",
+        "deliverable": "Dated gate decision and spend cap.",
+        "acceptance": "Critical defects and unaffordable commitments block expansion.",
+        "goalKey": "M13",
+        "dependencies": "02,04,06",
+        "gate": "Readiness"
+      },
+      {
+        "key": "14",
+        "title": "Obtain and implement first accepted pilots",
+        "startDay": 45,
+        "dueDay": 90,
+        "owner": "Commercial / implementation lead",
+        "team": "PROD",
+        "description": "Seek two written pilot acceptances. Verify product readiness, responsible contacts and safe setup before activation.",
+        "deliverable": "Two genuinely accepted pilots with implementation checklists.",
+        "acceptance": "No unaccepted or unready pilot is counted.",
+        "goalKey": "M08",
+        "dependencies": "12,13",
+        "gate": "Readiness"
+      },
+      {
+        "key": "15",
+        "title": "Train tenant managers and verify activation",
+        "startDay": 60,
+        "dueDay": 105,
+        "owner": "Tenant success lead",
+        "team": "PROD",
+        "description": "Guide first tenant setup, role checks, a complete usable workflow, error recovery and human support route.",
+        "deliverable": "Activation evidence and tenant training guide.",
+        "acceptance": "Tenant manager can repeat the workflow independently.",
+        "goalKey": "M12",
+        "dependencies": "14",
+        "gate": "Access isolation"
+      },
+      {
+        "key": "16",
+        "title": "Measure actual support effort and incidents",
+        "startDay": 60,
+        "dueDay": 120,
+        "owner": "Support / product lead",
+        "team": "PROD",
+        "description": "Record staffed response, unresolved errors, onboarding time, actual voice/tool costs and recovery. Review each pilot weekly.",
+        "deliverable": "Support/cost baseline and defect priorities.",
+        "acceptance": "Do not advertise availability or service levels that are not staffed.",
+        "goalKey": "",
+        "dependencies": "14",
+        "gate": ""
+      },
+      {
+        "key": "17",
+        "title": "Review Day 60 conversion and channel fit",
+        "startDay": 58,
+        "dueDay": 60,
+        "owner": "CEO / commercial lead",
+        "team": "BD",
+        "description": "Check qualification and demo results, acquisition spending and time. Distinguish low volume from weak conversion.",
+        "deliverable": "A/B decision with a two-week experiment if behind.",
+        "acceptance": "No forecast is labeled an achieved result.",
+        "goalKey": "M03",
+        "dependencies": "11",
+        "gate": "Economics"
+      },
+      {
+        "key": "18",
+        "title": "Complete pilot success and purchase reviews",
+        "startDay": 90,
+        "dueDay": 120,
+        "owner": "Tenant success / finance lead",
+        "team": "FIN",
+        "description": "Compare agreed success criteria, user feedback, safe operation and real support cost; obtain a separate voluntary purchase decision.",
+        "deliverable": "Two reviewed pilot outcome records.",
+        "acceptance": "No automatic paid conversion or coerced subscription.",
+        "goalKey": "M12",
+        "dependencies": "15,16",
+        "gate": "Quality"
+      },
+      {
+        "key": "19",
+        "title": "Run bounded alternative channel tests",
+        "startDay": 91,
+        "dueDay": 120,
+        "owner": "Business development lead",
+        "team": "BD",
+        "description": "If Plan A is weak, test two permitted partner/intent-led routes with fixed spend caps, one message difference and comparable qualification definitions.",
+        "deliverable": "Two documented tests and a channel decision.",
+        "acceptance": "If Plan A works, use the time for improving its conversion; do not add pointless experiments.",
+        "goalKey": "",
+        "dependencies": "17",
+        "gate": "Consent"
+      },
+      {
+        "key": "20",
+        "title": "Build ten suitable written proposals",
+        "startDay": 60,
+        "dueDay": 180,
+        "owner": "Commercial lead",
+        "team": "BD",
+        "description": "Use verified needs and readiness to prepare ten proposals; track decision path, dates, objections and explicit next steps.",
+        "deliverable": "Ten suitable proposal records.",
+        "acceptance": "No proposals to unsuitable or unserviceable organizations just to meet a count.",
+        "goalKey": "M07",
+        "dependencies": "11,12",
+        "gate": "Fit"
+      },
+      {
+        "key": "21",
+        "title": "Grow to 20 qualified opportunities and demos",
+        "startDay": 61,
+        "dueDay": 180,
+        "owner": "Business development / demo lead",
+        "team": "BD",
+        "description": "Review each account fit and demonstrate implemented capabilities. Keep the funnel current, with losses and no-response closed honestly.",
+        "deliverable": "20 qualified organizations and 20 demonstrations, counted separately.",
+        "acceptance": "Numbers are planning assumptions requiring evidence.",
+        "goalKey": "M04",
+        "dependencies": "11,19",
+        "gate": "Capacity"
+      },
+      {
+        "key": "22",
+        "title": "Seek four cumulative pilots and three paid tenants",
+        "startDay": 91,
+        "dueDay": 180,
+        "owner": "Commercial / finance lead",
+        "team": "FIN",
+        "description": "Offer appropriate bounded pilots and obtain actual customer purchase decisions. Verify billing and usable activation.",
+        "deliverable": "Four accepted cumulative pilots; three paying active tenants if fit supports them.",
+        "acceptance": "One customer is counted once; no simulated billing or verbal intention.",
+        "goalKey": "M10",
+        "dependencies": "18,20,21",
+        "gate": "Readiness"
+      },
+      {
+        "key": "23",
+        "title": "Review recurring revenue and break-even gap",
+        "startDay": 90,
+        "dueDay": 180,
+        "owner": "Finance lead",
+        "team": "FIN",
+        "description": "Use actual price and margin, recurring receipts, churn, support costs and full acquisition cost. Reforecast runway weekly.",
+        "deliverable": "MRR, contribution, CAC and break-even scenarios.",
+        "acceptance": "Three paid tenants is validation, not a claim of platform profitability.",
+        "goalKey": "",
+        "dependencies": "06,16,22",
+        "gate": "Cash"
+      },
+      {
+        "key": "24",
+        "title": "Review narrow organizational contract option",
+        "startDay": 120,
+        "dueDay": 150,
+        "owner": "CEO / commercial lead",
+        "team": "GOV",
+        "description": "If B fails, consider a smaller scope or real organizational service agreement through the appropriate procurement route.",
+        "deliverable": "Two qualified discussions and a viable proposal if available.",
+        "acceptance": "No public contract or funding is presumed; no unsafe scope expansion.",
+        "goalKey": "",
+        "dependencies": "19,23",
+        "gate": "Procurement"
+      },
+      {
+        "key": "25",
+        "title": "Hold Day 90 and Day 180 strategic reviews",
+        "startDay": 90,
+        "dueDay": 180,
+        "owner": "CEO / finance / product lead",
+        "team": "GOV",
+        "description": "Compare milestones, quality, actual cash and available support. Record continue, narrow, pivot or pause plus named actions.",
+        "deliverable": "Evidence-backed decisions and next cycle proposal.",
+        "acceptance": "Pause if critical access failures, payroll risk or no viable unit economics remain.",
+        "goalKey": "M13",
+        "dependencies": "18,23",
+        "gate": "Safety and cash"
+      },
+      {
+        "key": "26",
+        "title": "Day 90 monthly evidence and funding review",
+        "startDay": 88,
+        "dueDay": 90,
+        "owner": "CEO / finance / operations lead",
+        "team": "GOV",
+        "description": "Review actual funnel stages, receipts, delivery cost, staffing / support, quality exceptions and cash runway. Explain every unmet target, assign a dated corrective action and choose continue, narrow, pivot or HOLD.",
+        "deliverable": "Signed monthly evidence review, spend decision and owner/deadline list.",
+        "acceptance": "The reviewer reconciles source records and preserves patient choice, access security and funded commitments. No progress is invented.",
+        "goalKey": "M13",
+        "dependencies": "13",
+        "gate": "Safety and cash"
+      },
+      {
+        "key": "27",
+        "title": "Day 120 monthly evidence and funding review",
+        "startDay": 118,
+        "dueDay": 120,
+        "owner": "CEO / finance / operations lead",
+        "team": "GOV",
+        "description": "Review actual funnel stages, receipts, delivery cost, staffing / support, quality exceptions and cash runway. Explain every unmet target, assign a dated corrective action and choose continue, narrow, pivot or HOLD.",
+        "deliverable": "Signed monthly evidence review, spend decision and owner/deadline list.",
+        "acceptance": "The reviewer reconciles source records and preserves patient choice, access security and funded commitments. No progress is invented.",
+        "goalKey": "M13",
+        "dependencies": "13",
+        "gate": "Safety and cash"
+      },
+      {
+        "key": "28",
+        "title": "Day 150 monthly evidence and funding review",
+        "startDay": 148,
+        "dueDay": 150,
+        "owner": "CEO / finance / operations lead",
+        "team": "GOV",
+        "description": "Review actual funnel stages, receipts, delivery cost, staffing / support, quality exceptions and cash runway. Explain every unmet target, assign a dated corrective action and choose continue, narrow, pivot or HOLD.",
+        "deliverable": "Signed monthly evidence review, spend decision and owner/deadline list.",
+        "acceptance": "The reviewer reconciles source records and preserves patient choice, access security and funded commitments. No progress is invented.",
+        "goalKey": "M13",
+        "dependencies": "13",
+        "gate": "Safety and cash"
+      }
+    ],
+    "phases": [
+      {
+        "name": "Validate demand and ownership",
+        "startDay": 1,
+        "endDay": 14
+      },
+      {
+        "name": "Prove readiness and economics",
+        "startDay": 15,
+        "endDay": 30
+      },
+      {
+        "name": "Bounded pilot and channel test",
+        "startDay": 31,
+        "endDay": 60
+      },
+      {
+        "name": "Review early traction",
+        "startDay": 61,
+        "endDay": 90
+      },
+      {
+        "name": "Improve, pivot or add safe capacity",
+        "startDay": 91,
+        "endDay": 120
+      },
+      {
+        "name": "Controlled growth and next decision",
+        "startDay": 121,
+        "endDay": 180
+      }
+    ],
+    "teams": [
+      {
+        "key": "GOV",
+        "name": "Governance and commercial review",
+        "manager": "Proposed CEO",
+        "members": "Proposed CEO; privacy adviser; commercial reviewer"
+      },
+      {
+        "key": "BD",
+        "name": "Tenant business development",
+        "manager": "Proposed commercial manager",
+        "members": "Proposed BD lead; researcher; marketing / demo support"
+      },
+      {
+        "key": "PROD",
+        "name": "Platform readiness and tenant success",
+        "manager": "Proposed product manager",
+        "members": "Proposed product / security lead; support owner; implementation lead"
+      },
+      {
+        "key": "FIN",
+        "name": "Platform finance",
+        "manager": "Proposed finance manager",
+        "members": "Proposed finance lead; CEO; commercial analyst"
+      }
+    ],
+    "weeklyRhythm": [
+      "Monday: confirm qualified demand, cash and staffed capacity; assign one owner to each blocker.",
+      "Wednesday: review safety, access, incidents and delivery exceptions; resolve or HOLD.",
+      "Friday: review actual funnel stages, spending, unit economics, missing evidence and the next bounded action.",
+      "Days 30, 60, 90, 120, 150, 180: retain a signed decision and complete a finance/quality review."
+    ],
+    "summary": "Validate a narrow B2B platform offer, prove tenant-safe workflows, then seek four bounded pilots and three paying active organizations by Day 180. This is a validation cohort, not platform break-even.",
+    "finance": [
+      "Illustration only: CAD399 recurring monthly fee × 3 active paying tenants = CAD1,197 end-period MRR; price and demand are unvalidated.",
+      "At 70% contribution and CAD5,000 monthly fixed costs plus CAD1,000/month acquisition allocation, break-even is ceiling(6000/(399×0.70)) = 22 paying tenants. Three tenants do not fund this assumed overhead.",
+      "Six-month gross funding envelope before receipts: CAD30,000 fixed + CAD6,000 acquisition + CAD4,000 setup + CAD6,000 contingency = CAD46,000. Include founder/support time and tax/payment effects in actual quotes.",
+      "CAC = all attributable sales + marketing costs / newly paying tenants. CAD6,000 / 3 = CAD2,000 only if this covers every attributable acquisition cost. Do not project lifetime value before retention evidence.",
+      "Approve actual budget by Day 21; release at most a proposed CAD1,500 first acquisition tranche after readiness. Reprice, reduce cost or narrow the model if the payback/runway is not viable."
+    ],
+    "fallbacks": [
+      "A: by Day 60 seek 8 qualified organizations and 8 useful demos after readiness. If fewer than 4 suitable opportunities or recurring product-fit objections persist, diagnose before spending more.",
+      "B: two bounded two-week channel/message tests during Days 61–120; compare qualified opportunities and fully loaded CAC, not clicks.",
+      "C: by Day 150 test a narrower workflow/service or formal organizational pilot. If no viable paid use case and under eight weeks funded cash remain, pause acquisition and protect existing commitments."
+    ]
+  },
+  "tenant": {
+    "goals": [
+      {
+        "key": "T01",
+        "title": "Family / caregiver discovery interviews",
+        "target": 15,
+        "unit": "interviews",
+        "dueDay": 14,
+        "owner": "Research lead",
+        "evidence": "Consented de-identified notes; count unique interviews.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T02",
+        "title": "Clinical discovery discussions",
+        "target": 10,
+        "unit": "discussions",
+        "dueDay": 21,
+        "owner": "RN / partnership lead",
+        "evidence": "Approved professional discussion route; no employer patient recruiting.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T03",
+        "title": "Community organization discovery discussions",
+        "target": 5,
+        "unit": "discussions",
+        "dueDay": 21,
+        "owner": "Partnership lead",
+        "evidence": "Organizer permission and realistic information/distribution routes.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T04",
+        "title": "Readiness domains evidenced",
+        "target": 6,
+        "unit": "reviewed domains",
+        "dueDay": 30,
+        "owner": "RN / operations / product lead",
+        "evidence": "Clinical cover, consent/records, roster, intake recovery, audit/access and finance evidence reviewed.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T05",
+        "title": "Gross awareness opportunities · day 90",
+        "target": 25000,
+        "unit": "estimated opportunities",
+        "dueDay": 90,
+        "owner": "Marketing lead",
+        "evidence": "Channel-level estimates, age definition and overlap limits recorded; not unique seniors.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T06",
+        "title": "Gross awareness opportunities · day 180",
+        "target": 50000,
+        "unit": "estimated opportunities",
+        "dueDay": 180,
+        "owner": "Marketing lead",
+        "evidence": "No double counting enquiries as reach; caregiver reach separately reported.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T07",
+        "title": "Enquiries · day 90",
+        "target": 100,
+        "unit": "enquiries",
+        "dueDay": 90,
+        "owner": "Intake coordinator",
+        "evidence": "Source and permission recorded without clinical marketing details.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T08",
+        "title": "Enquiries · day 180",
+        "target": 240,
+        "unit": "enquiries",
+        "dueDay": 180,
+        "owner": "Intake coordinator",
+        "evidence": "Deduplicated voluntary enquiries; 0.48% of gross reach is only a funnel hypothesis.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T09",
+        "title": "Qualified enquiries · day 180",
+        "target": 120,
+        "unit": "qualified enquiries",
+        "dueDay": 180,
+        "owner": "Intake coordinator",
+        "evidence": "Service area, need, permission, affordability and staffed suitability reviewed.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T10",
+        "title": "Completed suitable assessments",
+        "target": 60,
+        "unit": "assessments",
+        "dueDay": 180,
+        "owner": "Assessing clinician",
+        "evidence": "Real professional assessment evidence in restricted clinical record; tracker keeps references only.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T11",
+        "title": "Suitable cumulative care starts",
+        "target": 24,
+        "unit": "care starts",
+        "dueDay": 180,
+        "owner": "RN / operations lead",
+        "evidence": "Consented admission within scope and roster capacity; no admissions to fill quotas.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T12",
+        "title": "Active families · day 60",
+        "target": 5,
+        "unit": "active families",
+        "dueDay": 60,
+        "owner": "Operations lead",
+        "evidence": "Actual continuing service, patient choice and safe cover; no future bookings counted.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T13",
+        "title": "Active families · day 90",
+        "target": 10,
+        "unit": "active families",
+        "dueDay": 90,
+        "owner": "Operations lead",
+        "evidence": "Point-in-time count; explain exits and safe discharge separately.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T14",
+        "title": "Active families · day 180",
+        "target": 20,
+        "unit": "active families",
+        "dueDay": 180,
+        "owner": "Operations lead",
+        "evidence": "24 starts to 20 active assumes four exits; validate real duration and discharge patterns.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T15",
+        "title": "Approved community / professional pathways",
+        "target": 3,
+        "unit": "pathways",
+        "dueDay": 60,
+        "owner": "Partnership lead",
+        "evidence": "Organizational approval and consented handoff process, not an RN lead quota.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T16",
+        "title": "Consent / plan / review records checked",
+        "target": 100,
+        "unit": "percent of applicable active clients",
+        "dueDay": 60,
+        "owner": "RN quality lead",
+        "evidence": "Review every applicable active record; denominator required. Zero clients is not 100% compliance.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T17",
+        "title": "Scheduled nonessential visits completed",
+        "target": 95,
+        "unit": "percent of applicable scheduled visits",
+        "dueDay": 90,
+        "owner": "Operations lead",
+        "evidence": "Internal service target. Every missed essential visit triggers immediate review; no guarantee.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T18",
+        "title": "Early patient-choice and care reviews completed",
+        "target": 100,
+        "unit": "percent of reviews due",
+        "dueDay": 90,
+        "owner": "RN / tenant success lead",
+        "evidence": "Seven/14-day or clinician-set reviews; patient may decline or end care. Denominator required.",
+        "kind": "cumulative"
+      },
+      {
+        "key": "T19",
+        "title": "Economics and quality decision reviews",
+        "target": 6,
+        "unit": "monthly reviews",
+        "dueDay": 180,
+        "owner": "RN / finance / operations lead",
+        "evidence": "Actual revenue, costs, incidents, staffing, complaints, patient choice and go/hold decisions.",
+        "kind": "cumulative"
+      }
+    ],
+    "tasks": [
+      {
+        "key": "01",
+        "title": "Confirm two neighbourhoods and narrow care scope",
+        "startDay": 1,
+        "dueDay": 3,
+        "owner": "CEO / operations lead",
+        "team": "OPS",
+        "description": "Choose two initial local areas, travel window, service pathways, staffed hours, exclusions and admission limits.",
+        "deliverable": "Written scope and availability sheet.",
+        "acceptance": "RN and operations approve what can actually be delivered.",
+        "goalKey": "",
+        "dependencies": "",
+        "gate": "Foundation"
+      },
+      {
+        "key": "02",
+        "title": "Verify RN lead and clinical backup",
+        "startDay": 1,
+        "dueDay": 14,
+        "owner": "RN clinical lead",
+        "team": "CLIN",
+        "description": "Verify registration, competence, liability, availability, backup and escalation. Recruit real cover before using RN-led claims.",
+        "deliverable": "Credential references and coverage agreement.",
+        "acceptance": "A proposed role is not evidence of clinical availability.",
+        "goalKey": "T04",
+        "dependencies": "01",
+        "gate": "Clinical readiness"
+      },
+      {
+        "key": "03",
+        "title": "Complete 15 family/caregiver interviews",
+        "startDay": 1,
+        "dueDay": 14,
+        "owner": "Research lead",
+        "team": "BD",
+        "description": "Ask about existing services, unmet tasks, communication, affordability and switching barriers with permission.",
+        "deliverable": "15 de-identified interview records and offer changes.",
+        "acceptance": "No clinical histories or promotional consent assumptions in research notes.",
+        "goalKey": "T01",
+        "dependencies": "01",
+        "gate": ""
+      },
+      {
+        "key": "04",
+        "title": "Hold ten clinical and five community discussions",
+        "startDay": 1,
+        "dueDay": 21,
+        "owner": "Partnership / RN lead",
+        "team": "BD",
+        "description": "Use organization-approved routes to understand service gaps, suitable referrals and venue permissions.",
+        "deliverable": "Ten clinical and five community discovery notes.",
+        "acceptance": "No recruiting an employer’s patients, promised partnerships or patient direction payments.",
+        "goalKey": "T02",
+        "dependencies": "01",
+        "gate": "Permission"
+      },
+      {
+        "key": "05",
+        "title": "Review service contracts and privacy flow",
+        "startDay": 4,
+        "dueDay": 21,
+        "owner": "Privacy adviser / RN lead",
+        "team": "GOV",
+        "description": "Separate care, information-sharing and marketing consent; review records, scope, itemized fees, cancellation and safe transfer.",
+        "deliverable": "Approved policy/contract versions and open issues.",
+        "acceptance": "Resolve critical privacy and consent gaps before service.",
+        "goalKey": "",
+        "dependencies": "02",
+        "gate": "Privacy"
+      },
+      {
+        "key": "06",
+        "title": "Approve assessment, care-plan and escalation process",
+        "startDay": 4,
+        "dueDay": 21,
+        "owner": "RN clinical lead",
+        "team": "CLIN",
+        "description": "Define consent, assessment, goals, authorized tasks, staff competence, version approval, observations, reassessment and urgent handoff.",
+        "deliverable": "Clinical workflow and test case evidence.",
+        "acceptance": "Professional judgment remains with qualified clinicians.",
+        "goalKey": "T04",
+        "dependencies": "02,05",
+        "gate": "Clinical readiness"
+      },
+      {
+        "key": "07",
+        "title": "Verify competent roster and backup drill",
+        "startDay": 7,
+        "dueDay": 28,
+        "owner": "Operations lead",
+        "team": "OPS",
+        "description": "Match planned visits with qualified primary/backup cover; simulate a missed essential visit and absence.",
+        "deliverable": "Capacity sheet and recovery-drill record.",
+        "acceptance": "No admissions above safe capacity; essential-care failures trigger hold.",
+        "goalKey": "T04",
+        "dependencies": "02,06",
+        "gate": "Staffing"
+      },
+      {
+        "key": "08",
+        "title": "Test intake, SMS verification and human recovery",
+        "startDay": 1,
+        "dueDay": 21,
+        "owner": "Product / intake lead",
+        "team": "TECH",
+        "description": "Use test accounts for enquiries, country-code handling, OTP entry, failure, staffed callback, authorization and audit readback.",
+        "deliverable": "End-to-end test/defect references and recovered failures.",
+        "acceptance": "Unavailable verification must reach a real safe human route before growth.",
+        "goalKey": "T04",
+        "dependencies": "01",
+        "gate": "Technology"
+      },
+      {
+        "key": "09",
+        "title": "Replace cost inputs and secure cash cover",
+        "startDay": 7,
+        "dueDay": 21,
+        "owner": "Finance lead",
+        "team": "FIN",
+        "description": "Quote wages, RN cover, insurance, travel, recruitment and marketing. Model variable margin, weekly receipts and four-week direct-cost float.",
+        "deliverable": "Quote-backed rates and downside cash plan.",
+        "acceptance": "Do not commit payroll or expansion without a viable funded plan.",
+        "goalKey": "",
+        "dependencies": "01,07",
+        "gate": "Cash"
+      },
+      {
+        "key": "10",
+        "title": "Review truthful accessible service information",
+        "startDay": 14,
+        "dueDay": 28,
+        "owner": "Marketing / RN lead",
+        "team": "BD",
+        "description": "Explain actual scope, price and public options using readable phone/print/web routes. Check nursing advertising rules before publishing.",
+        "deliverable": "Reviewed factual service sheet and accessible enquiry route.",
+        "acceptance": "No superiority guarantees, referral rewards or nursing-client testimonials.",
+        "goalKey": "",
+        "dependencies": "05,06,08",
+        "gate": "Advertising"
+      },
+      {
+        "key": "11",
+        "title": "Quote and design the awareness experiment",
+        "startDay": 14,
+        "dueDay": 30,
+        "owner": "Marketing lead",
+        "team": "BD",
+        "description": "Obtain print, contextual digital and venue quotes. Define senior audience proxies, caregiver reach and overlap limits.",
+        "deliverable": "Two-area channel plan with source codes and spend caps.",
+        "acceptance": "50k is gross estimated opportunity, not proven unique seniors.",
+        "goalKey": "T06",
+        "dependencies": "03,04,10",
+        "gate": "Budget"
+      },
+      {
+        "key": "12",
+        "title": "Approve Day 30 launch gate",
+        "startDay": 28,
+        "dueDay": 30,
+        "owner": "CEO / RN / operations / finance",
+        "team": "GOV",
+        "description": "Review all six readiness domains and actual support capacity. Record HOLD or a bounded pilot release.",
+        "deliverable": "Six evidence reviews and signed operating decision.",
+        "acceptance": "Calendar dates never override unresolved safety, privacy or cover problems.",
+        "goalKey": "T04",
+        "dependencies": "02,05,06,07,08,09,10",
+        "gate": "Launch readiness"
+      },
+      {
+        "key": "13",
+        "title": "Operate a controlled first-family pilot",
+        "startDay": 31,
+        "dueDay": 60,
+        "owner": "RN / operations lead",
+        "team": "OPS",
+        "description": "Accept only suitable consenting clients after readiness. Use written costs and the individual care plan; support existing providers and public options.",
+        "deliverable": "Up to five actual active families, with review records.",
+        "acceptance": "No unsuitable admissions to meet a count; no unstaffed availability claims.",
+        "goalKey": "T12",
+        "dependencies": "12",
+        "gate": "Launch readiness"
+      },
+      {
+        "key": "14",
+        "title": "Run early clinical and patient-choice reviews",
+        "startDay": 38,
+        "dueDay": 90,
+        "owner": "RN quality lead",
+        "team": "CLIN",
+        "description": "Review new clients at the agreed early intervals and after changes; check understanding, costs, continuity and continuing need.",
+        "deliverable": "Review-due list and documented follow-up references.",
+        "acceptance": "All applicable reviews need a denominator; safe discharge and choice take priority.",
+        "goalKey": "T18",
+        "dependencies": "13",
+        "gate": "Quality"
+      },
+      {
+        "key": "15",
+        "title": "Activate three approved community pathways",
+        "startDay": 21,
+        "dueDay": 60,
+        "owner": "Partnership lead",
+        "team": "BD",
+        "description": "Seek institutional permission, confirm suitable scope and capacity, and test consented acknowledgement and acceptance/decline follow-up.",
+        "deliverable": "Three approved pathway records if organizations agree.",
+        "acceptance": "No referral commissions, patient lists or implied endorsements.",
+        "goalKey": "T15",
+        "dependencies": "04,05,10",
+        "gate": "Permission"
+      },
+      {
+        "key": "16",
+        "title": "Release the first awareness tranche",
+        "startDay": 31,
+        "dueDay": 60,
+        "owner": "Marketing / intake lead",
+        "team": "BD",
+        "description": "After readiness, run small permitted channels and patient-initiated search. Publish staffed availability; measure source and qualified fit.",
+        "deliverable": "Weekly spend/reach/enquiry evidence; first tranche capped at CAD2,500.",
+        "acceptance": "Spend ceiling is a planning cap, not an instruction to buy ads now.",
+        "goalKey": "T07",
+        "dependencies": "11,12",
+        "gate": "Launch readiness"
+      },
+      {
+        "key": "17",
+        "title": "Qualify and assess the enquiry funnel",
+        "startDay": 31,
+        "dueDay": 180,
+        "owner": "Intake / assessing clinician",
+        "team": "CLIN",
+        "description": "Record permission, need, service fit and cost understanding, then arrange professional assessment only when appropriate.",
+        "deliverable": "120 qualified enquiries and 60 assessments as hypotheses.",
+        "acceptance": "No unnecessary clinical assessments or use of clinical records for marketing.",
+        "goalKey": "T09",
+        "dependencies": "08,13,16",
+        "gate": "Capacity"
+      },
+      {
+        "key": "18",
+        "title": "Audit every applicable pilot care plan",
+        "startDay": 45,
+        "dueDay": 60,
+        "owner": "RN quality lead",
+        "team": "CLIN",
+        "description": "Check consent, clinical owner, current version, assigned tasks, staff scope, review date and authorized contacts for every applicable active record.",
+        "deliverable": "Applicable-record denominator and review evidence.",
+        "acceptance": "Zero active clients is not 100% compliance; resolve serious exceptions before new admissions.",
+        "goalKey": "T16",
+        "dependencies": "13",
+        "gate": "Quality"
+      },
+      {
+        "key": "19",
+        "title": "Review Day 60 demand, care and cash",
+        "startDay": 58,
+        "dueDay": 60,
+        "owner": "CEO / RN / finance lead",
+        "team": "GOV",
+        "description": "Compare five active families, qualified demand, approved pathways, missed visits, cover, contribution and cash.",
+        "deliverable": "Continue / B-test / HOLD decision with corrective tasks.",
+        "acceptance": "No broad marketing if quality, staffing or contribution fails.",
+        "goalKey": "T19",
+        "dependencies": "13,15,18",
+        "gate": "Quality and cash"
+      },
+      {
+        "key": "20",
+        "title": "Reach Day 90 awareness and active-client milestone",
+        "startDay": 61,
+        "dueDay": 90,
+        "owner": "Marketing / operations lead",
+        "team": "BD",
+        "description": "Deepen proven permitted channels, publish real capacity and prepare staff before demand. Track 25k gross opportunities and ten active families separately.",
+        "deliverable": "25k estimated opportunities, 100 enquiries and ten active families if viable.",
+        "acceptance": "Reach, enquiries and active clients are different measures; no mixing them.",
+        "goalKey": "T13",
+        "dependencies": "19",
+        "gate": "Capacity"
+      },
+      {
+        "key": "21",
+        "title": "Monitor scheduled delivery and missed-care recovery",
+        "startDay": 31,
+        "dueDay": 180,
+        "owner": "Operations / RN quality lead",
+        "team": "OPS",
+        "description": "Review completed scheduled visits, continuity, complaints and any essential-care failures weekly. Use denominators and escalation.",
+        "deliverable": "Delivery report, incident references and closed recovery actions.",
+        "acceptance": "95% nonessential-visit completion is an internal target; every essential miss needs immediate review.",
+        "goalKey": "T17",
+        "dependencies": "13",
+        "gate": "Patient safety"
+      },
+      {
+        "key": "22",
+        "title": "Run Plan B tests only when justified",
+        "startDay": 61,
+        "dueDay": 120,
+        "owner": "Marketing / partnership lead",
+        "team": "BD",
+        "description": "If partner traction is weak, run two bounded two-week patient/caregiver-initiated channel tests; isolate a message variable and compare qualified fit.",
+        "deliverable": "Two experiments or a documented reason to keep Plan A.",
+        "acceptance": "No health-list targeting, fear claims or extra spend hiding poor service.",
+        "goalKey": "",
+        "dependencies": "19",
+        "gate": "Consent"
+      },
+      {
+        "key": "23",
+        "title": "Train and add staffed capacity before expansion",
+        "startDay": 61,
+        "dueDay": 150,
+        "owner": "RN / operations lead",
+        "team": "OPS",
+        "description": "Recruit, verify and orient competent cover as needed. Recalculate travel, productive hours and RN review demand before new bookings.",
+        "deliverable": "Updated roster, training and safe admission limit.",
+        "acceptance": "The sample 20-family model needs 160 planned service hours/week and relevant RN cover, not just accounts in a database.",
+        "goalKey": "",
+        "dependencies": "07,20",
+        "gate": "Staffing"
+      },
+      {
+        "key": "24",
+        "title": "Build six-month awareness and enquiry results",
+        "startDay": 91,
+        "dueDay": 180,
+        "owner": "Marketing / intake lead",
+        "team": "BD",
+        "description": "Use winning channels and staged budgets toward 50k gross opportunities and 240 enquiries. Deduplicate consented enquiries and report uncertainty.",
+        "deliverable": "Channel evidence, 50k opportunities and 240 voluntary enquiries if feasible.",
+        "acceptance": "The 0.48% enquiry hypothesis must be revised from actual results.",
+        "goalKey": "T08",
+        "dependencies": "20,22",
+        "gate": "Capacity"
+      },
+      {
+        "key": "25",
+        "title": "Review admissions, continuing need and exits",
+        "startDay": 91,
+        "dueDay": 180,
+        "owner": "RN / operations lead",
+        "team": "CLIN",
+        "description": "Aim for 24 suitable starts and 20 active families only where care remains appropriate. Document voluntary exits and safe transfers without pressuring retention.",
+        "deliverable": "Start/active/exit counts plus patient-choice review references.",
+        "acceptance": "Four exits is a planning assumption; do not retain unnecessary care.",
+        "goalKey": "T14",
+        "dependencies": "17,21,23",
+        "gate": "Patient choice"
+      },
+      {
+        "key": "26",
+        "title": "Review cohort economics and cash weekly",
+        "startDay": 31,
+        "dueDay": 180,
+        "owner": "Finance / operations lead",
+        "team": "FIN",
+        "description": "Track actual rate, paid hours, wages, other variable costs, collection lag, fully loaded acquisition spend and cash. Reforecast slow demand and absence cover.",
+        "deliverable": "Weekly cash and margin dashboard with monthly decisions.",
+        "acceptance": "Do not equate the Day 180 steady-state example with six-month profit.",
+        "goalKey": "T19",
+        "dependencies": "09,13",
+        "gate": "Cash"
+      },
+      {
+        "key": "27",
+        "title": "Assess narrower Plan C if A/B are uneconomic",
+        "startDay": 120,
+        "dueDay": 150,
+        "owner": "CEO / RN / commercial lead",
+        "team": "GOV",
+        "description": "Consider smaller geography, narrower staffed scope or a genuine organizational proposal through its procurement process.",
+        "deliverable": "Two qualified organizational discussions and a scoped proposal if available.",
+        "acceptance": "No assumed public contract; pause if no viable model or less than eight weeks funded runway.",
+        "goalKey": "",
+        "dependencies": "22,26",
+        "gate": "Scope and cash"
+      },
+      {
+        "key": "28",
+        "title": "Approve Day 180 continue, narrow or pause",
+        "startDay": 175,
+        "dueDay": 180,
+        "owner": "CEO / RN / finance / operations",
+        "team": "GOV",
+        "description": "Review evidence, patient choice, safety, staff load, actual contribution and cash; set the next cycle only if viable.",
+        "deliverable": "Signed strategic review and dated next actions.",
+        "acceptance": "Patient safety and payroll override every growth target.",
+        "goalKey": "T19",
+        "dependencies": "24,25,26",
+        "gate": "Safety and cash"
+      },
+      {
+        "key": "29",
+        "title": "Day 30 monthly evidence and funding review",
+        "startDay": 28,
+        "dueDay": 30,
+        "owner": "CEO / RN / finance / operations lead",
+        "team": "GOV",
+        "description": "Review actual funnel stages, receipts, delivery cost, staffing / support, quality exceptions and cash runway. Explain every unmet target, assign a dated corrective action and choose continue, narrow, pivot or HOLD.",
+        "deliverable": "Signed monthly evidence review, spend decision and owner/deadline list.",
+        "acceptance": "The reviewer reconciles source records and preserves patient choice, access security and funded commitments. No progress is invented.",
+        "goalKey": "T19",
+        "dependencies": "12",
+        "gate": "Safety and cash"
+      },
+      {
+        "key": "30",
+        "title": "Day 90 monthly evidence and funding review",
+        "startDay": 88,
+        "dueDay": 90,
+        "owner": "CEO / RN / finance / operations lead",
+        "team": "GOV",
+        "description": "Review actual funnel stages, receipts, delivery cost, staffing / support, quality exceptions and cash runway. Explain every unmet target, assign a dated corrective action and choose continue, narrow, pivot or HOLD.",
+        "deliverable": "Signed monthly evidence review, spend decision and owner/deadline list.",
+        "acceptance": "The reviewer reconciles source records and preserves patient choice, access security and funded commitments. No progress is invented.",
+        "goalKey": "T19",
+        "dependencies": "12",
+        "gate": "Safety and cash"
+      },
+      {
+        "key": "31",
+        "title": "Day 120 monthly evidence and funding review",
+        "startDay": 118,
+        "dueDay": 120,
+        "owner": "CEO / RN / finance / operations lead",
+        "team": "GOV",
+        "description": "Review actual funnel stages, receipts, delivery cost, staffing / support, quality exceptions and cash runway. Explain every unmet target, assign a dated corrective action and choose continue, narrow, pivot or HOLD.",
+        "deliverable": "Signed monthly evidence review, spend decision and owner/deadline list.",
+        "acceptance": "The reviewer reconciles source records and preserves patient choice, access security and funded commitments. No progress is invented.",
+        "goalKey": "T19",
+        "dependencies": "12",
+        "gate": "Safety and cash"
+      },
+      {
+        "key": "32",
+        "title": "Day 150 monthly evidence and funding review",
+        "startDay": 148,
+        "dueDay": 150,
+        "owner": "CEO / RN / finance / operations lead",
+        "team": "GOV",
+        "description": "Review actual funnel stages, receipts, delivery cost, staffing / support, quality exceptions and cash runway. Explain every unmet target, assign a dated corrective action and choose continue, narrow, pivot or HOLD.",
+        "deliverable": "Signed monthly evidence review, spend decision and owner/deadline list.",
+        "acceptance": "The reviewer reconciles source records and preserves patient choice, access security and funded commitments. No progress is invented.",
+        "goalKey": "T19",
+        "dependencies": "12",
+        "gate": "Safety and cash"
+      }
+    ],
+    "phases": [
+      {
+        "name": "Validate demand and ownership",
+        "startDay": 1,
+        "endDay": 14
+      },
+      {
+        "name": "Prove readiness and economics",
+        "startDay": 15,
+        "endDay": 30
+      },
+      {
+        "name": "Bounded pilot and channel test",
+        "startDay": 31,
+        "endDay": 60
+      },
+      {
+        "name": "Review early traction",
+        "startDay": 61,
+        "endDay": 90
+      },
+      {
+        "name": "Improve, pivot or add safe capacity",
+        "startDay": 91,
+        "endDay": 120
+      },
+      {
+        "name": "Controlled growth and next decision",
+        "startDay": 121,
+        "endDay": 180
+      }
+    ],
+    "teams": [
+      {
+        "key": "GOV",
+        "name": "Tenant governance",
+        "manager": "Proposed tenant manager",
+        "members": "Proposed CEO; privacy adviser; RN lead; finance lead"
+      },
+      {
+        "key": "BD",
+        "name": "Local discovery and acquisition",
+        "manager": "Proposed marketing manager",
+        "members": "Proposed research; marketing; partnership; intake roles"
+      },
+      {
+        "key": "CLIN",
+        "name": "Clinical assessment and quality",
+        "manager": "Proposed RN clinical lead",
+        "members": "Proposed competent RN / other authorized clinician roles; no staffing confirmed"
+      },
+      {
+        "key": "OPS",
+        "name": "Safe service operations",
+        "manager": "Proposed operations manager",
+        "members": "Proposed roster coordinator; competent caregivers; backup coordinator"
+      },
+      {
+        "key": "TECH",
+        "name": "Intake and workflow reliability",
+        "manager": "Proposed product / workflow manager",
+        "members": "Proposed product tester; intake coordinator; audit owner"
+      },
+      {
+        "key": "FIN",
+        "name": "Tenant finance",
+        "manager": "Proposed finance manager",
+        "members": "Proposed finance lead; operations and payroll reviewer"
+      }
+    ],
+    "weeklyRhythm": [
+      "Monday: confirm qualified demand, cash and staffed capacity; assign one owner to each blocker.",
+      "Wednesday: review safety, access, incidents and delivery exceptions; resolve or HOLD.",
+      "Friday: review actual funnel stages, spending, unit economics, missing evidence and the next bounded action.",
+      "Days 30, 60, 90, 120, 150, 180: retain a signed decision and complete a finance/quality review."
+    ],
+    "summary": "Start with a verified local care service. Test 50,000 gross awareness opportunities, 240 enquiries, 120 qualified enquiries, 60 suitable assessments, 24 suitable starts and 20 active families by Day 180, subject to need, consent, safe capacity and cash.",
+    "finance": [
+      "Illustration only: CAD52 PSW bill rate − CAD32 loaded delivery cost − CAD4 other variable cost = CAD16 contribution/hour. Nursing services need their own validated price/scope.",
+      "At 20 active families × 8 appropriate hours/week × 4.33 weeks, end-period revenue is CAD36,026 and contribution CAD11,085. Less CAD8,000 fixed and CAD1,667/month marketing allocation leaves about CAD1,418 before tax/setup. This is a steady-state example, not cumulative profit.",
+      "Illustrative capacity: 8 PSW FTE equivalents × 25 productive hours × 80% planned use = 160 hours/week, supporting 20 clients at 8 hours. RN review/backup need separate verified cover. Do not prescribe more hours to meet revenue targets.",
+      "Six-month gross envelope before receipts remains about CAD91,040: fixed 48k + marketing 10k + setup 4k + contingency 6k + four-week direct-service float 23,040. Avoid double counting the float in cash forecasts.",
+      "Illustrative fully allocated acquisition cost: CAD10,000 marketing + CAD3,000 acquisition labour already included in fixed costs, divided by 24 starts = CAD542/start; about 4.2 weeks of CAD128/client weekly contribution before fixed costs. Replace every input with actual records."
+    ],
+    "fallbacks": [
+      "A: approved professional/community pathways and local patient-initiated demand. Seek three pathways and five appropriate active families by Day 60, conditional on readiness.",
+      "B: if pathways or qualified demand are weak, run two bounded two-week caregiver/patient-initiated tests. Review at least 20 qualified enquiries before drawing an early conversion conclusion; small samples remain uncertain.",
+      "C: narrow geography/scope or seek a genuine scoped organizational contract. Pause growth if contribution is negative, essential-care failures recur, cover is absent or funded runway falls below eight weeks."
+    ]
+  }
+}

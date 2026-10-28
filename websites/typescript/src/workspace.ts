@@ -1,3 +1,4 @@
+import {businessRoles as planRoles} from '../../../packages/shared/src/business-plans/policy.mjs';
 import {mutationActorForScreen,accountCreationMarkup,bindAccountCreation} from './account-mutations-panel';
 import {tenantAccountsScreen,tenantAccountsMarkup,bindTenantAccounts} from './tenant-accounts-panel';
 import growthRegistry from '../../../packages/shared/src/growth/registry.json';
@@ -94,7 +95,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     const allowed=new Set(data.screens.map(p=>p.code));
     const callEntry=callScreens[0];
     const callLink=callEntry?`<a data-cy=internal-call-open href="${escapeHtml(routeUrl(callEntry.route))}&amp;view=calls">${escapeHtml(document.documentElement.lang==='fr'?'Appels':document.documentElement.lang==='es'?'Llamadas':'Calls')}</a>`:'';
-    const nav=callLink+(data.actions??[]).map(p=>`<a href="${escapeHtml(routeUrl(p.route))}">${escapeHtml(p.name)}</a>`).join('')+data.screens.map(s=>link(s).replace('<a ',`<a ${s.code===page?.code?'aria-current="page"':''} `)).join('');
+    const nav=(planRoles.includes(data.identity.role)?'<a href="/business-plans">Business plans &amp; learning</a>':'')+callLink+(data.actions??[]).map(p=>`<a href="${escapeHtml(routeUrl(p.route))}">${escapeHtml(p.name)}</a>`).join('')+data.screens.map(s=>link(s).replace('<a ',`<a ${s.code===page?.code?'aria-current="page"':''} `)).join('');
     const cards=metric(t('users'),data.overview.activeAccounts)+metric(t('sessions'),data.overview.activeSessions)+metric(t('pages'),data.screens.length)+metric(t('pending'),pending.length);
     const sections=page?.sections.map(section=>{
       let body=`<p>${escapeHtml(section.purpose)}</p>`;
