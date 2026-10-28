@@ -2,7 +2,7 @@ name: Code Admin page and workflow audit
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/code-admin-page-audit.yml', 'scripts/browser-accessibility.mjs', 'scripts/test-admin-training-browser.mjs', 'scripts/test-external-call-browser.mjs', 'websites/typescript/src/styles.css', 'websites/typescript/src/code-admin-layout.ts']
+    paths: ['websites/typescript/src/layout-customizer.ts', 'scripts/test-layout-manager-browser.mjs', '.github/workflows/code-admin-page-audit.yml', 'scripts/browser-accessibility.mjs', 'scripts/test-admin-training-browser.mjs', 'scripts/test-external-call-browser.mjs', 'websites/typescript/src/styles.css', 'websites/typescript/src/code-admin-layout.ts']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
