@@ -24,6 +24,7 @@ jobs:
         options: --health-cmd "pg_isready -U audit_fixture -d call_audit_test" --health-interval 5s --health-timeout 5s --health-retries 10
     env:
       AUDIT_TEST_DATABASE_URL: postgres://audit_fixture:disposable-only@localhost:5432/call_audit_test
+      BUSINESS_TEST_DATABASE_URL: postgres://audit_fixture:disposable-only@localhost:5432/call_audit_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,7 +33,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/audit-test" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 twilio@6.2.0 pg@8.16.3 @types/pg@8.15.5 typescript@5.9.3 @types/node@24.0.0 @cloudflare/workers-types@4.20260403.1 miniflare@4.20260730.0
           ln -s "$RUNNER_TEMP/audit-test/node_modules" node_modules
       - run: |
-          node --test scripts/test-verification-outcome.mjs scripts/test-call-audit.mjs scripts/test-vapi-service-auth.mjs scripts/test-vapi-call-read.mjs scripts/test-vapi-call-identity.mjs
+          node --test scripts/test-verification-outcome.mjs scripts/test-call-audit.mjs scripts/test-vapi-service-auth.mjs scripts/test-vapi-call-read.mjs scripts/test-vapi-call-identity.mjs scripts/test-vapi-business-function.mjs scripts/test-vapi-client-tools.mjs scripts/test-vapi-verified-runtime.mjs scripts/test-vapi-request-tool-library.mjs scripts/test-communication-voice-otp.mjs scripts/test-communication-twilio-verify.mjs scripts/test-communication-endpoint-policy.mjs
           node scripts/migrate-call-audit.mjs --reference
           node scripts/test-call-audit-postgres.mjs
           node scripts/test-call-audit-provider-workerd.mjs
