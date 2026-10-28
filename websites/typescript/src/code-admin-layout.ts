@@ -11,6 +11,8 @@ export function codeAdminNavigation(markup:string,locale:string):string{
  const groups:string[][]=[[],[],[],[]];const template=document.createElement('template');template.innerHTML=markup;
  for(const node of Array.from(template.content.children)){
   const id=(node as HTMLElement).dataset.section;
+  if(node.tagName==='A'&&!node.querySelector('.media-icon'))node.insertAdjacentHTML('afterbegin',new BaseMediaLook().icon(id==='vapi'||id==='calls'?'phone':'link'));
+
   const group=id==='account'?3:node.hasAttribute('data-cy')&&['look-nav','platform-nav-vapi','platform-nav-calls'].includes(node.getAttribute('data-cy')!)||['training','text'].includes(id??'')?2:['operations','bundle','reports','audit','territories'].includes(id??'')||node.getAttribute('data-cy')==='platform-growth-link'?1:0;
   groups[group].push(node.outerHTML);
  }
