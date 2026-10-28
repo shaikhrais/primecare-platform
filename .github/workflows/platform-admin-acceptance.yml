@@ -61,14 +61,6 @@ jobs:
         env:
           ACCESSIBILITY_CONTRAST_REVIEW: '1'
         run: node --test scripts/test-platform-history.mjs
-      - name: Scan administrative and growth role accessibility
-        id: accessibility
-        continue-on-error: true
-        env:
-          ACCESSIBILITY_CONTRAST_REVIEW: '1'
-        run: node --test scripts/test-admin-growth-accessibility.mjs
-      - name: Summarize visible-state contrast evidence
-        run: node scripts/summarize-contrast-review.mjs
       - name: Validate scoped attention queue and workflow correction navigation
         run: node --test scripts/test-platform-attention.mjs
       - name: Validate public territory routing with UUID and text tenant identities
@@ -95,6 +87,14 @@ jobs:
           node_modules/.bin/tsc --noEmit --allowImportingTsExtensions --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/platform-administration.ts websites/typescript/src/main.ts
       - name: Record real platform-admin browser workflows
         run: node scripts/test-platform-admin-browser.mjs
+      - name: Scan administrative and growth role accessibility
+        id: accessibility
+        continue-on-error: true
+        env:
+          ACCESSIBILITY_CONTRAST_REVIEW: '1'
+        run: node --test scripts/test-admin-growth-accessibility.mjs
+      - name: Summarize visible-state contrast evidence
+        run: node scripts/summarize-contrast-review.mjs
       - name: Require accessibility acceptance
         if: always()
         run: test "${{ steps.accessibility.outcome }}" = success
