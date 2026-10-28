@@ -42,7 +42,7 @@ jobs:
         with:
           node-version: 24
       - run: |
-          npm install --prefix /tmp/signout-tools --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@3 esbuild@0.27.2 playwright@1.60.0
+          npm install --prefix /tmp/signout-tools --ignore-scripts --no-audit --no-fund pg@8.16.3 bcryptjs@3 esbuild@0.27.2 playwright@1.60.0 @twilio/voice-sdk@2.18.5
           ln -s /tmp/signout-tools/node_modules node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - name: Confirm session transport and preserve credential-login regressions
