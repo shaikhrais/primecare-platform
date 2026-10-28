@@ -6,7 +6,7 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {build} from 'esbuild';
 import {createRequire} from 'node:module';
-import {businessRoles,authorizeAction,loopSummary,publicCycle} from '../packages/shared/src/business-plans/policy.mjs';
+import {businessRoles,contributors,manager,authorizeAction,loopSummary,publicCycle} from '../packages/shared/src/business-plans/policy.mjs';
 import {familyPayload,FAMILIES} from '../packages/shared/src/business-plans/template-families.mjs';
 import {validatePayload} from '../packages/shared/src/business-plans/template-learning.mjs';
 const dir=await mkdtemp(join(tmpdir(),'business-plan-test-'));
@@ -25,6 +25,7 @@ try{
  await seedBusinessPlanTemplates(db);
  await db.query('INSERT INTO tenants VALUES($1,$2,$3,$4),($5,$6,$7,$8)',[ta,'Fixture A','fixture-a','active',tb,'Fixture B','fixture-b','active']);
  for(const a of [ma,mb,staff,reviewer,code])await db.query('INSERT INTO users VALUES($1,$2,$3,$4,$5)',[a.id,a.roles+'@example.invalid',a.roles,a.tenant_id,'active']);
+ for(const role of contributors){check(businessRoles.includes(role)&&!manager({roles:role}),'support roles remain assigned-only: '+role);}
  const catalog=await rm.list();check(catalog.templates.length===14,'14 templates');check(catalog.notices.length===1,'role rollout notice');
  for(const f of FAMILIES)for(const flow of ['master','tenant']){validatePayload(familyPayload(flow,f.key),flow);checks++;}
  const tpl=catalog.templates.find(t=>t.flow==='tenant'&&t.family==='lean_operations');

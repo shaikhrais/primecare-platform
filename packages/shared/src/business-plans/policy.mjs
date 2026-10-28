@@ -1,5 +1,5 @@
 export const managers=['code_admin','platform_admin','central_admin','ceo','owner','tenant_admin'];
-export const contributors=['marketing','local_marketing','growth_caller','growth_google','growth_meta','growth_seo','growth_offline','growth_coordinator'];
+export const contributors=['marketing','local_marketing','growth_caller','growth_google','growth_meta','growth_seo','growth_offline','growth_coordinator','bus_dev','franchise_sales','community_outreach','partnership','cfo','finance_director','coo','ops_manager','gm','customer_support','cx_director','hr_director','hr_hiring','cto','ciso','legal','compliance'];
 export const businessRoles=[...managers,...contributors];
 export const globalManager=a=>['code_admin','platform_admin','central_admin'].includes(a.roles);
 export const manager=a=>managers.includes(a.roles);
