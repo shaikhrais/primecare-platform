@@ -1,5 +1,6 @@
 // Selected Tabler Icons (MIT). See docs/appearance/TABLER_ICONS_LICENSE.txt.
 const paths={
+  "refresh": "<path d=\"M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4\" />\n  <path d=\"M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4\" />",
   "building": "<path d=\"M3 21l18 0\" />\n  <path d=\"M9 8l1 0\" />\n  <path d=\"M9 12l1 0\" />\n  <path d=\"M9 16l1 0\" />\n  <path d=\"M14 8l1 0\" />\n  <path d=\"M14 12l1 0\" />\n  <path d=\"M14 16l1 0\" />\n  <path d=\"M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16\" />",
   "building-plus": "<path d=\"M3 21h9\" />\n  <path d=\"M9 8h1\" />\n  <path d=\"M9 12h1\" />\n  <path d=\"M9 16h1\" />\n  <path d=\"M14 8h1\" />\n  <path d=\"M14 12h1\" />\n  <path d=\"M5 21v-16c0 -.53 .211 -1.039 .586 -1.414c.375 -.375 .884 -.586 1.414 -.586h10c.53 0 1.039 .211 1.414 .586c.375 .375 .586 .884 .586 1.414v7\" />\n  <path d=\"M16 19h6\" />\n  <path d=\"M19 16v6\" />",
   "layout-dashboard": "<path d=\"M5 4h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1\" />\n  <path d=\"M5 16h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1\" />\n  <path d=\"M15 12h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1\" />\n  <path d=\"M15 4h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1\" />",
@@ -27,6 +28,6 @@ const paths={
 } as const;
 export type ShellIcon=keyof typeof paths;
 export function shellIcon(name:ShellIcon):string{return `<svg class="media-icon shell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${paths[name]}</svg>`;}
-const destinations:Record<string,ShellIcon>={tenants:'building-plus','tenant-selection':'building',onboarding:'shield-check',accounts:'users',masters:'database',audit:'clipboard-check',reports:'chart-bar',territories:'map-2',operations:'adjustments-horizontal',bundle:'rocket',growth:'chart-bar',training:'school',text:'file-text',account:'user-circle',vapi:'robot',calls:'phone',look:'palette'};
+const destinations:Record<string,ShellIcon>={tenants:'layout-dashboard','tenant-selection':'building',onboarding:'shield-check',accounts:'users',masters:'database',audit:'clipboard-check',reports:'chart-bar',territories:'map-2',operations:'adjustments-horizontal',bundle:'rocket',growth:'chart-bar',training:'school',text:'file-text',account:'user-circle',vapi:'robot',calls:'phone',look:'palette'};
 export function navigationIcon(destination:string):string{return shellIcon(destinations[destination]??'layout-dashboard');}
 

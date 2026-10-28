@@ -41,5 +41,5 @@ export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,
  bindSidebar(root);
  mountNavigation(root.querySelector<HTMLElement>('[data-cy=global-navigation]')!,title,locale,scope,entries);
  if(profileScope)mountLayoutCustomizer(root,profileScope,locale,defaultTheme);
- for(const [selector,icon] of [['[data-cy=platform-account-link]','user-circle'],['[data-cy=platform-refresh]','adjustments-horizontal'],['[data-cy=platform-logout]','logout']] as const){const action=root.querySelector(selector);if(action&&!action.querySelector('svg'))action.insertAdjacentHTML('afterbegin',shellIcon(icon));}
+ for(const [selector,icon] of [['[data-cy=platform-account-link]','user-circle'],['[data-cy=platform-refresh]','refresh'],['[data-cy=platform-logout]','logout']] as const){const action=root.querySelector(selector);if(action&&!action.querySelector('svg'))action.insertAdjacentHTML('afterbegin',shellIcon(icon));}
 }
