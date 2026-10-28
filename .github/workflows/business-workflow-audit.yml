@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/business-workflow-audit.yml', 'scripts/run-business-workflow-audit.mjs', 'scripts/test-care*.mjs', 'scripts/test-growth*.mjs', 'scripts/test-workspace*.mjs', 'scripts/test-account-admin*.mjs', 'scripts/test-care-metadata*.mjs', 'scripts/test-screen-text*.mjs', 'cloudflare/workers/src/care/**', 'cloudflare/workers/src/growth/**']
+    paths: ['.github/workflows/business-workflow-audit.yml', 'scripts/run-business-workflow-audit.mjs', 'scripts/test-care*.mjs', 'scripts/test-growth*.mjs', 'scripts/test-workspace*.mjs', 'scripts/test-account-admin*.mjs', 'scripts/test-care-metadata*.mjs', 'scripts/test-screen-text*.mjs', 'cloudflare/workers/src/care/**', 'cloudflare/workers/src/growth/**', 'websites/typescript/src/growth/**', 'packages/shared/src/growth/**', 'scripts/fixtures/growth-read-model.mjs']
 permissions: {contents: read}
 jobs:
   audit:

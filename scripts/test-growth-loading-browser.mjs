@@ -1,3 +1,4 @@
+import {emptyGrowthReadModel as data} from './fixtures/growth-read-model.mjs';
 /** Real Growth renderer with controlled HTTP failures; no login or database verification. */
 import assert from 'node:assert/strict';
 import {build} from 'esbuild';
@@ -18,7 +19,7 @@ const sources={};
 for(const path of [...Object.keys(bundle.metafile.inputs).filter(p=>p!=='<stdin>'&&!p.includes('node_modules/')),'scripts/test-growth-loading-browser.mjs','scripts/care-browser-launch.mjs','websites/typescript/src/styles.css'])sources[path]=hash(await readFile(path));
 report.sources=sources;
 // Only the complete empty read model needed by the production renderer. It grants no mutation.
-const data={identity:{role:'ceo',userId:'synthetic-growth-reader',tenantId:'synthetic-tenant'},capabilities:{view:true,create:false,edit:false,manageCampaignMoney:false,manageTeam:false,viewLeads:true,viewCampaigns:true,viewFunnels:true,createLead:false,editLead:false,editContact:false,manageDuplicates:false,createCampaign:false,editCampaign:false,editBrief:false,createTask:false,editTask:false,recordCall:false,createAppointment:false,editAppointment:false},plan:{start:'2026-10-01',end:'2026-10-31',targets:policy.targets,version:0},canEditPlan:false,canOpenAdmin:false,canReviewLook:false,canReport:false,canManageIntake:false,priorities:[],funnels:{tenant:[],client:[]},leads:[],campaigns:[],tasks:[],owners:[],team:[],callQueue:[],calls:[],appointments:[],activity:{calls:0,upcoming:0},stats:{total:0,overdue:0},sourcePerformance:[],campaignTotal:0,spendCents:'0',business:{canBusiness:false},alerts:[],duplicates:[],intakeLinks:[],intakeOwners:[],intakeCampaigns:[],reportDeliveries:[]};
+
 const server=createServer((req,res)=>{
  const path=new URL(req.url,'http://test').pathname;
  if(path==='/app.js'){res.setHeader('content-type','text/javascript');res.end(bundle.outputFiles[0].text);}
