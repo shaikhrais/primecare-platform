@@ -11,6 +11,9 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare explicit isolated governance metadata
+        env: {GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'}
+        run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: npm ci --ignore-scripts
@@ -47,6 +50,9 @@ jobs:
       GROWTH_TEST_DATABASE_URL: postgresql://audit:fixture-only@localhost:5432/audit
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare explicit isolated governance metadata
+        env: {GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'}
+        run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: npm ci --ignore-scripts

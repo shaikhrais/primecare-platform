@@ -24,6 +24,9 @@ jobs:
       PLATFORM_TEST_DATABASE_URL: postgresql://platform:integration-only@localhost:5432/platform
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare explicit isolated governance metadata
+        env: {GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'}
+        run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -32,7 +35,11 @@ jobs:
           ln -s /tmp/code-admin-tests/node_modules node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - name: Validate protected setup, grants, tenant boundaries, session invalidation and audit rollback
-        run: node --test scripts/test-code-admin-mfa-client.mjs scripts/test-code-admin-mfa-secret.mjs scripts/test-code-admin-totp.mjs scripts/test-code-admin-bootstrap.mjs scripts/test-code-admin-owner.mjs scripts/test-platform-bootstrap.mjs scripts/test-platform-administration-postgres.mjs scripts/test-account-admin-api.mjs scripts/test-auth-management.mjs scripts/test-method-capture-blockers.mjs
+        run: node --test scripts/test-code-admin-mfa-client.mjs scripts/test-code-admin-mfa-secret.mjs scripts/test-code-admin-totp.mjs scripts/test-code-admin-bootstrap.mjs scripts/test-code-admin-owner.mjs scripts/test-platform-bootstrap.mjs scripts/test-platform-administration-postgres.mjs scripts/test-account-admin-api.mjs scripts/test-auth-management.mjs
+      - name: Preserve independent reviewed-route drift gate
+        id: route_review
+        continue-on-error: true
+        run: node --test scripts/test-method-capture-blockers.mjs
       - name: Verify native MFA enrollment, replay and rollback for text and UUID identities
         env:
           MFA_TEST_DATABASE_URL: postgresql://platform:integration-only@localhost:5432/platform
@@ -53,3 +60,6 @@ jobs:
             test-results/code-admin-browser
             test-results/mfa-browser
           retention-days: 30
+      - name: Fail audit if reviewed-route evidence is stale
+        if: always()
+        run: test "${{ steps.route_review.outcome }}" = success
