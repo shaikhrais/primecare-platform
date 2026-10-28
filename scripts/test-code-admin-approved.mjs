@@ -17,7 +17,7 @@ await build({entryPoints:['cloudflare/workers/src/platform-administration.ts'],b
 await writeFile(file,(await readFile(file,'utf8')).replaceAll('require("pg")',`require(${JSON.stringify(join(process.cwd(),'node_modules/pg'))})`));
 const {platformAdministration}=createRequire(import.meta.url)(file);
 async function verifyApprovedTopbar(page,width,locale){
- const input=page.locator('[data-cy=universal-search]');assert.equal(await page.locator('.approved-profile-avatar').innerText(),'CA');
+ const input=page.locator('[data-cy=universal-search]');assert.equal(await input.evaluate(e=>getComputedStyle(e).borderTopWidth),'0px');assert.equal(await page.locator('.approved-profile-avatar').innerText(),'CA');
  if(width===1440){assert.equal(await page.locator('.topbar-title').isVisible(),true);assert.ok((await page.locator('.topbar-title').innerText()).includes(({en:'Overview',fr:'Vue d’ensemble',es:'Vista general'})[locale]));assert.equal(await page.locator('.topbar').evaluate(e=>e.getBoundingClientRect().height),70);const search=await page.locator('.global-search').boundingBox(),controls=await page.locator('.shell-controls').boundingBox();assert.ok(search.width<=240&&search.x+search.width<=controls.x,'Compact search must sit before the right controls');}
  await input.press('Control+k');assert.equal(await input.evaluate(e=>e===document.activeElement),true);await input.fill('Maple');await page.locator('[data-cy=universal-search-result]').first().waitFor();await input.press('Escape');assert.equal(await page.locator('[data-cy=universal-search-results]').isVisible(),false);await input.fill('');
 }
