@@ -17,8 +17,9 @@ jobs:
         run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
-      - run: npm ci --ignore-scripts
-      - run: npm install --no-save --package-lock=false --ignore-scripts bcryptjs@3.0.2 pg@8.16.3
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/page-audit-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 pg@8.16.3 bcryptjs@3.0.2 @twilio/voice-sdk@2.18.5 axe-core@4.10.3
+          ln -s "$RUNNER_TEMP/page-audit-tools/node_modules" node_modules
       - run: npx playwright install chromium
       - name: Check layout preferences, training, theme, voice administration and Account workflows
         run: |
@@ -57,8 +58,9 @@ jobs:
         run: python3 tools/governance-production/prepare-ci-fixture.py
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
-      - run: npm ci --ignore-scripts
-      - run: npm install --no-save --package-lock=false --ignore-scripts bcryptjs@3.0.2 pg@8.16.3
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/page-audit-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 pg@8.16.3 bcryptjs@3.0.2 @twilio/voice-sdk@2.18.5 axe-core@4.10.3
+          ln -s "$RUNNER_TEMP/page-audit-tools/node_modules" node_modules
       - run: npx playwright install chromium
       - run: node --test scripts/test-look-manager.mjs
       - uses: actions/upload-artifact@v4
