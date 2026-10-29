@@ -11,5 +11,8 @@ assert all((root/s['file']).is_file() and s['code'].startswith('psw_personal_') 
 assert c['endpoint']=='/v1/governance/care/personal'
 source=(root/'websites/typescript/src/psw-personal/view.mjs').read_text()
 assert 'localStorage' not in source and 'api.mutate' in source and 'renderCare' in source
-ast.parse((root/'tools/governance-production/psw_personal_registration.py').read_text())
+module=ast.parse((root/'tools/governance-production/psw_personal_registration.py').read_text())
+for node in ast.walk(module):
+ if isinstance(node,ast.Call) and isinstance(node.func,ast.Attribute) and node.func.attr=='execute' and isinstance(node.func.value,ast.Name) and node.args and isinstance(node.args[0],ast.Constant) and isinstance(node.args[0].value,str):
+  assert '%' not in node.args[0].value, 'Logical SQL must parameterize literal percent signs before psycopg translation'
 print('PSW personal catalogue passed: 50 questions, 18 tasks, 12 screens, pinned PostgreSQL registration, real care reuse and no localStorage persistence.')

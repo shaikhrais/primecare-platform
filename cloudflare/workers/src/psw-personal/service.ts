@@ -37,7 +37,7 @@ export async function pswPersonal(request:Request,env:Env,path:string,headers:He
  }
  const live=dataset==='live'?await personalLive(db,a,from,data):null;
  if(dataset==='demo')data.audit=(await db.query("SELECT action,detail,created_at AS at FROM psw_personal_events WHERE tenant_id=$1 AND workspace_key=$2 ORDER BY created_at DESC,id LIMIT 50",[tenant,workspace])).rows.map(r=>({...r,detail:JSON.stringify(r.detail)}));
- response={dataset,personalWorkspace:true,workspaceKey:workspace,database:'PostgreSQL',synthetic:dataset==='demo',version,state:live?.state||data,profile:live?.profile||{name:'Aisha Patel',role:'psw',qualified:true},windows:live?.windows||[],truncated:live?.truncated||false,identity:{userId:a.id,role:a.roles,tenantId:tenant,organization:org.name},from,today:dataset==='demo'?'2026-10-28':nowDate(),liveCareAvailable:['psw','hsw'].includes(a.roles),demoCleared:data.demoCleared===true};
+ response={dataset,personalWorkspace:true,workspaceKey:workspace,database:'PostgreSQL',synthetic:dataset==='demo',version,state:live?.state||data,profile:live?.profile||{name:'Aisha Patel',role:'psw',qualified:true},team:live?.team||[],windows:live?.windows||[],truncated:live?.truncated||false,identity:{userId:a.id,role:a.roles,tenantId:tenant,organization:org.name},from,today:dataset==='demo'?'2026-10-28':nowDate(),liveCareAvailable:['psw','hsw'].includes(a.roles),demoCleared:data.demoCleared===true};
  }
  if(mutation)await db.query('INSERT INTO psw_workspace_requests(actor_id,idempotency_key,fingerprint,response) VALUES($1,$2,$3,$4)',[a.id,key,fingerprint,JSON.stringify(response)]);await db.query('COMMIT');return json(response,200,safe);
  }catch(e){await db.query('ROLLBACK');throw e;}});

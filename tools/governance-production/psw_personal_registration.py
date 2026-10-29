@@ -28,7 +28,8 @@ class PersonalStore(ProductionWorkflowStore):
   if table=='api_endpoints' and key.get('route_path') not in {definition['endpoint'],*[a['route'] for a in definition['existingContractsToReuse']]}:raise GovernanceReadError('Unrelated API refused')
   if 'screen_id' in key or 'screen_id' in values:
    sid=key.get('screen_id',values.get('screen_id'))
-   if not self.execute("SELECT id FROM screens WHERE id=? AND screen_code LIKE 'psw_personal_%'",(sid,)).fetchone():raise GovernanceReadError('Exact personal screen required')
+   rows=self.execute('SELECT screen_code FROM screens WHERE id=?',(sid,)).fetchall()
+   if len(rows)!=1 or rows[0][0] not in {s['code'] for s in definition['screens']}:raise GovernanceReadError('Exact personal screen required')
   if table=='language_resources' and not key.get('resource_key','').startswith('psw.personal.'):raise GovernanceReadError('Unrelated resource refused')
   fields=list(key)+[k for k in values if k not in key];columns={c['name'] for c in self.tables[table]['columns']}
   if not set(fields)<=columns:raise GovernanceReadError('Unregistered personal metadata fields: '+table+' '+str(set(fields)-columns))
