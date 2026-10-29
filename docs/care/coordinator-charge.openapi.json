@@ -1,0 +1,200 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare PSW Coordinator additional charge",
+    "version": "1.0.0",
+    "description": "Separate primary role and additional charge. Effective coordinator context reuses existing scheduler permissions. Date boundaries use America/Toronto; end exclusive. No self-approval or clinical authority."
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "paths": {
+    "/v1/governance/care/additional-charge": {
+      "get": {
+        "operationId": "pswCoordinatorChargeGet",
+        "summary": "Read assignments and audit",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "tenant",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Central administrators only: select an active tenant; tenant admins cannot cross their tenant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped assignments and audit; primary role preserved"
+          },
+          "400": {
+            "description": "Invalid body, query or dates"
+          },
+          "401": {
+            "description": "Active session required"
+          },
+          "403": {
+            "description": "Role, tenant or current assignment denied"
+          },
+          "404": {
+            "description": "Organization or assignment not found"
+          },
+          "409": {
+            "description": "Overlapping assignment, stale version or changed idempotency request"
+          },
+          "415": {
+            "description": "JSON content required"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Database unavailable; no success assumed"
+          }
+        }
+      },
+      "post": {
+        "operationId": "pswCoordinatorChargePost",
+        "summary": "Assign, end or enter a coordinator additional charge",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "tenant",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Central administrators only: select an active tenant; tenant admins cannot cross their tenant."
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped assignments and audit; primary role preserved"
+          },
+          "400": {
+            "description": "Invalid body, query or dates"
+          },
+          "401": {
+            "description": "Active session required"
+          },
+          "403": {
+            "description": "Role, tenant or current assignment denied"
+          },
+          "404": {
+            "description": "Organization or assignment not found"
+          },
+          "409": {
+            "description": "Overlapping assignment, stale version or changed idempotency request"
+          },
+          "415": {
+            "description": "JSON content required"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Database unavailable; no success assumed"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "action"
+                ],
+                "properties": {
+                  "action": {
+                    "enum": [
+                      "assign",
+                      "revoke",
+                      "enter"
+                    ]
+                  },
+                  "userId": {
+                    "type": "string"
+                  },
+                  "startsOn": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "endsOn": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 1000
+                  },
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "additionalProperties": false
+              },
+              "examples": {
+                "assign": {
+                  "value": {
+                    "action": "assign",
+                    "userId": "tenant-admin-id",
+                    "startsOn": "2026-10-28",
+                    "endsOn": "",
+                    "reason": "Cover coordinator responsibility while recruiting."
+                  }
+                },
+                "revoke": {
+                  "value": {
+                    "action": "revoke",
+                    "id": "11111111-1111-4111-8111-111111111111",
+                    "version": 1,
+                    "reason": "Dedicated coordinator appointed."
+                  }
+                },
+                "enter": {
+                  "value": {
+                    "action": "enter",
+                    "id": "11111111-1111-4111-8111-111111111111"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

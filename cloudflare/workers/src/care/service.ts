@@ -1,3 +1,5 @@
+import {coordinatorCharge} from '../coordinator-charge/service';
+import {chargeContext,chargeAudit} from '../coordinator-charge/context';
 import {pswPersonal} from '../psw-personal/service';
 import {pswWorkspace} from '../psw-workspace/service';
 import {json,withDb,tokenFrom,sha256,parseBody,bodyFailure,type Env} from '../auth';
@@ -17,6 +19,7 @@ import {operational} from '../../../../packages/shared/src/care/contract';
 
 export async function careDelivery(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null>{
  if(env.SERVICE_NAME!=='governance'||!(path==='/care'||path.startsWith('/care/')))return null;
+ const chargeResponse=await coordinatorCharge(request,env,path,headers);if(chargeResponse)return chargeResponse;
  const personalResponse=await pswPersonal(request,env,path,headers);if(personalResponse)return personalResponse;
  const workspaceResponse=await pswWorkspace(request,env,path,headers);if(workspaceResponse)return workspaceResponse;
  const safe=new Headers(headers);safe.set('cache-control','no-store');safe.set('x-content-type-options','nosniff');safe.set('referrer-policy','no-referrer');
@@ -45,16 +48,17 @@ export async function careDelivery(request:Request,env:Env,path:string,headers:H
    if(typeof rate!=='number')throw Error('Invalid rate');if(rate>120){safe.set('retry-after','60');fail(429,'rate_limited');}
    await db.query(read?'BEGIN ISOLATION LEVEL REPEATABLE READ':'BEGIN');let committed=false;
    try{
-    actor=check(await session(true));const repo=new CareRepository(db,actor);
+    actor=await chargeContext(db,check(await session(true)),request);const repo=new CareRepository(db,actor);
     if(read){const result=await repo.snapshot(Number(offsetText),selected??undefined,view,Number(staffingOffset),staff??undefined,Number(seriesOffset),Number(timeOffset),Number(handoverOffset),Number(followupOffset),followupView,followupOwner,Number(workloadOffset),workloadQuery,rosterQuery,Number(visitOffset),visitQuery,Number(sourceOffset),sourceQuery);await db.query('COMMIT');committed=true;return json(result,200,safe);}
     const v=kind==='handovers'?handoverBody(raw):kind==='followups'?followupBody(raw):kind==='schedules'?scheduleBody(raw):kind==='time-records'?timeBody(raw):kind==='staffing'?staffingBody(raw):kind==='clearances'?clearanceBody(raw):kind==='cases'?caseBody(raw):actionBody(raw);
     await db.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',['care-request:'+actor.id+':'+key]);
     if(kind==='schedules'&&!operational(actor))fail(403,'forbidden');
     const context=kind==='handovers'?await authorizeHandover(repo,v):kind==='followups'?await authorizeFollowup(repo,v):kind==='schedules'?null:kind==='time-records'?await authorizeTime(repo,v):kind==='staffing'?await authorizeStaffing(repo,v):await authorizeCareCommand(repo,kind!,id,v);
-    const hash=await sha256(canonical({path,body:raw,tenant:actor.tenant_id})),previous=optionalRow((await db.query('SELECT fingerprint,response,status FROM care_requests WHERE actor_id::text=$1 AND idempotency_key=$2',[actor.id,key])).rows);
+    const hash=await sha256(canonical({path,body:raw,tenant:actor.tenant_id,chargeId:(actor as any).chargeId||null})),previous=optionalRow((await db.query('SELECT fingerprint,response,status FROM care_requests WHERE actor_id::text=$1 AND idempotency_key=$2',[actor.id,key])).rows);
     if(previous){if(previous.fingerprint!==hash)fail(409,'conflict');await db.query('COMMIT');committed=true;return json(previous.response,Number(previous.status),safe);}
     const commands=new CareCommands(repo),result=kind==='handovers'?await handoverCommand(repo,context,v):kind==='followups'?await followupCommand(repo,context,v):kind==='schedules'?await scheduleCommand(repo,v):kind==='time-records'?await timeCommand(repo,context,v):kind==='staffing'?await staffingCommand(repo,v,context):kind==='clearances'?await commands.verify(v):kind==='cases'?await commands.create(v):await commands.action(context,v),status=kind==='cases'?201:200;
     await db.query('INSERT INTO care_requests(actor_id,idempotency_key,fingerprint,response,status) VALUES($1,$2,$3,$4,$5)',[actor.id,key,hash,JSON.stringify(result),status]);
+    await chargeAudit(db,actor,'care_action',{path,action:raw.action||kind});
     await db.query('COMMIT');committed=true;return json(result,status,safe);
    }finally{if(!committed)await db.query('ROLLBACK');}
   });

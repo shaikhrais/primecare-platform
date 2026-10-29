@@ -1,0 +1,16 @@
+{
+ "screenCode":"psw_coordinator_additional_charge",
+ "route":"/coordinator-charge",
+ "endpoint":"/v1/governance/care/additional-charge",
+ "title":"Additional charge · PSW Coordinator",
+ "effectiveRole":"scheduler",
+ "primaryRole":"tenant_admin",
+ "managerRoles":["tenant_admin","code_admin","platform_admin","central_admin"],
+ "header":"X-Requested-With",
+ "headerPrefix":"primecare:psw-coordinator:",
+ "controls":{"assign":"Assign additional charge","revoke":"End additional charge","enter":"Open coordinator workspace","return":"Return to Tenant Admin","refresh":"Refresh records"},
+ "policy":{"separatePrimaryRole":true,"sameTenantOnly":true,"revalidateEveryRequest":true,"clinicalAuthority":false,"selfApproval":false,"syntheticAssignmentsInProduction":false},
+ "labels":{"en":{"title":"Additional charge · PSW Coordinator","description":"One account. Two separate responsibilities.","primary":"Tenant Admin","additional":"PSW Coordinator","status":"Assignment status","assign":"Assign additional charge","revoke":"End additional charge","enter":"Open coordinator workspace","return":"Return to Tenant Admin","refresh":"Refresh records"}},
+ "workflow":"care.psw.additional_charge",
+ "sourceFiles":["websites/typescript/src/coordinator-charge/index.ts","cloudflare/workers/src/coordinator-charge/service.ts","cloudflare/workers/src/coordinator-charge/context.ts"]
+}

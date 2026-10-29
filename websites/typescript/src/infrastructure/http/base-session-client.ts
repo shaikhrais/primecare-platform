@@ -17,9 +17,10 @@ export abstract class BaseSessionClient {
 
  protected async requestJson(path:string,method:string,body?:unknown,expectedStatus?:number){
   this.assertSession();
-  const serialized=body===undefined?undefined:JSON.stringify(body),key=this.retryFingerprint(path,method,serialized),mutation=method!=='GET';
+  let chargeId='';if(this.endpoint.startsWith('/v1/governance/care')&&!this.endpoint.endsWith('/additional-charge')){try{const charge=JSON.parse(sessionStorage.getItem('primecare_care_charge')||'null');if(charge?.token===this.token&&typeof charge.id==='string')chargeId=charge.id;}catch{}}
+  const serialized=body===undefined?undefined:JSON.stringify(body),key=chargeId+this.retryFingerprint(path,method,serialized),mutation=method!=='GET';
   if(mutation&&!this.retries.has(key))this.retries.set(key,crypto.randomUUID());
-  const response=await fetch(this.gateway+this.endpoint+path,{method,cache:'no-store',headers:{authorization:'Bearer '+this.token,...(mutation?{'content-type':'application/json','idempotency-key':this.retries.get(key)!}:{})},...(serialized===undefined?{}:{body:serialized})});
+  const response=await fetch(this.gateway+this.endpoint+path,{method,cache:'no-store',headers:{authorization:'Bearer '+this.token,...(chargeId?{'x-requested-with':'primecare:psw-coordinator:'+chargeId}:{}),...(mutation?{'content-type':'application/json','idempotency-key':this.retries.get(key)!}:{})},...(serialized===undefined?{}:{body:serialized})});
   const value=await response.json();
   this.assertSession();
   if(!response.ok)this.rejectResponse(response,value);

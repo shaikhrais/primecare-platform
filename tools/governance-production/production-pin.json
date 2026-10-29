@@ -1575,5 +1575,37 @@
       "clinical_director",
       "rn_field_supervisor"
     ]
+  },
+  "pswCoordinatorChargeWriter": {
+    "optInVariable": "GOVERNANCE_PSW_CHARGE_REGISTRATION",
+    "tables": [
+      "screens",
+      "screen_requirements",
+      "role_screen_permissions",
+      "screen_sections",
+      "screen_section_elements",
+      "element_primecare_component_map",
+      "language_resources",
+      "language_resource_values",
+      "screen_components",
+      "screen_required_elements",
+      "api_endpoints",
+      "api_permissions",
+      "screen_api_links",
+      "virtual_workflow_definitions",
+      "virtual_workflow_steps",
+      "virtual_workflow_source_links",
+      "virtual_flow_catalog_snapshots"
+    ],
+    "namespace": "psw_coordinator_",
+    "catalogSha256": "1ed9abd933c05e5ffb476bcd8591b36346ee86e25e8f185757dcbdde9afeadf3",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roles": [
+      "tenant_admin",
+      "code_admin",
+      "platform_admin",
+      "central_admin"
+    ]
   }
 }
