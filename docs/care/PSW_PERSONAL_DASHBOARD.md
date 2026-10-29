@@ -10,7 +10,7 @@ Extra-work requests, nonclinical team queries and expense claims save in `psw_pe
 
 ## Marked demo and fresh start
 
-`?dataset=demo&experience=personal` uses `data_kind=synthetic_training`. There are no real demo employee accounts, native client records or clinical approvals. Each active tenant receives one shared management preview; ordinary care staff have private practice workspaces.
+`?dataset=demo&experience=personal` uses `data_kind=synthetic_training`. There are no real demo employee accounts, native client records or clinical approvals. Each active tenant receives one shared management preview; PSW/HSW staff have private practice workspaces.
 
 **Clear demo data** empties only the selected personal practice workspace and clears its obsolete demo idempotency responses. It does not remove real appointments, real time records, live requests, other workspaces or immutable audit history. Reading a cleared dataset does not silently reseed it. **Load demo data** explicitly restores the synthetic sample. Production seeding preserves existing edits and cleared workspaces.
 

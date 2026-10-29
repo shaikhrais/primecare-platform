@@ -5,6 +5,7 @@ CREATE INDEX IF NOT EXISTS psw_personal_requests_scope ON psw_personal_requests(
 CREATE INDEX IF NOT EXISTS care_time_personal_week ON care_time_records(tenant_id,worker_id,actual_start,case_id);
 CREATE TABLE IF NOT EXISTS psw_personal_events(id UUID PRIMARY KEY,tenant_id TEXT NOT NULL,workspace_key TEXT NOT NULL,data_kind TEXT NOT NULL,actor_id TEXT NOT NULL,actor_role TEXT NOT NULL,action TEXT NOT NULL,detail JSONB NOT NULL,created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
 CREATE INDEX IF NOT EXISTS psw_personal_events_scope ON psw_personal_events(tenant_id,workspace_key,created_at DESC);
+CREATE INDEX IF NOT EXISTS psw_personal_events_actor_rate ON psw_personal_events(actor_id,created_at DESC);
 CREATE OR REPLACE FUNCTION psw_personal_event_immutable() RETURNS TRIGGER LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'Personal workspace audit events are immutable'; END $$;
 DROP TRIGGER IF EXISTS psw_personal_events_immutable ON psw_personal_events;
 CREATE TRIGGER psw_personal_events_immutable BEFORE UPDATE OR DELETE ON psw_personal_events FOR EACH ROW EXECUTE FUNCTION psw_personal_event_immutable();
