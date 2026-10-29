@@ -1,3 +1,4 @@
+import {renderPersonal} from '../psw-personal';
 import {BaseSessionClient} from '../infrastructure/http/base-session-client';
 import {renderDemoPSW} from './demo.mjs';
 import {renderLivePSW} from './live';
@@ -16,7 +17,8 @@ export async function renderPSW(root:HTMLElement,gateway:string){
  root.innerHTML='<main class="main" role="status"><h1>Loading care workspace…</h1><p>Reading authorized records from PostgreSQL.</p></main>';
  const params=new URLSearchParams(location.search),api=new PSWClient(gateway,token,params.get('tenant')||'');
  try{const info=await api.read('info'),dataset=params.get('dataset')||(info.liveCareAvailable?'live':'demo');
-  if(dataset==='live'){if(!info.liveCareAvailable)throw Error('A clinical or care-operations account is required for live care records. Use the database demo from administration.');await renderLivePSW(root,gateway,api,info);}
+  if(params.get('experience')==='personal'||['psw','hsw'].includes(info.identity.role)){await renderPersonal(root,gateway,token,dataset,params.get('tenant')||'');}
+  else if(dataset==='live'){if(!info.liveCareAvailable)throw Error('A clinical or care-operations account is required for live care records. Use the database demo from administration.');await renderLivePSW(root,gateway,api,info);}
   else if(dataset==='demo')await renderDemoPSW(root,gateway,await api.read('demo'),api);
   else throw Error('Choose the live or demo dataset.');
  }catch(e){root.innerHTML='<main class="main"><h1>Care workspace unavailable</h1><p role="alert"></p><button data-retry>Retry</button> <a href="/success">Account</a> <a href="/psw?dataset=demo">Database demo</a></main>';root.querySelector('[role=alert]')!.textContent=(e as Error).message;root.querySelector('[data-retry]')!.addEventListener('click',()=>void renderPSW(root,gateway));}

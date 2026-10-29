@@ -1,0 +1,21 @@
+import {seedPersonal,emptyPersonal} from './core.mjs';
+const text=(x,max=2000)=>{if(typeof x!=='string'||!x.trim()||x.length>max)throw Error('Complete the required field.');return x.trim();};
+const integer=(n,min,max)=>{if(!Number.isInteger(n)||n<min||n>max)throw Error('Invalid whole-number value.');return n;};
+const date=d=>typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d)&&!Number.isNaN(Date.parse(d+'T12:00:00Z'))&&new Date(d+'T12:00:00Z').toISOString().slice(0,10)===d;
+export function requestValue(v){if(!v||!['Leave request','Open work request','Time correction query','Time record query','Pay / hours query','Document readiness query','Account help','Team message','Expense request','Coverage','Delay','No access','Concern','Plan review request','Note amendment'].includes(v.type))throw Error('Choose a supported request type.');return {type:v.type,detail:text(v.detail)};}
+export function preferenceChange(d,action,v){if(action==='goal'){if(typeof v.goal!=='number'||v.goal<1||v.goal>80||v.goal*2%1)throw Error('Goal must be 1–80 hours in half-hour steps.');d.goal=v.goal;}else if(action==='preferences'){if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(v.start)||!/^([01]\d|2[0-3]):[0-5]\d$/.test(v.end)||v.end<=v.start)throw Error('Invalid availability times.');d.available={days:text(v.days,200),area:text(v.area,200),start:v.start,end:v.end};}else throw Error('Unsupported preference action.');return d;}
+export function demoChange(previous,action,v={},now=new Date().toISOString()){
+ let d=structuredClone(previous);const row=id=>{const r=d.visits.find(v=>v.id===id);if(!r)throw Error('Visit not found.');return r;};
+ if(action==='demo_clear'){d=emptyPersonal();d.demoCleared=true;return d;}if(action==='demo_load')return seedPersonal();
+ if(action==='goal'||action==='preferences')return preferenceChange(d,action,v);
+ if(action==='accept'){const r=row(v.visitId);if(r.status!=='assigned'||r.ready!==true)throw Error('Current plan readiness is required.');r.status='accepted';}
+ else if(action==='start'){const r=row(v.visitId);if(r.status!=='accepted'||d.visits.some(v=>v.status==='in_progress')||v.consent!==true)throw Error('Accept the visit and confirm consent first.');r.status='in_progress';r.clockIn=Date.parse(now);}
+ else if(action==='submit'){const r=row(v.visitId);if(r.status!=='in_progress')throw Error('Start this visit first.');const note=text(v.note);if(note.length<10)throw Error('Write a meaningful note.');const outcomes={};for(let i=0;i<4;i++){const a=v.outcomes?.[i];if(!['done','declined','held'].includes(a))throw Error('Record an outcome for every task.');outcomes[i]=a;}const gross=integer(v.gross,0,720),br=integer(v.break,0,gross);r.note=note;r.outcomes=outcomes;r.status='submitted';r.clockOut=Date.parse(now);d.time.push({id:'TM-'+crypto.randomUUID(),visitId:r.id,date:r.date,gross,break:br,status:'pending',reason:text(v.reason),history:[]});}
+ else if(action==='time_correct'){const t=d.time.find(t=>t.id===v.id);if(!t||t.status!=='returned')throw Error('Only returned time can be resubmitted.');t.history.push({gross:t.gross,break:t.break,status:t.status,reason:t.reason,at:now});t.gross=integer(v.gross,0,720);t.break=integer(v.break,0,t.gross);t.status='pending';t.reason=text(v.reason);}
+ else if(action==='request'){const x=requestValue(v);d.requests.unshift({id:crypto.randomUUID(),...x,status:'requested',owner:'Tenant operations',at:now});}
+ else if(action==='expense'){if(!date(v.date)||!['Mileage','Expense'].includes(v.category)||!Number.isFinite(Number(v.amount))||Number(v.amount)<=0||Number(v.amount)>10000)throw Error('Invalid expense.');d.expenses.unshift({id:crypto.randomUUID(),date:v.date,category:v.category,amount:Number(v.amount),reason:text(v.reason),evidence:text(v.evidence),status:'pending'});}
+ else if(action==='message'){d.messages.unshift({id:crypto.randomUUID(),subject:text(v.subject,200),text:text(v.message),from:'You → '+text(v.to,100),status:'saved',at:now});}
+ else if(action==='ack'){const m=d.messages.find(m=>m.id===v.id);if(!m)throw Error('Message not found.');m.status='acknowledged';}
+ else throw Error('Unsupported demo action.');
+ if(d.time.length>1000||d.requests.length>500||JSON.stringify(d).length>1500000)throw Error('Workspace limit reached.');return d;
+}

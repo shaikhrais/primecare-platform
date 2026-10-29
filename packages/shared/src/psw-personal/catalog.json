@@ -1,0 +1,1068 @@
+{
+  "version": 1,
+  "phase": "integrated",
+  "registryStatus": "registered_release_verification_required",
+  "productionDatabaseConnected": true,
+  "questionCount": 50,
+  "roles": [
+    "psw",
+    "hsw"
+  ],
+  "screens": [
+    {
+      "code": "psw_personal_today",
+      "previewView": "today",
+      "proposedRoute": "/psw#today",
+      "workflow": "PSW-WORK-01",
+      "task": "PSW-T01",
+      "title": "My day",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/view.mjs",
+      "controls": [
+        "refresh",
+        "export",
+        "reset",
+        "demo_load",
+        "help",
+        "visit-open"
+      ]
+    },
+    {
+      "code": "psw_personal_visit",
+      "previewView": "visit",
+      "proposedRoute": "/psw#visit",
+      "workflow": "PSW-WORK-02",
+      "task": "PSW-T02",
+      "title": "Care and tasks",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/view.mjs",
+      "controls": [
+        "refresh",
+        "export",
+        "reset",
+        "demo_load",
+        "visit-open"
+      ]
+    },
+    {
+      "code": "psw_personal_hours",
+      "previewView": "hours",
+      "proposedRoute": "/psw#hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "title": "My hours",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/view.mjs",
+      "controls": [
+        "refresh",
+        "export",
+        "reset",
+        "demo_load",
+        "csv",
+        "time-help",
+        "week-prev",
+        "week-next",
+        "week-current"
+      ]
+    },
+    {
+      "code": "psw_personal_pay",
+      "previewView": "pay",
+      "proposedRoute": "/psw#pay",
+      "workflow": "PSW-WORK-04",
+      "task": "PSW-T04",
+      "title": "Pay and expenses",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/view.mjs",
+      "controls": [
+        "refresh",
+        "export",
+        "reset",
+        "demo_load",
+        "expense",
+        "pay-query"
+      ]
+    },
+    {
+      "code": "psw_personal_availability",
+      "previewView": "availability",
+      "proposedRoute": "/psw#availability",
+      "workflow": "PSW-WORK-05",
+      "task": "PSW-T05",
+      "title": "Availability and leave",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/view.mjs",
+      "controls": [
+        "refresh",
+        "export",
+        "reset",
+        "demo_load",
+        "goal",
+        "availability",
+        "leave",
+        "open-work",
+        "native-availability"
+      ]
+    },
+    {
+      "code": "psw_personal_messages",
+      "previewView": "messages",
+      "proposedRoute": "/psw#messages",
+      "workflow": "PSW-WORK-06",
+      "task": "PSW-T06",
+      "title": "Messages and support",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/view.mjs",
+      "controls": [
+        "refresh",
+        "export",
+        "reset",
+        "demo_load",
+        "help"
+      ]
+    },
+    {
+      "code": "psw_personal_profile",
+      "previewView": "profile",
+      "proposedRoute": "/psw#profile",
+      "workflow": "PSW-WORK-07",
+      "task": "PSW-T07",
+      "title": "Profile and readiness",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/view.mjs",
+      "controls": [
+        "refresh",
+        "export",
+        "reset",
+        "demo_load",
+        "document",
+        "account-help"
+      ]
+    },
+    {
+      "code": "psw_personal_guide",
+      "previewView": "guide",
+      "proposedRoute": "/psw#guide",
+      "workflow": "PSW-WORK-08",
+      "task": "PSW-T08",
+      "title": "Guide and accountability",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/view.mjs",
+      "controls": [
+        "refresh",
+        "export",
+        "reset",
+        "demo_load"
+      ]
+    },
+    {
+      "code": "psw_personal_schedule",
+      "previewView": "schedule",
+      "proposedRoute": "/psw#schedule",
+      "workflow": "PSW-WORK-09",
+      "task": "PSW-T15",
+      "title": "My assigned schedule",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/view.mjs",
+      "controls": [
+        "refresh",
+        "export",
+        "reset",
+        "demo_load",
+        "open-work",
+        "visit-open"
+      ]
+    },
+    {
+      "code": "psw_personal_questions",
+      "previewView": "questions",
+      "proposedRoute": "/psw#questions",
+      "workflow": "PSW-WORK-10",
+      "task": "PSW-T16",
+      "title": "PSW questions and answers",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/view.mjs",
+      "controls": [
+        "refresh",
+        "export",
+        "reset",
+        "demo_load",
+        "questions-export"
+      ]
+    },
+    {
+      "code": "psw_personal_plan",
+      "previewView": "plan",
+      "proposedRoute": "/psw#plan",
+      "workflow": "PSW-WORK-11",
+      "task": "PSW-T17",
+      "title": "Review and implementation map",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/view.mjs",
+      "controls": [
+        "refresh",
+        "export",
+        "reset",
+        "demo_load",
+        "questions-export"
+      ]
+    },
+    {
+      "code": "psw_personal_requests_review",
+      "previewView": "requests_review",
+      "proposedRoute": "/psw-requests",
+      "workflow": "PSW-WORK-12",
+      "task": "PSW-T18",
+      "title": "PSW requests and follow-up",
+      "status": "implemented",
+      "file": "websites/typescript/src/psw-personal/index.ts",
+      "controls": [
+        "review-request",
+        "save-response"
+      ]
+    }
+  ],
+  "integrationTasks": [
+    {
+      "code": "PSW-T09",
+      "title": "Session, tenant and assigned-worker authorization",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T10",
+      "title": "Readiness, consent, version conflicts and existing care APIs",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T11",
+      "title": "Weekly hours API, correction and independent review",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T12",
+      "title": "Register screens, sections, controls, API schemas, role grants and workflows in production governance",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T13",
+      "title": "API save, independent DB readback, browser reload, denied-role and cross-tenant tests",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T14",
+      "title": "Mobile, keyboard and empty/error-state acceptance",
+      "status": "implemented_release_acceptance_required"
+    }
+  ],
+  "questions": [
+    {
+      "id": "PSW-Q001",
+      "group": "My day",
+      "screen": "today",
+      "workflow": "PSW-WORK-01",
+      "task": "PSW-T01",
+      "question": "What do I need to do today?",
+      "answer": "Today shows only your assigned visits, travel windows, incomplete notes and follow-ups."
+    },
+    {
+      "id": "PSW-Q002",
+      "group": "My day",
+      "screen": "today",
+      "workflow": "PSW-WORK-01",
+      "task": "PSW-T01",
+      "question": "Who is my next client and when should I arrive?",
+      "answer": "The next visit card shows the client, service, local start time, duration and assigned provider."
+    },
+    {
+      "id": "PSW-Q003",
+      "group": "My day",
+      "screen": "today",
+      "workflow": "PSW-WORK-01",
+      "task": "PSW-T01",
+      "question": "Where do I find the address and entry instructions?",
+      "answer": "Open your assigned visit. Live access must be limited to authorized visit details; the preview uses fictional locations."
+    },
+    {
+      "id": "PSW-Q004",
+      "group": "My day",
+      "screen": "today",
+      "workflow": "PSW-WORK-01",
+      "task": "PSW-T01",
+      "question": "How do I know a shift changed or was cancelled?",
+      "answer": "A change notice stays in the inbox until you acknowledge it. Cancelled work does not count as worked hours."
+    },
+    {
+      "id": "PSW-Q005",
+      "group": "My day",
+      "screen": "today",
+      "workflow": "PSW-WORK-01",
+      "task": "PSW-T01",
+      "question": "How do I accept or decline an assigned visit?",
+      "answer": "Acknowledge an approved assignment, or report an availability issue with a reason. Requesting cover does not silently remove your assignment."
+    },
+    {
+      "id": "PSW-Q006",
+      "group": "My day",
+      "screen": "today",
+      "workflow": "PSW-WORK-01",
+      "task": "PSW-T01",
+      "question": "What if I am late or cannot attend?",
+      "answer": "Use Report a delay / coverage issue. The request remains visible until scheduling confirms the replacement."
+    },
+    {
+      "id": "PSW-Q007",
+      "group": "Care and tasks",
+      "screen": "visit",
+      "workflow": "PSW-WORK-02",
+      "task": "PSW-T02",
+      "question": "Where is the current plan of care?",
+      "answer": "Open the visit and read the assigned plan version before accepting care tasks."
+    },
+    {
+      "id": "PSW-Q008",
+      "group": "Care and tasks",
+      "screen": "visit",
+      "workflow": "PSW-WORK-02",
+      "task": "PSW-T02",
+      "question": "What may I do as a PSW?",
+      "answer": "Follow assigned support tasks, your training and employer policy. An app checklist does not authorize controlled acts or medication administration."
+    },
+    {
+      "id": "PSW-Q009",
+      "group": "Care and tasks",
+      "screen": "visit",
+      "workflow": "PSW-WORK-02",
+      "task": "PSW-T02",
+      "question": "What if the plan, consent or clearance is missing?",
+      "answer": "The visit shows a readiness blocker. Contact the responsible supervisor; the dashboard does not invent clearance or consent."
+    },
+    {
+      "id": "PSW-Q010",
+      "group": "Care and tasks",
+      "screen": "visit",
+      "workflow": "PSW-WORK-02",
+      "task": "PSW-T02",
+      "question": "How do I start and finish a visit?",
+      "answer": "Confirm consent, start the visit record, record every task outcome and factual notes, then submit your visit and reported time."
+    },
+    {
+      "id": "PSW-Q011",
+      "group": "Care and tasks",
+      "screen": "visit",
+      "workflow": "PSW-WORK-02",
+      "task": "PSW-T02",
+      "question": "What if the client declines a task?",
+      "answer": "Choose Declined, record the choice and notify the responsible team where follow-up is required."
+    },
+    {
+      "id": "PSW-Q012",
+      "group": "Care and tasks",
+      "screen": "visit",
+      "workflow": "PSW-WORK-02",
+      "task": "PSW-T02",
+      "question": "What if a task cannot be completed?",
+      "answer": "Choose Held / needs review and explain the unresolved issue. Do not mark the task completed."
+    },
+    {
+      "id": "PSW-Q013",
+      "group": "Care and tasks",
+      "screen": "visit",
+      "workflow": "PSW-WORK-02",
+      "task": "PSW-T02",
+      "question": "What happens if the client is not home?",
+      "answer": "Report no access, document attempts without guessing care occurred, and request direction. Time eligibility depends on reviewed evidence and policy."
+    },
+    {
+      "id": "PSW-Q014",
+      "group": "Care and tasks",
+      "screen": "visit",
+      "workflow": "PSW-WORK-02",
+      "task": "PSW-T02",
+      "question": "What if I see a safety concern or emergency?",
+      "answer": "Follow the organization emergency process. For immediate danger contact emergency services directly; saving a concern does not send an emergency response."
+    },
+    {
+      "id": "PSW-Q015",
+      "group": "Care and tasks",
+      "screen": "visit",
+      "workflow": "PSW-WORK-02",
+      "task": "PSW-T02",
+      "question": "Can I correct a submitted note?",
+      "answer": "Keep the original record. Use an amendment or returned-note correction with an explanation and review history."
+    },
+    {
+      "id": "PSW-Q016",
+      "group": "Care and tasks",
+      "screen": "visit",
+      "workflow": "PSW-WORK-02",
+      "task": "PSW-T02",
+      "question": "How do I know my visit was reviewed?",
+      "answer": "The visit status distinguishes submitted, returned for correction and independently reviewed."
+    },
+    {
+      "id": "PSW-Q017",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "How many hours have I worked today?",
+      "answer": "Today sums reported actual minutes less recorded unpaid breaks. Planned duration is displayed separately."
+    },
+    {
+      "id": "PSW-Q018",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "How many hours have I worked this week?",
+      "answer": "The weekly ledger shows each dated time record and calculates reported, awaiting-review, returned and approved totals."
+    },
+    {
+      "id": "PSW-Q019",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "Are scheduled hours guaranteed paid hours?",
+      "answer": "No. Scheduled, reported, approved and payroll-confirmed hours are separate states."
+    },
+    {
+      "id": "PSW-Q020",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "How are breaks handled?",
+      "answer": "Record the actual break in minutes. This preview subtracts recorded unpaid breaks from gross work time; live policy must define paid breaks."
+    },
+    {
+      "id": "PSW-Q021",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "Does travel time count?",
+      "answer": "Travel and mileage need their own evidence and employer policy. This preview does not add them to approved hours."
+    },
+    {
+      "id": "PSW-Q022",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "What if I forget to clock in or out?",
+      "answer": "Submit a correction with actual times and a reason; it awaits independent review rather than changing a clock record silently."
+    },
+    {
+      "id": "PSW-Q023",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "Can I edit approved hours?",
+      "answer": "Request a correction. Preserve the original approved record and review history."
+    },
+    {
+      "id": "PSW-Q024",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "Why are some hours not approved?",
+      "answer": "The ledger shows the status and reviewer reason. Returned records stay separate from approved hours."
+    },
+    {
+      "id": "PSW-Q025",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "Can I export my weekly time record?",
+      "answer": "Export CSV includes visit, date, gross minutes, break minutes, net hours, review status and reason."
+    },
+    {
+      "id": "PSW-Q026",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "Can I see previous weeks?",
+      "answer": "Use the week selector; totals are calculated for the selected week, including a clear empty state."
+    },
+    {
+      "id": "PSW-Q027",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "How do I get more hours?",
+      "answer": "Publish availability and request eligible open visits. A request is not an assignment or a guaranteed shift."
+    },
+    {
+      "id": "PSW-Q028",
+      "group": "My hours",
+      "screen": "hours",
+      "workflow": "PSW-WORK-03",
+      "task": "PSW-T03",
+      "question": "What is my weekly target?",
+      "answer": "Set a personal availability goal. The dashboard shows scheduled hours and the gap without promising income."
+    },
+    {
+      "id": "PSW-Q029",
+      "group": "Pay and expenses",
+      "screen": "pay",
+      "workflow": "PSW-WORK-04",
+      "task": "PSW-T04",
+      "question": "What is my hourly rate?",
+      "answer": "Show only a confirmed employment or contractor rate and its effective date. No authoritative employment rate is currently connected."
+    },
+    {
+      "id": "PSW-Q030",
+      "group": "Pay and expenses",
+      "screen": "pay",
+      "workflow": "PSW-WORK-04",
+      "task": "PSW-T04",
+      "question": "How much will I be paid?",
+      "answer": "Show a confirmed payroll statement when a payroll integration exists. Approved care time alone is not proof of wages paid."
+    },
+    {
+      "id": "PSW-Q031",
+      "group": "Pay and expenses",
+      "screen": "pay",
+      "workflow": "PSW-WORK-04",
+      "task": "PSW-T04",
+      "question": "When is payday?",
+      "answer": "Display the employer-confirmed pay cycle and statement. No employer-confirmed payday is connected."
+    },
+    {
+      "id": "PSW-Q032",
+      "group": "Pay and expenses",
+      "screen": "pay",
+      "workflow": "PSW-WORK-04",
+      "task": "PSW-T04",
+      "question": "How do I claim mileage or an expense?",
+      "answer": "Submit the date, category, amount or distance and evidence; an authorized reviewer decides eligibility."
+    },
+    {
+      "id": "PSW-Q033",
+      "group": "Pay and expenses",
+      "screen": "pay",
+      "workflow": "PSW-WORK-04",
+      "task": "PSW-T04",
+      "question": "What if my hours or pay are wrong?",
+      "answer": "Raise a dated query linked to the time record or statement, with a reason and visible resolution status."
+    },
+    {
+      "id": "PSW-Q034",
+      "group": "Availability and leave",
+      "screen": "availability",
+      "workflow": "PSW-WORK-05",
+      "task": "PSW-T05",
+      "question": "How do I tell the team when I can work?",
+      "answer": "Save available days, start/end time and preferred area. Live scheduling still checks skills, clearance and conflicts."
+    },
+    {
+      "id": "PSW-Q035",
+      "group": "Availability and leave",
+      "screen": "availability",
+      "workflow": "PSW-WORK-05",
+      "task": "PSW-T05",
+      "question": "How do I request time off?",
+      "answer": "Submit dated leave with a reason. It stays pending until reviewed; assigned visits still need coverage."
+    },
+    {
+      "id": "PSW-Q036",
+      "group": "Availability and leave",
+      "screen": "availability",
+      "workflow": "PSW-WORK-05",
+      "task": "PSW-T05",
+      "question": "Can I reject work outside my availability?",
+      "answer": "Report the mismatch and request scheduling review. Do not assume the client has been reassigned."
+    },
+    {
+      "id": "PSW-Q037",
+      "group": "Availability and leave",
+      "screen": "availability",
+      "workflow": "PSW-WORK-05",
+      "task": "PSW-T05",
+      "question": "Can I request a nearby open visit?",
+      "answer": "View eligible opportunities and request one. Only an authorized scheduler can confirm the assignment."
+    },
+    {
+      "id": "PSW-Q038",
+      "group": "Messages and support",
+      "screen": "messages",
+      "workflow": "PSW-WORK-06",
+      "task": "PSW-T06",
+      "question": "Who is my supervisor or coordinator?",
+      "answer": "Show the actual assigned care-team contacts in live records. Demo names are fictional. Live care-team details come from the assigned record."
+    },
+    {
+      "id": "PSW-Q039",
+      "group": "Messages and support",
+      "screen": "messages",
+      "workflow": "PSW-WORK-06",
+      "task": "PSW-T06",
+      "question": "How do I send a handover?",
+      "answer": "Save a factual handover linked to the visit and intended team member. Live review and delivery status must be shown."
+    },
+    {
+      "id": "PSW-Q040",
+      "group": "Messages and support",
+      "screen": "messages",
+      "workflow": "PSW-WORK-06",
+      "task": "PSW-T06",
+      "question": "Did somebody receive my message?",
+      "answer": "Distinguish saved, delivered and acknowledged. Team requests save to the tenant operations queue. External delivery is not assumed; clinical handovers use the assigned care record."
+    },
+    {
+      "id": "PSW-Q041",
+      "group": "Messages and support",
+      "screen": "messages",
+      "workflow": "PSW-WORK-06",
+      "task": "PSW-T06",
+      "question": "Where do I find unresolved concerns?",
+      "answer": "The inbox and action list show open requests with an owner, status and follow-up date."
+    },
+    {
+      "id": "PSW-Q042",
+      "group": "Profile and readiness",
+      "screen": "profile",
+      "workflow": "PSW-WORK-07",
+      "task": "PSW-T07",
+      "question": "What training or documents do I need?",
+      "answer": "The readiness panel shows verified requirements, expiry and missing evidence. Sample statuses are not real credential checks."
+    },
+    {
+      "id": "PSW-Q043",
+      "group": "Profile and readiness",
+      "screen": "profile",
+      "workflow": "PSW-WORK-07",
+      "task": "PSW-T07",
+      "question": "What happens when a document expires?",
+      "answer": "Flag the expiry and show affected work as a blocker until authorized verification is complete."
+    },
+    {
+      "id": "PSW-Q044",
+      "group": "Profile and readiness",
+      "screen": "profile",
+      "workflow": "PSW-WORK-07",
+      "task": "PSW-T07",
+      "question": "Who can see my information?",
+      "answer": "Live access must use the existing tenant, role and assigned-care restrictions. Code administration is not clinical permission."
+    },
+    {
+      "id": "PSW-Q045",
+      "group": "Profile and readiness",
+      "screen": "profile",
+      "workflow": "PSW-WORK-07",
+      "task": "PSW-T07",
+      "question": "What if my connection fails?",
+      "answer": "Show unsaved work explicitly. Changes save through the session API to PostgreSQL. Failed or conflicting saves show an error and restore the previous saved state."
+    },
+    {
+      "id": "PSW-Q046",
+      "group": "Profile and readiness",
+      "screen": "profile",
+      "workflow": "PSW-WORK-07",
+      "task": "PSW-T07",
+      "question": "How do I sign in, verify my phone or get help?",
+      "answer": "Use the existing account security flow. A PSW dashboard must show the account verification result and a support route without faking an OTP."
+    },
+    {
+      "id": "PSW-Q047",
+      "group": "Guide and accountability",
+      "screen": "guide",
+      "workflow": "PSW-WORK-08",
+      "task": "PSW-T08",
+      "question": "How do I learn this as a new PSW?",
+      "answer": "Follow Prepare \u2192 Visit \u2192 Document \u2192 Report time \u2192 Review. The guided checklist links to the exact screen."
+    },
+    {
+      "id": "PSW-Q048",
+      "group": "Guide and accountability",
+      "screen": "guide",
+      "workflow": "PSW-WORK-08",
+      "task": "PSW-T08",
+      "question": "What is still waiting on me?",
+      "answer": "Action cards list incomplete tasks, returned notes, time corrections and messages requiring acknowledgement."
+    },
+    {
+      "id": "PSW-Q049",
+      "group": "Guide and accountability",
+      "screen": "guide",
+      "workflow": "PSW-WORK-08",
+      "task": "PSW-T08",
+      "question": "Can I see the history of my changes?",
+      "answer": "The database activity log records actor, timestamp, action and record reference. Clinical and time changes retain their existing immutable care-event histories."
+    },
+    {
+      "id": "PSW-Q050",
+      "group": "Guide and accountability",
+      "screen": "guide",
+      "workflow": "PSW-WORK-08",
+      "task": "PSW-T08",
+      "question": "How are screens and workflows registered?",
+      "answer": "The implementation map links every question to a task, screen code and workflow code. The release registers the personal screens, controls, API schemas, role grants and source-mapped workflow journeys in the production governance database."
+    }
+  ],
+  "tasks": [
+    {
+      "code": "PSW-T01",
+      "name": "My day",
+      "owner": "Product and care-workflow team",
+      "screen": "psw_personal_today",
+      "workflow": "PSW-WORK-01",
+      "questionIds": [
+        "PSW-Q001",
+        "PSW-Q002",
+        "PSW-Q003",
+        "PSW-Q004",
+        "PSW-Q005",
+        "PSW-Q006"
+      ],
+      "acceptance": "Worker can find their own records, complete the screen action and see the correct status after reload. Live integration must also prove database readback and assigned-worker access.",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T02",
+      "name": "Care and tasks",
+      "owner": "Product and care-workflow team",
+      "screen": "psw_personal_visit",
+      "workflow": "PSW-WORK-02",
+      "questionIds": [
+        "PSW-Q007",
+        "PSW-Q008",
+        "PSW-Q009",
+        "PSW-Q010",
+        "PSW-Q011",
+        "PSW-Q012",
+        "PSW-Q013",
+        "PSW-Q014",
+        "PSW-Q015",
+        "PSW-Q016"
+      ],
+      "acceptance": "Worker can find their own records, complete the screen action and see the correct status after reload. Live integration must also prove database readback and assigned-worker access.",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T03",
+      "name": "My hours",
+      "owner": "Product and care-workflow team",
+      "screen": "psw_personal_hours",
+      "workflow": "PSW-WORK-03",
+      "questionIds": [
+        "PSW-Q017",
+        "PSW-Q018",
+        "PSW-Q019",
+        "PSW-Q020",
+        "PSW-Q021",
+        "PSW-Q022",
+        "PSW-Q023",
+        "PSW-Q024",
+        "PSW-Q025",
+        "PSW-Q026",
+        "PSW-Q027",
+        "PSW-Q028"
+      ],
+      "acceptance": "Worker can find their own records, complete the screen action and see the correct status after reload. Live integration must also prove database readback and assigned-worker access.",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T04",
+      "name": "Pay and expenses",
+      "owner": "Product and care-workflow team",
+      "screen": "psw_personal_pay",
+      "workflow": "PSW-WORK-04",
+      "questionIds": [
+        "PSW-Q029",
+        "PSW-Q030",
+        "PSW-Q031",
+        "PSW-Q032",
+        "PSW-Q033"
+      ],
+      "acceptance": "Worker can find their own records, complete the screen action and see the correct status after reload. Live integration must also prove database readback and assigned-worker access.",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T05",
+      "name": "Availability and leave",
+      "owner": "Product and care-workflow team",
+      "screen": "psw_personal_availability",
+      "workflow": "PSW-WORK-05",
+      "questionIds": [
+        "PSW-Q034",
+        "PSW-Q035",
+        "PSW-Q036",
+        "PSW-Q037"
+      ],
+      "acceptance": "Worker can find their own records, complete the screen action and see the correct status after reload. Live integration must also prove database readback and assigned-worker access.",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T06",
+      "name": "Messages and support",
+      "owner": "Product and care-workflow team",
+      "screen": "psw_personal_messages",
+      "workflow": "PSW-WORK-06",
+      "questionIds": [
+        "PSW-Q038",
+        "PSW-Q039",
+        "PSW-Q040",
+        "PSW-Q041"
+      ],
+      "acceptance": "Worker can find their own records, complete the screen action and see the correct status after reload. Live integration must also prove database readback and assigned-worker access.",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T07",
+      "name": "Profile and readiness",
+      "owner": "Product and care-workflow team",
+      "screen": "psw_personal_profile",
+      "workflow": "PSW-WORK-07",
+      "questionIds": [
+        "PSW-Q042",
+        "PSW-Q043",
+        "PSW-Q044",
+        "PSW-Q045",
+        "PSW-Q046"
+      ],
+      "acceptance": "Worker can find their own records, complete the screen action and see the correct status after reload. Live integration must also prove database readback and assigned-worker access.",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T08",
+      "name": "Guide and accountability",
+      "owner": "Product and care-workflow team",
+      "screen": "psw_personal_guide",
+      "workflow": "PSW-WORK-08",
+      "questionIds": [
+        "PSW-Q047",
+        "PSW-Q048",
+        "PSW-Q049",
+        "PSW-Q050"
+      ],
+      "acceptance": "Worker can find their own records, complete the screen action and see the correct status after reload. Live integration must also prove database readback and assigned-worker access.",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T15",
+      "name": "My assigned schedule",
+      "owner": "Product and care-workflow team",
+      "screen": "psw_personal_schedule",
+      "workflow": "PSW-WORK-09",
+      "questionIds": [],
+      "acceptance": "Worker can find their own records, complete the screen action and see the correct status after reload. Live integration must also prove database readback and assigned-worker access.",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T16",
+      "name": "PSW questions and answers",
+      "owner": "Product and care-workflow team",
+      "screen": "psw_personal_questions",
+      "workflow": "PSW-WORK-10",
+      "questionIds": [],
+      "acceptance": "Worker can find their own records, complete the screen action and see the correct status after reload. Live integration must also prove database readback and assigned-worker access.",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T17",
+      "name": "Review and implementation map",
+      "owner": "Product and care-workflow team",
+      "screen": "psw_personal_plan",
+      "workflow": "PSW-WORK-11",
+      "questionIds": [],
+      "acceptance": "Worker can find their own records, complete the screen action and see the correct status after reload. Live integration must also prove database readback and assigned-worker access.",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T09",
+      "title": "Session, tenant and assigned-worker authorization",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T10",
+      "title": "Readiness, consent, version conflicts and existing care APIs",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T11",
+      "title": "Weekly hours API, correction and independent review",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T12",
+      "title": "Register screens, sections, controls, API schemas, role grants and workflows in production governance",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T13",
+      "title": "API save, independent DB readback, browser reload, denied-role and cross-tenant tests",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T14",
+      "title": "Mobile, keyboard and empty/error-state acceptance",
+      "status": "implemented_release_acceptance_required"
+    },
+    {
+      "code": "PSW-T18",
+      "name": "Tenant operations reviews and responds to worker requests",
+      "owner": "Tenant operations",
+      "status": "implemented_release_acceptance_required"
+    }
+  ],
+  "existingContractsToReuse": [
+    {
+      "method": "GET",
+      "route": "/v1/governance/care",
+      "purpose": "Assigned care snapshot and current permissions"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/governance/care/cases/{id}/actions",
+      "purpose": "Accept, consent, start, tasks, note submission and amendments"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/governance/care/time-records",
+      "purpose": "Attested time submission and independent approval or return"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/governance/care/staffing",
+      "purpose": "Availability and leave requests"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/governance/care/handovers",
+      "purpose": "Authorized care-team handover"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/governance/care/followups",
+      "purpose": "Operational follow-up"
+    }
+  ],
+  "integrationConstraints": [
+    "Extend shared care clients and base session client instead of duplicating clinical rules.",
+    "Read and register production governance; do not use a local SQLite fallback as production authority.",
+    "Match existing screen codes and registry IDs before adding new entries.",
+    "Do not claim payroll, credential checks, notifications or clinical approval when their authoritative service has not confirmed them."
+  ],
+  "endpoint": "/v1/governance/care/personal",
+  "controls": {
+    "refresh": {
+      "testId": "psw-personal-refresh",
+      "label": "Refresh database records"
+    },
+    "reset": {
+      "testId": "psw-personal-reset",
+      "label": "Clear marked demo data"
+    },
+    "demo_load": {
+      "testId": "psw-personal-demo_load",
+      "label": "Load marked demo data"
+    },
+    "csv": {
+      "testId": "psw-personal-csv",
+      "label": "Export own weekly hours"
+    },
+    "expense": {
+      "testId": "psw-personal-expense",
+      "label": "Submit expense request"
+    },
+    "help": {
+      "testId": "psw-personal-help",
+      "label": "Contact tenant operations"
+    },
+    "leave": {
+      "testId": "psw-personal-leave",
+      "label": "Request leave through staffing controls"
+    },
+    "open-work": {
+      "testId": "psw-personal-open-work",
+      "label": "Request more suitable work"
+    },
+    "goal": {
+      "testId": "psw-personal-goal",
+      "label": "Set weekly availability goal"
+    },
+    "availability": {
+      "testId": "psw-personal-availability",
+      "label": "Edit work preferences"
+    },
+    "native-availability": {
+      "testId": "psw-personal-native-availability",
+      "label": "Record actual staffing availability"
+    },
+    "time-help": {
+      "testId": "psw-personal-time-help",
+      "label": "Ask about a time record"
+    },
+    "pay-query": {
+      "testId": "psw-personal-pay-query",
+      "label": "Raise a pay query"
+    },
+    "document": {
+      "testId": "psw-personal-document",
+      "label": "Ask about readiness evidence"
+    },
+    "account-help": {
+      "testId": "psw-personal-account-help",
+      "label": "Get account help"
+    },
+    "export": {
+      "testId": "psw-personal-export",
+      "label": "Export authorized workspace data"
+    },
+    "questions-export": {
+      "testId": "psw-personal-questions-export",
+      "label": "Export question and workflow catalogue"
+    },
+    "review-request": {
+      "testId": "psw-personal-review-request",
+      "label": "Review a worker request"
+    },
+    "save-response": {
+      "testId": "psw-personal-save-response",
+      "label": "Save management response"
+    },
+    "visit-open": {
+      "testId": "psw-personal-visit-open",
+      "label": "Open assigned care record"
+    },
+    "week-prev": {
+      "testId": "psw-personal-week-prev",
+      "label": "Previous time week"
+    },
+    "week-next": {
+      "testId": "psw-personal-week-next",
+      "label": "Next time week"
+    },
+    "week-current": {
+      "testId": "psw-personal-week-current",
+      "label": "Current time week"
+    }
+  },
+  "commandActions": [
+    "accept",
+    "start",
+    "submit",
+    "time_correct",
+    "goal",
+    "preferences",
+    "request",
+    "expense",
+    "message",
+    "ack",
+    "demo_clear",
+    "demo_load",
+    "request_review"
+  ],
+  "apiConstraints": {
+    "liveClinicalWrites": "Use existing care contracts; personal endpoint refuses clinical/demo mutation actions in live mode.",
+    "demoCleanup": "Only the selected marked personal workspace and its synthetic retry responses; live records and audit history preserved.",
+    "review": "Tenant operations only; own requests cannot be reviewed; review does not assign staff, authorize care, approve time or release payroll."
+  }
+}

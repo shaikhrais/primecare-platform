@@ -1,0 +1,11 @@
+BEGIN;
+CREATE TABLE IF NOT EXISTS psw_personal_workspaces(tenant_id TEXT NOT NULL,workspace_key TEXT NOT NULL,data_kind TEXT NOT NULL CHECK(data_kind IN ('synthetic_training','live_preferences')),version INTEGER NOT NULL DEFAULT 1,data JSONB NOT NULL,updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),PRIMARY KEY(tenant_id,workspace_key));
+CREATE TABLE IF NOT EXISTS psw_personal_requests(id UUID PRIMARY KEY,tenant_id TEXT NOT NULL,staff_id TEXT NOT NULL,type TEXT NOT NULL,detail TEXT NOT NULL,status TEXT NOT NULL DEFAULT 'requested' CHECK(status IN ('requested','in_review','resolved','declined')),version INTEGER NOT NULL DEFAULT 1,reviewer_id TEXT,review TEXT,created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),CHECK(reviewer_id IS NULL OR reviewer_id<>staff_id));
+CREATE INDEX IF NOT EXISTS psw_personal_requests_scope ON psw_personal_requests(tenant_id,staff_id,created_at DESC);
+CREATE INDEX IF NOT EXISTS care_time_personal_week ON care_time_records(tenant_id,worker_id,actual_start,case_id);
+CREATE TABLE IF NOT EXISTS psw_personal_events(id UUID PRIMARY KEY,tenant_id TEXT NOT NULL,workspace_key TEXT NOT NULL,data_kind TEXT NOT NULL,actor_id TEXT NOT NULL,actor_role TEXT NOT NULL,action TEXT NOT NULL,detail JSONB NOT NULL,created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
+CREATE INDEX IF NOT EXISTS psw_personal_events_scope ON psw_personal_events(tenant_id,workspace_key,created_at DESC);
+CREATE OR REPLACE FUNCTION psw_personal_event_immutable() RETURNS TRIGGER LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'Personal workspace audit events are immutable'; END $$;
+DROP TRIGGER IF EXISTS psw_personal_events_immutable ON psw_personal_events;
+CREATE TRIGGER psw_personal_events_immutable BEFORE UPDATE OR DELETE ON psw_personal_events FOR EACH ROW EXECUTE FUNCTION psw_personal_event_immutable();
+COMMIT;

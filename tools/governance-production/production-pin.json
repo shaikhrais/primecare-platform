@@ -1538,5 +1538,42 @@
     "schema": "public",
     "existingData": "preserve",
     "roleGrants": false
+  },
+  "pswPersonalRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_PSW_PERSONAL_REGISTRATION",
+    "tables": [
+      "screens",
+      "screen_requirements",
+      "role_screen_permissions",
+      "screen_sections",
+      "screen_section_elements",
+      "element_primecare_component_map",
+      "language_resources",
+      "language_resource_values",
+      "screen_components",
+      "screen_required_elements",
+      "api_endpoints",
+      "api_permissions",
+      "screen_api_links",
+      "virtual_workflow_definitions",
+      "virtual_workflow_steps",
+      "virtual_workflow_source_links",
+      "virtual_flow_catalog_snapshots"
+    ],
+    "namespace": "psw_personal_",
+    "catalogSha256": "fcdc1c7771f87cd4c7483be64e5dd67e5f97115f97f9355c26bec5c180fcaa30",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roles": [
+      "psw",
+      "hsw",
+      "code_admin",
+      "platform_admin",
+      "central_admin",
+      "tenant_admin",
+      "scheduler",
+      "clinical_director",
+      "rn_field_supervisor"
+    ]
   }
 }

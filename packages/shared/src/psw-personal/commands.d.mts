@@ -1,0 +1,1 @@
+export function demoChange(previous:any,action:string,value:any,now?:string):any;export function preferenceChange(data:any,action:string,value:any):any;export function requestValue(value:any):{type:string;detail:string};

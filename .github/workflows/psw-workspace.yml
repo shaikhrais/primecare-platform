@@ -1,8 +1,8 @@
-name: Test and publish PSW database workspace
+name: Test and publish PSW workspaces and personal dashboard
 on:
   push:
     branches: [main]
-    paths: ['packages/shared/src/psw-workspace/**', 'cloudflare/workers/src/psw-workspace/**', 'packages/database/migrations/20261028_psw_workspace.sql', 'websites/typescript/src/psw-workspace/**', 'scripts/*psw*', '.github/workflows/psw-workspace.yml']
+    paths: ['packages/shared/src/psw-personal/**', 'cloudflare/workers/src/psw-personal/**', 'websites/typescript/src/psw-personal/**', 'packages/database/migrations/20261029_psw_personal.sql', 'tools/governance-production/psw_personal_registration.py', 'tools/governance-production/production-pin.json', 'packages/shared/src/psw-workspace/**', 'cloudflare/workers/src/psw-workspace/**', 'packages/database/migrations/20261028_psw_workspace.sql', 'websites/typescript/src/psw-workspace/**', 'scripts/*psw*', '.github/workflows/psw-workspace.yml']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -27,11 +27,16 @@ jobs:
       - name: Native PostgreSQL workspace commands and isolation
         env: {PSW_TEST_DATABASE_URL: 'postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test'}
         run: node scripts/test-psw-workspace.mjs
+      - name: Personal PSW actual-data, request loop and demo cleanup acceptance
+        env: {PSW_TEST_DATABASE_URL: 'postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test'}
+        run: node scripts/test-psw-personal.mjs
+      - name: Verify personal screen and workflow catalogue
+        run: python3 scripts/verify-psw-personal-catalog.py
       - name: Session-facing API acceptance and production UI bundle
         env: {PSW_PGLITE_MODULE: /tmp/psw-tools/node_modules/@electric-sql/pglite/dist/index.js}
-        run: node scripts/preview-psw-workspace.mjs
+        run: node scripts/preview-psw-personal.mjs
       - name: Typecheck project API and portal
-        run: npx -p typescript@5.9.3 tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/psw-workspace/service.ts websites/typescript/src/main.ts
+        run: npx -p typescript@5.9.3 tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/psw-personal/service.ts websites/typescript/src/main.ts
   publish:
     needs: acceptance
     environment: production
@@ -42,6 +47,8 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      GOVERNANCE_WORKFLOW_WRITES: '1'
+      GOVERNANCE_PSW_PERSONAL_REGISTRATION: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -56,6 +63,10 @@ jobs:
         run: git fetch origin main && test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
       - name: Persist tenant-scoped synthetic workspace templates
         run: node scripts/apply-psw-workspace.mjs
+      - name: Persist marked personal demos without creating real clinical data
+        run: node scripts/apply-psw-personal.mjs
+      - name: Register personal screens controls API and source-mapped workflows
+        run: python3 tools/governance-production/psw_personal_registration.py --apply
       - name: Publish governance API while preserving existing live bindings
         run: node scripts/deploy-approved-admin-governance.mjs
       - name: Build database-governed portals
@@ -70,9 +81,9 @@ jobs:
       - name: Verify live gateway routes enforce authentication
         run: |
           node --input-type=module <<'JS'
-          const r=await fetch('https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/governance/care/workspace');
-          if(r.status!==401)throw Error('Live PSW workspace authentication readback failed: '+r.status);
-          console.log('PSW_WORKSPACE_LIVE_AUTHENTICATION_CONFIRMED');
+          for(const path of ['workspace','personal']){const r=await fetch('https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/governance/care/'+path);
+          if(r.status!==401)throw Error('Live PSW authentication readback failed: '+path+' '+r.status);}
+          console.log('PSW_PERSONAL_LIVE_AUTHENTICATION_CONFIRMED');
           JS
       - uses: actions/upload-artifact@v4
         if: always()
