@@ -1,0 +1,64 @@
+name: Register scoped shared shell utility metadata
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/shell-utilities-registration.yml'
+      - 'tools/governance-production/shell_utilities_registration.py'
+      - 'tools/governance-production/test-shell-utilities-registration.py'
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: shell-utilities-metadata-registration
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - run: |
+          python tools/governance-production/test-shell-utilities-registration.py
+  production:
+    if: github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/shell-registration-tools --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/shell-registration-tools/node_modules node_modules
+          mkdir -p test-results/shell-registration
+      - name: Validate exact metadata transaction and roll it back
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_SHELL_UTILITIES_WRITES: '1'
+        run: python tools/governance-production/shell_utilities_registration.py --dry-run | tee test-results/shell-registration/dry-run.txt
+      - name: Register optional controls and draft labels with independent readback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_SHELL_UTILITIES_WRITES: '1'
+        run: python tools/governance-production/shell_utilities_registration.py --apply | tee test-results/shell-registration/registration.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: shell-utilities-registration, path: test-results/shell-registration}

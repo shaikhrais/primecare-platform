@@ -1700,5 +1700,22 @@
     "accountChanges": false,
     "roleGrants": false,
     "activation": false
+  },
+  "shellUtilitiesWriter": {
+    "optInVariable": "GOVERNANCE_SHELL_UTILITIES_WRITES",
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values"
+    ],
+    "contractSha256": "12a13e1e727f11828998f5fc63a363d59b8ba037de2b94c02981a0fc7987c71a",
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "resourceNamespace": "shellUtilities.",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }

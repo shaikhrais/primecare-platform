@@ -1,0 +1,304 @@
+{
+  "format": 1,
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/primecare_ui/web/shell-utilities.ts",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_button",
+    "prime_card",
+    "prime_text_field"
+  ],
+  "controls": [
+    {
+      "key": "open",
+      "testId": "shell-utilities-open",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.open"
+    },
+    {
+      "key": "close",
+      "testId": "shell-utilities-close",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.close"
+    },
+    {
+      "key": "events",
+      "testId": "shell-utilities-events",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.events"
+    },
+    {
+      "key": "notes",
+      "testId": "shell-utilities-notes",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.notes"
+    },
+    {
+      "key": "settings",
+      "testId": "shell-utilities-settings",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.settings"
+    },
+    {
+      "key": "notifications",
+      "testId": "shell-utilities-notifications",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.notifications"
+    },
+    {
+      "key": "favourites",
+      "testId": "shell-utilities-favourites",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.favourites"
+    },
+    {
+      "key": "search",
+      "testId": "shell-utilities-search",
+      "componentCode": "prime_text_field",
+      "resourceKey": "shellUtilities.search"
+    },
+    {
+      "key": "refresh",
+      "testId": "shell-utilities-refresh",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.refresh"
+    },
+    {
+      "key": "markRead",
+      "testId": "shell-utilities-mark-read",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.markRead"
+    },
+    {
+      "key": "markUnread",
+      "testId": "shell-utilities-mark-unread",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.markUnread"
+    },
+    {
+      "key": "save",
+      "testId": "shell-utilities-save",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.save"
+    },
+    {
+      "key": "retry",
+      "testId": "shell-utilities-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.retry"
+    },
+    {
+      "key": "acceptRemote",
+      "testId": "shell-utilities-accept-remote",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.acceptRemote"
+    },
+    {
+      "key": "keepLocal",
+      "testId": "shell-utilities-keep-local",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.keepLocal"
+    },
+    {
+      "key": "fullscreen",
+      "testId": "shell-utilities-fullscreen",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.fullscreen"
+    },
+    {
+      "key": "exitFullscreen",
+      "testId": "shell-utilities-exit-fullscreen",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.exitFullscreen"
+    },
+    {
+      "key": "area",
+      "testId": "shell-utilities-area",
+      "componentCode": "prime_card",
+      "resourceKey": "shellUtilities.area"
+    },
+    {
+      "key": "items",
+      "testId": "shell-utilities-items",
+      "componentCode": "prime_card",
+      "resourceKey": "shellUtilities.items"
+    },
+    {
+      "key": "favouriteToggle",
+      "testId": "shell-utilities-favourite-toggle",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.favouriteToggle"
+    },
+    {
+      "key": "status",
+      "testId": "shell-utilities-status",
+      "componentCode": "prime_card",
+      "resourceKey": "shellUtilities.status"
+    }
+  ],
+  "resources": {
+    "shellUtilities.open": {
+      "en": "Open utilities",
+      "fr": "Ouvrir les utilitaires",
+      "es": "Abrir utilidades"
+    },
+    "shellUtilities.close": {
+      "en": "Close",
+      "fr": "Fermer",
+      "es": "Cerrar"
+    },
+    "shellUtilities.events": {
+      "en": "Events",
+      "fr": "Événements",
+      "es": "Eventos"
+    },
+    "shellUtilities.notes": {
+      "en": "Notes",
+      "fr": "Notes",
+      "es": "Notas"
+    },
+    "shellUtilities.settings": {
+      "en": "Quick settings",
+      "fr": "Réglages rapides",
+      "es": "Ajustes rápidos"
+    },
+    "shellUtilities.notifications": {
+      "en": "Notifications",
+      "fr": "Notifications",
+      "es": "Notificaciones"
+    },
+    "shellUtilities.favourites": {
+      "en": "Favourites",
+      "fr": "Favoris",
+      "es": "Favoritos"
+    },
+    "shellUtilities.search": {
+      "en": "Search shortcuts",
+      "fr": "Rechercher des raccourcis",
+      "es": "Buscar accesos directos"
+    },
+    "shellUtilities.refresh": {
+      "en": "Refresh",
+      "fr": "Actualiser",
+      "es": "Actualizar"
+    },
+    "shellUtilities.markRead": {
+      "en": "Mark as read",
+      "fr": "Marquer comme lu",
+      "es": "Marcar como leído"
+    },
+    "shellUtilities.markUnread": {
+      "en": "Mark as unread",
+      "fr": "Marquer comme non lu",
+      "es": "Marcar como no leído"
+    },
+    "shellUtilities.save": {
+      "en": "Save",
+      "fr": "Enregistrer",
+      "es": "Guardar"
+    },
+    "shellUtilities.retry": {
+      "en": "Retry pending save",
+      "fr": "Réessayer la sauvegarde",
+      "es": "Reintentar guardado pendiente"
+    },
+    "shellUtilities.acceptRemote": {
+      "en": "Use server version",
+      "fr": "Utiliser la version du serveur",
+      "es": "Usar versión del servidor"
+    },
+    "shellUtilities.keepLocal": {
+      "en": "Keep my changes",
+      "fr": "Conserver mes modifications",
+      "es": "Conservar mis cambios"
+    },
+    "shellUtilities.fullscreen": {
+      "en": "Enter fullscreen",
+      "fr": "Passer en plein écran",
+      "es": "Entrar en pantalla completa"
+    },
+    "shellUtilities.exitFullscreen": {
+      "en": "Exit fullscreen",
+      "fr": "Quitter le plein écran",
+      "es": "Salir de pantalla completa"
+    },
+    "shellUtilities.area": {
+      "en": "Utilities",
+      "fr": "Utilitaires",
+      "es": "Utilidades"
+    },
+    "shellUtilities.items": {
+      "en": "Items",
+      "fr": "Éléments",
+      "es": "Elementos"
+    },
+    "shellUtilities.favouriteToggle": {
+      "en": "Toggle favourite",
+      "fr": "Basculer le favori",
+      "es": "Alternar favorito"
+    },
+    "shellUtilities.status": {
+      "en": "Status",
+      "fr": "État",
+      "es": "Estado"
+    },
+    "shellUtilities.loading": {
+      "en": "Loading",
+      "fr": "Chargement",
+      "es": "Cargando"
+    },
+    "shellUtilities.empty": {
+      "en": "No items",
+      "fr": "Aucun élément",
+      "es": "No hay elementos"
+    },
+    "shellUtilities.unavailable": {
+      "en": "Unavailable for this account",
+      "fr": "Indisponible pour ce compte",
+      "es": "No disponible para esta cuenta"
+    },
+    "shellUtilities.error": {
+      "en": "Unable to complete action",
+      "fr": "Impossible de terminer cette action",
+      "es": "No se pudo completar la acción"
+    },
+    "shellUtilities.offline": {
+      "en": "Offline; changes are pending",
+      "fr": "Hors ligne; modifications en attente",
+      "es": "Sin conexión; cambios pendientes"
+    },
+    "shellUtilities.conflict": {
+      "en": "Changes conflict with the server",
+      "fr": "Conflit avec les modifications du serveur",
+      "es": "Cambios en conflicto con el servidor"
+    },
+    "shellUtilities.saved": {
+      "en": "Saved to your account",
+      "fr": "Enregistré dans votre compte",
+      "es": "Guardado en tu cuenta"
+    },
+    "shellUtilities.dirty": {
+      "en": "Unsaved changes",
+      "fr": "Modifications non enregistrées",
+      "es": "Cambios sin guardar"
+    },
+    "shellUtilities.read": {
+      "en": "Read",
+      "fr": "Lu",
+      "es": "Leído"
+    },
+    "shellUtilities.unread": {
+      "en": "Unread",
+      "fr": "Non lu",
+      "es": "No leído"
+    }
+  },
+  "runtimeActivation": false,
+  "resourceBindings": "unbound: no shell business API or role grants added"
+}
