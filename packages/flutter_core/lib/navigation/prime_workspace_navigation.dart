@@ -122,7 +122,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
       if(n.kind=='group'&&n.disabled)return MenuItemButton(onPressed:null,child:_label(n));
       if(n.kind=='group')return SubmenuButton(focusNode:_node(n.id,prefix:'menu:'),key:ValueKey('workspace-navigation-${n.id}'),
         onOpen:n.disabled?null:(){},menuChildren:n.children.map(entry).toList(),child:_label(n));
-      return MenuItemButton(focusNode:_node(n.id,prefix:'menu:'),key:ValueKey('workspace-navigation-${n.id}'),onPressed:n.disabled?null:()=>_activate(n.id,generation),child:_label(n));
+      return Semantics(selected:n.id==_activeId,child:MenuItemButton(focusNode:_node(n.id,prefix:'menu:'),key:ValueKey('workspace-navigation-${n.id}'),style:n.id==_activeId?ButtonStyle(backgroundColor:WidgetStatePropertyAll(Theme.of(context).colorScheme.primaryContainer)):null,onPressed:n.disabled?null:()=>_activate(n.id,generation),child:_label(n)));
     }
     return SingleChildScrollView(scrollDirection:Axis.horizontal,child:MenuBar(children:widget.model.nodes.map(entry).toList()));
   }

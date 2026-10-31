@@ -36,12 +36,12 @@ void main(){
    final group=find.byKey(const ValueKey('workspace-navigation-work'));await tester.ensureVisible(group);
    final forward=dir==TextDirection.rtl?LogicalKeyboardKey.arrowLeft:LogicalKeyboardKey.arrowRight;
    if(family=='vertical'){
-    tester.widget<TextButton>(group).focusNode!.requestFocus();await tester.pump();
+    tester.widget<TextButton>(group).focusNode!.requestFocus();await tester.pumpAndSettle();
     await tester.sendKeyEvent(forward);await tester.pumpAndSettle();
     expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-home'))).focusNode!.hasFocus,true);
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-team'))).focusNode!.hasFocus,true,reason:'Nested group focus');await tester.sendKeyEvent(forward);await tester.pumpAndSettle();expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-people'))).focusNode!.hasFocus,true,reason:'Nested destination focus');
    }else{
-    tester.widget<SubmenuButton>(group).focusNode!.requestFocus();await tester.pump();
+    tester.widget<SubmenuButton>(group).focusNode!.requestFocus();await tester.pumpAndSettle();
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();
     expect(tester.widget<MenuItemButton>(find.byKey(const ValueKey('workspace-navigation-home'))).focusNode!.hasFocus,true,reason:'Horizontal first destination focus');
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();
