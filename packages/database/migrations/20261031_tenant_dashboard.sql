@@ -1,0 +1,14 @@
+BEGIN;
+SELECT pg_advisory_xact_lock(hashtext('primecare-tenant-dashboard'));
+CREATE TABLE IF NOT EXISTS tenant_work_tasks(id UUID PRIMARY KEY,tenant_id TEXT NOT NULL,flow_id TEXT NOT NULL,title TEXT NOT NULL CHECK(length(title) BETWEEN 3 AND 200),owner_id TEXT NOT NULL,due_on DATE NOT NULL,priority TEXT NOT NULL CHECK(priority IN ('low','normal','high','urgent')),notes TEXT NOT NULL DEFAULT '',status TEXT NOT NULL DEFAULT 'open' CHECK(status IN ('open','in_progress','blocked','submitted','completed','cancelled')),evidence TEXT NOT NULL DEFAULT '',submitted_by TEXT,created_by TEXT NOT NULL,version INTEGER NOT NULL DEFAULT 1 CHECK(version>0),created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
+CREATE INDEX IF NOT EXISTS tenant_work_tasks_scope ON tenant_work_tasks(tenant_id,owner_id,status,due_on,id);
+CREATE TABLE IF NOT EXISTS tenant_dashboard_demos(tenant_id TEXT NOT NULL,workspace_key TEXT NOT NULL,version INTEGER NOT NULL DEFAULT 1,data JSONB NOT NULL,updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),PRIMARY KEY(tenant_id,workspace_key));
+CREATE TABLE IF NOT EXISTS tenant_dashboard_preferences(tenant_id TEXT NOT NULL,user_id TEXT NOT NULL,view TEXT NOT NULL DEFAULT 'overview',version INTEGER NOT NULL DEFAULT 1,PRIMARY KEY(tenant_id,user_id));
+CREATE TABLE IF NOT EXISTS tenant_dashboard_events(id UUID PRIMARY KEY,tenant_id TEXT NOT NULL,dataset TEXT NOT NULL CHECK(dataset IN ('live','demo')),workspace_key TEXT,task_id TEXT,actor_id TEXT NOT NULL,actor_role TEXT NOT NULL,action TEXT NOT NULL,detail JSONB NOT NULL,created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
+CREATE INDEX IF NOT EXISTS tenant_dashboard_events_scope ON tenant_dashboard_events(tenant_id,dataset,created_at DESC,id);
+CREATE INDEX IF NOT EXISTS tenant_dashboard_events_rate ON tenant_dashboard_events(actor_id,created_at DESC);
+CREATE TABLE IF NOT EXISTS tenant_dashboard_requests(actor_id TEXT NOT NULL,key TEXT NOT NULL,fingerprint TEXT NOT NULL,response JSONB NOT NULL,created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),PRIMARY KEY(actor_id,key));
+CREATE OR REPLACE FUNCTION tenant_dashboard_audit_immutable() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'Tenant dashboard audit is immutable'; END $$;
+DROP TRIGGER IF EXISTS tenant_dashboard_immutable ON tenant_dashboard_events;
+CREATE TRIGGER tenant_dashboard_immutable BEFORE UPDATE OR DELETE ON tenant_dashboard_events FOR EACH ROW EXECUTE FUNCTION tenant_dashboard_audit_immutable();
+COMMIT;

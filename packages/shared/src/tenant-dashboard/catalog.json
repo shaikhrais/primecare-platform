@@ -1,0 +1,462 @@
+{
+  "version": 1,
+  "screenCode": "tenant_admin_command_center",
+  "route": "/tenant-dashboard",
+  "endpoint": "/v1/governance/tenant-dashboard",
+  "title": "Tenant workspace",
+  "workflow": "tenant.admin.workspace",
+  "managerRoles": [
+    "tenant_admin"
+  ],
+  "globalRoles": [
+    "code_admin",
+    "platform_admin",
+    "central_admin"
+  ],
+  "teamRoles": [
+    "rn",
+    "rpn",
+    "rn_field_supervisor",
+    "clinical_director",
+    "psw",
+    "hsw",
+    "scheduler",
+    "tenant_admin",
+    "ceo",
+    "marketing",
+    "local_marketing",
+    "growth_caller",
+    "growth_google",
+    "growth_meta",
+    "growth_seo",
+    "growth_offline",
+    "growth_coordinator",
+    "owner"
+  ],
+  "views": [
+    {
+      "id": "overview",
+      "label": "Overview",
+      "icon": "layout-dashboard"
+    },
+    {
+      "id": "tasks",
+      "label": "Work & tasks",
+      "icon": "clipboard-check"
+    },
+    {
+      "id": "workflows",
+      "label": "Workflow library",
+      "icon": "database"
+    },
+    {
+      "id": "people",
+      "label": "People & clients",
+      "icon": "users"
+    },
+    {
+      "id": "operations",
+      "label": "Care operations",
+      "icon": "shield-check"
+    },
+    {
+      "id": "growth",
+      "label": "Business growth",
+      "icon": "chart-bar"
+    },
+    {
+      "id": "audit",
+      "label": "Activity & audit",
+      "icon": "file-text"
+    }
+  ],
+  "shortcuts": [
+    {
+      "id": "accounts",
+      "label": "Accounts & roles",
+      "description": "Create and update permitted tenant accounts using the existing administration workflow.",
+      "route": "/platform/administration#accounts",
+      "category": "people",
+      "status": "Connected module"
+    },
+    {
+      "id": "care",
+      "label": "Schedule & care team",
+      "description": "Named providers, assignments, availability and existing clinical review rules.",
+      "route": "/care?dataset=live",
+      "category": "operations",
+      "status": "Connected module"
+    },
+    {
+      "id": "requests",
+      "label": "PSW requests",
+      "description": "Review saved work requests and respond to staff.",
+      "route": "/psw-requests",
+      "category": "operations",
+      "status": "Connected module"
+    },
+    {
+      "id": "charge",
+      "label": "Coordinator additional charge",
+      "description": "Assign coordinator responsibility without merging the Tenant Admin role.",
+      "route": "/coordinator-charge",
+      "category": "operations",
+      "status": "Connected module"
+    },
+    {
+      "id": "plans",
+      "label": "Six-month growth plans",
+      "description": "Choose a template, allocate owners and track evidence in the business planning module.",
+      "route": "/business-plans",
+      "category": "growth",
+      "status": "Connected module"
+    },
+    {
+      "id": "marketing",
+      "label": "Marketing & acquisition",
+      "description": "Open the existing growth workspace for the permissions granted to this account.",
+      "route": "/growth",
+      "category": "growth",
+      "status": "Permission checked by module"
+    },
+    {
+      "id": "reports",
+      "label": "Reports & administration",
+      "description": "Open existing tenant administration and reporting controls.",
+      "route": "/platform/administration#reports",
+      "category": "audit",
+      "status": "Permission checked by module"
+    },
+    {
+      "id": "account",
+      "label": "My account & security",
+      "description": "Password, phone status and account security.",
+      "route": "/success",
+      "category": "people",
+      "status": "Connected module"
+    }
+  ],
+  "controls": {
+    "refresh": "Refresh data",
+    "create": "Create task",
+    "edit": "Edit task",
+    "start": "Start work",
+    "block": "Mark blocked",
+    "submit": "Submit result",
+    "complete": "Approve completion",
+    "return": "Return for correction",
+    "cancel": "Cancel task",
+    "demo_load": "Load demo data",
+    "demo_clear": "Clear demo data"
+  },
+  "labels": {
+    "title": "Your organization, ready for work.",
+    "subtitle": "People, care operations and accountable tasks in one workspace.",
+    "taskTitle": "Task title",
+    "owner": "Responsible person",
+    "due": "Due date \u00b7 Toronto",
+    "priority": "Priority",
+    "workflow": "Registered workflow",
+    "notes": "Task instructions",
+    "evidence": "Result / evidence / reason",
+    "save": "Save task",
+    "close": "Close",
+    "search": "Search tasks or workflows",
+    "newTask": "New task",
+    "newTaskHelp": "Assign a registered workflow task with a named owner and due date.",
+    "noTasks": "No tasks match your search.",
+    "noWorkflows": "No registered workflows match this view.",
+    "noPeople": "No records available.",
+    "reviewWarning": "Task completion records operational evidence. It does not approve clinical care, payroll or change workflow verification.",
+    "demoWarning": "DEMO \u00b7 Fictional business records saved separately. No real accounts, appointments or approvals are created.",
+    "workflowWarning": "Workflow verification comes from the governance registry. A task marked complete does not mean the whole workflow has passed testing.",
+    "emptyLive": "Your live task board starts empty. Create a task from a registered workflow to assign responsibility.",
+    "live": "LIVE \u00b7 POSTGRESQL",
+    "demo": "DEMO \u00b7 POSTGRESQL",
+    "html": "HTML PREVIEW \u00b7 FICTIONAL DATA",
+    "activity": "Responsibility history",
+    "taskDetail": "Task details",
+    "metricUnavailable": "Not available",
+    "reset": "Demo data controls",
+    "resetHelp": "Clear removes this demo workspace only; reload restores the samples. Live tasks and immutable audit history remain intact.",
+    "businessProcesses": "Business processes",
+    "screenJourneys": "Supporting journeys",
+    "source": "Source-mapped",
+    "all": "All",
+    "open": "Open",
+    "in_progress": "In progress",
+    "blocked": "Blocked",
+    "submitted": "Awaiting review",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "low": "Low",
+    "normal": "Normal",
+    "high": "High",
+    "urgent": "Urgent",
+    "staff": "Active staff",
+    "clients": "Clients",
+    "visits": "Visits today",
+    "requests": "Open PSW requests",
+    "time": "Time awaiting review",
+    "care": "Care awaiting plan / review",
+    "plans": "Business plan cycles",
+    "tasks": "Open tasks",
+    "verified": "Verification",
+    "kind": "Kind",
+    "step": "Step",
+    "expected": "Expected result",
+    "proof": "Evidence",
+    "directory": "Tenant directory",
+    "team": "Team members",
+    "clientDirectory": "Clients",
+    "demoMode": "Practice with demo data",
+    "liveMode": "Return to live data",
+    "tenant": "Organization",
+    "preferences": "Workspace preferences",
+    "preferenceHelp": "Save your preferred starting view to your account.",
+    "defaultView": "Starting view",
+    "savePreferences": "Save preference"
+  },
+  "theme": {
+    "sidebarWidth": "244px",
+    "contentMax": "1440px",
+    "gap": "20px",
+    "cardPadding": "22px",
+    "radius": "12px",
+    "titleSize": "32px",
+    "smallSize": "12px",
+    "bodySize": "14px",
+    "mobileBreakpoint": "800px"
+  },
+  "sourceFiles": [
+    "websites/typescript/src/tenant-dashboard/index.ts",
+    "cloudflare/workers/src/tenant-dashboard/service.ts",
+    "packages/shared/src/tenant-dashboard/view.mjs"
+  ],
+  "elements": [
+    {
+      "key": "refresh",
+      "label": "Refresh data",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-refresh"
+    },
+    {
+      "key": "create",
+      "label": "Create task",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-create-task"
+    },
+    {
+      "key": "edit",
+      "label": "Edit task",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-action-edit"
+    },
+    {
+      "key": "start",
+      "label": "Start work",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-action-start"
+    },
+    {
+      "key": "block",
+      "label": "Mark blocked",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-action-block"
+    },
+    {
+      "key": "submit",
+      "label": "Submit result",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-action-submit"
+    },
+    {
+      "key": "complete",
+      "label": "Approve completion",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-action-complete"
+    },
+    {
+      "key": "return",
+      "label": "Return for correction",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-action-return"
+    },
+    {
+      "key": "cancel",
+      "label": "Cancel task",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-action-cancel"
+    },
+    {
+      "key": "demo_load",
+      "label": "Load demo data",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-demo-load"
+    },
+    {
+      "key": "demo_clear",
+      "label": "Clear demo data",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-demo-clear"
+    },
+    {
+      "key": "title",
+      "label": "Task title",
+      "component": "prime_text_field",
+      "type": "input",
+      "testId": "tenant-task-title"
+    },
+    {
+      "key": "owner",
+      "label": "Responsible person",
+      "component": "prime_dropdown_web",
+      "type": "select",
+      "testId": "tenant-task-owner"
+    },
+    {
+      "key": "due",
+      "label": "Due date",
+      "component": "prime_text_field",
+      "type": "input",
+      "testId": "tenant-task-due"
+    },
+    {
+      "key": "priority",
+      "label": "Priority",
+      "component": "prime_dropdown_web",
+      "type": "select",
+      "testId": "tenant-task-priority"
+    },
+    {
+      "key": "workflow",
+      "label": "Registered workflow",
+      "component": "prime_dropdown_web",
+      "type": "select",
+      "testId": "tenant-task-workflow"
+    },
+    {
+      "key": "notes",
+      "label": "Task instructions",
+      "component": "prime_text_field",
+      "type": "textarea",
+      "testId": "tenant-task-notes"
+    },
+    {
+      "key": "evidence",
+      "label": "Result evidence",
+      "component": "prime_text_field",
+      "type": "textarea",
+      "testId": "tenant-task-evidence"
+    },
+    {
+      "key": "search",
+      "label": "Search",
+      "component": "prime_text_field",
+      "type": "input",
+      "testId": "tenant-search"
+    },
+    {
+      "key": "status",
+      "label": "Status filter",
+      "component": "prime_dropdown_web",
+      "type": "select",
+      "testId": "tenant-task-filter"
+    },
+    {
+      "key": "table",
+      "label": "Task board",
+      "component": "prime_table_web",
+      "type": "table",
+      "testId": "tenant-task-table"
+    },
+    {
+      "key": "task_save",
+      "label": "Save task",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-task-save"
+    },
+    {
+      "key": "dialog_close",
+      "label": "Close",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-dialog-close"
+    },
+    {
+      "key": "preference_view",
+      "label": "Starting view",
+      "component": "prime_dropdown_web",
+      "type": "select",
+      "testId": "tenant-preference-view"
+    },
+    {
+      "key": "preference_save",
+      "label": "Save preference",
+      "component": "prime_button",
+      "type": "button",
+      "testId": "tenant-preference-save"
+    },
+    {
+      "key": "nav_overview",
+      "label": "Overview",
+      "component": "prime_button",
+      "type": "link",
+      "testId": "tenant-nav-overview"
+    },
+    {
+      "key": "nav_tasks",
+      "label": "Work & tasks",
+      "component": "prime_button",
+      "type": "link",
+      "testId": "tenant-nav-tasks"
+    },
+    {
+      "key": "nav_workflows",
+      "label": "Workflow library",
+      "component": "prime_button",
+      "type": "link",
+      "testId": "tenant-nav-workflows"
+    },
+    {
+      "key": "nav_people",
+      "label": "People & clients",
+      "component": "prime_button",
+      "type": "link",
+      "testId": "tenant-nav-people"
+    },
+    {
+      "key": "nav_operations",
+      "label": "Care operations",
+      "component": "prime_button",
+      "type": "link",
+      "testId": "tenant-nav-operations"
+    },
+    {
+      "key": "nav_growth",
+      "label": "Business growth",
+      "component": "prime_button",
+      "type": "link",
+      "testId": "tenant-nav-growth"
+    },
+    {
+      "key": "nav_audit",
+      "label": "Activity & audit",
+      "component": "prime_button",
+      "type": "link",
+      "testId": "tenant-nav-audit"
+    }
+  ]
+}

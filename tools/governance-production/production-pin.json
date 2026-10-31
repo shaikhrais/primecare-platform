@@ -1607,5 +1607,54 @@
       "platform_admin",
       "central_admin"
     ]
+  },
+  "tenantDashboardWriter": {
+    "optInVariable": "GOVERNANCE_TENANT_DASHBOARD_REGISTRATION",
+    "tables": [
+      "screens",
+      "screen_requirements",
+      "role_screen_permissions",
+      "screen_sections",
+      "screen_section_elements",
+      "element_primecare_component_map",
+      "language_resources",
+      "language_resource_values",
+      "screen_components",
+      "screen_required_elements",
+      "api_endpoints",
+      "api_permissions",
+      "screen_api_links",
+      "virtual_workflow_definitions",
+      "virtual_workflow_steps",
+      "virtual_workflow_source_links",
+      "virtual_flow_catalog_snapshots"
+    ],
+    "namespace": "tenant_admin_",
+    "catalogSha256": "24fb71b3a98a0db9e3dfc76897edbcbd6649c3a30c7b6e21c5509c7bd9b9f403",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roles": [
+      "rn",
+      "rpn",
+      "rn_field_supervisor",
+      "clinical_director",
+      "psw",
+      "hsw",
+      "scheduler",
+      "tenant_admin",
+      "ceo",
+      "marketing",
+      "local_marketing",
+      "growth_caller",
+      "growth_google",
+      "growth_meta",
+      "growth_seo",
+      "growth_offline",
+      "growth_coordinator",
+      "owner",
+      "code_admin",
+      "platform_admin",
+      "central_admin"
+    ]
   }
 }

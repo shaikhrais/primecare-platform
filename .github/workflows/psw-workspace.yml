@@ -1,8 +1,8 @@
-name: Test and publish PSW workspaces and personal dashboard
+name: Test and publish tenant and PSW workspaces
 on:
   push:
     branches: [main]
-    paths: ['packages/shared/src/coordinator-charge/**', 'cloudflare/workers/src/coordinator-charge/**', 'websites/typescript/src/coordinator-charge/**', 'cloudflare/workers/src/care/service.ts', 'tools/governance-production/psw_charge_registration.py', 'packages/database/migrations/20261030_psw_coordinator_charge.sql', 'packages/shared/src/psw-personal/**', 'cloudflare/workers/src/psw-personal/**', 'websites/typescript/src/psw-personal/**', 'packages/database/migrations/20261029_psw_personal.sql', 'tools/governance-production/psw_personal_registration.py', 'tools/governance-production/production-pin.json', 'packages/shared/src/psw-workspace/**', 'cloudflare/workers/src/psw-workspace/**', 'packages/database/migrations/20261028_psw_workspace.sql', 'websites/typescript/src/psw-workspace/**', 'scripts/*psw*', '.github/workflows/psw-workspace.yml']
+    paths: ['packages/shared/src/tenant-dashboard/**', 'cloudflare/workers/src/tenant-dashboard/**', 'websites/typescript/src/tenant-dashboard/**', 'cloudflare/workers/src/business-modules.ts', 'packages/shared/src/admin-entry-routes.json', 'packages/database/migrations/20261031_tenant_dashboard.sql', 'tools/governance-production/tenant_dashboard_registration.py', 'scripts/*tenant-dashboard*', 'packages/shared/src/coordinator-charge/**', 'cloudflare/workers/src/coordinator-charge/**', 'websites/typescript/src/coordinator-charge/**', 'cloudflare/workers/src/care/service.ts', 'tools/governance-production/psw_charge_registration.py', 'packages/database/migrations/20261030_psw_coordinator_charge.sql', 'packages/shared/src/psw-personal/**', 'cloudflare/workers/src/psw-personal/**', 'websites/typescript/src/psw-personal/**', 'packages/database/migrations/20261029_psw_personal.sql', 'tools/governance-production/psw_personal_registration.py', 'tools/governance-production/production-pin.json', 'packages/shared/src/psw-workspace/**', 'cloudflare/workers/src/psw-workspace/**', 'packages/database/migrations/20261028_psw_workspace.sql', 'websites/typescript/src/psw-workspace/**', 'scripts/*psw*', '.github/workflows/psw-workspace.yml']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -33,6 +33,11 @@ jobs:
       - name: Coordinator additional-charge database and authorization acceptance
         env: {PSW_TEST_DATABASE_URL: 'postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test'}
         run: node scripts/test-psw-charge.mjs
+      - name: Tenant tasks, workflow inventory, isolation and demo cleanup acceptance
+        env: {PSW_TEST_DATABASE_URL: 'postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test'}
+        run: node scripts/test-tenant-dashboard.mjs
+      - name: Verify tenant catalogue and HTML preview
+        run: python3 scripts/verify-tenant-dashboard.py && node scripts/preview-tenant-dashboard.mjs
       - name: Verify personal screen and workflow catalogue
         run: python3 scripts/verify-psw-personal-catalog.py
       - name: Session-facing API acceptance and production UI bundle
@@ -53,6 +58,7 @@ jobs:
       GOVERNANCE_WORKFLOW_WRITES: '1'
       GOVERNANCE_PSW_PERSONAL_REGISTRATION: '1'
       GOVERNANCE_PSW_CHARGE_REGISTRATION: '1'
+      GOVERNANCE_TENANT_DASHBOARD_REGISTRATION: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -75,6 +81,10 @@ jobs:
         run: python3 tools/governance-production/psw_charge_registration.py --apply
       - name: Apply coordinator assignment schema without granting any live roles
         run: node scripts/apply-psw-charge.mjs
+      - name: Register tenant dashboard components and workflow before exposure
+        run: python3 tools/governance-production/tenant_dashboard_registration.py --apply
+      - name: Persist operational task tables and marked tenant dashboard demos
+        run: node scripts/apply-tenant-dashboard.mjs
       - name: Publish governance API while preserving existing live bindings
         run: node scripts/deploy-approved-admin-governance.mjs
       - name: Build database-governed portals
@@ -91,7 +101,8 @@ jobs:
           node --input-type=module <<'JS'
           for(const path of ['workspace','personal','additional-charge']){const r=await fetch('https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/governance/care/'+path);
           if(r.status!==401)throw Error('Live PSW authentication readback failed: '+path+' '+r.status);}
-          console.log('PSW_PERSONAL_LIVE_AUTHENTICATION_CONFIRMED');
+          const tenant=await fetch('https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/governance/tenant-dashboard');if(tenant.status!==401)throw Error('Tenant dashboard authentication readback failed');
+          console.log('TENANT_AND_PSW_LIVE_AUTHENTICATION_CONFIRMED');
           JS
       - uses: actions/upload-artifact@v4
         if: always()

@@ -1,0 +1,282 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Tenant Dashboard",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "paths": {
+    "/v1/governance/tenant-dashboard": {
+      "get": {
+        "operationId": "tenantDashboardRead",
+        "summary": "Read actual tenant aggregates, tasks and governance workflows",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "dataset",
+            "schema": {
+              "enum": [
+                "live",
+                "demo"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "tenant",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "flowOffset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          },
+          {
+            "in": "query",
+            "name": "taskOffset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "enum": [
+                "all",
+                "open",
+                "in_progress",
+                "blocked",
+                "submitted",
+                "completed",
+                "cancelled"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized PostgreSQL workspace and current versions"
+          },
+          "400": {
+            "description": "Invalid fields or transition"
+          },
+          "401": {
+            "description": "Active session required"
+          },
+          "403": {
+            "description": "Role, tenant or independent review denied"
+          },
+          "404": {
+            "description": "Task or organization unavailable to this actor"
+          },
+          "409": {
+            "description": "Stale version or changed idempotency request"
+          },
+          "415": {
+            "description": "JSON required"
+          },
+          "429": {
+            "description": "Write rate exceeded"
+          },
+          "503": {
+            "description": "Database/manifest unavailable; no success assumed"
+          }
+        }
+      },
+      "post": {
+        "operationId": "tenantDashboardCommand",
+        "summary": "Save operational responsibility and evidence without clinical/payroll approval",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "dataset",
+            "schema": {
+              "enum": [
+                "live",
+                "demo"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "tenant",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "flowOffset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          },
+          {
+            "in": "query",
+            "name": "taskOffset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "enum": [
+                "all",
+                "open",
+                "in_progress",
+                "blocked",
+                "submitted",
+                "completed",
+                "cancelled"
+              ]
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "action"
+                ],
+                "properties": {
+                  "action": {
+                    "enum": [
+                      "create",
+                      "edit",
+                      "start",
+                      "block",
+                      "submit",
+                      "complete",
+                      "return",
+                      "cancel",
+                      "demo_load",
+                      "demo_clear",
+                      "preferences"
+                    ]
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "workspaceVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "value": {
+                    "type": "object",
+                    "description": "Task fields for create/edit: title, ownerId, dueOn (date), priority, flowId and notes; evidence for transition actions; view for preferences."
+                  }
+                }
+              },
+              "example": {
+                "action": "create",
+                "value": {
+                  "title": "Review upcoming PSW coverage",
+                  "ownerId": "active-staff-id",
+                  "dueOn": "2026-11-04",
+                  "priority": "high",
+                  "flowId": "tenant.admin.workspace",
+                  "notes": "Review original scheduling records and record follow-up."
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authorized PostgreSQL workspace and current versions"
+          },
+          "400": {
+            "description": "Invalid fields or transition"
+          },
+          "401": {
+            "description": "Active session required"
+          },
+          "403": {
+            "description": "Role, tenant or independent review denied"
+          },
+          "404": {
+            "description": "Task or organization unavailable to this actor"
+          },
+          "409": {
+            "description": "Stale version or changed idempotency request"
+          },
+          "415": {
+            "description": "JSON required"
+          },
+          "429": {
+            "description": "Write rate exceeded"
+          },
+          "503": {
+            "description": "Database/manifest unavailable; no success assumed"
+          }
+        }
+      }
+    }
+  }
+}
