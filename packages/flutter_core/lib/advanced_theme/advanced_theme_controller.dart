@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'advanced_theme_model.dart';
 class AdvancedThemeController extends ChangeNotifier {
  final String scope;final Future<String?> Function(String) read;final Future<void> Function(String,String) write;
  Map<String,Object?> _value={'version':2,'active':null,'items':<Object>[]};bool _disposed=false,_busy=false,_ready=false;
  AdvancedThemeController({required this.scope,required this.read,required this.write}){if(scope.trim().isEmpty||scope.length>1024)throw ArgumentError('Actor scope required');}
+ factory AdvancedThemeController.preferences({required String scope,required SharedPreferences preferences})=>AdvancedThemeController(scope:scope,read:(key)async=>preferences.getString(key),write:(key,value)async{if(!await preferences.setString(key,value))throw StateError('Unable to save theme');});
  String get key=>'primecare.advanced-theme.v2:$scope';bool get busy=>_busy;bool get ready=>_ready;
  Map<String,Object?> get current=>jsonDecode(jsonEncode(_value)) as Map<String,Object?>;
  AdvancedTheme? get active=>_value['active']==null?null:AdvancedTheme.fromJson(_value['active']);
