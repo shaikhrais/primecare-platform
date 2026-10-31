@@ -1,0 +1,33 @@
+# Shared page templates and route layouts
+
+These are optional source factories. Production page/template/control/component/resource/source bindings, independent readback and authenticated runtime verification remain required before exposing them in an app. The earlier workspace pilot does not authorize these new page controls. No business screen, route, API, permission or dataset is created here.
+
+Web entry: `packages/primecare_ui/web/page-template.ts`. Flutter entries: `package:flutter_core/page_template.dart` and `package:primecare_ui/page_template.dart`.
+
+## Registered page contract
+
+Build the registry from current server-authorized metadata, intersecting both stable IDs and exact route strings with current authority. Each record has exactly `id`, `route`, `title`, `breadcrumbs` and `layout`. IDs retain existing underscores and other permitted registry characters. Breadcrumbs have `id`, `label` and an optional registered `route`; denied breadcrumbs disappear. Titles and breadcrumb labels come from reviewed localized resources and render as text.
+
+The version 1 layout contains `template` (`simple` or `carded`), `scroll` (`normal`, `page` or `content`), independent `left`/`right` sidebar configurations, and `chrome` booleans for navigation, toolbar and footer. Sidebars specify `mode` (`none`, `permanent`, `temporary`, `responsive`), width 180–400 and an inline `open` default. Temporary drawers, including responsive drawers on a narrow viewport, begin closed; opening them requires an explicit action. Only one temporary modal is shown at once. Permanent sidebars remain independent. Left and right identify physical sides in both text directions.
+
+Route binding compares the exact registered path/query string. Hash changes stay within the same page; a different query requires its own registered binding. Duplicate IDs and ambiguous hash-only bindings are rejected. Unknown fields, authority fields, malformed routes, unsafe URLs and invalid geometry fail closed. Presentation filtering never replaces server authorization.
+
+## Web ownership and lifecycle
+
+Construct `PageTemplateView(root, slots, options)` with an exclusive page root, distinct already-authorized `content`, optional `header`, `actions`, `left` and `right` elements. Options supply the actor scope, raw routes, authority, current relative route, localized labels and the existing navigation callback. Use an unambiguous scope such as `JSON.stringify([tenantId, userId, roleId, datasetId])`.
+
+Updates on the same route retain supplied form elements, handlers, focus and scroll offsets. Route or actor replacement requires a fresh authorized content element. The view resets page/content scroll and focuses the new heading. Normal scrolling uses the document/ancestor flow and resets the window on route replacement; page scrolling scrolls the whole bounded page; content scrolling keeps the header and sidebars outside the main content scroller. Page/content modes require a host with a defined height. Sidebar toggles preserve supplied form state while relocating it into a viewport-bounded modal. Tab/Shift+Tab stay within the modal, Escape closes it, and focus returns to its trigger. A responsive breakpoint change closes temporary drawers.
+
+`update()` invalidates old breadcrumb callbacks and removes their hrefs before detachment. Invalid metadata or an unauthorized current route empties the page, closes its dialogs and restores transient chrome/title settings. A later resize cannot resurrect the old tree. `dispose()` clears owned UI and listeners. The caller must revoke business handlers, discard old actor data and tear down any business-owned overlays before actor or permission changes; this factory does not own those services.
+
+`PageWorkspaceChrome(frame, {navigation, toolbar, footer})` projects route chrome on an existing workspace without writing its saved profile or history. Pass it as `options.chrome`. Originally hidden/inert slots stay hidden/inert. Hidden navigation takes no sidebar column; hidden toolbar/footer slots take no row space. Use this adapter only while the shared workspace manager owns the frame, and dispose the page/chrome adapter before disposing that manager. Close or dispose navigation and business-owned popup overlays before hiding their chrome roots: overlays outside those roots remain owned by their originating component. On return to an ordinary route, rebind authorized navigation and apply that route's default chrome. This does not grant permission to public/auth/error routes; all of them still need explicit authorized metadata.
+
+## Flutter host integration
+
+Create `PageRouteRegistry.fromJson(...)`, resolve the current route, and pass the resulting `RegisteredPageRoute?` to `PrimePageTemplate`. A null route renders no supplied content. Supply the existing widgets, navigation callback, labels and `PageTemplateMetrics` from the host's registered theme tokens. Metrics provide padding, spacing, responsive breakpoint, drawer edge clearance and sidebar width budget. Web and native host tokens must use the same breakpoint (the acceptance fixtures use 1024).
+
+The native factory retains widgets with stable slot keys when changing template, scroll mode or sidebar placement. Route/actor identity is an encoded tuple; changing it creates fresh content state and resets local scroll controllers. An optional `parentScrollController` resets a host-owned normal scroller. Normal mode expects a parent-owned scroller for tall content. Page/content modes require bounded height. Modals use an owned dialog route; Escape, close and system back dismiss it, restore trigger focus and preserve the supplied sidebar state. Route/actor replacement removes the old dialog and rejects old breadcrumb callbacks.
+
+Project the current route's chrome through `PrimeWorkspaceLayout.navigationVisible`, `.toolbarVisible` and `.footerVisible`. These optional flags default to true for existing consumers, preserve hidden widget state, exclude hidden controls from focus and remove their geometry. Pass the flags from the resolved route's `layout.chrome`; do not save them into workspace preferences. Close/dispose component-owned popup overlays before hiding their host. The host remains responsible for authorized navigation, authentication and route content lifecycle.
+
+EN/FR/ES labels, physical device behavior, screen reader/contrast review and production app binding remain separate release requirements. These factories do not synchronize preferences across devices.

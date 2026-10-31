@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b04_shared_navigation_accepted_host_rollout_pending",
+  "overall_status": "b05_shared_page_templates_implemented_verification_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -229,7 +229,7 @@
     {
       "id": "B05",
       "title": "Page templates and route-specific layouts",
-      "status": "planned",
+      "status": "shared_page_templates_implemented_verification_pending",
       "depends_on": [
         "B01",
         "B02",
@@ -248,12 +248,34 @@
         "Header, sidebars, content and focus remain usable at tested breakpoints."
       ],
       "shared_targets": [
-        "packages/primecare_ui/web/",
-        "packages/primecare_ui/lib/src/components/layouts/",
-        "packages/domain/src/"
+        "packages/domain/src/page_template.ts",
+        "packages/primecare_ui/web/page-template.ts",
+        "packages/primecare_ui/web/page-workspace-chrome.ts",
+        "packages/flutter_core/lib/page/",
+        "packages/flutter_core/lib/page_template.dart",
+        "packages/primecare_ui/lib/page_template.dart"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-05.md",
+        "docs/appearance/theme-adoption-batch-05-evidence.json",
+        "docs/appearance/page-template-usage.md",
+        ".github/workflows/page-template.yml"
+      ],
+      "blockers": [
+        {
+          "code": "PAGE_HOST_BINDING_REQUIRED",
+          "detail": "Page/template/control/component/resource/source bindings require production registration and independent readback before live app exposure."
+        }
+      ],
+      "readiness": "web_acceptance_passed_native_ci_pending",
+      "remainingScope": [
+        "Exact-source native CI acceptance",
+        "Registered host binding and authenticated route/runtime checks",
+        "Owner-controlled navigation/business overlay teardown before hiding chrome",
+        "Device, accessibility, localization and release review"
+      ],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false
     },
     {
       "id": "B06",

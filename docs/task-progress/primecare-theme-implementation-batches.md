@@ -2,7 +2,7 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. Host activation, device release verification and B05–B18 remain pending.**
+**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web checks; native CI is pending. Host activation, device release verification and B06–B18 remain pending.**
 
 Implement original PrimeCare equivalents for the audited Fuse v17 features. Reuse shared core packages across web and Flutter. Work on current `main`, retain concurrent work and use expected-head checks. Do not copy proprietary vendor implementation or replace existing authentication without an approved requirement.
 
@@ -119,7 +119,9 @@ Shared targets: `packages/domain/src/workspace_navigation.ts`, `packages/primeca
 
 ### B05 — Page templates and route-specific layouts
 
-Status: planned. Dependencies: B01, B02, B03, B04.
+Status: shared page templates implemented; exact-source native CI and registered host activation remain pending. Dependencies: B01, B02, B03, B04.
+
+Evidence: `docs/appearance/theme-adoption-batch-05-evidence.json`; integration: `docs/appearance/page-template-usage.md`. Source factories remain opt-in.
 
 Scope:
 

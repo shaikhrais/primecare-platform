@@ -1,0 +1,121 @@
+{
+  "format": 1,
+  "batch": "B05",
+  "featureIds": [
+    "core.FusePageCarded",
+    "core.FusePageSimple",
+    "core.Link",
+    "core.NavLinkAdapter",
+    "core.withRouter",
+    "capability.per-route"
+  ],
+  "scopeNote": "Feature IDs identify B05 contributions only. Host callback adapters do not claim vendor API compatibility, full-reference equivalence, live activation or all-app adoption.",
+  "implementationStatus": "shared_page_templates_implemented_verification_pending",
+  "codeCommit": "c2b682290fd2f5374f108cc9726d2b05cd1464a1",
+  "sourceEvidence": [
+    {
+      "path": "packages/domain/src/page_template.ts",
+      "sha256": "605e8aad9c52947d4073ba2d8d94b89685a07dc85e158c4cde231a9686ce9876"
+    },
+    {
+      "path": "packages/primecare_ui/web/page-template.ts",
+      "sha256": "4cea4ca2efc111d5e486112481b546e758284bb44be572ff86f33afb8aa61bcd"
+    },
+    {
+      "path": "packages/primecare_ui/web/page-template-styles.ts",
+      "sha256": "27329541fbb63abc49870edd9646f10f504ef2a35480ed5aa8d21686cfe066fa"
+    },
+    {
+      "path": "packages/primecare_ui/web/page-workspace-chrome.ts",
+      "sha256": "ca699267f66a01d36db59a23f844fe17f047fde1fa1f527c0c4a98565dd6be03"
+    },
+    {
+      "path": "packages/flutter_core/lib/page/page_template_model.dart",
+      "sha256": "8efac17546398bc40d2f785856d12a151ca125b0854505cd68f3f472ef1b5165"
+    },
+    {
+      "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+      "sha256": "5c1d01b8e237907536e3911514817d48184c92c78351e7e1354238f9e8a69229"
+    },
+    {
+      "path": "packages/flutter_core/lib/page_template.dart",
+      "sha256": "a54a4fb0e93914f6f99661ff431daa352ff90af04e2e90dba325b9e84578495b"
+    },
+    {
+      "path": "packages/primecare_ui/lib/page_template.dart",
+      "sha256": "51e725ec4d19a5fe97fed2f909db3d744f39962c94610d26e85e255926e3ffe4"
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/prime_workspace_layout.dart",
+      "sha256": "31452e20afe7a008839b4491db3b6e409859c2c696ed3565f1d9255d8ffc10a3"
+    }
+  ],
+  "ci": {
+    "runId": 41241798958,
+    "conclusion": "in_progress",
+    "flutterVersion": "3.41.5",
+    "jobs": []
+  },
+  "localVerification": {
+    "modelTests": 2,
+    "contractCases": 288,
+    "browserCompositions": 12,
+    "chromiumBrowser": "passed",
+    "typescript": "passed"
+  },
+  "coverage": [
+    "Simple/carded, normal/page/content and LTR/RTL page compositions",
+    "Registered ID and route intersection; denied page and breadcrumb filtering; exact query binding and hash stability",
+    "Retained main/sidebar form state; independent physical sidebars; responsive modal reparenting",
+    "Keyboard focus containment, Escape dismissal and trigger focus restoration",
+    "Route/actor slot and scroll reset; owned dialog teardown; stale breadcrumb callback/href revocation",
+    "All eight native chrome visibility combinations preserve saved workspace preferences and main form state"
+  ],
+  "production": {
+    "activated": false,
+    "newScreens": 0,
+    "newRoutes": 0,
+    "newAPIs": 0,
+    "roleGrants": 0,
+    "hostBindingsVerified": false,
+    "runtimeVerified": false,
+    "humanReviewApproved": false,
+    "allAppsAdopted": false
+  },
+  "remaining": [
+    "Exact-source native CI and three-platform oracle acceptance",
+    "Production page/template/control/component/resource/source registration and independent readback",
+    "Authenticated host integration including owner-controlled navigation/business overlay teardown",
+    "Android/iOS device, screen-reader/contrast, EN/FR/ES translation and release review"
+  ],
+  "baselineNote": "B01 is retained as the proposal/registration baseline. This source evidence does not change its original production/runtime dispositions.",
+  "regression": {
+    "workflow": "Native workspace layout parity",
+    "runId": 41241388856,
+    "sourceCommit": "bed656ff14bae3fa66912ee14aa76bda97d369fc",
+    "note": "The chrome visibility frame extension is unchanged in the final B05 source.",
+    "status": "in_progress",
+    "jobs": [
+      {
+        "id": 124655848710,
+        "check": "web contract oracle",
+        "status": "success"
+      },
+      {
+        "id": 124655915019,
+        "platform": "Linux",
+        "status": "success"
+      },
+      {
+        "id": 124655915046,
+        "platform": "Windows",
+        "status": "success"
+      },
+      {
+        "id": 124655915092,
+        "platform": "macOS",
+        "status": "in_progress"
+      }
+    ]
+  }
+}
