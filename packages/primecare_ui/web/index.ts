@@ -19,3 +19,5 @@ export type {ShellContent} from './shell';
 
 export {primeCareIcon,primeCareIconPaths} from './original-assets';
 export type {PrimeCareIconName} from './original-assets';
+export {WorkspaceLayoutManager,defaultWorkspaceLayout} from './workspace-layout';
+export type {WorkspaceLayout,WorkspaceSlots,PanelDock} from './workspace-layout';

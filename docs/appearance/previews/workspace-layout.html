@@ -1,0 +1,368 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PrimeCare layout mechanism test</title><style>*{box-sizing:border-box}body{margin:0;font:15px system-ui;background:#f5f8fb;color:#18334d;--color-surface:#fff;--color-text:#18334d;--color-border:#dce6ef;--radius-md:14px;--spacing-md:16px}nav{background:#18334d;color:white;padding:24px}header,footer{background:white;padding:20px;border:1px solid #dce6ef}main{padding:28px}article{margin:16px 0;padding:20px;background:white;border:1px solid #dce6ef;border-radius:14px}button{padding:12px;border:1px solid #dce6ef;background:white;color:#18334d;border-radius:8px}button:focus-visible{outline:3px solid #087f8c}input{max-width:100%;padding:12px}section{padding:12px}</style><aside class="preview-controls" aria-label="Isolated layout preview controls"><h2>Layout lab</h2><p>Original PrimeCare engine · preview only</p>
+<label>Navigation <select data-cy="preview-navigation"><option>left</option><option>right</option><option>top</option><option>bottom</option><option>hidden</option></select></label>
+<label>Container <select data-cy="preview-container"><option>fullwidth</option><option>boxed</option><option>content</option></select></label>
+<label>Toolbar <select data-cy="preview-toolbar"><option>top</option><option>bottom</option></select></label>
+<label>Toolbar style <select data-cy="preview-toolbarStyle"><option>sticky</option><option>static</option></select></label>
+<label>Footer <select data-cy="preview-footer"><option>static</option><option>sticky</option><option>hidden</option></select></label>
+<label>Scroll <select data-cy="preview-scroll"><option>page</option><option>content</option></select></label>
+<label>Schedule panel <select data-cy="preview-panel"><option>right</option><option>left</option><option>top</option><option>bottom</option><option>floating</option><option>hidden</option></select></label>
+<div><button data-cy="preview-undo">Undo</button><button data-cy="preview-redo">Redo</button><button data-cy="preview-reset">Reset</button><button data-cy="preview-save">Save</button><button data-cy="preview-export">Export</button></div><label>Import JSON <input data-cy="preview-import" type="file" accept=".json,application/json"></label><output role="status" data-cy="preview-status"></output></aside>
+<style>.preview-controls{position:relative!important;inset:auto!important;width:100%!important;height:auto!important;max-height:none!important;background:#fff!important;color:#18334d!important;display:flex;gap:12px;flex-wrap:wrap;align-items:end;padding:20px!important;border-bottom:1px solid #dce6ef}.preview-controls h2{margin:0}.preview-controls p{width:100%;margin:0}.preview-controls label{display:grid;gap:6px;font-size:12px}.preview-controls select{padding:10px;border:1px solid #dce6ef;border-radius:8px;background:white}.preview-controls input{max-width:220px}.preview-controls output{width:100%}</style><div id="shell"><nav data-cy="test-nav"><h2>PrimeCare</h2><p>Overview</p><p>Schedule</p><p>Messages</p></nav><header data-cy="test-toolbar">Layout engine · isolated preview</header><main data-cy="test-main"><h1>Your workspace, your arrangement</h1><p>Move panels by their handles. Use arrow keys to move, Shift + arrows to resize, Ctrl + arrows to dock.</p><article><label>Unsaved note <input data-cy="test-input" value="Keep this note"></label></article><article style="min-height:1000px">Scroll area</article></main><footer data-cy="test-footer">Shared layout footer</footer><section data-cy="test-panel-a"><button data-layout-drag data-cy="test-drag-a" aria-label="Move schedule panel">Schedule · move</button><p>Existing panel content</p><button data-layout-resize data-cy="test-resize-a" aria-label="Resize schedule panel">Resize</button></section><section data-cy="test-panel-b"><button data-layout-drag data-cy="test-drag-b" aria-label="Move messages panel">Messages · move</button><p>No production records in this fixture.</p></section></div><script>var Workspace = (() => {
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+  };
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+  // packages/primecare_ui/web/workspace-layout.ts
+  var workspace_layout_exports = {};
+  __export(workspace_layout_exports, {
+    WorkspaceLayoutManager: () => WorkspaceLayoutManager,
+    defaultWorkspaceLayout: () => defaultWorkspaceLayout
+  });
+
+  // packages/domain/src/workspace_layout.ts
+  var panelDocks = ["left", "right", "top", "bottom", "floating", "hidden"];
+  var record = (value) => {
+    if (!value || typeof value !== "object" || Array.isArray(value)) throw Error("Expected layout object");
+    return value;
+  };
+  var keys = (value, expected) => {
+    if (Object.keys(value).length !== expected.length || expected.some((k) => !Object.hasOwn(value, k))) throw Error("Unknown or missing layout field");
+  };
+  var integer = (value, min, max) => {
+    if (typeof value !== "number" || !Number.isInteger(value) || value < min || value > max) throw Error("Invalid layout dimension");
+    return value;
+  };
+  var choice = (value, allowed) => {
+    if (typeof value !== "string" || !allowed.includes(value)) throw Error("Invalid layout choice");
+    return value;
+  };
+  function defaultWorkspaceLayout(panelIds = []) {
+    return validateWorkspaceLayout({ version: 1, navigation: "left", navigationWidth: 248, toolbar: "top", toolbarStyle: "sticky", footer: "static", container: "fullwidth", maxWidth: 1280, scroll: "page", panels: Object.fromEntries(panelIds.map((id) => [id, { dock: "right", x: 32, y: 96, width: 320, height: 360 }])) }, panelIds);
+  }
+  function validateWorkspaceLayout(value, panelIds) {
+    if (new Set(panelIds).size !== panelIds.length || panelIds.some((id) => !/^[a-z][a-z0-9-]{0,63}$/.test(id) || ["constructor", "prototype"].includes(id))) throw Error("Invalid permitted panel registry");
+    const v = record(value);
+    keys(v, ["version", "navigation", "navigationWidth", "toolbar", "toolbarStyle", "footer", "container", "maxWidth", "scroll", "panels"]);
+    if (v.version !== 1) throw Error("Unsupported workspace layout version");
+    const rawPanels = record(v.panels);
+    keys(rawPanels, [...panelIds]);
+    const panels = Object.fromEntries(panelIds.map((id) => {
+      const p = record(rawPanels[id]);
+      keys(p, ["dock", "x", "y", "width", "height"]);
+      return [id, { dock: choice(p.dock, panelDocks), x: integer(p.x, 0, 1e4), y: integer(p.y, 0, 1e4), width: integer(p.width, 180, 1200), height: integer(p.height, 120, 1200) }];
+    }));
+    return { version: 1, navigation: choice(v.navigation, ["left", "right", "top", "bottom", "hidden"]), navigationWidth: integer(v.navigationWidth, 160, 400), toolbar: choice(v.toolbar, ["top", "bottom"]), toolbarStyle: choice(v.toolbarStyle, ["sticky", "static"]), footer: choice(v.footer, ["sticky", "static", "hidden"]), container: choice(v.container, ["fullwidth", "boxed", "content"]), maxWidth: integer(v.maxWidth, 960, 1920), scroll: choice(v.scroll, ["page", "content"]), panels };
+  }
+  function parseWorkspaceLayout(text, panelIds) {
+    if (typeof text !== "string" || new TextEncoder().encode(text).length > 32768) throw Error("Layout file too large");
+    return validateWorkspaceLayout(JSON.parse(text), panelIds);
+  }
+
+  // packages/primecare_ui/web/workspace-layout-styles.ts
+  var workspaceLayoutStyles = `
+[data-pc-workspace] { display:grid!important; grid-template-columns:var(--pc-nav-width) minmax(0,1fr); grid-template-areas:"nav toolbar" "nav stage" "nav footer"; grid-template-rows:auto 1fr auto; min-height:100dvh; width:100%; max-width:none; margin-inline:auto; gap:0; isolation:isolate; }
+[data-pc-workspace] > [data-pc-slot] { min-width:0; min-height:0; box-sizing:border-box; }
+[data-pc-workspace] > [data-pc-slot=nav] { grid-area:nav; position:sticky!important; inset:auto!important; top:0!important; width:100%!important; max-width:none; height:100dvh; overflow:auto; z-index:20; }
+[data-pc-workspace] > [data-pc-slot=toolbar] { grid-area:toolbar; position:static!important; inset:auto!important; z-index:21; }
+[data-pc-workspace][data-toolbar-style=sticky] > [data-pc-slot=toolbar] { position:sticky!important; top:0!important; }
+[data-pc-workspace][data-toolbar=bottom][data-toolbar-style=sticky] > [data-pc-slot=toolbar] { top:auto!important; bottom:0!important; }
+[data-pc-workspace] > [data-pc-slot=footer] { grid-area:footer; position:static!important; }
+[data-pc-workspace][data-footer=sticky] > [data-pc-slot=footer] { position:sticky!important; bottom:var(--pc-footer-offset,0px)!important; z-index:19; }
+[data-pc-workspace][data-footer=hidden] > [data-pc-slot=footer], [data-pc-workspace][data-navigation=hidden] > [data-pc-slot=nav] { display:none!important; }
+[data-pc-workspace][data-container=boxed] { max-width:var(--pc-max-width); }
+[data-pc-workspace][data-container=content] [data-pc-slot=main] { width:100%; max-width:var(--pc-max-width); margin-inline:auto; }
+[data-pc-workspace] > [data-pc-stage] { grid-area:stage; display:grid; min-width:0; min-height:0; grid-template-areas:"top top top" "left main right" "bottom bottom bottom"; grid-template-columns:auto minmax(0,1fr) auto; grid-template-rows:auto 1fr auto; align-content:start; }
+[data-pc-workspace] [data-pc-slot=main] { grid-area:main; min-width:0; min-height:0; box-sizing:border-box; }
+[data-pc-workspace] [data-pc-dock] { display:flex; flex-direction:column; gap:var(--spacing-md,1rem); min-width:0; min-height:0; }
+[data-pc-workspace] [data-pc-dock]:empty { display:none; }
+[data-pc-workspace] [data-pc-dock=left] { grid-area:left; } [data-pc-workspace] [data-pc-dock=right] { grid-area:right; }
+[data-pc-workspace] [data-pc-dock=top] { grid-area:top; } [data-pc-workspace] [data-pc-dock=bottom] { grid-area:bottom; }
+[data-pc-workspace] [data-pc-panel] { box-sizing:border-box; width:min(var(--pc-panel-width),100%); max-width:100%; min-width:0; overflow:auto; background:var(--color-surface); color:var(--color-text); border:1px solid var(--color-border); border-radius:var(--radius-md); }
+[data-pc-workspace] [data-pc-dock=left] > [data-pc-panel], [data-pc-workspace] [data-pc-dock=right] > [data-pc-panel] { width:var(--pc-panel-width); }
+[data-pc-workspace] [data-pc-panel][data-panel-dock=floating] { position:fixed; left:var(--pc-panel-x); top:var(--pc-panel-y); width:var(--pc-panel-width); height:var(--pc-panel-height); max-height:calc(100dvh - 16px); z-index:30; }
+[data-pc-workspace] [data-layout-drag], [data-pc-workspace] [data-layout-resize] { touch-action:none; }
+[data-pc-workspace] [data-layout-drag] { cursor:move; } [data-pc-workspace] [data-layout-resize] { cursor:nwse-resize; }
+[data-pc-workspace][data-scroll=content] { height:100dvh; min-height:0; overflow:hidden; }
+[data-pc-workspace][data-scroll=content] [data-pc-stage] { overflow:auto; }
+[data-pc-workspace][data-scroll=content] > [data-pc-slot=nav] { height:100%; }
+[data-pc-workspace][data-narrow=true] { display:flex!important; flex-direction:column; height:auto; min-height:100dvh; overflow:visible; }
+[data-pc-workspace][data-narrow=true] > [data-pc-slot=nav] { position:static!important; height:auto; max-height:35dvh; }
+[data-pc-workspace][data-narrow=true] > [data-pc-stage] { display:flex; flex-direction:column; overflow:visible; width:100%; }
+[data-pc-workspace][data-narrow=true] [data-pc-dock] { width:100%; }
+[data-pc-workspace][data-narrow=true] [data-pc-panel] { position:static; width:100%!important; height:auto; max-height:none; }
+[data-pc-workspace] [hidden] { display:none!important; }
+@media(prefers-reduced-motion:reduce) { [data-pc-workspace] * { scroll-behavior:auto; transition:none; } }
+`;
+
+  // packages/primecare_ui/web/workspace-layout.ts
+  var WorkspaceLayoutManager = class {
+    constructor(root, slots, storageKey, storage = { getItem: (key) => root.ownerDocument.defaultView.localStorage.getItem(key), setItem: (key, value) => root.ownerDocument.defaultView.localStorage.setItem(key, value) }) {
+      this.root = root;
+      this.slots = slots;
+      this.storageKey = storageKey;
+      this.storage = storage;
+      this.ids = Object.keys(slots.panels);
+      this.profile = defaultWorkspaceLayout(this.ids);
+      if (!storageKey.trim()) throw Error("An account-and-role-scoped storage key is required");
+      const elements = [slots.navigation, slots.toolbar, slots.main, ...slots.footer ? [slots.footer] : [], ...Object.values(slots.panels)];
+      if (new Set(elements).size !== elements.length || elements.some((el) => !root.contains(el) || elements.some((other) => other !== el && other.contains(el)))) throw Error("Slots must be distinct, non-nested descendants");
+      if (root.hasAttribute("data-pc-workspace")) throw Error("Workspace is already managed");
+      this.win = root.ownerDocument.defaultView;
+      this.rootAttributes = [...root.attributes].map((a) => [a.name, a.value]);
+      this.originals = elements.map((element) => ({ element, parent: element.parentNode, next: element.nextSibling, attributes: [...element.attributes].map((a) => [a.name, a.value]) }));
+      try {
+        const text = storage.getItem(storageKey);
+        if (text) this.profile = parseWorkspaceLayout(text, this.ids);
+      } catch {
+      }
+      const doc = root.ownerDocument;
+      if (!doc.querySelector("[data-primecare-workspace-styles]")) {
+        const style = doc.createElement("style");
+        style.dataset.primecareWorkspaceStyles = "";
+        style.textContent = workspaceLayoutStyles;
+        doc.head.append(style);
+      }
+      this.stage = doc.createElement("div");
+      this.stage.dataset.pcStage = "";
+      for (const dock of ["left", "right", "top", "bottom"]) {
+        const host = doc.createElement("div");
+        host.dataset.pcDock = dock;
+        this.docks.set(dock, host);
+        this.stage.append(host);
+      }
+      slots.navigation.dataset.pcSlot = "nav";
+      slots.toolbar.dataset.pcSlot = "toolbar";
+      slots.main.dataset.pcSlot = "main";
+      this.stage.append(slots.main);
+      root.append(slots.navigation, slots.toolbar, this.stage);
+      if (slots.footer) {
+        slots.footer.dataset.pcSlot = "footer";
+        root.append(slots.footer);
+      }
+      for (const [id, panel] of Object.entries(slots.panels)) panel.dataset.pcPanel = id;
+      const signal = this.abort.signal;
+      root.addEventListener("pointerdown", this.pointerDown, { signal });
+      this.win.addEventListener("pointermove", this.pointerMove, { signal });
+      this.win.addEventListener("pointerup", this.pointerEnd, { signal });
+      this.win.addEventListener("pointercancel", this.pointerCancel, { signal });
+      this.win.addEventListener("blur", this.pointerCancel, { signal });
+      root.addEventListener("keydown", this.keyDown, { signal });
+      this.win.addEventListener("resize", this.apply, { signal });
+      this.observer = new ResizeObserver(this.apply);
+      this.observer.observe(root);
+      this.observer.observe(slots.toolbar);
+      this.apply();
+    }
+    profile;
+    undoStack = [];
+    redoStack = [];
+    ids;
+    stage;
+    docks = /* @__PURE__ */ new Map();
+    originals;
+    rootAttributes;
+    win;
+    abort = new AbortController();
+    observer;
+    disposed = false;
+    gesture = null;
+    get current() {
+      return structuredClone(this.profile);
+    }
+    get canUndo() {
+      return this.undoStack.length > 0;
+    }
+    get canRedo() {
+      return this.redoStack.length > 0;
+    }
+    change(value) {
+      if (this.disposed) throw Error("Workspace disposed");
+      const next = validateWorkspaceLayout(value, this.ids);
+      if (JSON.stringify(next) === JSON.stringify(this.profile)) return;
+      this.remember(this.current);
+      this.profile = next;
+      this.apply();
+    }
+    remember(before) {
+      this.undoStack.push(before);
+      if (this.undoStack.length > 30) this.undoStack.shift();
+      this.redoStack = [];
+    }
+    undo() {
+      const p = this.undoStack.pop();
+      if (p) {
+        this.redoStack.push(this.current);
+        this.profile = p;
+        this.apply();
+      }
+    }
+    redo() {
+      const p = this.redoStack.pop();
+      if (p) {
+        this.undoStack.push(this.current);
+        this.profile = p;
+        this.apply();
+      }
+    }
+    reset() {
+      this.change(defaultWorkspaceLayout(this.ids));
+    }
+    dockPanel(id, dock) {
+      if (!Object.hasOwn(this.profile.panels, id)) throw Error("Panel is not permitted");
+      this.change({ ...this.current, panels: { ...this.current.panels, [id]: { ...this.profile.panels[id], dock } } });
+    }
+    exportJson() {
+      return JSON.stringify(this.profile, null, 2);
+    }
+    importJson(text) {
+      this.change(parseWorkspaceLayout(text, this.ids));
+    }
+    save() {
+      this.storage.setItem(this.storageKey, this.exportJson());
+    }
+    place(element, parent) {
+      if (element.parentElement !== parent) parent.append(element);
+    }
+    apply = () => {
+      if (this.disposed) return;
+      const focused = this.root.ownerDocument.activeElement;
+      const restoreFocus = !!focused && this.root.contains(focused);
+      const p = this.profile, root = this.root, width = Math.min(this.win.innerWidth, root.getBoundingClientRect().width || this.win.innerWidth);
+      const narrow = width < 900;
+      root.dataset.pcWorkspace = "";
+      root.dataset.narrow = String(narrow);
+      for (const key of ["navigation", "toolbar", "toolbarStyle", "footer", "container", "scroll"]) root.dataset[key] = p[key];
+      root.style.setProperty("--pc-nav-width", p.navigationWidth + "px");
+      root.style.setProperty("--pc-max-width", p.maxWidth + "px");
+      root.style.setProperty("--pc-footer-offset", p.toolbar === "bottom" && p.toolbarStyle === "sticky" ? this.slots.toolbar.getBoundingClientRect().height + "px" : "0px");
+      const before = p.toolbar === "top" ? ["toolbar"] : [], after = p.toolbar === "bottom" ? ["toolbar"] : [];
+      let rows = [...before, ...p.navigation === "top" ? ["nav"] : [], "stage", ...p.navigation === "bottom" ? ["nav"] : [], "footer", ...after];
+      const vertical = p.navigation === "left" || p.navigation === "right";
+      root.style.gridTemplateColumns = vertical ? p.navigation === "left" ? "var(--pc-nav-width) minmax(0,1fr)" : "minmax(0,1fr) var(--pc-nav-width)" : "minmax(0,1fr)";
+      root.style.gridTemplateAreas = rows.map((row) => '"' + (vertical ? p.navigation === "left" ? "nav " + row : row + " nav" : row) + '"').join(" ");
+      root.style.gridTemplateRows = rows.map((row) => row === "stage" ? "minmax(0,1fr)" : "auto").join(" ");
+      const ordered = [...p.toolbar === "top" ? [this.slots.toolbar] : [], ...p.navigation === "top" || vertical ? [this.slots.navigation] : [], this.stage, ...p.navigation === "bottom" ? [this.slots.navigation] : [], ...this.slots.footer ? [this.slots.footer] : [], ...p.toolbar === "bottom" ? [this.slots.toolbar] : [], ...p.navigation === "hidden" ? [this.slots.navigation] : []];
+      for (let i = 0; i < ordered.length; i++) if (root.children[i] !== ordered[i]) root.insertBefore(ordered[i], root.children[i] ?? null);
+      const nav = this.slots.navigation;
+      nav.style.height = vertical && !narrow ? p.scroll === "content" ? "100%" : "100dvh" : "auto";
+      if (!vertical) {
+        nav.style.setProperty("position", "static", "important");
+        nav.style.maxHeight = "35dvh";
+      } else {
+        nav.style.removeProperty("position");
+        nav.style.removeProperty("max-height");
+      }
+      for (const [id, panel] of Object.entries(this.slots.panels)) {
+        const layout = p.panels[id];
+        panel.hidden = layout.dock === "hidden" || this.originals.find((item) => item.element === panel).attributes.some(([name]) => name === "hidden");
+        panel.dataset.panelDock = layout.dock;
+        const dockBudget = vertical ? width - p.navigationWidth : width;
+        const sidePanelCount = Object.values(p.panels).filter((panel2) => panel2.dock === "left" || panel2.dock === "right").length;
+        const sideWidth = Math.max(180, Math.floor((dockBudget - 280) / Math.min(2, Math.max(1, sidePanelCount))));
+        const panelWidth = Math.min(layout.width, Math.max(180, width - 16), ["left", "right"].includes(layout.dock) && !narrow ? sideWidth : 1200);
+        const panelHeight = Math.min(layout.height, Math.max(120, this.win.innerHeight - 16));
+        panel.style.setProperty("--pc-panel-width", panelWidth + "px");
+        panel.style.setProperty("--pc-panel-height", panelHeight + "px");
+        panel.style.setProperty("--pc-panel-x", Math.min(layout.x, Math.max(0, this.win.innerWidth - panelWidth - 8)) + "px");
+        panel.style.setProperty("--pc-panel-y", Math.min(layout.y, Math.max(0, this.win.innerHeight - panelHeight - 8)) + "px");
+        this.place(panel, this.docks.get(layout.dock) ?? this.stage);
+      }
+      if (restoreFocus && focused?.isConnected && !focused.closest("[hidden]") && this.root.ownerDocument.activeElement !== focused) focused.focus({ preventScroll: true });
+      root.dispatchEvent(new CustomEvent("primecare:workspace-layout", { detail: this.current }));
+    };
+    target(event) {
+      const el = event.target;
+      const handle = el?.closest("[data-layout-drag],[data-layout-resize]");
+      const panel = handle?.closest("[data-pc-panel]");
+      const id = panel?.dataset.pcPanel;
+      return id && this.slots.panels[id] === panel && handle && this.root.contains(handle) ? { id, resize: handle.hasAttribute("data-layout-resize") } : null;
+    }
+    pointerDown = (event) => {
+      const target = this.target(event);
+      if (!target || event.button !== 0 || this.root.dataset.narrow === "true") return;
+      const box = this.slots.panels[target.id].getBoundingClientRect(), p = this.profile.panels[target.id];
+      this.gesture = { id: target.id, x: Math.round(box.x), y: Math.round(box.y), width: p.width, height: p.height, startX: event.clientX, startY: event.clientY, resize: target.resize, before: this.current, pointer: event.pointerId };
+      event.preventDefault();
+      event.target.focus();
+    };
+    pointerMove = (event) => {
+      const g = this.gesture;
+      if (!g || g.pointer !== event.pointerId) return;
+      const dx = Math.round(event.clientX - g.startX), dy = Math.round(event.clientY - g.startY);
+      if (!dx && !dy) return;
+      const panel = this.profile.panels[g.id];
+      this.profile = validateWorkspaceLayout({ ...this.current, panels: { ...this.current.panels, [g.id]: { ...panel, ...g.resize ? { width: Math.max(180, Math.min(1200, g.width + dx)), height: Math.max(120, Math.min(1200, g.height + dy)) } : { dock: "floating", x: Math.max(0, Math.min(1e4, g.x + dx)), y: Math.max(0, Math.min(1e4, g.y + dy)) } } } }, this.ids);
+      this.apply();
+    };
+    pointerEnd = (event) => {
+      const g = this.gesture;
+      if (!g || g.pointer !== event.pointerId) return;
+      this.gesture = null;
+      if (JSON.stringify(g.before) !== JSON.stringify(this.profile)) this.remember(g.before);
+    };
+    pointerCancel = () => {
+      if (this.gesture) {
+        this.profile = this.gesture.before;
+        this.gesture = null;
+        this.apply();
+      }
+    };
+    keyDown = (event) => {
+      if (event.key === "Escape" && this.gesture) {
+        event.preventDefault();
+        this.pointerCancel();
+        return;
+      }
+      const target = this.target(event), directions = { ArrowLeft: [-16, 0, "left"], ArrowRight: [16, 0, "right"], ArrowUp: [0, -16, "top"], ArrowDown: [0, 16, "bottom"] };
+      const d = directions[event.key];
+      if (!target || !d || this.root.dataset.narrow === "true") return;
+      event.preventDefault();
+      if (event.ctrlKey || event.metaKey) {
+        this.dockPanel(target.id, d[2]);
+        return;
+      }
+      const p = this.profile.panels[target.id], box = this.slots.panels[target.id].getBoundingClientRect();
+      const resize = target.resize || event.shiftKey;
+      this.change({ ...this.current, panels: { ...this.current.panels, [target.id]: { ...p, ...resize ? { width: Math.min(1200, Math.max(180, p.width + d[0])), height: Math.min(1200, Math.max(120, p.height + d[1])) } : { dock: "floating", x: Math.max(0, Math.min(1e4, Math.round(box.x) + d[0])), y: Math.max(0, Math.min(1e4, Math.round(box.y) + d[1])) } } } });
+    };
+    dispose() {
+      if (this.disposed) return;
+      this.disposed = true;
+      this.abort.abort();
+      this.observer.disconnect();
+      for (const item of [...this.originals].reverse()) {
+        item.parent.insertBefore(item.element, item.next?.parentNode === item.parent ? item.next : null);
+        for (const a of [...item.element.attributes]) item.element.removeAttribute(a.name);
+        for (const [k, v] of item.attributes) item.element.setAttribute(k, v);
+      }
+      this.stage.remove();
+      for (const a of [...this.root.attributes]) this.root.removeAttribute(a.name);
+      for (const [k, v] of this.rootAttributes) this.root.setAttribute(k, v);
+    }
+  };
+  return __toCommonJS(workspace_layout_exports);
+})();
+</script><script>const root=document.querySelector('#shell');const slots={navigation:root.querySelector('[data-cy=test-nav]'),toolbar:root.querySelector('[data-cy=test-toolbar]'),main:root.querySelector('[data-cy=test-main]'),footer:root.querySelector('[data-cy=test-footer]'),panels:{schedule:root.querySelector('[data-cy=test-panel-a]'),messages:root.querySelector('[data-cy=test-panel-b]')}};window.manager=new Workspace.WorkspaceLayoutManager(root,slots,'layout:tenant-a:actor-a:role-a');window.slots=slots;</script><script>
+const status=document.querySelector('[data-cy=preview-status]');
+const sync=()=>{for(const key of ['navigation','container','toolbar','toolbarStyle','footer','scroll'])document.querySelector('[data-cy="preview-'+key+'"]').value=manager.current[key];document.querySelector('[data-cy=preview-panel]').value=manager.current.panels.schedule.dock;};
+for(const key of ['navigation','container','toolbar','toolbarStyle','footer','scroll'])document.querySelector('[data-cy="preview-'+key+'"]').onchange=e=>manager.change({...manager.current,[key]:e.target.value});
+document.querySelector('[data-cy=preview-panel]').onchange=e=>manager.dockPanel('schedule',e.target.value);
+for(const action of ['undo','redo','reset','save'])document.querySelector('[data-cy="preview-'+action+'"]').onclick=()=>{try{manager[action]();sync();status.value=action==='save'?'Saved on this browser.':'';}catch{status.value='Unable to save preferences on this browser.';}};
+document.querySelector('[data-cy=preview-export]').onclick=()=>{const url=URL.createObjectURL(new Blob([manager.exportJson()],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare_Workspace.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+document.querySelector('[data-cy=preview-import]').onchange=async e=>{try{const file=e.target.files[0];if(!file||file.size>32768)throw Error();manager.importJson(await file.text());sync();status.value='Layout imported.';}catch{status.value='Invalid layout file.';}finally{e.target.value='';}};
+document.querySelector('#shell').addEventListener('primecare:workspace-layout',sync);sync();
+</script></html>
