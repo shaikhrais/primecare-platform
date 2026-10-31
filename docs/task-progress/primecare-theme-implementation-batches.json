@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b05_shared_page_templates_accepted_host_rollout_pending",
+  "overall_status": "b06_shared_advanced_theme_implemented_verification_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -279,7 +279,7 @@
     {
       "id": "B06",
       "title": "Complete Theme Center and palette tools",
-      "status": "planned",
+      "status": "shared_advanced_theme_implemented_verification_pending",
       "depends_on": [
         "B01",
         "B02",
@@ -297,13 +297,38 @@
         "Existing saved themes and version-1 XML imports remain supported or explicitly migrated."
       ],
       "shared_targets": [
-        "packages/domain/src/theme_center.ts",
-        "packages/primecare_ui/web/theme-center.ts",
-        "packages/primecare_ui/web/theme-manager.ts",
-        "packages/flutter_core/lib/theme/"
+        "packages/domain/src/advanced_theme.ts",
+        "packages/primecare_ui/web/advanced-theme.ts",
+        "packages/primecare_ui/web/advanced-theme-editor.ts",
+        "packages/flutter_core/lib/advanced_theme/",
+        "packages/flutter_core/lib/advanced_theme.dart",
+        "packages/primecare_ui/lib/advanced_theme.dart"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-06.md",
+        "docs/appearance/theme-adoption-batch-06-evidence.json",
+        "docs/appearance/advanced-theme-usage.md",
+        ".github/workflows/advanced-theme.yml"
+      ],
+      "blockers": [
+        {
+          "code": "ADVANCED_THEME_HOST_BINDING_REQUIRED",
+          "detail": "New theme editor controls, schemas, components, resources and source bindings require production registration/readback before live exposure. Existing v1 paths remain unchanged."
+        },
+        {
+          "code": "ADVANCED_THEME_TRANSLATION_REVIEW_PENDING",
+          "detail": "New editor labels are supplied by the host; EN/FR/ES resource registration and independent human approval remain required."
+        }
+      ],
+      "readiness": "web_accepted_native_final_adapter_ci_pending",
+      "remainingScope": [
+        "Exact-source native CI acceptance",
+        "Registered host integration and authenticated runtime checks",
+        "Device, accessibility, translation and release review",
+        "Cross-device synchronization remains B07"
+      ],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false
     },
     {
       "id": "B07",

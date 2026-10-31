@@ -1,0 +1,41 @@
+# Advanced Theme Center source factories
+
+The version-2 factories are opt-in. They do not replace a live Theme Center, register controls, change app permissions or migrate account storage automatically. Before mounting, register and independently read back the host, component, control, source and EN/FR/ES resource bindings in the pinned production authority. Independent translation, accessibility and release review remain required.
+
+Web imports: `packages/primecare_ui/web/advanced-theme.ts` and `advanced-theme-editor.ts`. Flutter imports: `package:flutter_core/advanced_theme.dart` or `package:primecare_ui/advanced_theme.dart`.
+
+## Validated appearance data
+
+`AdvancedTheme` has exactly `version: 2`, `name`, `regions`, `tokens` and `layout`. Each of main/navigation/toolbar/footer has its own light/dark mode and opaque `#RRGGBB` background, surface, candidate text, primary, secondary, success, warning, error, info and border colors. Changing a region's mode initializes that region's background/surface/text for that mode, preserving its semantic hues and every other region.
+
+Rendered text uses the candidate foreground when it reaches 4.5:1 on both background and surface; otherwise it uses a readable black/white fallback. Incompatible background/surface pairs are rejected. Semantic colors have independent readable foregrounds and deterministic 20% light/dark shades with their own foregrounds. The model retains the original candidate color so exporting a theme does not silently rewrite user data. These checks cover the compiled palette pairs; they do not establish whole-app WCAG conformance, decorative border contrast or readability of business-owned custom styling.
+
+Shared tokens cover system/serif/monospace font family, font scale .875–1.5, spacing unit 8–24, radius 0–24, border width 1–3 and comfortable/compact density. Compact spacing is 75% of the spacing unit. Browser root-font preferences and native system text scaling remain owned by the host/platform; controls retain minimum touch targets. The layout subset contains family, container, maximum width, navigation width and toolbar style. `themeWorkspace` / `AdvancedTheme.workspace` project it onto an existing authorized workspace, preserving its panel registry and other settings. Themes cannot import panels, routes, grants or business widgets.
+
+Unknown fields, unsafe font/CSS values, nonfinite dimensions and non-opaque colors fail validation. Theme JSON is limited to 32 KiB UTF-8. No CSS, script, provider URL or component definition is accepted as theme data.
+
+## Schema-driven controls
+
+Use `themeFields(rawSchema, approvedIds)` / `ThemeField.parse(rawSchema, approvedIds)` with the current server-authorized control IDs. A schema record has exactly `id`, `label`, `path`, `when`; `when` is null or `{path, values}`. All paths are allowlisted data fields. Select values and number ranges come from the shared contract, never executable schema callbacks. Conditions may only compare a known select field with its known values. Duplicate IDs/paths and malformed fields are rejected even when their IDs would be filtered out. No role or permission expression is interpreted.
+
+Provide reviewed localized action, option, semantic-color and region labels. The editor displays only approved schema fields; a host should condition maximum width on boxed/content containers and navigation width on the vertical family. No extra per-layout form is needed. The included fixtures are synthetic test schemas, not production registrations or reviewed translations.
+
+## Preview, application and saved themes
+
+Web `AdvancedThemeRegions` takes explicit, distinct, non-nested region roots. It rejects document/body roots, writes only owned presentation properties on supplied regions, and restores those properties on disposal. It does not alter business elements or document-wide styles. Region CSS variables expose readable semantic foregrounds/shades and shared spacing/radius/border tokens. The editor's built-in preview uses its own region roots, so changing a draft does not apply it to an app. `onApply` is the explicit host callback; the host can combine region application with validated workspace projection.
+
+Flutter `AdvancedThemeRegion` takes an explicit base `ThemeData`, validated theme and region. Supplying the same original base to each region prevents cumulative font scaling. Its `AdvancedThemeTokens` extension exposes spacing, radius, border width, semantic palettes and shades. Native `ColorScheme`, text, icon, card and density settings use the region palette; business behavior remains owned by the child widgets.
+
+Create `AdvancedThemeLibrary(scope, storagePort, optionalUuidProvider)` on web. On Flutter, use `AdvancedThemeController.preferences(scope: ..., preferences: ...)` for the existing `SharedPreferences` instance, or inject a custom read/write port, await `initialize()`, then bind the editor. The shared preference adapter treats a false write result as a failure. Use an unambiguous authenticated scope such as an encoded `[tenantId, userId, roleId, datasetId]` tuple. The separate `primecare.advanced-theme.v2:` key stores one validated library record containing active appearance and at most 20 saved themes with unique names and UUID identities. Read/validation failures must be shown by the host as an error; no unvalidated theme is applied and no old record is silently erased.
+
+Save/update/rename/duplicate/delete operate on named themes; Apply persists the validated draft as the active appearance, and Reset clears active appearance without deleting named themes. Duplicate copies the selected saved theme using the draft name. Removing a named theme leaves the current active appearance until Reset/Apply. Failed writes do not change in-memory library state. Native writes are serialized by a busy guard; a disposed actor's late write remains under its old key and cannot update a new controller/editor or apply a theme to a new actor. Cross-device synchronization is B07 and is not implemented here.
+
+The editor provides a formatted, text-only configuration viewer, copy, JSON import/export and explicit success/error status. Supply real platform clipboard/download/file-picking adapters; errors remain errors. Web import callbacks and native asynchronous actions guard disposal and actor replacement. Dispose/recreate the web editor with fresh schema/library bindings on actor or authority changes. For native controller replacement, dispose the old controller and supply freshly authorized fields. Business form state outside editor preview roots is preserved.
+
+## Legacy compatibility
+
+Existing version-1 personal-theme JSON and existing storage keys remain unchanged. `importThemeDocument` validates v1 personal themes with the existing validators and returns a `legacy-personal` result, preserving the full original contract. It does not fabricate an equivalent v2 theme or overwrite the old library. Route that result through the existing personal-theme application path.
+
+Web version-1 XML uses the existing `XmlLayoutManager` codec. Native accepts the canonical data-only v1 `PrimeCareLayout` export grammar, including single/double attribute quotes and arbitrary attribute order, while rejecting declarations, entities, namespaces, duplicate attributes and unknown markup. Both return the original v1 layout object through `legacy-layout`; the host binds it to its existing layout settings. Noncanonical legacy XML must continue through the existing web import path or be explicitly normalized there; no silent lossy migration is claimed. Version-2 export is JSON. No live host is automatically rebound by importing a legacy document.
+
+Connected device flows, actual host integration, owner-controlled overlay cleanup, human translations and screen-reader/contrast/release review remain separate rollout requirements.

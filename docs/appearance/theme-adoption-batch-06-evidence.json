@@ -1,0 +1,109 @@
+{
+  "format": 1,
+  "batch": "B06",
+  "featureIds": [
+    "core.FuseSettings",
+    "core.FuseTheme",
+    "core.FuseThemeSelector",
+    "capability.region-palettes",
+    "capability.palette-shades",
+    "capability.schema-forms",
+    "capability.settings-code"
+  ],
+  "scopeNote": "Original optional source factories; feature IDs identify B06 contributions only. They do not imply vendor API compatibility, full-reference equivalence, live activation or all-app adoption.",
+  "implementationStatus": "shared_advanced_theme_implemented_verification_pending",
+  "codeCommit": "a06c44565b37bc2a0295595cbaf7e96d2cba06c2",
+  "sourceEvidence": [
+    {
+      "path": "packages/domain/src/advanced_theme.ts",
+      "sha256": "91ce320071100e06c8576c87505cd36d630af09d935f6c0eda64a31723b0f472"
+    },
+    {
+      "path": "packages/primecare_ui/web/advanced-theme.ts",
+      "sha256": "2e09423a9c23b6c5e582a215bc4c97fb5a992662d56e08f887538874f602eb8c"
+    },
+    {
+      "path": "packages/primecare_ui/web/advanced-theme-editor.ts",
+      "sha256": "483d3b00ac0e700a3c42a719f269b9250f02d9fa78b2bb0702e16ccc30415fb8"
+    },
+    {
+      "path": "packages/flutter_core/lib/advanced_theme.dart",
+      "sha256": "36f800de7acf9ec12504d4c03d8afdf3b52ba9e553e9580d1cb5f8a1fb21e6bb"
+    },
+    {
+      "path": "packages/primecare_ui/lib/advanced_theme.dart",
+      "sha256": "df10ee0b7dc88518ddb1db002cd08eacdda2e5490d64c8f823fea6b4cf5fd19b"
+    },
+    {
+      "path": "packages/flutter_core/lib/advanced_theme/advanced_theme_model.dart",
+      "sha256": "318e88c3550670135fee2c6679821a5177cfd0f7f3a410948c618d579d7e1681"
+    },
+    {
+      "path": "packages/flutter_core/lib/advanced_theme/advanced_theme_region.dart",
+      "sha256": "0775e6a554be53ec761ec3b22d06621392bc50b0156782f1bfdb8a773eeaf4b8"
+    },
+    {
+      "path": "packages/flutter_core/lib/advanced_theme/advanced_theme_import.dart",
+      "sha256": "d630806662e388700c05e0a9f876b07c8ed200a9ae5c0d9e0835a5eb54d4c94a"
+    },
+    {
+      "path": "packages/flutter_core/lib/advanced_theme/advanced_theme_controller.dart",
+      "sha256": "17eb46df32438b0ad1fc3fc0244bb4f31194e19a92b96caabd36eed005eacad7"
+    },
+    {
+      "path": "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart",
+      "sha256": "dac80b0f6ce458d318ff54331afb84006c2cff8e292402002fb0bbb164406dc2"
+    }
+  ],
+  "ci": {
+    "runId": 41244914101,
+    "conclusion": "queued",
+    "flutterVersion": "3.41.5",
+    "jobs": []
+  },
+  "localVerification": {
+    "modelTests": 2,
+    "oracleCases": 96,
+    "regionsPerCase": 4,
+    "contrastThreshold": 4.5,
+    "chromiumBrowser": "passed",
+    "typescript": "passed"
+  },
+  "coverage": [
+    "Independent light/dark region palettes; primary/secondary/status colors and readable foregrounds on base/light/dark shades",
+    "Strict opaque colors, token ranges, unknown/authority-field rejection and injection rejection",
+    "Approved schema IDs, safe field paths and conditional control visibility",
+    "Isolated preview; configuration viewer, copy and JSON export/import; invalid imports do not change draft",
+    "Named-theme create/update/rename/duplicate/delete, reset and scoped persistence; failed writes retain prior in-memory state",
+    "Immutable native actor scope, disposed controller writes, pending import and detached callback rejection",
+    "Existing v1 personal JSON and canonical v1 XML layout exports remain distinct lossless contracts",
+    "Layout projection retains the existing authorized workspace panel registry and other settings"
+  ],
+  "compatibility": {
+    "legacyPersonalJson": "existing_v1_validators_no_lossy_auto_migration",
+    "legacyWebXml": "existing_XmlLayoutManager",
+    "legacyNativeXml": "canonical_v1_exports_only_no_entities_or_declarations",
+    "legacyStorageKeys": "unchanged",
+    "crossDeviceSync": "B07_pending"
+  },
+  "production": {
+    "activated": false,
+    "newScreens": 0,
+    "newRoutes": 0,
+    "newAPIs": 0,
+    "roleGrants": 0,
+    "hostBindingsVerified": false,
+    "runtimeVerified": false,
+    "humanReviewApproved": false,
+    "translationsReviewed": false,
+    "allAppsAdopted": false
+  },
+  "remaining": [
+    "Exact-source three-platform native and oracle acceptance",
+    "Production host/component/control/schema/resource/source registration and independent readback",
+    "Authenticated real host/runtime and connected Android/iOS/device checks",
+    "Independent EN/FR/ES translation, screen-reader, contrast and release review",
+    "Any required normalization of noncanonical native legacy XML through the existing web import path"
+  ],
+  "baselineNote": "The B01 registration proposal is retained as its baseline. Compiled palette-pair checks do not establish whole-app WCAG conformance or human review."
+}
