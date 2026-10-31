@@ -2,7 +2,7 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: plan created; the batches below are not marked implemented.**
+**Status: B01 source preparation validated; GitHub production reconciliation and registration pending. B02–B18 remain planned.**
 
 Implement original PrimeCare equivalents for the audited Fuse v17 features. Reuse shared core packages across web and Flutter. Work on current `main`, retain concurrent work and use expected-head checks. Do not copy proprietary vendor implementation or replace existing authentication without an approved requirement.
 
@@ -12,7 +12,7 @@ Shared shell, base Theme Center, personal themes, existing native layout options
 
 Shared optional docking engine exists and passed isolated tests; no production shell mount.
 
-**Production blocker:** the last pinned governance reader attempt returned `MISSING_DATABASE_URL`. Batch B01 starts with registration reconciliation and requires the authorized production connection before mutations or new live controls. No SQLite fallback. Planning, source review and isolated test preparation can proceed.
+**Production execution:** the local pinned reader returned `MISSING_DATABASE_URL`. Existing GitHub workflows reference the `production` environment’s `PRODUCTION_DATABASE_URL` secret. The dedicated `theme-adoption-preflight.yml` workflow uses that secret in place for read-only reconciliation. Its live result must be inspected before registration or new UI exposure. No SQLite fallback.
 
 ## Ordered batches
 
@@ -41,7 +41,7 @@ Shared optional docking engine exists and passed isolated tests; no production s
 
 ### B01 — Governance, feature contracts and localization
 
-Status: planned. Dependencies: none.
+Status: in progress; source preparation validated and GitHub production reconciliation pending. See `docs/appearance/theme-adoption-batch-01.md`. Dependencies: none.
 
 Scope:
 

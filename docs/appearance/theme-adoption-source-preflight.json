@@ -1,0 +1,19 @@
+{
+  "mode": "source-check",
+  "status": "source_contract_validated",
+  "contractSha256": "64052209d1f98141b3edaa06c793f875910e74634e5708f88f7924551c33fccc",
+  "expectedManifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "counts": {
+    "features": 72,
+    "coreFamilies": 24,
+    "referenceFiles": 389,
+    "componentImports": 78,
+    "proposedControls": 25,
+    "resources": 40,
+    "translations": 120
+  },
+  "productionChecked": false,
+  "productionActivationAllowed": false,
+  "runtimeVerified": false,
+  "writes": 0
+}

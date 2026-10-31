@@ -1,0 +1,65 @@
+name: Theme adoption production reconciliation
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/theme-adoption-preflight.yml'
+      - 'tools/governance-production/theme-adoption-contract.json'
+      - 'tools/governance-production/theme-adoption-preflight.mjs'
+      - 'scripts/test-theme-adoption-preflight.mjs'
+permissions:
+  contents: read
+concurrency:
+  group: theme-adoption-production-reconciliation
+  cancel-in-progress: false
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate source contracts and isolated reconciliation cases
+        run: |
+          node --test scripts/test-theme-adoption-preflight.mjs
+          node tools/governance-production/theme-adoption-preflight.mjs --check --out test-results/theme-adoption/source-preflight.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: theme-adoption-source-preflight
+          path: test-results/theme-adoption/source-preflight.json
+          if-no-files-found: warn
+          retention-days: 30
+  production:
+    if: github.ref == 'refs/heads/main'
+    needs: source
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install existing PostgreSQL read bridge dependency
+        run: |
+          npm install --prefix /tmp/theme-adoption-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/theme-adoption-reader/node_modules node_modules
+      - name: Reconcile pinned production metadata without mutations
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node tools/governance-production/theme-adoption-preflight.mjs --production --out test-results/theme-adoption/production-preflight.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: theme-adoption-production-preflight
+          path: test-results/theme-adoption/production-preflight.json
+          if-no-files-found: warn
+          retention-days: 30

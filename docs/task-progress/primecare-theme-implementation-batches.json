@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "planned_not_implemented",
+  "overall_status": "in_progress_b01_github_reconciliation_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -16,12 +16,12 @@
   },
   "current_blockers": [
     {
-      "code": "MISSING_DATABASE_URL",
+      "code": "PRODUCTION_RECONCILIATION_PENDING",
       "affects": [
         "B01",
         "production_activation"
       ],
-      "detail": "Last pinned-reader connection attempt returned MISSING_DATABASE_URL. Restore the authorized production connection and validate the pin before registration; local .env presence is not proof of availability."
+      "detail": "Local runtime lacks the URL. Existing GitHub production environment secret is referenced by the dedicated read-only reconciliation workflow; live result is pending."
     }
   ],
   "baseline": {
@@ -39,7 +39,7 @@
     {
       "id": "B01",
       "title": "Governance, feature contracts and localization",
-      "status": "planned",
+      "status": "in_progress",
       "depends_on": [],
       "scope": [
         "Reconcile every audited Fuse capability against existing production registrations and PrimeCare implementations; retain missing, partial, implemented-unverified and verified distinctions.",
@@ -57,10 +57,20 @@
         "packages/primecare_ui/catalogs/",
         "packages/domain/src/"
       ],
-      "evidence": [],
+      "evidence": [
+        "tools/governance-production/theme-adoption-contract.json",
+        "tools/governance-production/theme-adoption-preflight.mjs",
+        "scripts/test-theme-adoption-preflight.mjs",
+        "docs/appearance/theme-adoption-source-preflight.json",
+        "docs/appearance/theme-adoption-production-preflight.json",
+        "docs/appearance/theme-adoption-batch-01.md",
+        ".github/workflows/theme-adoption-preflight.yml"
+      ],
       "blockers": [
-        "MISSING_DATABASE_URL"
-      ]
+        "PRODUCTION_RECONCILIATION_PENDING"
+      ],
+      "sourcePreparation": "validated",
+      "productionRegistration": "pending_production_reconciliation"
     },
     {
       "id": "B02",
