@@ -30,5 +30,5 @@ export class ShellUtilitiesView {
   this.status.textContent=this.error?this.labels.error:state?this.labels[state]??this.labels.error:'';const fs=this.dialog.querySelector<HTMLButtonElement>('[data-cy="'+this.ids.fullscreen+'"]')!;fs.disabled=!this.env.supported;fs.textContent=this.labels[this.env.fullscreen?'exitFullscreen':'fullscreen'];if(focus&&active&&!active.isConnected)this.root.querySelector<HTMLElement>('[data-cy="'+CSS.escape(focus)+'"]')?.focus({preventScroll:true});
  }
  routeChanged(key:string,scrollRoots?:readonly HTMLElement[]){this.env.routeChanged(key,scrollRoots);}
- async dispose(){if(this.dead)return;this.dead=true;this.abort.abort();this.off();this.dialog.close();this.controller.dispose();this.root.replaceChildren();await this.env.dispose();}
+ async dispose(){if(this.dead)return;this.dead=true;this.abort.abort();this.off();this.dialog.close();const disposed=this.controller.dispose();this.root.replaceChildren();try{await disposed;}finally{await this.env.dispose();}}
 }

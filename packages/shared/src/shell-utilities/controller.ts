@@ -22,5 +22,5 @@ export class ShellUtilitiesController {
  open(id:string){if(this.dead||!this.destinations.some(n=>n.id===id&&!n.disabled))throw Error('destination_unavailable');this.navigate(id);}
  async toggle(id:string){if(this.dead||!this.destinations.some(n=>n.id===id&&!n.disabled))throw Error('destination_unavailable');const draft=this.favourites.current.draft as {version:1;screenIds:string[]}|null;const ids=[...(draft?.screenIds??[])];const at=ids.indexOf(id);if(at<0)ids.push(id);else ids.splice(at,1);await this.favourites.edit({version:1,screenIds:ids});this.emit();}
  async preference(action:'load'|'save'|'retryPending'|'acceptRemote'|'keepLocal'){if(this.dead)throw Error('utility_disposed');try{const work=this.favourites[action]();this.emit();await work;}finally{this.emit();}}
- dispose(){if(this.dead)return;this.dead=true;this.abort.abort();this.listeners.clear();for(const k of utilityKinds)this.states[k]={status:'unavailable',error:null,items:[],busy:false};void this.favourites.dispose();}
+ async dispose(){if(this.dead)return;this.dead=true;this.abort.abort();this.listeners.clear();for(const k of utilityKinds)this.states[k]={status:'unavailable',error:null,items:[],busy:false};await this.favourites.dispose();}
 }
