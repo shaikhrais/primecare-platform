@@ -2,7 +2,7 @@ name: Verify PrimeCare and native appearance contract
 on:
   push:
     branches: [main]
-    paths: ['packages/primecare_ui/lib/src/theme/prime_fuse_theme.dart', 'packages/primecare_ui/lib/src/theme/primecare_theme.dart', 'packages/primecare_ui/lib/src/theme/prime_theme_resolver.dart', 'packages/primecare_ui/lib/src/application/base_primecare_app.dart', 'packages/primecare_ui/lib/src/components/prime_components.dart', 'packages/primecare_ui/test/prime_fuse_theme_test.dart', 'packages/primecare_ui/catalogs/fuse-skeleton.inventory.json', 'scripts/scan-fuse-skeleton.mjs', 'scripts/test-fuse-skeleton-inventory.mjs', 'packages/domain/src/fuse_theme_adapter.ts', 'packages/domain/src/primecare_appearance.ts', 'packages/domain/src/theme_center.ts', 'scripts/primecare_presets.json', 'scripts/test-primecare-original-theme.mjs', 'packages/primecare_ui/web/prime-skeleton.css', 'scripts/test-fuse-theme-adapter.mjs', 'packages/flutter_core/lib/theme/personal_theme.dart', 'packages/flutter_core/lib/theme/theme_center_catalog_generated.dart', '.github/workflows/fuse-appearance-contract.yml']
+    paths: ['packages/primecare_ui/lib/src/theme/prime_fuse_theme.dart', 'packages/primecare_ui/lib/src/theme/primecare_theme.dart', 'packages/primecare_ui/lib/src/theme/prime_theme_resolver.dart', 'packages/primecare_ui/lib/src/application/base_primecare_app.dart', 'packages/primecare_ui/lib/src/components/prime_components.dart', 'packages/primecare_ui/test/prime_fuse_theme_test.dart', 'packages/primecare_ui/catalogs/fuse-skeleton.inventory.json', 'scripts/scan-fuse-skeleton.mjs', 'scripts/test-fuse-skeleton-inventory.mjs', 'packages/domain/src/fuse_theme_adapter.ts', 'packages/domain/src/primecare_appearance.ts', 'packages/domain/src/theme_center.ts', 'scripts/primecare_presets.json', 'scripts/test-primecare-original-theme.mjs', 'packages/primecare_ui/web/prime-skeleton.css', 'packages/primecare_ui/web/*.ts', 'websites/typescript/src/theme-center.ts', 'websites/typescript/src/theme-library.ts', 'scripts/test-primecare-theme-library.mjs', 'scripts/test-fuse-theme-adapter.mjs', 'packages/flutter_core/lib/theme/personal_theme.dart', 'packages/flutter_core/lib/theme/theme_center_catalog_generated.dart', '.github/workflows/fuse-appearance-contract.yml']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -16,6 +16,9 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: node --test scripts/test-fuse-theme-adapter.mjs scripts/test-primecare-original-theme.mjs
       - run: node --test scripts/test-fuse-skeleton-inventory.mjs
+      - run: node --test scripts/test-primecare-theme-library.mjs
+      - name: Build the shared Theme Center
+        run: npx esbuild packages/primecare_ui/web/index.ts --bundle --outfile=/tmp/primecare-theme-center.js
       - name: Typecheck the appearance adapter
         run: npx -p typescript@5.9.3 tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop packages/domain/src/fuse_theme_adapter.ts
 
