@@ -1673,5 +1673,32 @@
     "businessDataWrites": false,
     "roleGrants": false,
     "runtimeActivation": false
+  },
+  "preferenceSyncRegistrationWriter": {
+    "optInVariable": "REGISTER_PREFERENCE_SYNC",
+    "apiId": 777,
+    "tables": [
+      "api_endpoints",
+      "api_permissions"
+    ],
+    "contractSha256": "77bbd479cc609260860699909f5e1e5c3afd79493482fc10d94de8a41153d367",
+    "newRoleGrants": false,
+    "businessDataWrites": false,
+    "schemaChanges": false,
+    "runtimeActivation": false
+  },
+  "preferenceSyncSchemaMigration": {
+    "optInVariable": "APPLY_PREFERENCE_SYNC_SCHEMA",
+    "migrationSha256": "6c889c7fd2e6a36b18ab86e285f3f3b7ebee7fa80f75465c8f0075eb6012ff46",
+    "schema": "public",
+    "tables": [
+      "account_preference_documents",
+      "account_preference_requests",
+      "account_preference_audit",
+      "account_preference_rate"
+    ],
+    "accountChanges": false,
+    "roleGrants": false,
+    "activation": false
   }
 }

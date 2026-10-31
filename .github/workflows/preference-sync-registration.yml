@@ -1,0 +1,68 @@
+name: Register scoped account preference contracts
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/preference-sync-contract.json'
+      - 'tools/governance-production/preference-sync-registration.mjs'
+      - 'packages/database/migrations/20261031_account_preferences.sql'
+      - '.github/workflows/preference-sync-registration.yml'
+      - 'scripts/test-preference-registration.mjs'
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency:
+  group: preference-sync-registration
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/preference-validation --ignore-scripts --no-audit --no-fund pg@8.11.3 @electric-sql/pglite@0.3.14
+          ln -s /tmp/preference-validation/node_modules node_modules
+          node scripts/test-preference-registration.mjs
+  production:
+    needs: validate
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/preference-registration --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/preference-registration/node_modules node_modules
+          node tools/governance-production/preference-sync-registration.mjs --check
+      - name: Validate exact metadata transaction without committing
+        run: node tools/governance-production/preference-sync-registration.mjs
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          REGISTER_PREFERENCE_SYNC: '1'
+      - name: Register existing endpoint and repair grant keys without changing access
+        run: node tools/governance-production/preference-sync-registration.mjs --apply
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          REGISTER_PREFERENCE_SYNC: '1'
+      - name: Validate then create only the new owned preference storage
+        run: |
+          node tools/governance-production/preference-sync-registration.mjs --schema
+          node tools/governance-production/preference-sync-registration.mjs --schema --apply
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          REGISTER_PREFERENCE_SYNC: '1'
+          APPLY_PREFERENCE_SYNC_SCHEMA: '1'
+      - name: Independently read back registration and physical ownership constraints
+        run: node tools/governance-production/preference-sync-registration.mjs --readback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          REGISTER_PREFERENCE_SYNC: '1'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: preference-sync-registration, path: test-results/preference-sync}
