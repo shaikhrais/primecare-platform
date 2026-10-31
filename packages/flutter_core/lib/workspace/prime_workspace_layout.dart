@@ -20,10 +20,11 @@ class PrimeWorkspaceLayout extends StatefulWidget {
   final Map<String, Widget> panels;
   final Map<String, WorkspaceHandleLabels> handleLabels;
   final double toolbarExtent, footerExtent, horizontalNavigationExtent;
+  final double? navigationVisualWidth;
   PrimeWorkspaceLayout({super.key, required this.controller, required this.navigation,
     required this.toolbar, required this.main, this.footer, required Map<String, Widget> panels,
     Map<String, WorkspaceHandleLabels> handleLabels = const {}, this.toolbarExtent = 56,
-    this.footerExtent = 48, this.horizontalNavigationExtent = 144})
+    this.footerExtent = 48, this.horizontalNavigationExtent = 144, this.navigationVisualWidth})
       : panels = Map.unmodifiable(panels), handleLabels = Map.unmodifiable(handleLabels);
   @override State<PrimeWorkspaceLayout> createState() => _PrimeWorkspaceLayoutState();
 }
@@ -128,7 +129,9 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
         final width = p.container == 'boxed' ? math.min(available.width, p.maxWidth.toDouble()) : available.width;
         final viewport = Size(width, available.height);
         final vertical = !narrow && ['left', 'right'].contains(p.navigation);
-        final navWidth = math.min(p.navigationWidth.toDouble(), width * .5);
+        final visualWidth=widget.navigationVisualWidth??p.navigationWidth.toDouble();
+        if(!visualWidth.isFinite||visualWidth<40||visualWidth>400)throw ArgumentError('Invalid navigation presentation width');
+        final navWidth = math.min(visualWidth, width * .5);
         final stageWidth = width - (vertical ? navWidth : 0);
         final navHeight = math.min(widget.horizontalNavigationExtent, viewport.height * .25);
         final toolHeight = math.min(widget.toolbarExtent, viewport.height * .2);
