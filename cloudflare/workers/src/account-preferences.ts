@@ -19,6 +19,9 @@ export async function accountPreferences(request:Request,env:Env & {PREFERENCE_S
  if(new URL(request.url).search||request.headers.has('x-tenant-id'))return json({error:'scope_override_forbidden'},400,safe);
  let raw:any;try{raw=await parseBody(request,73728);}catch(e){return bodyFailure(e,'invalid_request',safe);}
  try{return await withDb(env,async db=>{
+  // Verify the pinned authority before even auxiliary quota/cleanup writes.
+  const authority=(await db.query('SELECT manifest_sha256 FROM '+table('source_manifest'))).rows;
+  if(authority.length!==1||authority[0].manifest_sha256!==pin.manifestSha256)throw new PreferenceFailure('authority_unavailable',503);
   // Autocommit quotas survive rejected preference transactions. Only hashes are retained.
   await db.query("DELETE FROM public.account_preference_rate WHERE bucket<clock_timestamp()-interval '2 minutes'");
   await quota(db,await sha256('preferences:source:'+ (request.headers.get('cf-connecting-ip')??'unknown')),false,300);
