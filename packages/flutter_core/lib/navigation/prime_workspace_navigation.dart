@@ -23,6 +23,8 @@ class PrimeWorkspaceNavigation extends StatefulWidget {
 }
 class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   final _expanded=<String>{};
+  final _menuController=MenuController();
+  final _menuEntryFocus=FocusNode(debugLabel:'workspace-navigation-menu-entry');
   final _focus=<(String,String),FocusNode>{};
   final _dialogUpdates=ValueNotifier<int>(0);
   bool _pinned=true,_hover=false,_focused=false;
@@ -56,7 +58,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   void _closeDialogLater(){final route=_dialog,nav=_navigator;_dialog=null;_navigator=null;
     if(route!=null&&nav!=null)WidgetsBinding.instance.addPostFrameCallback((_){if(nav.mounted&&route.isActive)nav.removeRoute(route);});
   }
-  @override void dispose(){_generation++;_closeDialogLater();for(final n in _focus.values)n.dispose();_dialogUpdates.dispose();super.dispose();}
+  @override void dispose(){_menuEntryFocus.dispose();_generation++;_closeDialogLater();for(final n in _focus.values)n.dispose();_dialogUpdates.dispose();super.dispose();}
   void _activate(String id,int generation){
     if(!mounted||generation!=_generation)return;final node=widget.model.find(id);
     if(node==null||node.disabled||node.route==null)return;
@@ -124,7 +126,14 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
         onOpen:n.disabled?null:(){},menuChildren:n.children.map(entry).toList(),child:_label(n));
       return Semantics(selected:n.id==_activeId,child:MenuItemButton(focusNode:_node(n.id,prefix:'menu:'),key:ValueKey('workspace-navigation-${n.id}'),style:n.id==_activeId?ButtonStyle(backgroundColor:WidgetStatePropertyAll(Theme.of(context).colorScheme.primaryContainer)):null,onPressed:n.disabled?null:()=>_activate(n.id,generation),child:_label(n)));
     }
-    return SingleChildScrollView(scrollDirection:Axis.horizontal,child:MenuBar(children:widget.model.nodes.map(entry).toList()));
+    return Focus(key:const ValueKey('workspace-navigation-menu-entry'),focusNode:_menuEntryFocus,
+      onFocusChange:(_)=>setState((){}),onKeyEvent:(_,event){
+        if(!_menuEntryFocus.hasPrimaryFocus||event is! KeyDownEvent)return KeyEventResult.ignored;
+        if(![LogicalKeyboardKey.enter,LogicalKeyboardKey.space,LogicalKeyboardKey.arrowDown,LogicalKeyboardKey.arrowUp].contains(event.logicalKey))return KeyEventResult.ignored;
+        final roots=widget.model.nodes.where((n)=>!n.disabled).toList();if(roots.isEmpty)return KeyEventResult.ignored;
+        _menuController.open();_focusAfter(event.logicalKey==LogicalKeyboardKey.arrowUp?roots.last.id:roots.first.id,prefix:'menu:');return KeyEventResult.handled;
+      },child:DecoratedBox(decoration:BoxDecoration(border:Border.all(color:_menuEntryFocus.hasPrimaryFocus?Theme.of(context).colorScheme.primary:Colors.transparent,width:2)),
+        child:SingleChildScrollView(scrollDirection:Axis.horizontal,child:MenuBar(controller:_menuController,children:widget.model.nodes.map(entry).toList()))));
   }
   KeyEventResult _railKey(String id,KeyEvent event){
     if(event is! KeyDownEvent&&event is! KeyRepeatEvent)return KeyEventResult.ignored;
