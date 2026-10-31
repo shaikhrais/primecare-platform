@@ -22,6 +22,8 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm install --prefix /tmp/psw-tools --ignore-scripts --no-audit --no-fund @electric-sql/pglite@0.3.14 bcryptjs@3.0.2
       - run: test -e node_modules/bcryptjs || ln -s /tmp/psw-tools/node_modules/bcryptjs node_modules/bcryptjs
+      - name: Preserve independently reviewed gateway route behavior
+        run: node --test scripts/test-method-capture-blockers.mjs
       - name: Scheduling constraints and atomic recurrence
         run: node scripts/test-psw-scheduling.mjs
       - name: Native PostgreSQL workspace commands and isolation
