@@ -4,7 +4,7 @@ import {validatePersonalTheme,themePresets,themeContrast,defaultPersonalTheme,ty
  */
 export type PrimePaletteOptions={palette:{mode:'light'|'dark';primary:{main:string;contrastText:string};secondary:{main:string;contrastText:string};background:{default:string;paper:string};text:{primary:string;secondary:string};divider:string};typography:{fontFamily:string;fontSize:number};shape:{borderRadius:number}};
 export type PrimeCareAppearance={profile:PersonalTheme;theme:{main:PrimePaletteOptions;navbar:PrimePaletteOptions;toolbar:PrimePaletteOptions;footer:PrimePaletteOptions}};
-const foreground=(background:string,preferred?:string)=>preferred&&themeContrast(preferred,background)>=4.5?preferred:themeContrast('#000000',background)>=themeContrast('#ffffff',background)?'#000000':'#ffffff';
+const foreground=(background:string,preferred?:string)=>preferred&&themeContrast(preferred,background)>=4.5?preferred.toLowerCase():themeContrast('#000000',background)>=themeContrast('#ffffff',background)?'#000000':'#ffffff';
 export function toPrimeCareAppearance(value:unknown):PrimeCareAppearance {
  const profile=validatePersonalTheme(value),base=themePresets[profile.preset as keyof typeof themePresets],c=profile.colors;
  const background=c.background??base.background.default,surface=c.surface??base.background.paper,primary=c.primary??base.primary.main,secondary=c.secondary??base.secondary.main,border=c.border??base.divider;
@@ -15,7 +15,7 @@ export function toPrimeCareAppearance(value:unknown):PrimeCareAppearance {
  const muted=[mutedCandidate,text].find(color=>[background,surface].every(bg=>themeContrast(color,bg)>=4.5))!;
  const typography={fontFamily:profile.fontFamily==='system'?'system-ui, sans-serif':profile.fontFamily==='serif'?'serif':'monospace',fontSize:14*profile.fontScale};
  const shape={borderRadius:profile.radius};
- const palette={mode:base.mode as 'light'|'dark',primary:{main:primary,contrastText:foreground(primary)},secondary:{main:secondary,contrastText:foreground(secondary)},background:{default:background,paper:surface},text:{primary:text,secondary:muted},divider:border};
+ const palette={mode:base.mode as 'light'|'dark',primary:{main:primary,contrastText:foreground(primary,base.primary.contrastText)},secondary:{main:secondary,contrastText:foreground(secondary,base.secondary.contrastText)},background:{default:background,paper:surface},text:{primary:text,secondary:muted},divider:border};
  const main={palette,typography,shape};
  const chrome=(background:string):PrimePaletteOptions=>({palette:{...palette,mode:foreground(background)==='#ffffff'?'dark':'light',background:{default:background,paper:background},text:{primary:foreground(background,text),secondary:foreground(background,muted)}},typography:{...typography},shape:{...shape}});
  const sidebar=c.sidebar??base.sidebarBackground,topbar=c.topbar??base.topbarBackground;
