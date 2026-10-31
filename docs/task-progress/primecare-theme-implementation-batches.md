@@ -2,7 +2,7 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web checks; final native CI is pending. Host activation, device release verification and B07–B18 remain pending.**
+**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web, Linux/Windows/macOS interaction and cross-runtime model checks. Host activation, device release verification and B07–B18 remain pending.**
 
 Implement original PrimeCare equivalents for the audited Fuse v17 features. Reuse shared core packages across web and Flutter. Work on current `main`, retain concurrent work and use expected-head checks. Do not copy proprietary vendor implementation or replace existing authentication without an approved requirement.
 
@@ -140,7 +140,7 @@ Shared targets: `packages/primecare_ui/web/`, `packages/primecare_ui/lib/src/com
 
 ### B06 — Complete Theme Center and palette tools
 
-Status: shared advanced Theme Center implemented; final native CI and host/resource registration remain pending. Dependencies: B01, B02, B03.
+Status: shared advanced Theme Center accepted; host/resource registration, component-state integration and runtime/release review remain pending. Dependencies: B01, B02, B03.
 
 Evidence: `docs/appearance/theme-adoption-batch-06-evidence.json`; integration: `docs/appearance/advanced-theme-usage.md`. Legacy v1 paths remain unchanged; no new live controls or human approvals are implied.
 

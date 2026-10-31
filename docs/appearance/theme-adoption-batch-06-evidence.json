@@ -11,8 +11,8 @@
     "capability.settings-code"
   ],
   "scopeNote": "Original optional source factories; feature IDs identify B06 contributions only. They do not imply vendor API compatibility, full-reference equivalence, live activation or all-app adoption.",
-  "implementationStatus": "shared_advanced_theme_implemented_verification_pending",
-  "codeCommit": "a06c44565b37bc2a0295595cbaf7e96d2cba06c2",
+  "implementationStatus": "shared_advanced_theme_accepted_host_binding_pending",
+  "codeCommit": "ce8cd842bfec9a6ba37d6b35fa2eb8fbfba4177a",
   "sourceEvidence": [
     {
       "path": "packages/domain/src/advanced_theme.ts",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/primecare_ui/web/advanced-theme.ts",
-      "sha256": "2e09423a9c23b6c5e582a215bc4c97fb5a992662d56e08f887538874f602eb8c"
+      "sha256": "0e7b5a98e13fcedffe32b1855b3211ce08e8593a7cd376dc807a2e05228c91ac"
     },
     {
       "path": "packages/primecare_ui/web/advanced-theme-editor.ts",
@@ -40,7 +40,7 @@
     },
     {
       "path": "packages/flutter_core/lib/advanced_theme/advanced_theme_region.dart",
-      "sha256": "0775e6a554be53ec761ec3b22d06621392bc50b0156782f1bfdb8a773eeaf4b8"
+      "sha256": "e431d0f7e5cb7a4d233b8870383fcadbb1645f3a86f21578a283c81d7089d46e"
     },
     {
       "path": "packages/flutter_core/lib/advanced_theme/advanced_theme_import.dart",
@@ -56,10 +56,45 @@
     }
   ],
   "ci": {
-    "runId": 41244914101,
-    "conclusion": "queued",
+    "runId": 41245395058,
+    "conclusion": "success",
     "flutterVersion": "3.41.5",
-    "jobs": []
+    "jobs": [
+      {
+        "id": 124667648750,
+        "check": "web model/browser/TypeScript",
+        "status": "success"
+      },
+      {
+        "id": 124667830855,
+        "platform": "Windows",
+        "tests": 5,
+        "analysis": "passed",
+        "status": "success"
+      },
+      {
+        "id": 124667830899,
+        "platform": "Linux",
+        "tests": 5,
+        "analysis": "passed",
+        "status": "success"
+      },
+      {
+        "id": 124667831003,
+        "platform": "macOS",
+        "tests": 5,
+        "analysis": "passed",
+        "status": "success"
+      },
+      {
+        "id": 124669577675,
+        "check": "native-to-web oracle",
+        "casesPerPlatform": 96,
+        "regionsPerCase": 4,
+        "platformExports": 3,
+        "status": "success"
+      }
+    ]
   },
   "localVerification": {
     "modelTests": 2,
@@ -67,7 +102,8 @@
     "regionsPerCase": 4,
     "contrastThreshold": 4.5,
     "chromiumBrowser": "passed",
-    "typescript": "passed"
+    "typescript": "passed",
+    "existingIdUpdateAndMissingIdRejection": "passed"
   },
   "coverage": [
     "Independent light/dark region palettes; primary/secondary/status colors and readable foregrounds on base/light/dark shades",
@@ -77,7 +113,8 @@
     "Named-theme create/update/rename/duplicate/delete, reset and scoped persistence; failed writes retain prior in-memory state",
     "Immutable native actor scope, disposed controller writes, pending import and detached callback rejection",
     "Existing v1 personal JSON and canonical v1 XML layout exports remain distinct lossless contracts",
-    "Layout projection retains the existing authorized workspace panel registry and other settings"
+    "Layout projection retains the existing authorized workspace panel registry and other settings",
+    "Normal native text-button foregrounds remain readable across all 96 theme combinations, including white primary on white surface"
   ],
   "compatibility": {
     "legacyPersonalJson": "existing_v1_validators_no_lossy_auto_migration",
@@ -99,11 +136,11 @@
     "allAppsAdopted": false
   },
   "remaining": [
-    "Exact-source three-platform native and oracle acceptance",
     "Production host/component/control/schema/resource/source registration and independent readback",
     "Authenticated real host/runtime and connected Android/iOS/device checks",
     "Independent EN/FR/ES translation, screen-reader, contrast and release review",
-    "Any required normalization of noncanonical native legacy XML through the existing web import path"
+    "Any required normalization of noncanonical native legacy XML through the existing web import path",
+    "Complete component-state integration and verification for focus/caret, selection, hover, disabled and error states"
   ],
   "baselineNote": "The B01 registration proposal is retained as its baseline. Compiled palette-pair checks do not establish whole-app WCAG conformance or human review."
 }
