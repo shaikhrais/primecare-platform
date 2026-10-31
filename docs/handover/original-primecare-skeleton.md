@@ -58,3 +58,14 @@ duplicate/delete; JSON import/export; account/role storage isolation.
 This is not completion of Fuse-like horizontal layout variants, widgets,
 notifications, calendar, full-text search, database preference synchronization
 or complete native visual parity. Existing PrimeCare auth remains authoritative.
+
+## Shared navigation and appearance entry points
+
+The core web package now also owns `mountLayoutCustomizer`, the attributed MIT
+icon renderer, `bindSidebar`, `mountNavigation`, and common media presentation
+classes. Website paths reexport these implementations. Global search still
+uses only entries supplied by the caller; this move does not add a search API
+or change authorization. Sidebar keyboard handling, backdrop and focus behavior
+are retained. A locale change rebuilds customizer labels while preserving the
+account-scoped manager and saved library. The page shell composition, horizontal
+layout variants, dedicated action bar and full role-page migration remain pending.

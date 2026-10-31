@@ -17,7 +17,7 @@ test('Original palettes provide readable text, controls and shared chrome',()=>{
  }
 });
 test('Active generators and shared factories do not import vendor presets or widgets',async()=>{
- for(const path of ['packages/domain/src/theme_center.ts','packages/domain/src/primecare_appearance.ts','packages/primecare_ui/lib/src/theme/primecare_theme.dart','packages/primecare_ui/lib/src/application/base_primecare_app.dart','scripts/generate_theme.js','scripts/generate-theme-center-catalog.mjs','packages/primecare_ui/web/theme-center.ts','packages/primecare_ui/web/theme-manager.ts','packages/primecare_ui/web/theme-library.ts','packages/primecare_ui/web/layout-manager.ts']){
+ for(const path of ['packages/domain/src/theme_center.ts','packages/domain/src/primecare_appearance.ts','packages/primecare_ui/lib/src/theme/primecare_theme.dart','packages/primecare_ui/lib/src/application/base_primecare_app.dart','scripts/generate_theme.js','scripts/generate-theme-center-catalog.mjs','packages/primecare_ui/web/theme-center.ts','packages/primecare_ui/web/theme-manager.ts','packages/primecare_ui/web/theme-library.ts','packages/primecare_ui/web/layout-manager.ts','packages/primecare_ui/web/layout-customizer.ts','packages/primecare_ui/web/icons.ts','packages/primecare_ui/web/sidebar.ts','packages/primecare_ui/web/navigation.ts','packages/primecare_ui/web/media-look.ts']){
   assert.doesNotMatch(await readFile(path,'utf8'),/fuse_presets|@fuse|prime_fuse_theme|PrimeFuseTheme|websites\//,path);
  }
  const css=await readFile('packages/primecare_ui/web/prime-skeleton.css','utf8');
