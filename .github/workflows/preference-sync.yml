@@ -28,6 +28,7 @@ jobs:
       - run: |
           npm install --prefix /tmp/preference-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 pg@8.16.3 @electric-sql/pglite@0.3.14 bcryptjs@3.0.3
           ln -s /tmp/preference-tools/node_modules node_modules
+          node scripts/preference-sync-fixtures.mjs
           node scripts/test-preference-client.mjs
           node scripts/test-preference-registration.mjs
           node scripts/test-preference-service.mjs

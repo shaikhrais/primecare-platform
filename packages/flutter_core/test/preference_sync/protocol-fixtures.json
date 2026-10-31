@@ -1,0 +1,487 @@
+{
+  "format": 1,
+  "policy": {
+    "panelIds": [],
+    "screenIds": [
+      "1",
+      "2"
+    ]
+  },
+  "cases": [
+    {
+      "name": "read",
+      "input": {
+        "version": 1,
+        "action": "read",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation"
+      },
+      "output": {
+        "version": 1,
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "action": "read"
+      }
+    },
+    {
+      "name": "write",
+      "input": {
+        "version": 1,
+        "action": "write",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "revision": 0,
+        "requestId": "00000000-0000-4000-8000-000000000001",
+        "document": {
+          "version": 1,
+          "screenIds": [
+            "1"
+          ]
+        }
+      },
+      "output": {
+        "version": 1,
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "action": "write",
+        "revision": 0,
+        "requestId": "00000000-0000-4000-8000-000000000001",
+        "document": {
+          "version": 1,
+          "screenIds": [
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "reset",
+      "input": {
+        "version": 1,
+        "action": "reset",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "revision": 1,
+        "requestId": "00000000-0000-4000-8000-000000000001"
+      },
+      "output": {
+        "version": 1,
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "action": "reset",
+        "revision": 1,
+        "requestId": "00000000-0000-4000-8000-000000000001"
+      }
+    },
+    {
+      "name": "delete",
+      "input": {
+        "version": 1,
+        "action": "delete",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "revision": 2,
+        "requestId": "00000000-0000-4000-8000-000000000001"
+      },
+      "output": {
+        "version": 1,
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "action": "delete",
+        "revision": 2,
+        "requestId": "00000000-0000-4000-8000-000000000001"
+      }
+    },
+    {
+      "name": "empty-theme",
+      "input": {
+        "version": 1,
+        "action": "write",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "theme",
+        "resource": "advanced-v2",
+        "revision": 0,
+        "requestId": "00000000-0000-4000-8000-000000000001",
+        "document": {
+          "version": 2,
+          "active": null,
+          "items": []
+        }
+      },
+      "output": {
+        "version": 1,
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "theme",
+        "resource": "advanced-v2",
+        "action": "write",
+        "revision": 0,
+        "requestId": "00000000-0000-4000-8000-000000000001",
+        "document": {
+          "version": 2,
+          "active": null,
+          "items": []
+        }
+      }
+    },
+    {
+      "name": "empty-workspace",
+      "input": {
+        "version": 1,
+        "action": "write",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "workspace",
+        "resource": "SCREEN_ONE",
+        "revision": 0,
+        "requestId": "00000000-0000-4000-8000-000000000001",
+        "document": {
+          "version": 1,
+          "navigation": "left",
+          "navigationWidth": 248,
+          "toolbar": "top",
+          "toolbarStyle": "sticky",
+          "footer": "static",
+          "container": "fullwidth",
+          "maxWidth": 1280,
+          "scroll": "page",
+          "panels": {}
+        }
+      },
+      "output": {
+        "version": 1,
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "workspace",
+        "resource": "SCREEN_ONE",
+        "action": "write",
+        "revision": 0,
+        "requestId": "00000000-0000-4000-8000-000000000001",
+        "document": {
+          "version": 1,
+          "navigation": "left",
+          "navigationWidth": 248,
+          "toolbar": "top",
+          "toolbarStyle": "sticky",
+          "footer": "static",
+          "container": "fullwidth",
+          "maxWidth": 1280,
+          "scroll": "page",
+          "panels": {}
+        }
+      }
+    },
+    {
+      "name": "unknown-field",
+      "input": {
+        "version": 1,
+        "action": "read",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "tenantId": "other"
+      },
+      "error": "invalid_document"
+    },
+    {
+      "name": "dataset-mismatch",
+      "input": {
+        "version": 1,
+        "action": "read",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "demo",
+        "kind": "shortcuts",
+        "resource": "navigation"
+      },
+      "error": "invalid_request"
+    },
+    {
+      "name": "unknown-shortcut",
+      "input": {
+        "version": 1,
+        "action": "write",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "revision": 0,
+        "requestId": "00000000-0000-4000-8000-000000000001",
+        "document": {
+          "version": 1,
+          "screenIds": [
+            "3"
+          ]
+        }
+      },
+      "error": "invalid_shortcuts"
+    },
+    {
+      "name": "duplicate-shortcuts",
+      "input": {
+        "version": 1,
+        "action": "write",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "revision": 0,
+        "requestId": "00000000-0000-4000-8000-000000000001",
+        "document": {
+          "version": 1,
+          "screenIds": [
+            "1",
+            "1"
+          ]
+        }
+      },
+      "error": "invalid_shortcuts"
+    },
+    {
+      "name": "invalid-uuid",
+      "input": {
+        "version": 1,
+        "action": "write",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "revision": 0,
+        "requestId": "bad",
+        "document": {
+          "version": 1,
+          "screenIds": [
+            "1"
+          ]
+        }
+      },
+      "error": "invalid_request_id"
+    },
+    {
+      "name": "revision-overflow",
+      "input": {
+        "version": 1,
+        "action": "write",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "revision": 9007199254740991,
+        "requestId": "00000000-0000-4000-8000-000000000001",
+        "document": {
+          "version": 1,
+          "screenIds": [
+            "1"
+          ]
+        }
+      },
+      "error": "invalid_revision"
+    },
+    {
+      "name": "old-version",
+      "input": {
+        "version": 0,
+        "action": "write",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation",
+        "revision": 0,
+        "requestId": "00000000-0000-4000-8000-000000000001",
+        "document": {
+          "version": 1,
+          "screenIds": [
+            "1"
+          ]
+        }
+      },
+      "error": "invalid_request"
+    },
+    {
+      "name": "unknown-kind",
+      "input": {
+        "version": 1,
+        "action": "read",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "permissions",
+        "resource": "navigation"
+      },
+      "error": "invalid_kind"
+    },
+    {
+      "name": "extra-scope",
+      "input": {
+        "version": 1,
+        "action": "read",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live",
+          "admin": true
+        },
+        "dataset": "live",
+        "kind": "shortcuts",
+        "resource": "navigation"
+      },
+      "error": "invalid_document"
+    },
+    {
+      "name": "unregistered-panel",
+      "input": {
+        "version": 1,
+        "action": "write",
+        "expectedScope": {
+          "tenantId": "tenant1",
+          "userId": "user1",
+          "role": "psw",
+          "dataset": "live"
+        },
+        "dataset": "live",
+        "kind": "workspace",
+        "resource": "SCREEN_ONE",
+        "revision": 0,
+        "requestId": "00000000-0000-4000-8000-000000000001",
+        "document": {
+          "version": 1,
+          "navigation": "left",
+          "navigationWidth": 248,
+          "toolbar": "top",
+          "toolbarStyle": "sticky",
+          "footer": "static",
+          "container": "fullwidth",
+          "maxWidth": 1280,
+          "scroll": "page",
+          "panels": {
+            "unregistered": {
+              "dock": "right",
+              "x": 32,
+              "y": 96,
+              "width": 320,
+              "height": 360
+            }
+          }
+        }
+      },
+      "error": "invalid_document"
+    }
+  ]
+}
