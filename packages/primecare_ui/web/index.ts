@@ -14,3 +14,5 @@ export {mountNavigation} from './navigation';
 export type {NavigationLocale,SearchEntry} from './navigation';
 export {BaseMediaLook,EntryMediaLook,DashboardMediaLook,applyMediaTokens} from './media-look';
 export type {MediaLocale,MediaIcon} from './media-look';
+export {shellMarkup,renderShell,bindShell} from './shell';
+export type {ShellContent} from './shell';

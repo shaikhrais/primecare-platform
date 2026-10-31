@@ -69,3 +69,8 @@ or change authorization. Sidebar keyboard handling, backdrop and focus behavior
 are retained. A locale change rebuilds customizer labels while preserving the
 account-scoped manager and saved library. The page shell composition, horizontal
 layout variants, dedicated action bar and full role-page migration remain pending.
+
+The shell composition (`shellMarkup`, `renderShell`, `bindShell`, `ShellContent`)
+also belongs to the core package. It composes existing navigation, top bar and
+content slots without adding business actions or authorization. Existing local
+presentation drafts remain separate from the published compatibility entry.
