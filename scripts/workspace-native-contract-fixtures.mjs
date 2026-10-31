@@ -19,7 +19,7 @@ for(const footer of ['static','sticky','hidden']){
 }
 const root='packages/flutter_core/test/workspace/fixtures';
 if(process.argv.includes('--verify-native')){
- const native=JSON.parse(await readFile(root+'/native.json','utf8'));
+ const native=JSON.parse(await readFile(process.argv[process.argv.indexOf('--verify-native')+1]||root+'/native.json','utf8'));
  assert.equal(native.length,360);assert.deepEqual(native.map(p=>validateWorkspaceLayout(p,ids)),profiles);
  console.log('360 native exports accepted by the web contract without setting loss.');
 }else{await mkdir(root,{recursive:true});await writeFile(root+'/web.json',JSON.stringify({panelIds:ids,profiles}));console.log('Generated 360 validated web profiles for native roundtrip checks.');}

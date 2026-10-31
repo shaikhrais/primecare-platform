@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/services.dart';
 import 'workspace_controller.dart';
 import 'workspace_layout.dart';
@@ -90,7 +91,7 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
           _adjust(id, resize || keyboard.isShiftPressed, direction.$1, direction.$2,
             dock: keyboard.isControlPressed || keyboard.isMetaPressed ? direction.$3 : null);
           return KeyEventResult.handled;
-        }, child: GestureDetector(key: ValueKey('workspace-layout-${resize ? 'resize' : 'move'}-$id'),
+        }, child: GestureDetector(dragStartBehavior: DragStartBehavior.down, key: ValueKey('workspace-layout-${resize ? 'resize' : 'move'}-$id'),
           onPanStart: narrow ? null : (_) => _start(id),
           onPanUpdate: narrow ? null : (event) => _update(id, resize, event.delta),
           onPanEnd: narrow ? null : (_) => _end(), onPanCancel: narrow ? null : () => _end(cancel: true),
@@ -106,9 +107,9 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
       child: Material(color: Theme.of(context).colorScheme.surface, clipBehavior: Clip.hardEdge,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
           side: BorderSide(color: Theme.of(context).dividerColor)),
-        child: Column(children: [if (labels != null) Row(children: [
+        child: Column(children: [if (labels != null) SizedBox(height: math.min(48, viewport.height), child: Row(children: [
           _handle(id, false, labels, narrow), _handle(id, true, labels, narrow),
-        ]), Expanded(child: _slot('panel-content:$id', widget.panels[id]!))]),
+        ])), Expanded(child: _slot('panel-content:$id', widget.panels[id]!))]),
       ),
     ), hidden: hidden);
   }
@@ -127,7 +128,7 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
         final width = p.container == 'boxed' ? math.min(available.width, p.maxWidth.toDouble()) : available.width;
         final viewport = Size(width, available.height);
         final vertical = !narrow && ['left', 'right'].contains(p.navigation);
-        final navWidth = math.min(p.navigationWidth.toDouble(), width * .4);
+        final navWidth = math.min(p.navigationWidth.toDouble(), width * .5);
         final stageWidth = width - (vertical ? navWidth : 0);
         final navHeight = math.min(widget.horizontalNavigationExtent, viewport.height * .25);
         final toolHeight = math.min(widget.toolbarExtent, viewport.height * .2);
@@ -142,7 +143,9 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
           final ids = p.panels.keys.where((id) => p.panels[id]!.dock == dock).toList();
           if (ids.isEmpty) return const SizedBox.shrink();
           final side = !narrow && ['left', 'right'].contains(dock);
-          final dockWidth = side ? math.min(stageWidth * .25, ids.map((id) => p.panels[id]!.width.toDouble()).reduce(math.max)) : stageWidth;
+          final sideCount = p.panels.values.where((panel) => ['left', 'right'].contains(panel.dock)).length;
+          final sideBudget = math.min(stageWidth * .5, math.max(180.0, (stageWidth - 280) / math.min(2, math.max(1, sideCount))));
+          final dockWidth = side ? math.min(sideBudget, ids.map((id) => p.panels[id]!.width.toDouble()).reduce(math.max)) : stageWidth;
           return SizedBox(width: dockWidth, child: Column(mainAxisSize: MainAxisSize.min,
             children: [for (final id in ids) _panel(id, viewport, narrow, width: dockWidth)]));
         }

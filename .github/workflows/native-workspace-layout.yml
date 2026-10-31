@@ -8,25 +8,40 @@ on:
       - 'packages/flutter_core/test/workspace/**'
       - 'packages/primecare_ui/lib/workspace.dart'
       - 'scripts/workspace-native-contract-fixtures.mjs'
+      - 'scripts/prepare-workspace-smoke.py'
       - 'packages/domain/src/workspace_layout.ts'
       - '.github/workflows/native-workspace-layout.yml'
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
-  native-contract-and-widgets:
+  web-contract-oracle:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with: {persist-credentials: false}
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
-      - uses: subosito/flutter-action@v2
-        with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: |
           npm install --prefix /tmp/workspace-contract-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2
           ln -s /tmp/workspace-contract-tools/node_modules node_modules
           node scripts/workspace-native-contract-fixtures.mjs
+      - uses: actions/upload-artifact@v4
+        with: {name: web-workspace-oracle, path: packages/flutter_core/test/workspace/fixtures/web.json}
+  native-contract-and-widgets:
+    needs: web-contract-oracle
+    strategy:
+      fail-fast: false
+      matrix: {os: [ubuntu-24.04, windows-latest, macos-latest]}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - uses: actions/download-artifact@v4
+        with: {name: web-workspace-oracle, path: packages/flutter_core/test/workspace/fixtures}
       - run: flutter pub get
         working-directory: packages/flutter_core
       - name: Analyze shared native workspace only
@@ -35,11 +50,36 @@ jobs:
       - name: Validate contract, persistence, actor isolation and real widget gestures
         working-directory: packages/flutter_core
         run: flutter test test/workspace --reporter expanded
-      - name: Verify native exports against the web validator
-        run: node scripts/workspace-native-contract-fixtures.mjs --verify-native
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: native-workspace-contract-roundtrips
-          path: packages/flutter_core/test/workspace/fixtures/*.json
+          name: native-workspace-roundtrip-${{ matrix.os }}
+          path: packages/flutter_core/test/workspace/fixtures/native.json
+          if-no-files-found: warn
           retention-days: 30
+      - name: Compile the actual optional renderer for Flutter web
+        if: matrix.os == 'ubuntu-24.04'
+        shell: bash
+        run: |
+          flutter create --empty --platforms=web --project-name workspace_smoke "$RUNNER_TEMP/workspace-smoke"
+          python3 scripts/prepare-workspace-smoke.py "$RUNNER_TEMP/workspace-smoke"
+          cd "$RUNNER_TEMP/workspace-smoke"
+          flutter pub get
+          flutter build web --release
+  native-to-web:
+    needs: native-contract-and-widgets
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/download-artifact@v4
+        with: {pattern: native-workspace-roundtrip-*, path: artifacts/native-workspace}
+      - run: |
+          npm install --prefix /tmp/workspace-contract-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2
+          ln -s /tmp/workspace-contract-tools/node_modules node_modules
+          for file in artifacts/native-workspace/*/native.json; do
+            node scripts/workspace-native-contract-fixtures.mjs --verify-native "$file"
+          done
