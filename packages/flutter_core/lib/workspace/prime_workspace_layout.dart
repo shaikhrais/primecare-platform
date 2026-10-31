@@ -21,10 +21,12 @@ class PrimeWorkspaceLayout extends StatefulWidget {
   final Map<String, WorkspaceHandleLabels> handleLabels;
   final double toolbarExtent, footerExtent, horizontalNavigationExtent;
   final double? navigationVisualWidth;
+  final bool navigationVisible, toolbarVisible, footerVisible;
   PrimeWorkspaceLayout({super.key, required this.controller, required this.navigation,
     required this.toolbar, required this.main, this.footer, required Map<String, Widget> panels,
     Map<String, WorkspaceHandleLabels> handleLabels = const {}, this.toolbarExtent = 56,
-    this.footerExtent = 48, this.horizontalNavigationExtent = 144, this.navigationVisualWidth})
+    this.footerExtent = 48, this.horizontalNavigationExtent = 144, this.navigationVisualWidth,
+    this.navigationVisible = true, this.toolbarVisible = true, this.footerVisible = true})
       : panels = Map.unmodifiable(panels), handleLabels = Map.unmodifiable(handleLabels);
   @override State<PrimeWorkspaceLayout> createState() => _PrimeWorkspaceLayoutState();
 }
@@ -128,19 +130,20 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
         final p = widget.controller.current;
         final width = p.container == 'boxed' ? math.min(available.width, p.maxWidth.toDouble()) : available.width;
         final viewport = Size(width, available.height);
-        final vertical = !narrow && ['left', 'right'].contains(p.navigation);
+        final showNavigation = widget.navigationVisible && p.navigation != 'hidden';
+        final vertical = showNavigation && !narrow && ['left', 'right'].contains(p.navigation);
         final visualWidth=widget.navigationVisualWidth??p.navigationWidth.toDouble();
         if(!visualWidth.isFinite||visualWidth<40||visualWidth>400)throw ArgumentError('Invalid navigation presentation width');
         final navWidth = math.min(visualWidth, width * .5);
         final stageWidth = width - (vertical ? navWidth : 0);
         final navHeight = math.min(widget.horizontalNavigationExtent, viewport.height * .25);
-        final toolHeight = math.min(widget.toolbarExtent, viewport.height * .2);
+        final toolHeight = widget.toolbarVisible ? math.min(widget.toolbarExtent, viewport.height * .2) : 0.0;
         final footHeight = math.min(widget.footerExtent, viewport.height * .2);
-        final mainHeight = math.max(0.0, viewport.height - toolHeight - (widget.footer != null && p.footer != 'hidden' ? footHeight : 0)
-          - (!vertical && p.navigation != 'hidden' ? navHeight : 0));
+        final mainHeight = math.max(0.0, viewport.height - toolHeight - (widget.footerVisible && widget.footer != null && p.footer != 'hidden' ? footHeight : 0)
+          - (showNavigation && !vertical ? navHeight : 0));
         Widget navigation() => SizedBox(width: vertical ? navWidth : null,
           height: vertical ? viewport.height : navHeight, child: _slot('navigation', widget.navigation));
-        Widget toolbar() => SizedBox(height: toolHeight, child: _slot('toolbar', widget.toolbar));
+        Widget toolbar() => widget.toolbarVisible ? SizedBox(height: toolHeight, child: _slot('toolbar', widget.toolbar)) : _slot('toolbar', widget.toolbar, hidden: true);
         Widget footer() => SizedBox(height: footHeight, child: _slot('footer', widget.footer!));
         Widget dock(String dock) {
           final ids = p.panels.keys.where((id) => p.panels[id]!.dock == dock).toList();
@@ -163,21 +166,21 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
         final contentScroll = p.scroll == 'content';
         final toolOutside = contentScroll || p.toolbarStyle == 'sticky';
         final footOutside = contentScroll || p.footer == 'sticky';
-        final hasFooter = widget.footer != null && p.footer != 'hidden';
+        final hasFooter = widget.footerVisible && widget.footer != null && p.footer != 'hidden';
         final scrollChildren = <Widget>[
           if (!toolOutside && p.toolbar == 'top') toolbar(),
-          if (!contentScroll && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),
+          if (showNavigation && !contentScroll && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),
           stage,
-          if (!contentScroll && !vertical && p.navigation == 'bottom') navigation(),
+          if (showNavigation && !contentScroll && !vertical && p.navigation == 'bottom') navigation(),
           if (hasFooter && !footOutside) footer(),
           if (!toolOutside && p.toolbar == 'bottom') toolbar(),
         ];
         final body = Column(children: [
           if (toolOutside && p.toolbar == 'top') toolbar(),
-          if (contentScroll && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),
+          if (showNavigation && contentScroll && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),
           Expanded(child: SingleChildScrollView(key: PageStorageKey('${widget.controller.scope.storageKey}:${p.scroll}'),
             child: Column(mainAxisSize: MainAxisSize.min, children: scrollChildren))),
-          if (contentScroll && !vertical && p.navigation == 'bottom') navigation(),
+          if (showNavigation && contentScroll && !vertical && p.navigation == 'bottom') navigation(),
           if (hasFooter && footOutside) footer(),
           if (toolOutside && p.toolbar == 'bottom') toolbar(),
         ]);
@@ -198,8 +201,8 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
             }
             return KeyEventResult.ignored;
           }, child: Stack(children: [Positioned.fill(child: shell),
-            if (p.navigation == 'hidden') _slot('navigation', widget.navigation, hidden: true),
-            if (widget.footer != null && p.footer == 'hidden') _slot('footer', widget.footer!, hidden: true),
+            if (!showNavigation) _slot('navigation', widget.navigation, hidden: true),
+            if (widget.footer != null && !hasFooter) _slot('footer', widget.footer!, hidden: true),
             for (final id in p.panels.keys)
               if (p.panels[id]!.dock == 'hidden') _panel(id, viewport, narrow, hidden: true)
               else if (!narrow && p.panels[id]!.dock == 'floating') floating(id),
