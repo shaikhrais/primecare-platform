@@ -130,7 +130,7 @@ export class WorkspaceNavigationView {
    if(group&&id&&this.expanded.has(id)&&!event.shiftKey){const panel=this.host.ownerDocument.getElementById(this.prefix+id);const first=panel?visible(panel)[0]:null;if(first){handled();first.focus();return;}}
    if(rootPanel){const items=visible(rootPanel),first=items[0],last=items.at(-1),rootId=rootPanel.dataset.parentId!;
     if(event.shiftKey&&el===first||!event.shiftKey&&el===last){handled();this.expanded.delete(rootId);this.render();
-     if(event.shiftKey)this.nodeElement(rootId)?.focus();else{const roots=visible(nav).filter(e=>e.dataset.navigationId&&!e.closest('[data-nav-children]')),i=roots.findIndex(e=>e.dataset.navigationId===rootId);roots[(i+1)%roots.length]?.focus();}return;}
+     if(event.shiftKey)this.nodeElement(rootId)?.focus();else{const roots=visible(this.host.querySelector('nav')!).filter(e=>e.dataset.navigationId&&!e.closest('[data-nav-children]')),i=roots.findIndex(e=>e.dataset.navigationId===rootId);roots[(i+1)%roots.length]?.focus();}return;}
    }
   }
   if(event.key==='Escape'){

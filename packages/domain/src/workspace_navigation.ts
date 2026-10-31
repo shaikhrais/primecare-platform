@@ -19,7 +19,7 @@ export function buildWorkspaceNavigation(raw:unknown,authority:NavigationAuthori
   for(const input of list){
    if(!input||typeof input!=='object'||Array.isArray(input)||++count>1000)return fail();const v=input as Record<string,unknown>;
    if(Object.keys(v).some(k=>!['id','label','kind','route','icon','subtitle','badge','disabled','match','children'].includes(k)))return fail();
-   const id=text(v.id,64);if(!/^[a-z][a-z0-9-]*$/.test(id)||seen.has(id))return fail();seen.add(id);
+   const id=text(v.id,64);if(!/^[A-Za-z0-9][A-Za-z0-9_.:-]*$/.test(id)||seen.has(id))return fail();seen.add(id);
    const label=text(v.label,200),kind=v.kind;if(kind!=='item'&&kind!=='group')return fail();
    if(v.disabled!==undefined&&typeof v.disabled!=='boolean')return fail();const disabled=parentDisabled||v.disabled===true;
    if(v.match!==undefined&&v.match!=='exact'&&v.match!=='prefix')return fail();const match=(v.match??'exact') as 'exact'|'prefix';

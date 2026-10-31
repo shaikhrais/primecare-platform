@@ -24,7 +24,7 @@ class WorkspaceNavigationModel {
       for(final raw in list){
         if(raw is! Map<String,Object?> || ++count>1000 || raw.keys.any((k)=>!['id','label','kind','route','icon','subtitle','badge','disabled','match','children'].contains(k)))throw const FormatException('Invalid navigation node');
         final id=_text(raw['id'],64),label=_text(raw['label'],200),kind=raw['kind'];
-        if(!RegExp(r'^[a-z][a-z0-9-]*$').hasMatch(id)||!seen.add(id)||!['item','group'].contains(kind))throw const FormatException('Invalid navigation identity');
+        if(!RegExp(r'^[A-Za-z0-9][A-Za-z0-9_.:-]*$').hasMatch(id)||!seen.add(id)||!['item','group'].contains(kind))throw const FormatException('Invalid navigation identity');
         if(raw.containsKey('disabled')&&raw['disabled'] is! bool)throw const FormatException('Invalid disabled state');
         final disabled=parentDisabled||raw['disabled']==true,match=raw['match']??'exact';
         if(!['exact','prefix'].contains(match))throw const FormatException('Invalid route matching');

@@ -1,6 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {items,authority,api} from './workspace-navigation-fixtures.mjs';import {build} from 'esbuild';
 const bundle=await build({entryPoints:['packages/domain/src/workspace_layout.ts'],bundle:true,write:false,format:'esm',platform:'node'});const {defaultWorkspaceLayout}=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
 test('both IDs and routes intersect; denied parents and disabled descendants remain unavailable',()=>{
+ assert.equal(api.buildWorkspaceNavigation([{id:'tenant_admin_command_center',label:'Tenant',kind:'item',route:'/tenant-dashboard'}],{ids:['tenant_admin_command_center'],routes:['/tenant-dashboard'],icons:[]})[0].id,'tenant_admin_command_center');
  const nodes=api.buildWorkspaceNavigation(items,authority),text=JSON.stringify(nodes);assert.ok(!text.includes('PRIVATE'));assert.equal(api.activeWorkspaceDestination(nodes,'/app/people/123'),'home');assert.equal(api.activeWorkspaceDestination(nodes,'/app/people'),'people');assert.equal(api.activeWorkspaceDestination(nodes,'/apple'),undefined);assert.equal(api.activeWorkspaceDestination(nodes,'/disabled'),undefined);
  assert.ok(api.flattenWorkspaceNavigation(nodes).find(n=>n.id==='locked').disabled);assert.equal(api.buildWorkspaceNavigation(items,{...authority,routes:[]}).length,0);
 });

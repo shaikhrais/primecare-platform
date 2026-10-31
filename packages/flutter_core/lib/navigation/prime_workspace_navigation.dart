@@ -26,7 +26,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   final _focus=<String,FocusNode>{};
   final _dialogUpdates=ValueNotifier<int>(0);
   bool _pinned=true,_hover=false,_focused=false;
-  String? _selected;
+  String? _selected,_activeId;
   DialogRoute<void>? _dialog;
   NavigatorState? _navigator;
   int _generation=0;
@@ -95,7 +95,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   }
   Widget _vertical(List<WorkspaceNavigationNode> roots,{bool folded=false,String prefix=''}){
     Widget item(WorkspaceNavigationNode n,int depth){
-      final open=_expanded.contains(n.id),active=widget.model.active(widget.currentRoute)==n.id,generation=_generation;
+      final open=_expanded.contains(n.id),active=_activeId==n.id,generation=_generation;
       final button=Focus(onKeyEvent:(_,e)=>_keys(n.id,e,roots,prefix:prefix),child:Semantics(expanded:n.kind=='group'?open:null,
         child:Tooltip(message:n.label,child:TextButton(focusNode:_node(prefix+n.id),key:ValueKey('workspace-navigation-${n.id}'),
           style:TextButton.styleFrom(alignment:AlignmentDirectional.centerStart,minimumSize:const Size(44,44),backgroundColor:active?Theme.of(context).colorScheme.primaryContainer:null),
@@ -152,7 +152,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   @override Widget build(BuildContext context){
     if(_reported!=_wide){_reported=_wide;final expanded=_wide,generation=_generation;WidgetsBinding.instance.addPostFrameCallback((_){if(mounted&&generation==_generation)widget.onExpandedChanged?.call(expanded);});}
     if(widget.scope.trim().isEmpty||!['vertical','horizontal-header','horizontal-footer'].contains(widget.family)||!['expanded','folded','rail'].contains(widget.mode))throw StateError('Invalid navigation presentation');
-    widget.model.active(widget.currentRoute);
+    _activeId=widget.model.active(widget.currentRoute);
     if(!_narrow&&_dialog!=null)_closeDialogLater();
     if(_narrow)return IconButton(tooltip:widget.labels.open,onPressed:_openDrawer,icon:const Icon(Icons.menu));
     return Semantics(label:widget.labels.navigation,container:true,child:KeyedSubtree(key:ValueKey('${widget.scope}:${jsonEncode(widget.model.toJson())}'),
