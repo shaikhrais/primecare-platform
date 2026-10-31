@@ -16,3 +16,6 @@ export {BaseMediaLook,EntryMediaLook,DashboardMediaLook,applyMediaTokens} from '
 export type {MediaLocale,MediaIcon} from './media-look';
 export {shellMarkup,renderShell,bindShell} from './shell';
 export type {ShellContent} from './shell';
+
+export {primeCareIcon,primeCareIconPaths} from './original-assets';
+export type {PrimeCareIconName} from './original-assets';

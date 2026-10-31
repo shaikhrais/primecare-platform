@@ -44,5 +44,9 @@ dev_dependencies:
   riverpod: any
 flutter:
   uses-material-design: true
+  assets:
+    - assets/original/icons/
+    - assets/original/assets/
+    - assets/original/theme-tokens.json
 
 

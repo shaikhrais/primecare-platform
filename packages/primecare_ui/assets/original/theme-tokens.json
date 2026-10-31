@@ -1,0 +1,30 @@
+{
+  "color": {
+    "primary": "#087F8C",
+    "secondary": "#23456B",
+    "accent": "#F4AE53",
+    "background": "#F5F8FB",
+    "surface": "#FFFFFF",
+    "text": "#18334D",
+    "muted": "#60758B",
+    "border": "#DCE6EF",
+    "success": "#218767",
+    "warning": "#A56812",
+    "error": "#BE3F52"
+  },
+  "icon": {
+    "viewBox": "0 0 24 24",
+    "strokeWidth": 1.7,
+    "sizes": [
+      16,
+      20,
+      24,
+      32
+    ]
+  },
+  "radius": {
+    "small": 8,
+    "medium": 14,
+    "large": 22
+  }
+}

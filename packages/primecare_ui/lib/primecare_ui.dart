@@ -619,3 +619,5 @@ export 'src/features/auth/shared_auth_router.dart';
 export 'src/application/base_primecare_app.dart';
 
 export 'src/application/base_workspace_controller.dart';
+
+export 'src/theme/primecare_assets.dart';
