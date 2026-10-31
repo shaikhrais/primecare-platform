@@ -55,5 +55,6 @@ export function mountWorkspaceCustomizer(root:HTMLElement,dialog:HTMLDialogEleme
  dialog.querySelector('form')!.prepend(group);
  // Advanced workspace controls own placement; the legacy XML profile retains colors/density.
  for(const key of ['sidebar','width'])dialog.querySelector<HTMLElement>('[data-cy=appearance-'+key+']')?.closest('label')?.setAttribute('hidden','');
+ for(const c of registration.controls){const element=root.querySelector<HTMLElement>('[data-cy='+c.testId+']');if(element){element.dataset.controlId=String(c.controlId);element.dataset.implementationTag=c.key==='footer'?'registered-unimplemented':'implemented-unverified';element.dataset.apiTag='local-only';element.dataset.testTag='isolated-browser';element.dataset.reviewTag='pending';}}
  shell.addEventListener('primecare:workspace-layout',sync,{signal:abort.signal});sync();
 }
