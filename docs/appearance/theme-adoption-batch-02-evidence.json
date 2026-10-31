@@ -9,15 +9,16 @@
     "tenant-preference-form"
   ],
   "sourceAcceptance": {
-    "runId": 41229638317,
-    "jobId": 124620981345,
+    "runId": 41230046732,
+    "jobId": 124622182894,
     "conclusion": "success",
     "actualTenantPortal": true,
     "database": "native PostgreSQL",
     "tenantApiChecks": 76,
     "domainConfigurations": 180,
     "browserGeometryConfigurations": 60,
-    "productionRuntimeVerified": false
+    "productionRuntimeVerified": false,
+    "freshMetadataExportTests": 12
   },
   "metadataReadback": {
     "runId": 41229638235,
@@ -35,8 +36,14 @@
     "Flutter parity and cross-device synchronization"
   ],
   "publication": {
-    "status": "pending",
+    "status": "success",
+    "runId": 41230046732,
+    "jobId": 124622617792,
+    "commit": "a60d53911b8d15bb93721a7ba6d9e11c88e0c666",
+    "allNineTypeScriptPortalsPublished": true,
+    "gatewayUnauthenticatedRoutesReturned401": true,
     "productionRuntimeVerified": false
   },
-  "implementationReceipt": "docs/appearance/theme-workspace-implementation-receipt.json"
+  "implementationReceipt": "docs/appearance/theme-workspace-implementation-receipt.json",
+  "releaseCommit": "a60d53911b8d15bb93721a7ba6d9e11c88e0c666"
 }

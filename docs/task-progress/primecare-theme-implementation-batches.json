@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b02_tenant_pilot_accepted_broader_rollout_pending",
+  "overall_status": "b03_shared_native_engine_accepted_host_rollout_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -135,7 +135,7 @@
     {
       "id": "B03",
       "title": "Flutter layout parity",
-      "status": "planned",
+      "status": "shared_engine_accepted_native_host_pending",
       "depends_on": [
         "B01",
         "B02"
@@ -156,8 +156,28 @@
         "packages/flutter_core/lib/registry/widgets/",
         "packages/primecare_ui/lib/src/components/layouts/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-03.md",
+        "docs/appearance/theme-adoption-batch-03-evidence.json",
+        "docs/appearance/native-workspace-usage.md",
+        ".github/workflows/native-workspace-layout.yml",
+        "packages/flutter_core/lib/workspace.dart",
+        "packages/primecare_ui/lib/workspace.dart"
+      ],
+      "blockers": [
+        {
+          "code": "NATIVE_HOST_BINDING_REQUIRED",
+          "detail": "The verified pilot binding identifies the TypeScript Tenant Admin host; native source/control/component bindings must be independently registered and read back before native shell activation."
+        }
+      ],
+      "readiness": "linux_windows_macos_widget_and_web_compile_passed",
+      "remainingScope": [
+        "Native host registration and explicit shell/Theme Center binding",
+        "Android/iOS and physical-device workflow verification",
+        "Full platform app build evidence and independent accessibility/release review"
+      ],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false
     },
     {
       "id": "B04",

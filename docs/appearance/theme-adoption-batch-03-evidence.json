@@ -1,0 +1,124 @@
+{
+  "format": 1,
+  "batch": "B03",
+  "featureId": "capability.native-docking",
+  "implementationStatus": "shared_engine_accepted_native_host_pending",
+  "codeCommit": "376a9713dc6c8b6a8f63361b17c4a84bb631eff1",
+  "sourceEvidence": [
+    {
+      "path": "packages/flutter_core/lib/workspace.dart",
+      "sha256": "5630cdf1e0abef572bc372d638c02e057420c96a4db61fe0665e30efb625b5f6"
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/workspace_layout.dart",
+      "sha256": "a371f3f8657da45f67d1e87610bab7be0dc536bec4f777ec667897da51feac5a"
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/workspace_controller.dart",
+      "sha256": "2b06713a853e9aac89a4d8e5072cda1924ae1bb448436394cc8de879258c2c6c"
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/workspace_preferences.dart",
+      "sha256": "aa6afb6cf16edc3941be615a0a1bf43c92ac3b5ebdda16a41fded031f7bdf46b"
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/prime_workspace_layout.dart",
+      "sha256": "31622ae2b6154a0446af9720463448b06e472b2fc40dcd547da14a359492d558"
+    },
+    {
+      "path": "packages/primecare_ui/lib/workspace.dart",
+      "sha256": "dedcb8ce41996d582b070b4a4701ad9c45b88fa2b32ddcb277699063a3114008"
+    }
+  ],
+  "ci": {
+    "runId": 41232017741,
+    "conclusion": "success",
+    "flutterVersion": "3.41.5",
+    "jobs": [
+      {
+        "id": 124628131949,
+        "platform": "macOS",
+        "tests": 11,
+        "status": "passed"
+      },
+      {
+        "id": 124628132010,
+        "platform": "Windows",
+        "tests": 11,
+        "status": "passed"
+      },
+      {
+        "id": 124628132014,
+        "platform": "Linux",
+        "tests": 11,
+        "flutterWebCompile": "passed",
+        "status": "passed"
+      },
+      {
+        "id": 124629997943,
+        "check": "native-to-web oracle",
+        "profilesPerPlatform": 360,
+        "platformExports": 3,
+        "status": "passed"
+      }
+    ]
+  },
+  "coverage": [
+    "Exact v1 shared JSON schema and UTF-8 size limits",
+    "Unregistered panel and authority-field rejection",
+    "60 shell geometry configurations per runtime",
+    "Retained widget state, keyboard focus, pointer move/resize/dock and cancellation",
+    "Small-screen stacking, safe-area bounds and floating clamping",
+    "One-entry gesture history, undo/redo/reset",
+    "Scoped device persistence, failed storage, late-load rejection and actor replacement",
+    "Trusted legacy mapping without role-only preference migration"
+  ],
+  "production": {
+    "activated": false,
+    "newScreens": 0,
+    "newRoutes": 0,
+    "newAPIs": 0,
+    "roleGrants": 0,
+    "nativeHostBindingsVerified": false,
+    "runtimeVerified": false,
+    "humanReviewApproved": false
+  },
+  "remaining": [
+    "Native host/control/source registration and explicit shell binding",
+    "Connected Android/iOS device flow and full app release verification",
+    "Independent accessibility, translation and release review"
+  ],
+  "baselineNote": "The B01 registration proposal is retained as a baseline. This delivery evidence records the new native source; it does not inflate the original proposal into production verification.",
+  "fullAppBuildsAtHandoff": [
+    {
+      "runId": 41232017834,
+      "name": "Build Windows Distributions",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "runId": 41232017794,
+      "name": "Build macOS Distributions",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "runId": 41232017870,
+      "name": "Build Android Distributions",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "runId": 41232017796,
+      "name": "Build iOS Distributions",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "runId": 41232017822,
+      "name": "Build Linux Distributions",
+      "status": "in_progress",
+      "conclusion": null
+    }
+  ]
+}

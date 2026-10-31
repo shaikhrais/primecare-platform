@@ -1,0 +1,13 @@
+# B03 — Flutter layout parity
+
+The shared Flutter contract, scoped controller, preference adapter and optional renderer are available through `package:primecare_ui/workspace.dart` and `package:flutter_core/workspace.dart`. Existing native routes and appearance settings are unchanged. Native host/control registration and explicit shell binding are still required before activation; the existing Tenant Admin pilot registration identifies a TypeScript source host.
+
+The renderer supports the same advanced v1 settings as the web engine: all navigation positions, width/container/max width, toolbar placement and scrolling, optional footer states, page/content scrolling, panel docks/floating/hiding, bounded resize/movement, gesture cancellation, history, reset and JSON import/export. Widgets retain form state and focus through slot moves; account/controller replacement clears old widget state. Small screens stack panels inside the safe area while preserving desktop geometry.
+
+Storage keys include tenant, actor, role and dataset. Asynchronous loads cannot overwrite newer edits or a disposed identity. The adapter does not migrate or expose old role-only preferences. An explicit trusted legacy presentation mapping preserves the existing native settings store and keeps compact navigation separate from the strict advanced JSON, as on the web.
+
+The first CI run passed static analysis, 360 web-to-native profile roundtrips, controller/storage/isolation cases and 60 widget geometry configurations. It identified a real resize problem: Flutter's default drag recognition discarded movement before the touch threshold. The shared handle now uses the pointer-down origin so the complete drag is applied; the exact resize assertion is retained.
+
+Current validation is recorded in `theme-adoption-batch-03-evidence.json`. CI checks Linux/Windows/macOS native VM widgets and native-to-web roundtrips, plus a disposable Flutter-web host that actually imports and instantiates the renderer. No full native host or physical Android/iOS workflow is declared verified from these tests. Full platform app builds, host registration/binding, device persistence/accessibility and independent review retain separate status.
+
+Batch 2 publication also completed: run `41230046732`, commit `a60d53911b8d15bb93721a7ba6d9e11c88e0c666`. Its refreshed receipt independently verifies 24 implemented-unverified controls and one unsupported footer; its publication job completed all nine TypeScript deployments and the unauthenticated gateway checks. Authenticated editor runtime verification and human translation approval remain pending.

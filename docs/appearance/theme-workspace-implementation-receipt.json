@@ -108,10 +108,10 @@
   "screenId": 2534,
   "translationCount": 120,
   "execution": {
-    "commit": "f78ff2a062e861fae1e84c68815d9cb0c5ac76ff",
-    "runId": 41229300556,
-    "jobId": 124620292569,
+    "commit": "a60d53911b8d15bb93721a7ba6d9e11c88e0c666",
+    "runId": 41230046732,
+    "jobId": 124622617792,
     "transactionCommitted": true,
-    "jobLaterStoppedOnMainHeadChange": true
+    "jobConclusion": "success"
   }
 }
