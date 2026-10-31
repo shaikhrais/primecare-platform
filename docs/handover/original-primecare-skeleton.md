@@ -39,3 +39,22 @@ CRUD, reload, account isolation, failed storage writes and invalid imports.
 Browser verification confirms save/reload restores a theme with radius 16.
 The preview uses fictional records. Complete page migration and native visual
 parity remain separate work; this change does not port the web panel to Dart.
+
+## Core package ownership
+
+`packages/primecare_ui/web/index.ts` exports Theme Center, BaseThemeManager,
+BaseLayoutManager, XmlLayoutManager and PersonalThemeLibrary. Implementations
+reside in that package, without imports from website pages. Former website
+module paths remain reexports for compatibility. Domain JSON validators stay
+in `packages/domain`; Flutter settings stay in `packages/flutter_core`.
+
+Functional appearance support: live palette changes and contrast adjustment;
+light/dark mode; separate sidebar/topbar/content colors; font family and size;
+corner radius; left/right sidebar; compact navigation; comfortable/compact
+density; bounded content width; layout undo/redo/reset; XML layout validation,
+import/export and local persistence; named theme save/update/apply/rename/
+duplicate/delete; JSON import/export; account/role storage isolation.
+
+This is not completion of Fuse-like horizontal layout variants, widgets,
+notifications, calendar, full-text search, database preference synchronization
+or complete native visual parity. Existing PrimeCare auth remains authoritative.
