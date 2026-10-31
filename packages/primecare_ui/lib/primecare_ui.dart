@@ -8,6 +8,7 @@ export 'src/features/common_forms/domain/review_fleet_maintenance_form_view_mode
 export 'src/features/common_forms/domain/schedule_facility_maintenance_form_view_model.dart';
 export 'src/features/common_ui/domain/main_project_selection_view_model.dart';
 export 'src/theme/prime_theme.dart';
+export 'src/theme/prime_fuse_theme.dart';
 export 'src/theme/vision_modes.dart';
 export 'src/theme/vision_provider.dart';
 export 'src/theme/screen_scaling.dart';

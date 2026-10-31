@@ -31,7 +31,7 @@ class PrimeCareCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(theme.radiusMd),
           side: BorderSide(color: theme.colors.divider),
         ),
-        color: color ?? Colors.white,
+        color: color ?? theme.colors.surface,
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(theme.radiusMd),

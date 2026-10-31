@@ -2,7 +2,7 @@ name: Verify Fuse and native appearance contract
 on:
   push:
     branches: [main]
-    paths: ['packages/domain/src/fuse_theme_adapter.ts', 'packages/domain/src/theme_center.ts', 'scripts/fuse_presets.json', 'scripts/test-fuse-theme-adapter.mjs', 'packages/flutter_core/lib/theme/personal_theme.dart', 'packages/flutter_core/lib/theme/theme_center_catalog_generated.dart', '.github/workflows/fuse-appearance-contract.yml']
+    paths: ['packages/primecare_ui/lib/src/theme/prime_fuse_theme.dart', 'packages/primecare_ui/lib/src/theme/prime_theme_resolver.dart', 'packages/primecare_ui/lib/src/application/base_primecare_app.dart', 'packages/primecare_ui/lib/src/components/prime_components.dart', 'packages/primecare_ui/test/prime_fuse_theme_test.dart', 'packages/primecare_ui/catalogs/fuse-skeleton.inventory.json', 'scripts/scan-fuse-skeleton.mjs', 'scripts/test-fuse-skeleton-inventory.mjs', 'packages/domain/src/fuse_theme_adapter.ts', 'packages/domain/src/theme_center.ts', 'scripts/fuse_presets.json', 'scripts/test-fuse-theme-adapter.mjs', 'packages/flutter_core/lib/theme/personal_theme.dart', 'packages/flutter_core/lib/theme/theme_center_catalog_generated.dart', '.github/workflows/fuse-appearance-contract.yml']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -15,5 +15,20 @@ jobs:
         with: {node-version: '24'}
       - run: npm ci --ignore-scripts
       - run: node --test scripts/test-fuse-theme-adapter.mjs
+      - run: node --test scripts/test-fuse-skeleton-inventory.mjs
       - name: Typecheck the appearance adapter
         run: npx -p typescript@5.9.3 tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop packages/domain/src/fuse_theme_adapter.ts
+
+  native-shared-appearance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter test test/prime_fuse_theme_test.dart test/base_primecare_app_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter analyze --no-fatal-infos lib/src/theme/prime_fuse_theme.dart lib/src/theme/prime_theme_resolver.dart lib/src/application/base_primecare_app.dart test/prime_fuse_theme_test.dart
+        working-directory: packages/primecare_ui
