@@ -99,7 +99,7 @@ export function reconcileSnapshot(catalog,snapshot) {
     }
   }
   if(!hosts.some(h=>h.status==='candidate_existing_host'))issues.push({kind:'host',status:'no_registered_host_resolved'});
-  return {mode:'production-read-only',writes:0,productionChecked:true,registrationCandidatesSatisfied:issues.length===0,productionActivationAllowed:false,runtimeVerified:false,components,hosts,controls,resources,issues};
+  return {mode:'production-read-only',writes:0,productionChecked:true,registrationCandidatesSatisfied:issues.length===0,productionActivationAllowed:false,runtimeVerified:false,components,hosts,controls,resources,issues,...(snapshot.discovery?{discovery:snapshot.discovery}:{})};
 }
 const TABLE_COLUMNS={
   primecare_ui_component_registry:['id','component_code','active'],languages:['language_id','language_code','enabled'],language_resources:['resource_id','resource_key','active'],language_resource_values:['resource_id','language_id','translated_text','reviewed','approved'],screen_components:['screen_id','component_type','data_cy','file_path'],screen_required_elements:['screen_id','test_id'],screens:['id','screen_code','route_path','actual_file_path','active'],role_screen_permissions:['role_id','screen_id','can_view']
@@ -118,6 +118,16 @@ export function compileRead(ready,table,filter,values) {
   const marks=values.map((_,i)=>'$'+(i+1)).join(',');
   return {sql:`SELECT * FROM (SELECT ${expressions.join(',')} FROM ${quote(ready.pin.schema)}.${quote('govt_'+table)}) AS source WHERE ${quote(filter)} IN (${marks})`,parameters:values};
 }
+/** Bounded metadata discovery resolves existing names; it never creates host IDs. */
+export function compileDiscovery(ready,table) {
+  const column=table==='screens'?'screen_code':table==='primecare_ui_component_registry'?'component_code':null;
+  requireValue(column,'Unscoped metadata discovery');
+  const request=compileRead(ready,table,column,['__discovery_projection_only__']);
+  const base=request.sql.slice(0,request.sql.lastIndexOf(' WHERE '));
+  const fields=table==='screens'?['screen_code','actual_file_path']:['component_code'];
+  const patterns=table==='screens'?['%theme%','%appearance%','%layout%']:['%dropdown%','%select%','%theme%','%layout%'];
+  return {sql:base+' WHERE ('+fields.map(field=>'('+patterns.map((_,i)=>quote(field)+' ILIKE $'+(i+1)).join(' OR ')+')').join(' OR ')+') LIMIT 100',parameters:patterns};
+}
 async function productionSnapshot(catalog) {
   const child=spawn(process.execPath,[resolve(ROOT,'tools/governance-production/read-bridge.mjs')],{cwd:ROOT,stdio:['pipe','pipe','ignore']});
   const lines=createInterface({input:child.stdout})[Symbol.asyncIterator]();
@@ -135,6 +145,10 @@ async function productionSnapshot(catalog) {
         rows.push(...result.rows.map(row=>Object.fromEntries(result.fields.map((field,j)=>[field.name,row[j]]))));
       }return rows;
     }
+    async function discover(table) {
+      child.stdin.write(JSON.stringify({op:'query',...compileDiscovery(ready,table)})+'\n');const result=await receive();if(!result.ok)throw Error('METADATA_DISCOVERY_FAILED');
+      return result.rows.map(row=>Object.fromEntries(result.fields.map((field,j)=>[field.name,row[j]])));
+    }
     const components=await select('primecare_ui_component_registry','component_code',catalog.requiredExistingComponents);
     const languages=await select('languages','language_code',['en','fr','es']);
     const resources=await select('language_resources','resource_key',Object.keys(catalog.resources));
@@ -145,7 +159,8 @@ async function productionSnapshot(catalog) {
     const ids=[...new Set([...sourceHosts.map(r=>String(r.id)),...controls.map(r=>String(r.screen_id))])];
     const screens=await select('screens','id',ids);
     const permissions=await select('role_screen_permissions','screen_id',ids);
-    return {components,languages,resources,translations,controls,requiredElements,screens,permissions};
+    const discovery={screens:await discover('screens'),components:await discover('primecare_ui_component_registry'),limitPerRelation:100,authoritativeBindings:false};
+    return {components,languages,resources,translations,controls,requiredElements,screens,permissions,discovery};
   }finally{if(child.stdin.writable)child.stdin.end('{"op":"close"}\n');child.kill();}
 }
 export async function main(argv=process.argv.slice(2)) {

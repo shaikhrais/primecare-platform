@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "in_progress_b01_github_reconciliation_pending",
+  "overall_status": "in_progress_b01_production_gaps_confirmed",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -16,12 +16,12 @@
   },
   "current_blockers": [
     {
-      "code": "PRODUCTION_RECONCILIATION_PENDING",
+      "code": "UNRESOLVED_GOVERNANCE_BINDINGS",
       "affects": [
         "B01",
         "production_activation"
       ],
-      "detail": "Local runtime lacks the URL. Existing GitHub production environment secret is referenced by the dedicated read-only reconciliation workflow; live result is pending."
+      "detail": "GitHub production database connection and manifest validated on commit 119b0094. Audit found 25 absent control bindings, 40 absent resource keys, unresolved host bindings and missing expected prime_dropdown component code. Resolve existing names and register exact metadata before exposure."
     }
   ],
   "baseline": {
@@ -67,10 +67,17 @@
         ".github/workflows/theme-adoption-preflight.yml"
       ],
       "blockers": [
-        "PRODUCTION_RECONCILIATION_PENDING"
+        "UNRESOLVED_GOVERNANCE_BINDINGS"
       ],
       "sourcePreparation": "validated",
-      "productionRegistration": "pending_production_reconciliation"
+      "productionRegistration": "pending_binding_resolution",
+      "productionReconciliation": "completed_registration_gaps",
+      "productionRun": {
+        "runId": 41225732414,
+        "commit": "119b0094b071e03c1f3707e0abbf749b5d1b6229",
+        "connected": true,
+        "writes": 0
+      }
     },
     {
       "id": "B02",

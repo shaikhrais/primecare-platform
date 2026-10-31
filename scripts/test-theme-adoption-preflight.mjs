@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {validateContract,reconcileSnapshot,compileRead,ROOT,CONTRACT} from '../tools/governance-production/theme-adoption-preflight.mjs';
+import {validateContract,reconcileSnapshot,compileRead,compileDiscovery,ROOT,CONTRACT} from '../tools/governance-production/theme-adoption-preflight.mjs';
 const catalog=JSON.parse(await readFile(ROOT+'/'+CONTRACT,'utf8'));
 function snapshot() {
   const resources=Object.keys(catalog.resources).map((resource_key,i)=>({resource_id:i+1,resource_key,active:1}));
@@ -64,4 +64,9 @@ test('database compiler permits only parameterized reads from allowlisted metada
   assert.throws(()=>compileRead(ready,'business_clients','id',['x']));assert.throws(()=>compileRead(ready,'primecare_ui_component_registry','password',['x']));assert.throws(()=>compileRead(ready,'primecare_ui_component_registry','id',[]));
   ready.manifest.tables[0].columns[0].storage_types=[];assert.match(compileRead(ready,'primecare_ui_component_registry','id',['1']).sql,/jsonb_typeof/);
   ready.manifest.tables[0].columns[0].storage_types=['integer','text'];assert.throws(()=>compileRead(ready,'primecare_ui_component_registry','id',['1']));
+});
+test('name discovery is bounded, allowlisted and cannot activate candidate hosts',()=>{
+  const names=['id','component_code','active'];const ready={pin:{schema:'fixture_only'},manifest:{tables:[{name:'primecare_ui_component_registry',columns:names.map(name=>({name,storage_types:['text']}))}]}};
+  const query=compileDiscovery(ready,'primecare_ui_component_registry');assert.match(query.sql,/^SELECT /);assert.match(query.sql,/LIMIT 100$/);assert.ok(query.parameters.includes('%dropdown%'));assert.ok(!query.sql.includes('%dropdown%'));assert.throws(()=>compileDiscovery(ready,'business_clients'));
+  const data=snapshot();data.discovery={screens:[{id:999,screen_code:'fixture_theme_candidate'}],components:[],authoritativeBindings:false};const report=reconcileSnapshot(catalog,data);assert.equal(report.discovery.authoritativeBindings,false);assert.ok(!report.hosts.some(h=>h.screenId===999));assert.equal(report.productionActivationAllowed,false);
 });

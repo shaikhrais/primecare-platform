@@ -2,7 +2,7 @@
 
 Requirement: user requested the next batch of the 18-batch original PrimeCare theme adoption plan on 2026-10-31.
 
-**Status: source preparation validated; GitHub production reconciliation workflow prepared. Live reconciliation and registration are pending. B01 is not complete.**
+**Status: source preparation validated; GitHub production connection and pinned manifest verified. Registration gaps remain; B01 is not complete.**
 
 ## Delivered
 
@@ -11,7 +11,7 @@ Requirement: user requested the next batch of the 18-batch original PrimeCare th
 - Dispositions for all 78 recorded Material UI component/style/type imports. Import names are references, not a request to copy a vendor implementation.
 - 25 proposed/existing control identities and 40 proposed resource keys with English, French and Spanish text: 120 text entries. Translations remain unreviewed and unapproved.
 - Source hashes for mapped PrimeCare implementations; candidate component codes, existing source-host paths and semantic-token source files. Source presence is recorded as unverified.
-- A strictly read-only production metadata preflight and eight passing test groups for coverage, identity conflicts, translation preservation, missing/disabled registrations, denied hosts and parameterized SQL.
+- A strictly read-only production metadata preflight and nine passing local test groups for coverage, identity conflicts, translation preservation, missing/disabled registrations, denied hosts and parameterized SQL.
 - Separate source-validation and production-connection receipts. Both explicitly deny production activation and runtime-verification claims.
 
 ## Files
@@ -57,3 +57,9 @@ To finish B01:
 7. Update B01 evidence before enabling B02's live controls. Keep B02–B18 planned until their dependencies are satisfied.
 
 The existing shell, Theme Center, authentication and working application permissions are unchanged. Planning and isolated source/test preparation can proceed while this production dependency is unresolved.
+
+## Verified GitHub production result
+
+Run `41225732414`, production job `124609431208`, on commit `119b0094b071e03c1f3707e0abbf749b5d1b6229` used the existing environment secret without retrieving its value. Source CI passed. The production snapshot and pinned manifest check succeeded; the reconciliation correctly exited 2 because it found registration gaps. The receipt records `productionChecked: true`, `writes: 0`, `runtimeVerified: false` and `productionActivationAllowed: false`.
+
+Observed gaps: all 25 proposed/existing-selector control bindings and all 40 new resource keys were absent under the requested identities; `prime_button` and `prime_text_field` exist, but `prime_dropdown` does not; no host was resolved by the known helper-source paths. These are exact-key results, not proof that no equivalent component or settings host exists under another name. Bounded metadata discovery now inspects candidate theme/layout host and dropdown/select component names without treating discoveries as authoritative bindings.

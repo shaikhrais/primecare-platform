@@ -1,6 +1,6 @@
 {
   "mode": "production-read-only",
-  "status": "blocked",
+  "status": "registration_gaps",
   "contractSha256": "64052209d1f98141b3edaa06c793f875910e74634e5708f88f7924551c33fccc",
   "expectedManifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
   "counts": {
@@ -12,9 +12,743 @@
     "resources": 40,
     "translations": 120
   },
-  "productionChecked": false,
+  "productionChecked": true,
   "productionActivationAllowed": false,
   "runtimeVerified": false,
   "writes": 0,
-  "blocker": "MISSING_DATABASE_URL"
+  "registrationCandidatesSatisfied": false,
+  "components": [
+    {
+      "code": "prime_button",
+      "status": "existing",
+      "ids": [
+        "1"
+      ]
+    },
+    {
+      "code": "prime_dropdown",
+      "status": "missing",
+      "ids": []
+    },
+    {
+      "code": "prime_text_field",
+      "status": "existing",
+      "ids": [
+        "3"
+      ]
+    }
+  ],
+  "hosts": [],
+  "controls": [
+    {
+      "testId": "workspace-layout-navigation",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-container",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-toolbar",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-toolbar-style",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-footer",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-scroll",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-panel",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-dock",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-navigation-width",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-max-width",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-undo",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-redo",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-reset",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-save",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-export",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-close",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-move",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-resize",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "workspace-layout-import",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "appearance-undo",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "appearance-redo",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "appearance-reset",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "appearance-save",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "appearance-export",
+      "status": "missing",
+      "bindings": []
+    },
+    {
+      "testId": "appearance-close",
+      "status": "missing",
+      "bindings": []
+    }
+  ],
+  "resources": [
+    {
+      "key": "themeWorkspace.title",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.navigation",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.navigationWidth",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.container",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.maxWidth",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.toolbar",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.toolbarStyle",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.footer",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.scroll",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.panel",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.dock",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.left",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.right",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.top",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.bottom",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.hidden",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.floating",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.fullwidth",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.boxed",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.content",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.sticky",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.static",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.page",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.contentScroll",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.undo",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.redo",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.reset",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.save",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.export",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.import",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.close",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.move",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.resize",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.instructions",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.savedLocal",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.invalid",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.saveFailed",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.scopeChanged",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.localOnly",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    },
+    {
+      "key": "themeWorkspace.panelUnavailable",
+      "status": "missing",
+      "ids": [],
+      "translations": []
+    }
+  ],
+  "issues": [
+    {
+      "kind": "component",
+      "key": "prime_dropdown",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.title",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.navigation",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.navigationWidth",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.container",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.maxWidth",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.toolbar",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.toolbarStyle",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.footer",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.scroll",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.panel",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.dock",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.left",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.right",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.top",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.bottom",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.hidden",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.floating",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.fullwidth",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.boxed",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.content",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.sticky",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.static",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.page",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.contentScroll",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.undo",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.redo",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.reset",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.save",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.export",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.import",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.close",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.move",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.resize",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.instructions",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.savedLocal",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.invalid",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.saveFailed",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.scopeChanged",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.localOnly",
+      "status": "missing"
+    },
+    {
+      "kind": "resource",
+      "key": "themeWorkspace.panelUnavailable",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-navigation",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-container",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-toolbar",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-toolbar-style",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-footer",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-scroll",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-panel",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-dock",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-navigation-width",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-max-width",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-undo",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-redo",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-reset",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-save",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-export",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-close",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-move",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-resize",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "workspace-layout-import",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "appearance-undo",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "appearance-redo",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "appearance-reset",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "appearance-save",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "appearance-export",
+      "status": "missing"
+    },
+    {
+      "kind": "control",
+      "key": "appearance-close",
+      "status": "missing"
+    },
+    {
+      "kind": "host",
+      "status": "no_registered_host_resolved"
+    }
+  ],
+  "execution": {
+    "commit": "119b0094b071e03c1f3707e0abbf749b5d1b6229",
+    "runId": 41225732414,
+    "jobId": 124609431208,
+    "source": "GitHub Actions production job log",
+    "secretValueRetrieved": false
+  }
 }
