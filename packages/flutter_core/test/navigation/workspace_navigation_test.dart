@@ -56,6 +56,19 @@ void main(){
    if(family!='vertical'){await tester.tap(group);await tester.pumpAndSettle();await tester.tap(find.byKey(const ValueKey('workspace-navigation-team')));await tester.pumpAndSettle();await tester.tap(find.byKey(const ValueKey('workspace-navigation-people')));await tester.pumpAndSettle();expect(routes.length,before+2);}
   }
  });
+ testWidgets('horizontal direct links support keyboard entry and revoke old scope callbacks',(tester)async{
+  tester.view.physicalSize=const Size(1500,960);tester.view.devicePixelRatio=1;addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
+  final m=WorkspaceNavigationModel.fromJson([{'id':'first','kind':'item','label':'First','route':'/first'},{'id':'second','kind':'item','label':'Second','route':'/second'},{'id':'disabled','kind':'item','label':'Disabled','route':'/disabled','disabled':true}],allowedIds:['first','second','disabled'],allowedRoutes:['/first','/second','/disabled'],registeredIcons:[]);
+  final routes=<String>[];
+  Future<void> mount(TextDirection dir,String scope)async{await tester.pumpWidget(MaterialApp(home:Directionality(textDirection:dir,child:Scaffold(body:PrimeWorkspaceNavigation(model:m,scope:scope,currentRoute:'/second',family:'horizontal-header',labels:labels,onNavigate:routes.add)))));await tester.pumpAndSettle();}
+  for(final dir in [TextDirection.ltr,TextDirection.rtl]){
+   await mount(dir,'actor');tester.widget<Focus>(find.byKey(const ValueKey('workspace-navigation-menu-entry'))).focusNode!.requestFocus();await tester.pumpAndSettle();await tester.sendKeyEvent(LogicalKeyboardKey.enter);await tester.pumpAndSettle();
+   expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-first'))).focusNode!.hasFocus,true);
+   await tester.sendKeyEvent(dir==TextDirection.rtl?LogicalKeyboardKey.arrowLeft:LogicalKeyboardKey.arrowRight);await tester.pumpAndSettle();
+   final second=tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-second')));expect(second.focusNode!.hasFocus,true);await tester.sendKeyEvent(LogicalKeyboardKey.enter);await tester.pumpAndSettle();expect(routes.last,'/second');
+   final before=routes.length,old=second.onPressed!;await mount(dir,'other');old();expect(routes.length,before);expect(tester.takeException(),isNull);
+  }
+ });
  testWidgets('folded composition changes visual width without rewriting the saved profile',(tester)async{
   tester.view.physicalSize=const Size(1500,960);tester.view.devicePixelRatio=1;addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
   final c=WorkspaceController(scope:WorkspaceScope(tenant:'tenant',user:'actor',role:'staff'),panelIds:[]);addTearDown(c.dispose);
