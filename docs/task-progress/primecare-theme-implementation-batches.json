@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b06_shared_advanced_theme_accepted_host_rollout_pending",
+  "overall_status": "b07_shared_account_sync_accepted_host_activation_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -21,6 +21,14 @@
         "release_approval"
       ],
       "detail": "All 120 EN/FR/ES translations are registered and read back; reviewed/approved flags remain unset. No human approval is claimed."
+    },
+    {
+      "code": "EXISTING_AUTH_CATALOG_READER_REVIEW_PENDING",
+      "affects": [
+        "release_approval",
+        "full_auth_ci"
+      ],
+      "detail": "Six other runtime readers remain blocked by the historical catalog consumer-review gate; their source is unchanged since before B07. B07 does not claim full cutover or whole-repository CI success."
     }
   ],
   "baseline": {
@@ -29,7 +37,7 @@
     "not_claimed": [
       "full theme adoption",
       "native docking parity",
-      "cross-device sync",
+      "production cross-device sync",
       "all-feature production governance registration",
       "all-app live verification"
     ]
@@ -333,7 +341,7 @@
     {
       "id": "B07",
       "title": "Account preferences and cross-device sync",
-      "status": "planned",
+      "status": "shared_account_sync_accepted_host_binding_pending",
       "depends_on": [
         "B01",
         "B02",
@@ -358,8 +366,54 @@
         "packages/contracts/",
         "packages/flutter_core/lib/theme/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-07.md",
+        "docs/appearance/theme-adoption-batch-07-evidence.json",
+        "docs/appearance/preference-sync-usage.md",
+        "docs/api/account-preferences.openapi.yaml",
+        "tools/governance-production/preference-sync-contract.json",
+        ".github/workflows/preference-sync-registration.yml",
+        ".github/workflows/preference-sync.yml",
+        ".github/workflows/preference-sync-source-review.yml"
+      ],
+      "blockers": [
+        {
+          "code": "PREFERENCE_HOST_ACTIVATION_PENDING",
+          "detail": "Runtime remains off. API grants remain restricted to existing roles 1\u201364; no panel bindings exist for cloud workspace restoration."
+        }
+      ],
+      "readiness": "web_native_postgresql_browser_and_linux_windows_macos_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "remainingScope": [
+        "Registered authenticated host controls/resources and panel bindings",
+        "Reviewed access decisions for roles without existing API 777 grants",
+        "Deployed runtime, mobile/physical-device verification and human accessibility/localization/release review",
+        "Explicit governed recovery UI for revoked server references; broader auth catalog reader-review cutover"
+      ],
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41248358532,
+        "validateJobId": 124676460294,
+        "productionJobId": 124676536638,
+        "sourceCommit": "f371cb6285aedd926aa5dbc13108513702cf7248",
+        "grantRowsPreserved": 64,
+        "newRoleGrants": 0,
+        "preferenceValuesWritten": 0,
+        "runtimeActivated": false
+      },
+      "sourceRun": {
+        "runId": 41249952025,
+        "sourceCommit": "df9bfbf922af47167fc9b354d2808cf9c562953d",
+        "conclusion": "success"
+      },
+      "nextAction": "B08 shared shell utilities may continue through source factories; register host/panel/control bindings and complete release reviews before enabling account sync.",
+      "sourceReviewRun": {
+        "runId": 41250255157,
+        "jobId": 124682095775,
+        "sourceCommit": "1257a8dc5acd82cfc812dfcc6ff598f693d0489e",
+        "conclusion": "success"
+      }
     },
     {
       "id": "B08",

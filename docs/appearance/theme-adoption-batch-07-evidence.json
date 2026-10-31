@@ -1,0 +1,279 @@
+{
+  "format": 1,
+  "batch": "B07",
+  "sourceCommit": "df9bfbf922af47167fc9b354d2808cf9c562953d",
+  "status": "shared_account_sync_accepted_host_activation_pending",
+  "productionRuntimeVerified": false,
+  "humanReviewApproved": false,
+  "registration": {
+    "sourceCommit": "f371cb6285aedd926aa5dbc13108513702cf7248",
+    "runId": 41248358532,
+    "validateJobId": 124676460294,
+    "productionJobId": 124676536638,
+    "receipts": [
+      {
+        "apiId": 777,
+        "committed": false,
+        "alreadyRegistered": false,
+        "grantRowsPreserved": 64,
+        "newRoleGrants": 0,
+        "accountsChanged": 0,
+        "businessDataWrites": 0,
+        "runtimeActivated": false,
+        "permissionKey": "authenticated_self_preferences",
+        "requestSchemaSha256": "8b16048b17c219915b83acd871f58bfa2071d3753bcb94ea120c6f28d20af9ea",
+        "responseSchemaSha256": "e7bd2dad1e52713864f653fbf8197896f380f5ca79d0f93c3de20f3f9f274d06"
+      },
+      {
+        "apiId": 777,
+        "committed": true,
+        "alreadyRegistered": false,
+        "grantRowsPreserved": 64,
+        "newRoleGrants": 0,
+        "accountsChanged": 0,
+        "businessDataWrites": 0,
+        "runtimeActivated": false,
+        "permissionKey": "authenticated_self_preferences",
+        "requestSchemaSha256": "8b16048b17c219915b83acd871f58bfa2071d3753bcb94ea120c6f28d20af9ea",
+        "responseSchemaSha256": "e7bd2dad1e52713864f653fbf8197896f380f5ca79d0f93c3de20f3f9f274d06"
+      },
+      {
+        "committed": false,
+        "tables": [
+          "account_preference_documents",
+          "account_preference_requests",
+          "account_preference_audit",
+          "account_preference_rate"
+        ],
+        "accountChanges": 0,
+        "roleGrants": 0,
+        "preferenceValuesWritten": 0,
+        "runtimeActivated": false
+      },
+      {
+        "committed": true,
+        "tables": [
+          "account_preference_documents",
+          "account_preference_requests",
+          "account_preference_audit",
+          "account_preference_rate"
+        ],
+        "accountChanges": 0,
+        "roleGrants": 0,
+        "preferenceValuesWritten": 0,
+        "runtimeActivated": false
+      },
+      {
+        "independentReadback": true,
+        "apiId": 777,
+        "grantRowsPreserved": 64,
+        "newRoleGrants": 0,
+        "tables": [
+          "account_preference_documents",
+          "account_preference_requests",
+          "account_preference_audit",
+          "account_preference_rate"
+        ],
+        "runtimeActivated": false
+      }
+    ]
+  },
+  "local": {
+    "clientTests": 9,
+    "protocolOracleCases": 16,
+    "serviceGroups": 13,
+    "engine": "isolated-pglite-0.3.14",
+    "browser": {
+      "engine": "Chromium",
+      "contexts": 2,
+      "checks": [
+        "HTTP gateway/service",
+        "revision conflict resolution",
+        "independent SQL read",
+        "page reload",
+        "offline explicit retry"
+      ]
+    },
+    "workerLifecycleTests": 21,
+    "gatewayCorsScenarios": 20,
+    "typeScript": "passed",
+    "methodCaptureTests": 21,
+    "pythonMethodCaptureTests": 10,
+    "workflowContractTests": 15,
+    "readerQuarantineTests": 10,
+    "workflowPlan": {
+      "unresolvedOperations": 1063,
+      "apiCredits": 0,
+      "check": "passed"
+    }
+  },
+  "ci": {
+    "runId": 41249952025,
+    "conclusion": "success",
+    "flutterVersion": "3.41.5",
+    "webClientTests": 9,
+    "protocolOracleCases": 16,
+    "nativeTestsPerPlatform": 9,
+    "nativePostgresGroups": 14,
+    "jobs": [
+      {
+        "id": 124681191296,
+        "name": "protocol",
+        "conclusion": "success"
+      },
+      {
+        "id": 124681191458,
+        "name": "native (macos-latest)",
+        "conclusion": "success"
+      },
+      {
+        "id": 124681191461,
+        "name": "postgres",
+        "conclusion": "success"
+      },
+      {
+        "id": 124681191497,
+        "name": "native (windows-latest)",
+        "conclusion": "success"
+      },
+      {
+        "id": 124681191592,
+        "name": "native (ubuntu-24.04)",
+        "conclusion": "success"
+      }
+    ],
+    "proofs": [
+      {
+        "id": 124681191296,
+        "name": "protocol",
+        "lines": [
+          "2026-10-31T22:50:59.4033281Z Shared protocol oracle: 16 normalized/rejected requests verified.",
+          "2026-10-31T22:50:59.5300553Z \u2139 tests 9"
+        ]
+      },
+      {
+        "id": 124681191458,
+        "name": "native (macos-latest)",
+        "lines": [
+          "2026-10-31T22:51:46.9176230Z No issues found! (ran in 7.9s)",
+          "2026-10-31T22:51:58.8465200Z 00:00 +9: All tests passed!"
+        ]
+      },
+      {
+        "id": 124681191461,
+        "name": "postgres",
+        "lines": [
+          "2026-10-31T22:51:34.6343821Z {\"engine\":\"native-postgresql\",\"checks\":14,\"productionAccountChanges\":0,\"liveActivation\":false}",
+          "2026-10-31T22:51:35.9845764Z {\"browser\":\"chromium\",\"contexts\":2,\"checks\":[\"real HTTP gateway/service\",\"conflict resolution\",\"independent SQL read\",\"page reload\",\"offline explicit retry\"],\"engine\":\"native-postgresql\",\"liveActivation\":false}"
+        ]
+      },
+      {
+        "id": 124681191497,
+        "name": "native (windows-latest)",
+        "lines": [
+          "2026-10-31T22:53:19.6180615Z No issues found! (ran in 13.9s)\r",
+          "2026-10-31T22:53:32.3795997Z 00:00 +9: All tests passed!\r"
+        ]
+      },
+      {
+        "id": 124681191592,
+        "name": "native (ubuntu-24.04)",
+        "lines": [
+          "2026-10-31T22:51:44.0523064Z No issues found! (ran in 14.2s)",
+          "2026-10-31T22:51:55.1762542Z 00:00 +9: All tests passed!"
+        ]
+      }
+    ]
+  },
+  "remaining": [
+    "Registered authenticated host controls/resources and panel bindings",
+    "Reviewed role access decisions; no new grants in B07",
+    "Deployed runtime verification and mobile/physical-device checks",
+    "EN/FR/ES accessibility and human release review",
+    "Explicit governed recovery UI for server documents with revoked references",
+    "Broader auth catalog cutover retains six pre-existing unreviewed readers"
+  ],
+  "sources": [
+    {
+      "path": "packages/domain/src/preference_sync.ts",
+      "sha256": "626c5759dfd2ba6fb9183b14ffde49c31e19c473ea6b28a94bfaa2d2f8c7fb3f"
+    },
+    {
+      "path": "packages/shared/src/preference-sync/client.ts",
+      "sha256": "efe95341dcaf10918cc63b131a656919fb53b608de7dffc68d128cf772baae7a"
+    },
+    {
+      "path": "packages/shared/src/preference-sync/transport.ts",
+      "sha256": "4cda8fb135b92cd398cdc66b40915f4a8e065e1f373c105ae7439b1f0042d794"
+    },
+    {
+      "path": "cloudflare/workers/src/account-preferences.ts",
+      "sha256": "78d84679eb24a90cd30cf3839438816c5ecebea069c0f857d34f44d7a2ddd140"
+    },
+    {
+      "path": "packages/flutter_core/lib/preference_sync/preference_protocol.dart",
+      "sha256": "7997c47457371abd083b4940ec75141e2f4d2a5dff1eadc1fb0f6614534e32cd"
+    },
+    {
+      "path": "packages/flutter_core/lib/preference_sync/preference_sync_client.dart",
+      "sha256": "51635091ebd1c601aa5e88353fbdabea2d3c94f7f7f8c783a4b2af8546a3b024"
+    },
+    {
+      "path": "packages/flutter_core/lib/preference_sync/preference_adapters.dart",
+      "sha256": "3306ecc7286c1dfaee44d30a914beb980a13405899748cfa3dbfd790a3ee5570"
+    },
+    {
+      "path": "packages/database/migrations/20261031_account_preferences.sql",
+      "sha256": "6c889c7fd2e6a36b18ab86e285f3f3b7ebee7fa80f75465c8f0075eb6012ff46"
+    },
+    {
+      "path": "tools/governance-production/preference-sync-contract.json",
+      "sha256": "e5e93d7697a623d44ab0ceb518c680d3b8508b41b1b359e8803d9c4178fd8e8a"
+    },
+    {
+      "path": "packages/flutter_core/test/preference_sync/protocol-fixtures.json",
+      "sha256": "5901c4f53983f0d8b2fcc9678d0c81465c76357d1cdd676894817c0766bb8a5e"
+    }
+  ],
+  "ciCorrectionHistory": [
+    {
+      "sourceCommit": "8618be29b5a69e9f1fe5d0679bf2b0ebbd5881ac",
+      "runId": 41249008473,
+      "result": "failed: missing inherited bcrypt dependency and native analyzer map inference warning"
+    },
+    {
+      "sourceCommit": "6a9bf49347268200294c76115c718dd5f2087d02",
+      "runId": 41249076286,
+      "result": "protocol tests passed; TypeScript lacked Node type declarations; native analyzer warning still present"
+    }
+  ],
+  "reviewCommit": "1257a8dc5acd82cfc812dfcc6ff598f693d0489e",
+  "broaderCiLimitations": {
+    "authCatalogRunId": 41249008524,
+    "authCatalogJobId": 124678382967,
+    "status": "blocked_by_six_pre_existing_runtime_consumer_reviews",
+    "unchangedSince": "f371cb6285aedd926aa5dbc13108513702cf7248",
+    "preferenceReader": "exact_hash_reviewed_no_historical_catalog_access",
+    "tenantRouteAuditRunId": 41249008525,
+    "tenantRouteAuditJobId": 124678382793,
+    "routeAuditFailure": "Resolved in run 41250255157 job 124682095775 through exact reversible amendments; historical blockers and zero implementation credits preserved",
+    "allRepositoryCiGreen": false,
+    "originalAuthFailureReaderCount": 7,
+    "remainingBaselineReaderCount": 6,
+    "newPreferenceReaderBlockerResolved": true
+  },
+  "sourceReviewCi": {
+    "sourceCommit": "1257a8dc5acd82cfc812dfcc6ff598f693d0489e",
+    "runId": 41250255157,
+    "jobId": 124682095775,
+    "conclusion": "success",
+    "tests": {
+      "javascriptMethodBlockers": 21,
+      "pythonMethodBlockers": 10,
+      "workflowContracts": 15,
+      "readerQuarantine": 10
+    },
+    "planUnresolvedOperations": 1063,
+    "apiCredits": 0
+  }
+}
