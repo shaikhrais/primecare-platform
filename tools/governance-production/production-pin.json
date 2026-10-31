@@ -1656,5 +1656,22 @@
       "platform_admin",
       "central_admin"
     ]
+  },
+  "themeAdoptionWriter": {
+    "optInVariable": "GOVERNANCE_THEME_ADOPTION_WRITES",
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values"
+    ],
+    "contractSha256": "f6d72170d3f64c134d78de88047728c73acb466186c8accc25239b21076e78c7",
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "resourceNamespace": "themeWorkspace.",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }

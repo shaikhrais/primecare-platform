@@ -13,7 +13,7 @@ const unique=(items,key)=>{const values=items.map(key);requireValue(new Set(valu
 const insideRoot=path=>typeof path==='string'&&!path.startsWith('/')&&!path.split('/').includes('..');
 export async function validateContract(catalog,root=ROOT) {
   requireValue(catalog?.version===1&&catalog.kind==='proposal_not_production_registry','Expected an adoption proposal');
-  requireValue(catalog.status==='registration_preparation_only'&&catalog.runtimeExposure===false&&catalog.registrationWriteTool===null,'Proposal cannot claim registration or runtime activation');
+  requireValue(catalog.status==='registration_preparation_only'&&catalog.runtimeExposure===false&&catalog.registrationWriteTool==='tools/governance-production/theme_adoption_registration.py','Proposal cannot claim registration or runtime activation');
   requireValue(catalog.authority?.productionRequired===true&&catalog.authority.sqliteFallback===false&&catalog.authority.schemaChanges===false&&catalog.authority.businessDataWrites===false&&catalog.authority.newRoleGrants===false,'Unexpected authority scope');
   const plan=JSON.parse(await readFile(resolve(root,'docs/task-progress/primecare-theme-implementation-batches.json'),'utf8'));
   const batchIds=new Set(plan.batches.map(b=>b.id));

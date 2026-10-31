@@ -1,0 +1,78 @@
+name: Register scoped shared theme metadata
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/theme-adoption-registration.yml'
+      - 'tools/governance-production/theme_adoption_registration.py'
+      - 'tools/governance-production/test-theme-adoption-registration.py'
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: theme-adoption-metadata-registration
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - run: |
+          node --test scripts/test-theme-adoption-preflight.mjs
+          python tools/governance-production/test-theme-adoption-registration.py
+  production:
+    if: github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/theme-registration-tools --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/theme-registration-tools/node_modules node_modules
+          mkdir -p test-results/theme-registration
+      - name: Validate exact metadata transaction and roll it back
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_THEME_ADOPTION_WRITES: '1'
+        run: python tools/governance-production/theme_adoption_registration.py --dry-run | tee test-results/theme-registration/dry-run.txt
+      - name: Register optional controls and draft labels with independent readback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_THEME_ADOPTION_WRITES: '1'
+        run: python tools/governance-production/theme_adoption_registration.py --apply | tee test-results/theme-registration/registration.txt
+      - name: Reconcile actual records and retain translation review status
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          node --input-type=module - <<'JS'
+          import {main} from './tools/governance-production/theme-adoption-preflight.mjs';
+          const report=await main(['--production','--out','test-results/theme-registration/readback.json']);
+          if(report.productionChecked&&report.issues.every(issue=>issue.kind==='translation'&&issue.status==='review_pending'))process.exitCode=0;
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: theme-metadata-registration
+          path: test-results/theme-registration
+          if-no-files-found: warn
+          retention-days: 30

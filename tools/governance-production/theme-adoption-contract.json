@@ -4008,7 +4008,7 @@
     {
       "key": "navigation",
       "testId": "workspace-layout-navigation",
-      "componentCode": "prime_dropdown",
+      "componentCode": "prime_dropdown_web",
       "resourceKey": "themeWorkspace.navigation",
       "allowedValues": [
         "left",
@@ -4026,7 +4026,7 @@
     {
       "key": "container",
       "testId": "workspace-layout-container",
-      "componentCode": "prime_dropdown",
+      "componentCode": "prime_dropdown_web",
       "resourceKey": "themeWorkspace.container",
       "allowedValues": [
         "fullwidth",
@@ -4042,7 +4042,7 @@
     {
       "key": "toolbar",
       "testId": "workspace-layout-toolbar",
-      "componentCode": "prime_dropdown",
+      "componentCode": "prime_dropdown_web",
       "resourceKey": "themeWorkspace.toolbar",
       "allowedValues": [
         "top",
@@ -4057,7 +4057,7 @@
     {
       "key": "toolbarStyle",
       "testId": "workspace-layout-toolbar-style",
-      "componentCode": "prime_dropdown",
+      "componentCode": "prime_dropdown_web",
       "resourceKey": "themeWorkspace.toolbarStyle",
       "allowedValues": [
         "sticky",
@@ -4072,7 +4072,7 @@
     {
       "key": "footer",
       "testId": "workspace-layout-footer",
-      "componentCode": "prime_dropdown",
+      "componentCode": "prime_dropdown_web",
       "resourceKey": "themeWorkspace.footer",
       "allowedValues": [
         "sticky",
@@ -4088,7 +4088,7 @@
     {
       "key": "scroll",
       "testId": "workspace-layout-scroll",
-      "componentCode": "prime_dropdown",
+      "componentCode": "prime_dropdown_web",
       "resourceKey": "themeWorkspace.scroll",
       "allowedValues": [
         "page",
@@ -4103,7 +4103,7 @@
     {
       "key": "panel",
       "testId": "workspace-layout-panel",
-      "componentCode": "prime_dropdown",
+      "componentCode": "prime_dropdown_web",
       "resourceKey": "themeWorkspace.panel",
       "allowedValues": null,
       "registrationStatus": "not_checked",
@@ -4115,7 +4115,7 @@
     {
       "key": "dock",
       "testId": "workspace-layout-dock",
-      "componentCode": "prime_dropdown",
+      "componentCode": "prime_dropdown_web",
       "resourceKey": "themeWorkspace.dock",
       "allowedValues": [
         "left",
@@ -4620,11 +4620,12 @@
   },
   "existingSourceHosts": [
     "packages/primecare_ui/web/layout-customizer.ts",
-    "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart"
+    "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+    "websites/typescript/src/tenant-dashboard/index.ts"
   ],
   "requiredExistingComponents": [
     "prime_button",
-    "prime_dropdown",
+    "prime_dropdown_web",
     "prime_text_field"
   ],
   "tokenSources": [
@@ -4632,12 +4633,21 @@
     "packages/domain/src/theme_center.ts"
   ],
   "runtimeExposure": false,
-  "registrationWriteTool": null,
+  "registrationWriteTool": "tools/governance-production/theme_adoption_registration.py",
   "unresolved": [
     "Resolve existing host screen IDs from production; never invent them.",
     "Verify existing UI component codes and control bindings.",
     "Reconcile existing translations without overwriting reviewed values.",
     "Define approved endpoint and role bindings for business templates before activation.",
     "Native and web equivalents require independent runtime evidence."
-  ]
+  ],
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/primecare_ui/web/layout-customizer.ts",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  }
 }
