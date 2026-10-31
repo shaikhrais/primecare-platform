@@ -1,0 +1,33 @@
+name: Preference sync source guard regression
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'cloudflare/workers/src/gateway.ts'
+      - 'cloudflare/workers/src/service-application.ts'
+      - 'cloudflare/workers/src/account-preferences.ts'
+      - 'docs/api/workflow-contract-source-amendments.json'
+      - 'docs/business/evidence/communication-runtime-reader-review.json'
+      - 'scripts/audit-api-reachability.mjs'
+      - 'scripts/register-method-capture-blockers.py'
+      - 'scripts/quarantine-api-grants.py'
+      - 'scripts/test-quarantine-api-grants.py'
+      - '.github/workflows/preference-sync-source-review.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  reviewed-source-drift:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/preference-review --ignore-scripts --no-audit --no-fund esbuild@0.27.2 bcryptjs@3.0.3 pg@8.16.3
+          ln -s /tmp/preference-review/node_modules node_modules
+          node scripts/test-method-capture-blockers.mjs
+          python3 scripts/test-method-capture-blockers.py
+          python3 scripts/test-workflow-contract-plan.py
+          python3 scripts/test-quarantine-api-grants.py
+          python3 scripts/generate-workflow-contract-plan.py --check

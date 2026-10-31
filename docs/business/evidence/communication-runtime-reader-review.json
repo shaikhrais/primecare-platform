@@ -11,5 +11,19 @@
     ],
     "nativeTest": "scripts/test-communication-endpoint-policy.mjs",
     "activation": false
+  },
+  "cloudflare/workers/src/account-preferences.ts": {
+    "sha256": "78d84679eb24a90cd30cf3839438816c5ecebea069c0f857d34f44d7a2ddd140",
+    "authority": "pinned-production-postgresql",
+    "historicalCatalogAccess": false,
+    "basis": [
+      "Pinned manifest checked before quota cleanup or writes and rechecked inside the transaction",
+      "Exact API 777 contract and explicit authenticated_self_preferences grant required; no api_permission_* collision grants accepted",
+      "Current active native account/session/tenant, unique active role and current screen grants required",
+      "Governance metadata is read only; writes are restricted to owned preference storage, quotas, receipts and audit digests",
+      "Feature flag and implemented-unverified marker are both required; production activation remains disabled"
+    ],
+    "nativeTest": "scripts/test-preference-service.mjs",
+    "activation": false
   }
 }

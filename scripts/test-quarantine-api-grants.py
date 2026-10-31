@@ -76,4 +76,16 @@ class QuarantineTest(unittest.TestCase):
             source.write_text(source.read_text()+' changed')
             with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
 
+    def test_preference_reader_exact_review_and_drift(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);repository=Path(__file__).resolve().parents[1]
+            relative='cloudflare/workers/src/account-preferences.ts'
+            source=root/relative;source.parent.mkdir(parents=True);source.write_bytes((repository/relative).read_bytes())
+            review=root/'docs/business/evidence/communication-runtime-reader-review.json';review.parent.mkdir(parents=True)
+            review.write_bytes((repository/'docs/business/evidence/communication-runtime-reader-review.json').read_bytes())
+            self.assertEqual(m.consumer_preflight(root)['runtimeReferences'],[relative])
+            source.write_text(source.read_text()+'\n// unreviewed drift')
+            with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
+
 if __name__=='__main__':unittest.main()
