@@ -1630,7 +1630,7 @@
       "virtual_flow_catalog_snapshots"
     ],
     "namespace": "tenant_admin_",
-    "catalogSha256": "24fb71b3a98a0db9e3dfc76897edbcbd6649c3a30c7b6e21c5509c7bd9b9f403",
+    "catalogSha256": "7be76540fe472de195e9b07190006c67f56953e9c2ff08fa3ce0154ccd17bb53",
     "schemaChanges": false,
     "businessDataWrites": false,
     "roles": [

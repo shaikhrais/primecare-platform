@@ -458,5 +458,23 @@
       "type": "link",
       "testId": "tenant-nav-audit"
     }
-  ]
+  ],
+  "previewTheme": {
+    "--font-family": "Inter, sans-serif",
+    "--font-size-body": "14px",
+    "--font-size-caption": "12px",
+    "--font-size-heading": "24px",
+    "--font-weight-normal": "400",
+    "--font-weight-bold": "700",
+    "--spacing-xs": "4px",
+    "--spacing-sm": "8px",
+    "--spacing-md": "16px",
+    "--spacing-lg": "24px",
+    "--spacing-xl": "32px",
+    "--radius-sm": "4px",
+    "--radius-md": "8px",
+    "--radius-lg": "16px",
+    "--radius-pill": "999px"
+  },
+  "previewThemeSource": "Published governance-derived clinic portal manifest, captured for reproducible HTML preview"
 }
