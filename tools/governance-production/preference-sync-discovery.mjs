@@ -1,0 +1,18 @@
+/** Read only metadata for the registered preference operation. No account rows or preference values. */
+import {readFile,mkdir,writeFile} from 'node:fs/promises';import pg from 'pg';
+const pin=JSON.parse(await readFile(new URL('./production-pin.json',import.meta.url),'utf8'));let db;
+const q=s=>'"'+s.replaceAll('"','""')+'"';
+try{
+ const raw=process.env.PRODUCTION_DATABASE_URL;if(!raw)throw Error();const url=new URL(raw);if(!['postgres:','postgresql:'].includes(url.protocol)||url.hostname!=='pooled.db.prisma.io'||url.pathname!=='/postgres')throw Error();
+ db=new pg.Client({connectionString:raw,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});await db.connect();await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');await db.query("SET LOCAL statement_timeout='30s'");
+ const manifest=(await db.query('SELECT manifest_sha256,manifest FROM '+q(pin.schema)+'.'+q(pin.manifestTable))).rows;if(manifest.length!==1||manifest[0].manifest_sha256!==pin.manifestSha256)throw Error();
+ const relation=t=>q(pin.schema)+'.'+q(pin.tablePrefix+t),columns={};for(const table of ['api_endpoints','api_permissions','screen_api_links','screens'])columns[table]=(await db.query('SELECT column_name,data_type FROM information_schema.columns WHERE table_schema=$1 AND table_name=$2 ORDER BY ordinal_position',[pin.schema,pin.tablePrefix+table])).rows;
+ const apiFields=['id','api_code','http_method','route_path','service_name','auth_required','permission_key','request_schema','response_schema','rate_limit_key','rate_limit','active','implementation_status'].filter(c=>columns.api_endpoints.some(x=>x.column_name===c));
+ const endpoints=(await db.query('SELECT '+apiFields.map(q).join(',')+' FROM '+relation('api_endpoints')+' WHERE id::text=ANY($1::text[]) ORDER BY id',['777,16425,16426'.split(',')])).rows;
+ const permissions=(await db.query('SELECT to_jsonb(p)-\'_primecare_import_row\' AS metadata FROM '+relation('api_permissions')+' p WHERE api_id::text=ANY($1::text[]) ORDER BY api_id',['777,16425,16426'.split(',')])).rows;
+ const links=(await db.query('SELECT to_jsonb(p)-\'_primecare_import_row\' AS metadata FROM '+relation('screen_api_links')+' p WHERE api_id::text=$1',['777'])).rows;
+ const tables=(await db.query("SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema IN ('public',$1) AND (table_name ILIKE '%preference%' OR table_name ILIKE '%setting%') ORDER BY table_schema,table_name",[pin.schema])).rows;
+ const storage=[];for(const t of tables){storage.push({...t,columns:(await db.query('SELECT column_name,data_type,is_nullable,column_default FROM information_schema.columns WHERE table_schema=$1 AND table_name=$2 ORDER BY ordinal_position',[t.table_schema,t.table_name])).rows});}
+ const actorColumns=(await db.query("SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='public' AND table_name IN ('users','auth_sessions','tenants') AND column_name IN ('id','roles','tenant_id','status','user_id','token_hash','expires_at') ORDER BY table_name,column_name")).rows;
+ const report={format:1,sourceCommit:process.env.GITHUB_SHA,authority:'pinned-production-postgresql',manifestSha256:pin.manifestSha256,writes:0,accountRowsRead:0,preferenceValuesRead:0,columns,endpoints,permissions,links,storage,actorColumns};await db.query('ROLLBACK');await mkdir('test-results/preference-sync',{recursive:true});await writeFile('test-results/preference-sync/discovery.json',JSON.stringify(report,null,2)+'\n');console.log('PREFERENCE_SYNC_DISCOVERY '+JSON.stringify(report));
+}catch{console.error('Preference synchronization metadata inspection failed; no mutations were attempted.');process.exitCode=1;}finally{if(db)await db.end();}
