@@ -2,7 +2,7 @@ name: Test and publish tenant and PSW workspaces
 on:
   push:
     branches: [main]
-    paths: ['packages/shared/src/tenant-dashboard/**', 'cloudflare/workers/src/tenant-dashboard/**', 'websites/typescript/src/tenant-dashboard/**', 'cloudflare/workers/src/business-modules.ts', 'packages/shared/src/admin-entry-routes.json', 'packages/database/migrations/20261031_tenant_dashboard.sql', 'tools/governance-production/tenant_dashboard_registration.py', 'scripts/*tenant-dashboard*', 'packages/shared/src/coordinator-charge/**', 'cloudflare/workers/src/coordinator-charge/**', 'websites/typescript/src/coordinator-charge/**', 'cloudflare/workers/src/care/service.ts', 'tools/governance-production/psw_charge_registration.py', 'packages/database/migrations/20261030_psw_coordinator_charge.sql', 'packages/shared/src/psw-personal/**', 'cloudflare/workers/src/psw-personal/**', 'websites/typescript/src/psw-personal/**', 'packages/database/migrations/20261029_psw_personal.sql', 'tools/governance-production/psw_personal_registration.py', 'tools/governance-production/production-pin.json', 'packages/shared/src/psw-workspace/**', 'cloudflare/workers/src/psw-workspace/**', 'packages/database/migrations/20261028_psw_workspace.sql', 'websites/typescript/src/psw-workspace/**', 'scripts/*psw*', '.github/workflows/psw-workspace.yml']
+    paths: ['packages/shared/src/tenant-dashboard/**', 'cloudflare/workers/src/tenant-dashboard/**', 'websites/typescript/src/tenant-dashboard/**', 'cloudflare/workers/src/business-modules.ts', 'packages/shared/src/admin-entry-routes.json', 'packages/database/migrations/20261031_tenant_dashboard.sql', 'tools/governance-production/tenant_dashboard_registration.py', 'scripts/*tenant-dashboard*', 'packages/shared/src/coordinator-charge/**', 'cloudflare/workers/src/coordinator-charge/**', 'websites/typescript/src/coordinator-charge/**', 'cloudflare/workers/src/care/service.ts', 'tools/governance-production/psw_charge_registration.py', 'packages/database/migrations/20261030_psw_coordinator_charge.sql', 'packages/shared/src/psw-personal/**', 'cloudflare/workers/src/psw-personal/**', 'websites/typescript/src/psw-personal/**', 'packages/database/migrations/20261029_psw_personal.sql', 'tools/governance-production/psw_personal_registration.py', 'tools/governance-production/production-pin.json', 'packages/shared/src/psw-workspace/**', 'cloudflare/workers/src/psw-workspace/**', 'packages/database/migrations/20261028_psw_workspace.sql', 'websites/typescript/src/psw-workspace/**', 'scripts/*psw*', 'packages/primecare_ui/web/**', 'packages/domain/src/workspace_layout.ts', 'scripts/test-workspace-layout*.mjs', 'scripts/test-tenant-workspace-layout.mjs', 'scripts/fixtures/workspace-layout.html', '.github/workflows/psw-workspace.yml']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -38,6 +38,14 @@ jobs:
       - name: Tenant tasks, workflow inventory, isolation and demo cleanup acceptance
         env: {PSW_TEST_DATABASE_URL: 'postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test'}
         run: node scripts/test-tenant-dashboard.mjs
+      - name: Install browser for shared layout acceptance
+        run: npx playwright install --with-deps chromium
+      - name: Shared engine and actual tenant portal layout acceptance
+        env: {PSW_TEST_DATABASE_URL: 'postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test'}
+        run: |
+          node scripts/test-workspace-layout-contract.mjs
+          node scripts/test-workspace-layout.mjs
+          node scripts/test-tenant-workspace-layout.mjs
       - name: Verify tenant catalogue and HTML preview
         run: python3 scripts/verify-tenant-dashboard.py && node scripts/preview-tenant-dashboard.mjs
       - name: Verify personal screen and workflow catalogue

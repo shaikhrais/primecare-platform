@@ -2,7 +2,7 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: B01 metadata pilot registered and independently verified. B02 live integration is next; B03–B18 remain planned. Translation review and wider rollout are pending.**
+**Status: B01 metadata pilot registered and independently verified. B02 Tenant Admin integration is implemented with local acceptance passed; CI and deployed verification are pending. B03–B18 remain planned. Translation review and wider rollout are pending.**
 
 Implement original PrimeCare equivalents for the audited Fuse v17 features. Reuse shared core packages across web and Flutter. Work on current `main`, retain concurrent work and use expected-head checks. Do not copy proprietary vendor implementation or replace existing authentication without an approved requirement.
 

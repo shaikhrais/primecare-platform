@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b01_metadata_pilot_registered_b02_integration_next",
+  "overall_status": "b02_tenant_pilot_implemented_ci_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -25,7 +25,7 @@
   ],
   "baseline": {
     "existing": "Shared shell, base Theme Center, personal themes, existing native layout options and account-scoped local settings.",
-    "new_web_engine": "Shared optional docking engine exists and passed isolated tests; no production shell mount.",
+    "new_web_engine": "Shared engine integrated through the Tenant Admin shell; actual portal and disposable database tests passed. Production runtime verification remains pending.",
     "not_claimed": [
       "full theme adoption",
       "native docking parity",
@@ -94,7 +94,7 @@
     {
       "id": "B02",
       "title": "Integrate the advanced web layout engine",
-      "status": "planned",
+      "status": "tenant_pilot_implemented_ci_pending",
       "depends_on": [
         "B01"
       ],
@@ -114,9 +114,21 @@
         "packages/domain/src/workspace_layout.ts",
         "websites/typescript/src/"
       ],
-      "evidence": [],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-02.md",
+        "packages/primecare_ui/web/workspace-customizer.ts",
+        "scripts/test-tenant-workspace-layout.mjs",
+        "scripts/test-workspace-layout.mjs",
+        "scripts/test-workspace-layout-contract.mjs"
+      ],
       "blockers": [],
-      "readiness": "metadata_ready_for_tenant_workspace_pilot"
+      "readiness": "source_and_isolated_acceptance_passed",
+      "remainingScope": [
+        "Footer controls disabled without an existing footer slot",
+        "Other-host registration and rollout",
+        "Translation and release review",
+        "Authenticated deployed runtime verification"
+      ]
     },
     {
       "id": "B03",

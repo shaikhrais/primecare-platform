@@ -112,7 +112,7 @@
       "sourceEvidence": [
         {
           "path": "packages/primecare_ui/web/layout-customizer.ts",
-          "sha256": "ae0741ec1ede2296db53398aa273a57d377730c8f1e85ec9d97f41a320c9b999"
+          "sha256": "7cbfb6bffc549ad33b28afa5505dda1fe4407f0a3e880983def2b7179796ece0"
         }
       ],
       "sourceStatus": "source_present_unverified",
@@ -170,11 +170,11 @@
       "sourceEvidence": [
         {
           "path": "packages/primecare_ui/web/shell.ts",
-          "sha256": "2110e37f5c020105227bf609299d02b42cd8c43457f2238e14fd9c68c99a53e7"
+          "sha256": "7d54905c98f4ecb5f88225c9f757584e3cfaa482ccfc794a43840e9cc001b0d2"
         },
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
-          "sha256": "be0f0dc7006faa79984fdb4d20cba4b9da5f944557cb80e2c18c5e7f27fe43bb"
+          "sha256": "2e8f298b1019e53eb3f85dad6e370cb3d6ff621c28139ec58a6fce92e6894889"
         }
       ],
       "sourceStatus": "source_present_unverified",
@@ -350,7 +350,7 @@
       "sourceEvidence": [
         {
           "path": "packages/primecare_ui/web/layout-customizer.ts",
-          "sha256": "ae0741ec1ede2296db53398aa273a57d377730c8f1e85ec9d97f41a320c9b999"
+          "sha256": "7cbfb6bffc549ad33b28afa5505dda1fe4407f0a3e880983def2b7179796ece0"
         },
         {
           "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
@@ -396,7 +396,7 @@
       "sourceEvidence": [
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
-          "sha256": "be0f0dc7006faa79984fdb4d20cba4b9da5f944557cb80e2c18c5e7f27fe43bb"
+          "sha256": "2e8f298b1019e53eb3f85dad6e370cb3d6ff621c28139ec58a6fce92e6894889"
         }
       ],
       "sourceStatus": "source_present_unverified",
@@ -556,7 +556,7 @@
       "sourceEvidence": [
         {
           "path": "packages/primecare_ui/web/shell.ts",
-          "sha256": "2110e37f5c020105227bf609299d02b42cd8c43457f2238e14fd9c68c99a53e7"
+          "sha256": "7d54905c98f4ecb5f88225c9f757584e3cfaa482ccfc794a43840e9cc001b0d2"
         }
       ],
       "sourceStatus": "source_present_unverified",
@@ -574,7 +574,7 @@
       "sourceEvidence": [
         {
           "path": "packages/primecare_ui/web/shell.ts",
-          "sha256": "2110e37f5c020105227bf609299d02b42cd8c43457f2238e14fd9c68c99a53e7"
+          "sha256": "7d54905c98f4ecb5f88225c9f757584e3cfaa482ccfc794a43840e9cc001b0d2"
         }
       ],
       "sourceStatus": "source_present_unverified",
@@ -592,7 +592,7 @@
       "sourceEvidence": [
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
-          "sha256": "be0f0dc7006faa79984fdb4d20cba4b9da5f944557cb80e2c18c5e7f27fe43bb"
+          "sha256": "2e8f298b1019e53eb3f85dad6e370cb3d6ff621c28139ec58a6fce92e6894889"
         }
       ],
       "sourceStatus": "source_present_unverified",
@@ -623,7 +623,7 @@
       "sourceEvidence": [
         {
           "path": "packages/primecare_ui/web/shell.ts",
-          "sha256": "2110e37f5c020105227bf609299d02b42cd8c43457f2238e14fd9c68c99a53e7"
+          "sha256": "7d54905c98f4ecb5f88225c9f757584e3cfaa482ccfc794a43840e9cc001b0d2"
         }
       ],
       "sourceStatus": "source_present_unverified",
@@ -734,7 +734,7 @@
       "sourceEvidence": [
         {
           "path": "packages/primecare_ui/web/layout-customizer.ts",
-          "sha256": "ae0741ec1ede2296db53398aa273a57d377730c8f1e85ec9d97f41a320c9b999"
+          "sha256": "7cbfb6bffc549ad33b28afa5505dda1fe4407f0a3e880983def2b7179796ece0"
         }
       ],
       "sourceStatus": "source_present_unverified",

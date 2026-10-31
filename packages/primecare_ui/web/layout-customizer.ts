@@ -1,3 +1,4 @@
+import {mountWorkspaceCustomizer,type WorkspaceCustomizerOptions} from './workspace-customizer';
 import {shellIcon} from './icons';
 import {PersonalThemeLibrary} from './theme-library';
 import {mountThemeCenter} from './theme-center';
@@ -5,10 +6,10 @@ import {BaseLayoutManager} from './layout-manager';
 export type ThemeCenterLocale='en'|'fr'|'es';
 const managers=new WeakMap<HTMLElement,{scope:string;locale:ThemeCenterLocale;manager:BaseLayoutManager;library:PersonalThemeLibrary}>();
 const labels={en:['Appearance','Theme and layout','Theme','Portal default','Light','Dark','Accent (optional #RRGGBB)','Sidebar','Left','Right','Navigation width','Expanded','Compact','Spacing','Comfortable','Content width (%)','Undo','Redo','Reset','Save','Export XML','Import XML','Close','Changes are live. Save keeps this profile for your account on this browser.','Saved on this browser.','Unable to apply or save this profile.'],fr:['Apparence','Thème et disposition','Thème','Valeur du portail','Clair','Sombre','Accent (facultatif #RRGGBB)','Barre latérale','Gauche','Droite','Largeur du menu','Développé','Compact','Espacement','Confortable','Largeur du contenu (%)','Annuler','Rétablir','Réinitialiser','Enregistrer','Exporter XML','Importer XML','Fermer','Les changements sont immédiats. Enregistrer conserve ce profil pour votre compte dans ce navigateur.','Enregistré dans ce navigateur.','Impossible d’appliquer ou d’enregistrer ce profil.'],es:['Apariencia','Tema y diseño','Tema','Valor del portal','Claro','Oscuro','Color (opcional #RRGGBB)','Barra lateral','Izquierda','Derecha','Ancho del menú','Expandido','Compacto','Espaciado','Cómodo','Ancho del contenido (%)','Deshacer','Rehacer','Restablecer','Guardar','Exportar XML','Importar XML','Cerrar','Los cambios son inmediatos. Guardar conserva este perfil para su cuenta en este navegador.','Guardado en este navegador.','No se pudo aplicar o guardar este perfil.']};
-export function mountLayoutCustomizer(root:HTMLElement,scope:string,locale:ThemeCenterLocale,defaultTheme:Record<string,string>={}):void {
+export function mountLayoutCustomizer(root:HTMLElement,scope:string,locale:ThemeCenterLocale,defaultTheme:Record<string,string>={},workspaceOptions?:WorkspaceCustomizerOptions):void {
  let entry=managers.get(root);if(entry&&entry.scope!==scope){root.querySelector('[data-cy=appearance-open]')?.remove();root.querySelector('[data-cy=appearance-dialog]')?.remove();}if(!entry||entry.scope!==scope){entry={scope,locale,manager:new BaseLayoutManager(root,'primecare-layout:v1:'+encodeURIComponent(scope)),library:new PersonalThemeLibrary('primecare-themes:v1:'+encodeURIComponent(scope))};entry.manager.setPersonalTheme(entry.library.active);managers.set(root,entry);}const manager=entry.manager;manager.setDefaultTheme(defaultTheme);manager.attach();
  if(entry.locale!==locale){root.querySelector('[data-cy=appearance-open]')?.remove();root.querySelector('[data-cy=appearance-dialog]')?.remove();entry.locale=locale;}
- if(root.querySelector('[data-cy=appearance-open]'))return;
+ if(root.querySelector('[data-cy=appearance-open]')){if(workspaceOptions)mountWorkspaceCustomizer(root,root.querySelector<HTMLDialogElement>('[data-cy=appearance-dialog]')!,scope,locale,workspaceOptions);return;}
  // A tenant/language control refresh removes the opener, but the root-level dialog survives.
  root.querySelector('[data-cy=appearance-dialog]')?.remove();
  const text=labels[locale];const opener=document.createElement('button');opener.type='button';opener.dataset.cy='appearance-open';opener.textContent={en:'Theme Center',fr:'Centre des thèmes',es:'Centro de temas'}[locale];opener.insertAdjacentHTML('afterbegin',shellIcon('palette'));opener.setAttribute('aria-haspopup','dialog');(root.querySelector('[data-cy=shell-utility-actions]')??root.querySelector('.topbar'))!.append(opener);
@@ -22,5 +23,6 @@ export function mountLayoutCustomizer(root:HTMLElement,scope:string,locale:Theme
  for(const id of ['undo','redo','reset'] as const)dialog.querySelector<HTMLButtonElement>(`[data-cy=appearance-${id}]`)!.onclick=()=>run(()=>manager[id]());
  dialog.querySelector<HTMLButtonElement>('[data-cy=appearance-save]')!.onclick=()=>{run(()=>manager.save());if(!output.value)output.value=text[24];};
  dialog.querySelector<HTMLButtonElement>('[data-cy=appearance-export]')!.onclick=()=>run(()=>{const url=URL.createObjectURL(new Blob([manager.exportXml()],{type:'application/xml'}));const link=document.createElement('a');link.href=url;link.download='PrimeCare_Layout.xml';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+ if(workspaceOptions)mountWorkspaceCustomizer(root,dialog,scope,locale,workspaceOptions);
  element('import').onchange=async()=>{try{const file=(element('import') as HTMLInputElement).files?.[0];if(!file||file.size>16384)throw Error();const xml=await file.text();manager.importXml(xml);output.value='';sync();}catch{output.value=text[25];}finally{element('import').value='';}};
 }

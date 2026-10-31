@@ -1665,7 +1665,7 @@
       "language_resources",
       "language_resource_values"
     ],
-    "contractSha256": "f6d72170d3f64c134d78de88047728c73acb466186c8accc25239b21076e78c7",
+    "contractSha256": "cd3656841d008f6fe86a34ad532f125a73a108a3a961bbb12e4182c1ca645357",
     "screenCode": "tenant_admin_command_center",
     "route": "/tenant-dashboard",
     "resourceNamespace": "themeWorkspace.",

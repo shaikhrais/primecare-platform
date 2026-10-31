@@ -4,6 +4,7 @@ export {defaultWorkspaceLayout};
 export type {WorkspaceLayout, PanelDock};
 export type WorkspaceSlots = {navigation: HTMLElement; toolbar: HTMLElement; main: HTMLElement; footer?: HTMLElement; panels: Record<string, HTMLElement>};
 type StoragePort = Pick<Storage, 'getItem' | 'setItem'>;
+export type WorkspaceHistory = {current:WorkspaceLayout;undo:WorkspaceLayout[];redo:WorkspaceLayout[]};
 /** Optional shared presentation engine. Callers supply already-authorized DOM slots.
  * Does not create routes, business widgets, permissions, or production editor controls.
  */
@@ -14,23 +15,26 @@ export class WorkspaceLayoutManager {
   private ids: string[];
   private stage: HTMLElement;
   private docks = new Map<string, HTMLElement>();
-  private originals: {element: HTMLElement; parent: Node; next: Node | null; attributes: [string,string][]}[];
+  private originals: {element: HTMLElement; anchor: Comment; attributes: [string,string][]}[];
+  private defaults:WorkspaceLayout;
   private rootAttributes: [string,string][];
   private win: Window;
   private abort = new AbortController();
   private observer: ResizeObserver;
   private disposed = false;
   private gesture: {id:string; x:number; y:number; width:number; height:number; startX:number; startY:number; resize:boolean; before:WorkspaceLayout; pointer:number} | null = null;
-  constructor(private root: HTMLElement, private slots: WorkspaceSlots, private storageKey: string, private storage: StoragePort = {getItem: key => root.ownerDocument.defaultView!.localStorage.getItem(key), setItem: (key,value) => root.ownerDocument.defaultView!.localStorage.setItem(key,value)}) {
+  constructor(private root: HTMLElement, private slots: WorkspaceSlots, private storageKey: string, private storage: StoragePort = {getItem: key => root.ownerDocument.defaultView!.localStorage.getItem(key), setItem: (key,value) => root.ownerDocument.defaultView!.localStorage.setItem(key,value)}, initialProfile?:WorkspaceLayout) {
     this.ids = Object.keys(slots.panels);
-    this.profile = defaultWorkspaceLayout(this.ids);
+    this.defaults = initialProfile?validateWorkspaceLayout(initialProfile,this.ids):defaultWorkspaceLayout(this.ids);
+    this.profile = structuredClone(this.defaults);
     if (!storageKey.trim()) throw Error('An account-and-role-scoped storage key is required');
     const elements = [slots.navigation, slots.toolbar, slots.main, ...(slots.footer ? [slots.footer] : []), ...Object.values(slots.panels)];
-    if (new Set(elements).size !== elements.length || elements.some(el => !root.contains(el) || elements.some(other => other !== el && other.contains(el)))) throw Error('Slots must be distinct, non-nested descendants');
+    const panels=Object.values(slots.panels);
+    if (new Set(elements).size !== elements.length || elements.some(el => !root.contains(el) || elements.some(other => other !== el && other.contains(el) && !(other===slots.main&&panels.includes(el))))) throw Error('Slots must be distinct descendants; only panel slots may be nested inside main');
     if (root.hasAttribute('data-pc-workspace')) throw Error('Workspace is already managed');
     this.win = root.ownerDocument.defaultView!;
     this.rootAttributes = [...root.attributes].map(a => [a.name,a.value]);
-    this.originals = elements.map(element => ({element, parent: element.parentNode!, next: element.nextSibling, attributes: [...element.attributes].map(a => [a.name,a.value])}));
+    this.originals = elements.map(element => {const anchor=root.ownerDocument.createComment('PrimeCare layout slot');element.before(anchor);return {element,anchor,attributes:[...element.attributes].map(a => [a.name,a.value])};});
     try { const text = storage.getItem(storageKey); if (text) this.profile = parseWorkspaceLayout(text, this.ids); } catch { /* Invalid or inaccessible preferences keep safe defaults. */ }
     const doc = root.ownerDocument;
     if (!doc.querySelector('[data-primecare-workspace-styles]')) {const style = doc.createElement('style'); style.dataset.primecareWorkspaceStyles = ''; style.textContent = workspaceLayoutStyles; doc.head.append(style);}
@@ -54,6 +58,12 @@ export class WorkspaceLayoutManager {
   get current(): WorkspaceLayout { return structuredClone(this.profile); }
   get canUndo(): boolean { return this.undoStack.length > 0; }
   get canRedo(): boolean { return this.redoStack.length > 0; }
+  get history():WorkspaceHistory {return {current:this.current,undo:structuredClone(this.undoStack),redo:structuredClone(this.redoStack)};}
+  restoreHistory(value:WorkspaceHistory):void {
+    if(this.disposed||!value||!Array.isArray(value.undo)||!Array.isArray(value.redo)||value.undo.length>30||value.redo.length>30)throw Error('Invalid workspace history');
+    const current=validateWorkspaceLayout(value.current,this.ids),undo=value.undo.map(p=>validateWorkspaceLayout(p,this.ids)),redo=value.redo.map(p=>validateWorkspaceLayout(p,this.ids));
+    this.profile=current;this.undoStack=undo;this.redoStack=redo;this.apply();
+  }
   change(value: unknown): void {
     if (this.disposed) throw Error('Workspace disposed');
     const next = validateWorkspaceLayout(value, this.ids);
@@ -63,7 +73,7 @@ export class WorkspaceLayoutManager {
   private remember(before: WorkspaceLayout): void {this.undoStack.push(before); if (this.undoStack.length > 30) this.undoStack.shift(); this.redoStack = [];}
   undo(): void {const p = this.undoStack.pop(); if (p) {this.redoStack.push(this.current); this.profile = p; this.apply();}}
   redo(): void {const p = this.redoStack.pop(); if (p) {this.undoStack.push(this.current); this.profile = p; this.apply();}}
-  reset(): void {this.change(defaultWorkspaceLayout(this.ids));}
+  reset(): void {this.change(this.defaults);}
   dockPanel(id: string, dock: PanelDock): void {
     if (!Object.hasOwn(this.profile.panels, id)) throw Error('Panel is not permitted');
     this.change({...this.current, panels: {...this.current.panels, [id]: {...this.profile.panels[id], dock}}});
@@ -77,7 +87,7 @@ export class WorkspaceLayoutManager {
     const focused = this.root.ownerDocument.activeElement as HTMLElement | null;
     const restoreFocus = !!focused && this.root.contains(focused);
     const p = this.profile, root = this.root, width = Math.min(this.win.innerWidth, root.getBoundingClientRect().width || this.win.innerWidth);
-    const narrow = width < 900;
+    const narrow = width <= 1024;
     root.dataset.pcWorkspace = ''; root.dataset.narrow = String(narrow);
     for (const key of ['navigation','toolbar','toolbarStyle','footer','container','scroll'] as const) root.dataset[key] = p[key];
     root.style.setProperty('--pc-nav-width', p.navigationWidth + 'px'); root.style.setProperty('--pc-max-width', p.maxWidth + 'px');
@@ -131,7 +141,7 @@ export class WorkspaceLayoutManager {
   };
   private pointerEnd = (event: PointerEvent): void => {
     const g = this.gesture; if (!g || g.pointer !== event.pointerId) return;
-    this.gesture = null; if (JSON.stringify(g.before) !== JSON.stringify(this.profile)) this.remember(g.before);
+    this.gesture = null; if (JSON.stringify(g.before) !== JSON.stringify(this.profile)) {this.remember(g.before);this.apply();}
   };
   private pointerCancel = (): void => {if (this.gesture) {this.profile = this.gesture.before; this.gesture = null; this.apply();}};
   private keyDown = (event: KeyboardEvent): void => {
@@ -145,8 +155,7 @@ export class WorkspaceLayoutManager {
   };
   dispose(): void {
     if (this.disposed) return; this.disposed = true; this.abort.abort(); this.observer.disconnect();
-    // Restore following siblings first, preserving original DOM order and all live nodes.
-    for (const item of [...this.originals].reverse()) {item.parent.insertBefore(item.element,item.next?.parentNode === item.parent ? item.next : null); for (const a of [...item.element.attributes]) item.element.removeAttribute(a.name); for (const [k,v] of item.attributes) item.element.setAttribute(k,v);}
+    for (const item of [...this.originals].reverse()) {item.anchor.replaceWith(item.element); for (const a of [...item.element.attributes]) item.element.removeAttribute(a.name); for (const [k,v] of item.attributes) item.element.setAttribute(k,v);}
     this.stage.remove(); for (const a of [...this.root.attributes]) this.root.removeAttribute(a.name); for (const [k,v] of this.rootAttributes) this.root.setAttribute(k,v);
   }
 }
