@@ -1,0 +1,52 @@
+import 'dart:convert';
+import 'dart:math' as math;
+import '../theme/personal_theme.dart';
+import '../workspace/workspace_layout.dart';
+import '../navigation/workspace_navigation_model.dart' show navigationPreset;
+const themeRegions=['main','navigation','toolbar','footer'];
+const paletteColors=['background','surface','text','primary','secondary','success','warning','error','info','border'];
+Map<String,Object?> themeObject(Object? v,List<String> keys){if(v is! Map<String,Object?>||v.length!=keys.length||!v.keys.every(keys.contains))throw const FormatException('Unknown or missing theme field');return v;}
+String themeText(Object? v,[int max=60]){if(v is! String||v.trim().isEmpty||v.trim().length>max||RegExp(r'[\x00-\x1f\x7f]').hasMatch(v))throw const FormatException('Invalid theme text');return v.trim();}
+String _choice(Object? v,List<String> choices){if(v is! String||!choices.contains(v))throw const FormatException('Invalid theme choice');return v;}
+num _number(Object? v,num min,num max,[bool integer=false]){if(v is! num||!v.isFinite||v<min||v>max||integer&&v%1!=0)throw const FormatException('Invalid theme dimension');return integer?v.toInt():v;}
+String themeHex(Object? v){if(v is! String||!RegExp(r'^#[0-9a-fA-F]{6}$').hasMatch(v))throw const FormatException('Invalid opaque theme color');return v.toLowerCase();}
+double themeContrast(String a,String b){double light(String s){final h=themeHex(s);final v=[1,3,5].map((i)=>int.parse(h.substring(i,i+2),radix:16)/255).map((x)=>x<=.04045?x/12.92:math.pow((x+.055)/1.055,2.4).toDouble()).toList();return .2126*v[0]+.7152*v[1]+.0722*v[2];}final x=light(a),y=light(b);return(math.max(x,y)+.05)/(math.min(x,y)+.05);}
+String themeForeground(List<String> backgrounds,String candidate){for(final c in [themeHex(candidate),'#000000','#ffffff']){if(backgrounds.every((bg)=>themeContrast(c,bg)>=4.5))return c;}throw const FormatException('Incompatible background/surface contrast');}
+String themeShade(String color,String toward,int percent){final a=themeHex(color),b=themeHex(toward);if(percent<0||percent>100)throw const FormatException('Invalid shade');return '#${[1,3,5].map((i)=>(int.parse(a.substring(i,i+2),radix:16)*(100-percent)/100+int.parse(b.substring(i,i+2),radix:16)*percent/100+.5).floor().toRadixString(16).padLeft(2,'0')).join()}';}
+Map<String,Object> themePalettePreview(Map<String,Object?> p){final text=themeForeground([p['background']! as String,p['surface']! as String],p['text']! as String);return {'text':text,'colors':{for(final k in ['primary','secondary','success','warning','error','info'])k:((){final value=p[k]! as String,light=themeShade(value,'#ffffff',20),dark=themeShade(value,'#000000',20);return {'value':value,'on':themeForeground([value],text),'light':light,'onLight':themeForeground([light],text),'dark':dark,'onDark':themeForeground([dark],text)};})()}};}
+class AdvancedTheme {
+ final Map<String,Object?> _data;
+ AdvancedTheme._(this._data);
+ factory AdvancedTheme.fromJson(Object? raw){final v=themeObject(raw,['version','name','regions','tokens','layout']);if(v['version']!=2)throw const FormatException('Unsupported theme version');final r=themeObject(v['regions'],themeRegions),regions=<String,Object>{};
+  for(final key in themeRegions){final p=themeObject(r[key],['mode',...paletteColors]),value=<String,Object>{'mode':_choice(p['mode'],['light','dark']),for(final c in paletteColors)c:themeHex(p[c])};themeForeground([value['background']! as String,value['surface']! as String],value['text']! as String);regions[key]=value;}
+  final t=themeObject(v['tokens'],['fontFamily','fontScale','spacing','radius','borderWidth','density']),l=themeObject(v['layout'],['family','container','maxWidth','navigationWidth','toolbarStyle']);
+  return AdvancedTheme._({'version':2,'name':themeText(v['name']),'regions':regions,'tokens':{'fontFamily':_choice(t['fontFamily'],['system','serif','monospace']),'fontScale':_number(t['fontScale'],.875,1.5),'spacing':_number(t['spacing'],8,24,true),'radius':_number(t['radius'],0,24,true),'borderWidth':_number(t['borderWidth'],1,3,true),'density':_choice(t['density'],['comfortable','compact'])},'layout':{'family':_choice(l['family'],['vertical','horizontal-header','horizontal-footer']),'container':_choice(l['container'],['fullwidth','boxed','content']),'maxWidth':_number(l['maxWidth'],960,1920,true),'navigationWidth':_number(l['navigationWidth'],160,400,true),'toolbarStyle':_choice(l['toolbarStyle'],['sticky','static'])}});
+ }
+ factory AdvancedTheme.defaults(){final p={'mode':'light','background':'#f3f6f9','surface':'#ffffff','text':'#172d43','primary':'#087f83','secondary':'#245bb3','success':'#19745b','warning':'#926000','error':'#b42318','info':'#0369a1','border':'#607184'};return AdvancedTheme.fromJson({'version':2,'name':'PrimeCare','regions':{for(final key in themeRegions)key:Map<String,Object>.from(p)},'tokens':{'fontFamily':'system','fontScale':1,'spacing':16,'radius':12,'borderWidth':1,'density':'comfortable'},'layout':{'family':'vertical','container':'fullwidth','maxWidth':1280,'navigationWidth':248,'toolbarStyle':'sticky'}});}
+ factory AdvancedTheme.parse(String text){if(utf8.encode(text).length>32768)throw const FormatException('Theme file too large');return AdvancedTheme.fromJson(jsonDecode(text));}
+ Map<String,Object?> toJson()=>jsonDecode(jsonEncode(_data)) as Map<String,Object?>;
+ String get name=>_data['name']! as String;
+ Map<String,Object?> get tokens=>Map<String,Object?>.from(_data['tokens']! as Map);
+ Map<String,Object?> get layout=>Map<String,Object?>.from(_data['layout']! as Map);
+ Map<String,Object?> region(String key){if(!themeRegions.contains(key))throw const FormatException('Unknown region');return Map<String,Object?>.from((_data['regions']! as Map)[key] as Map);}
+ AdvancedTheme patch(String path,Object? value){themeFieldSpec(path);final next=toJson(),keys=path.split('.'),last=keys.removeLast();Map<String,Object?> host=next;for(final key in keys){host=host[key]! as Map<String,Object?>;}host[last]=value;if(RegExp(r'^regions\.(main|navigation|toolbar|footer)\.mode$').hasMatch(path)&&value!=this.value(path)){final dark=value=='dark';host.addAll({'background':dark?'#101820':'#f3f6f9','surface':dark?'#172d43':'#ffffff','text':dark?'#ffffff':'#172d43'});}return AdvancedTheme.fromJson(next);}
+ Object value(String path){themeFieldSpec(path);Object? value=_data;for(final key in path.split('.')){value=(value! as Map)[key];}return value!;}
+ WorkspaceLayout workspace(WorkspaceLayout current)=>navigationPreset(current,layout['family']! as String).patch({'container':layout['container'],'maxWidth':layout['maxWidth'],'navigationWidth':layout['navigationWidth'],'toolbarStyle':layout['toolbarStyle']});
+ String exportJson()=>const JsonEncoder.withIndent('  ').convert(toJson());
+}
+Map<String,Object> themeFieldSpec(String path){if(path=='name')return {'kind':'text'};if(RegExp(r'^regions\.(main|navigation|toolbar|footer)\.(background|surface|text|primary|secondary|success|warning|error|info|border)$').hasMatch(path))return {'kind':'color'};if(RegExp(r'^regions\.(main|navigation|toolbar|footer)\.mode$').hasMatch(path))return {'kind':'select','values':['light','dark']};
+ const selects={'tokens.fontFamily':['system','serif','monospace'],'tokens.density':['comfortable','compact'],'layout.family':['vertical','horizontal-header','horizontal-footer'],'layout.container':['fullwidth','boxed','content'],'layout.toolbarStyle':['sticky','static']};if(selects.containsKey(path))return {'kind':'select','values':selects[path]!};
+ const ranges={'tokens.fontScale':[.875,1.5,.125],'tokens.spacing':[8,24,1],'tokens.radius':[0,24,1],'tokens.borderWidth':[1,3,1],'layout.maxWidth':[960,1920,1],'layout.navigationWidth':[160,400,1]};if(ranges.containsKey(path))return {'kind':'number','min':ranges[path]![0],'max':ranges[path]![1],'step':ranges[path]![2]};throw const FormatException('Unknown theme schema path');}
+class ThemeField {
+ final String id,label,path;final String? conditionPath;final List<String> conditionValues;
+ ThemeField._(this.id,this.label,this.path,this.conditionPath,List<String> values):conditionValues=List.unmodifiable(values);
+ bool visible(AdvancedTheme theme)=>conditionPath==null||conditionValues.contains(theme.value(conditionPath!).toString());
+ Map<String,Object?> toJson()=>{'id':id,'label':label,'path':path,'when':conditionPath==null?null:{'path':conditionPath,'values':conditionValues}};
+ static List<ThemeField> parse(Object? raw,Iterable<String> allowedIds){if(raw is! List<Object?>||raw.length>80)throw const FormatException('Invalid schema');final ids=<String>{},paths=<String>{},allowed=allowedIds.toSet(),out=<ThemeField>[];
+  for(final input in raw){final v=themeObject(input,['id','label','path','when']),id=themeText(v['id'],64),path=themeText(v['path'],80),label=themeText(v['label'],200);if(!RegExp(r'^[A-Za-z0-9][A-Za-z0-9_.:-]*$').hasMatch(id)||!ids.add(id)||!paths.add(path))throw const FormatException('Duplicate schema binding');themeFieldSpec(path);String? condition;var values=<String>[];if(v['when']!=null){final w=themeObject(v['when'],['path','values']);condition=themeText(w['path'],80);final spec=themeFieldSpec(condition),rawValues=w['values'];if(spec['kind']!='select'||rawValues is! List<Object?>||rawValues.isEmpty||rawValues.any((v)=>!(spec['values']! as List<String>).contains(v)))throw const FormatException('Invalid condition');values=rawValues.cast<String>();}if(allowed.contains(id))out.add(ThemeField._(id,label,path,condition,values));}return List.unmodifiable(out);
+ }
+}
+Map<String,Object?> validateAdvancedLibrary(Object? raw){final v=themeObject(raw,['version','active','items']);if(v['version']!=2||v['items'] is! List<Object?>||(v['items']! as List).length>20)throw const FormatException('Invalid library');final ids=<String>{},names=<String>{};final items=<Map<String,Object>>[];
+ for(final input in v['items']! as List<Object?>){final i=themeObject(input,['id','theme']),id=themeText(i['id'],64),theme=AdvancedTheme.fromJson(i['theme']);if(!RegExp(r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$').hasMatch(id)||!ids.add(id)||!names.add(theme.name.toLowerCase()))throw const FormatException('Duplicate theme identity/name');items.add({'id':id,'theme':theme.toJson()});}return {'version':2,'active':v['active']==null?null:AdvancedTheme.fromJson(v['active']).toJson(),'items':items};
+}
+PersonalTheme legacyPersonalTheme(Object? raw)=>PersonalTheme.fromJson(raw);

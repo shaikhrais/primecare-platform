@@ -1,0 +1,67 @@
+name: Shared advanced theme center
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/domain/src/advanced_theme.ts'
+      - 'packages/primecare_ui/web/advanced-theme*.ts'
+      - 'packages/flutter_core/lib/advanced_theme/**'
+      - 'packages/flutter_core/lib/advanced_theme.dart'
+      - 'packages/primecare_ui/lib/advanced_theme.dart'
+      - 'packages/flutter_core/test/advanced_theme/**'
+      - 'scripts/*advanced-theme*.mjs'
+      - '.github/workflows/advanced-theme.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/theme-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0
+          ln -s /tmp/theme-tools/node_modules node_modules
+          npx playwright install --with-deps chromium
+          node scripts/test-advanced-theme-model.mjs
+          node scripts/test-advanced-theme-browser.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/advanced-theme-editor.ts
+      - uses: actions/upload-artifact@v4
+        with: {name: web-theme-oracle, path: packages/flutter_core/test/advanced_theme/fixtures}
+  native:
+    needs: web
+    strategy:
+      fail-fast: false
+      matrix: {os: [ubuntu-24.04, windows-latest, macos-latest]}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - uses: actions/download-artifact@v4
+        with: {name: web-theme-oracle, path: packages/flutter_core/test/advanced_theme/fixtures}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter analyze --no-fatal-infos lib/advanced_theme lib/advanced_theme.dart test/advanced_theme
+        working-directory: packages/flutter_core
+      - run: flutter test test/advanced_theme --reporter expanded
+        working-directory: packages/flutter_core
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: 'native-theme-${{ matrix.os }}', path: packages/flutter_core/test/advanced_theme/fixtures/native.json}
+  parity:
+    needs: native
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/download-artifact@v4
+        with: {pattern: native-theme-*, path: artifacts/theme}
+      - run: |
+          npm install --prefix /tmp/theme-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2
+          ln -s /tmp/theme-tools/node_modules node_modules
+          for file in artifacts/theme/*/native.json; do node scripts/advanced-theme-fixtures.mjs --verify-native "$file"; done

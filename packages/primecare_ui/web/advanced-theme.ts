@@ -1,0 +1,25 @@
+import {validateAdvancedTheme,palettePreview,themeRegions,validateAdvancedLibrary,parseAdvancedTheme,legacyPersonalTheme,type AdvancedTheme,type AdvancedLibrary} from '../../domain/src/advanced_theme';
+import {XmlLayoutManager} from './layout-manager';
+export * from '../../domain/src/advanced_theme';
+/** Explicit region roots only. This adapter never changes document-wide or business element styles. */
+export class AdvancedThemeRegions {
+ private originals=new Map<HTMLElement,Map<string,[string,string]>>();private dead=false;
+ constructor(private regions:Partial<Record<typeof themeRegions[number],HTMLElement>>){const elements=Object.values(regions);if(new Set(elements).size!==elements.length)throw Error('Distinct theme regions required');}
+ apply(raw:unknown):void{if(this.dead)throw Error('Theme regions disposed');const t=validateAdvancedTheme(raw);for(const key of themeRegions){const el=this.regions[key];if(!el)continue;const p=t.regions[key],preview=palettePreview(p),tokens=t.tokens;const values:Record<string,string>={'background-color':p.background,color:preview.text,'font-family':tokens.fontFamily==='system'?'system-ui, sans-serif':tokens.fontFamily,'font-size':tokens.fontScale+'rem','color-scheme':p.mode,'--color-background':p.background,'--color-surface':p.surface,'--color-text':preview.text,'--color-muted':preview.text,'--color-border':p.border,'--radius-md':tokens.radius+'px','--border-width':tokens.borderWidth+'px','--spacing-md':tokens.spacing+'px','--spacing-sm':tokens.spacing/2+'px','--spacing-lg':tokens.spacing*1.5+'px','--control-min-height':'44px','--theme-density':tokens.density};for(const [name,raw] of Object.entries(preview.colors)){const c=raw as {value:string;on:string;light:string;dark:string;onLight:string;onDark:string};values['--color-'+name]=c.value;values['--color-on-'+name]=c.on;values['--color-'+name+'-light']=c.light;values['--color-'+name+'-dark']=c.dark;values['--color-on-'+name+'-light']=c.onLight;values['--color-on-'+name+'-dark']=c.onDark;}let original=this.originals.get(el);if(!original){original=new Map();this.originals.set(el,original);}for(const [name,value] of Object.entries(values)){if(!original.has(name))original.set(name,[el.style.getPropertyValue(name),el.style.getPropertyPriority(name)]);el.style.setProperty(name,value);}}}
+ dispose():void{if(this.dead)return;this.dead=true;for(const [el,properties] of this.originals)for(const [key,[value,priority]] of properties){if(value)el.style.setProperty(key,value,priority);else el.style.removeProperty(key);}this.originals.clear();}
+}
+export class AdvancedThemeLibrary {
+ private value:AdvancedLibrary={version:2,active:null,items:[]};private dead=false;
+ constructor(readonly scope:string,private storage:Pick<Storage,'getItem'|'setItem'>,private id:()=>string=()=>crypto.randomUUID()) {if(!scope.trim()||scope.length>1024)throw Error('Actor scope required');const raw=storage.getItem(this.key);if(raw){if(new TextEncoder().encode(raw).length>1048576)throw Error('Theme library too large');this.value=validateAdvancedLibrary(JSON.parse(raw));}}
+ get key(){return 'primecare.advanced-theme.v2:'+this.scope;}
+ get current(){return structuredClone(this.value);}
+ private commit(value:unknown){if(this.dead)throw Error('Theme library disposed');const next=validateAdvancedLibrary(value);this.storage.setItem(this.key,JSON.stringify(next));this.value=next;}
+ save(theme:AdvancedTheme,id?:string):string{const next=this.current,value=validateAdvancedTheme(theme);if(id&&!next.items.some(i=>i.id===id))throw Error('Theme no longer exists');const key=id??this.id(),index=next.items.findIndex(i=>i.id===key);if(!id&&index>=0)throw Error('Duplicate generated identity');if(index<0)next.items.push({id:key,theme:value});else next.items[index]={id:key,theme:value};this.commit(next);return key;}
+ apply(theme:AdvancedTheme|null){this.commit({...this.current,active:theme});}
+ rename(id:string,name:string){const next=this.current,item=next.items.find(i=>i.id===id);if(!item)throw Error('Theme no longer exists');const old=JSON.stringify(item.theme);item.theme=validateAdvancedTheme({...item.theme,name});if(JSON.stringify(next.active)===old)next.active=item.theme;this.commit(next);}
+ duplicate(id:string,name:string){const item=this.value.items.find(i=>i.id===id);if(!item)throw Error('Theme no longer exists');return this.save({...item.theme,name});}
+ remove(id:string){if(!this.value.items.some(i=>i.id===id))throw Error('Theme no longer exists');this.commit({...this.current,items:this.current.items.filter(i=>i.id!==id)});}
+ dispose(){this.dead=true;}
+}
+/** Legacy imports remain in their original contracts; no lossy conversion or storage-key migration. */
+export function importThemeDocument(text:string){if(new TextEncoder().encode(text).length>32768)throw Error('Theme file too large');if(text.trimStart().startsWith('<'))return{kind:'legacy-layout' as const,value:new XmlLayoutManager().fromXml(text)};const raw=JSON.parse(text);if(raw?.version===1)return{kind:'legacy-personal' as const,value:legacyPersonalTheme(raw)};return{kind:'advanced' as const,value:parseAdvancedTheme(text)};}
