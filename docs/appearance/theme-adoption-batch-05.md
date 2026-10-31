@@ -6,4 +6,6 @@ Route-specific navigation/toolbar/footer visibility is transient presentation. T
 
 The renderer owns presentation only. Invalid/denied web replacements empty the host and revoke old breadcrumb links/callbacks. Native route/actor replacement resets slot identity, scroll state and owned dialogs; stale breadcrumb callbacks cannot activate the new actor's destinations. The host retains responsibility for business handlers, data and external overlays.
 
+Web model/browser/TypeScript checks, four native tests plus analysis on Linux/Windows/macOS, and all 288 page/layout/authority cases per platform in the native-to-web comparison passed at source `7edbc40aa42dd31bad9aaf4eb694ba0499c007be` (workflow run `41242747737`). The existing workspace regression suite also passed on all three platforms with the new chrome flags, including Flutter-web compilation.
+
 Validation is recorded in `theme-adoption-batch-05-evidence.json`. Usage and ownership rules are in `page-template-usage.md`. Live host/control/resource/source registration, authenticated runtime checks, device verification and independent accessibility/localization/release review remain pending. Opt-in source availability does not establish all-app adoption.

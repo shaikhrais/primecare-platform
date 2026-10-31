@@ -10,8 +10,8 @@
     "capability.per-route"
   ],
   "scopeNote": "Feature IDs identify B05 contributions only. Host callback adapters do not claim vendor API compatibility, full-reference equivalence, live activation or all-app adoption.",
-  "implementationStatus": "shared_page_templates_implemented_verification_pending",
-  "codeCommit": "c2b682290fd2f5374f108cc9726d2b05cd1464a1",
+  "implementationStatus": "shared_page_templates_accepted_host_binding_pending",
+  "codeCommit": "7edbc40aa42dd31bad9aaf4eb694ba0499c007be",
   "sourceEvidence": [
     {
       "path": "packages/domain/src/page_template.ts",
@@ -23,7 +23,7 @@
     },
     {
       "path": "packages/primecare_ui/web/page-template-styles.ts",
-      "sha256": "27329541fbb63abc49870edd9646f10f504ef2a35480ed5aa8d21686cfe066fa"
+      "sha256": "718baaa5bb93208f0166839d2704775efe1e613e4feae3c535ab8662c3cf74cb"
     },
     {
       "path": "packages/primecare_ui/web/page-workspace-chrome.ts",
@@ -35,7 +35,7 @@
     },
     {
       "path": "packages/flutter_core/lib/page/prime_page_template.dart",
-      "sha256": "5c1d01b8e237907536e3911514817d48184c92c78351e7e1354238f9e8a69229"
+      "sha256": "94a23ef9d366349f8e167d77564e22a4eff05b40ac897e370e25353260279785"
     },
     {
       "path": "packages/flutter_core/lib/page_template.dart",
@@ -51,10 +51,44 @@
     }
   ],
   "ci": {
-    "runId": 41241798958,
-    "conclusion": "in_progress",
+    "runId": 41242747737,
+    "conclusion": "success",
     "flutterVersion": "3.41.5",
-    "jobs": []
+    "jobs": [
+      {
+        "id": 124659825467,
+        "check": "web model/browser/TypeScript",
+        "status": "success"
+      },
+      {
+        "id": 124660326978,
+        "platform": "Windows",
+        "tests": 4,
+        "analysis": "passed",
+        "status": "success"
+      },
+      {
+        "id": 124660326981,
+        "platform": "macOS",
+        "tests": 4,
+        "analysis": "passed",
+        "status": "success"
+      },
+      {
+        "id": 124660327046,
+        "platform": "Linux",
+        "tests": 4,
+        "analysis": "passed",
+        "status": "success"
+      },
+      {
+        "id": 124661436730,
+        "check": "native-to-web oracle",
+        "casesPerPlatform": 288,
+        "platformExports": 3,
+        "status": "success"
+      }
+    ]
   },
   "localVerification": {
     "modelTests": 2,
@@ -69,7 +103,8 @@
     "Retained main/sidebar form state; independent physical sidebars; responsive modal reparenting",
     "Keyboard focus containment, Escape dismissal and trigger focus restoration",
     "Route/actor slot and scroll reset; owned dialog teardown; stale breadcrumb callback/href revocation",
-    "All eight native chrome visibility combinations preserve saved workspace preferences and main form state"
+    "All eight native chrome visibility combinations preserve saved workspace preferences and main form state",
+    "Permanent sidebar width budget preserves content space in narrow embedded web hosts"
   ],
   "production": {
     "activated": false,
@@ -83,7 +118,6 @@
     "allAppsAdopted": false
   },
   "remaining": [
-    "Exact-source native CI and three-platform oracle acceptance",
     "Production page/template/control/component/resource/source registration and independent readback",
     "Authenticated host integration including owner-controlled navigation/business overlay teardown",
     "Android/iOS device, screen-reader/contrast, EN/FR/ES translation and release review"
@@ -94,7 +128,7 @@
     "runId": 41241388856,
     "sourceCommit": "bed656ff14bae3fa66912ee14aa76bda97d369fc",
     "note": "The chrome visibility frame extension is unchanged in the final B05 source.",
-    "status": "in_progress",
+    "status": "success",
     "jobs": [
       {
         "id": 124655848710,
@@ -104,17 +138,26 @@
       {
         "id": 124655915019,
         "platform": "Linux",
+        "tests": 11,
+        "flutterWebCompile": "passed",
         "status": "success"
       },
       {
         "id": 124655915046,
         "platform": "Windows",
+        "tests": 11,
         "status": "success"
       },
       {
         "id": 124655915092,
         "platform": "macOS",
-        "status": "in_progress"
+        "tests": 11,
+        "status": "success"
+      },
+      {
+        "id": 124657405743,
+        "check": "native-to-web oracle",
+        "status": "success"
       }
     ]
   }

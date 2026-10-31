@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b05_shared_page_templates_implemented_verification_pending",
+  "overall_status": "b05_shared_page_templates_accepted_host_rollout_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -229,7 +229,7 @@
     {
       "id": "B05",
       "title": "Page templates and route-specific layouts",
-      "status": "shared_page_templates_implemented_verification_pending",
+      "status": "shared_page_templates_accepted_host_binding_pending",
       "depends_on": [
         "B01",
         "B02",
@@ -267,9 +267,8 @@
           "detail": "Page/template/control/component/resource/source bindings require production registration and independent readback before live app exposure."
         }
       ],
-      "readiness": "web_acceptance_passed_native_ci_pending",
+      "readiness": "web_linux_windows_macos_and_cross_runtime_page_checks_passed",
       "remainingScope": [
-        "Exact-source native CI acceptance",
         "Registered host binding and authenticated route/runtime checks",
         "Owner-controlled navigation/business overlay teardown before hiding chrome",
         "Device, accessibility, localization and release review"
