@@ -87,7 +87,7 @@ export class WorkspaceLayoutManager {
     const focused = this.root.ownerDocument.activeElement as HTMLElement | null;
     const restoreFocus = !!focused && this.root.contains(focused);
     const p = this.profile, root = this.root, width = Math.min(this.win.innerWidth, root.getBoundingClientRect().width || this.win.innerWidth);
-    const narrow = width <= 1024;
+    const narrow = this.win.innerWidth <= 1024;
     root.dataset.pcWorkspace = ''; root.dataset.narrow = String(narrow);
     for (const key of ['navigation','toolbar','toolbarStyle','footer','container','scroll'] as const) root.dataset[key] = p[key];
     root.style.setProperty('--pc-nav-width', p.navigationWidth + 'px'); root.style.setProperty('--pc-max-width', p.maxWidth + 'px');
