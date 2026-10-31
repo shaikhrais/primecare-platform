@@ -47,6 +47,6 @@ class _PrimeAdvancedThemeEditorState extends State<PrimeAdvancedThemeEditor> {
    for(final region in themeRegions)AdvancedThemeRegion(theme:_draft,region:region,base:base,child:Padding(padding:widget.padding,child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(widget.regionLabels[region]??region),Wrap(children:[for(final entry in (themePalettePreview(_draft.region(region))['colors']! as Map<String,Object>).entries)for(final pair in [const ['value','on'],const ['light','onLight'],const ['dark','onDark']])Builder(builder:(context){final c=entry.value as Map<String,String>;return ColoredBox(color:Color(int.parse(c[pair[0]]!.substring(1),radix:16)|0xff000000),child:Padding(padding:widget.padding,child:Text(widget.optionLabels[entry.key]??entry.key,style:TextStyle(color:Color(int.parse(c[pair[1]]!.substring(1),radix:16)|0xff000000)))));})])]))),
    Text(widget.labels['configuration']!,style:base.textTheme.titleLarge),SelectableText(const JsonEncoder.withIndent('  ').convert(_draft.toJson()),key:const ValueKey('theme-configuration')),
    Semantics(liveRegion:true,child:Text(_status,key:const ValueKey('theme-status'))),
-  ])))));
+  ]))));
  }
 }
