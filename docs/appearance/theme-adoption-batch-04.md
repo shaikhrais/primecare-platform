@@ -6,4 +6,6 @@ The model intersects both stable IDs and exact route strings with current server
 
 Three preset projections preserve the strict workspace geometry contract, panels and unsaved main content. Folded width is transient presentation rather than invalid persisted geometry. Web popups live in an owned overlay so the existing sidebar's scroll container cannot clip them. The tests retain the clipping regression, RTL bounds, nested keyboard focus, mobile trapping, rail active-route updates and revocation checks.
 
+Web model/browser/TypeScript checks, five native tests plus analysis on Linux/Windows/macOS, and all 21 navigation cases per platform in the native-to-web comparison passed at source `3b834d0e89a4ebd1d0630ed969075ab80d6875e1` (workflow run `41239616377`).
+
 Delivery evidence is in `theme-adoption-batch-04-evidence.json`; integration instructions are in `workspace-navigation-usage.md`. The source factories remain opt-in. Existing app navigation is not automatically replaced, and production host/control/resource registration, binding, authenticated runtime checks and independent accessibility/translation/release review remain pending. No production-ready status is inferred from synthetic fixtures or widget/browser tests.

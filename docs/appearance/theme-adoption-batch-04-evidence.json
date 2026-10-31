@@ -10,7 +10,7 @@
     "capability.tabbed-rail",
     "capability.fold-pin"
   ],
-  "implementationStatus": "shared_navigation_implemented_verification_pending",
+  "implementationStatus": "shared_navigation_accepted_host_binding_pending",
   "codeCommit": "3b834d0e89a4ebd1d0630ed969075ab80d6875e1",
   "sourceEvidence": [
     {
@@ -48,7 +48,7 @@
   ],
   "ci": {
     "runId": 41239616377,
-    "conclusion": "in_progress",
+    "conclusion": "success",
     "flutterVersion": "3.41.5",
     "jobs": [
       {
@@ -73,7 +73,16 @@
       {
         "id": 124650914943,
         "platform": "macOS",
-        "status": "queued"
+        "tests": 5,
+        "analysis": "passed",
+        "status": "success"
+      },
+      {
+        "id": 124653225575,
+        "check": "native-to-web oracle",
+        "casesPerPlatform": 21,
+        "platformExports": 3,
+        "status": "success"
       }
     ]
   },
@@ -104,7 +113,6 @@
     "allAppsAdopted": false
   },
   "remaining": [
-    "CI acceptance of the exact final source",
     "Production host/control/component/resource/source bindings and independent readback before activation",
     "Authenticated host runtime and connected Android/iOS/device verification",
     "Independent accessibility, EN/FR/ES translation and release review"
