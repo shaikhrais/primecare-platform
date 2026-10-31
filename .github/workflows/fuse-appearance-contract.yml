@@ -1,0 +1,19 @@
+name: Verify Fuse and native appearance contract
+on:
+  push:
+    branches: [main]
+    paths: ['packages/domain/src/fuse_theme_adapter.ts', 'packages/domain/src/theme_center.ts', 'scripts/fuse_presets.json', 'scripts/test-fuse-theme-adapter.mjs', 'packages/flutter_core/lib/theme/personal_theme.dart', 'packages/flutter_core/lib/theme/theme_center_catalog_generated.dart', '.github/workflows/fuse-appearance-contract.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  appearance-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm ci --ignore-scripts
+      - run: node --test scripts/test-fuse-theme-adapter.mjs
+      - name: Typecheck the appearance adapter
+        run: npx -p typescript@5.9.3 tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop packages/domain/src/fuse_theme_adapter.ts
