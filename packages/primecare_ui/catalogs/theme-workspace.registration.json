@@ -1,7 +1,7 @@
 {
   "version": 1,
   "kind": "verified_metadata_export",
-  "contractSha256": "cd3656841d008f6fe86a34ad532f125a73a108a3a961bbb12e4182c1ca645357",
+  "contractSha256": "19a890488964990d76e33e1cea76001a15f086339366b1192d73a2d0b92319a1",
   "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
   "source": {
     "commit": "b912b61002c671faaf16d8910ff2765c489309b2",

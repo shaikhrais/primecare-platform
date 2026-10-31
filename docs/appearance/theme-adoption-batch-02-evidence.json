@@ -1,0 +1,42 @@
+{
+  "format": 1,
+  "batch": "B02",
+  "scope": "tenant_admin_command_center_pilot",
+  "codeCommit": "579b4378861cb935307aab464aec17a847d8b761",
+  "screenId": 2534,
+  "route": "/tenant-dashboard",
+  "panels": [
+    "tenant-preference-form"
+  ],
+  "sourceAcceptance": {
+    "runId": 41229638317,
+    "jobId": 124620981345,
+    "conclusion": "success",
+    "actualTenantPortal": true,
+    "database": "native PostgreSQL",
+    "tenantApiChecks": 76,
+    "domainConfigurations": 180,
+    "browserGeometryConfigurations": 60,
+    "productionRuntimeVerified": false
+  },
+  "metadataReadback": {
+    "runId": 41229638235,
+    "jobId": 124621174401,
+    "contractSha256": "19a890488964990d76e33e1cea76001a15f086339366b1192d73a2d0b92319a1",
+    "productionChecked": true,
+    "writes": 0,
+    "reviewPending": 120
+  },
+  "remaining": [
+    "Footer host slot",
+    "Human translation/accessibility/release review",
+    "Authenticated deployed end-to-end verification",
+    "Other-host registration and rollout",
+    "Flutter parity and cross-device synchronization"
+  ],
+  "publication": {
+    "status": "pending",
+    "productionRuntimeVerified": false
+  },
+  "implementationReceipt": "docs/appearance/theme-workspace-implementation-receipt.json"
+}
