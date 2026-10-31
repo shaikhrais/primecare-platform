@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "sourceRun": 41226024990,
+  "sourceCommit": "baf10b4b810a75acf0d846d695ae51f8a6e55de7",
+  "productionConnection": "verified",
+  "authorityManifest": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "componentCandidates": [
+    {
+      "proposedCode": "prime_dropdown",
+      "existingCode": "prime_dropdown_web",
+      "observedId": "12",
+      "active": true,
+      "disposition": "candidate_mapping_requires_explicit_contract_update"
+    }
+  ],
+  "hostCandidates": [],
+  "nextAction": "Resolve existing authorized app-shell host screen metadata. The Theme Center is a shared utility; do not invent a standalone screen ID or route to satisfy a registration test.",
+  "runtimeExposure": false,
+  "writes": 0
+}

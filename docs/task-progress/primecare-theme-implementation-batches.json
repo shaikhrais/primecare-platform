@@ -21,7 +21,7 @@
         "B01",
         "production_activation"
       ],
-      "detail": "GitHub production database connection and manifest validated on commit 119b0094. Audit found 25 absent control bindings, 40 absent resource keys, unresolved host bindings and missing expected prime_dropdown component code. Resolve existing names and register exact metadata before exposure."
+      "detail": "Production connection and pin verified. Existing prime_dropdown_web component ID 12 was discovered. Proposed controls/resources and host bindings still need scoped reconciliation and registration; no new runtime exposure."
     }
   ],
   "baseline": {
@@ -64,7 +64,8 @@
         "docs/appearance/theme-adoption-source-preflight.json",
         "docs/appearance/theme-adoption-production-preflight.json",
         "docs/appearance/theme-adoption-batch-01.md",
-        ".github/workflows/theme-adoption-preflight.yml"
+        ".github/workflows/theme-adoption-preflight.yml",
+        "docs/appearance/theme-adoption-binding-candidates.json"
       ],
       "blockers": [
         "UNRESOLVED_GOVERNANCE_BINDINGS"
@@ -73,11 +74,12 @@
       "productionRegistration": "pending_binding_resolution",
       "productionReconciliation": "completed_registration_gaps",
       "productionRun": {
-        "runId": 41225732414,
-        "commit": "119b0094b071e03c1f3707e0abbf749b5d1b6229",
+        "runId": 41226024990,
+        "commit": "baf10b4b810a75acf0d846d695ae51f8a6e55de7",
         "connected": true,
         "writes": 0
-      }
+      },
+      "nextAction": "Map existing prime_dropdown_web to the web control contract and resolve registered authorized shell hosts before creating an exact scoped metadata registration."
     },
     {
       "id": "B02",

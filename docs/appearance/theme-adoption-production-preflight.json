@@ -744,10 +744,22 @@
       "status": "no_registered_host_resolved"
     }
   ],
+  "discovery": {
+    "screens": [],
+    "components": [
+      {
+        "id": "12",
+        "component_code": "prime_dropdown_web",
+        "active": "1"
+      }
+    ],
+    "limitPerRelation": 100,
+    "authoritativeBindings": false
+  },
   "execution": {
-    "commit": "119b0094b071e03c1f3707e0abbf749b5d1b6229",
-    "runId": 41225732414,
-    "jobId": 124609431208,
+    "commit": "baf10b4b810a75acf0d846d695ae51f8a6e55de7",
+    "runId": 41226024990,
+    "jobId": 124610325632,
     "source": "GitHub Actions production job log",
     "secretValueRetrieved": false
   }
