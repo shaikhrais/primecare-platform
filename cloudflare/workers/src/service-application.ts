@@ -1,3 +1,4 @@
+import {accountPreferences} from './account-preferences';
 import {businessModules} from './business-modules';
 import {legacyDomain} from './legacy-domain';
 import {sourceLoginLimit} from './auth-source-limit';
@@ -24,6 +25,7 @@ const stage = (name: string, handler: ExistingHandler) => ({
 // Preserve the established precedence. Registering a stage grants no authority:
 // each existing handler still checks service, session, tenant and resource scope.
 const pipeline = new HandlerPipeline<Env>([
+  stage('account-preferences', accountPreferences),
   stage('legacy-domain', legacyDomain),
   {
     name: 'authentication',

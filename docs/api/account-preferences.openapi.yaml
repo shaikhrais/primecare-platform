@@ -1,0 +1,36 @@
+openapi: 3.1.0
+info:
+  title: Registered self account preferences
+  version: 1.0.0
+paths:
+  /v1/user/preferences:
+    post:
+      operationId: accountPreferences
+      description: API 777. Explicit activation required. Identity is derived from the current session; expectedScope is a comparison precondition only. Read, write, reset and delete use this one registered POST. Writes use compare-and-swap revisions and UUID v4 receipts. Reset/delete retain monotonic tombstones. No business permissions are granted by preferences.
+      security: [{nativeBearer: []}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ../../tools/governance-production/preference-sync-contract.json#/requestSchema
+      responses:
+        '200':
+          description: Owned snapshot or original idempotent mutation receipt
+          content:
+            application/json:
+              schema:
+                $ref: ../../tools/governance-production/preference-sync-contract.json#/responseSchema
+        '400': {description: Invalid or unregistered data or scope override}
+        '401': {description: Missing expired revoked or inactive native session}
+        '403': {description: Current API or resource permission denied}
+        '409': {description: Scope changed or revision conflict or request UUID reused. Revision conflicts include the current owned snapshot for explicit resolution.}
+        '413': {description: Request exceeds 73728 bytes or document exceeds 65536 bytes}
+        '429': {description: Account or source quota exceeded. Retry-After is 60 seconds.}
+        '503': {description: Runtime disabled or exact contract authority or storage unavailable}
+components:
+  securitySchemes:
+    nativeBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: Opaque native session token

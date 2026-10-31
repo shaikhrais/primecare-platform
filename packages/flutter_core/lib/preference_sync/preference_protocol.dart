@@ -1,0 +1,28 @@
+import 'dart:convert';
+import '../advanced_theme/advanced_theme_model.dart';
+import '../workspace/workspace_layout.dart';
+class PreferenceFailure implements Exception {
+ final String code; final int status; final Object? current;
+ const PreferenceFailure(this.code,[this.status=0,this.current]);
+ @override String toString()=>code;
+}
+Map<String,dynamic> preferenceObject(Object? raw,List<String> keys){if(raw is! Map||raw.keys.any((k)=>k is! String)||raw.length!=keys.length||keys.any((k)=>!raw.containsKey(k)))throw const PreferenceFailure('invalid_document',400);return Map<String,dynamic>.from(raw);}
+String _text(Object? value,[int max=200]){if(value is! String||value.trim().isEmpty||value.length>max||RegExp(r'[\x00-\x1f\x7f]').hasMatch(value))throw const PreferenceFailure('invalid_document',400);return value;}
+class PreferenceScope {
+ final String tenantId,userId,role,dataset;
+ PreferenceScope(this.tenantId,this.userId,this.role,this.dataset){_text(tenantId);_text(userId);_text(role);if(!['live','demo'].contains(dataset))throw const PreferenceFailure('invalid_scope',400);}
+ factory PreferenceScope.fromJson(Object? raw){final v=preferenceObject(raw,['tenantId','userId','role','dataset']);return PreferenceScope(_text(v['tenantId']),_text(v['userId']),_text(v['role']),_text(v['dataset']));}
+ Map<String,Object> toJson()=>{'tenantId':tenantId,'userId':userId,'role':role,'dataset':dataset};
+ bool same(PreferenceScope other)=>tenantId==other.tenantId&&userId==other.userId&&role==other.role&&dataset==other.dataset;
+}
+class PreferenceBinding {
+ final PreferenceScope scope;final String kind,resource;final List<String> panelIds,screenIds;
+ PreferenceBinding({required this.scope,required this.kind,required this.resource,Iterable<String> panelIds=const [],Iterable<String> screenIds=const []}):panelIds=List.unmodifiable(panelIds),screenIds=List.unmodifiable(screenIds){preferenceResource(kind,resource);}
+ String get key=>'primecare.preference-sync.v1:${jsonEncode([scope.tenantId,scope.userId,scope.role,scope.dataset,kind,resource])}';
+}
+void preferenceResource(Object? kind,Object? resource){if(!['theme','workspace','shortcuts'].contains(kind))throw const PreferenceFailure('invalid_kind',400);final r=_text(resource,128);if(!RegExp(r'^[A-Za-z0-9][A-Za-z0-9_.:-]*$').hasMatch(r)||kind=='theme'&&r!='advanced-v2'||kind=='shortcuts'&&r!='navigation')throw const PreferenceFailure('invalid_resource',400);}
+Map<String,dynamic> preferenceDocument(String kind,Object? raw,PreferenceBinding binding){try{if(utf8.encode(jsonEncode(raw)).length>65536)throw const PreferenceFailure('document_too_large',413);if(kind=='theme')return Map<String,dynamic>.from(validateAdvancedLibrary(raw));if(kind=='workspace')return Map<String,dynamic>.from(WorkspaceLayout.fromJson(raw,binding.panelIds).toJson());final v=preferenceObject(raw,['version','screenIds']),ids=v['screenIds'];if(v['version']!=1||ids is! List||ids.length>30||ids.toSet().length!=ids.length||ids.any((id)=>id is! String||!RegExp(r'^[1-9][0-9]{0,9}$').hasMatch(id)||!binding.screenIds.contains(id)))throw const PreferenceFailure('invalid_shortcuts',400);return {'version':1,'screenIds':List<String>.from(ids)};}catch(e){if(e is PreferenceFailure)rethrow;throw const PreferenceFailure('invalid_document',400);}}
+int preferenceRevision(Object? raw,{bool mutation=false}){if(raw is! num||!raw.isFinite||raw!=raw.truncateToDouble()||raw<0||raw>9007199254740991||mutation&&raw==9007199254740991)throw const PreferenceFailure('invalid_revision',400);return raw.toInt();}
+Map<String,dynamic> preferenceRequest(Object? raw,PreferenceBinding binding){if(raw is! Map)throw const PreferenceFailure('invalid_request',400);final action=raw['action'];if(!['read','write','reset','delete'].contains(action))throw const PreferenceFailure('invalid_action',400);final v=preferenceObject(raw,['version','expectedScope','dataset','kind','resource','action',if(action!='read')...['revision','requestId'],if(action=='write')'document']),scope=PreferenceScope.fromJson(v['expectedScope']);preferenceResource(v['kind'],v['resource']);if(v['version']!=1||v['dataset']!=scope.dataset)throw const PreferenceFailure('invalid_request',400);final out=<String,dynamic>{'version':1,'expectedScope':scope.toJson(),'dataset':scope.dataset,'kind':v['kind'],'resource':v['resource'],'action':action};if(action!='read'){out['revision']=preferenceRevision(v['revision'],mutation:true);final id=v['requestId'];if(id is! String||!RegExp(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',caseSensitive:false).hasMatch(id))throw const PreferenceFailure('invalid_request_id',400);out['requestId']=id.toLowerCase();}if(action=='write')out['document']=preferenceDocument(v['kind'] as String,v['document'],binding);return out;}
+Map<String,dynamic> preferenceSnapshot(Object? raw,PreferenceBinding binding){final v=preferenceObject(raw,['version','scope','kind','resource','revision','document']),scope=PreferenceScope.fromJson(v['scope']);if(v['version']!=1||!scope.same(binding.scope)||v['kind']!=binding.kind||v['resource']!=binding.resource)throw const PreferenceFailure('scope_changed',409);final revision=preferenceRevision(v['revision']);if(revision==0&&v['document']!=null)throw const PreferenceFailure('invalid_response',502);return {'version':1,'scope':scope.toJson(),'kind':binding.kind,'resource':binding.resource,'revision':revision,'document':v['document']==null?null:preferenceDocument(binding.kind,v['document'],binding)};}
+String canonicalPreference(Object? value){Object? sort(Object? v){if(v is List)return v.map(sort).toList();if(v is Map){final keys=v.keys.cast<String>().toList()..sort();return {for(final k in keys)k:sort(v[k])};}return v;}return jsonEncode(sort(value));}

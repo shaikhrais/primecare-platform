@@ -99,6 +99,11 @@ export class GatewayWorker extends BaseWorker<Env> {
       url.hostname='service';url.pathname=alias.targetPath;
       return withGatewayHeaders(request,await env[routes[alias.service]].fetch(new Request(url,request)));
     }
+    if(url.pathname==='/v1/user/preferences'){
+      if(request.method!=='POST')return withGatewayHeaders(request,Response.json({error:'method_not_allowed'},{status:405,headers:{allow:'POST'}}));
+      url.hostname='service';url.pathname='/user/preferences';
+      return withGatewayHeaders(request,await env.AUTH.fetch(new Request(url,request)));
+    }
     if(url.pathname==='/v1/user/sessions'){
       url.hostname='service';url.pathname='/user/sessions';
       return withGatewayHeaders(request,await env.AUTH.fetch(new Request(url,request)));
