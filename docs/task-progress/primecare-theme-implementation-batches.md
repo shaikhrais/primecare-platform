@@ -2,7 +2,7 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: B01 source preparation validated; GitHub production connection verified and registration gaps confirmed. B02–B18 remain planned.**
+**Status: B01 metadata pilot registered and independently verified. B02 live integration is next; B03–B18 remain planned. Translation review and wider rollout are pending.**
 
 Implement original PrimeCare equivalents for the audited Fuse v17 features. Reuse shared core packages across web and Flutter. Work on current `main`, retain concurrent work and use expected-head checks. Do not copy proprietary vendor implementation or replace existing authentication without an approved requirement.
 
@@ -12,7 +12,7 @@ Shared shell, base Theme Center, personal themes, existing native layout options
 
 Shared optional docking engine exists and passed isolated tests; no production shell mount.
 
-**Production execution:** the local pinned reader returned `MISSING_DATABASE_URL`. Existing GitHub workflows reference the `production` environment’s `PRODUCTION_DATABASE_URL` secret. The dedicated `theme-adoption-preflight.yml` workflow uses that secret in place for read-only reconciliation. Run 41225732414 connected and validated the pin on commit 119b0094, then identified unresolved registrations. Exact metadata bindings must be resolved before registration or new UI exposure. No SQLite fallback.
+**Production execution:** run `41226841005`, attempt 2, committed 25 optional control bindings, 25 required-element records and 120 translations across 40 resources on existing screen `2534` (`tenant_admin_command_center`). The writer ran twice idempotently and a separate read-only connection verified the records. No role grants, routes or runtime activation were added. Translations remain unreviewed. Broader app/feature registrations remain required before those later batches activate.
 
 ## Ordered batches
 
@@ -41,7 +41,7 @@ Shared optional docking engine exists and passed isolated tests; no production s
 
 ### B01 — Governance, feature contracts and localization
 
-Status: in progress; source preparation validated and GitHub production reconciliation completed with registration gaps. See `docs/appearance/theme-adoption-batch-01.md`. Dependencies: none.
+Status: metadata pilot registered and independently verified; translation review and wider rollout remain pending. See `docs/appearance/theme-adoption-batch-01.md`. Dependencies: none.
 
 Scope:
 

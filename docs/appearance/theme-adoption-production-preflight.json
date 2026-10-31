@@ -1,7 +1,7 @@
 {
   "mode": "production-read-only",
   "status": "registration_gaps",
-  "contractSha256": "64052209d1f98141b3edaa06c793f875910e74634e5708f88f7924551c33fccc",
+  "contractSha256": "f6d72170d3f64c134d78de88047728c73acb466186c8accc25239b21076e78c7",
   "expectedManifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
   "counts": {
     "features": 72,
@@ -26,9 +26,11 @@
       ]
     },
     {
-      "code": "prime_dropdown",
-      "status": "missing",
-      "ids": []
+      "code": "prime_dropdown_web",
+      "status": "existing",
+      "ids": [
+        "12"
+      ]
     },
     {
       "code": "prime_text_field",
@@ -38,710 +40,1829 @@
       ]
     }
   ],
-  "hosts": [],
+  "hosts": [
+    {
+      "screenId": "2534",
+      "screenCode": "tenant_admin_command_center",
+      "route": "/tenant-dashboard",
+      "status": "candidate_existing_host",
+      "grantCount": 21
+    }
+  ],
   "controls": [
     {
       "testId": "workspace-layout-navigation",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_dropdown_web"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-container",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_dropdown_web"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-toolbar",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_dropdown_web"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-toolbar-style",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_dropdown_web"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-footer",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_dropdown_web"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-scroll",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_dropdown_web"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-panel",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_dropdown_web"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-dock",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_dropdown_web"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-navigation-width",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_text_field"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-max-width",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_text_field"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-undo",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-redo",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-reset",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-save",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-export",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-close",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-move",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-resize",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "workspace-layout-import",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_text_field"
+        }
+      ]
     },
     {
       "testId": "appearance-undo",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "appearance-redo",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "appearance-reset",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "appearance-save",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "appearance-export",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     },
     {
       "testId": "appearance-close",
-      "status": "missing",
-      "bindings": []
+      "status": "candidate_existing_binding",
+      "bindings": [
+        {
+          "screenId": "2534",
+          "componentCode": "prime_button"
+        }
+      ]
     }
   ],
   "resources": [
     {
       "key": "themeWorkspace.title",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2124"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.navigation",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2125"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.navigationWidth",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2126"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.container",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2127"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.maxWidth",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2128"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.toolbar",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2129"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.toolbarStyle",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2130"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.footer",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2131"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.scroll",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2132"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.panel",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2133"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.dock",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2134"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.left",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2135"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.right",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2136"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.top",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2137"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.bottom",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2138"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.hidden",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2139"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.floating",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2140"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.fullwidth",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2141"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.boxed",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2142"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.content",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2143"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.sticky",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2144"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.static",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2145"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.page",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2146"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.contentScroll",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2147"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.undo",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2148"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.redo",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2149"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.reset",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2150"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.save",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2151"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.export",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2152"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.import",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2153"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.close",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2154"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.move",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2155"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.resize",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2156"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.instructions",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2157"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.savedLocal",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2158"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.invalid",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2159"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.saveFailed",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2160"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.scopeChanged",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2161"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.localOnly",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2162"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     },
     {
       "key": "themeWorkspace.panelUnavailable",
-      "status": "missing",
-      "ids": [],
-      "translations": []
+      "status": "existing",
+      "ids": [
+        "2163"
+      ],
+      "translations": [
+        {
+          "locale": "en",
+          "status": "review_pending"
+        },
+        {
+          "locale": "fr",
+          "status": "review_pending"
+        },
+        {
+          "locale": "es",
+          "status": "review_pending"
+        }
+      ]
     }
   ],
   "issues": [
     {
-      "kind": "component",
-      "key": "prime_dropdown",
-      "status": "missing"
-    },
-    {
-      "kind": "resource",
+      "kind": "translation",
       "key": "themeWorkspace.title",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.title",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.title",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.navigation",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.navigation",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.navigation",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.navigationWidth",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.navigationWidth",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.navigationWidth",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.container",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.container",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.container",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.maxWidth",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.maxWidth",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.maxWidth",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.toolbar",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.toolbar",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.toolbar",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.toolbarStyle",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.toolbarStyle",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.toolbarStyle",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.footer",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.footer",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.footer",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.scroll",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.scroll",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.scroll",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.panel",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.panel",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.panel",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.dock",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.dock",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.dock",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.left",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.left",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.left",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.right",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.right",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.right",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.top",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.top",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.top",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.bottom",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.bottom",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.bottom",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.hidden",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.hidden",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.hidden",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.floating",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.floating",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.floating",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.fullwidth",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.fullwidth",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.fullwidth",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.boxed",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.boxed",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.boxed",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.content",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.content",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.content",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.sticky",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.sticky",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.sticky",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.static",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.static",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.static",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.page",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.page",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.page",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.contentScroll",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.contentScroll",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.contentScroll",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.undo",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.undo",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.undo",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.redo",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.redo",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.redo",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.reset",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.reset",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.reset",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.save",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.save",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.save",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.export",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.export",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.export",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.import",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.import",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.import",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.close",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.close",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.close",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.move",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.move",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.move",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.resize",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.resize",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.resize",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.instructions",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.instructions",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.instructions",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.savedLocal",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.savedLocal",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.savedLocal",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.invalid",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.invalid",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.invalid",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.saveFailed",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.saveFailed",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.saveFailed",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.scopeChanged",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.scopeChanged",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.scopeChanged",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.localOnly",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "resource",
+      "kind": "translation",
+      "key": "themeWorkspace.localOnly",
+      "locale": "fr",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
+      "key": "themeWorkspace.localOnly",
+      "locale": "es",
+      "status": "review_pending"
+    },
+    {
+      "kind": "translation",
       "key": "themeWorkspace.panelUnavailable",
-      "status": "missing"
+      "locale": "en",
+      "status": "review_pending"
     },
     {
-      "kind": "control",
-      "key": "workspace-layout-navigation",
-      "status": "missing"
+      "kind": "translation",
+      "key": "themeWorkspace.panelUnavailable",
+      "locale": "fr",
+      "status": "review_pending"
     },
     {
-      "kind": "control",
-      "key": "workspace-layout-container",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-toolbar",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-toolbar-style",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-footer",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-scroll",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-panel",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-dock",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-navigation-width",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-max-width",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-undo",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-redo",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-reset",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-save",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-export",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-close",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-move",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-resize",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "workspace-layout-import",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "appearance-undo",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "appearance-redo",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "appearance-reset",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "appearance-save",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "appearance-export",
-      "status": "missing"
-    },
-    {
-      "kind": "control",
-      "key": "appearance-close",
-      "status": "missing"
-    },
-    {
-      "kind": "host",
-      "status": "no_registered_host_resolved"
+      "kind": "translation",
+      "key": "themeWorkspace.panelUnavailable",
+      "locale": "es",
+      "status": "review_pending"
     }
   ],
   "discovery": {
@@ -757,10 +1878,10 @@
     "authoritativeBindings": false
   },
   "execution": {
-    "commit": "baf10b4b810a75acf0d846d695ae51f8a6e55de7",
-    "runId": 41226024990,
-    "jobId": 124610325632,
-    "source": "GitHub Actions production job log",
+    "commit": "b912b61002c671faaf16d8910ff2765c489309b2",
+    "runId": 41226841005,
+    "attempt": 2,
+    "jobId": 124613105486,
     "secretValueRetrieved": false
   }
 }

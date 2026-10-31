@@ -1,7 +1,7 @@
 {
   "mode": "source-check",
   "status": "source_contract_validated",
-  "contractSha256": "64052209d1f98141b3edaa06c793f875910e74634e5708f88f7924551c33fccc",
+  "contractSha256": "f6d72170d3f64c134d78de88047728c73acb466186c8accc25239b21076e78c7",
   "expectedManifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
   "counts": {
     "features": 72,

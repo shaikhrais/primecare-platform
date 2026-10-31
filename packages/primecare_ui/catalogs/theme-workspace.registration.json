@@ -1,0 +1,560 @@
+{
+  "version": 1,
+  "kind": "verified_metadata_export",
+  "contractSha256": "f6d72170d3f64c134d78de88047728c73acb466186c8accc25239b21076e78c7",
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "source": {
+    "commit": "b912b61002c671faaf16d8910ff2765c489309b2",
+    "runId": 41226841005,
+    "attempt": 2,
+    "jobId": 124613105486,
+    "secretValueRetrieved": false
+  },
+  "host": {
+    "screenId": 2534,
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard"
+  },
+  "controls": [
+    {
+      "key": "navigation",
+      "testId": "workspace-layout-navigation",
+      "componentCode": "prime_dropdown_web",
+      "controlId": 588,
+      "resourceKey": "themeWorkspace.navigation",
+      "allowedValues": [
+        "left",
+        "right",
+        "top",
+        "bottom",
+        "hidden"
+      ],
+      "existingSelector": false
+    },
+    {
+      "key": "container",
+      "testId": "workspace-layout-container",
+      "componentCode": "prime_dropdown_web",
+      "controlId": 589,
+      "resourceKey": "themeWorkspace.container",
+      "allowedValues": [
+        "fullwidth",
+        "boxed",
+        "content"
+      ],
+      "existingSelector": false
+    },
+    {
+      "key": "toolbar",
+      "testId": "workspace-layout-toolbar",
+      "componentCode": "prime_dropdown_web",
+      "controlId": 590,
+      "resourceKey": "themeWorkspace.toolbar",
+      "allowedValues": [
+        "top",
+        "bottom"
+      ],
+      "existingSelector": false
+    },
+    {
+      "key": "toolbarStyle",
+      "testId": "workspace-layout-toolbar-style",
+      "componentCode": "prime_dropdown_web",
+      "controlId": 591,
+      "resourceKey": "themeWorkspace.toolbarStyle",
+      "allowedValues": [
+        "sticky",
+        "static"
+      ],
+      "existingSelector": false
+    },
+    {
+      "key": "footer",
+      "testId": "workspace-layout-footer",
+      "componentCode": "prime_dropdown_web",
+      "controlId": 592,
+      "resourceKey": "themeWorkspace.footer",
+      "allowedValues": [
+        "sticky",
+        "static",
+        "hidden"
+      ],
+      "existingSelector": false
+    },
+    {
+      "key": "scroll",
+      "testId": "workspace-layout-scroll",
+      "componentCode": "prime_dropdown_web",
+      "controlId": 593,
+      "resourceKey": "themeWorkspace.scroll",
+      "allowedValues": [
+        "page",
+        "content"
+      ],
+      "existingSelector": false
+    },
+    {
+      "key": "panel",
+      "testId": "workspace-layout-panel",
+      "componentCode": "prime_dropdown_web",
+      "controlId": 594,
+      "resourceKey": "themeWorkspace.panel",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "dock",
+      "testId": "workspace-layout-dock",
+      "componentCode": "prime_dropdown_web",
+      "controlId": 595,
+      "resourceKey": "themeWorkspace.dock",
+      "allowedValues": [
+        "left",
+        "right",
+        "top",
+        "bottom",
+        "floating",
+        "hidden"
+      ],
+      "existingSelector": false
+    },
+    {
+      "key": "navigationWidth",
+      "testId": "workspace-layout-navigation-width",
+      "componentCode": "prime_text_field",
+      "controlId": 596,
+      "resourceKey": "themeWorkspace.navigationWidth",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "maxWidth",
+      "testId": "workspace-layout-max-width",
+      "componentCode": "prime_text_field",
+      "controlId": 597,
+      "resourceKey": "themeWorkspace.maxWidth",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "undo",
+      "testId": "workspace-layout-undo",
+      "componentCode": "prime_button",
+      "controlId": 598,
+      "resourceKey": "themeWorkspace.undo",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "redo",
+      "testId": "workspace-layout-redo",
+      "componentCode": "prime_button",
+      "controlId": 599,
+      "resourceKey": "themeWorkspace.redo",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "reset",
+      "testId": "workspace-layout-reset",
+      "componentCode": "prime_button",
+      "controlId": 600,
+      "resourceKey": "themeWorkspace.reset",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "save",
+      "testId": "workspace-layout-save",
+      "componentCode": "prime_button",
+      "controlId": 601,
+      "resourceKey": "themeWorkspace.save",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "export",
+      "testId": "workspace-layout-export",
+      "componentCode": "prime_button",
+      "controlId": 602,
+      "resourceKey": "themeWorkspace.export",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "close",
+      "testId": "workspace-layout-close",
+      "componentCode": "prime_button",
+      "controlId": 603,
+      "resourceKey": "themeWorkspace.close",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "move",
+      "testId": "workspace-layout-move",
+      "componentCode": "prime_button",
+      "controlId": 604,
+      "resourceKey": "themeWorkspace.move",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "resize",
+      "testId": "workspace-layout-resize",
+      "componentCode": "prime_button",
+      "controlId": 605,
+      "resourceKey": "themeWorkspace.resize",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "import",
+      "testId": "workspace-layout-import",
+      "componentCode": "prime_text_field",
+      "controlId": 606,
+      "resourceKey": "themeWorkspace.import",
+      "allowedValues": null,
+      "existingSelector": false
+    },
+    {
+      "key": "undo",
+      "testId": "appearance-undo",
+      "componentCode": "prime_button",
+      "controlId": 607,
+      "resourceKey": "themeWorkspace.undo",
+      "allowedValues": null,
+      "existingSelector": true
+    },
+    {
+      "key": "redo",
+      "testId": "appearance-redo",
+      "componentCode": "prime_button",
+      "controlId": 608,
+      "resourceKey": "themeWorkspace.redo",
+      "allowedValues": null,
+      "existingSelector": true
+    },
+    {
+      "key": "reset",
+      "testId": "appearance-reset",
+      "componentCode": "prime_button",
+      "controlId": 609,
+      "resourceKey": "themeWorkspace.reset",
+      "allowedValues": null,
+      "existingSelector": true
+    },
+    {
+      "key": "save",
+      "testId": "appearance-save",
+      "componentCode": "prime_button",
+      "controlId": 610,
+      "resourceKey": "themeWorkspace.save",
+      "allowedValues": null,
+      "existingSelector": true
+    },
+    {
+      "key": "export",
+      "testId": "appearance-export",
+      "componentCode": "prime_button",
+      "controlId": 611,
+      "resourceKey": "themeWorkspace.export",
+      "allowedValues": null,
+      "existingSelector": true
+    },
+    {
+      "key": "close",
+      "testId": "appearance-close",
+      "componentCode": "prime_button",
+      "controlId": 612,
+      "resourceKey": "themeWorkspace.close",
+      "allowedValues": null,
+      "existingSelector": true
+    }
+  ],
+  "resources": {
+    "themeWorkspace.title": {
+      "resourceId": 2124,
+      "en": "Workspace layout",
+      "fr": "Disposition de l’espace de travail",
+      "es": "Diseño del espacio de trabajo",
+      "reviewPending": true
+    },
+    "themeWorkspace.navigation": {
+      "resourceId": 2125,
+      "en": "Navigation position",
+      "fr": "Position de la navigation",
+      "es": "Posición de navegación",
+      "reviewPending": true
+    },
+    "themeWorkspace.navigationWidth": {
+      "resourceId": 2126,
+      "en": "Navigation width",
+      "fr": "Largeur de navigation",
+      "es": "Ancho de navegación",
+      "reviewPending": true
+    },
+    "themeWorkspace.container": {
+      "resourceId": 2127,
+      "en": "Content container",
+      "fr": "Conteneur du contenu",
+      "es": "Contenedor de contenido",
+      "reviewPending": true
+    },
+    "themeWorkspace.maxWidth": {
+      "resourceId": 2128,
+      "en": "Maximum width",
+      "fr": "Largeur maximale",
+      "es": "Ancho máximo",
+      "reviewPending": true
+    },
+    "themeWorkspace.toolbar": {
+      "resourceId": 2129,
+      "en": "Toolbar position",
+      "fr": "Position de la barre d’outils",
+      "es": "Posición de la barra de herramientas",
+      "reviewPending": true
+    },
+    "themeWorkspace.toolbarStyle": {
+      "resourceId": 2130,
+      "en": "Toolbar scrolling",
+      "fr": "Défilement de la barre d’outils",
+      "es": "Desplazamiento de la barra de herramientas",
+      "reviewPending": true
+    },
+    "themeWorkspace.footer": {
+      "resourceId": 2131,
+      "en": "Footer behaviour",
+      "fr": "Comportement du pied de page",
+      "es": "Comportamiento del pie de página",
+      "reviewPending": true
+    },
+    "themeWorkspace.scroll": {
+      "resourceId": 2132,
+      "en": "Scrolling mode",
+      "fr": "Mode de défilement",
+      "es": "Modo de desplazamiento",
+      "reviewPending": true
+    },
+    "themeWorkspace.panel": {
+      "resourceId": 2133,
+      "en": "Panel",
+      "fr": "Panneau",
+      "es": "Panel",
+      "reviewPending": true
+    },
+    "themeWorkspace.dock": {
+      "resourceId": 2134,
+      "en": "Panel position",
+      "fr": "Position du panneau",
+      "es": "Posición del panel",
+      "reviewPending": true
+    },
+    "themeWorkspace.left": {
+      "resourceId": 2135,
+      "en": "Left",
+      "fr": "Gauche",
+      "es": "Izquierda",
+      "reviewPending": true
+    },
+    "themeWorkspace.right": {
+      "resourceId": 2136,
+      "en": "Right",
+      "fr": "Droite",
+      "es": "Derecha",
+      "reviewPending": true
+    },
+    "themeWorkspace.top": {
+      "resourceId": 2137,
+      "en": "Top",
+      "fr": "Haut",
+      "es": "Arriba",
+      "reviewPending": true
+    },
+    "themeWorkspace.bottom": {
+      "resourceId": 2138,
+      "en": "Bottom",
+      "fr": "Bas",
+      "es": "Abajo",
+      "reviewPending": true
+    },
+    "themeWorkspace.hidden": {
+      "resourceId": 2139,
+      "en": "Hidden",
+      "fr": "Masqué",
+      "es": "Oculto",
+      "reviewPending": true
+    },
+    "themeWorkspace.floating": {
+      "resourceId": 2140,
+      "en": "Floating",
+      "fr": "Flottant",
+      "es": "Flotante",
+      "reviewPending": true
+    },
+    "themeWorkspace.fullwidth": {
+      "resourceId": 2141,
+      "en": "Full width",
+      "fr": "Pleine largeur",
+      "es": "Ancho completo",
+      "reviewPending": true
+    },
+    "themeWorkspace.boxed": {
+      "resourceId": 2142,
+      "en": "Boxed",
+      "fr": "Encadré",
+      "es": "Enmarcado",
+      "reviewPending": true
+    },
+    "themeWorkspace.content": {
+      "resourceId": 2143,
+      "en": "Content only",
+      "fr": "Contenu seulement",
+      "es": "Solo contenido",
+      "reviewPending": true
+    },
+    "themeWorkspace.sticky": {
+      "resourceId": 2144,
+      "en": "Sticky",
+      "fr": "Fixe au défilement",
+      "es": "Fijo al desplazarse",
+      "reviewPending": true
+    },
+    "themeWorkspace.static": {
+      "resourceId": 2145,
+      "en": "Scrolls with page",
+      "fr": "Défile avec la page",
+      "es": "Se desplaza con la página",
+      "reviewPending": true
+    },
+    "themeWorkspace.page": {
+      "resourceId": 2146,
+      "en": "Whole page",
+      "fr": "Page entière",
+      "es": "Página completa",
+      "reviewPending": true
+    },
+    "themeWorkspace.contentScroll": {
+      "resourceId": 2147,
+      "en": "Content area",
+      "fr": "Zone de contenu",
+      "es": "Área de contenido",
+      "reviewPending": true
+    },
+    "themeWorkspace.undo": {
+      "resourceId": 2148,
+      "en": "Undo",
+      "fr": "Annuler",
+      "es": "Deshacer",
+      "reviewPending": true
+    },
+    "themeWorkspace.redo": {
+      "resourceId": 2149,
+      "en": "Redo",
+      "fr": "Rétablir",
+      "es": "Rehacer",
+      "reviewPending": true
+    },
+    "themeWorkspace.reset": {
+      "resourceId": 2150,
+      "en": "Reset layout",
+      "fr": "Réinitialiser la disposition",
+      "es": "Restablecer diseño",
+      "reviewPending": true
+    },
+    "themeWorkspace.save": {
+      "resourceId": 2151,
+      "en": "Save layout",
+      "fr": "Enregistrer la disposition",
+      "es": "Guardar diseño",
+      "reviewPending": true
+    },
+    "themeWorkspace.export": {
+      "resourceId": 2152,
+      "en": "Export layout JSON",
+      "fr": "Exporter la disposition JSON",
+      "es": "Exportar diseño JSON",
+      "reviewPending": true
+    },
+    "themeWorkspace.import": {
+      "resourceId": 2153,
+      "en": "Import layout JSON",
+      "fr": "Importer la disposition JSON",
+      "es": "Importar diseño JSON",
+      "reviewPending": true
+    },
+    "themeWorkspace.close": {
+      "resourceId": 2154,
+      "en": "Close",
+      "fr": "Fermer",
+      "es": "Cerrar",
+      "reviewPending": true
+    },
+    "themeWorkspace.move": {
+      "resourceId": 2155,
+      "en": "Move panel",
+      "fr": "Déplacer le panneau",
+      "es": "Mover panel",
+      "reviewPending": true
+    },
+    "themeWorkspace.resize": {
+      "resourceId": 2156,
+      "en": "Resize panel",
+      "fr": "Redimensionner le panneau",
+      "es": "Cambiar tamaño del panel",
+      "reviewPending": true
+    },
+    "themeWorkspace.instructions": {
+      "resourceId": 2157,
+      "en": "Use arrow keys to move; Shift and arrows to resize; Control or Command and arrows to dock.",
+      "fr": "Utilisez les flèches pour déplacer, Maj et les flèches pour redimensionner, Contrôle ou Commande et les flèches pour ancrer.",
+      "es": "Use las flechas para mover; Mayús y flechas para cambiar tamaño; Control o Comando y flechas para acoplar.",
+      "reviewPending": true
+    },
+    "themeWorkspace.savedLocal": {
+      "resourceId": 2158,
+      "en": "Saved on this browser.",
+      "fr": "Enregistré dans ce navigateur.",
+      "es": "Guardado en este navegador.",
+      "reviewPending": true
+    },
+    "themeWorkspace.invalid": {
+      "resourceId": 2159,
+      "en": "Unable to apply this layout.",
+      "fr": "Impossible d’appliquer cette disposition.",
+      "es": "No se pudo aplicar este diseño.",
+      "reviewPending": true
+    },
+    "themeWorkspace.saveFailed": {
+      "resourceId": 2160,
+      "en": "Layout could not be saved.",
+      "fr": "La disposition n’a pas pu être enregistrée.",
+      "es": "No se pudo guardar el diseño.",
+      "reviewPending": true
+    },
+    "themeWorkspace.scopeChanged": {
+      "resourceId": 2161,
+      "en": "Your account or role changed. Reload this workspace.",
+      "fr": "Votre compte ou rôle a changé. Rechargez cet espace de travail.",
+      "es": "Su cuenta o rol cambió. Recargue este espacio de trabajo.",
+      "reviewPending": true
+    },
+    "themeWorkspace.localOnly": {
+      "resourceId": 2162,
+      "en": "These settings are saved on this device only.",
+      "fr": "Ces paramètres sont enregistrés uniquement sur cet appareil.",
+      "es": "Esta configuración se guarda solo en este dispositivo.",
+      "reviewPending": true
+    },
+    "themeWorkspace.panelUnavailable": {
+      "resourceId": 2163,
+      "en": "This panel is no longer available for your account.",
+      "fr": "Ce panneau n’est plus disponible pour votre compte.",
+      "es": "Este panel ya no está disponible para su cuenta.",
+      "reviewPending": true
+    }
+  },
+  "runtimeEnabled": false,
+  "translationReviewPending": true,
+  "allAppsAdopted": false
+}

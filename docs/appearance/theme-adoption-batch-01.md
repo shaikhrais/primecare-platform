@@ -1,71 +1,48 @@
-# Batch B01 — Theme adoption reconciliation and registration preparation
+# B01 — Verified theme metadata pilot
 
-Requirement: user requested the next batch of the 18-batch original PrimeCare theme adoption plan on 2026-10-31.
+The optional workspace layout controls and draft translations are now registered on the existing Tenant Admin workspace. A separate read-only database connection verified the committed records. The live layout editor is not enabled by this batch.
 
-**Status: source preparation validated; GitHub production connection and pinned manifest verified. Registration gaps remain; B01 is not complete.**
-
-## Delivered
-
-- A data-only proposal covering 72 feature groups, including all 24 existing reference core families, 15 application templates, four dashboard templates and eight supporting-page groups.
-- Candidate mappings for every one of the 389 files in the existing skeleton inventory. Mapping a file is not adoption or runtime verification.
-- Dispositions for all 78 recorded Material UI component/style/type imports. Import names are references, not a request to copy a vendor implementation.
-- 25 proposed/existing control identities and 40 proposed resource keys with English, French and Spanish text: 120 text entries. Translations remain unreviewed and unapproved.
-- Source hashes for mapped PrimeCare implementations; candidate component codes, existing source-host paths and semantic-token source files. Source presence is recorded as unverified.
-- A strictly read-only production metadata preflight and nine passing local test groups for coverage, identity conflicts, translation preservation, missing/disabled registrations, denied hosts and parameterized SQL.
-- Separate source-validation and production-connection receipts. Both explicitly deny production activation and runtime-verification claims.
-
-## Files
-
-| File | Purpose |
+| Result | Verified value |
 | --- | --- |
-| `tools/governance-production/theme-adoption-contract.json` | Proposed feature/control/resource contract; not an authoritative production registry |
-| `tools/governance-production/theme-adoption-preflight.mjs` | Source checks and read-only production reconciliation |
-| `scripts/test-theme-adoption-preflight.mjs` | Isolated tests; synthetic fixture IDs have no production meaning |
-| `docs/appearance/theme-adoption-source-preflight.json` | Local contract-validation receipt |
-| `docs/appearance/theme-adoption-production-preflight.json` | Production connection attempt and blocker receipt |
+| Existing host | Screen 2534, `tenant_admin_command_center`, `/tenant-dashboard` |
+| Registered optional controls | 25 |
+| Optional required-element descriptors | 25 |
+| Resources and translations | 40 resources; 120 EN/FR/ES text entries |
+| Component mapping | Existing active `prime_button`, `prime_text_field`, `prime_dropdown_web` |
+| New screens, routes, APIs or role grants | 0 |
+| UI implementation status | `registered-unimplemented` |
+| Translation review | Pending; reviewed/approved flags are not promoted |
+| Runtime activation | False |
 
-## Run checks
+The feature proposal still covers 72 capability groups, all 24 reference core families, 389 catalogued source files and 78 component/style/type imports. Inventory coverage is not implementation or runtime parity.
 
-From the repository root:
+## Evidence
+
+The successful GitHub production job was run `41226841005`, attempt 2, job `124613105486`, on commit `b912b61002c671faaf16d8910ff2765c489309b2`. It used the existing GitHub production environment secret without retrieving its value.
+
+The job passed the dry run, rolled it back, then applied the exact scoped registration. The registration was run twice within the transaction to verify idempotence. After commit, a separate pinned read-only connection verified resource identities, all three translations for each resource, control IDs/types/status and optional-element flags. A further independent reconciliation found no missing pilot records; its 120 remaining issues are translation-review flags only. The registration workflow passed.
+
+Attempt 1 stopped before writing because an unrelated governance writer held a lock. Attempt 2 completed successfully; no existing reviewed text was overwritten.
+
+- `docs/appearance/theme-adoption-registration-receipt.json`: actual commit/readback receipt and IDs.
+- `docs/appearance/theme-adoption-production-preflight.json`: post-registration read-only reconciliation, including review-pending labels.
+- `packages/primecare_ui/catalogs/theme-workspace.registration.json`: reproducible shared metadata export; `runtimeEnabled: false`, `allAppsAdopted: false`.
+- `tools/governance-production/production-pin.json`: exact four-table writer scope, target host, contract hash and no-grant/no-runtime limits.
+
+## Reproduce
 
 ```sh
-node --test scripts/test-theme-adoption-preflight.mjs
-node tools/governance-production/theme-adoption-preflight.mjs --check
-node tools/governance-production/theme-adoption-preflight.mjs --production --out docs/appearance/theme-adoption-production-preflight.json
+node --test scripts/test-theme-adoption-preflight.mjs scripts/test-theme-workspace-export.mjs
+python tools/governance-production/test-theme-adoption-registration.py
+node scripts/export-theme-workspace-registration.mjs --receipt docs/appearance/theme-adoption-registration-receipt.json --readback docs/appearance/theme-adoption-production-preflight.json
 ```
 
-`--check` validates local proposal coverage, file hashes, resource completeness and non-activation claims. It does not contact production.
+Python checks require `tools/governance-production/requirements.txt`. Tests use isolated synthetic metadata, not a SQLite production fallback. The export rejects dry-run receipts, missing independent readback, stale contract/manifest hashes, denied hosts, missing controls and conflicted translations. It never enables a runtime.
 
-`--production` uses the existing pinned `read-bridge.mjs`, which opens a read-only PostgreSQL snapshot and validates the production manifest. The tool reads only an allowlist of UI components, languages/resources/translations, screen/control metadata and existing screen-view grants. Values are parameterized; unknown or mixed schema columns fail. It does not add grants, register controls, modify settings, write business data or alter the manifest.
+The GitHub workflow `.github/workflows/theme-adoption-registration.yml` performs the real dry-run/apply/readback sequence. It is restricted to main and the existing production environment. The writer only inserts namespaced metadata in `screen_components`, `screen_required_elements`, `language_resources` and `language_resource_values`. It checks the exact existing route/source/active host and pre-existing view grants, validates physical column storage, preserves existing records on conflicts and adds no permissions.
 
-Exit status 2 means connection blocked or unresolved registration gaps. A successful source check does not satisfy the production gate. Even a complete isolated metadata fixture yields only candidate registration matches, never activation or runtime proof.
+## Next integration gate
 
-## Production blocker and remaining B01 work
+B02 can now bind this registered pilot to the shared web shell and Theme Center. It must preserve unsaved input, handlers, focus, tenant/role scope and existing authentication. The metadata export supplies actual IDs and draft localized labels; the renderer and live interaction tests remain B02 work.
 
-The local attempt returned `MISSING_DATABASE_URL` before a production snapshot opened. Existing repository workflows use `secrets.PRODUCTION_DATABASE_URL` through the GitHub `production` environment. The new `.github/workflows/theme-adoption-preflight.yml` follows that existing pattern and runs on relevant pushes to main or manual dispatch. It keeps the credential inside GitHub Actions and publishes read-only reconciliation receipts as workflow artifacts. The local receipt does not establish which controls, hosts or resources already exist in production; inspect the exact workflow run before reporting live results.
-
-The repository rule in `.agents/AGENTS.md` states: “Everything must exist in the pinned production governance database before implementation.” New live Theme Center controls therefore remain unexposed.
-
-To finish B01:
-
-1. Run the dedicated GitHub workflow with the existing `production` environment secret. Check its artifact and exact commit before claiming a connection or production reconciliation succeeded. A local URL is optional; do not extract, print or commit the GitHub secret.
-2. Run the production preflight against the pinned manifest. Resolve exact existing host screen IDs, component identities, resource IDs, reviewed translations and existing grants from returned records.
-3. Review the proposed feature/template mappings and draft translations. An existing reviewed translation conflict must be reconciled explicitly, never overwritten automatically.
-4. Specify any unresolved business-template API/workflow/permission bindings from existing authority. Do not invent endpoints, screens, role grants or acceptance credit.
-5. Prepare the exact scoped production registration writer using the observed schema and bindings; pin its allowed tables and payload hash. No general metadata writer is added by this batch.
-6. Execute an idempotent registration transaction, read back independently, export approved identifiers/resources and retain honest implementation tags. A read-only preflight is not a registration transaction.
-7. Update B01 evidence before enabling B02's live controls. Keep B02–B18 planned until their dependencies are satisfied.
-
-The existing shell, Theme Center, authentication and working application permissions are unchanged. Planning and isolated source/test preparation can proceed while this production dependency is unresolved.
-
-## Verified GitHub production result
-
-Run `41225732414`, production job `124609431208`, on commit `119b0094b071e03c1f3707e0abbf749b5d1b6229` used the existing environment secret without retrieving its value. Source CI passed. The production snapshot and pinned manifest check succeeded; the reconciliation correctly exited 2 because it found registration gaps. The receipt records `productionChecked: true`, `writes: 0`, `runtimeVerified: false` and `productionActivationAllowed: false`.
-
-Observed gaps: all 25 proposed/existing-selector control bindings and all 40 new resource keys were absent under the requested identities; `prime_button` and `prime_text_field` exist, but `prime_dropdown` does not; no host was resolved by the known helper-source paths. These are exact-key results, not proof that no equivalent component or settings host exists under another name. Bounded metadata discovery now inspects candidate theme/layout host and dropdown/select component names without treating discoveries as authoritative bindings.
-
-## Binding-name discovery result
-
-Run `41226024990`, production job `124610325632`, on commit `baf10b4b810a75acf0d846d695ae51f8a6e55de7` again connected successfully. Source CI passed all nine test groups. Bounded discovery found the active existing `prime_dropdown_web` component, ID `12`, as a candidate for the proposed web dropdown controls. No screen with theme/appearance/layout in the inspected code/path fields was returned. That does not establish the absence of an authorized app-shell host under a different name.
-
-The committed production receipt records this actual result. The database URL is no longer the blocker. The remaining work is exact existing host/component mapping and a narrowly scoped registration transaction; no production records were written and no new controls were exposed.
+Translation review is still pending before release approval. Non-pilot app hosts and feature-specific workflow/API requirements need their own registrations before their later-batch activation. Neither this pilot nor its inventory means that all 18 batches or all apps are complete.

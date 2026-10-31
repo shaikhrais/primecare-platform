@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "in_progress_b01_production_gaps_confirmed",
+  "overall_status": "b01_metadata_pilot_registered_b02_integration_next",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -16,12 +16,11 @@
   },
   "current_blockers": [
     {
-      "code": "UNRESOLVED_GOVERNANCE_BINDINGS",
+      "code": "TRANSLATION_REVIEW_PENDING",
       "affects": [
-        "B01",
-        "production_activation"
+        "release_approval"
       ],
-      "detail": "Production connection and pin verified. Existing prime_dropdown_web component ID 12 was discovered. Proposed controls/resources and host bindings still need scoped reconciliation and registration; no new runtime exposure."
+      "detail": "All 120 EN/FR/ES translations are registered and read back; reviewed/approved flags remain unset. No human approval is claimed."
     }
   ],
   "baseline": {
@@ -39,7 +38,7 @@
     {
       "id": "B01",
       "title": "Governance, feature contracts and localization",
-      "status": "in_progress",
+      "status": "metadata_pilot_registered",
       "depends_on": [],
       "scope": [
         "Reconcile every audited Fuse capability against existing production registrations and PrimeCare implementations; retain missing, partial, implemented-unverified and verified distinctions.",
@@ -65,21 +64,32 @@
         "docs/appearance/theme-adoption-production-preflight.json",
         "docs/appearance/theme-adoption-batch-01.md",
         ".github/workflows/theme-adoption-preflight.yml",
-        "docs/appearance/theme-adoption-binding-candidates.json"
+        "docs/appearance/theme-adoption-binding-candidates.json",
+        "tools/governance-production/theme_adoption_registration.py",
+        "tools/governance-production/test-theme-adoption-registration.py",
+        "docs/appearance/theme-adoption-registration-receipt.json",
+        "packages/primecare_ui/catalogs/theme-workspace.registration.json"
       ],
-      "blockers": [
-        "UNRESOLVED_GOVERNANCE_BINDINGS"
-      ],
+      "blockers": [],
       "sourcePreparation": "validated",
-      "productionRegistration": "pending_binding_resolution",
-      "productionReconciliation": "completed_registration_gaps",
+      "productionRegistration": "committed_independently_verified",
+      "productionReconciliation": "all_pilot_records_verified_review_pending",
       "productionRun": {
-        "runId": 41226024990,
-        "commit": "baf10b4b810a75acf0d846d695ae51f8a6e55de7",
+        "runId": 41226841005,
+        "attempt": 2,
+        "jobId": 124613105486,
+        "commit": "b912b61002c671faaf16d8910ff2765c489309b2",
         "connected": true,
-        "writes": 0
+        "committed": true,
+        "independentReadback": true,
+        "roleGrants": 0,
+        "runtimeActivated": false
       },
-      "nextAction": "Map existing prime_dropdown_web to the web control contract and resolve registered authorized shell hosts before creating an exact scoped metadata registration."
+      "nextAction": "B02: integrate the registered layout controls into the existing Tenant Admin shared shell, using the verified metadata export; retain runtime and review gates.",
+      "remainingScope": [
+        "Translation review before release approval",
+        "Non-pilot host registration and feature-specific workflow/API contracts remain required before their later-batch activation"
+      ]
     },
     {
       "id": "B02",
@@ -105,7 +115,8 @@
         "websites/typescript/src/"
       ],
       "evidence": [],
-      "blockers": []
+      "blockers": [],
+      "readiness": "metadata_ready_for_tenant_workspace_pilot"
     },
     {
       "id": "B03",

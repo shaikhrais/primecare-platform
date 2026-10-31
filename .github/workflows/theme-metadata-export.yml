@@ -1,0 +1,25 @@
+name: Verify theme metadata export
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/theme-metadata-export.yml'
+      - 'scripts/export-theme-workspace-registration.mjs'
+      - 'scripts/test-theme-workspace-export.mjs'
+      - 'packages/primecare_ui/catalogs/theme-workspace.registration.json'
+      - 'docs/appearance/theme-adoption-registration-receipt.json'
+      - 'docs/appearance/theme-adoption-production-preflight.json'
+      - 'tools/governance-production/theme-adoption-contract.json'
+permissions:
+  contents: read
+jobs:
+  export-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test scripts/test-theme-adoption-preflight.mjs scripts/test-theme-workspace-export.mjs

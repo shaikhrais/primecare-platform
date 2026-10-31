@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "sourceRun": 41226024990,
-  "sourceCommit": "baf10b4b810a75acf0d846d695ae51f8a6e55de7",
+  "sourceRun": 41226841005,
+  "sourceCommit": "b912b61002c671faaf16d8910ff2765c489309b2",
   "productionConnection": "verified",
   "authorityManifest": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
   "componentCandidates": [
@@ -10,11 +10,18 @@
       "existingCode": "prime_dropdown_web",
       "observedId": "12",
       "active": true,
-      "disposition": "candidate_mapping_requires_explicit_contract_update"
+      "disposition": "resolved_to_existing_prime_dropdown_web"
     }
   ],
-  "hostCandidates": [],
-  "nextAction": "Resolve existing authorized app-shell host screen metadata. The Theme Center is a shared utility; do not invent a standalone screen ID or route to satisfy a registration test.",
+  "hostCandidates": [
+    {
+      "screenId": 2534,
+      "screenCode": "tenant_admin_command_center",
+      "route": "/tenant-dashboard",
+      "disposition": "existing_host_verified_and_optional_controls_registered"
+    }
+  ],
+  "nextAction": "Use the verified shared metadata export for the B02 Tenant Admin pilot. Register other hosts before their rollout.",
   "runtimeExposure": false,
-  "writes": 0
+  "writes": 210
 }
