@@ -24,6 +24,7 @@ class PrimeWorkspaceNavigation extends StatefulWidget {
 class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   final _expanded=<String>{};
   final _menuController=MenuController();
+  final _submenus=<String,MenuController>{};
   final _menuEntryFocus=FocusNode(debugLabel:'workspace-navigation-menu-entry');
   final _focus=<(String,String),FocusNode>{};
   final _dialogUpdates=ValueNotifier<int>(0);
@@ -122,18 +123,29 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   Widget _horizontal(){
     Widget entry(WorkspaceNavigationNode n){final generation=_generation;
       if(n.kind=='group'&&n.disabled)return MenuItemButton(onPressed:null,child:_label(n));
-      if(n.kind=='group')return SubmenuButton(focusNode:_node(n.id,prefix:'menu:'),key:ValueKey('workspace-navigation-${n.id}'),
+      if(n.kind=='group')return SubmenuButton(controller:_submenus.putIfAbsent(n.id,()=>MenuController()),focusNode:_node(n.id,prefix:'menu:'),key:ValueKey('workspace-navigation-${n.id}'),
         onOpen:n.disabled?null:(){},menuChildren:n.children.map(entry).toList(),child:_label(n));
       return Semantics(selected:n.id==_activeId,child:MenuItemButton(focusNode:_node(n.id,prefix:'menu:'),key:ValueKey('workspace-navigation-${n.id}'),style:n.id==_activeId?ButtonStyle(backgroundColor:WidgetStatePropertyAll(Theme.of(context).colorScheme.primaryContainer)):null,onPressed:n.disabled?null:()=>_activate(n.id,generation),child:_label(n)));
     }
+    final enabled=widget.model.nodes.where((n)=>!n.disabled).toList();
+    final groups=enabled.where((n)=>n.kind=='group').toList();
+    final bar=groups.isNotEmpty?MenuBar(controller:_menuController,children:widget.model.nodes.map(entry).toList()):Row(mainAxisSize:MainAxisSize.min,children:[for(final n in widget.model.nodes)
+      Focus(onKeyEvent:(_,event){
+        if(event is! KeyDownEvent&&event is! KeyRepeatEvent)return KeyEventResult.ignored;
+        final rtl=Directionality.of(context)==TextDirection.rtl,index=enabled.indexOf(n);var next=index;
+        if(event.logicalKey==LogicalKeyboardKey.home){next=0;}else if(event.logicalKey==LogicalKeyboardKey.end){next=enabled.length-1;}
+        else if(event.logicalKey==LogicalKeyboardKey.arrowRight){next=(index+(rtl?-1:1)+enabled.length)%enabled.length;}
+        else if(event.logicalKey==LogicalKeyboardKey.arrowLeft){next=(index+(rtl?1:-1)+enabled.length)%enabled.length;}else{return KeyEventResult.ignored;}
+        if(enabled.isNotEmpty)_focusAfter(enabled[next].id,prefix:'menu:');return KeyEventResult.handled;
+      },child:TextButton(key:ValueKey('workspace-navigation-${n.id}'),focusNode:_node(n.id,prefix:'menu:'),onPressed:n.disabled?null:()=>_activate(n.id,_generation),child:_label(n)))]);
     return Focus(key:const ValueKey('workspace-navigation-menu-entry'),focusNode:_menuEntryFocus,
       onFocusChange:(_)=>setState((){}),onKeyEvent:(_,event){
         if(!_menuEntryFocus.hasPrimaryFocus||event is! KeyDownEvent)return KeyEventResult.ignored;
         if(![LogicalKeyboardKey.enter,LogicalKeyboardKey.space,LogicalKeyboardKey.arrowDown,LogicalKeyboardKey.arrowUp].contains(event.logicalKey))return KeyEventResult.ignored;
         final roots=widget.model.nodes.where((n)=>!n.disabled).toList();if(roots.isEmpty)return KeyEventResult.ignored;
-        _menuController.open();_focusAfter(event.logicalKey==LogicalKeyboardKey.arrowUp?roots.last.id:roots.first.id,prefix:'menu:');return KeyEventResult.handled;
+        if(groups.isNotEmpty)_submenus[groups.first.id]!.open();_focusAfter(event.logicalKey==LogicalKeyboardKey.arrowUp?roots.last.id:roots.first.id,prefix:'menu:');return KeyEventResult.handled;
       },child:DecoratedBox(decoration:BoxDecoration(border:Border.all(color:_menuEntryFocus.hasPrimaryFocus?Theme.of(context).colorScheme.primary:Colors.transparent,width:2)),
-        child:SingleChildScrollView(scrollDirection:Axis.horizontal,child:MenuBar(controller:_menuController,children:widget.model.nodes.map(entry).toList()))));
+        child:SingleChildScrollView(scrollDirection:Axis.horizontal,child:bar)));
   }
   KeyEventResult _railKey(String id,KeyEvent event){
     if(event is! KeyDownEvent&&event is! KeyRepeatEvent)return KeyEventResult.ignored;
