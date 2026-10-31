@@ -15,6 +15,7 @@ const browser=await chromium.launch({headless:true,...(process.env.PRIMECARE_CHR
 try{
  await page.goto(origin+'/tenant-dashboard');await el('appearance-open').waitFor();
  await page.evaluate(()=>{window.input=document.querySelector('[data-cy=tenant-preference-view]');window.clicks=0;input.addEventListener('change',()=>window.clicks++);});
+ await page.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true})));assert.equal(await page.locator('[data-pc-workspace]').count(),1);
  await el('appearance-open').click();
  for(const position of ['right','top','bottom','hidden','left']){await el('workspace-layout-navigation').selectOption(position);assert.equal(await page.locator('[data-pc-workspace]').getAttribute('data-navigation'),position);}
  await el('workspace-layout-container').selectOption('boxed');await el('workspace-layout-max-width').fill('1200');await el('workspace-layout-max-width').dispatchEvent('change');await el('workspace-layout-toolbar').selectOption('bottom');await el('workspace-layout-scroll').selectOption('content');

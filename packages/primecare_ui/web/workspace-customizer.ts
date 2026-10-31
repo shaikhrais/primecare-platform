@@ -30,7 +30,7 @@ export function mountWorkspaceCustomizer(root:HTMLElement,dialog:HTMLDialogEleme
  const abort=new AbortController();e.abort=abort;
  // root replacement on logout must also release window listeners and detached DOM.
  e.observer=new MutationObserver(()=>{if(!root.contains(shell)||!root.isConnected)clearWorkspaceCustomizer(root);});e.observer.observe(root.ownerDocument,{childList:true,subtree:true});
- window.addEventListener('pagehide',()=>clearWorkspaceCustomizer(root),{signal:abort.signal,once:true});
+ window.addEventListener('pagehide',event=>{if(!event.persisted)clearWorkspaceCustomizer(root);},{signal:abort.signal});
  dialog.querySelector('[data-workspace-controls]')?.remove();
  const group=document.createElement('fieldset');group.dataset.workspaceControls='';const legend=document.createElement('legend');legend.textContent=text('title');group.append(legend);
  const note=document.createElement('p');note.textContent=text('localOnly');group.append(note);
