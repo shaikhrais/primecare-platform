@@ -1,0 +1,62 @@
+/* Original PrimeCare presentation. No vendor source, assets, or runtime imports.
+   Existing shell markup, registered actions and appearance controllers are reused. */
+body[data-prime-dashboard] .app-shell {
+  font-family:var(--font-family,system-ui,sans-serif);
+  background:var(--color-background);color:var(--color-text);
+}
+body[data-prime-dashboard] .app-shell > aside {
+  background:var(--color-sidebar);color:var(--color-sidebar-text);
+  border-inline-end:1px solid var(--color-border);box-shadow:none;
+}
+body[data-prime-dashboard] .app-shell > aside :is(.brand,.sidebar-role,.sidebar-description,nav a,nav summary) {
+  color:inherit;
+}
+body[data-prime-dashboard] .app-shell > aside nav a {
+  border-radius:var(--radius-md);margin-block:var(--spacing-sm);
+  padding:var(--spacing-md);text-decoration:none;
+}
+body[data-prime-dashboard] .app-shell > aside nav a:is(:hover,[aria-current=page]) {
+  background:var(--color-surface-soft);color:var(--color-text);
+}
+body[data-prime-dashboard] .app-shell .topbar {
+  background:var(--color-topbar);color:var(--color-topbar-text);
+  border-block-end:1px solid var(--color-border);box-shadow:none;
+  gap:var(--spacing-md);padding-inline:var(--spacing-lg);
+}
+body[data-prime-dashboard] .app-shell :is(.card,.panel,.section,.td-card,.charge-card) {
+  background:var(--color-surface);color:var(--color-surface-text,var(--color-text));
+  border:1px solid var(--color-border);border-radius:var(--radius-lg);
+  box-shadow:none;backdrop-filter:none;
+}
+body[data-prime-dashboard] .app-shell :is(button,input,select,textarea) {
+  font:inherit;border-radius:var(--radius-md);
+}
+body[data-prime-dashboard] :is(a,button,input,select,textarea,summary):focus-visible {
+  outline:3px solid var(--color-primary);outline-offset:3px;
+}
+/* Reuse PrimeCare's own modal and Theme Center; inherit every personal palette. */
+body[data-prime-dashboard] dialog.layout-customizer,
+body[data-prime-dashboard] dialog.layout-customizer[data-theme-center-active] {
+  --color-surface:inherit;--color-text:inherit;--color-text-muted:inherit;
+  --color-surface-text:inherit;--color-surface-muted:inherit;--color-border:inherit;
+  background:var(--color-surface);color:var(--color-text);
+  border:1px solid var(--color-border);border-radius:var(--radius-lg);
+  font-family:var(--font-family,system-ui,sans-serif);
+  max-block-size:calc(100dvh - 2 * var(--spacing-lg));overflow:auto;
+}
+body[data-prime-dashboard] .layout-customizer :is(input,select,.theme-center-quick button) {
+  background:var(--color-surface);color:var(--color-text);
+  border-color:var(--color-border);
+}
+body[data-prime-dashboard] .layout-customizer :is(>p,.theme-center-note) {color:var(--color-text-muted)}
+body[data-prime-dashboard] .layout-customizer [data-cy=theme-center] {
+  background:var(--color-background);border-color:var(--color-border);
+}
+body[data-prime-dashboard] .theme-center-quick button[aria-pressed=true] {
+  background:var(--color-surface-soft);border-color:var(--color-primary);
+}
+@media (prefers-reduced-motion:reduce) {
+  body[data-prime-dashboard] .app-shell *,body[data-prime-dashboard] .layout-customizer * {
+    scroll-behavior:auto;transition:none;animation:none;
+  }
+}

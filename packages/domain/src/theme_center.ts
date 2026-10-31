@@ -1,4 +1,4 @@
-import catalog from '../../../scripts/fuse_presets.json';
+import catalog from '../../../scripts/primecare_presets.json';
 export const themePresets=catalog;
 export const themeColorKeys=['primary','primaryContainer','secondary','background','surface','text','muted','border','sidebar','topbar'] as const;
 export type ThemeColorKey=typeof themeColorKeys[number];

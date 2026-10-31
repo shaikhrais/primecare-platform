@@ -3,7 +3,7 @@ const path = require('path');
 
 const rootDir = path.resolve(__dirname, '..');
 const configPath = path.join(rootDir, 'theme_config.json');
-const presetsPath = path.join(__dirname, 'fuse_presets.json');
+const presetsPath = path.join(__dirname, 'primecare_presets.json');
 const outputPath = path.join(rootDir, 'packages', 'flutter_core', 'lib', 'theme', 'theme_config_generated.dart');
 
 // Helper to convert CSS color string to Dart Color constructor

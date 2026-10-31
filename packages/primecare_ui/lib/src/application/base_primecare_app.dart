@@ -9,7 +9,7 @@ import 'package:flutter_core/flutter_core.dart'
     show AppErrorBoundary, executionGateProvider, AppShellBoundary;
 import 'package:go_router/go_router.dart';
 import '../theme/prime_theme.dart';
-import '../theme/prime_fuse_theme.dart';
+import '../theme/primecare_theme.dart';
 import '../theme/prime_theme_resolver.dart';
 export '../theme/prime_theme_resolver.dart' show resolvePersonalPrimeTheme;
 
@@ -56,15 +56,15 @@ abstract class BasePrimeCareApp extends ConsumerWidget {
 /// Product roots that expose the existing PrimeTheme inherited widget.
 abstract class BaseThemedPrimeCareApp extends BasePrimeCareApp {
   const BaseThemedPrimeCareApp({super.key});
-  PrimeThemeData get primeTheme => PrimeFuseTheme.resolve();
+  PrimeThemeData get primeTheme => PrimeCareTheme.resolve();
   @override
-  ThemeData get applicationTheme => applyPersonalThemeData(primeTheme.toThemeData(), PrimeFuseTheme.defaultProfile);
+  ThemeData get applicationTheme => applyPersonalThemeData(primeTheme.toThemeData(), PrimeCareTheme.defaultProfile);
   @override
   Widget decorateApplication(Widget child) =>
-      PrimeTheme(data: resolvePersonalPrimeTheme(primeTheme, applicationTheme, PrimeFuseTheme.defaultProfile), child: child);
+      PrimeTheme(data: resolvePersonalPrimeTheme(primeTheme, applicationTheme, PrimeCareTheme.defaultProfile), child: child);
   @override
   Widget decorateResolvedApplication(Widget child,ThemeData theme,PersonalTheme? personal) {
-    return PrimeTheme(data:resolvePersonalPrimeTheme(primeTheme,theme,personal ?? PrimeFuseTheme.defaultProfile),child:child);
+    return PrimeTheme(data:resolvePersonalPrimeTheme(primeTheme,theme,personal ?? PrimeCareTheme.defaultProfile),child:child);
   }
 }
 
