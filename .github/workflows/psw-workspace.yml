@@ -2,7 +2,7 @@ name: Test and publish tenant and PSW workspaces
 on:
   push:
     branches: [main]
-    paths: ['packages/shared/src/tenant-dashboard/**', 'cloudflare/workers/src/tenant-dashboard/**', 'websites/typescript/src/tenant-dashboard/**', 'cloudflare/workers/src/business-modules.ts', 'packages/shared/src/admin-entry-routes.json', 'packages/database/migrations/20261031_tenant_dashboard.sql', 'tools/governance-production/tenant_dashboard_registration.py', 'scripts/*tenant-dashboard*', 'packages/shared/src/coordinator-charge/**', 'cloudflare/workers/src/coordinator-charge/**', 'websites/typescript/src/coordinator-charge/**', 'cloudflare/workers/src/care/service.ts', 'tools/governance-production/psw_charge_registration.py', 'packages/database/migrations/20261030_psw_coordinator_charge.sql', 'packages/shared/src/psw-personal/**', 'cloudflare/workers/src/psw-personal/**', 'websites/typescript/src/psw-personal/**', 'packages/database/migrations/20261029_psw_personal.sql', 'tools/governance-production/psw_personal_registration.py', 'tools/governance-production/production-pin.json', 'packages/shared/src/psw-workspace/**', 'cloudflare/workers/src/psw-workspace/**', 'packages/database/migrations/20261028_psw_workspace.sql', 'websites/typescript/src/psw-workspace/**', 'scripts/*psw*', 'packages/primecare_ui/web/**', 'packages/domain/src/workspace_layout.ts', 'scripts/test-workspace-layout*.mjs', 'scripts/test-tenant-workspace-layout.mjs', 'scripts/fixtures/workspace-layout.html', '.github/workflows/psw-workspace.yml']
+    paths: ['packages/shared/src/tenant-dashboard/**', 'cloudflare/workers/src/tenant-dashboard/**', 'websites/typescript/src/tenant-dashboard/**', 'cloudflare/workers/src/business-modules.ts', 'packages/shared/src/admin-entry-routes.json', 'packages/database/migrations/20261031_tenant_dashboard.sql', 'tools/governance-production/tenant_dashboard_registration.py', 'scripts/*tenant-dashboard*', 'packages/shared/src/coordinator-charge/**', 'cloudflare/workers/src/coordinator-charge/**', 'websites/typescript/src/coordinator-charge/**', 'cloudflare/workers/src/care/service.ts', 'tools/governance-production/psw_charge_registration.py', 'packages/database/migrations/20261030_psw_coordinator_charge.sql', 'packages/shared/src/psw-personal/**', 'cloudflare/workers/src/psw-personal/**', 'websites/typescript/src/psw-personal/**', 'packages/database/migrations/20261029_psw_personal.sql', 'tools/governance-production/psw_personal_registration.py', 'tools/governance-production/production-pin.json', 'packages/shared/src/psw-workspace/**', 'cloudflare/workers/src/psw-workspace/**', 'packages/database/migrations/20261028_psw_workspace.sql', 'websites/typescript/src/psw-workspace/**', 'scripts/*psw*', 'packages/primecare_ui/web/**', 'packages/domain/src/workspace_layout.ts', 'scripts/test-workspace-layout*.mjs', 'scripts/test-tenant-workspace-layout.mjs', 'tools/governance-production/theme_workspace_implementation.py', 'scripts/fixtures/workspace-layout.html', '.github/workflows/psw-workspace.yml']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -97,6 +97,13 @@ jobs:
         run: node scripts/apply-tenant-dashboard.mjs
       - name: Publish governance API while preserving existing live bindings
         run: node scripts/deploy-approved-admin-governance.mjs
+      - name: Record accepted theme implementation without runtime or review approval
+        env:
+          GOVERNANCE_THEME_ADOPTION_WRITES: '1'
+          GOVERNANCE_THEME_IMPLEMENTATION_WRITES: '1'
+        run: |
+          python3 tools/governance-production/theme_workspace_implementation.py --dry-run
+          python3 tools/governance-production/theme_workspace_implementation.py --apply
       - name: Build database-governed portals
         run: node scripts/build-typescript-websites.mjs
       - name: Publish the PSW route to every existing portal

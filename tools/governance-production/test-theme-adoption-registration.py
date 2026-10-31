@@ -9,6 +9,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import theme_adoption_registration as target
+import theme_workspace_implementation as progress
 
 C = json.loads(target.FILE.read_text())
 
@@ -35,10 +36,17 @@ class Model:
         if sql.startswith('SELECT role_id FROM role_screen_permissions'): return Rows(self.grants)
         if sql.startswith('SELECT active FROM primecare_ui_component_registry'): return Rows(self.components.get(args[0], []))
         if sql.startswith('SELECT language_code,language_id FROM languages'): return Rows(self.languages)
+        if sql.startswith('SELECT implementation_status FROM screen_components'):
+            return Rows([(row['implementation_status'],) for row in self.records['screen_components'].values() if row['screen_id'] == args[0] and row['component_code'] == args[1]])
         if sql.startswith('SELECT translated_text,reviewed,approved FROM language_resource_values'):
             rows = [row for row in self.records['language_resource_values'].values() if row['resource_id'] == args[0] and row['language_id'] == args[1]]
             return Rows([(r['translated_text'], r['reviewed'], r['approved']) for r in rows])
         raise AssertionError('Unexpected test-model read: ' + sql)
+
+    def record_control_implementation(self, sid, cid, test_id):
+        rows = [r for r in self.records['screen_components'].values() if r['screen_id'] == sid and r['model_id'] == cid and r['data_cy'] == test_id]
+        if len(rows) != 1: raise AssertionError('Exact model component required')
+        rows[0]['implementation_status'] = 'implemented-unverified'
 
     def ensure(self, table, key, values):
         if table not in target.TABLES: raise AssertionError('Unscoped write')
@@ -73,6 +81,27 @@ class RegistrationTests(unittest.TestCase):
         for table, key, values in model.calls:
             if table == 'screen_required_elements': self.assertEqual(values['required'], 0)
             if table == 'screen_components': self.assertEqual(values['implementation_status'], 'registered-unimplemented')
+
+    def test_implementation_progress_is_idempotent_and_keeps_footer_unimplemented(self):
+        model = Model(); first = target.register(model)
+        before = copy.deepcopy({k: v for k, v in model.records.items() if k != 'screen_components'})
+        recorded = progress.record(model)
+        self.assertEqual(progress.record(model), recorded)
+        self.assertEqual(sum(v == 'implemented-unverified' for v in recorded['implementationStatuses'].values()), 24)
+        self.assertEqual(recorded['implementationStatuses']['workspace-layout-footer'], 'registered-unimplemented')
+        self.assertEqual(recorded['controls'], first['controls'])
+        self.assertEqual(before, {k: v for k, v in model.records.items() if k != 'screen_components'})
+        self.assertFalse(recorded['runtimeActivated'])
+        self.assertFalse(recorded['reviewApproved'])
+
+    def test_registration_preserves_implemented_progress_and_rejects_unknown_status(self):
+        model = Model(); target.register(model)
+        row = next(iter(model.records['screen_components'].values()))
+        row['implementation_status'] = 'implemented-unverified'
+        result = target.register(model)
+        self.assertEqual(result['implementationStatuses'][row['data_cy']], 'implemented-unverified')
+        row['implementation_status'] = 'production-ready'
+        with self.assertRaises(target.GovernanceReadError): target.register(model)
 
     def test_conflicting_reviewed_translation_is_never_overwritten(self):
         model = Model(); target.register(model)

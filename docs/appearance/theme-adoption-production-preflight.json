@@ -1,7 +1,7 @@
 {
   "mode": "production-read-only",
   "status": "registration_gaps",
-  "contractSha256": "f6d72170d3f64c134d78de88047728c73acb466186c8accc25239b21076e78c7",
+  "contractSha256": "cd3656841d008f6fe86a34ad532f125a73a108a3a961bbb12e4182c1ca645357",
   "expectedManifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
   "counts": {
     "features": 72,
@@ -1878,10 +1878,10 @@
     "authoritativeBindings": false
   },
   "execution": {
-    "commit": "b912b61002c671faaf16d8910ff2765c489309b2",
-    "runId": 41226841005,
-    "attempt": 2,
-    "jobId": 124613105486,
-    "secretValueRetrieved": false
+    "commit": "a10d1dd8adefd701786c1701abe8059b1d78915b",
+    "runId": 41228826506,
+    "jobId": 124618666754,
+    "readOnly": true,
+    "writes": 0
   }
 }

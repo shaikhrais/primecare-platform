@@ -48,6 +48,17 @@ class ThemeStore(ProductionWorkflowStore):
             self.db.close()
             raise
 
+    def record_control_implementation(self, sid, cid, test_id):
+        c = json.loads(FILE.read_text())
+        if os.environ.get('GOVERNANCE_THEME_IMPLEMENTATION_WRITES') != '1' or test_id not in {x['testId'] for x in c['controls'] if x['key'] != 'footer'}:
+            raise GovernanceReadError('Exact implemented theme control opt-in required')
+        host = self.execute('SELECT screen_code,route_path,active FROM screens WHERE id=?', (sid,)).fetchall()
+        if host != [(c['registrationTarget']['screenCode'], c['registrationTarget']['route'], 1)]:
+            raise GovernanceReadError('Exact active implementation host required')
+        cursor = self.db.execute('UPDATE ' + self.table('screen_components') + ' SET implementation_status=%s WHERE id=%s AND screen_id=%s AND data_cy=%s AND component_code=%s AND file_path=%s AND implementation_status IN (%s,%s)', ('implemented-unverified', cid, sid, test_id, 'themeWorkspace.' + test_id, c['registrationTarget']['controlsSource'], 'registered-unimplemented', 'implemented-unverified'))
+        if cursor.rowcount != 1:
+            raise GovernanceReadError('Exact theme implementation update required')
+
     def ensure(self, table, key, values):
         if table not in TABLES:
             raise GovernanceReadError('Unscoped theme metadata write')
@@ -120,13 +131,19 @@ def register(db, catalog=None):
             else:
                 db.ensure('language_resource_values', dict(resource_id=rid, language_id=language), dict(translated_text=text[locale], reviewed=0, approved=0, version='theme-workspace-v1'))
     control_ids = {}
+    statuses = {}
     for control in c['controls']:
         key = 'themeWorkspace.' + control['testId']
         label = c['resources'][control['resourceKey']]['en']
-        cid = db.ensure('screen_components', dict(screen_id=sid, component_code=key), dict(component_name=label, component_type=control['componentCode'], data_cy=control['testId'], file_path=target['controlsSource'], implementation_status='registered-unimplemented'))
+        existing = db.execute('SELECT implementation_status FROM screen_components WHERE screen_id=? AND component_code=?', (sid, key)).fetchall()
+        if len(existing) > 1 or (existing and existing[0][0] not in ['registered-unimplemented', 'implemented-unverified']):
+            raise GovernanceReadError('Unexpected existing theme implementation status; preserve it')
+        status = existing[0][0] if existing else 'registered-unimplemented'
+        statuses[control['testId']] = status
+        cid = db.ensure('screen_components', dict(screen_id=sid, component_code=key), dict(component_name=label, component_type=control['componentCode'], data_cy=control['testId'], file_path=target['controlsSource'], implementation_status=status))
         db.ensure('screen_required_elements', dict(screen_id=sid, element_key=key), dict(element_type=control['componentCode'], label=label, test_id=control['testId'], required=0))
         control_ids[control['testId']] = cid
-    return dict(screenId=sid, screenCode=target['screenCode'], controls=control_ids, resourceIds=resource_ids, translationCount=len(resource_ids) * 3,
+    return dict(screenId=sid, screenCode=target['screenCode'], controls=control_ids, implementationStatuses=statuses, resourceIds=resource_ids, translationCount=len(resource_ids) * 3,
                 roleGrants=0, schemaChanges=False, runtimeActivated=False, reviewApproved=False)
 
 
@@ -140,7 +157,7 @@ def verify_independently(receipt):
             if dict(rows) != {lang: c['resources'][key][lang] for lang in ['en', 'fr', 'es']} or len(rows) != 3:
                 raise GovernanceReadError('Theme translation readback failed')
         for control in c['controls']:
-            expected = [(receipt['controls'][control['testId']], control['componentCode'], 'registered-unimplemented')]
+            expected = [(receipt['controls'][control['testId']], control['componentCode'], receipt.get('implementationStatuses', {}).get(control['testId'], 'registered-unimplemented'))]
             actual = reader.execute('SELECT id,component_type,implementation_status FROM screen_components WHERE screen_id=? AND data_cy=?', (receipt['screenId'], control['testId'])).fetchall()
             if actual != expected:
                 raise GovernanceReadError('Theme control readback failed')
