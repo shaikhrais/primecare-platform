@@ -1,4 +1,4 @@
-import {validatePersonalTheme,themePresets,themeContrast,type PersonalTheme} from './theme_center';
+import {validatePersonalTheme,themePresets,themeContrast,defaultPersonalTheme,type PersonalTheme} from './theme_center';
 /** PrimeCare-owned adapter. Contains no vendor components, credentials or access rules.
  * The same validated JSON is already accepted by Flutter PersonalTheme.fromJson.
  */
@@ -20,4 +20,9 @@ export function toFuseAppearance(value:unknown):PrimeCareFuseAppearance {
  const chrome=(background:string):FusePaletteOptions=>({palette:{...palette,mode:foreground(background)==='#ffffff'?'dark':'light',background:{default:background,paper:background},text:{primary:foreground(background,text),secondary:foreground(background,muted)}},typography:{...typography},shape:{...shape}});
  const sidebar=c.sidebar??base.sidebarBackground,topbar=c.topbar??base.topbarBackground;
  return {profile,theme:{main,navbar:chrome(sidebar),toolbar:chrome(topbar),footer:chrome(topbar)}};
+}
+
+/** Approved skeleton chrome differs from the legacy preset's sidebar aliases. */
+export function approvedFuseProfile():PersonalTheme {
+ return validatePersonalTheme({...defaultPersonalTheme,name:'PrimeCare shared appearance',colors:{sidebar:themePresets.defaultNavbar.background.default,topbar:themePresets.default.background.default}});
 }

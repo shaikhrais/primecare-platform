@@ -4436,7 +4436,7 @@
       "id": "fuse-v17-977a73aea4dd",
       "source": "src/components/theme-layouts/layout2/components/ToolbarLayout2.tsx",
       "kind": "layout-component",
-      "sha256": "a8b9e11f04fefee493156e71ccee30c1d90301ede42ccc8b73ec501dec7a5f4a",
+      "sha256": "65db264e19db06a2e6322ded56361cd349fc08b0c1343e851582a731187ed020",
       "exports": [
         "default"
       ],
@@ -4450,6 +4450,7 @@
         "../../components/navigation/NavigationShortcuts",
         "../../components/quickPanel/QuickPanelToggleButton",
         "@/contexts/ToolbarTheme",
+        "@/primecare-ui/PrimeThemeCenter",
         "@fuse/core/FuseLayout/useFuseLayoutSettings",
         "@mui/material/AppBar",
         "@mui/material/Toolbar",
@@ -4617,7 +4618,7 @@
       "id": "fuse-v17-1f309ee886c3",
       "source": "src/components/theme-layouts/layout3/components/ToolbarLayout3.tsx",
       "kind": "layout-component",
-      "sha256": "bebc16a1b48418580fe4cc7a939ac0a7d0ba407d8d2df47d076a0ecc3c7f263a",
+      "sha256": "7f832bad5baecd3755966be97dc04ff08eed71d624f8a1f554afdc9c92cc69d6",
       "exports": [
         "default"
       ],
@@ -4631,6 +4632,7 @@
         "../../components/navigation/NavigationSearch",
         "../../components/quickPanel/QuickPanelToggleButton",
         "@/contexts/ToolbarTheme",
+        "@/primecare-ui/PrimeThemeCenter",
         "@fuse/core/FuseLayout/useFuseLayoutSettings",
         "@mui/material/AppBar",
         "@mui/material/Toolbar",
@@ -6147,7 +6149,7 @@
       "id": "fuse-v17-9c94881b5870",
       "source": "src/configs/settingsConfig.ts",
       "kind": "configuration-or-infrastructure",
-      "sha256": "3908a6bb30e153ea27d37c267bae5e7cd19b30a126e99fd59cbf9f2f381e13bc",
+      "sha256": "232059a34650a509ceaad60d43f7aea01f99261d61aaca527ce84ee174bbfd98",
       "exports": [
         "default"
       ],

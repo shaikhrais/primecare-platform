@@ -13,8 +13,8 @@ void main() {
     expect(result.colors.primary, palette.primary);
     expect(result.colors.background, palette.background);
     expect(result.colors.surface, palette.surface);
-    expect(result.colors.sidebarBackground, palette.sidebarBackground);
-    expect(result.colors.topbarBackground, palette.topbarBackground);
+    expect(result.colors.sidebarBackground, ThemeConfig.getAppPalette('defaultNavbar').background);
+    expect(result.colors.topbarBackground, palette.background);
     expect(result.radiusMd, PrimeFuseTheme.defaultProfile.radius.toDouble());
   });
   testWidgets('shared cards inherit the selected surface instead of legacy white', (tester) async {
