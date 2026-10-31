@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b07_shared_account_sync_accepted_host_activation_pending",
+  "overall_status": "b08_shared_shell_utilities_accepted_business_host_bindings_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -20,7 +20,7 @@
       "affects": [
         "release_approval"
       ],
-      "detail": "All 120 EN/FR/ES translations are registered and read back; reviewed/approved flags remain unset. No human approval is claimed."
+      "detail": "B01 has 120 and B08 has 93 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
     },
     {
       "code": "EXISTING_AUTH_CATALOG_READER_REVIEW_PENDING",
@@ -418,7 +418,7 @@
     {
       "id": "B08",
       "title": "Shared shell utilities",
-      "status": "planned",
+      "status": "shared_shell_utilities_accepted_business_host_bindings_pending",
       "depends_on": [
         "B01",
         "B04",
@@ -442,8 +442,50 @@
         "packages/flutter_core/lib/security/shortcuts/",
         "packages/shared/src/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-08.md",
+        "docs/appearance/theme-adoption-batch-08-evidence.json",
+        "docs/appearance/shell-utilities-usage.md",
+        "docs/appearance/shell-utilities-registration-receipt.json",
+        "packages/primecare_ui/catalogs/shell-utilities.registration.json",
+        ".github/workflows/shell-utilities.yml"
+      ],
+      "blockers": [
+        {
+          "code": "SHELL_BUSINESS_ADAPTER_BINDINGS_REQUIRED",
+          "detail": "No approved self-notification read/unread API binding was established for shell utilities. Events, notes, quick settings and notification adapters remain unbound in production."
+        },
+        {
+          "code": "SHELL_HOST_ACTIVATION_PENDING",
+          "detail": "Optional metadata targets Tenant Admin only; API 777 grants still exclude this role. Native/other host registrations and explicit access decisions remain required."
+        }
+      ],
+      "readiness": "native_postgresql_browser_and_linux_windows_macos_factory_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41251351703,
+        "validateJobId": 124685354436,
+        "productionJobId": 124685439755,
+        "sourceCommit": "6abf5e8822d399f981094701777f2753379503c0",
+        "controls": 21,
+        "translations": 93,
+        "roleGrants": 0,
+        "runtimeActivated": false
+      },
+      "remainingScope": [
+        "Approved resource adapter and notification read/unread API bindings with real business-data verification",
+        "Actual web/native host/source bindings and reviewed API 777 role access decision",
+        "Production B07 activation, stale-preference recovery UI, device and whole-app RTL/scroll integration checks",
+        "Human localization, accessibility and release review"
+      ],
+      "sourceRun": {
+        "runId": 41253722290,
+        "sourceCommit": "aa9d6cbe04a72775a78743377e17f2d7e4e2367c",
+        "conclusion": "success"
+      },
+      "nextAction": "B09 shared base components can proceed. Keep B08 business adapter, host, API 777 role, production sync and human review gates explicit before live activation."
     },
     {
       "id": "B09",

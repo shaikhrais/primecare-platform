@@ -2,7 +2,7 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B07 shared account-sync source passed web, native PostgreSQL/two-context browser and Flutter Linux/Windows/macOS acceptance. Host activation, device release verification and B08–B18 remain pending.**
+**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B07 shared account-sync source passed web, native PostgreSQL/two-context browser and Flutter Linux/Windows/macOS acceptance. B08 shared shell utility factories passed native PostgreSQL/browser and Linux/Windows/macOS acceptance; live resource/host bindings remain pending. Host activation, device release verification and B09–B18 remain pending.**
 
 Implement original PrimeCare equivalents for the audited Fuse v17 features. Reuse shared core packages across web and Flutter. Work on current `main`, retain concurrent work and use expected-head checks. Do not copy proprietary vendor implementation or replace existing authentication without an approved requirement.
 
@@ -180,7 +180,7 @@ Shared targets: `packages/domain/src/`, `packages/shared/src/`, `cloudflare/work
 
 ### B08 — Shared shell utilities
 
-Status: planned. Dependencies: B01, B04, B05, B07.
+Status: optional production controls/resources registered and independently verified; shared source passed native PostgreSQL/browser/Linux/Windows/macOS acceptance. Business adapters and host activation remain pending. See `docs/appearance/theme-adoption-batch-08.md`. Dependencies: B01, B04, B05, B07.
 
 Scope:
 
