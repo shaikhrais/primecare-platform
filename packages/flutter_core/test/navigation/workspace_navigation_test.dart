@@ -43,6 +43,8 @@ void main(){
    }else{
     tester.widget<SubmenuButton>(group).focusNode!.requestFocus();await tester.pumpAndSettle();
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();
+    debugDumpFocusTree();
+    expect(find.byKey(const ValueKey('workspace-navigation-home')),findsOneWidget,reason:'$family $dir root=${tester.widget<SubmenuButton>(group).focusNode} primary=${tester.binding.focusManager.primaryFocus}');
     expect(tester.widget<MenuItemButton>(find.byKey(const ValueKey('workspace-navigation-home'))).focusNode!.hasFocus,true,reason:'Horizontal first destination focus');
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();
     expect(tester.widget<SubmenuButton>(find.byKey(const ValueKey('workspace-navigation-team'))).focusNode!.hasFocus,true,reason:'Horizontal nested group focus');
