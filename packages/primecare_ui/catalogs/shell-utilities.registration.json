@@ -1,0 +1,267 @@
+{
+  "version": 1,
+  "kind": "verified_metadata_export",
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "contractSha256": "12a13e1e727f11828998f5fc63a363d59b8ba037de2b94c02981a0fc7987c71a",
+  "source": {
+    "commit": "6abf5e8822d399f981094701777f2753379503c0",
+    "runId": 41251351703,
+    "jobId": 124685439755
+  },
+  "host": {
+    "screenId": 2534,
+    "screenCode": "tenant_admin_command_center"
+  },
+  "controls": [
+    {
+      "key": "open",
+      "testId": "shell-utilities-open",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.open",
+      "controlId": 613
+    },
+    {
+      "key": "close",
+      "testId": "shell-utilities-close",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.close",
+      "controlId": 614
+    },
+    {
+      "key": "events",
+      "testId": "shell-utilities-events",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.events",
+      "controlId": 615
+    },
+    {
+      "key": "notes",
+      "testId": "shell-utilities-notes",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.notes",
+      "controlId": 616
+    },
+    {
+      "key": "settings",
+      "testId": "shell-utilities-settings",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.settings",
+      "controlId": 617
+    },
+    {
+      "key": "notifications",
+      "testId": "shell-utilities-notifications",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.notifications",
+      "controlId": 618
+    },
+    {
+      "key": "favourites",
+      "testId": "shell-utilities-favourites",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.favourites",
+      "controlId": 619
+    },
+    {
+      "key": "search",
+      "testId": "shell-utilities-search",
+      "componentCode": "prime_text_field",
+      "resourceKey": "shellUtilities.search",
+      "controlId": 620
+    },
+    {
+      "key": "refresh",
+      "testId": "shell-utilities-refresh",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.refresh",
+      "controlId": 621
+    },
+    {
+      "key": "markRead",
+      "testId": "shell-utilities-mark-read",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.markRead",
+      "controlId": 622
+    },
+    {
+      "key": "markUnread",
+      "testId": "shell-utilities-mark-unread",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.markUnread",
+      "controlId": 623
+    },
+    {
+      "key": "save",
+      "testId": "shell-utilities-save",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.save",
+      "controlId": 624
+    },
+    {
+      "key": "retry",
+      "testId": "shell-utilities-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.retry",
+      "controlId": 625
+    },
+    {
+      "key": "acceptRemote",
+      "testId": "shell-utilities-accept-remote",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.acceptRemote",
+      "controlId": 626
+    },
+    {
+      "key": "keepLocal",
+      "testId": "shell-utilities-keep-local",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.keepLocal",
+      "controlId": 627
+    },
+    {
+      "key": "fullscreen",
+      "testId": "shell-utilities-fullscreen",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.fullscreen",
+      "controlId": 628
+    },
+    {
+      "key": "exitFullscreen",
+      "testId": "shell-utilities-exit-fullscreen",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.exitFullscreen",
+      "controlId": 629
+    },
+    {
+      "key": "area",
+      "testId": "shell-utilities-area",
+      "componentCode": "prime_card",
+      "resourceKey": "shellUtilities.area",
+      "controlId": 630
+    },
+    {
+      "key": "items",
+      "testId": "shell-utilities-items",
+      "componentCode": "prime_card",
+      "resourceKey": "shellUtilities.items",
+      "controlId": 631
+    },
+    {
+      "key": "favouriteToggle",
+      "testId": "shell-utilities-favourite-toggle",
+      "componentCode": "prime_button",
+      "resourceKey": "shellUtilities.favouriteToggle",
+      "controlId": 632
+    },
+    {
+      "key": "status",
+      "testId": "shell-utilities-status",
+      "componentCode": "prime_card",
+      "resourceKey": "shellUtilities.status",
+      "controlId": 633
+    }
+  ],
+  "locales": {
+    "en": {
+      "open": "Open utilities",
+      "close": "Close",
+      "events": "Events",
+      "notes": "Notes",
+      "settings": "Quick settings",
+      "notifications": "Notifications",
+      "favourites": "Favourites",
+      "search": "Search shortcuts",
+      "refresh": "Refresh",
+      "markRead": "Mark as read",
+      "markUnread": "Mark as unread",
+      "save": "Save",
+      "retry": "Retry pending save",
+      "acceptRemote": "Use server version",
+      "keepLocal": "Keep my changes",
+      "fullscreen": "Enter fullscreen",
+      "exitFullscreen": "Exit fullscreen",
+      "area": "Utilities",
+      "items": "Items",
+      "favouriteToggle": "Toggle favourite",
+      "status": "Status",
+      "loading": "Loading",
+      "empty": "No items",
+      "unavailable": "Unavailable for this account",
+      "error": "Unable to complete action",
+      "offline": "Offline; changes are pending",
+      "conflict": "Changes conflict with the server",
+      "saved": "Saved to your account",
+      "dirty": "Unsaved changes",
+      "read": "Read",
+      "unread": "Unread"
+    },
+    "fr": {
+      "open": "Ouvrir les utilitaires",
+      "close": "Fermer",
+      "events": "Événements",
+      "notes": "Notes",
+      "settings": "Réglages rapides",
+      "notifications": "Notifications",
+      "favourites": "Favoris",
+      "search": "Rechercher des raccourcis",
+      "refresh": "Actualiser",
+      "markRead": "Marquer comme lu",
+      "markUnread": "Marquer comme non lu",
+      "save": "Enregistrer",
+      "retry": "Réessayer la sauvegarde",
+      "acceptRemote": "Utiliser la version du serveur",
+      "keepLocal": "Conserver mes modifications",
+      "fullscreen": "Passer en plein écran",
+      "exitFullscreen": "Quitter le plein écran",
+      "area": "Utilitaires",
+      "items": "Éléments",
+      "favouriteToggle": "Basculer le favori",
+      "status": "État",
+      "loading": "Chargement",
+      "empty": "Aucun élément",
+      "unavailable": "Indisponible pour ce compte",
+      "error": "Impossible de terminer cette action",
+      "offline": "Hors ligne; modifications en attente",
+      "conflict": "Conflit avec les modifications du serveur",
+      "saved": "Enregistré dans votre compte",
+      "dirty": "Modifications non enregistrées",
+      "read": "Lu",
+      "unread": "Non lu"
+    },
+    "es": {
+      "open": "Abrir utilidades",
+      "close": "Cerrar",
+      "events": "Eventos",
+      "notes": "Notas",
+      "settings": "Ajustes rápidos",
+      "notifications": "Notificaciones",
+      "favourites": "Favoritos",
+      "search": "Buscar accesos directos",
+      "refresh": "Actualizar",
+      "markRead": "Marcar como leído",
+      "markUnread": "Marcar como no leído",
+      "save": "Guardar",
+      "retry": "Reintentar guardado pendiente",
+      "acceptRemote": "Usar versión del servidor",
+      "keepLocal": "Conservar mis cambios",
+      "fullscreen": "Entrar en pantalla completa",
+      "exitFullscreen": "Salir de pantalla completa",
+      "area": "Utilidades",
+      "items": "Elementos",
+      "favouriteToggle": "Alternar favorito",
+      "status": "Estado",
+      "loading": "Cargando",
+      "empty": "No hay elementos",
+      "unavailable": "No disponible para esta cuenta",
+      "error": "No se pudo completar la acción",
+      "offline": "Sin conexión; cambios pendientes",
+      "conflict": "Cambios en conflicto con el servidor",
+      "saved": "Guardado en tu cuenta",
+      "dirty": "Cambios sin guardar",
+      "read": "Leído",
+      "unread": "No leído"
+    }
+  },
+  "humanReviewApproved": false,
+  "runtimeActivated": false
+}

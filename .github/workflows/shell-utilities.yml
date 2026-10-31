@@ -1,0 +1,57 @@
+name: Shared shell utilities
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/domain/src/shell_utilities.ts'
+      - 'packages/shared/src/shell-utilities/**'
+      - 'packages/primecare_ui/web/shell-utilities.ts'
+      - 'packages/primecare_ui/web/shell-environment.ts'
+      - 'packages/primecare_ui/catalogs/shell-utilities.registration.json'
+      - 'packages/flutter_core/lib/shell_utilities*'
+      - 'packages/flutter_core/lib/shell_utilities/**'
+      - 'packages/flutter_core/test/shell_utilities/**'
+      - 'packages/primecare_ui/lib/shell_utilities.dart'
+      - 'scripts/test-shell-utilities*.mjs'
+      - '.github/workflows/shell-utilities.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: preference_test, POSTGRES_PASSWORD: isolated, POSTGRES_DB: preference_test}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PREFERENCE_TEST_DATABASE_URL: postgresql://preference_test:isolated@127.0.0.1:5432/preference_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/shell-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22.20.5 pg@8.16.3 bcryptjs@3.0.3 @electric-sql/pglite@0.3.14 playwright@1.60.0
+          ln -s /tmp/shell-tools/node_modules node_modules
+          npx playwright install --with-deps chromium
+          node scripts/test-shell-utilities-model.mjs
+          node scripts/test-shell-utilities-browser.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/shell-utilities.ts
+  native:
+    strategy:
+      fail-fast: false
+      matrix: {os: [ubuntu-24.04, windows-latest, macos-latest]}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter analyze --no-fatal-infos lib/shell_utilities lib/shell_utilities.dart test/shell_utilities
+        working-directory: packages/flutter_core
+      - run: flutter test test/shell_utilities --reporter expanded
+        working-directory: packages/flutter_core
