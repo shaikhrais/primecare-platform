@@ -18,7 +18,8 @@
           "action",
           "dataset",
           "kind",
-          "resource"
+          "resource",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -38,6 +39,33 @@
           },
           "resource": {
             "const": "advanced-v2"
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       },
@@ -52,7 +80,8 @@
           "resource",
           "revision",
           "requestId",
-          "document"
+          "document",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -886,6 +915,33 @@
                 }
               }
             }
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       },
@@ -899,7 +955,8 @@
           "kind",
           "resource",
           "revision",
-          "requestId"
+          "requestId",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -928,6 +985,33 @@
           "requestId": {
             "type": "string",
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       },
@@ -941,7 +1025,8 @@
           "kind",
           "resource",
           "revision",
-          "requestId"
+          "requestId",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -970,6 +1055,33 @@
           "requestId": {
             "type": "string",
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       },
@@ -981,7 +1093,8 @@
           "action",
           "dataset",
           "kind",
-          "resource"
+          "resource",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -1004,6 +1117,33 @@
             "minLength": 1,
             "maxLength": 128,
             "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       },
@@ -1018,7 +1158,8 @@
           "resource",
           "revision",
           "requestId",
-          "document"
+          "document",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -1169,6 +1310,33 @@
                 }
               }
             }
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       },
@@ -1182,7 +1350,8 @@
           "kind",
           "resource",
           "revision",
-          "requestId"
+          "requestId",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -1214,6 +1383,33 @@
           "requestId": {
             "type": "string",
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       },
@@ -1227,7 +1423,8 @@
           "kind",
           "resource",
           "revision",
-          "requestId"
+          "requestId",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -1259,6 +1456,33 @@
           "requestId": {
             "type": "string",
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       },
@@ -1270,7 +1494,8 @@
           "action",
           "dataset",
           "kind",
-          "resource"
+          "resource",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -1290,6 +1515,33 @@
           },
           "resource": {
             "const": "navigation"
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       },
@@ -1304,7 +1556,8 @@
           "resource",
           "revision",
           "requestId",
-          "document"
+          "document",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -1355,6 +1608,33 @@
                 }
               }
             }
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       },
@@ -1368,7 +1648,8 @@
           "kind",
           "resource",
           "revision",
-          "requestId"
+          "requestId",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -1397,6 +1678,33 @@
           "requestId": {
             "type": "string",
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       },
@@ -1410,7 +1718,8 @@
           "kind",
           "resource",
           "revision",
-          "requestId"
+          "requestId",
+          "expectedScope"
         ],
         "properties": {
           "version": {
@@ -1439,6 +1748,33 @@
           "requestId": {
             "type": "string",
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          },
+          "expectedScope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tenantId",
+              "userId",
+              "role",
+              "dataset"
+            ],
+            "properties": {
+              "tenantId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "dataset": {
+                "enum": [
+                  "live",
+                  "demo"
+                ]
+              }
+            }
           }
         }
       }
@@ -2613,7 +2949,8 @@
     "workspace": "currently_viewable_registered_screen",
     "panels": "registered_server_allowlist_only_empty_until_bound",
     "shortcuts": "currently_viewable_registered_screen_ids",
-    "readOnlyMetadataMissing": "fail_closed"
+    "readOnlyMetadataMissing": "fail_closed",
+    "expectedScope": "compare-only precondition; never an identity selector; mismatch fails before reads or writes"
   },
   "semantics": {
     "concurrency": "compare-and-swap with monotonic tombstones",
@@ -2623,5 +2960,8 @@
     "cache": "dirty local drafts never overwritten; conflicts require explicit choice; mutations are never automatically retried",
     "audit": "successful mutations and revision conflicts; hashes and identity metadata only, no preference values",
     "retention": "documents and audit cascade on account/tenant deletion; receipts expire after 24h and cap at 100 per scoped actor; rate buckets expire after 2min"
-  }
+  },
+  "registrationRevision": 2,
+  "previousRequestSchemaSha256": "f6a4305d5b25884f36456615a551fe05c27a24da57388d27ff1730cdf837f847",
+  "previousResponseSchemaSha256": "e7bd2dad1e52713864f653fbf8197896f380f5ca79d0f93c3de20f3f9f274d06"
 }

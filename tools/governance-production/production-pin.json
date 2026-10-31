@@ -1681,7 +1681,7 @@
       "api_endpoints",
       "api_permissions"
     ],
-    "contractSha256": "77bbd479cc609260860699909f5e1e5c3afd79493482fc10d94de8a41153d367",
+    "contractSha256": "e5e93d7697a623d44ab0ceb518c680d3b8508b41b1b359e8803d9c4178fd8e8a",
     "newRoleGrants": false,
     "businessDataWrites": false,
     "schemaChanges": false,
