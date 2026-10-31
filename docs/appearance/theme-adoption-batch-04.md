@@ -1,0 +1,9 @@
+# B04 — navigation and three layout families
+
+Original opt-in navigation factories now share the same authorized metadata model across web and Flutter. They provide vertical, header-horizontal and footer-horizontal compositions; nested/grouped menus; genuine horizontal dropdowns; a tabbed icon rail with submenu panel; folded/expanded presentation; hover/focus expansion; pin/unpin; and responsive drawers. Icons, subtitles, badges, disabled state and active-route matching are consumed from the existing authorized source.
+
+The model intersects both stable IDs and exact route strings with current server authority. Denied parent branches and empty groups disappear; disabled descendants cannot activate. Raw labels are escaped as text. Model/profile changes cannot add permissions or business destinations. Route matching respects path-segment boundaries and selects the most specific allowed destination. Account/authority replacement revokes old callbacks, links and overlays.
+
+Three preset projections preserve the strict workspace geometry contract, panels and unsaved main content. Folded width is transient presentation rather than invalid persisted geometry. Web popups live in an owned overlay so the existing sidebar's scroll container cannot clip them. The tests retain the clipping regression, RTL bounds, nested keyboard focus, mobile trapping, rail active-route updates and revocation checks.
+
+Delivery evidence is in `theme-adoption-batch-04-evidence.json`; integration instructions are in `workspace-navigation-usage.md`. The source factories remain opt-in. Existing app navigation is not automatically replaced, and production host/control/resource registration, binding, authenticated runtime checks and independent accessibility/translation/release review remain pending. No production-ready status is inferred from synthetic fixtures or widget/browser tests.

@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b03_shared_native_engine_accepted_host_rollout_pending",
+  "overall_status": "b04_shared_navigation_implemented_verification_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -182,7 +182,7 @@
     {
       "id": "B04",
       "title": "Complete navigation and three layout families",
-      "status": "planned",
+      "status": "shared_navigation_implemented_verification_pending",
       "depends_on": [
         "B01",
         "B02",
@@ -200,13 +200,32 @@
         "Changing layout never changes permitted destinations or exposes denied menu entries."
       ],
       "shared_targets": [
-        "packages/primecare_ui/web/navigation.ts",
-        "packages/primecare_ui/web/sidebar.ts",
-        "packages/flutter_core/lib/models/",
-        "packages/flutter_core/lib/registry/widgets/"
+        "packages/domain/src/workspace_navigation.ts",
+        "packages/primecare_ui/web/workspace-navigation.ts",
+        "packages/flutter_core/lib/navigation/",
+        "packages/flutter_core/lib/workspace_navigation.dart",
+        "packages/primecare_ui/lib/workspace_navigation.dart"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-04.md",
+        "docs/appearance/theme-adoption-batch-04-evidence.json",
+        "docs/appearance/workspace-navigation-usage.md",
+        ".github/workflows/workspace-navigation.yml"
+      ],
+      "blockers": [
+        {
+          "code": "NAVIGATION_HOST_BINDING_REQUIRED",
+          "detail": "New pin/group/rail controls, resources and web/native source bindings require independent production registration/readback before live exposure. The earlier TypeScript workspace pilot is not sufficient."
+        }
+      ],
+      "readiness": "web_accepted_native_ci_pending",
+      "remainingScope": [
+        "Exact-source native CI acceptance",
+        "Registered host activation and authenticated runtime checks",
+        "Android/iOS device, accessibility, translation and release review"
+      ],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false
     },
     {
       "id": "B05",
@@ -464,7 +483,7 @@
         "Keep synthetic demonstration data isolated and explicitly labelled; activate only registered real workflows."
       ],
       "acceptance": [
-        "For each approved module: authorized UI action → API → independent database readback → reload.",
+        "For each approved module: authorized UI action \u2192 API \u2192 independent database readback \u2192 reload.",
         "Meaningful create/update/delete or reorder actions include validation, denied roles and tenant-isolation cases.",
         "Unmapped reference features are listed as needs-specification rather than marked adopted."
       ],
@@ -638,7 +657,7 @@
       "scope": [
         "Run governed Cypress/browser and Flutter/native verification across registered roles, tenants, supported apps, layout families and breakpoints.",
         "Cover LTR/RTL, EN/FR/ES, keyboard/touch/screen-reader behaviours, contrast, state retention and preference migrations.",
-        "Verify UI → API → database → reload, denial cases, cross-tenant isolation, large-data performance and production error paths.",
+        "Verify UI \u2192 API \u2192 database \u2192 reload, denial cases, cross-tenant isolation, large-data performance and production error paths.",
         "Update implementation/test/review tags honestly, record required CI and deployment/readback evidence, and resolve every remaining gap or mark it blocked."
       ],
       "acceptance": [

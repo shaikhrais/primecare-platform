@@ -1,0 +1,137 @@
+{
+  "format": 1,
+  "batch": "B04",
+  "featureIds": [
+    "core.FuseAuthorization",
+    "core.FuseLayout",
+    "core.FuseNavigation",
+    "capability.layout-families",
+    "capability.horizontal-menus",
+    "capability.tabbed-rail",
+    "capability.fold-pin"
+  ],
+  "implementationStatus": "shared_navigation_implemented_verification_pending",
+  "codeCommit": "3b834d0e89a4ebd1d0630ed969075ab80d6875e1",
+  "sourceEvidence": [
+    {
+      "path": "packages/domain/src/workspace_navigation.ts",
+      "sha256": "484da5e9f6f6e25fadc10d018c3aea9a670e2014889a4990afcd9ec2e494af2e"
+    },
+    {
+      "path": "packages/primecare_ui/web/workspace-navigation.ts",
+      "sha256": "97f43218908990260e498da98e000a72c8813dc64b9d6392782891d66b85138b"
+    },
+    {
+      "path": "packages/primecare_ui/web/workspace-navigation-styles.ts",
+      "sha256": "c4c3efc59d5ef8dad33abccd5914f94524b2da3fc5ef07e8a9aab66dfeeb0d7b"
+    },
+    {
+      "path": "packages/flutter_core/lib/navigation/workspace_navigation_model.dart",
+      "sha256": "b462be4250c99037915d106fdd672f979da48a62aabfc4ea7c98dff1c2ba3db6"
+    },
+    {
+      "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+      "sha256": "675eb3787124adfe1b689961dde5195698e9a76a5f72be21bfb72a4d2f59da67"
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace_navigation.dart",
+      "sha256": "320a91a85e2a4ed494bf4216545789f79d7f01ea625011e67f6ebed21196a358"
+    },
+    {
+      "path": "packages/primecare_ui/lib/workspace_navigation.dart",
+      "sha256": "a43ecd5c839e1040b3421d573b8ee323808cbc8719fd92c75e1a26a31339436b"
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/prime_workspace_layout.dart",
+      "sha256": "8b5e08b799df4c57307c7dad175e653a538d958d6e0fa8cd653d076a2fc46efb"
+    }
+  ],
+  "ci": {
+    "runId": 41239616377,
+    "conclusion": "in_progress",
+    "flutterVersion": "3.41.5",
+    "jobs": [
+      {
+        "id": 124650580129,
+        "check": "web browser/model/TypeScript",
+        "status": "success"
+      },
+      {
+        "id": 124650914905,
+        "platform": "Linux",
+        "tests": 5,
+        "analysis": "passed",
+        "status": "success"
+      },
+      {
+        "id": 124650914907,
+        "platform": "Windows",
+        "tests": 5,
+        "analysis": "passed",
+        "status": "success"
+      },
+      {
+        "id": 124650914943,
+        "platform": "macOS",
+        "status": "queued"
+      }
+    ]
+  },
+  "localVerification": {
+    "modelTests": 3,
+    "authorityCases": 21,
+    "chromiumBrowser": "passed",
+    "typescript": "passed"
+  },
+  "coverage": [
+    "Three compositions preserve geometry, allowed destinations and unsaved main form state",
+    "Denied parents, disabled inheritance, unregistered icons, malformed metadata and ID/route intersection",
+    "Nested keyboard navigation in LTR/RTL, genuine dropdown overlays and viewport bounds",
+    "Folded hover/focus expansion, pinning and visual width without preference rewriting",
+    "Rail selection, mobile drawer focus containment and Escape",
+    "Scope replacement revokes prior callbacks, links and overlays; invalid web replacements fail closed",
+    "Keyboard entry for closed Material menu bars, direct-link-only menus and stale scope callback rejection"
+  ],
+  "production": {
+    "activated": false,
+    "newScreens": 0,
+    "newRoutes": 0,
+    "newAPIs": 0,
+    "roleGrants": 0,
+    "hostBindingsVerified": false,
+    "runtimeVerified": false,
+    "humanReviewApproved": false,
+    "allAppsAdopted": false
+  },
+  "remaining": [
+    "CI acceptance of the exact final source",
+    "Production host/control/component/resource/source bindings and independent readback before activation",
+    "Authenticated host runtime and connected Android/iOS/device verification",
+    "Independent accessibility, EN/FR/ES translation and release review"
+  ],
+  "baselineNote": "B01 remains the registration proposal baseline. Shared opt-in source and synthetic verification do not establish live host adoption.",
+  "regression": {
+    "workflow": "Native workspace layout parity",
+    "runId": 41235740228,
+    "codeCommit": "8534246109128ba13c6681be6c3448a3a9858997",
+    "conclusion": "success",
+    "note": "The frame navigationVisualWidth extension is unchanged at the final B04 source.",
+    "jobs": [
+      124639024366,
+      124639588618,
+      124639588620,
+      124639588629,
+      124640323398
+    ]
+  },
+  "publication": {
+    "activated": false,
+    "runId": 41235740164,
+    "acceptanceJob": 124639023995,
+    "acceptance": "success",
+    "publishJob": 124639534145,
+    "publish": "failed_current_main_guard",
+    "note": "Publication stopped at Verify current main before publication after main advanced. This is not deployed runtime evidence."
+  },
+  "scopeNote": "Feature IDs identify B04 navigation contributions only; they do not assert full-reference equivalence, production activation or app-wide adoption."
+}
