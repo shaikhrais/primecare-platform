@@ -32,6 +32,7 @@ void main(){
   await mount('vertical',TextDirection.ltr);await tester.enterText(find.byKey(const ValueKey('existing-form')),'Unsaved business form');
   for(final dir in [TextDirection.ltr,TextDirection.rtl])for(final family in ['vertical','horizontal-header','horizontal-footer']){
    await mount(family,dir);expect(find.text('Unsaved business form'),findsOneWidget);expect(find.textContaining('PRIVATE'),findsNothing);
+   final before=routes.length;
    final group=find.byKey(const ValueKey('workspace-navigation-work'));await tester.ensureVisible(group);
    final forward=dir==TextDirection.rtl?LogicalKeyboardKey.arrowLeft:LogicalKeyboardKey.arrowRight;
    if(family=='vertical'){
@@ -42,7 +43,7 @@ void main(){
    }else{
     await tester.tap(group);await tester.pumpAndSettle();await tester.sendKeyEvent(LogicalKeyboardKey.home);await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.sendKeyEvent(forward);await tester.pumpAndSettle();
    }
-   await tester.sendKeyEvent(LogicalKeyboardKey.enter);await tester.pumpAndSettle();expect(routes.last,'/app/people');expect(tester.takeException(),isNull);
+   await tester.sendKeyEvent(LogicalKeyboardKey.enter);await tester.pumpAndSettle();expect(routes.length,before+1,reason:'$family $dir focus=${tester.binding.focusManager.primaryFocus?.debugLabel}');expect(routes.last,'/app/people');expect(tester.takeException(),isNull);
   }
  });
  testWidgets('folded composition changes visual width without rewriting the saved profile',(tester)async{

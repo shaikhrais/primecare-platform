@@ -35,7 +35,8 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   void _mutate(VoidCallback work){setState(work);_dialogUpdates.value++;}
   bool get _narrow=>MediaQuery.sizeOf(context).width<=1024;
   bool get _wide=>_pinned||_hover||_focused;
-  FocusNode _node(String id)=>_focus.putIfAbsent(id,FocusNode.new);
+  FocusNode _node(String id)=>_focus.putIfAbsent(id,()=>FocusNode(debugLabel:'workspace-navigation-$id'));
+  FocusNode _boundNode(String id,KeyEventResult Function(KeyEvent) handler){final node=_node(id);node.onKeyEvent=(_,event)=>handler(event);return node;}
   void _select(){
     final groups=widget.model.nodes.where((n)=>n.kind=='group'&&!n.disabled).toList();
     if(groups.any((n)=>n.id==_selected))return;
@@ -74,8 +75,11 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   List<WorkspaceNavigationNode> _visible(List<WorkspaceNavigationNode> list){return [for(final n in list)...[if(!n.disabled)n,if(n.kind=='group'&&_expanded.contains(n.id))..._visible(n.children)]];}
   void _focusAfter(String id,{String prefix=''}){final generation=_generation;WidgetsBinding.instance.addPostFrameCallback((_){final node=widget.model.find(id);if(mounted&&generation==_generation&&node!=null&&!node.disabled)_node(prefix+id).requestFocus();});}
   KeyEventResult _keys(String id,KeyEvent event,List<WorkspaceNavigationNode> roots,{String prefix=''}){
-    if(event is! KeyDownEvent&&event is! KeyRepeatEvent)return KeyEventResult.ignored;
     final node=widget.model.find(id);if(node==null||node.disabled)return KeyEventResult.ignored;
+    if([LogicalKeyboardKey.enter,LogicalKeyboardKey.space].contains(event.logicalKey)){
+      if(event is KeyDownEvent){if(node.kind=='group')_mutate(()=>_expanded.contains(id)?_expanded.remove(id):_expanded.add(id));else _activate(id,_generation);}return KeyEventResult.handled;
+    }
+    if(event is! KeyDownEvent&&event is! KeyRepeatEvent)return KeyEventResult.ignored;
     final rtl=Directionality.of(context)==TextDirection.rtl,forward=rtl?LogicalKeyboardKey.arrowLeft:LogicalKeyboardKey.arrowRight,back=rtl?LogicalKeyboardKey.arrowRight:LogicalKeyboardKey.arrowLeft;
     if(event.logicalKey==forward&&node.kind=='group'){
       _mutate(()=>_expanded.add(id));final child=node.children.where((n)=>!n.disabled).firstOrNull;if(child!=null)_focusAfter(child.id,prefix:prefix);return KeyEventResult.handled;
@@ -97,7 +101,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
     Widget item(WorkspaceNavigationNode n,int depth){
       final open=_expanded.contains(n.id),active=_activeId==n.id,generation=_generation;
       final button=Focus(onKeyEvent:(_,e)=>_keys(n.id,e,roots,prefix:prefix),child:Semantics(expanded:n.kind=='group'?open:null,
-        child:Tooltip(message:n.label,child:TextButton(focusNode:_node(prefix+n.id),key:ValueKey('workspace-navigation-${n.id}'),
+        child:Tooltip(message:n.label,child:TextButton(focusNode:_boundNode(prefix+n.id,(event)=>_keys(n.id,event,roots,prefix:prefix)),key:ValueKey('workspace-navigation-${n.id}'),
           style:TextButton.styleFrom(alignment:AlignmentDirectional.centerStart,minimumSize:const Size(44,44),backgroundColor:active?Theme.of(context).colorScheme.primaryContainer:null),
           onPressed:n.disabled?null:()=>n.kind=='group'?_mutate(()=>open?_expanded.remove(n.id):_expanded.add(n.id)):_activate(n.id,generation),
           child:Semantics(label:folded?n.label:null,child:_label(n,folded:folded))))));
@@ -129,8 +133,8 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   Widget _rail(){
     final groups=widget.model.nodes.where((n)=>n.kind=='group').toList();final selected=widget.model.find(_selected??'');
     return Row(crossAxisAlignment:CrossAxisAlignment.start,children:[SizedBox(width:72,child:Column(mainAxisSize:MainAxisSize.min,children:[for(final group in groups)
-      Focus(onKeyEvent:(_,e)=>_railKey(group.id,e),child:Semantics(selected:group.id==_selected,child:Tooltip(message:group.label,child:IconButton(focusNode:_node(group.id),key:ValueKey('workspace-navigation-tab-${group.id}'),
-        onPressed:group.disabled?null:()=>_mutate(()=>_selected=group.id),icon:group.icon!=null?(widget.iconBuilder?.call(group.icon!)??const Icon(Icons.folder_outlined)):const Icon(Icons.folder_outlined)))))])),
+      Focus(onKeyEvent:(_,e)=>_railKey(group.id,e),child:Semantics(selected:group.id==_selected,child:Tooltip(message:group.label,child:IconButton(focusNode:_boundNode(group.id,(event)=>_railKey(group.id,event)),key:ValueKey('workspace-navigation-tab-${group.id}'),
+        onPressed:group.disabled?null:(){_node(group.id).requestFocus();_mutate(()=>_selected=group.id);},icon:group.icon!=null?(widget.iconBuilder?.call(group.icon!)??const Icon(Icons.folder_outlined)):const Icon(Icons.folder_outlined)))))])),
       Expanded(child:Column(mainAxisSize:MainAxisSize.min,children:[if(selected!=null&&!selected.disabled)_vertical(selected.children),_vertical(widget.model.nodes.where((n)=>n.kind=='item').toList())])),
     ]);
   }
