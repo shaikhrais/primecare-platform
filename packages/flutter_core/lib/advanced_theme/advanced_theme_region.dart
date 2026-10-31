@@ -4,7 +4,7 @@ Color _color(String hex)=>Color(int.parse(themeHex(hex).substring(1),radix:16)|0
 class AdvancedThemeTokens extends ThemeExtension<AdvancedThemeTokens> {
  final AdvancedTheme theme;final String region;
  const AdvancedThemeTokens(this.theme,this.region);
- double get spacing=>(theme.tokens['spacing']! as num).toDouble()*(theme.tokens['density']=='compact'?.75:1);
+ double get spacing=>(theme.tokens['spacing']! as num).toDouble()*(theme.tokens['density']=='compact' ? 0.75 : 1.0);
  double get radius=>(theme.tokens['radius']! as num).toDouble();
  double get borderWidth=>(theme.tokens['borderWidth']! as num).toDouble();
  Map<String,Object> get preview=>themePalettePreview(theme.region(region));
