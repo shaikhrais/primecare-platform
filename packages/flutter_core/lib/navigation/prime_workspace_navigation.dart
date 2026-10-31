@@ -73,7 +73,14 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
     ]);
   }
   List<WorkspaceNavigationNode> _visible(List<WorkspaceNavigationNode> list){return [for(final n in list)...[if(!n.disabled)n,if(n.kind=='group'&&_expanded.contains(n.id))..._visible(n.children)]];}
-  void _focusAfter(String id,{String prefix=''}){final generation=_generation;WidgetsBinding.instance.addPostFrameCallback((_){final node=widget.model.find(id);if(mounted&&generation==_generation&&node!=null&&!node.disabled)_node(prefix+id).requestFocus();});}
+  void _focusAfter(String id,{String prefix=''}){
+    final node=widget.model.find(id);if(node==null||node.disabled)return;
+    final focus=_node(prefix+id);
+    if(focus.context!=null&&focus.context!.mounted&&focus.canRequestFocus){focus.requestFocus();return;}
+    final generation=_generation;
+    WidgetsBinding.instance.addPostFrameCallback((_){final current=widget.model.find(id);if(mounted&&generation==_generation&&current!=null&&!current.disabled)_node(prefix+id).requestFocus();});
+    WidgetsBinding.instance.ensureVisualUpdate();
+  }
   KeyEventResult _keys(String id,KeyEvent event,List<WorkspaceNavigationNode> roots,{String prefix=''}){
     final node=widget.model.find(id);if(node==null||node.disabled)return KeyEventResult.ignored;
     if([LogicalKeyboardKey.enter,LogicalKeyboardKey.space].contains(event.logicalKey)){

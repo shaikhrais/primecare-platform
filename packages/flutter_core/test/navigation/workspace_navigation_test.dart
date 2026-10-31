@@ -39,7 +39,7 @@ void main(){
     tester.widget<TextButton>(group).focusNode!.requestFocus();await tester.pump();
     await tester.sendKeyEvent(forward);await tester.pumpAndSettle();
     expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-home'))).focusNode!.hasFocus,true);
-    await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();await tester.sendKeyEvent(forward);await tester.pumpAndSettle();
+    await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-team'))).focusNode!.hasFocus,true,reason:'Nested group focus');await tester.sendKeyEvent(forward);await tester.pumpAndSettle();expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-people'))).focusNode!.hasFocus,true,reason:'Nested destination focus');
    }else{
     await tester.tap(group);await tester.pumpAndSettle();await tester.sendKeyEvent(LogicalKeyboardKey.home);await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.sendKeyEvent(forward);await tester.pumpAndSettle();
    }
