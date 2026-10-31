@@ -9,7 +9,7 @@ export const pageTemplateStyles=`
 [data-pc-page-row]{display:flex;direction:ltr;align-items:stretch;min-height:0;min-width:0;gap:var(--spacing-md,1rem)}
 [data-pc-page-row] > *{direction:var(--pc-page-direction,ltr);min-width:0}
 [data-pc-page-center]{flex:1;min-width:0;display:flex;flex-direction:column}
-[data-pc-page-side]{flex:none;min-width:0;overflow:auto}
+[data-pc-page-side]{flex:none;min-width:0;max-width:var(--pc-page-sidebar-budget,28%);overflow:auto}
 [data-pc-page-content]{min-width:0;padding:var(--spacing-md,1rem)}
 [data-pc-page][data-template=carded] [data-pc-page-center]{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md)}
 [data-pc-page][data-scroll=page]{height:100%;overflow:auto;min-height:0}
