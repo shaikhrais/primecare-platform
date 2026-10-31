@@ -8,7 +8,7 @@ for(const template of ['simple','carded'])for(const scroll of ['normal','page','
  const layout={...api.defaultPageLayout(),template,scroll,left:{mode,width:280,open:mode==='permanent'},right:{mode,width:240,open:false},chrome:{navigation:mode!=='none',toolbar:scroll!=='page',footer:template==='simple'}};
  const routes=[page('page_one','/one',layout),page('page_two','/two?tab=details')];
  for(const current of ['/one#anchor','/two?tab=details','/two?tab=other','/secret']){
-  const expected=api.buildPageRoutes(routes,authority);cases.push({routes,authority,current,expected,resolved:api.resolvePageRoute(expected,current)?.id??null});
+  for(const grant of [authority,{...authority,ids:[]},{...authority,routes:authority.routes.filter(r=>r!=='/one')}]){const expected=api.buildPageRoutes(routes,grant);cases.push({routes,authority:grant,current,expected,resolved:api.resolvePageRoute(expected,current)?.id??null});}
  }
 }
 const dir='packages/flutter_core/test/page/fixtures';

@@ -14,7 +14,7 @@ RegisteredPageRoute route({String template='simple',String scroll='content',Stri
  final f=fixtures().first,raw=(jsonDecode(jsonEncode((f['routes'] as List<dynamic>).first)) as Map<String,dynamic>);raw['id']=id;raw['route']=path;final layout=raw['layout'] as Map<String,dynamic>;layout['template']=template;layout['scroll']=scroll;layout['left']={'mode':left,'width':280,'open':open};layout['right']={'mode':right,'width':240,'open':open};layout['chrome']=chrome.toJson();return PageRouteRegistry.fromJson([raw],allowedIds:['page_one','page_two','home','current'],allowedRoutes:['/one','/two?tab=details','/']).routes.single;
 }
 void main(){
- test('96 route/layout cases match web and export independent native normalization',(){
+ test('288 route/layout/authority cases match web and export independent native normalization',(){
   final out=<Map<String,Object?>>[];for(final f in fixtures()){final r=registry(f);expect(r.toJson(),f['expected']);expect(r.resolve(f['current'] as String)?.id,f['resolved']);out.add({'routes':r.toJson(),'resolved':r.resolve(f['current'] as String)?.id});}File('test/page/fixtures/native.json').writeAsStringSync(jsonEncode(out));
   expect(()=>PageLayout.fromJson({...PageLayout.defaults().toJson(),'permissions':['admin']}),throwsFormatException);
  });
@@ -36,9 +36,10 @@ void main(){
   final routes=<String>[];Future<void> mount(RegisteredPageRoute? r,{String scope='actor'})async{await tester.pumpWidget(MaterialApp(home:Scaffold(body:PrimePageTemplate(route:r,scope:scope,labels:labels,metrics:metrics,content:const Column(children:[TextField(key:ValueKey('main')),SizedBox(height:1500)]),left:const TextField(key:ValueKey('side')),right:const Text('Right'),onNavigate:routes.add))));await tester.pumpAndSettle();}
   await mount(route(left:'responsive',right:'temporary'));await tester.enterText(find.byKey(const ValueKey('side')),'Sidebar draft');final old=tester.widget<TextButton>(find.byKey(const ValueKey('page-breadcrumb-home'))).onPressed!;
   tester.view.physicalSize=const Size(390,844);await tester.pumpAndSettle();await tester.tap(find.byKey(const ValueKey('page-toggle-left')));await tester.pumpAndSettle();expect(find.text('Sidebar draft'),findsOneWidget);await tester.sendKeyEvent(LogicalKeyboardKey.escape);await tester.pumpAndSettle();expect(find.byType(Drawer),findsNothing);expect(tester.widget<TextButton>(find.byKey(const ValueKey('page-toggle-left'))).focusNode!.hasFocus,true);
-  tester.view.physicalSize=const Size(1500,960);await tester.pumpAndSettle();final scroll=tester.widget<SingleChildScrollView>(find.byKey(const ValueKey('page-content-scroll'))).controller!;scroll.jumpTo(300);await tester.pumpAndSettle();
+  await tester.tap(find.byKey(const ValueKey('page-toggle-left')));await tester.pumpAndSettle();await mount(route(left:'none',right:'temporary',open:false));expect(find.byType(Drawer),findsNothing);
+  tester.view.physicalSize=const Size(1500,960);await mount(route(left:'responsive',right:'temporary'));expect(find.text('Sidebar draft'),findsOneWidget);final scroll=tester.widget<SingleChildScrollView>(find.byKey(const ValueKey('page-content-scroll'))).controller!;scroll.jumpTo(300);await tester.pumpAndSettle();
   await mount(route(id:'page_two',path:'/two?tab=details',left:'responsive',right:'temporary'),scope:'other');old();expect(routes,isEmpty);expect(scroll.offset,0);expect(find.text('Sidebar draft'),findsNothing);expect(tester.takeException(),isNull);
-  await mount(null,scope:'denied');expect(find.byKey(const ValueKey('main')),findsNothing);
+  await tester.tap(find.byKey(const ValueKey('page-toggle-right')));await tester.pumpAndSettle();expect(find.byType(Drawer),findsOneWidget);await mount(null,scope:'denied');expect(find.byType(Drawer),findsNothing);expect(find.byKey(const ValueKey('main')),findsNothing);expect(tester.takeException(),isNull);
  });
  testWidgets('route chrome hides geometry and focus without changing saved workspace preferences',(tester)async{
   tester.view.physicalSize=const Size(1500,960);tester.view.devicePixelRatio=1;addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
