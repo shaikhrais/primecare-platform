@@ -49,6 +49,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
       _generation++;_closeDialogLater();_expanded.removeWhere((id)=>widget.model.find(id)?.kind!='group');
       if(oldWidget.scope!=widget.scope){_expanded.clear();_selected=null;_pinned=widget.pinned??true;_hover=false;_focused=false;}
     }
+    if(oldWidget.currentRoute!=widget.currentRoute)_selected=null;
     if(widget.pinned!=null&&oldWidget.pinned!=widget.pinned)_pinned=widget.pinned!;_select();
   }
   void _closeDialogLater(){final route=_dialog,nav=_navigator;_dialog=null;_navigator=null;

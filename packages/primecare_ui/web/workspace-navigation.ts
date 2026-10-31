@@ -12,7 +12,6 @@ export class WorkspaceNavigationView {
  private expanded=new Set<string>();
  private selected?:string;
  private pinned=true;
- private hovered=false;
  private drawer=false;
  private disposed=false;
  private epoch=0;
@@ -30,8 +29,8 @@ export class WorkspaceNavigationView {
   doc.addEventListener('pointerdown',event=>{if(event.target instanceof Node&&!host.contains(event.target)&&!this.portal.contains(event.target)){if(this.options.family!=='vertical'||this.drawer){this.expanded.clear();this.drawer=false;this.render();}}},{signal});
   options.frame?.element.addEventListener('primecare:workspace-layout',()=>this.syncExpansion(),{signal});
   host.addEventListener('keydown',this.keydown,{signal});this.portal.addEventListener('keydown',this.keydown,{signal});
-  host.addEventListener('pointerenter',()=>{this.hovered=true;this.syncExpansion();},{signal});
-  host.addEventListener('pointerleave',()=>{this.hovered=false;this.syncExpansion();},{signal});
+  host.addEventListener('pointerenter',()=>{this.syncExpansion();},{signal});
+  host.addEventListener('pointerleave',()=>{this.syncExpansion();},{signal});
   host.addEventListener('focusin',()=>this.syncExpansion(),{signal});
   host.addEventListener('focusout',()=>queueMicrotask(()=>{if(!this.disposed)this.syncExpansion();}),{signal});
   win.addEventListener('pointermove',()=>{if(this.options.family==='vertical'&&this.options.mode==='folded')this.syncExpansion();},{signal,passive:true});
@@ -46,12 +45,13 @@ export class WorkspaceNavigationView {
   if(!next.scope.trim()||!['vertical','horizontal-header','horizontal-footer'].includes(next.family)||!['expanded','folded','rail'].includes(next.mode??'expanded')||Object.values(next.labels).some(v=>typeof v!=='string'||!v.trim()))throw Error('Invalid navigation presentation');
   if(this.options&&this.options.frame?.element!==next.frame?.element)throw Error('Remount when replacing the workspace frame');
   const nodes=buildWorkspaceNavigation(next.items,next.authority);activeWorkspaceDestination(nodes,next.currentRoute);
-  const changed=this.options?.scope!==next.scope;
+  const changed=this.options?.scope!==next.scope,routeChanged=this.options?.currentRoute!==next.currentRoute;
   this.options={...next,labels:{...next.labels}};this.nodes=nodes;
   const groups=flattenWorkspaceNavigation(nodes).filter(n=>n.kind==='group'&&!n.disabled).map(n=>n.id);
   this.expanded=changed?new Set():new Set([...this.expanded].filter(id=>groups.includes(id)));
-  if(changed){this.pinned=next.pinned??true;this.selected=undefined;this.drawer=false;this.hovered=false;}
+  if(changed){this.pinned=next.pinned??true;this.selected=undefined;this.drawer=false;}
   else if(next.pinned!==undefined)this.pinned=next.pinned;
+  if(routeChanged)this.selected=undefined;
   const active=activeWorkspaceDestination(nodes,next.currentRoute);
   const contains=(n:WorkspaceNavigationNode):boolean=>n.id===active||n.children.some(contains);
   if(!nodes.some(n=>n.id===this.selected&&!n.disabled))this.selected=nodes.find(n=>n.kind==='group'&&!n.disabled&&contains(n))?.id??nodes.find(n=>n.kind==='group'&&!n.disabled)?.id;
