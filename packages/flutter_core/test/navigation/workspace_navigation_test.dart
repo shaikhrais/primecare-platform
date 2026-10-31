@@ -41,9 +41,16 @@ void main(){
     expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-home'))).focusNode!.hasFocus,true);
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-team'))).focusNode!.hasFocus,true,reason:'Nested group focus');await tester.sendKeyEvent(forward);await tester.pumpAndSettle();expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-people'))).focusNode!.hasFocus,true,reason:'Nested destination focus');
    }else{
-    await tester.tap(group);await tester.pumpAndSettle();await tester.sendKeyEvent(LogicalKeyboardKey.home);await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.sendKeyEvent(forward);await tester.pumpAndSettle();
+    tester.widget<SubmenuButton>(group).focusNode!.requestFocus();await tester.pump();
+    await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();
+    expect(tester.widget<MenuItemButton>(find.byKey(const ValueKey('workspace-navigation-home'))).focusNode!.hasFocus,true,reason:'Horizontal first destination focus');
+    await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();
+    expect(tester.widget<SubmenuButton>(find.byKey(const ValueKey('workspace-navigation-team'))).focusNode!.hasFocus,true,reason:'Horizontal nested group focus');
+    await tester.sendKeyEvent(forward);await tester.pumpAndSettle();
+    expect(tester.widget<MenuItemButton>(find.byKey(const ValueKey('workspace-navigation-people'))).focusNode!.hasFocus,true,reason:'Horizontal nested destination focus');
    }
    await tester.sendKeyEvent(LogicalKeyboardKey.enter);await tester.pumpAndSettle();expect(routes.length,before+1,reason:'$family $dir focus=${tester.binding.focusManager.primaryFocus?.debugLabel}');expect(routes.last,'/app/people');expect(tester.takeException(),isNull);
+   if(family!='vertical'){await tester.tap(group);await tester.pumpAndSettle();await tester.tap(find.byKey(const ValueKey('workspace-navigation-team')));await tester.pumpAndSettle();await tester.tap(find.byKey(const ValueKey('workspace-navigation-people')));await tester.pumpAndSettle();expect(routes.length,before+2);}
   }
  });
  testWidgets('folded composition changes visual width without rewriting the saved profile',(tester)async{

@@ -42,6 +42,14 @@ export class WorkspaceNavigationView {
  private get narrow(){return this.host.ownerDocument.defaultView!.matchMedia('(max-width:1024px)').matches;}
  update(next:WorkspaceNavigationOptions):void{
   if(this.disposed)throw Error('Navigation disposed');
+  try{this.applyOptions(next);}catch(error){
+   this.nodes=[];this.expanded.clear();this.selected=undefined;this.drawer=false;this.epoch++;this.renderEvents.abort();
+   for(const link of [...this.host.querySelectorAll('a'),...this.portal.querySelectorAll('a')])link.removeAttribute('href');
+   this.host.replaceChildren();this.portal.replaceChildren();this.portal.hidden=true;throw error;
+  }
+ }
+ private applyOptions(next:WorkspaceNavigationOptions):void{
+  if(this.disposed)throw Error('Navigation disposed');
   if(!next.scope.trim()||!['vertical','horizontal-header','horizontal-footer'].includes(next.family)||!['expanded','folded','rail'].includes(next.mode??'expanded')||Object.values(next.labels).some(v=>typeof v!=='string'||!v.trim()))throw Error('Invalid navigation presentation');
   if(this.options&&this.options.frame?.element!==next.frame?.element)throw Error('Remount when replacing the workspace frame');
   const nodes=buildWorkspaceNavigation(next.items,next.authority);activeWorkspaceDestination(nodes,next.currentRoute);
@@ -66,7 +74,7 @@ export class WorkspaceNavigationView {
   const copy=this.host.ownerDocument.createElement('span');copy.dataset.navCopy='';const label=this.host.ownerDocument.createElement('span');label.textContent=node.label;copy.append(label);
   if(node.subtitle){const subtitle=this.host.ownerDocument.createElement('small');subtitle.textContent=node.subtitle;copy.append(subtitle);}element.append(copy);
   if(node.badge){const badge=this.host.ownerDocument.createElement('span');badge.dataset.navBadge='';badge.textContent=node.badge;element.append(badge);}
-  element.setAttribute('aria-label',node.label+(node.subtitle?'. '+node.subtitle:''));element.dataset.navigationId=node.id;element.title=node.label;
+  element.setAttribute('aria-label',node.label+(node.subtitle?'. '+node.subtitle:'')+(node.badge?'. '+node.badge:''));element.dataset.navigationId=node.id;element.title=node.label;
  }
  private render(){
   if(this.disposed)return;

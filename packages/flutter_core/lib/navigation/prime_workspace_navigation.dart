@@ -23,7 +23,7 @@ class PrimeWorkspaceNavigation extends StatefulWidget {
 }
 class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   final _expanded=<String>{};
-  final _focus=<String,FocusNode>{};
+  final _focus=<(String,String),FocusNode>{};
   final _dialogUpdates=ValueNotifier<int>(0);
   bool _pinned=true,_hover=false,_focused=false;
   String? _selected,_activeId;
@@ -35,8 +35,8 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   void _mutate(VoidCallback work){setState(work);_dialogUpdates.value++;}
   bool get _narrow=>MediaQuery.sizeOf(context).width<=1024;
   bool get _wide=>_pinned||_hover||_focused;
-  FocusNode _node(String id)=>_focus.putIfAbsent(id,()=>FocusNode(debugLabel:'workspace-navigation-$id'));
-  FocusNode _boundNode(String id,KeyEventResult Function(KeyEvent) handler){final node=_node(id);node.onKeyEvent=(_,event)=>handler(event);return node;}
+  FocusNode _node(String id,{String prefix=''})=>_focus.putIfAbsent((prefix,id),()=>FocusNode(debugLabel:'workspace-navigation-$prefix$id'));
+  FocusNode _boundNode(String id,KeyEventResult Function(KeyEvent) handler,{String prefix=''}){final node=_node(id,prefix:prefix);node.onKeyEvent=(_,event)=>handler(event);return node;}
   void _select(){
     final groups=widget.model.nodes.where((n)=>n.kind=='group'&&!n.disabled).toList();
     if(groups.any((n)=>n.id==_selected))return;
@@ -75,10 +75,10 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   List<WorkspaceNavigationNode> _visible(List<WorkspaceNavigationNode> list){return [for(final n in list)...[if(!n.disabled)n,if(n.kind=='group'&&_expanded.contains(n.id))..._visible(n.children)]];}
   void _focusAfter(String id,{String prefix=''}){
     final node=widget.model.find(id);if(node==null||node.disabled)return;
-    final focus=_node(prefix+id);
+    final focus=_node(id,prefix:prefix);
     if(focus.context!=null&&focus.context!.mounted&&focus.canRequestFocus){focus.requestFocus();return;}
     final generation=_generation;
-    WidgetsBinding.instance.addPostFrameCallback((_){final current=widget.model.find(id);if(mounted&&generation==_generation&&current!=null&&!current.disabled)_node(prefix+id).requestFocus();});
+    WidgetsBinding.instance.addPostFrameCallback((_){final current=widget.model.find(id);if(mounted&&generation==_generation&&current!=null&&!current.disabled)_node(id,prefix:prefix).requestFocus();});
     WidgetsBinding.instance.ensureVisualUpdate();
   }
   KeyEventResult _keys(String id,KeyEvent event,List<WorkspaceNavigationNode> roots,{String prefix=''}){
@@ -108,7 +108,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
     Widget item(WorkspaceNavigationNode n,int depth){
       final open=_expanded.contains(n.id),active=_activeId==n.id,generation=_generation;
       final button=Focus(onKeyEvent:(_,e)=>_keys(n.id,e,roots,prefix:prefix),child:Semantics(expanded:n.kind=='group'?open:null,
-        child:Tooltip(message:n.label,child:TextButton(focusNode:_boundNode(prefix+n.id,(event)=>_keys(n.id,event,roots,prefix:prefix)),key:ValueKey('workspace-navigation-${n.id}'),
+        child:Tooltip(message:n.label,child:TextButton(focusNode:_boundNode(n.id,(event)=>_keys(n.id,event,roots,prefix:prefix),prefix:prefix),key:ValueKey('workspace-navigation-${n.id}'),
           style:TextButton.styleFrom(alignment:AlignmentDirectional.centerStart,minimumSize:const Size(44,44),backgroundColor:active?Theme.of(context).colorScheme.primaryContainer:null),
           onPressed:n.disabled?null:()=>n.kind=='group'?_mutate(()=>open?_expanded.remove(n.id):_expanded.add(n.id)):_activate(n.id,generation),
           child:Semantics(label:folded?n.label:null,child:_label(n,folded:folded))))));
@@ -120,9 +120,9 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   Widget _horizontal(){
     Widget entry(WorkspaceNavigationNode n){final generation=_generation;
       if(n.kind=='group'&&n.disabled)return MenuItemButton(onPressed:null,child:_label(n));
-      if(n.kind=='group')return SubmenuButton(key:ValueKey('workspace-navigation-${n.id}'),
+      if(n.kind=='group')return SubmenuButton(focusNode:_node(n.id,prefix:'menu:'),key:ValueKey('workspace-navigation-${n.id}'),
         onOpen:n.disabled?null:(){},menuChildren:n.children.map(entry).toList(),child:_label(n));
-      return MenuItemButton(key:ValueKey('workspace-navigation-${n.id}'),onPressed:n.disabled?null:()=>_activate(n.id,generation),child:_label(n));
+      return MenuItemButton(focusNode:_node(n.id,prefix:'menu:'),key:ValueKey('workspace-navigation-${n.id}'),onPressed:n.disabled?null:()=>_activate(n.id,generation),child:_label(n));
     }
     return SingleChildScrollView(scrollDirection:Axis.horizontal,child:MenuBar(children:widget.model.nodes.map(entry).toList()));
   }
